@@ -12,7 +12,7 @@ import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import com.moderntreasury.api.models.*
-import java.time.LocalDate
+import java.time.OffsetDateTime
 import java.util.Objects
 
 class LedgerTransactionCreateReversalParams
@@ -21,7 +21,7 @@ constructor(
     private val description: String?,
     private val status: Status?,
     private val metadata: Metadata?,
-    private val effectiveAt: LocalDate?,
+    private val effectiveAt: OffsetDateTime?,
     private val externalId: String?,
     private val ledgerableType: LedgerableType?,
     private val ledgerableId: String?,
@@ -38,7 +38,7 @@ constructor(
 
     fun metadata(): Metadata? = metadata
 
-    fun effectiveAt(): LocalDate? = effectiveAt
+    fun effectiveAt(): OffsetDateTime? = effectiveAt
 
     fun externalId(): String? = externalId
 
@@ -77,7 +77,7 @@ constructor(
         private val description: String?,
         private val status: Status?,
         private val metadata: Metadata?,
-        private val effectiveAt: LocalDate?,
+        private val effectiveAt: OffsetDateTime?,
         private val externalId: String?,
         private val ledgerableType: LedgerableType?,
         private val ledgerableId: String?,
@@ -106,7 +106,7 @@ constructor(
          * reporting purposes. It defaults to the `effective_at` of the original ledger transaction
          * if not provided.
          */
-        @JsonProperty("effective_at") fun effectiveAt(): LocalDate? = effectiveAt
+        @JsonProperty("effective_at") fun effectiveAt(): OffsetDateTime? = effectiveAt
 
         /** Must be unique within the ledger. */
         @JsonProperty("external_id") fun externalId(): String? = externalId
@@ -175,7 +175,7 @@ constructor(
             private var description: String? = null
             private var status: Status? = null
             private var metadata: Metadata? = null
-            private var effectiveAt: LocalDate? = null
+            private var effectiveAt: OffsetDateTime? = null
             private var externalId: String? = null
             private var ledgerableType: LedgerableType? = null
             private var ledgerableId: String? = null
@@ -219,7 +219,7 @@ constructor(
              * transaction if not provided.
              */
             @JsonProperty("effective_at")
-            fun effectiveAt(effectiveAt: LocalDate) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: OffsetDateTime) = apply { this.effectiveAt = effectiveAt }
 
             /** Must be unique within the ledger. */
             @JsonProperty("external_id")
@@ -327,7 +327,7 @@ constructor(
         private var description: String? = null
         private var status: Status? = null
         private var metadata: Metadata? = null
-        private var effectiveAt: LocalDate? = null
+        private var effectiveAt: OffsetDateTime? = null
         private var externalId: String? = null
         private var ledgerableType: LedgerableType? = null
         private var ledgerableId: String? = null
@@ -375,7 +375,7 @@ constructor(
          * reporting purposes. It defaults to the `effective_at` of the original ledger transaction
          * if not provided.
          */
-        fun effectiveAt(effectiveAt: LocalDate) = apply { this.effectiveAt = effectiveAt }
+        fun effectiveAt(effectiveAt: OffsetDateTime) = apply { this.effectiveAt = effectiveAt }
 
         /** Must be unique within the ledger. */
         fun externalId(externalId: String) = apply { this.externalId = externalId }

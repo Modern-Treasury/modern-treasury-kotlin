@@ -89,10 +89,11 @@ constructor(
         fun id(id: String) = apply { this.id = id }
 
         /**
-         * Use balances[effective_at_lower_bound] and balances[effective_at_upper_bound] to get the
-         * balances change between the two timestamps. The lower bound is inclusive while the upper
-         * bound is exclusive of the provided timestamps. If no value is supplied the balances will
-         * be retrieved not including that bound.
+         * Use `balances[effective_at_lower_bound]` and `balances[effective_at_upper_bound]` to get
+         * the balances change between the two timestamps. The lower bound is inclusive while the
+         * upper bound is exclusive of the provided timestamps. If no value is supplied the balances
+         * will be retrieved not including that bound. Use `balances[as_of_lock_version]` to
+         * retrieve a balance as of a specific Ledger Account `lock_version`.
          */
         fun balances(balances: Balances) = apply { this.balances = balances }
 
@@ -146,10 +147,11 @@ constructor(
     }
 
     /**
-     * Use balances[effective_at_lower_bound] and balances[effective_at_upper_bound] to get the
+     * Use `balances[effective_at_lower_bound]` and `balances[effective_at_upper_bound]` to get the
      * balances change between the two timestamps. The lower bound is inclusive while the upper
      * bound is exclusive of the provided timestamps. If no value is supplied the balances will be
-     * retrieved not including that bound.
+     * retrieved not including that bound. Use `balances[as_of_lock_version]` to retrieve a balance
+     * as of a specific Ledger Account `lock_version`.
      */
     @JsonDeserialize(builder = Balances.Builder::class)
     @NoAutoDetect
@@ -159,6 +161,7 @@ constructor(
         private val effectiveAt: OffsetDateTime?,
         private val effectiveAtLowerBound: OffsetDateTime?,
         private val effectiveAtUpperBound: OffsetDateTime?,
+        private val asOfLockVersion: Long?,
         private val additionalProperties: Map<String, List<String>>,
     ) {
 
@@ -172,6 +175,8 @@ constructor(
 
         fun effectiveAtUpperBound(): OffsetDateTime? = effectiveAtUpperBound
 
+        fun asOfLockVersion(): Long? = asOfLockVersion
+
         fun _additionalProperties(): Map<String, List<String>> = additionalProperties
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
@@ -183,6 +188,7 @@ constructor(
             this.effectiveAtUpperBound?.let {
                 putParam("effective_at_upper_bound", listOf(it.toString()))
             }
+            this.asOfLockVersion?.let { putParam("as_of_lock_version", listOf(it.toString())) }
             this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }
 
@@ -198,6 +204,7 @@ constructor(
                 this.effectiveAt == other.effectiveAt &&
                 this.effectiveAtLowerBound == other.effectiveAtLowerBound &&
                 this.effectiveAtUpperBound == other.effectiveAtUpperBound &&
+                this.asOfLockVersion == other.asOfLockVersion &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -209,6 +216,7 @@ constructor(
                         effectiveAt,
                         effectiveAtLowerBound,
                         effectiveAtUpperBound,
+                        asOfLockVersion,
                         additionalProperties,
                     )
             }
@@ -216,7 +224,7 @@ constructor(
         }
 
         override fun toString() =
-            "Balances{asOfDate=$asOfDate, effectiveAt=$effectiveAt, effectiveAtLowerBound=$effectiveAtLowerBound, effectiveAtUpperBound=$effectiveAtUpperBound, additionalProperties=$additionalProperties}"
+            "Balances{asOfDate=$asOfDate, effectiveAt=$effectiveAt, effectiveAtLowerBound=$effectiveAtLowerBound, effectiveAtUpperBound=$effectiveAtUpperBound, asOfLockVersion=$asOfLockVersion, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -229,6 +237,7 @@ constructor(
             private var effectiveAt: OffsetDateTime? = null
             private var effectiveAtLowerBound: OffsetDateTime? = null
             private var effectiveAtUpperBound: OffsetDateTime? = null
+            private var asOfLockVersion: Long? = null
             private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
 
             internal fun from(balances: Balances) = apply {
@@ -236,6 +245,7 @@ constructor(
                 this.effectiveAt = balances.effectiveAt
                 this.effectiveAtLowerBound = balances.effectiveAtLowerBound
                 this.effectiveAtUpperBound = balances.effectiveAtUpperBound
+                this.asOfLockVersion = balances.asOfLockVersion
                 additionalProperties(balances.additionalProperties)
             }
 
@@ -249,6 +259,10 @@ constructor(
 
             fun effectiveAtUpperBound(effectiveAtUpperBound: OffsetDateTime) = apply {
                 this.effectiveAtUpperBound = effectiveAtUpperBound
+            }
+
+            fun asOfLockVersion(asOfLockVersion: Long) = apply {
+                this.asOfLockVersion = asOfLockVersion
             }
 
             fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
@@ -271,6 +285,7 @@ constructor(
                     effectiveAt,
                     effectiveAtLowerBound,
                     effectiveAtUpperBound,
+                    asOfLockVersion,
                     additionalProperties.toUnmodifiable(),
                 )
         }

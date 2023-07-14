@@ -13,7 +13,6 @@ import com.moderntreasury.api.models.VirtualAccountListPage
 import com.moderntreasury.api.models.VirtualAccountListParams
 import com.moderntreasury.api.models.VirtualAccountRetrieveParams
 import com.moderntreasury.api.models.VirtualAccountUpdateParams
-import com.moderntreasury.api.services.emptyHandler
 import com.moderntreasury.api.services.errorHandler
 import com.moderntreasury.api.services.json
 import com.moderntreasury.api.services.jsonHandler
@@ -54,10 +53,14 @@ constructor(
         }
     }
 
-    private val retrieveHandler: Handler<Void?> = emptyHandler().withErrorHandler(errorHandler)
+    private val retrieveHandler: Handler<VirtualAccount> =
+        jsonHandler<VirtualAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** get virtual_account */
-    override fun retrieve(params: VirtualAccountRetrieveParams, requestOptions: RequestOptions) {
+    override fun retrieve(
+        params: VirtualAccountRetrieveParams,
+        requestOptions: RequestOptions
+    ): VirtualAccount {
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.GET)
@@ -66,8 +69,14 @@ constructor(
                 .putAllHeaders(clientOptions.headers)
                 .putAllHeaders(params.getHeaders())
                 .build()
-        clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response.let { retrieveHandler.handle(it) }
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response
+                .let { retrieveHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
         }
     }
 
