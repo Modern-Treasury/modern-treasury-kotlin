@@ -5,6 +5,7 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.LedgerTransactionListParams
 import java.time.LocalDate
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -174,7 +175,7 @@ class LedgerTransactionServiceTest {
                     .description("string")
                     .status(LedgerTransactionCreateReversalParams.Status.ARCHIVED)
                     .metadata(LedgerTransactionCreateReversalParams.Metadata.builder().build())
-                    .effectiveAt(LocalDate.parse("2019-12-27"))
+                    .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .externalId("string")
                     .ledgerableType(
                         LedgerTransactionCreateReversalParams.LedgerableType.COUNTERPARTY

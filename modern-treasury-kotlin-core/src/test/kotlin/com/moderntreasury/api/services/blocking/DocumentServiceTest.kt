@@ -25,10 +25,10 @@ class DocumentServiceTest {
         val document =
             documentService.create(
                 DocumentCreateParams.builder()
-                    .documentType("string")
-                    .file("file.txt")
                     .documentableId("string")
                     .documentableType(DocumentCreateParams.DocumentableType.CASES)
+                    .documentType("string")
+                    .file("file.txt")
                     .build()
             )
         println(document)

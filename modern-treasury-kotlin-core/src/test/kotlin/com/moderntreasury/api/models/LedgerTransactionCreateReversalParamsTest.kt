@@ -1,7 +1,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.models.*
-import java.time.LocalDate
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -14,7 +14,7 @@ class LedgerTransactionCreateReversalParamsTest {
             .description("string")
             .status(LedgerTransactionCreateReversalParams.Status.ARCHIVED)
             .metadata(LedgerTransactionCreateReversalParams.Metadata.builder().build())
-            .effectiveAt(LocalDate.parse("2019-12-27"))
+            .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .externalId("string")
             .ledgerableType(LedgerTransactionCreateReversalParams.LedgerableType.COUNTERPARTY)
             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -29,7 +29,7 @@ class LedgerTransactionCreateReversalParamsTest {
                 .description("string")
                 .status(LedgerTransactionCreateReversalParams.Status.ARCHIVED)
                 .metadata(LedgerTransactionCreateReversalParams.Metadata.builder().build())
-                .effectiveAt(LocalDate.parse("2019-12-27"))
+                .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .externalId("string")
                 .ledgerableType(LedgerTransactionCreateReversalParams.LedgerableType.COUNTERPARTY)
                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -40,7 +40,7 @@ class LedgerTransactionCreateReversalParamsTest {
         assertThat(body.status()).isEqualTo(LedgerTransactionCreateReversalParams.Status.ARCHIVED)
         assertThat(body.metadata())
             .isEqualTo(LedgerTransactionCreateReversalParams.Metadata.builder().build())
-        assertThat(body.effectiveAt()).isEqualTo(LocalDate.parse("2019-12-27"))
+        assertThat(body.effectiveAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.externalId()).isEqualTo("string")
         assertThat(body.ledgerableType())
             .isEqualTo(LedgerTransactionCreateReversalParams.LedgerableType.COUNTERPARTY)

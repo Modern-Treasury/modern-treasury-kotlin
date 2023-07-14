@@ -93,7 +93,12 @@ class VirtualAccountServiceTest {
                 .webhookKey("string")
                 .build()
         val virtualAccountService = client.virtualAccounts()
-        virtualAccountService.retrieve(VirtualAccountRetrieveParams.builder().id("string").build())
+        val virtualAccount =
+            virtualAccountService.retrieve(
+                VirtualAccountRetrieveParams.builder().id("string").build()
+            )
+        println(virtualAccount)
+        virtualAccount.validate()
     }
 
     @Test
