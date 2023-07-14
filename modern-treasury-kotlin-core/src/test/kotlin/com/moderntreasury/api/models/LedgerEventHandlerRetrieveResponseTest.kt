@@ -56,16 +56,19 @@ class LedgerEventHandlerRetrieveResponseTest {
         assertThat(ledgerEventHandlerRetrieveResponse).isNotNull
         assertThat(ledgerEventHandlerRetrieveResponse.id())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(ledgerEventHandlerRetrieveResponse.object_()).isEqualTo("string")
-        assertThat(ledgerEventHandlerRetrieveResponse.liveMode()).isEqualTo(true)
+        assertThat(ledgerEventHandlerRetrieveResponse.conditions())
+            .isEqualTo(
+                LedgerEventHandlerRetrieveResponse.LedgerEventHandlerConditions.builder()
+                    .field("string")
+                    .operator("string")
+                    .value("string")
+                    .build()
+            )
         assertThat(ledgerEventHandlerRetrieveResponse.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(ledgerEventHandlerRetrieveResponse.updatedAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(ledgerEventHandlerRetrieveResponse.description()).isEqualTo("string")
         assertThat(ledgerEventHandlerRetrieveResponse.discardedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(ledgerEventHandlerRetrieveResponse.name()).isEqualTo("string")
-        assertThat(ledgerEventHandlerRetrieveResponse.description()).isEqualTo("string")
         assertThat(ledgerEventHandlerRetrieveResponse.ledgerTransactionTemplate())
             .isEqualTo(
                 LedgerEventHandlerRetrieveResponse.LedgerEventHandlerLedgerTransactionTemplate
@@ -93,15 +96,12 @@ class LedgerEventHandlerRetrieveResponseTest {
                     )
                     .build()
             )
-        assertThat(ledgerEventHandlerRetrieveResponse.conditions())
-            .isEqualTo(
-                LedgerEventHandlerRetrieveResponse.LedgerEventHandlerConditions.builder()
-                    .field("string")
-                    .operator("string")
-                    .value("string")
-                    .build()
-            )
+        assertThat(ledgerEventHandlerRetrieveResponse.liveMode()).isEqualTo(true)
         assertThat(ledgerEventHandlerRetrieveResponse.metadata())
             .isEqualTo(LedgerEventHandlerRetrieveResponse.Metadata.builder().build())
+        assertThat(ledgerEventHandlerRetrieveResponse.name()).isEqualTo("string")
+        assertThat(ledgerEventHandlerRetrieveResponse.object_()).isEqualTo("string")
+        assertThat(ledgerEventHandlerRetrieveResponse.updatedAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 }
