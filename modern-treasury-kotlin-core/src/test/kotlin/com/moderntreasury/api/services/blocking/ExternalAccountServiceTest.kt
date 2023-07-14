@@ -27,12 +27,12 @@ class ExternalAccountServiceTest {
                     .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
                     .partyAddress(
                         ExternalAccountCreateParams.AddressRequest.builder()
+                            .country("string")
                             .line1("string")
                             .line2("string")
                             .locality("string")
-                            .region("string")
                             .postalCode("string")
-                            .country("string")
+                            .region("string")
                             .build()
                     )
                     .name("string")
@@ -65,15 +65,15 @@ class ExternalAccountServiceTest {
                     .partyIdentifier("string")
                     .ledgerAccount(
                         ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
+                            .currency("string")
+                            .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .name("string")
-                            .description("string")
                             .normalBalance(
                                 ExternalAccountCreateParams.LedgerAccountCreateRequest.NormalBalance
                                     .CREDIT
                             )
-                            .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .currency("string")
                             .currencyExponent(123L)
+                            .description("string")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableType(
                                 ExternalAccountCreateParams.LedgerAccountCreateRequest
@@ -145,12 +145,12 @@ class ExternalAccountServiceTest {
                     .partyName("string")
                     .partyAddress(
                         ExternalAccountUpdateParams.AddressRequest.builder()
+                            .country("string")
                             .line1("string")
                             .line2("string")
                             .locality("string")
-                            .region("string")
                             .postalCode("string")
-                            .country("string")
+                            .region("string")
                             .build()
                     )
                     .metadata(ExternalAccountUpdateParams.Metadata.builder().build())
