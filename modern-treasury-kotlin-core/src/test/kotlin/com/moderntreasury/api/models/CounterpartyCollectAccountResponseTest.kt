@@ -15,7 +15,7 @@ class CounterpartyCollectAccountResponseTest {
                 .build()
         assertThat(counterpartyCollectAccountResponse).isNotNull
         assertThat(counterpartyCollectAccountResponse.id()).isEqualTo("string")
-        assertThat(counterpartyCollectAccountResponse.isResend()).isEqualTo(true)
         assertThat(counterpartyCollectAccountResponse.formLink()).isEqualTo("https://example.com")
+        assertThat(counterpartyCollectAccountResponse.isResend()).isEqualTo(true)
     }
 }

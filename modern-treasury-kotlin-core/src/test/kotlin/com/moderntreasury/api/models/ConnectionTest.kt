@@ -22,16 +22,16 @@ class ConnectionTest {
                 .build()
         assertThat(connection).isNotNull
         assertThat(connection.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(connection.object_()).isEqualTo("string")
-        assertThat(connection.liveMode()).isEqualTo(true)
         assertThat(connection.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(connection.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(connection.discardedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(connection.vendorId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(connection.liveMode()).isEqualTo(true)
+        assertThat(connection.object_()).isEqualTo("string")
+        assertThat(connection.updatedAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(connection.vendorCustomerId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(connection.vendorId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(connection.vendorName()).isEqualTo("string")
     }
 }

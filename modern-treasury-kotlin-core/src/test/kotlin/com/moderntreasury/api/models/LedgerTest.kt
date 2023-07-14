@@ -22,13 +22,13 @@ class LedgerTest {
                 .build()
         assertThat(ledger).isNotNull
         assertThat(ledger.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(ledger.object_()).isEqualTo("string")
-        assertThat(ledger.liveMode()).isEqualTo(true)
         assertThat(ledger.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(ledger.updatedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(ledger.discardedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(ledger.name()).isEqualTo("string")
         assertThat(ledger.description()).isEqualTo("string")
+        assertThat(ledger.discardedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(ledger.liveMode()).isEqualTo(true)
         assertThat(ledger.metadata()).isEqualTo(Ledger.Metadata.builder().build())
+        assertThat(ledger.name()).isEqualTo("string")
+        assertThat(ledger.object_()).isEqualTo("string")
+        assertThat(ledger.updatedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 }

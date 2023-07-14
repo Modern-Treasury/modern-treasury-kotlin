@@ -260,10 +260,6 @@ class InvoiceTest {
                 .build()
         assertThat(invoice).isNotNull
         assertThat(invoice.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(invoice.object_()).isEqualTo("string")
-        assertThat(invoice.liveMode()).isEqualTo(true)
-        assertThat(invoice.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(invoice.updatedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(invoice.contactDetails())
             .containsExactly(
                 Invoice.ContactDetail.builder()
@@ -277,7 +273,6 @@ class InvoiceTest {
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-        assertThat(invoice.counterpartyId()).isEqualTo("string")
         assertThat(invoice.counterpartyBillingAddress())
             .isEqualTo(
                 Invoice.CounterpartyBillingAddress.builder()
@@ -289,6 +284,7 @@ class InvoiceTest {
                     .line2("string")
                     .build()
             )
+        assertThat(invoice.counterpartyId()).isEqualTo("string")
         assertThat(invoice.counterpartyShippingAddress())
             .isEqualTo(
                 Invoice.CounterpartyShippingAddress.builder()
@@ -300,9 +296,11 @@ class InvoiceTest {
                     .line2("string")
                     .build()
             )
+        assertThat(invoice.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(invoice.currency()).isEqualTo(Currency.AED)
         assertThat(invoice.description()).isEqualTo("string")
         assertThat(invoice.dueDate()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(invoice.hostedUrl()).isEqualTo("string")
         assertThat(invoice.invoicerAddress())
             .isEqualTo(
                 Invoice.InvoicerAddress.builder()
@@ -314,9 +312,10 @@ class InvoiceTest {
                     .line2("string")
                     .build()
             )
-        assertThat(invoice.originatingAccountId()).isEqualTo("string")
-        assertThat(invoice.hostedUrl()).isEqualTo("string")
+        assertThat(invoice.liveMode()).isEqualTo(true)
         assertThat(invoice.number()).isEqualTo("string")
+        assertThat(invoice.object_()).isEqualTo("string")
+        assertThat(invoice.originatingAccountId()).isEqualTo("string")
         assertThat(invoice.paymentOrders())
             .containsExactly(
                 PaymentOrder.builder()
@@ -479,5 +478,6 @@ class InvoiceTest {
         assertThat(invoice.pdfUrl()).isEqualTo("string")
         assertThat(invoice.status()).isEqualTo(Invoice.Status.DRAFT)
         assertThat(invoice.totalAmount()).isEqualTo(123L)
+        assertThat(invoice.updatedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 }
