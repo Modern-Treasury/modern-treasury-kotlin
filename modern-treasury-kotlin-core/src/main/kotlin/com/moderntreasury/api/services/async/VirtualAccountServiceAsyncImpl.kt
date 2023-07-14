@@ -13,7 +13,6 @@ import com.moderntreasury.api.models.VirtualAccountListPageAsync
 import com.moderntreasury.api.models.VirtualAccountListParams
 import com.moderntreasury.api.models.VirtualAccountRetrieveParams
 import com.moderntreasury.api.models.VirtualAccountUpdateParams
-import com.moderntreasury.api.services.emptyHandler
 import com.moderntreasury.api.services.errorHandler
 import com.moderntreasury.api.services.json
 import com.moderntreasury.api.services.jsonHandler
@@ -54,13 +53,14 @@ constructor(
         }
     }
 
-    private val retrieveHandler: Handler<Void?> = emptyHandler().withErrorHandler(errorHandler)
+    private val retrieveHandler: Handler<VirtualAccount> =
+        jsonHandler<VirtualAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** get virtual_account */
     override suspend fun retrieve(
         params: VirtualAccountRetrieveParams,
         requestOptions: RequestOptions
-    ) {
+    ): VirtualAccount {
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.GET)
@@ -70,7 +70,13 @@ constructor(
                 .putAllHeaders(params.getHeaders())
                 .build()
         return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response.let { retrieveHandler.handle(it) }
+            response
+                .let { retrieveHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
         }
     }
 

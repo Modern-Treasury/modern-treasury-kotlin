@@ -163,10 +163,10 @@ constructor(
         fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
 
         /**
-         * Use balances[effective_at_lower_bound] and balances[effective_at_upper_bound] to get the
-         * balances change between the two timestamps. The lower bound is inclusive while the upper
-         * bound is exclusive of the provided timestamps. If no value is supplied the balances will
-         * be retrieved not including that bound.
+         * Use `balances[effective_at_lower_bound]` and `balances[effective_at_upper_bound]` to get
+         * the balances change between the two timestamps. The lower bound is inclusive while the
+         * upper bound is exclusive of the provided timestamps. If no value is supplied the balances
+         * will be retrieved not including that bound.
          */
         fun balances(balances: Balances) = apply { this.balances = balances }
 
@@ -315,7 +315,7 @@ constructor(
     }
 
     /**
-     * Use balances[effective_at_lower_bound] and balances[effective_at_upper_bound] to get the
+     * Use `balances[effective_at_lower_bound]` and `balances[effective_at_upper_bound]` to get the
      * balances change between the two timestamps. The lower bound is inclusive while the upper
      * bound is exclusive of the provided timestamps. If no value is supplied the balances will be
      * retrieved not including that bound.

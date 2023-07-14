@@ -37,7 +37,9 @@ class InternalAccountServiceTest {
                             .build()
                     )
                     .currency(InternalAccountCreateParams.Currency.USD)
-                    .entityId("string")
+                    .vendorAttributes(
+                        InternalAccountCreateParams.VendorAttributes.builder().build()
+                    )
                     .parentAccountId("string")
                     .counterpartyId("string")
                     .build()

@@ -23,7 +23,7 @@ interface VirtualAccountService {
     fun retrieve(
         params: VirtualAccountRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    )
+    ): VirtualAccount
 
     /** update virtual_account */
     fun update(
