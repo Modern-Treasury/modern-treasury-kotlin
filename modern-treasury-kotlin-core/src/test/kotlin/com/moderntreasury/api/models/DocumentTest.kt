@@ -44,16 +44,9 @@ class DocumentTest {
                 .build()
         assertThat(document).isNotNull
         assertThat(document.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(document.object_()).isEqualTo("string")
-        assertThat(document.liveMode()).isEqualTo(true)
         assertThat(document.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(document.updatedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(document.discardedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(document.documentType()).isEqualTo("string")
-        assertThat(document.source()).isEqualTo("string")
-        assertThat(document.documentableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(document.documentableType()).isEqualTo(Document.DocumentableType.CASE)
         assertThat(document.documentDetails())
             .containsExactly(
                 Document.DocumentDetail.builder()
@@ -67,9 +60,16 @@ class DocumentTest {
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
+        assertThat(document.documentType()).isEqualTo("string")
+        assertThat(document.documentableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(document.documentableType()).isEqualTo(Document.DocumentableType.CASE)
         assertThat(document.file())
             .isEqualTo(
                 Document.File.builder().contentType("string").filename("string").size(123L).build()
             )
+        assertThat(document.liveMode()).isEqualTo(true)
+        assertThat(document.object_()).isEqualTo("string")
+        assertThat(document.source()).isEqualTo("string")
+        assertThat(document.updatedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 }
