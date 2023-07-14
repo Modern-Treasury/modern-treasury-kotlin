@@ -37,6 +37,12 @@ class LedgerTransactionServiceTest {
                                         .CREDIT
                                 )
                                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .availableBalanceAmount(
+                                    LedgerTransactionCreateParams.LedgerEntryCreateRequest
+                                        .AvailableBalanceAmount
+                                        .builder()
+                                        .build()
+                                )
                                 .lockVersion(123L)
                                 .pendingBalanceAmount(
                                     LedgerTransactionCreateParams.LedgerEntryCreateRequest
@@ -47,12 +53,6 @@ class LedgerTransactionServiceTest {
                                 .postedBalanceAmount(
                                     LedgerTransactionCreateParams.LedgerEntryCreateRequest
                                         .PostedBalanceAmount
-                                        .builder()
-                                        .build()
-                                )
-                                .availableBalanceAmount(
-                                    LedgerTransactionCreateParams.LedgerEntryCreateRequest
-                                        .AvailableBalanceAmount
                                         .builder()
                                         .build()
                                 )
@@ -113,6 +113,12 @@ class LedgerTransactionServiceTest {
                                         .CREDIT
                                 )
                                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .availableBalanceAmount(
+                                    LedgerTransactionUpdateParams.LedgerEntryCreateRequest
+                                        .AvailableBalanceAmount
+                                        .builder()
+                                        .build()
+                                )
                                 .lockVersion(123L)
                                 .pendingBalanceAmount(
                                     LedgerTransactionUpdateParams.LedgerEntryCreateRequest
@@ -123,12 +129,6 @@ class LedgerTransactionServiceTest {
                                 .postedBalanceAmount(
                                     LedgerTransactionUpdateParams.LedgerEntryCreateRequest
                                         .PostedBalanceAmount
-                                        .builder()
-                                        .build()
-                                )
-                                .availableBalanceAmount(
-                                    LedgerTransactionUpdateParams.LedgerEntryCreateRequest
-                                        .AvailableBalanceAmount
                                         .builder()
                                         .build()
                                 )

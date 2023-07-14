@@ -12,55 +12,59 @@ class LedgerTransactionVersionTest {
         val ledgerTransactionVersion =
             LedgerTransactionVersion.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .object_("string")
-                .liveMode(true)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .description("string")
-                .status(LedgerTransactionVersion.Status.ARCHIVED)
-                .metadata(LedgerTransactionVersion.Metadata.builder().build())
                 .effectiveAt("string")
                 .effectiveDate(LocalDate.parse("2019-12-27"))
+                .externalId("string")
                 .ledgerEntries(
                     listOf(
                         LedgerTransactionVersion.LedgerEntryOfTransactionVersion.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .object_("string")
-                            .liveMode(true)
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .amount(123L)
+                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .direction(
                                 LedgerTransactionVersion.LedgerEntryOfTransactionVersion.Direction
                                     .CREDIT
                             )
-                            .status(
-                                LedgerTransactionVersion.LedgerEntryOfTransactionVersion.Status
-                                    .ARCHIVED
-                            )
-                            .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .ledgerAccountLockVersion(123L)
                             .ledgerAccountCurrency("string")
                             .ledgerAccountCurrencyExponent(123L)
+                            .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .ledgerAccountLockVersion(123L)
                             .ledgerTransactionId("string")
+                            .liveMode(true)
                             .metadata(
                                 LedgerTransactionVersion.LedgerEntryOfTransactionVersion.Metadata
                                     .builder()
                                     .build()
                             )
+                            .object_("string")
                             .resultingLedgerAccountBalances(
                                 LedgerTransactionVersion.LedgerEntryOfTransactionVersion
                                     .LedgerBalances
                                     .builder()
+                                    .availableBalance(
+                                        LedgerTransactionVersion.LedgerEntryOfTransactionVersion
+                                            .LedgerBalances
+                                            .LedgerBalance
+                                            .builder()
+                                            .amount(123L)
+                                            .credits(123L)
+                                            .currency("string")
+                                            .currencyExponent(123L)
+                                            .debits(123L)
+                                            .build()
+                                    )
                                     .pendingBalance(
                                         LedgerTransactionVersion.LedgerEntryOfTransactionVersion
                                             .LedgerBalances
                                             .LedgerBalance
                                             .builder()
-                                            .credits(123L)
-                                            .debits(123L)
                                             .amount(123L)
+                                            .credits(123L)
                                             .currency("string")
                                             .currencyExponent(123L)
+                                            .debits(123L)
                                             .build()
                                     )
                                     .postedBalance(
@@ -68,35 +72,31 @@ class LedgerTransactionVersionTest {
                                             .LedgerBalances
                                             .LedgerBalance
                                             .builder()
-                                            .credits(123L)
-                                            .debits(123L)
                                             .amount(123L)
+                                            .credits(123L)
                                             .currency("string")
                                             .currencyExponent(123L)
-                                            .build()
-                                    )
-                                    .availableBalance(
-                                        LedgerTransactionVersion.LedgerEntryOfTransactionVersion
-                                            .LedgerBalances
-                                            .LedgerBalance
-                                            .builder()
-                                            .credits(123L)
                                             .debits(123L)
-                                            .amount(123L)
-                                            .currency("string")
-                                            .currencyExponent(123L)
                                             .build()
                                     )
                                     .build()
                             )
+                            .status(
+                                LedgerTransactionVersion.LedgerEntryOfTransactionVersion.Status
+                                    .ARCHIVED
+                            )
                             .build()
                     )
                 )
-                .postedAt("string")
                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .ledgerableType(LedgerTransactionVersion.LedgerableType.COUNTERPARTY)
+                .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .externalId("string")
+                .ledgerableType(LedgerTransactionVersion.LedgerableType.COUNTERPARTY)
+                .liveMode(true)
+                .metadata(LedgerTransactionVersion.Metadata.builder().build())
+                .object_("string")
+                .postedAt("string")
+                .status(LedgerTransactionVersion.Status.ARCHIVED)
                 .version(123L)
                 .build()
         assertThat(ledgerTransactionVersion).isNotNull
@@ -119,38 +119,47 @@ class LedgerTransactionVersionTest {
             .containsExactly(
                 LedgerTransactionVersion.LedgerEntryOfTransactionVersion.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .object_("string")
-                    .liveMode(true)
-                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .amount(123L)
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .direction(
                         LedgerTransactionVersion.LedgerEntryOfTransactionVersion.Direction.CREDIT
                     )
-                    .status(
-                        LedgerTransactionVersion.LedgerEntryOfTransactionVersion.Status.ARCHIVED
-                    )
-                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .ledgerAccountLockVersion(123L)
                     .ledgerAccountCurrency("string")
                     .ledgerAccountCurrencyExponent(123L)
+                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .ledgerAccountLockVersion(123L)
                     .ledgerTransactionId("string")
+                    .liveMode(true)
                     .metadata(
                         LedgerTransactionVersion.LedgerEntryOfTransactionVersion.Metadata.builder()
                             .build()
                     )
+                    .object_("string")
                     .resultingLedgerAccountBalances(
                         LedgerTransactionVersion.LedgerEntryOfTransactionVersion.LedgerBalances
                             .builder()
+                            .availableBalance(
+                                LedgerTransactionVersion.LedgerEntryOfTransactionVersion
+                                    .LedgerBalances
+                                    .LedgerBalance
+                                    .builder()
+                                    .amount(123L)
+                                    .credits(123L)
+                                    .currency("string")
+                                    .currencyExponent(123L)
+                                    .debits(123L)
+                                    .build()
+                            )
                             .pendingBalance(
                                 LedgerTransactionVersion.LedgerEntryOfTransactionVersion
                                     .LedgerBalances
                                     .LedgerBalance
                                     .builder()
-                                    .credits(123L)
-                                    .debits(123L)
                                     .amount(123L)
+                                    .credits(123L)
                                     .currency("string")
                                     .currencyExponent(123L)
+                                    .debits(123L)
                                     .build()
                             )
                             .postedBalance(
@@ -158,26 +167,17 @@ class LedgerTransactionVersionTest {
                                     .LedgerBalances
                                     .LedgerBalance
                                     .builder()
-                                    .credits(123L)
-                                    .debits(123L)
                                     .amount(123L)
+                                    .credits(123L)
                                     .currency("string")
                                     .currencyExponent(123L)
-                                    .build()
-                            )
-                            .availableBalance(
-                                LedgerTransactionVersion.LedgerEntryOfTransactionVersion
-                                    .LedgerBalances
-                                    .LedgerBalance
-                                    .builder()
-                                    .credits(123L)
                                     .debits(123L)
-                                    .amount(123L)
-                                    .currency("string")
-                                    .currencyExponent(123L)
                                     .build()
                             )
                             .build()
+                    )
+                    .status(
+                        LedgerTransactionVersion.LedgerEntryOfTransactionVersion.Status.ARCHIVED
                     )
                     .build()
             )

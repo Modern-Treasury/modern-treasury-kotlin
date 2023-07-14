@@ -30,11 +30,11 @@ class ExpectedPaymentCreateParamsTest {
                 listOf(
                     ExpectedPaymentCreateParams.LineItemRequest.builder()
                         .amount(123L)
+                        .accountingCategoryId("string")
+                        .description("string")
                         .metadata(
                             ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder().build()
                         )
-                        .description("string")
-                        .accountingCategoryId("string")
                         .build()
                 )
             )
@@ -64,12 +64,12 @@ class ExpectedPaymentCreateParamsTest {
                     listOf(
                         ExpectedPaymentCreateParams.LineItemRequest.builder()
                             .amount(123L)
+                            .accountingCategoryId("string")
+                            .description("string")
                             .metadata(
                                 ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder()
                                     .build()
                             )
-                            .description("string")
-                            .accountingCategoryId("string")
                             .build()
                     )
                 )
@@ -97,11 +97,11 @@ class ExpectedPaymentCreateParamsTest {
                 listOf(
                     ExpectedPaymentCreateParams.LineItemRequest.builder()
                         .amount(123L)
+                        .accountingCategoryId("string")
+                        .description("string")
                         .metadata(
                             ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder().build()
                         )
-                        .description("string")
-                        .accountingCategoryId("string")
                         .build()
                 )
             )

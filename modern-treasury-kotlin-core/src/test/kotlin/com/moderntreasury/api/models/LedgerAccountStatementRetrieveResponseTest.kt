@@ -11,88 +11,88 @@ class LedgerAccountStatementRetrieveResponseTest {
         val ledgerAccountStatementRetrieveResponse =
             LedgerAccountStatementRetrieveResponse.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .object_("string")
-                .liveMode(true)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .description("string")
+                .effectiveAtLowerBound("string")
+                .effectiveAtUpperBound("string")
+                .endingBalance(
+                    LedgerAccountStatementRetrieveResponse.LedgerBalances.builder()
+                        .availableBalance(
+                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
+                                .builder()
+                                .amount(123L)
+                                .credits(123L)
+                                .currency("string")
+                                .currencyExponent(123L)
+                                .debits(123L)
+                                .build()
+                        )
+                        .pendingBalance(
+                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
+                                .builder()
+                                .amount(123L)
+                                .credits(123L)
+                                .currency("string")
+                                .currencyExponent(123L)
+                                .debits(123L)
+                                .build()
+                        )
+                        .postedBalance(
+                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
+                                .builder()
+                                .amount(123L)
+                                .credits(123L)
+                                .currency("string")
+                                .currencyExponent(123L)
+                                .debits(123L)
+                                .build()
+                        )
+                        .build()
+                )
                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerAccountLockVersion(123L)
                 .ledgerAccountNormalBalance(
                     LedgerAccountStatementRetrieveResponse.LedgerAccountNormalBalance.CREDIT
                 )
-                .effectiveAtLowerBound("string")
-                .effectiveAtUpperBound("string")
+                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .liveMode(true)
+                .metadata(LedgerAccountStatementRetrieveResponse.Metadata.builder().build())
+                .object_("string")
                 .startingBalance(
                     LedgerAccountStatementRetrieveResponse.LedgerBalances.builder()
+                        .availableBalance(
+                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
+                                .builder()
+                                .amount(123L)
+                                .credits(123L)
+                                .currency("string")
+                                .currencyExponent(123L)
+                                .debits(123L)
+                                .build()
+                        )
                         .pendingBalance(
                             LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
                                 .builder()
-                                .credits(123L)
-                                .debits(123L)
                                 .amount(123L)
+                                .credits(123L)
                                 .currency("string")
                                 .currencyExponent(123L)
+                                .debits(123L)
                                 .build()
                         )
                         .postedBalance(
                             LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
                                 .builder()
-                                .credits(123L)
-                                .debits(123L)
                                 .amount(123L)
+                                .credits(123L)
                                 .currency("string")
                                 .currencyExponent(123L)
-                                .build()
-                        )
-                        .availableBalance(
-                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                                .builder()
-                                .credits(123L)
                                 .debits(123L)
-                                .amount(123L)
-                                .currency("string")
-                                .currencyExponent(123L)
                                 .build()
                         )
                         .build()
                 )
-                .endingBalance(
-                    LedgerAccountStatementRetrieveResponse.LedgerBalances.builder()
-                        .pendingBalance(
-                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                                .builder()
-                                .credits(123L)
-                                .debits(123L)
-                                .amount(123L)
-                                .currency("string")
-                                .currencyExponent(123L)
-                                .build()
-                        )
-                        .postedBalance(
-                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                                .builder()
-                                .credits(123L)
-                                .debits(123L)
-                                .amount(123L)
-                                .currency("string")
-                                .currencyExponent(123L)
-                                .build()
-                        )
-                        .availableBalance(
-                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                                .builder()
-                                .credits(123L)
-                                .debits(123L)
-                                .amount(123L)
-                                .currency("string")
-                                .currencyExponent(123L)
-                                .build()
-                        )
-                        .build()
-                )
-                .metadata(LedgerAccountStatementRetrieveResponse.Metadata.builder().build())
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
         assertThat(ledgerAccountStatementRetrieveResponse).isNotNull
         assertThat(ledgerAccountStatementRetrieveResponse.id())
@@ -119,34 +119,34 @@ class LedgerAccountStatementRetrieveResponseTest {
         assertThat(ledgerAccountStatementRetrieveResponse.startingBalance())
             .isEqualTo(
                 LedgerAccountStatementRetrieveResponse.LedgerBalances.builder()
+                    .availableBalance(
+                        LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
+                            .builder()
+                            .amount(123L)
+                            .credits(123L)
+                            .currency("string")
+                            .currencyExponent(123L)
+                            .debits(123L)
+                            .build()
+                    )
                     .pendingBalance(
                         LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
                             .builder()
-                            .credits(123L)
-                            .debits(123L)
                             .amount(123L)
+                            .credits(123L)
                             .currency("string")
                             .currencyExponent(123L)
+                            .debits(123L)
                             .build()
                     )
                     .postedBalance(
                         LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
                             .builder()
-                            .credits(123L)
-                            .debits(123L)
                             .amount(123L)
+                            .credits(123L)
                             .currency("string")
                             .currencyExponent(123L)
-                            .build()
-                    )
-                    .availableBalance(
-                        LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                            .builder()
-                            .credits(123L)
                             .debits(123L)
-                            .amount(123L)
-                            .currency("string")
-                            .currencyExponent(123L)
                             .build()
                     )
                     .build()
@@ -154,34 +154,34 @@ class LedgerAccountStatementRetrieveResponseTest {
         assertThat(ledgerAccountStatementRetrieveResponse.endingBalance())
             .isEqualTo(
                 LedgerAccountStatementRetrieveResponse.LedgerBalances.builder()
+                    .availableBalance(
+                        LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
+                            .builder()
+                            .amount(123L)
+                            .credits(123L)
+                            .currency("string")
+                            .currencyExponent(123L)
+                            .debits(123L)
+                            .build()
+                    )
                     .pendingBalance(
                         LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
                             .builder()
-                            .credits(123L)
-                            .debits(123L)
                             .amount(123L)
+                            .credits(123L)
                             .currency("string")
                             .currencyExponent(123L)
+                            .debits(123L)
                             .build()
                     )
                     .postedBalance(
                         LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
                             .builder()
-                            .credits(123L)
-                            .debits(123L)
                             .amount(123L)
+                            .credits(123L)
                             .currency("string")
                             .currencyExponent(123L)
-                            .build()
-                    )
-                    .availableBalance(
-                        LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                            .builder()
-                            .credits(123L)
                             .debits(123L)
-                            .amount(123L)
-                            .currency("string")
-                            .currencyExponent(123L)
                             .build()
                     )
                     .build()

@@ -13,19 +13,6 @@ class CounterpartyCreateParamsTest {
             .accounts(
                 listOf(
                     CounterpartyCreateParams.Account.builder()
-                        .accountType(ExternalAccountType.CASH)
-                        .partyType(CounterpartyCreateParams.Account.PartyType.BUSINESS)
-                        .partyAddress(
-                            CounterpartyCreateParams.Account.AddressRequest.builder()
-                                .line1("string")
-                                .line2("string")
-                                .locality("string")
-                                .region("string")
-                                .postalCode("string")
-                                .country("string")
-                                .build()
-                        )
-                        .name("string")
                         .accountDetails(
                             listOf(
                                 CounterpartyCreateParams.Account.AccountDetail.builder()
@@ -38,37 +25,32 @@ class CounterpartyCreateParamsTest {
                                     .build()
                             )
                         )
-                        .routingDetails(
+                        .accountType(ExternalAccountType.CASH)
+                        .contactDetails(
                             listOf(
-                                CounterpartyCreateParams.Account.RoutingDetail.builder()
-                                    .routingNumber("string")
-                                    .routingNumberType(
-                                        CounterpartyCreateParams.Account.RoutingDetail
-                                            .RoutingNumberType
-                                            .ABA
-                                    )
-                                    .paymentType(
-                                        CounterpartyCreateParams.Account.RoutingDetail.PaymentType
-                                            .ACH
+                                CounterpartyCreateParams.Account.ContactDetailCreateRequest
+                                    .builder()
+                                    .contactIdentifier("string")
+                                    .contactIdentifierType(
+                                        CounterpartyCreateParams.Account.ContactDetailCreateRequest
+                                            .ContactIdentifierType
+                                            .EMAIL
                                     )
                                     .build()
                             )
                         )
-                        .metadata(CounterpartyCreateParams.Account.Metadata.builder().build())
-                        .partyName("string")
-                        .partyIdentifier("string")
                         .ledgerAccount(
                             CounterpartyCreateParams.Account.LedgerAccountCreateRequest.builder()
+                                .currency("string")
+                                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .name("string")
-                                .description("string")
                                 .normalBalance(
                                     CounterpartyCreateParams.Account.LedgerAccountCreateRequest
                                         .NormalBalance
                                         .CREDIT
                                 )
-                                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .currency("string")
                                 .currencyExponent(123L)
+                                .description("string")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
                                     CounterpartyCreateParams.Account.LedgerAccountCreateRequest
@@ -83,16 +65,34 @@ class CounterpartyCreateParamsTest {
                                 )
                                 .build()
                         )
+                        .metadata(CounterpartyCreateParams.Account.Metadata.builder().build())
+                        .name("string")
+                        .partyAddress(
+                            CounterpartyCreateParams.Account.AddressRequest.builder()
+                                .country("string")
+                                .line1("string")
+                                .line2("string")
+                                .locality("string")
+                                .postalCode("string")
+                                .region("string")
+                                .build()
+                        )
+                        .partyIdentifier("string")
+                        .partyName("string")
+                        .partyType(CounterpartyCreateParams.Account.PartyType.BUSINESS)
                         .plaidProcessorToken("string")
-                        .contactDetails(
+                        .routingDetails(
                             listOf(
-                                CounterpartyCreateParams.Account.ContactDetailCreateRequest
-                                    .builder()
-                                    .contactIdentifier("string")
-                                    .contactIdentifierType(
-                                        CounterpartyCreateParams.Account.ContactDetailCreateRequest
-                                            .ContactIdentifierType
-                                            .EMAIL
+                                CounterpartyCreateParams.Account.RoutingDetail.builder()
+                                    .routingNumber("string")
+                                    .routingNumberType(
+                                        CounterpartyCreateParams.Account.RoutingDetail
+                                            .RoutingNumberType
+                                            .ABA
+                                    )
+                                    .paymentType(
+                                        CounterpartyCreateParams.Account.RoutingDetail.PaymentType
+                                            .ACH
                                     )
                                     .build()
                             )
@@ -122,19 +122,6 @@ class CounterpartyCreateParamsTest {
                 .accounts(
                     listOf(
                         CounterpartyCreateParams.Account.builder()
-                            .accountType(ExternalAccountType.CASH)
-                            .partyType(CounterpartyCreateParams.Account.PartyType.BUSINESS)
-                            .partyAddress(
-                                CounterpartyCreateParams.Account.AddressRequest.builder()
-                                    .line1("string")
-                                    .line2("string")
-                                    .locality("string")
-                                    .region("string")
-                                    .postalCode("string")
-                                    .country("string")
-                                    .build()
-                            )
-                            .name("string")
                             .accountDetails(
                                 listOf(
                                     CounterpartyCreateParams.Account.AccountDetail.builder()
@@ -147,39 +134,34 @@ class CounterpartyCreateParamsTest {
                                         .build()
                                 )
                             )
-                            .routingDetails(
+                            .accountType(ExternalAccountType.CASH)
+                            .contactDetails(
                                 listOf(
-                                    CounterpartyCreateParams.Account.RoutingDetail.builder()
-                                        .routingNumber("string")
-                                        .routingNumberType(
-                                            CounterpartyCreateParams.Account.RoutingDetail
-                                                .RoutingNumberType
-                                                .ABA
-                                        )
-                                        .paymentType(
-                                            CounterpartyCreateParams.Account.RoutingDetail
-                                                .PaymentType
-                                                .ACH
+                                    CounterpartyCreateParams.Account.ContactDetailCreateRequest
+                                        .builder()
+                                        .contactIdentifier("string")
+                                        .contactIdentifierType(
+                                            CounterpartyCreateParams.Account
+                                                .ContactDetailCreateRequest
+                                                .ContactIdentifierType
+                                                .EMAIL
                                         )
                                         .build()
                                 )
                             )
-                            .metadata(CounterpartyCreateParams.Account.Metadata.builder().build())
-                            .partyName("string")
-                            .partyIdentifier("string")
                             .ledgerAccount(
                                 CounterpartyCreateParams.Account.LedgerAccountCreateRequest
                                     .builder()
+                                    .currency("string")
+                                    .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .name("string")
-                                    .description("string")
                                     .normalBalance(
                                         CounterpartyCreateParams.Account.LedgerAccountCreateRequest
                                             .NormalBalance
                                             .CREDIT
                                     )
-                                    .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .currency("string")
                                     .currencyExponent(123L)
+                                    .description("string")
                                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .ledgerableType(
                                         CounterpartyCreateParams.Account.LedgerAccountCreateRequest
@@ -194,17 +176,35 @@ class CounterpartyCreateParamsTest {
                                     )
                                     .build()
                             )
+                            .metadata(CounterpartyCreateParams.Account.Metadata.builder().build())
+                            .name("string")
+                            .partyAddress(
+                                CounterpartyCreateParams.Account.AddressRequest.builder()
+                                    .country("string")
+                                    .line1("string")
+                                    .line2("string")
+                                    .locality("string")
+                                    .postalCode("string")
+                                    .region("string")
+                                    .build()
+                            )
+                            .partyIdentifier("string")
+                            .partyName("string")
+                            .partyType(CounterpartyCreateParams.Account.PartyType.BUSINESS)
                             .plaidProcessorToken("string")
-                            .contactDetails(
+                            .routingDetails(
                                 listOf(
-                                    CounterpartyCreateParams.Account.ContactDetailCreateRequest
-                                        .builder()
-                                        .contactIdentifier("string")
-                                        .contactIdentifierType(
-                                            CounterpartyCreateParams.Account
-                                                .ContactDetailCreateRequest
-                                                .ContactIdentifierType
-                                                .EMAIL
+                                    CounterpartyCreateParams.Account.RoutingDetail.builder()
+                                        .routingNumber("string")
+                                        .routingNumberType(
+                                            CounterpartyCreateParams.Account.RoutingDetail
+                                                .RoutingNumberType
+                                                .ABA
+                                        )
+                                        .paymentType(
+                                            CounterpartyCreateParams.Account.RoutingDetail
+                                                .PaymentType
+                                                .ACH
                                         )
                                         .build()
                                 )
@@ -231,19 +231,6 @@ class CounterpartyCreateParamsTest {
             .isEqualTo(
                 listOf(
                     CounterpartyCreateParams.Account.builder()
-                        .accountType(ExternalAccountType.CASH)
-                        .partyType(CounterpartyCreateParams.Account.PartyType.BUSINESS)
-                        .partyAddress(
-                            CounterpartyCreateParams.Account.AddressRequest.builder()
-                                .line1("string")
-                                .line2("string")
-                                .locality("string")
-                                .region("string")
-                                .postalCode("string")
-                                .country("string")
-                                .build()
-                        )
-                        .name("string")
                         .accountDetails(
                             listOf(
                                 CounterpartyCreateParams.Account.AccountDetail.builder()
@@ -256,37 +243,32 @@ class CounterpartyCreateParamsTest {
                                     .build()
                             )
                         )
-                        .routingDetails(
+                        .accountType(ExternalAccountType.CASH)
+                        .contactDetails(
                             listOf(
-                                CounterpartyCreateParams.Account.RoutingDetail.builder()
-                                    .routingNumber("string")
-                                    .routingNumberType(
-                                        CounterpartyCreateParams.Account.RoutingDetail
-                                            .RoutingNumberType
-                                            .ABA
-                                    )
-                                    .paymentType(
-                                        CounterpartyCreateParams.Account.RoutingDetail.PaymentType
-                                            .ACH
+                                CounterpartyCreateParams.Account.ContactDetailCreateRequest
+                                    .builder()
+                                    .contactIdentifier("string")
+                                    .contactIdentifierType(
+                                        CounterpartyCreateParams.Account.ContactDetailCreateRequest
+                                            .ContactIdentifierType
+                                            .EMAIL
                                     )
                                     .build()
                             )
                         )
-                        .metadata(CounterpartyCreateParams.Account.Metadata.builder().build())
-                        .partyName("string")
-                        .partyIdentifier("string")
                         .ledgerAccount(
                             CounterpartyCreateParams.Account.LedgerAccountCreateRequest.builder()
+                                .currency("string")
+                                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .name("string")
-                                .description("string")
                                 .normalBalance(
                                     CounterpartyCreateParams.Account.LedgerAccountCreateRequest
                                         .NormalBalance
                                         .CREDIT
                                 )
-                                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .currency("string")
                                 .currencyExponent(123L)
+                                .description("string")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
                                     CounterpartyCreateParams.Account.LedgerAccountCreateRequest
@@ -301,16 +283,34 @@ class CounterpartyCreateParamsTest {
                                 )
                                 .build()
                         )
+                        .metadata(CounterpartyCreateParams.Account.Metadata.builder().build())
+                        .name("string")
+                        .partyAddress(
+                            CounterpartyCreateParams.Account.AddressRequest.builder()
+                                .country("string")
+                                .line1("string")
+                                .line2("string")
+                                .locality("string")
+                                .postalCode("string")
+                                .region("string")
+                                .build()
+                        )
+                        .partyIdentifier("string")
+                        .partyName("string")
+                        .partyType(CounterpartyCreateParams.Account.PartyType.BUSINESS)
                         .plaidProcessorToken("string")
-                        .contactDetails(
+                        .routingDetails(
                             listOf(
-                                CounterpartyCreateParams.Account.ContactDetailCreateRequest
-                                    .builder()
-                                    .contactIdentifier("string")
-                                    .contactIdentifierType(
-                                        CounterpartyCreateParams.Account.ContactDetailCreateRequest
-                                            .ContactIdentifierType
-                                            .EMAIL
+                                CounterpartyCreateParams.Account.RoutingDetail.builder()
+                                    .routingNumber("string")
+                                    .routingNumberType(
+                                        CounterpartyCreateParams.Account.RoutingDetail
+                                            .RoutingNumberType
+                                            .ABA
+                                    )
+                                    .paymentType(
+                                        CounterpartyCreateParams.Account.RoutingDetail.PaymentType
+                                            .ACH
                                     )
                                     .build()
                             )

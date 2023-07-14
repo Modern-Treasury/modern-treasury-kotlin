@@ -18,6 +18,8 @@ The API documentation can be found [here](https://docs.moderntreasury.com).
 
 #### Gradle
 
+<!-- x-release-please-start-version -->
+
 ```kotlin
 implementation("com.moderntreasury.api:modern-treasury-kotlin:0.0.1")
 ```
@@ -31,6 +33,8 @@ implementation("com.moderntreasury.api:modern-treasury-kotlin:0.0.1")
     <version>0.0.1</version>
 </dependency>
 ```
+
+<!-- x-release-please-end -->
 
 ### Configure the client
 
