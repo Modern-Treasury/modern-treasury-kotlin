@@ -21,6 +21,12 @@ class LedgerTransactionUpdateParamsTest {
                             LedgerTransactionUpdateParams.LedgerEntryCreateRequest.Direction.CREDIT
                         )
                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .availableBalanceAmount(
+                            LedgerTransactionUpdateParams.LedgerEntryCreateRequest
+                                .AvailableBalanceAmount
+                                .builder()
+                                .build()
+                        )
                         .lockVersion(123L)
                         .pendingBalanceAmount(
                             LedgerTransactionUpdateParams.LedgerEntryCreateRequest
@@ -31,12 +37,6 @@ class LedgerTransactionUpdateParamsTest {
                         .postedBalanceAmount(
                             LedgerTransactionUpdateParams.LedgerEntryCreateRequest
                                 .PostedBalanceAmount
-                                .builder()
-                                .build()
-                        )
-                        .availableBalanceAmount(
-                            LedgerTransactionUpdateParams.LedgerEntryCreateRequest
-                                .AvailableBalanceAmount
                                 .builder()
                                 .build()
                         )
@@ -64,6 +64,12 @@ class LedgerTransactionUpdateParamsTest {
                                     .CREDIT
                             )
                             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .availableBalanceAmount(
+                                LedgerTransactionUpdateParams.LedgerEntryCreateRequest
+                                    .AvailableBalanceAmount
+                                    .builder()
+                                    .build()
+                            )
                             .lockVersion(123L)
                             .pendingBalanceAmount(
                                 LedgerTransactionUpdateParams.LedgerEntryCreateRequest
@@ -74,12 +80,6 @@ class LedgerTransactionUpdateParamsTest {
                             .postedBalanceAmount(
                                 LedgerTransactionUpdateParams.LedgerEntryCreateRequest
                                     .PostedBalanceAmount
-                                    .builder()
-                                    .build()
-                            )
-                            .availableBalanceAmount(
-                                LedgerTransactionUpdateParams.LedgerEntryCreateRequest
-                                    .AvailableBalanceAmount
                                     .builder()
                                     .build()
                             )
@@ -103,6 +103,12 @@ class LedgerTransactionUpdateParamsTest {
                             LedgerTransactionUpdateParams.LedgerEntryCreateRequest.Direction.CREDIT
                         )
                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .availableBalanceAmount(
+                            LedgerTransactionUpdateParams.LedgerEntryCreateRequest
+                                .AvailableBalanceAmount
+                                .builder()
+                                .build()
+                        )
                         .lockVersion(123L)
                         .pendingBalanceAmount(
                             LedgerTransactionUpdateParams.LedgerEntryCreateRequest
@@ -113,12 +119,6 @@ class LedgerTransactionUpdateParamsTest {
                         .postedBalanceAmount(
                             LedgerTransactionUpdateParams.LedgerEntryCreateRequest
                                 .PostedBalanceAmount
-                                .builder()
-                                .build()
-                        )
-                        .availableBalanceAmount(
-                            LedgerTransactionUpdateParams.LedgerEntryCreateRequest
-                                .AvailableBalanceAmount
                                 .builder()
                                 .build()
                         )

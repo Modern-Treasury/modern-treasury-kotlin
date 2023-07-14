@@ -11,13 +11,16 @@ class LedgerEventHandlerListResponseTest {
         val ledgerEventHandlerListResponse =
             LedgerEventHandlerListResponse.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .object_("string")
-                .liveMode(true)
+                .conditions(
+                    LedgerEventHandlerListResponse.LedgerEventHandlerConditions.builder()
+                        .field("string")
+                        .operator("string")
+                        .value("string")
+                        .build()
+                )
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .name("string")
                 .description("string")
+                .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .ledgerTransactionTemplate(
                     LedgerEventHandlerListResponse.LedgerEventHandlerLedgerTransactionTemplate
                         .builder()
@@ -44,14 +47,11 @@ class LedgerEventHandlerListResponseTest {
                         )
                         .build()
                 )
-                .conditions(
-                    LedgerEventHandlerListResponse.LedgerEventHandlerConditions.builder()
-                        .field("string")
-                        .operator("string")
-                        .value("string")
-                        .build()
-                )
+                .liveMode(true)
                 .metadata(LedgerEventHandlerListResponse.Metadata.builder().build())
+                .name("string")
+                .object_("string")
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
         assertThat(ledgerEventHandlerListResponse).isNotNull
         assertThat(ledgerEventHandlerListResponse.id())

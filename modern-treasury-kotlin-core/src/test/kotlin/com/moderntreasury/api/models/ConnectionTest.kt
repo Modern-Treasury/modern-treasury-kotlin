@@ -11,13 +11,13 @@ class ConnectionTest {
         val connection =
             Connection.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .object_("string")
-                .liveMode(true)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .vendorId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .liveMode(true)
+                .object_("string")
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .vendorCustomerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .vendorId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .vendorName("string")
                 .build()
         assertThat(connection).isNotNull

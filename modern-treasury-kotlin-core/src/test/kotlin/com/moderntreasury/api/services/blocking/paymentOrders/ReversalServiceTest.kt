@@ -29,18 +29,6 @@ class ReversalServiceTest {
                     .metadata(PaymentOrderReversalCreateParams.Metadata.builder().build())
                     .ledgerTransaction(
                         PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.builder()
-                            .description("string")
-                            .status(
-                                PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
-                                    .Status
-                                    .ARCHIVED
-                            )
-                            .metadata(
-                                PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
-                                    .Metadata
-                                    .builder()
-                                    .build()
-                            )
                             .effectiveDate(LocalDate.parse("2019-12-27"))
                             .ledgerEntries(
                                 listOf(
@@ -56,6 +44,14 @@ class ReversalServiceTest {
                                                 .CREDIT
                                         )
                                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                        .availableBalanceAmount(
+                                            PaymentOrderReversalCreateParams
+                                                .LedgerTransactionCreateRequest
+                                                .LedgerEntryCreateRequest
+                                                .AvailableBalanceAmount
+                                                .builder()
+                                                .build()
+                                        )
                                         .lockVersion(123L)
                                         .pendingBalanceAmount(
                                             PaymentOrderReversalCreateParams
@@ -73,25 +69,29 @@ class ReversalServiceTest {
                                                 .builder()
                                                 .build()
                                         )
-                                        .availableBalanceAmount(
-                                            PaymentOrderReversalCreateParams
-                                                .LedgerTransactionCreateRequest
-                                                .LedgerEntryCreateRequest
-                                                .AvailableBalanceAmount
-                                                .builder()
-                                                .build()
-                                        )
                                         .showResultingLedgerAccountBalances(true)
                                         .build()
                                 )
                             )
+                            .description("string")
                             .externalId("string")
+                            .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableType(
                                 PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
                                     .LedgerableType
                                     .COUNTERPARTY
                             )
-                            .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .metadata(
+                                PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
+                                    .Metadata
+                                    .builder()
+                                    .build()
+                            )
+                            .status(
+                                PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
+                                    .Status
+                                    .ARCHIVED
+                            )
                             .build()
                     )
                     .build()

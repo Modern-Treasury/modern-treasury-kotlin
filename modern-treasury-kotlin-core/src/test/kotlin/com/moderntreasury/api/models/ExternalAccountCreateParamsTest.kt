@@ -13,12 +13,12 @@ class ExternalAccountCreateParamsTest {
             .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
             .partyAddress(
                 ExternalAccountCreateParams.AddressRequest.builder()
+                    .country("string")
                     .line1("string")
                     .line2("string")
                     .locality("string")
-                    .region("string")
                     .postalCode("string")
-                    .country("string")
+                    .region("string")
                     .build()
             )
             .name("string")
@@ -49,14 +49,14 @@ class ExternalAccountCreateParamsTest {
             .partyIdentifier("string")
             .ledgerAccount(
                 ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
+                    .currency("string")
+                    .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .name("string")
-                    .description("string")
                     .normalBalance(
                         ExternalAccountCreateParams.LedgerAccountCreateRequest.NormalBalance.CREDIT
                     )
-                    .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .currency("string")
                     .currencyExponent(123L)
+                    .description("string")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
                         ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -92,12 +92,12 @@ class ExternalAccountCreateParamsTest {
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
+                        .country("string")
                         .line1("string")
                         .line2("string")
                         .locality("string")
-                        .region("string")
                         .postalCode("string")
-                        .country("string")
+                        .region("string")
                         .build()
                 )
                 .name("string")
@@ -128,15 +128,15 @@ class ExternalAccountCreateParamsTest {
                 .partyIdentifier("string")
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
+                        .currency("string")
+                        .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .name("string")
-                        .description("string")
                         .normalBalance(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.NormalBalance
                                 .CREDIT
                         )
-                        .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .currency("string")
                         .currencyExponent(123L)
+                        .description("string")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -170,12 +170,12 @@ class ExternalAccountCreateParamsTest {
         assertThat(body.partyAddress())
             .isEqualTo(
                 ExternalAccountCreateParams.AddressRequest.builder()
+                    .country("string")
                     .line1("string")
                     .line2("string")
                     .locality("string")
-                    .region("string")
                     .postalCode("string")
-                    .country("string")
+                    .region("string")
                     .build()
             )
         assertThat(body.name()).isEqualTo("string")
@@ -210,14 +210,14 @@ class ExternalAccountCreateParamsTest {
         assertThat(body.ledgerAccount())
             .isEqualTo(
                 ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
+                    .currency("string")
+                    .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .name("string")
-                    .description("string")
                     .normalBalance(
                         ExternalAccountCreateParams.LedgerAccountCreateRequest.NormalBalance.CREDIT
                     )
-                    .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .currency("string")
                     .currencyExponent(123L)
+                    .description("string")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
                         ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType

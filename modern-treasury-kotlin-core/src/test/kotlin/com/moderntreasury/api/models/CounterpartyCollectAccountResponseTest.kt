@@ -10,8 +10,8 @@ class CounterpartyCollectAccountResponseTest {
         val counterpartyCollectAccountResponse =
             CounterpartyCollectAccountResponse.builder()
                 .id("string")
-                .isResend(true)
                 .formLink("https://example.com")
+                .isResend(true)
                 .build()
         assertThat(counterpartyCollectAccountResponse).isNotNull
         assertThat(counterpartyCollectAccountResponse.id()).isEqualTo("string")
