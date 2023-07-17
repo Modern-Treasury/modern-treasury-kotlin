@@ -1,7 +1,6 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.models.*
-import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -16,47 +15,26 @@ class VirtualAccountCreateParamsTest {
             .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .accountDetails(
                 listOf(
-                    AccountDetail.builder()
-                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .accountNumberSafe("string")
-                        .accountNumberType(AccountDetail.AccountNumberType.CLABE)
-                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .liveMode(true)
-                        .object_("string")
-                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    VirtualAccountCreateParams.AccountDetailCreateRequest.builder()
                         .accountNumber("string")
+                        .accountNumberType(
+                            VirtualAccountCreateParams.AccountDetailCreateRequest.AccountNumberType
+                                .CLABE
+                        )
                         .build()
                 )
             )
             .routingDetails(
                 listOf(
-                    RoutingDetail.builder()
-                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .bankAddress(
-                            RoutingDetail.Address.builder()
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .country("string")
-                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .line1("string")
-                                .line2("string")
-                                .liveMode(true)
-                                .locality("string")
-                                .object_("string")
-                                .postalCode("string")
-                                .region("string")
-                                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .build()
-                        )
-                        .bankName("string")
-                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .liveMode(true)
-                        .object_("string")
-                        .paymentType(RoutingDetail.PaymentType.ACH)
+                    VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
                         .routingNumber("string")
-                        .routingNumberType(RoutingDetail.RoutingNumberType.ABA)
-                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .routingNumberType(
+                            VirtualAccountCreateParams.RoutingDetailCreateRequest.RoutingNumberType
+                                .ABA
+                        )
+                        .paymentType(
+                            VirtualAccountCreateParams.RoutingDetailCreateRequest.PaymentType.ACH
+                        )
                         .build()
                 )
             )
@@ -76,47 +54,29 @@ class VirtualAccountCreateParamsTest {
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .accountDetails(
                     listOf(
-                        AccountDetail.builder()
-                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .accountNumberSafe("string")
-                            .accountNumberType(AccountDetail.AccountNumberType.CLABE)
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .liveMode(true)
-                            .object_("string")
-                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        VirtualAccountCreateParams.AccountDetailCreateRequest.builder()
                             .accountNumber("string")
+                            .accountNumberType(
+                                VirtualAccountCreateParams.AccountDetailCreateRequest
+                                    .AccountNumberType
+                                    .CLABE
+                            )
                             .build()
                     )
                 )
                 .routingDetails(
                     listOf(
-                        RoutingDetail.builder()
-                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .bankAddress(
-                                RoutingDetail.Address.builder()
-                                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .country("string")
-                                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .line1("string")
-                                    .line2("string")
-                                    .liveMode(true)
-                                    .locality("string")
-                                    .object_("string")
-                                    .postalCode("string")
-                                    .region("string")
-                                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .build()
-                            )
-                            .bankName("string")
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .liveMode(true)
-                            .object_("string")
-                            .paymentType(RoutingDetail.PaymentType.ACH)
+                        VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
                             .routingNumber("string")
-                            .routingNumberType(RoutingDetail.RoutingNumberType.ABA)
-                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .routingNumberType(
+                                VirtualAccountCreateParams.RoutingDetailCreateRequest
+                                    .RoutingNumberType
+                                    .ABA
+                            )
+                            .paymentType(
+                                VirtualAccountCreateParams.RoutingDetailCreateRequest.PaymentType
+                                    .ACH
+                            )
                             .build()
                     )
                 )
@@ -133,48 +93,27 @@ class VirtualAccountCreateParamsTest {
         assertThat(body.accountDetails())
             .isEqualTo(
                 listOf(
-                    AccountDetail.builder()
-                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .accountNumberSafe("string")
-                        .accountNumberType(AccountDetail.AccountNumberType.CLABE)
-                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .liveMode(true)
-                        .object_("string")
-                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    VirtualAccountCreateParams.AccountDetailCreateRequest.builder()
                         .accountNumber("string")
+                        .accountNumberType(
+                            VirtualAccountCreateParams.AccountDetailCreateRequest.AccountNumberType
+                                .CLABE
+                        )
                         .build()
                 )
             )
         assertThat(body.routingDetails())
             .isEqualTo(
                 listOf(
-                    RoutingDetail.builder()
-                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .bankAddress(
-                            RoutingDetail.Address.builder()
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .country("string")
-                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .line1("string")
-                                .line2("string")
-                                .liveMode(true)
-                                .locality("string")
-                                .object_("string")
-                                .postalCode("string")
-                                .region("string")
-                                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .build()
-                        )
-                        .bankName("string")
-                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .liveMode(true)
-                        .object_("string")
-                        .paymentType(RoutingDetail.PaymentType.ACH)
+                    VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
                         .routingNumber("string")
-                        .routingNumberType(RoutingDetail.RoutingNumberType.ABA)
-                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .routingNumberType(
+                            VirtualAccountCreateParams.RoutingDetailCreateRequest.RoutingNumberType
+                                .ABA
+                        )
+                        .paymentType(
+                            VirtualAccountCreateParams.RoutingDetailCreateRequest.PaymentType.ACH
+                        )
                         .build()
                 )
             )
