@@ -8,7 +8,7 @@ import com.moderntreasury.api.models.AccountCollectionFlowListPageAsync
 import com.moderntreasury.api.models.AccountCollectionFlowListParams
 import com.moderntreasury.api.models.AccountCollectionFlowRetrieveParams
 import com.moderntreasury.api.models.AccountCollectionFlowUpdateParams
-import com.moderntreasury.api.models.AccountConnectionFlow
+import com.moderntreasury.api.models.AccountCollectionFlow
 
 interface AccountCollectionFlowServiceAsync {
 
@@ -16,19 +16,19 @@ interface AccountCollectionFlowServiceAsync {
     suspend fun create(
         params: AccountCollectionFlowCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): AccountConnectionFlow
+    ): AccountCollectionFlow
 
     /** get account_collection_flow */
     suspend fun retrieve(
         params: AccountCollectionFlowRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): AccountConnectionFlow
+    ): AccountCollectionFlow
 
     /** update account_collection_flow */
     suspend fun update(
         params: AccountCollectionFlowUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): AccountConnectionFlow
+    ): AccountCollectionFlow
 
     /** list account_collection_flows */
     suspend fun list(

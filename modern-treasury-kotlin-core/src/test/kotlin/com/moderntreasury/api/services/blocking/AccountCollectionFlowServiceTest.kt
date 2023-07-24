@@ -20,15 +20,15 @@ class AccountCollectionFlowServiceTest {
                 .webhookKey("string")
                 .build()
         val accountCollectionFlowService = client.accountCollectionFlows()
-        val accountConnectionFlow =
+        val accountCollectionFlow =
             accountCollectionFlowService.create(
                 AccountCollectionFlowCreateParams.builder()
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .paymentTypes(listOf("string"))
                     .build()
             )
-        println(accountConnectionFlow)
-        accountConnectionFlow.validate()
+        println(accountCollectionFlow)
+        accountCollectionFlow.validate()
     }
 
     @Test
@@ -41,12 +41,12 @@ class AccountCollectionFlowServiceTest {
                 .webhookKey("string")
                 .build()
         val accountCollectionFlowService = client.accountCollectionFlows()
-        val accountConnectionFlow =
+        val accountCollectionFlow =
             accountCollectionFlowService.retrieve(
                 AccountCollectionFlowRetrieveParams.builder().id("string").build()
             )
-        println(accountConnectionFlow)
-        accountConnectionFlow.validate()
+        println(accountCollectionFlow)
+        accountCollectionFlow.validate()
     }
 
     @Test
@@ -59,15 +59,15 @@ class AccountCollectionFlowServiceTest {
                 .webhookKey("string")
                 .build()
         val accountCollectionFlowService = client.accountCollectionFlows()
-        val accountConnectionFlow =
+        val accountCollectionFlow =
             accountCollectionFlowService.update(
                 AccountCollectionFlowUpdateParams.builder()
                     .id("string")
                     .status(AccountCollectionFlowUpdateParams.Status.CANCELLED)
                     .build()
             )
-        println(accountConnectionFlow)
-        accountConnectionFlow.validate()
+        println(accountCollectionFlow)
+        accountCollectionFlow.validate()
     }
 
     @Test

@@ -11,7 +11,7 @@ import com.moderntreasury.api.models.AccountCollectionFlowListPage
 import com.moderntreasury.api.models.AccountCollectionFlowListParams
 import com.moderntreasury.api.models.AccountCollectionFlowRetrieveParams
 import com.moderntreasury.api.models.AccountCollectionFlowUpdateParams
-import com.moderntreasury.api.models.AccountConnectionFlow
+import com.moderntreasury.api.models.AccountCollectionFlow
 import com.moderntreasury.api.services.errorHandler
 import com.moderntreasury.api.services.json
 import com.moderntreasury.api.services.jsonHandler
@@ -24,14 +24,14 @@ constructor(
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
-    private val createHandler: Handler<AccountConnectionFlow> =
-        jsonHandler<AccountConnectionFlow>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    private val createHandler: Handler<AccountCollectionFlow> =
+        jsonHandler<AccountCollectionFlow>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** create account_collection_flow */
     override fun create(
         params: AccountCollectionFlowCreateParams,
         requestOptions: RequestOptions
-    ): AccountConnectionFlow {
+    ): AccountCollectionFlow {
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.POST)
@@ -52,14 +52,14 @@ constructor(
         }
     }
 
-    private val retrieveHandler: Handler<AccountConnectionFlow> =
-        jsonHandler<AccountConnectionFlow>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    private val retrieveHandler: Handler<AccountCollectionFlow> =
+        jsonHandler<AccountCollectionFlow>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** get account_collection_flow */
     override fun retrieve(
         params: AccountCollectionFlowRetrieveParams,
         requestOptions: RequestOptions
-    ): AccountConnectionFlow {
+    ): AccountCollectionFlow {
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.GET)
@@ -79,14 +79,14 @@ constructor(
         }
     }
 
-    private val updateHandler: Handler<AccountConnectionFlow> =
-        jsonHandler<AccountConnectionFlow>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    private val updateHandler: Handler<AccountCollectionFlow> =
+        jsonHandler<AccountCollectionFlow>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** update account_collection_flow */
     override fun update(
         params: AccountCollectionFlowUpdateParams,
         requestOptions: RequestOptions
-    ): AccountConnectionFlow {
+    ): AccountCollectionFlow {
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.PATCH)
@@ -107,8 +107,8 @@ constructor(
         }
     }
 
-    private val listHandler: Handler<List<AccountConnectionFlow>> =
-        jsonHandler<List<AccountConnectionFlow>>(clientOptions.jsonMapper)
+    private val listHandler: Handler<List<AccountCollectionFlow>> =
+        jsonHandler<List<AccountCollectionFlow>>(clientOptions.jsonMapper)
             .withErrorHandler(errorHandler)
 
     /** list account_collection_flows */
