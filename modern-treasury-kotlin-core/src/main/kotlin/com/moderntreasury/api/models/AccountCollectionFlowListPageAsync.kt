@@ -24,7 +24,7 @@ private constructor(
 
     fun response(): Response = response
 
-    fun items(): List<AccountConnectionFlow> = response().items()
+    fun items(): List<AccountCollectionFlow> = response().items()
 
     fun perPage(): String = response().perPage()
 
@@ -95,7 +95,7 @@ private constructor(
     @NoAutoDetect
     class Response
     constructor(
-        private val items: JsonField<List<AccountConnectionFlow>>,
+        private val items: JsonField<List<AccountCollectionFlow>>,
         private val perPage: String,
         private val afterCursor: String,
         private val additionalProperties: Map<String, JsonValue>,
@@ -103,13 +103,13 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun items(): List<AccountConnectionFlow> = items.getNullable("items") ?: listOf()
+        fun items(): List<AccountCollectionFlow> = items.getNullable("items") ?: listOf()
 
         fun perPage(): String = perPage
 
         fun afterCursor(): String = afterCursor
 
-        @JsonProperty("items") fun _items(): JsonField<List<AccountConnectionFlow>>? = items
+        @JsonProperty("items") fun _items(): JsonField<List<AccountCollectionFlow>>? = items
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -148,7 +148,7 @@ private constructor(
 
         class Builder {
 
-            private var items: JsonField<List<AccountConnectionFlow>> = JsonMissing.of()
+            private var items: JsonField<List<AccountCollectionFlow>> = JsonMissing.of()
             private var perPage: String? = null
             private var afterCursor: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -160,10 +160,10 @@ private constructor(
                 this.additionalProperties.putAll(page.additionalProperties)
             }
 
-            fun items(items: List<AccountConnectionFlow>) = items(JsonField.of(items))
+            fun items(items: List<AccountCollectionFlow>) = items(JsonField.of(items))
 
             @JsonProperty("items")
-            fun items(items: JsonField<List<AccountConnectionFlow>>) = apply { this.items = items }
+            fun items(items: JsonField<List<AccountCollectionFlow>>) = apply { this.items = items }
 
             fun perPage(perPage: String) = apply { this.perPage = perPage }
 
@@ -187,9 +187,9 @@ private constructor(
     class AutoPager
     constructor(
         private val firstPage: AccountCollectionFlowListPageAsync,
-    ) : Flow<AccountConnectionFlow> {
+    ) : Flow<AccountCollectionFlow> {
 
-        override suspend fun collect(collector: FlowCollector<AccountConnectionFlow>) {
+        override suspend fun collect(collector: FlowCollector<AccountCollectionFlow>) {
             var page = firstPage
             var index = 0
             while (true) {
