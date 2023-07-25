@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 
@@ -33,6 +34,10 @@ private constructor(
     private val dueDate: JsonField<OffsetDateTime>,
     private val invoicerAddress: JsonField<InvoicerAddress>,
     private val originatingAccountId: JsonField<String>,
+    private val receivingAccountId: JsonField<String>,
+    private val paymentEffectiveDate: JsonField<LocalDate>,
+    private val paymentType: JsonField<PaymentType>,
+    private val paymentMethod: JsonField<PaymentMethod>,
     private val hostedUrl: JsonField<String>,
     private val number: JsonField<String>,
     private val paymentOrders: JsonField<List<PaymentOrder>>,
@@ -88,6 +93,26 @@ private constructor(
 
     /** The ID of the internal account the invoice should be paid to. */
     fun originatingAccountId(): String = originatingAccountId.getRequired("originating_account_id")
+
+    /** The receiving account ID. Can be an `internal_account`. */
+    fun receivingAccountId(): String? = receivingAccountId.getNullable("receiving_account_id")
+
+    /**
+     * Date transactions are to be posted to the participants' account. Defaults to the current
+     * business day or the next business day if the current day is a bank holiday or weekend.
+     * Format: yyyy-mm-dd.
+     */
+    fun paymentEffectiveDate(): LocalDate? =
+        paymentEffectiveDate.getNullable("payment_effective_date")
+
+    /** One of `ach` or `eft` */
+    fun paymentType(): PaymentType? = paymentType.getNullable("payment_type")
+
+    /**
+     * When opening an invoice, whether to show the embedded payment UI , automatically debit the
+     * recipient, or rely on manual payment from the recipient.
+     */
+    fun paymentMethod(): PaymentMethod? = paymentMethod.getNullable("payment_method")
 
     /** The URL of the hosted web UI where the invoice can be viewed. */
     fun hostedUrl(): String = hostedUrl.getRequired("hosted_url")
@@ -157,6 +182,29 @@ private constructor(
     @ExcludeMissing
     fun _originatingAccountId() = originatingAccountId
 
+    /** The receiving account ID. Can be an `internal_account`. */
+    @JsonProperty("receiving_account_id")
+    @ExcludeMissing
+    fun _receivingAccountId() = receivingAccountId
+
+    /**
+     * Date transactions are to be posted to the participants' account. Defaults to the current
+     * business day or the next business day if the current day is a bank holiday or weekend.
+     * Format: yyyy-mm-dd.
+     */
+    @JsonProperty("payment_effective_date")
+    @ExcludeMissing
+    fun _paymentEffectiveDate() = paymentEffectiveDate
+
+    /** One of `ach` or `eft` */
+    @JsonProperty("payment_type") @ExcludeMissing fun _paymentType() = paymentType
+
+    /**
+     * When opening an invoice, whether to show the embedded payment UI , automatically debit the
+     * recipient, or rely on manual payment from the recipient.
+     */
+    @JsonProperty("payment_method") @ExcludeMissing fun _paymentMethod() = paymentMethod
+
     /** The URL of the hosted web UI where the invoice can be viewed. */
     @JsonProperty("hosted_url") @ExcludeMissing fun _hostedUrl() = hostedUrl
 
@@ -198,6 +246,10 @@ private constructor(
             dueDate()
             invoicerAddress()?.validate()
             originatingAccountId()
+            receivingAccountId()
+            paymentEffectiveDate()
+            paymentType()
+            paymentMethod()
             hostedUrl()
             number()
             paymentOrders().forEach { it.validate() }
@@ -230,6 +282,10 @@ private constructor(
             this.dueDate == other.dueDate &&
             this.invoicerAddress == other.invoicerAddress &&
             this.originatingAccountId == other.originatingAccountId &&
+            this.receivingAccountId == other.receivingAccountId &&
+            this.paymentEffectiveDate == other.paymentEffectiveDate &&
+            this.paymentType == other.paymentType &&
+            this.paymentMethod == other.paymentMethod &&
             this.hostedUrl == other.hostedUrl &&
             this.number == other.number &&
             this.paymentOrders == other.paymentOrders &&
@@ -257,6 +313,10 @@ private constructor(
                     dueDate,
                     invoicerAddress,
                     originatingAccountId,
+                    receivingAccountId,
+                    paymentEffectiveDate,
+                    paymentType,
+                    paymentMethod,
                     hostedUrl,
                     number,
                     paymentOrders,
@@ -270,7 +330,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Invoice{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, contactDetails=$contactDetails, counterpartyId=$counterpartyId, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, originatingAccountId=$originatingAccountId, hostedUrl=$hostedUrl, number=$number, paymentOrders=$paymentOrders, pdfUrl=$pdfUrl, status=$status, totalAmount=$totalAmount, additionalProperties=$additionalProperties}"
+        "Invoice{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, contactDetails=$contactDetails, counterpartyId=$counterpartyId, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentType=$paymentType, paymentMethod=$paymentMethod, hostedUrl=$hostedUrl, number=$number, paymentOrders=$paymentOrders, pdfUrl=$pdfUrl, status=$status, totalAmount=$totalAmount, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -295,6 +355,10 @@ private constructor(
         private var dueDate: JsonField<OffsetDateTime> = JsonMissing.of()
         private var invoicerAddress: JsonField<InvoicerAddress> = JsonMissing.of()
         private var originatingAccountId: JsonField<String> = JsonMissing.of()
+        private var receivingAccountId: JsonField<String> = JsonMissing.of()
+        private var paymentEffectiveDate: JsonField<LocalDate> = JsonMissing.of()
+        private var paymentType: JsonField<PaymentType> = JsonMissing.of()
+        private var paymentMethod: JsonField<PaymentMethod> = JsonMissing.of()
         private var hostedUrl: JsonField<String> = JsonMissing.of()
         private var number: JsonField<String> = JsonMissing.of()
         private var paymentOrders: JsonField<List<PaymentOrder>> = JsonMissing.of()
@@ -318,6 +382,10 @@ private constructor(
             this.dueDate = invoice.dueDate
             this.invoicerAddress = invoice.invoicerAddress
             this.originatingAccountId = invoice.originatingAccountId
+            this.receivingAccountId = invoice.receivingAccountId
+            this.paymentEffectiveDate = invoice.paymentEffectiveDate
+            this.paymentType = invoice.paymentType
+            this.paymentMethod = invoice.paymentMethod
             this.hostedUrl = invoice.hostedUrl
             this.number = invoice.number
             this.paymentOrders = invoice.paymentOrders
@@ -452,6 +520,62 @@ private constructor(
             this.originatingAccountId = originatingAccountId
         }
 
+        /** The receiving account ID. Can be an `internal_account`. */
+        fun receivingAccountId(receivingAccountId: String) =
+            receivingAccountId(JsonField.of(receivingAccountId))
+
+        /** The receiving account ID. Can be an `internal_account`. */
+        @JsonProperty("receiving_account_id")
+        @ExcludeMissing
+        fun receivingAccountId(receivingAccountId: JsonField<String>) = apply {
+            this.receivingAccountId = receivingAccountId
+        }
+
+        /**
+         * Date transactions are to be posted to the participants' account. Defaults to the current
+         * business day or the next business day if the current day is a bank holiday or weekend.
+         * Format: yyyy-mm-dd.
+         */
+        fun paymentEffectiveDate(paymentEffectiveDate: LocalDate) =
+            paymentEffectiveDate(JsonField.of(paymentEffectiveDate))
+
+        /**
+         * Date transactions are to be posted to the participants' account. Defaults to the current
+         * business day or the next business day if the current day is a bank holiday or weekend.
+         * Format: yyyy-mm-dd.
+         */
+        @JsonProperty("payment_effective_date")
+        @ExcludeMissing
+        fun paymentEffectiveDate(paymentEffectiveDate: JsonField<LocalDate>) = apply {
+            this.paymentEffectiveDate = paymentEffectiveDate
+        }
+
+        /** One of `ach` or `eft` */
+        fun paymentType(paymentType: PaymentType) = paymentType(JsonField.of(paymentType))
+
+        /** One of `ach` or `eft` */
+        @JsonProperty("payment_type")
+        @ExcludeMissing
+        fun paymentType(paymentType: JsonField<PaymentType>) = apply {
+            this.paymentType = paymentType
+        }
+
+        /**
+         * When opening an invoice, whether to show the embedded payment UI , automatically debit
+         * the recipient, or rely on manual payment from the recipient.
+         */
+        fun paymentMethod(paymentMethod: PaymentMethod) = paymentMethod(JsonField.of(paymentMethod))
+
+        /**
+         * When opening an invoice, whether to show the embedded payment UI , automatically debit
+         * the recipient, or rely on manual payment from the recipient.
+         */
+        @JsonProperty("payment_method")
+        @ExcludeMissing
+        fun paymentMethod(paymentMethod: JsonField<PaymentMethod>) = apply {
+            this.paymentMethod = paymentMethod
+        }
+
         /** The URL of the hosted web UI where the invoice can be viewed. */
         fun hostedUrl(hostedUrl: String) = hostedUrl(JsonField.of(hostedUrl))
 
@@ -539,6 +663,10 @@ private constructor(
                 dueDate,
                 invoicerAddress,
                 originatingAccountId,
+                receivingAccountId,
+                paymentEffectiveDate,
+                paymentType,
+                paymentMethod,
                 hostedUrl,
                 number,
                 paymentOrders.map { it.toUnmodifiable() },
@@ -1456,6 +1584,126 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+    }
+
+    class PaymentType
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PaymentType && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val EFT = PaymentType(JsonField.of("eft"))
+
+            val ACH = PaymentType(JsonField.of("ach"))
+
+            fun of(value: String) = PaymentType(JsonField.of(value))
+        }
+
+        enum class Known {
+            EFT,
+            ACH,
+        }
+
+        enum class Value {
+            EFT,
+            ACH,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                EFT -> Value.EFT
+                ACH -> Value.ACH
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                EFT -> Known.EFT
+                ACH -> Known.ACH
+                else -> throw ModernTreasuryInvalidDataException("Unknown PaymentType: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class PaymentMethod
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PaymentMethod && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val UI = PaymentMethod(JsonField.of("ui"))
+
+            val MANUAL = PaymentMethod(JsonField.of("manual"))
+
+            val AUTOMATIC = PaymentMethod(JsonField.of("automatic"))
+
+            fun of(value: String) = PaymentMethod(JsonField.of(value))
+        }
+
+        enum class Known {
+            UI,
+            MANUAL,
+            AUTOMATIC,
+        }
+
+        enum class Value {
+            UI,
+            MANUAL,
+            AUTOMATIC,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                UI -> Value.UI
+                MANUAL -> Value.MANUAL
+                AUTOMATIC -> Value.AUTOMATIC
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                UI -> Known.UI
+                MANUAL -> Known.MANUAL
+                AUTOMATIC -> Known.AUTOMATIC
+                else -> throw ModernTreasuryInvalidDataException("Unknown PaymentMethod: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     class Status

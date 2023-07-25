@@ -1,6 +1,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.models.*
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -63,6 +64,10 @@ class InvoiceLineItemUpdateParamsTest {
                     .build()
             )
             .originatingAccountId("string")
+            .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
+            .paymentType(InvoiceLineItemUpdateParams.PaymentType.ACH)
+            .paymentMethod(InvoiceLineItemUpdateParams.PaymentMethod.UI)
             .build()
     }
 
@@ -124,6 +129,10 @@ class InvoiceLineItemUpdateParamsTest {
                         .build()
                 )
                 .originatingAccountId("string")
+                .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
+                .paymentType(InvoiceLineItemUpdateParams.PaymentType.ACH)
+                .paymentMethod(InvoiceLineItemUpdateParams.PaymentMethod.UI)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -182,6 +191,10 @@ class InvoiceLineItemUpdateParamsTest {
                     .build()
             )
         assertThat(body.originatingAccountId()).isEqualTo("string")
+        assertThat(body.receivingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(body.paymentEffectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
+        assertThat(body.paymentType()).isEqualTo(InvoiceLineItemUpdateParams.PaymentType.ACH)
+        assertThat(body.paymentMethod()).isEqualTo(InvoiceLineItemUpdateParams.PaymentMethod.UI)
     }
 
     @Test
