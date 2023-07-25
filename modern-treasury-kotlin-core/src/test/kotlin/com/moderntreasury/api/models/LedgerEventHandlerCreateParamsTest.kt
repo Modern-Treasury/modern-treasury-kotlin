@@ -11,6 +11,7 @@ class LedgerEventHandlerCreateParamsTest {
         LedgerEventHandlerCreateParams.builder()
             .name("string")
             .description("string")
+            .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .ledgerTransactionTemplate(
                 LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate.builder()
                     .description("string")
@@ -52,6 +53,7 @@ class LedgerEventHandlerCreateParamsTest {
             LedgerEventHandlerCreateParams.builder()
                 .name("string")
                 .description("string")
+                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerTransactionTemplate(
                     LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate
                         .builder()
@@ -91,6 +93,7 @@ class LedgerEventHandlerCreateParamsTest {
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("string")
         assertThat(body.description()).isEqualTo("string")
+        assertThat(body.ledgerId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.ledgerTransactionTemplate())
             .isEqualTo(
                 LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate.builder()
