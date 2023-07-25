@@ -68,6 +68,8 @@ class InvoiceTest {
                 .number("string")
                 .object_("string")
                 .originatingAccountId("string")
+                .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
+                .paymentMethod(Invoice.PaymentMethod.UI)
                 .paymentOrders(
                     listOf(
                         PaymentOrder.builder()
@@ -253,7 +255,9 @@ class InvoiceTest {
                             .build()
                     )
                 )
+                .paymentType(Invoice.PaymentType.EFT)
                 .pdfUrl("string")
+                .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .status(Invoice.Status.DRAFT)
                 .totalAmount(123L)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -316,6 +320,8 @@ class InvoiceTest {
         assertThat(invoice.number()).isEqualTo("string")
         assertThat(invoice.object_()).isEqualTo("string")
         assertThat(invoice.originatingAccountId()).isEqualTo("string")
+        assertThat(invoice.paymentEffectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
+        assertThat(invoice.paymentMethod()).isEqualTo(Invoice.PaymentMethod.UI)
         assertThat(invoice.paymentOrders())
             .containsExactly(
                 PaymentOrder.builder()
@@ -475,7 +481,9 @@ class InvoiceTest {
                     .vendorFailureReason("string")
                     .build()
             )
+        assertThat(invoice.paymentType()).isEqualTo(Invoice.PaymentType.EFT)
         assertThat(invoice.pdfUrl()).isEqualTo("string")
+        assertThat(invoice.receivingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(invoice.status()).isEqualTo(Invoice.Status.DRAFT)
         assertThat(invoice.totalAmount()).isEqualTo(123L)
         assertThat(invoice.updatedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

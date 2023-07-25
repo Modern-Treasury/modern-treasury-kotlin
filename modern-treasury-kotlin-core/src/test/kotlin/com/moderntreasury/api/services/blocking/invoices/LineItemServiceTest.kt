@@ -4,6 +4,7 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.InvoiceLineItemListParams
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -121,6 +122,10 @@ class LineItemServiceTest {
                             .build()
                     )
                     .originatingAccountId("string")
+                    .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
+                    .paymentType(InvoiceLineItemUpdateParams.PaymentType.ACH)
+                    .paymentMethod(InvoiceLineItemUpdateParams.PaymentMethod.UI)
                     .build()
             )
         println(invoiceLineItem)
