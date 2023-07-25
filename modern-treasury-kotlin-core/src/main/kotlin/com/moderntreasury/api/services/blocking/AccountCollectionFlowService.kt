@@ -3,12 +3,12 @@
 package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.core.RequestOptions
+import com.moderntreasury.api.models.AccountCollectionFlow
 import com.moderntreasury.api.models.AccountCollectionFlowCreateParams
 import com.moderntreasury.api.models.AccountCollectionFlowListPage
 import com.moderntreasury.api.models.AccountCollectionFlowListParams
 import com.moderntreasury.api.models.AccountCollectionFlowRetrieveParams
 import com.moderntreasury.api.models.AccountCollectionFlowUpdateParams
-import com.moderntreasury.api.models.AccountConnectionFlow
 
 interface AccountCollectionFlowService {
 
@@ -16,19 +16,19 @@ interface AccountCollectionFlowService {
     fun create(
         params: AccountCollectionFlowCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): AccountConnectionFlow
+    ): AccountCollectionFlow
 
     /** get account_collection_flow */
     fun retrieve(
         params: AccountCollectionFlowRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): AccountConnectionFlow
+    ): AccountCollectionFlow
 
     /** update account_collection_flow */
     fun update(
         params: AccountCollectionFlowUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): AccountConnectionFlow
+    ): AccountCollectionFlow
 
     /** list account_collection_flows */
     fun list(
