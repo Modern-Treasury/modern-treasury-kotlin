@@ -3,12 +3,12 @@
 package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.core.RequestOptions
+import com.moderntreasury.api.models.AccountCollectionFlow
 import com.moderntreasury.api.models.AccountCollectionFlowCreateParams
 import com.moderntreasury.api.models.AccountCollectionFlowListPage
 import com.moderntreasury.api.models.AccountCollectionFlowListParams
 import com.moderntreasury.api.models.AccountCollectionFlowRetrieveParams
 import com.moderntreasury.api.models.AccountCollectionFlowUpdateParams
-import com.moderntreasury.api.models.AccountCollectionFlow
 
 interface AccountCollectionFlowService {
 
