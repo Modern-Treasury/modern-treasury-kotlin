@@ -164,7 +164,7 @@ class PaymentOrderServiceTest {
                     )
                     .ledgerTransaction(
                         PaymentOrderCreateParams.LedgerTransactionCreateRequest.builder()
-                            .effectiveDate(LocalDate.parse("2019-12-27"))
+                            .effectiveAt(LocalDate.parse("2019-12-27"))
                             .ledgerEntries(
                                 listOf(
                                     PaymentOrderCreateParams.LedgerTransactionCreateRequest
@@ -205,6 +205,7 @@ class PaymentOrderServiceTest {
                                 )
                             )
                             .description("string")
+                            .effectiveDate(LocalDate.parse("2019-12-27"))
                             .externalId("string")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableType(
@@ -615,7 +616,7 @@ class PaymentOrderServiceTest {
                     )
                     .ledgerTransaction(
                         PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest.builder()
-                            .effectiveDate(LocalDate.parse("2019-12-27"))
+                            .effectiveAt(LocalDate.parse("2019-12-27"))
                             .ledgerEntries(
                                 listOf(
                                     PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest
@@ -660,6 +661,7 @@ class PaymentOrderServiceTest {
                                 )
                             )
                             .description("string")
+                            .effectiveDate(LocalDate.parse("2019-12-27"))
                             .externalId("string")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableType(

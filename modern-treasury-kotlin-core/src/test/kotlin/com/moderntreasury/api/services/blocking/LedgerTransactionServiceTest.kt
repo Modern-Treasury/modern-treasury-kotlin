@@ -28,6 +28,7 @@ class LedgerTransactionServiceTest {
                     .description("string")
                     .status(LedgerTransactionCreateParams.Status.ARCHIVED)
                     .metadata(LedgerTransactionCreateParams.Metadata.builder().build())
+                    .effectiveAt(LocalDate.parse("2019-12-27"))
                     .effectiveDate(LocalDate.parse("2019-12-27"))
                     .ledgerEntries(
                         listOf(

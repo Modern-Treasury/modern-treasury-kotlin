@@ -13,6 +13,7 @@ class LedgerTransactionCreateParamsTest {
             .description("string")
             .status(LedgerTransactionCreateParams.Status.ARCHIVED)
             .metadata(LedgerTransactionCreateParams.Metadata.builder().build())
+            .effectiveAt(LocalDate.parse("2019-12-27"))
             .effectiveDate(LocalDate.parse("2019-12-27"))
             .ledgerEntries(
                 listOf(
@@ -58,6 +59,7 @@ class LedgerTransactionCreateParamsTest {
                 .description("string")
                 .status(LedgerTransactionCreateParams.Status.ARCHIVED)
                 .metadata(LedgerTransactionCreateParams.Metadata.builder().build())
+                .effectiveAt(LocalDate.parse("2019-12-27"))
                 .effectiveDate(LocalDate.parse("2019-12-27"))
                 .ledgerEntries(
                     listOf(
@@ -101,6 +103,7 @@ class LedgerTransactionCreateParamsTest {
         assertThat(body.status()).isEqualTo(LedgerTransactionCreateParams.Status.ARCHIVED)
         assertThat(body.metadata())
             .isEqualTo(LedgerTransactionCreateParams.Metadata.builder().build())
+        assertThat(body.effectiveAt()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.effectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.ledgerEntries())
             .isEqualTo(
@@ -144,7 +147,7 @@ class LedgerTransactionCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             LedgerTransactionCreateParams.builder()
-                .effectiveDate(LocalDate.parse("2019-12-27"))
+                .effectiveAt(LocalDate.parse("2019-12-27"))
                 .ledgerEntries(
                     listOf(
                         LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
@@ -160,7 +163,7 @@ class LedgerTransactionCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.effectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
+        assertThat(body.effectiveAt()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.ledgerEntries())
             .isEqualTo(
                 listOf(
