@@ -24,8 +24,6 @@ class LedgerableEventTest {
                 .metadata(LedgerableEvent.Metadata.builder().build())
                 .name("string")
                 .object_("string")
-                .originatingLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .receivingLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
         assertThat(ledgerableEvent).isNotNull
@@ -44,10 +42,6 @@ class LedgerableEventTest {
         assertThat(ledgerableEvent.metadata()).isEqualTo(LedgerableEvent.Metadata.builder().build())
         assertThat(ledgerableEvent.name()).isEqualTo("string")
         assertThat(ledgerableEvent.object_()).isEqualTo("string")
-        assertThat(ledgerableEvent.originatingLedgerAccountId())
-            .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(ledgerableEvent.receivingLedgerAccountId())
-            .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(ledgerableEvent.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }

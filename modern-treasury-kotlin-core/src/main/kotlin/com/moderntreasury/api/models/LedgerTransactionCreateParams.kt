@@ -20,7 +20,8 @@ constructor(
     private val description: String?,
     private val status: Status?,
     private val metadata: Metadata?,
-    private val effectiveDate: LocalDate,
+    private val effectiveAt: LocalDate,
+    private val effectiveDate: LocalDate?,
     private val ledgerEntries: List<LedgerEntryCreateRequest>,
     private val externalId: String?,
     private val ledgerableType: LedgerableType?,
@@ -36,7 +37,9 @@ constructor(
 
     fun metadata(): Metadata? = metadata
 
-    fun effectiveDate(): LocalDate = effectiveDate
+    fun effectiveAt(): LocalDate = effectiveAt
+
+    fun effectiveDate(): LocalDate? = effectiveDate
 
     fun ledgerEntries(): List<LedgerEntryCreateRequest> = ledgerEntries
 
@@ -51,6 +54,7 @@ constructor(
             description,
             status,
             metadata,
+            effectiveAt,
             effectiveDate,
             ledgerEntries,
             externalId,
@@ -71,6 +75,7 @@ constructor(
         private val description: String?,
         private val status: Status?,
         private val metadata: Metadata?,
+        private val effectiveAt: LocalDate?,
         private val effectiveDate: LocalDate?,
         private val ledgerEntries: List<LedgerEntryCreateRequest>?,
         private val externalId: String?,
@@ -91,6 +96,12 @@ constructor(
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
         @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+
+        /**
+         * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
+         * purposes.
+         */
+        @JsonProperty("effective_at") fun effectiveAt(): LocalDate? = effectiveAt
 
         /**
          * The date (YYYY-MM-DD) on which the ledger transaction happened for reporting purposes.
@@ -135,6 +146,7 @@ constructor(
                 this.description == other.description &&
                 this.status == other.status &&
                 this.metadata == other.metadata &&
+                this.effectiveAt == other.effectiveAt &&
                 this.effectiveDate == other.effectiveDate &&
                 this.ledgerEntries == other.ledgerEntries &&
                 this.externalId == other.externalId &&
@@ -150,6 +162,7 @@ constructor(
                         description,
                         status,
                         metadata,
+                        effectiveAt,
                         effectiveDate,
                         ledgerEntries,
                         externalId,
@@ -162,7 +175,7 @@ constructor(
         }
 
         override fun toString() =
-            "LedgerTransactionCreateBody{description=$description, status=$status, metadata=$metadata, effectiveDate=$effectiveDate, ledgerEntries=$ledgerEntries, externalId=$externalId, ledgerableType=$ledgerableType, ledgerableId=$ledgerableId, additionalProperties=$additionalProperties}"
+            "LedgerTransactionCreateBody{description=$description, status=$status, metadata=$metadata, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, ledgerEntries=$ledgerEntries, externalId=$externalId, ledgerableType=$ledgerableType, ledgerableId=$ledgerableId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -174,6 +187,7 @@ constructor(
             private var description: String? = null
             private var status: Status? = null
             private var metadata: Metadata? = null
+            private var effectiveAt: LocalDate? = null
             private var effectiveDate: LocalDate? = null
             private var ledgerEntries: List<LedgerEntryCreateRequest>? = null
             private var externalId: String? = null
@@ -185,6 +199,7 @@ constructor(
                 this.description = ledgerTransactionCreateBody.description
                 this.status = ledgerTransactionCreateBody.status
                 this.metadata = ledgerTransactionCreateBody.metadata
+                this.effectiveAt = ledgerTransactionCreateBody.effectiveAt
                 this.effectiveDate = ledgerTransactionCreateBody.effectiveDate
                 this.ledgerEntries = ledgerTransactionCreateBody.ledgerEntries
                 this.externalId = ledgerTransactionCreateBody.externalId
@@ -206,6 +221,13 @@ constructor(
              */
             @JsonProperty("metadata")
             fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+            /**
+             * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
+             * purposes.
+             */
+            @JsonProperty("effective_at")
+            fun effectiveAt(effectiveAt: LocalDate) = apply { this.effectiveAt = effectiveAt }
 
             /**
              * The date (YYYY-MM-DD) on which the ledger transaction happened for reporting
@@ -265,7 +287,8 @@ constructor(
                     description,
                     status,
                     metadata,
-                    checkNotNull(effectiveDate) { "`effectiveDate` is required but was not set" },
+                    checkNotNull(effectiveAt) { "`effectiveAt` is required but was not set" },
+                    effectiveDate,
                     checkNotNull(ledgerEntries) { "`ledgerEntries` is required but was not set" }
                         .toUnmodifiable(),
                     externalId,
@@ -291,6 +314,7 @@ constructor(
             this.description == other.description &&
             this.status == other.status &&
             this.metadata == other.metadata &&
+            this.effectiveAt == other.effectiveAt &&
             this.effectiveDate == other.effectiveDate &&
             this.ledgerEntries == other.ledgerEntries &&
             this.externalId == other.externalId &&
@@ -306,6 +330,7 @@ constructor(
             description,
             status,
             metadata,
+            effectiveAt,
             effectiveDate,
             ledgerEntries,
             externalId,
@@ -318,7 +343,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerTransactionCreateParams{description=$description, status=$status, metadata=$metadata, effectiveDate=$effectiveDate, ledgerEntries=$ledgerEntries, externalId=$externalId, ledgerableType=$ledgerableType, ledgerableId=$ledgerableId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerTransactionCreateParams{description=$description, status=$status, metadata=$metadata, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, ledgerEntries=$ledgerEntries, externalId=$externalId, ledgerableType=$ledgerableType, ledgerableId=$ledgerableId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -333,6 +358,7 @@ constructor(
         private var description: String? = null
         private var status: Status? = null
         private var metadata: Metadata? = null
+        private var effectiveAt: LocalDate? = null
         private var effectiveDate: LocalDate? = null
         private var ledgerEntries: List<LedgerEntryCreateRequest>? = null
         private var externalId: String? = null
@@ -346,6 +372,7 @@ constructor(
             this.description = ledgerTransactionCreateParams.description
             this.status = ledgerTransactionCreateParams.status
             this.metadata = ledgerTransactionCreateParams.metadata
+            this.effectiveAt = ledgerTransactionCreateParams.effectiveAt
             this.effectiveDate = ledgerTransactionCreateParams.effectiveDate
             this.ledgerEntries = ledgerTransactionCreateParams.ledgerEntries
             this.externalId = ledgerTransactionCreateParams.externalId
@@ -366,6 +393,12 @@ constructor(
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
         fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        /**
+         * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
+         * purposes.
+         */
+        fun effectiveAt(effectiveAt: LocalDate) = apply { this.effectiveAt = effectiveAt }
 
         /**
          * The date (YYYY-MM-DD) on which the ledger transaction happened for reporting purposes.
@@ -457,7 +490,8 @@ constructor(
                 description,
                 status,
                 metadata,
-                checkNotNull(effectiveDate) { "`effectiveDate` is required but was not set" },
+                checkNotNull(effectiveAt) { "`effectiveAt` is required but was not set" },
+                effectiveDate,
                 checkNotNull(ledgerEntries) { "`ledgerEntries` is required but was not set" }
                     .toUnmodifiable(),
                 externalId,
