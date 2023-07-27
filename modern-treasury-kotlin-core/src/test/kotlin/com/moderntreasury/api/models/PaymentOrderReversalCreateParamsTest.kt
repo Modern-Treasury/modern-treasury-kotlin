@@ -15,7 +15,7 @@ class PaymentOrderReversalCreateParamsTest {
             .metadata(PaymentOrderReversalCreateParams.Metadata.builder().build())
             .ledgerTransaction(
                 PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.builder()
-                    .effectiveDate(LocalDate.parse("2019-12-27"))
+                    .effectiveAt(LocalDate.parse("2019-12-27"))
                     .ledgerEntries(
                         listOf(
                             PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
@@ -56,6 +56,7 @@ class PaymentOrderReversalCreateParamsTest {
                         )
                     )
                     .description("string")
+                    .effectiveDate(LocalDate.parse("2019-12-27"))
                     .externalId("string")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
@@ -86,7 +87,7 @@ class PaymentOrderReversalCreateParamsTest {
                 .metadata(PaymentOrderReversalCreateParams.Metadata.builder().build())
                 .ledgerTransaction(
                     PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.builder()
-                        .effectiveDate(LocalDate.parse("2019-12-27"))
+                        .effectiveAt(LocalDate.parse("2019-12-27"))
                         .ledgerEntries(
                             listOf(
                                 PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
@@ -131,6 +132,7 @@ class PaymentOrderReversalCreateParamsTest {
                             )
                         )
                         .description("string")
+                        .effectiveDate(LocalDate.parse("2019-12-27"))
                         .externalId("string")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
@@ -158,7 +160,7 @@ class PaymentOrderReversalCreateParamsTest {
         assertThat(body.ledgerTransaction())
             .isEqualTo(
                 PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.builder()
-                    .effectiveDate(LocalDate.parse("2019-12-27"))
+                    .effectiveAt(LocalDate.parse("2019-12-27"))
                     .ledgerEntries(
                         listOf(
                             PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
@@ -199,6 +201,7 @@ class PaymentOrderReversalCreateParamsTest {
                         )
                     )
                     .description("string")
+                    .effectiveDate(LocalDate.parse("2019-12-27"))
                     .externalId("string")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(

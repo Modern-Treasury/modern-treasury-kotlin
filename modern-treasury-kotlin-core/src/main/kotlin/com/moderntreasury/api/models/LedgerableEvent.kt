@@ -25,8 +25,6 @@ private constructor(
     private val name: JsonField<String>,
     private val description: JsonField<String>,
     private val direction: JsonField<String>,
-    private val originatingLedgerAccountId: JsonField<String>,
-    private val receivingLedgerAccountId: JsonField<String>,
     private val amount: JsonField<Long>,
     private val currency: JsonField<String>,
     private val currencyExponent: JsonField<Long>,
@@ -62,14 +60,6 @@ private constructor(
 
     /** One of `credit`, `debit`. */
     fun direction(): String? = direction.getNullable("direction")
-
-    /** The ledger account that initiates the money movement. */
-    fun originatingLedgerAccountId(): String? =
-        originatingLedgerAccountId.getNullable("originating_ledger_account_id")
-
-    /** The ledger account that receives the money movement. */
-    fun receivingLedgerAccountId(): String? =
-        receivingLedgerAccountId.getNullable("receiving_ledger_account_id")
 
     /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
     fun amount(): Long = amount.getRequired("amount")
@@ -111,16 +101,6 @@ private constructor(
     /** One of `credit`, `debit`. */
     @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
 
-    /** The ledger account that initiates the money movement. */
-    @JsonProperty("originating_ledger_account_id")
-    @ExcludeMissing
-    fun _originatingLedgerAccountId() = originatingLedgerAccountId
-
-    /** The ledger account that receives the money movement. */
-    @JsonProperty("receiving_ledger_account_id")
-    @ExcludeMissing
-    fun _receivingLedgerAccountId() = receivingLedgerAccountId
-
     /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
     @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
@@ -157,8 +137,6 @@ private constructor(
             name()
             description()
             direction()
-            originatingLedgerAccountId()
-            receivingLedgerAccountId()
             amount()
             currency()
             currencyExponent()
@@ -184,8 +162,6 @@ private constructor(
             this.name == other.name &&
             this.description == other.description &&
             this.direction == other.direction &&
-            this.originatingLedgerAccountId == other.originatingLedgerAccountId &&
-            this.receivingLedgerAccountId == other.receivingLedgerAccountId &&
             this.amount == other.amount &&
             this.currency == other.currency &&
             this.currencyExponent == other.currencyExponent &&
@@ -207,8 +183,6 @@ private constructor(
                     name,
                     description,
                     direction,
-                    originatingLedgerAccountId,
-                    receivingLedgerAccountId,
                     amount,
                     currency,
                     currencyExponent,
@@ -222,7 +196,7 @@ private constructor(
     }
 
     override fun toString() =
-        "LedgerableEvent{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, name=$name, description=$description, direction=$direction, originatingLedgerAccountId=$originatingLedgerAccountId, receivingLedgerAccountId=$receivingLedgerAccountId, amount=$amount, currency=$currency, currencyExponent=$currencyExponent, customData=$customData, ledgerEventHandlerId=$ledgerEventHandlerId, metadata=$metadata, additionalProperties=$additionalProperties}"
+        "LedgerableEvent{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, name=$name, description=$description, direction=$direction, amount=$amount, currency=$currency, currencyExponent=$currencyExponent, customData=$customData, ledgerEventHandlerId=$ledgerEventHandlerId, metadata=$metadata, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -239,8 +213,6 @@ private constructor(
         private var name: JsonField<String> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
         private var direction: JsonField<String> = JsonMissing.of()
-        private var originatingLedgerAccountId: JsonField<String> = JsonMissing.of()
-        private var receivingLedgerAccountId: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var currency: JsonField<String> = JsonMissing.of()
         private var currencyExponent: JsonField<Long> = JsonMissing.of()
@@ -258,8 +230,6 @@ private constructor(
             this.name = ledgerableEvent.name
             this.description = ledgerableEvent.description
             this.direction = ledgerableEvent.direction
-            this.originatingLedgerAccountId = ledgerableEvent.originatingLedgerAccountId
-            this.receivingLedgerAccountId = ledgerableEvent.receivingLedgerAccountId
             this.amount = ledgerableEvent.amount
             this.currency = ledgerableEvent.currency
             this.currencyExponent = ledgerableEvent.currencyExponent
@@ -328,28 +298,6 @@ private constructor(
         @JsonProperty("direction")
         @ExcludeMissing
         fun direction(direction: JsonField<String>) = apply { this.direction = direction }
-
-        /** The ledger account that initiates the money movement. */
-        fun originatingLedgerAccountId(originatingLedgerAccountId: String) =
-            originatingLedgerAccountId(JsonField.of(originatingLedgerAccountId))
-
-        /** The ledger account that initiates the money movement. */
-        @JsonProperty("originating_ledger_account_id")
-        @ExcludeMissing
-        fun originatingLedgerAccountId(originatingLedgerAccountId: JsonField<String>) = apply {
-            this.originatingLedgerAccountId = originatingLedgerAccountId
-        }
-
-        /** The ledger account that receives the money movement. */
-        fun receivingLedgerAccountId(receivingLedgerAccountId: String) =
-            receivingLedgerAccountId(JsonField.of(receivingLedgerAccountId))
-
-        /** The ledger account that receives the money movement. */
-        @JsonProperty("receiving_ledger_account_id")
-        @ExcludeMissing
-        fun receivingLedgerAccountId(receivingLedgerAccountId: JsonField<String>) = apply {
-            this.receivingLedgerAccountId = receivingLedgerAccountId
-        }
 
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
@@ -436,8 +384,6 @@ private constructor(
                 name,
                 description,
                 direction,
-                originatingLedgerAccountId,
-                receivingLedgerAccountId,
                 amount,
                 currency,
                 currencyExponent,
