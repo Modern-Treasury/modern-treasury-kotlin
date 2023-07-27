@@ -2,7 +2,7 @@
 
 The Modern Treasury Kotlin SDK provides convenient access to the Modern Treasury REST API from applications written in Kotlin. It includes helper classes with helpful types and documentation for every request and response property.
 
-This package is currently in beta (pre-v1.0.0). We expect some breaking changes to rarely-used areas of the SDK, and appreciate your [feedback](https://www.github.com/Modern-Treasury/modern-treasury-kotlin/issues).
+We expect some breaking changes to rarely-used areas of the SDK, and appreciate your [feedback](https://www.github.com/Modern-Treasury/modern-treasury-kotlin/issues).
 
 The Modern Treasury Kotlin SDK is similar to the Modern Treasury Java SDK but with minor differences that make it more ergonomic for use in Kotlin, such as nullable values instead of `Optional`, `Sequence` instead of `Stream`, and suspend functions instead of `CompletableFuture`.
 
