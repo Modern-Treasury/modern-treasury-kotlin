@@ -6,14 +6,12 @@ import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.PaymentOrderListParams
 import java.time.LocalDate
 import java.time.OffsetDateTime
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
 class PaymentOrderServiceTest {
 
-    @Disabled("skipped: prism mock server is broken for file uploads")
     @Test
     fun callCreate() {
         val client =
