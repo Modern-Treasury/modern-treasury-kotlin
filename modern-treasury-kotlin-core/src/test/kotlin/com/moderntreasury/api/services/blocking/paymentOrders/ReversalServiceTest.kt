@@ -53,6 +53,14 @@ class ReversalServiceTest {
                                                 .build()
                                         )
                                         .lockVersion(123L)
+                                        .metadata(
+                                            PaymentOrderReversalCreateParams
+                                                .LedgerTransactionCreateRequest
+                                                .LedgerEntryCreateRequest
+                                                .Metadata
+                                                .builder()
+                                                .build()
+                                        )
                                         .pendingBalanceAmount(
                                             PaymentOrderReversalCreateParams
                                                 .LedgerTransactionCreateRequest

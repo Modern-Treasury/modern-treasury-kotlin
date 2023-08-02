@@ -28,6 +28,11 @@ class LedgerTransactionUpdateParamsTest {
                                 .build()
                         )
                         .lockVersion(123L)
+                        .metadata(
+                            LedgerTransactionUpdateParams.LedgerEntryCreateRequest.Metadata
+                                .builder()
+                                .build()
+                        )
                         .pendingBalanceAmount(
                             LedgerTransactionUpdateParams.LedgerEntryCreateRequest
                                 .PendingBalanceAmount
@@ -71,6 +76,11 @@ class LedgerTransactionUpdateParamsTest {
                                     .build()
                             )
                             .lockVersion(123L)
+                            .metadata(
+                                LedgerTransactionUpdateParams.LedgerEntryCreateRequest.Metadata
+                                    .builder()
+                                    .build()
+                            )
                             .pendingBalanceAmount(
                                 LedgerTransactionUpdateParams.LedgerEntryCreateRequest
                                     .PendingBalanceAmount
@@ -110,6 +120,11 @@ class LedgerTransactionUpdateParamsTest {
                                 .build()
                         )
                         .lockVersion(123L)
+                        .metadata(
+                            LedgerTransactionUpdateParams.LedgerEntryCreateRequest.Metadata
+                                .builder()
+                                .build()
+                        )
                         .pendingBalanceAmount(
                             LedgerTransactionUpdateParams.LedgerEntryCreateRequest
                                 .PendingBalanceAmount

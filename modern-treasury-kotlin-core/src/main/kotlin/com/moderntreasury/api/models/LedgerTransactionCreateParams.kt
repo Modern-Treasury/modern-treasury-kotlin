@@ -642,6 +642,7 @@ constructor(
         private val postedBalanceAmount: PostedBalanceAmount?,
         private val availableBalanceAmount: AvailableBalanceAmount?,
         private val showResultingLedgerAccountBalances: Boolean?,
+        private val metadata: Metadata?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -702,6 +703,11 @@ constructor(
         @JsonProperty("show_resulting_ledger_account_balances")
         fun showResultingLedgerAccountBalances(): Boolean? = showResultingLedgerAccountBalances
 
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -723,6 +729,7 @@ constructor(
                 this.availableBalanceAmount == other.availableBalanceAmount &&
                 this.showResultingLedgerAccountBalances ==
                     other.showResultingLedgerAccountBalances &&
+                this.metadata == other.metadata &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -738,6 +745,7 @@ constructor(
                         postedBalanceAmount,
                         availableBalanceAmount,
                         showResultingLedgerAccountBalances,
+                        metadata,
                         additionalProperties,
                     )
             }
@@ -745,7 +753,7 @@ constructor(
         }
 
         override fun toString() =
-            "LedgerEntryCreateRequest{amount=$amount, direction=$direction, ledgerAccountId=$ledgerAccountId, lockVersion=$lockVersion, pendingBalanceAmount=$pendingBalanceAmount, postedBalanceAmount=$postedBalanceAmount, availableBalanceAmount=$availableBalanceAmount, showResultingLedgerAccountBalances=$showResultingLedgerAccountBalances, additionalProperties=$additionalProperties}"
+            "LedgerEntryCreateRequest{amount=$amount, direction=$direction, ledgerAccountId=$ledgerAccountId, lockVersion=$lockVersion, pendingBalanceAmount=$pendingBalanceAmount, postedBalanceAmount=$postedBalanceAmount, availableBalanceAmount=$availableBalanceAmount, showResultingLedgerAccountBalances=$showResultingLedgerAccountBalances, metadata=$metadata, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -762,6 +770,7 @@ constructor(
             private var postedBalanceAmount: PostedBalanceAmount? = null
             private var availableBalanceAmount: AvailableBalanceAmount? = null
             private var showResultingLedgerAccountBalances: Boolean? = null
+            private var metadata: Metadata? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerEntryCreateRequest: LedgerEntryCreateRequest) = apply {
@@ -774,6 +783,7 @@ constructor(
                 this.availableBalanceAmount = ledgerEntryCreateRequest.availableBalanceAmount
                 this.showResultingLedgerAccountBalances =
                     ledgerEntryCreateRequest.showResultingLedgerAccountBalances
+                this.metadata = ledgerEntryCreateRequest.metadata
                 additionalProperties(ledgerEntryCreateRequest.additionalProperties)
             }
 
@@ -847,6 +857,13 @@ constructor(
                     this.showResultingLedgerAccountBalances = showResultingLedgerAccountBalances
                 }
 
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            @JsonProperty("metadata")
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -873,6 +890,7 @@ constructor(
                     postedBalanceAmount,
                     availableBalanceAmount,
                     showResultingLedgerAccountBalances,
+                    metadata,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -1147,6 +1165,73 @@ constructor(
 
                 fun build(): AvailableBalanceAmount =
                     AvailableBalanceAmount(additionalProperties.toUnmodifiable())
+            }
+        }
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonDeserialize(builder = Metadata.Builder::class)
+        @NoAutoDetect
+        class Metadata
+        private constructor(
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var hashCode: Int = 0
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Metadata && this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(metadata: Metadata) = apply {
+                    additionalProperties(metadata.additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
             }
         }
     }

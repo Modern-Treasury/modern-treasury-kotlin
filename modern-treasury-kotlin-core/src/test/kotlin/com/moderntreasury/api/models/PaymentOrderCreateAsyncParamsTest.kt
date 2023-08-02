@@ -168,6 +168,13 @@ class PaymentOrderCreateAsyncParamsTest {
                                         .build()
                                 )
                                 .lockVersion(123L)
+                                .metadata(
+                                    PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest
+                                        .LedgerEntryCreateRequest
+                                        .Metadata
+                                        .builder()
+                                        .build()
+                                )
                                 .pendingBalanceAmount(
                                     PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest
                                         .LedgerEntryCreateRequest
@@ -387,6 +394,13 @@ class PaymentOrderCreateAsyncParamsTest {
                                             .build()
                                     )
                                     .lockVersion(123L)
+                                    .metadata(
+                                        PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest
+                                            .LedgerEntryCreateRequest
+                                            .Metadata
+                                            .builder()
+                                            .build()
+                                    )
                                     .pendingBalanceAmount(
                                         PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest
                                             .LedgerEntryCreateRequest
@@ -602,6 +616,13 @@ class PaymentOrderCreateAsyncParamsTest {
                                         .build()
                                 )
                                 .lockVersion(123L)
+                                .metadata(
+                                    PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest
+                                        .LedgerEntryCreateRequest
+                                        .Metadata
+                                        .builder()
+                                        .build()
+                                )
                                 .pendingBalanceAmount(
                                     PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest
                                         .LedgerEntryCreateRequest

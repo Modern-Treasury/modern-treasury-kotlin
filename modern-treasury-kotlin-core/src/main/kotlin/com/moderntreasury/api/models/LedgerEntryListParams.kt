@@ -29,6 +29,7 @@ constructor(
     private val status: Status?,
     private val orderBy: OrderBy?,
     private val showBalances: Boolean?,
+    private val metadata: Metadata?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
@@ -67,6 +68,8 @@ constructor(
 
     fun showBalances(): Boolean? = showBalances
 
+    fun metadata(): Metadata? = metadata
+
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
@@ -96,6 +99,7 @@ constructor(
         this.status?.let { params.put("status", listOf(it.toString())) }
         this.orderBy?.forEachQueryParam { key, values -> params.put("order_by[$key]", values) }
         this.showBalances?.let { params.put("show_balances", listOf(it.toString())) }
+        this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -129,6 +133,7 @@ constructor(
             this.status == other.status &&
             this.orderBy == other.orderBy &&
             this.showBalances == other.showBalances &&
+            this.metadata == other.metadata &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
@@ -152,13 +157,14 @@ constructor(
             status,
             orderBy,
             showBalances,
+            metadata,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "LedgerEntryListParams{afterCursor=$afterCursor, perPage=$perPage, id=$id, ledgerAccountId=$ledgerAccountId, ledgerTransactionId=$ledgerTransactionId, effectiveDate=$effectiveDate, effectiveAt=$effectiveAt, updatedAt=$updatedAt, asOfLockVersion=$asOfLockVersion, ledgerAccountLockVersion=$ledgerAccountLockVersion, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountStatementId=$ledgerAccountStatementId, showDeleted=$showDeleted, direction=$direction, status=$status, orderBy=$orderBy, showBalances=$showBalances, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "LedgerEntryListParams{afterCursor=$afterCursor, perPage=$perPage, id=$id, ledgerAccountId=$ledgerAccountId, ledgerTransactionId=$ledgerTransactionId, effectiveDate=$effectiveDate, effectiveAt=$effectiveAt, updatedAt=$updatedAt, asOfLockVersion=$asOfLockVersion, ledgerAccountLockVersion=$ledgerAccountLockVersion, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountStatementId=$ledgerAccountStatementId, showDeleted=$showDeleted, direction=$direction, status=$status, orderBy=$orderBy, showBalances=$showBalances, metadata=$metadata, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -187,6 +193,7 @@ constructor(
         private var status: Status? = null
         private var orderBy: OrderBy? = null
         private var showBalances: Boolean? = null
+        private var metadata: Metadata? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
@@ -208,6 +215,7 @@ constructor(
             this.status = ledgerEntryListParams.status
             this.orderBy = ledgerEntryListParams.orderBy
             this.showBalances = ledgerEntryListParams.showBalances
+            this.metadata = ledgerEntryListParams.metadata
             additionalQueryParams(ledgerEntryListParams.additionalQueryParams)
             additionalHeaders(ledgerEntryListParams.additionalHeaders)
         }
@@ -305,6 +313,12 @@ constructor(
          */
         fun showBalances(showBalances: Boolean) = apply { this.showBalances = showBalances }
 
+        /**
+         * For example, if you want to query for records with metadata key `Type` and value `Loan`,
+         * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+         */
+        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
             putAllQueryParams(additionalQueryParams)
@@ -364,6 +378,7 @@ constructor(
                 status,
                 orderBy,
                 showBalances,
+                metadata,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
@@ -1044,6 +1059,75 @@ constructor(
                 }
 
             fun asString(): String = _value().asStringOrThrow()
+        }
+    }
+
+    /**
+     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
+     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+     */
+    @JsonDeserialize(builder = Metadata.Builder::class)
+    @NoAutoDetect
+    class Metadata
+    private constructor(
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+
+        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties(metadata.additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
         }
     }
 }
