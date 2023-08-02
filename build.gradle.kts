@@ -3,7 +3,7 @@ plugins {
 }
 
 allprojects {
-    group = "com.moderntreasury.api"
+    group = "com.moderntreasury"
     version = "1.2.0" // x-release-please-version
 }
 
