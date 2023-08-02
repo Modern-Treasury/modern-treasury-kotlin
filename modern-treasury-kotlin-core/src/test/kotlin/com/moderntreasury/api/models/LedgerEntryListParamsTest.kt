@@ -33,6 +33,7 @@ class LedgerEntryListParamsTest {
                     .build()
             )
             .showBalances(true)
+            .metadata(LedgerEntryListParams.Metadata.builder().build())
             .build()
     }
 
@@ -64,6 +65,7 @@ class LedgerEntryListParamsTest {
                         .build()
                 )
                 .showBalances(true)
+                .metadata(LedgerEntryListParams.Metadata.builder().build())
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("after_cursor", listOf("string"))
@@ -99,6 +101,9 @@ class LedgerEntryListParamsTest {
             .build()
             .forEachQueryParam { key, values -> expected.put("order_by[$key]", values) }
         expected.put("show_balances", listOf("true"))
+        LedgerEntryListParams.Metadata.builder().build().forEachQueryParam { key, values ->
+            expected.put("metadata[$key]", values)
+        }
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

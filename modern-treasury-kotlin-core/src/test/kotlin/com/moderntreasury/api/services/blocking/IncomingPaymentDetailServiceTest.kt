@@ -86,6 +86,7 @@ class IncomingPaymentDetailServiceTest {
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .asOfDate(LocalDate.parse("2019-12-27"))
+                    .description("string")
                     .build()
             )
         println(asyncResponse)

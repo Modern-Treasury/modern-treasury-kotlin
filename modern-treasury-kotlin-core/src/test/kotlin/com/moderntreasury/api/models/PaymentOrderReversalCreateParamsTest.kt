@@ -37,6 +37,13 @@ class PaymentOrderReversalCreateParamsTest {
                                         .build()
                                 )
                                 .lockVersion(123L)
+                                .metadata(
+                                    PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
+                                        .LedgerEntryCreateRequest
+                                        .Metadata
+                                        .builder()
+                                        .build()
+                                )
                                 .pendingBalanceAmount(
                                     PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
                                         .LedgerEntryCreateRequest
@@ -111,6 +118,14 @@ class PaymentOrderReversalCreateParamsTest {
                                             .build()
                                     )
                                     .lockVersion(123L)
+                                    .metadata(
+                                        PaymentOrderReversalCreateParams
+                                            .LedgerTransactionCreateRequest
+                                            .LedgerEntryCreateRequest
+                                            .Metadata
+                                            .builder()
+                                            .build()
+                                    )
                                     .pendingBalanceAmount(
                                         PaymentOrderReversalCreateParams
                                             .LedgerTransactionCreateRequest
@@ -182,6 +197,13 @@ class PaymentOrderReversalCreateParamsTest {
                                         .build()
                                 )
                                 .lockVersion(123L)
+                                .metadata(
+                                    PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
+                                        .LedgerEntryCreateRequest
+                                        .Metadata
+                                        .builder()
+                                        .build()
+                                )
                                 .pendingBalanceAmount(
                                     PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
                                         .LedgerEntryCreateRequest
