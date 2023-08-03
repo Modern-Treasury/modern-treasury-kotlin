@@ -680,81 +680,6 @@ private constructor(
             )
     }
 
-    class ReturnableType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is ReturnableType && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val INCOMING_PAYMENT_DETAIL = ReturnableType(JsonField.of("incoming_payment_detail"))
-
-            val PAPER_ITEM = ReturnableType(JsonField.of("paper_item"))
-
-            val PAYMENT_ORDER = ReturnableType(JsonField.of("payment_order"))
-
-            val RETURN = ReturnableType(JsonField.of("return"))
-
-            val REVERSAL = ReturnableType(JsonField.of("reversal"))
-
-            fun of(value: String) = ReturnableType(JsonField.of(value))
-        }
-
-        enum class Known {
-            INCOMING_PAYMENT_DETAIL,
-            PAPER_ITEM,
-            PAYMENT_ORDER,
-            RETURN,
-            REVERSAL,
-        }
-
-        enum class Value {
-            INCOMING_PAYMENT_DETAIL,
-            PAPER_ITEM,
-            PAYMENT_ORDER,
-            RETURN,
-            REVERSAL,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                INCOMING_PAYMENT_DETAIL -> Value.INCOMING_PAYMENT_DETAIL
-                PAPER_ITEM -> Value.PAPER_ITEM
-                PAYMENT_ORDER -> Value.PAYMENT_ORDER
-                RETURN -> Value.RETURN
-                REVERSAL -> Value.REVERSAL
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                INCOMING_PAYMENT_DETAIL -> Known.INCOMING_PAYMENT_DETAIL
-                PAPER_ITEM -> Known.PAPER_ITEM
-                PAYMENT_ORDER -> Known.PAYMENT_ORDER
-                RETURN -> Known.RETURN
-                REVERSAL -> Known.REVERSAL
-                else -> throw ModernTreasuryInvalidDataException("Unknown ReturnableType: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     class Code
     @JsonCreator
     private constructor(
@@ -1053,261 +978,6 @@ private constructor(
                 R53 -> Known.R53
                 CURRENCYCLOUD -> Known.CURRENCYCLOUD
                 else -> throw ModernTreasuryInvalidDataException("Unknown Code: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val COMPLETED = Status(JsonField.of("completed"))
-
-            val FAILED = Status(JsonField.of("failed"))
-
-            val PENDING = Status(JsonField.of("pending"))
-
-            val PROCESSING = Status(JsonField.of("processing"))
-
-            val RETURNED = Status(JsonField.of("returned"))
-
-            val SENT = Status(JsonField.of("sent"))
-
-            fun of(value: String) = Status(JsonField.of(value))
-        }
-
-        enum class Known {
-            COMPLETED,
-            FAILED,
-            PENDING,
-            PROCESSING,
-            RETURNED,
-            SENT,
-        }
-
-        enum class Value {
-            COMPLETED,
-            FAILED,
-            PENDING,
-            PROCESSING,
-            RETURNED,
-            SENT,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                COMPLETED -> Value.COMPLETED
-                FAILED -> Value.FAILED
-                PENDING -> Value.PENDING
-                PROCESSING -> Value.PROCESSING
-                RETURNED -> Value.RETURNED
-                SENT -> Value.SENT
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                COMPLETED -> Known.COMPLETED
-                FAILED -> Known.FAILED
-                PENDING -> Known.PENDING
-                PROCESSING -> Known.PROCESSING
-                RETURNED -> Known.RETURNED
-                SENT -> Known.SENT
-                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Type && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val ACH = Type(JsonField.of("ach"))
-
-            val ACH_NOC = Type(JsonField.of("ach_noc"))
-
-            val AU_BECS = Type(JsonField.of("au_becs"))
-
-            val BACS = Type(JsonField.of("bacs"))
-
-            val BOOK = Type(JsonField.of("book"))
-
-            val CHECK = Type(JsonField.of("check"))
-
-            val EFT = Type(JsonField.of("eft"))
-
-            val INTERAC = Type(JsonField.of("interac"))
-
-            val MANUAL = Type(JsonField.of("manual"))
-
-            val PAPER_ITEM = Type(JsonField.of("paper_item"))
-
-            val SEPA = Type(JsonField.of("sepa"))
-
-            val WIRE = Type(JsonField.of("wire"))
-
-            fun of(value: String) = Type(JsonField.of(value))
-        }
-
-        enum class Known {
-            ACH,
-            ACH_NOC,
-            AU_BECS,
-            BACS,
-            BOOK,
-            CHECK,
-            EFT,
-            INTERAC,
-            MANUAL,
-            PAPER_ITEM,
-            SEPA,
-            WIRE,
-        }
-
-        enum class Value {
-            ACH,
-            ACH_NOC,
-            AU_BECS,
-            BACS,
-            BOOK,
-            CHECK,
-            EFT,
-            INTERAC,
-            MANUAL,
-            PAPER_ITEM,
-            SEPA,
-            WIRE,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                ACH -> Value.ACH
-                ACH_NOC -> Value.ACH_NOC
-                AU_BECS -> Value.AU_BECS
-                BACS -> Value.BACS
-                BOOK -> Value.BOOK
-                CHECK -> Value.CHECK
-                EFT -> Value.EFT
-                INTERAC -> Value.INTERAC
-                MANUAL -> Value.MANUAL
-                PAPER_ITEM -> Value.PAPER_ITEM
-                SEPA -> Value.SEPA
-                WIRE -> Value.WIRE
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                ACH -> Known.ACH
-                ACH_NOC -> Known.ACH_NOC
-                AU_BECS -> Known.AU_BECS
-                BACS -> Known.BACS
-                BOOK -> Known.BOOK
-                CHECK -> Known.CHECK
-                EFT -> Known.EFT
-                INTERAC -> Known.INTERAC
-                MANUAL -> Known.MANUAL
-                PAPER_ITEM -> Known.PAPER_ITEM
-                SEPA -> Known.SEPA
-                WIRE -> Known.WIRE
-                else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    class Role
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Role && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val ORIGINATING = Role(JsonField.of("originating"))
-
-            val RECEIVING = Role(JsonField.of("receiving"))
-
-            fun of(value: String) = Role(JsonField.of(value))
-        }
-
-        enum class Known {
-            ORIGINATING,
-            RECEIVING,
-        }
-
-        enum class Value {
-            ORIGINATING,
-            RECEIVING,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                ORIGINATING -> Value.ORIGINATING
-                RECEIVING -> Value.RECEIVING
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                ORIGINATING -> Known.ORIGINATING
-                RECEIVING -> Known.RECEIVING
-                else -> throw ModernTreasuryInvalidDataException("Unknown Role: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()
@@ -1952,5 +1622,335 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+    }
+
+    class ReturnableType
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ReturnableType && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val INCOMING_PAYMENT_DETAIL = ReturnableType(JsonField.of("incoming_payment_detail"))
+
+            val PAPER_ITEM = ReturnableType(JsonField.of("paper_item"))
+
+            val PAYMENT_ORDER = ReturnableType(JsonField.of("payment_order"))
+
+            val RETURN = ReturnableType(JsonField.of("return"))
+
+            val REVERSAL = ReturnableType(JsonField.of("reversal"))
+
+            fun of(value: String) = ReturnableType(JsonField.of(value))
+        }
+
+        enum class Known {
+            INCOMING_PAYMENT_DETAIL,
+            PAPER_ITEM,
+            PAYMENT_ORDER,
+            RETURN,
+            REVERSAL,
+        }
+
+        enum class Value {
+            INCOMING_PAYMENT_DETAIL,
+            PAPER_ITEM,
+            PAYMENT_ORDER,
+            RETURN,
+            REVERSAL,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                INCOMING_PAYMENT_DETAIL -> Value.INCOMING_PAYMENT_DETAIL
+                PAPER_ITEM -> Value.PAPER_ITEM
+                PAYMENT_ORDER -> Value.PAYMENT_ORDER
+                RETURN -> Value.RETURN
+                REVERSAL -> Value.REVERSAL
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                INCOMING_PAYMENT_DETAIL -> Known.INCOMING_PAYMENT_DETAIL
+                PAPER_ITEM -> Known.PAPER_ITEM
+                PAYMENT_ORDER -> Known.PAYMENT_ORDER
+                RETURN -> Known.RETURN
+                REVERSAL -> Known.REVERSAL
+                else -> throw ModernTreasuryInvalidDataException("Unknown ReturnableType: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class Role
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Role && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val ORIGINATING = Role(JsonField.of("originating"))
+
+            val RECEIVING = Role(JsonField.of("receiving"))
+
+            fun of(value: String) = Role(JsonField.of(value))
+        }
+
+        enum class Known {
+            ORIGINATING,
+            RECEIVING,
+        }
+
+        enum class Value {
+            ORIGINATING,
+            RECEIVING,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                ORIGINATING -> Value.ORIGINATING
+                RECEIVING -> Value.RECEIVING
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                ORIGINATING -> Known.ORIGINATING
+                RECEIVING -> Known.RECEIVING
+                else -> throw ModernTreasuryInvalidDataException("Unknown Role: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val COMPLETED = Status(JsonField.of("completed"))
+
+            val FAILED = Status(JsonField.of("failed"))
+
+            val PENDING = Status(JsonField.of("pending"))
+
+            val PROCESSING = Status(JsonField.of("processing"))
+
+            val RETURNED = Status(JsonField.of("returned"))
+
+            val SENT = Status(JsonField.of("sent"))
+
+            fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        enum class Known {
+            COMPLETED,
+            FAILED,
+            PENDING,
+            PROCESSING,
+            RETURNED,
+            SENT,
+        }
+
+        enum class Value {
+            COMPLETED,
+            FAILED,
+            PENDING,
+            PROCESSING,
+            RETURNED,
+            SENT,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                COMPLETED -> Value.COMPLETED
+                FAILED -> Value.FAILED
+                PENDING -> Value.PENDING
+                PROCESSING -> Value.PROCESSING
+                RETURNED -> Value.RETURNED
+                SENT -> Value.SENT
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                COMPLETED -> Known.COMPLETED
+                FAILED -> Known.FAILED
+                PENDING -> Known.PENDING
+                PROCESSING -> Known.PROCESSING
+                RETURNED -> Known.RETURNED
+                SENT -> Known.SENT
+                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Type && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val ACH = Type(JsonField.of("ach"))
+
+            val ACH_NOC = Type(JsonField.of("ach_noc"))
+
+            val AU_BECS = Type(JsonField.of("au_becs"))
+
+            val BACS = Type(JsonField.of("bacs"))
+
+            val BOOK = Type(JsonField.of("book"))
+
+            val CHECK = Type(JsonField.of("check"))
+
+            val EFT = Type(JsonField.of("eft"))
+
+            val INTERAC = Type(JsonField.of("interac"))
+
+            val MANUAL = Type(JsonField.of("manual"))
+
+            val PAPER_ITEM = Type(JsonField.of("paper_item"))
+
+            val SEPA = Type(JsonField.of("sepa"))
+
+            val WIRE = Type(JsonField.of("wire"))
+
+            fun of(value: String) = Type(JsonField.of(value))
+        }
+
+        enum class Known {
+            ACH,
+            ACH_NOC,
+            AU_BECS,
+            BACS,
+            BOOK,
+            CHECK,
+            EFT,
+            INTERAC,
+            MANUAL,
+            PAPER_ITEM,
+            SEPA,
+            WIRE,
+        }
+
+        enum class Value {
+            ACH,
+            ACH_NOC,
+            AU_BECS,
+            BACS,
+            BOOK,
+            CHECK,
+            EFT,
+            INTERAC,
+            MANUAL,
+            PAPER_ITEM,
+            SEPA,
+            WIRE,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                ACH -> Value.ACH
+                ACH_NOC -> Value.ACH_NOC
+                AU_BECS -> Value.AU_BECS
+                BACS -> Value.BACS
+                BOOK -> Value.BOOK
+                CHECK -> Value.CHECK
+                EFT -> Value.EFT
+                INTERAC -> Value.INTERAC
+                MANUAL -> Value.MANUAL
+                PAPER_ITEM -> Value.PAPER_ITEM
+                SEPA -> Value.SEPA
+                WIRE -> Value.WIRE
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                ACH -> Known.ACH
+                ACH_NOC -> Known.ACH_NOC
+                AU_BECS -> Known.AU_BECS
+                BACS -> Known.BACS
+                BOOK -> Known.BOOK
+                CHECK -> Known.CHECK
+                EFT -> Known.EFT
+                INTERAC -> Known.INTERAC
+                MANUAL -> Known.MANUAL
+                PAPER_ITEM -> Known.PAPER_ITEM
+                SEPA -> Known.SEPA
+                WIRE -> Known.WIRE
+                else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 }

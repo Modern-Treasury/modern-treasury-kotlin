@@ -338,6 +338,63 @@ private constructor(
             )
     }
 
+    class PaymentType
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PaymentType && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val ACH = PaymentType(JsonField.of("ach"))
+
+            val WIRE = PaymentType(JsonField.of("wire"))
+
+            fun of(value: String) = PaymentType(JsonField.of(value))
+        }
+
+        enum class Known {
+            ACH,
+            WIRE,
+        }
+
+        enum class Value {
+            ACH,
+            WIRE,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                ACH -> Value.ACH
+                WIRE -> Value.WIRE
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                ACH -> Known.ACH
+                WIRE -> Known.WIRE
+                else -> throw ModernTreasuryInvalidDataException("Unknown PaymentType: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
     class Status
     @JsonCreator
     private constructor(
@@ -402,63 +459,6 @@ private constructor(
                 EXPIRED -> Known.EXPIRED
                 PENDING -> Known.PENDING
                 else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    class PaymentType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is PaymentType && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val ACH = PaymentType(JsonField.of("ach"))
-
-            val WIRE = PaymentType(JsonField.of("wire"))
-
-            fun of(value: String) = PaymentType(JsonField.of(value))
-        }
-
-        enum class Known {
-            ACH,
-            WIRE,
-        }
-
-        enum class Value {
-            ACH,
-            WIRE,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                ACH -> Value.ACH
-                WIRE -> Value.WIRE
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                ACH -> Known.ACH
-                WIRE -> Known.WIRE
-                else -> throw ModernTreasuryInvalidDataException("Unknown PaymentType: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()

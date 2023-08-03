@@ -282,87 +282,6 @@ private constructor(
             )
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val COMPLETED = Status(JsonField.of("completed"))
-
-            val FAILED = Status(JsonField.of("failed"))
-
-            val PENDING = Status(JsonField.of("pending"))
-
-            val PROCESSING = Status(JsonField.of("processing"))
-
-            val RETURNED = Status(JsonField.of("returned"))
-
-            val SENT = Status(JsonField.of("sent"))
-
-            fun of(value: String) = Status(JsonField.of(value))
-        }
-
-        enum class Known {
-            COMPLETED,
-            FAILED,
-            PENDING,
-            PROCESSING,
-            RETURNED,
-            SENT,
-        }
-
-        enum class Value {
-            COMPLETED,
-            FAILED,
-            PENDING,
-            PROCESSING,
-            RETURNED,
-            SENT,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                COMPLETED -> Value.COMPLETED
-                FAILED -> Value.FAILED
-                PENDING -> Value.PENDING
-                PROCESSING -> Value.PROCESSING
-                RETURNED -> Value.RETURNED
-                SENT -> Value.SENT
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                COMPLETED -> Known.COMPLETED
-                FAILED -> Known.FAILED
-                PENDING -> Known.PENDING
-                PROCESSING -> Known.PROCESSING
-                RETURNED -> Known.RETURNED
-                SENT -> Known.SENT
-                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
     @JsonDeserialize(builder = Metadata.Builder::class)
     @NoAutoDetect
@@ -505,6 +424,87 @@ private constructor(
                 DATE_EARLIER_THAN_INTENDED -> Known.DATE_EARLIER_THAN_INTENDED
                 DATE_LATER_THAN_INTENDED -> Known.DATE_LATER_THAN_INTENDED
                 else -> throw ModernTreasuryInvalidDataException("Unknown Reason: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val COMPLETED = Status(JsonField.of("completed"))
+
+            val FAILED = Status(JsonField.of("failed"))
+
+            val PENDING = Status(JsonField.of("pending"))
+
+            val PROCESSING = Status(JsonField.of("processing"))
+
+            val RETURNED = Status(JsonField.of("returned"))
+
+            val SENT = Status(JsonField.of("sent"))
+
+            fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        enum class Known {
+            COMPLETED,
+            FAILED,
+            PENDING,
+            PROCESSING,
+            RETURNED,
+            SENT,
+        }
+
+        enum class Value {
+            COMPLETED,
+            FAILED,
+            PENDING,
+            PROCESSING,
+            RETURNED,
+            SENT,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                COMPLETED -> Value.COMPLETED
+                FAILED -> Value.FAILED
+                PENDING -> Value.PENDING
+                PROCESSING -> Value.PROCESSING
+                RETURNED -> Value.RETURNED
+                SENT -> Value.SENT
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                COMPLETED -> Known.COMPLETED
+                FAILED -> Known.FAILED
+                PENDING -> Known.PENDING
+                PROCESSING -> Known.PROCESSING
+                RETURNED -> Known.RETURNED
+                SENT -> Known.SENT
+                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()

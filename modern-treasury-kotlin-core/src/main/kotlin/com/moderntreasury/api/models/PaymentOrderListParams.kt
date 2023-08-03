@@ -280,7 +280,7 @@ constructor(
             )
     }
 
-    class Type
+    class Direction
     @JsonCreator
     private constructor(
         private val value: JsonField<String>,
@@ -293,7 +293,7 @@ constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return other is Direction && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -302,129 +302,108 @@ constructor(
 
         companion object {
 
-            val ACH = Type(JsonField.of("ach"))
+            val CREDIT = Direction(JsonField.of("credit"))
 
-            val AU_BECS = Type(JsonField.of("au_becs"))
+            val DEBIT = Direction(JsonField.of("debit"))
 
-            val BACS = Type(JsonField.of("bacs"))
-
-            val BOOK = Type(JsonField.of("book"))
-
-            val CARD = Type(JsonField.of("card"))
-
-            val CHECK = Type(JsonField.of("check"))
-
-            val CROSS_BORDER = Type(JsonField.of("cross_border"))
-
-            val EFT = Type(JsonField.of("eft"))
-
-            val INTERAC = Type(JsonField.of("interac"))
-
-            val MASAV = Type(JsonField.of("masav"))
-
-            val NEFT = Type(JsonField.of("neft"))
-
-            val PROVXCHANGE = Type(JsonField.of("provxchange"))
-
-            val RTP = Type(JsonField.of("rtp"))
-
-            val SEN = Type(JsonField.of("sen"))
-
-            val SEPA = Type(JsonField.of("sepa"))
-
-            val SIGNET = Type(JsonField.of("signet"))
-
-            val WIRE = Type(JsonField.of("wire"))
-
-            fun of(value: String) = Type(JsonField.of(value))
+            fun of(value: String) = Direction(JsonField.of(value))
         }
 
         enum class Known {
-            ACH,
-            AU_BECS,
-            BACS,
-            BOOK,
-            CARD,
-            CHECK,
-            CROSS_BORDER,
-            EFT,
-            INTERAC,
-            MASAV,
-            NEFT,
-            PROVXCHANGE,
-            RTP,
-            SEN,
-            SEPA,
-            SIGNET,
-            WIRE,
+            CREDIT,
+            DEBIT,
         }
 
         enum class Value {
-            ACH,
-            AU_BECS,
-            BACS,
-            BOOK,
-            CARD,
-            CHECK,
-            CROSS_BORDER,
-            EFT,
-            INTERAC,
-            MASAV,
-            NEFT,
-            PROVXCHANGE,
-            RTP,
-            SEN,
-            SEPA,
-            SIGNET,
-            WIRE,
+            CREDIT,
+            DEBIT,
             _UNKNOWN,
         }
 
         fun value(): Value =
             when (this) {
-                ACH -> Value.ACH
-                AU_BECS -> Value.AU_BECS
-                BACS -> Value.BACS
-                BOOK -> Value.BOOK
-                CARD -> Value.CARD
-                CHECK -> Value.CHECK
-                CROSS_BORDER -> Value.CROSS_BORDER
-                EFT -> Value.EFT
-                INTERAC -> Value.INTERAC
-                MASAV -> Value.MASAV
-                NEFT -> Value.NEFT
-                PROVXCHANGE -> Value.PROVXCHANGE
-                RTP -> Value.RTP
-                SEN -> Value.SEN
-                SEPA -> Value.SEPA
-                SIGNET -> Value.SIGNET
-                WIRE -> Value.WIRE
+                CREDIT -> Value.CREDIT
+                DEBIT -> Value.DEBIT
                 else -> Value._UNKNOWN
             }
 
         fun known(): Known =
             when (this) {
-                ACH -> Known.ACH
-                AU_BECS -> Known.AU_BECS
-                BACS -> Known.BACS
-                BOOK -> Known.BOOK
-                CARD -> Known.CARD
-                CHECK -> Known.CHECK
-                CROSS_BORDER -> Known.CROSS_BORDER
-                EFT -> Known.EFT
-                INTERAC -> Known.INTERAC
-                MASAV -> Known.MASAV
-                NEFT -> Known.NEFT
-                PROVXCHANGE -> Known.PROVXCHANGE
-                RTP -> Known.RTP
-                SEN -> Known.SEN
-                SEPA -> Known.SEPA
-                SIGNET -> Known.SIGNET
-                WIRE -> Known.WIRE
-                else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")
+                CREDIT -> Known.CREDIT
+                DEBIT -> Known.DEBIT
+                else -> throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()
+    }
+
+    /**
+     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
+     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+     */
+    @JsonDeserialize(builder = Metadata.Builder::class)
+    @NoAutoDetect
+    class Metadata
+    private constructor(
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+
+        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties(metadata.additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+        }
     }
 
     class Priority
@@ -595,7 +574,7 @@ constructor(
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Direction
+    class Type
     @JsonCreator
     private constructor(
         private val value: JsonField<String>,
@@ -608,7 +587,7 @@ constructor(
                 return true
             }
 
-            return other is Direction && this.value == other.value
+            return other is Type && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -617,107 +596,128 @@ constructor(
 
         companion object {
 
-            val CREDIT = Direction(JsonField.of("credit"))
+            val ACH = Type(JsonField.of("ach"))
 
-            val DEBIT = Direction(JsonField.of("debit"))
+            val AU_BECS = Type(JsonField.of("au_becs"))
 
-            fun of(value: String) = Direction(JsonField.of(value))
+            val BACS = Type(JsonField.of("bacs"))
+
+            val BOOK = Type(JsonField.of("book"))
+
+            val CARD = Type(JsonField.of("card"))
+
+            val CHECK = Type(JsonField.of("check"))
+
+            val CROSS_BORDER = Type(JsonField.of("cross_border"))
+
+            val EFT = Type(JsonField.of("eft"))
+
+            val INTERAC = Type(JsonField.of("interac"))
+
+            val MASAV = Type(JsonField.of("masav"))
+
+            val NEFT = Type(JsonField.of("neft"))
+
+            val PROVXCHANGE = Type(JsonField.of("provxchange"))
+
+            val RTP = Type(JsonField.of("rtp"))
+
+            val SEN = Type(JsonField.of("sen"))
+
+            val SEPA = Type(JsonField.of("sepa"))
+
+            val SIGNET = Type(JsonField.of("signet"))
+
+            val WIRE = Type(JsonField.of("wire"))
+
+            fun of(value: String) = Type(JsonField.of(value))
         }
 
         enum class Known {
-            CREDIT,
-            DEBIT,
+            ACH,
+            AU_BECS,
+            BACS,
+            BOOK,
+            CARD,
+            CHECK,
+            CROSS_BORDER,
+            EFT,
+            INTERAC,
+            MASAV,
+            NEFT,
+            PROVXCHANGE,
+            RTP,
+            SEN,
+            SEPA,
+            SIGNET,
+            WIRE,
         }
 
         enum class Value {
-            CREDIT,
-            DEBIT,
+            ACH,
+            AU_BECS,
+            BACS,
+            BOOK,
+            CARD,
+            CHECK,
+            CROSS_BORDER,
+            EFT,
+            INTERAC,
+            MASAV,
+            NEFT,
+            PROVXCHANGE,
+            RTP,
+            SEN,
+            SEPA,
+            SIGNET,
+            WIRE,
             _UNKNOWN,
         }
 
         fun value(): Value =
             when (this) {
-                CREDIT -> Value.CREDIT
-                DEBIT -> Value.DEBIT
+                ACH -> Value.ACH
+                AU_BECS -> Value.AU_BECS
+                BACS -> Value.BACS
+                BOOK -> Value.BOOK
+                CARD -> Value.CARD
+                CHECK -> Value.CHECK
+                CROSS_BORDER -> Value.CROSS_BORDER
+                EFT -> Value.EFT
+                INTERAC -> Value.INTERAC
+                MASAV -> Value.MASAV
+                NEFT -> Value.NEFT
+                PROVXCHANGE -> Value.PROVXCHANGE
+                RTP -> Value.RTP
+                SEN -> Value.SEN
+                SEPA -> Value.SEPA
+                SIGNET -> Value.SIGNET
+                WIRE -> Value.WIRE
                 else -> Value._UNKNOWN
             }
 
         fun known(): Known =
             when (this) {
-                CREDIT -> Known.CREDIT
-                DEBIT -> Known.DEBIT
-                else -> throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
+                ACH -> Known.ACH
+                AU_BECS -> Known.AU_BECS
+                BACS -> Known.BACS
+                BOOK -> Known.BOOK
+                CARD -> Known.CARD
+                CHECK -> Known.CHECK
+                CROSS_BORDER -> Known.CROSS_BORDER
+                EFT -> Known.EFT
+                INTERAC -> Known.INTERAC
+                MASAV -> Known.MASAV
+                NEFT -> Known.NEFT
+                PROVXCHANGE -> Known.PROVXCHANGE
+                RTP -> Known.RTP
+                SEN -> Known.SEN
+                SEPA -> Known.SEPA
+                SIGNET -> Known.SIGNET
+                WIRE -> Known.WIRE
+                else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()
-    }
-
-    /**
-     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
-     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
-     */
-    @JsonDeserialize(builder = Metadata.Builder::class)
-    @NoAutoDetect
-    class Metadata
-    private constructor(
-        private val additionalProperties: Map<String, List<String>>,
-    ) {
-
-        private var hashCode: Int = 0
-
-        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
-
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.additionalProperties.forEach { key, values -> putParam(key, values) }
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Metadata && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
-
-            internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: List<String>) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
-        }
     }
 }

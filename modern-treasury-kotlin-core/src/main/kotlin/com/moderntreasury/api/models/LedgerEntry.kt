@@ -598,67 +598,76 @@ private constructor(
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Status
-    @JsonCreator
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    @JsonDeserialize(builder = Metadata.Builder::class)
+    @NoAutoDetect
+    class Metadata
     private constructor(
-        private val value: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Metadata = apply {
+            if (!validated) {
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return other is Metadata && this.additionalProperties == other.additionalProperties
         }
 
-        override fun hashCode() = value.hashCode()
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
 
-        override fun toString() = value.toString()
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
 
         companion object {
 
-            val ARCHIVED = Status(JsonField.of("archived"))
-
-            val PENDING = Status(JsonField.of("pending"))
-
-            val POSTED = Status(JsonField.of("posted"))
-
-            fun of(value: String) = Status(JsonField.of(value))
+            fun builder() = Builder()
         }
 
-        enum class Known {
-            ARCHIVED,
-            PENDING,
-            POSTED,
-        }
+        class Builder {
 
-        enum class Value {
-            ARCHIVED,
-            PENDING,
-            POSTED,
-            _UNKNOWN,
-        }
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        fun value(): Value =
-            when (this) {
-                ARCHIVED -> Value.ARCHIVED
-                PENDING -> Value.PENDING
-                POSTED -> Value.POSTED
-                else -> Value._UNKNOWN
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties(metadata.additionalProperties)
             }
 
-        fun known(): Known =
-            when (this) {
-                ARCHIVED -> Known.ARCHIVED
-                PENDING -> Known.PENDING
-                POSTED -> Known.POSTED
-                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
             }
 
-        fun asString(): String = _value().asStringOrThrow()
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+        }
     }
 
     /**
@@ -836,7 +845,11 @@ private constructor(
                 )
         }
 
-        /** The pending_balance is the sum of all pending and posted entries. */
+        /**
+         * The available_balance is the sum of all posted inbound entries and pending outbound
+         * entries. For credit normal, available_amount = posted_credits - pending_debits; for debit
+         * normal, available_amount = posted_debits - pending_credits.
+         */
         @JsonDeserialize(builder = LedgerBalance.Builder::class)
         @NoAutoDetect
         class LedgerBalance
@@ -1016,75 +1029,66 @@ private constructor(
         }
     }
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonDeserialize(builder = Metadata.Builder::class)
-    @NoAutoDetect
-    class Metadata
+    class Status
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
+        private val value: JsonField<String>,
     ) {
 
-        private var validated: Boolean = false
-
-        private var hashCode: Int = 0
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
-            }
-        }
-
-        fun toBuilder() = Builder().from(this)
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is Metadata && this.additionalProperties == other.additionalProperties
+            return other is Status && this.value == other.value
         }
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
+        override fun hashCode() = value.hashCode()
 
-        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+        override fun toString() = value.toString()
 
         companion object {
 
-            fun builder() = Builder()
+            val ARCHIVED = Status(JsonField.of("archived"))
+
+            val PENDING = Status(JsonField.of("pending"))
+
+            val POSTED = Status(JsonField.of("posted"))
+
+            fun of(value: String) = Status(JsonField.of(value))
         }
 
-        class Builder {
-
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+        enum class Known {
+            ARCHIVED,
+            PENDING,
+            POSTED,
         }
+
+        enum class Value {
+            ARCHIVED,
+            PENDING,
+            POSTED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                ARCHIVED -> Value.ARCHIVED
+                PENDING -> Value.PENDING
+                POSTED -> Value.POSTED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                ARCHIVED -> Known.ARCHIVED
+                PENDING -> Known.PENDING
+                POSTED -> Known.POSTED
+                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 }

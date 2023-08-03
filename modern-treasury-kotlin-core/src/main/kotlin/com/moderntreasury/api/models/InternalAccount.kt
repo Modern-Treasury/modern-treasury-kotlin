@@ -586,61 +586,76 @@ private constructor(
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class PartyType
-    @JsonCreator
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    @JsonDeserialize(builder = Metadata.Builder::class)
+    @NoAutoDetect
+    class Metadata
     private constructor(
-        private val value: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Metadata = apply {
+            if (!validated) {
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is PartyType && this.value == other.value
+            return other is Metadata && this.additionalProperties == other.additionalProperties
         }
 
-        override fun hashCode() = value.hashCode()
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
 
-        override fun toString() = value.toString()
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
 
         companion object {
 
-            val BUSINESS = PartyType(JsonField.of("business"))
-
-            val INDIVIDUAL = PartyType(JsonField.of("individual"))
-
-            fun of(value: String) = PartyType(JsonField.of(value))
+            fun builder() = Builder()
         }
 
-        enum class Known {
-            BUSINESS,
-            INDIVIDUAL,
-        }
+        class Builder {
 
-        enum class Value {
-            BUSINESS,
-            INDIVIDUAL,
-            _UNKNOWN,
-        }
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        fun value(): Value =
-            when (this) {
-                BUSINESS -> Value.BUSINESS
-                INDIVIDUAL -> Value.INDIVIDUAL
-                else -> Value._UNKNOWN
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties(metadata.additionalProperties)
             }
 
-        fun known(): Known =
-            when (this) {
-                BUSINESS -> Known.BUSINESS
-                INDIVIDUAL -> Known.INDIVIDUAL
-                else -> throw ModernTreasuryInvalidDataException("Unknown PartyType: $value")
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
             }
 
-        fun asString(): String = _value().asStringOrThrow()
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+        }
     }
 
     /** The address associated with the owner or null. */
@@ -946,75 +961,60 @@ private constructor(
         }
     }
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonDeserialize(builder = Metadata.Builder::class)
-    @NoAutoDetect
-    class Metadata
+    class PartyType
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
+        private val value: JsonField<String>,
     ) {
 
-        private var validated: Boolean = false
-
-        private var hashCode: Int = 0
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
-            }
-        }
-
-        fun toBuilder() = Builder().from(this)
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is Metadata && this.additionalProperties == other.additionalProperties
+            return other is PartyType && this.value == other.value
         }
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
+        override fun hashCode() = value.hashCode()
 
-        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+        override fun toString() = value.toString()
 
         companion object {
 
-            fun builder() = Builder()
+            val BUSINESS = PartyType(JsonField.of("business"))
+
+            val INDIVIDUAL = PartyType(JsonField.of("individual"))
+
+            fun of(value: String) = PartyType(JsonField.of(value))
         }
 
-        class Builder {
-
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+        enum class Known {
+            BUSINESS,
+            INDIVIDUAL,
         }
+
+        enum class Value {
+            BUSINESS,
+            INDIVIDUAL,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                BUSINESS -> Value.BUSINESS
+                INDIVIDUAL -> Value.INDIVIDUAL
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                BUSINESS -> Known.BUSINESS
+                INDIVIDUAL -> Known.INDIVIDUAL
+                else -> throw ModernTreasuryInvalidDataException("Unknown PartyType: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 }
