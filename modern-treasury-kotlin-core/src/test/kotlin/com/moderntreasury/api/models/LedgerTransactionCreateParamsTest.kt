@@ -162,7 +162,6 @@ class LedgerTransactionCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             LedgerTransactionCreateParams.builder()
-                .effectiveAt(LocalDate.parse("2019-12-27"))
                 .ledgerEntries(
                     listOf(
                         LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
@@ -178,7 +177,6 @@ class LedgerTransactionCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.effectiveAt()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.ledgerEntries())
             .isEqualTo(
                 listOf(

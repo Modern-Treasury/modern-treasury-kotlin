@@ -180,7 +180,7 @@ constructor(
     private val addLedgerAccountHandler: Handler<Void?> =
         emptyHandler().withErrorHandler(errorHandler)
 
-    /** Add a ledger account category to an account. */
+    /** Add a ledger account to a ledger account category. */
     override fun addLedgerAccount(
         params: LedgerAccountCategoryAddLedgerAccountParams,
         requestOptions: RequestOptions
@@ -236,7 +236,7 @@ constructor(
     private val removeLedgerAccountHandler: Handler<Void?> =
         emptyHandler().withErrorHandler(errorHandler)
 
-    /** Delete a ledger account category from an account. */
+    /** Remove a ledger account from a ledger account category. */
     override fun removeLedgerAccount(
         params: LedgerAccountCategoryRemoveLedgerAccountParams,
         requestOptions: RequestOptions

@@ -47,7 +47,7 @@ interface LedgerAccountCategoryServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none()
     ): LedgerAccountCategory
 
-    /** Add a ledger account category to an account. */
+    /** Add a ledger account to a ledger account category. */
     suspend fun addLedgerAccount(
         params: LedgerAccountCategoryAddLedgerAccountParams,
         requestOptions: RequestOptions = RequestOptions.none()
@@ -59,7 +59,7 @@ interface LedgerAccountCategoryServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none()
     )
 
-    /** Delete a ledger account category from an account. */
+    /** Remove a ledger account from a ledger account category. */
     suspend fun removeLedgerAccount(
         params: LedgerAccountCategoryRemoveLedgerAccountParams,
         requestOptions: RequestOptions = RequestOptions.none()

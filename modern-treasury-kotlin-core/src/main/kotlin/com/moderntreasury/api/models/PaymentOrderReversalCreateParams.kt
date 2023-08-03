@@ -705,7 +705,7 @@ constructor(
                     description,
                     status,
                     metadata,
-                    checkNotNull(effectiveAt) { "`effectiveAt` is required but was not set" },
+                    effectiveAt,
                     effectiveDate,
                     checkNotNull(ledgerEntries) { "`ledgerEntries` is required but was not set" }
                         .toUnmodifiable(),

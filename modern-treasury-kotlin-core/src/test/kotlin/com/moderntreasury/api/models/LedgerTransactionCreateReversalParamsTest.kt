@@ -10,7 +10,7 @@ class LedgerTransactionCreateReversalParamsTest {
     @Test
     fun createLedgerTransactionCreateReversalParams() {
         LedgerTransactionCreateReversalParams.builder()
-            .ledgerTransactionId("string")
+            .id("string")
             .description("string")
             .status(LedgerTransactionCreateReversalParams.Status.ARCHIVED)
             .metadata(LedgerTransactionCreateReversalParams.Metadata.builder().build())
@@ -25,7 +25,7 @@ class LedgerTransactionCreateReversalParamsTest {
     fun getBody() {
         val params =
             LedgerTransactionCreateReversalParams.builder()
-                .ledgerTransactionId("string")
+                .id("string")
                 .description("string")
                 .status(LedgerTransactionCreateReversalParams.Status.ARCHIVED)
                 .metadata(LedgerTransactionCreateReversalParams.Metadata.builder().build())
@@ -49,18 +49,16 @@ class LedgerTransactionCreateReversalParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params =
-            LedgerTransactionCreateReversalParams.builder().ledgerTransactionId("string").build()
+        val params = LedgerTransactionCreateReversalParams.builder().id("string").build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
 
     @Test
     fun getPathParam() {
-        val params =
-            LedgerTransactionCreateReversalParams.builder().ledgerTransactionId("string").build()
+        val params = LedgerTransactionCreateReversalParams.builder().id("string").build()
         assertThat(params).isNotNull
-        // path param "ledgerTransactionId"
+        // path param "id"
         assertThat(params.getPathParam(0)).isEqualTo("string")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")

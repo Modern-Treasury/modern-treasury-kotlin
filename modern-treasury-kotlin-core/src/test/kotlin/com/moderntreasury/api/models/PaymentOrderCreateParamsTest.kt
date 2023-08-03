@@ -140,7 +140,6 @@ class PaymentOrderCreateParamsTest {
             )
             .ledgerTransaction(
                 PaymentOrderCreateParams.LedgerTransactionCreateRequest.builder()
-                    .effectiveAt(LocalDate.parse("2019-12-27"))
                     .ledgerEntries(
                         listOf(
                             PaymentOrderCreateParams.LedgerTransactionCreateRequest
@@ -188,6 +187,7 @@ class PaymentOrderCreateParamsTest {
                         )
                     )
                     .description("string")
+                    .effectiveAt(LocalDate.parse("2019-12-27"))
                     .effectiveDate(LocalDate.parse("2019-12-27"))
                     .externalId("string")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -368,7 +368,6 @@ class PaymentOrderCreateParamsTest {
                 )
                 .ledgerTransaction(
                     PaymentOrderCreateParams.LedgerTransactionCreateRequest.builder()
-                        .effectiveAt(LocalDate.parse("2019-12-27"))
                         .ledgerEntries(
                             listOf(
                                 PaymentOrderCreateParams.LedgerTransactionCreateRequest
@@ -416,6 +415,7 @@ class PaymentOrderCreateParamsTest {
                             )
                         )
                         .description("string")
+                        .effectiveAt(LocalDate.parse("2019-12-27"))
                         .effectiveDate(LocalDate.parse("2019-12-27"))
                         .externalId("string")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -593,7 +593,6 @@ class PaymentOrderCreateParamsTest {
         assertThat(body.ledgerTransaction())
             .isEqualTo(
                 PaymentOrderCreateParams.LedgerTransactionCreateRequest.builder()
-                    .effectiveAt(LocalDate.parse("2019-12-27"))
                     .ledgerEntries(
                         listOf(
                             PaymentOrderCreateParams.LedgerTransactionCreateRequest
@@ -641,6 +640,7 @@ class PaymentOrderCreateParamsTest {
                         )
                     )
                     .description("string")
+                    .effectiveAt(LocalDate.parse("2019-12-27"))
                     .effectiveDate(LocalDate.parse("2019-12-27"))
                     .externalId("string")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
