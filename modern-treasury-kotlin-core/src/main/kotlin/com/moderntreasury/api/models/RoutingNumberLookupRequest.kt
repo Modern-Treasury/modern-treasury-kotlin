@@ -279,236 +279,6 @@ private constructor(
             )
     }
 
-    class RoutingNumberType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is RoutingNumberType && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val ABA = RoutingNumberType(JsonField.of("aba"))
-
-            val AU_BSB = RoutingNumberType(JsonField.of("au_bsb"))
-
-            val CA_CPA = RoutingNumberType(JsonField.of("ca_cpa"))
-
-            val GB_SORT_CODE = RoutingNumberType(JsonField.of("gb_sort_code"))
-
-            val IN_IFSC = RoutingNumberType(JsonField.of("in_ifsc"))
-
-            val SWIFT = RoutingNumberType(JsonField.of("swift"))
-
-            fun of(value: String) = RoutingNumberType(JsonField.of(value))
-        }
-
-        enum class Known {
-            ABA,
-            AU_BSB,
-            CA_CPA,
-            GB_SORT_CODE,
-            IN_IFSC,
-            SWIFT,
-        }
-
-        enum class Value {
-            ABA,
-            AU_BSB,
-            CA_CPA,
-            GB_SORT_CODE,
-            IN_IFSC,
-            SWIFT,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                ABA -> Value.ABA
-                AU_BSB -> Value.AU_BSB
-                CA_CPA -> Value.CA_CPA
-                GB_SORT_CODE -> Value.GB_SORT_CODE
-                IN_IFSC -> Value.IN_IFSC
-                SWIFT -> Value.SWIFT
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                ABA -> Known.ABA
-                AU_BSB -> Known.AU_BSB
-                CA_CPA -> Known.CA_CPA
-                GB_SORT_CODE -> Known.GB_SORT_CODE
-                IN_IFSC -> Known.IN_IFSC
-                SWIFT -> Known.SWIFT
-                else ->
-                    throw ModernTreasuryInvalidDataException("Unknown RoutingNumberType: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    class SupportedPaymentType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is SupportedPaymentType && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val ACH = SupportedPaymentType(JsonField.of("ach"))
-
-            val AU_BECS = SupportedPaymentType(JsonField.of("au_becs"))
-
-            val BACS = SupportedPaymentType(JsonField.of("bacs"))
-
-            val BOOK = SupportedPaymentType(JsonField.of("book"))
-
-            val CARD = SupportedPaymentType(JsonField.of("card"))
-
-            val CHECK = SupportedPaymentType(JsonField.of("check"))
-
-            val CROSS_BORDER = SupportedPaymentType(JsonField.of("cross_border"))
-
-            val EFT = SupportedPaymentType(JsonField.of("eft"))
-
-            val INTERAC = SupportedPaymentType(JsonField.of("interac"))
-
-            val MASAV = SupportedPaymentType(JsonField.of("masav"))
-
-            val NEFT = SupportedPaymentType(JsonField.of("neft"))
-
-            val PROVXCHANGE = SupportedPaymentType(JsonField.of("provxchange"))
-
-            val RTP = SupportedPaymentType(JsonField.of("rtp"))
-
-            val SEN = SupportedPaymentType(JsonField.of("sen"))
-
-            val SEPA = SupportedPaymentType(JsonField.of("sepa"))
-
-            val SIGNET = SupportedPaymentType(JsonField.of("signet"))
-
-            val WIRE = SupportedPaymentType(JsonField.of("wire"))
-
-            fun of(value: String) = SupportedPaymentType(JsonField.of(value))
-        }
-
-        enum class Known {
-            ACH,
-            AU_BECS,
-            BACS,
-            BOOK,
-            CARD,
-            CHECK,
-            CROSS_BORDER,
-            EFT,
-            INTERAC,
-            MASAV,
-            NEFT,
-            PROVXCHANGE,
-            RTP,
-            SEN,
-            SEPA,
-            SIGNET,
-            WIRE,
-        }
-
-        enum class Value {
-            ACH,
-            AU_BECS,
-            BACS,
-            BOOK,
-            CARD,
-            CHECK,
-            CROSS_BORDER,
-            EFT,
-            INTERAC,
-            MASAV,
-            NEFT,
-            PROVXCHANGE,
-            RTP,
-            SEN,
-            SEPA,
-            SIGNET,
-            WIRE,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                ACH -> Value.ACH
-                AU_BECS -> Value.AU_BECS
-                BACS -> Value.BACS
-                BOOK -> Value.BOOK
-                CARD -> Value.CARD
-                CHECK -> Value.CHECK
-                CROSS_BORDER -> Value.CROSS_BORDER
-                EFT -> Value.EFT
-                INTERAC -> Value.INTERAC
-                MASAV -> Value.MASAV
-                NEFT -> Value.NEFT
-                PROVXCHANGE -> Value.PROVXCHANGE
-                RTP -> Value.RTP
-                SEN -> Value.SEN
-                SEPA -> Value.SEPA
-                SIGNET -> Value.SIGNET
-                WIRE -> Value.WIRE
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                ACH -> Known.ACH
-                AU_BECS -> Known.AU_BECS
-                BACS -> Known.BACS
-                BOOK -> Known.BOOK
-                CARD -> Known.CARD
-                CHECK -> Known.CHECK
-                CROSS_BORDER -> Known.CROSS_BORDER
-                EFT -> Known.EFT
-                INTERAC -> Known.INTERAC
-                MASAV -> Known.MASAV
-                NEFT -> Known.NEFT
-                PROVXCHANGE -> Known.PROVXCHANGE
-                RTP -> Known.RTP
-                SEN -> Known.SEN
-                SEPA -> Known.SEPA
-                SIGNET -> Known.SIGNET
-                WIRE -> Known.WIRE
-                else ->
-                    throw ModernTreasuryInvalidDataException("Unknown SupportedPaymentType: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     /** The address of the bank. */
     @JsonDeserialize(builder = AddressRequest.Builder::class)
     @NoAutoDetect
@@ -707,6 +477,88 @@ private constructor(
         }
     }
 
+    class RoutingNumberType
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is RoutingNumberType && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val ABA = RoutingNumberType(JsonField.of("aba"))
+
+            val AU_BSB = RoutingNumberType(JsonField.of("au_bsb"))
+
+            val CA_CPA = RoutingNumberType(JsonField.of("ca_cpa"))
+
+            val GB_SORT_CODE = RoutingNumberType(JsonField.of("gb_sort_code"))
+
+            val IN_IFSC = RoutingNumberType(JsonField.of("in_ifsc"))
+
+            val SWIFT = RoutingNumberType(JsonField.of("swift"))
+
+            fun of(value: String) = RoutingNumberType(JsonField.of(value))
+        }
+
+        enum class Known {
+            ABA,
+            AU_BSB,
+            CA_CPA,
+            GB_SORT_CODE,
+            IN_IFSC,
+            SWIFT,
+        }
+
+        enum class Value {
+            ABA,
+            AU_BSB,
+            CA_CPA,
+            GB_SORT_CODE,
+            IN_IFSC,
+            SWIFT,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                ABA -> Value.ABA
+                AU_BSB -> Value.AU_BSB
+                CA_CPA -> Value.CA_CPA
+                GB_SORT_CODE -> Value.GB_SORT_CODE
+                IN_IFSC -> Value.IN_IFSC
+                SWIFT -> Value.SWIFT
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                ABA -> Known.ABA
+                AU_BSB -> Known.AU_BSB
+                CA_CPA -> Known.CA_CPA
+                GB_SORT_CODE -> Known.GB_SORT_CODE
+                IN_IFSC -> Known.IN_IFSC
+                SWIFT -> Known.SWIFT
+                else ->
+                    throw ModernTreasuryInvalidDataException("Unknown RoutingNumberType: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
     /**
      * An object containing key-value pairs, each with a sanctions list as the key and a boolean
      * value representing whether the bank is on that particular sanctions list. Currently, this
@@ -781,5 +633,153 @@ private constructor(
 
             fun build(): Sanctions = Sanctions(additionalProperties.toUnmodifiable())
         }
+    }
+
+    class SupportedPaymentType
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is SupportedPaymentType && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val ACH = SupportedPaymentType(JsonField.of("ach"))
+
+            val AU_BECS = SupportedPaymentType(JsonField.of("au_becs"))
+
+            val BACS = SupportedPaymentType(JsonField.of("bacs"))
+
+            val BOOK = SupportedPaymentType(JsonField.of("book"))
+
+            val CARD = SupportedPaymentType(JsonField.of("card"))
+
+            val CHECK = SupportedPaymentType(JsonField.of("check"))
+
+            val CROSS_BORDER = SupportedPaymentType(JsonField.of("cross_border"))
+
+            val EFT = SupportedPaymentType(JsonField.of("eft"))
+
+            val INTERAC = SupportedPaymentType(JsonField.of("interac"))
+
+            val MASAV = SupportedPaymentType(JsonField.of("masav"))
+
+            val NEFT = SupportedPaymentType(JsonField.of("neft"))
+
+            val PROVXCHANGE = SupportedPaymentType(JsonField.of("provxchange"))
+
+            val RTP = SupportedPaymentType(JsonField.of("rtp"))
+
+            val SEN = SupportedPaymentType(JsonField.of("sen"))
+
+            val SEPA = SupportedPaymentType(JsonField.of("sepa"))
+
+            val SIGNET = SupportedPaymentType(JsonField.of("signet"))
+
+            val WIRE = SupportedPaymentType(JsonField.of("wire"))
+
+            fun of(value: String) = SupportedPaymentType(JsonField.of(value))
+        }
+
+        enum class Known {
+            ACH,
+            AU_BECS,
+            BACS,
+            BOOK,
+            CARD,
+            CHECK,
+            CROSS_BORDER,
+            EFT,
+            INTERAC,
+            MASAV,
+            NEFT,
+            PROVXCHANGE,
+            RTP,
+            SEN,
+            SEPA,
+            SIGNET,
+            WIRE,
+        }
+
+        enum class Value {
+            ACH,
+            AU_BECS,
+            BACS,
+            BOOK,
+            CARD,
+            CHECK,
+            CROSS_BORDER,
+            EFT,
+            INTERAC,
+            MASAV,
+            NEFT,
+            PROVXCHANGE,
+            RTP,
+            SEN,
+            SEPA,
+            SIGNET,
+            WIRE,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                ACH -> Value.ACH
+                AU_BECS -> Value.AU_BECS
+                BACS -> Value.BACS
+                BOOK -> Value.BOOK
+                CARD -> Value.CARD
+                CHECK -> Value.CHECK
+                CROSS_BORDER -> Value.CROSS_BORDER
+                EFT -> Value.EFT
+                INTERAC -> Value.INTERAC
+                MASAV -> Value.MASAV
+                NEFT -> Value.NEFT
+                PROVXCHANGE -> Value.PROVXCHANGE
+                RTP -> Value.RTP
+                SEN -> Value.SEN
+                SEPA -> Value.SEPA
+                SIGNET -> Value.SIGNET
+                WIRE -> Value.WIRE
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                ACH -> Known.ACH
+                AU_BECS -> Known.AU_BECS
+                BACS -> Known.BACS
+                BOOK -> Known.BOOK
+                CARD -> Known.CARD
+                CHECK -> Known.CHECK
+                CROSS_BORDER -> Known.CROSS_BORDER
+                EFT -> Known.EFT
+                INTERAC -> Known.INTERAC
+                MASAV -> Known.MASAV
+                NEFT -> Known.NEFT
+                PROVXCHANGE -> Known.PROVXCHANGE
+                RTP -> Known.RTP
+                SEN -> Known.SEN
+                SEPA -> Known.SEPA
+                SIGNET -> Known.SIGNET
+                WIRE -> Known.WIRE
+                else ->
+                    throw ModernTreasuryInvalidDataException("Unknown SupportedPaymentType: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 }

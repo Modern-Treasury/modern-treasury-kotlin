@@ -530,69 +530,9 @@ private constructor(
             )
     }
 
-    class LedgerAccountNormalBalance
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is LedgerAccountNormalBalance && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val CREDIT = LedgerAccountNormalBalance(JsonField.of("credit"))
-
-            val DEBIT = LedgerAccountNormalBalance(JsonField.of("debit"))
-
-            fun of(value: String) = LedgerAccountNormalBalance(JsonField.of(value))
-        }
-
-        enum class Known {
-            CREDIT,
-            DEBIT,
-        }
-
-        enum class Value {
-            CREDIT,
-            DEBIT,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                CREDIT -> Value.CREDIT
-                DEBIT -> Value.DEBIT
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                CREDIT -> Known.CREDIT
-                DEBIT -> Known.DEBIT
-                else ->
-                    throw ModernTreasuryInvalidDataException(
-                        "Unknown LedgerAccountNormalBalance: $value"
-                    )
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     /**
      * The pending, posted, and available balances for this ledger account at the
-     * `effective_at_lower_bound`. The posted balance is the sum of all posted entries on the
+     * `effective_at_upper_bound`. The posted balance is the sum of all posted entries on the
      * account. The pending balance is the sum of all pending and posted entries on the account. The
      * available balance is the posted incoming entries minus the sum of the pending and posted
      * outgoing amounts.
@@ -765,7 +705,11 @@ private constructor(
                 )
         }
 
-        /** The pending_balance is the sum of all pending and posted entries. */
+        /**
+         * The available_balance is the sum of all posted inbound entries and pending outbound
+         * entries. For credit normal, available_amount = posted_credits - pending_debits; for debit
+         * normal, available_amount = posted_debits - pending_credits.
+         */
         @JsonDeserialize(builder = LedgerBalance.Builder::class)
         @NoAutoDetect
         class LedgerBalance
@@ -943,6 +887,66 @@ private constructor(
                     )
             }
         }
+    }
+
+    class LedgerAccountNormalBalance
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is LedgerAccountNormalBalance && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val CREDIT = LedgerAccountNormalBalance(JsonField.of("credit"))
+
+            val DEBIT = LedgerAccountNormalBalance(JsonField.of("debit"))
+
+            fun of(value: String) = LedgerAccountNormalBalance(JsonField.of(value))
+        }
+
+        enum class Known {
+            CREDIT,
+            DEBIT,
+        }
+
+        enum class Value {
+            CREDIT,
+            DEBIT,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                CREDIT -> Value.CREDIT
+                DEBIT -> Value.DEBIT
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                CREDIT -> Known.CREDIT
+                DEBIT -> Known.DEBIT
+                else ->
+                    throw ModernTreasuryInvalidDataException(
+                        "Unknown LedgerAccountNormalBalance: $value"
+                    )
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */

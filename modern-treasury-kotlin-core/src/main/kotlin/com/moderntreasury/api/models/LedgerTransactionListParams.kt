@@ -426,75 +426,6 @@ constructor(
     }
 
     /**
-     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
-     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
-     */
-    @JsonDeserialize(builder = Metadata.Builder::class)
-    @NoAutoDetect
-    class Metadata
-    private constructor(
-        private val additionalProperties: Map<String, List<String>>,
-    ) {
-
-        private var hashCode: Int = 0
-
-        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
-
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.additionalProperties.forEach { key, values -> putParam(key, values) }
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Metadata && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
-
-            internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: List<String>) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
-        }
-    }
-
-    /**
      * Use "gt" (>), "gte" (>=), "lt" (<), "lte" (<=), or "eq" (=) to filter by effective at. For
      * example, for all transactions after Jan 1 2000, use
      * effective_at%5Bgt%5D=2000-01-01T00:00:00:00.000Z.
@@ -633,84 +564,118 @@ constructor(
         }
     }
 
-    /**
-     * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
-     * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
-     * posted_at%5Bgt%5D=2000-01-01T12:00:00Z.
-     */
-    @JsonDeserialize(builder = PostedAt.Builder::class)
-    @NoAutoDetect
-    class PostedAt
+    class LedgerableType
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, List<String>>,
+        private val value: JsonField<String>,
     ) {
 
-        private var hashCode: Int = 0
-
-        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
-
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.additionalProperties.forEach { key, values -> putParam(key, values) }
-        }
-
-        fun toBuilder() = Builder().from(this)
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is PostedAt && this.additionalProperties == other.additionalProperties
+            return other is LedgerableType && this.value == other.value
         }
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
+        override fun hashCode() = value.hashCode()
 
-        override fun toString() = "PostedAt{additionalProperties=$additionalProperties}"
+        override fun toString() = value.toString()
 
         companion object {
 
-            fun builder() = Builder()
+            val COUNTERPARTY = LedgerableType(JsonField.of("counterparty"))
+
+            val EXPECTED_PAYMENT = LedgerableType(JsonField.of("expected_payment"))
+
+            val INCOMING_PAYMENT_DETAIL = LedgerableType(JsonField.of("incoming_payment_detail"))
+
+            val INTERNAL_ACCOUNT = LedgerableType(JsonField.of("internal_account"))
+
+            val LINE_ITEM = LedgerableType(JsonField.of("line_item"))
+
+            val PAPER_ITEM = LedgerableType(JsonField.of("paper_item"))
+
+            val PAYMENT_ORDER = LedgerableType(JsonField.of("payment_order"))
+
+            val PAYMENT_ORDER_ATTEMPT = LedgerableType(JsonField.of("payment_order_attempt"))
+
+            val RETURN = LedgerableType(JsonField.of("return"))
+
+            val REVERSAL = LedgerableType(JsonField.of("reversal"))
+
+            fun of(value: String) = LedgerableType(JsonField.of(value))
         }
 
-        class Builder {
-
-            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
-
-            internal fun from(postedAt: PostedAt) = apply {
-                additionalProperties(postedAt.additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: List<String>) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-            fun build(): PostedAt = PostedAt(additionalProperties.toUnmodifiable())
+        enum class Known {
+            COUNTERPARTY,
+            EXPECTED_PAYMENT,
+            INCOMING_PAYMENT_DETAIL,
+            INTERNAL_ACCOUNT,
+            LINE_ITEM,
+            PAPER_ITEM,
+            PAYMENT_ORDER,
+            PAYMENT_ORDER_ATTEMPT,
+            RETURN,
+            REVERSAL,
         }
+
+        enum class Value {
+            COUNTERPARTY,
+            EXPECTED_PAYMENT,
+            INCOMING_PAYMENT_DETAIL,
+            INTERNAL_ACCOUNT,
+            LINE_ITEM,
+            PAPER_ITEM,
+            PAYMENT_ORDER,
+            PAYMENT_ORDER_ATTEMPT,
+            RETURN,
+            REVERSAL,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                COUNTERPARTY -> Value.COUNTERPARTY
+                EXPECTED_PAYMENT -> Value.EXPECTED_PAYMENT
+                INCOMING_PAYMENT_DETAIL -> Value.INCOMING_PAYMENT_DETAIL
+                INTERNAL_ACCOUNT -> Value.INTERNAL_ACCOUNT
+                LINE_ITEM -> Value.LINE_ITEM
+                PAPER_ITEM -> Value.PAPER_ITEM
+                PAYMENT_ORDER -> Value.PAYMENT_ORDER
+                PAYMENT_ORDER_ATTEMPT -> Value.PAYMENT_ORDER_ATTEMPT
+                RETURN -> Value.RETURN
+                REVERSAL -> Value.REVERSAL
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                COUNTERPARTY -> Known.COUNTERPARTY
+                EXPECTED_PAYMENT -> Known.EXPECTED_PAYMENT
+                INCOMING_PAYMENT_DETAIL -> Known.INCOMING_PAYMENT_DETAIL
+                INTERNAL_ACCOUNT -> Known.INTERNAL_ACCOUNT
+                LINE_ITEM -> Known.LINE_ITEM
+                PAPER_ITEM -> Known.PAPER_ITEM
+                PAYMENT_ORDER -> Known.PAYMENT_ORDER
+                PAYMENT_ORDER_ATTEMPT -> Known.PAYMENT_ORDER_ATTEMPT
+                RETURN -> Known.RETURN
+                REVERSAL -> Known.REVERSAL
+                else -> throw ModernTreasuryInvalidDataException("Unknown LedgerableType: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     /**
-     * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
-     * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
-     * updated_at%5Bgt%5D=2000-01-01T12:00:00Z.
+     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
+     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
      */
-    @JsonDeserialize(builder = UpdatedAt.Builder::class)
+    @JsonDeserialize(builder = Metadata.Builder::class)
     @NoAutoDetect
-    class UpdatedAt
+    class Metadata
     private constructor(
         private val additionalProperties: Map<String, List<String>>,
     ) {
@@ -730,7 +695,7 @@ constructor(
                 return true
             }
 
-            return other is UpdatedAt && this.additionalProperties == other.additionalProperties
+            return other is Metadata && this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
@@ -740,7 +705,7 @@ constructor(
             return hashCode
         }
 
-        override fun toString() = "UpdatedAt{additionalProperties=$additionalProperties}"
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -751,8 +716,8 @@ constructor(
 
             private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
 
-            internal fun from(updatedAt: UpdatedAt) = apply {
-                additionalProperties(updatedAt.additionalProperties)
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties(metadata.additionalProperties)
             }
 
             fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
@@ -769,7 +734,7 @@ constructor(
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun build(): UpdatedAt = UpdatedAt(additionalProperties.toUnmodifiable())
+            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
         }
     }
 
@@ -987,6 +952,76 @@ constructor(
         }
     }
 
+    /**
+     * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
+     * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
+     * posted_at%5Bgt%5D=2000-01-01T12:00:00Z.
+     */
+    @JsonDeserialize(builder = PostedAt.Builder::class)
+    @NoAutoDetect
+    class PostedAt
+    private constructor(
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+
+        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PostedAt && this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "PostedAt{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+
+            internal fun from(postedAt: PostedAt) = apply {
+                additionalProperties(postedAt.additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun build(): PostedAt = PostedAt(additionalProperties.toUnmodifiable())
+        }
+    }
+
     class Status
     @JsonCreator
     private constructor(
@@ -1050,108 +1085,73 @@ constructor(
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class LedgerableType
-    @JsonCreator
+    /**
+     * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
+     * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
+     * updated_at%5Bgt%5D=2000-01-01T12:00:00Z.
+     */
+    @JsonDeserialize(builder = UpdatedAt.Builder::class)
+    @NoAutoDetect
+    class UpdatedAt
     private constructor(
-        private val value: JsonField<String>,
+        private val additionalProperties: Map<String, List<String>>,
     ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        private var hashCode: Int = 0
+
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+
+        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+        }
+
+        fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is LedgerableType && this.value == other.value
+            return other is UpdatedAt && this.additionalProperties == other.additionalProperties
         }
 
-        override fun hashCode() = value.hashCode()
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
 
-        override fun toString() = value.toString()
+        override fun toString() = "UpdatedAt{additionalProperties=$additionalProperties}"
 
         companion object {
 
-            val COUNTERPARTY = LedgerableType(JsonField.of("counterparty"))
-
-            val EXPECTED_PAYMENT = LedgerableType(JsonField.of("expected_payment"))
-
-            val INCOMING_PAYMENT_DETAIL = LedgerableType(JsonField.of("incoming_payment_detail"))
-
-            val INTERNAL_ACCOUNT = LedgerableType(JsonField.of("internal_account"))
-
-            val LINE_ITEM = LedgerableType(JsonField.of("line_item"))
-
-            val PAPER_ITEM = LedgerableType(JsonField.of("paper_item"))
-
-            val PAYMENT_ORDER = LedgerableType(JsonField.of("payment_order"))
-
-            val PAYMENT_ORDER_ATTEMPT = LedgerableType(JsonField.of("payment_order_attempt"))
-
-            val RETURN = LedgerableType(JsonField.of("return"))
-
-            val REVERSAL = LedgerableType(JsonField.of("reversal"))
-
-            fun of(value: String) = LedgerableType(JsonField.of(value))
+            fun builder() = Builder()
         }
 
-        enum class Known {
-            COUNTERPARTY,
-            EXPECTED_PAYMENT,
-            INCOMING_PAYMENT_DETAIL,
-            INTERNAL_ACCOUNT,
-            LINE_ITEM,
-            PAPER_ITEM,
-            PAYMENT_ORDER,
-            PAYMENT_ORDER_ATTEMPT,
-            RETURN,
-            REVERSAL,
-        }
+        class Builder {
 
-        enum class Value {
-            COUNTERPARTY,
-            EXPECTED_PAYMENT,
-            INCOMING_PAYMENT_DETAIL,
-            INTERNAL_ACCOUNT,
-            LINE_ITEM,
-            PAPER_ITEM,
-            PAYMENT_ORDER,
-            PAYMENT_ORDER_ATTEMPT,
-            RETURN,
-            REVERSAL,
-            _UNKNOWN,
-        }
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
 
-        fun value(): Value =
-            when (this) {
-                COUNTERPARTY -> Value.COUNTERPARTY
-                EXPECTED_PAYMENT -> Value.EXPECTED_PAYMENT
-                INCOMING_PAYMENT_DETAIL -> Value.INCOMING_PAYMENT_DETAIL
-                INTERNAL_ACCOUNT -> Value.INTERNAL_ACCOUNT
-                LINE_ITEM -> Value.LINE_ITEM
-                PAPER_ITEM -> Value.PAPER_ITEM
-                PAYMENT_ORDER -> Value.PAYMENT_ORDER
-                PAYMENT_ORDER_ATTEMPT -> Value.PAYMENT_ORDER_ATTEMPT
-                RETURN -> Value.RETURN
-                REVERSAL -> Value.REVERSAL
-                else -> Value._UNKNOWN
+            internal fun from(updatedAt: UpdatedAt) = apply {
+                additionalProperties(updatedAt.additionalProperties)
             }
 
-        fun known(): Known =
-            when (this) {
-                COUNTERPARTY -> Known.COUNTERPARTY
-                EXPECTED_PAYMENT -> Known.EXPECTED_PAYMENT
-                INCOMING_PAYMENT_DETAIL -> Known.INCOMING_PAYMENT_DETAIL
-                INTERNAL_ACCOUNT -> Known.INTERNAL_ACCOUNT
-                LINE_ITEM -> Known.LINE_ITEM
-                PAPER_ITEM -> Known.PAPER_ITEM
-                PAYMENT_ORDER -> Known.PAYMENT_ORDER
-                PAYMENT_ORDER_ATTEMPT -> Known.PAYMENT_ORDER_ATTEMPT
-                RETURN -> Known.RETURN
-                REVERSAL -> Known.REVERSAL
-                else -> throw ModernTreasuryInvalidDataException("Unknown LedgerableType: $value")
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
             }
 
-        fun asString(): String = _value().asStringOrThrow()
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun build(): UpdatedAt = UpdatedAt(additionalProperties.toUnmodifiable())
+        }
     }
 }

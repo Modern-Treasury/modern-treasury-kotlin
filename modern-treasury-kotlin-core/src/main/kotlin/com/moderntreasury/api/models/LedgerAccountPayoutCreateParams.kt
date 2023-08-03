@@ -474,63 +474,6 @@ constructor(
             )
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val PENDING = Status(JsonField.of("pending"))
-
-            val POSTED = Status(JsonField.of("posted"))
-
-            fun of(value: String) = Status(JsonField.of(value))
-        }
-
-        enum class Known {
-            PENDING,
-            POSTED,
-        }
-
-        enum class Value {
-            PENDING,
-            POSTED,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                PENDING -> Value.PENDING
-                POSTED -> Value.POSTED
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                PENDING -> Known.PENDING
-                POSTED -> Known.POSTED
-                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
     @JsonDeserialize(builder = Metadata.Builder::class)
     @NoAutoDetect
@@ -593,5 +536,62 @@ constructor(
 
             fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
         }
+    }
+
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val PENDING = Status(JsonField.of("pending"))
+
+            val POSTED = Status(JsonField.of("posted"))
+
+            fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        enum class Known {
+            PENDING,
+            POSTED,
+        }
+
+        enum class Value {
+            PENDING,
+            POSTED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                PENDING -> Value.PENDING
+                POSTED -> Value.POSTED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                PENDING -> Known.PENDING
+                POSTED -> Known.POSTED
+                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 }

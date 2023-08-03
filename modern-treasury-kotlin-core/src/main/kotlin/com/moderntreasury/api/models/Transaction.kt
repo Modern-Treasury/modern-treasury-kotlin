@@ -668,6 +668,304 @@ private constructor(
             )
     }
 
+    /**
+     * This field contains additional information that the bank provided about the transaction. This
+     * is structured data. Some of the data in here might overlap with what is in the
+     * `vendor_description`. For example, the OBI could be a part of the vendor description, and it
+     * would also be included in here. The attributes that are passed through the details field will
+     * vary based on your banking partner. Currently, the following keys may be in the details
+     * object: `originator_name`, `originator_to_beneficiary_information`.
+     */
+    @JsonDeserialize(builder = Details.Builder::class)
+    @NoAutoDetect
+    class Details
+    private constructor(
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Details = apply {
+            if (!validated) {
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Details && this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Details{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(details: Details) = apply {
+                additionalProperties(details.additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Details = Details(additionalProperties.toUnmodifiable())
+        }
+    }
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    @JsonDeserialize(builder = Metadata.Builder::class)
+    @NoAutoDetect
+    class Metadata
+    private constructor(
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Metadata = apply {
+            if (!validated) {
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties(metadata.additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+        }
+    }
+
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Type && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val ACH = Type(JsonField.of("ach"))
+
+            val AU_BECS = Type(JsonField.of("au_becs"))
+
+            val BACS = Type(JsonField.of("bacs"))
+
+            val BOOK = Type(JsonField.of("book"))
+
+            val CARD = Type(JsonField.of("card"))
+
+            val CHECK = Type(JsonField.of("check"))
+
+            val CROSS_BORDER = Type(JsonField.of("cross_border"))
+
+            val EFT = Type(JsonField.of("eft"))
+
+            val INTERAC = Type(JsonField.of("interac"))
+
+            val MASAV = Type(JsonField.of("masav"))
+
+            val NEFT = Type(JsonField.of("neft"))
+
+            val PROVXCHANGE = Type(JsonField.of("provxchange"))
+
+            val RTP = Type(JsonField.of("rtp"))
+
+            val SEN = Type(JsonField.of("sen"))
+
+            val SEPA = Type(JsonField.of("sepa"))
+
+            val SIGNET = Type(JsonField.of("signet"))
+
+            val WIRE = Type(JsonField.of("wire"))
+
+            fun of(value: String) = Type(JsonField.of(value))
+        }
+
+        enum class Known {
+            ACH,
+            AU_BECS,
+            BACS,
+            BOOK,
+            CARD,
+            CHECK,
+            CROSS_BORDER,
+            EFT,
+            INTERAC,
+            MASAV,
+            NEFT,
+            PROVXCHANGE,
+            RTP,
+            SEN,
+            SEPA,
+            SIGNET,
+            WIRE,
+        }
+
+        enum class Value {
+            ACH,
+            AU_BECS,
+            BACS,
+            BOOK,
+            CARD,
+            CHECK,
+            CROSS_BORDER,
+            EFT,
+            INTERAC,
+            MASAV,
+            NEFT,
+            PROVXCHANGE,
+            RTP,
+            SEN,
+            SEPA,
+            SIGNET,
+            WIRE,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                ACH -> Value.ACH
+                AU_BECS -> Value.AU_BECS
+                BACS -> Value.BACS
+                BOOK -> Value.BOOK
+                CARD -> Value.CARD
+                CHECK -> Value.CHECK
+                CROSS_BORDER -> Value.CROSS_BORDER
+                EFT -> Value.EFT
+                INTERAC -> Value.INTERAC
+                MASAV -> Value.MASAV
+                NEFT -> Value.NEFT
+                PROVXCHANGE -> Value.PROVXCHANGE
+                RTP -> Value.RTP
+                SEN -> Value.SEN
+                SEPA -> Value.SEPA
+                SIGNET -> Value.SIGNET
+                WIRE -> Value.WIRE
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                ACH -> Known.ACH
+                AU_BECS -> Known.AU_BECS
+                BACS -> Known.BACS
+                BOOK -> Known.BOOK
+                CARD -> Known.CARD
+                CHECK -> Known.CHECK
+                CROSS_BORDER -> Known.CROSS_BORDER
+                EFT -> Known.EFT
+                INTERAC -> Known.INTERAC
+                MASAV -> Known.MASAV
+                NEFT -> Known.NEFT
+                PROVXCHANGE -> Known.PROVXCHANGE
+                RTP -> Known.RTP
+                SEN -> Known.SEN
+                SEPA -> Known.SEPA
+                SIGNET -> Known.SIGNET
+                WIRE -> Known.WIRE
+                else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
     class VendorCodeType
     @JsonCreator
     private constructor(
@@ -828,304 +1126,6 @@ private constructor(
                 SWIFT -> Known.SWIFT
                 US_BANK -> Known.US_BANK
                 else -> throw ModernTreasuryInvalidDataException("Unknown VendorCodeType: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonDeserialize(builder = Metadata.Builder::class)
-    @NoAutoDetect
-    class Metadata
-    private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
-
-        private var validated: Boolean = false
-
-        private var hashCode: Int = 0
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
-            }
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Metadata && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
-        }
-    }
-
-    /**
-     * This field contains additional information that the bank provided about the transaction. This
-     * is structured data. Some of the data in here might overlap with what is in the
-     * `vendor_description`. For example, the OBI could be a part of the vendor description, and it
-     * would also be included in here. The attributes that are passed through the details field will
-     * vary based on your banking partner. Currently, the following keys may be in the details
-     * object: `originator_name`, `originator_to_beneficiary_information`.
-     */
-    @JsonDeserialize(builder = Details.Builder::class)
-    @NoAutoDetect
-    class Details
-    private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
-
-        private var validated: Boolean = false
-
-        private var hashCode: Int = 0
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun validate(): Details = apply {
-            if (!validated) {
-                validated = true
-            }
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Details && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Details{additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(details: Details) = apply {
-                additionalProperties(details.additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): Details = Details(additionalProperties.toUnmodifiable())
-        }
-    }
-
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Type && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val ACH = Type(JsonField.of("ach"))
-
-            val AU_BECS = Type(JsonField.of("au_becs"))
-
-            val BACS = Type(JsonField.of("bacs"))
-
-            val BOOK = Type(JsonField.of("book"))
-
-            val CARD = Type(JsonField.of("card"))
-
-            val CHECK = Type(JsonField.of("check"))
-
-            val CROSS_BORDER = Type(JsonField.of("cross_border"))
-
-            val EFT = Type(JsonField.of("eft"))
-
-            val INTERAC = Type(JsonField.of("interac"))
-
-            val MASAV = Type(JsonField.of("masav"))
-
-            val NEFT = Type(JsonField.of("neft"))
-
-            val PROVXCHANGE = Type(JsonField.of("provxchange"))
-
-            val RTP = Type(JsonField.of("rtp"))
-
-            val SEN = Type(JsonField.of("sen"))
-
-            val SEPA = Type(JsonField.of("sepa"))
-
-            val SIGNET = Type(JsonField.of("signet"))
-
-            val WIRE = Type(JsonField.of("wire"))
-
-            fun of(value: String) = Type(JsonField.of(value))
-        }
-
-        enum class Known {
-            ACH,
-            AU_BECS,
-            BACS,
-            BOOK,
-            CARD,
-            CHECK,
-            CROSS_BORDER,
-            EFT,
-            INTERAC,
-            MASAV,
-            NEFT,
-            PROVXCHANGE,
-            RTP,
-            SEN,
-            SEPA,
-            SIGNET,
-            WIRE,
-        }
-
-        enum class Value {
-            ACH,
-            AU_BECS,
-            BACS,
-            BOOK,
-            CARD,
-            CHECK,
-            CROSS_BORDER,
-            EFT,
-            INTERAC,
-            MASAV,
-            NEFT,
-            PROVXCHANGE,
-            RTP,
-            SEN,
-            SEPA,
-            SIGNET,
-            WIRE,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                ACH -> Value.ACH
-                AU_BECS -> Value.AU_BECS
-                BACS -> Value.BACS
-                BOOK -> Value.BOOK
-                CARD -> Value.CARD
-                CHECK -> Value.CHECK
-                CROSS_BORDER -> Value.CROSS_BORDER
-                EFT -> Value.EFT
-                INTERAC -> Value.INTERAC
-                MASAV -> Value.MASAV
-                NEFT -> Value.NEFT
-                PROVXCHANGE -> Value.PROVXCHANGE
-                RTP -> Value.RTP
-                SEN -> Value.SEN
-                SEPA -> Value.SEPA
-                SIGNET -> Value.SIGNET
-                WIRE -> Value.WIRE
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                ACH -> Known.ACH
-                AU_BECS -> Known.AU_BECS
-                BACS -> Known.BACS
-                BOOK -> Known.BOOK
-                CARD -> Known.CARD
-                CHECK -> Known.CHECK
-                CROSS_BORDER -> Known.CROSS_BORDER
-                EFT -> Known.EFT
-                INTERAC -> Known.INTERAC
-                MASAV -> Known.MASAV
-                NEFT -> Known.NEFT
-                PROVXCHANGE -> Known.PROVXCHANGE
-                RTP -> Known.RTP
-                SEN -> Known.SEN
-                SEPA -> Known.SEPA
-                SIGNET -> Known.SIGNET
-                WIRE -> Known.WIRE
-                else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()

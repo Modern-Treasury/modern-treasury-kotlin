@@ -324,6 +324,158 @@ private constructor(
             )
     }
 
+    @JsonDeserialize(builder = LedgerEventHandlerConditions.Builder::class)
+    @NoAutoDetect
+    class LedgerEventHandlerConditions
+    private constructor(
+        private val field: JsonField<String>,
+        private val operator: JsonField<String>,
+        private val value: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /** The field you're fetching from the `ledgerable_event`. */
+        fun field(): String = field.getRequired("field")
+
+        /**
+         * What the operator between the `field` and `value` is. Currently only supports `equals`.
+         */
+        fun operator(): String = operator.getRequired("operator")
+
+        /** What raw string you are comparing the `field` against. */
+        fun value(): String = value.getRequired("value")
+
+        /** The field you're fetching from the `ledgerable_event`. */
+        @JsonProperty("field") @ExcludeMissing fun _field() = field
+
+        /**
+         * What the operator between the `field` and `value` is. Currently only supports `equals`.
+         */
+        @JsonProperty("operator") @ExcludeMissing fun _operator() = operator
+
+        /** What raw string you are comparing the `field` against. */
+        @JsonProperty("value") @ExcludeMissing fun _value() = value
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): LedgerEventHandlerConditions = apply {
+            if (!validated) {
+                field()
+                operator()
+                value()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is LedgerEventHandlerConditions &&
+                this.field == other.field &&
+                this.operator == other.operator &&
+                this.value == other.value &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        field,
+                        operator,
+                        value,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "LedgerEventHandlerConditions{field=$field, operator=$operator, value=$value, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var field: JsonField<String> = JsonMissing.of()
+            private var operator: JsonField<String> = JsonMissing.of()
+            private var value: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(ledgerEventHandlerConditions: LedgerEventHandlerConditions) = apply {
+                this.field = ledgerEventHandlerConditions.field
+                this.operator = ledgerEventHandlerConditions.operator
+                this.value = ledgerEventHandlerConditions.value
+                additionalProperties(ledgerEventHandlerConditions.additionalProperties)
+            }
+
+            /** The field you're fetching from the `ledgerable_event`. */
+            fun field(field: String) = field(JsonField.of(field))
+
+            /** The field you're fetching from the `ledgerable_event`. */
+            @JsonProperty("field")
+            @ExcludeMissing
+            fun field(field: JsonField<String>) = apply { this.field = field }
+
+            /**
+             * What the operator between the `field` and `value` is. Currently only supports
+             * `equals`.
+             */
+            fun operator(operator: String) = operator(JsonField.of(operator))
+
+            /**
+             * What the operator between the `field` and `value` is. Currently only supports
+             * `equals`.
+             */
+            @JsonProperty("operator")
+            @ExcludeMissing
+            fun operator(operator: JsonField<String>) = apply { this.operator = operator }
+
+            /** What raw string you are comparing the `field` against. */
+            fun value(value: String) = value(JsonField.of(value))
+
+            /** What raw string you are comparing the `field` against. */
+            @JsonProperty("value")
+            @ExcludeMissing
+            fun value(value: JsonField<String>) = apply { this.value = value }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): LedgerEventHandlerConditions =
+                LedgerEventHandlerConditions(
+                    field,
+                    operator,
+                    value,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+    }
+
     @JsonDeserialize(builder = LedgerEventHandlerLedgerTransactionTemplate.Builder::class)
     @NoAutoDetect
     class LedgerEventHandlerLedgerTransactionTemplate
@@ -758,158 +910,6 @@ private constructor(
 
                 fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
             }
-        }
-    }
-
-    @JsonDeserialize(builder = LedgerEventHandlerConditions.Builder::class)
-    @NoAutoDetect
-    class LedgerEventHandlerConditions
-    private constructor(
-        private val field: JsonField<String>,
-        private val operator: JsonField<String>,
-        private val value: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
-
-        private var validated: Boolean = false
-
-        private var hashCode: Int = 0
-
-        /** The field you're fetching from the `ledgerable_event`. */
-        fun field(): String = field.getRequired("field")
-
-        /**
-         * What the operator between the `field` and `value` is. Currently only supports `equals`.
-         */
-        fun operator(): String = operator.getRequired("operator")
-
-        /** What raw string you are comparing the `field` against. */
-        fun value(): String = value.getRequired("value")
-
-        /** The field you're fetching from the `ledgerable_event`. */
-        @JsonProperty("field") @ExcludeMissing fun _field() = field
-
-        /**
-         * What the operator between the `field` and `value` is. Currently only supports `equals`.
-         */
-        @JsonProperty("operator") @ExcludeMissing fun _operator() = operator
-
-        /** What raw string you are comparing the `field` against. */
-        @JsonProperty("value") @ExcludeMissing fun _value() = value
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun validate(): LedgerEventHandlerConditions = apply {
-            if (!validated) {
-                field()
-                operator()
-                value()
-                validated = true
-            }
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is LedgerEventHandlerConditions &&
-                this.field == other.field &&
-                this.operator == other.operator &&
-                this.value == other.value &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        field,
-                        operator,
-                        value,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "LedgerEventHandlerConditions{field=$field, operator=$operator, value=$value, additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var field: JsonField<String> = JsonMissing.of()
-            private var operator: JsonField<String> = JsonMissing.of()
-            private var value: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(ledgerEventHandlerConditions: LedgerEventHandlerConditions) = apply {
-                this.field = ledgerEventHandlerConditions.field
-                this.operator = ledgerEventHandlerConditions.operator
-                this.value = ledgerEventHandlerConditions.value
-                additionalProperties(ledgerEventHandlerConditions.additionalProperties)
-            }
-
-            /** The field you're fetching from the `ledgerable_event`. */
-            fun field(field: String) = field(JsonField.of(field))
-
-            /** The field you're fetching from the `ledgerable_event`. */
-            @JsonProperty("field")
-            @ExcludeMissing
-            fun field(field: JsonField<String>) = apply { this.field = field }
-
-            /**
-             * What the operator between the `field` and `value` is. Currently only supports
-             * `equals`.
-             */
-            fun operator(operator: String) = operator(JsonField.of(operator))
-
-            /**
-             * What the operator between the `field` and `value` is. Currently only supports
-             * `equals`.
-             */
-            @JsonProperty("operator")
-            @ExcludeMissing
-            fun operator(operator: JsonField<String>) = apply { this.operator = operator }
-
-            /** What raw string you are comparing the `field` against. */
-            fun value(value: String) = value(JsonField.of(value))
-
-            /** What raw string you are comparing the `field` against. */
-            @JsonProperty("value")
-            @ExcludeMissing
-            fun value(value: JsonField<String>) = apply { this.value = value }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): LedgerEventHandlerConditions =
-                LedgerEventHandlerConditions(
-                    field,
-                    operator,
-                    value,
-                    additionalProperties.toUnmodifiable(),
-                )
         }
     }
 

@@ -438,63 +438,6 @@ private constructor(
             )
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Type && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val ORIGINATING = Type(JsonField.of("originating"))
-
-            val RECEIVING = Type(JsonField.of("receiving"))
-
-            fun of(value: String) = Type(JsonField.of(value))
-        }
-
-        enum class Known {
-            ORIGINATING,
-            RECEIVING,
-        }
-
-        enum class Value {
-            ORIGINATING,
-            RECEIVING,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                ORIGINATING -> Value.ORIGINATING
-                RECEIVING -> Value.RECEIVING
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                ORIGINATING -> Known.ORIGINATING
-                RECEIVING -> Known.RECEIVING
-                else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     class TransactableType
     @JsonCreator
     private constructor(
@@ -571,6 +514,63 @@ private constructor(
                 RETURN -> Known.RETURN
                 REVERSAL -> Known.REVERSAL
                 else -> throw ModernTreasuryInvalidDataException("Unknown TransactableType: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Type && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val ORIGINATING = Type(JsonField.of("originating"))
+
+            val RECEIVING = Type(JsonField.of("receiving"))
+
+            fun of(value: String) = Type(JsonField.of(value))
+        }
+
+        enum class Known {
+            ORIGINATING,
+            RECEIVING,
+        }
+
+        enum class Value {
+            ORIGINATING,
+            RECEIVING,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                ORIGINATING -> Value.ORIGINATING
+                RECEIVING -> Value.RECEIVING
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                ORIGINATING -> Known.ORIGINATING
+                RECEIVING -> Known.RECEIVING
+                else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()

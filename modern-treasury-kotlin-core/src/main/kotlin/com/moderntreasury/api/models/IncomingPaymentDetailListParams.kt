@@ -294,6 +294,75 @@ constructor(
         fun asString(): String = _value().asStringOrThrow()
     }
 
+    /**
+     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
+     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+     */
+    @JsonDeserialize(builder = Metadata.Builder::class)
+    @NoAutoDetect
+    class Metadata
+    private constructor(
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+
+        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties(metadata.additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+        }
+    }
+
     class Status
     @JsonCreator
     private constructor(
@@ -454,74 +523,5 @@ constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
-    }
-
-    /**
-     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
-     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
-     */
-    @JsonDeserialize(builder = Metadata.Builder::class)
-    @NoAutoDetect
-    class Metadata
-    private constructor(
-        private val additionalProperties: Map<String, List<String>>,
-    ) {
-
-        private var hashCode: Int = 0
-
-        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
-
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.additionalProperties.forEach { key, values -> putParam(key, values) }
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Metadata && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
-
-            internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: List<String>) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
-        }
     }
 }
