@@ -111,6 +111,7 @@ class LedgerTransactionServiceTest {
                     .description("string")
                     .status(LedgerTransactionUpdateParams.Status.ARCHIVED)
                     .metadata(LedgerTransactionUpdateParams.Metadata.builder().build())
+                    .effectiveAt(LocalDate.parse("2019-12-27"))
                     .ledgerEntries(
                         listOf(
                             LedgerTransactionUpdateParams.LedgerEntryCreateRequest.builder()
@@ -182,7 +183,7 @@ class LedgerTransactionServiceTest {
         val ledgerTransaction =
             ledgerTransactionService.createReversal(
                 LedgerTransactionCreateReversalParams.builder()
-                    .ledgerTransactionId("string")
+                    .id("string")
                     .description("string")
                     .status(LedgerTransactionCreateReversalParams.Status.ARCHIVED)
                     .metadata(LedgerTransactionCreateReversalParams.Metadata.builder().build())

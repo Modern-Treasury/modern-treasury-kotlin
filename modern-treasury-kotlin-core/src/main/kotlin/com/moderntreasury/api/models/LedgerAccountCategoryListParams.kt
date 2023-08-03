@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.models.*
+import java.time.OffsetDateTime
 import java.util.Objects
 
 class LedgerAccountCategoryListParams
@@ -15,6 +16,7 @@ constructor(
     private val ledgerId: String?,
     private val parentLedgerAccountCategoryId: String?,
     private val ledgerAccountId: String?,
+    private val balances: Balances?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
@@ -33,6 +35,8 @@ constructor(
 
     fun ledgerAccountId(): String? = ledgerAccountId
 
+    fun balances(): Balances? = balances
+
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
@@ -44,6 +48,7 @@ constructor(
             params.put("parent_ledger_account_category_id", listOf(it.toString()))
         }
         this.ledgerAccountId?.let { params.put("ledger_account_id", listOf(it.toString())) }
+        this.balances?.forEachQueryParam { key, values -> params.put("balances[$key]", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -67,6 +72,7 @@ constructor(
             this.ledgerId == other.ledgerId &&
             this.parentLedgerAccountCategoryId == other.parentLedgerAccountCategoryId &&
             this.ledgerAccountId == other.ledgerAccountId &&
+            this.balances == other.balances &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
@@ -80,13 +86,14 @@ constructor(
             ledgerId,
             parentLedgerAccountCategoryId,
             ledgerAccountId,
+            balances,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "LedgerAccountCategoryListParams{afterCursor=$afterCursor, perPage=$perPage, metadata=$metadata, name=$name, ledgerId=$ledgerId, parentLedgerAccountCategoryId=$parentLedgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "LedgerAccountCategoryListParams{afterCursor=$afterCursor, perPage=$perPage, metadata=$metadata, name=$name, ledgerId=$ledgerId, parentLedgerAccountCategoryId=$parentLedgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, balances=$balances, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -105,6 +112,7 @@ constructor(
         private var ledgerId: String? = null
         private var parentLedgerAccountCategoryId: String? = null
         private var ledgerAccountId: String? = null
+        private var balances: Balances? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
@@ -118,6 +126,7 @@ constructor(
                 this.parentLedgerAccountCategoryId =
                     ledgerAccountCategoryListParams.parentLedgerAccountCategoryId
                 this.ledgerAccountId = ledgerAccountCategoryListParams.ledgerAccountId
+                this.balances = ledgerAccountCategoryListParams.balances
                 additionalQueryParams(ledgerAccountCategoryListParams.additionalQueryParams)
                 additionalHeaders(ledgerAccountCategoryListParams.additionalHeaders)
             }
@@ -145,6 +154,13 @@ constructor(
         fun ledgerAccountId(ledgerAccountId: String) = apply {
             this.ledgerAccountId = ledgerAccountId
         }
+
+        /**
+         * For example, if you want the balances as of a particular time (ISO8601), the encoded
+         * query string would be `balances%5Beffective_at%5D=2000-12-31T12:00:00Z`. The balances as
+         * of a time are inclusive of entries with that exact time.
+         */
+        fun balances(balances: Balances) = apply { this.balances = balances }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -195,6 +211,7 @@ constructor(
                 ledgerId,
                 parentLedgerAccountCategoryId,
                 ledgerAccountId,
+                balances,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
@@ -266,6 +283,87 @@ constructor(
                 }
 
             fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+        }
+    }
+
+    /**
+     * For example, if you want the balances as of a particular time (ISO8601), the encoded query
+     * string would be `balances%5Beffective_at%5D=2000-12-31T12:00:00Z`. The balances as of a time
+     * are inclusive of entries with that exact time.
+     */
+    @JsonDeserialize(builder = Balances.Builder::class)
+    @NoAutoDetect
+    class Balances
+    private constructor(
+        private val effectiveAt: OffsetDateTime?,
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        fun effectiveAt(): OffsetDateTime? = effectiveAt
+
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+
+        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
+            this.effectiveAt?.let { putParam("effective_at", listOf(it.toString())) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Balances &&
+                this.effectiveAt == other.effectiveAt &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(effectiveAt, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Balances{effectiveAt=$effectiveAt, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var effectiveAt: OffsetDateTime? = null
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+
+            internal fun from(balances: Balances) = apply {
+                this.effectiveAt = balances.effectiveAt
+                additionalProperties(balances.additionalProperties)
+            }
+
+            fun effectiveAt(effectiveAt: OffsetDateTime) = apply { this.effectiveAt = effectiveAt }
+
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun build(): Balances = Balances(effectiveAt, additionalProperties.toUnmodifiable())
         }
     }
 }

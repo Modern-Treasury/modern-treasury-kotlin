@@ -28,6 +28,7 @@ class LedgerTransactionListParamsTest {
             .status(LedgerTransactionListParams.Status.PENDING)
             .externalId("string")
             .ledgerAccountCategoryId("string")
+            .ledgerAccountPayoutId("string")
             .reversesLedgerTransactionId("string")
             .ledgerableId("string")
             .ledgerableType(LedgerTransactionListParams.LedgerableType.COUNTERPARTY)
@@ -57,6 +58,7 @@ class LedgerTransactionListParamsTest {
                 .status(LedgerTransactionListParams.Status.PENDING)
                 .externalId("string")
                 .ledgerAccountCategoryId("string")
+                .ledgerAccountPayoutId("string")
                 .reversesLedgerTransactionId("string")
                 .ledgerableId("string")
                 .ledgerableType(LedgerTransactionListParams.LedgerableType.COUNTERPARTY)
@@ -93,6 +95,7 @@ class LedgerTransactionListParamsTest {
         expected.put("status", listOf(LedgerTransactionListParams.Status.PENDING.toString()))
         expected.put("external_id", listOf("string"))
         expected.put("ledger_account_category_id", listOf("string"))
+        expected.put("ledger_account_payout_id", listOf("string"))
         expected.put("reverses_ledger_transaction_id", listOf("string"))
         expected.put("ledgerable_id", listOf("string"))
         expected.put(

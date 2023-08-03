@@ -15,6 +15,7 @@ class LedgerAccountPayoutCreateParamsTest {
             .fundingLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .effectiveAtUpperBound("14:15:22Z")
             .metadata(LedgerAccountPayoutCreateParams.Metadata.builder().build())
+            .skipPayoutLedgerTransaction(true)
             .build()
     }
 
@@ -28,6 +29,7 @@ class LedgerAccountPayoutCreateParamsTest {
                 .fundingLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .effectiveAtUpperBound("14:15:22Z")
                 .metadata(LedgerAccountPayoutCreateParams.Metadata.builder().build())
+                .skipPayoutLedgerTransaction(true)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -38,6 +40,7 @@ class LedgerAccountPayoutCreateParamsTest {
         assertThat(body.effectiveAtUpperBound()).isEqualTo("14:15:22Z")
         assertThat(body.metadata())
             .isEqualTo(LedgerAccountPayoutCreateParams.Metadata.builder().build())
+        assertThat(body.skipPayoutLedgerTransaction()).isEqualTo(true)
     }
 
     @Test

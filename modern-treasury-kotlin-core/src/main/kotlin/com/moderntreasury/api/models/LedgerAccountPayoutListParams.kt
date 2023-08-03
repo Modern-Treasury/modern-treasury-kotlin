@@ -1,5 +1,6 @@
 package com.moderntreasury.api.models
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.models.*
@@ -9,6 +10,7 @@ class LedgerAccountPayoutListParams
 constructor(
     private val afterCursor: String?,
     private val perPage: Long?,
+    private val metadata: Metadata?,
     private val payoutLedgerAccountId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -18,12 +20,15 @@ constructor(
 
     fun perPage(): Long? = perPage
 
+    fun metadata(): Metadata? = metadata
+
     fun payoutLedgerAccountId(): String? = payoutLedgerAccountId
 
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
         this.perPage?.let { params.put("per_page", listOf(it.toString())) }
+        this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
         this.payoutLedgerAccountId?.let {
             params.put("payout_ledger_account_id", listOf(it.toString()))
         }
@@ -45,6 +50,7 @@ constructor(
         return other is LedgerAccountPayoutListParams &&
             this.afterCursor == other.afterCursor &&
             this.perPage == other.perPage &&
+            this.metadata == other.metadata &&
             this.payoutLedgerAccountId == other.payoutLedgerAccountId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
@@ -54,6 +60,7 @@ constructor(
         return Objects.hash(
             afterCursor,
             perPage,
+            metadata,
             payoutLedgerAccountId,
             additionalQueryParams,
             additionalHeaders,
@@ -61,7 +68,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerAccountPayoutListParams{afterCursor=$afterCursor, perPage=$perPage, payoutLedgerAccountId=$payoutLedgerAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "LedgerAccountPayoutListParams{afterCursor=$afterCursor, perPage=$perPage, metadata=$metadata, payoutLedgerAccountId=$payoutLedgerAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -75,6 +82,7 @@ constructor(
 
         private var afterCursor: String? = null
         private var perPage: Long? = null
+        private var metadata: Metadata? = null
         private var payoutLedgerAccountId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -82,6 +90,7 @@ constructor(
         internal fun from(ledgerAccountPayoutListParams: LedgerAccountPayoutListParams) = apply {
             this.afterCursor = ledgerAccountPayoutListParams.afterCursor
             this.perPage = ledgerAccountPayoutListParams.perPage
+            this.metadata = ledgerAccountPayoutListParams.metadata
             this.payoutLedgerAccountId = ledgerAccountPayoutListParams.payoutLedgerAccountId
             additionalQueryParams(ledgerAccountPayoutListParams.additionalQueryParams)
             additionalHeaders(ledgerAccountPayoutListParams.additionalHeaders)
@@ -90,6 +99,12 @@ constructor(
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
         fun perPage(perPage: Long) = apply { this.perPage = perPage }
+
+        /**
+         * For example, if you want to query for records with metadata key `Type` and value `Loan`,
+         * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+         */
+        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
         fun payoutLedgerAccountId(payoutLedgerAccountId: String) = apply {
             this.payoutLedgerAccountId = payoutLedgerAccountId
@@ -139,9 +154,79 @@ constructor(
             LedgerAccountPayoutListParams(
                 afterCursor,
                 perPage,
+                metadata,
                 payoutLedgerAccountId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
+    }
+
+    /**
+     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
+     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+     */
+    @JsonDeserialize(builder = Metadata.Builder::class)
+    @NoAutoDetect
+    class Metadata
+    private constructor(
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+
+        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties(metadata.additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+        }
     }
 }

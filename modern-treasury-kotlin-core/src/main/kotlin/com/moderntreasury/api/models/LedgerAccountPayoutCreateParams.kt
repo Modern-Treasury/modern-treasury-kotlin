@@ -22,6 +22,7 @@ constructor(
     private val fundingLedgerAccountId: String,
     private val effectiveAtUpperBound: String?,
     private val metadata: Metadata?,
+    private val skipPayoutLedgerTransaction: Boolean?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -39,6 +40,8 @@ constructor(
 
     fun metadata(): Metadata? = metadata
 
+    fun skipPayoutLedgerTransaction(): Boolean? = skipPayoutLedgerTransaction
+
     internal fun getBody(): LedgerAccountPayoutCreateBody {
         return LedgerAccountPayoutCreateBody(
             description,
@@ -47,6 +50,7 @@ constructor(
             fundingLedgerAccountId,
             effectiveAtUpperBound,
             metadata,
+            skipPayoutLedgerTransaction,
             additionalBodyProperties,
         )
     }
@@ -65,6 +69,7 @@ constructor(
         private val fundingLedgerAccountId: String?,
         private val effectiveAtUpperBound: String?,
         private val metadata: Metadata?,
+        private val skipPayoutLedgerTransaction: Boolean?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -106,6 +111,13 @@ constructor(
          */
         @JsonProperty("metadata") fun metadata(): Metadata? = metadata
 
+        /**
+         * It is set to `false` by default. It should be set to `true` when migrating existing
+         * payouts.
+         */
+        @JsonProperty("skip_payout_ledger_transaction")
+        fun skipPayoutLedgerTransaction(): Boolean? = skipPayoutLedgerTransaction
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -124,6 +136,7 @@ constructor(
                 this.fundingLedgerAccountId == other.fundingLedgerAccountId &&
                 this.effectiveAtUpperBound == other.effectiveAtUpperBound &&
                 this.metadata == other.metadata &&
+                this.skipPayoutLedgerTransaction == other.skipPayoutLedgerTransaction &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -137,6 +150,7 @@ constructor(
                         fundingLedgerAccountId,
                         effectiveAtUpperBound,
                         metadata,
+                        skipPayoutLedgerTransaction,
                         additionalProperties,
                     )
             }
@@ -144,7 +158,7 @@ constructor(
         }
 
         override fun toString() =
-            "LedgerAccountPayoutCreateBody{description=$description, status=$status, payoutLedgerAccountId=$payoutLedgerAccountId, fundingLedgerAccountId=$fundingLedgerAccountId, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, additionalProperties=$additionalProperties}"
+            "LedgerAccountPayoutCreateBody{description=$description, status=$status, payoutLedgerAccountId=$payoutLedgerAccountId, fundingLedgerAccountId=$fundingLedgerAccountId, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, skipPayoutLedgerTransaction=$skipPayoutLedgerTransaction, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -159,6 +173,7 @@ constructor(
             private var fundingLedgerAccountId: String? = null
             private var effectiveAtUpperBound: String? = null
             private var metadata: Metadata? = null
+            private var skipPayoutLedgerTransaction: Boolean? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerAccountPayoutCreateBody: LedgerAccountPayoutCreateBody) =
@@ -170,6 +185,8 @@ constructor(
                         ledgerAccountPayoutCreateBody.fundingLedgerAccountId
                     this.effectiveAtUpperBound = ledgerAccountPayoutCreateBody.effectiveAtUpperBound
                     this.metadata = ledgerAccountPayoutCreateBody.metadata
+                    this.skipPayoutLedgerTransaction =
+                        ledgerAccountPayoutCreateBody.skipPayoutLedgerTransaction
                     additionalProperties(ledgerAccountPayoutCreateBody.additionalProperties)
                 }
 
@@ -218,6 +235,15 @@ constructor(
             @JsonProperty("metadata")
             fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
+            /**
+             * It is set to `false` by default. It should be set to `true` when migrating existing
+             * payouts.
+             */
+            @JsonProperty("skip_payout_ledger_transaction")
+            fun skipPayoutLedgerTransaction(skipPayoutLedgerTransaction: Boolean) = apply {
+                this.skipPayoutLedgerTransaction = skipPayoutLedgerTransaction
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -244,6 +270,7 @@ constructor(
                     },
                     effectiveAtUpperBound,
                     metadata,
+                    skipPayoutLedgerTransaction,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -267,6 +294,7 @@ constructor(
             this.fundingLedgerAccountId == other.fundingLedgerAccountId &&
             this.effectiveAtUpperBound == other.effectiveAtUpperBound &&
             this.metadata == other.metadata &&
+            this.skipPayoutLedgerTransaction == other.skipPayoutLedgerTransaction &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -280,6 +308,7 @@ constructor(
             fundingLedgerAccountId,
             effectiveAtUpperBound,
             metadata,
+            skipPayoutLedgerTransaction,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -287,7 +316,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerAccountPayoutCreateParams{description=$description, status=$status, payoutLedgerAccountId=$payoutLedgerAccountId, fundingLedgerAccountId=$fundingLedgerAccountId, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerAccountPayoutCreateParams{description=$description, status=$status, payoutLedgerAccountId=$payoutLedgerAccountId, fundingLedgerAccountId=$fundingLedgerAccountId, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, skipPayoutLedgerTransaction=$skipPayoutLedgerTransaction, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -305,6 +334,7 @@ constructor(
         private var fundingLedgerAccountId: String? = null
         private var effectiveAtUpperBound: String? = null
         private var metadata: Metadata? = null
+        private var skipPayoutLedgerTransaction: Boolean? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -317,6 +347,8 @@ constructor(
                 this.fundingLedgerAccountId = ledgerAccountPayoutCreateParams.fundingLedgerAccountId
                 this.effectiveAtUpperBound = ledgerAccountPayoutCreateParams.effectiveAtUpperBound
                 this.metadata = ledgerAccountPayoutCreateParams.metadata
+                this.skipPayoutLedgerTransaction =
+                    ledgerAccountPayoutCreateParams.skipPayoutLedgerTransaction
                 additionalQueryParams(ledgerAccountPayoutCreateParams.additionalQueryParams)
                 additionalHeaders(ledgerAccountPayoutCreateParams.additionalHeaders)
                 additionalBodyProperties(ledgerAccountPayoutCreateParams.additionalBodyProperties)
@@ -360,6 +392,14 @@ constructor(
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
         fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        /**
+         * It is set to `false` by default. It should be set to `true` when migrating existing
+         * payouts.
+         */
+        fun skipPayoutLedgerTransaction(skipPayoutLedgerTransaction: Boolean) = apply {
+            this.skipPayoutLedgerTransaction = skipPayoutLedgerTransaction
+        }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -427,6 +467,7 @@ constructor(
                 },
                 effectiveAtUpperBound,
                 metadata,
+                skipPayoutLedgerTransaction,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
