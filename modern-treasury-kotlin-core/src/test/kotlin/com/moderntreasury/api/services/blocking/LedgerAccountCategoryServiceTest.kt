@@ -81,12 +81,6 @@ class LedgerAccountCategoryServiceTest {
                     .name("string")
                     .description("string")
                     .metadata(LedgerAccountCategoryUpdateParams.Metadata.builder().build())
-                    .balances(
-                        LedgerAccountCategoryUpdateParams.Balances.builder()
-                            .asOfDate(LocalDate.parse("2019-12-27"))
-                            .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
                     .build()
             )
         println(ledgerAccountCategory)
@@ -121,15 +115,7 @@ class LedgerAccountCategoryServiceTest {
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
         val ledgerAccountCategory =
             ledgerAccountCategoryService.delete(
-                LedgerAccountCategoryDeleteParams.builder()
-                    .id("string")
-                    .balances(
-                        LedgerAccountCategoryDeleteParams.Balances.builder()
-                            .asOfDate(LocalDate.parse("2019-12-27"))
-                            .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
-                    .build()
+                LedgerAccountCategoryDeleteParams.builder().id("string").build()
             )
         println(ledgerAccountCategory)
         ledgerAccountCategory.validate()

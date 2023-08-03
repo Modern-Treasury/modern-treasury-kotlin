@@ -14,6 +14,7 @@ class LedgerEntryListParamsTest {
             .id(LedgerEntryListParams.Id.builder().build())
             .ledgerAccountId("string")
             .ledgerTransactionId("string")
+            .ledgerAccountPayoutId("string")
             .effectiveDate(LedgerEntryListParams.EffectiveDate.builder().build())
             .effectiveAt(LedgerEntryListParams.EffectiveAt.builder().build())
             .updatedAt(LedgerEntryListParams.UpdatedAt.builder().build())
@@ -46,6 +47,7 @@ class LedgerEntryListParamsTest {
                 .id(LedgerEntryListParams.Id.builder().build())
                 .ledgerAccountId("string")
                 .ledgerTransactionId("string")
+                .ledgerAccountPayoutId("string")
                 .effectiveDate(LedgerEntryListParams.EffectiveDate.builder().build())
                 .effectiveAt(LedgerEntryListParams.EffectiveAt.builder().build())
                 .updatedAt(LedgerEntryListParams.UpdatedAt.builder().build())
@@ -75,6 +77,7 @@ class LedgerEntryListParamsTest {
         }
         expected.put("ledger_account_id", listOf("string"))
         expected.put("ledger_transaction_id", listOf("string"))
+        expected.put("ledger_account_payout_id", listOf("string"))
         LedgerEntryListParams.EffectiveDate.builder().build().forEachQueryParam { key, values ->
             expected.put("effective_date[$key]", values)
         }

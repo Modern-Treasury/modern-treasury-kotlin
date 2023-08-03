@@ -17,6 +17,7 @@ class LedgerAccountListParamsTest {
             .id("string")
             .name("string")
             .ledgerId("string")
+            .currency("string")
             .balances(
                 LedgerAccountListParams.Balances.builder()
                     .asOfDate(LocalDate.parse("2019-12-27"))
@@ -41,6 +42,7 @@ class LedgerAccountListParamsTest {
                 .id("string")
                 .name("string")
                 .ledgerId("string")
+                .currency("string")
                 .balances(
                     LedgerAccountListParams.Balances.builder()
                         .asOfDate(LocalDate.parse("2019-12-27"))
@@ -62,6 +64,7 @@ class LedgerAccountListParamsTest {
         expected.put("id", listOf("string"))
         expected.put("name", listOf("string"))
         expected.put("ledger_id", listOf("string"))
+        expected.put("currency", listOf("string"))
         LedgerAccountListParams.Balances.builder()
             .asOfDate(LocalDate.parse("2019-12-27"))
             .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

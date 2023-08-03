@@ -1,6 +1,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.models.*
+import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,6 +14,7 @@ class LedgerTransactionUpdateParamsTest {
             .description("string")
             .status(LedgerTransactionUpdateParams.Status.ARCHIVED)
             .metadata(LedgerTransactionUpdateParams.Metadata.builder().build())
+            .effectiveAt(LocalDate.parse("2019-12-27"))
             .ledgerEntries(
                 listOf(
                     LedgerTransactionUpdateParams.LedgerEntryCreateRequest.builder()
@@ -60,6 +62,7 @@ class LedgerTransactionUpdateParamsTest {
                 .description("string")
                 .status(LedgerTransactionUpdateParams.Status.ARCHIVED)
                 .metadata(LedgerTransactionUpdateParams.Metadata.builder().build())
+                .effectiveAt(LocalDate.parse("2019-12-27"))
                 .ledgerEntries(
                     listOf(
                         LedgerTransactionUpdateParams.LedgerEntryCreateRequest.builder()
@@ -104,6 +107,7 @@ class LedgerTransactionUpdateParamsTest {
         assertThat(body.status()).isEqualTo(LedgerTransactionUpdateParams.Status.ARCHIVED)
         assertThat(body.metadata())
             .isEqualTo(LedgerTransactionUpdateParams.Metadata.builder().build())
+        assertThat(body.effectiveAt()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.ledgerEntries())
             .isEqualTo(
                 listOf(
