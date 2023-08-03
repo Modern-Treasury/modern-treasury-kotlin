@@ -315,70 +315,6 @@ private constructor(
             )
     }
 
-    class ReferenceableType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is ReferenceableType && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val PAYMENT_ORDER = ReferenceableType(JsonField.of("payment_order"))
-
-            val REVERSAL = ReferenceableType(JsonField.of("reversal"))
-
-            val RETURN = ReferenceableType(JsonField.of("return"))
-
-            fun of(value: String) = ReferenceableType(JsonField.of(value))
-        }
-
-        enum class Known {
-            PAYMENT_ORDER,
-            REVERSAL,
-            RETURN,
-        }
-
-        enum class Value {
-            PAYMENT_ORDER,
-            REVERSAL,
-            RETURN,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                PAYMENT_ORDER -> Value.PAYMENT_ORDER
-                REVERSAL -> Value.REVERSAL
-                RETURN -> Value.RETURN
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                PAYMENT_ORDER -> Known.PAYMENT_ORDER
-                REVERSAL -> Known.REVERSAL
-                RETURN -> Known.RETURN
-                else ->
-                    throw ModernTreasuryInvalidDataException("Unknown ReferenceableType: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     class ReferenceNumberType
     @JsonCreator
     private constructor(
@@ -769,6 +705,70 @@ private constructor(
                 WELLS_FARGO_TRACE_NUMBER -> Known.WELLS_FARGO_TRACE_NUMBER
                 else ->
                     throw ModernTreasuryInvalidDataException("Unknown ReferenceNumberType: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class ReferenceableType
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ReferenceableType && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val PAYMENT_ORDER = ReferenceableType(JsonField.of("payment_order"))
+
+            val REVERSAL = ReferenceableType(JsonField.of("reversal"))
+
+            val RETURN = ReferenceableType(JsonField.of("return"))
+
+            fun of(value: String) = ReferenceableType(JsonField.of(value))
+        }
+
+        enum class Known {
+            PAYMENT_ORDER,
+            REVERSAL,
+            RETURN,
+        }
+
+        enum class Value {
+            PAYMENT_ORDER,
+            REVERSAL,
+            RETURN,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                PAYMENT_ORDER -> Value.PAYMENT_ORDER
+                REVERSAL -> Value.REVERSAL
+                RETURN -> Value.RETURN
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                PAYMENT_ORDER -> Known.PAYMENT_ORDER
+                REVERSAL -> Known.REVERSAL
+                RETURN -> Known.RETURN
+                else ->
+                    throw ModernTreasuryInvalidDataException("Unknown ReferenceableType: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()

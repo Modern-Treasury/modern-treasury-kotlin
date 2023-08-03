@@ -462,73 +462,61 @@ constructor(
         }
     }
 
-    /**
-     * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the transaction's
-     * effective date. Format YYYY-MM-DD
-     */
-    @JsonDeserialize(builder = EffectiveDate.Builder::class)
-    @NoAutoDetect
-    class EffectiveDate
+    class Direction
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, List<String>>,
+        private val value: JsonField<String>,
     ) {
 
-        private var hashCode: Int = 0
-
-        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
-
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.additionalProperties.forEach { key, values -> putParam(key, values) }
-        }
-
-        fun toBuilder() = Builder().from(this)
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is EffectiveDate && this.additionalProperties == other.additionalProperties
+            return other is Direction && this.value == other.value
         }
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
+        override fun hashCode() = value.hashCode()
 
-        override fun toString() = "EffectiveDate{additionalProperties=$additionalProperties}"
+        override fun toString() = value.toString()
 
         companion object {
 
-            fun builder() = Builder()
+            val CREDIT = Direction(JsonField.of("credit"))
+
+            val DEBIT = Direction(JsonField.of("debit"))
+
+            fun of(value: String) = Direction(JsonField.of(value))
         }
 
-        class Builder {
-
-            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
-
-            internal fun from(effectiveDate: EffectiveDate) = apply {
-                additionalProperties(effectiveDate.additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: List<String>) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-            fun build(): EffectiveDate = EffectiveDate(additionalProperties.toUnmodifiable())
+        enum class Known {
+            CREDIT,
+            DEBIT,
         }
+
+        enum class Value {
+            CREDIT,
+            DEBIT,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                CREDIT -> Value.CREDIT
+                DEBIT -> Value.DEBIT
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                CREDIT -> Known.CREDIT
+                DEBIT -> Known.DEBIT
+                else -> throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     /**
@@ -601,13 +589,12 @@ constructor(
     }
 
     /**
-     * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
-     * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
-     * updated_at%5Bgt%5D=2000-01-01T12:00:00Z.
+     * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the transaction's
+     * effective date. Format YYYY-MM-DD
      */
-    @JsonDeserialize(builder = UpdatedAt.Builder::class)
+    @JsonDeserialize(builder = EffectiveDate.Builder::class)
     @NoAutoDetect
-    class UpdatedAt
+    class EffectiveDate
     private constructor(
         private val additionalProperties: Map<String, List<String>>,
     ) {
@@ -627,7 +614,7 @@ constructor(
                 return true
             }
 
-            return other is UpdatedAt && this.additionalProperties == other.additionalProperties
+            return other is EffectiveDate && this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
@@ -637,7 +624,7 @@ constructor(
             return hashCode
         }
 
-        override fun toString() = "UpdatedAt{additionalProperties=$additionalProperties}"
+        override fun toString() = "EffectiveDate{additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -648,8 +635,8 @@ constructor(
 
             private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
 
-            internal fun from(updatedAt: UpdatedAt) = apply {
-                additionalProperties(updatedAt.additionalProperties)
+            internal fun from(effectiveDate: EffectiveDate) = apply {
+                additionalProperties(effectiveDate.additionalProperties)
             }
 
             fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
@@ -666,7 +653,7 @@ constructor(
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun build(): UpdatedAt = UpdatedAt(additionalProperties.toUnmodifiable())
+            fun build(): EffectiveDate = EffectiveDate(additionalProperties.toUnmodifiable())
         }
     }
 
@@ -743,124 +730,73 @@ constructor(
         }
     }
 
-    class Direction
-    @JsonCreator
+    /**
+     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
+     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+     */
+    @JsonDeserialize(builder = Metadata.Builder::class)
+    @NoAutoDetect
+    class Metadata
     private constructor(
-        private val value: JsonField<String>,
+        private val additionalProperties: Map<String, List<String>>,
     ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        private var hashCode: Int = 0
+
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+
+        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+        }
+
+        fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is Direction && this.value == other.value
+            return other is Metadata && this.additionalProperties == other.additionalProperties
         }
 
-        override fun hashCode() = value.hashCode()
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
 
-        override fun toString() = value.toString()
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
 
         companion object {
 
-            val CREDIT = Direction(JsonField.of("credit"))
-
-            val DEBIT = Direction(JsonField.of("debit"))
-
-            fun of(value: String) = Direction(JsonField.of(value))
+            fun builder() = Builder()
         }
 
-        enum class Known {
-            CREDIT,
-            DEBIT,
-        }
+        class Builder {
 
-        enum class Value {
-            CREDIT,
-            DEBIT,
-            _UNKNOWN,
-        }
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
 
-        fun value(): Value =
-            when (this) {
-                CREDIT -> Value.CREDIT
-                DEBIT -> Value.DEBIT
-                else -> Value._UNKNOWN
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties(metadata.additionalProperties)
             }
 
-        fun known(): Known =
-            when (this) {
-                CREDIT -> Known.CREDIT
-                DEBIT -> Known.DEBIT
-                else -> throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
             }
 
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
             }
 
-            return other is Status && this.value == other.value
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
         }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val PENDING = Status(JsonField.of("pending"))
-
-            val POSTED = Status(JsonField.of("posted"))
-
-            val ARCHIVED = Status(JsonField.of("archived"))
-
-            fun of(value: String) = Status(JsonField.of(value))
-        }
-
-        enum class Known {
-            PENDING,
-            POSTED,
-            ARCHIVED,
-        }
-
-        enum class Value {
-            PENDING,
-            POSTED,
-            ARCHIVED,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                PENDING -> Value.PENDING
-                POSTED -> Value.POSTED
-                ARCHIVED -> Value.ARCHIVED
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                PENDING -> Known.PENDING
-                POSTED -> Known.POSTED
-                ARCHIVED -> Known.ARCHIVED
-                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
     }
 
     /**
@@ -1077,13 +1013,77 @@ constructor(
         }
     }
 
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val PENDING = Status(JsonField.of("pending"))
+
+            val POSTED = Status(JsonField.of("posted"))
+
+            val ARCHIVED = Status(JsonField.of("archived"))
+
+            fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        enum class Known {
+            PENDING,
+            POSTED,
+            ARCHIVED,
+        }
+
+        enum class Value {
+            PENDING,
+            POSTED,
+            ARCHIVED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                PENDING -> Value.PENDING
+                POSTED -> Value.POSTED
+                ARCHIVED -> Value.ARCHIVED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                PENDING -> Known.PENDING
+                POSTED -> Known.POSTED
+                ARCHIVED -> Known.ARCHIVED
+                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
     /**
-     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
-     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+     * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
+     * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
+     * updated_at%5Bgt%5D=2000-01-01T12:00:00Z.
      */
-    @JsonDeserialize(builder = Metadata.Builder::class)
+    @JsonDeserialize(builder = UpdatedAt.Builder::class)
     @NoAutoDetect
-    class Metadata
+    class UpdatedAt
     private constructor(
         private val additionalProperties: Map<String, List<String>>,
     ) {
@@ -1103,7 +1103,7 @@ constructor(
                 return true
             }
 
-            return other is Metadata && this.additionalProperties == other.additionalProperties
+            return other is UpdatedAt && this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
@@ -1113,7 +1113,7 @@ constructor(
             return hashCode
         }
 
-        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+        override fun toString() = "UpdatedAt{additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1124,8 +1124,8 @@ constructor(
 
             private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
 
-            internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
+            internal fun from(updatedAt: UpdatedAt) = apply {
+                additionalProperties(updatedAt.additionalProperties)
             }
 
             fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
@@ -1142,7 +1142,7 @@ constructor(
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+            fun build(): UpdatedAt = UpdatedAt(additionalProperties.toUnmodifiable())
         }
     }
 }

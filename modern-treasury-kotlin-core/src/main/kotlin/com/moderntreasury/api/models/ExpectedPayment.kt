@@ -881,6 +881,64 @@ private constructor(
         }
     }
 
+    class ReconciliationMethod
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ReconciliationMethod && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val AUTOMATIC = ReconciliationMethod(JsonField.of("automatic"))
+
+            val MANUAL = ReconciliationMethod(JsonField.of("manual"))
+
+            fun of(value: String) = ReconciliationMethod(JsonField.of(value))
+        }
+
+        enum class Known {
+            AUTOMATIC,
+            MANUAL,
+        }
+
+        enum class Value {
+            AUTOMATIC,
+            MANUAL,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                AUTOMATIC -> Value.AUTOMATIC
+                MANUAL -> Value.MANUAL
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                AUTOMATIC -> Known.AUTOMATIC
+                MANUAL -> Known.MANUAL
+                else ->
+                    throw ModernTreasuryInvalidDataException("Unknown ReconciliationMethod: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
     class Status
     @JsonCreator
     private constructor(
@@ -939,64 +997,6 @@ private constructor(
                 RECONCILED -> Known.RECONCILED
                 UNRECONCILED -> Known.UNRECONCILED
                 else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    class ReconciliationMethod
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is ReconciliationMethod && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val AUTOMATIC = ReconciliationMethod(JsonField.of("automatic"))
-
-            val MANUAL = ReconciliationMethod(JsonField.of("manual"))
-
-            fun of(value: String) = ReconciliationMethod(JsonField.of(value))
-        }
-
-        enum class Known {
-            AUTOMATIC,
-            MANUAL,
-        }
-
-        enum class Value {
-            AUTOMATIC,
-            MANUAL,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                AUTOMATIC -> Value.AUTOMATIC
-                MANUAL -> Value.MANUAL
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                AUTOMATIC -> Known.AUTOMATIC
-                MANUAL -> Known.MANUAL
-                else ->
-                    throw ModernTreasuryInvalidDataException("Unknown ReconciliationMethod: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()

@@ -462,136 +462,6 @@ constructor(
             )
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val ARCHIVED = Status(JsonField.of("archived"))
-
-            val PENDING = Status(JsonField.of("pending"))
-
-            val POSTED = Status(JsonField.of("posted"))
-
-            fun of(value: String) = Status(JsonField.of(value))
-        }
-
-        enum class Known {
-            ARCHIVED,
-            PENDING,
-            POSTED,
-        }
-
-        enum class Value {
-            ARCHIVED,
-            PENDING,
-            POSTED,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                ARCHIVED -> Value.ARCHIVED
-                PENDING -> Value.PENDING
-                POSTED -> Value.POSTED
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                ARCHIVED -> Known.ARCHIVED
-                PENDING -> Known.PENDING
-                POSTED -> Known.POSTED
-                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    /**
-     * Additional data to be added to the reversal ledger transaction as key-value pairs. Both the
-     * key and value must be strings.
-     */
-    @JsonDeserialize(builder = Metadata.Builder::class)
-    @NoAutoDetect
-    class Metadata
-    private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
-
-        private var hashCode: Int = 0
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Metadata && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
-        }
-    }
-
     class LedgerableType
     @JsonCreator
     private constructor(
@@ -692,6 +562,136 @@ constructor(
                 RETURN -> Known.RETURN
                 REVERSAL -> Known.REVERSAL
                 else -> throw ModernTreasuryInvalidDataException("Unknown LedgerableType: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    /**
+     * Additional data to be added to the reversal ledger transaction as key-value pairs. Both the
+     * key and value must be strings.
+     */
+    @JsonDeserialize(builder = Metadata.Builder::class)
+    @NoAutoDetect
+    class Metadata
+    private constructor(
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties(metadata.additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+        }
+    }
+
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val ARCHIVED = Status(JsonField.of("archived"))
+
+            val PENDING = Status(JsonField.of("pending"))
+
+            val POSTED = Status(JsonField.of("posted"))
+
+            fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        enum class Known {
+            ARCHIVED,
+            PENDING,
+            POSTED,
+        }
+
+        enum class Value {
+            ARCHIVED,
+            PENDING,
+            POSTED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                ARCHIVED -> Value.ARCHIVED
+                PENDING -> Value.PENDING
+                POSTED -> Value.POSTED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                ARCHIVED -> Known.ARCHIVED
+                PENDING -> Known.PENDING
+                POSTED -> Known.POSTED
+                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()

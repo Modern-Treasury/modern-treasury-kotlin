@@ -1439,120 +1439,6 @@ constructor(
             )
     }
 
-    class Direction
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Direction && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val CREDIT = Direction(JsonField.of("credit"))
-
-            val DEBIT = Direction(JsonField.of("debit"))
-
-            fun of(value: String) = Direction(JsonField.of(value))
-        }
-
-        enum class Known {
-            CREDIT,
-            DEBIT,
-        }
-
-        enum class Value {
-            CREDIT,
-            DEBIT,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                CREDIT -> Value.CREDIT
-                DEBIT -> Value.DEBIT
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                CREDIT -> Known.CREDIT
-                DEBIT -> Known.DEBIT
-                else -> throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    class Priority
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Priority && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val HIGH = Priority(JsonField.of("high"))
-
-            val NORMAL = Priority(JsonField.of("normal"))
-
-            fun of(value: String) = Priority(JsonField.of(value))
-        }
-
-        enum class Known {
-            HIGH,
-            NORMAL,
-        }
-
-        enum class Value {
-            HIGH,
-            NORMAL,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                HIGH -> Value.HIGH
-                NORMAL -> Value.NORMAL
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                HIGH -> Known.HIGH
-                NORMAL -> Known.NORMAL
-                else -> throw ModernTreasuryInvalidDataException("Unknown Priority: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     @JsonDeserialize(builder = Accounting.Builder::class)
     @NoAutoDetect
     class Accounting
@@ -1664,70 +1550,6 @@ constructor(
         }
     }
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonDeserialize(builder = Metadata.Builder::class)
-    @NoAutoDetect
-    class Metadata
-    private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
-
-        private var hashCode: Int = 0
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Metadata && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
-        }
-    }
-
     class ChargeBearer
     @JsonCreator
     private constructor(
@@ -1786,6 +1608,114 @@ constructor(
                 SENDER -> Known.SENDER
                 RECEIVER -> Known.RECEIVER
                 else -> throw ModernTreasuryInvalidDataException("Unknown ChargeBearer: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class Direction
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Direction && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val CREDIT = Direction(JsonField.of("credit"))
+
+            val DEBIT = Direction(JsonField.of("debit"))
+
+            fun of(value: String) = Direction(JsonField.of(value))
+        }
+
+        enum class Known {
+            CREDIT,
+            DEBIT,
+        }
+
+        enum class Value {
+            CREDIT,
+            DEBIT,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                CREDIT -> Value.CREDIT
+                DEBIT -> Value.DEBIT
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                CREDIT -> Known.CREDIT
+                DEBIT -> Known.DEBIT
+                else -> throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class FallbackType
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is FallbackType && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val ACH = FallbackType(JsonField.of("ach"))
+
+            fun of(value: String) = FallbackType(JsonField.of(value))
+        }
+
+        enum class Known {
+            ACH,
+        }
+
+        enum class Value {
+            ACH,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                ACH -> Value.ACH
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                ACH -> Known.ACH
+                else -> throw ModernTreasuryInvalidDataException("Unknown FallbackType: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()
@@ -1851,118 +1781,276 @@ constructor(
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Status
-    @JsonCreator
+    @JsonDeserialize(builder = LineItemRequest.Builder::class)
+    @NoAutoDetect
+    class LineItemRequest
     private constructor(
-        private val value: JsonField<String>,
+        private val amount: Long?,
+        private val metadata: Metadata?,
+        private val description: String?,
+        private val accountingCategoryId: String?,
+        private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        private var hashCode: Int = 0
+
+        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+        @JsonProperty("amount") fun amount(): Long? = amount
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+
+        /** A free-form description of the line item. */
+        @JsonProperty("description") fun description(): String? = description
+
+        /**
+         * The ID of one of your accounting categories. Note that these will only be accessible if
+         * your accounting system has been connected.
+         */
+        @JsonProperty("accounting_category_id")
+        fun accountingCategoryId(): String? = accountingCategoryId
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return other is LineItemRequest &&
+                this.amount == other.amount &&
+                this.metadata == other.metadata &&
+                this.description == other.description &&
+                this.accountingCategoryId == other.accountingCategoryId &&
+                this.additionalProperties == other.additionalProperties
         }
 
-        override fun hashCode() = value.hashCode()
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        amount,
+                        metadata,
+                        description,
+                        accountingCategoryId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
 
-        override fun toString() = value.toString()
+        override fun toString() =
+            "LineItemRequest{amount=$amount, metadata=$metadata, description=$description, accountingCategoryId=$accountingCategoryId, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            val APPROVED = Status(JsonField.of("approved"))
-
-            val CANCELLED = Status(JsonField.of("cancelled"))
-
-            val COMPLETED = Status(JsonField.of("completed"))
-
-            val DENIED = Status(JsonField.of("denied"))
-
-            val FAILED = Status(JsonField.of("failed"))
-
-            val NEEDS_APPROVAL = Status(JsonField.of("needs_approval"))
-
-            val PENDING = Status(JsonField.of("pending"))
-
-            val PROCESSING = Status(JsonField.of("processing"))
-
-            val RETURNED = Status(JsonField.of("returned"))
-
-            val REVERSED = Status(JsonField.of("reversed"))
-
-            val SENT = Status(JsonField.of("sent"))
-
-            fun of(value: String) = Status(JsonField.of(value))
+            fun builder() = Builder()
         }
 
-        enum class Known {
-            APPROVED,
-            CANCELLED,
-            COMPLETED,
-            DENIED,
-            FAILED,
-            NEEDS_APPROVAL,
-            PENDING,
-            PROCESSING,
-            RETURNED,
-            REVERSED,
-            SENT,
-        }
+        class Builder {
 
-        enum class Value {
-            APPROVED,
-            CANCELLED,
-            COMPLETED,
-            DENIED,
-            FAILED,
-            NEEDS_APPROVAL,
-            PENDING,
-            PROCESSING,
-            RETURNED,
-            REVERSED,
-            SENT,
-            _UNKNOWN,
-        }
+            private var amount: Long? = null
+            private var metadata: Metadata? = null
+            private var description: String? = null
+            private var accountingCategoryId: String? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        fun value(): Value =
-            when (this) {
-                APPROVED -> Value.APPROVED
-                CANCELLED -> Value.CANCELLED
-                COMPLETED -> Value.COMPLETED
-                DENIED -> Value.DENIED
-                FAILED -> Value.FAILED
-                NEEDS_APPROVAL -> Value.NEEDS_APPROVAL
-                PENDING -> Value.PENDING
-                PROCESSING -> Value.PROCESSING
-                RETURNED -> Value.RETURNED
-                REVERSED -> Value.REVERSED
-                SENT -> Value.SENT
-                else -> Value._UNKNOWN
+            internal fun from(lineItemRequest: LineItemRequest) = apply {
+                this.amount = lineItemRequest.amount
+                this.metadata = lineItemRequest.metadata
+                this.description = lineItemRequest.description
+                this.accountingCategoryId = lineItemRequest.accountingCategoryId
+                additionalProperties(lineItemRequest.additionalProperties)
             }
 
-        fun known(): Known =
-            when (this) {
-                APPROVED -> Known.APPROVED
-                CANCELLED -> Known.CANCELLED
-                COMPLETED -> Known.COMPLETED
-                DENIED -> Known.DENIED
-                FAILED -> Known.FAILED
-                NEEDS_APPROVAL -> Known.NEEDS_APPROVAL
-                PENDING -> Known.PENDING
-                PROCESSING -> Known.PROCESSING
-                RETURNED -> Known.RETURNED
-                REVERSED -> Known.REVERSED
-                SENT -> Known.SENT
-                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
+            /**
+             * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
+             */
+            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            @JsonProperty("metadata")
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+            /** A free-form description of the line item. */
+            @JsonProperty("description")
+            fun description(description: String) = apply { this.description = description }
+
+            /**
+             * The ID of one of your accounting categories. Note that these will only be accessible
+             * if your accounting system has been connected.
+             */
+            @JsonProperty("accounting_category_id")
+            fun accountingCategoryId(accountingCategoryId: String) = apply {
+                this.accountingCategoryId = accountingCategoryId
             }
 
-        fun asString(): String = _value().asStringOrThrow()
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): LineItemRequest =
+                LineItemRequest(
+                    checkNotNull(amount) { "`amount` is required but was not set" },
+                    metadata,
+                    description,
+                    accountingCategoryId,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonDeserialize(builder = Metadata.Builder::class)
+        @NoAutoDetect
+        class Metadata
+        private constructor(
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var hashCode: Int = 0
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Metadata && this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(metadata: Metadata) = apply {
+                    additionalProperties(metadata.additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+            }
+        }
     }
 
-    class FallbackType
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    @JsonDeserialize(builder = Metadata.Builder::class)
+    @NoAutoDetect
+    class Metadata
+    private constructor(
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties(metadata.additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+        }
+    }
+
+    class Priority
     @JsonCreator
     private constructor(
         private val value: JsonField<String>,
@@ -1975,7 +2063,7 @@ constructor(
                 return true
             }
 
-            return other is FallbackType && this.value == other.value
+            return other is Priority && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1984,30 +2072,36 @@ constructor(
 
         companion object {
 
-            val ACH = FallbackType(JsonField.of("ach"))
+            val HIGH = Priority(JsonField.of("high"))
 
-            fun of(value: String) = FallbackType(JsonField.of(value))
+            val NORMAL = Priority(JsonField.of("normal"))
+
+            fun of(value: String) = Priority(JsonField.of(value))
         }
 
         enum class Known {
-            ACH,
+            HIGH,
+            NORMAL,
         }
 
         enum class Value {
-            ACH,
+            HIGH,
+            NORMAL,
             _UNKNOWN,
         }
 
         fun value(): Value =
             when (this) {
-                ACH -> Value.ACH
+                HIGH -> Value.HIGH
+                NORMAL -> Value.NORMAL
                 else -> Value._UNKNOWN
             }
 
         fun known(): Known =
             when (this) {
-                ACH -> Known.ACH
-                else -> throw ModernTreasuryInvalidDataException("Unknown FallbackType: $value")
+                HIGH -> Known.HIGH
+                NORMAL -> Known.NORMAL
+                else -> throw ModernTreasuryInvalidDataException("Unknown Priority: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()
@@ -2282,207 +2376,6 @@ constructor(
                 )
         }
 
-        class PartyType
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) {
-
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is PartyType && this.value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
-            companion object {
-
-                val BUSINESS = PartyType(JsonField.of("business"))
-
-                val INDIVIDUAL = PartyType(JsonField.of("individual"))
-
-                fun of(value: String) = PartyType(JsonField.of(value))
-            }
-
-            enum class Known {
-                BUSINESS,
-                INDIVIDUAL,
-            }
-
-            enum class Value {
-                BUSINESS,
-                INDIVIDUAL,
-                _UNKNOWN,
-            }
-
-            fun value(): Value =
-                when (this) {
-                    BUSINESS -> Value.BUSINESS
-                    INDIVIDUAL -> Value.INDIVIDUAL
-                    else -> Value._UNKNOWN
-                }
-
-            fun known(): Known =
-                when (this) {
-                    BUSINESS -> Known.BUSINESS
-                    INDIVIDUAL -> Known.INDIVIDUAL
-                    else -> throw ModernTreasuryInvalidDataException("Unknown PartyType: $value")
-                }
-
-            fun asString(): String = _value().asStringOrThrow()
-        }
-
-        /** Required if receiving wire payments. */
-        @JsonDeserialize(builder = AddressRequest.Builder::class)
-        @NoAutoDetect
-        class AddressRequest
-        private constructor(
-            private val line1: String?,
-            private val line2: String?,
-            private val locality: String?,
-            private val region: String?,
-            private val postalCode: String?,
-            private val country: String?,
-            private val additionalProperties: Map<String, JsonValue>,
-        ) {
-
-            private var hashCode: Int = 0
-
-            @JsonProperty("line1") fun line1(): String? = line1
-
-            @JsonProperty("line2") fun line2(): String? = line2
-
-            /** Locality or City. */
-            @JsonProperty("locality") fun locality(): String? = locality
-
-            /** Region or State. */
-            @JsonProperty("region") fun region(): String? = region
-
-            /** The postal code of the address. */
-            @JsonProperty("postal_code") fun postalCode(): String? = postalCode
-
-            /** Country code conforms to [ISO 3166-1 alpha-2] */
-            @JsonProperty("country") fun country(): String? = country
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is AddressRequest &&
-                    this.line1 == other.line1 &&
-                    this.line2 == other.line2 &&
-                    this.locality == other.locality &&
-                    this.region == other.region &&
-                    this.postalCode == other.postalCode &&
-                    this.country == other.country &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            line1,
-                            line2,
-                            locality,
-                            region,
-                            postalCode,
-                            country,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "AddressRequest{line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
-
-            companion object {
-
-                fun builder() = Builder()
-            }
-
-            class Builder {
-
-                private var line1: String? = null
-                private var line2: String? = null
-                private var locality: String? = null
-                private var region: String? = null
-                private var postalCode: String? = null
-                private var country: String? = null
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                internal fun from(addressRequest: AddressRequest) = apply {
-                    this.line1 = addressRequest.line1
-                    this.line2 = addressRequest.line2
-                    this.locality = addressRequest.locality
-                    this.region = addressRequest.region
-                    this.postalCode = addressRequest.postalCode
-                    this.country = addressRequest.country
-                    additionalProperties(addressRequest.additionalProperties)
-                }
-
-                @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
-
-                @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
-
-                /** Locality or City. */
-                @JsonProperty("locality")
-                fun locality(locality: String) = apply { this.locality = locality }
-
-                /** Region or State. */
-                @JsonProperty("region") fun region(region: String) = apply { this.region = region }
-
-                /** The postal code of the address. */
-                @JsonProperty("postal_code")
-                fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
-
-                /** Country code conforms to [ISO 3166-1 alpha-2] */
-                @JsonProperty("country")
-                fun country(country: String) = apply { this.country = country }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-                @JsonAnySetter
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun build(): AddressRequest =
-                    AddressRequest(
-                        line1,
-                        line2,
-                        locality,
-                        region,
-                        postalCode,
-                        country,
-                        additionalProperties.toUnmodifiable(),
-                    )
-            }
-        }
-
         @JsonDeserialize(builder = AccountDetail.Builder::class)
         @NoAutoDetect
         class AccountDetail
@@ -2662,24 +2555,21 @@ constructor(
             }
         }
 
-        @JsonDeserialize(builder = RoutingDetail.Builder::class)
+        @JsonDeserialize(builder = ContactDetailCreateRequest.Builder::class)
         @NoAutoDetect
-        class RoutingDetail
+        class ContactDetailCreateRequest
         private constructor(
-            private val routingNumber: String?,
-            private val routingNumberType: RoutingNumberType?,
-            private val paymentType: PaymentType?,
+            private val contactIdentifier: String?,
+            private val contactIdentifierType: ContactIdentifierType?,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
             private var hashCode: Int = 0
 
-            @JsonProperty("routing_number") fun routingNumber(): String? = routingNumber
+            @JsonProperty("contact_identifier") fun contactIdentifier(): String? = contactIdentifier
 
-            @JsonProperty("routing_number_type")
-            fun routingNumberType(): RoutingNumberType? = routingNumberType
-
-            @JsonProperty("payment_type") fun paymentType(): PaymentType? = paymentType
+            @JsonProperty("contact_identifier_type")
+            fun contactIdentifierType(): ContactIdentifierType? = contactIdentifierType
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -2692,10 +2582,9 @@ constructor(
                     return true
                 }
 
-                return other is RoutingDetail &&
-                    this.routingNumber == other.routingNumber &&
-                    this.routingNumberType == other.routingNumberType &&
-                    this.paymentType == other.paymentType &&
+                return other is ContactDetailCreateRequest &&
+                    this.contactIdentifier == other.contactIdentifier &&
+                    this.contactIdentifierType == other.contactIdentifierType &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -2703,9 +2592,8 @@ constructor(
                 if (hashCode == 0) {
                     hashCode =
                         Objects.hash(
-                            routingNumber,
-                            routingNumberType,
-                            paymentType,
+                            contactIdentifier,
+                            contactIdentifierType,
                             additionalProperties,
                         )
                 }
@@ -2713,7 +2601,7 @@ constructor(
             }
 
             override fun toString() =
-                "RoutingDetail{routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalProperties=$additionalProperties}"
+                "ContactDetailCreateRequest{contactIdentifier=$contactIdentifier, contactIdentifierType=$contactIdentifierType, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -2722,30 +2610,25 @@ constructor(
 
             class Builder {
 
-                private var routingNumber: String? = null
-                private var routingNumberType: RoutingNumberType? = null
-                private var paymentType: PaymentType? = null
+                private var contactIdentifier: String? = null
+                private var contactIdentifierType: ContactIdentifierType? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-                internal fun from(routingDetail: RoutingDetail) = apply {
-                    this.routingNumber = routingDetail.routingNumber
-                    this.routingNumberType = routingDetail.routingNumberType
-                    this.paymentType = routingDetail.paymentType
-                    additionalProperties(routingDetail.additionalProperties)
+                internal fun from(contactDetailCreateRequest: ContactDetailCreateRequest) = apply {
+                    this.contactIdentifier = contactDetailCreateRequest.contactIdentifier
+                    this.contactIdentifierType = contactDetailCreateRequest.contactIdentifierType
+                    additionalProperties(contactDetailCreateRequest.additionalProperties)
                 }
 
-                @JsonProperty("routing_number")
-                fun routingNumber(routingNumber: String) = apply {
-                    this.routingNumber = routingNumber
+                @JsonProperty("contact_identifier")
+                fun contactIdentifier(contactIdentifier: String) = apply {
+                    this.contactIdentifier = contactIdentifier
                 }
 
-                @JsonProperty("routing_number_type")
-                fun routingNumberType(routingNumberType: RoutingNumberType) = apply {
-                    this.routingNumberType = routingNumberType
+                @JsonProperty("contact_identifier_type")
+                fun contactIdentifierType(contactIdentifierType: ContactIdentifierType) = apply {
+                    this.contactIdentifierType = contactIdentifierType
                 }
-
-                @JsonProperty("payment_type")
-                fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -2762,20 +2645,15 @@ constructor(
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun build(): RoutingDetail =
-                    RoutingDetail(
-                        checkNotNull(routingNumber) {
-                            "`routingNumber` is required but was not set"
-                        },
-                        checkNotNull(routingNumberType) {
-                            "`routingNumberType` is required but was not set"
-                        },
-                        paymentType,
+                fun build(): ContactDetailCreateRequest =
+                    ContactDetailCreateRequest(
+                        contactIdentifier,
+                        contactIdentifierType,
                         additionalProperties.toUnmodifiable(),
                     )
             }
 
-            class RoutingNumberType
+            class ContactIdentifierType
             @JsonCreator
             private constructor(
                 private val value: JsonField<String>,
@@ -2788,7 +2666,7 @@ constructor(
                         return true
                     }
 
-                    return other is RoutingNumberType && this.value == other.value
+                    return other is ContactIdentifierType && this.value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -2797,305 +2675,48 @@ constructor(
 
                 companion object {
 
-                    val ABA = RoutingNumberType(JsonField.of("aba"))
+                    val EMAIL = ContactIdentifierType(JsonField.of("email"))
 
-                    val AU_BSB = RoutingNumberType(JsonField.of("au_bsb"))
+                    val PHONE_NUMBER = ContactIdentifierType(JsonField.of("phone_number"))
 
-                    val BR_CODIGO = RoutingNumberType(JsonField.of("br_codigo"))
+                    val WEBSITE = ContactIdentifierType(JsonField.of("website"))
 
-                    val CA_CPA = RoutingNumberType(JsonField.of("ca_cpa"))
-
-                    val CHIPS = RoutingNumberType(JsonField.of("chips"))
-
-                    val CNAPS = RoutingNumberType(JsonField.of("cnaps"))
-
-                    val GB_SORT_CODE = RoutingNumberType(JsonField.of("gb_sort_code"))
-
-                    val IN_IFSC = RoutingNumberType(JsonField.of("in_ifsc"))
-
-                    val MY_BRANCH_CODE = RoutingNumberType(JsonField.of("my_branch_code"))
-
-                    val SWIFT = RoutingNumberType(JsonField.of("swift"))
-
-                    fun of(value: String) = RoutingNumberType(JsonField.of(value))
+                    fun of(value: String) = ContactIdentifierType(JsonField.of(value))
                 }
 
                 enum class Known {
-                    ABA,
-                    AU_BSB,
-                    BR_CODIGO,
-                    CA_CPA,
-                    CHIPS,
-                    CNAPS,
-                    GB_SORT_CODE,
-                    IN_IFSC,
-                    MY_BRANCH_CODE,
-                    SWIFT,
+                    EMAIL,
+                    PHONE_NUMBER,
+                    WEBSITE,
                 }
 
                 enum class Value {
-                    ABA,
-                    AU_BSB,
-                    BR_CODIGO,
-                    CA_CPA,
-                    CHIPS,
-                    CNAPS,
-                    GB_SORT_CODE,
-                    IN_IFSC,
-                    MY_BRANCH_CODE,
-                    SWIFT,
+                    EMAIL,
+                    PHONE_NUMBER,
+                    WEBSITE,
                     _UNKNOWN,
                 }
 
                 fun value(): Value =
                     when (this) {
-                        ABA -> Value.ABA
-                        AU_BSB -> Value.AU_BSB
-                        BR_CODIGO -> Value.BR_CODIGO
-                        CA_CPA -> Value.CA_CPA
-                        CHIPS -> Value.CHIPS
-                        CNAPS -> Value.CNAPS
-                        GB_SORT_CODE -> Value.GB_SORT_CODE
-                        IN_IFSC -> Value.IN_IFSC
-                        MY_BRANCH_CODE -> Value.MY_BRANCH_CODE
-                        SWIFT -> Value.SWIFT
+                        EMAIL -> Value.EMAIL
+                        PHONE_NUMBER -> Value.PHONE_NUMBER
+                        WEBSITE -> Value.WEBSITE
                         else -> Value._UNKNOWN
                     }
 
                 fun known(): Known =
                     when (this) {
-                        ABA -> Known.ABA
-                        AU_BSB -> Known.AU_BSB
-                        BR_CODIGO -> Known.BR_CODIGO
-                        CA_CPA -> Known.CA_CPA
-                        CHIPS -> Known.CHIPS
-                        CNAPS -> Known.CNAPS
-                        GB_SORT_CODE -> Known.GB_SORT_CODE
-                        IN_IFSC -> Known.IN_IFSC
-                        MY_BRANCH_CODE -> Known.MY_BRANCH_CODE
-                        SWIFT -> Known.SWIFT
+                        EMAIL -> Known.EMAIL
+                        PHONE_NUMBER -> Known.PHONE_NUMBER
+                        WEBSITE -> Known.WEBSITE
                         else ->
                             throw ModernTreasuryInvalidDataException(
-                                "Unknown RoutingNumberType: $value"
+                                "Unknown ContactIdentifierType: $value"
                             )
                     }
 
                 fun asString(): String = _value().asStringOrThrow()
-            }
-
-            class PaymentType
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) {
-
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is PaymentType && this.value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-
-                companion object {
-
-                    val ACH = PaymentType(JsonField.of("ach"))
-
-                    val AU_BECS = PaymentType(JsonField.of("au_becs"))
-
-                    val BACS = PaymentType(JsonField.of("bacs"))
-
-                    val BOOK = PaymentType(JsonField.of("book"))
-
-                    val CARD = PaymentType(JsonField.of("card"))
-
-                    val CHECK = PaymentType(JsonField.of("check"))
-
-                    val EFT = PaymentType(JsonField.of("eft"))
-
-                    val CROSS_BORDER = PaymentType(JsonField.of("cross_border"))
-
-                    val INTERAC = PaymentType(JsonField.of("interac"))
-
-                    val MASAV = PaymentType(JsonField.of("masav"))
-
-                    val NEFT = PaymentType(JsonField.of("neft"))
-
-                    val PROVXCHANGE = PaymentType(JsonField.of("provxchange"))
-
-                    val RTP = PaymentType(JsonField.of("rtp"))
-
-                    val SEN = PaymentType(JsonField.of("sen"))
-
-                    val SEPA = PaymentType(JsonField.of("sepa"))
-
-                    val SIGNET = PaymentType(JsonField.of("signet"))
-
-                    val WIRE = PaymentType(JsonField.of("wire"))
-
-                    fun of(value: String) = PaymentType(JsonField.of(value))
-                }
-
-                enum class Known {
-                    ACH,
-                    AU_BECS,
-                    BACS,
-                    BOOK,
-                    CARD,
-                    CHECK,
-                    EFT,
-                    CROSS_BORDER,
-                    INTERAC,
-                    MASAV,
-                    NEFT,
-                    PROVXCHANGE,
-                    RTP,
-                    SEN,
-                    SEPA,
-                    SIGNET,
-                    WIRE,
-                }
-
-                enum class Value {
-                    ACH,
-                    AU_BECS,
-                    BACS,
-                    BOOK,
-                    CARD,
-                    CHECK,
-                    EFT,
-                    CROSS_BORDER,
-                    INTERAC,
-                    MASAV,
-                    NEFT,
-                    PROVXCHANGE,
-                    RTP,
-                    SEN,
-                    SEPA,
-                    SIGNET,
-                    WIRE,
-                    _UNKNOWN,
-                }
-
-                fun value(): Value =
-                    when (this) {
-                        ACH -> Value.ACH
-                        AU_BECS -> Value.AU_BECS
-                        BACS -> Value.BACS
-                        BOOK -> Value.BOOK
-                        CARD -> Value.CARD
-                        CHECK -> Value.CHECK
-                        EFT -> Value.EFT
-                        CROSS_BORDER -> Value.CROSS_BORDER
-                        INTERAC -> Value.INTERAC
-                        MASAV -> Value.MASAV
-                        NEFT -> Value.NEFT
-                        PROVXCHANGE -> Value.PROVXCHANGE
-                        RTP -> Value.RTP
-                        SEN -> Value.SEN
-                        SEPA -> Value.SEPA
-                        SIGNET -> Value.SIGNET
-                        WIRE -> Value.WIRE
-                        else -> Value._UNKNOWN
-                    }
-
-                fun known(): Known =
-                    when (this) {
-                        ACH -> Known.ACH
-                        AU_BECS -> Known.AU_BECS
-                        BACS -> Known.BACS
-                        BOOK -> Known.BOOK
-                        CARD -> Known.CARD
-                        CHECK -> Known.CHECK
-                        EFT -> Known.EFT
-                        CROSS_BORDER -> Known.CROSS_BORDER
-                        INTERAC -> Known.INTERAC
-                        MASAV -> Known.MASAV
-                        NEFT -> Known.NEFT
-                        PROVXCHANGE -> Known.PROVXCHANGE
-                        RTP -> Known.RTP
-                        SEN -> Known.SEN
-                        SEPA -> Known.SEPA
-                        SIGNET -> Known.SIGNET
-                        WIRE -> Known.WIRE
-                        else ->
-                            throw ModernTreasuryInvalidDataException("Unknown PaymentType: $value")
-                    }
-
-                fun asString(): String = _value().asStringOrThrow()
-            }
-        }
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        @JsonDeserialize(builder = Metadata.Builder::class)
-        @NoAutoDetect
-        class Metadata
-        private constructor(
-            private val additionalProperties: Map<String, JsonValue>,
-        ) {
-
-            private var hashCode: Int = 0
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Metadata && this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = Objects.hash(additionalProperties)
-                }
-                return hashCode
-            }
-
-            override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-
-            companion object {
-
-                fun builder() = Builder()
-            }
-
-            class Builder {
-
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                internal fun from(metadata: Metadata) = apply {
-                    additionalProperties(metadata.additionalProperties)
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-                @JsonAnySetter
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
             }
         }
 
@@ -3511,309 +3132,6 @@ constructor(
             }
         }
 
-        @JsonDeserialize(builder = ContactDetailCreateRequest.Builder::class)
-        @NoAutoDetect
-        class ContactDetailCreateRequest
-        private constructor(
-            private val contactIdentifier: String?,
-            private val contactIdentifierType: ContactIdentifierType?,
-            private val additionalProperties: Map<String, JsonValue>,
-        ) {
-
-            private var hashCode: Int = 0
-
-            @JsonProperty("contact_identifier") fun contactIdentifier(): String? = contactIdentifier
-
-            @JsonProperty("contact_identifier_type")
-            fun contactIdentifierType(): ContactIdentifierType? = contactIdentifierType
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is ContactDetailCreateRequest &&
-                    this.contactIdentifier == other.contactIdentifier &&
-                    this.contactIdentifierType == other.contactIdentifierType &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            contactIdentifier,
-                            contactIdentifierType,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "ContactDetailCreateRequest{contactIdentifier=$contactIdentifier, contactIdentifierType=$contactIdentifierType, additionalProperties=$additionalProperties}"
-
-            companion object {
-
-                fun builder() = Builder()
-            }
-
-            class Builder {
-
-                private var contactIdentifier: String? = null
-                private var contactIdentifierType: ContactIdentifierType? = null
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                internal fun from(contactDetailCreateRequest: ContactDetailCreateRequest) = apply {
-                    this.contactIdentifier = contactDetailCreateRequest.contactIdentifier
-                    this.contactIdentifierType = contactDetailCreateRequest.contactIdentifierType
-                    additionalProperties(contactDetailCreateRequest.additionalProperties)
-                }
-
-                @JsonProperty("contact_identifier")
-                fun contactIdentifier(contactIdentifier: String) = apply {
-                    this.contactIdentifier = contactIdentifier
-                }
-
-                @JsonProperty("contact_identifier_type")
-                fun contactIdentifierType(contactIdentifierType: ContactIdentifierType) = apply {
-                    this.contactIdentifierType = contactIdentifierType
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-                @JsonAnySetter
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun build(): ContactDetailCreateRequest =
-                    ContactDetailCreateRequest(
-                        contactIdentifier,
-                        contactIdentifierType,
-                        additionalProperties.toUnmodifiable(),
-                    )
-            }
-
-            class ContactIdentifierType
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) {
-
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is ContactIdentifierType && this.value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-
-                companion object {
-
-                    val EMAIL = ContactIdentifierType(JsonField.of("email"))
-
-                    val PHONE_NUMBER = ContactIdentifierType(JsonField.of("phone_number"))
-
-                    val WEBSITE = ContactIdentifierType(JsonField.of("website"))
-
-                    fun of(value: String) = ContactIdentifierType(JsonField.of(value))
-                }
-
-                enum class Known {
-                    EMAIL,
-                    PHONE_NUMBER,
-                    WEBSITE,
-                }
-
-                enum class Value {
-                    EMAIL,
-                    PHONE_NUMBER,
-                    WEBSITE,
-                    _UNKNOWN,
-                }
-
-                fun value(): Value =
-                    when (this) {
-                        EMAIL -> Value.EMAIL
-                        PHONE_NUMBER -> Value.PHONE_NUMBER
-                        WEBSITE -> Value.WEBSITE
-                        else -> Value._UNKNOWN
-                    }
-
-                fun known(): Known =
-                    when (this) {
-                        EMAIL -> Known.EMAIL
-                        PHONE_NUMBER -> Known.PHONE_NUMBER
-                        WEBSITE -> Known.WEBSITE
-                        else ->
-                            throw ModernTreasuryInvalidDataException(
-                                "Unknown ContactIdentifierType: $value"
-                            )
-                    }
-
-                fun asString(): String = _value().asStringOrThrow()
-            }
-        }
-    }
-
-    @JsonDeserialize(builder = LineItemRequest.Builder::class)
-    @NoAutoDetect
-    class LineItemRequest
-    private constructor(
-        private val amount: Long?,
-        private val metadata: Metadata?,
-        private val description: String?,
-        private val accountingCategoryId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
-
-        private var hashCode: Int = 0
-
-        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-        @JsonProperty("amount") fun amount(): Long? = amount
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
-
-        /** A free-form description of the line item. */
-        @JsonProperty("description") fun description(): String? = description
-
-        /**
-         * The ID of one of your accounting categories. Note that these will only be accessible if
-         * your accounting system has been connected.
-         */
-        @JsonProperty("accounting_category_id")
-        fun accountingCategoryId(): String? = accountingCategoryId
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is LineItemRequest &&
-                this.amount == other.amount &&
-                this.metadata == other.metadata &&
-                this.description == other.description &&
-                this.accountingCategoryId == other.accountingCategoryId &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        amount,
-                        metadata,
-                        description,
-                        accountingCategoryId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "LineItemRequest{amount=$amount, metadata=$metadata, description=$description, accountingCategoryId=$accountingCategoryId, additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var amount: Long? = null
-            private var metadata: Metadata? = null
-            private var description: String? = null
-            private var accountingCategoryId: String? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(lineItemRequest: LineItemRequest) = apply {
-                this.amount = lineItemRequest.amount
-                this.metadata = lineItemRequest.metadata
-                this.description = lineItemRequest.description
-                this.accountingCategoryId = lineItemRequest.accountingCategoryId
-                additionalProperties(lineItemRequest.additionalProperties)
-            }
-
-            /**
-             * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
-             */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            @JsonProperty("metadata")
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
-
-            /** A free-form description of the line item. */
-            @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
-
-            /**
-             * The ID of one of your accounting categories. Note that these will only be accessible
-             * if your accounting system has been connected.
-             */
-            @JsonProperty("accounting_category_id")
-            fun accountingCategoryId(accountingCategoryId: String) = apply {
-                this.accountingCategoryId = accountingCategoryId
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): LineItemRequest =
-                LineItemRequest(
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    metadata,
-                    description,
-                    accountingCategoryId,
-                    additionalProperties.toUnmodifiable(),
-                )
-        }
-
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
@@ -3880,5 +3198,687 @@ constructor(
                 fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
             }
         }
+
+        /** Required if receiving wire payments. */
+        @JsonDeserialize(builder = AddressRequest.Builder::class)
+        @NoAutoDetect
+        class AddressRequest
+        private constructor(
+            private val line1: String?,
+            private val line2: String?,
+            private val locality: String?,
+            private val region: String?,
+            private val postalCode: String?,
+            private val country: String?,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var hashCode: Int = 0
+
+            @JsonProperty("line1") fun line1(): String? = line1
+
+            @JsonProperty("line2") fun line2(): String? = line2
+
+            /** Locality or City. */
+            @JsonProperty("locality") fun locality(): String? = locality
+
+            /** Region or State. */
+            @JsonProperty("region") fun region(): String? = region
+
+            /** The postal code of the address. */
+            @JsonProperty("postal_code") fun postalCode(): String? = postalCode
+
+            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            @JsonProperty("country") fun country(): String? = country
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is AddressRequest &&
+                    this.line1 == other.line1 &&
+                    this.line2 == other.line2 &&
+                    this.locality == other.locality &&
+                    this.region == other.region &&
+                    this.postalCode == other.postalCode &&
+                    this.country == other.country &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            line1,
+                            line2,
+                            locality,
+                            region,
+                            postalCode,
+                            country,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "AddressRequest{line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var line1: String? = null
+                private var line2: String? = null
+                private var locality: String? = null
+                private var region: String? = null
+                private var postalCode: String? = null
+                private var country: String? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(addressRequest: AddressRequest) = apply {
+                    this.line1 = addressRequest.line1
+                    this.line2 = addressRequest.line2
+                    this.locality = addressRequest.locality
+                    this.region = addressRequest.region
+                    this.postalCode = addressRequest.postalCode
+                    this.country = addressRequest.country
+                    additionalProperties(addressRequest.additionalProperties)
+                }
+
+                @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
+
+                @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
+
+                /** Locality or City. */
+                @JsonProperty("locality")
+                fun locality(locality: String) = apply { this.locality = locality }
+
+                /** Region or State. */
+                @JsonProperty("region") fun region(region: String) = apply { this.region = region }
+
+                /** The postal code of the address. */
+                @JsonProperty("postal_code")
+                fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
+
+                /** Country code conforms to [ISO 3166-1 alpha-2] */
+                @JsonProperty("country")
+                fun country(country: String) = apply { this.country = country }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): AddressRequest =
+                    AddressRequest(
+                        line1,
+                        line2,
+                        locality,
+                        region,
+                        postalCode,
+                        country,
+                        additionalProperties.toUnmodifiable(),
+                    )
+            }
+        }
+
+        class PartyType
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is PartyType && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                val BUSINESS = PartyType(JsonField.of("business"))
+
+                val INDIVIDUAL = PartyType(JsonField.of("individual"))
+
+                fun of(value: String) = PartyType(JsonField.of(value))
+            }
+
+            enum class Known {
+                BUSINESS,
+                INDIVIDUAL,
+            }
+
+            enum class Value {
+                BUSINESS,
+                INDIVIDUAL,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    BUSINESS -> Value.BUSINESS
+                    INDIVIDUAL -> Value.INDIVIDUAL
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    BUSINESS -> Known.BUSINESS
+                    INDIVIDUAL -> Known.INDIVIDUAL
+                    else -> throw ModernTreasuryInvalidDataException("Unknown PartyType: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+
+        @JsonDeserialize(builder = RoutingDetail.Builder::class)
+        @NoAutoDetect
+        class RoutingDetail
+        private constructor(
+            private val routingNumber: String?,
+            private val routingNumberType: RoutingNumberType?,
+            private val paymentType: PaymentType?,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var hashCode: Int = 0
+
+            @JsonProperty("routing_number") fun routingNumber(): String? = routingNumber
+
+            @JsonProperty("routing_number_type")
+            fun routingNumberType(): RoutingNumberType? = routingNumberType
+
+            @JsonProperty("payment_type") fun paymentType(): PaymentType? = paymentType
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is RoutingDetail &&
+                    this.routingNumber == other.routingNumber &&
+                    this.routingNumberType == other.routingNumberType &&
+                    this.paymentType == other.paymentType &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            routingNumber,
+                            routingNumberType,
+                            paymentType,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "RoutingDetail{routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var routingNumber: String? = null
+                private var routingNumberType: RoutingNumberType? = null
+                private var paymentType: PaymentType? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(routingDetail: RoutingDetail) = apply {
+                    this.routingNumber = routingDetail.routingNumber
+                    this.routingNumberType = routingDetail.routingNumberType
+                    this.paymentType = routingDetail.paymentType
+                    additionalProperties(routingDetail.additionalProperties)
+                }
+
+                @JsonProperty("routing_number")
+                fun routingNumber(routingNumber: String) = apply {
+                    this.routingNumber = routingNumber
+                }
+
+                @JsonProperty("routing_number_type")
+                fun routingNumberType(routingNumberType: RoutingNumberType) = apply {
+                    this.routingNumberType = routingNumberType
+                }
+
+                @JsonProperty("payment_type")
+                fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): RoutingDetail =
+                    RoutingDetail(
+                        checkNotNull(routingNumber) {
+                            "`routingNumber` is required but was not set"
+                        },
+                        checkNotNull(routingNumberType) {
+                            "`routingNumberType` is required but was not set"
+                        },
+                        paymentType,
+                        additionalProperties.toUnmodifiable(),
+                    )
+            }
+
+            class RoutingNumberType
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is RoutingNumberType && this.value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    val ABA = RoutingNumberType(JsonField.of("aba"))
+
+                    val AU_BSB = RoutingNumberType(JsonField.of("au_bsb"))
+
+                    val BR_CODIGO = RoutingNumberType(JsonField.of("br_codigo"))
+
+                    val CA_CPA = RoutingNumberType(JsonField.of("ca_cpa"))
+
+                    val CHIPS = RoutingNumberType(JsonField.of("chips"))
+
+                    val CNAPS = RoutingNumberType(JsonField.of("cnaps"))
+
+                    val GB_SORT_CODE = RoutingNumberType(JsonField.of("gb_sort_code"))
+
+                    val IN_IFSC = RoutingNumberType(JsonField.of("in_ifsc"))
+
+                    val MY_BRANCH_CODE = RoutingNumberType(JsonField.of("my_branch_code"))
+
+                    val SWIFT = RoutingNumberType(JsonField.of("swift"))
+
+                    fun of(value: String) = RoutingNumberType(JsonField.of(value))
+                }
+
+                enum class Known {
+                    ABA,
+                    AU_BSB,
+                    BR_CODIGO,
+                    CA_CPA,
+                    CHIPS,
+                    CNAPS,
+                    GB_SORT_CODE,
+                    IN_IFSC,
+                    MY_BRANCH_CODE,
+                    SWIFT,
+                }
+
+                enum class Value {
+                    ABA,
+                    AU_BSB,
+                    BR_CODIGO,
+                    CA_CPA,
+                    CHIPS,
+                    CNAPS,
+                    GB_SORT_CODE,
+                    IN_IFSC,
+                    MY_BRANCH_CODE,
+                    SWIFT,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        ABA -> Value.ABA
+                        AU_BSB -> Value.AU_BSB
+                        BR_CODIGO -> Value.BR_CODIGO
+                        CA_CPA -> Value.CA_CPA
+                        CHIPS -> Value.CHIPS
+                        CNAPS -> Value.CNAPS
+                        GB_SORT_CODE -> Value.GB_SORT_CODE
+                        IN_IFSC -> Value.IN_IFSC
+                        MY_BRANCH_CODE -> Value.MY_BRANCH_CODE
+                        SWIFT -> Value.SWIFT
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        ABA -> Known.ABA
+                        AU_BSB -> Known.AU_BSB
+                        BR_CODIGO -> Known.BR_CODIGO
+                        CA_CPA -> Known.CA_CPA
+                        CHIPS -> Known.CHIPS
+                        CNAPS -> Known.CNAPS
+                        GB_SORT_CODE -> Known.GB_SORT_CODE
+                        IN_IFSC -> Known.IN_IFSC
+                        MY_BRANCH_CODE -> Known.MY_BRANCH_CODE
+                        SWIFT -> Known.SWIFT
+                        else ->
+                            throw ModernTreasuryInvalidDataException(
+                                "Unknown RoutingNumberType: $value"
+                            )
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+            }
+
+            class PaymentType
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is PaymentType && this.value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    val ACH = PaymentType(JsonField.of("ach"))
+
+                    val AU_BECS = PaymentType(JsonField.of("au_becs"))
+
+                    val BACS = PaymentType(JsonField.of("bacs"))
+
+                    val BOOK = PaymentType(JsonField.of("book"))
+
+                    val CARD = PaymentType(JsonField.of("card"))
+
+                    val CHECK = PaymentType(JsonField.of("check"))
+
+                    val EFT = PaymentType(JsonField.of("eft"))
+
+                    val CROSS_BORDER = PaymentType(JsonField.of("cross_border"))
+
+                    val INTERAC = PaymentType(JsonField.of("interac"))
+
+                    val MASAV = PaymentType(JsonField.of("masav"))
+
+                    val NEFT = PaymentType(JsonField.of("neft"))
+
+                    val PROVXCHANGE = PaymentType(JsonField.of("provxchange"))
+
+                    val RTP = PaymentType(JsonField.of("rtp"))
+
+                    val SEN = PaymentType(JsonField.of("sen"))
+
+                    val SEPA = PaymentType(JsonField.of("sepa"))
+
+                    val SIGNET = PaymentType(JsonField.of("signet"))
+
+                    val WIRE = PaymentType(JsonField.of("wire"))
+
+                    fun of(value: String) = PaymentType(JsonField.of(value))
+                }
+
+                enum class Known {
+                    ACH,
+                    AU_BECS,
+                    BACS,
+                    BOOK,
+                    CARD,
+                    CHECK,
+                    EFT,
+                    CROSS_BORDER,
+                    INTERAC,
+                    MASAV,
+                    NEFT,
+                    PROVXCHANGE,
+                    RTP,
+                    SEN,
+                    SEPA,
+                    SIGNET,
+                    WIRE,
+                }
+
+                enum class Value {
+                    ACH,
+                    AU_BECS,
+                    BACS,
+                    BOOK,
+                    CARD,
+                    CHECK,
+                    EFT,
+                    CROSS_BORDER,
+                    INTERAC,
+                    MASAV,
+                    NEFT,
+                    PROVXCHANGE,
+                    RTP,
+                    SEN,
+                    SEPA,
+                    SIGNET,
+                    WIRE,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        ACH -> Value.ACH
+                        AU_BECS -> Value.AU_BECS
+                        BACS -> Value.BACS
+                        BOOK -> Value.BOOK
+                        CARD -> Value.CARD
+                        CHECK -> Value.CHECK
+                        EFT -> Value.EFT
+                        CROSS_BORDER -> Value.CROSS_BORDER
+                        INTERAC -> Value.INTERAC
+                        MASAV -> Value.MASAV
+                        NEFT -> Value.NEFT
+                        PROVXCHANGE -> Value.PROVXCHANGE
+                        RTP -> Value.RTP
+                        SEN -> Value.SEN
+                        SEPA -> Value.SEPA
+                        SIGNET -> Value.SIGNET
+                        WIRE -> Value.WIRE
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        ACH -> Known.ACH
+                        AU_BECS -> Known.AU_BECS
+                        BACS -> Known.BACS
+                        BOOK -> Known.BOOK
+                        CARD -> Known.CARD
+                        CHECK -> Known.CHECK
+                        EFT -> Known.EFT
+                        CROSS_BORDER -> Known.CROSS_BORDER
+                        INTERAC -> Known.INTERAC
+                        MASAV -> Known.MASAV
+                        NEFT -> Known.NEFT
+                        PROVXCHANGE -> Known.PROVXCHANGE
+                        RTP -> Known.RTP
+                        SEN -> Known.SEN
+                        SEPA -> Known.SEPA
+                        SIGNET -> Known.SIGNET
+                        WIRE -> Known.WIRE
+                        else ->
+                            throw ModernTreasuryInvalidDataException("Unknown PaymentType: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+            }
+        }
+    }
+
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val APPROVED = Status(JsonField.of("approved"))
+
+            val CANCELLED = Status(JsonField.of("cancelled"))
+
+            val COMPLETED = Status(JsonField.of("completed"))
+
+            val DENIED = Status(JsonField.of("denied"))
+
+            val FAILED = Status(JsonField.of("failed"))
+
+            val NEEDS_APPROVAL = Status(JsonField.of("needs_approval"))
+
+            val PENDING = Status(JsonField.of("pending"))
+
+            val PROCESSING = Status(JsonField.of("processing"))
+
+            val RETURNED = Status(JsonField.of("returned"))
+
+            val REVERSED = Status(JsonField.of("reversed"))
+
+            val SENT = Status(JsonField.of("sent"))
+
+            fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        enum class Known {
+            APPROVED,
+            CANCELLED,
+            COMPLETED,
+            DENIED,
+            FAILED,
+            NEEDS_APPROVAL,
+            PENDING,
+            PROCESSING,
+            RETURNED,
+            REVERSED,
+            SENT,
+        }
+
+        enum class Value {
+            APPROVED,
+            CANCELLED,
+            COMPLETED,
+            DENIED,
+            FAILED,
+            NEEDS_APPROVAL,
+            PENDING,
+            PROCESSING,
+            RETURNED,
+            REVERSED,
+            SENT,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                APPROVED -> Value.APPROVED
+                CANCELLED -> Value.CANCELLED
+                COMPLETED -> Value.COMPLETED
+                DENIED -> Value.DENIED
+                FAILED -> Value.FAILED
+                NEEDS_APPROVAL -> Value.NEEDS_APPROVAL
+                PENDING -> Value.PENDING
+                PROCESSING -> Value.PROCESSING
+                RETURNED -> Value.RETURNED
+                REVERSED -> Value.REVERSED
+                SENT -> Value.SENT
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                APPROVED -> Known.APPROVED
+                CANCELLED -> Known.CANCELLED
+                COMPLETED -> Known.COMPLETED
+                DENIED -> Known.DENIED
+                FAILED -> Known.FAILED
+                NEEDS_APPROVAL -> Known.NEEDS_APPROVAL
+                PENDING -> Known.PENDING
+                PROCESSING -> Known.PROCESSING
+                RETURNED -> Known.RETURNED
+                REVERSED -> Known.REVERSED
+                SENT -> Known.SENT
+                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 }

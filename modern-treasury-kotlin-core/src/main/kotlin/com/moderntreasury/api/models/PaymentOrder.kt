@@ -1455,120 +1455,6 @@ private constructor(
             )
     }
 
-    class Direction
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Direction && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val CREDIT = Direction(JsonField.of("credit"))
-
-            val DEBIT = Direction(JsonField.of("debit"))
-
-            fun of(value: String) = Direction(JsonField.of(value))
-        }
-
-        enum class Known {
-            CREDIT,
-            DEBIT,
-        }
-
-        enum class Value {
-            CREDIT,
-            DEBIT,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                CREDIT -> Value.CREDIT
-                DEBIT -> Value.DEBIT
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                CREDIT -> Known.CREDIT
-                DEBIT -> Known.DEBIT
-                else -> throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    class Priority
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Priority && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val HIGH = Priority(JsonField.of("high"))
-
-            val NORMAL = Priority(JsonField.of("normal"))
-
-            fun of(value: String) = Priority(JsonField.of(value))
-        }
-
-        enum class Known {
-            HIGH,
-            NORMAL,
-        }
-
-        enum class Value {
-            HIGH,
-            NORMAL,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                HIGH -> Value.HIGH
-                NORMAL -> Value.NORMAL
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                HIGH -> Known.HIGH
-                NORMAL -> Known.NORMAL
-                else -> throw ModernTreasuryInvalidDataException("Unknown Priority: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     @JsonDeserialize(builder = Accounting.Builder::class)
     @NoAutoDetect
     class Accounting
@@ -1718,78 +1604,6 @@ private constructor(
         }
     }
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonDeserialize(builder = Metadata.Builder::class)
-    @NoAutoDetect
-    class Metadata
-    private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
-
-        private var validated: Boolean = false
-
-        private var hashCode: Int = 0
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
-            }
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Metadata && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
-        }
-    }
-
     class ChargeBearer
     @JsonCreator
     private constructor(
@@ -1848,235 +1662,6 @@ private constructor(
                 SENDER -> Known.SENDER
                 RECEIVER -> Known.RECEIVER
                 else -> throw ModernTreasuryInvalidDataException("Unknown ChargeBearer: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    class ForeignExchangeIndicator
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is ForeignExchangeIndicator && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val FIXED_TO_VARIABLE = ForeignExchangeIndicator(JsonField.of("fixed_to_variable"))
-
-            val VARIABLE_TO_FIXED = ForeignExchangeIndicator(JsonField.of("variable_to_fixed"))
-
-            fun of(value: String) = ForeignExchangeIndicator(JsonField.of(value))
-        }
-
-        enum class Known {
-            FIXED_TO_VARIABLE,
-            VARIABLE_TO_FIXED,
-        }
-
-        enum class Value {
-            FIXED_TO_VARIABLE,
-            VARIABLE_TO_FIXED,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                FIXED_TO_VARIABLE -> Value.FIXED_TO_VARIABLE
-                VARIABLE_TO_FIXED -> Value.VARIABLE_TO_FIXED
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                FIXED_TO_VARIABLE -> Known.FIXED_TO_VARIABLE
-                VARIABLE_TO_FIXED -> Known.VARIABLE_TO_FIXED
-                else ->
-                    throw ModernTreasuryInvalidDataException(
-                        "Unknown ForeignExchangeIndicator: $value"
-                    )
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val APPROVED = Status(JsonField.of("approved"))
-
-            val CANCELLED = Status(JsonField.of("cancelled"))
-
-            val COMPLETED = Status(JsonField.of("completed"))
-
-            val DENIED = Status(JsonField.of("denied"))
-
-            val FAILED = Status(JsonField.of("failed"))
-
-            val NEEDS_APPROVAL = Status(JsonField.of("needs_approval"))
-
-            val PENDING = Status(JsonField.of("pending"))
-
-            val PROCESSING = Status(JsonField.of("processing"))
-
-            val RETURNED = Status(JsonField.of("returned"))
-
-            val REVERSED = Status(JsonField.of("reversed"))
-
-            val SENT = Status(JsonField.of("sent"))
-
-            fun of(value: String) = Status(JsonField.of(value))
-        }
-
-        enum class Known {
-            APPROVED,
-            CANCELLED,
-            COMPLETED,
-            DENIED,
-            FAILED,
-            NEEDS_APPROVAL,
-            PENDING,
-            PROCESSING,
-            RETURNED,
-            REVERSED,
-            SENT,
-        }
-
-        enum class Value {
-            APPROVED,
-            CANCELLED,
-            COMPLETED,
-            DENIED,
-            FAILED,
-            NEEDS_APPROVAL,
-            PENDING,
-            PROCESSING,
-            RETURNED,
-            REVERSED,
-            SENT,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                APPROVED -> Value.APPROVED
-                CANCELLED -> Value.CANCELLED
-                COMPLETED -> Value.COMPLETED
-                DENIED -> Value.DENIED
-                FAILED -> Value.FAILED
-                NEEDS_APPROVAL -> Value.NEEDS_APPROVAL
-                PENDING -> Value.PENDING
-                PROCESSING -> Value.PROCESSING
-                RETURNED -> Value.RETURNED
-                REVERSED -> Value.REVERSED
-                SENT -> Value.SENT
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                APPROVED -> Known.APPROVED
-                CANCELLED -> Known.CANCELLED
-                COMPLETED -> Known.COMPLETED
-                DENIED -> Known.DENIED
-                FAILED -> Known.FAILED
-                NEEDS_APPROVAL -> Known.NEEDS_APPROVAL
-                PENDING -> Known.PENDING
-                PROCESSING -> Known.PROCESSING
-                RETURNED -> Known.RETURNED
-                REVERSED -> Known.REVERSED
-                SENT -> Known.SENT
-                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    class ReceivingAccountType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is ReceivingAccountType && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val INTERNAL_ACCOUNT = ReceivingAccountType(JsonField.of("internal_account"))
-
-            val EXTERNAL_ACCOUNT = ReceivingAccountType(JsonField.of("external_account"))
-
-            fun of(value: String) = ReceivingAccountType(JsonField.of(value))
-        }
-
-        enum class Known {
-            INTERNAL_ACCOUNT,
-            EXTERNAL_ACCOUNT,
-        }
-
-        enum class Value {
-            INTERNAL_ACCOUNT,
-            EXTERNAL_ACCOUNT,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                INTERNAL_ACCOUNT -> Value.INTERNAL_ACCOUNT
-                EXTERNAL_ACCOUNT -> Value.EXTERNAL_ACCOUNT
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                INTERNAL_ACCOUNT -> Known.INTERNAL_ACCOUNT
-                EXTERNAL_ACCOUNT -> Known.EXTERNAL_ACCOUNT
-                else ->
-                    throw ModernTreasuryInvalidDataException("Unknown ReceivingAccountType: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()
@@ -2158,6 +1743,310 @@ private constructor(
             fun build(): ComplianceRuleMetadata =
                 ComplianceRuleMetadata(additionalProperties.toUnmodifiable())
         }
+    }
+
+    class Direction
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Direction && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val CREDIT = Direction(JsonField.of("credit"))
+
+            val DEBIT = Direction(JsonField.of("debit"))
+
+            fun of(value: String) = Direction(JsonField.of(value))
+        }
+
+        enum class Known {
+            CREDIT,
+            DEBIT,
+        }
+
+        enum class Value {
+            CREDIT,
+            DEBIT,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                CREDIT -> Value.CREDIT
+                DEBIT -> Value.DEBIT
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                CREDIT -> Known.CREDIT
+                DEBIT -> Known.DEBIT
+                else -> throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class ForeignExchangeIndicator
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ForeignExchangeIndicator && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val FIXED_TO_VARIABLE = ForeignExchangeIndicator(JsonField.of("fixed_to_variable"))
+
+            val VARIABLE_TO_FIXED = ForeignExchangeIndicator(JsonField.of("variable_to_fixed"))
+
+            fun of(value: String) = ForeignExchangeIndicator(JsonField.of(value))
+        }
+
+        enum class Known {
+            FIXED_TO_VARIABLE,
+            VARIABLE_TO_FIXED,
+        }
+
+        enum class Value {
+            FIXED_TO_VARIABLE,
+            VARIABLE_TO_FIXED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                FIXED_TO_VARIABLE -> Value.FIXED_TO_VARIABLE
+                VARIABLE_TO_FIXED -> Value.VARIABLE_TO_FIXED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                FIXED_TO_VARIABLE -> Known.FIXED_TO_VARIABLE
+                VARIABLE_TO_FIXED -> Known.VARIABLE_TO_FIXED
+                else ->
+                    throw ModernTreasuryInvalidDataException(
+                        "Unknown ForeignExchangeIndicator: $value"
+                    )
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    @JsonDeserialize(builder = Metadata.Builder::class)
+    @NoAutoDetect
+    class Metadata
+    private constructor(
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Metadata = apply {
+            if (!validated) {
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties(metadata.additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+        }
+    }
+
+    class Priority
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Priority && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val HIGH = Priority(JsonField.of("high"))
+
+            val NORMAL = Priority(JsonField.of("normal"))
+
+            fun of(value: String) = Priority(JsonField.of(value))
+        }
+
+        enum class Known {
+            HIGH,
+            NORMAL,
+        }
+
+        enum class Value {
+            HIGH,
+            NORMAL,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                HIGH -> Value.HIGH
+                NORMAL -> Value.NORMAL
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                HIGH -> Known.HIGH
+                NORMAL -> Known.NORMAL
+                else -> throw ModernTreasuryInvalidDataException("Unknown Priority: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class ReceivingAccountType
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ReceivingAccountType && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val INTERNAL_ACCOUNT = ReceivingAccountType(JsonField.of("internal_account"))
+
+            val EXTERNAL_ACCOUNT = ReceivingAccountType(JsonField.of("external_account"))
+
+            fun of(value: String) = ReceivingAccountType(JsonField.of(value))
+        }
+
+        enum class Known {
+            INTERNAL_ACCOUNT,
+            EXTERNAL_ACCOUNT,
+        }
+
+        enum class Value {
+            INTERNAL_ACCOUNT,
+            EXTERNAL_ACCOUNT,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                INTERNAL_ACCOUNT -> Value.INTERNAL_ACCOUNT
+                EXTERNAL_ACCOUNT -> Value.EXTERNAL_ACCOUNT
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                INTERNAL_ACCOUNT -> Known.INTERNAL_ACCOUNT
+                EXTERNAL_ACCOUNT -> Known.EXTERNAL_ACCOUNT
+                else ->
+                    throw ModernTreasuryInvalidDataException("Unknown ReceivingAccountType: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     @JsonDeserialize(builder = PaymentReference.Builder::class)
@@ -2799,5 +2688,116 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+    }
+
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val APPROVED = Status(JsonField.of("approved"))
+
+            val CANCELLED = Status(JsonField.of("cancelled"))
+
+            val COMPLETED = Status(JsonField.of("completed"))
+
+            val DENIED = Status(JsonField.of("denied"))
+
+            val FAILED = Status(JsonField.of("failed"))
+
+            val NEEDS_APPROVAL = Status(JsonField.of("needs_approval"))
+
+            val PENDING = Status(JsonField.of("pending"))
+
+            val PROCESSING = Status(JsonField.of("processing"))
+
+            val RETURNED = Status(JsonField.of("returned"))
+
+            val REVERSED = Status(JsonField.of("reversed"))
+
+            val SENT = Status(JsonField.of("sent"))
+
+            fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        enum class Known {
+            APPROVED,
+            CANCELLED,
+            COMPLETED,
+            DENIED,
+            FAILED,
+            NEEDS_APPROVAL,
+            PENDING,
+            PROCESSING,
+            RETURNED,
+            REVERSED,
+            SENT,
+        }
+
+        enum class Value {
+            APPROVED,
+            CANCELLED,
+            COMPLETED,
+            DENIED,
+            FAILED,
+            NEEDS_APPROVAL,
+            PENDING,
+            PROCESSING,
+            RETURNED,
+            REVERSED,
+            SENT,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                APPROVED -> Value.APPROVED
+                CANCELLED -> Value.CANCELLED
+                COMPLETED -> Value.COMPLETED
+                DENIED -> Value.DENIED
+                FAILED -> Value.FAILED
+                NEEDS_APPROVAL -> Value.NEEDS_APPROVAL
+                PENDING -> Value.PENDING
+                PROCESSING -> Value.PROCESSING
+                RETURNED -> Value.RETURNED
+                REVERSED -> Value.REVERSED
+                SENT -> Value.SENT
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                APPROVED -> Known.APPROVED
+                CANCELLED -> Known.CANCELLED
+                COMPLETED -> Known.COMPLETED
+                DENIED -> Known.DENIED
+                FAILED -> Known.FAILED
+                NEEDS_APPROVAL -> Known.NEEDS_APPROVAL
+                PENDING -> Known.PENDING
+                PROCESSING -> Known.PROCESSING
+                RETURNED -> Known.RETURNED
+                REVERSED -> Known.REVERSED
+                SENT -> Known.SENT
+                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 }

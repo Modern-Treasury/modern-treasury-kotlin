@@ -404,135 +404,6 @@ private constructor(
             )
     }
 
-    class ItemizableType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is ItemizableType && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val EXPECTED_PAYMENT = ItemizableType(JsonField.of("ExpectedPayment"))
-
-            val PAYMENT_ORDER = ItemizableType(JsonField.of("PaymentOrder"))
-
-            fun of(value: String) = ItemizableType(JsonField.of(value))
-        }
-
-        enum class Known {
-            EXPECTED_PAYMENT,
-            PAYMENT_ORDER,
-        }
-
-        enum class Value {
-            EXPECTED_PAYMENT,
-            PAYMENT_ORDER,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                EXPECTED_PAYMENT -> Value.EXPECTED_PAYMENT
-                PAYMENT_ORDER -> Value.PAYMENT_ORDER
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                EXPECTED_PAYMENT -> Known.EXPECTED_PAYMENT
-                PAYMENT_ORDER -> Known.PAYMENT_ORDER
-                else -> throw ModernTreasuryInvalidDataException("Unknown ItemizableType: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonDeserialize(builder = Metadata.Builder::class)
-    @NoAutoDetect
-    class Metadata
-    private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
-
-        private var validated: Boolean = false
-
-        private var hashCode: Int = 0
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
-            }
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Metadata && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
-        }
-    }
-
     @JsonDeserialize(builder = Accounting.Builder::class)
     @NoAutoDetect
     class Accounting
@@ -679,6 +550,135 @@ private constructor(
                     classId,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+    }
+
+    class ItemizableType
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ItemizableType && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val EXPECTED_PAYMENT = ItemizableType(JsonField.of("ExpectedPayment"))
+
+            val PAYMENT_ORDER = ItemizableType(JsonField.of("PaymentOrder"))
+
+            fun of(value: String) = ItemizableType(JsonField.of(value))
+        }
+
+        enum class Known {
+            EXPECTED_PAYMENT,
+            PAYMENT_ORDER,
+        }
+
+        enum class Value {
+            EXPECTED_PAYMENT,
+            PAYMENT_ORDER,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                EXPECTED_PAYMENT -> Value.EXPECTED_PAYMENT
+                PAYMENT_ORDER -> Value.PAYMENT_ORDER
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                EXPECTED_PAYMENT -> Known.EXPECTED_PAYMENT
+                PAYMENT_ORDER -> Known.PAYMENT_ORDER
+                else -> throw ModernTreasuryInvalidDataException("Unknown ItemizableType: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    @JsonDeserialize(builder = Metadata.Builder::class)
+    @NoAutoDetect
+    class Metadata
+    private constructor(
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Metadata = apply {
+            if (!validated) {
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties(metadata.additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
         }
     }
 }
