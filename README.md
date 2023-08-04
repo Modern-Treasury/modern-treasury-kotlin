@@ -2,8 +2,6 @@
 
 The Modern Treasury Kotlin SDK provides convenient access to the Modern Treasury REST API from applications written in Kotlin. It includes helper classes with helpful types and documentation for every request and response property.
 
-This package is currently in beta (pre-v1.0.0). We expect some breaking changes to rarely-used areas of the SDK, and appreciate your [feedback](https://www.github.com/Modern-Treasury/modern-treasury-kotlin/issues).
-
 The Modern Treasury Kotlin SDK is similar to the Modern Treasury Java SDK but with minor differences that make it more ergonomic for use in Kotlin, such as nullable values instead of `Optional`, `Sequence` instead of `Stream`, and suspend functions instead of `CompletableFuture`.
 
 ## Documentation
@@ -277,3 +275,14 @@ val client = ModernTreasuryOkHttpClient.builder()
     ))
     .build()
 ```
+
+## Semantic Versioning
+
+This package generally attempts to follow [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
+
+1. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals)_.
+2. Changes that we do not expect to impact the vast majority of users in practice.
+
+We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
+
+We are keen for your feedback; please open an [issue](https://www.github.com/Modern-Treasury/modern-treasury-kotlin/issues) with questions, bugs, or suggestions.
