@@ -17,7 +17,6 @@ class DocumentServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val documentService = client.documents()
         val document =
@@ -40,7 +39,6 @@ class DocumentServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val documentService = client.documents()
         val document =
@@ -58,7 +56,6 @@ class DocumentServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val documentService = client.documents()
         val response = documentService.list(DocumentListParams.builder().build())

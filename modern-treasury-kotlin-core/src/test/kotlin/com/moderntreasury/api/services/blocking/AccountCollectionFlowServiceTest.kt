@@ -17,7 +17,6 @@ class AccountCollectionFlowServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val accountCollectionFlowService = client.accountCollectionFlows()
         val accountCollectionFlow =
@@ -38,7 +37,6 @@ class AccountCollectionFlowServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val accountCollectionFlowService = client.accountCollectionFlows()
         val accountCollectionFlow =
@@ -56,7 +54,6 @@ class AccountCollectionFlowServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val accountCollectionFlowService = client.accountCollectionFlows()
         val accountCollectionFlow =
@@ -77,7 +74,6 @@ class AccountCollectionFlowServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val accountCollectionFlowService = client.accountCollectionFlows()
         val response =

@@ -18,7 +18,6 @@ class LedgerAccountStatementServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountStatementService = client.ledgerAccountStatements()
         val ledgerAccountStatementCreateResponse =
@@ -42,7 +41,6 @@ class LedgerAccountStatementServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountStatementService = client.ledgerAccountStatements()
         val ledgerAccountStatementRetrieveResponse =

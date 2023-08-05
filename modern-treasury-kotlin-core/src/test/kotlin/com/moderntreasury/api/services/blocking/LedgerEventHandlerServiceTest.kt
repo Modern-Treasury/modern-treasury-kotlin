@@ -17,7 +17,6 @@ class LedgerEventHandlerServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerEventHandlerService = client.ledgerEventHandlers()
         val ledgerEventHandlerCreateResponse =
@@ -73,7 +72,6 @@ class LedgerEventHandlerServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerEventHandlerService = client.ledgerEventHandlers()
         val ledgerEventHandlerRetrieveResponse =
@@ -91,7 +89,6 @@ class LedgerEventHandlerServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerEventHandlerService = client.ledgerEventHandlers()
         val response =
@@ -107,7 +104,6 @@ class LedgerEventHandlerServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerEventHandlerService = client.ledgerEventHandlers()
         val ledgerEventHandlerDeleteResponse =

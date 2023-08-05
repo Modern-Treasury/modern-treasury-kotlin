@@ -17,7 +17,6 @@ class VersionServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val versionService = client.ledgerTransactions().versions()
         val response = versionService.list(LedgerTransactionVersionListParams.builder().build())

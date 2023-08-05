@@ -17,7 +17,6 @@ class LedgerEntryServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerEntryService = client.ledgerEntries()
         val ledgerEntry =
@@ -35,7 +34,6 @@ class LedgerEntryServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerEntryService = client.ledgerEntries()
         val response = ledgerEntryService.list(LedgerEntryListParams.builder().build())

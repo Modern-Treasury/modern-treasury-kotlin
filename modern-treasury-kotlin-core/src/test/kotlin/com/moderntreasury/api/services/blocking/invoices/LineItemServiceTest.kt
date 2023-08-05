@@ -19,7 +19,6 @@ class LineItemServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val lineItemService = client.invoices().lineItems()
         val invoiceLineItem =
@@ -44,7 +43,6 @@ class LineItemServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val lineItemService = client.invoices().lineItems()
         val invoiceLineItem =
@@ -62,7 +60,6 @@ class LineItemServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val lineItemService = client.invoices().lineItems()
         val invoiceLineItem =
@@ -139,7 +136,6 @@ class LineItemServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val lineItemService = client.invoices().lineItems()
         val response =
@@ -155,7 +151,6 @@ class LineItemServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val lineItemService = client.invoices().lineItems()
         val invoiceLineItem =

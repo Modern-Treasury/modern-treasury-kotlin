@@ -19,7 +19,6 @@ class LedgerAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountService = client.ledgerAccounts()
         val ledgerAccount =
@@ -47,7 +46,6 @@ class LedgerAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountService = client.ledgerAccounts()
         val ledgerAccount =
@@ -76,7 +74,6 @@ class LedgerAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountService = client.ledgerAccounts()
         val ledgerAccount =
@@ -99,7 +96,6 @@ class LedgerAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountService = client.ledgerAccounts()
         val response = ledgerAccountService.list(LedgerAccountListParams.builder().build())
@@ -114,7 +110,6 @@ class LedgerAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountService = client.ledgerAccounts()
         val ledgerAccount =

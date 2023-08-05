@@ -19,7 +19,6 @@ class PaymentOrderServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val paymentOrderService = client.paymentOrders()
         val paymentOrder =
@@ -269,7 +268,6 @@ class PaymentOrderServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val paymentOrderService = client.paymentOrders()
         val paymentOrder =
@@ -285,7 +283,6 @@ class PaymentOrderServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val paymentOrderService = client.paymentOrders()
         val paymentOrder =
@@ -455,7 +452,6 @@ class PaymentOrderServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val paymentOrderService = client.paymentOrders()
         val response = paymentOrderService.list(PaymentOrderListParams.builder().build())
@@ -470,7 +466,6 @@ class PaymentOrderServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val paymentOrderService = client.paymentOrders()
         val asyncResponse =
