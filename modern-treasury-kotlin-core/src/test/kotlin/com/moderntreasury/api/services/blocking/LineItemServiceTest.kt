@@ -18,7 +18,6 @@ class LineItemServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val lineItemService = client.lineItems()
         val lineItem =
@@ -40,7 +39,6 @@ class LineItemServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val lineItemService = client.lineItems()
         val lineItem =
@@ -64,7 +62,6 @@ class LineItemServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val lineItemService = client.lineItems()
         val response =

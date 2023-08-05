@@ -18,7 +18,6 @@ class ReversalServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val reversalService = client.paymentOrders().reversals()
         val reversal =
@@ -116,7 +115,6 @@ class ReversalServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val reversalService = client.paymentOrders().reversals()
         val reversal =
@@ -137,7 +135,6 @@ class ReversalServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val reversalService = client.paymentOrders().reversals()
         val response =

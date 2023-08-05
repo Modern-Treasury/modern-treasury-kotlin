@@ -17,7 +17,6 @@ class PaymentReferenceServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val paymentReferenceService = client.paymentReferences()
         val response = paymentReferenceService.list(PaymentReferenceListParams.builder().build())
@@ -32,7 +31,6 @@ class PaymentReferenceServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val paymentReferenceService = client.paymentReferences()
         val paymentReference =

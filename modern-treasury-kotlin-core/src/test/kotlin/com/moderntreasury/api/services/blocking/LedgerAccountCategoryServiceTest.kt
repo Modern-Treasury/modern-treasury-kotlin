@@ -19,7 +19,6 @@ class LedgerAccountCategoryServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
         val ledgerAccountCategory =
@@ -45,7 +44,6 @@ class LedgerAccountCategoryServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
         val ledgerAccountCategory =
@@ -71,7 +69,6 @@ class LedgerAccountCategoryServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
         val ledgerAccountCategory =
@@ -94,7 +91,6 @@ class LedgerAccountCategoryServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
         val response =
@@ -110,7 +106,6 @@ class LedgerAccountCategoryServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
         val ledgerAccountCategory =
@@ -128,7 +123,6 @@ class LedgerAccountCategoryServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
         ledgerAccountCategoryService.addLedgerAccount(
@@ -146,7 +140,6 @@ class LedgerAccountCategoryServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
         ledgerAccountCategoryService.addNestedCategory(
@@ -164,7 +157,6 @@ class LedgerAccountCategoryServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
         ledgerAccountCategoryService.removeLedgerAccount(
@@ -182,7 +174,6 @@ class LedgerAccountCategoryServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
         ledgerAccountCategoryService.removeNestedCategory(

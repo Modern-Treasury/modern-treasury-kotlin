@@ -19,7 +19,6 @@ class InvoiceServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val invoiceService = client.invoices()
         val invoice =
@@ -93,7 +92,6 @@ class InvoiceServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val invoiceService = client.invoices()
         val invoice = invoiceService.retrieve(InvoiceRetrieveParams.builder().id("string").build())
@@ -108,7 +106,6 @@ class InvoiceServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val invoiceService = client.invoices()
         val invoice =
@@ -184,7 +181,6 @@ class InvoiceServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val invoiceService = client.invoices()
         val response = invoiceService.list(InvoiceListParams.builder().build())

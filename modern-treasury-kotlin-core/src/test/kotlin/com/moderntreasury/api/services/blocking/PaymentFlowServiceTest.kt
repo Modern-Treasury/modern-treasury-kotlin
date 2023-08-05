@@ -17,7 +17,6 @@ class PaymentFlowServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val paymentFlowService = client.paymentFlows()
         val paymentFlow =
@@ -41,7 +40,6 @@ class PaymentFlowServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val paymentFlowService = client.paymentFlows()
         val paymentFlow =
@@ -57,7 +55,6 @@ class PaymentFlowServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val paymentFlowService = client.paymentFlows()
         val paymentFlow =
@@ -78,7 +75,6 @@ class PaymentFlowServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val paymentFlowService = client.paymentFlows()
         val response = paymentFlowService.list(PaymentFlowListParams.builder().build())

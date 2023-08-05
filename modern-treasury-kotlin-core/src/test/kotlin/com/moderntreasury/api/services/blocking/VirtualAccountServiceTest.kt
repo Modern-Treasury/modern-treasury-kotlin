@@ -17,7 +17,6 @@ class VirtualAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val virtualAccountService = client.virtualAccounts()
         val virtualAccount =
@@ -72,7 +71,6 @@ class VirtualAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val virtualAccountService = client.virtualAccounts()
         val virtualAccount =
@@ -90,7 +88,6 @@ class VirtualAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val virtualAccountService = client.virtualAccounts()
         val virtualAccount =
@@ -113,7 +110,6 @@ class VirtualAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val virtualAccountService = client.virtualAccounts()
         val response = virtualAccountService.list(VirtualAccountListParams.builder().build())
@@ -128,7 +124,6 @@ class VirtualAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val virtualAccountService = client.virtualAccounts()
         val virtualAccount =

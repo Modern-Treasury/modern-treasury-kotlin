@@ -17,7 +17,6 @@ class BalanceReportServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val balanceReportService = client.internalAccounts().balanceReports()
         val balanceReport =
@@ -38,7 +37,6 @@ class BalanceReportServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val balanceReportService = client.internalAccounts().balanceReports()
         val response =

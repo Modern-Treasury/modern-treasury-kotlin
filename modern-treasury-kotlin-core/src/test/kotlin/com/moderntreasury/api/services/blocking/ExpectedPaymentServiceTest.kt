@@ -19,7 +19,6 @@ class ExpectedPaymentServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val expectedPaymentService = client.expectedPayments()
         val expectedPayment =
@@ -66,7 +65,6 @@ class ExpectedPaymentServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val expectedPaymentService = client.expectedPayments()
         val expectedPayment =
@@ -84,7 +82,6 @@ class ExpectedPaymentServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val expectedPaymentService = client.expectedPayments()
         val expectedPayment =
@@ -119,7 +116,6 @@ class ExpectedPaymentServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val expectedPaymentService = client.expectedPayments()
         val response = expectedPaymentService.list(ExpectedPaymentListParams.builder().build())
@@ -134,7 +130,6 @@ class ExpectedPaymentServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val expectedPaymentService = client.expectedPayments()
         val expectedPayment =

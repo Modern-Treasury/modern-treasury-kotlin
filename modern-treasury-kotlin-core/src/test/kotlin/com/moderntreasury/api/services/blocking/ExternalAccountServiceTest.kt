@@ -17,7 +17,6 @@ class ExternalAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val externalAccountService = client.externalAccounts()
         val externalAccount =
@@ -113,7 +112,6 @@ class ExternalAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val externalAccountService = client.externalAccounts()
         val externalAccount =
@@ -131,7 +129,6 @@ class ExternalAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val externalAccountService = client.externalAccounts()
         val externalAccount =
@@ -167,7 +164,6 @@ class ExternalAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val externalAccountService = client.externalAccounts()
         val response = externalAccountService.list(ExternalAccountListParams.builder().build())
@@ -182,7 +178,6 @@ class ExternalAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val externalAccountService = client.externalAccounts()
         externalAccountService.delete(ExternalAccountDeleteParams.builder().id("string").build())
@@ -195,7 +190,6 @@ class ExternalAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val externalAccountService = client.externalAccounts()
         val externalAccount =
@@ -216,7 +210,6 @@ class ExternalAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val externalAccountService = client.externalAccounts()
         val externalAccount =

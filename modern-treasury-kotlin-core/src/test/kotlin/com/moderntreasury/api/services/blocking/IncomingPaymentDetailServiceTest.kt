@@ -18,7 +18,6 @@ class IncomingPaymentDetailServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val incomingPaymentDetailService = client.incomingPaymentDetails()
         val incomingPaymentDetail =
@@ -36,7 +35,6 @@ class IncomingPaymentDetailServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val incomingPaymentDetailService = client.incomingPaymentDetails()
         val incomingPaymentDetail =
@@ -57,7 +55,6 @@ class IncomingPaymentDetailServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val incomingPaymentDetailService = client.incomingPaymentDetails()
         val response =
@@ -73,7 +70,6 @@ class IncomingPaymentDetailServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val incomingPaymentDetailService = client.incomingPaymentDetails()
         val asyncResponse =

@@ -16,7 +16,6 @@ class ValidationServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val validationService = client.validations()
         val routingNumberLookupRequest =

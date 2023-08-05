@@ -17,7 +17,6 @@ class AccountDetailServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val accountDetailService = client.accountDetails()
         val accountDetail =
@@ -40,7 +39,6 @@ class AccountDetailServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val accountDetailService = client.accountDetails()
         val accountDetail =
@@ -62,7 +60,6 @@ class AccountDetailServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val accountDetailService = client.accountDetails()
         val response =
@@ -83,7 +80,6 @@ class AccountDetailServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val accountDetailService = client.accountDetails()
         accountDetailService.delete(

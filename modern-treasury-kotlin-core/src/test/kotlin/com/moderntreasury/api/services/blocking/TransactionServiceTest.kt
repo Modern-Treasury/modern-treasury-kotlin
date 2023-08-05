@@ -17,7 +17,6 @@ class TransactionServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val transactionService = client.transactions()
         val transaction =
@@ -33,7 +32,6 @@ class TransactionServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val transactionService = client.transactions()
         val transaction =
@@ -54,7 +52,6 @@ class TransactionServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val transactionService = client.transactions()
         val response = transactionService.list(TransactionListParams.builder().build())

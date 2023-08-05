@@ -17,7 +17,6 @@ class RoutingDetailServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val routingDetailService = client.routingDetails()
         val routingDetail =
@@ -41,7 +40,6 @@ class RoutingDetailServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val routingDetailService = client.routingDetails()
         val routingDetail =
@@ -63,7 +61,6 @@ class RoutingDetailServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val routingDetailService = client.routingDetails()
         val response =
@@ -84,7 +81,6 @@ class RoutingDetailServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val routingDetailService = client.routingDetails()
         routingDetailService.delete(
