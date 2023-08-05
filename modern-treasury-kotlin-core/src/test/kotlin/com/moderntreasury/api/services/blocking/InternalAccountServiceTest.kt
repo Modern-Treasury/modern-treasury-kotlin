@@ -17,7 +17,6 @@ class InternalAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val internalAccountService = client.internalAccounts()
         val internalAccount =
@@ -55,7 +54,6 @@ class InternalAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val internalAccountService = client.internalAccounts()
         val internalAccount =
@@ -73,7 +71,6 @@ class InternalAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val internalAccountService = client.internalAccounts()
         val internalAccount =
@@ -97,7 +94,6 @@ class InternalAccountServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val internalAccountService = client.internalAccounts()
         val response = internalAccountService.list(InternalAccountListParams.builder().build())

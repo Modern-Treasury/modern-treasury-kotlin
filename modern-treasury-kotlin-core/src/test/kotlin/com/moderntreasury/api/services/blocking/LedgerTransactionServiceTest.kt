@@ -19,7 +19,6 @@ class LedgerTransactionServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerTransactionService = client.ledgerTransactions()
         val ledgerTransaction =
@@ -83,7 +82,6 @@ class LedgerTransactionServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerTransactionService = client.ledgerTransactions()
         val ledgerTransaction =
@@ -101,7 +99,6 @@ class LedgerTransactionServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerTransactionService = client.ledgerTransactions()
         val ledgerTransaction =
@@ -162,7 +159,6 @@ class LedgerTransactionServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerTransactionService = client.ledgerTransactions()
         val response = ledgerTransactionService.list(LedgerTransactionListParams.builder().build())
@@ -177,7 +173,6 @@ class LedgerTransactionServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerTransactionService = client.ledgerTransactions()
         val ledgerTransaction =

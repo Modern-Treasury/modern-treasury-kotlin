@@ -17,7 +17,6 @@ class PaperItemServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val paperItemService = client.paperItems()
         val paperItem =
@@ -33,7 +32,6 @@ class PaperItemServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val paperItemService = client.paperItems()
         val response = paperItemService.list(PaperItemListParams.builder().build())

@@ -17,7 +17,6 @@ class LedgerableEventServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerableEventService = client.ledgerableEvents()
         val ledgerableEvent =
@@ -44,7 +43,6 @@ class LedgerableEventServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerableEventService = client.ledgerableEvents()
         val ledgerableEvent =

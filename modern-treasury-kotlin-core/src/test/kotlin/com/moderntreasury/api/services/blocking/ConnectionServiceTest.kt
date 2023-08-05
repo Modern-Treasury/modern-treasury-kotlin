@@ -17,7 +17,6 @@ class ConnectionServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val connectionService = client.connections()
         val response = connectionService.list(ConnectionListParams.builder().build())

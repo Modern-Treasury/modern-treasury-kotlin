@@ -18,7 +18,6 @@ class ReturnServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val returnService = client.returns()
         val returnObject =
@@ -43,7 +42,6 @@ class ReturnServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val returnService = client.returns()
         val returnObject =
@@ -59,7 +57,6 @@ class ReturnServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val returnService = client.returns()
         val response = returnService.list(ReturnListParams.builder().build())

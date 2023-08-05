@@ -17,7 +17,6 @@ class LedgerAccountPayoutServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountPayoutService = client.ledgerAccountPayouts()
         val ledgerAccountPayout =
@@ -43,7 +42,6 @@ class LedgerAccountPayoutServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountPayoutService = client.ledgerAccountPayouts()
         val ledgerAccountPayout =
@@ -66,7 +64,6 @@ class LedgerAccountPayoutServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountPayoutService = client.ledgerAccountPayouts()
         val response =
@@ -82,7 +79,6 @@ class LedgerAccountPayoutServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val ledgerAccountPayoutService = client.ledgerAccountPayouts()
         val ledgerAccountPayout =

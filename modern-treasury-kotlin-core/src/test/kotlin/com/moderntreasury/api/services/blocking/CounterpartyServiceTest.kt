@@ -17,7 +17,6 @@ class CounterpartyServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val counterpartyService = client.counterparties()
         val counterparty =
@@ -146,7 +145,6 @@ class CounterpartyServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val counterpartyService = client.counterparties()
         val counterparty =
@@ -162,7 +160,6 @@ class CounterpartyServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val counterpartyService = client.counterparties()
         val counterparty =
@@ -187,7 +184,6 @@ class CounterpartyServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val counterpartyService = client.counterparties()
         val response = counterpartyService.list(CounterpartyListParams.builder().build())
@@ -202,7 +198,6 @@ class CounterpartyServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val counterpartyService = client.counterparties()
         counterpartyService.delete(CounterpartyDeleteParams.builder().id("string").build())
@@ -215,7 +210,6 @@ class CounterpartyServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("test-api-key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
                 .build()
         val counterpartyService = client.counterparties()
         val counterpartyCollectAccountResponse =
