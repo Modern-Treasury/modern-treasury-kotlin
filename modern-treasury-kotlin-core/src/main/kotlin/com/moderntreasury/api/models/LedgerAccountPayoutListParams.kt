@@ -11,6 +11,7 @@ constructor(
     private val afterCursor: String?,
     private val perPage: Long?,
     private val metadata: Metadata?,
+    private val id: List<String>?,
     private val payoutLedgerAccountId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -22,6 +23,8 @@ constructor(
 
     fun metadata(): Metadata? = metadata
 
+    fun id(): List<String>? = id
+
     fun payoutLedgerAccountId(): String? = payoutLedgerAccountId
 
     internal fun getQueryParams(): Map<String, List<String>> {
@@ -29,6 +32,7 @@ constructor(
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
         this.perPage?.let { params.put("per_page", listOf(it.toString())) }
         this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
+        this.id?.let { params.put("id[]", it.map(Any::toString)) }
         this.payoutLedgerAccountId?.let {
             params.put("payout_ledger_account_id", listOf(it.toString()))
         }
@@ -51,6 +55,7 @@ constructor(
             this.afterCursor == other.afterCursor &&
             this.perPage == other.perPage &&
             this.metadata == other.metadata &&
+            this.id == other.id &&
             this.payoutLedgerAccountId == other.payoutLedgerAccountId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
@@ -61,6 +66,7 @@ constructor(
             afterCursor,
             perPage,
             metadata,
+            id,
             payoutLedgerAccountId,
             additionalQueryParams,
             additionalHeaders,
@@ -68,7 +74,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerAccountPayoutListParams{afterCursor=$afterCursor, perPage=$perPage, metadata=$metadata, payoutLedgerAccountId=$payoutLedgerAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "LedgerAccountPayoutListParams{afterCursor=$afterCursor, perPage=$perPage, metadata=$metadata, id=$id, payoutLedgerAccountId=$payoutLedgerAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -83,6 +89,7 @@ constructor(
         private var afterCursor: String? = null
         private var perPage: Long? = null
         private var metadata: Metadata? = null
+        private var id: List<String>? = null
         private var payoutLedgerAccountId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -91,6 +98,7 @@ constructor(
             this.afterCursor = ledgerAccountPayoutListParams.afterCursor
             this.perPage = ledgerAccountPayoutListParams.perPage
             this.metadata = ledgerAccountPayoutListParams.metadata
+            this.id = ledgerAccountPayoutListParams.id
             this.payoutLedgerAccountId = ledgerAccountPayoutListParams.payoutLedgerAccountId
             additionalQueryParams(ledgerAccountPayoutListParams.additionalQueryParams)
             additionalHeaders(ledgerAccountPayoutListParams.additionalHeaders)
@@ -105,6 +113,12 @@ constructor(
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
         fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        /**
+         * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
+         * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
+         */
+        fun id(id: List<String>) = apply { this.id = id }
 
         fun payoutLedgerAccountId(payoutLedgerAccountId: String) = apply {
             this.payoutLedgerAccountId = payoutLedgerAccountId
@@ -155,6 +169,7 @@ constructor(
                 afterCursor,
                 perPage,
                 metadata,
+                id?.toUnmodifiable(),
                 payoutLedgerAccountId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

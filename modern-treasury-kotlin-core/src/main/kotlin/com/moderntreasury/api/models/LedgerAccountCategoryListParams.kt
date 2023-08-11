@@ -12,6 +12,7 @@ constructor(
     private val afterCursor: String?,
     private val perPage: Long?,
     private val metadata: Metadata?,
+    private val id: List<String>?,
     private val name: String?,
     private val ledgerId: String?,
     private val parentLedgerAccountCategoryId: String?,
@@ -26,6 +27,8 @@ constructor(
     fun perPage(): Long? = perPage
 
     fun metadata(): Metadata? = metadata
+
+    fun id(): List<String>? = id
 
     fun name(): String? = name
 
@@ -42,6 +45,7 @@ constructor(
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
         this.perPage?.let { params.put("per_page", listOf(it.toString())) }
         this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
+        this.id?.let { params.put("id[]", it.map(Any::toString)) }
         this.name?.let { params.put("name", listOf(it.toString())) }
         this.ledgerId?.let { params.put("ledger_id", listOf(it.toString())) }
         this.parentLedgerAccountCategoryId?.let {
@@ -68,6 +72,7 @@ constructor(
             this.afterCursor == other.afterCursor &&
             this.perPage == other.perPage &&
             this.metadata == other.metadata &&
+            this.id == other.id &&
             this.name == other.name &&
             this.ledgerId == other.ledgerId &&
             this.parentLedgerAccountCategoryId == other.parentLedgerAccountCategoryId &&
@@ -82,6 +87,7 @@ constructor(
             afterCursor,
             perPage,
             metadata,
+            id,
             name,
             ledgerId,
             parentLedgerAccountCategoryId,
@@ -93,7 +99,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerAccountCategoryListParams{afterCursor=$afterCursor, perPage=$perPage, metadata=$metadata, name=$name, ledgerId=$ledgerId, parentLedgerAccountCategoryId=$parentLedgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, balances=$balances, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "LedgerAccountCategoryListParams{afterCursor=$afterCursor, perPage=$perPage, metadata=$metadata, id=$id, name=$name, ledgerId=$ledgerId, parentLedgerAccountCategoryId=$parentLedgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, balances=$balances, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -108,6 +114,7 @@ constructor(
         private var afterCursor: String? = null
         private var perPage: Long? = null
         private var metadata: Metadata? = null
+        private var id: List<String>? = null
         private var name: String? = null
         private var ledgerId: String? = null
         private var parentLedgerAccountCategoryId: String? = null
@@ -121,6 +128,7 @@ constructor(
                 this.afterCursor = ledgerAccountCategoryListParams.afterCursor
                 this.perPage = ledgerAccountCategoryListParams.perPage
                 this.metadata = ledgerAccountCategoryListParams.metadata
+                this.id = ledgerAccountCategoryListParams.id
                 this.name = ledgerAccountCategoryListParams.name
                 this.ledgerId = ledgerAccountCategoryListParams.ledgerId
                 this.parentLedgerAccountCategoryId =
@@ -140,6 +148,12 @@ constructor(
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
         fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        /**
+         * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
+         * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
+         */
+        fun id(id: List<String>) = apply { this.id = id }
 
         fun name(name: String) = apply { this.name = name }
 
@@ -207,6 +221,7 @@ constructor(
                 afterCursor,
                 perPage,
                 metadata,
+                id?.toUnmodifiable(),
                 name,
                 ledgerId,
                 parentLedgerAccountCategoryId,

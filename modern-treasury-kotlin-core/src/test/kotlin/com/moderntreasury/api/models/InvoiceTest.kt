@@ -65,6 +65,8 @@ class InvoiceTest {
                         .build()
                 )
                 .liveMode(true)
+                .notificationEmailAddresses(listOf("string"))
+                .notificationsEnabled(true)
                 .number("string")
                 .object_("string")
                 .originatingAccountId("string")
@@ -260,6 +262,7 @@ class InvoiceTest {
                 .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .status(Invoice.Status.DRAFT)
                 .totalAmount(123L)
+                .transactionLineItemIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
         assertThat(invoice).isNotNull
@@ -317,6 +320,8 @@ class InvoiceTest {
                     .build()
             )
         assertThat(invoice.liveMode()).isEqualTo(true)
+        assertThat(invoice.notificationEmailAddresses()).containsExactly("string")
+        assertThat(invoice.notificationsEnabled()).isEqualTo(true)
         assertThat(invoice.number()).isEqualTo("string")
         assertThat(invoice.object_()).isEqualTo("string")
         assertThat(invoice.originatingAccountId()).isEqualTo("string")
@@ -486,6 +491,8 @@ class InvoiceTest {
         assertThat(invoice.receivingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(invoice.status()).isEqualTo(Invoice.Status.DRAFT)
         assertThat(invoice.totalAmount()).isEqualTo(123L)
+        assertThat(invoice.transactionLineItemIds())
+            .containsExactly("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(invoice.updatedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 }

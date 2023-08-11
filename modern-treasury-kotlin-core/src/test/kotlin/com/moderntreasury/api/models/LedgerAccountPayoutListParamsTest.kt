@@ -12,6 +12,7 @@ class LedgerAccountPayoutListParamsTest {
             .afterCursor("string")
             .perPage(123L)
             .metadata(LedgerAccountPayoutListParams.Metadata.builder().build())
+            .id(listOf("string"))
             .payoutLedgerAccountId("string")
             .build()
     }
@@ -23,6 +24,7 @@ class LedgerAccountPayoutListParamsTest {
                 .afterCursor("string")
                 .perPage(123L)
                 .metadata(LedgerAccountPayoutListParams.Metadata.builder().build())
+                .id(listOf("string"))
                 .payoutLedgerAccountId("string")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
@@ -31,6 +33,7 @@ class LedgerAccountPayoutListParamsTest {
         LedgerAccountPayoutListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
+        expected.put("id[]", listOf("string"))
         expected.put("payout_ledger_account_id", listOf("string"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
