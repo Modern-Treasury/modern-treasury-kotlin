@@ -38,12 +38,15 @@ private constructor(
     private val paymentEffectiveDate: JsonField<LocalDate>,
     private val paymentType: JsonField<PaymentType>,
     private val paymentMethod: JsonField<PaymentMethod>,
+    private val notificationsEnabled: JsonField<Boolean>,
+    private val notificationEmailAddresses: JsonField<List<String>>,
     private val hostedUrl: JsonField<String>,
     private val number: JsonField<String>,
     private val paymentOrders: JsonField<List<PaymentOrder>>,
     private val pdfUrl: JsonField<String>,
     private val status: JsonField<Status>,
     private val totalAmount: JsonField<Long>,
+    private val transactionLineItemIds: JsonField<List<String>>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -105,7 +108,7 @@ private constructor(
     fun paymentEffectiveDate(): LocalDate? =
         paymentEffectiveDate.getNullable("payment_effective_date")
 
-    /** One of `ach` or `eft` */
+    /** One of `ach` or `eft`. */
     fun paymentType(): PaymentType? = paymentType.getNullable("payment_type")
 
     /**
@@ -113,6 +116,20 @@ private constructor(
      * recipient, or rely on manual payment from the recipient.
      */
     fun paymentMethod(): PaymentMethod? = paymentMethod.getNullable("payment_method")
+
+    /**
+     * If true, the invoice will send email notifications to the invoice recipients about invoice
+     * status changes.
+     */
+    fun notificationsEnabled(): Boolean = notificationsEnabled.getRequired("notifications_enabled")
+
+    /**
+     * Emails in addition to the counterparty email to send invoice status notifications to. At
+     * least one email is required if notifications are enabled and the counterparty doesn't have an
+     * email.
+     */
+    fun notificationEmailAddresses(): List<String>? =
+        notificationEmailAddresses.getNullable("notification_email_addresses")
 
     /** The URL of the hosted web UI where the invoice can be viewed. */
     fun hostedUrl(): String = hostedUrl.getRequired("hosted_url")
@@ -134,6 +151,10 @@ private constructor(
      * 1000.
      */
     fun totalAmount(): Long = totalAmount.getRequired("total_amount")
+
+    /** IDs of transaction line items associated with an invoice. */
+    fun transactionLineItemIds(): List<String> =
+        transactionLineItemIds.getRequired("transaction_line_item_ids")
 
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
@@ -196,7 +217,7 @@ private constructor(
     @ExcludeMissing
     fun _paymentEffectiveDate() = paymentEffectiveDate
 
-    /** One of `ach` or `eft` */
+    /** One of `ach` or `eft`. */
     @JsonProperty("payment_type") @ExcludeMissing fun _paymentType() = paymentType
 
     /**
@@ -204,6 +225,23 @@ private constructor(
      * recipient, or rely on manual payment from the recipient.
      */
     @JsonProperty("payment_method") @ExcludeMissing fun _paymentMethod() = paymentMethod
+
+    /**
+     * If true, the invoice will send email notifications to the invoice recipients about invoice
+     * status changes.
+     */
+    @JsonProperty("notifications_enabled")
+    @ExcludeMissing
+    fun _notificationsEnabled() = notificationsEnabled
+
+    /**
+     * Emails in addition to the counterparty email to send invoice status notifications to. At
+     * least one email is required if notifications are enabled and the counterparty doesn't have an
+     * email.
+     */
+    @JsonProperty("notification_email_addresses")
+    @ExcludeMissing
+    fun _notificationEmailAddresses() = notificationEmailAddresses
 
     /** The URL of the hosted web UI where the invoice can be viewed. */
     @JsonProperty("hosted_url") @ExcludeMissing fun _hostedUrl() = hostedUrl
@@ -225,6 +263,11 @@ private constructor(
      * 1000.
      */
     @JsonProperty("total_amount") @ExcludeMissing fun _totalAmount() = totalAmount
+
+    /** IDs of transaction line items associated with an invoice. */
+    @JsonProperty("transaction_line_item_ids")
+    @ExcludeMissing
+    fun _transactionLineItemIds() = transactionLineItemIds
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -250,12 +293,15 @@ private constructor(
             paymentEffectiveDate()
             paymentType()
             paymentMethod()
+            notificationsEnabled()
+            notificationEmailAddresses()
             hostedUrl()
             number()
             paymentOrders().forEach { it.validate() }
             pdfUrl()
             status()
             totalAmount()
+            transactionLineItemIds()
             validated = true
         }
     }
@@ -286,12 +332,15 @@ private constructor(
             this.paymentEffectiveDate == other.paymentEffectiveDate &&
             this.paymentType == other.paymentType &&
             this.paymentMethod == other.paymentMethod &&
+            this.notificationsEnabled == other.notificationsEnabled &&
+            this.notificationEmailAddresses == other.notificationEmailAddresses &&
             this.hostedUrl == other.hostedUrl &&
             this.number == other.number &&
             this.paymentOrders == other.paymentOrders &&
             this.pdfUrl == other.pdfUrl &&
             this.status == other.status &&
             this.totalAmount == other.totalAmount &&
+            this.transactionLineItemIds == other.transactionLineItemIds &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -317,12 +366,15 @@ private constructor(
                     paymentEffectiveDate,
                     paymentType,
                     paymentMethod,
+                    notificationsEnabled,
+                    notificationEmailAddresses,
                     hostedUrl,
                     number,
                     paymentOrders,
                     pdfUrl,
                     status,
                     totalAmount,
+                    transactionLineItemIds,
                     additionalProperties,
                 )
         }
@@ -330,7 +382,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Invoice{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, contactDetails=$contactDetails, counterpartyId=$counterpartyId, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentType=$paymentType, paymentMethod=$paymentMethod, hostedUrl=$hostedUrl, number=$number, paymentOrders=$paymentOrders, pdfUrl=$pdfUrl, status=$status, totalAmount=$totalAmount, additionalProperties=$additionalProperties}"
+        "Invoice{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, contactDetails=$contactDetails, counterpartyId=$counterpartyId, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentType=$paymentType, paymentMethod=$paymentMethod, notificationsEnabled=$notificationsEnabled, notificationEmailAddresses=$notificationEmailAddresses, hostedUrl=$hostedUrl, number=$number, paymentOrders=$paymentOrders, pdfUrl=$pdfUrl, status=$status, totalAmount=$totalAmount, transactionLineItemIds=$transactionLineItemIds, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -359,12 +411,15 @@ private constructor(
         private var paymentEffectiveDate: JsonField<LocalDate> = JsonMissing.of()
         private var paymentType: JsonField<PaymentType> = JsonMissing.of()
         private var paymentMethod: JsonField<PaymentMethod> = JsonMissing.of()
+        private var notificationsEnabled: JsonField<Boolean> = JsonMissing.of()
+        private var notificationEmailAddresses: JsonField<List<String>> = JsonMissing.of()
         private var hostedUrl: JsonField<String> = JsonMissing.of()
         private var number: JsonField<String> = JsonMissing.of()
         private var paymentOrders: JsonField<List<PaymentOrder>> = JsonMissing.of()
         private var pdfUrl: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var totalAmount: JsonField<Long> = JsonMissing.of()
+        private var transactionLineItemIds: JsonField<List<String>> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(invoice: Invoice) = apply {
@@ -386,12 +441,15 @@ private constructor(
             this.paymentEffectiveDate = invoice.paymentEffectiveDate
             this.paymentType = invoice.paymentType
             this.paymentMethod = invoice.paymentMethod
+            this.notificationsEnabled = invoice.notificationsEnabled
+            this.notificationEmailAddresses = invoice.notificationEmailAddresses
             this.hostedUrl = invoice.hostedUrl
             this.number = invoice.number
             this.paymentOrders = invoice.paymentOrders
             this.pdfUrl = invoice.pdfUrl
             this.status = invoice.status
             this.totalAmount = invoice.totalAmount
+            this.transactionLineItemIds = invoice.transactionLineItemIds
             additionalProperties(invoice.additionalProperties)
         }
 
@@ -550,10 +608,10 @@ private constructor(
             this.paymentEffectiveDate = paymentEffectiveDate
         }
 
-        /** One of `ach` or `eft` */
+        /** One of `ach` or `eft`. */
         fun paymentType(paymentType: PaymentType) = paymentType(JsonField.of(paymentType))
 
-        /** One of `ach` or `eft` */
+        /** One of `ach` or `eft`. */
         @JsonProperty("payment_type")
         @ExcludeMissing
         fun paymentType(paymentType: JsonField<PaymentType>) = apply {
@@ -575,6 +633,43 @@ private constructor(
         fun paymentMethod(paymentMethod: JsonField<PaymentMethod>) = apply {
             this.paymentMethod = paymentMethod
         }
+
+        /**
+         * If true, the invoice will send email notifications to the invoice recipients about
+         * invoice status changes.
+         */
+        fun notificationsEnabled(notificationsEnabled: Boolean) =
+            notificationsEnabled(JsonField.of(notificationsEnabled))
+
+        /**
+         * If true, the invoice will send email notifications to the invoice recipients about
+         * invoice status changes.
+         */
+        @JsonProperty("notifications_enabled")
+        @ExcludeMissing
+        fun notificationsEnabled(notificationsEnabled: JsonField<Boolean>) = apply {
+            this.notificationsEnabled = notificationsEnabled
+        }
+
+        /**
+         * Emails in addition to the counterparty email to send invoice status notifications to. At
+         * least one email is required if notifications are enabled and the counterparty doesn't
+         * have an email.
+         */
+        fun notificationEmailAddresses(notificationEmailAddresses: List<String>) =
+            notificationEmailAddresses(JsonField.of(notificationEmailAddresses))
+
+        /**
+         * Emails in addition to the counterparty email to send invoice status notifications to. At
+         * least one email is required if notifications are enabled and the counterparty doesn't
+         * have an email.
+         */
+        @JsonProperty("notification_email_addresses")
+        @ExcludeMissing
+        fun notificationEmailAddresses(notificationEmailAddresses: JsonField<List<String>>) =
+            apply {
+                this.notificationEmailAddresses = notificationEmailAddresses
+            }
 
         /** The URL of the hosted web UI where the invoice can be viewed. */
         fun hostedUrl(hostedUrl: String) = hostedUrl(JsonField.of(hostedUrl))
@@ -633,6 +728,17 @@ private constructor(
         @ExcludeMissing
         fun totalAmount(totalAmount: JsonField<Long>) = apply { this.totalAmount = totalAmount }
 
+        /** IDs of transaction line items associated with an invoice. */
+        fun transactionLineItemIds(transactionLineItemIds: List<String>) =
+            transactionLineItemIds(JsonField.of(transactionLineItemIds))
+
+        /** IDs of transaction line items associated with an invoice. */
+        @JsonProperty("transaction_line_item_ids")
+        @ExcludeMissing
+        fun transactionLineItemIds(transactionLineItemIds: JsonField<List<String>>) = apply {
+            this.transactionLineItemIds = transactionLineItemIds
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -667,12 +773,15 @@ private constructor(
                 paymentEffectiveDate,
                 paymentType,
                 paymentMethod,
+                notificationsEnabled,
+                notificationEmailAddresses.map { it.toUnmodifiable() },
                 hostedUrl,
                 number,
                 paymentOrders.map { it.toUnmodifiable() },
                 pdfUrl,
                 status,
                 totalAmount,
+                transactionLineItemIds.map { it.toUnmodifiable() },
                 additionalProperties.toUnmodifiable(),
             )
     }

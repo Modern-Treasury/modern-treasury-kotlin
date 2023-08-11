@@ -14,7 +14,7 @@ class LedgerEntryListParams
 constructor(
     private val afterCursor: String?,
     private val perPage: Long?,
-    private val id: Id?,
+    private val id: List<String>?,
     private val ledgerAccountId: String?,
     private val ledgerTransactionId: String?,
     private val ledgerAccountPayoutId: String?,
@@ -39,7 +39,7 @@ constructor(
 
     fun perPage(): Long? = perPage
 
-    fun id(): Id? = id
+    fun id(): List<String>? = id
 
     fun ledgerAccountId(): String? = ledgerAccountId
 
@@ -77,7 +77,7 @@ constructor(
         val params = mutableMapOf<String, List<String>>()
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
         this.perPage?.let { params.put("per_page", listOf(it.toString())) }
-        this.id?.forEachQueryParam { key, values -> params.put("id[$key]", values) }
+        this.id?.let { params.put("id[]", it.map(Any::toString)) }
         this.ledgerAccountId?.let { params.put("ledger_account_id", listOf(it.toString())) }
         this.ledgerTransactionId?.let { params.put("ledger_transaction_id", listOf(it.toString())) }
         this.ledgerAccountPayoutId?.let {
@@ -186,7 +186,7 @@ constructor(
 
         private var afterCursor: String? = null
         private var perPage: Long? = null
-        private var id: Id? = null
+        private var id: List<String>? = null
         private var ledgerAccountId: String? = null
         private var ledgerTransactionId: String? = null
         private var ledgerAccountPayoutId: String? = null
@@ -234,7 +234,11 @@ constructor(
 
         fun perPage(perPage: Long) = apply { this.perPage = perPage }
 
-        fun id(id: Id) = apply { this.id = id }
+        /**
+         * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
+         * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
+         */
+        fun id(id: List<String>) = apply { this.id = id }
 
         fun ledgerAccountId(ledgerAccountId: String) = apply {
             this.ledgerAccountId = ledgerAccountId
@@ -377,7 +381,7 @@ constructor(
             LedgerEntryListParams(
                 afterCursor,
                 perPage,
-                id,
+                id?.toUnmodifiable(),
                 ledgerAccountId,
                 ledgerTransactionId,
                 ledgerAccountPayoutId,
@@ -397,69 +401,6 @@ constructor(
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
-    }
-
-    @JsonDeserialize(builder = Id.Builder::class)
-    @NoAutoDetect
-    class Id
-    private constructor(
-        private val additionalProperties: Map<String, List<String>>,
-    ) {
-
-        private var hashCode: Int = 0
-
-        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
-
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.additionalProperties.forEach { key, values -> putParam(key, values) }
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Id && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Id{additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
-
-            internal fun from(id: Id) = apply { additionalProperties(id.additionalProperties) }
-
-            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: List<String>) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-            fun build(): Id = Id(additionalProperties.toUnmodifiable())
-        }
     }
 
     class Direction

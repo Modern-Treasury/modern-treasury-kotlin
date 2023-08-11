@@ -13,6 +13,7 @@ class LedgerAccountCategoryListParamsTest {
             .afterCursor("string")
             .perPage(123L)
             .metadata(LedgerAccountCategoryListParams.Metadata.builder().build())
+            .id(listOf("string"))
             .name("string")
             .ledgerId("string")
             .parentLedgerAccountCategoryId("string")
@@ -32,6 +33,7 @@ class LedgerAccountCategoryListParamsTest {
                 .afterCursor("string")
                 .perPage(123L)
                 .metadata(LedgerAccountCategoryListParams.Metadata.builder().build())
+                .id(listOf("string"))
                 .name("string")
                 .ledgerId("string")
                 .parentLedgerAccountCategoryId("string")
@@ -49,6 +51,7 @@ class LedgerAccountCategoryListParamsTest {
             ->
             expected.put("metadata[$key]", values)
         }
+        expected.put("id[]", listOf("string"))
         expected.put("name", listOf("string"))
         expected.put("ledger_id", listOf("string"))
         expected.put("parent_ledger_account_category_id", listOf("string"))

@@ -14,7 +14,7 @@ class LedgerAccountListParamsTest {
             .afterCursor("string")
             .perPage(123L)
             .metadata(LedgerAccountListParams.Metadata.builder().build())
-            .id("string")
+            .id(listOf("string"))
             .name("string")
             .ledgerId("string")
             .currency("string")
@@ -39,7 +39,7 @@ class LedgerAccountListParamsTest {
                 .afterCursor("string")
                 .perPage(123L)
                 .metadata(LedgerAccountListParams.Metadata.builder().build())
-                .id("string")
+                .id(listOf("string"))
                 .name("string")
                 .ledgerId("string")
                 .currency("string")
@@ -61,7 +61,7 @@ class LedgerAccountListParamsTest {
         LedgerAccountListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
-        expected.put("id", listOf("string"))
+        expected.put("id[]", listOf("string"))
         expected.put("name", listOf("string"))
         expected.put("ledger_id", listOf("string"))
         expected.put("currency", listOf("string"))

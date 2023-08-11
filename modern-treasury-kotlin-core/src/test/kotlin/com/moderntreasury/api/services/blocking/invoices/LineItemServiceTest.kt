@@ -4,8 +4,6 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.InvoiceLineItemListParams
-import java.time.LocalDate
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -67,62 +65,11 @@ class LineItemServiceTest {
                 InvoiceLineItemUpdateParams.builder()
                     .invoiceId("string")
                     .id("string")
-                    .contactDetails(
-                        listOf(
-                            InvoiceLineItemUpdateParams.ContactDetail.builder()
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .contactIdentifier("string")
-                                .contactIdentifierType(
-                                    InvoiceLineItemUpdateParams.ContactDetail.ContactIdentifierType
-                                        .EMAIL
-                                )
-                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .liveMode(true)
-                                .object_("string")
-                                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .build()
-                        )
-                    )
-                    .counterpartyId("string")
-                    .counterpartyBillingAddress(
-                        InvoiceLineItemUpdateParams.CounterpartyBillingAddress.builder()
-                            .country("string")
-                            .line1("string")
-                            .locality("string")
-                            .postalCode("string")
-                            .region("string")
-                            .line2("string")
-                            .build()
-                    )
-                    .counterpartyShippingAddress(
-                        InvoiceLineItemUpdateParams.CounterpartyShippingAddress.builder()
-                            .country("string")
-                            .line1("string")
-                            .locality("string")
-                            .postalCode("string")
-                            .region("string")
-                            .line2("string")
-                            .build()
-                    )
-                    .currency(Currency.AED)
+                    .name("string")
                     .description("string")
-                    .dueDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .invoicerAddress(
-                        InvoiceLineItemUpdateParams.InvoicerAddress.builder()
-                            .country("string")
-                            .line1("string")
-                            .locality("string")
-                            .postalCode("string")
-                            .region("string")
-                            .line2("string")
-                            .build()
-                    )
-                    .originatingAccountId("string")
-                    .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
-                    .paymentType(InvoiceLineItemUpdateParams.PaymentType.ACH)
-                    .paymentMethod(InvoiceLineItemUpdateParams.PaymentMethod.UI)
+                    .quantity(123L)
+                    .unitAmount(123L)
+                    .direction("string")
                     .build()
             )
         println(invoiceLineItem)

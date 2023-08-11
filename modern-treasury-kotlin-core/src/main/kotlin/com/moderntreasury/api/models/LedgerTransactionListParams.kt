@@ -14,8 +14,8 @@ class LedgerTransactionListParams
 constructor(
     private val afterCursor: String?,
     private val perPage: Long?,
-    private val id: Id?,
     private val metadata: Metadata?,
+    private val id: List<String>?,
     private val ledgerId: String?,
     private val ledgerAccountId: String?,
     private val effectiveAt: EffectiveAt?,
@@ -38,9 +38,9 @@ constructor(
 
     fun perPage(): Long? = perPage
 
-    fun id(): Id? = id
-
     fun metadata(): Metadata? = metadata
+
+    fun id(): List<String>? = id
 
     fun ledgerId(): String? = ledgerId
 
@@ -74,8 +74,8 @@ constructor(
         val params = mutableMapOf<String, List<String>>()
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
         this.perPage?.let { params.put("per_page", listOf(it.toString())) }
-        this.id?.forEachQueryParam { key, values -> params.put("id[$key]", values) }
         this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
+        this.id?.let { params.put("id[]", it.map(Any::toString)) }
         this.ledgerId?.let { params.put("ledger_id", listOf(it.toString())) }
         this.ledgerAccountId?.let { params.put("ledger_account_id", listOf(it.toString())) }
         this.effectiveAt?.forEachQueryParam { key, values ->
@@ -118,8 +118,8 @@ constructor(
         return other is LedgerTransactionListParams &&
             this.afterCursor == other.afterCursor &&
             this.perPage == other.perPage &&
-            this.id == other.id &&
             this.metadata == other.metadata &&
+            this.id == other.id &&
             this.ledgerId == other.ledgerId &&
             this.ledgerAccountId == other.ledgerAccountId &&
             this.effectiveAt == other.effectiveAt &&
@@ -142,8 +142,8 @@ constructor(
         return Objects.hash(
             afterCursor,
             perPage,
-            id,
             metadata,
+            id,
             ledgerId,
             ledgerAccountId,
             effectiveAt,
@@ -164,7 +164,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerTransactionListParams{afterCursor=$afterCursor, perPage=$perPage, id=$id, metadata=$metadata, ledgerId=$ledgerId, ledgerAccountId=$ledgerAccountId, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, postedAt=$postedAt, updatedAt=$updatedAt, orderBy=$orderBy, status=$status, externalId=$externalId, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountPayoutId=$ledgerAccountPayoutId, reversesLedgerTransactionId=$reversesLedgerTransactionId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "LedgerTransactionListParams{afterCursor=$afterCursor, perPage=$perPage, metadata=$metadata, id=$id, ledgerId=$ledgerId, ledgerAccountId=$ledgerAccountId, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, postedAt=$postedAt, updatedAt=$updatedAt, orderBy=$orderBy, status=$status, externalId=$externalId, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountPayoutId=$ledgerAccountPayoutId, reversesLedgerTransactionId=$reversesLedgerTransactionId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -178,8 +178,8 @@ constructor(
 
         private var afterCursor: String? = null
         private var perPage: Long? = null
-        private var id: Id? = null
         private var metadata: Metadata? = null
+        private var id: List<String>? = null
         private var ledgerId: String? = null
         private var ledgerAccountId: String? = null
         private var effectiveAt: EffectiveAt? = null
@@ -200,8 +200,8 @@ constructor(
         internal fun from(ledgerTransactionListParams: LedgerTransactionListParams) = apply {
             this.afterCursor = ledgerTransactionListParams.afterCursor
             this.perPage = ledgerTransactionListParams.perPage
-            this.id = ledgerTransactionListParams.id
             this.metadata = ledgerTransactionListParams.metadata
+            this.id = ledgerTransactionListParams.id
             this.ledgerId = ledgerTransactionListParams.ledgerId
             this.ledgerAccountId = ledgerTransactionListParams.ledgerAccountId
             this.effectiveAt = ledgerTransactionListParams.effectiveAt
@@ -225,13 +225,17 @@ constructor(
 
         fun perPage(perPage: Long) = apply { this.perPage = perPage }
 
-        fun id(id: Id) = apply { this.id = id }
-
         /**
          * For example, if you want to query for records with metadata key `Type` and value `Loan`,
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
         fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        /**
+         * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
+         * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
+         */
+        fun id(id: List<String>) = apply { this.id = id }
 
         fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
 
@@ -341,8 +345,8 @@ constructor(
             LedgerTransactionListParams(
                 afterCursor,
                 perPage,
-                id,
                 metadata,
+                id?.toUnmodifiable(),
                 ledgerId,
                 ledgerAccountId,
                 effectiveAt,
@@ -360,69 +364,6 @@ constructor(
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
-    }
-
-    @JsonDeserialize(builder = Id.Builder::class)
-    @NoAutoDetect
-    class Id
-    private constructor(
-        private val additionalProperties: Map<String, List<String>>,
-    ) {
-
-        private var hashCode: Int = 0
-
-        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
-
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.additionalProperties.forEach { key, values -> putParam(key, values) }
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Id && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Id{additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
-
-            internal fun from(id: Id) = apply { additionalProperties(id.additionalProperties) }
-
-            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: List<String>) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-            fun build(): Id = Id(additionalProperties.toUnmodifiable())
-        }
     }
 
     /**

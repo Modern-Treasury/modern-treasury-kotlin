@@ -32,6 +32,8 @@ constructor(
     private val paymentEffectiveDate: LocalDate?,
     private val paymentType: PaymentType?,
     private val paymentMethod: PaymentMethod?,
+    private val notificationsEnabled: Boolean?,
+    private val notificationEmailAddresses: List<String>?,
     private val status: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -66,6 +68,10 @@ constructor(
 
     fun paymentMethod(): PaymentMethod? = paymentMethod
 
+    fun notificationsEnabled(): Boolean? = notificationsEnabled
+
+    fun notificationEmailAddresses(): List<String>? = notificationEmailAddresses
+
     fun status(): String? = status
 
     internal fun getBody(): InvoiceUpdateBody {
@@ -83,6 +89,8 @@ constructor(
             paymentEffectiveDate,
             paymentType,
             paymentMethod,
+            notificationsEnabled,
+            notificationEmailAddresses,
             status,
             additionalBodyProperties,
         )
@@ -116,6 +124,8 @@ constructor(
         private val paymentEffectiveDate: LocalDate?,
         private val paymentType: PaymentType?,
         private val paymentMethod: PaymentMethod?,
+        private val notificationsEnabled: Boolean?,
+        private val notificationEmailAddresses: List<String>?,
         private val status: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -181,9 +191,24 @@ constructor(
         @JsonProperty("payment_method") fun paymentMethod(): PaymentMethod? = paymentMethod
 
         /**
+         * If true, the invoice will send email notifications to the invoice recipients about
+         * invoice status changes.
+         */
+        @JsonProperty("notifications_enabled")
+        fun notificationsEnabled(): Boolean? = notificationsEnabled
+
+        /**
+         * Emails in addition to the counterparty email to send invoice status notifications to. At
+         * least one email is required if notifications are enabled and the counterparty doesn't
+         * have an email.
+         */
+        @JsonProperty("notification_email_addresses")
+        fun notificationEmailAddresses(): List<String>? = notificationEmailAddresses
+
+        /**
          * Invoice status must be updated in a `PATCH` request that does not modify any other
-         * invoice attributes. Valid state transitions are `draft` to `unpaid` and `draft` or
-         * `unpaid` to `voided`.
+         * invoice attributes. Valid state transitions are `draft` to `unpaid`, `draft` or `unpaid`
+         * to `voided`, and `draft` or `unpaid` to `paid`.
          */
         @JsonProperty("status") fun status(): String? = status
 
@@ -212,6 +237,8 @@ constructor(
                 this.paymentEffectiveDate == other.paymentEffectiveDate &&
                 this.paymentType == other.paymentType &&
                 this.paymentMethod == other.paymentMethod &&
+                this.notificationsEnabled == other.notificationsEnabled &&
+                this.notificationEmailAddresses == other.notificationEmailAddresses &&
                 this.status == other.status &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -233,6 +260,8 @@ constructor(
                         paymentEffectiveDate,
                         paymentType,
                         paymentMethod,
+                        notificationsEnabled,
+                        notificationEmailAddresses,
                         status,
                         additionalProperties,
                     )
@@ -241,7 +270,7 @@ constructor(
         }
 
         override fun toString() =
-            "InvoiceUpdateBody{contactDetails=$contactDetails, counterpartyId=$counterpartyId, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentType=$paymentType, paymentMethod=$paymentMethod, status=$status, additionalProperties=$additionalProperties}"
+            "InvoiceUpdateBody{contactDetails=$contactDetails, counterpartyId=$counterpartyId, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentType=$paymentType, paymentMethod=$paymentMethod, notificationsEnabled=$notificationsEnabled, notificationEmailAddresses=$notificationEmailAddresses, status=$status, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -263,6 +292,8 @@ constructor(
             private var paymentEffectiveDate: LocalDate? = null
             private var paymentType: PaymentType? = null
             private var paymentMethod: PaymentMethod? = null
+            private var notificationsEnabled: Boolean? = null
+            private var notificationEmailAddresses: List<String>? = null
             private var status: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -280,6 +311,8 @@ constructor(
                 this.paymentEffectiveDate = invoiceUpdateBody.paymentEffectiveDate
                 this.paymentType = invoiceUpdateBody.paymentType
                 this.paymentMethod = invoiceUpdateBody.paymentMethod
+                this.notificationsEnabled = invoiceUpdateBody.notificationsEnabled
+                this.notificationEmailAddresses = invoiceUpdateBody.notificationEmailAddresses
                 this.status = invoiceUpdateBody.status
                 additionalProperties(invoiceUpdateBody.additionalProperties)
             }
@@ -370,9 +403,28 @@ constructor(
             }
 
             /**
+             * If true, the invoice will send email notifications to the invoice recipients about
+             * invoice status changes.
+             */
+            @JsonProperty("notifications_enabled")
+            fun notificationsEnabled(notificationsEnabled: Boolean) = apply {
+                this.notificationsEnabled = notificationsEnabled
+            }
+
+            /**
+             * Emails in addition to the counterparty email to send invoice status notifications to.
+             * At least one email is required if notifications are enabled and the counterparty
+             * doesn't have an email.
+             */
+            @JsonProperty("notification_email_addresses")
+            fun notificationEmailAddresses(notificationEmailAddresses: List<String>) = apply {
+                this.notificationEmailAddresses = notificationEmailAddresses
+            }
+
+            /**
              * Invoice status must be updated in a `PATCH` request that does not modify any other
-             * invoice attributes. Valid state transitions are `draft` to `unpaid` and `draft` or
-             * `unpaid` to `voided`.
+             * invoice attributes. Valid state transitions are `draft` to `unpaid`, `draft` or
+             * `unpaid` to `voided`, and `draft` or `unpaid` to `paid`.
              */
             @JsonProperty("status") fun status(status: String) = apply { this.status = status }
 
@@ -405,6 +457,8 @@ constructor(
                     paymentEffectiveDate,
                     paymentType,
                     paymentMethod,
+                    notificationsEnabled,
+                    notificationEmailAddresses?.toUnmodifiable(),
                     status,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -437,6 +491,8 @@ constructor(
             this.paymentEffectiveDate == other.paymentEffectiveDate &&
             this.paymentType == other.paymentType &&
             this.paymentMethod == other.paymentMethod &&
+            this.notificationsEnabled == other.notificationsEnabled &&
+            this.notificationEmailAddresses == other.notificationEmailAddresses &&
             this.status == other.status &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -459,6 +515,8 @@ constructor(
             paymentEffectiveDate,
             paymentType,
             paymentMethod,
+            notificationsEnabled,
+            notificationEmailAddresses,
             status,
             additionalQueryParams,
             additionalHeaders,
@@ -467,7 +525,7 @@ constructor(
     }
 
     override fun toString() =
-        "InvoiceUpdateParams{id=$id, contactDetails=$contactDetails, counterpartyId=$counterpartyId, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentType=$paymentType, paymentMethod=$paymentMethod, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "InvoiceUpdateParams{id=$id, contactDetails=$contactDetails, counterpartyId=$counterpartyId, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentType=$paymentType, paymentMethod=$paymentMethod, notificationsEnabled=$notificationsEnabled, notificationEmailAddresses=$notificationEmailAddresses, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -493,6 +551,8 @@ constructor(
         private var paymentEffectiveDate: LocalDate? = null
         private var paymentType: PaymentType? = null
         private var paymentMethod: PaymentMethod? = null
+        private var notificationsEnabled: Boolean? = null
+        private var notificationEmailAddresses: List<String>? = null
         private var status: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -513,6 +573,8 @@ constructor(
             this.paymentEffectiveDate = invoiceUpdateParams.paymentEffectiveDate
             this.paymentType = invoiceUpdateParams.paymentType
             this.paymentMethod = invoiceUpdateParams.paymentMethod
+            this.notificationsEnabled = invoiceUpdateParams.notificationsEnabled
+            this.notificationEmailAddresses = invoiceUpdateParams.notificationEmailAddresses
             this.status = invoiceUpdateParams.status
             additionalQueryParams(invoiceUpdateParams.additionalQueryParams)
             additionalHeaders(invoiceUpdateParams.additionalHeaders)
@@ -593,9 +655,26 @@ constructor(
         }
 
         /**
+         * If true, the invoice will send email notifications to the invoice recipients about
+         * invoice status changes.
+         */
+        fun notificationsEnabled(notificationsEnabled: Boolean) = apply {
+            this.notificationsEnabled = notificationsEnabled
+        }
+
+        /**
+         * Emails in addition to the counterparty email to send invoice status notifications to. At
+         * least one email is required if notifications are enabled and the counterparty doesn't
+         * have an email.
+         */
+        fun notificationEmailAddresses(notificationEmailAddresses: List<String>) = apply {
+            this.notificationEmailAddresses = notificationEmailAddresses
+        }
+
+        /**
          * Invoice status must be updated in a `PATCH` request that does not modify any other
-         * invoice attributes. Valid state transitions are `draft` to `unpaid` and `draft` or
-         * `unpaid` to `voided`.
+         * invoice attributes. Valid state transitions are `draft` to `unpaid`, `draft` or `unpaid`
+         * to `voided`, and `draft` or `unpaid` to `paid`.
          */
         fun status(status: String) = apply { this.status = status }
 
@@ -669,6 +748,8 @@ constructor(
                 paymentEffectiveDate,
                 paymentType,
                 paymentMethod,
+                notificationsEnabled,
+                notificationEmailAddresses?.toUnmodifiable(),
                 status,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
