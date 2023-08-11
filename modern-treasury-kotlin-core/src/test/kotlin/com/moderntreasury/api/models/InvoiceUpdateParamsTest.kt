@@ -67,6 +67,8 @@ class InvoiceUpdateParamsTest {
             .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
             .paymentType(InvoiceUpdateParams.PaymentType.ACH)
             .paymentMethod(InvoiceUpdateParams.PaymentMethod.UI)
+            .notificationsEnabled(true)
+            .notificationEmailAddresses(listOf("string"))
             .status("string")
             .build()
     }
@@ -131,6 +133,8 @@ class InvoiceUpdateParamsTest {
                 .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
                 .paymentType(InvoiceUpdateParams.PaymentType.ACH)
                 .paymentMethod(InvoiceUpdateParams.PaymentMethod.UI)
+                .notificationsEnabled(true)
+                .notificationEmailAddresses(listOf("string"))
                 .status("string")
                 .build()
         val body = params.getBody()
@@ -194,6 +198,8 @@ class InvoiceUpdateParamsTest {
         assertThat(body.paymentEffectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.paymentType()).isEqualTo(InvoiceUpdateParams.PaymentType.ACH)
         assertThat(body.paymentMethod()).isEqualTo(InvoiceUpdateParams.PaymentMethod.UI)
+        assertThat(body.notificationsEnabled()).isEqualTo(true)
+        assertThat(body.notificationEmailAddresses()).isEqualTo(listOf("string"))
         assertThat(body.status()).isEqualTo("string")
     }
 

@@ -11,7 +11,7 @@ class LedgerEntryListParamsTest {
         LedgerEntryListParams.builder()
             .afterCursor("string")
             .perPage(123L)
-            .id(LedgerEntryListParams.Id.builder().build())
+            .id(listOf("string"))
             .ledgerAccountId("string")
             .ledgerTransactionId("string")
             .ledgerAccountPayoutId("string")
@@ -44,7 +44,7 @@ class LedgerEntryListParamsTest {
             LedgerEntryListParams.builder()
                 .afterCursor("string")
                 .perPage(123L)
-                .id(LedgerEntryListParams.Id.builder().build())
+                .id(listOf("string"))
                 .ledgerAccountId("string")
                 .ledgerTransactionId("string")
                 .ledgerAccountPayoutId("string")
@@ -72,9 +72,7 @@ class LedgerEntryListParamsTest {
         val expected = mutableMapOf<String, List<String>>()
         expected.put("after_cursor", listOf("string"))
         expected.put("per_page", listOf("123"))
-        LedgerEntryListParams.Id.builder().build().forEachQueryParam { key, values ->
-            expected.put("id[$key]", values)
-        }
+        expected.put("id[]", listOf("string"))
         expected.put("ledger_account_id", listOf("string"))
         expected.put("ledger_transaction_id", listOf("string"))
         expected.put("ledger_account_payout_id", listOf("string"))

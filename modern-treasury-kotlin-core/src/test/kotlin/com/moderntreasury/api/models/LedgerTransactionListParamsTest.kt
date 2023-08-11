@@ -11,8 +11,8 @@ class LedgerTransactionListParamsTest {
         LedgerTransactionListParams.builder()
             .afterCursor("string")
             .perPage(123L)
-            .id(LedgerTransactionListParams.Id.builder().build())
             .metadata(LedgerTransactionListParams.Metadata.builder().build())
+            .id(listOf("string"))
             .ledgerId("string")
             .ledgerAccountId("string")
             .effectiveAt(LedgerTransactionListParams.EffectiveAt.builder().build())
@@ -41,8 +41,8 @@ class LedgerTransactionListParamsTest {
             LedgerTransactionListParams.builder()
                 .afterCursor("string")
                 .perPage(123L)
-                .id(LedgerTransactionListParams.Id.builder().build())
                 .metadata(LedgerTransactionListParams.Metadata.builder().build())
+                .id(listOf("string"))
                 .ledgerId("string")
                 .ledgerAccountId("string")
                 .effectiveAt(LedgerTransactionListParams.EffectiveAt.builder().build())
@@ -66,12 +66,10 @@ class LedgerTransactionListParamsTest {
         val expected = mutableMapOf<String, List<String>>()
         expected.put("after_cursor", listOf("string"))
         expected.put("per_page", listOf("123"))
-        LedgerTransactionListParams.Id.builder().build().forEachQueryParam { key, values ->
-            expected.put("id[$key]", values)
-        }
         LedgerTransactionListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
+        expected.put("id[]", listOf("string"))
         expected.put("ledger_id", listOf("string"))
         expected.put("ledger_account_id", listOf("string"))
         LedgerTransactionListParams.EffectiveAt.builder().build().forEachQueryParam { key, values ->

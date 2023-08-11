@@ -11,6 +11,7 @@ constructor(
     private val afterCursor: String?,
     private val perPage: Long?,
     private val metadata: Metadata?,
+    private val id: List<String>?,
     private val updatedAt: UpdatedAt?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -22,6 +23,8 @@ constructor(
 
     fun metadata(): Metadata? = metadata
 
+    fun id(): List<String>? = id
+
     fun updatedAt(): UpdatedAt? = updatedAt
 
     internal fun getQueryParams(): Map<String, List<String>> {
@@ -29,6 +32,7 @@ constructor(
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
         this.perPage?.let { params.put("per_page", listOf(it.toString())) }
         this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
+        this.id?.let { params.put("id[]", it.map(Any::toString)) }
         this.updatedAt?.forEachQueryParam { key, values -> params.put("updated_at[$key]", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
@@ -49,6 +53,7 @@ constructor(
             this.afterCursor == other.afterCursor &&
             this.perPage == other.perPage &&
             this.metadata == other.metadata &&
+            this.id == other.id &&
             this.updatedAt == other.updatedAt &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
@@ -59,6 +64,7 @@ constructor(
             afterCursor,
             perPage,
             metadata,
+            id,
             updatedAt,
             additionalQueryParams,
             additionalHeaders,
@@ -66,7 +72,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerListParams{afterCursor=$afterCursor, perPage=$perPage, metadata=$metadata, updatedAt=$updatedAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "LedgerListParams{afterCursor=$afterCursor, perPage=$perPage, metadata=$metadata, id=$id, updatedAt=$updatedAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -81,6 +87,7 @@ constructor(
         private var afterCursor: String? = null
         private var perPage: Long? = null
         private var metadata: Metadata? = null
+        private var id: List<String>? = null
         private var updatedAt: UpdatedAt? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -89,6 +96,7 @@ constructor(
             this.afterCursor = ledgerListParams.afterCursor
             this.perPage = ledgerListParams.perPage
             this.metadata = ledgerListParams.metadata
+            this.id = ledgerListParams.id
             this.updatedAt = ledgerListParams.updatedAt
             additionalQueryParams(ledgerListParams.additionalQueryParams)
             additionalHeaders(ledgerListParams.additionalHeaders)
@@ -103,6 +111,12 @@ constructor(
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
         fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        /**
+         * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
+         * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
+         */
+        fun id(id: List<String>) = apply { this.id = id }
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
@@ -156,6 +170,7 @@ constructor(
                 afterCursor,
                 perPage,
                 metadata,
+                id?.toUnmodifiable(),
                 updatedAt,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
