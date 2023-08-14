@@ -253,7 +253,7 @@ val client = ModernTreasuryOkHttpClient.builder()
 
 ### Timeouts
 
-Requests time out after 60 seconds by default. You can configure this on the client builder:
+Requests time out after 1 minute by default. You can configure this on the client builder:
 
 ```kotlin
 val client = ModernTreasuryOkHttpClient.builder()
