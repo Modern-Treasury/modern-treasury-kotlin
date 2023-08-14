@@ -179,7 +179,7 @@ constructor(
         private var afterCursor: String? = null
         private var perPage: Long? = null
         private var metadata: Metadata? = null
-        private var id: List<String>? = null
+        private var id: MutableList<String> = mutableListOf()
         private var ledgerId: String? = null
         private var ledgerAccountId: String? = null
         private var effectiveAt: EffectiveAt? = null
@@ -201,7 +201,7 @@ constructor(
             this.afterCursor = ledgerTransactionListParams.afterCursor
             this.perPage = ledgerTransactionListParams.perPage
             this.metadata = ledgerTransactionListParams.metadata
-            this.id = ledgerTransactionListParams.id
+            this.id(ledgerTransactionListParams.id ?: listOf())
             this.ledgerId = ledgerTransactionListParams.ledgerId
             this.ledgerAccountId = ledgerTransactionListParams.ledgerAccountId
             this.effectiveAt = ledgerTransactionListParams.effectiveAt
@@ -235,7 +235,16 @@ constructor(
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
          * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
          */
-        fun id(id: List<String>) = apply { this.id = id }
+        fun id(id: List<String>) = apply {
+            this.id.clear()
+            this.id.addAll(id)
+        }
+
+        /**
+         * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
+         * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
+         */
+        fun addId(id: String) = apply { this.id.add(id) }
 
         fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
 
@@ -346,7 +355,7 @@ constructor(
                 afterCursor,
                 perPage,
                 metadata,
-                id?.toUnmodifiable(),
+                if (id.size == 0) null else id.toUnmodifiable(),
                 ledgerId,
                 ledgerAccountId,
                 effectiveAt,

@@ -532,7 +532,7 @@ constructor(
         private var remittanceInformation: String? = null
         private var reconciliationGroups: JsonValue? = null
         private var reconciliationFilters: JsonValue? = null
-        private var lineItems: List<LineItemRequest>? = null
+        private var lineItems: MutableList<LineItemRequest> = mutableListOf()
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -553,7 +553,7 @@ constructor(
             this.remittanceInformation = expectedPaymentCreateParams.remittanceInformation
             this.reconciliationGroups = expectedPaymentCreateParams.reconciliationGroups
             this.reconciliationFilters = expectedPaymentCreateParams.reconciliationFilters
-            this.lineItems = expectedPaymentCreateParams.lineItems
+            this.lineItems(expectedPaymentCreateParams.lineItems ?: listOf())
             additionalQueryParams(expectedPaymentCreateParams.additionalQueryParams)
             additionalHeaders(expectedPaymentCreateParams.additionalHeaders)
             additionalBodyProperties(expectedPaymentCreateParams.additionalBodyProperties)
@@ -644,7 +644,12 @@ constructor(
             this.reconciliationFilters = reconciliationFilters
         }
 
-        fun lineItems(lineItems: List<LineItemRequest>) = apply { this.lineItems = lineItems }
+        fun lineItems(lineItems: List<LineItemRequest>) = apply {
+            this.lineItems.clear()
+            this.lineItems.addAll(lineItems)
+        }
+
+        fun addLineItem(lineItem: LineItemRequest) = apply { this.lineItems.add(lineItem) }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -719,7 +724,7 @@ constructor(
                 remittanceInformation,
                 reconciliationGroups,
                 reconciliationFilters,
-                lineItems?.toUnmodifiable(),
+                if (lineItems.size == 0) null else lineItems.toUnmodifiable(),
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

@@ -270,7 +270,7 @@ constructor(
         private var id: String? = null
         private var direction: Direction? = null
         private var sendEmail: Boolean? = null
-        private var fields: List<Field>? = null
+        private var fields: MutableList<Field> = mutableListOf()
         private var customRedirect: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -281,7 +281,7 @@ constructor(
                 this.id = counterpartyCollectAccountParams.id
                 this.direction = counterpartyCollectAccountParams.direction
                 this.sendEmail = counterpartyCollectAccountParams.sendEmail
-                this.fields = counterpartyCollectAccountParams.fields
+                this.fields(counterpartyCollectAccountParams.fields ?: listOf())
                 this.customRedirect = counterpartyCollectAccountParams.customRedirect
                 additionalQueryParams(counterpartyCollectAccountParams.additionalQueryParams)
                 additionalHeaders(counterpartyCollectAccountParams.additionalHeaders)
@@ -312,7 +312,19 @@ constructor(
          * \"nameOnAccount\", \"taxpayerIdentifier\", \"accountType\", \"accountNumber\",
          * \"routingNumber\", \"address\", \"ibanNumber\", \"swiftCode\"].
          */
-        fun fields(fields: List<Field>) = apply { this.fields = fields }
+        fun fields(fields: List<Field>) = apply {
+            this.fields.clear()
+            this.fields.addAll(fields)
+        }
+
+        /**
+         * The list of fields you want on the form. This field is optional and if it is not set,
+         * will default to [\"nameOnAccount\", \"accountType\", \"accountNumber\",
+         * \"routingNumber\", \"address\"]. The full list of options is [\"name\",
+         * \"nameOnAccount\", \"taxpayerIdentifier\", \"accountType\", \"accountNumber\",
+         * \"routingNumber\", \"address\", \"ibanNumber\", \"swiftCode\"].
+         */
+        fun addField(field: Field) = apply { this.fields.add(field) }
 
         /**
          * The URL you want your customer to visit upon filling out the form. By default, they will
@@ -379,7 +391,7 @@ constructor(
                 checkNotNull(id) { "`id` is required but was not set" },
                 checkNotNull(direction) { "`direction` is required but was not set" },
                 sendEmail,
-                fields?.toUnmodifiable(),
+                if (fields.size == 0) null else fields.toUnmodifiable(),
                 customRedirect,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

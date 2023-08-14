@@ -186,7 +186,7 @@ constructor(
 
         private var afterCursor: String? = null
         private var perPage: Long? = null
-        private var id: List<String>? = null
+        private var id: MutableList<String> = mutableListOf()
         private var ledgerAccountId: String? = null
         private var ledgerTransactionId: String? = null
         private var ledgerAccountPayoutId: String? = null
@@ -209,7 +209,7 @@ constructor(
         internal fun from(ledgerEntryListParams: LedgerEntryListParams) = apply {
             this.afterCursor = ledgerEntryListParams.afterCursor
             this.perPage = ledgerEntryListParams.perPage
-            this.id = ledgerEntryListParams.id
+            this.id(ledgerEntryListParams.id ?: listOf())
             this.ledgerAccountId = ledgerEntryListParams.ledgerAccountId
             this.ledgerTransactionId = ledgerEntryListParams.ledgerTransactionId
             this.ledgerAccountPayoutId = ledgerEntryListParams.ledgerAccountPayoutId
@@ -238,7 +238,16 @@ constructor(
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
          * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
          */
-        fun id(id: List<String>) = apply { this.id = id }
+        fun id(id: List<String>) = apply {
+            this.id.clear()
+            this.id.addAll(id)
+        }
+
+        /**
+         * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
+         * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
+         */
+        fun addId(id: String) = apply { this.id.add(id) }
 
         fun ledgerAccountId(ledgerAccountId: String) = apply {
             this.ledgerAccountId = ledgerAccountId
@@ -381,7 +390,7 @@ constructor(
             LedgerEntryListParams(
                 afterCursor,
                 perPage,
-                id?.toUnmodifiable(),
+                if (id.size == 0) null else id.toUnmodifiable(),
                 ledgerAccountId,
                 ledgerTransactionId,
                 ledgerAccountPayoutId,

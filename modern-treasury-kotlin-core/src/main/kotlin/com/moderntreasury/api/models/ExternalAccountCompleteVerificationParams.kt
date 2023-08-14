@@ -162,7 +162,7 @@ constructor(
     class Builder {
 
         private var id: String? = null
-        private var amounts: List<Long>? = null
+        private var amounts: MutableList<Long> = mutableListOf()
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -171,7 +171,7 @@ constructor(
             externalAccountCompleteVerificationParams: ExternalAccountCompleteVerificationParams
         ) = apply {
             this.id = externalAccountCompleteVerificationParams.id
-            this.amounts = externalAccountCompleteVerificationParams.amounts
+            this.amounts(externalAccountCompleteVerificationParams.amounts ?: listOf())
             additionalQueryParams(externalAccountCompleteVerificationParams.additionalQueryParams)
             additionalHeaders(externalAccountCompleteVerificationParams.additionalHeaders)
             additionalBodyProperties(
@@ -181,7 +181,12 @@ constructor(
 
         fun id(id: String) = apply { this.id = id }
 
-        fun amounts(amounts: List<Long>) = apply { this.amounts = amounts }
+        fun amounts(amounts: List<Long>) = apply {
+            this.amounts.clear()
+            this.amounts.addAll(amounts)
+        }
+
+        fun addAmount(amount: Long) = apply { this.amounts.add(amount) }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -240,7 +245,7 @@ constructor(
         fun build(): ExternalAccountCompleteVerificationParams =
             ExternalAccountCompleteVerificationParams(
                 checkNotNull(id) { "`id` is required but was not set" },
-                amounts?.toUnmodifiable(),
+                if (amounts.size == 0) null else amounts.toUnmodifiable(),
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
