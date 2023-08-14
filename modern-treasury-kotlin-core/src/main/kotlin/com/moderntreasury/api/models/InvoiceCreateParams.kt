@@ -501,7 +501,7 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var contactDetails: List<ContactDetail>? = null
+        private var contactDetails: MutableList<ContactDetail> = mutableListOf()
         private var counterpartyId: String? = null
         private var counterpartyBillingAddress: CounterpartyBillingAddress? = null
         private var counterpartyShippingAddress: CounterpartyShippingAddress? = null
@@ -515,13 +515,13 @@ constructor(
         private var paymentType: PaymentType? = null
         private var paymentMethod: PaymentMethod? = null
         private var notificationsEnabled: Boolean? = null
-        private var notificationEmailAddresses: List<String>? = null
+        private var notificationEmailAddresses: MutableList<String> = mutableListOf()
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(invoiceCreateParams: InvoiceCreateParams) = apply {
-            this.contactDetails = invoiceCreateParams.contactDetails
+            this.contactDetails(invoiceCreateParams.contactDetails ?: listOf())
             this.counterpartyId = invoiceCreateParams.counterpartyId
             this.counterpartyBillingAddress = invoiceCreateParams.counterpartyBillingAddress
             this.counterpartyShippingAddress = invoiceCreateParams.counterpartyShippingAddress
@@ -535,7 +535,9 @@ constructor(
             this.paymentType = invoiceCreateParams.paymentType
             this.paymentMethod = invoiceCreateParams.paymentMethod
             this.notificationsEnabled = invoiceCreateParams.notificationsEnabled
-            this.notificationEmailAddresses = invoiceCreateParams.notificationEmailAddresses
+            this.notificationEmailAddresses(
+                invoiceCreateParams.notificationEmailAddresses ?: listOf()
+            )
             additionalQueryParams(invoiceCreateParams.additionalQueryParams)
             additionalHeaders(invoiceCreateParams.additionalHeaders)
             additionalBodyProperties(invoiceCreateParams.additionalBodyProperties)
@@ -543,7 +545,13 @@ constructor(
 
         /** The invoicer's contact details displayed at the top of the invoice. */
         fun contactDetails(contactDetails: List<ContactDetail>) = apply {
-            this.contactDetails = contactDetails
+            this.contactDetails.clear()
+            this.contactDetails.addAll(contactDetails)
+        }
+
+        /** The invoicer's contact details displayed at the top of the invoice. */
+        fun addContactDetail(contactDetail: ContactDetail) = apply {
+            this.contactDetails.add(contactDetail)
         }
 
         /** The ID of the counterparty receiving the invoice. */
@@ -626,7 +634,17 @@ constructor(
          * have an email.
          */
         fun notificationEmailAddresses(notificationEmailAddresses: List<String>) = apply {
-            this.notificationEmailAddresses = notificationEmailAddresses
+            this.notificationEmailAddresses.clear()
+            this.notificationEmailAddresses.addAll(notificationEmailAddresses)
+        }
+
+        /**
+         * Emails in addition to the counterparty email to send invoice status notifications to. At
+         * least one email is required if notifications are enabled and the counterparty doesn't
+         * have an email.
+         */
+        fun addNotificationEmailAddress(notificationEmailAddress: String) = apply {
+            this.notificationEmailAddresses.add(notificationEmailAddress)
         }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
@@ -685,7 +703,7 @@ constructor(
 
         fun build(): InvoiceCreateParams =
             InvoiceCreateParams(
-                contactDetails?.toUnmodifiable(),
+                if (contactDetails.size == 0) null else contactDetails.toUnmodifiable(),
                 checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
                 counterpartyBillingAddress,
                 counterpartyShippingAddress,
@@ -701,7 +719,8 @@ constructor(
                 paymentType,
                 paymentMethod,
                 notificationsEnabled,
-                notificationEmailAddresses?.toUnmodifiable(),
+                if (notificationEmailAddresses.size == 0) null
+                else notificationEmailAddresses.toUnmodifiable(),
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

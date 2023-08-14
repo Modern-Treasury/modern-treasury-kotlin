@@ -1066,7 +1066,7 @@ constructor(
         private var counterpartyId: String? = null
         private var fallbackType: FallbackType? = null
         private var receivingAccount: ReceivingAccount? = null
-        private var lineItems: List<LineItemRequest>? = null
+        private var lineItems: MutableList<LineItemRequest> = mutableListOf()
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -1108,7 +1108,7 @@ constructor(
             this.counterpartyId = paymentOrderUpdateParams.counterpartyId
             this.fallbackType = paymentOrderUpdateParams.fallbackType
             this.receivingAccount = paymentOrderUpdateParams.receivingAccount
-            this.lineItems = paymentOrderUpdateParams.lineItems
+            this.lineItems(paymentOrderUpdateParams.lineItems ?: listOf())
             additionalQueryParams(paymentOrderUpdateParams.additionalQueryParams)
             additionalHeaders(paymentOrderUpdateParams.additionalHeaders)
             additionalBodyProperties(paymentOrderUpdateParams.additionalBodyProperties)
@@ -1341,7 +1341,13 @@ constructor(
         }
 
         /** An array of line items that must sum up to the amount of the payment order. */
-        fun lineItems(lineItems: List<LineItemRequest>) = apply { this.lineItems = lineItems }
+        fun lineItems(lineItems: List<LineItemRequest>) = apply {
+            this.lineItems.clear()
+            this.lineItems.addAll(lineItems)
+        }
+
+        /** An array of line items that must sum up to the amount of the payment order. */
+        fun addLineItem(lineItem: LineItemRequest) = apply { this.lineItems.add(lineItem) }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -1432,7 +1438,7 @@ constructor(
                 counterpartyId,
                 fallbackType,
                 receivingAccount,
-                lineItems?.toUnmodifiable(),
+                if (lineItems.size == 0) null else lineItems.toUnmodifiable(),
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

@@ -266,7 +266,7 @@ constructor(
         private var status: Status? = null
         private var metadata: Metadata? = null
         private var effectiveAt: LocalDate? = null
-        private var ledgerEntries: List<LedgerEntryCreateRequest>? = null
+        private var ledgerEntries: MutableList<LedgerEntryCreateRequest> = mutableListOf()
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -277,7 +277,7 @@ constructor(
             this.status = ledgerTransactionUpdateParams.status
             this.metadata = ledgerTransactionUpdateParams.metadata
             this.effectiveAt = ledgerTransactionUpdateParams.effectiveAt
-            this.ledgerEntries = ledgerTransactionUpdateParams.ledgerEntries
+            this.ledgerEntries(ledgerTransactionUpdateParams.ledgerEntries ?: listOf())
             additionalQueryParams(ledgerTransactionUpdateParams.additionalQueryParams)
             additionalHeaders(ledgerTransactionUpdateParams.additionalHeaders)
             additionalBodyProperties(ledgerTransactionUpdateParams.additionalBodyProperties)
@@ -304,7 +304,13 @@ constructor(
 
         /** An array of ledger entry objects. */
         fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>) = apply {
-            this.ledgerEntries = ledgerEntries
+            this.ledgerEntries.clear()
+            this.ledgerEntries.addAll(ledgerEntries)
+        }
+
+        /** An array of ledger entry objects. */
+        fun addLedgerEntry(ledgerEntry: LedgerEntryCreateRequest) = apply {
+            this.ledgerEntries.add(ledgerEntry)
         }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
@@ -368,7 +374,7 @@ constructor(
                 status,
                 metadata,
                 effectiveAt,
-                ledgerEntries?.toUnmodifiable(),
+                if (ledgerEntries.size == 0) null else ledgerEntries.toUnmodifiable(),
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

@@ -431,14 +431,14 @@ constructor(
         private var partyAddress: AddressRequest? = null
         private var name: String? = null
         private var counterpartyId: String? = null
-        private var accountDetails: List<AccountDetail>? = null
-        private var routingDetails: List<RoutingDetail>? = null
+        private var accountDetails: MutableList<AccountDetail> = mutableListOf()
+        private var routingDetails: MutableList<RoutingDetail> = mutableListOf()
         private var metadata: Metadata? = null
         private var partyName: String? = null
         private var partyIdentifier: String? = null
         private var ledgerAccount: LedgerAccountCreateRequest? = null
         private var plaidProcessorToken: String? = null
-        private var contactDetails: List<ContactDetailCreateRequest>? = null
+        private var contactDetails: MutableList<ContactDetailCreateRequest> = mutableListOf()
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -449,14 +449,14 @@ constructor(
             this.partyAddress = externalAccountCreateParams.partyAddress
             this.name = externalAccountCreateParams.name
             this.counterpartyId = externalAccountCreateParams.counterpartyId
-            this.accountDetails = externalAccountCreateParams.accountDetails
-            this.routingDetails = externalAccountCreateParams.routingDetails
+            this.accountDetails(externalAccountCreateParams.accountDetails ?: listOf())
+            this.routingDetails(externalAccountCreateParams.routingDetails ?: listOf())
             this.metadata = externalAccountCreateParams.metadata
             this.partyName = externalAccountCreateParams.partyName
             this.partyIdentifier = externalAccountCreateParams.partyIdentifier
             this.ledgerAccount = externalAccountCreateParams.ledgerAccount
             this.plaidProcessorToken = externalAccountCreateParams.plaidProcessorToken
-            this.contactDetails = externalAccountCreateParams.contactDetails
+            this.contactDetails(externalAccountCreateParams.contactDetails ?: listOf())
             additionalQueryParams(externalAccountCreateParams.additionalQueryParams)
             additionalHeaders(externalAccountCreateParams.additionalHeaders)
             additionalBodyProperties(externalAccountCreateParams.additionalBodyProperties)
@@ -480,11 +480,21 @@ constructor(
         fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
 
         fun accountDetails(accountDetails: List<AccountDetail>) = apply {
-            this.accountDetails = accountDetails
+            this.accountDetails.clear()
+            this.accountDetails.addAll(accountDetails)
+        }
+
+        fun addAccountDetail(accountDetail: AccountDetail) = apply {
+            this.accountDetails.add(accountDetail)
         }
 
         fun routingDetails(routingDetails: List<RoutingDetail>) = apply {
-            this.routingDetails = routingDetails
+            this.routingDetails.clear()
+            this.routingDetails.addAll(routingDetails)
+        }
+
+        fun addRoutingDetail(routingDetail: RoutingDetail) = apply {
+            this.routingDetails.add(routingDetail)
         }
 
         /**
@@ -519,7 +529,12 @@ constructor(
         }
 
         fun contactDetails(contactDetails: List<ContactDetailCreateRequest>) = apply {
-            this.contactDetails = contactDetails
+            this.contactDetails.clear()
+            this.contactDetails.addAll(contactDetails)
+        }
+
+        fun addContactDetail(contactDetail: ContactDetailCreateRequest) = apply {
+            this.contactDetails.add(contactDetail)
         }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
@@ -583,14 +598,14 @@ constructor(
                 partyAddress,
                 name,
                 counterpartyId,
-                accountDetails?.toUnmodifiable(),
-                routingDetails?.toUnmodifiable(),
+                if (accountDetails.size == 0) null else accountDetails.toUnmodifiable(),
+                if (routingDetails.size == 0) null else routingDetails.toUnmodifiable(),
                 metadata,
                 partyName,
                 partyIdentifier,
                 ledgerAccount,
                 plaidProcessorToken,
-                contactDetails?.toUnmodifiable(),
+                if (contactDetails.size == 0) null else contactDetails.toUnmodifiable(),
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
