@@ -333,7 +333,7 @@ constructor(
     class Builder {
 
         private var name: String? = null
-        private var accounts: List<Account>? = null
+        private var accounts: MutableList<Account> = mutableListOf()
         private var email: String? = null
         private var metadata: Metadata? = null
         private var sendRemittanceAdvice: Boolean? = null
@@ -347,7 +347,7 @@ constructor(
 
         internal fun from(counterpartyCreateParams: CounterpartyCreateParams) = apply {
             this.name = counterpartyCreateParams.name
-            this.accounts = counterpartyCreateParams.accounts
+            this.accounts(counterpartyCreateParams.accounts ?: listOf())
             this.email = counterpartyCreateParams.email
             this.metadata = counterpartyCreateParams.metadata
             this.sendRemittanceAdvice = counterpartyCreateParams.sendRemittanceAdvice
@@ -364,7 +364,13 @@ constructor(
         fun name(name: String) = apply { this.name = name }
 
         /** The accounts for this counterparty. */
-        fun accounts(accounts: List<Account>) = apply { this.accounts = accounts }
+        fun accounts(accounts: List<Account>) = apply {
+            this.accounts.clear()
+            this.accounts.addAll(accounts)
+        }
+
+        /** The accounts for this counterparty. */
+        fun addAccount(account: Account) = apply { this.accounts.add(account) }
 
         /** The counterparty's email. */
         fun email(email: String) = apply { this.email = email }
@@ -457,7 +463,7 @@ constructor(
         fun build(): CounterpartyCreateParams =
             CounterpartyCreateParams(
                 name,
-                accounts?.toUnmodifiable(),
+                if (accounts.size == 0) null else accounts.toUnmodifiable(),
                 email,
                 metadata,
                 sendRemittanceAdvice,

@@ -89,7 +89,7 @@ constructor(
         private var afterCursor: String? = null
         private var perPage: Long? = null
         private var metadata: Metadata? = null
-        private var id: List<String>? = null
+        private var id: MutableList<String> = mutableListOf()
         private var payoutLedgerAccountId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -98,7 +98,7 @@ constructor(
             this.afterCursor = ledgerAccountPayoutListParams.afterCursor
             this.perPage = ledgerAccountPayoutListParams.perPage
             this.metadata = ledgerAccountPayoutListParams.metadata
-            this.id = ledgerAccountPayoutListParams.id
+            this.id(ledgerAccountPayoutListParams.id ?: listOf())
             this.payoutLedgerAccountId = ledgerAccountPayoutListParams.payoutLedgerAccountId
             additionalQueryParams(ledgerAccountPayoutListParams.additionalQueryParams)
             additionalHeaders(ledgerAccountPayoutListParams.additionalHeaders)
@@ -118,7 +118,16 @@ constructor(
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
          * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
          */
-        fun id(id: List<String>) = apply { this.id = id }
+        fun id(id: List<String>) = apply {
+            this.id.clear()
+            this.id.addAll(id)
+        }
+
+        /**
+         * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
+         * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
+         */
+        fun addId(id: String) = apply { this.id.add(id) }
 
         fun payoutLedgerAccountId(payoutLedgerAccountId: String) = apply {
             this.payoutLedgerAccountId = payoutLedgerAccountId
@@ -169,7 +178,7 @@ constructor(
                 afterCursor,
                 perPage,
                 metadata,
-                id?.toUnmodifiable(),
+                if (id.size == 0) null else id.toUnmodifiable(),
                 payoutLedgerAccountId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

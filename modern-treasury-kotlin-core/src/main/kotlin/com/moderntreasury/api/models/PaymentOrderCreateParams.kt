@@ -1061,9 +1061,9 @@ constructor(
         private var fallbackType: FallbackType? = null
         private var receivingAccount: ReceivingAccount? = null
         private var ledgerTransaction: LedgerTransactionCreateRequest? = null
-        private var lineItems: List<LineItemRequest>? = null
+        private var lineItems: MutableList<LineItemRequest> = mutableListOf()
         private var transactionMonitoringEnabled: Boolean? = null
-        private var documents: List<DocumentCreateRequest>? = null
+        private var documents: MutableList<DocumentCreateRequest> = mutableListOf()
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -1103,10 +1103,10 @@ constructor(
             this.fallbackType = paymentOrderCreateParams.fallbackType
             this.receivingAccount = paymentOrderCreateParams.receivingAccount
             this.ledgerTransaction = paymentOrderCreateParams.ledgerTransaction
-            this.lineItems = paymentOrderCreateParams.lineItems
+            this.lineItems(paymentOrderCreateParams.lineItems ?: listOf())
             this.transactionMonitoringEnabled =
                 paymentOrderCreateParams.transactionMonitoringEnabled
-            this.documents = paymentOrderCreateParams.documents
+            this.documents(paymentOrderCreateParams.documents ?: listOf())
             additionalQueryParams(paymentOrderCreateParams.additionalQueryParams)
             additionalHeaders(paymentOrderCreateParams.additionalHeaders)
             additionalBodyProperties(paymentOrderCreateParams.additionalBodyProperties)
@@ -1321,7 +1321,13 @@ constructor(
         }
 
         /** An array of line items that must sum up to the amount of the payment order. */
-        fun lineItems(lineItems: List<LineItemRequest>) = apply { this.lineItems = lineItems }
+        fun lineItems(lineItems: List<LineItemRequest>) = apply {
+            this.lineItems.clear()
+            this.lineItems.addAll(lineItems)
+        }
+
+        /** An array of line items that must sum up to the amount of the payment order. */
+        fun addLineItem(lineItem: LineItemRequest) = apply { this.lineItems.add(lineItem) }
 
         /**
          * A flag that determines whether a payment order should go through transaction monitoring.
@@ -1334,7 +1340,16 @@ constructor(
          * An array of documents to be attached to the payment order. Note that if you attach
          * documents, the request's content type must be `multipart/form-data`.
          */
-        fun documents(documents: List<DocumentCreateRequest>) = apply { this.documents = documents }
+        fun documents(documents: List<DocumentCreateRequest>) = apply {
+            this.documents.clear()
+            this.documents.addAll(documents)
+        }
+
+        /**
+         * An array of documents to be attached to the payment order. Note that if you attach
+         * documents, the request's content type must be `multipart/form-data`.
+         */
+        fun addDocument(document: DocumentCreateRequest) = apply { this.documents.add(document) }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -1425,9 +1440,9 @@ constructor(
                 fallbackType,
                 receivingAccount,
                 ledgerTransaction,
-                lineItems?.toUnmodifiable(),
+                if (lineItems.size == 0) null else lineItems.toUnmodifiable(),
                 transactionMonitoringEnabled,
-                documents?.toUnmodifiable(),
+                if (documents.size == 0) null else documents.toUnmodifiable(),
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

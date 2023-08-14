@@ -180,7 +180,7 @@ constructor(
     class Builder {
 
         private var counterpartyId: String? = null
-        private var paymentTypes: List<String>? = null
+        private var paymentTypes: MutableList<String> = mutableListOf()
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -188,7 +188,7 @@ constructor(
         internal fun from(accountCollectionFlowCreateParams: AccountCollectionFlowCreateParams) =
             apply {
                 this.counterpartyId = accountCollectionFlowCreateParams.counterpartyId
-                this.paymentTypes = accountCollectionFlowCreateParams.paymentTypes
+                this.paymentTypes(accountCollectionFlowCreateParams.paymentTypes)
                 additionalQueryParams(accountCollectionFlowCreateParams.additionalQueryParams)
                 additionalHeaders(accountCollectionFlowCreateParams.additionalHeaders)
                 additionalBodyProperties(accountCollectionFlowCreateParams.additionalBodyProperties)
@@ -197,7 +197,12 @@ constructor(
         /** Required. */
         fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
 
-        fun paymentTypes(paymentTypes: List<String>) = apply { this.paymentTypes = paymentTypes }
+        fun paymentTypes(paymentTypes: List<String>) = apply {
+            this.paymentTypes.clear()
+            this.paymentTypes.addAll(paymentTypes)
+        }
+
+        fun addPaymentType(paymentType: String) = apply { this.paymentTypes.add(paymentType) }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()

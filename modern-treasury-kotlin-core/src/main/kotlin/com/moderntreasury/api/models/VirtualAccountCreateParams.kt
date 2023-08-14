@@ -353,8 +353,8 @@ constructor(
         private var description: String? = null
         private var counterpartyId: String? = null
         private var internalAccountId: String? = null
-        private var accountDetails: List<AccountDetailCreateRequest>? = null
-        private var routingDetails: List<RoutingDetailCreateRequest>? = null
+        private var accountDetails: MutableList<AccountDetailCreateRequest> = mutableListOf()
+        private var routingDetails: MutableList<RoutingDetailCreateRequest> = mutableListOf()
         private var debitLedgerAccountId: String? = null
         private var creditLedgerAccountId: String? = null
         private var metadata: Metadata? = null
@@ -367,8 +367,8 @@ constructor(
             this.description = virtualAccountCreateParams.description
             this.counterpartyId = virtualAccountCreateParams.counterpartyId
             this.internalAccountId = virtualAccountCreateParams.internalAccountId
-            this.accountDetails = virtualAccountCreateParams.accountDetails
-            this.routingDetails = virtualAccountCreateParams.routingDetails
+            this.accountDetails(virtualAccountCreateParams.accountDetails ?: listOf())
+            this.routingDetails(virtualAccountCreateParams.routingDetails ?: listOf())
             this.debitLedgerAccountId = virtualAccountCreateParams.debitLedgerAccountId
             this.creditLedgerAccountId = virtualAccountCreateParams.creditLedgerAccountId
             this.metadata = virtualAccountCreateParams.metadata
@@ -393,12 +393,24 @@ constructor(
 
         /** An array of account detail objects. */
         fun accountDetails(accountDetails: List<AccountDetailCreateRequest>) = apply {
-            this.accountDetails = accountDetails
+            this.accountDetails.clear()
+            this.accountDetails.addAll(accountDetails)
+        }
+
+        /** An array of account detail objects. */
+        fun addAccountDetail(accountDetail: AccountDetailCreateRequest) = apply {
+            this.accountDetails.add(accountDetail)
         }
 
         /** An array of routing detail objects. */
         fun routingDetails(routingDetails: List<RoutingDetailCreateRequest>) = apply {
-            this.routingDetails = routingDetails
+            this.routingDetails.clear()
+            this.routingDetails.addAll(routingDetails)
+        }
+
+        /** An array of routing detail objects. */
+        fun addRoutingDetail(routingDetail: RoutingDetailCreateRequest) = apply {
+            this.routingDetails.add(routingDetail)
         }
 
         /**
@@ -486,8 +498,8 @@ constructor(
                 checkNotNull(internalAccountId) {
                     "`internalAccountId` is required but was not set"
                 },
-                accountDetails?.toUnmodifiable(),
-                routingDetails?.toUnmodifiable(),
+                if (accountDetails.size == 0) null else accountDetails.toUnmodifiable(),
+                if (routingDetails.size == 0) null else routingDetails.toUnmodifiable(),
                 debitLedgerAccountId,
                 creditLedgerAccountId,
                 metadata,

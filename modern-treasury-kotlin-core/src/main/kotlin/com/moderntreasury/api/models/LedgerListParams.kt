@@ -87,7 +87,7 @@ constructor(
         private var afterCursor: String? = null
         private var perPage: Long? = null
         private var metadata: Metadata? = null
-        private var id: List<String>? = null
+        private var id: MutableList<String> = mutableListOf()
         private var updatedAt: UpdatedAt? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -96,7 +96,7 @@ constructor(
             this.afterCursor = ledgerListParams.afterCursor
             this.perPage = ledgerListParams.perPage
             this.metadata = ledgerListParams.metadata
-            this.id = ledgerListParams.id
+            this.id(ledgerListParams.id ?: listOf())
             this.updatedAt = ledgerListParams.updatedAt
             additionalQueryParams(ledgerListParams.additionalQueryParams)
             additionalHeaders(ledgerListParams.additionalHeaders)
@@ -116,7 +116,16 @@ constructor(
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
          * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
          */
-        fun id(id: List<String>) = apply { this.id = id }
+        fun id(id: List<String>) = apply {
+            this.id.clear()
+            this.id.addAll(id)
+        }
+
+        /**
+         * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
+         * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
+         */
+        fun addId(id: String) = apply { this.id.add(id) }
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
@@ -170,7 +179,7 @@ constructor(
                 afterCursor,
                 perPage,
                 metadata,
-                id?.toUnmodifiable(),
+                if (id.size == 0) null else id.toUnmodifiable(),
                 updatedAt,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

@@ -360,7 +360,7 @@ constructor(
         private var metadata: Metadata? = null
         private var effectiveAt: LocalDate? = null
         private var effectiveDate: LocalDate? = null
-        private var ledgerEntries: List<LedgerEntryCreateRequest>? = null
+        private var ledgerEntries: MutableList<LedgerEntryCreateRequest> = mutableListOf()
         private var externalId: String? = null
         private var ledgerableType: LedgerableType? = null
         private var ledgerableId: String? = null
@@ -374,7 +374,7 @@ constructor(
             this.metadata = ledgerTransactionCreateParams.metadata
             this.effectiveAt = ledgerTransactionCreateParams.effectiveAt
             this.effectiveDate = ledgerTransactionCreateParams.effectiveDate
-            this.ledgerEntries = ledgerTransactionCreateParams.ledgerEntries
+            this.ledgerEntries(ledgerTransactionCreateParams.ledgerEntries)
             this.externalId = ledgerTransactionCreateParams.externalId
             this.ledgerableType = ledgerTransactionCreateParams.ledgerableType
             this.ledgerableId = ledgerTransactionCreateParams.ledgerableId
@@ -407,7 +407,13 @@ constructor(
 
         /** An array of ledger entry objects. */
         fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>) = apply {
-            this.ledgerEntries = ledgerEntries
+            this.ledgerEntries.clear()
+            this.ledgerEntries.addAll(ledgerEntries)
+        }
+
+        /** An array of ledger entry objects. */
+        fun addLedgerEntry(ledgerEntry: LedgerEntryCreateRequest) = apply {
+            this.ledgerEntries.add(ledgerEntry)
         }
 
         /**
