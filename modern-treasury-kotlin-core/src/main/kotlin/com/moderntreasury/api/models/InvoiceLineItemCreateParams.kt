@@ -15,10 +15,10 @@ class InvoiceLineItemCreateParams
 constructor(
     private val invoiceId: String,
     private val name: String,
-    private val description: String?,
-    private val quantity: Long?,
     private val unitAmount: Long,
+    private val description: String?,
     private val direction: String?,
+    private val quantity: Long?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -28,21 +28,21 @@ constructor(
 
     fun name(): String = name
 
-    fun description(): String? = description
-
-    fun quantity(): Long? = quantity
-
     fun unitAmount(): Long = unitAmount
 
+    fun description(): String? = description
+
     fun direction(): String? = direction
+
+    fun quantity(): Long? = quantity
 
     internal fun getBody(): InvoiceLineItemCreateBody {
         return InvoiceLineItemCreateBody(
             name,
-            description,
-            quantity,
             unitAmount,
+            description,
             direction,
+            quantity,
             additionalBodyProperties,
         )
     }
@@ -63,10 +63,10 @@ constructor(
     class InvoiceLineItemCreateBody
     internal constructor(
         private val name: String?,
-        private val description: String?,
-        private val quantity: Long?,
         private val unitAmount: Long?,
+        private val description: String?,
         private val direction: String?,
+        private val quantity: Long?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -75,20 +75,14 @@ constructor(
         /** The name of the line item, typically a product or SKU name. */
         @JsonProperty("name") fun name(): String? = name
 
-        /** An optional free-form description of the line item. */
-        @JsonProperty("description") fun description(): String? = description
-
-        /**
-         * The number of units of a product or service that this line item is for. Must be a whole
-         * number. Defaults to 1 if not provided.
-         */
-        @JsonProperty("quantity") fun quantity(): Long? = quantity
-
         /**
          * The cost per unit of the product or service that this line item is for, specified in the
          * invoice currency's smallest unit.
          */
         @JsonProperty("unit_amount") fun unitAmount(): Long? = unitAmount
+
+        /** An optional free-form description of the line item. */
+        @JsonProperty("description") fun description(): String? = description
 
         /**
          * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
@@ -96,6 +90,12 @@ constructor(
          * effect.
          */
         @JsonProperty("direction") fun direction(): String? = direction
+
+        /**
+         * The number of units of a product or service that this line item is for. Must be a whole
+         * number. Defaults to 1 if not provided.
+         */
+        @JsonProperty("quantity") fun quantity(): Long? = quantity
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -110,10 +110,10 @@ constructor(
 
             return other is InvoiceLineItemCreateBody &&
                 this.name == other.name &&
-                this.description == other.description &&
-                this.quantity == other.quantity &&
                 this.unitAmount == other.unitAmount &&
+                this.description == other.description &&
                 this.direction == other.direction &&
+                this.quantity == other.quantity &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -122,10 +122,10 @@ constructor(
                 hashCode =
                     Objects.hash(
                         name,
-                        description,
-                        quantity,
                         unitAmount,
+                        description,
                         direction,
+                        quantity,
                         additionalProperties,
                     )
             }
@@ -133,7 +133,7 @@ constructor(
         }
 
         override fun toString() =
-            "InvoiceLineItemCreateBody{name=$name, description=$description, quantity=$quantity, unitAmount=$unitAmount, direction=$direction, additionalProperties=$additionalProperties}"
+            "InvoiceLineItemCreateBody{name=$name, unitAmount=$unitAmount, description=$description, direction=$direction, quantity=$quantity, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -143,34 +143,23 @@ constructor(
         class Builder {
 
             private var name: String? = null
-            private var description: String? = null
-            private var quantity: Long? = null
             private var unitAmount: Long? = null
+            private var description: String? = null
             private var direction: String? = null
+            private var quantity: Long? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(invoiceLineItemCreateBody: InvoiceLineItemCreateBody) = apply {
                 this.name = invoiceLineItemCreateBody.name
-                this.description = invoiceLineItemCreateBody.description
-                this.quantity = invoiceLineItemCreateBody.quantity
                 this.unitAmount = invoiceLineItemCreateBody.unitAmount
+                this.description = invoiceLineItemCreateBody.description
                 this.direction = invoiceLineItemCreateBody.direction
+                this.quantity = invoiceLineItemCreateBody.quantity
                 additionalProperties(invoiceLineItemCreateBody.additionalProperties)
             }
 
             /** The name of the line item, typically a product or SKU name. */
             @JsonProperty("name") fun name(name: String) = apply { this.name = name }
-
-            /** An optional free-form description of the line item. */
-            @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
-
-            /**
-             * The number of units of a product or service that this line item is for. Must be a
-             * whole number. Defaults to 1 if not provided.
-             */
-            @JsonProperty("quantity")
-            fun quantity(quantity: Long) = apply { this.quantity = quantity }
 
             /**
              * The cost per unit of the product or service that this line item is for, specified in
@@ -179,6 +168,10 @@ constructor(
             @JsonProperty("unit_amount")
             fun unitAmount(unitAmount: Long) = apply { this.unitAmount = unitAmount }
 
+            /** An optional free-form description of the line item. */
+            @JsonProperty("description")
+            fun description(description: String) = apply { this.description = description }
+
             /**
              * Either `debit` or `credit`. `debit` indicates that a client owes the business money
              * and increases the invoice's `total_amount` due. `credit` has the opposite intention
@@ -186,6 +179,13 @@ constructor(
              */
             @JsonProperty("direction")
             fun direction(direction: String) = apply { this.direction = direction }
+
+            /**
+             * The number of units of a product or service that this line item is for. Must be a
+             * whole number. Defaults to 1 if not provided.
+             */
+            @JsonProperty("quantity")
+            fun quantity(quantity: Long) = apply { this.quantity = quantity }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -204,10 +204,10 @@ constructor(
             fun build(): InvoiceLineItemCreateBody =
                 InvoiceLineItemCreateBody(
                     checkNotNull(name) { "`name` is required but was not set" },
-                    description,
-                    quantity,
                     checkNotNull(unitAmount) { "`unitAmount` is required but was not set" },
+                    description,
                     direction,
+                    quantity,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -227,10 +227,10 @@ constructor(
         return other is InvoiceLineItemCreateParams &&
             this.invoiceId == other.invoiceId &&
             this.name == other.name &&
-            this.description == other.description &&
-            this.quantity == other.quantity &&
             this.unitAmount == other.unitAmount &&
+            this.description == other.description &&
             this.direction == other.direction &&
+            this.quantity == other.quantity &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -240,10 +240,10 @@ constructor(
         return Objects.hash(
             invoiceId,
             name,
-            description,
-            quantity,
             unitAmount,
+            description,
             direction,
+            quantity,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -251,7 +251,7 @@ constructor(
     }
 
     override fun toString() =
-        "InvoiceLineItemCreateParams{invoiceId=$invoiceId, name=$name, description=$description, quantity=$quantity, unitAmount=$unitAmount, direction=$direction, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "InvoiceLineItemCreateParams{invoiceId=$invoiceId, name=$name, unitAmount=$unitAmount, description=$description, direction=$direction, quantity=$quantity, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -265,10 +265,10 @@ constructor(
 
         private var invoiceId: String? = null
         private var name: String? = null
-        private var description: String? = null
-        private var quantity: Long? = null
         private var unitAmount: Long? = null
+        private var description: String? = null
         private var direction: String? = null
+        private var quantity: Long? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -276,10 +276,10 @@ constructor(
         internal fun from(invoiceLineItemCreateParams: InvoiceLineItemCreateParams) = apply {
             this.invoiceId = invoiceLineItemCreateParams.invoiceId
             this.name = invoiceLineItemCreateParams.name
-            this.description = invoiceLineItemCreateParams.description
-            this.quantity = invoiceLineItemCreateParams.quantity
             this.unitAmount = invoiceLineItemCreateParams.unitAmount
+            this.description = invoiceLineItemCreateParams.description
             this.direction = invoiceLineItemCreateParams.direction
+            this.quantity = invoiceLineItemCreateParams.quantity
             additionalQueryParams(invoiceLineItemCreateParams.additionalQueryParams)
             additionalHeaders(invoiceLineItemCreateParams.additionalHeaders)
             additionalBodyProperties(invoiceLineItemCreateParams.additionalBodyProperties)
@@ -290,20 +290,14 @@ constructor(
         /** The name of the line item, typically a product or SKU name. */
         fun name(name: String) = apply { this.name = name }
 
-        /** An optional free-form description of the line item. */
-        fun description(description: String) = apply { this.description = description }
-
-        /**
-         * The number of units of a product or service that this line item is for. Must be a whole
-         * number. Defaults to 1 if not provided.
-         */
-        fun quantity(quantity: Long) = apply { this.quantity = quantity }
-
         /**
          * The cost per unit of the product or service that this line item is for, specified in the
          * invoice currency's smallest unit.
          */
         fun unitAmount(unitAmount: Long) = apply { this.unitAmount = unitAmount }
+
+        /** An optional free-form description of the line item. */
+        fun description(description: String) = apply { this.description = description }
 
         /**
          * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
@@ -311,6 +305,12 @@ constructor(
          * effect.
          */
         fun direction(direction: String) = apply { this.direction = direction }
+
+        /**
+         * The number of units of a product or service that this line item is for. Must be a whole
+         * number. Defaults to 1 if not provided.
+         */
+        fun quantity(quantity: Long) = apply { this.quantity = quantity }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -370,10 +370,10 @@ constructor(
             InvoiceLineItemCreateParams(
                 checkNotNull(invoiceId) { "`invoiceId` is required but was not set" },
                 checkNotNull(name) { "`name` is required but was not set" },
-                description,
-                quantity,
                 checkNotNull(unitAmount) { "`unitAmount` is required but was not set" },
+                description,
                 direction,
+                quantity,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

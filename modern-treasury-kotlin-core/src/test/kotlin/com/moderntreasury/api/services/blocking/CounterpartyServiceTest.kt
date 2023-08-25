@@ -23,6 +23,11 @@ class CounterpartyServiceTest {
             counterpartyService.create(
                 CounterpartyCreateParams.builder()
                     .name("string")
+                    .accounting(
+                        CounterpartyCreateParams.Accounting.builder()
+                            .type(CounterpartyCreateParams.Accounting.Type.CUSTOMER)
+                            .build()
+                    )
                     .accounts(
                         listOf(
                             CounterpartyCreateParams.Account.builder()
@@ -122,16 +127,11 @@ class CounterpartyServiceTest {
                         )
                     )
                     .email("dev@stainlessapi.com")
+                    .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
                     .metadata(CounterpartyCreateParams.Metadata.builder().build())
                     .sendRemittanceAdvice(true)
-                    .verificationStatus(CounterpartyCreateParams.VerificationStatus.DENIED)
-                    .accounting(
-                        CounterpartyCreateParams.Accounting.builder()
-                            .type(CounterpartyCreateParams.Accounting.Type.CUSTOMER)
-                            .build()
-                    )
-                    .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
                     .taxpayerIdentifier("string")
+                    .verificationStatus(CounterpartyCreateParams.VerificationStatus.DENIED)
                     .build()
             )
         println(counterparty)
@@ -166,9 +166,9 @@ class CounterpartyServiceTest {
             counterpartyService.update(
                 CounterpartyUpdateParams.builder()
                     .id("string")
-                    .name("string")
                     .email("dev@stainlessapi.com")
                     .metadata(CounterpartyUpdateParams.Metadata.builder().build())
+                    .name("string")
                     .sendRemittanceAdvice(true)
                     .taxpayerIdentifier("string")
                     .build()
@@ -217,9 +217,9 @@ class CounterpartyServiceTest {
                 CounterpartyCollectAccountParams.builder()
                     .id("string")
                     .direction(CounterpartyCollectAccountParams.Direction.CREDIT)
-                    .sendEmail(true)
-                    .fields(listOf(CounterpartyCollectAccountParams.Field.NAME))
                     .customRedirect("https://example.com")
+                    .fields(listOf(CounterpartyCollectAccountParams.Field.NAME))
+                    .sendEmail(true)
                     .build()
             )
         println(counterpartyCollectAccountResponse)

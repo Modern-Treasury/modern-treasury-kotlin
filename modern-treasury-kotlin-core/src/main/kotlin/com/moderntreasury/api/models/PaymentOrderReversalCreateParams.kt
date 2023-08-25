@@ -19,8 +19,8 @@ class PaymentOrderReversalCreateParams
 constructor(
     private val paymentOrderId: String,
     private val reason: Reason,
-    private val metadata: Metadata?,
     private val ledgerTransaction: LedgerTransactionCreateRequest?,
+    private val metadata: Metadata?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -30,15 +30,15 @@ constructor(
 
     fun reason(): Reason = reason
 
-    fun metadata(): Metadata? = metadata
-
     fun ledgerTransaction(): LedgerTransactionCreateRequest? = ledgerTransaction
+
+    fun metadata(): Metadata? = metadata
 
     internal fun getBody(): PaymentOrderReversalCreateBody {
         return PaymentOrderReversalCreateBody(
             reason,
-            metadata,
             ledgerTransaction,
+            metadata,
             additionalBodyProperties,
         )
     }
@@ -59,8 +59,8 @@ constructor(
     class PaymentOrderReversalCreateBody
     internal constructor(
         private val reason: Reason?,
-        private val metadata: Metadata?,
         private val ledgerTransaction: LedgerTransactionCreateRequest?,
+        private val metadata: Metadata?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -73,17 +73,17 @@ constructor(
         @JsonProperty("reason") fun reason(): Reason? = reason
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
-
-        /**
          * Specifies a ledger transaction object that will be created with the reversal. If the
          * ledger transaction cannot be created, then the reversal creation will fail. The resulting
          * ledger transaction will mirror the status of the reversal.
          */
         @JsonProperty("ledger_transaction")
         fun ledgerTransaction(): LedgerTransactionCreateRequest? = ledgerTransaction
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -98,8 +98,8 @@ constructor(
 
             return other is PaymentOrderReversalCreateBody &&
                 this.reason == other.reason &&
-                this.metadata == other.metadata &&
                 this.ledgerTransaction == other.ledgerTransaction &&
+                this.metadata == other.metadata &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -108,8 +108,8 @@ constructor(
                 hashCode =
                     Objects.hash(
                         reason,
-                        metadata,
                         ledgerTransaction,
+                        metadata,
                         additionalProperties,
                     )
             }
@@ -117,7 +117,7 @@ constructor(
         }
 
         override fun toString() =
-            "PaymentOrderReversalCreateBody{reason=$reason, metadata=$metadata, ledgerTransaction=$ledgerTransaction, additionalProperties=$additionalProperties}"
+            "PaymentOrderReversalCreateBody{reason=$reason, ledgerTransaction=$ledgerTransaction, metadata=$metadata, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -127,15 +127,15 @@ constructor(
         class Builder {
 
             private var reason: Reason? = null
-            private var metadata: Metadata? = null
             private var ledgerTransaction: LedgerTransactionCreateRequest? = null
+            private var metadata: Metadata? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(paymentOrderReversalCreateBody: PaymentOrderReversalCreateBody) =
                 apply {
                     this.reason = paymentOrderReversalCreateBody.reason
-                    this.metadata = paymentOrderReversalCreateBody.metadata
                     this.ledgerTransaction = paymentOrderReversalCreateBody.ledgerTransaction
+                    this.metadata = paymentOrderReversalCreateBody.metadata
                     additionalProperties(paymentOrderReversalCreateBody.additionalProperties)
                 }
 
@@ -147,13 +147,6 @@ constructor(
             @JsonProperty("reason") fun reason(reason: Reason) = apply { this.reason = reason }
 
             /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            @JsonProperty("metadata")
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
-
-            /**
              * Specifies a ledger transaction object that will be created with the reversal. If the
              * ledger transaction cannot be created, then the reversal creation will fail. The
              * resulting ledger transaction will mirror the status of the reversal.
@@ -162,6 +155,13 @@ constructor(
             fun ledgerTransaction(ledgerTransaction: LedgerTransactionCreateRequest) = apply {
                 this.ledgerTransaction = ledgerTransaction
             }
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            @JsonProperty("metadata")
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -180,8 +180,8 @@ constructor(
             fun build(): PaymentOrderReversalCreateBody =
                 PaymentOrderReversalCreateBody(
                     checkNotNull(reason) { "`reason` is required but was not set" },
-                    metadata,
                     ledgerTransaction,
+                    metadata,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -201,8 +201,8 @@ constructor(
         return other is PaymentOrderReversalCreateParams &&
             this.paymentOrderId == other.paymentOrderId &&
             this.reason == other.reason &&
-            this.metadata == other.metadata &&
             this.ledgerTransaction == other.ledgerTransaction &&
+            this.metadata == other.metadata &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -212,8 +212,8 @@ constructor(
         return Objects.hash(
             paymentOrderId,
             reason,
-            metadata,
             ledgerTransaction,
+            metadata,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -221,7 +221,7 @@ constructor(
     }
 
     override fun toString() =
-        "PaymentOrderReversalCreateParams{paymentOrderId=$paymentOrderId, reason=$reason, metadata=$metadata, ledgerTransaction=$ledgerTransaction, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "PaymentOrderReversalCreateParams{paymentOrderId=$paymentOrderId, reason=$reason, ledgerTransaction=$ledgerTransaction, metadata=$metadata, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -235,8 +235,8 @@ constructor(
 
         private var paymentOrderId: String? = null
         private var reason: Reason? = null
-        private var metadata: Metadata? = null
         private var ledgerTransaction: LedgerTransactionCreateRequest? = null
+        private var metadata: Metadata? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -245,8 +245,8 @@ constructor(
             apply {
                 this.paymentOrderId = paymentOrderReversalCreateParams.paymentOrderId
                 this.reason = paymentOrderReversalCreateParams.reason
-                this.metadata = paymentOrderReversalCreateParams.metadata
                 this.ledgerTransaction = paymentOrderReversalCreateParams.ledgerTransaction
+                this.metadata = paymentOrderReversalCreateParams.metadata
                 additionalQueryParams(paymentOrderReversalCreateParams.additionalQueryParams)
                 additionalHeaders(paymentOrderReversalCreateParams.additionalHeaders)
                 additionalBodyProperties(paymentOrderReversalCreateParams.additionalBodyProperties)
@@ -262,11 +262,6 @@ constructor(
         fun reason(reason: Reason) = apply { this.reason = reason }
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
-
-        /**
          * Specifies a ledger transaction object that will be created with the reversal. If the
          * ledger transaction cannot be created, then the reversal creation will fail. The resulting
          * ledger transaction will mirror the status of the reversal.
@@ -274,6 +269,11 @@ constructor(
         fun ledgerTransaction(ledgerTransaction: LedgerTransactionCreateRequest) = apply {
             this.ledgerTransaction = ledgerTransaction
         }
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -333,8 +333,8 @@ constructor(
             PaymentOrderReversalCreateParams(
                 checkNotNull(paymentOrderId) { "`paymentOrderId` is required but was not set" },
                 checkNotNull(reason) { "`reason` is required but was not set" },
-                metadata,
                 ledgerTransaction,
+                metadata,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

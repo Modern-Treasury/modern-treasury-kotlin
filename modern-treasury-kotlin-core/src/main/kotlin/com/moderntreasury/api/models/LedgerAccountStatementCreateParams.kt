@@ -13,32 +13,32 @@ import java.util.Objects
 
 class LedgerAccountStatementCreateParams
 constructor(
-    private val description: String?,
-    private val ledgerAccountId: String,
     private val effectiveAtLowerBound: String,
     private val effectiveAtUpperBound: String,
+    private val ledgerAccountId: String,
+    private val description: String?,
     private val metadata: Metadata?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun description(): String? = description
-
-    fun ledgerAccountId(): String = ledgerAccountId
-
     fun effectiveAtLowerBound(): String = effectiveAtLowerBound
 
     fun effectiveAtUpperBound(): String = effectiveAtUpperBound
+
+    fun ledgerAccountId(): String = ledgerAccountId
+
+    fun description(): String? = description
 
     fun metadata(): Metadata? = metadata
 
     internal fun getBody(): LedgerAccountStatementCreateBody {
         return LedgerAccountStatementCreateBody(
-            description,
-            ledgerAccountId,
             effectiveAtLowerBound,
             effectiveAtUpperBound,
+            ledgerAccountId,
+            description,
             metadata,
             additionalBodyProperties,
         )
@@ -52,24 +52,15 @@ constructor(
     @NoAutoDetect
     class LedgerAccountStatementCreateBody
     internal constructor(
-        private val description: String?,
-        private val ledgerAccountId: String?,
         private val effectiveAtLowerBound: String?,
         private val effectiveAtUpperBound: String?,
+        private val ledgerAccountId: String?,
+        private val description: String?,
         private val metadata: Metadata?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
-
-        /** The description of the ledger account statement. */
-        @JsonProperty("description") fun description(): String? = description
-
-        /**
-         * The id of the ledger account whose ledger entries are queried against, and its balances
-         * are computed as a result.
-         */
-        @JsonProperty("ledger_account_id") fun ledgerAccountId(): String? = ledgerAccountId
 
         /**
          * The inclusive lower bound of the effective_at timestamp of the ledger entries to be
@@ -84,6 +75,15 @@ constructor(
          */
         @JsonProperty("effective_at_upper_bound")
         fun effectiveAtUpperBound(): String? = effectiveAtUpperBound
+
+        /**
+         * The id of the ledger account whose ledger entries are queried against, and its balances
+         * are computed as a result.
+         */
+        @JsonProperty("ledger_account_id") fun ledgerAccountId(): String? = ledgerAccountId
+
+        /** The description of the ledger account statement. */
+        @JsonProperty("description") fun description(): String? = description
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
@@ -102,10 +102,10 @@ constructor(
             }
 
             return other is LedgerAccountStatementCreateBody &&
-                this.description == other.description &&
-                this.ledgerAccountId == other.ledgerAccountId &&
                 this.effectiveAtLowerBound == other.effectiveAtLowerBound &&
                 this.effectiveAtUpperBound == other.effectiveAtUpperBound &&
+                this.ledgerAccountId == other.ledgerAccountId &&
+                this.description == other.description &&
                 this.metadata == other.metadata &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -114,10 +114,10 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        description,
-                        ledgerAccountId,
                         effectiveAtLowerBound,
                         effectiveAtUpperBound,
+                        ledgerAccountId,
+                        description,
                         metadata,
                         additionalProperties,
                     )
@@ -126,7 +126,7 @@ constructor(
         }
 
         override fun toString() =
-            "LedgerAccountStatementCreateBody{description=$description, ledgerAccountId=$ledgerAccountId, effectiveAtLowerBound=$effectiveAtLowerBound, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, additionalProperties=$additionalProperties}"
+            "LedgerAccountStatementCreateBody{effectiveAtLowerBound=$effectiveAtLowerBound, effectiveAtUpperBound=$effectiveAtUpperBound, ledgerAccountId=$ledgerAccountId, description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -135,37 +135,24 @@ constructor(
 
         class Builder {
 
-            private var description: String? = null
-            private var ledgerAccountId: String? = null
             private var effectiveAtLowerBound: String? = null
             private var effectiveAtUpperBound: String? = null
+            private var ledgerAccountId: String? = null
+            private var description: String? = null
             private var metadata: Metadata? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerAccountStatementCreateBody: LedgerAccountStatementCreateBody) =
                 apply {
-                    this.description = ledgerAccountStatementCreateBody.description
-                    this.ledgerAccountId = ledgerAccountStatementCreateBody.ledgerAccountId
                     this.effectiveAtLowerBound =
                         ledgerAccountStatementCreateBody.effectiveAtLowerBound
                     this.effectiveAtUpperBound =
                         ledgerAccountStatementCreateBody.effectiveAtUpperBound
+                    this.ledgerAccountId = ledgerAccountStatementCreateBody.ledgerAccountId
+                    this.description = ledgerAccountStatementCreateBody.description
                     this.metadata = ledgerAccountStatementCreateBody.metadata
                     additionalProperties(ledgerAccountStatementCreateBody.additionalProperties)
                 }
-
-            /** The description of the ledger account statement. */
-            @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
-
-            /**
-             * The id of the ledger account whose ledger entries are queried against, and its
-             * balances are computed as a result.
-             */
-            @JsonProperty("ledger_account_id")
-            fun ledgerAccountId(ledgerAccountId: String) = apply {
-                this.ledgerAccountId = ledgerAccountId
-            }
 
             /**
              * The inclusive lower bound of the effective_at timestamp of the ledger entries to be
@@ -184,6 +171,19 @@ constructor(
             fun effectiveAtUpperBound(effectiveAtUpperBound: String) = apply {
                 this.effectiveAtUpperBound = effectiveAtUpperBound
             }
+
+            /**
+             * The id of the ledger account whose ledger entries are queried against, and its
+             * balances are computed as a result.
+             */
+            @JsonProperty("ledger_account_id")
+            fun ledgerAccountId(ledgerAccountId: String) = apply {
+                this.ledgerAccountId = ledgerAccountId
+            }
+
+            /** The description of the ledger account statement. */
+            @JsonProperty("description")
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
@@ -208,16 +208,16 @@ constructor(
 
             fun build(): LedgerAccountStatementCreateBody =
                 LedgerAccountStatementCreateBody(
-                    description,
-                    checkNotNull(ledgerAccountId) {
-                        "`ledgerAccountId` is required but was not set"
-                    },
                     checkNotNull(effectiveAtLowerBound) {
                         "`effectiveAtLowerBound` is required but was not set"
                     },
                     checkNotNull(effectiveAtUpperBound) {
                         "`effectiveAtUpperBound` is required but was not set"
                     },
+                    checkNotNull(ledgerAccountId) {
+                        "`ledgerAccountId` is required but was not set"
+                    },
+                    description,
                     metadata,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -236,10 +236,10 @@ constructor(
         }
 
         return other is LedgerAccountStatementCreateParams &&
-            this.description == other.description &&
-            this.ledgerAccountId == other.ledgerAccountId &&
             this.effectiveAtLowerBound == other.effectiveAtLowerBound &&
             this.effectiveAtUpperBound == other.effectiveAtUpperBound &&
+            this.ledgerAccountId == other.ledgerAccountId &&
+            this.description == other.description &&
             this.metadata == other.metadata &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -248,10 +248,10 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
-            description,
-            ledgerAccountId,
             effectiveAtLowerBound,
             effectiveAtUpperBound,
+            ledgerAccountId,
+            description,
             metadata,
             additionalQueryParams,
             additionalHeaders,
@@ -260,7 +260,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerAccountStatementCreateParams{description=$description, ledgerAccountId=$ledgerAccountId, effectiveAtLowerBound=$effectiveAtLowerBound, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerAccountStatementCreateParams{effectiveAtLowerBound=$effectiveAtLowerBound, effectiveAtUpperBound=$effectiveAtUpperBound, ledgerAccountId=$ledgerAccountId, description=$description, metadata=$metadata, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -272,10 +272,10 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var description: String? = null
-        private var ledgerAccountId: String? = null
         private var effectiveAtLowerBound: String? = null
         private var effectiveAtUpperBound: String? = null
+        private var ledgerAccountId: String? = null
+        private var description: String? = null
         private var metadata: Metadata? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -283,12 +283,12 @@ constructor(
 
         internal fun from(ledgerAccountStatementCreateParams: LedgerAccountStatementCreateParams) =
             apply {
-                this.description = ledgerAccountStatementCreateParams.description
-                this.ledgerAccountId = ledgerAccountStatementCreateParams.ledgerAccountId
                 this.effectiveAtLowerBound =
                     ledgerAccountStatementCreateParams.effectiveAtLowerBound
                 this.effectiveAtUpperBound =
                     ledgerAccountStatementCreateParams.effectiveAtUpperBound
+                this.ledgerAccountId = ledgerAccountStatementCreateParams.ledgerAccountId
+                this.description = ledgerAccountStatementCreateParams.description
                 this.metadata = ledgerAccountStatementCreateParams.metadata
                 additionalQueryParams(ledgerAccountStatementCreateParams.additionalQueryParams)
                 additionalHeaders(ledgerAccountStatementCreateParams.additionalHeaders)
@@ -296,17 +296,6 @@ constructor(
                     ledgerAccountStatementCreateParams.additionalBodyProperties
                 )
             }
-
-        /** The description of the ledger account statement. */
-        fun description(description: String) = apply { this.description = description }
-
-        /**
-         * The id of the ledger account whose ledger entries are queried against, and its balances
-         * are computed as a result.
-         */
-        fun ledgerAccountId(ledgerAccountId: String) = apply {
-            this.ledgerAccountId = ledgerAccountId
-        }
 
         /**
          * The inclusive lower bound of the effective_at timestamp of the ledger entries to be
@@ -323,6 +312,17 @@ constructor(
         fun effectiveAtUpperBound(effectiveAtUpperBound: String) = apply {
             this.effectiveAtUpperBound = effectiveAtUpperBound
         }
+
+        /**
+         * The id of the ledger account whose ledger entries are queried against, and its balances
+         * are computed as a result.
+         */
+        fun ledgerAccountId(ledgerAccountId: String) = apply {
+            this.ledgerAccountId = ledgerAccountId
+        }
+
+        /** The description of the ledger account statement. */
+        fun description(description: String) = apply { this.description = description }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
@@ -385,14 +385,14 @@ constructor(
 
         fun build(): LedgerAccountStatementCreateParams =
             LedgerAccountStatementCreateParams(
-                description,
-                checkNotNull(ledgerAccountId) { "`ledgerAccountId` is required but was not set" },
                 checkNotNull(effectiveAtLowerBound) {
                     "`effectiveAtLowerBound` is required but was not set"
                 },
                 checkNotNull(effectiveAtUpperBound) {
                     "`effectiveAtUpperBound` is required but was not set"
                 },
+                checkNotNull(ledgerAccountId) { "`ledgerAccountId` is required but was not set" },
+                description,
                 metadata,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

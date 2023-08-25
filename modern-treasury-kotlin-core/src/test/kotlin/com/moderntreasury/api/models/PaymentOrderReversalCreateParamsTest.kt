@@ -12,7 +12,6 @@ class PaymentOrderReversalCreateParamsTest {
         PaymentOrderReversalCreateParams.builder()
             .paymentOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
-            .metadata(PaymentOrderReversalCreateParams.Metadata.builder().build())
             .ledgerTransaction(
                 PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.builder()
                     .ledgerEntries(
@@ -82,6 +81,7 @@ class PaymentOrderReversalCreateParamsTest {
                     )
                     .build()
             )
+            .metadata(PaymentOrderReversalCreateParams.Metadata.builder().build())
             .build()
     }
 
@@ -91,7 +91,6 @@ class PaymentOrderReversalCreateParamsTest {
             PaymentOrderReversalCreateParams.builder()
                 .paymentOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
-                .metadata(PaymentOrderReversalCreateParams.Metadata.builder().build())
                 .ledgerTransaction(
                     PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.builder()
                         .ledgerEntries(
@@ -166,12 +165,11 @@ class PaymentOrderReversalCreateParamsTest {
                         )
                         .build()
                 )
+                .metadata(PaymentOrderReversalCreateParams.Metadata.builder().build())
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.reason()).isEqualTo(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
-        assertThat(body.metadata())
-            .isEqualTo(PaymentOrderReversalCreateParams.Metadata.builder().build())
         assertThat(body.ledgerTransaction())
             .isEqualTo(
                 PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.builder()
@@ -242,6 +240,8 @@ class PaymentOrderReversalCreateParamsTest {
                     )
                     .build()
             )
+        assertThat(body.metadata())
+            .isEqualTo(PaymentOrderReversalCreateParams.Metadata.builder().build())
     }
 
     @Test

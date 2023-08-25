@@ -11,10 +11,10 @@ class InvoiceLineItemCreateParamsTest {
         InvoiceLineItemCreateParams.builder()
             .invoiceId("string")
             .name("string")
-            .description("string")
-            .quantity(123L)
             .unitAmount(123L)
+            .description("string")
             .direction("string")
+            .quantity(123L)
             .build()
     }
 
@@ -24,18 +24,18 @@ class InvoiceLineItemCreateParamsTest {
             InvoiceLineItemCreateParams.builder()
                 .invoiceId("string")
                 .name("string")
-                .description("string")
-                .quantity(123L)
                 .unitAmount(123L)
+                .description("string")
                 .direction("string")
+                .quantity(123L)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("string")
-        assertThat(body.description()).isEqualTo("string")
-        assertThat(body.quantity()).isEqualTo(123L)
         assertThat(body.unitAmount()).isEqualTo(123L)
+        assertThat(body.description()).isEqualTo("string")
         assertThat(body.direction()).isEqualTo("string")
+        assertThat(body.quantity()).isEqualTo(123L)
     }
 
     @Test

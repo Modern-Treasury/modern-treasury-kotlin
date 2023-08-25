@@ -16,41 +16,41 @@ import java.util.Objects
 
 class LedgerAccountCategoryCreateParams
 constructor(
+    private val currency: String,
+    private val ledgerId: String,
     private val name: String,
+    private val normalBalance: NormalBalance,
+    private val currencyExponent: Long?,
     private val description: String?,
     private val metadata: Metadata?,
-    private val currency: String,
-    private val currencyExponent: Long?,
-    private val ledgerId: String,
-    private val normalBalance: NormalBalance,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    fun currency(): String = currency
+
+    fun ledgerId(): String = ledgerId
+
     fun name(): String = name
+
+    fun normalBalance(): NormalBalance = normalBalance
+
+    fun currencyExponent(): Long? = currencyExponent
 
     fun description(): String? = description
 
     fun metadata(): Metadata? = metadata
 
-    fun currency(): String = currency
-
-    fun currencyExponent(): Long? = currencyExponent
-
-    fun ledgerId(): String = ledgerId
-
-    fun normalBalance(): NormalBalance = normalBalance
-
     internal fun getBody(): LedgerAccountCategoryCreateBody {
         return LedgerAccountCategoryCreateBody(
+            currency,
+            ledgerId,
             name,
+            normalBalance,
+            currencyExponent,
             description,
             metadata,
-            currency,
-            currencyExponent,
-            ledgerId,
-            normalBalance,
             additionalBodyProperties,
         )
     }
@@ -63,20 +63,32 @@ constructor(
     @NoAutoDetect
     class LedgerAccountCategoryCreateBody
     internal constructor(
+        private val currency: String?,
+        private val ledgerId: String?,
         private val name: String?,
+        private val normalBalance: NormalBalance?,
+        private val currencyExponent: Long?,
         private val description: String?,
         private val metadata: Metadata?,
-        private val currency: String?,
-        private val currencyExponent: Long?,
-        private val ledgerId: String?,
-        private val normalBalance: NormalBalance?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
+        /** The currency of the ledger account category. */
+        @JsonProperty("currency") fun currency(): String? = currency
+
+        /** The id of the ledger that this account category belongs to. */
+        @JsonProperty("ledger_id") fun ledgerId(): String? = ledgerId
+
         /** The name of the ledger account category. */
         @JsonProperty("name") fun name(): String? = name
+
+        /** The normal balance of the ledger account category. */
+        @JsonProperty("normal_balance") fun normalBalance(): NormalBalance? = normalBalance
+
+        /** The currency exponent of the ledger account category. */
+        @JsonProperty("currency_exponent") fun currencyExponent(): Long? = currencyExponent
 
         /** The description of the ledger account category. */
         @JsonProperty("description") fun description(): String? = description
@@ -85,18 +97,6 @@ constructor(
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
         @JsonProperty("metadata") fun metadata(): Metadata? = metadata
-
-        /** The currency of the ledger account category. */
-        @JsonProperty("currency") fun currency(): String? = currency
-
-        /** The currency exponent of the ledger account category. */
-        @JsonProperty("currency_exponent") fun currencyExponent(): Long? = currencyExponent
-
-        /** The id of the ledger that this account category belongs to. */
-        @JsonProperty("ledger_id") fun ledgerId(): String? = ledgerId
-
-        /** The normal balance of the ledger account category. */
-        @JsonProperty("normal_balance") fun normalBalance(): NormalBalance? = normalBalance
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -110,13 +110,13 @@ constructor(
             }
 
             return other is LedgerAccountCategoryCreateBody &&
+                this.currency == other.currency &&
+                this.ledgerId == other.ledgerId &&
                 this.name == other.name &&
+                this.normalBalance == other.normalBalance &&
+                this.currencyExponent == other.currencyExponent &&
                 this.description == other.description &&
                 this.metadata == other.metadata &&
-                this.currency == other.currency &&
-                this.currencyExponent == other.currencyExponent &&
-                this.ledgerId == other.ledgerId &&
-                this.normalBalance == other.normalBalance &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -124,13 +124,13 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
+                        currency,
+                        ledgerId,
                         name,
+                        normalBalance,
+                        currencyExponent,
                         description,
                         metadata,
-                        currency,
-                        currencyExponent,
-                        ledgerId,
-                        normalBalance,
                         additionalProperties,
                     )
             }
@@ -138,7 +138,7 @@ constructor(
         }
 
         override fun toString() =
-            "LedgerAccountCategoryCreateBody{name=$name, description=$description, metadata=$metadata, currency=$currency, currencyExponent=$currencyExponent, ledgerId=$ledgerId, normalBalance=$normalBalance, additionalProperties=$additionalProperties}"
+            "LedgerAccountCategoryCreateBody{currency=$currency, ledgerId=$ledgerId, name=$name, normalBalance=$normalBalance, currencyExponent=$currencyExponent, description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -147,29 +147,49 @@ constructor(
 
         class Builder {
 
+            private var currency: String? = null
+            private var ledgerId: String? = null
             private var name: String? = null
+            private var normalBalance: NormalBalance? = null
+            private var currencyExponent: Long? = null
             private var description: String? = null
             private var metadata: Metadata? = null
-            private var currency: String? = null
-            private var currencyExponent: Long? = null
-            private var ledgerId: String? = null
-            private var normalBalance: NormalBalance? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerAccountCategoryCreateBody: LedgerAccountCategoryCreateBody) =
                 apply {
+                    this.currency = ledgerAccountCategoryCreateBody.currency
+                    this.ledgerId = ledgerAccountCategoryCreateBody.ledgerId
                     this.name = ledgerAccountCategoryCreateBody.name
+                    this.normalBalance = ledgerAccountCategoryCreateBody.normalBalance
+                    this.currencyExponent = ledgerAccountCategoryCreateBody.currencyExponent
                     this.description = ledgerAccountCategoryCreateBody.description
                     this.metadata = ledgerAccountCategoryCreateBody.metadata
-                    this.currency = ledgerAccountCategoryCreateBody.currency
-                    this.currencyExponent = ledgerAccountCategoryCreateBody.currencyExponent
-                    this.ledgerId = ledgerAccountCategoryCreateBody.ledgerId
-                    this.normalBalance = ledgerAccountCategoryCreateBody.normalBalance
                     additionalProperties(ledgerAccountCategoryCreateBody.additionalProperties)
                 }
 
+            /** The currency of the ledger account category. */
+            @JsonProperty("currency")
+            fun currency(currency: String) = apply { this.currency = currency }
+
+            /** The id of the ledger that this account category belongs to. */
+            @JsonProperty("ledger_id")
+            fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
+
             /** The name of the ledger account category. */
             @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+
+            /** The normal balance of the ledger account category. */
+            @JsonProperty("normal_balance")
+            fun normalBalance(normalBalance: NormalBalance) = apply {
+                this.normalBalance = normalBalance
+            }
+
+            /** The currency exponent of the ledger account category. */
+            @JsonProperty("currency_exponent")
+            fun currencyExponent(currencyExponent: Long) = apply {
+                this.currencyExponent = currencyExponent
+            }
 
             /** The description of the ledger account category. */
             @JsonProperty("description")
@@ -181,26 +201,6 @@ constructor(
              */
             @JsonProperty("metadata")
             fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
-
-            /** The currency of the ledger account category. */
-            @JsonProperty("currency")
-            fun currency(currency: String) = apply { this.currency = currency }
-
-            /** The currency exponent of the ledger account category. */
-            @JsonProperty("currency_exponent")
-            fun currencyExponent(currencyExponent: Long) = apply {
-                this.currencyExponent = currencyExponent
-            }
-
-            /** The id of the ledger that this account category belongs to. */
-            @JsonProperty("ledger_id")
-            fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
-
-            /** The normal balance of the ledger account category. */
-            @JsonProperty("normal_balance")
-            fun normalBalance(normalBalance: NormalBalance) = apply {
-                this.normalBalance = normalBalance
-            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -218,13 +218,13 @@ constructor(
 
             fun build(): LedgerAccountCategoryCreateBody =
                 LedgerAccountCategoryCreateBody(
+                    checkNotNull(currency) { "`currency` is required but was not set" },
+                    checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
                     checkNotNull(name) { "`name` is required but was not set" },
+                    checkNotNull(normalBalance) { "`normalBalance` is required but was not set" },
+                    currencyExponent,
                     description,
                     metadata,
-                    checkNotNull(currency) { "`currency` is required but was not set" },
-                    currencyExponent,
-                    checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
-                    checkNotNull(normalBalance) { "`normalBalance` is required but was not set" },
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -242,13 +242,13 @@ constructor(
         }
 
         return other is LedgerAccountCategoryCreateParams &&
+            this.currency == other.currency &&
+            this.ledgerId == other.ledgerId &&
             this.name == other.name &&
+            this.normalBalance == other.normalBalance &&
+            this.currencyExponent == other.currencyExponent &&
             this.description == other.description &&
             this.metadata == other.metadata &&
-            this.currency == other.currency &&
-            this.currencyExponent == other.currencyExponent &&
-            this.ledgerId == other.ledgerId &&
-            this.normalBalance == other.normalBalance &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -256,13 +256,13 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
+            currency,
+            ledgerId,
             name,
+            normalBalance,
+            currencyExponent,
             description,
             metadata,
-            currency,
-            currencyExponent,
-            ledgerId,
-            normalBalance,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -270,7 +270,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerAccountCategoryCreateParams{name=$name, description=$description, metadata=$metadata, currency=$currency, currencyExponent=$currencyExponent, ledgerId=$ledgerId, normalBalance=$normalBalance, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerAccountCategoryCreateParams{currency=$currency, ledgerId=$ledgerId, name=$name, normalBalance=$normalBalance, currencyExponent=$currencyExponent, description=$description, metadata=$metadata, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -282,33 +282,49 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var currency: String? = null
+        private var ledgerId: String? = null
         private var name: String? = null
+        private var normalBalance: NormalBalance? = null
+        private var currencyExponent: Long? = null
         private var description: String? = null
         private var metadata: Metadata? = null
-        private var currency: String? = null
-        private var currencyExponent: Long? = null
-        private var ledgerId: String? = null
-        private var normalBalance: NormalBalance? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerAccountCategoryCreateParams: LedgerAccountCategoryCreateParams) =
             apply {
+                this.currency = ledgerAccountCategoryCreateParams.currency
+                this.ledgerId = ledgerAccountCategoryCreateParams.ledgerId
                 this.name = ledgerAccountCategoryCreateParams.name
+                this.normalBalance = ledgerAccountCategoryCreateParams.normalBalance
+                this.currencyExponent = ledgerAccountCategoryCreateParams.currencyExponent
                 this.description = ledgerAccountCategoryCreateParams.description
                 this.metadata = ledgerAccountCategoryCreateParams.metadata
-                this.currency = ledgerAccountCategoryCreateParams.currency
-                this.currencyExponent = ledgerAccountCategoryCreateParams.currencyExponent
-                this.ledgerId = ledgerAccountCategoryCreateParams.ledgerId
-                this.normalBalance = ledgerAccountCategoryCreateParams.normalBalance
                 additionalQueryParams(ledgerAccountCategoryCreateParams.additionalQueryParams)
                 additionalHeaders(ledgerAccountCategoryCreateParams.additionalHeaders)
                 additionalBodyProperties(ledgerAccountCategoryCreateParams.additionalBodyProperties)
             }
 
+        /** The currency of the ledger account category. */
+        fun currency(currency: String) = apply { this.currency = currency }
+
+        /** The id of the ledger that this account category belongs to. */
+        fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
+
         /** The name of the ledger account category. */
         fun name(name: String) = apply { this.name = name }
+
+        /** The normal balance of the ledger account category. */
+        fun normalBalance(normalBalance: NormalBalance) = apply {
+            this.normalBalance = normalBalance
+        }
+
+        /** The currency exponent of the ledger account category. */
+        fun currencyExponent(currencyExponent: Long) = apply {
+            this.currencyExponent = currencyExponent
+        }
 
         /** The description of the ledger account category. */
         fun description(description: String) = apply { this.description = description }
@@ -317,22 +333,6 @@ constructor(
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
         fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
-
-        /** The currency of the ledger account category. */
-        fun currency(currency: String) = apply { this.currency = currency }
-
-        /** The currency exponent of the ledger account category. */
-        fun currencyExponent(currencyExponent: Long) = apply {
-            this.currencyExponent = currencyExponent
-        }
-
-        /** The id of the ledger that this account category belongs to. */
-        fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
-
-        /** The normal balance of the ledger account category. */
-        fun normalBalance(normalBalance: NormalBalance) = apply {
-            this.normalBalance = normalBalance
-        }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -390,13 +390,13 @@ constructor(
 
         fun build(): LedgerAccountCategoryCreateParams =
             LedgerAccountCategoryCreateParams(
+                checkNotNull(currency) { "`currency` is required but was not set" },
+                checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
                 checkNotNull(name) { "`name` is required but was not set" },
+                checkNotNull(normalBalance) { "`normalBalance` is required but was not set" },
+                currencyExponent,
                 description,
                 metadata,
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                currencyExponent,
-                checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
-                checkNotNull(normalBalance) { "`normalBalance` is required but was not set" },
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

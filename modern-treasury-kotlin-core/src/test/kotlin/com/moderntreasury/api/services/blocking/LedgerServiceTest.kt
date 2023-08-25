@@ -58,9 +58,9 @@ class LedgerServiceTest {
             ledgerService.update(
                 LedgerUpdateParams.builder()
                     .id("string")
-                    .name("string")
                     .description("string")
                     .metadata(LedgerUpdateParams.Metadata.builder().build())
+                    .name("string")
                     .build()
             )
         println(ledger)

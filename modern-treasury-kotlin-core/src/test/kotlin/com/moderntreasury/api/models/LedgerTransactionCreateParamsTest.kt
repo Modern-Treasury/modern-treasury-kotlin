@@ -10,11 +10,6 @@ class LedgerTransactionCreateParamsTest {
     @Test
     fun createLedgerTransactionCreateParams() {
         LedgerTransactionCreateParams.builder()
-            .description("string")
-            .status(LedgerTransactionCreateParams.Status.ARCHIVED)
-            .metadata(LedgerTransactionCreateParams.Metadata.builder().build())
-            .effectiveAt(LocalDate.parse("2019-12-27"))
-            .effectiveDate(LocalDate.parse("2019-12-27"))
             .ledgerEntries(
                 listOf(
                     LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
@@ -51,9 +46,14 @@ class LedgerTransactionCreateParamsTest {
                         .build()
                 )
             )
+            .description("string")
+            .effectiveAt(LocalDate.parse("2019-12-27"))
+            .effectiveDate(LocalDate.parse("2019-12-27"))
             .externalId("string")
-            .ledgerableType(LedgerTransactionCreateParams.LedgerableType.COUNTERPARTY)
             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .ledgerableType(LedgerTransactionCreateParams.LedgerableType.COUNTERPARTY)
+            .metadata(LedgerTransactionCreateParams.Metadata.builder().build())
+            .status(LedgerTransactionCreateParams.Status.ARCHIVED)
             .build()
     }
 
@@ -61,11 +61,6 @@ class LedgerTransactionCreateParamsTest {
     fun getBody() {
         val params =
             LedgerTransactionCreateParams.builder()
-                .description("string")
-                .status(LedgerTransactionCreateParams.Status.ARCHIVED)
-                .metadata(LedgerTransactionCreateParams.Metadata.builder().build())
-                .effectiveAt(LocalDate.parse("2019-12-27"))
-                .effectiveDate(LocalDate.parse("2019-12-27"))
                 .ledgerEntries(
                     listOf(
                         LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
@@ -103,18 +98,17 @@ class LedgerTransactionCreateParamsTest {
                             .build()
                     )
                 )
+                .description("string")
+                .effectiveAt(LocalDate.parse("2019-12-27"))
+                .effectiveDate(LocalDate.parse("2019-12-27"))
                 .externalId("string")
-                .ledgerableType(LedgerTransactionCreateParams.LedgerableType.COUNTERPARTY)
                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .ledgerableType(LedgerTransactionCreateParams.LedgerableType.COUNTERPARTY)
+                .metadata(LedgerTransactionCreateParams.Metadata.builder().build())
+                .status(LedgerTransactionCreateParams.Status.ARCHIVED)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.description()).isEqualTo("string")
-        assertThat(body.status()).isEqualTo(LedgerTransactionCreateParams.Status.ARCHIVED)
-        assertThat(body.metadata())
-            .isEqualTo(LedgerTransactionCreateParams.Metadata.builder().build())
-        assertThat(body.effectiveAt()).isEqualTo(LocalDate.parse("2019-12-27"))
-        assertThat(body.effectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.ledgerEntries())
             .isEqualTo(
                 listOf(
@@ -152,10 +146,16 @@ class LedgerTransactionCreateParamsTest {
                         .build()
                 )
             )
+        assertThat(body.description()).isEqualTo("string")
+        assertThat(body.effectiveAt()).isEqualTo(LocalDate.parse("2019-12-27"))
+        assertThat(body.effectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.externalId()).isEqualTo("string")
+        assertThat(body.ledgerableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.ledgerableType())
             .isEqualTo(LedgerTransactionCreateParams.LedgerableType.COUNTERPARTY)
-        assertThat(body.ledgerableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(body.metadata())
+            .isEqualTo(LedgerTransactionCreateParams.Metadata.builder().build())
+        assertThat(body.status()).isEqualTo(LedgerTransactionCreateParams.Status.ARCHIVED)
     }
 
     @Test

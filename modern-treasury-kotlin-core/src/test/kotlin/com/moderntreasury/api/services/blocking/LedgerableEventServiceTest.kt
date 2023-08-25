@@ -22,13 +22,13 @@ class LedgerableEventServiceTest {
         val ledgerableEvent =
             ledgerableEventService.create(
                 LedgerableEventCreateParams.builder()
-                    .name("string")
-                    .description("string")
-                    .direction("string")
                     .amount(123L)
+                    .name("string")
                     .currency("string")
                     .currencyExponent(123L)
                     .customData(JsonNull.of())
+                    .description("string")
+                    .direction("string")
                     .metadata(LedgerableEventCreateParams.Metadata.builder().build())
                     .build()
             )

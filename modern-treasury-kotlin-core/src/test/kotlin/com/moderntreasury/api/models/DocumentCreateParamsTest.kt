@@ -11,8 +11,8 @@ class DocumentCreateParamsTest {
         DocumentCreateParams.builder()
             .documentableId("string")
             .documentableType(DocumentCreateParams.DocumentableType.CASES)
-            .documentType("string")
             .file("file.txt")
+            .documentType("string")
             .build()
     }
 
@@ -22,15 +22,15 @@ class DocumentCreateParamsTest {
             DocumentCreateParams.builder()
                 .documentableId("string")
                 .documentableType(DocumentCreateParams.DocumentableType.CASES)
-                .documentType("string")
                 .file("file.txt")
+                .documentType("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.documentableId()).isEqualTo("string")
         assertThat(body.documentableType()).isEqualTo(DocumentCreateParams.DocumentableType.CASES)
-        assertThat(body.documentType()).isEqualTo("string")
         assertThat(body.file()).isEqualTo("file.txt")
+        assertThat(body.documentType()).isEqualTo("string")
     }
 
     @Test

@@ -22,9 +22,6 @@ class LedgerEventHandlerServiceTest {
         val ledgerEventHandlerCreateResponse =
             ledgerEventHandlerService.create(
                 LedgerEventHandlerCreateParams.builder()
-                    .name("string")
-                    .description("string")
-                    .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerTransactionTemplate(
                         LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate
                             .builder()
@@ -51,6 +48,7 @@ class LedgerEventHandlerServiceTest {
                             )
                             .build()
                     )
+                    .name("string")
                     .conditions(
                         LedgerEventHandlerCreateParams.LedgerEventHandlerConditions.builder()
                             .field("string")
@@ -58,6 +56,8 @@ class LedgerEventHandlerServiceTest {
                             .value("string")
                             .build()
                     )
+                    .description("string")
+                    .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .metadata(LedgerEventHandlerCreateParams.Metadata.builder().build())
                     .build()
             )

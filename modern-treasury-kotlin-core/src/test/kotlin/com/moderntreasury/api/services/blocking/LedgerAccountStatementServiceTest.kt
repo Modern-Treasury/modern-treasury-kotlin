@@ -23,10 +23,10 @@ class LedgerAccountStatementServiceTest {
         val ledgerAccountStatementCreateResponse =
             ledgerAccountStatementService.create(
                 LedgerAccountStatementCreateParams.builder()
-                    .description("string")
-                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .effectiveAtLowerBound("string")
                     .effectiveAtUpperBound("string")
+                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .description("string")
                     .metadata(LedgerAccountStatementCreateParams.Metadata.builder().build())
                     .build()
             )

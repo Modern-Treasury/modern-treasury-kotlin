@@ -22,19 +22,6 @@ class ExternalAccountServiceTest {
         val externalAccount =
             externalAccountService.create(
                 ExternalAccountCreateParams.builder()
-                    .accountType(ExternalAccountType.CASH)
-                    .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
-                    .partyAddress(
-                        ExternalAccountCreateParams.AddressRequest.builder()
-                            .country("string")
-                            .line1("string")
-                            .line2("string")
-                            .locality("string")
-                            .postalCode("string")
-                            .region("string")
-                            .build()
-                    )
-                    .name("string")
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .accountDetails(
                         listOf(
@@ -46,22 +33,19 @@ class ExternalAccountServiceTest {
                                 .build()
                         )
                     )
-                    .routingDetails(
+                    .accountType(ExternalAccountType.CASH)
+                    .contactDetails(
                         listOf(
-                            ExternalAccountCreateParams.RoutingDetail.builder()
-                                .routingNumber("string")
-                                .routingNumberType(
-                                    ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
-                                )
-                                .paymentType(
-                                    ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH
+                            ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                                .contactIdentifier("string")
+                                .contactIdentifierType(
+                                    ExternalAccountCreateParams.ContactDetailCreateRequest
+                                        .ContactIdentifierType
+                                        .EMAIL
                                 )
                                 .build()
                         )
                     )
-                    .metadata(ExternalAccountCreateParams.Metadata.builder().build())
-                    .partyName("string")
-                    .partyIdentifier("string")
                     .ledgerAccount(
                         ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
                             .currency("string")
@@ -86,15 +70,31 @@ class ExternalAccountServiceTest {
                             )
                             .build()
                     )
+                    .metadata(ExternalAccountCreateParams.Metadata.builder().build())
+                    .name("string")
+                    .partyAddress(
+                        ExternalAccountCreateParams.AddressRequest.builder()
+                            .country("string")
+                            .line1("string")
+                            .line2("string")
+                            .locality("string")
+                            .postalCode("string")
+                            .region("string")
+                            .build()
+                    )
+                    .partyIdentifier("string")
+                    .partyName("string")
+                    .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
                     .plaidProcessorToken("string")
-                    .contactDetails(
+                    .routingDetails(
                         listOf(
-                            ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                                .contactIdentifier("string")
-                                .contactIdentifierType(
-                                    ExternalAccountCreateParams.ContactDetailCreateRequest
-                                        .ContactIdentifierType
-                                        .EMAIL
+                            ExternalAccountCreateParams.RoutingDetail.builder()
+                                .routingNumber("string")
+                                .routingNumberType(
+                                    ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                                )
+                                .paymentType(
+                                    ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH
                                 )
                                 .build()
                         )
@@ -135,11 +135,10 @@ class ExternalAccountServiceTest {
             externalAccountService.update(
                 ExternalAccountUpdateParams.builder()
                     .id("string")
-                    .partyType(ExternalAccountUpdateParams.PartyType.BUSINESS)
                     .accountType(ExternalAccountType.CASH)
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .metadata(ExternalAccountUpdateParams.Metadata.builder().build())
                     .name("string")
-                    .partyName("string")
                     .partyAddress(
                         ExternalAccountUpdateParams.AddressRequest.builder()
                             .country("string")
@@ -150,7 +149,8 @@ class ExternalAccountServiceTest {
                             .region("string")
                             .build()
                     )
-                    .metadata(ExternalAccountUpdateParams.Metadata.builder().build())
+                    .partyName("string")
+                    .partyType(ExternalAccountUpdateParams.PartyType.BUSINESS)
                     .build()
             )
         println(externalAccount)

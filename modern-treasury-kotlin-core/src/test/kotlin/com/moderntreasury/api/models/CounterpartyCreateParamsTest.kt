@@ -10,6 +10,11 @@ class CounterpartyCreateParamsTest {
     fun createCounterpartyCreateParams() {
         CounterpartyCreateParams.builder()
             .name("string")
+            .accounting(
+                CounterpartyCreateParams.Accounting.builder()
+                    .type(CounterpartyCreateParams.Accounting.Type.CUSTOMER)
+                    .build()
+            )
             .accounts(
                 listOf(
                     CounterpartyCreateParams.Account.builder()
@@ -101,16 +106,11 @@ class CounterpartyCreateParamsTest {
                 )
             )
             .email("dev@stainlessapi.com")
+            .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
             .metadata(CounterpartyCreateParams.Metadata.builder().build())
             .sendRemittanceAdvice(true)
-            .verificationStatus(CounterpartyCreateParams.VerificationStatus.DENIED)
-            .accounting(
-                CounterpartyCreateParams.Accounting.builder()
-                    .type(CounterpartyCreateParams.Accounting.Type.CUSTOMER)
-                    .build()
-            )
-            .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
             .taxpayerIdentifier("string")
+            .verificationStatus(CounterpartyCreateParams.VerificationStatus.DENIED)
             .build()
     }
 
@@ -119,6 +119,11 @@ class CounterpartyCreateParamsTest {
         val params =
             CounterpartyCreateParams.builder()
                 .name("string")
+                .accounting(
+                    CounterpartyCreateParams.Accounting.builder()
+                        .type(CounterpartyCreateParams.Accounting.Type.CUSTOMER)
+                        .build()
+                )
                 .accounts(
                     listOf(
                         CounterpartyCreateParams.Account.builder()
@@ -213,20 +218,21 @@ class CounterpartyCreateParamsTest {
                     )
                 )
                 .email("dev@stainlessapi.com")
+                .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
                 .metadata(CounterpartyCreateParams.Metadata.builder().build())
                 .sendRemittanceAdvice(true)
-                .verificationStatus(CounterpartyCreateParams.VerificationStatus.DENIED)
-                .accounting(
-                    CounterpartyCreateParams.Accounting.builder()
-                        .type(CounterpartyCreateParams.Accounting.Type.CUSTOMER)
-                        .build()
-                )
-                .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
                 .taxpayerIdentifier("string")
+                .verificationStatus(CounterpartyCreateParams.VerificationStatus.DENIED)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("string")
+        assertThat(body.accounting())
+            .isEqualTo(
+                CounterpartyCreateParams.Accounting.builder()
+                    .type(CounterpartyCreateParams.Accounting.Type.CUSTOMER)
+                    .build()
+            )
         assertThat(body.accounts())
             .isEqualTo(
                 listOf(
@@ -319,18 +325,12 @@ class CounterpartyCreateParamsTest {
                 )
             )
         assertThat(body.email()).isEqualTo("dev@stainlessapi.com")
+        assertThat(body.ledgerType()).isEqualTo(CounterpartyCreateParams.LedgerType.CUSTOMER)
         assertThat(body.metadata()).isEqualTo(CounterpartyCreateParams.Metadata.builder().build())
         assertThat(body.sendRemittanceAdvice()).isEqualTo(true)
+        assertThat(body.taxpayerIdentifier()).isEqualTo("string")
         assertThat(body.verificationStatus())
             .isEqualTo(CounterpartyCreateParams.VerificationStatus.DENIED)
-        assertThat(body.accounting())
-            .isEqualTo(
-                CounterpartyCreateParams.Accounting.builder()
-                    .type(CounterpartyCreateParams.Accounting.Type.CUSTOMER)
-                    .build()
-            )
-        assertThat(body.ledgerType()).isEqualTo(CounterpartyCreateParams.LedgerType.CUSTOMER)
-        assertThat(body.taxpayerIdentifier()).isEqualTo("string")
     }
 
     @Test

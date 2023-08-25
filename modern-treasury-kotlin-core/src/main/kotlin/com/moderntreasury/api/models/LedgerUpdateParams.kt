@@ -14,9 +14,9 @@ import java.util.Objects
 class LedgerUpdateParams
 constructor(
     private val id: String,
-    private val name: String?,
     private val description: String?,
     private val metadata: Metadata?,
+    private val name: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -24,17 +24,17 @@ constructor(
 
     fun id(): String = id
 
-    fun name(): String? = name
-
     fun description(): String? = description
 
     fun metadata(): Metadata? = metadata
 
+    fun name(): String? = name
+
     internal fun getBody(): LedgerUpdateBody {
         return LedgerUpdateBody(
-            name,
             description,
             metadata,
+            name,
             additionalBodyProperties,
         )
     }
@@ -54,16 +54,13 @@ constructor(
     @NoAutoDetect
     class LedgerUpdateBody
     internal constructor(
-        private val name: String?,
         private val description: String?,
         private val metadata: Metadata?,
+        private val name: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
-
-        /** The name of the ledger. */
-        @JsonProperty("name") fun name(): String? = name
 
         /** An optional free-form description for internal use. */
         @JsonProperty("description") fun description(): String? = description
@@ -72,6 +69,9 @@ constructor(
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
         @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+
+        /** The name of the ledger. */
+        @JsonProperty("name") fun name(): String? = name
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -85,9 +85,9 @@ constructor(
             }
 
             return other is LedgerUpdateBody &&
-                this.name == other.name &&
                 this.description == other.description &&
                 this.metadata == other.metadata &&
+                this.name == other.name &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -95,9 +95,9 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        name,
                         description,
                         metadata,
+                        name,
                         additionalProperties,
                     )
             }
@@ -105,7 +105,7 @@ constructor(
         }
 
         override fun toString() =
-            "LedgerUpdateBody{name=$name, description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
+            "LedgerUpdateBody{description=$description, metadata=$metadata, name=$name, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -114,20 +114,17 @@ constructor(
 
         class Builder {
 
-            private var name: String? = null
             private var description: String? = null
             private var metadata: Metadata? = null
+            private var name: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerUpdateBody: LedgerUpdateBody) = apply {
-                this.name = ledgerUpdateBody.name
                 this.description = ledgerUpdateBody.description
                 this.metadata = ledgerUpdateBody.metadata
+                this.name = ledgerUpdateBody.name
                 additionalProperties(ledgerUpdateBody.additionalProperties)
             }
-
-            /** The name of the ledger. */
-            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
 
             /** An optional free-form description for internal use. */
             @JsonProperty("description")
@@ -139,6 +136,9 @@ constructor(
              */
             @JsonProperty("metadata")
             fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+            /** The name of the ledger. */
+            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -156,9 +156,9 @@ constructor(
 
             fun build(): LedgerUpdateBody =
                 LedgerUpdateBody(
-                    name,
                     description,
                     metadata,
+                    name,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -177,9 +177,9 @@ constructor(
 
         return other is LedgerUpdateParams &&
             this.id == other.id &&
-            this.name == other.name &&
             this.description == other.description &&
             this.metadata == other.metadata &&
+            this.name == other.name &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -188,9 +188,9 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             id,
-            name,
             description,
             metadata,
+            name,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -198,7 +198,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerUpdateParams{id=$id, name=$name, description=$description, metadata=$metadata, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerUpdateParams{id=$id, description=$description, metadata=$metadata, name=$name, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -211,27 +211,24 @@ constructor(
     class Builder {
 
         private var id: String? = null
-        private var name: String? = null
         private var description: String? = null
         private var metadata: Metadata? = null
+        private var name: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerUpdateParams: LedgerUpdateParams) = apply {
             this.id = ledgerUpdateParams.id
-            this.name = ledgerUpdateParams.name
             this.description = ledgerUpdateParams.description
             this.metadata = ledgerUpdateParams.metadata
+            this.name = ledgerUpdateParams.name
             additionalQueryParams(ledgerUpdateParams.additionalQueryParams)
             additionalHeaders(ledgerUpdateParams.additionalHeaders)
             additionalBodyProperties(ledgerUpdateParams.additionalBodyProperties)
         }
 
         fun id(id: String) = apply { this.id = id }
-
-        /** The name of the ledger. */
-        fun name(name: String) = apply { this.name = name }
 
         /** An optional free-form description for internal use. */
         fun description(description: String) = apply { this.description = description }
@@ -240,6 +237,9 @@ constructor(
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
         fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        /** The name of the ledger. */
+        fun name(name: String) = apply { this.name = name }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -298,9 +298,9 @@ constructor(
         fun build(): LedgerUpdateParams =
             LedgerUpdateParams(
                 checkNotNull(id) { "`id` is required but was not set" },
-                name,
                 description,
                 metadata,
+                name,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

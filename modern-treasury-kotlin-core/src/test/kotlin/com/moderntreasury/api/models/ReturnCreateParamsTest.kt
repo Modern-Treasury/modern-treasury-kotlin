@@ -11,11 +11,11 @@ class ReturnCreateParamsTest {
     fun createReturnCreateParams() {
         ReturnCreateParams.builder()
             .returnableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .code(ReturnCreateParams.Code._901)
-            .reason("string")
-            .dateOfDeath(LocalDate.parse("2019-12-27"))
-            .additionalInformation("string")
             .returnableType(ReturnCreateParams.ReturnableType.INCOMING_PAYMENT_DETAIL)
+            .additionalInformation("string")
+            .code(ReturnCreateParams.Code._901)
+            .dateOfDeath(LocalDate.parse("2019-12-27"))
+            .reason("string")
             .build()
     }
 
@@ -24,21 +24,21 @@ class ReturnCreateParamsTest {
         val params =
             ReturnCreateParams.builder()
                 .returnableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .code(ReturnCreateParams.Code._901)
-                .reason("string")
-                .dateOfDeath(LocalDate.parse("2019-12-27"))
-                .additionalInformation("string")
                 .returnableType(ReturnCreateParams.ReturnableType.INCOMING_PAYMENT_DETAIL)
+                .additionalInformation("string")
+                .code(ReturnCreateParams.Code._901)
+                .dateOfDeath(LocalDate.parse("2019-12-27"))
+                .reason("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.returnableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.code()).isEqualTo(ReturnCreateParams.Code._901)
-        assertThat(body.reason()).isEqualTo("string")
-        assertThat(body.dateOfDeath()).isEqualTo(LocalDate.parse("2019-12-27"))
-        assertThat(body.additionalInformation()).isEqualTo("string")
         assertThat(body.returnableType())
             .isEqualTo(ReturnCreateParams.ReturnableType.INCOMING_PAYMENT_DETAIL)
+        assertThat(body.additionalInformation()).isEqualTo("string")
+        assertThat(body.code()).isEqualTo(ReturnCreateParams.Code._901)
+        assertThat(body.dateOfDeath()).isEqualTo(LocalDate.parse("2019-12-27"))
+        assertThat(body.reason()).isEqualTo("string")
     }
 
     @Test

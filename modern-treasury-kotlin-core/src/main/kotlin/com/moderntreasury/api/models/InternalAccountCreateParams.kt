@@ -17,13 +17,13 @@ import java.util.Objects
 class InternalAccountCreateParams
 constructor(
     private val connectionId: String,
+    private val currency: Currency,
     private val name: String,
     private val partyName: String,
-    private val partyAddress: PartyAddress?,
-    private val currency: Currency,
-    private val vendorAttributes: VendorAttributes?,
-    private val parentAccountId: String?,
     private val counterpartyId: String?,
+    private val parentAccountId: String?,
+    private val partyAddress: PartyAddress?,
+    private val vendorAttributes: VendorAttributes?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -31,30 +31,30 @@ constructor(
 
     fun connectionId(): String = connectionId
 
+    fun currency(): Currency = currency
+
     fun name(): String = name
 
     fun partyName(): String = partyName
 
-    fun partyAddress(): PartyAddress? = partyAddress
-
-    fun currency(): Currency = currency
-
-    fun vendorAttributes(): VendorAttributes? = vendorAttributes
+    fun counterpartyId(): String? = counterpartyId
 
     fun parentAccountId(): String? = parentAccountId
 
-    fun counterpartyId(): String? = counterpartyId
+    fun partyAddress(): PartyAddress? = partyAddress
+
+    fun vendorAttributes(): VendorAttributes? = vendorAttributes
 
     internal fun getBody(): InternalAccountCreateBody {
         return InternalAccountCreateBody(
             connectionId,
+            currency,
             name,
             partyName,
-            partyAddress,
-            currency,
-            vendorAttributes,
-            parentAccountId,
             counterpartyId,
+            parentAccountId,
+            partyAddress,
+            vendorAttributes,
             additionalBodyProperties,
         )
     }
@@ -68,13 +68,13 @@ constructor(
     class InternalAccountCreateBody
     internal constructor(
         private val connectionId: String?,
+        private val currency: Currency?,
         private val name: String?,
         private val partyName: String?,
-        private val partyAddress: PartyAddress?,
-        private val currency: Currency?,
-        private val vendorAttributes: VendorAttributes?,
-        private val parentAccountId: String?,
         private val counterpartyId: String?,
+        private val parentAccountId: String?,
+        private val partyAddress: PartyAddress?,
+        private val vendorAttributes: VendorAttributes?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -83,17 +83,23 @@ constructor(
         /** The identifier of the financial institution the account belongs to. */
         @JsonProperty("connection_id") fun connectionId(): String? = connectionId
 
+        /** Either "USD" or "CAD". Internal accounts created at Increase only supports "USD". */
+        @JsonProperty("currency") fun currency(): Currency? = currency
+
         /** The nickname of the account. */
         @JsonProperty("name") fun name(): String? = name
 
         /** The legal name of the entity which owns the account. */
         @JsonProperty("party_name") fun partyName(): String? = partyName
 
+        /** The Counterparty associated to this account. */
+        @JsonProperty("counterparty_id") fun counterpartyId(): String? = counterpartyId
+
+        /** The parent internal account of this new account. */
+        @JsonProperty("parent_account_id") fun parentAccountId(): String? = parentAccountId
+
         /** The address associated with the owner or null. */
         @JsonProperty("party_address") fun partyAddress(): PartyAddress? = partyAddress
-
-        /** Either "USD" or "CAD". Internal accounts created at Increase only supports "USD". */
-        @JsonProperty("currency") fun currency(): Currency? = currency
 
         /**
          * A hash of vendor specific attributes that will be used when creating the account at the
@@ -101,12 +107,6 @@ constructor(
          */
         @JsonProperty("vendor_attributes")
         fun vendorAttributes(): VendorAttributes? = vendorAttributes
-
-        /** The parent internal account of this new account. */
-        @JsonProperty("parent_account_id") fun parentAccountId(): String? = parentAccountId
-
-        /** The Counterparty associated to this account. */
-        @JsonProperty("counterparty_id") fun counterpartyId(): String? = counterpartyId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -121,13 +121,13 @@ constructor(
 
             return other is InternalAccountCreateBody &&
                 this.connectionId == other.connectionId &&
+                this.currency == other.currency &&
                 this.name == other.name &&
                 this.partyName == other.partyName &&
-                this.partyAddress == other.partyAddress &&
-                this.currency == other.currency &&
-                this.vendorAttributes == other.vendorAttributes &&
-                this.parentAccountId == other.parentAccountId &&
                 this.counterpartyId == other.counterpartyId &&
+                this.parentAccountId == other.parentAccountId &&
+                this.partyAddress == other.partyAddress &&
+                this.vendorAttributes == other.vendorAttributes &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -136,13 +136,13 @@ constructor(
                 hashCode =
                     Objects.hash(
                         connectionId,
+                        currency,
                         name,
                         partyName,
-                        partyAddress,
-                        currency,
-                        vendorAttributes,
-                        parentAccountId,
                         counterpartyId,
+                        parentAccountId,
+                        partyAddress,
+                        vendorAttributes,
                         additionalProperties,
                     )
             }
@@ -150,7 +150,7 @@ constructor(
         }
 
         override fun toString() =
-            "InternalAccountCreateBody{connectionId=$connectionId, name=$name, partyName=$partyName, partyAddress=$partyAddress, currency=$currency, vendorAttributes=$vendorAttributes, parentAccountId=$parentAccountId, counterpartyId=$counterpartyId, additionalProperties=$additionalProperties}"
+            "InternalAccountCreateBody{connectionId=$connectionId, currency=$currency, name=$name, partyName=$partyName, counterpartyId=$counterpartyId, parentAccountId=$parentAccountId, partyAddress=$partyAddress, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -160,30 +160,34 @@ constructor(
         class Builder {
 
             private var connectionId: String? = null
+            private var currency: Currency? = null
             private var name: String? = null
             private var partyName: String? = null
-            private var partyAddress: PartyAddress? = null
-            private var currency: Currency? = null
-            private var vendorAttributes: VendorAttributes? = null
-            private var parentAccountId: String? = null
             private var counterpartyId: String? = null
+            private var parentAccountId: String? = null
+            private var partyAddress: PartyAddress? = null
+            private var vendorAttributes: VendorAttributes? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(internalAccountCreateBody: InternalAccountCreateBody) = apply {
                 this.connectionId = internalAccountCreateBody.connectionId
+                this.currency = internalAccountCreateBody.currency
                 this.name = internalAccountCreateBody.name
                 this.partyName = internalAccountCreateBody.partyName
-                this.partyAddress = internalAccountCreateBody.partyAddress
-                this.currency = internalAccountCreateBody.currency
-                this.vendorAttributes = internalAccountCreateBody.vendorAttributes
-                this.parentAccountId = internalAccountCreateBody.parentAccountId
                 this.counterpartyId = internalAccountCreateBody.counterpartyId
+                this.parentAccountId = internalAccountCreateBody.parentAccountId
+                this.partyAddress = internalAccountCreateBody.partyAddress
+                this.vendorAttributes = internalAccountCreateBody.vendorAttributes
                 additionalProperties(internalAccountCreateBody.additionalProperties)
             }
 
             /** The identifier of the financial institution the account belongs to. */
             @JsonProperty("connection_id")
             fun connectionId(connectionId: String) = apply { this.connectionId = connectionId }
+
+            /** Either "USD" or "CAD". Internal accounts created at Increase only supports "USD". */
+            @JsonProperty("currency")
+            fun currency(currency: Currency) = apply { this.currency = currency }
 
             /** The nickname of the account. */
             @JsonProperty("name") fun name(name: String) = apply { this.name = name }
@@ -192,23 +196,10 @@ constructor(
             @JsonProperty("party_name")
             fun partyName(partyName: String) = apply { this.partyName = partyName }
 
-            /** The address associated with the owner or null. */
-            @JsonProperty("party_address")
-            fun partyAddress(partyAddress: PartyAddress) = apply {
-                this.partyAddress = partyAddress
-            }
-
-            /** Either "USD" or "CAD". Internal accounts created at Increase only supports "USD". */
-            @JsonProperty("currency")
-            fun currency(currency: Currency) = apply { this.currency = currency }
-
-            /**
-             * A hash of vendor specific attributes that will be used when creating the account at
-             * the vendor specified by the given connection.
-             */
-            @JsonProperty("vendor_attributes")
-            fun vendorAttributes(vendorAttributes: VendorAttributes) = apply {
-                this.vendorAttributes = vendorAttributes
+            /** The Counterparty associated to this account. */
+            @JsonProperty("counterparty_id")
+            fun counterpartyId(counterpartyId: String) = apply {
+                this.counterpartyId = counterpartyId
             }
 
             /** The parent internal account of this new account. */
@@ -217,10 +208,19 @@ constructor(
                 this.parentAccountId = parentAccountId
             }
 
-            /** The Counterparty associated to this account. */
-            @JsonProperty("counterparty_id")
-            fun counterpartyId(counterpartyId: String) = apply {
-                this.counterpartyId = counterpartyId
+            /** The address associated with the owner or null. */
+            @JsonProperty("party_address")
+            fun partyAddress(partyAddress: PartyAddress) = apply {
+                this.partyAddress = partyAddress
+            }
+
+            /**
+             * A hash of vendor specific attributes that will be used when creating the account at
+             * the vendor specified by the given connection.
+             */
+            @JsonProperty("vendor_attributes")
+            fun vendorAttributes(vendorAttributes: VendorAttributes) = apply {
+                this.vendorAttributes = vendorAttributes
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -240,13 +240,13 @@ constructor(
             fun build(): InternalAccountCreateBody =
                 InternalAccountCreateBody(
                     checkNotNull(connectionId) { "`connectionId` is required but was not set" },
+                    checkNotNull(currency) { "`currency` is required but was not set" },
                     checkNotNull(name) { "`name` is required but was not set" },
                     checkNotNull(partyName) { "`partyName` is required but was not set" },
-                    partyAddress,
-                    checkNotNull(currency) { "`currency` is required but was not set" },
-                    vendorAttributes,
-                    parentAccountId,
                     counterpartyId,
+                    parentAccountId,
+                    partyAddress,
+                    vendorAttributes,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -265,13 +265,13 @@ constructor(
 
         return other is InternalAccountCreateParams &&
             this.connectionId == other.connectionId &&
+            this.currency == other.currency &&
             this.name == other.name &&
             this.partyName == other.partyName &&
-            this.partyAddress == other.partyAddress &&
-            this.currency == other.currency &&
-            this.vendorAttributes == other.vendorAttributes &&
-            this.parentAccountId == other.parentAccountId &&
             this.counterpartyId == other.counterpartyId &&
+            this.parentAccountId == other.parentAccountId &&
+            this.partyAddress == other.partyAddress &&
+            this.vendorAttributes == other.vendorAttributes &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -280,13 +280,13 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             connectionId,
+            currency,
             name,
             partyName,
-            partyAddress,
-            currency,
-            vendorAttributes,
-            parentAccountId,
             counterpartyId,
+            parentAccountId,
+            partyAddress,
+            vendorAttributes,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -294,7 +294,7 @@ constructor(
     }
 
     override fun toString() =
-        "InternalAccountCreateParams{connectionId=$connectionId, name=$name, partyName=$partyName, partyAddress=$partyAddress, currency=$currency, vendorAttributes=$vendorAttributes, parentAccountId=$parentAccountId, counterpartyId=$counterpartyId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "InternalAccountCreateParams{connectionId=$connectionId, currency=$currency, name=$name, partyName=$partyName, counterpartyId=$counterpartyId, parentAccountId=$parentAccountId, partyAddress=$partyAddress, vendorAttributes=$vendorAttributes, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -307,26 +307,26 @@ constructor(
     class Builder {
 
         private var connectionId: String? = null
+        private var currency: Currency? = null
         private var name: String? = null
         private var partyName: String? = null
-        private var partyAddress: PartyAddress? = null
-        private var currency: Currency? = null
-        private var vendorAttributes: VendorAttributes? = null
-        private var parentAccountId: String? = null
         private var counterpartyId: String? = null
+        private var parentAccountId: String? = null
+        private var partyAddress: PartyAddress? = null
+        private var vendorAttributes: VendorAttributes? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(internalAccountCreateParams: InternalAccountCreateParams) = apply {
             this.connectionId = internalAccountCreateParams.connectionId
+            this.currency = internalAccountCreateParams.currency
             this.name = internalAccountCreateParams.name
             this.partyName = internalAccountCreateParams.partyName
-            this.partyAddress = internalAccountCreateParams.partyAddress
-            this.currency = internalAccountCreateParams.currency
-            this.vendorAttributes = internalAccountCreateParams.vendorAttributes
-            this.parentAccountId = internalAccountCreateParams.parentAccountId
             this.counterpartyId = internalAccountCreateParams.counterpartyId
+            this.parentAccountId = internalAccountCreateParams.parentAccountId
+            this.partyAddress = internalAccountCreateParams.partyAddress
+            this.vendorAttributes = internalAccountCreateParams.vendorAttributes
             additionalQueryParams(internalAccountCreateParams.additionalQueryParams)
             additionalHeaders(internalAccountCreateParams.additionalHeaders)
             additionalBodyProperties(internalAccountCreateParams.additionalBodyProperties)
@@ -335,17 +335,25 @@ constructor(
         /** The identifier of the financial institution the account belongs to. */
         fun connectionId(connectionId: String) = apply { this.connectionId = connectionId }
 
+        /** Either "USD" or "CAD". Internal accounts created at Increase only supports "USD". */
+        fun currency(currency: Currency) = apply { this.currency = currency }
+
         /** The nickname of the account. */
         fun name(name: String) = apply { this.name = name }
 
         /** The legal name of the entity which owns the account. */
         fun partyName(partyName: String) = apply { this.partyName = partyName }
 
+        /** The Counterparty associated to this account. */
+        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
+
+        /** The parent internal account of this new account. */
+        fun parentAccountId(parentAccountId: String) = apply {
+            this.parentAccountId = parentAccountId
+        }
+
         /** The address associated with the owner or null. */
         fun partyAddress(partyAddress: PartyAddress) = apply { this.partyAddress = partyAddress }
-
-        /** Either "USD" or "CAD". Internal accounts created at Increase only supports "USD". */
-        fun currency(currency: Currency) = apply { this.currency = currency }
 
         /**
          * A hash of vendor specific attributes that will be used when creating the account at the
@@ -354,14 +362,6 @@ constructor(
         fun vendorAttributes(vendorAttributes: VendorAttributes) = apply {
             this.vendorAttributes = vendorAttributes
         }
-
-        /** The parent internal account of this new account. */
-        fun parentAccountId(parentAccountId: String) = apply {
-            this.parentAccountId = parentAccountId
-        }
-
-        /** The Counterparty associated to this account. */
-        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -420,13 +420,13 @@ constructor(
         fun build(): InternalAccountCreateParams =
             InternalAccountCreateParams(
                 checkNotNull(connectionId) { "`connectionId` is required but was not set" },
+                checkNotNull(currency) { "`currency` is required but was not set" },
                 checkNotNull(name) { "`name` is required but was not set" },
                 checkNotNull(partyName) { "`partyName` is required but was not set" },
-                partyAddress,
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                vendorAttributes,
-                parentAccountId,
                 counterpartyId,
+                parentAccountId,
+                partyAddress,
+                vendorAttributes,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

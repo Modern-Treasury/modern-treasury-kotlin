@@ -23,8 +23,11 @@ class InternalAccountServiceTest {
             internalAccountService.create(
                 InternalAccountCreateParams.builder()
                     .connectionId("string")
+                    .currency(InternalAccountCreateParams.Currency.USD)
                     .name("string")
                     .partyName("string")
+                    .counterpartyId("string")
+                    .parentAccountId("string")
                     .partyAddress(
                         InternalAccountCreateParams.PartyAddress.builder()
                             .country("string")
@@ -35,12 +38,9 @@ class InternalAccountServiceTest {
                             .line2("string")
                             .build()
                     )
-                    .currency(InternalAccountCreateParams.Currency.USD)
                     .vendorAttributes(
                         InternalAccountCreateParams.VendorAttributes.builder().build()
                     )
-                    .parentAccountId("string")
-                    .counterpartyId("string")
                     .build()
             )
         println(internalAccount)
@@ -77,10 +77,10 @@ class InternalAccountServiceTest {
             internalAccountService.update(
                 InternalAccountUpdateParams.builder()
                     .id("string")
-                    .name("string")
-                    .metadata(InternalAccountUpdateParams.Metadata.builder().build())
-                    .parentAccountId("string")
                     .counterpartyId("string")
+                    .metadata(InternalAccountUpdateParams.Metadata.builder().build())
+                    .name("string")
+                    .parentAccountId("string")
                     .build()
             )
         println(internalAccount)

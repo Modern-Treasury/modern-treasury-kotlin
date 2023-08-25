@@ -17,9 +17,9 @@ import java.util.Objects
 class PaymentFlowCreateParams
 constructor(
     private val amount: Long,
+    private val counterpartyId: String,
     private val currency: String,
     private val direction: Direction,
-    private val counterpartyId: String,
     private val originatingAccountId: String,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -28,20 +28,20 @@ constructor(
 
     fun amount(): Long = amount
 
+    fun counterpartyId(): String = counterpartyId
+
     fun currency(): String = currency
 
     fun direction(): Direction = direction
-
-    fun counterpartyId(): String = counterpartyId
 
     fun originatingAccountId(): String = originatingAccountId
 
     internal fun getBody(): PaymentFlowCreateBody {
         return PaymentFlowCreateBody(
             amount,
+            counterpartyId,
             currency,
             direction,
-            counterpartyId,
             originatingAccountId,
             additionalBodyProperties,
         )
@@ -56,9 +56,9 @@ constructor(
     class PaymentFlowCreateBody
     internal constructor(
         private val amount: Long?,
+        private val counterpartyId: String?,
         private val currency: String?,
         private val direction: Direction?,
-        private val counterpartyId: String?,
         private val originatingAccountId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -71,6 +71,12 @@ constructor(
          */
         @JsonProperty("amount") fun amount(): Long? = amount
 
+        /**
+         * Required. The ID of a counterparty associated with the payment. As part of the payment
+         * workflow an external account will be associated with this model.
+         */
+        @JsonProperty("counterparty_id") fun counterpartyId(): String? = counterpartyId
+
         /** Required. The currency of the payment. */
         @JsonProperty("currency") fun currency(): String? = currency
 
@@ -79,12 +85,6 @@ constructor(
          * `debit`. A `debit` pulls money from someone else's account to your own.
          */
         @JsonProperty("direction") fun direction(): Direction? = direction
-
-        /**
-         * Required. The ID of a counterparty associated with the payment. As part of the payment
-         * workflow an external account will be associated with this model.
-         */
-        @JsonProperty("counterparty_id") fun counterpartyId(): String? = counterpartyId
 
         /** Required. The ID of one of your organization's internal accounts. */
         @JsonProperty("originating_account_id")
@@ -103,9 +103,9 @@ constructor(
 
             return other is PaymentFlowCreateBody &&
                 this.amount == other.amount &&
+                this.counterpartyId == other.counterpartyId &&
                 this.currency == other.currency &&
                 this.direction == other.direction &&
-                this.counterpartyId == other.counterpartyId &&
                 this.originatingAccountId == other.originatingAccountId &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -115,9 +115,9 @@ constructor(
                 hashCode =
                     Objects.hash(
                         amount,
+                        counterpartyId,
                         currency,
                         direction,
-                        counterpartyId,
                         originatingAccountId,
                         additionalProperties,
                     )
@@ -126,7 +126,7 @@ constructor(
         }
 
         override fun toString() =
-            "PaymentFlowCreateBody{amount=$amount, currency=$currency, direction=$direction, counterpartyId=$counterpartyId, originatingAccountId=$originatingAccountId, additionalProperties=$additionalProperties}"
+            "PaymentFlowCreateBody{amount=$amount, counterpartyId=$counterpartyId, currency=$currency, direction=$direction, originatingAccountId=$originatingAccountId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -136,17 +136,17 @@ constructor(
         class Builder {
 
             private var amount: Long? = null
+            private var counterpartyId: String? = null
             private var currency: String? = null
             private var direction: Direction? = null
-            private var counterpartyId: String? = null
             private var originatingAccountId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(paymentFlowCreateBody: PaymentFlowCreateBody) = apply {
                 this.amount = paymentFlowCreateBody.amount
+                this.counterpartyId = paymentFlowCreateBody.counterpartyId
                 this.currency = paymentFlowCreateBody.currency
                 this.direction = paymentFlowCreateBody.direction
-                this.counterpartyId = paymentFlowCreateBody.counterpartyId
                 this.originatingAccountId = paymentFlowCreateBody.originatingAccountId
                 additionalProperties(paymentFlowCreateBody.additionalProperties)
             }
@@ -156,6 +156,15 @@ constructor(
              * as 1000. Can be any integer up to 36 digits.
              */
             @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+
+            /**
+             * Required. The ID of a counterparty associated with the payment. As part of the
+             * payment workflow an external account will be associated with this model.
+             */
+            @JsonProperty("counterparty_id")
+            fun counterpartyId(counterpartyId: String) = apply {
+                this.counterpartyId = counterpartyId
+            }
 
             /** Required. The currency of the payment. */
             @JsonProperty("currency")
@@ -167,15 +176,6 @@ constructor(
              */
             @JsonProperty("direction")
             fun direction(direction: Direction) = apply { this.direction = direction }
-
-            /**
-             * Required. The ID of a counterparty associated with the payment. As part of the
-             * payment workflow an external account will be associated with this model.
-             */
-            @JsonProperty("counterparty_id")
-            fun counterpartyId(counterpartyId: String) = apply {
-                this.counterpartyId = counterpartyId
-            }
 
             /** Required. The ID of one of your organization's internal accounts. */
             @JsonProperty("originating_account_id")
@@ -200,9 +200,9 @@ constructor(
             fun build(): PaymentFlowCreateBody =
                 PaymentFlowCreateBody(
                     checkNotNull(amount) { "`amount` is required but was not set" },
+                    checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
                     checkNotNull(currency) { "`currency` is required but was not set" },
                     checkNotNull(direction) { "`direction` is required but was not set" },
-                    checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
                     checkNotNull(originatingAccountId) {
                         "`originatingAccountId` is required but was not set"
                     },
@@ -224,9 +224,9 @@ constructor(
 
         return other is PaymentFlowCreateParams &&
             this.amount == other.amount &&
+            this.counterpartyId == other.counterpartyId &&
             this.currency == other.currency &&
             this.direction == other.direction &&
-            this.counterpartyId == other.counterpartyId &&
             this.originatingAccountId == other.originatingAccountId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -236,9 +236,9 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             amount,
+            counterpartyId,
             currency,
             direction,
-            counterpartyId,
             originatingAccountId,
             additionalQueryParams,
             additionalHeaders,
@@ -247,7 +247,7 @@ constructor(
     }
 
     override fun toString() =
-        "PaymentFlowCreateParams{amount=$amount, currency=$currency, direction=$direction, counterpartyId=$counterpartyId, originatingAccountId=$originatingAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "PaymentFlowCreateParams{amount=$amount, counterpartyId=$counterpartyId, currency=$currency, direction=$direction, originatingAccountId=$originatingAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -260,9 +260,9 @@ constructor(
     class Builder {
 
         private var amount: Long? = null
+        private var counterpartyId: String? = null
         private var currency: String? = null
         private var direction: Direction? = null
-        private var counterpartyId: String? = null
         private var originatingAccountId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -270,9 +270,9 @@ constructor(
 
         internal fun from(paymentFlowCreateParams: PaymentFlowCreateParams) = apply {
             this.amount = paymentFlowCreateParams.amount
+            this.counterpartyId = paymentFlowCreateParams.counterpartyId
             this.currency = paymentFlowCreateParams.currency
             this.direction = paymentFlowCreateParams.direction
-            this.counterpartyId = paymentFlowCreateParams.counterpartyId
             this.originatingAccountId = paymentFlowCreateParams.originatingAccountId
             additionalQueryParams(paymentFlowCreateParams.additionalQueryParams)
             additionalHeaders(paymentFlowCreateParams.additionalHeaders)
@@ -285,6 +285,12 @@ constructor(
          */
         fun amount(amount: Long) = apply { this.amount = amount }
 
+        /**
+         * Required. The ID of a counterparty associated with the payment. As part of the payment
+         * workflow an external account will be associated with this model.
+         */
+        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
+
         /** Required. The currency of the payment. */
         fun currency(currency: String) = apply { this.currency = currency }
 
@@ -293,12 +299,6 @@ constructor(
          * `debit`. A `debit` pulls money from someone else's account to your own.
          */
         fun direction(direction: Direction) = apply { this.direction = direction }
-
-        /**
-         * Required. The ID of a counterparty associated with the payment. As part of the payment
-         * workflow an external account will be associated with this model.
-         */
-        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
 
         /** Required. The ID of one of your organization's internal accounts. */
         fun originatingAccountId(originatingAccountId: String) = apply {
@@ -362,9 +362,9 @@ constructor(
         fun build(): PaymentFlowCreateParams =
             PaymentFlowCreateParams(
                 checkNotNull(amount) { "`amount` is required but was not set" },
+                checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
                 checkNotNull(currency) { "`currency` is required but was not set" },
                 checkNotNull(direction) { "`direction` is required but was not set" },
-                checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
                 checkNotNull(originatingAccountId) {
                     "`originatingAccountId` is required but was not set"
                 },

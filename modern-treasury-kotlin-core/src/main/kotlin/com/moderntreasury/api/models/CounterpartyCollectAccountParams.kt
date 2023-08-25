@@ -18,9 +18,9 @@ class CounterpartyCollectAccountParams
 constructor(
     private val id: String,
     private val direction: Direction,
-    private val sendEmail: Boolean?,
-    private val fields: List<Field>?,
     private val customRedirect: String?,
+    private val fields: List<Field>?,
+    private val sendEmail: Boolean?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -30,18 +30,18 @@ constructor(
 
     fun direction(): Direction = direction
 
-    fun sendEmail(): Boolean? = sendEmail
+    fun customRedirect(): String? = customRedirect
 
     fun fields(): List<Field>? = fields
 
-    fun customRedirect(): String? = customRedirect
+    fun sendEmail(): Boolean? = sendEmail
 
     internal fun getBody(): CounterpartyCollectAccountBody {
         return CounterpartyCollectAccountBody(
             direction,
-            sendEmail,
-            fields,
             customRedirect,
+            fields,
+            sendEmail,
             additionalBodyProperties,
         )
     }
@@ -62,9 +62,9 @@ constructor(
     class CounterpartyCollectAccountBody
     internal constructor(
         private val direction: Direction?,
-        private val sendEmail: Boolean?,
-        private val fields: List<Field>?,
         private val customRedirect: String?,
+        private val fields: List<Field>?,
+        private val sendEmail: Boolean?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -78,12 +78,10 @@ constructor(
         @JsonProperty("direction") fun direction(): Direction? = direction
 
         /**
-         * By default, Modern Treasury will send an email to your counterparty that includes a link
-         * to the form they must fill out. However, if you would like to send the counterparty the
-         * link, you can set this parameter to `false`. The JSON body will include the link to the
-         * secure Modern Treasury form.
+         * The URL you want your customer to visit upon filling out the form. By default, they will
+         * be sent to a Modern Treasury landing page. This must be a valid HTTPS URL if set.
          */
-        @JsonProperty("send_email") fun sendEmail(): Boolean? = sendEmail
+        @JsonProperty("custom_redirect") fun customRedirect(): String? = customRedirect
 
         /**
          * The list of fields you want on the form. This field is optional and if it is not set,
@@ -95,10 +93,12 @@ constructor(
         @JsonProperty("fields") fun fields(): List<Field>? = fields
 
         /**
-         * The URL you want your customer to visit upon filling out the form. By default, they will
-         * be sent to a Modern Treasury landing page. This must be a valid HTTPS URL if set.
+         * By default, Modern Treasury will send an email to your counterparty that includes a link
+         * to the form they must fill out. However, if you would like to send the counterparty the
+         * link, you can set this parameter to `false`. The JSON body will include the link to the
+         * secure Modern Treasury form.
          */
-        @JsonProperty("custom_redirect") fun customRedirect(): String? = customRedirect
+        @JsonProperty("send_email") fun sendEmail(): Boolean? = sendEmail
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -113,9 +113,9 @@ constructor(
 
             return other is CounterpartyCollectAccountBody &&
                 this.direction == other.direction &&
-                this.sendEmail == other.sendEmail &&
-                this.fields == other.fields &&
                 this.customRedirect == other.customRedirect &&
+                this.fields == other.fields &&
+                this.sendEmail == other.sendEmail &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -124,9 +124,9 @@ constructor(
                 hashCode =
                     Objects.hash(
                         direction,
-                        sendEmail,
-                        fields,
                         customRedirect,
+                        fields,
+                        sendEmail,
                         additionalProperties,
                     )
             }
@@ -134,7 +134,7 @@ constructor(
         }
 
         override fun toString() =
-            "CounterpartyCollectAccountBody{direction=$direction, sendEmail=$sendEmail, fields=$fields, customRedirect=$customRedirect, additionalProperties=$additionalProperties}"
+            "CounterpartyCollectAccountBody{direction=$direction, customRedirect=$customRedirect, fields=$fields, sendEmail=$sendEmail, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -144,17 +144,17 @@ constructor(
         class Builder {
 
             private var direction: Direction? = null
-            private var sendEmail: Boolean? = null
-            private var fields: List<Field>? = null
             private var customRedirect: String? = null
+            private var fields: List<Field>? = null
+            private var sendEmail: Boolean? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(counterpartyCollectAccountBody: CounterpartyCollectAccountBody) =
                 apply {
                     this.direction = counterpartyCollectAccountBody.direction
-                    this.sendEmail = counterpartyCollectAccountBody.sendEmail
-                    this.fields = counterpartyCollectAccountBody.fields
                     this.customRedirect = counterpartyCollectAccountBody.customRedirect
+                    this.fields = counterpartyCollectAccountBody.fields
+                    this.sendEmail = counterpartyCollectAccountBody.sendEmail
                     additionalProperties(counterpartyCollectAccountBody.additionalProperties)
                 }
 
@@ -167,13 +167,14 @@ constructor(
             fun direction(direction: Direction) = apply { this.direction = direction }
 
             /**
-             * By default, Modern Treasury will send an email to your counterparty that includes a
-             * link to the form they must fill out. However, if you would like to send the
-             * counterparty the link, you can set this parameter to `false`. The JSON body will
-             * include the link to the secure Modern Treasury form.
+             * The URL you want your customer to visit upon filling out the form. By default, they
+             * will be sent to a Modern Treasury landing page. This must be a valid HTTPS URL if
+             * set.
              */
-            @JsonProperty("send_email")
-            fun sendEmail(sendEmail: Boolean) = apply { this.sendEmail = sendEmail }
+            @JsonProperty("custom_redirect")
+            fun customRedirect(customRedirect: String) = apply {
+                this.customRedirect = customRedirect
+            }
 
             /**
              * The list of fields you want on the form. This field is optional and if it is not set,
@@ -185,14 +186,13 @@ constructor(
             @JsonProperty("fields") fun fields(fields: List<Field>) = apply { this.fields = fields }
 
             /**
-             * The URL you want your customer to visit upon filling out the form. By default, they
-             * will be sent to a Modern Treasury landing page. This must be a valid HTTPS URL if
-             * set.
+             * By default, Modern Treasury will send an email to your counterparty that includes a
+             * link to the form they must fill out. However, if you would like to send the
+             * counterparty the link, you can set this parameter to `false`. The JSON body will
+             * include the link to the secure Modern Treasury form.
              */
-            @JsonProperty("custom_redirect")
-            fun customRedirect(customRedirect: String) = apply {
-                this.customRedirect = customRedirect
-            }
+            @JsonProperty("send_email")
+            fun sendEmail(sendEmail: Boolean) = apply { this.sendEmail = sendEmail }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -211,9 +211,9 @@ constructor(
             fun build(): CounterpartyCollectAccountBody =
                 CounterpartyCollectAccountBody(
                     checkNotNull(direction) { "`direction` is required but was not set" },
-                    sendEmail,
-                    fields?.toUnmodifiable(),
                     customRedirect,
+                    fields?.toUnmodifiable(),
+                    sendEmail,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -233,9 +233,9 @@ constructor(
         return other is CounterpartyCollectAccountParams &&
             this.id == other.id &&
             this.direction == other.direction &&
-            this.sendEmail == other.sendEmail &&
-            this.fields == other.fields &&
             this.customRedirect == other.customRedirect &&
+            this.fields == other.fields &&
+            this.sendEmail == other.sendEmail &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -245,9 +245,9 @@ constructor(
         return Objects.hash(
             id,
             direction,
-            sendEmail,
-            fields,
             customRedirect,
+            fields,
+            sendEmail,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -255,7 +255,7 @@ constructor(
     }
 
     override fun toString() =
-        "CounterpartyCollectAccountParams{id=$id, direction=$direction, sendEmail=$sendEmail, fields=$fields, customRedirect=$customRedirect, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "CounterpartyCollectAccountParams{id=$id, direction=$direction, customRedirect=$customRedirect, fields=$fields, sendEmail=$sendEmail, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -269,9 +269,9 @@ constructor(
 
         private var id: String? = null
         private var direction: Direction? = null
-        private var sendEmail: Boolean? = null
-        private var fields: MutableList<Field> = mutableListOf()
         private var customRedirect: String? = null
+        private var fields: MutableList<Field> = mutableListOf()
+        private var sendEmail: Boolean? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -280,9 +280,9 @@ constructor(
             apply {
                 this.id = counterpartyCollectAccountParams.id
                 this.direction = counterpartyCollectAccountParams.direction
-                this.sendEmail = counterpartyCollectAccountParams.sendEmail
-                this.fields(counterpartyCollectAccountParams.fields ?: listOf())
                 this.customRedirect = counterpartyCollectAccountParams.customRedirect
+                this.fields(counterpartyCollectAccountParams.fields ?: listOf())
+                this.sendEmail = counterpartyCollectAccountParams.sendEmail
                 additionalQueryParams(counterpartyCollectAccountParams.additionalQueryParams)
                 additionalHeaders(counterpartyCollectAccountParams.additionalHeaders)
                 additionalBodyProperties(counterpartyCollectAccountParams.additionalBodyProperties)
@@ -298,12 +298,10 @@ constructor(
         fun direction(direction: Direction) = apply { this.direction = direction }
 
         /**
-         * By default, Modern Treasury will send an email to your counterparty that includes a link
-         * to the form they must fill out. However, if you would like to send the counterparty the
-         * link, you can set this parameter to `false`. The JSON body will include the link to the
-         * secure Modern Treasury form.
+         * The URL you want your customer to visit upon filling out the form. By default, they will
+         * be sent to a Modern Treasury landing page. This must be a valid HTTPS URL if set.
          */
-        fun sendEmail(sendEmail: Boolean) = apply { this.sendEmail = sendEmail }
+        fun customRedirect(customRedirect: String) = apply { this.customRedirect = customRedirect }
 
         /**
          * The list of fields you want on the form. This field is optional and if it is not set,
@@ -327,10 +325,12 @@ constructor(
         fun addField(field: Field) = apply { this.fields.add(field) }
 
         /**
-         * The URL you want your customer to visit upon filling out the form. By default, they will
-         * be sent to a Modern Treasury landing page. This must be a valid HTTPS URL if set.
+         * By default, Modern Treasury will send an email to your counterparty that includes a link
+         * to the form they must fill out. However, if you would like to send the counterparty the
+         * link, you can set this parameter to `false`. The JSON body will include the link to the
+         * secure Modern Treasury form.
          */
-        fun customRedirect(customRedirect: String) = apply { this.customRedirect = customRedirect }
+        fun sendEmail(sendEmail: Boolean) = apply { this.sendEmail = sendEmail }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -390,9 +390,9 @@ constructor(
             CounterpartyCollectAccountParams(
                 checkNotNull(id) { "`id` is required but was not set" },
                 checkNotNull(direction) { "`direction` is required but was not set" },
-                sendEmail,
-                if (fields.size == 0) null else fields.toUnmodifiable(),
                 customRedirect,
+                if (fields.size == 0) null else fields.toUnmodifiable(),
+                sendEmail,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

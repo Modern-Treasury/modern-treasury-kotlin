@@ -10,8 +10,11 @@ class InternalAccountCreateParamsTest {
     fun createInternalAccountCreateParams() {
         InternalAccountCreateParams.builder()
             .connectionId("string")
+            .currency(InternalAccountCreateParams.Currency.USD)
             .name("string")
             .partyName("string")
+            .counterpartyId("string")
+            .parentAccountId("string")
             .partyAddress(
                 InternalAccountCreateParams.PartyAddress.builder()
                     .country("string")
@@ -22,10 +25,7 @@ class InternalAccountCreateParamsTest {
                     .line2("string")
                     .build()
             )
-            .currency(InternalAccountCreateParams.Currency.USD)
             .vendorAttributes(InternalAccountCreateParams.VendorAttributes.builder().build())
-            .parentAccountId("string")
-            .counterpartyId("string")
             .build()
     }
 
@@ -34,8 +34,11 @@ class InternalAccountCreateParamsTest {
         val params =
             InternalAccountCreateParams.builder()
                 .connectionId("string")
+                .currency(InternalAccountCreateParams.Currency.USD)
                 .name("string")
                 .partyName("string")
+                .counterpartyId("string")
+                .parentAccountId("string")
                 .partyAddress(
                     InternalAccountCreateParams.PartyAddress.builder()
                         .country("string")
@@ -46,16 +49,16 @@ class InternalAccountCreateParamsTest {
                         .line2("string")
                         .build()
                 )
-                .currency(InternalAccountCreateParams.Currency.USD)
                 .vendorAttributes(InternalAccountCreateParams.VendorAttributes.builder().build())
-                .parentAccountId("string")
-                .counterpartyId("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.connectionId()).isEqualTo("string")
+        assertThat(body.currency()).isEqualTo(InternalAccountCreateParams.Currency.USD)
         assertThat(body.name()).isEqualTo("string")
         assertThat(body.partyName()).isEqualTo("string")
+        assertThat(body.counterpartyId()).isEqualTo("string")
+        assertThat(body.parentAccountId()).isEqualTo("string")
         assertThat(body.partyAddress())
             .isEqualTo(
                 InternalAccountCreateParams.PartyAddress.builder()
@@ -67,11 +70,8 @@ class InternalAccountCreateParamsTest {
                     .line2("string")
                     .build()
             )
-        assertThat(body.currency()).isEqualTo(InternalAccountCreateParams.Currency.USD)
         assertThat(body.vendorAttributes())
             .isEqualTo(InternalAccountCreateParams.VendorAttributes.builder().build())
-        assertThat(body.parentAccountId()).isEqualTo("string")
-        assertThat(body.counterpartyId()).isEqualTo("string")
     }
 
     @Test
@@ -79,15 +79,15 @@ class InternalAccountCreateParamsTest {
         val params =
             InternalAccountCreateParams.builder()
                 .connectionId("string")
+                .currency(InternalAccountCreateParams.Currency.USD)
                 .name("string")
                 .partyName("string")
-                .currency(InternalAccountCreateParams.Currency.USD)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.connectionId()).isEqualTo("string")
+        assertThat(body.currency()).isEqualTo(InternalAccountCreateParams.Currency.USD)
         assertThat(body.name()).isEqualTo("string")
         assertThat(body.partyName()).isEqualTo("string")
-        assertThat(body.currency()).isEqualTo(InternalAccountCreateParams.Currency.USD)
     }
 }

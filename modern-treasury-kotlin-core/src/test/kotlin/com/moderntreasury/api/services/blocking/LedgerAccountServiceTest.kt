@@ -24,12 +24,12 @@ class LedgerAccountServiceTest {
         val ledgerAccount =
             ledgerAccountService.create(
                 LedgerAccountCreateParams.builder()
-                    .name("string")
-                    .description("string")
-                    .normalBalance(LedgerAccountCreateParams.NormalBalance.CREDIT)
-                    .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .currency("string")
+                    .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .name("string")
+                    .normalBalance(LedgerAccountCreateParams.NormalBalance.CREDIT)
                     .currencyExponent(123L)
+                    .description("string")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(LedgerAccountCreateParams.LedgerableType.EXTERNAL_ACCOUNT)
                     .metadata(LedgerAccountCreateParams.Metadata.builder().build())
@@ -80,9 +80,9 @@ class LedgerAccountServiceTest {
             ledgerAccountService.update(
                 LedgerAccountUpdateParams.builder()
                     .id("string")
-                    .name("string")
                     .description("string")
                     .metadata(LedgerAccountUpdateParams.Metadata.builder().build())
+                    .name("string")
                     .build()
             )
         println(ledgerAccount)

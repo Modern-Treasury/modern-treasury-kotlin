@@ -12,8 +12,6 @@ class LedgerTransactionUpdateParamsTest {
         LedgerTransactionUpdateParams.builder()
             .id("string")
             .description("string")
-            .status(LedgerTransactionUpdateParams.Status.ARCHIVED)
-            .metadata(LedgerTransactionUpdateParams.Metadata.builder().build())
             .effectiveAt(LocalDate.parse("2019-12-27"))
             .ledgerEntries(
                 listOf(
@@ -51,6 +49,8 @@ class LedgerTransactionUpdateParamsTest {
                         .build()
                 )
             )
+            .metadata(LedgerTransactionUpdateParams.Metadata.builder().build())
+            .status(LedgerTransactionUpdateParams.Status.ARCHIVED)
             .build()
     }
 
@@ -60,8 +60,6 @@ class LedgerTransactionUpdateParamsTest {
             LedgerTransactionUpdateParams.builder()
                 .id("string")
                 .description("string")
-                .status(LedgerTransactionUpdateParams.Status.ARCHIVED)
-                .metadata(LedgerTransactionUpdateParams.Metadata.builder().build())
                 .effectiveAt(LocalDate.parse("2019-12-27"))
                 .ledgerEntries(
                     listOf(
@@ -100,13 +98,12 @@ class LedgerTransactionUpdateParamsTest {
                             .build()
                     )
                 )
+                .metadata(LedgerTransactionUpdateParams.Metadata.builder().build())
+                .status(LedgerTransactionUpdateParams.Status.ARCHIVED)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.description()).isEqualTo("string")
-        assertThat(body.status()).isEqualTo(LedgerTransactionUpdateParams.Status.ARCHIVED)
-        assertThat(body.metadata())
-            .isEqualTo(LedgerTransactionUpdateParams.Metadata.builder().build())
         assertThat(body.effectiveAt()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.ledgerEntries())
             .isEqualTo(
@@ -145,6 +142,9 @@ class LedgerTransactionUpdateParamsTest {
                         .build()
                 )
             )
+        assertThat(body.metadata())
+            .isEqualTo(LedgerTransactionUpdateParams.Metadata.builder().build())
+        assertThat(body.status()).isEqualTo(LedgerTransactionUpdateParams.Status.ARCHIVED)
     }
 
     @Test
