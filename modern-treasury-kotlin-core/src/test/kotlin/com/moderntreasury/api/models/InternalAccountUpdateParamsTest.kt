@@ -10,10 +10,10 @@ class InternalAccountUpdateParamsTest {
     fun createInternalAccountUpdateParams() {
         InternalAccountUpdateParams.builder()
             .id("string")
-            .name("string")
-            .metadata(InternalAccountUpdateParams.Metadata.builder().build())
-            .parentAccountId("string")
             .counterpartyId("string")
+            .metadata(InternalAccountUpdateParams.Metadata.builder().build())
+            .name("string")
+            .parentAccountId("string")
             .build()
     }
 
@@ -22,18 +22,18 @@ class InternalAccountUpdateParamsTest {
         val params =
             InternalAccountUpdateParams.builder()
                 .id("string")
-                .name("string")
-                .metadata(InternalAccountUpdateParams.Metadata.builder().build())
-                .parentAccountId("string")
                 .counterpartyId("string")
+                .metadata(InternalAccountUpdateParams.Metadata.builder().build())
+                .name("string")
+                .parentAccountId("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.name()).isEqualTo("string")
+        assertThat(body.counterpartyId()).isEqualTo("string")
         assertThat(body.metadata())
             .isEqualTo(InternalAccountUpdateParams.Metadata.builder().build())
+        assertThat(body.name()).isEqualTo("string")
         assertThat(body.parentAccountId()).isEqualTo("string")
-        assertThat(body.counterpartyId()).isEqualTo("string")
     }
 
     @Test

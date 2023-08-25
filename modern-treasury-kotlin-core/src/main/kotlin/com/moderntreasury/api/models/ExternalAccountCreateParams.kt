@@ -16,65 +16,65 @@ import java.util.Objects
 
 class ExternalAccountCreateParams
 constructor(
-    private val accountType: ExternalAccountType?,
-    private val partyType: PartyType?,
-    private val partyAddress: AddressRequest?,
-    private val name: String?,
     private val counterpartyId: String?,
     private val accountDetails: List<AccountDetail>?,
-    private val routingDetails: List<RoutingDetail>?,
-    private val metadata: Metadata?,
-    private val partyName: String?,
-    private val partyIdentifier: String?,
-    private val ledgerAccount: LedgerAccountCreateRequest?,
-    private val plaidProcessorToken: String?,
+    private val accountType: ExternalAccountType?,
     private val contactDetails: List<ContactDetailCreateRequest>?,
+    private val ledgerAccount: LedgerAccountCreateRequest?,
+    private val metadata: Metadata?,
+    private val name: String?,
+    private val partyAddress: AddressRequest?,
+    private val partyIdentifier: String?,
+    private val partyName: String?,
+    private val partyType: PartyType?,
+    private val plaidProcessorToken: String?,
+    private val routingDetails: List<RoutingDetail>?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun accountType(): ExternalAccountType? = accountType
-
-    fun partyType(): PartyType? = partyType
-
-    fun partyAddress(): AddressRequest? = partyAddress
-
-    fun name(): String? = name
-
     fun counterpartyId(): String? = counterpartyId
 
     fun accountDetails(): List<AccountDetail>? = accountDetails
 
-    fun routingDetails(): List<RoutingDetail>? = routingDetails
-
-    fun metadata(): Metadata? = metadata
-
-    fun partyName(): String? = partyName
-
-    fun partyIdentifier(): String? = partyIdentifier
-
-    fun ledgerAccount(): LedgerAccountCreateRequest? = ledgerAccount
-
-    fun plaidProcessorToken(): String? = plaidProcessorToken
+    fun accountType(): ExternalAccountType? = accountType
 
     fun contactDetails(): List<ContactDetailCreateRequest>? = contactDetails
 
+    fun ledgerAccount(): LedgerAccountCreateRequest? = ledgerAccount
+
+    fun metadata(): Metadata? = metadata
+
+    fun name(): String? = name
+
+    fun partyAddress(): AddressRequest? = partyAddress
+
+    fun partyIdentifier(): String? = partyIdentifier
+
+    fun partyName(): String? = partyName
+
+    fun partyType(): PartyType? = partyType
+
+    fun plaidProcessorToken(): String? = plaidProcessorToken
+
+    fun routingDetails(): List<RoutingDetail>? = routingDetails
+
     internal fun getBody(): ExternalAccountCreateBody {
         return ExternalAccountCreateBody(
-            accountType,
-            partyType,
-            partyAddress,
-            name,
             counterpartyId,
             accountDetails,
-            routingDetails,
-            metadata,
-            partyName,
-            partyIdentifier,
-            ledgerAccount,
-            plaidProcessorToken,
+            accountType,
             contactDetails,
+            ledgerAccount,
+            metadata,
+            name,
+            partyAddress,
+            partyIdentifier,
+            partyName,
+            partyType,
+            plaidProcessorToken,
+            routingDetails,
             additionalBodyProperties,
         )
     }
@@ -87,54 +87,33 @@ constructor(
     @NoAutoDetect
     class ExternalAccountCreateBody
     internal constructor(
-        private val accountType: ExternalAccountType?,
-        private val partyType: PartyType?,
-        private val partyAddress: AddressRequest?,
-        private val name: String?,
         private val counterpartyId: String?,
         private val accountDetails: List<AccountDetail>?,
-        private val routingDetails: List<RoutingDetail>?,
-        private val metadata: Metadata?,
-        private val partyName: String?,
-        private val partyIdentifier: String?,
-        private val ledgerAccount: LedgerAccountCreateRequest?,
-        private val plaidProcessorToken: String?,
+        private val accountType: ExternalAccountType?,
         private val contactDetails: List<ContactDetailCreateRequest>?,
+        private val ledgerAccount: LedgerAccountCreateRequest?,
+        private val metadata: Metadata?,
+        private val name: String?,
+        private val partyAddress: AddressRequest?,
+        private val partyIdentifier: String?,
+        private val partyName: String?,
+        private val partyType: PartyType?,
+        private val plaidProcessorToken: String?,
+        private val routingDetails: List<RoutingDetail>?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
-        /** Can be `checking`, `savings` or `other`. */
-        @JsonProperty("account_type") fun accountType(): ExternalAccountType? = accountType
-
-        /** Either `individual` or `business`. */
-        @JsonProperty("party_type") fun partyType(): PartyType? = partyType
-
-        /** Required if receiving wire payments. */
-        @JsonProperty("party_address") fun partyAddress(): AddressRequest? = partyAddress
-
-        /**
-         * A nickname for the external account. This is only for internal usage and won't affect any
-         * payments
-         */
-        @JsonProperty("name") fun name(): String? = name
-
         @JsonProperty("counterparty_id") fun counterpartyId(): String? = counterpartyId
 
         @JsonProperty("account_details") fun accountDetails(): List<AccountDetail>? = accountDetails
 
-        @JsonProperty("routing_details") fun routingDetails(): List<RoutingDetail>? = routingDetails
+        /** Can be `checking`, `savings` or `other`. */
+        @JsonProperty("account_type") fun accountType(): ExternalAccountType? = accountType
 
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
-
-        /** If this value isn't provided, it will be inherited from the counterparty's name. */
-        @JsonProperty("party_name") fun partyName(): String? = partyName
-
-        @JsonProperty("party_identifier") fun partyIdentifier(): String? = partyIdentifier
+        @JsonProperty("contact_details")
+        fun contactDetails(): List<ContactDetailCreateRequest>? = contactDetails
 
         /**
          * Specifies a ledger account object that will be created with the external account. The
@@ -147,14 +126,35 @@ constructor(
         fun ledgerAccount(): LedgerAccountCreateRequest? = ledgerAccount
 
         /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+
+        /**
+         * A nickname for the external account. This is only for internal usage and won't affect any
+         * payments
+         */
+        @JsonProperty("name") fun name(): String? = name
+
+        /** Required if receiving wire payments. */
+        @JsonProperty("party_address") fun partyAddress(): AddressRequest? = partyAddress
+
+        @JsonProperty("party_identifier") fun partyIdentifier(): String? = partyIdentifier
+
+        /** If this value isn't provided, it will be inherited from the counterparty's name. */
+        @JsonProperty("party_name") fun partyName(): String? = partyName
+
+        /** Either `individual` or `business`. */
+        @JsonProperty("party_type") fun partyType(): PartyType? = partyType
+
+        /**
          * If you've enabled the Modern Treasury + Plaid integration in your Plaid account, you can
          * pass the processor token in this field.
          */
         @JsonProperty("plaid_processor_token")
         fun plaidProcessorToken(): String? = plaidProcessorToken
 
-        @JsonProperty("contact_details")
-        fun contactDetails(): List<ContactDetailCreateRequest>? = contactDetails
+        @JsonProperty("routing_details") fun routingDetails(): List<RoutingDetail>? = routingDetails
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -168,19 +168,19 @@ constructor(
             }
 
             return other is ExternalAccountCreateBody &&
-                this.accountType == other.accountType &&
-                this.partyType == other.partyType &&
-                this.partyAddress == other.partyAddress &&
-                this.name == other.name &&
                 this.counterpartyId == other.counterpartyId &&
                 this.accountDetails == other.accountDetails &&
-                this.routingDetails == other.routingDetails &&
-                this.metadata == other.metadata &&
-                this.partyName == other.partyName &&
-                this.partyIdentifier == other.partyIdentifier &&
-                this.ledgerAccount == other.ledgerAccount &&
-                this.plaidProcessorToken == other.plaidProcessorToken &&
+                this.accountType == other.accountType &&
                 this.contactDetails == other.contactDetails &&
+                this.ledgerAccount == other.ledgerAccount &&
+                this.metadata == other.metadata &&
+                this.name == other.name &&
+                this.partyAddress == other.partyAddress &&
+                this.partyIdentifier == other.partyIdentifier &&
+                this.partyName == other.partyName &&
+                this.partyType == other.partyType &&
+                this.plaidProcessorToken == other.plaidProcessorToken &&
+                this.routingDetails == other.routingDetails &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -188,19 +188,19 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        accountType,
-                        partyType,
-                        partyAddress,
-                        name,
                         counterpartyId,
                         accountDetails,
-                        routingDetails,
-                        metadata,
-                        partyName,
-                        partyIdentifier,
-                        ledgerAccount,
-                        plaidProcessorToken,
+                        accountType,
                         contactDetails,
+                        ledgerAccount,
+                        metadata,
+                        name,
+                        partyAddress,
+                        partyIdentifier,
+                        partyName,
+                        partyType,
+                        plaidProcessorToken,
+                        routingDetails,
                         additionalProperties,
                     )
             }
@@ -208,7 +208,7 @@ constructor(
         }
 
         override fun toString() =
-            "ExternalAccountCreateBody{accountType=$accountType, partyType=$partyType, partyAddress=$partyAddress, name=$name, counterpartyId=$counterpartyId, accountDetails=$accountDetails, routingDetails=$routingDetails, metadata=$metadata, partyName=$partyName, partyIdentifier=$partyIdentifier, ledgerAccount=$ledgerAccount, plaidProcessorToken=$plaidProcessorToken, contactDetails=$contactDetails, additionalProperties=$additionalProperties}"
+            "ExternalAccountCreateBody{counterpartyId=$counterpartyId, accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -217,59 +217,37 @@ constructor(
 
         class Builder {
 
-            private var accountType: ExternalAccountType? = null
-            private var partyType: PartyType? = null
-            private var partyAddress: AddressRequest? = null
-            private var name: String? = null
             private var counterpartyId: String? = null
             private var accountDetails: List<AccountDetail>? = null
-            private var routingDetails: List<RoutingDetail>? = null
-            private var metadata: Metadata? = null
-            private var partyName: String? = null
-            private var partyIdentifier: String? = null
-            private var ledgerAccount: LedgerAccountCreateRequest? = null
-            private var plaidProcessorToken: String? = null
+            private var accountType: ExternalAccountType? = null
             private var contactDetails: List<ContactDetailCreateRequest>? = null
+            private var ledgerAccount: LedgerAccountCreateRequest? = null
+            private var metadata: Metadata? = null
+            private var name: String? = null
+            private var partyAddress: AddressRequest? = null
+            private var partyIdentifier: String? = null
+            private var partyName: String? = null
+            private var partyType: PartyType? = null
+            private var plaidProcessorToken: String? = null
+            private var routingDetails: List<RoutingDetail>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(externalAccountCreateBody: ExternalAccountCreateBody) = apply {
-                this.accountType = externalAccountCreateBody.accountType
-                this.partyType = externalAccountCreateBody.partyType
-                this.partyAddress = externalAccountCreateBody.partyAddress
-                this.name = externalAccountCreateBody.name
                 this.counterpartyId = externalAccountCreateBody.counterpartyId
                 this.accountDetails = externalAccountCreateBody.accountDetails
-                this.routingDetails = externalAccountCreateBody.routingDetails
-                this.metadata = externalAccountCreateBody.metadata
-                this.partyName = externalAccountCreateBody.partyName
-                this.partyIdentifier = externalAccountCreateBody.partyIdentifier
-                this.ledgerAccount = externalAccountCreateBody.ledgerAccount
-                this.plaidProcessorToken = externalAccountCreateBody.plaidProcessorToken
+                this.accountType = externalAccountCreateBody.accountType
                 this.contactDetails = externalAccountCreateBody.contactDetails
+                this.ledgerAccount = externalAccountCreateBody.ledgerAccount
+                this.metadata = externalAccountCreateBody.metadata
+                this.name = externalAccountCreateBody.name
+                this.partyAddress = externalAccountCreateBody.partyAddress
+                this.partyIdentifier = externalAccountCreateBody.partyIdentifier
+                this.partyName = externalAccountCreateBody.partyName
+                this.partyType = externalAccountCreateBody.partyType
+                this.plaidProcessorToken = externalAccountCreateBody.plaidProcessorToken
+                this.routingDetails = externalAccountCreateBody.routingDetails
                 additionalProperties(externalAccountCreateBody.additionalProperties)
             }
-
-            /** Can be `checking`, `savings` or `other`. */
-            @JsonProperty("account_type")
-            fun accountType(accountType: ExternalAccountType) = apply {
-                this.accountType = accountType
-            }
-
-            /** Either `individual` or `business`. */
-            @JsonProperty("party_type")
-            fun partyType(partyType: PartyType) = apply { this.partyType = partyType }
-
-            /** Required if receiving wire payments. */
-            @JsonProperty("party_address")
-            fun partyAddress(partyAddress: AddressRequest) = apply {
-                this.partyAddress = partyAddress
-            }
-
-            /**
-             * A nickname for the external account. This is only for internal usage and won't affect
-             * any payments
-             */
-            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
 
             @JsonProperty("counterparty_id")
             fun counterpartyId(counterpartyId: String) = apply {
@@ -281,25 +259,15 @@ constructor(
                 this.accountDetails = accountDetails
             }
 
-            @JsonProperty("routing_details")
-            fun routingDetails(routingDetails: List<RoutingDetail>) = apply {
-                this.routingDetails = routingDetails
+            /** Can be `checking`, `savings` or `other`. */
+            @JsonProperty("account_type")
+            fun accountType(accountType: ExternalAccountType) = apply {
+                this.accountType = accountType
             }
 
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            @JsonProperty("metadata")
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
-
-            /** If this value isn't provided, it will be inherited from the counterparty's name. */
-            @JsonProperty("party_name")
-            fun partyName(partyName: String) = apply { this.partyName = partyName }
-
-            @JsonProperty("party_identifier")
-            fun partyIdentifier(partyIdentifier: String) = apply {
-                this.partyIdentifier = partyIdentifier
+            @JsonProperty("contact_details")
+            fun contactDetails(contactDetails: List<ContactDetailCreateRequest>) = apply {
+                this.contactDetails = contactDetails
             }
 
             /**
@@ -315,6 +283,38 @@ constructor(
             }
 
             /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            @JsonProperty("metadata")
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+            /**
+             * A nickname for the external account. This is only for internal usage and won't affect
+             * any payments
+             */
+            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+
+            /** Required if receiving wire payments. */
+            @JsonProperty("party_address")
+            fun partyAddress(partyAddress: AddressRequest) = apply {
+                this.partyAddress = partyAddress
+            }
+
+            @JsonProperty("party_identifier")
+            fun partyIdentifier(partyIdentifier: String) = apply {
+                this.partyIdentifier = partyIdentifier
+            }
+
+            /** If this value isn't provided, it will be inherited from the counterparty's name. */
+            @JsonProperty("party_name")
+            fun partyName(partyName: String) = apply { this.partyName = partyName }
+
+            /** Either `individual` or `business`. */
+            @JsonProperty("party_type")
+            fun partyType(partyType: PartyType) = apply { this.partyType = partyType }
+
+            /**
              * If you've enabled the Modern Treasury + Plaid integration in your Plaid account, you
              * can pass the processor token in this field.
              */
@@ -323,9 +323,9 @@ constructor(
                 this.plaidProcessorToken = plaidProcessorToken
             }
 
-            @JsonProperty("contact_details")
-            fun contactDetails(contactDetails: List<ContactDetailCreateRequest>) = apply {
-                this.contactDetails = contactDetails
+            @JsonProperty("routing_details")
+            fun routingDetails(routingDetails: List<RoutingDetail>) = apply {
+                this.routingDetails = routingDetails
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -344,19 +344,19 @@ constructor(
 
             fun build(): ExternalAccountCreateBody =
                 ExternalAccountCreateBody(
-                    accountType,
-                    partyType,
-                    partyAddress,
-                    name,
                     counterpartyId,
                     accountDetails?.toUnmodifiable(),
-                    routingDetails?.toUnmodifiable(),
-                    metadata,
-                    partyName,
-                    partyIdentifier,
-                    ledgerAccount,
-                    plaidProcessorToken,
+                    accountType,
                     contactDetails?.toUnmodifiable(),
+                    ledgerAccount,
+                    metadata,
+                    name,
+                    partyAddress,
+                    partyIdentifier,
+                    partyName,
+                    partyType,
+                    plaidProcessorToken,
+                    routingDetails?.toUnmodifiable(),
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -374,19 +374,19 @@ constructor(
         }
 
         return other is ExternalAccountCreateParams &&
-            this.accountType == other.accountType &&
-            this.partyType == other.partyType &&
-            this.partyAddress == other.partyAddress &&
-            this.name == other.name &&
             this.counterpartyId == other.counterpartyId &&
             this.accountDetails == other.accountDetails &&
-            this.routingDetails == other.routingDetails &&
-            this.metadata == other.metadata &&
-            this.partyName == other.partyName &&
-            this.partyIdentifier == other.partyIdentifier &&
-            this.ledgerAccount == other.ledgerAccount &&
-            this.plaidProcessorToken == other.plaidProcessorToken &&
+            this.accountType == other.accountType &&
             this.contactDetails == other.contactDetails &&
+            this.ledgerAccount == other.ledgerAccount &&
+            this.metadata == other.metadata &&
+            this.name == other.name &&
+            this.partyAddress == other.partyAddress &&
+            this.partyIdentifier == other.partyIdentifier &&
+            this.partyName == other.partyName &&
+            this.partyType == other.partyType &&
+            this.plaidProcessorToken == other.plaidProcessorToken &&
+            this.routingDetails == other.routingDetails &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -394,19 +394,19 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
-            accountType,
-            partyType,
-            partyAddress,
-            name,
             counterpartyId,
             accountDetails,
-            routingDetails,
-            metadata,
-            partyName,
-            partyIdentifier,
-            ledgerAccount,
-            plaidProcessorToken,
+            accountType,
             contactDetails,
+            ledgerAccount,
+            metadata,
+            name,
+            partyAddress,
+            partyIdentifier,
+            partyName,
+            partyType,
+            plaidProcessorToken,
+            routingDetails,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -414,7 +414,7 @@ constructor(
     }
 
     override fun toString() =
-        "ExternalAccountCreateParams{accountType=$accountType, partyType=$partyType, partyAddress=$partyAddress, name=$name, counterpartyId=$counterpartyId, accountDetails=$accountDetails, routingDetails=$routingDetails, metadata=$metadata, partyName=$partyName, partyIdentifier=$partyIdentifier, ledgerAccount=$ledgerAccount, plaidProcessorToken=$plaidProcessorToken, contactDetails=$contactDetails, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "ExternalAccountCreateParams{counterpartyId=$counterpartyId, accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -426,56 +426,41 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var accountType: ExternalAccountType? = null
-        private var partyType: PartyType? = null
-        private var partyAddress: AddressRequest? = null
-        private var name: String? = null
         private var counterpartyId: String? = null
         private var accountDetails: MutableList<AccountDetail> = mutableListOf()
-        private var routingDetails: MutableList<RoutingDetail> = mutableListOf()
-        private var metadata: Metadata? = null
-        private var partyName: String? = null
-        private var partyIdentifier: String? = null
-        private var ledgerAccount: LedgerAccountCreateRequest? = null
-        private var plaidProcessorToken: String? = null
+        private var accountType: ExternalAccountType? = null
         private var contactDetails: MutableList<ContactDetailCreateRequest> = mutableListOf()
+        private var ledgerAccount: LedgerAccountCreateRequest? = null
+        private var metadata: Metadata? = null
+        private var name: String? = null
+        private var partyAddress: AddressRequest? = null
+        private var partyIdentifier: String? = null
+        private var partyName: String? = null
+        private var partyType: PartyType? = null
+        private var plaidProcessorToken: String? = null
+        private var routingDetails: MutableList<RoutingDetail> = mutableListOf()
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(externalAccountCreateParams: ExternalAccountCreateParams) = apply {
-            this.accountType = externalAccountCreateParams.accountType
-            this.partyType = externalAccountCreateParams.partyType
-            this.partyAddress = externalAccountCreateParams.partyAddress
-            this.name = externalAccountCreateParams.name
             this.counterpartyId = externalAccountCreateParams.counterpartyId
             this.accountDetails(externalAccountCreateParams.accountDetails ?: listOf())
-            this.routingDetails(externalAccountCreateParams.routingDetails ?: listOf())
-            this.metadata = externalAccountCreateParams.metadata
-            this.partyName = externalAccountCreateParams.partyName
-            this.partyIdentifier = externalAccountCreateParams.partyIdentifier
-            this.ledgerAccount = externalAccountCreateParams.ledgerAccount
-            this.plaidProcessorToken = externalAccountCreateParams.plaidProcessorToken
+            this.accountType = externalAccountCreateParams.accountType
             this.contactDetails(externalAccountCreateParams.contactDetails ?: listOf())
+            this.ledgerAccount = externalAccountCreateParams.ledgerAccount
+            this.metadata = externalAccountCreateParams.metadata
+            this.name = externalAccountCreateParams.name
+            this.partyAddress = externalAccountCreateParams.partyAddress
+            this.partyIdentifier = externalAccountCreateParams.partyIdentifier
+            this.partyName = externalAccountCreateParams.partyName
+            this.partyType = externalAccountCreateParams.partyType
+            this.plaidProcessorToken = externalAccountCreateParams.plaidProcessorToken
+            this.routingDetails(externalAccountCreateParams.routingDetails ?: listOf())
             additionalQueryParams(externalAccountCreateParams.additionalQueryParams)
             additionalHeaders(externalAccountCreateParams.additionalHeaders)
             additionalBodyProperties(externalAccountCreateParams.additionalBodyProperties)
         }
-
-        /** Can be `checking`, `savings` or `other`. */
-        fun accountType(accountType: ExternalAccountType) = apply { this.accountType = accountType }
-
-        /** Either `individual` or `business`. */
-        fun partyType(partyType: PartyType) = apply { this.partyType = partyType }
-
-        /** Required if receiving wire payments. */
-        fun partyAddress(partyAddress: AddressRequest) = apply { this.partyAddress = partyAddress }
-
-        /**
-         * A nickname for the external account. This is only for internal usage and won't affect any
-         * payments
-         */
-        fun name(name: String) = apply { this.name = name }
 
         fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
 
@@ -488,25 +473,16 @@ constructor(
             this.accountDetails.add(accountDetail)
         }
 
-        fun routingDetails(routingDetails: List<RoutingDetail>) = apply {
-            this.routingDetails.clear()
-            this.routingDetails.addAll(routingDetails)
+        /** Can be `checking`, `savings` or `other`. */
+        fun accountType(accountType: ExternalAccountType) = apply { this.accountType = accountType }
+
+        fun contactDetails(contactDetails: List<ContactDetailCreateRequest>) = apply {
+            this.contactDetails.clear()
+            this.contactDetails.addAll(contactDetails)
         }
 
-        fun addRoutingDetail(routingDetail: RoutingDetail) = apply {
-            this.routingDetails.add(routingDetail)
-        }
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
-
-        /** If this value isn't provided, it will be inherited from the counterparty's name. */
-        fun partyName(partyName: String) = apply { this.partyName = partyName }
-
-        fun partyIdentifier(partyIdentifier: String) = apply {
-            this.partyIdentifier = partyIdentifier
+        fun addContactDetail(contactDetail: ContactDetailCreateRequest) = apply {
+            this.contactDetails.add(contactDetail)
         }
 
         /**
@@ -521,6 +497,30 @@ constructor(
         }
 
         /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        /**
+         * A nickname for the external account. This is only for internal usage and won't affect any
+         * payments
+         */
+        fun name(name: String) = apply { this.name = name }
+
+        /** Required if receiving wire payments. */
+        fun partyAddress(partyAddress: AddressRequest) = apply { this.partyAddress = partyAddress }
+
+        fun partyIdentifier(partyIdentifier: String) = apply {
+            this.partyIdentifier = partyIdentifier
+        }
+
+        /** If this value isn't provided, it will be inherited from the counterparty's name. */
+        fun partyName(partyName: String) = apply { this.partyName = partyName }
+
+        /** Either `individual` or `business`. */
+        fun partyType(partyType: PartyType) = apply { this.partyType = partyType }
+
+        /**
          * If you've enabled the Modern Treasury + Plaid integration in your Plaid account, you can
          * pass the processor token in this field.
          */
@@ -528,13 +528,13 @@ constructor(
             this.plaidProcessorToken = plaidProcessorToken
         }
 
-        fun contactDetails(contactDetails: List<ContactDetailCreateRequest>) = apply {
-            this.contactDetails.clear()
-            this.contactDetails.addAll(contactDetails)
+        fun routingDetails(routingDetails: List<RoutingDetail>) = apply {
+            this.routingDetails.clear()
+            this.routingDetails.addAll(routingDetails)
         }
 
-        fun addContactDetail(contactDetail: ContactDetailCreateRequest) = apply {
-            this.contactDetails.add(contactDetail)
+        fun addRoutingDetail(routingDetail: RoutingDetail) = apply {
+            this.routingDetails.add(routingDetail)
         }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
@@ -593,19 +593,19 @@ constructor(
 
         fun build(): ExternalAccountCreateParams =
             ExternalAccountCreateParams(
-                accountType,
-                partyType,
-                partyAddress,
-                name,
                 counterpartyId,
                 if (accountDetails.size == 0) null else accountDetails.toUnmodifiable(),
-                if (routingDetails.size == 0) null else routingDetails.toUnmodifiable(),
-                metadata,
-                partyName,
-                partyIdentifier,
-                ledgerAccount,
-                plaidProcessorToken,
+                accountType,
                 if (contactDetails.size == 0) null else contactDetails.toUnmodifiable(),
+                ledgerAccount,
+                metadata,
+                name,
+                partyAddress,
+                partyIdentifier,
+                partyName,
+                partyType,
+                plaidProcessorToken,
+                if (routingDetails.size == 0) null else routingDetails.toUnmodifiable(),
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

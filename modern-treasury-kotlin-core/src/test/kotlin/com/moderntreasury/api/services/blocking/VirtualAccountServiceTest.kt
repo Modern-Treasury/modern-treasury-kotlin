@@ -22,10 +22,8 @@ class VirtualAccountServiceTest {
         val virtualAccount =
             virtualAccountService.create(
                 VirtualAccountCreateParams.builder()
-                    .name("string")
-                    .description("string")
-                    .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .name("string")
                     .accountDetails(
                         listOf(
                             VirtualAccountCreateParams.AccountDetailCreateRequest.builder()
@@ -38,6 +36,11 @@ class VirtualAccountServiceTest {
                                 .build()
                         )
                     )
+                    .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .creditLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .debitLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .description("string")
+                    .metadata(VirtualAccountCreateParams.Metadata.builder().build())
                     .routingDetails(
                         listOf(
                             VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
@@ -55,9 +58,6 @@ class VirtualAccountServiceTest {
                                 .build()
                         )
                     )
-                    .debitLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .creditLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .metadata(VirtualAccountCreateParams.Metadata.builder().build())
                     .build()
             )
         println(virtualAccount)
@@ -94,9 +94,9 @@ class VirtualAccountServiceTest {
             virtualAccountService.update(
                 VirtualAccountUpdateParams.builder()
                     .id("string")
-                    .name("string")
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .metadata(VirtualAccountUpdateParams.Metadata.builder().build())
+                    .name("string")
                     .build()
             )
         println(virtualAccount)

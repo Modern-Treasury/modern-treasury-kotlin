@@ -18,29 +18,33 @@ import java.util.Objects
 
 class InvoiceCreateParams
 constructor(
-    private val contactDetails: List<ContactDetail>?,
     private val counterpartyId: String,
+    private val dueDate: OffsetDateTime,
+    private val originatingAccountId: String,
+    private val contactDetails: List<ContactDetail>?,
     private val counterpartyBillingAddress: CounterpartyBillingAddress?,
     private val counterpartyShippingAddress: CounterpartyShippingAddress?,
     private val currency: Currency?,
     private val description: String?,
-    private val dueDate: OffsetDateTime,
     private val invoicerAddress: InvoicerAddress?,
-    private val originatingAccountId: String,
-    private val receivingAccountId: String?,
-    private val paymentEffectiveDate: LocalDate?,
-    private val paymentType: PaymentType?,
-    private val paymentMethod: PaymentMethod?,
-    private val notificationsEnabled: Boolean?,
     private val notificationEmailAddresses: List<String>?,
+    private val notificationsEnabled: Boolean?,
+    private val paymentEffectiveDate: LocalDate?,
+    private val paymentMethod: PaymentMethod?,
+    private val paymentType: PaymentType?,
+    private val receivingAccountId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun contactDetails(): List<ContactDetail>? = contactDetails
-
     fun counterpartyId(): String = counterpartyId
+
+    fun dueDate(): OffsetDateTime = dueDate
+
+    fun originatingAccountId(): String = originatingAccountId
+
+    fun contactDetails(): List<ContactDetail>? = contactDetails
 
     fun counterpartyBillingAddress(): CounterpartyBillingAddress? = counterpartyBillingAddress
 
@@ -50,41 +54,37 @@ constructor(
 
     fun description(): String? = description
 
-    fun dueDate(): OffsetDateTime = dueDate
-
     fun invoicerAddress(): InvoicerAddress? = invoicerAddress
-
-    fun originatingAccountId(): String = originatingAccountId
-
-    fun receivingAccountId(): String? = receivingAccountId
-
-    fun paymentEffectiveDate(): LocalDate? = paymentEffectiveDate
-
-    fun paymentType(): PaymentType? = paymentType
-
-    fun paymentMethod(): PaymentMethod? = paymentMethod
-
-    fun notificationsEnabled(): Boolean? = notificationsEnabled
 
     fun notificationEmailAddresses(): List<String>? = notificationEmailAddresses
 
+    fun notificationsEnabled(): Boolean? = notificationsEnabled
+
+    fun paymentEffectiveDate(): LocalDate? = paymentEffectiveDate
+
+    fun paymentMethod(): PaymentMethod? = paymentMethod
+
+    fun paymentType(): PaymentType? = paymentType
+
+    fun receivingAccountId(): String? = receivingAccountId
+
     internal fun getBody(): InvoiceCreateBody {
         return InvoiceCreateBody(
-            contactDetails,
             counterpartyId,
+            dueDate,
+            originatingAccountId,
+            contactDetails,
             counterpartyBillingAddress,
             counterpartyShippingAddress,
             currency,
             description,
-            dueDate,
             invoicerAddress,
-            originatingAccountId,
-            receivingAccountId,
-            paymentEffectiveDate,
-            paymentType,
-            paymentMethod,
-            notificationsEnabled,
             notificationEmailAddresses,
+            notificationsEnabled,
+            paymentEffectiveDate,
+            paymentMethod,
+            paymentType,
+            receivingAccountId,
             additionalBodyProperties,
         )
     }
@@ -97,31 +97,38 @@ constructor(
     @NoAutoDetect
     class InvoiceCreateBody
     internal constructor(
-        private val contactDetails: List<ContactDetail>?,
         private val counterpartyId: String?,
+        private val dueDate: OffsetDateTime?,
+        private val originatingAccountId: String?,
+        private val contactDetails: List<ContactDetail>?,
         private val counterpartyBillingAddress: CounterpartyBillingAddress?,
         private val counterpartyShippingAddress: CounterpartyShippingAddress?,
         private val currency: Currency?,
         private val description: String?,
-        private val dueDate: OffsetDateTime?,
         private val invoicerAddress: InvoicerAddress?,
-        private val originatingAccountId: String?,
-        private val receivingAccountId: String?,
-        private val paymentEffectiveDate: LocalDate?,
-        private val paymentType: PaymentType?,
-        private val paymentMethod: PaymentMethod?,
-        private val notificationsEnabled: Boolean?,
         private val notificationEmailAddresses: List<String>?,
+        private val notificationsEnabled: Boolean?,
+        private val paymentEffectiveDate: LocalDate?,
+        private val paymentMethod: PaymentMethod?,
+        private val paymentType: PaymentType?,
+        private val receivingAccountId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
-        /** The invoicer's contact details displayed at the top of the invoice. */
-        @JsonProperty("contact_details") fun contactDetails(): List<ContactDetail>? = contactDetails
-
         /** The ID of the counterparty receiving the invoice. */
         @JsonProperty("counterparty_id") fun counterpartyId(): String? = counterpartyId
+
+        /** A future date by when the invoice needs to be paid. */
+        @JsonProperty("due_date") fun dueDate(): OffsetDateTime? = dueDate
+
+        /** The ID of the internal account the invoice should be paid to. */
+        @JsonProperty("originating_account_id")
+        fun originatingAccountId(): String? = originatingAccountId
+
+        /** The invoicer's contact details displayed at the top of the invoice. */
+        @JsonProperty("contact_details") fun contactDetails(): List<ContactDetail>? = contactDetails
 
         /** The counterparty's billing address. */
         @JsonProperty("counterparty_billing_address")
@@ -138,18 +145,23 @@ constructor(
         /** A free-form description of the invoice. */
         @JsonProperty("description") fun description(): String? = description
 
-        /** A future date by when the invoice needs to be paid. */
-        @JsonProperty("due_date") fun dueDate(): OffsetDateTime? = dueDate
-
         /** The invoice issuer's business address. */
         @JsonProperty("invoicer_address") fun invoicerAddress(): InvoicerAddress? = invoicerAddress
 
-        /** The ID of the internal account the invoice should be paid to. */
-        @JsonProperty("originating_account_id")
-        fun originatingAccountId(): String? = originatingAccountId
+        /**
+         * Emails in addition to the counterparty email to send invoice status notifications to. At
+         * least one email is required if notifications are enabled and the counterparty doesn't
+         * have an email.
+         */
+        @JsonProperty("notification_email_addresses")
+        fun notificationEmailAddresses(): List<String>? = notificationEmailAddresses
 
-        /** The receiving account ID. Can be an `external_account`. */
-        @JsonProperty("receiving_account_id") fun receivingAccountId(): String? = receivingAccountId
+        /**
+         * If true, the invoice will send email notifications to the invoice recipients about
+         * invoice status changes.
+         */
+        @JsonProperty("notifications_enabled")
+        fun notificationsEnabled(): Boolean? = notificationsEnabled
 
         /**
          * Date transactions are to be posted to the participants' account. Defaults to the current
@@ -158,12 +170,6 @@ constructor(
          */
         @JsonProperty("payment_effective_date")
         fun paymentEffectiveDate(): LocalDate? = paymentEffectiveDate
-
-        /**
-         * One of `ach`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`, `au_becs`,
-         * `interac`, `signet`, `provexchange`.
-         */
-        @JsonProperty("payment_type") fun paymentType(): PaymentType? = paymentType
 
         /**
          * The method by which the invoice can be paid. `ui` will show the embedded payment
@@ -176,19 +182,13 @@ constructor(
         @JsonProperty("payment_method") fun paymentMethod(): PaymentMethod? = paymentMethod
 
         /**
-         * If true, the invoice will send email notifications to the invoice recipients about
-         * invoice status changes.
+         * One of `ach`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`, `au_becs`,
+         * `interac`, `signet`, `provexchange`.
          */
-        @JsonProperty("notifications_enabled")
-        fun notificationsEnabled(): Boolean? = notificationsEnabled
+        @JsonProperty("payment_type") fun paymentType(): PaymentType? = paymentType
 
-        /**
-         * Emails in addition to the counterparty email to send invoice status notifications to. At
-         * least one email is required if notifications are enabled and the counterparty doesn't
-         * have an email.
-         */
-        @JsonProperty("notification_email_addresses")
-        fun notificationEmailAddresses(): List<String>? = notificationEmailAddresses
+        /** The receiving account ID. Can be an `external_account`. */
+        @JsonProperty("receiving_account_id") fun receivingAccountId(): String? = receivingAccountId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -202,21 +202,21 @@ constructor(
             }
 
             return other is InvoiceCreateBody &&
-                this.contactDetails == other.contactDetails &&
                 this.counterpartyId == other.counterpartyId &&
+                this.dueDate == other.dueDate &&
+                this.originatingAccountId == other.originatingAccountId &&
+                this.contactDetails == other.contactDetails &&
                 this.counterpartyBillingAddress == other.counterpartyBillingAddress &&
                 this.counterpartyShippingAddress == other.counterpartyShippingAddress &&
                 this.currency == other.currency &&
                 this.description == other.description &&
-                this.dueDate == other.dueDate &&
                 this.invoicerAddress == other.invoicerAddress &&
-                this.originatingAccountId == other.originatingAccountId &&
-                this.receivingAccountId == other.receivingAccountId &&
-                this.paymentEffectiveDate == other.paymentEffectiveDate &&
-                this.paymentType == other.paymentType &&
-                this.paymentMethod == other.paymentMethod &&
-                this.notificationsEnabled == other.notificationsEnabled &&
                 this.notificationEmailAddresses == other.notificationEmailAddresses &&
+                this.notificationsEnabled == other.notificationsEnabled &&
+                this.paymentEffectiveDate == other.paymentEffectiveDate &&
+                this.paymentMethod == other.paymentMethod &&
+                this.paymentType == other.paymentType &&
+                this.receivingAccountId == other.receivingAccountId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -224,21 +224,21 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        contactDetails,
                         counterpartyId,
+                        dueDate,
+                        originatingAccountId,
+                        contactDetails,
                         counterpartyBillingAddress,
                         counterpartyShippingAddress,
                         currency,
                         description,
-                        dueDate,
                         invoicerAddress,
-                        originatingAccountId,
-                        receivingAccountId,
-                        paymentEffectiveDate,
-                        paymentType,
-                        paymentMethod,
-                        notificationsEnabled,
                         notificationEmailAddresses,
+                        notificationsEnabled,
+                        paymentEffectiveDate,
+                        paymentMethod,
+                        paymentType,
+                        receivingAccountId,
                         additionalProperties,
                     )
             }
@@ -246,7 +246,7 @@ constructor(
         }
 
         override fun toString() =
-            "InvoiceCreateBody{contactDetails=$contactDetails, counterpartyId=$counterpartyId, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentType=$paymentType, paymentMethod=$paymentMethod, notificationsEnabled=$notificationsEnabled, notificationEmailAddresses=$notificationEmailAddresses, additionalProperties=$additionalProperties}"
+            "InvoiceCreateBody{counterpartyId=$counterpartyId, dueDate=$dueDate, originatingAccountId=$originatingAccountId, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, invoicerAddress=$invoicerAddress, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -255,52 +255,62 @@ constructor(
 
         class Builder {
 
-            private var contactDetails: List<ContactDetail>? = null
             private var counterpartyId: String? = null
+            private var dueDate: OffsetDateTime? = null
+            private var originatingAccountId: String? = null
+            private var contactDetails: List<ContactDetail>? = null
             private var counterpartyBillingAddress: CounterpartyBillingAddress? = null
             private var counterpartyShippingAddress: CounterpartyShippingAddress? = null
             private var currency: Currency? = null
             private var description: String? = null
-            private var dueDate: OffsetDateTime? = null
             private var invoicerAddress: InvoicerAddress? = null
-            private var originatingAccountId: String? = null
-            private var receivingAccountId: String? = null
-            private var paymentEffectiveDate: LocalDate? = null
-            private var paymentType: PaymentType? = null
-            private var paymentMethod: PaymentMethod? = null
-            private var notificationsEnabled: Boolean? = null
             private var notificationEmailAddresses: List<String>? = null
+            private var notificationsEnabled: Boolean? = null
+            private var paymentEffectiveDate: LocalDate? = null
+            private var paymentMethod: PaymentMethod? = null
+            private var paymentType: PaymentType? = null
+            private var receivingAccountId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(invoiceCreateBody: InvoiceCreateBody) = apply {
-                this.contactDetails = invoiceCreateBody.contactDetails
                 this.counterpartyId = invoiceCreateBody.counterpartyId
+                this.dueDate = invoiceCreateBody.dueDate
+                this.originatingAccountId = invoiceCreateBody.originatingAccountId
+                this.contactDetails = invoiceCreateBody.contactDetails
                 this.counterpartyBillingAddress = invoiceCreateBody.counterpartyBillingAddress
                 this.counterpartyShippingAddress = invoiceCreateBody.counterpartyShippingAddress
                 this.currency = invoiceCreateBody.currency
                 this.description = invoiceCreateBody.description
-                this.dueDate = invoiceCreateBody.dueDate
                 this.invoicerAddress = invoiceCreateBody.invoicerAddress
-                this.originatingAccountId = invoiceCreateBody.originatingAccountId
-                this.receivingAccountId = invoiceCreateBody.receivingAccountId
-                this.paymentEffectiveDate = invoiceCreateBody.paymentEffectiveDate
-                this.paymentType = invoiceCreateBody.paymentType
-                this.paymentMethod = invoiceCreateBody.paymentMethod
-                this.notificationsEnabled = invoiceCreateBody.notificationsEnabled
                 this.notificationEmailAddresses = invoiceCreateBody.notificationEmailAddresses
+                this.notificationsEnabled = invoiceCreateBody.notificationsEnabled
+                this.paymentEffectiveDate = invoiceCreateBody.paymentEffectiveDate
+                this.paymentMethod = invoiceCreateBody.paymentMethod
+                this.paymentType = invoiceCreateBody.paymentType
+                this.receivingAccountId = invoiceCreateBody.receivingAccountId
                 additionalProperties(invoiceCreateBody.additionalProperties)
-            }
-
-            /** The invoicer's contact details displayed at the top of the invoice. */
-            @JsonProperty("contact_details")
-            fun contactDetails(contactDetails: List<ContactDetail>) = apply {
-                this.contactDetails = contactDetails
             }
 
             /** The ID of the counterparty receiving the invoice. */
             @JsonProperty("counterparty_id")
             fun counterpartyId(counterpartyId: String) = apply {
                 this.counterpartyId = counterpartyId
+            }
+
+            /** A future date by when the invoice needs to be paid. */
+            @JsonProperty("due_date")
+            fun dueDate(dueDate: OffsetDateTime) = apply { this.dueDate = dueDate }
+
+            /** The ID of the internal account the invoice should be paid to. */
+            @JsonProperty("originating_account_id")
+            fun originatingAccountId(originatingAccountId: String) = apply {
+                this.originatingAccountId = originatingAccountId
+            }
+
+            /** The invoicer's contact details displayed at the top of the invoice. */
+            @JsonProperty("contact_details")
+            fun contactDetails(contactDetails: List<ContactDetail>) = apply {
+                this.contactDetails = contactDetails
             }
 
             /** The counterparty's billing address. */
@@ -324,26 +334,29 @@ constructor(
             @JsonProperty("description")
             fun description(description: String) = apply { this.description = description }
 
-            /** A future date by when the invoice needs to be paid. */
-            @JsonProperty("due_date")
-            fun dueDate(dueDate: OffsetDateTime) = apply { this.dueDate = dueDate }
-
             /** The invoice issuer's business address. */
             @JsonProperty("invoicer_address")
             fun invoicerAddress(invoicerAddress: InvoicerAddress) = apply {
                 this.invoicerAddress = invoicerAddress
             }
 
-            /** The ID of the internal account the invoice should be paid to. */
-            @JsonProperty("originating_account_id")
-            fun originatingAccountId(originatingAccountId: String) = apply {
-                this.originatingAccountId = originatingAccountId
+            /**
+             * Emails in addition to the counterparty email to send invoice status notifications to.
+             * At least one email is required if notifications are enabled and the counterparty
+             * doesn't have an email.
+             */
+            @JsonProperty("notification_email_addresses")
+            fun notificationEmailAddresses(notificationEmailAddresses: List<String>) = apply {
+                this.notificationEmailAddresses = notificationEmailAddresses
             }
 
-            /** The receiving account ID. Can be an `external_account`. */
-            @JsonProperty("receiving_account_id")
-            fun receivingAccountId(receivingAccountId: String) = apply {
-                this.receivingAccountId = receivingAccountId
+            /**
+             * If true, the invoice will send email notifications to the invoice recipients about
+             * invoice status changes.
+             */
+            @JsonProperty("notifications_enabled")
+            fun notificationsEnabled(notificationsEnabled: Boolean) = apply {
+                this.notificationsEnabled = notificationsEnabled
             }
 
             /**
@@ -355,13 +368,6 @@ constructor(
             fun paymentEffectiveDate(paymentEffectiveDate: LocalDate) = apply {
                 this.paymentEffectiveDate = paymentEffectiveDate
             }
-
-            /**
-             * One of `ach`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`,
-             * `au_becs`, `interac`, `signet`, `provexchange`.
-             */
-            @JsonProperty("payment_type")
-            fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
 
             /**
              * The method by which the invoice can be paid. `ui` will show the embedded payment
@@ -377,22 +383,16 @@ constructor(
             }
 
             /**
-             * If true, the invoice will send email notifications to the invoice recipients about
-             * invoice status changes.
+             * One of `ach`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`,
+             * `au_becs`, `interac`, `signet`, `provexchange`.
              */
-            @JsonProperty("notifications_enabled")
-            fun notificationsEnabled(notificationsEnabled: Boolean) = apply {
-                this.notificationsEnabled = notificationsEnabled
-            }
+            @JsonProperty("payment_type")
+            fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
 
-            /**
-             * Emails in addition to the counterparty email to send invoice status notifications to.
-             * At least one email is required if notifications are enabled and the counterparty
-             * doesn't have an email.
-             */
-            @JsonProperty("notification_email_addresses")
-            fun notificationEmailAddresses(notificationEmailAddresses: List<String>) = apply {
-                this.notificationEmailAddresses = notificationEmailAddresses
+            /** The receiving account ID. Can be an `external_account`. */
+            @JsonProperty("receiving_account_id")
+            fun receivingAccountId(receivingAccountId: String) = apply {
+                this.receivingAccountId = receivingAccountId
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -411,23 +411,23 @@ constructor(
 
             fun build(): InvoiceCreateBody =
                 InvoiceCreateBody(
-                    contactDetails?.toUnmodifiable(),
                     checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
+                    checkNotNull(dueDate) { "`dueDate` is required but was not set" },
+                    checkNotNull(originatingAccountId) {
+                        "`originatingAccountId` is required but was not set"
+                    },
+                    contactDetails?.toUnmodifiable(),
                     counterpartyBillingAddress,
                     counterpartyShippingAddress,
                     currency,
                     description,
-                    checkNotNull(dueDate) { "`dueDate` is required but was not set" },
                     invoicerAddress,
-                    checkNotNull(originatingAccountId) {
-                        "`originatingAccountId` is required but was not set"
-                    },
-                    receivingAccountId,
-                    paymentEffectiveDate,
-                    paymentType,
-                    paymentMethod,
-                    notificationsEnabled,
                     notificationEmailAddresses?.toUnmodifiable(),
+                    notificationsEnabled,
+                    paymentEffectiveDate,
+                    paymentMethod,
+                    paymentType,
+                    receivingAccountId,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -445,21 +445,21 @@ constructor(
         }
 
         return other is InvoiceCreateParams &&
-            this.contactDetails == other.contactDetails &&
             this.counterpartyId == other.counterpartyId &&
+            this.dueDate == other.dueDate &&
+            this.originatingAccountId == other.originatingAccountId &&
+            this.contactDetails == other.contactDetails &&
             this.counterpartyBillingAddress == other.counterpartyBillingAddress &&
             this.counterpartyShippingAddress == other.counterpartyShippingAddress &&
             this.currency == other.currency &&
             this.description == other.description &&
-            this.dueDate == other.dueDate &&
             this.invoicerAddress == other.invoicerAddress &&
-            this.originatingAccountId == other.originatingAccountId &&
-            this.receivingAccountId == other.receivingAccountId &&
-            this.paymentEffectiveDate == other.paymentEffectiveDate &&
-            this.paymentType == other.paymentType &&
-            this.paymentMethod == other.paymentMethod &&
-            this.notificationsEnabled == other.notificationsEnabled &&
             this.notificationEmailAddresses == other.notificationEmailAddresses &&
+            this.notificationsEnabled == other.notificationsEnabled &&
+            this.paymentEffectiveDate == other.paymentEffectiveDate &&
+            this.paymentMethod == other.paymentMethod &&
+            this.paymentType == other.paymentType &&
+            this.receivingAccountId == other.receivingAccountId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -467,21 +467,21 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
-            contactDetails,
             counterpartyId,
+            dueDate,
+            originatingAccountId,
+            contactDetails,
             counterpartyBillingAddress,
             counterpartyShippingAddress,
             currency,
             description,
-            dueDate,
             invoicerAddress,
-            originatingAccountId,
-            receivingAccountId,
-            paymentEffectiveDate,
-            paymentType,
-            paymentMethod,
-            notificationsEnabled,
             notificationEmailAddresses,
+            notificationsEnabled,
+            paymentEffectiveDate,
+            paymentMethod,
+            paymentType,
+            receivingAccountId,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -489,7 +489,7 @@ constructor(
     }
 
     override fun toString() =
-        "InvoiceCreateParams{contactDetails=$contactDetails, counterpartyId=$counterpartyId, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentType=$paymentType, paymentMethod=$paymentMethod, notificationsEnabled=$notificationsEnabled, notificationEmailAddresses=$notificationEmailAddresses, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "InvoiceCreateParams{counterpartyId=$counterpartyId, dueDate=$dueDate, originatingAccountId=$originatingAccountId, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, invoicerAddress=$invoicerAddress, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -501,46 +501,57 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var contactDetails: MutableList<ContactDetail> = mutableListOf()
         private var counterpartyId: String? = null
+        private var dueDate: OffsetDateTime? = null
+        private var originatingAccountId: String? = null
+        private var contactDetails: MutableList<ContactDetail> = mutableListOf()
         private var counterpartyBillingAddress: CounterpartyBillingAddress? = null
         private var counterpartyShippingAddress: CounterpartyShippingAddress? = null
         private var currency: Currency? = null
         private var description: String? = null
-        private var dueDate: OffsetDateTime? = null
         private var invoicerAddress: InvoicerAddress? = null
-        private var originatingAccountId: String? = null
-        private var receivingAccountId: String? = null
-        private var paymentEffectiveDate: LocalDate? = null
-        private var paymentType: PaymentType? = null
-        private var paymentMethod: PaymentMethod? = null
-        private var notificationsEnabled: Boolean? = null
         private var notificationEmailAddresses: MutableList<String> = mutableListOf()
+        private var notificationsEnabled: Boolean? = null
+        private var paymentEffectiveDate: LocalDate? = null
+        private var paymentMethod: PaymentMethod? = null
+        private var paymentType: PaymentType? = null
+        private var receivingAccountId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(invoiceCreateParams: InvoiceCreateParams) = apply {
-            this.contactDetails(invoiceCreateParams.contactDetails ?: listOf())
             this.counterpartyId = invoiceCreateParams.counterpartyId
+            this.dueDate = invoiceCreateParams.dueDate
+            this.originatingAccountId = invoiceCreateParams.originatingAccountId
+            this.contactDetails(invoiceCreateParams.contactDetails ?: listOf())
             this.counterpartyBillingAddress = invoiceCreateParams.counterpartyBillingAddress
             this.counterpartyShippingAddress = invoiceCreateParams.counterpartyShippingAddress
             this.currency = invoiceCreateParams.currency
             this.description = invoiceCreateParams.description
-            this.dueDate = invoiceCreateParams.dueDate
             this.invoicerAddress = invoiceCreateParams.invoicerAddress
-            this.originatingAccountId = invoiceCreateParams.originatingAccountId
-            this.receivingAccountId = invoiceCreateParams.receivingAccountId
-            this.paymentEffectiveDate = invoiceCreateParams.paymentEffectiveDate
-            this.paymentType = invoiceCreateParams.paymentType
-            this.paymentMethod = invoiceCreateParams.paymentMethod
-            this.notificationsEnabled = invoiceCreateParams.notificationsEnabled
             this.notificationEmailAddresses(
                 invoiceCreateParams.notificationEmailAddresses ?: listOf()
             )
+            this.notificationsEnabled = invoiceCreateParams.notificationsEnabled
+            this.paymentEffectiveDate = invoiceCreateParams.paymentEffectiveDate
+            this.paymentMethod = invoiceCreateParams.paymentMethod
+            this.paymentType = invoiceCreateParams.paymentType
+            this.receivingAccountId = invoiceCreateParams.receivingAccountId
             additionalQueryParams(invoiceCreateParams.additionalQueryParams)
             additionalHeaders(invoiceCreateParams.additionalHeaders)
             additionalBodyProperties(invoiceCreateParams.additionalBodyProperties)
+        }
+
+        /** The ID of the counterparty receiving the invoice. */
+        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
+
+        /** A future date by when the invoice needs to be paid. */
+        fun dueDate(dueDate: OffsetDateTime) = apply { this.dueDate = dueDate }
+
+        /** The ID of the internal account the invoice should be paid to. */
+        fun originatingAccountId(originatingAccountId: String) = apply {
+            this.originatingAccountId = originatingAccountId
         }
 
         /** The invoicer's contact details displayed at the top of the invoice. */
@@ -553,9 +564,6 @@ constructor(
         fun addContactDetail(contactDetail: ContactDetail) = apply {
             this.contactDetails.add(contactDetail)
         }
-
-        /** The ID of the counterparty receiving the invoice. */
-        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
 
         /** The counterparty's billing address. */
         fun counterpartyBillingAddress(counterpartyBillingAddress: CounterpartyBillingAddress) =
@@ -575,57 +583,9 @@ constructor(
         /** A free-form description of the invoice. */
         fun description(description: String) = apply { this.description = description }
 
-        /** A future date by when the invoice needs to be paid. */
-        fun dueDate(dueDate: OffsetDateTime) = apply { this.dueDate = dueDate }
-
         /** The invoice issuer's business address. */
         fun invoicerAddress(invoicerAddress: InvoicerAddress) = apply {
             this.invoicerAddress = invoicerAddress
-        }
-
-        /** The ID of the internal account the invoice should be paid to. */
-        fun originatingAccountId(originatingAccountId: String) = apply {
-            this.originatingAccountId = originatingAccountId
-        }
-
-        /** The receiving account ID. Can be an `external_account`. */
-        fun receivingAccountId(receivingAccountId: String) = apply {
-            this.receivingAccountId = receivingAccountId
-        }
-
-        /**
-         * Date transactions are to be posted to the participants' account. Defaults to the current
-         * business day or the next business day if the current day is a bank holiday or weekend.
-         * Format: yyyy-mm-dd.
-         */
-        fun paymentEffectiveDate(paymentEffectiveDate: LocalDate) = apply {
-            this.paymentEffectiveDate = paymentEffectiveDate
-        }
-
-        /**
-         * One of `ach`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`, `au_becs`,
-         * `interac`, `signet`, `provexchange`.
-         */
-        fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
-
-        /**
-         * The method by which the invoice can be paid. `ui` will show the embedded payment
-         * collection flow. `automatic` will automatically initiate payment based upon the account
-         * details of the receiving_account id.\nIf the invoice amount is positive, the
-         * automatically initiated payment order's direction will be debit. If the invoice amount is
-         * negative, the automatically initiated payment order's direction will be credit. One of
-         * `manual`, `ui`, or `automatic`.
-         */
-        fun paymentMethod(paymentMethod: PaymentMethod) = apply {
-            this.paymentMethod = paymentMethod
-        }
-
-        /**
-         * If true, the invoice will send email notifications to the invoice recipients about
-         * invoice status changes.
-         */
-        fun notificationsEnabled(notificationsEnabled: Boolean) = apply {
-            this.notificationsEnabled = notificationsEnabled
         }
 
         /**
@@ -645,6 +605,46 @@ constructor(
          */
         fun addNotificationEmailAddress(notificationEmailAddress: String) = apply {
             this.notificationEmailAddresses.add(notificationEmailAddress)
+        }
+
+        /**
+         * If true, the invoice will send email notifications to the invoice recipients about
+         * invoice status changes.
+         */
+        fun notificationsEnabled(notificationsEnabled: Boolean) = apply {
+            this.notificationsEnabled = notificationsEnabled
+        }
+
+        /**
+         * Date transactions are to be posted to the participants' account. Defaults to the current
+         * business day or the next business day if the current day is a bank holiday or weekend.
+         * Format: yyyy-mm-dd.
+         */
+        fun paymentEffectiveDate(paymentEffectiveDate: LocalDate) = apply {
+            this.paymentEffectiveDate = paymentEffectiveDate
+        }
+
+        /**
+         * The method by which the invoice can be paid. `ui` will show the embedded payment
+         * collection flow. `automatic` will automatically initiate payment based upon the account
+         * details of the receiving_account id.\nIf the invoice amount is positive, the
+         * automatically initiated payment order's direction will be debit. If the invoice amount is
+         * negative, the automatically initiated payment order's direction will be credit. One of
+         * `manual`, `ui`, or `automatic`.
+         */
+        fun paymentMethod(paymentMethod: PaymentMethod) = apply {
+            this.paymentMethod = paymentMethod
+        }
+
+        /**
+         * One of `ach`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`, `au_becs`,
+         * `interac`, `signet`, `provexchange`.
+         */
+        fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
+
+        /** The receiving account ID. Can be an `external_account`. */
+        fun receivingAccountId(receivingAccountId: String) = apply {
+            this.receivingAccountId = receivingAccountId
         }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
@@ -703,24 +703,24 @@ constructor(
 
         fun build(): InvoiceCreateParams =
             InvoiceCreateParams(
-                if (contactDetails.size == 0) null else contactDetails.toUnmodifiable(),
                 checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
+                checkNotNull(dueDate) { "`dueDate` is required but was not set" },
+                checkNotNull(originatingAccountId) {
+                    "`originatingAccountId` is required but was not set"
+                },
+                if (contactDetails.size == 0) null else contactDetails.toUnmodifiable(),
                 counterpartyBillingAddress,
                 counterpartyShippingAddress,
                 currency,
                 description,
-                checkNotNull(dueDate) { "`dueDate` is required but was not set" },
                 invoicerAddress,
-                checkNotNull(originatingAccountId) {
-                    "`originatingAccountId` is required but was not set"
-                },
-                receivingAccountId,
-                paymentEffectiveDate,
-                paymentType,
-                paymentMethod,
-                notificationsEnabled,
                 if (notificationEmailAddresses.size == 0) null
                 else notificationEmailAddresses.toUnmodifiable(),
+                notificationsEnabled,
+                paymentEffectiveDate,
+                paymentMethod,
+                paymentType,
+                receivingAccountId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

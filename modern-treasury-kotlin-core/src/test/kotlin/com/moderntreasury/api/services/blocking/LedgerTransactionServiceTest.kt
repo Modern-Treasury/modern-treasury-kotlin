@@ -24,11 +24,6 @@ class LedgerTransactionServiceTest {
         val ledgerTransaction =
             ledgerTransactionService.create(
                 LedgerTransactionCreateParams.builder()
-                    .description("string")
-                    .status(LedgerTransactionCreateParams.Status.ARCHIVED)
-                    .metadata(LedgerTransactionCreateParams.Metadata.builder().build())
-                    .effectiveAt(LocalDate.parse("2019-12-27"))
-                    .effectiveDate(LocalDate.parse("2019-12-27"))
                     .ledgerEntries(
                         listOf(
                             LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
@@ -66,9 +61,14 @@ class LedgerTransactionServiceTest {
                                 .build()
                         )
                     )
+                    .description("string")
+                    .effectiveAt(LocalDate.parse("2019-12-27"))
+                    .effectiveDate(LocalDate.parse("2019-12-27"))
                     .externalId("string")
-                    .ledgerableType(LedgerTransactionCreateParams.LedgerableType.COUNTERPARTY)
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .ledgerableType(LedgerTransactionCreateParams.LedgerableType.COUNTERPARTY)
+                    .metadata(LedgerTransactionCreateParams.Metadata.builder().build())
+                    .status(LedgerTransactionCreateParams.Status.ARCHIVED)
                     .build()
             )
         println(ledgerTransaction)
@@ -106,8 +106,6 @@ class LedgerTransactionServiceTest {
                 LedgerTransactionUpdateParams.builder()
                     .id("string")
                     .description("string")
-                    .status(LedgerTransactionUpdateParams.Status.ARCHIVED)
-                    .metadata(LedgerTransactionUpdateParams.Metadata.builder().build())
                     .effectiveAt(LocalDate.parse("2019-12-27"))
                     .ledgerEntries(
                         listOf(
@@ -146,6 +144,8 @@ class LedgerTransactionServiceTest {
                                 .build()
                         )
                     )
+                    .metadata(LedgerTransactionUpdateParams.Metadata.builder().build())
+                    .status(LedgerTransactionUpdateParams.Status.ARCHIVED)
                     .build()
             )
         println(ledgerTransaction)
@@ -180,14 +180,14 @@ class LedgerTransactionServiceTest {
                 LedgerTransactionCreateReversalParams.builder()
                     .id("string")
                     .description("string")
-                    .status(LedgerTransactionCreateReversalParams.Status.ARCHIVED)
-                    .metadata(LedgerTransactionCreateReversalParams.Metadata.builder().build())
                     .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .externalId("string")
+                    .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
                         LedgerTransactionCreateReversalParams.LedgerableType.COUNTERPARTY
                     )
-                    .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .metadata(LedgerTransactionCreateReversalParams.Metadata.builder().build())
+                    .status(LedgerTransactionCreateReversalParams.Status.ARCHIVED)
                     .build()
             )
         println(ledgerTransaction)

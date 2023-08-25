@@ -24,13 +24,13 @@ class LedgerAccountCategoryServiceTest {
         val ledgerAccountCategory =
             ledgerAccountCategoryService.create(
                 LedgerAccountCategoryCreateParams.builder()
+                    .currency("string")
+                    .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .name("string")
+                    .normalBalance(LedgerAccountCategoryCreateParams.NormalBalance.CREDIT)
+                    .currencyExponent(123L)
                     .description("string")
                     .metadata(LedgerAccountCategoryCreateParams.Metadata.builder().build())
-                    .currency("string")
-                    .currencyExponent(123L)
-                    .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .normalBalance(LedgerAccountCategoryCreateParams.NormalBalance.CREDIT)
                     .build()
             )
         println(ledgerAccountCategory)
@@ -75,9 +75,9 @@ class LedgerAccountCategoryServiceTest {
             ledgerAccountCategoryService.update(
                 LedgerAccountCategoryUpdateParams.builder()
                     .id("string")
-                    .name("string")
                     .description("string")
                     .metadata(LedgerAccountCategoryUpdateParams.Metadata.builder().build())
+                    .name("string")
                     .build()
             )
         println(ledgerAccountCategory)

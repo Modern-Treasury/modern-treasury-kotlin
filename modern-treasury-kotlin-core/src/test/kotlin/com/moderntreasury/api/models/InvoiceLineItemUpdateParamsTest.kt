@@ -11,11 +11,11 @@ class InvoiceLineItemUpdateParamsTest {
         InvoiceLineItemUpdateParams.builder()
             .invoiceId("string")
             .id("string")
-            .name("string")
             .description("string")
+            .direction("string")
+            .name("string")
             .quantity(123L)
             .unitAmount(123L)
-            .direction("string")
             .build()
     }
 
@@ -25,19 +25,19 @@ class InvoiceLineItemUpdateParamsTest {
             InvoiceLineItemUpdateParams.builder()
                 .invoiceId("string")
                 .id("string")
-                .name("string")
                 .description("string")
+                .direction("string")
+                .name("string")
                 .quantity(123L)
                 .unitAmount(123L)
-                .direction("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.name()).isEqualTo("string")
         assertThat(body.description()).isEqualTo("string")
+        assertThat(body.direction()).isEqualTo("string")
+        assertThat(body.name()).isEqualTo("string")
         assertThat(body.quantity()).isEqualTo(123L)
         assertThat(body.unitAmount()).isEqualTo(123L)
-        assertThat(body.direction()).isEqualTo("string")
     }
 
     @Test

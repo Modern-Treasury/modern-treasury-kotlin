@@ -10,14 +10,14 @@ class IncomingPaymentDetailCreateAsyncParamsTest {
     @Test
     fun createIncomingPaymentDetailCreateAsyncParams() {
         IncomingPaymentDetailCreateAsyncParams.builder()
-            .type(IncomingPaymentDetailCreateAsyncParams.Type.ACH)
-            .direction(IncomingPaymentDetailCreateAsyncParams.Direction.CREDIT)
             .amount(123L)
-            .currency(Currency.AED)
-            .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .asOfDate(LocalDate.parse("2019-12-27"))
+            .currency(Currency.AED)
             .description("string")
+            .direction(IncomingPaymentDetailCreateAsyncParams.Direction.CREDIT)
+            .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .type(IncomingPaymentDetailCreateAsyncParams.Type.ACH)
+            .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .build()
     }
 
@@ -25,26 +25,26 @@ class IncomingPaymentDetailCreateAsyncParamsTest {
     fun getBody() {
         val params =
             IncomingPaymentDetailCreateAsyncParams.builder()
-                .type(IncomingPaymentDetailCreateAsyncParams.Type.ACH)
-                .direction(IncomingPaymentDetailCreateAsyncParams.Direction.CREDIT)
                 .amount(123L)
-                .currency(Currency.AED)
-                .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .asOfDate(LocalDate.parse("2019-12-27"))
+                .currency(Currency.AED)
                 .description("string")
+                .direction(IncomingPaymentDetailCreateAsyncParams.Direction.CREDIT)
+                .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .type(IncomingPaymentDetailCreateAsyncParams.Type.ACH)
+                .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.type()).isEqualTo(IncomingPaymentDetailCreateAsyncParams.Type.ACH)
+        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
+        assertThat(body.currency()).isEqualTo(Currency.AED)
+        assertThat(body.description()).isEqualTo("string")
         assertThat(body.direction())
             .isEqualTo(IncomingPaymentDetailCreateAsyncParams.Direction.CREDIT)
-        assertThat(body.amount()).isEqualTo(123L)
-        assertThat(body.currency()).isEqualTo(Currency.AED)
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(body.type()).isEqualTo(IncomingPaymentDetailCreateAsyncParams.Type.ACH)
         assertThat(body.virtualAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
-        assertThat(body.description()).isEqualTo("string")
     }
 
     @Test

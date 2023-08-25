@@ -11,13 +11,10 @@ class PaymentOrderCreateParamsTest {
     @Test
     fun createPaymentOrderCreateParams() {
         PaymentOrderCreateParams.builder()
-            .type(PaymentOrderType.ACH)
-            .subtype(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
             .amount(123L)
             .direction(PaymentOrderCreateParams.Direction.CREDIT)
-            .priority(PaymentOrderCreateParams.Priority.HIGH)
             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .type(PaymentOrderType.ACH)
             .accounting(
                 PaymentOrderCreateParams.Accounting.builder()
                     .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -26,27 +23,109 @@ class PaymentOrderCreateParamsTest {
             )
             .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .currency(Currency.AED)
-            .effectiveDate(LocalDate.parse("2019-12-27"))
-            .description("string")
-            .statementDescriptor("string")
-            .remittanceInformation("string")
-            .purpose("string")
-            .metadata(PaymentOrderCreateParams.Metadata.builder().build())
             .chargeBearer(PaymentOrderCreateParams.ChargeBearer.SHARED)
+            .currency(Currency.AED)
+            .description("string")
+            .documents(
+                listOf(
+                    PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                        .documentableId("string")
+                        .documentableType(
+                            PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CASES
+                        )
+                        .file("file.txt")
+                        .documentType("string")
+                        .build()
+                )
+            )
+            .effectiveDate(LocalDate.parse("2019-12-27"))
+            .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .fallbackType(PaymentOrderCreateParams.FallbackType.ACH)
+            .foreignExchangeContract("string")
             .foreignExchangeIndicator(
                 PaymentOrderCreateParams.ForeignExchangeIndicator.FIXED_TO_VARIABLE
             )
-            .foreignExchangeContract("string")
+            .ledgerTransaction(
+                PaymentOrderCreateParams.LedgerTransactionCreateRequest.builder()
+                    .ledgerEntries(
+                        listOf(
+                            PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                .LedgerEntryCreateRequest
+                                .builder()
+                                .amount(123L)
+                                .direction(
+                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                        .LedgerEntryCreateRequest
+                                        .Direction
+                                        .CREDIT
+                                )
+                                .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .availableBalanceAmount(
+                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                        .LedgerEntryCreateRequest
+                                        .AvailableBalanceAmount
+                                        .builder()
+                                        .build()
+                                )
+                                .lockVersion(123L)
+                                .metadata(
+                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                        .LedgerEntryCreateRequest
+                                        .Metadata
+                                        .builder()
+                                        .build()
+                                )
+                                .pendingBalanceAmount(
+                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                        .LedgerEntryCreateRequest
+                                        .PendingBalanceAmount
+                                        .builder()
+                                        .build()
+                                )
+                                .postedBalanceAmount(
+                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                        .LedgerEntryCreateRequest
+                                        .PostedBalanceAmount
+                                        .builder()
+                                        .build()
+                                )
+                                .showResultingLedgerAccountBalances(true)
+                                .build()
+                        )
+                    )
+                    .description("string")
+                    .effectiveAt(LocalDate.parse("2019-12-27"))
+                    .effectiveDate(LocalDate.parse("2019-12-27"))
+                    .externalId("string")
+                    .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .ledgerableType(
+                        PaymentOrderCreateParams.LedgerTransactionCreateRequest.LedgerableType
+                            .COUNTERPARTY
+                    )
+                    .metadata(
+                        PaymentOrderCreateParams.LedgerTransactionCreateRequest.Metadata.builder()
+                            .build()
+                    )
+                    .status(PaymentOrderCreateParams.LedgerTransactionCreateRequest.Status.ARCHIVED)
+                    .build()
+            )
+            .lineItems(
+                listOf(
+                    PaymentOrderCreateParams.LineItemRequest.builder()
+                        .amount(123L)
+                        .accountingCategoryId("string")
+                        .description("string")
+                        .metadata(
+                            PaymentOrderCreateParams.LineItemRequest.Metadata.builder().build()
+                        )
+                        .build()
+                )
+            )
+            .metadata(PaymentOrderCreateParams.Metadata.builder().build())
             .nsfProtected(true)
             .originatingPartyName("string")
-            .ultimateOriginatingPartyName("string")
-            .ultimateOriginatingPartyIdentifier("string")
-            .ultimateReceivingPartyName("string")
-            .ultimateReceivingPartyIdentifier("string")
-            .sendRemittanceAdvice(true)
-            .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .fallbackType(PaymentOrderCreateParams.FallbackType.ACH)
+            .priority(PaymentOrderCreateParams.Priority.HIGH)
+            .purpose("string")
             .receivingAccount(
                 PaymentOrderCreateParams.ReceivingAccount.builder()
                     .accountDetails(
@@ -138,95 +217,16 @@ class PaymentOrderCreateParamsTest {
                     )
                     .build()
             )
-            .ledgerTransaction(
-                PaymentOrderCreateParams.LedgerTransactionCreateRequest.builder()
-                    .ledgerEntries(
-                        listOf(
-                            PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                .LedgerEntryCreateRequest
-                                .builder()
-                                .amount(123L)
-                                .direction(
-                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .Direction
-                                        .CREDIT
-                                )
-                                .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .availableBalanceAmount(
-                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .AvailableBalanceAmount
-                                        .builder()
-                                        .build()
-                                )
-                                .lockVersion(123L)
-                                .metadata(
-                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .Metadata
-                                        .builder()
-                                        .build()
-                                )
-                                .pendingBalanceAmount(
-                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .PendingBalanceAmount
-                                        .builder()
-                                        .build()
-                                )
-                                .postedBalanceAmount(
-                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .PostedBalanceAmount
-                                        .builder()
-                                        .build()
-                                )
-                                .showResultingLedgerAccountBalances(true)
-                                .build()
-                        )
-                    )
-                    .description("string")
-                    .effectiveAt(LocalDate.parse("2019-12-27"))
-                    .effectiveDate(LocalDate.parse("2019-12-27"))
-                    .externalId("string")
-                    .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .ledgerableType(
-                        PaymentOrderCreateParams.LedgerTransactionCreateRequest.LedgerableType
-                            .COUNTERPARTY
-                    )
-                    .metadata(
-                        PaymentOrderCreateParams.LedgerTransactionCreateRequest.Metadata.builder()
-                            .build()
-                    )
-                    .status(PaymentOrderCreateParams.LedgerTransactionCreateRequest.Status.ARCHIVED)
-                    .build()
-            )
-            .lineItems(
-                listOf(
-                    PaymentOrderCreateParams.LineItemRequest.builder()
-                        .amount(123L)
-                        .accountingCategoryId("string")
-                        .description("string")
-                        .metadata(
-                            PaymentOrderCreateParams.LineItemRequest.Metadata.builder().build()
-                        )
-                        .build()
-                )
-            )
+            .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .remittanceInformation("string")
+            .sendRemittanceAdvice(true)
+            .statementDescriptor("string")
+            .subtype(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
             .transactionMonitoringEnabled(true)
-            .documents(
-                listOf(
-                    PaymentOrderCreateParams.DocumentCreateRequest.builder()
-                        .documentableId("string")
-                        .documentableType(
-                            PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CASES
-                        )
-                        .file("file.txt")
-                        .documentType("string")
-                        .build()
-                )
-            )
+            .ultimateOriginatingPartyIdentifier("string")
+            .ultimateOriginatingPartyName("string")
+            .ultimateReceivingPartyIdentifier("string")
+            .ultimateReceivingPartyName("string")
             .build()
     }
 
@@ -234,13 +234,10 @@ class PaymentOrderCreateParamsTest {
     fun getBody() {
         val params =
             PaymentOrderCreateParams.builder()
-                .type(PaymentOrderType.ACH)
-                .subtype(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
                 .amount(123L)
                 .direction(PaymentOrderCreateParams.Direction.CREDIT)
-                .priority(PaymentOrderCreateParams.Priority.HIGH)
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .type(PaymentOrderType.ACH)
                 .accounting(
                     PaymentOrderCreateParams.Accounting.builder()
                         .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -249,27 +246,113 @@ class PaymentOrderCreateParamsTest {
                 )
                 .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .currency(Currency.AED)
-                .effectiveDate(LocalDate.parse("2019-12-27"))
-                .description("string")
-                .statementDescriptor("string")
-                .remittanceInformation("string")
-                .purpose("string")
-                .metadata(PaymentOrderCreateParams.Metadata.builder().build())
                 .chargeBearer(PaymentOrderCreateParams.ChargeBearer.SHARED)
+                .currency(Currency.AED)
+                .description("string")
+                .documents(
+                    listOf(
+                        PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                            .documentableId("string")
+                            .documentableType(
+                                PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
+                                    .CASES
+                            )
+                            .file("file.txt")
+                            .documentType("string")
+                            .build()
+                    )
+                )
+                .effectiveDate(LocalDate.parse("2019-12-27"))
+                .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .fallbackType(PaymentOrderCreateParams.FallbackType.ACH)
+                .foreignExchangeContract("string")
                 .foreignExchangeIndicator(
                     PaymentOrderCreateParams.ForeignExchangeIndicator.FIXED_TO_VARIABLE
                 )
-                .foreignExchangeContract("string")
+                .ledgerTransaction(
+                    PaymentOrderCreateParams.LedgerTransactionCreateRequest.builder()
+                        .ledgerEntries(
+                            listOf(
+                                PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                    .LedgerEntryCreateRequest
+                                    .builder()
+                                    .amount(123L)
+                                    .direction(
+                                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                            .LedgerEntryCreateRequest
+                                            .Direction
+                                            .CREDIT
+                                    )
+                                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .availableBalanceAmount(
+                                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                            .LedgerEntryCreateRequest
+                                            .AvailableBalanceAmount
+                                            .builder()
+                                            .build()
+                                    )
+                                    .lockVersion(123L)
+                                    .metadata(
+                                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                            .LedgerEntryCreateRequest
+                                            .Metadata
+                                            .builder()
+                                            .build()
+                                    )
+                                    .pendingBalanceAmount(
+                                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                            .LedgerEntryCreateRequest
+                                            .PendingBalanceAmount
+                                            .builder()
+                                            .build()
+                                    )
+                                    .postedBalanceAmount(
+                                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                            .LedgerEntryCreateRequest
+                                            .PostedBalanceAmount
+                                            .builder()
+                                            .build()
+                                    )
+                                    .showResultingLedgerAccountBalances(true)
+                                    .build()
+                            )
+                        )
+                        .description("string")
+                        .effectiveAt(LocalDate.parse("2019-12-27"))
+                        .effectiveDate(LocalDate.parse("2019-12-27"))
+                        .externalId("string")
+                        .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .ledgerableType(
+                            PaymentOrderCreateParams.LedgerTransactionCreateRequest.LedgerableType
+                                .COUNTERPARTY
+                        )
+                        .metadata(
+                            PaymentOrderCreateParams.LedgerTransactionCreateRequest.Metadata
+                                .builder()
+                                .build()
+                        )
+                        .status(
+                            PaymentOrderCreateParams.LedgerTransactionCreateRequest.Status.ARCHIVED
+                        )
+                        .build()
+                )
+                .lineItems(
+                    listOf(
+                        PaymentOrderCreateParams.LineItemRequest.builder()
+                            .amount(123L)
+                            .accountingCategoryId("string")
+                            .description("string")
+                            .metadata(
+                                PaymentOrderCreateParams.LineItemRequest.Metadata.builder().build()
+                            )
+                            .build()
+                    )
+                )
+                .metadata(PaymentOrderCreateParams.Metadata.builder().build())
                 .nsfProtected(true)
                 .originatingPartyName("string")
-                .ultimateOriginatingPartyName("string")
-                .ultimateOriginatingPartyIdentifier("string")
-                .ultimateReceivingPartyName("string")
-                .ultimateReceivingPartyIdentifier("string")
-                .sendRemittanceAdvice(true)
-                .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .fallbackType(PaymentOrderCreateParams.FallbackType.ACH)
+                .priority(PaymentOrderCreateParams.Priority.HIGH)
+                .purpose("string")
                 .receivingAccount(
                     PaymentOrderCreateParams.ReceivingAccount.builder()
                         .accountDetails(
@@ -366,109 +449,23 @@ class PaymentOrderCreateParamsTest {
                         )
                         .build()
                 )
-                .ledgerTransaction(
-                    PaymentOrderCreateParams.LedgerTransactionCreateRequest.builder()
-                        .ledgerEntries(
-                            listOf(
-                                PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                    .LedgerEntryCreateRequest
-                                    .builder()
-                                    .amount(123L)
-                                    .direction(
-                                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                            .LedgerEntryCreateRequest
-                                            .Direction
-                                            .CREDIT
-                                    )
-                                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .availableBalanceAmount(
-                                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                            .LedgerEntryCreateRequest
-                                            .AvailableBalanceAmount
-                                            .builder()
-                                            .build()
-                                    )
-                                    .lockVersion(123L)
-                                    .metadata(
-                                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                            .LedgerEntryCreateRequest
-                                            .Metadata
-                                            .builder()
-                                            .build()
-                                    )
-                                    .pendingBalanceAmount(
-                                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                            .LedgerEntryCreateRequest
-                                            .PendingBalanceAmount
-                                            .builder()
-                                            .build()
-                                    )
-                                    .postedBalanceAmount(
-                                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                            .LedgerEntryCreateRequest
-                                            .PostedBalanceAmount
-                                            .builder()
-                                            .build()
-                                    )
-                                    .showResultingLedgerAccountBalances(true)
-                                    .build()
-                            )
-                        )
-                        .description("string")
-                        .effectiveAt(LocalDate.parse("2019-12-27"))
-                        .effectiveDate(LocalDate.parse("2019-12-27"))
-                        .externalId("string")
-                        .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .ledgerableType(
-                            PaymentOrderCreateParams.LedgerTransactionCreateRequest.LedgerableType
-                                .COUNTERPARTY
-                        )
-                        .metadata(
-                            PaymentOrderCreateParams.LedgerTransactionCreateRequest.Metadata
-                                .builder()
-                                .build()
-                        )
-                        .status(
-                            PaymentOrderCreateParams.LedgerTransactionCreateRequest.Status.ARCHIVED
-                        )
-                        .build()
-                )
-                .lineItems(
-                    listOf(
-                        PaymentOrderCreateParams.LineItemRequest.builder()
-                            .amount(123L)
-                            .accountingCategoryId("string")
-                            .description("string")
-                            .metadata(
-                                PaymentOrderCreateParams.LineItemRequest.Metadata.builder().build()
-                            )
-                            .build()
-                    )
-                )
+                .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .remittanceInformation("string")
+                .sendRemittanceAdvice(true)
+                .statementDescriptor("string")
+                .subtype(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
                 .transactionMonitoringEnabled(true)
-                .documents(
-                    listOf(
-                        PaymentOrderCreateParams.DocumentCreateRequest.builder()
-                            .documentableId("string")
-                            .documentableType(
-                                PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
-                                    .CASES
-                            )
-                            .file("file.txt")
-                            .documentType("string")
-                            .build()
-                    )
-                )
+                .ultimateOriginatingPartyIdentifier("string")
+                .ultimateOriginatingPartyName("string")
+                .ultimateReceivingPartyIdentifier("string")
+                .ultimateReceivingPartyName("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.type()).isEqualTo(PaymentOrderType.ACH)
-        assertThat(body.subtype()).isEqualTo(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.direction()).isEqualTo(PaymentOrderCreateParams.Direction.CREDIT)
-        assertThat(body.priority()).isEqualTo(PaymentOrderCreateParams.Priority.HIGH)
         assertThat(body.originatingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.receivingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(body.type()).isEqualTo(PaymentOrderType.ACH)
         assertThat(body.accounting())
             .isEqualTo(
                 PaymentOrderCreateParams.Accounting.builder()
@@ -478,26 +475,111 @@ class PaymentOrderCreateParamsTest {
             )
         assertThat(body.accountingCategoryId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.accountingLedgerClassId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.currency()).isEqualTo(Currency.AED)
-        assertThat(body.effectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
-        assertThat(body.description()).isEqualTo("string")
-        assertThat(body.statementDescriptor()).isEqualTo("string")
-        assertThat(body.remittanceInformation()).isEqualTo("string")
-        assertThat(body.purpose()).isEqualTo("string")
-        assertThat(body.metadata()).isEqualTo(PaymentOrderCreateParams.Metadata.builder().build())
         assertThat(body.chargeBearer()).isEqualTo(PaymentOrderCreateParams.ChargeBearer.SHARED)
-        assertThat(body.foreignExchangeIndicator())
-            .isEqualTo(PaymentOrderCreateParams.ForeignExchangeIndicator.FIXED_TO_VARIABLE)
-        assertThat(body.foreignExchangeContract()).isEqualTo("string")
-        assertThat(body.nsfProtected()).isEqualTo(true)
-        assertThat(body.originatingPartyName()).isEqualTo("string")
-        assertThat(body.ultimateOriginatingPartyName()).isEqualTo("string")
-        assertThat(body.ultimateOriginatingPartyIdentifier()).isEqualTo("string")
-        assertThat(body.ultimateReceivingPartyName()).isEqualTo("string")
-        assertThat(body.ultimateReceivingPartyIdentifier()).isEqualTo("string")
-        assertThat(body.sendRemittanceAdvice()).isEqualTo(true)
+        assertThat(body.currency()).isEqualTo(Currency.AED)
+        assertThat(body.description()).isEqualTo("string")
+        assertThat(body.documents())
+            .isEqualTo(
+                listOf(
+                    PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                        .documentableId("string")
+                        .documentableType(
+                            PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CASES
+                        )
+                        .file("file.txt")
+                        .documentType("string")
+                        .build()
+                )
+            )
+        assertThat(body.effectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.expiresAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.fallbackType()).isEqualTo(PaymentOrderCreateParams.FallbackType.ACH)
+        assertThat(body.foreignExchangeContract()).isEqualTo("string")
+        assertThat(body.foreignExchangeIndicator())
+            .isEqualTo(PaymentOrderCreateParams.ForeignExchangeIndicator.FIXED_TO_VARIABLE)
+        assertThat(body.ledgerTransaction())
+            .isEqualTo(
+                PaymentOrderCreateParams.LedgerTransactionCreateRequest.builder()
+                    .ledgerEntries(
+                        listOf(
+                            PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                .LedgerEntryCreateRequest
+                                .builder()
+                                .amount(123L)
+                                .direction(
+                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                        .LedgerEntryCreateRequest
+                                        .Direction
+                                        .CREDIT
+                                )
+                                .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .availableBalanceAmount(
+                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                        .LedgerEntryCreateRequest
+                                        .AvailableBalanceAmount
+                                        .builder()
+                                        .build()
+                                )
+                                .lockVersion(123L)
+                                .metadata(
+                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                        .LedgerEntryCreateRequest
+                                        .Metadata
+                                        .builder()
+                                        .build()
+                                )
+                                .pendingBalanceAmount(
+                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                        .LedgerEntryCreateRequest
+                                        .PendingBalanceAmount
+                                        .builder()
+                                        .build()
+                                )
+                                .postedBalanceAmount(
+                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                        .LedgerEntryCreateRequest
+                                        .PostedBalanceAmount
+                                        .builder()
+                                        .build()
+                                )
+                                .showResultingLedgerAccountBalances(true)
+                                .build()
+                        )
+                    )
+                    .description("string")
+                    .effectiveAt(LocalDate.parse("2019-12-27"))
+                    .effectiveDate(LocalDate.parse("2019-12-27"))
+                    .externalId("string")
+                    .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .ledgerableType(
+                        PaymentOrderCreateParams.LedgerTransactionCreateRequest.LedgerableType
+                            .COUNTERPARTY
+                    )
+                    .metadata(
+                        PaymentOrderCreateParams.LedgerTransactionCreateRequest.Metadata.builder()
+                            .build()
+                    )
+                    .status(PaymentOrderCreateParams.LedgerTransactionCreateRequest.Status.ARCHIVED)
+                    .build()
+            )
+        assertThat(body.lineItems())
+            .isEqualTo(
+                listOf(
+                    PaymentOrderCreateParams.LineItemRequest.builder()
+                        .amount(123L)
+                        .accountingCategoryId("string")
+                        .description("string")
+                        .metadata(
+                            PaymentOrderCreateParams.LineItemRequest.Metadata.builder().build()
+                        )
+                        .build()
+                )
+            )
+        assertThat(body.metadata()).isEqualTo(PaymentOrderCreateParams.Metadata.builder().build())
+        assertThat(body.nsfProtected()).isEqualTo(true)
+        assertThat(body.originatingPartyName()).isEqualTo("string")
+        assertThat(body.priority()).isEqualTo(PaymentOrderCreateParams.Priority.HIGH)
+        assertThat(body.purpose()).isEqualTo("string")
         assertThat(body.receivingAccount())
             .isEqualTo(
                 PaymentOrderCreateParams.ReceivingAccount.builder()
@@ -590,114 +672,32 @@ class PaymentOrderCreateParamsTest {
                     )
                     .build()
             )
-        assertThat(body.ledgerTransaction())
-            .isEqualTo(
-                PaymentOrderCreateParams.LedgerTransactionCreateRequest.builder()
-                    .ledgerEntries(
-                        listOf(
-                            PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                .LedgerEntryCreateRequest
-                                .builder()
-                                .amount(123L)
-                                .direction(
-                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .Direction
-                                        .CREDIT
-                                )
-                                .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .availableBalanceAmount(
-                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .AvailableBalanceAmount
-                                        .builder()
-                                        .build()
-                                )
-                                .lockVersion(123L)
-                                .metadata(
-                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .Metadata
-                                        .builder()
-                                        .build()
-                                )
-                                .pendingBalanceAmount(
-                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .PendingBalanceAmount
-                                        .builder()
-                                        .build()
-                                )
-                                .postedBalanceAmount(
-                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .PostedBalanceAmount
-                                        .builder()
-                                        .build()
-                                )
-                                .showResultingLedgerAccountBalances(true)
-                                .build()
-                        )
-                    )
-                    .description("string")
-                    .effectiveAt(LocalDate.parse("2019-12-27"))
-                    .effectiveDate(LocalDate.parse("2019-12-27"))
-                    .externalId("string")
-                    .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .ledgerableType(
-                        PaymentOrderCreateParams.LedgerTransactionCreateRequest.LedgerableType
-                            .COUNTERPARTY
-                    )
-                    .metadata(
-                        PaymentOrderCreateParams.LedgerTransactionCreateRequest.Metadata.builder()
-                            .build()
-                    )
-                    .status(PaymentOrderCreateParams.LedgerTransactionCreateRequest.Status.ARCHIVED)
-                    .build()
-            )
-        assertThat(body.lineItems())
-            .isEqualTo(
-                listOf(
-                    PaymentOrderCreateParams.LineItemRequest.builder()
-                        .amount(123L)
-                        .accountingCategoryId("string")
-                        .description("string")
-                        .metadata(
-                            PaymentOrderCreateParams.LineItemRequest.Metadata.builder().build()
-                        )
-                        .build()
-                )
-            )
+        assertThat(body.receivingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(body.remittanceInformation()).isEqualTo("string")
+        assertThat(body.sendRemittanceAdvice()).isEqualTo(true)
+        assertThat(body.statementDescriptor()).isEqualTo("string")
+        assertThat(body.subtype()).isEqualTo(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
         assertThat(body.transactionMonitoringEnabled()).isEqualTo(true)
-        assertThat(body.documents())
-            .isEqualTo(
-                listOf(
-                    PaymentOrderCreateParams.DocumentCreateRequest.builder()
-                        .documentableId("string")
-                        .documentableType(
-                            PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CASES
-                        )
-                        .file("file.txt")
-                        .documentType("string")
-                        .build()
-                )
-            )
+        assertThat(body.ultimateOriginatingPartyIdentifier()).isEqualTo("string")
+        assertThat(body.ultimateOriginatingPartyName()).isEqualTo("string")
+        assertThat(body.ultimateReceivingPartyIdentifier()).isEqualTo("string")
+        assertThat(body.ultimateReceivingPartyName()).isEqualTo("string")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
             PaymentOrderCreateParams.builder()
-                .type(PaymentOrderType.ACH)
                 .amount(123L)
                 .direction(PaymentOrderCreateParams.Direction.CREDIT)
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .type(PaymentOrderType.ACH)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.type()).isEqualTo(PaymentOrderType.ACH)
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.direction()).isEqualTo(PaymentOrderCreateParams.Direction.CREDIT)
         assertThat(body.originatingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(body.type()).isEqualTo(PaymentOrderType.ACH)
     }
 }

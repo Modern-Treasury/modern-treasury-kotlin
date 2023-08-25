@@ -16,12 +16,12 @@ import java.util.Objects
 
 class LedgerAccountCreateParams
 constructor(
-    private val name: String,
-    private val description: String?,
-    private val normalBalance: NormalBalance,
-    private val ledgerId: String,
     private val currency: String,
+    private val ledgerId: String,
+    private val name: String,
+    private val normalBalance: NormalBalance,
     private val currencyExponent: Long?,
+    private val description: String?,
     private val ledgerableId: String?,
     private val ledgerableType: LedgerableType?,
     private val metadata: Metadata?,
@@ -30,17 +30,17 @@ constructor(
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun name(): String = name
-
-    fun description(): String? = description
-
-    fun normalBalance(): NormalBalance = normalBalance
+    fun currency(): String = currency
 
     fun ledgerId(): String = ledgerId
 
-    fun currency(): String = currency
+    fun name(): String = name
+
+    fun normalBalance(): NormalBalance = normalBalance
 
     fun currencyExponent(): Long? = currencyExponent
+
+    fun description(): String? = description
 
     fun ledgerableId(): String? = ledgerableId
 
@@ -50,12 +50,12 @@ constructor(
 
     internal fun getBody(): LedgerAccountCreateBody {
         return LedgerAccountCreateBody(
-            name,
-            description,
-            normalBalance,
-            ledgerId,
             currency,
+            ledgerId,
+            name,
+            normalBalance,
             currencyExponent,
+            description,
             ledgerableId,
             ledgerableType,
             metadata,
@@ -71,12 +71,12 @@ constructor(
     @NoAutoDetect
     class LedgerAccountCreateBody
     internal constructor(
-        private val name: String?,
-        private val description: String?,
-        private val normalBalance: NormalBalance?,
-        private val ledgerId: String?,
         private val currency: String?,
+        private val ledgerId: String?,
+        private val name: String?,
+        private val normalBalance: NormalBalance?,
         private val currencyExponent: Long?,
+        private val description: String?,
         private val ledgerableId: String?,
         private val ledgerableType: LedgerableType?,
         private val metadata: Metadata?,
@@ -85,23 +85,23 @@ constructor(
 
         private var hashCode: Int = 0
 
-        /** The name of the ledger account. */
-        @JsonProperty("name") fun name(): String? = name
-
-        /** The description of the ledger account. */
-        @JsonProperty("description") fun description(): String? = description
-
-        /** The normal balance of the ledger account. */
-        @JsonProperty("normal_balance") fun normalBalance(): NormalBalance? = normalBalance
+        /** The currency of the ledger account. */
+        @JsonProperty("currency") fun currency(): String? = currency
 
         /** The id of the ledger that this account belongs to. */
         @JsonProperty("ledger_id") fun ledgerId(): String? = ledgerId
 
-        /** The currency of the ledger account. */
-        @JsonProperty("currency") fun currency(): String? = currency
+        /** The name of the ledger account. */
+        @JsonProperty("name") fun name(): String? = name
+
+        /** The normal balance of the ledger account. */
+        @JsonProperty("normal_balance") fun normalBalance(): NormalBalance? = normalBalance
 
         /** The currency exponent of the ledger account. */
         @JsonProperty("currency_exponent") fun currencyExponent(): Long? = currencyExponent
+
+        /** The description of the ledger account. */
+        @JsonProperty("description") fun description(): String? = description
 
         /**
          * If the ledger account links to another object in Modern Treasury, the id will be
@@ -132,12 +132,12 @@ constructor(
             }
 
             return other is LedgerAccountCreateBody &&
-                this.name == other.name &&
-                this.description == other.description &&
-                this.normalBalance == other.normalBalance &&
-                this.ledgerId == other.ledgerId &&
                 this.currency == other.currency &&
+                this.ledgerId == other.ledgerId &&
+                this.name == other.name &&
+                this.normalBalance == other.normalBalance &&
                 this.currencyExponent == other.currencyExponent &&
+                this.description == other.description &&
                 this.ledgerableId == other.ledgerableId &&
                 this.ledgerableType == other.ledgerableType &&
                 this.metadata == other.metadata &&
@@ -148,12 +148,12 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        name,
-                        description,
-                        normalBalance,
-                        ledgerId,
                         currency,
+                        ledgerId,
+                        name,
+                        normalBalance,
                         currencyExponent,
+                        description,
                         ledgerableId,
                         ledgerableType,
                         metadata,
@@ -164,7 +164,7 @@ constructor(
         }
 
         override fun toString() =
-            "LedgerAccountCreateBody{name=$name, description=$description, normalBalance=$normalBalance, ledgerId=$ledgerId, currency=$currency, currencyExponent=$currencyExponent, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalProperties=$additionalProperties}"
+            "LedgerAccountCreateBody{currency=$currency, ledgerId=$ledgerId, name=$name, normalBalance=$normalBalance, currencyExponent=$currencyExponent, description=$description, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -173,36 +173,40 @@ constructor(
 
         class Builder {
 
-            private var name: String? = null
-            private var description: String? = null
-            private var normalBalance: NormalBalance? = null
-            private var ledgerId: String? = null
             private var currency: String? = null
+            private var ledgerId: String? = null
+            private var name: String? = null
+            private var normalBalance: NormalBalance? = null
             private var currencyExponent: Long? = null
+            private var description: String? = null
             private var ledgerableId: String? = null
             private var ledgerableType: LedgerableType? = null
             private var metadata: Metadata? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerAccountCreateBody: LedgerAccountCreateBody) = apply {
-                this.name = ledgerAccountCreateBody.name
-                this.description = ledgerAccountCreateBody.description
-                this.normalBalance = ledgerAccountCreateBody.normalBalance
-                this.ledgerId = ledgerAccountCreateBody.ledgerId
                 this.currency = ledgerAccountCreateBody.currency
+                this.ledgerId = ledgerAccountCreateBody.ledgerId
+                this.name = ledgerAccountCreateBody.name
+                this.normalBalance = ledgerAccountCreateBody.normalBalance
                 this.currencyExponent = ledgerAccountCreateBody.currencyExponent
+                this.description = ledgerAccountCreateBody.description
                 this.ledgerableId = ledgerAccountCreateBody.ledgerableId
                 this.ledgerableType = ledgerAccountCreateBody.ledgerableType
                 this.metadata = ledgerAccountCreateBody.metadata
                 additionalProperties(ledgerAccountCreateBody.additionalProperties)
             }
 
+            /** The currency of the ledger account. */
+            @JsonProperty("currency")
+            fun currency(currency: String) = apply { this.currency = currency }
+
+            /** The id of the ledger that this account belongs to. */
+            @JsonProperty("ledger_id")
+            fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
+
             /** The name of the ledger account. */
             @JsonProperty("name") fun name(name: String) = apply { this.name = name }
-
-            /** The description of the ledger account. */
-            @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
 
             /** The normal balance of the ledger account. */
             @JsonProperty("normal_balance")
@@ -210,19 +214,15 @@ constructor(
                 this.normalBalance = normalBalance
             }
 
-            /** The id of the ledger that this account belongs to. */
-            @JsonProperty("ledger_id")
-            fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
-
-            /** The currency of the ledger account. */
-            @JsonProperty("currency")
-            fun currency(currency: String) = apply { this.currency = currency }
-
             /** The currency exponent of the ledger account. */
             @JsonProperty("currency_exponent")
             fun currencyExponent(currencyExponent: Long) = apply {
                 this.currencyExponent = currencyExponent
             }
+
+            /** The description of the ledger account. */
+            @JsonProperty("description")
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * If the ledger account links to another object in Modern Treasury, the id will be
@@ -264,12 +264,12 @@ constructor(
 
             fun build(): LedgerAccountCreateBody =
                 LedgerAccountCreateBody(
-                    checkNotNull(name) { "`name` is required but was not set" },
-                    description,
-                    checkNotNull(normalBalance) { "`normalBalance` is required but was not set" },
-                    checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
                     checkNotNull(currency) { "`currency` is required but was not set" },
+                    checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
+                    checkNotNull(name) { "`name` is required but was not set" },
+                    checkNotNull(normalBalance) { "`normalBalance` is required but was not set" },
                     currencyExponent,
+                    description,
                     ledgerableId,
                     ledgerableType,
                     metadata,
@@ -290,12 +290,12 @@ constructor(
         }
 
         return other is LedgerAccountCreateParams &&
-            this.name == other.name &&
-            this.description == other.description &&
-            this.normalBalance == other.normalBalance &&
-            this.ledgerId == other.ledgerId &&
             this.currency == other.currency &&
+            this.ledgerId == other.ledgerId &&
+            this.name == other.name &&
+            this.normalBalance == other.normalBalance &&
             this.currencyExponent == other.currencyExponent &&
+            this.description == other.description &&
             this.ledgerableId == other.ledgerableId &&
             this.ledgerableType == other.ledgerableType &&
             this.metadata == other.metadata &&
@@ -306,12 +306,12 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
-            name,
-            description,
-            normalBalance,
-            ledgerId,
             currency,
+            ledgerId,
+            name,
+            normalBalance,
             currencyExponent,
+            description,
             ledgerableId,
             ledgerableType,
             metadata,
@@ -322,7 +322,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerAccountCreateParams{name=$name, description=$description, normalBalance=$normalBalance, ledgerId=$ledgerId, currency=$currency, currencyExponent=$currencyExponent, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerAccountCreateParams{currency=$currency, ledgerId=$ledgerId, name=$name, normalBalance=$normalBalance, currencyExponent=$currencyExponent, description=$description, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -334,12 +334,12 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var name: String? = null
-        private var description: String? = null
-        private var normalBalance: NormalBalance? = null
-        private var ledgerId: String? = null
         private var currency: String? = null
+        private var ledgerId: String? = null
+        private var name: String? = null
+        private var normalBalance: NormalBalance? = null
         private var currencyExponent: Long? = null
+        private var description: String? = null
         private var ledgerableId: String? = null
         private var ledgerableType: LedgerableType? = null
         private var metadata: Metadata? = null
@@ -348,12 +348,12 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerAccountCreateParams: LedgerAccountCreateParams) = apply {
-            this.name = ledgerAccountCreateParams.name
-            this.description = ledgerAccountCreateParams.description
-            this.normalBalance = ledgerAccountCreateParams.normalBalance
-            this.ledgerId = ledgerAccountCreateParams.ledgerId
             this.currency = ledgerAccountCreateParams.currency
+            this.ledgerId = ledgerAccountCreateParams.ledgerId
+            this.name = ledgerAccountCreateParams.name
+            this.normalBalance = ledgerAccountCreateParams.normalBalance
             this.currencyExponent = ledgerAccountCreateParams.currencyExponent
+            this.description = ledgerAccountCreateParams.description
             this.ledgerableId = ledgerAccountCreateParams.ledgerableId
             this.ledgerableType = ledgerAccountCreateParams.ledgerableType
             this.metadata = ledgerAccountCreateParams.metadata
@@ -362,27 +362,27 @@ constructor(
             additionalBodyProperties(ledgerAccountCreateParams.additionalBodyProperties)
         }
 
+        /** The currency of the ledger account. */
+        fun currency(currency: String) = apply { this.currency = currency }
+
+        /** The id of the ledger that this account belongs to. */
+        fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
+
         /** The name of the ledger account. */
         fun name(name: String) = apply { this.name = name }
-
-        /** The description of the ledger account. */
-        fun description(description: String) = apply { this.description = description }
 
         /** The normal balance of the ledger account. */
         fun normalBalance(normalBalance: NormalBalance) = apply {
             this.normalBalance = normalBalance
         }
 
-        /** The id of the ledger that this account belongs to. */
-        fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
-
-        /** The currency of the ledger account. */
-        fun currency(currency: String) = apply { this.currency = currency }
-
         /** The currency exponent of the ledger account. */
         fun currencyExponent(currencyExponent: Long) = apply {
             this.currencyExponent = currencyExponent
         }
+
+        /** The description of the ledger account. */
+        fun description(description: String) = apply { this.description = description }
 
         /**
          * If the ledger account links to another object in Modern Treasury, the id will be
@@ -459,12 +459,12 @@ constructor(
 
         fun build(): LedgerAccountCreateParams =
             LedgerAccountCreateParams(
-                checkNotNull(name) { "`name` is required but was not set" },
-                description,
-                checkNotNull(normalBalance) { "`normalBalance` is required but was not set" },
-                checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
                 checkNotNull(currency) { "`currency` is required but was not set" },
+                checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
+                checkNotNull(name) { "`name` is required but was not set" },
+                checkNotNull(normalBalance) { "`normalBalance` is required but was not set" },
                 currencyExponent,
+                description,
                 ledgerableId,
                 ledgerableType,
                 metadata,

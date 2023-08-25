@@ -17,14 +17,14 @@ import java.util.Objects
 class CounterpartyCreateParams
 constructor(
     private val name: String?,
+    private val accounting: Accounting?,
     private val accounts: List<Account>?,
     private val email: String?,
+    private val ledgerType: LedgerType?,
     private val metadata: Metadata?,
     private val sendRemittanceAdvice: Boolean?,
-    private val verificationStatus: VerificationStatus?,
-    private val accounting: Accounting?,
-    private val ledgerType: LedgerType?,
     private val taxpayerIdentifier: String?,
+    private val verificationStatus: VerificationStatus?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -32,33 +32,33 @@ constructor(
 
     fun name(): String? = name
 
+    fun accounting(): Accounting? = accounting
+
     fun accounts(): List<Account>? = accounts
 
     fun email(): String? = email
+
+    fun ledgerType(): LedgerType? = ledgerType
 
     fun metadata(): Metadata? = metadata
 
     fun sendRemittanceAdvice(): Boolean? = sendRemittanceAdvice
 
-    fun verificationStatus(): VerificationStatus? = verificationStatus
-
-    fun accounting(): Accounting? = accounting
-
-    fun ledgerType(): LedgerType? = ledgerType
-
     fun taxpayerIdentifier(): String? = taxpayerIdentifier
+
+    fun verificationStatus(): VerificationStatus? = verificationStatus
 
     internal fun getBody(): CounterpartyCreateBody {
         return CounterpartyCreateBody(
             name,
+            accounting,
             accounts,
             email,
+            ledgerType,
             metadata,
             sendRemittanceAdvice,
-            verificationStatus,
-            accounting,
-            ledgerType,
             taxpayerIdentifier,
+            verificationStatus,
             additionalBodyProperties,
         )
     }
@@ -72,14 +72,14 @@ constructor(
     class CounterpartyCreateBody
     internal constructor(
         private val name: String?,
+        private val accounting: Accounting?,
         private val accounts: List<Account>?,
         private val email: String?,
+        private val ledgerType: LedgerType?,
         private val metadata: Metadata?,
         private val sendRemittanceAdvice: Boolean?,
-        private val verificationStatus: VerificationStatus?,
-        private val accounting: Accounting?,
-        private val ledgerType: LedgerType?,
         private val taxpayerIdentifier: String?,
+        private val verificationStatus: VerificationStatus?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -88,11 +88,19 @@ constructor(
         /** A human friendly name for this counterparty. */
         @JsonProperty("name") fun name(): String? = name
 
+        @JsonProperty("accounting") fun accounting(): Accounting? = accounting
+
         /** The accounts for this counterparty. */
         @JsonProperty("accounts") fun accounts(): List<Account>? = accounts
 
         /** The counterparty's email. */
         @JsonProperty("email") fun email(): String? = email
+
+        /**
+         * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
+         * `vendor`.
+         */
+        @JsonProperty("ledger_type") fun ledgerType(): LedgerType? = ledgerType
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
@@ -106,20 +114,12 @@ constructor(
         @JsonProperty("send_remittance_advice")
         fun sendRemittanceAdvice(): Boolean? = sendRemittanceAdvice
 
+        /** Either a valid SSN or EIN. */
+        @JsonProperty("taxpayer_identifier") fun taxpayerIdentifier(): String? = taxpayerIdentifier
+
         /** The verification status of the counterparty. */
         @JsonProperty("verification_status")
         fun verificationStatus(): VerificationStatus? = verificationStatus
-
-        @JsonProperty("accounting") fun accounting(): Accounting? = accounting
-
-        /**
-         * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
-         * `vendor`.
-         */
-        @JsonProperty("ledger_type") fun ledgerType(): LedgerType? = ledgerType
-
-        /** Either a valid SSN or EIN. */
-        @JsonProperty("taxpayer_identifier") fun taxpayerIdentifier(): String? = taxpayerIdentifier
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -134,14 +134,14 @@ constructor(
 
             return other is CounterpartyCreateBody &&
                 this.name == other.name &&
+                this.accounting == other.accounting &&
                 this.accounts == other.accounts &&
                 this.email == other.email &&
+                this.ledgerType == other.ledgerType &&
                 this.metadata == other.metadata &&
                 this.sendRemittanceAdvice == other.sendRemittanceAdvice &&
-                this.verificationStatus == other.verificationStatus &&
-                this.accounting == other.accounting &&
-                this.ledgerType == other.ledgerType &&
                 this.taxpayerIdentifier == other.taxpayerIdentifier &&
+                this.verificationStatus == other.verificationStatus &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -150,14 +150,14 @@ constructor(
                 hashCode =
                     Objects.hash(
                         name,
+                        accounting,
                         accounts,
                         email,
+                        ledgerType,
                         metadata,
                         sendRemittanceAdvice,
-                        verificationStatus,
-                        accounting,
-                        ledgerType,
                         taxpayerIdentifier,
+                        verificationStatus,
                         additionalProperties,
                     )
             }
@@ -165,7 +165,7 @@ constructor(
         }
 
         override fun toString() =
-            "CounterpartyCreateBody{name=$name, accounts=$accounts, email=$email, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, verificationStatus=$verificationStatus, accounting=$accounting, ledgerType=$ledgerType, taxpayerIdentifier=$taxpayerIdentifier, additionalProperties=$additionalProperties}"
+            "CounterpartyCreateBody{name=$name, accounting=$accounting, accounts=$accounts, email=$email, ledgerType=$ledgerType, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -175,31 +175,34 @@ constructor(
         class Builder {
 
             private var name: String? = null
+            private var accounting: Accounting? = null
             private var accounts: List<Account>? = null
             private var email: String? = null
+            private var ledgerType: LedgerType? = null
             private var metadata: Metadata? = null
             private var sendRemittanceAdvice: Boolean? = null
-            private var verificationStatus: VerificationStatus? = null
-            private var accounting: Accounting? = null
-            private var ledgerType: LedgerType? = null
             private var taxpayerIdentifier: String? = null
+            private var verificationStatus: VerificationStatus? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(counterpartyCreateBody: CounterpartyCreateBody) = apply {
                 this.name = counterpartyCreateBody.name
+                this.accounting = counterpartyCreateBody.accounting
                 this.accounts = counterpartyCreateBody.accounts
                 this.email = counterpartyCreateBody.email
+                this.ledgerType = counterpartyCreateBody.ledgerType
                 this.metadata = counterpartyCreateBody.metadata
                 this.sendRemittanceAdvice = counterpartyCreateBody.sendRemittanceAdvice
-                this.verificationStatus = counterpartyCreateBody.verificationStatus
-                this.accounting = counterpartyCreateBody.accounting
-                this.ledgerType = counterpartyCreateBody.ledgerType
                 this.taxpayerIdentifier = counterpartyCreateBody.taxpayerIdentifier
+                this.verificationStatus = counterpartyCreateBody.verificationStatus
                 additionalProperties(counterpartyCreateBody.additionalProperties)
             }
 
             /** A human friendly name for this counterparty. */
             @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+
+            @JsonProperty("accounting")
+            fun accounting(accounting: Accounting) = apply { this.accounting = accounting }
 
             /** The accounts for this counterparty. */
             @JsonProperty("accounts")
@@ -207,6 +210,13 @@ constructor(
 
             /** The counterparty's email. */
             @JsonProperty("email") fun email(email: String) = apply { this.email = email }
+
+            /**
+             * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
+             * `vendor`.
+             */
+            @JsonProperty("ledger_type")
+            fun ledgerType(ledgerType: LedgerType) = apply { this.ledgerType = ledgerType }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
@@ -224,26 +234,16 @@ constructor(
                 this.sendRemittanceAdvice = sendRemittanceAdvice
             }
 
-            /** The verification status of the counterparty. */
-            @JsonProperty("verification_status")
-            fun verificationStatus(verificationStatus: VerificationStatus) = apply {
-                this.verificationStatus = verificationStatus
-            }
-
-            @JsonProperty("accounting")
-            fun accounting(accounting: Accounting) = apply { this.accounting = accounting }
-
-            /**
-             * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
-             * `vendor`.
-             */
-            @JsonProperty("ledger_type")
-            fun ledgerType(ledgerType: LedgerType) = apply { this.ledgerType = ledgerType }
-
             /** Either a valid SSN or EIN. */
             @JsonProperty("taxpayer_identifier")
             fun taxpayerIdentifier(taxpayerIdentifier: String) = apply {
                 this.taxpayerIdentifier = taxpayerIdentifier
+            }
+
+            /** The verification status of the counterparty. */
+            @JsonProperty("verification_status")
+            fun verificationStatus(verificationStatus: VerificationStatus) = apply {
+                this.verificationStatus = verificationStatus
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -263,14 +263,14 @@ constructor(
             fun build(): CounterpartyCreateBody =
                 CounterpartyCreateBody(
                     name,
+                    accounting,
                     accounts?.toUnmodifiable(),
                     email,
+                    ledgerType,
                     metadata,
                     sendRemittanceAdvice,
-                    verificationStatus,
-                    accounting,
-                    ledgerType,
                     taxpayerIdentifier,
+                    verificationStatus,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -289,14 +289,14 @@ constructor(
 
         return other is CounterpartyCreateParams &&
             this.name == other.name &&
+            this.accounting == other.accounting &&
             this.accounts == other.accounts &&
             this.email == other.email &&
+            this.ledgerType == other.ledgerType &&
             this.metadata == other.metadata &&
             this.sendRemittanceAdvice == other.sendRemittanceAdvice &&
-            this.verificationStatus == other.verificationStatus &&
-            this.accounting == other.accounting &&
-            this.ledgerType == other.ledgerType &&
             this.taxpayerIdentifier == other.taxpayerIdentifier &&
+            this.verificationStatus == other.verificationStatus &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -305,14 +305,14 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             name,
+            accounting,
             accounts,
             email,
+            ledgerType,
             metadata,
             sendRemittanceAdvice,
-            verificationStatus,
-            accounting,
-            ledgerType,
             taxpayerIdentifier,
+            verificationStatus,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -320,7 +320,7 @@ constructor(
     }
 
     override fun toString() =
-        "CounterpartyCreateParams{name=$name, accounts=$accounts, email=$email, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, verificationStatus=$verificationStatus, accounting=$accounting, ledgerType=$ledgerType, taxpayerIdentifier=$taxpayerIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "CounterpartyCreateParams{name=$name, accounting=$accounting, accounts=$accounts, email=$email, ledgerType=$ledgerType, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -333,28 +333,28 @@ constructor(
     class Builder {
 
         private var name: String? = null
+        private var accounting: Accounting? = null
         private var accounts: MutableList<Account> = mutableListOf()
         private var email: String? = null
+        private var ledgerType: LedgerType? = null
         private var metadata: Metadata? = null
         private var sendRemittanceAdvice: Boolean? = null
-        private var verificationStatus: VerificationStatus? = null
-        private var accounting: Accounting? = null
-        private var ledgerType: LedgerType? = null
         private var taxpayerIdentifier: String? = null
+        private var verificationStatus: VerificationStatus? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(counterpartyCreateParams: CounterpartyCreateParams) = apply {
             this.name = counterpartyCreateParams.name
+            this.accounting = counterpartyCreateParams.accounting
             this.accounts(counterpartyCreateParams.accounts ?: listOf())
             this.email = counterpartyCreateParams.email
+            this.ledgerType = counterpartyCreateParams.ledgerType
             this.metadata = counterpartyCreateParams.metadata
             this.sendRemittanceAdvice = counterpartyCreateParams.sendRemittanceAdvice
-            this.verificationStatus = counterpartyCreateParams.verificationStatus
-            this.accounting = counterpartyCreateParams.accounting
-            this.ledgerType = counterpartyCreateParams.ledgerType
             this.taxpayerIdentifier = counterpartyCreateParams.taxpayerIdentifier
+            this.verificationStatus = counterpartyCreateParams.verificationStatus
             additionalQueryParams(counterpartyCreateParams.additionalQueryParams)
             additionalHeaders(counterpartyCreateParams.additionalHeaders)
             additionalBodyProperties(counterpartyCreateParams.additionalBodyProperties)
@@ -362,6 +362,8 @@ constructor(
 
         /** A human friendly name for this counterparty. */
         fun name(name: String) = apply { this.name = name }
+
+        fun accounting(accounting: Accounting) = apply { this.accounting = accounting }
 
         /** The accounts for this counterparty. */
         fun accounts(accounts: List<Account>) = apply {
@@ -376,6 +378,12 @@ constructor(
         fun email(email: String) = apply { this.email = email }
 
         /**
+         * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
+         * `vendor`.
+         */
+        fun ledgerType(ledgerType: LedgerType) = apply { this.ledgerType = ledgerType }
+
+        /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
         fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
@@ -388,22 +396,14 @@ constructor(
             this.sendRemittanceAdvice = sendRemittanceAdvice
         }
 
-        /** The verification status of the counterparty. */
-        fun verificationStatus(verificationStatus: VerificationStatus) = apply {
-            this.verificationStatus = verificationStatus
-        }
-
-        fun accounting(accounting: Accounting) = apply { this.accounting = accounting }
-
-        /**
-         * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
-         * `vendor`.
-         */
-        fun ledgerType(ledgerType: LedgerType) = apply { this.ledgerType = ledgerType }
-
         /** Either a valid SSN or EIN. */
         fun taxpayerIdentifier(taxpayerIdentifier: String) = apply {
             this.taxpayerIdentifier = taxpayerIdentifier
+        }
+
+        /** The verification status of the counterparty. */
+        fun verificationStatus(verificationStatus: VerificationStatus) = apply {
+            this.verificationStatus = verificationStatus
         }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
@@ -463,14 +463,14 @@ constructor(
         fun build(): CounterpartyCreateParams =
             CounterpartyCreateParams(
                 name,
+                accounting,
                 if (accounts.size == 0) null else accounts.toUnmodifiable(),
                 email,
+                ledgerType,
                 metadata,
                 sendRemittanceAdvice,
-                verificationStatus,
-                accounting,
-                ledgerType,
                 taxpayerIdentifier,
+                verificationStatus,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

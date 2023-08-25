@@ -11,8 +11,8 @@ class LedgerAccountPayoutUpdateParamsTest {
         LedgerAccountPayoutUpdateParams.builder()
             .id("string")
             .description("string")
-            .status(LedgerAccountPayoutUpdateParams.Status.POSTED)
             .metadata(LedgerAccountPayoutUpdateParams.Metadata.builder().build())
+            .status(LedgerAccountPayoutUpdateParams.Status.POSTED)
             .build()
     }
 
@@ -22,15 +22,15 @@ class LedgerAccountPayoutUpdateParamsTest {
             LedgerAccountPayoutUpdateParams.builder()
                 .id("string")
                 .description("string")
-                .status(LedgerAccountPayoutUpdateParams.Status.POSTED)
                 .metadata(LedgerAccountPayoutUpdateParams.Metadata.builder().build())
+                .status(LedgerAccountPayoutUpdateParams.Status.POSTED)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.description()).isEqualTo("string")
-        assertThat(body.status()).isEqualTo(LedgerAccountPayoutUpdateParams.Status.POSTED)
         assertThat(body.metadata())
             .isEqualTo(LedgerAccountPayoutUpdateParams.Metadata.builder().build())
+        assertThat(body.status()).isEqualTo(LedgerAccountPayoutUpdateParams.Status.POSTED)
     }
 
     @Test

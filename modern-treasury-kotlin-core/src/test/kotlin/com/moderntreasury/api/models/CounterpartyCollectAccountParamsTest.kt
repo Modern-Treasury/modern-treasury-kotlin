@@ -11,9 +11,9 @@ class CounterpartyCollectAccountParamsTest {
         CounterpartyCollectAccountParams.builder()
             .id("string")
             .direction(CounterpartyCollectAccountParams.Direction.CREDIT)
-            .sendEmail(true)
-            .fields(listOf(CounterpartyCollectAccountParams.Field.NAME))
             .customRedirect("https://example.com")
+            .fields(listOf(CounterpartyCollectAccountParams.Field.NAME))
+            .sendEmail(true)
             .build()
     }
 
@@ -23,16 +23,16 @@ class CounterpartyCollectAccountParamsTest {
             CounterpartyCollectAccountParams.builder()
                 .id("string")
                 .direction(CounterpartyCollectAccountParams.Direction.CREDIT)
-                .sendEmail(true)
-                .fields(listOf(CounterpartyCollectAccountParams.Field.NAME))
                 .customRedirect("https://example.com")
+                .fields(listOf(CounterpartyCollectAccountParams.Field.NAME))
+                .sendEmail(true)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.direction()).isEqualTo(CounterpartyCollectAccountParams.Direction.CREDIT)
-        assertThat(body.sendEmail()).isEqualTo(true)
-        assertThat(body.fields()).isEqualTo(listOf(CounterpartyCollectAccountParams.Field.NAME))
         assertThat(body.customRedirect()).isEqualTo("https://example.com")
+        assertThat(body.fields()).isEqualTo(listOf(CounterpartyCollectAccountParams.Field.NAME))
+        assertThat(body.sendEmail()).isEqualTo(true)
     }
 
     @Test
