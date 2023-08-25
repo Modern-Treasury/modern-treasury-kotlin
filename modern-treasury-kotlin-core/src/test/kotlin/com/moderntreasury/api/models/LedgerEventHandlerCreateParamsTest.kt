@@ -9,9 +9,6 @@ class LedgerEventHandlerCreateParamsTest {
     @Test
     fun createLedgerEventHandlerCreateParams() {
         LedgerEventHandlerCreateParams.builder()
-            .name("string")
-            .description("string")
-            .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .ledgerTransactionTemplate(
                 LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate.builder()
                     .description("string")
@@ -36,6 +33,7 @@ class LedgerEventHandlerCreateParamsTest {
                     )
                     .build()
             )
+            .name("string")
             .conditions(
                 LedgerEventHandlerCreateParams.LedgerEventHandlerConditions.builder()
                     .field("string")
@@ -43,6 +41,8 @@ class LedgerEventHandlerCreateParamsTest {
                     .value("string")
                     .build()
             )
+            .description("string")
+            .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .metadata(LedgerEventHandlerCreateParams.Metadata.builder().build())
             .build()
     }
@@ -51,9 +51,6 @@ class LedgerEventHandlerCreateParamsTest {
     fun getBody() {
         val params =
             LedgerEventHandlerCreateParams.builder()
-                .name("string")
-                .description("string")
-                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerTransactionTemplate(
                     LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate
                         .builder()
@@ -80,6 +77,7 @@ class LedgerEventHandlerCreateParamsTest {
                         )
                         .build()
                 )
+                .name("string")
                 .conditions(
                     LedgerEventHandlerCreateParams.LedgerEventHandlerConditions.builder()
                         .field("string")
@@ -87,13 +85,12 @@ class LedgerEventHandlerCreateParamsTest {
                         .value("string")
                         .build()
                 )
+                .description("string")
+                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .metadata(LedgerEventHandlerCreateParams.Metadata.builder().build())
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.name()).isEqualTo("string")
-        assertThat(body.description()).isEqualTo("string")
-        assertThat(body.ledgerId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.ledgerTransactionTemplate())
             .isEqualTo(
                 LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate.builder()
@@ -119,6 +116,7 @@ class LedgerEventHandlerCreateParamsTest {
                     )
                     .build()
             )
+        assertThat(body.name()).isEqualTo("string")
         assertThat(body.conditions())
             .isEqualTo(
                 LedgerEventHandlerCreateParams.LedgerEventHandlerConditions.builder()
@@ -127,6 +125,8 @@ class LedgerEventHandlerCreateParamsTest {
                     .value("string")
                     .build()
             )
+        assertThat(body.description()).isEqualTo("string")
+        assertThat(body.ledgerId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.metadata())
             .isEqualTo(LedgerEventHandlerCreateParams.Metadata.builder().build())
     }
@@ -135,7 +135,6 @@ class LedgerEventHandlerCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             LedgerEventHandlerCreateParams.builder()
-                .name("string")
                 .ledgerTransactionTemplate(
                     LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate
                         .builder()
@@ -153,10 +152,10 @@ class LedgerEventHandlerCreateParamsTest {
                         )
                         .build()
                 )
+                .name("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.name()).isEqualTo("string")
         assertThat(body.ledgerTransactionTemplate())
             .isEqualTo(
                 LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate.builder()
@@ -174,5 +173,6 @@ class LedgerEventHandlerCreateParamsTest {
                     )
                     .build()
             )
+        assertThat(body.name()).isEqualTo("string")
     }
 }

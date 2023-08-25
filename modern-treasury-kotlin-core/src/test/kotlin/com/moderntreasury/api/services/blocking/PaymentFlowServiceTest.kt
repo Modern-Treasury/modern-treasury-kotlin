@@ -23,9 +23,9 @@ class PaymentFlowServiceTest {
             paymentFlowService.create(
                 PaymentFlowCreateParams.builder()
                     .amount(123L)
+                    .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .currency("string")
                     .direction(PaymentFlowCreateParams.Direction.CREDIT)
-                    .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
             )

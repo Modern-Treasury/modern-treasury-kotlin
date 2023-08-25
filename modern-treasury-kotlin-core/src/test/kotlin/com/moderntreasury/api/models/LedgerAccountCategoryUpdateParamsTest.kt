@@ -10,9 +10,9 @@ class LedgerAccountCategoryUpdateParamsTest {
     fun createLedgerAccountCategoryUpdateParams() {
         LedgerAccountCategoryUpdateParams.builder()
             .id("string")
-            .name("string")
             .description("string")
             .metadata(LedgerAccountCategoryUpdateParams.Metadata.builder().build())
+            .name("string")
             .build()
     }
 
@@ -21,16 +21,16 @@ class LedgerAccountCategoryUpdateParamsTest {
         val params =
             LedgerAccountCategoryUpdateParams.builder()
                 .id("string")
-                .name("string")
                 .description("string")
                 .metadata(LedgerAccountCategoryUpdateParams.Metadata.builder().build())
+                .name("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.name()).isEqualTo("string")
         assertThat(body.description()).isEqualTo("string")
         assertThat(body.metadata())
             .isEqualTo(LedgerAccountCategoryUpdateParams.Metadata.builder().build())
+        assertThat(body.name()).isEqualTo("string")
     }
 
     @Test

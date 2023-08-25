@@ -17,49 +17,49 @@ import java.util.Objects
 
 class LedgerTransactionCreateParams
 constructor(
+    private val ledgerEntries: List<LedgerEntryCreateRequest>,
     private val description: String?,
-    private val status: Status?,
-    private val metadata: Metadata?,
     private val effectiveAt: LocalDate?,
     private val effectiveDate: LocalDate?,
-    private val ledgerEntries: List<LedgerEntryCreateRequest>,
     private val externalId: String?,
-    private val ledgerableType: LedgerableType?,
     private val ledgerableId: String?,
+    private val ledgerableType: LedgerableType?,
+    private val metadata: Metadata?,
+    private val status: Status?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    fun ledgerEntries(): List<LedgerEntryCreateRequest> = ledgerEntries
+
     fun description(): String? = description
-
-    fun status(): Status? = status
-
-    fun metadata(): Metadata? = metadata
 
     fun effectiveAt(): LocalDate? = effectiveAt
 
     fun effectiveDate(): LocalDate? = effectiveDate
 
-    fun ledgerEntries(): List<LedgerEntryCreateRequest> = ledgerEntries
-
     fun externalId(): String? = externalId
-
-    fun ledgerableType(): LedgerableType? = ledgerableType
 
     fun ledgerableId(): String? = ledgerableId
 
+    fun ledgerableType(): LedgerableType? = ledgerableType
+
+    fun metadata(): Metadata? = metadata
+
+    fun status(): Status? = status
+
     internal fun getBody(): LedgerTransactionCreateBody {
         return LedgerTransactionCreateBody(
+            ledgerEntries,
             description,
-            status,
-            metadata,
             effectiveAt,
             effectiveDate,
-            ledgerEntries,
             externalId,
-            ledgerableType,
             ledgerableId,
+            ledgerableType,
+            metadata,
+            status,
             additionalBodyProperties,
         )
     }
@@ -72,30 +72,26 @@ constructor(
     @NoAutoDetect
     class LedgerTransactionCreateBody
     internal constructor(
+        private val ledgerEntries: List<LedgerEntryCreateRequest>?,
         private val description: String?,
-        private val status: Status?,
-        private val metadata: Metadata?,
         private val effectiveAt: LocalDate?,
         private val effectiveDate: LocalDate?,
-        private val ledgerEntries: List<LedgerEntryCreateRequest>?,
         private val externalId: String?,
-        private val ledgerableType: LedgerableType?,
         private val ledgerableId: String?,
+        private val ledgerableType: LedgerableType?,
+        private val metadata: Metadata?,
+        private val status: Status?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
+        /** An array of ledger entry objects. */
+        @JsonProperty("ledger_entries")
+        fun ledgerEntries(): List<LedgerEntryCreateRequest>? = ledgerEntries
+
         /** An optional description for internal use. */
         @JsonProperty("description") fun description(): String? = description
-
-        /** To post a ledger transaction at creation, use `posted`. */
-        @JsonProperty("status") fun status(): Status? = status
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
 
         /**
          * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
@@ -108,15 +104,17 @@ constructor(
          */
         @JsonProperty("effective_date") fun effectiveDate(): LocalDate? = effectiveDate
 
-        /** An array of ledger entry objects. */
-        @JsonProperty("ledger_entries")
-        fun ledgerEntries(): List<LedgerEntryCreateRequest>? = ledgerEntries
-
         /**
          * A unique string to represent the ledger transaction. Only one pending or posted ledger
          * transaction may have this ID in the ledger.
          */
         @JsonProperty("external_id") fun externalId(): String? = externalId
+
+        /**
+         * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
+         * will be populated here, otherwise null.
+         */
+        @JsonProperty("ledgerable_id") fun ledgerableId(): String? = ledgerableId
 
         /**
          * If the ledger transaction can be reconciled to another object in Modern Treasury, the
@@ -126,10 +124,12 @@ constructor(
         @JsonProperty("ledgerable_type") fun ledgerableType(): LedgerableType? = ledgerableType
 
         /**
-         * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
-         * will be populated here, otherwise null.
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @JsonProperty("ledgerable_id") fun ledgerableId(): String? = ledgerableId
+        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+
+        /** To post a ledger transaction at creation, use `posted`. */
+        @JsonProperty("status") fun status(): Status? = status
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -143,15 +143,15 @@ constructor(
             }
 
             return other is LedgerTransactionCreateBody &&
+                this.ledgerEntries == other.ledgerEntries &&
                 this.description == other.description &&
-                this.status == other.status &&
-                this.metadata == other.metadata &&
                 this.effectiveAt == other.effectiveAt &&
                 this.effectiveDate == other.effectiveDate &&
-                this.ledgerEntries == other.ledgerEntries &&
                 this.externalId == other.externalId &&
-                this.ledgerableType == other.ledgerableType &&
                 this.ledgerableId == other.ledgerableId &&
+                this.ledgerableType == other.ledgerableType &&
+                this.metadata == other.metadata &&
+                this.status == other.status &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -159,15 +159,15 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
+                        ledgerEntries,
                         description,
-                        status,
-                        metadata,
                         effectiveAt,
                         effectiveDate,
-                        ledgerEntries,
                         externalId,
-                        ledgerableType,
                         ledgerableId,
+                        ledgerableType,
+                        metadata,
+                        status,
                         additionalProperties,
                     )
             }
@@ -175,7 +175,7 @@ constructor(
         }
 
         override fun toString() =
-            "LedgerTransactionCreateBody{description=$description, status=$status, metadata=$metadata, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, ledgerEntries=$ledgerEntries, externalId=$externalId, ledgerableType=$ledgerableType, ledgerableId=$ledgerableId, additionalProperties=$additionalProperties}"
+            "LedgerTransactionCreateBody{ledgerEntries=$ledgerEntries, description=$description, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -184,43 +184,39 @@ constructor(
 
         class Builder {
 
+            private var ledgerEntries: List<LedgerEntryCreateRequest>? = null
             private var description: String? = null
-            private var status: Status? = null
-            private var metadata: Metadata? = null
             private var effectiveAt: LocalDate? = null
             private var effectiveDate: LocalDate? = null
-            private var ledgerEntries: List<LedgerEntryCreateRequest>? = null
             private var externalId: String? = null
-            private var ledgerableType: LedgerableType? = null
             private var ledgerableId: String? = null
+            private var ledgerableType: LedgerableType? = null
+            private var metadata: Metadata? = null
+            private var status: Status? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerTransactionCreateBody: LedgerTransactionCreateBody) = apply {
+                this.ledgerEntries = ledgerTransactionCreateBody.ledgerEntries
                 this.description = ledgerTransactionCreateBody.description
-                this.status = ledgerTransactionCreateBody.status
-                this.metadata = ledgerTransactionCreateBody.metadata
                 this.effectiveAt = ledgerTransactionCreateBody.effectiveAt
                 this.effectiveDate = ledgerTransactionCreateBody.effectiveDate
-                this.ledgerEntries = ledgerTransactionCreateBody.ledgerEntries
                 this.externalId = ledgerTransactionCreateBody.externalId
-                this.ledgerableType = ledgerTransactionCreateBody.ledgerableType
                 this.ledgerableId = ledgerTransactionCreateBody.ledgerableId
+                this.ledgerableType = ledgerTransactionCreateBody.ledgerableType
+                this.metadata = ledgerTransactionCreateBody.metadata
+                this.status = ledgerTransactionCreateBody.status
                 additionalProperties(ledgerTransactionCreateBody.additionalProperties)
+            }
+
+            /** An array of ledger entry objects. */
+            @JsonProperty("ledger_entries")
+            fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>) = apply {
+                this.ledgerEntries = ledgerEntries
             }
 
             /** An optional description for internal use. */
             @JsonProperty("description")
             fun description(description: String) = apply { this.description = description }
-
-            /** To post a ledger transaction at creation, use `posted`. */
-            @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            @JsonProperty("metadata")
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             /**
              * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
@@ -238,18 +234,19 @@ constructor(
                 this.effectiveDate = effectiveDate
             }
 
-            /** An array of ledger entry objects. */
-            @JsonProperty("ledger_entries")
-            fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>) = apply {
-                this.ledgerEntries = ledgerEntries
-            }
-
             /**
              * A unique string to represent the ledger transaction. Only one pending or posted
              * ledger transaction may have this ID in the ledger.
              */
             @JsonProperty("external_id")
             fun externalId(externalId: String) = apply { this.externalId = externalId }
+
+            /**
+             * If the ledger transaction can be reconciled to another object in Modern Treasury, the
+             * id will be populated here, otherwise null.
+             */
+            @JsonProperty("ledgerable_id")
+            fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
 
             /**
              * If the ledger transaction can be reconciled to another object in Modern Treasury, the
@@ -262,11 +259,14 @@ constructor(
             }
 
             /**
-             * If the ledger transaction can be reconciled to another object in Modern Treasury, the
-             * id will be populated here, otherwise null.
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
              */
-            @JsonProperty("ledgerable_id")
-            fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
+            @JsonProperty("metadata")
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+            /** To post a ledger transaction at creation, use `posted`. */
+            @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -284,16 +284,16 @@ constructor(
 
             fun build(): LedgerTransactionCreateBody =
                 LedgerTransactionCreateBody(
-                    description,
-                    status,
-                    metadata,
-                    effectiveAt,
-                    effectiveDate,
                     checkNotNull(ledgerEntries) { "`ledgerEntries` is required but was not set" }
                         .toUnmodifiable(),
+                    description,
+                    effectiveAt,
+                    effectiveDate,
                     externalId,
-                    ledgerableType,
                     ledgerableId,
+                    ledgerableType,
+                    metadata,
+                    status,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -311,15 +311,15 @@ constructor(
         }
 
         return other is LedgerTransactionCreateParams &&
+            this.ledgerEntries == other.ledgerEntries &&
             this.description == other.description &&
-            this.status == other.status &&
-            this.metadata == other.metadata &&
             this.effectiveAt == other.effectiveAt &&
             this.effectiveDate == other.effectiveDate &&
-            this.ledgerEntries == other.ledgerEntries &&
             this.externalId == other.externalId &&
-            this.ledgerableType == other.ledgerableType &&
             this.ledgerableId == other.ledgerableId &&
+            this.ledgerableType == other.ledgerableType &&
+            this.metadata == other.metadata &&
+            this.status == other.status &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -327,15 +327,15 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
+            ledgerEntries,
             description,
-            status,
-            metadata,
             effectiveAt,
             effectiveDate,
-            ledgerEntries,
             externalId,
-            ledgerableType,
             ledgerableId,
+            ledgerableType,
+            metadata,
+            status,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -343,7 +343,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerTransactionCreateParams{description=$description, status=$status, metadata=$metadata, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, ledgerEntries=$ledgerEntries, externalId=$externalId, ledgerableType=$ledgerableType, ledgerableId=$ledgerableId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerTransactionCreateParams{ledgerEntries=$ledgerEntries, description=$description, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -355,55 +355,33 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var ledgerEntries: MutableList<LedgerEntryCreateRequest> = mutableListOf()
         private var description: String? = null
-        private var status: Status? = null
-        private var metadata: Metadata? = null
         private var effectiveAt: LocalDate? = null
         private var effectiveDate: LocalDate? = null
-        private var ledgerEntries: MutableList<LedgerEntryCreateRequest> = mutableListOf()
         private var externalId: String? = null
-        private var ledgerableType: LedgerableType? = null
         private var ledgerableId: String? = null
+        private var ledgerableType: LedgerableType? = null
+        private var metadata: Metadata? = null
+        private var status: Status? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerTransactionCreateParams: LedgerTransactionCreateParams) = apply {
+            this.ledgerEntries(ledgerTransactionCreateParams.ledgerEntries)
             this.description = ledgerTransactionCreateParams.description
-            this.status = ledgerTransactionCreateParams.status
-            this.metadata = ledgerTransactionCreateParams.metadata
             this.effectiveAt = ledgerTransactionCreateParams.effectiveAt
             this.effectiveDate = ledgerTransactionCreateParams.effectiveDate
-            this.ledgerEntries(ledgerTransactionCreateParams.ledgerEntries)
             this.externalId = ledgerTransactionCreateParams.externalId
-            this.ledgerableType = ledgerTransactionCreateParams.ledgerableType
             this.ledgerableId = ledgerTransactionCreateParams.ledgerableId
+            this.ledgerableType = ledgerTransactionCreateParams.ledgerableType
+            this.metadata = ledgerTransactionCreateParams.metadata
+            this.status = ledgerTransactionCreateParams.status
             additionalQueryParams(ledgerTransactionCreateParams.additionalQueryParams)
             additionalHeaders(ledgerTransactionCreateParams.additionalHeaders)
             additionalBodyProperties(ledgerTransactionCreateParams.additionalBodyProperties)
         }
-
-        /** An optional description for internal use. */
-        fun description(description: String) = apply { this.description = description }
-
-        /** To post a ledger transaction at creation, use `posted`. */
-        fun status(status: Status) = apply { this.status = status }
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
-
-        /**
-         * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
-         * purposes.
-         */
-        fun effectiveAt(effectiveAt: LocalDate) = apply { this.effectiveAt = effectiveAt }
-
-        /**
-         * The date (YYYY-MM-DD) on which the ledger transaction happened for reporting purposes.
-         */
-        fun effectiveDate(effectiveDate: LocalDate) = apply { this.effectiveDate = effectiveDate }
 
         /** An array of ledger entry objects. */
         fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>) = apply {
@@ -416,11 +394,31 @@ constructor(
             this.ledgerEntries.add(ledgerEntry)
         }
 
+        /** An optional description for internal use. */
+        fun description(description: String) = apply { this.description = description }
+
+        /**
+         * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
+         * purposes.
+         */
+        fun effectiveAt(effectiveAt: LocalDate) = apply { this.effectiveAt = effectiveAt }
+
+        /**
+         * The date (YYYY-MM-DD) on which the ledger transaction happened for reporting purposes.
+         */
+        fun effectiveDate(effectiveDate: LocalDate) = apply { this.effectiveDate = effectiveDate }
+
         /**
          * A unique string to represent the ledger transaction. Only one pending or posted ledger
          * transaction may have this ID in the ledger.
          */
         fun externalId(externalId: String) = apply { this.externalId = externalId }
+
+        /**
+         * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
+         * will be populated here, otherwise null.
+         */
+        fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
 
         /**
          * If the ledger transaction can be reconciled to another object in Modern Treasury, the
@@ -432,10 +430,12 @@ constructor(
         }
 
         /**
-         * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
-         * will be populated here, otherwise null.
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
+        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        /** To post a ledger transaction at creation, use `posted`. */
+        fun status(status: Status) = apply { this.status = status }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -493,16 +493,16 @@ constructor(
 
         fun build(): LedgerTransactionCreateParams =
             LedgerTransactionCreateParams(
-                description,
-                status,
-                metadata,
-                effectiveAt,
-                effectiveDate,
                 checkNotNull(ledgerEntries) { "`ledgerEntries` is required but was not set" }
                     .toUnmodifiable(),
+                description,
+                effectiveAt,
+                effectiveDate,
                 externalId,
-                ledgerableType,
                 ledgerableId,
+                ledgerableType,
+                metadata,
+                status,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

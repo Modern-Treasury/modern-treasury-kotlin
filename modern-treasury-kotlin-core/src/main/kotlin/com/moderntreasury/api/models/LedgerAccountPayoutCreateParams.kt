@@ -16,25 +16,23 @@ import java.util.Objects
 
 class LedgerAccountPayoutCreateParams
 constructor(
-    private val description: String?,
-    private val status: Status?,
-    private val payoutLedgerAccountId: String,
     private val fundingLedgerAccountId: String,
+    private val payoutLedgerAccountId: String,
+    private val description: String?,
     private val effectiveAtUpperBound: String?,
     private val metadata: Metadata?,
     private val skipPayoutLedgerTransaction: Boolean?,
+    private val status: Status?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun description(): String? = description
-
-    fun status(): Status? = status
+    fun fundingLedgerAccountId(): String = fundingLedgerAccountId
 
     fun payoutLedgerAccountId(): String = payoutLedgerAccountId
 
-    fun fundingLedgerAccountId(): String = fundingLedgerAccountId
+    fun description(): String? = description
 
     fun effectiveAtUpperBound(): String? = effectiveAtUpperBound
 
@@ -42,15 +40,17 @@ constructor(
 
     fun skipPayoutLedgerTransaction(): Boolean? = skipPayoutLedgerTransaction
 
+    fun status(): Status? = status
+
     internal fun getBody(): LedgerAccountPayoutCreateBody {
         return LedgerAccountPayoutCreateBody(
-            description,
-            status,
-            payoutLedgerAccountId,
             fundingLedgerAccountId,
+            payoutLedgerAccountId,
+            description,
             effectiveAtUpperBound,
             metadata,
             skipPayoutLedgerTransaction,
+            status,
             additionalBodyProperties,
         )
     }
@@ -63,26 +63,24 @@ constructor(
     @NoAutoDetect
     class LedgerAccountPayoutCreateBody
     internal constructor(
-        private val description: String?,
-        private val status: Status?,
-        private val payoutLedgerAccountId: String?,
         private val fundingLedgerAccountId: String?,
+        private val payoutLedgerAccountId: String?,
+        private val description: String?,
         private val effectiveAtUpperBound: String?,
         private val metadata: Metadata?,
         private val skipPayoutLedgerTransaction: Boolean?,
+        private val status: Status?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
-        /** The description of the ledger account payout. */
-        @JsonProperty("description") fun description(): String? = description
-
         /**
-         * The status of the ledger account payout. It is set to `pending` by default. To post a
-         * ledger account payout at creation, use `posted`.
+         * The id of the funding ledger account that sends to or receives funds from the payout
+         * ledger account.
          */
-        @JsonProperty("status") fun status(): Status? = status
+        @JsonProperty("funding_ledger_account_id")
+        fun fundingLedgerAccountId(): String? = fundingLedgerAccountId
 
         /**
          * The id of the payout ledger account whose ledger entries are queried against, and its
@@ -91,12 +89,8 @@ constructor(
         @JsonProperty("payout_ledger_account_id")
         fun payoutLedgerAccountId(): String? = payoutLedgerAccountId
 
-        /**
-         * The id of the funding ledger account that sends to or receives funds from the payout
-         * ledger account.
-         */
-        @JsonProperty("funding_ledger_account_id")
-        fun fundingLedgerAccountId(): String? = fundingLedgerAccountId
+        /** The description of the ledger account payout. */
+        @JsonProperty("description") fun description(): String? = description
 
         /**
          * The exclusive upper bound of the effective_at timestamp of the ledger entries to be
@@ -118,6 +112,12 @@ constructor(
         @JsonProperty("skip_payout_ledger_transaction")
         fun skipPayoutLedgerTransaction(): Boolean? = skipPayoutLedgerTransaction
 
+        /**
+         * The status of the ledger account payout. It is set to `pending` by default. To post a
+         * ledger account payout at creation, use `posted`.
+         */
+        @JsonProperty("status") fun status(): Status? = status
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -130,13 +130,13 @@ constructor(
             }
 
             return other is LedgerAccountPayoutCreateBody &&
-                this.description == other.description &&
-                this.status == other.status &&
-                this.payoutLedgerAccountId == other.payoutLedgerAccountId &&
                 this.fundingLedgerAccountId == other.fundingLedgerAccountId &&
+                this.payoutLedgerAccountId == other.payoutLedgerAccountId &&
+                this.description == other.description &&
                 this.effectiveAtUpperBound == other.effectiveAtUpperBound &&
                 this.metadata == other.metadata &&
                 this.skipPayoutLedgerTransaction == other.skipPayoutLedgerTransaction &&
+                this.status == other.status &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -144,13 +144,13 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        description,
-                        status,
-                        payoutLedgerAccountId,
                         fundingLedgerAccountId,
+                        payoutLedgerAccountId,
+                        description,
                         effectiveAtUpperBound,
                         metadata,
                         skipPayoutLedgerTransaction,
+                        status,
                         additionalProperties,
                     )
             }
@@ -158,7 +158,7 @@ constructor(
         }
 
         override fun toString() =
-            "LedgerAccountPayoutCreateBody{description=$description, status=$status, payoutLedgerAccountId=$payoutLedgerAccountId, fundingLedgerAccountId=$fundingLedgerAccountId, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, skipPayoutLedgerTransaction=$skipPayoutLedgerTransaction, additionalProperties=$additionalProperties}"
+            "LedgerAccountPayoutCreateBody{fundingLedgerAccountId=$fundingLedgerAccountId, payoutLedgerAccountId=$payoutLedgerAccountId, description=$description, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, skipPayoutLedgerTransaction=$skipPayoutLedgerTransaction, status=$status, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -167,38 +167,37 @@ constructor(
 
         class Builder {
 
-            private var description: String? = null
-            private var status: Status? = null
-            private var payoutLedgerAccountId: String? = null
             private var fundingLedgerAccountId: String? = null
+            private var payoutLedgerAccountId: String? = null
+            private var description: String? = null
             private var effectiveAtUpperBound: String? = null
             private var metadata: Metadata? = null
             private var skipPayoutLedgerTransaction: Boolean? = null
+            private var status: Status? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerAccountPayoutCreateBody: LedgerAccountPayoutCreateBody) =
                 apply {
-                    this.description = ledgerAccountPayoutCreateBody.description
-                    this.status = ledgerAccountPayoutCreateBody.status
-                    this.payoutLedgerAccountId = ledgerAccountPayoutCreateBody.payoutLedgerAccountId
                     this.fundingLedgerAccountId =
                         ledgerAccountPayoutCreateBody.fundingLedgerAccountId
+                    this.payoutLedgerAccountId = ledgerAccountPayoutCreateBody.payoutLedgerAccountId
+                    this.description = ledgerAccountPayoutCreateBody.description
                     this.effectiveAtUpperBound = ledgerAccountPayoutCreateBody.effectiveAtUpperBound
                     this.metadata = ledgerAccountPayoutCreateBody.metadata
                     this.skipPayoutLedgerTransaction =
                         ledgerAccountPayoutCreateBody.skipPayoutLedgerTransaction
+                    this.status = ledgerAccountPayoutCreateBody.status
                     additionalProperties(ledgerAccountPayoutCreateBody.additionalProperties)
                 }
 
-            /** The description of the ledger account payout. */
-            @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
-
             /**
-             * The status of the ledger account payout. It is set to `pending` by default. To post a
-             * ledger account payout at creation, use `posted`.
+             * The id of the funding ledger account that sends to or receives funds from the payout
+             * ledger account.
              */
-            @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
+            @JsonProperty("funding_ledger_account_id")
+            fun fundingLedgerAccountId(fundingLedgerAccountId: String) = apply {
+                this.fundingLedgerAccountId = fundingLedgerAccountId
+            }
 
             /**
              * The id of the payout ledger account whose ledger entries are queried against, and its
@@ -209,14 +208,9 @@ constructor(
                 this.payoutLedgerAccountId = payoutLedgerAccountId
             }
 
-            /**
-             * The id of the funding ledger account that sends to or receives funds from the payout
-             * ledger account.
-             */
-            @JsonProperty("funding_ledger_account_id")
-            fun fundingLedgerAccountId(fundingLedgerAccountId: String) = apply {
-                this.fundingLedgerAccountId = fundingLedgerAccountId
-            }
+            /** The description of the ledger account payout. */
+            @JsonProperty("description")
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * The exclusive upper bound of the effective_at timestamp of the ledger entries to be
@@ -244,6 +238,12 @@ constructor(
                 this.skipPayoutLedgerTransaction = skipPayoutLedgerTransaction
             }
 
+            /**
+             * The status of the ledger account payout. It is set to `pending` by default. To post a
+             * ledger account payout at creation, use `posted`.
+             */
+            @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -260,17 +260,17 @@ constructor(
 
             fun build(): LedgerAccountPayoutCreateBody =
                 LedgerAccountPayoutCreateBody(
-                    description,
-                    status,
-                    checkNotNull(payoutLedgerAccountId) {
-                        "`payoutLedgerAccountId` is required but was not set"
-                    },
                     checkNotNull(fundingLedgerAccountId) {
                         "`fundingLedgerAccountId` is required but was not set"
                     },
+                    checkNotNull(payoutLedgerAccountId) {
+                        "`payoutLedgerAccountId` is required but was not set"
+                    },
+                    description,
                     effectiveAtUpperBound,
                     metadata,
                     skipPayoutLedgerTransaction,
+                    status,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -288,13 +288,13 @@ constructor(
         }
 
         return other is LedgerAccountPayoutCreateParams &&
-            this.description == other.description &&
-            this.status == other.status &&
-            this.payoutLedgerAccountId == other.payoutLedgerAccountId &&
             this.fundingLedgerAccountId == other.fundingLedgerAccountId &&
+            this.payoutLedgerAccountId == other.payoutLedgerAccountId &&
+            this.description == other.description &&
             this.effectiveAtUpperBound == other.effectiveAtUpperBound &&
             this.metadata == other.metadata &&
             this.skipPayoutLedgerTransaction == other.skipPayoutLedgerTransaction &&
+            this.status == other.status &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -302,13 +302,13 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
-            description,
-            status,
-            payoutLedgerAccountId,
             fundingLedgerAccountId,
+            payoutLedgerAccountId,
+            description,
             effectiveAtUpperBound,
             metadata,
             skipPayoutLedgerTransaction,
+            status,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -316,7 +316,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerAccountPayoutCreateParams{description=$description, status=$status, payoutLedgerAccountId=$payoutLedgerAccountId, fundingLedgerAccountId=$fundingLedgerAccountId, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, skipPayoutLedgerTransaction=$skipPayoutLedgerTransaction, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerAccountPayoutCreateParams{fundingLedgerAccountId=$fundingLedgerAccountId, payoutLedgerAccountId=$payoutLedgerAccountId, description=$description, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, skipPayoutLedgerTransaction=$skipPayoutLedgerTransaction, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -328,40 +328,39 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var description: String? = null
-        private var status: Status? = null
-        private var payoutLedgerAccountId: String? = null
         private var fundingLedgerAccountId: String? = null
+        private var payoutLedgerAccountId: String? = null
+        private var description: String? = null
         private var effectiveAtUpperBound: String? = null
         private var metadata: Metadata? = null
         private var skipPayoutLedgerTransaction: Boolean? = null
+        private var status: Status? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerAccountPayoutCreateParams: LedgerAccountPayoutCreateParams) =
             apply {
-                this.description = ledgerAccountPayoutCreateParams.description
-                this.status = ledgerAccountPayoutCreateParams.status
-                this.payoutLedgerAccountId = ledgerAccountPayoutCreateParams.payoutLedgerAccountId
                 this.fundingLedgerAccountId = ledgerAccountPayoutCreateParams.fundingLedgerAccountId
+                this.payoutLedgerAccountId = ledgerAccountPayoutCreateParams.payoutLedgerAccountId
+                this.description = ledgerAccountPayoutCreateParams.description
                 this.effectiveAtUpperBound = ledgerAccountPayoutCreateParams.effectiveAtUpperBound
                 this.metadata = ledgerAccountPayoutCreateParams.metadata
                 this.skipPayoutLedgerTransaction =
                     ledgerAccountPayoutCreateParams.skipPayoutLedgerTransaction
+                this.status = ledgerAccountPayoutCreateParams.status
                 additionalQueryParams(ledgerAccountPayoutCreateParams.additionalQueryParams)
                 additionalHeaders(ledgerAccountPayoutCreateParams.additionalHeaders)
                 additionalBodyProperties(ledgerAccountPayoutCreateParams.additionalBodyProperties)
             }
 
-        /** The description of the ledger account payout. */
-        fun description(description: String) = apply { this.description = description }
-
         /**
-         * The status of the ledger account payout. It is set to `pending` by default. To post a
-         * ledger account payout at creation, use `posted`.
+         * The id of the funding ledger account that sends to or receives funds from the payout
+         * ledger account.
          */
-        fun status(status: Status) = apply { this.status = status }
+        fun fundingLedgerAccountId(fundingLedgerAccountId: String) = apply {
+            this.fundingLedgerAccountId = fundingLedgerAccountId
+        }
 
         /**
          * The id of the payout ledger account whose ledger entries are queried against, and its
@@ -371,13 +370,8 @@ constructor(
             this.payoutLedgerAccountId = payoutLedgerAccountId
         }
 
-        /**
-         * The id of the funding ledger account that sends to or receives funds from the payout
-         * ledger account.
-         */
-        fun fundingLedgerAccountId(fundingLedgerAccountId: String) = apply {
-            this.fundingLedgerAccountId = fundingLedgerAccountId
-        }
+        /** The description of the ledger account payout. */
+        fun description(description: String) = apply { this.description = description }
 
         /**
          * The exclusive upper bound of the effective_at timestamp of the ledger entries to be
@@ -400,6 +394,12 @@ constructor(
         fun skipPayoutLedgerTransaction(skipPayoutLedgerTransaction: Boolean) = apply {
             this.skipPayoutLedgerTransaction = skipPayoutLedgerTransaction
         }
+
+        /**
+         * The status of the ledger account payout. It is set to `pending` by default. To post a
+         * ledger account payout at creation, use `posted`.
+         */
+        fun status(status: Status) = apply { this.status = status }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -457,17 +457,17 @@ constructor(
 
         fun build(): LedgerAccountPayoutCreateParams =
             LedgerAccountPayoutCreateParams(
-                description,
-                status,
-                checkNotNull(payoutLedgerAccountId) {
-                    "`payoutLedgerAccountId` is required but was not set"
-                },
                 checkNotNull(fundingLedgerAccountId) {
                     "`fundingLedgerAccountId` is required but was not set"
                 },
+                checkNotNull(payoutLedgerAccountId) {
+                    "`payoutLedgerAccountId` is required but was not set"
+                },
+                description,
                 effectiveAtUpperBound,
                 metadata,
                 skipPayoutLedgerTransaction,
+                status,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

@@ -10,9 +10,9 @@ class LedgerUpdateParamsTest {
     fun createLedgerUpdateParams() {
         LedgerUpdateParams.builder()
             .id("string")
-            .name("string")
             .description("string")
             .metadata(LedgerUpdateParams.Metadata.builder().build())
+            .name("string")
             .build()
     }
 
@@ -21,15 +21,15 @@ class LedgerUpdateParamsTest {
         val params =
             LedgerUpdateParams.builder()
                 .id("string")
-                .name("string")
                 .description("string")
                 .metadata(LedgerUpdateParams.Metadata.builder().build())
+                .name("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.name()).isEqualTo("string")
         assertThat(body.description()).isEqualTo("string")
         assertThat(body.metadata()).isEqualTo(LedgerUpdateParams.Metadata.builder().build())
+        assertThat(body.name()).isEqualTo("string")
     }
 
     @Test

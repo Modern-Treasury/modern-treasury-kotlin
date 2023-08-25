@@ -17,45 +17,45 @@ import java.util.Objects
 
 class IncomingPaymentDetailCreateAsyncParams
 constructor(
-    private val type: Type?,
-    private val direction: Direction?,
     private val amount: Long?,
-    private val currency: Currency?,
-    private val internalAccountId: String?,
-    private val virtualAccountId: String?,
     private val asOfDate: LocalDate?,
+    private val currency: Currency?,
     private val description: String?,
+    private val direction: Direction?,
+    private val internalAccountId: String?,
+    private val type: Type?,
+    private val virtualAccountId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun type(): Type? = type
-
-    fun direction(): Direction? = direction
-
     fun amount(): Long? = amount
-
-    fun currency(): Currency? = currency
-
-    fun internalAccountId(): String? = internalAccountId
-
-    fun virtualAccountId(): String? = virtualAccountId
 
     fun asOfDate(): LocalDate? = asOfDate
 
+    fun currency(): Currency? = currency
+
     fun description(): String? = description
+
+    fun direction(): Direction? = direction
+
+    fun internalAccountId(): String? = internalAccountId
+
+    fun type(): Type? = type
+
+    fun virtualAccountId(): String? = virtualAccountId
 
     internal fun getBody(): IncomingPaymentDetailCreateAsyncBody {
         return IncomingPaymentDetailCreateAsyncBody(
-            type,
-            direction,
             amount,
-            currency,
-            internalAccountId,
-            virtualAccountId,
             asOfDate,
+            currency,
             description,
+            direction,
+            internalAccountId,
+            type,
+            virtualAccountId,
             additionalBodyProperties,
         )
     }
@@ -68,42 +68,42 @@ constructor(
     @NoAutoDetect
     class IncomingPaymentDetailCreateAsyncBody
     internal constructor(
-        private val type: Type?,
-        private val direction: Direction?,
         private val amount: Long?,
-        private val currency: Currency?,
-        private val internalAccountId: String?,
-        private val virtualAccountId: String?,
         private val asOfDate: LocalDate?,
+        private val currency: Currency?,
         private val description: String?,
+        private val direction: Direction?,
+        private val internalAccountId: String?,
+        private val type: Type?,
+        private val virtualAccountId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
-        /** One of `ach`, `wire`, `check`. */
-        @JsonProperty("type") fun type(): Type? = type
-
-        /** One of `credit`, `debit`. */
-        @JsonProperty("direction") fun direction(): Direction? = direction
-
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
         @JsonProperty("amount") fun amount(): Long? = amount
-
-        /** Defaults to the currency of the originating account. */
-        @JsonProperty("currency") fun currency(): Currency? = currency
-
-        /** The ID of one of your internal accounts. */
-        @JsonProperty("internal_account_id") fun internalAccountId(): String? = internalAccountId
-
-        /** An optional parameter to associate the incoming payment detail to a virtual account. */
-        @JsonProperty("virtual_account_id") fun virtualAccountId(): String? = virtualAccountId
 
         /** Defaults to today. */
         @JsonProperty("as_of_date") fun asOfDate(): LocalDate? = asOfDate
 
+        /** Defaults to the currency of the originating account. */
+        @JsonProperty("currency") fun currency(): Currency? = currency
+
         /** Defaults to a random description. */
         @JsonProperty("description") fun description(): String? = description
+
+        /** One of `credit`, `debit`. */
+        @JsonProperty("direction") fun direction(): Direction? = direction
+
+        /** The ID of one of your internal accounts. */
+        @JsonProperty("internal_account_id") fun internalAccountId(): String? = internalAccountId
+
+        /** One of `ach`, `wire`, `check`. */
+        @JsonProperty("type") fun type(): Type? = type
+
+        /** An optional parameter to associate the incoming payment detail to a virtual account. */
+        @JsonProperty("virtual_account_id") fun virtualAccountId(): String? = virtualAccountId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -117,14 +117,14 @@ constructor(
             }
 
             return other is IncomingPaymentDetailCreateAsyncBody &&
-                this.type == other.type &&
-                this.direction == other.direction &&
                 this.amount == other.amount &&
-                this.currency == other.currency &&
-                this.internalAccountId == other.internalAccountId &&
-                this.virtualAccountId == other.virtualAccountId &&
                 this.asOfDate == other.asOfDate &&
+                this.currency == other.currency &&
                 this.description == other.description &&
+                this.direction == other.direction &&
+                this.internalAccountId == other.internalAccountId &&
+                this.type == other.type &&
+                this.virtualAccountId == other.virtualAccountId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -132,14 +132,14 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        type,
-                        direction,
                         amount,
-                        currency,
-                        internalAccountId,
-                        virtualAccountId,
                         asOfDate,
+                        currency,
                         description,
+                        direction,
+                        internalAccountId,
+                        type,
+                        virtualAccountId,
                         additionalProperties,
                     )
             }
@@ -147,7 +147,7 @@ constructor(
         }
 
         override fun toString() =
-            "IncomingPaymentDetailCreateAsyncBody{type=$type, direction=$direction, amount=$amount, currency=$currency, internalAccountId=$internalAccountId, virtualAccountId=$virtualAccountId, asOfDate=$asOfDate, description=$description, additionalProperties=$additionalProperties}"
+            "IncomingPaymentDetailCreateAsyncBody{amount=$amount, asOfDate=$asOfDate, currency=$currency, description=$description, direction=$direction, internalAccountId=$internalAccountId, type=$type, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -156,51 +156,59 @@ constructor(
 
         class Builder {
 
-            private var type: Type? = null
-            private var direction: Direction? = null
             private var amount: Long? = null
-            private var currency: Currency? = null
-            private var internalAccountId: String? = null
-            private var virtualAccountId: String? = null
             private var asOfDate: LocalDate? = null
+            private var currency: Currency? = null
             private var description: String? = null
+            private var direction: Direction? = null
+            private var internalAccountId: String? = null
+            private var type: Type? = null
+            private var virtualAccountId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
                 incomingPaymentDetailCreateAsyncBody: IncomingPaymentDetailCreateAsyncBody
             ) = apply {
-                this.type = incomingPaymentDetailCreateAsyncBody.type
-                this.direction = incomingPaymentDetailCreateAsyncBody.direction
                 this.amount = incomingPaymentDetailCreateAsyncBody.amount
-                this.currency = incomingPaymentDetailCreateAsyncBody.currency
-                this.internalAccountId = incomingPaymentDetailCreateAsyncBody.internalAccountId
-                this.virtualAccountId = incomingPaymentDetailCreateAsyncBody.virtualAccountId
                 this.asOfDate = incomingPaymentDetailCreateAsyncBody.asOfDate
+                this.currency = incomingPaymentDetailCreateAsyncBody.currency
                 this.description = incomingPaymentDetailCreateAsyncBody.description
+                this.direction = incomingPaymentDetailCreateAsyncBody.direction
+                this.internalAccountId = incomingPaymentDetailCreateAsyncBody.internalAccountId
+                this.type = incomingPaymentDetailCreateAsyncBody.type
+                this.virtualAccountId = incomingPaymentDetailCreateAsyncBody.virtualAccountId
                 additionalProperties(incomingPaymentDetailCreateAsyncBody.additionalProperties)
             }
-
-            /** One of `ach`, `wire`, `check`. */
-            @JsonProperty("type") fun type(type: Type) = apply { this.type = type }
-
-            /** One of `credit`, `debit`. */
-            @JsonProperty("direction")
-            fun direction(direction: Direction) = apply { this.direction = direction }
 
             /**
              * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
              */
             @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
 
+            /** Defaults to today. */
+            @JsonProperty("as_of_date")
+            fun asOfDate(asOfDate: LocalDate) = apply { this.asOfDate = asOfDate }
+
             /** Defaults to the currency of the originating account. */
             @JsonProperty("currency")
             fun currency(currency: Currency) = apply { this.currency = currency }
+
+            /** Defaults to a random description. */
+            @JsonProperty("description")
+            fun description(description: String) = apply { this.description = description }
+
+            /** One of `credit`, `debit`. */
+            @JsonProperty("direction")
+            fun direction(direction: Direction) = apply { this.direction = direction }
 
             /** The ID of one of your internal accounts. */
             @JsonProperty("internal_account_id")
             fun internalAccountId(internalAccountId: String) = apply {
                 this.internalAccountId = internalAccountId
             }
+
+            /** One of `ach`, `wire`, `check`. */
+            @JsonProperty("type") fun type(type: Type) = apply { this.type = type }
 
             /**
              * An optional parameter to associate the incoming payment detail to a virtual account.
@@ -209,14 +217,6 @@ constructor(
             fun virtualAccountId(virtualAccountId: String) = apply {
                 this.virtualAccountId = virtualAccountId
             }
-
-            /** Defaults to today. */
-            @JsonProperty("as_of_date")
-            fun asOfDate(asOfDate: LocalDate) = apply { this.asOfDate = asOfDate }
-
-            /** Defaults to a random description. */
-            @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -234,14 +234,14 @@ constructor(
 
             fun build(): IncomingPaymentDetailCreateAsyncBody =
                 IncomingPaymentDetailCreateAsyncBody(
-                    type,
-                    direction,
                     amount,
-                    currency,
-                    internalAccountId,
-                    virtualAccountId,
                     asOfDate,
+                    currency,
                     description,
+                    direction,
+                    internalAccountId,
+                    type,
+                    virtualAccountId,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -259,14 +259,14 @@ constructor(
         }
 
         return other is IncomingPaymentDetailCreateAsyncParams &&
-            this.type == other.type &&
-            this.direction == other.direction &&
             this.amount == other.amount &&
-            this.currency == other.currency &&
-            this.internalAccountId == other.internalAccountId &&
-            this.virtualAccountId == other.virtualAccountId &&
             this.asOfDate == other.asOfDate &&
+            this.currency == other.currency &&
             this.description == other.description &&
+            this.direction == other.direction &&
+            this.internalAccountId == other.internalAccountId &&
+            this.type == other.type &&
+            this.virtualAccountId == other.virtualAccountId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -274,14 +274,14 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
-            type,
-            direction,
             amount,
-            currency,
-            internalAccountId,
-            virtualAccountId,
             asOfDate,
+            currency,
             description,
+            direction,
+            internalAccountId,
+            type,
+            virtualAccountId,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -289,7 +289,7 @@ constructor(
     }
 
     override fun toString() =
-        "IncomingPaymentDetailCreateAsyncParams{type=$type, direction=$direction, amount=$amount, currency=$currency, internalAccountId=$internalAccountId, virtualAccountId=$virtualAccountId, asOfDate=$asOfDate, description=$description, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "IncomingPaymentDetailCreateAsyncParams{amount=$amount, asOfDate=$asOfDate, currency=$currency, description=$description, direction=$direction, internalAccountId=$internalAccountId, type=$type, virtualAccountId=$virtualAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -301,14 +301,14 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var type: Type? = null
-        private var direction: Direction? = null
         private var amount: Long? = null
-        private var currency: Currency? = null
-        private var internalAccountId: String? = null
-        private var virtualAccountId: String? = null
         private var asOfDate: LocalDate? = null
+        private var currency: Currency? = null
         private var description: String? = null
+        private var direction: Direction? = null
+        private var internalAccountId: String? = null
+        private var type: Type? = null
+        private var virtualAccountId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -316,14 +316,14 @@ constructor(
         internal fun from(
             incomingPaymentDetailCreateAsyncParams: IncomingPaymentDetailCreateAsyncParams
         ) = apply {
-            this.type = incomingPaymentDetailCreateAsyncParams.type
-            this.direction = incomingPaymentDetailCreateAsyncParams.direction
             this.amount = incomingPaymentDetailCreateAsyncParams.amount
-            this.currency = incomingPaymentDetailCreateAsyncParams.currency
-            this.internalAccountId = incomingPaymentDetailCreateAsyncParams.internalAccountId
-            this.virtualAccountId = incomingPaymentDetailCreateAsyncParams.virtualAccountId
             this.asOfDate = incomingPaymentDetailCreateAsyncParams.asOfDate
+            this.currency = incomingPaymentDetailCreateAsyncParams.currency
             this.description = incomingPaymentDetailCreateAsyncParams.description
+            this.direction = incomingPaymentDetailCreateAsyncParams.direction
+            this.internalAccountId = incomingPaymentDetailCreateAsyncParams.internalAccountId
+            this.type = incomingPaymentDetailCreateAsyncParams.type
+            this.virtualAccountId = incomingPaymentDetailCreateAsyncParams.virtualAccountId
             additionalQueryParams(incomingPaymentDetailCreateAsyncParams.additionalQueryParams)
             additionalHeaders(incomingPaymentDetailCreateAsyncParams.additionalHeaders)
             additionalBodyProperties(
@@ -331,33 +331,33 @@ constructor(
             )
         }
 
-        /** One of `ach`, `wire`, `check`. */
-        fun type(type: Type) = apply { this.type = type }
-
-        /** One of `credit`, `debit`. */
-        fun direction(direction: Direction) = apply { this.direction = direction }
-
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
         fun amount(amount: Long) = apply { this.amount = amount }
 
+        /** Defaults to today. */
+        fun asOfDate(asOfDate: LocalDate) = apply { this.asOfDate = asOfDate }
+
         /** Defaults to the currency of the originating account. */
         fun currency(currency: Currency) = apply { this.currency = currency }
+
+        /** Defaults to a random description. */
+        fun description(description: String) = apply { this.description = description }
+
+        /** One of `credit`, `debit`. */
+        fun direction(direction: Direction) = apply { this.direction = direction }
 
         /** The ID of one of your internal accounts. */
         fun internalAccountId(internalAccountId: String) = apply {
             this.internalAccountId = internalAccountId
         }
 
+        /** One of `ach`, `wire`, `check`. */
+        fun type(type: Type) = apply { this.type = type }
+
         /** An optional parameter to associate the incoming payment detail to a virtual account. */
         fun virtualAccountId(virtualAccountId: String) = apply {
             this.virtualAccountId = virtualAccountId
         }
-
-        /** Defaults to today. */
-        fun asOfDate(asOfDate: LocalDate) = apply { this.asOfDate = asOfDate }
-
-        /** Defaults to a random description. */
-        fun description(description: String) = apply { this.description = description }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -415,14 +415,14 @@ constructor(
 
         fun build(): IncomingPaymentDetailCreateAsyncParams =
             IncomingPaymentDetailCreateAsyncParams(
-                type,
-                direction,
                 amount,
-                currency,
-                internalAccountId,
-                virtualAccountId,
                 asOfDate,
+                currency,
                 description,
+                direction,
+                internalAccountId,
+                type,
+                virtualAccountId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

@@ -10,9 +10,9 @@ class CounterpartyUpdateParamsTest {
     fun createCounterpartyUpdateParams() {
         CounterpartyUpdateParams.builder()
             .id("string")
-            .name("string")
             .email("dev@stainlessapi.com")
             .metadata(CounterpartyUpdateParams.Metadata.builder().build())
+            .name("string")
             .sendRemittanceAdvice(true)
             .taxpayerIdentifier("string")
             .build()
@@ -23,17 +23,17 @@ class CounterpartyUpdateParamsTest {
         val params =
             CounterpartyUpdateParams.builder()
                 .id("string")
-                .name("string")
                 .email("dev@stainlessapi.com")
                 .metadata(CounterpartyUpdateParams.Metadata.builder().build())
+                .name("string")
                 .sendRemittanceAdvice(true)
                 .taxpayerIdentifier("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.name()).isEqualTo("string")
         assertThat(body.email()).isEqualTo("dev@stainlessapi.com")
         assertThat(body.metadata()).isEqualTo(CounterpartyUpdateParams.Metadata.builder().build())
+        assertThat(body.name()).isEqualTo("string")
         assertThat(body.sendRemittanceAdvice()).isEqualTo(true)
         assertThat(body.taxpayerIdentifier()).isEqualTo("string")
     }
