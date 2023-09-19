@@ -69,7 +69,10 @@ class InvoiceUpdateParamsTest {
             .paymentMethod(InvoiceUpdateParams.PaymentMethod.UI)
             .paymentType(InvoiceUpdateParams.PaymentType.ACH)
             .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .recipientEmail("string")
+            .recipientName("string")
             .status("string")
+            .virtualAccountId("string")
             .build()
     }
 
@@ -135,7 +138,10 @@ class InvoiceUpdateParamsTest {
                 .paymentMethod(InvoiceUpdateParams.PaymentMethod.UI)
                 .paymentType(InvoiceUpdateParams.PaymentType.ACH)
                 .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .recipientEmail("string")
+                .recipientName("string")
                 .status("string")
+                .virtualAccountId("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -200,7 +206,10 @@ class InvoiceUpdateParamsTest {
         assertThat(body.paymentMethod()).isEqualTo(InvoiceUpdateParams.PaymentMethod.UI)
         assertThat(body.paymentType()).isEqualTo(InvoiceUpdateParams.PaymentType.ACH)
         assertThat(body.receivingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(body.recipientEmail()).isEqualTo("string")
+        assertThat(body.recipientName()).isEqualTo("string")
         assertThat(body.status()).isEqualTo("string")
+        assertThat(body.virtualAccountId()).isEqualTo("string")
     }
 
     @Test

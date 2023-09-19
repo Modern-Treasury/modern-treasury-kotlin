@@ -36,8 +36,8 @@ private constructor(
 
     /**
      * One of `aba`, `au_bsb`, `br_codigo`, `ca_cpa`, `cnaps`, `gb_sort_code`, `in_ifsc`,
-     * `my_branch_code`, or `swift`. In sandbox mode we currently only support `aba` and `swift`
-     * with routing numbers '123456789' and 'GRINUST0XXX' respectively.
+     * `my_branch_code`, `se_bankgiro_clearing_code`, or `swift`. In sandbox mode we currently only
+     * support `aba` and `swift` with routing numbers '123456789' and 'GRINUST0XXX' respectively.
      */
     fun routingNumberType(): RoutingNumberType? =
         routingNumberType.getNullable("routing_number_type")
@@ -67,8 +67,8 @@ private constructor(
 
     /**
      * One of `aba`, `au_bsb`, `br_codigo`, `ca_cpa`, `cnaps`, `gb_sort_code`, `in_ifsc`,
-     * `my_branch_code`, or `swift`. In sandbox mode we currently only support `aba` and `swift`
-     * with routing numbers '123456789' and 'GRINUST0XXX' respectively.
+     * `my_branch_code`, `se_bankgiro_clearing_code`, or `swift`. In sandbox mode we currently only
+     * support `aba` and `swift` with routing numbers '123456789' and 'GRINUST0XXX' respectively.
      */
     @JsonProperty("routing_number_type")
     @ExcludeMissing
@@ -184,16 +184,18 @@ private constructor(
 
         /**
          * One of `aba`, `au_bsb`, `br_codigo`, `ca_cpa`, `cnaps`, `gb_sort_code`, `in_ifsc`,
-         * `my_branch_code`, or `swift`. In sandbox mode we currently only support `aba` and `swift`
-         * with routing numbers '123456789' and 'GRINUST0XXX' respectively.
+         * `my_branch_code`, `se_bankgiro_clearing_code`, or `swift`. In sandbox mode we currently
+         * only support `aba` and `swift` with routing numbers '123456789' and 'GRINUST0XXX'
+         * respectively.
          */
         fun routingNumberType(routingNumberType: RoutingNumberType) =
             routingNumberType(JsonField.of(routingNumberType))
 
         /**
          * One of `aba`, `au_bsb`, `br_codigo`, `ca_cpa`, `cnaps`, `gb_sort_code`, `in_ifsc`,
-         * `my_branch_code`, or `swift`. In sandbox mode we currently only support `aba` and `swift`
-         * with routing numbers '123456789' and 'GRINUST0XXX' respectively.
+         * `my_branch_code`, `se_bankgiro_clearing_code`, or `swift`. In sandbox mode we currently
+         * only support `aba` and `swift` with routing numbers '123456789' and 'GRINUST0XXX'
+         * respectively.
          */
         @JsonProperty("routing_number_type")
         @ExcludeMissing
@@ -509,6 +511,9 @@ private constructor(
 
             val IN_IFSC = RoutingNumberType(JsonField.of("in_ifsc"))
 
+            val SE_BANKGIRO_CLEARING_CODE =
+                RoutingNumberType(JsonField.of("se_bankgiro_clearing_code"))
+
             val SWIFT = RoutingNumberType(JsonField.of("swift"))
 
             fun of(value: String) = RoutingNumberType(JsonField.of(value))
@@ -520,6 +525,7 @@ private constructor(
             CA_CPA,
             GB_SORT_CODE,
             IN_IFSC,
+            SE_BANKGIRO_CLEARING_CODE,
             SWIFT,
         }
 
@@ -529,6 +535,7 @@ private constructor(
             CA_CPA,
             GB_SORT_CODE,
             IN_IFSC,
+            SE_BANKGIRO_CLEARING_CODE,
             SWIFT,
             _UNKNOWN,
         }
@@ -540,6 +547,7 @@ private constructor(
                 CA_CPA -> Value.CA_CPA
                 GB_SORT_CODE -> Value.GB_SORT_CODE
                 IN_IFSC -> Value.IN_IFSC
+                SE_BANKGIRO_CLEARING_CODE -> Value.SE_BANKGIRO_CLEARING_CODE
                 SWIFT -> Value.SWIFT
                 else -> Value._UNKNOWN
             }
@@ -551,6 +559,7 @@ private constructor(
                 CA_CPA -> Known.CA_CPA
                 GB_SORT_CODE -> Known.GB_SORT_CODE
                 IN_IFSC -> Known.IN_IFSC
+                SE_BANKGIRO_CLEARING_CODE -> Known.SE_BANKGIRO_CLEARING_CODE
                 SWIFT -> Known.SWIFT
                 else ->
                     throw ModernTreasuryInvalidDataException("Unknown RoutingNumberType: $value")
@@ -679,17 +688,25 @@ private constructor(
 
             val NEFT = SupportedPaymentType(JsonField.of("neft"))
 
+            val NICS = SupportedPaymentType(JsonField.of("nics"))
+
             val PROVXCHANGE = SupportedPaymentType(JsonField.of("provxchange"))
 
             val RTP = SupportedPaymentType(JsonField.of("rtp"))
+
+            val SE_BANKGIROT = SupportedPaymentType(JsonField.of("se_bankgirot"))
 
             val SEN = SupportedPaymentType(JsonField.of("sen"))
 
             val SEPA = SupportedPaymentType(JsonField.of("sepa"))
 
+            val SIC = SupportedPaymentType(JsonField.of("sic"))
+
             val SIGNET = SupportedPaymentType(JsonField.of("signet"))
 
             val WIRE = SupportedPaymentType(JsonField.of("wire"))
+
+            val ZENGIN = SupportedPaymentType(JsonField.of("zengin"))
 
             fun of(value: String) = SupportedPaymentType(JsonField.of(value))
         }
@@ -706,12 +723,16 @@ private constructor(
             INTERAC,
             MASAV,
             NEFT,
+            NICS,
             PROVXCHANGE,
             RTP,
+            SE_BANKGIROT,
             SEN,
             SEPA,
+            SIC,
             SIGNET,
             WIRE,
+            ZENGIN,
         }
 
         enum class Value {
@@ -726,12 +747,16 @@ private constructor(
             INTERAC,
             MASAV,
             NEFT,
+            NICS,
             PROVXCHANGE,
             RTP,
+            SE_BANKGIROT,
             SEN,
             SEPA,
+            SIC,
             SIGNET,
             WIRE,
+            ZENGIN,
             _UNKNOWN,
         }
 
@@ -748,12 +773,16 @@ private constructor(
                 INTERAC -> Value.INTERAC
                 MASAV -> Value.MASAV
                 NEFT -> Value.NEFT
+                NICS -> Value.NICS
                 PROVXCHANGE -> Value.PROVXCHANGE
                 RTP -> Value.RTP
+                SE_BANKGIROT -> Value.SE_BANKGIROT
                 SEN -> Value.SEN
                 SEPA -> Value.SEPA
+                SIC -> Value.SIC
                 SIGNET -> Value.SIGNET
                 WIRE -> Value.WIRE
+                ZENGIN -> Value.ZENGIN
                 else -> Value._UNKNOWN
             }
 
@@ -770,12 +799,16 @@ private constructor(
                 INTERAC -> Known.INTERAC
                 MASAV -> Known.MASAV
                 NEFT -> Known.NEFT
+                NICS -> Known.NICS
                 PROVXCHANGE -> Known.PROVXCHANGE
                 RTP -> Known.RTP
+                SE_BANKGIROT -> Known.SE_BANKGIROT
                 SEN -> Known.SEN
                 SEPA -> Known.SEPA
+                SIC -> Known.SIC
                 SIGNET -> Known.SIGNET
                 WIRE -> Known.WIRE
+                ZENGIN -> Known.ZENGIN
                 else ->
                     throw ModernTreasuryInvalidDataException("Unknown SupportedPaymentType: $value")
             }

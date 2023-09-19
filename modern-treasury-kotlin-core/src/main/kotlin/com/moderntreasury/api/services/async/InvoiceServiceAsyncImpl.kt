@@ -7,6 +7,7 @@ import com.moderntreasury.api.core.http.HttpRequest
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.errors.ModernTreasuryError
 import com.moderntreasury.api.models.Invoice
+import com.moderntreasury.api.models.InvoiceAddPaymentOrderParams
 import com.moderntreasury.api.models.InvoiceCreateParams
 import com.moderntreasury.api.models.InvoiceListPageAsync
 import com.moderntreasury.api.models.InvoiceListParams
@@ -14,6 +15,7 @@ import com.moderntreasury.api.models.InvoiceRetrieveParams
 import com.moderntreasury.api.models.InvoiceUpdateParams
 import com.moderntreasury.api.services.async.invoices.LineItemServiceAsync
 import com.moderntreasury.api.services.async.invoices.LineItemServiceAsyncImpl
+import com.moderntreasury.api.services.emptyHandler
 import com.moderntreasury.api.services.errorHandler
 import com.moderntreasury.api.services.json
 import com.moderntreasury.api.services.jsonHandler
@@ -145,6 +147,34 @@ constructor(
                         .build()
                 }
                 .let { InvoiceListPageAsync.of(this, params, it) }
+        }
+    }
+
+    private val addPaymentOrderHandler: Handler<Void?> =
+        emptyHandler().withErrorHandler(errorHandler)
+
+    /** Add a payment order to an invoice. */
+    override suspend fun addPaymentOrder(
+        params: InvoiceAddPaymentOrderParams,
+        requestOptions: RequestOptions
+    ) {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.PUT)
+                .addPathSegments(
+                    "api",
+                    "invoices",
+                    params.getPathParam(0),
+                    "payment_orders",
+                    params.getPathParam(1)
+                )
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .apply { params.getBody()?.also { body(json(clientOptions.jsonMapper, it)) } }
+                .build()
+        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
+            response.use { addPaymentOrderHandler.handle(it) }
         }
     }
 }

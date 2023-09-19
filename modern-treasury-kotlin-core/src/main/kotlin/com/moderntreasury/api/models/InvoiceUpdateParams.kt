@@ -34,7 +34,10 @@ constructor(
     private val paymentMethod: PaymentMethod?,
     private val paymentType: PaymentType?,
     private val receivingAccountId: String?,
+    private val recipientEmail: String?,
+    private val recipientName: String?,
     private val status: String?,
+    private val virtualAccountId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -72,7 +75,13 @@ constructor(
 
     fun receivingAccountId(): String? = receivingAccountId
 
+    fun recipientEmail(): String? = recipientEmail
+
+    fun recipientName(): String? = recipientName
+
     fun status(): String? = status
+
+    fun virtualAccountId(): String? = virtualAccountId
 
     internal fun getBody(): InvoiceUpdateBody {
         return InvoiceUpdateBody(
@@ -91,7 +100,10 @@ constructor(
             paymentMethod,
             paymentType,
             receivingAccountId,
+            recipientEmail,
+            recipientName,
             status,
+            virtualAccountId,
             additionalBodyProperties,
         )
     }
@@ -126,7 +138,10 @@ constructor(
         private val paymentMethod: PaymentMethod?,
         private val paymentType: PaymentType?,
         private val receivingAccountId: String?,
+        private val recipientEmail: String?,
+        private val recipientName: String?,
         private val status: String?,
+        private val virtualAccountId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -197,8 +212,8 @@ constructor(
         @JsonProperty("payment_method") fun paymentMethod(): PaymentMethod? = paymentMethod
 
         /**
-         * One of `ach`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`, `au_becs`,
-         * `interac`, `signet`, `provexchange`.
+         * One of `ach`, `bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`,
+         * `au_becs`, `interac`, `neft`, `nics`, `sic`, `signet`, `provexchange`, `zengin`.
          */
         @JsonProperty("payment_type") fun paymentType(): PaymentType? = paymentType
 
@@ -206,11 +221,26 @@ constructor(
         @JsonProperty("receiving_account_id") fun receivingAccountId(): String? = receivingAccountId
 
         /**
+         * The email of the recipient of the invoice. Leaving this value as null will fallback to
+         * using the counterparty's name.
+         */
+        @JsonProperty("recipient_email") fun recipientEmail(): String? = recipientEmail
+
+        /**
+         * The name of the recipient of the invoice. Leaving this value as null will fallback to
+         * using the counterparty's name.
+         */
+        @JsonProperty("recipient_name") fun recipientName(): String? = recipientName
+
+        /**
          * Invoice status must be updated in a `PATCH` request that does not modify any other
          * invoice attributes. Valid state transitions are `draft` to `unpaid`, `draft` or `unpaid`
          * to `voided`, and `draft` or `unpaid` to `paid`.
          */
         @JsonProperty("status") fun status(): String? = status
+
+        /** The ID of the virtual account the invoice should be paid to. */
+        @JsonProperty("virtual_account_id") fun virtualAccountId(): String? = virtualAccountId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -239,7 +269,10 @@ constructor(
                 this.paymentMethod == other.paymentMethod &&
                 this.paymentType == other.paymentType &&
                 this.receivingAccountId == other.receivingAccountId &&
+                this.recipientEmail == other.recipientEmail &&
+                this.recipientName == other.recipientName &&
                 this.status == other.status &&
+                this.virtualAccountId == other.virtualAccountId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -262,7 +295,10 @@ constructor(
                         paymentMethod,
                         paymentType,
                         receivingAccountId,
+                        recipientEmail,
+                        recipientName,
                         status,
+                        virtualAccountId,
                         additionalProperties,
                     )
             }
@@ -270,7 +306,7 @@ constructor(
         }
 
         override fun toString() =
-            "InvoiceUpdateBody{contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, status=$status, additionalProperties=$additionalProperties}"
+            "InvoiceUpdateBody{contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, status=$status, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -294,7 +330,10 @@ constructor(
             private var paymentMethod: PaymentMethod? = null
             private var paymentType: PaymentType? = null
             private var receivingAccountId: String? = null
+            private var recipientEmail: String? = null
+            private var recipientName: String? = null
             private var status: String? = null
+            private var virtualAccountId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(invoiceUpdateBody: InvoiceUpdateBody) = apply {
@@ -313,7 +352,10 @@ constructor(
                 this.paymentMethod = invoiceUpdateBody.paymentMethod
                 this.paymentType = invoiceUpdateBody.paymentType
                 this.receivingAccountId = invoiceUpdateBody.receivingAccountId
+                this.recipientEmail = invoiceUpdateBody.recipientEmail
+                this.recipientName = invoiceUpdateBody.recipientName
                 this.status = invoiceUpdateBody.status
+                this.virtualAccountId = invoiceUpdateBody.virtualAccountId
                 additionalProperties(invoiceUpdateBody.additionalProperties)
             }
 
@@ -409,8 +451,9 @@ constructor(
             }
 
             /**
-             * One of `ach`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`,
-             * `au_becs`, `interac`, `signet`, `provexchange`.
+             * One of `ach`, `bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`,
+             * `bacs`, `au_becs`, `interac`, `neft`, `nics`, `sic`, `signet`, `provexchange`,
+             * `zengin`.
              */
             @JsonProperty("payment_type")
             fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
@@ -422,11 +465,33 @@ constructor(
             }
 
             /**
+             * The email of the recipient of the invoice. Leaving this value as null will fallback
+             * to using the counterparty's name.
+             */
+            @JsonProperty("recipient_email")
+            fun recipientEmail(recipientEmail: String) = apply {
+                this.recipientEmail = recipientEmail
+            }
+
+            /**
+             * The name of the recipient of the invoice. Leaving this value as null will fallback to
+             * using the counterparty's name.
+             */
+            @JsonProperty("recipient_name")
+            fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
+
+            /**
              * Invoice status must be updated in a `PATCH` request that does not modify any other
              * invoice attributes. Valid state transitions are `draft` to `unpaid`, `draft` or
              * `unpaid` to `voided`, and `draft` or `unpaid` to `paid`.
              */
             @JsonProperty("status") fun status(status: String) = apply { this.status = status }
+
+            /** The ID of the virtual account the invoice should be paid to. */
+            @JsonProperty("virtual_account_id")
+            fun virtualAccountId(virtualAccountId: String) = apply {
+                this.virtualAccountId = virtualAccountId
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -459,7 +524,10 @@ constructor(
                     paymentMethod,
                     paymentType,
                     receivingAccountId,
+                    recipientEmail,
+                    recipientName,
                     status,
+                    virtualAccountId,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -493,7 +561,10 @@ constructor(
             this.paymentMethod == other.paymentMethod &&
             this.paymentType == other.paymentType &&
             this.receivingAccountId == other.receivingAccountId &&
+            this.recipientEmail == other.recipientEmail &&
+            this.recipientName == other.recipientName &&
             this.status == other.status &&
+            this.virtualAccountId == other.virtualAccountId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -517,7 +588,10 @@ constructor(
             paymentMethod,
             paymentType,
             receivingAccountId,
+            recipientEmail,
+            recipientName,
             status,
+            virtualAccountId,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -525,7 +599,7 @@ constructor(
     }
 
     override fun toString() =
-        "InvoiceUpdateParams{id=$id, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "InvoiceUpdateParams{id=$id, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, status=$status, virtualAccountId=$virtualAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -553,7 +627,10 @@ constructor(
         private var paymentMethod: PaymentMethod? = null
         private var paymentType: PaymentType? = null
         private var receivingAccountId: String? = null
+        private var recipientEmail: String? = null
+        private var recipientName: String? = null
         private var status: String? = null
+        private var virtualAccountId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -577,7 +654,10 @@ constructor(
             this.paymentMethod = invoiceUpdateParams.paymentMethod
             this.paymentType = invoiceUpdateParams.paymentType
             this.receivingAccountId = invoiceUpdateParams.receivingAccountId
+            this.recipientEmail = invoiceUpdateParams.recipientEmail
+            this.recipientName = invoiceUpdateParams.recipientName
             this.status = invoiceUpdateParams.status
+            this.virtualAccountId = invoiceUpdateParams.virtualAccountId
             additionalQueryParams(invoiceUpdateParams.additionalQueryParams)
             additionalHeaders(invoiceUpdateParams.additionalHeaders)
             additionalBodyProperties(invoiceUpdateParams.additionalBodyProperties)
@@ -679,8 +759,8 @@ constructor(
         }
 
         /**
-         * One of `ach`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`, `au_becs`,
-         * `interac`, `signet`, `provexchange`.
+         * One of `ach`, `bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`,
+         * `au_becs`, `interac`, `neft`, `nics`, `sic`, `signet`, `provexchange`, `zengin`.
          */
         fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
 
@@ -690,11 +770,28 @@ constructor(
         }
 
         /**
+         * The email of the recipient of the invoice. Leaving this value as null will fallback to
+         * using the counterparty's name.
+         */
+        fun recipientEmail(recipientEmail: String) = apply { this.recipientEmail = recipientEmail }
+
+        /**
+         * The name of the recipient of the invoice. Leaving this value as null will fallback to
+         * using the counterparty's name.
+         */
+        fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
+
+        /**
          * Invoice status must be updated in a `PATCH` request that does not modify any other
          * invoice attributes. Valid state transitions are `draft` to `unpaid`, `draft` or `unpaid`
          * to `voided`, and `draft` or `unpaid` to `paid`.
          */
         fun status(status: String) = apply { this.status = status }
+
+        /** The ID of the virtual account the invoice should be paid to. */
+        fun virtualAccountId(virtualAccountId: String) = apply {
+            this.virtualAccountId = virtualAccountId
+        }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -769,7 +866,10 @@ constructor(
                 paymentMethod,
                 paymentType,
                 receivingAccountId,
+                recipientEmail,
+                recipientName,
                 status,
+                virtualAccountId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
@@ -1531,6 +1631,8 @@ constructor(
 
             val AU_BECS = PaymentType(JsonField.of("au_becs"))
 
+            val SE_BANKGIROT = PaymentType(JsonField.of("se_bankgirot"))
+
             val BACS = PaymentType(JsonField.of("bacs"))
 
             val BOOK = PaymentType(JsonField.of("book"))
@@ -1549,11 +1651,15 @@ constructor(
 
             val NEFT = PaymentType(JsonField.of("neft"))
 
+            val NICS = PaymentType(JsonField.of("nics"))
+
             val PROVXCHANGE = PaymentType(JsonField.of("provxchange"))
 
             val RTP = PaymentType(JsonField.of("rtp"))
 
             val SEN = PaymentType(JsonField.of("sen"))
+
+            val SIC = PaymentType(JsonField.of("sic"))
 
             val SEPA = PaymentType(JsonField.of("sepa"))
 
@@ -1561,12 +1667,15 @@ constructor(
 
             val WIRE = PaymentType(JsonField.of("wire"))
 
+            val ZENGIN = PaymentType(JsonField.of("zengin"))
+
             fun of(value: String) = PaymentType(JsonField.of(value))
         }
 
         enum class Known {
             ACH,
             AU_BECS,
+            SE_BANKGIROT,
             BACS,
             BOOK,
             CARD,
@@ -1576,17 +1685,21 @@ constructor(
             INTERAC,
             MASAV,
             NEFT,
+            NICS,
             PROVXCHANGE,
             RTP,
             SEN,
+            SIC,
             SEPA,
             SIGNET,
             WIRE,
+            ZENGIN,
         }
 
         enum class Value {
             ACH,
             AU_BECS,
+            SE_BANKGIROT,
             BACS,
             BOOK,
             CARD,
@@ -1596,12 +1709,15 @@ constructor(
             INTERAC,
             MASAV,
             NEFT,
+            NICS,
             PROVXCHANGE,
             RTP,
             SEN,
+            SIC,
             SEPA,
             SIGNET,
             WIRE,
+            ZENGIN,
             _UNKNOWN,
         }
 
@@ -1609,6 +1725,7 @@ constructor(
             when (this) {
                 ACH -> Value.ACH
                 AU_BECS -> Value.AU_BECS
+                SE_BANKGIROT -> Value.SE_BANKGIROT
                 BACS -> Value.BACS
                 BOOK -> Value.BOOK
                 CARD -> Value.CARD
@@ -1618,12 +1735,15 @@ constructor(
                 INTERAC -> Value.INTERAC
                 MASAV -> Value.MASAV
                 NEFT -> Value.NEFT
+                NICS -> Value.NICS
                 PROVXCHANGE -> Value.PROVXCHANGE
                 RTP -> Value.RTP
                 SEN -> Value.SEN
+                SIC -> Value.SIC
                 SEPA -> Value.SEPA
                 SIGNET -> Value.SIGNET
                 WIRE -> Value.WIRE
+                ZENGIN -> Value.ZENGIN
                 else -> Value._UNKNOWN
             }
 
@@ -1631,6 +1751,7 @@ constructor(
             when (this) {
                 ACH -> Known.ACH
                 AU_BECS -> Known.AU_BECS
+                SE_BANKGIROT -> Known.SE_BANKGIROT
                 BACS -> Known.BACS
                 BOOK -> Known.BOOK
                 CARD -> Known.CARD
@@ -1640,12 +1761,15 @@ constructor(
                 INTERAC -> Known.INTERAC
                 MASAV -> Known.MASAV
                 NEFT -> Known.NEFT
+                NICS -> Known.NICS
                 PROVXCHANGE -> Known.PROVXCHANGE
                 RTP -> Known.RTP
                 SEN -> Known.SEN
+                SIC -> Known.SIC
                 SEPA -> Known.SEPA
                 SIGNET -> Known.SIGNET
                 WIRE -> Known.WIRE
+                ZENGIN -> Known.ZENGIN
                 else -> throw ModernTreasuryInvalidDataException("Unknown PaymentType: $value")
             }
 

@@ -42,6 +42,8 @@ interface ModernTreasuryClient {
 
     fun ledgerAccounts(): LedgerAccountService
 
+    fun ledgerAccountBalanceMonitors(): LedgerAccountBalanceMonitorService
+
     fun ledgerAccountPayouts(): LedgerAccountPayoutService
 
     fun ledgerAccountStatements(): LedgerAccountStatementService

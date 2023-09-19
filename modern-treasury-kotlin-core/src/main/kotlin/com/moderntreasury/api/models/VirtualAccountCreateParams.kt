@@ -915,7 +915,12 @@ constructor(
 
                 val IN_IFSC = RoutingNumberType(JsonField.of("in_ifsc"))
 
+                val JP_ZENGIN_CODE = RoutingNumberType(JsonField.of("jp_zengin_code"))
+
                 val MY_BRANCH_CODE = RoutingNumberType(JsonField.of("my_branch_code"))
+
+                val SE_BANKGIRO_CLEARING_CODE =
+                    RoutingNumberType(JsonField.of("se_bankgiro_clearing_code"))
 
                 val SWIFT = RoutingNumberType(JsonField.of("swift"))
 
@@ -931,7 +936,9 @@ constructor(
                 CNAPS,
                 GB_SORT_CODE,
                 IN_IFSC,
+                JP_ZENGIN_CODE,
                 MY_BRANCH_CODE,
+                SE_BANKGIRO_CLEARING_CODE,
                 SWIFT,
             }
 
@@ -944,7 +951,9 @@ constructor(
                 CNAPS,
                 GB_SORT_CODE,
                 IN_IFSC,
+                JP_ZENGIN_CODE,
                 MY_BRANCH_CODE,
+                SE_BANKGIRO_CLEARING_CODE,
                 SWIFT,
                 _UNKNOWN,
             }
@@ -959,7 +968,9 @@ constructor(
                     CNAPS -> Value.CNAPS
                     GB_SORT_CODE -> Value.GB_SORT_CODE
                     IN_IFSC -> Value.IN_IFSC
+                    JP_ZENGIN_CODE -> Value.JP_ZENGIN_CODE
                     MY_BRANCH_CODE -> Value.MY_BRANCH_CODE
+                    SE_BANKGIRO_CLEARING_CODE -> Value.SE_BANKGIRO_CLEARING_CODE
                     SWIFT -> Value.SWIFT
                     else -> Value._UNKNOWN
                 }
@@ -974,7 +985,9 @@ constructor(
                     CNAPS -> Known.CNAPS
                     GB_SORT_CODE -> Known.GB_SORT_CODE
                     IN_IFSC -> Known.IN_IFSC
+                    JP_ZENGIN_CODE -> Known.JP_ZENGIN_CODE
                     MY_BRANCH_CODE -> Known.MY_BRANCH_CODE
+                    SE_BANKGIRO_CLEARING_CODE -> Known.SE_BANKGIRO_CLEARING_CODE
                     SWIFT -> Known.SWIFT
                     else ->
                         throw ModernTreasuryInvalidDataException(
@@ -1029,17 +1042,25 @@ constructor(
 
                 val NEFT = PaymentType(JsonField.of("neft"))
 
+                val NICS = PaymentType(JsonField.of("nics"))
+
                 val PROVXCHANGE = PaymentType(JsonField.of("provxchange"))
 
                 val RTP = PaymentType(JsonField.of("rtp"))
+
+                val SE_BANKGIROT = PaymentType(JsonField.of("se_bankgirot"))
 
                 val SEN = PaymentType(JsonField.of("sen"))
 
                 val SEPA = PaymentType(JsonField.of("sepa"))
 
+                val SIC = PaymentType(JsonField.of("sic"))
+
                 val SIGNET = PaymentType(JsonField.of("signet"))
 
                 val WIRE = PaymentType(JsonField.of("wire"))
+
+                val ZENGIN = PaymentType(JsonField.of("zengin"))
 
                 fun of(value: String) = PaymentType(JsonField.of(value))
             }
@@ -1056,12 +1077,16 @@ constructor(
                 INTERAC,
                 MASAV,
                 NEFT,
+                NICS,
                 PROVXCHANGE,
                 RTP,
+                SE_BANKGIROT,
                 SEN,
                 SEPA,
+                SIC,
                 SIGNET,
                 WIRE,
+                ZENGIN,
             }
 
             enum class Value {
@@ -1076,12 +1101,16 @@ constructor(
                 INTERAC,
                 MASAV,
                 NEFT,
+                NICS,
                 PROVXCHANGE,
                 RTP,
+                SE_BANKGIROT,
                 SEN,
                 SEPA,
+                SIC,
                 SIGNET,
                 WIRE,
+                ZENGIN,
                 _UNKNOWN,
             }
 
@@ -1098,12 +1127,16 @@ constructor(
                     INTERAC -> Value.INTERAC
                     MASAV -> Value.MASAV
                     NEFT -> Value.NEFT
+                    NICS -> Value.NICS
                     PROVXCHANGE -> Value.PROVXCHANGE
                     RTP -> Value.RTP
+                    SE_BANKGIROT -> Value.SE_BANKGIROT
                     SEN -> Value.SEN
                     SEPA -> Value.SEPA
+                    SIC -> Value.SIC
                     SIGNET -> Value.SIGNET
                     WIRE -> Value.WIRE
+                    ZENGIN -> Value.ZENGIN
                     else -> Value._UNKNOWN
                 }
 
@@ -1120,12 +1153,16 @@ constructor(
                     INTERAC -> Known.INTERAC
                     MASAV -> Known.MASAV
                     NEFT -> Known.NEFT
+                    NICS -> Known.NICS
                     PROVXCHANGE -> Known.PROVXCHANGE
                     RTP -> Known.RTP
+                    SE_BANKGIROT -> Known.SE_BANKGIROT
                     SEN -> Known.SEN
                     SEPA -> Known.SEPA
+                    SIC -> Known.SIC
                     SIGNET -> Known.SIGNET
                     WIRE -> Known.WIRE
+                    ZENGIN -> Known.ZENGIN
                     else -> throw ModernTreasuryInvalidDataException("Unknown PaymentType: $value")
                 }
 

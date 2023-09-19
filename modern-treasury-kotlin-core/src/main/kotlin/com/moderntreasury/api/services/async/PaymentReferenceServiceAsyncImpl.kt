@@ -10,6 +10,7 @@ import com.moderntreasury.api.models.PaymentReference
 import com.moderntreasury.api.models.PaymentReferenceListPageAsync
 import com.moderntreasury.api.models.PaymentReferenceListParams
 import com.moderntreasury.api.models.PaymentReferenceRetireveParams
+import com.moderntreasury.api.models.PaymentReferenceRetrieveParams
 import com.moderntreasury.api.services.errorHandler
 import com.moderntreasury.api.services.jsonHandler
 import com.moderntreasury.api.services.withErrorHandler
@@ -20,6 +21,33 @@ constructor(
 ) : PaymentReferenceServiceAsync {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
+
+    private val retrieveHandler: Handler<PaymentReference> =
+        jsonHandler<PaymentReference>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** get payment_reference */
+    override suspend fun retrieve(
+        params: PaymentReferenceRetrieveParams,
+        requestOptions: RequestOptions
+    ): PaymentReference {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.GET)
+                .addPathSegments("api", "payment_references", params.getPathParam(0))
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .build()
+        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
+            response
+                .use { retrieveHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
 
     private val listHandler: Handler<List<PaymentReference>> =
         jsonHandler<List<PaymentReference>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
@@ -60,6 +88,7 @@ constructor(
         jsonHandler<PaymentReference>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** get payment_reference */
+    @Deprecated("use `retrieve` instead")
     override suspend fun retireve(
         params: PaymentReferenceRetireveParams,
         requestOptions: RequestOptions
