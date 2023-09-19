@@ -260,10 +260,13 @@ class InvoiceTest {
                 .paymentType(Invoice.PaymentType.EFT)
                 .pdfUrl("string")
                 .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .recipientEmail("string")
+                .recipientName("string")
                 .status(Invoice.Status.DRAFT)
                 .totalAmount(123L)
                 .transactionLineItemIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .virtualAccountId("string")
                 .build()
         assertThat(invoice).isNotNull
         assertThat(invoice.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -489,10 +492,13 @@ class InvoiceTest {
         assertThat(invoice.paymentType()).isEqualTo(Invoice.PaymentType.EFT)
         assertThat(invoice.pdfUrl()).isEqualTo("string")
         assertThat(invoice.receivingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(invoice.recipientEmail()).isEqualTo("string")
+        assertThat(invoice.recipientName()).isEqualTo("string")
         assertThat(invoice.status()).isEqualTo(Invoice.Status.DRAFT)
         assertThat(invoice.totalAmount()).isEqualTo(123L)
         assertThat(invoice.transactionLineItemIds())
             .containsExactly("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(invoice.updatedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(invoice.virtualAccountId()).isEqualTo("string")
     }
 }

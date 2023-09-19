@@ -29,6 +29,7 @@ private constructor(
     private val counterpartyId: JsonField<String>,
     private val externalAccountId: JsonField<String>,
     private val paymentTypes: JsonField<List<PaymentType>>,
+    private val receivingCountries: JsonField<List<ReceivingCountry>>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -73,6 +74,9 @@ private constructor(
 
     fun paymentTypes(): List<PaymentType> = paymentTypes.getRequired("payment_types")
 
+    fun receivingCountries(): List<ReceivingCountry>? =
+        receivingCountries.getNullable("receiving_countries")
+
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     @JsonProperty("object") @ExcludeMissing fun _object_() = object_
@@ -112,6 +116,10 @@ private constructor(
 
     @JsonProperty("payment_types") @ExcludeMissing fun _paymentTypes() = paymentTypes
 
+    @JsonProperty("receiving_countries")
+    @ExcludeMissing
+    fun _receivingCountries() = receivingCountries
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -128,6 +136,7 @@ private constructor(
             counterpartyId()
             externalAccountId()
             paymentTypes()
+            receivingCountries()
             validated = true
         }
     }
@@ -150,6 +159,7 @@ private constructor(
             this.counterpartyId == other.counterpartyId &&
             this.externalAccountId == other.externalAccountId &&
             this.paymentTypes == other.paymentTypes &&
+            this.receivingCountries == other.receivingCountries &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -167,6 +177,7 @@ private constructor(
                     counterpartyId,
                     externalAccountId,
                     paymentTypes,
+                    receivingCountries,
                     additionalProperties,
                 )
         }
@@ -174,7 +185,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AccountCollectionFlow{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, clientToken=$clientToken, status=$status, counterpartyId=$counterpartyId, externalAccountId=$externalAccountId, paymentTypes=$paymentTypes, additionalProperties=$additionalProperties}"
+        "AccountCollectionFlow{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, clientToken=$clientToken, status=$status, counterpartyId=$counterpartyId, externalAccountId=$externalAccountId, paymentTypes=$paymentTypes, receivingCountries=$receivingCountries, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -193,6 +204,7 @@ private constructor(
         private var counterpartyId: JsonField<String> = JsonMissing.of()
         private var externalAccountId: JsonField<String> = JsonMissing.of()
         private var paymentTypes: JsonField<List<PaymentType>> = JsonMissing.of()
+        private var receivingCountries: JsonField<List<ReceivingCountry>> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(accountCollectionFlow: AccountCollectionFlow) = apply {
@@ -206,6 +218,7 @@ private constructor(
             this.counterpartyId = accountCollectionFlow.counterpartyId
             this.externalAccountId = accountCollectionFlow.externalAccountId
             this.paymentTypes = accountCollectionFlow.paymentTypes
+            this.receivingCountries = accountCollectionFlow.receivingCountries
             additionalProperties(accountCollectionFlow.additionalProperties)
         }
 
@@ -308,6 +321,15 @@ private constructor(
             this.paymentTypes = paymentTypes
         }
 
+        fun receivingCountries(receivingCountries: List<ReceivingCountry>) =
+            receivingCountries(JsonField.of(receivingCountries))
+
+        @JsonProperty("receiving_countries")
+        @ExcludeMissing
+        fun receivingCountries(receivingCountries: JsonField<List<ReceivingCountry>>) = apply {
+            this.receivingCountries = receivingCountries
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -334,6 +356,7 @@ private constructor(
                 counterpartyId,
                 externalAccountId,
                 paymentTypes.map { it.toUnmodifiable() },
+                receivingCountries.map { it.toUnmodifiable() },
                 additionalProperties.toUnmodifiable(),
             )
     }
@@ -390,6 +413,153 @@ private constructor(
                 ACH -> Known.ACH
                 WIRE -> Known.WIRE
                 else -> throw ModernTreasuryInvalidDataException("Unknown PaymentType: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class ReceivingCountry
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ReceivingCountry && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val USA = ReceivingCountry(JsonField.of("USA"))
+
+            val AUS = ReceivingCountry(JsonField.of("AUS"))
+
+            val BEL = ReceivingCountry(JsonField.of("BEL"))
+
+            val CAN = ReceivingCountry(JsonField.of("CAN"))
+
+            val CHL = ReceivingCountry(JsonField.of("CHL"))
+
+            val CHN = ReceivingCountry(JsonField.of("CHN"))
+
+            val COL = ReceivingCountry(JsonField.of("COL"))
+
+            val FRA = ReceivingCountry(JsonField.of("FRA"))
+
+            val DEU = ReceivingCountry(JsonField.of("DEU"))
+
+            val HKG = ReceivingCountry(JsonField.of("HKG"))
+
+            val IND = ReceivingCountry(JsonField.of("IND"))
+
+            val IRL = ReceivingCountry(JsonField.of("IRL"))
+
+            val ITA = ReceivingCountry(JsonField.of("ITA"))
+
+            val MEX = ReceivingCountry(JsonField.of("MEX"))
+
+            val NLD = ReceivingCountry(JsonField.of("NLD"))
+
+            val PER = ReceivingCountry(JsonField.of("PER"))
+
+            val ESP = ReceivingCountry(JsonField.of("ESP"))
+
+            fun of(value: String) = ReceivingCountry(JsonField.of(value))
+        }
+
+        enum class Known {
+            USA,
+            AUS,
+            BEL,
+            CAN,
+            CHL,
+            CHN,
+            COL,
+            FRA,
+            DEU,
+            HKG,
+            IND,
+            IRL,
+            ITA,
+            MEX,
+            NLD,
+            PER,
+            ESP,
+        }
+
+        enum class Value {
+            USA,
+            AUS,
+            BEL,
+            CAN,
+            CHL,
+            CHN,
+            COL,
+            FRA,
+            DEU,
+            HKG,
+            IND,
+            IRL,
+            ITA,
+            MEX,
+            NLD,
+            PER,
+            ESP,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                USA -> Value.USA
+                AUS -> Value.AUS
+                BEL -> Value.BEL
+                CAN -> Value.CAN
+                CHL -> Value.CHL
+                CHN -> Value.CHN
+                COL -> Value.COL
+                FRA -> Value.FRA
+                DEU -> Value.DEU
+                HKG -> Value.HKG
+                IND -> Value.IND
+                IRL -> Value.IRL
+                ITA -> Value.ITA
+                MEX -> Value.MEX
+                NLD -> Value.NLD
+                PER -> Value.PER
+                ESP -> Value.ESP
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                USA -> Known.USA
+                AUS -> Known.AUS
+                BEL -> Known.BEL
+                CAN -> Known.CAN
+                CHL -> Known.CHL
+                CHN -> Known.CHN
+                COL -> Known.COL
+                FRA -> Known.FRA
+                DEU -> Known.DEU
+                HKG -> Known.HKG
+                IND -> Known.IND
+                IRL -> Known.IRL
+                ITA -> Known.ITA
+                MEX -> Known.MEX
+                NLD -> Known.NLD
+                PER -> Known.PER
+                ESP -> Known.ESP
+                else -> throw ModernTreasuryInvalidDataException("Unknown ReceivingCountry: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()

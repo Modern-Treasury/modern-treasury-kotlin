@@ -49,17 +49,25 @@ private constructor(
 
         val NEFT = ExpectedPaymentType(JsonField.of("neft"))
 
+        val NICS = ExpectedPaymentType(JsonField.of("nics"))
+
         val PROVXCHANGE = ExpectedPaymentType(JsonField.of("provxchange"))
 
         val RTP = ExpectedPaymentType(JsonField.of("rtp"))
+
+        val SE_BANKGIROT = ExpectedPaymentType(JsonField.of("se_bankgirot"))
 
         val SEN = ExpectedPaymentType(JsonField.of("sen"))
 
         val SEPA = ExpectedPaymentType(JsonField.of("sepa"))
 
+        val SIC = ExpectedPaymentType(JsonField.of("sic"))
+
         val SIGNET = ExpectedPaymentType(JsonField.of("signet"))
 
         val WIRE = ExpectedPaymentType(JsonField.of("wire"))
+
+        val ZENGIN = ExpectedPaymentType(JsonField.of("zengin"))
 
         fun of(value: String) = ExpectedPaymentType(JsonField.of(value))
     }
@@ -76,12 +84,16 @@ private constructor(
         INTERAC,
         MASAV,
         NEFT,
+        NICS,
         PROVXCHANGE,
         RTP,
+        SE_BANKGIROT,
         SEN,
         SEPA,
+        SIC,
         SIGNET,
         WIRE,
+        ZENGIN,
     }
 
     enum class Value {
@@ -96,12 +108,16 @@ private constructor(
         INTERAC,
         MASAV,
         NEFT,
+        NICS,
         PROVXCHANGE,
         RTP,
+        SE_BANKGIROT,
         SEN,
         SEPA,
+        SIC,
         SIGNET,
         WIRE,
+        ZENGIN,
         _UNKNOWN,
     }
 
@@ -118,12 +134,16 @@ private constructor(
             INTERAC -> Value.INTERAC
             MASAV -> Value.MASAV
             NEFT -> Value.NEFT
+            NICS -> Value.NICS
             PROVXCHANGE -> Value.PROVXCHANGE
             RTP -> Value.RTP
+            SE_BANKGIROT -> Value.SE_BANKGIROT
             SEN -> Value.SEN
             SEPA -> Value.SEPA
+            SIC -> Value.SIC
             SIGNET -> Value.SIGNET
             WIRE -> Value.WIRE
+            ZENGIN -> Value.ZENGIN
             else -> Value._UNKNOWN
         }
 
@@ -140,12 +160,16 @@ private constructor(
             INTERAC -> Known.INTERAC
             MASAV -> Known.MASAV
             NEFT -> Known.NEFT
+            NICS -> Known.NICS
             PROVXCHANGE -> Known.PROVXCHANGE
             RTP -> Known.RTP
+            SE_BANKGIROT -> Known.SE_BANKGIROT
             SEN -> Known.SEN
             SEPA -> Known.SEPA
+            SIC -> Known.SIC
             SIGNET -> Known.SIGNET
             WIRE -> Known.WIRE
+            ZENGIN -> Known.ZENGIN
             else -> throw ModernTreasuryInvalidDataException("Unknown ExpectedPaymentType: $value")
         }
 

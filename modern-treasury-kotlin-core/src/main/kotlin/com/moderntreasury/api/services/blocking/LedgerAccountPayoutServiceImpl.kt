@@ -11,6 +11,7 @@ import com.moderntreasury.api.models.LedgerAccountPayoutCreateParams
 import com.moderntreasury.api.models.LedgerAccountPayoutListPage
 import com.moderntreasury.api.models.LedgerAccountPayoutListParams
 import com.moderntreasury.api.models.LedgerAccountPayoutRetireveParams
+import com.moderntreasury.api.models.LedgerAccountPayoutRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountPayoutUpdateParams
 import com.moderntreasury.api.services.errorHandler
 import com.moderntreasury.api.services.json
@@ -44,6 +45,33 @@ constructor(
         return clientOptions.httpClient.execute(request, requestOptions).let { response ->
             response
                 .use { createHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
+
+    private val retrieveHandler: Handler<LedgerAccountPayout> =
+        jsonHandler<LedgerAccountPayout>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Get details on a single ledger account payout. */
+    override fun retrieve(
+        params: LedgerAccountPayoutRetrieveParams,
+        requestOptions: RequestOptions
+    ): LedgerAccountPayout {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.GET)
+                .addPathSegments("api", "ledger_account_payouts", params.getPathParam(0))
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .build()
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response
+                .use { retrieveHandler.handle(it) }
                 .apply {
                     if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
                         validate()
@@ -120,6 +148,7 @@ constructor(
         jsonHandler<LedgerAccountPayout>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Get details on a single ledger account payout. */
+    @Deprecated("use `retrieve` instead")
     override fun retireve(
         params: LedgerAccountPayoutRetireveParams,
         requestOptions: RequestOptions

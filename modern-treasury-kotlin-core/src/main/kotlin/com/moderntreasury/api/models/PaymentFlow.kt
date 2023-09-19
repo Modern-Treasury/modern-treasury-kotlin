@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 
@@ -33,6 +34,9 @@ private constructor(
     private val receivingAccountId: JsonField<String>,
     private val originatingAccountId: JsonField<String>,
     private val paymentOrderId: JsonField<String>,
+    private val effectiveDateSelectionEnabled: JsonField<Boolean>,
+    private val dueDate: JsonField<LocalDate>,
+    private val selectedEffectiveDate: JsonField<LocalDate>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -96,6 +100,26 @@ private constructor(
     /** If present, the ID of the payment order created using this flow. */
     fun paymentOrderId(): String? = paymentOrderId.getNullable("payment_order_id")
 
+    /**
+     * When `true`, your end-user can schedule the payment `effective_date` while completing the
+     * pre-built UI.
+     */
+    fun effectiveDateSelectionEnabled(): Boolean? =
+        effectiveDateSelectionEnabled.getNullable("effective_date_selection_enabled")
+
+    /**
+     * The due date for the flow. Can only be passed in when `effective_date_selection_enabled` is
+     * `true`.
+     */
+    fun dueDate(): LocalDate? = dueDate.getNullable("due_date")
+
+    /**
+     * This field is set after your end-user selects a payment date while completing the pre-built
+     * UI. This field is always `null` unless `effective_date_selection_enabled` is `true`.
+     */
+    fun selectedEffectiveDate(): LocalDate? =
+        selectedEffectiveDate.getNullable("selected_effective_date")
+
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     @JsonProperty("object") @ExcludeMissing fun _object_() = object_
@@ -156,6 +180,28 @@ private constructor(
     /** If present, the ID of the payment order created using this flow. */
     @JsonProperty("payment_order_id") @ExcludeMissing fun _paymentOrderId() = paymentOrderId
 
+    /**
+     * When `true`, your end-user can schedule the payment `effective_date` while completing the
+     * pre-built UI.
+     */
+    @JsonProperty("effective_date_selection_enabled")
+    @ExcludeMissing
+    fun _effectiveDateSelectionEnabled() = effectiveDateSelectionEnabled
+
+    /**
+     * The due date for the flow. Can only be passed in when `effective_date_selection_enabled` is
+     * `true`.
+     */
+    @JsonProperty("due_date") @ExcludeMissing fun _dueDate() = dueDate
+
+    /**
+     * This field is set after your end-user selects a payment date while completing the pre-built
+     * UI. This field is always `null` unless `effective_date_selection_enabled` is `true`.
+     */
+    @JsonProperty("selected_effective_date")
+    @ExcludeMissing
+    fun _selectedEffectiveDate() = selectedEffectiveDate
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -176,6 +222,9 @@ private constructor(
             receivingAccountId()
             originatingAccountId()
             paymentOrderId()
+            effectiveDateSelectionEnabled()
+            dueDate()
+            selectedEffectiveDate()
             validated = true
         }
     }
@@ -202,6 +251,9 @@ private constructor(
             this.receivingAccountId == other.receivingAccountId &&
             this.originatingAccountId == other.originatingAccountId &&
             this.paymentOrderId == other.paymentOrderId &&
+            this.effectiveDateSelectionEnabled == other.effectiveDateSelectionEnabled &&
+            this.dueDate == other.dueDate &&
+            this.selectedEffectiveDate == other.selectedEffectiveDate &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -223,6 +275,9 @@ private constructor(
                     receivingAccountId,
                     originatingAccountId,
                     paymentOrderId,
+                    effectiveDateSelectionEnabled,
+                    dueDate,
+                    selectedEffectiveDate,
                     additionalProperties,
                 )
         }
@@ -230,7 +285,7 @@ private constructor(
     }
 
     override fun toString() =
-        "PaymentFlow{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, clientToken=$clientToken, status=$status, amount=$amount, currency=$currency, direction=$direction, counterpartyId=$counterpartyId, receivingAccountId=$receivingAccountId, originatingAccountId=$originatingAccountId, paymentOrderId=$paymentOrderId, additionalProperties=$additionalProperties}"
+        "PaymentFlow{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, clientToken=$clientToken, status=$status, amount=$amount, currency=$currency, direction=$direction, counterpartyId=$counterpartyId, receivingAccountId=$receivingAccountId, originatingAccountId=$originatingAccountId, paymentOrderId=$paymentOrderId, effectiveDateSelectionEnabled=$effectiveDateSelectionEnabled, dueDate=$dueDate, selectedEffectiveDate=$selectedEffectiveDate, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -253,6 +308,9 @@ private constructor(
         private var receivingAccountId: JsonField<String> = JsonMissing.of()
         private var originatingAccountId: JsonField<String> = JsonMissing.of()
         private var paymentOrderId: JsonField<String> = JsonMissing.of()
+        private var effectiveDateSelectionEnabled: JsonField<Boolean> = JsonMissing.of()
+        private var dueDate: JsonField<LocalDate> = JsonMissing.of()
+        private var selectedEffectiveDate: JsonField<LocalDate> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(paymentFlow: PaymentFlow) = apply {
@@ -270,6 +328,9 @@ private constructor(
             this.receivingAccountId = paymentFlow.receivingAccountId
             this.originatingAccountId = paymentFlow.originatingAccountId
             this.paymentOrderId = paymentFlow.paymentOrderId
+            this.effectiveDateSelectionEnabled = paymentFlow.effectiveDateSelectionEnabled
+            this.dueDate = paymentFlow.dueDate
+            this.selectedEffectiveDate = paymentFlow.selectedEffectiveDate
             additionalProperties(paymentFlow.additionalProperties)
         }
 
@@ -421,6 +482,57 @@ private constructor(
             this.paymentOrderId = paymentOrderId
         }
 
+        /**
+         * When `true`, your end-user can schedule the payment `effective_date` while completing the
+         * pre-built UI.
+         */
+        fun effectiveDateSelectionEnabled(effectiveDateSelectionEnabled: Boolean) =
+            effectiveDateSelectionEnabled(JsonField.of(effectiveDateSelectionEnabled))
+
+        /**
+         * When `true`, your end-user can schedule the payment `effective_date` while completing the
+         * pre-built UI.
+         */
+        @JsonProperty("effective_date_selection_enabled")
+        @ExcludeMissing
+        fun effectiveDateSelectionEnabled(effectiveDateSelectionEnabled: JsonField<Boolean>) =
+            apply {
+                this.effectiveDateSelectionEnabled = effectiveDateSelectionEnabled
+            }
+
+        /**
+         * The due date for the flow. Can only be passed in when `effective_date_selection_enabled`
+         * is `true`.
+         */
+        fun dueDate(dueDate: LocalDate) = dueDate(JsonField.of(dueDate))
+
+        /**
+         * The due date for the flow. Can only be passed in when `effective_date_selection_enabled`
+         * is `true`.
+         */
+        @JsonProperty("due_date")
+        @ExcludeMissing
+        fun dueDate(dueDate: JsonField<LocalDate>) = apply { this.dueDate = dueDate }
+
+        /**
+         * This field is set after your end-user selects a payment date while completing the
+         * pre-built UI. This field is always `null` unless `effective_date_selection_enabled` is
+         * `true`.
+         */
+        fun selectedEffectiveDate(selectedEffectiveDate: LocalDate) =
+            selectedEffectiveDate(JsonField.of(selectedEffectiveDate))
+
+        /**
+         * This field is set after your end-user selects a payment date while completing the
+         * pre-built UI. This field is always `null` unless `effective_date_selection_enabled` is
+         * `true`.
+         */
+        @JsonProperty("selected_effective_date")
+        @ExcludeMissing
+        fun selectedEffectiveDate(selectedEffectiveDate: JsonField<LocalDate>) = apply {
+            this.selectedEffectiveDate = selectedEffectiveDate
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -451,6 +563,9 @@ private constructor(
                 receivingAccountId,
                 originatingAccountId,
                 paymentOrderId,
+                effectiveDateSelectionEnabled,
+                dueDate,
+                selectedEffectiveDate,
                 additionalProperties.toUnmodifiable(),
             )
     }

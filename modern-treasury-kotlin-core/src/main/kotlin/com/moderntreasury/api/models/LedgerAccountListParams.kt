@@ -18,6 +18,9 @@ constructor(
     private val ledgerId: String?,
     private val currency: String?,
     private val balances: Balances?,
+    private val pendingBalanceAmount: PendingBalanceAmount?,
+    private val postedBalanceAmount: PostedBalanceAmount?,
+    private val availableBalanceAmount: AvailableBalanceAmount?,
     private val createdAt: CreatedAt?,
     private val updatedAt: UpdatedAt?,
     private val ledgerAccountCategoryId: String?,
@@ -41,6 +44,12 @@ constructor(
 
     fun balances(): Balances? = balances
 
+    fun pendingBalanceAmount(): PendingBalanceAmount? = pendingBalanceAmount
+
+    fun postedBalanceAmount(): PostedBalanceAmount? = postedBalanceAmount
+
+    fun availableBalanceAmount(): AvailableBalanceAmount? = availableBalanceAmount
+
     fun createdAt(): CreatedAt? = createdAt
 
     fun updatedAt(): UpdatedAt? = updatedAt
@@ -57,6 +66,15 @@ constructor(
         this.ledgerId?.let { params.put("ledger_id", listOf(it.toString())) }
         this.currency?.let { params.put("currency", listOf(it.toString())) }
         this.balances?.forEachQueryParam { key, values -> params.put("balances[$key]", values) }
+        this.pendingBalanceAmount?.forEachQueryParam { key, values ->
+            params.put("pending_balance_amount[$key]", values)
+        }
+        this.postedBalanceAmount?.forEachQueryParam { key, values ->
+            params.put("posted_balance_amount[$key]", values)
+        }
+        this.availableBalanceAmount?.forEachQueryParam { key, values ->
+            params.put("available_balance_amount[$key]", values)
+        }
         this.createdAt?.forEachQueryParam { key, values -> params.put("created_at[$key]", values) }
         this.updatedAt?.forEachQueryParam { key, values -> params.put("updated_at[$key]", values) }
         this.ledgerAccountCategoryId?.let {
@@ -86,6 +104,9 @@ constructor(
             this.ledgerId == other.ledgerId &&
             this.currency == other.currency &&
             this.balances == other.balances &&
+            this.pendingBalanceAmount == other.pendingBalanceAmount &&
+            this.postedBalanceAmount == other.postedBalanceAmount &&
+            this.availableBalanceAmount == other.availableBalanceAmount &&
             this.createdAt == other.createdAt &&
             this.updatedAt == other.updatedAt &&
             this.ledgerAccountCategoryId == other.ledgerAccountCategoryId &&
@@ -103,6 +124,9 @@ constructor(
             ledgerId,
             currency,
             balances,
+            pendingBalanceAmount,
+            postedBalanceAmount,
+            availableBalanceAmount,
             createdAt,
             updatedAt,
             ledgerAccountCategoryId,
@@ -112,7 +136,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerAccountListParams{afterCursor=$afterCursor, perPage=$perPage, metadata=$metadata, id=$id, name=$name, ledgerId=$ledgerId, currency=$currency, balances=$balances, createdAt=$createdAt, updatedAt=$updatedAt, ledgerAccountCategoryId=$ledgerAccountCategoryId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "LedgerAccountListParams{afterCursor=$afterCursor, perPage=$perPage, metadata=$metadata, id=$id, name=$name, ledgerId=$ledgerId, currency=$currency, balances=$balances, pendingBalanceAmount=$pendingBalanceAmount, postedBalanceAmount=$postedBalanceAmount, availableBalanceAmount=$availableBalanceAmount, createdAt=$createdAt, updatedAt=$updatedAt, ledgerAccountCategoryId=$ledgerAccountCategoryId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -132,6 +156,9 @@ constructor(
         private var ledgerId: String? = null
         private var currency: String? = null
         private var balances: Balances? = null
+        private var pendingBalanceAmount: PendingBalanceAmount? = null
+        private var postedBalanceAmount: PostedBalanceAmount? = null
+        private var availableBalanceAmount: AvailableBalanceAmount? = null
         private var createdAt: CreatedAt? = null
         private var updatedAt: UpdatedAt? = null
         private var ledgerAccountCategoryId: String? = null
@@ -147,6 +174,9 @@ constructor(
             this.ledgerId = ledgerAccountListParams.ledgerId
             this.currency = ledgerAccountListParams.currency
             this.balances = ledgerAccountListParams.balances
+            this.pendingBalanceAmount = ledgerAccountListParams.pendingBalanceAmount
+            this.postedBalanceAmount = ledgerAccountListParams.postedBalanceAmount
+            this.availableBalanceAmount = ledgerAccountListParams.availableBalanceAmount
             this.createdAt = ledgerAccountListParams.createdAt
             this.updatedAt = ledgerAccountListParams.updatedAt
             this.ledgerAccountCategoryId = ledgerAccountListParams.ledgerAccountCategoryId
@@ -192,6 +222,30 @@ constructor(
          * will be retrieved not including that bound.
          */
         fun balances(balances: Balances) = apply { this.balances = balances }
+
+        /**
+         * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), `eq` (=), or `not_eq` (!=) to filter by
+         * balance amount.
+         */
+        fun pendingBalanceAmount(pendingBalanceAmount: PendingBalanceAmount) = apply {
+            this.pendingBalanceAmount = pendingBalanceAmount
+        }
+
+        /**
+         * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), `eq` (=), or `not_eq` (!=) to filter by
+         * balance amount.
+         */
+        fun postedBalanceAmount(postedBalanceAmount: PostedBalanceAmount) = apply {
+            this.postedBalanceAmount = postedBalanceAmount
+        }
+
+        /**
+         * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), `eq` (=), or `not_eq` (!=) to filter by
+         * balance amount.
+         */
+        fun availableBalanceAmount(availableBalanceAmount: AvailableBalanceAmount) = apply {
+            this.availableBalanceAmount = availableBalanceAmount
+        }
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the created at
@@ -261,12 +315,158 @@ constructor(
                 ledgerId,
                 currency,
                 balances,
+                pendingBalanceAmount,
+                postedBalanceAmount,
+                availableBalanceAmount,
                 createdAt,
                 updatedAt,
                 ledgerAccountCategoryId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
+    }
+
+    /**
+     * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), `eq` (=), or `not_eq` (!=) to filter by
+     * balance amount.
+     */
+    @JsonDeserialize(builder = AvailableBalanceAmount.Builder::class)
+    @NoAutoDetect
+    class AvailableBalanceAmount
+    private constructor(
+        private val gt: Long?,
+        private val lt: Long?,
+        private val gte: Long?,
+        private val lte: Long?,
+        private val eq: Long?,
+        private val notEq: Long?,
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        fun gt(): Long? = gt
+
+        fun lt(): Long? = lt
+
+        fun gte(): Long? = gte
+
+        fun lte(): Long? = lte
+
+        fun eq(): Long? = eq
+
+        fun notEq(): Long? = notEq
+
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+
+        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
+            this.gt?.let { putParam("gt", listOf(it.toString())) }
+            this.lt?.let { putParam("lt", listOf(it.toString())) }
+            this.gte?.let { putParam("gte", listOf(it.toString())) }
+            this.lte?.let { putParam("lte", listOf(it.toString())) }
+            this.eq?.let { putParam("eq", listOf(it.toString())) }
+            this.notEq?.let { putParam("not_eq", listOf(it.toString())) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is AvailableBalanceAmount &&
+                this.gt == other.gt &&
+                this.lt == other.lt &&
+                this.gte == other.gte &&
+                this.lte == other.lte &&
+                this.eq == other.eq &&
+                this.notEq == other.notEq &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        gt,
+                        lt,
+                        gte,
+                        lte,
+                        eq,
+                        notEq,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "AvailableBalanceAmount{gt=$gt, lt=$lt, gte=$gte, lte=$lte, eq=$eq, notEq=$notEq, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var gt: Long? = null
+            private var lt: Long? = null
+            private var gte: Long? = null
+            private var lte: Long? = null
+            private var eq: Long? = null
+            private var notEq: Long? = null
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+
+            internal fun from(availableBalanceAmount: AvailableBalanceAmount) = apply {
+                this.gt = availableBalanceAmount.gt
+                this.lt = availableBalanceAmount.lt
+                this.gte = availableBalanceAmount.gte
+                this.lte = availableBalanceAmount.lte
+                this.eq = availableBalanceAmount.eq
+                this.notEq = availableBalanceAmount.notEq
+                additionalProperties(availableBalanceAmount.additionalProperties)
+            }
+
+            fun gt(gt: Long) = apply { this.gt = gt }
+
+            fun lt(lt: Long) = apply { this.lt = lt }
+
+            fun gte(gte: Long) = apply { this.gte = gte }
+
+            fun lte(lte: Long) = apply { this.lte = lte }
+
+            fun eq(eq: Long) = apply { this.eq = eq }
+
+            fun notEq(notEq: Long) = apply { this.notEq = notEq }
+
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun build(): AvailableBalanceAmount =
+                AvailableBalanceAmount(
+                    gt,
+                    lt,
+                    gte,
+                    lte,
+                    eq,
+                    notEq,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
     }
 
     /**
@@ -536,6 +736,292 @@ constructor(
                 }
 
             fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+        }
+    }
+
+    /**
+     * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), `eq` (=), or `not_eq` (!=) to filter by
+     * balance amount.
+     */
+    @JsonDeserialize(builder = PendingBalanceAmount.Builder::class)
+    @NoAutoDetect
+    class PendingBalanceAmount
+    private constructor(
+        private val gt: Long?,
+        private val lt: Long?,
+        private val gte: Long?,
+        private val lte: Long?,
+        private val eq: Long?,
+        private val notEq: Long?,
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        fun gt(): Long? = gt
+
+        fun lt(): Long? = lt
+
+        fun gte(): Long? = gte
+
+        fun lte(): Long? = lte
+
+        fun eq(): Long? = eq
+
+        fun notEq(): Long? = notEq
+
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+
+        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
+            this.gt?.let { putParam("gt", listOf(it.toString())) }
+            this.lt?.let { putParam("lt", listOf(it.toString())) }
+            this.gte?.let { putParam("gte", listOf(it.toString())) }
+            this.lte?.let { putParam("lte", listOf(it.toString())) }
+            this.eq?.let { putParam("eq", listOf(it.toString())) }
+            this.notEq?.let { putParam("not_eq", listOf(it.toString())) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PendingBalanceAmount &&
+                this.gt == other.gt &&
+                this.lt == other.lt &&
+                this.gte == other.gte &&
+                this.lte == other.lte &&
+                this.eq == other.eq &&
+                this.notEq == other.notEq &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        gt,
+                        lt,
+                        gte,
+                        lte,
+                        eq,
+                        notEq,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "PendingBalanceAmount{gt=$gt, lt=$lt, gte=$gte, lte=$lte, eq=$eq, notEq=$notEq, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var gt: Long? = null
+            private var lt: Long? = null
+            private var gte: Long? = null
+            private var lte: Long? = null
+            private var eq: Long? = null
+            private var notEq: Long? = null
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+
+            internal fun from(pendingBalanceAmount: PendingBalanceAmount) = apply {
+                this.gt = pendingBalanceAmount.gt
+                this.lt = pendingBalanceAmount.lt
+                this.gte = pendingBalanceAmount.gte
+                this.lte = pendingBalanceAmount.lte
+                this.eq = pendingBalanceAmount.eq
+                this.notEq = pendingBalanceAmount.notEq
+                additionalProperties(pendingBalanceAmount.additionalProperties)
+            }
+
+            fun gt(gt: Long) = apply { this.gt = gt }
+
+            fun lt(lt: Long) = apply { this.lt = lt }
+
+            fun gte(gte: Long) = apply { this.gte = gte }
+
+            fun lte(lte: Long) = apply { this.lte = lte }
+
+            fun eq(eq: Long) = apply { this.eq = eq }
+
+            fun notEq(notEq: Long) = apply { this.notEq = notEq }
+
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun build(): PendingBalanceAmount =
+                PendingBalanceAmount(
+                    gt,
+                    lt,
+                    gte,
+                    lte,
+                    eq,
+                    notEq,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+    }
+
+    /**
+     * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), `eq` (=), or `not_eq` (!=) to filter by
+     * balance amount.
+     */
+    @JsonDeserialize(builder = PostedBalanceAmount.Builder::class)
+    @NoAutoDetect
+    class PostedBalanceAmount
+    private constructor(
+        private val gt: Long?,
+        private val lt: Long?,
+        private val gte: Long?,
+        private val lte: Long?,
+        private val eq: Long?,
+        private val notEq: Long?,
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        fun gt(): Long? = gt
+
+        fun lt(): Long? = lt
+
+        fun gte(): Long? = gte
+
+        fun lte(): Long? = lte
+
+        fun eq(): Long? = eq
+
+        fun notEq(): Long? = notEq
+
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+
+        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
+            this.gt?.let { putParam("gt", listOf(it.toString())) }
+            this.lt?.let { putParam("lt", listOf(it.toString())) }
+            this.gte?.let { putParam("gte", listOf(it.toString())) }
+            this.lte?.let { putParam("lte", listOf(it.toString())) }
+            this.eq?.let { putParam("eq", listOf(it.toString())) }
+            this.notEq?.let { putParam("not_eq", listOf(it.toString())) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PostedBalanceAmount &&
+                this.gt == other.gt &&
+                this.lt == other.lt &&
+                this.gte == other.gte &&
+                this.lte == other.lte &&
+                this.eq == other.eq &&
+                this.notEq == other.notEq &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        gt,
+                        lt,
+                        gte,
+                        lte,
+                        eq,
+                        notEq,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "PostedBalanceAmount{gt=$gt, lt=$lt, gte=$gte, lte=$lte, eq=$eq, notEq=$notEq, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var gt: Long? = null
+            private var lt: Long? = null
+            private var gte: Long? = null
+            private var lte: Long? = null
+            private var eq: Long? = null
+            private var notEq: Long? = null
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+
+            internal fun from(postedBalanceAmount: PostedBalanceAmount) = apply {
+                this.gt = postedBalanceAmount.gt
+                this.lt = postedBalanceAmount.lt
+                this.gte = postedBalanceAmount.gte
+                this.lte = postedBalanceAmount.lte
+                this.eq = postedBalanceAmount.eq
+                this.notEq = postedBalanceAmount.notEq
+                additionalProperties(postedBalanceAmount.additionalProperties)
+            }
+
+            fun gt(gt: Long) = apply { this.gt = gt }
+
+            fun lt(lt: Long) = apply { this.lt = lt }
+
+            fun gte(gte: Long) = apply { this.gte = gte }
+
+            fun lte(lte: Long) = apply { this.lte = lte }
+
+            fun eq(eq: Long) = apply { this.eq = eq }
+
+            fun notEq(notEq: Long) = apply { this.notEq = notEq }
+
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun build(): PostedBalanceAmount =
+                PostedBalanceAmount(
+                    gt,
+                    lt,
+                    gte,
+                    lte,
+                    eq,
+                    notEq,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
