@@ -1,6 +1,7 @@
 package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
@@ -11,39 +12,37 @@ import java.util.Objects
 
 class TransactionLineItemListParams
 constructor(
-    private val transactionId: String,
     private val afterCursor: String?,
+    private val id: Id?,
     private val type: Type?,
     private val perPage: Long?,
+    private val transactionId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
-    fun transactionId(): String = transactionId
-
     fun afterCursor(): String? = afterCursor
+
+    fun id(): Id? = id
 
     fun type(): Type? = type
 
     fun perPage(): Long? = perPage
 
+    fun transactionId(): String? = transactionId
+
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
+        this.id?.forEachQueryParam { key, values -> params.put("id[$key]", values) }
         this.type?.let { params.put("type", listOf(it.toString())) }
         this.perPage?.let { params.put("per_page", listOf(it.toString())) }
+        this.transactionId?.let { params.put("transaction_id", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
 
     internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
-
-    fun getPathParam(index: Int): String {
-        return when (index) {
-            0 -> transactionId
-            else -> ""
-        }
-    }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
 
@@ -55,27 +54,29 @@ constructor(
         }
 
         return other is TransactionLineItemListParams &&
-            this.transactionId == other.transactionId &&
             this.afterCursor == other.afterCursor &&
+            this.id == other.id &&
             this.type == other.type &&
             this.perPage == other.perPage &&
+            this.transactionId == other.transactionId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
-            transactionId,
             afterCursor,
+            id,
             type,
             perPage,
+            transactionId,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "TransactionLineItemListParams{transactionId=$transactionId, afterCursor=$afterCursor, type=$type, perPage=$perPage, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "TransactionLineItemListParams{afterCursor=$afterCursor, id=$id, type=$type, perPage=$perPage, transactionId=$transactionId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -87,29 +88,33 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var transactionId: String? = null
         private var afterCursor: String? = null
+        private var id: Id? = null
         private var type: Type? = null
         private var perPage: Long? = null
+        private var transactionId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(transactionLineItemListParams: TransactionLineItemListParams) = apply {
-            this.transactionId = transactionLineItemListParams.transactionId
             this.afterCursor = transactionLineItemListParams.afterCursor
+            this.id = transactionLineItemListParams.id
             this.type = transactionLineItemListParams.type
             this.perPage = transactionLineItemListParams.perPage
+            this.transactionId = transactionLineItemListParams.transactionId
             additionalQueryParams(transactionLineItemListParams.additionalQueryParams)
             additionalHeaders(transactionLineItemListParams.additionalHeaders)
         }
 
-        fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
-
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+
+        fun id(id: Id) = apply { this.id = id }
 
         fun type(type: Type) = apply { this.type = type }
 
         fun perPage(perPage: Long) = apply { this.perPage = perPage }
+
+        fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -153,13 +158,77 @@ constructor(
 
         fun build(): TransactionLineItemListParams =
             TransactionLineItemListParams(
-                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
                 afterCursor,
+                id,
                 type,
                 perPage,
+                transactionId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
+    }
+
+    @JsonDeserialize(builder = Id.Builder::class)
+    @NoAutoDetect
+    class Id
+    private constructor(
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+
+        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Id && this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Id{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+
+            internal fun from(id: Id) = apply { additionalProperties(id.additionalProperties) }
+
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun build(): Id = Id(additionalProperties.toUnmodifiable())
+        }
     }
 
     class Type

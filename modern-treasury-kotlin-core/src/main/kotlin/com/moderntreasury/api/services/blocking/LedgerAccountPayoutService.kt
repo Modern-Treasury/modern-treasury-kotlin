@@ -8,6 +8,7 @@ import com.moderntreasury.api.models.LedgerAccountPayoutCreateParams
 import com.moderntreasury.api.models.LedgerAccountPayoutListPage
 import com.moderntreasury.api.models.LedgerAccountPayoutListParams
 import com.moderntreasury.api.models.LedgerAccountPayoutRetireveParams
+import com.moderntreasury.api.models.LedgerAccountPayoutRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountPayoutUpdateParams
 
 interface LedgerAccountPayoutService {
@@ -15,6 +16,12 @@ interface LedgerAccountPayoutService {
     /** Create a ledger account payout. */
     fun create(
         params: LedgerAccountPayoutCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): LedgerAccountPayout
+
+    /** Get details on a single ledger account payout. */
+    fun retrieve(
+        params: LedgerAccountPayoutRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): LedgerAccountPayout
 

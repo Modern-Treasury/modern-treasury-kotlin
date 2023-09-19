@@ -88,8 +88,9 @@ constructor(
 
         /**
          * One of `aba`, `au_bsb`, `br_codigo`, `ca_cpa`, `cnaps`, `gb_sort_code`, `in_ifsc`,
-         * `my_branch_code`, or `swift`. In sandbox mode we currently only support `aba` and `swift`
-         * with routing numbers '123456789' and 'GRINUST0XXX' respectively.
+         * `my_branch_code`, `se_bankgiro_clearing_code`, or `swift`. In sandbox mode we currently
+         * only support `aba` and `swift` with routing numbers '123456789' and 'GRINUST0XXX'
+         * respectively.
          */
         fun routingNumberType(routingNumberType: RoutingNumberType) = apply {
             this.routingNumberType = routingNumberType
@@ -184,7 +185,12 @@ constructor(
 
             val IN_IFSC = RoutingNumberType(JsonField.of("in_ifsc"))
 
+            val JP_ZENGIN_CODE = RoutingNumberType(JsonField.of("jp_zengin_code"))
+
             val MY_BRANCH_CODE = RoutingNumberType(JsonField.of("my_branch_code"))
+
+            val SE_BANKGIRO_CLEARING_CODE =
+                RoutingNumberType(JsonField.of("se_bankgiro_clearing_code"))
 
             val SWIFT = RoutingNumberType(JsonField.of("swift"))
 
@@ -200,7 +206,9 @@ constructor(
             CNAPS,
             GB_SORT_CODE,
             IN_IFSC,
+            JP_ZENGIN_CODE,
             MY_BRANCH_CODE,
+            SE_BANKGIRO_CLEARING_CODE,
             SWIFT,
         }
 
@@ -213,7 +221,9 @@ constructor(
             CNAPS,
             GB_SORT_CODE,
             IN_IFSC,
+            JP_ZENGIN_CODE,
             MY_BRANCH_CODE,
+            SE_BANKGIRO_CLEARING_CODE,
             SWIFT,
             _UNKNOWN,
         }
@@ -228,7 +238,9 @@ constructor(
                 CNAPS -> Value.CNAPS
                 GB_SORT_CODE -> Value.GB_SORT_CODE
                 IN_IFSC -> Value.IN_IFSC
+                JP_ZENGIN_CODE -> Value.JP_ZENGIN_CODE
                 MY_BRANCH_CODE -> Value.MY_BRANCH_CODE
+                SE_BANKGIRO_CLEARING_CODE -> Value.SE_BANKGIRO_CLEARING_CODE
                 SWIFT -> Value.SWIFT
                 else -> Value._UNKNOWN
             }
@@ -243,7 +255,9 @@ constructor(
                 CNAPS -> Known.CNAPS
                 GB_SORT_CODE -> Known.GB_SORT_CODE
                 IN_IFSC -> Known.IN_IFSC
+                JP_ZENGIN_CODE -> Known.JP_ZENGIN_CODE
                 MY_BRANCH_CODE -> Known.MY_BRANCH_CODE
+                SE_BANKGIRO_CLEARING_CODE -> Known.SE_BANKGIRO_CLEARING_CODE
                 SWIFT -> Known.SWIFT
                 else ->
                     throw ModernTreasuryInvalidDataException("Unknown RoutingNumberType: $value")

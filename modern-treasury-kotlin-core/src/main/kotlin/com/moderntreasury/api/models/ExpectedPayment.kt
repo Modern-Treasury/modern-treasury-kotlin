@@ -963,6 +963,8 @@ private constructor(
 
             val ARCHIVED = Status(JsonField.of("archived"))
 
+            val PARTIALLY_RECONCILED = Status(JsonField.of("partially_reconciled"))
+
             val RECONCILED = Status(JsonField.of("reconciled"))
 
             val UNRECONCILED = Status(JsonField.of("unreconciled"))
@@ -972,12 +974,14 @@ private constructor(
 
         enum class Known {
             ARCHIVED,
+            PARTIALLY_RECONCILED,
             RECONCILED,
             UNRECONCILED,
         }
 
         enum class Value {
             ARCHIVED,
+            PARTIALLY_RECONCILED,
             RECONCILED,
             UNRECONCILED,
             _UNKNOWN,
@@ -986,6 +990,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 ARCHIVED -> Value.ARCHIVED
+                PARTIALLY_RECONCILED -> Value.PARTIALLY_RECONCILED
                 RECONCILED -> Value.RECONCILED
                 UNRECONCILED -> Value.UNRECONCILED
                 else -> Value._UNKNOWN
@@ -994,6 +999,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 ARCHIVED -> Known.ARCHIVED
+                PARTIALLY_RECONCILED -> Known.PARTIALLY_RECONCILED
                 RECONCILED -> Known.RECONCILED
                 UNRECONCILED -> Known.UNRECONCILED
                 else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")

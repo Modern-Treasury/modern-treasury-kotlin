@@ -7,8 +7,15 @@ import com.moderntreasury.api.models.PaymentReference
 import com.moderntreasury.api.models.PaymentReferenceListPageAsync
 import com.moderntreasury.api.models.PaymentReferenceListParams
 import com.moderntreasury.api.models.PaymentReferenceRetireveParams
+import com.moderntreasury.api.models.PaymentReferenceRetrieveParams
 
 interface PaymentReferenceServiceAsync {
+
+    /** get payment_reference */
+    suspend fun retrieve(
+        params: PaymentReferenceRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): PaymentReference
 
     /** list payment_references */
     suspend fun list(

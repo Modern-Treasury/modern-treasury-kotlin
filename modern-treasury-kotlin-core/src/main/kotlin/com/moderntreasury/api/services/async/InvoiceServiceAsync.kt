@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.async
 
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.models.Invoice
+import com.moderntreasury.api.models.InvoiceAddPaymentOrderParams
 import com.moderntreasury.api.models.InvoiceCreateParams
 import com.moderntreasury.api.models.InvoiceListPageAsync
 import com.moderntreasury.api.models.InvoiceListParams
@@ -38,4 +39,10 @@ interface InvoiceServiceAsync {
         params: InvoiceListParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): InvoiceListPageAsync
+
+    /** Add a payment order to an invoice. */
+    suspend fun addPaymentOrder(
+        params: InvoiceAddPaymentOrderParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    )
 }

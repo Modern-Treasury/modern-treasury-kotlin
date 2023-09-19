@@ -9,6 +9,7 @@ import com.moderntreasury.api.errors.ModernTreasuryError
 import com.moderntreasury.api.models.TransactionLineItem
 import com.moderntreasury.api.models.TransactionLineItemListPage
 import com.moderntreasury.api.models.TransactionLineItemListParams
+import com.moderntreasury.api.models.TransactionLineItemRetrieveParams
 import com.moderntreasury.api.services.errorHandler
 import com.moderntreasury.api.services.jsonHandler
 import com.moderntreasury.api.services.withErrorHandler
@@ -19,6 +20,33 @@ constructor(
 ) : LineItemService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
+
+    private val retrieveHandler: Handler<TransactionLineItem> =
+        jsonHandler<TransactionLineItem>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** get transaction line item */
+    override fun retrieve(
+        params: TransactionLineItemRetrieveParams,
+        requestOptions: RequestOptions
+    ): TransactionLineItem {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.GET)
+                .addPathSegments("api", "transaction_line_items", params.getPathParam(0))
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .build()
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response
+                .use { retrieveHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
 
     private val listHandler: Handler<List<TransactionLineItem>> =
         jsonHandler<List<TransactionLineItem>>(clientOptions.jsonMapper)
@@ -32,7 +60,7 @@ constructor(
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.GET)
-                .addPathSegments("api", "transactions", params.getPathParam(0), "line_items")
+                .addPathSegments("api", "transaction_line_items")
                 .putAllQueryParams(params.getQueryParams())
                 .putAllHeaders(clientOptions.headers)
                 .putAllHeaders(params.getHeaders())

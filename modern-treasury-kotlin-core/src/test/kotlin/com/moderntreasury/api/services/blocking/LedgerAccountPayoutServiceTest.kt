@@ -36,6 +36,23 @@ class LedgerAccountPayoutServiceTest {
     }
 
     @Test
+    fun callRetrieve() {
+        val client =
+            ModernTreasuryOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("test-api-key")
+                .organizationId("my-organization-ID")
+                .build()
+        val ledgerAccountPayoutService = client.ledgerAccountPayouts()
+        val ledgerAccountPayout =
+            ledgerAccountPayoutService.retrieve(
+                LedgerAccountPayoutRetrieveParams.builder().id("string").build()
+            )
+        println(ledgerAccountPayout)
+        ledgerAccountPayout.validate()
+    }
+
+    @Test
     fun callUpdate() {
         val client =
             ModernTreasuryOkHttpClient.builder()
@@ -81,6 +98,7 @@ class LedgerAccountPayoutServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountPayoutService = client.ledgerAccountPayouts()
+        @Suppress("DEPRECATION")
         val ledgerAccountPayout =
             ledgerAccountPayoutService.retireve(
                 LedgerAccountPayoutRetireveParams.builder().id("string").build()

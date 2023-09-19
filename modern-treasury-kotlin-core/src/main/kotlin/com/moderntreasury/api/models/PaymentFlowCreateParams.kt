@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import com.moderntreasury.api.models.*
+import java.time.LocalDate
 import java.util.Objects
 
 class PaymentFlowCreateParams
@@ -21,6 +22,7 @@ constructor(
     private val currency: String,
     private val direction: Direction,
     private val originatingAccountId: String,
+    private val dueDate: LocalDate?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -36,6 +38,8 @@ constructor(
 
     fun originatingAccountId(): String = originatingAccountId
 
+    fun dueDate(): LocalDate? = dueDate
+
     internal fun getBody(): PaymentFlowCreateBody {
         return PaymentFlowCreateBody(
             amount,
@@ -43,6 +47,7 @@ constructor(
             currency,
             direction,
             originatingAccountId,
+            dueDate,
             additionalBodyProperties,
         )
     }
@@ -60,6 +65,7 @@ constructor(
         private val currency: String?,
         private val direction: Direction?,
         private val originatingAccountId: String?,
+        private val dueDate: LocalDate?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -90,6 +96,13 @@ constructor(
         @JsonProperty("originating_account_id")
         fun originatingAccountId(): String? = originatingAccountId
 
+        /**
+         * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`. When
+         * set, the due date is shown to your end-user in the pre-built UI as they are selecting a
+         * payment `effective_date`.
+         */
+        @JsonProperty("due_date") fun dueDate(): LocalDate? = dueDate
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -107,6 +120,7 @@ constructor(
                 this.currency == other.currency &&
                 this.direction == other.direction &&
                 this.originatingAccountId == other.originatingAccountId &&
+                this.dueDate == other.dueDate &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -119,6 +133,7 @@ constructor(
                         currency,
                         direction,
                         originatingAccountId,
+                        dueDate,
                         additionalProperties,
                     )
             }
@@ -126,7 +141,7 @@ constructor(
         }
 
         override fun toString() =
-            "PaymentFlowCreateBody{amount=$amount, counterpartyId=$counterpartyId, currency=$currency, direction=$direction, originatingAccountId=$originatingAccountId, additionalProperties=$additionalProperties}"
+            "PaymentFlowCreateBody{amount=$amount, counterpartyId=$counterpartyId, currency=$currency, direction=$direction, originatingAccountId=$originatingAccountId, dueDate=$dueDate, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -140,6 +155,7 @@ constructor(
             private var currency: String? = null
             private var direction: Direction? = null
             private var originatingAccountId: String? = null
+            private var dueDate: LocalDate? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(paymentFlowCreateBody: PaymentFlowCreateBody) = apply {
@@ -148,6 +164,7 @@ constructor(
                 this.currency = paymentFlowCreateBody.currency
                 this.direction = paymentFlowCreateBody.direction
                 this.originatingAccountId = paymentFlowCreateBody.originatingAccountId
+                this.dueDate = paymentFlowCreateBody.dueDate
                 additionalProperties(paymentFlowCreateBody.additionalProperties)
             }
 
@@ -183,6 +200,14 @@ constructor(
                 this.originatingAccountId = originatingAccountId
             }
 
+            /**
+             * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`.
+             * When set, the due date is shown to your end-user in the pre-built UI as they are
+             * selecting a payment `effective_date`.
+             */
+            @JsonProperty("due_date")
+            fun dueDate(dueDate: LocalDate) = apply { this.dueDate = dueDate }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -206,6 +231,7 @@ constructor(
                     checkNotNull(originatingAccountId) {
                         "`originatingAccountId` is required but was not set"
                     },
+                    dueDate,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -228,6 +254,7 @@ constructor(
             this.currency == other.currency &&
             this.direction == other.direction &&
             this.originatingAccountId == other.originatingAccountId &&
+            this.dueDate == other.dueDate &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -240,6 +267,7 @@ constructor(
             currency,
             direction,
             originatingAccountId,
+            dueDate,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -247,7 +275,7 @@ constructor(
     }
 
     override fun toString() =
-        "PaymentFlowCreateParams{amount=$amount, counterpartyId=$counterpartyId, currency=$currency, direction=$direction, originatingAccountId=$originatingAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "PaymentFlowCreateParams{amount=$amount, counterpartyId=$counterpartyId, currency=$currency, direction=$direction, originatingAccountId=$originatingAccountId, dueDate=$dueDate, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -264,6 +292,7 @@ constructor(
         private var currency: String? = null
         private var direction: Direction? = null
         private var originatingAccountId: String? = null
+        private var dueDate: LocalDate? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -274,6 +303,7 @@ constructor(
             this.currency = paymentFlowCreateParams.currency
             this.direction = paymentFlowCreateParams.direction
             this.originatingAccountId = paymentFlowCreateParams.originatingAccountId
+            this.dueDate = paymentFlowCreateParams.dueDate
             additionalQueryParams(paymentFlowCreateParams.additionalQueryParams)
             additionalHeaders(paymentFlowCreateParams.additionalHeaders)
             additionalBodyProperties(paymentFlowCreateParams.additionalBodyProperties)
@@ -304,6 +334,13 @@ constructor(
         fun originatingAccountId(originatingAccountId: String) = apply {
             this.originatingAccountId = originatingAccountId
         }
+
+        /**
+         * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`. When
+         * set, the due date is shown to your end-user in the pre-built UI as they are selecting a
+         * payment `effective_date`.
+         */
+        fun dueDate(dueDate: LocalDate) = apply { this.dueDate = dueDate }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -368,6 +405,7 @@ constructor(
                 checkNotNull(originatingAccountId) {
                     "`originatingAccountId` is required but was not set"
                 },
+                dueDate,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

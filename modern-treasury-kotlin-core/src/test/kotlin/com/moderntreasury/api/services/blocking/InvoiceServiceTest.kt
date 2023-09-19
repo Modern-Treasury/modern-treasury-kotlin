@@ -81,6 +81,9 @@ class InvoiceServiceTest {
                     .paymentMethod(InvoiceCreateParams.PaymentMethod.UI)
                     .paymentType(InvoiceCreateParams.PaymentType.ACH)
                     .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .recipientEmail("string")
+                    .recipientName("string")
+                    .virtualAccountId("string")
                     .build()
             )
         println(invoice)
@@ -171,7 +174,10 @@ class InvoiceServiceTest {
                     .paymentMethod(InvoiceUpdateParams.PaymentMethod.UI)
                     .paymentType(InvoiceUpdateParams.PaymentType.ACH)
                     .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .recipientEmail("string")
+                    .recipientName("string")
                     .status("string")
+                    .virtualAccountId("string")
                     .build()
             )
         println(invoice)
@@ -190,5 +196,19 @@ class InvoiceServiceTest {
         val response = invoiceService.list(InvoiceListParams.builder().build())
         println(response)
         response.items().forEach { it.validate() }
+    }
+
+    @Test
+    fun callAddPaymentOrder() {
+        val client =
+            ModernTreasuryOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("test-api-key")
+                .organizationId("my-organization-ID")
+                .build()
+        val invoiceService = client.invoices()
+        invoiceService.addPaymentOrder(
+            InvoiceAddPaymentOrderParams.builder().id("string").paymentOrderId("string").build()
+        )
     }
 }

@@ -11,6 +11,23 @@ import org.junit.jupiter.api.extension.ExtendWith
 class PaymentReferenceServiceTest {
 
     @Test
+    fun callRetrieve() {
+        val client =
+            ModernTreasuryOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("test-api-key")
+                .organizationId("my-organization-ID")
+                .build()
+        val paymentReferenceService = client.paymentReferences()
+        val paymentReference =
+            paymentReferenceService.retrieve(
+                PaymentReferenceRetrieveParams.builder().id("string").build()
+            )
+        println(paymentReference)
+        paymentReference.validate()
+    }
+
+    @Test
     fun callList() {
         val client =
             ModernTreasuryOkHttpClient.builder()
@@ -33,6 +50,7 @@ class PaymentReferenceServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paymentReferenceService = client.paymentReferences()
+        @Suppress("DEPRECATION")
         val paymentReference =
             paymentReferenceService.retireve(
                 PaymentReferenceRetireveParams.builder().id("string").build()

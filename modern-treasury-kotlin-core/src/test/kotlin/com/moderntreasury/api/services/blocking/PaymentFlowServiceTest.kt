@@ -4,6 +4,7 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.PaymentFlowListParams
+import java.time.LocalDate
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -27,6 +28,7 @@ class PaymentFlowServiceTest {
                     .currency("string")
                     .direction(PaymentFlowCreateParams.Direction.CREDIT)
                     .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .dueDate(LocalDate.parse("2019-12-27"))
                     .build()
             )
         println(paymentFlow)
