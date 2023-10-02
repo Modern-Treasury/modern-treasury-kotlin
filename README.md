@@ -19,7 +19,7 @@ The API documentation can be found [here](https://docs.moderntreasury.com).
 <!-- x-release-please-start-version -->
 
 ```kotlin
-implementation("com.moderntreasury.api:modern-treasury-kotlin:1.5.2")
+implementation("com.moderntreasury.api:modern-treasury-kotlin:1.6.0")
 ```
 
 #### Maven
@@ -28,7 +28,7 @@ implementation("com.moderntreasury.api:modern-treasury-kotlin:1.5.2")
 <dependency>
     <groupId>com.moderntreasury.api</groupId>
     <artifactId>modern-treasury-kotlin</artifactId>
-    <version>1.5.2</version>
+    <version>1.6.0</version>
 </dependency>
 ```
 
