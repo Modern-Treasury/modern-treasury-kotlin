@@ -1,3 +1,5 @@
+// File generated from our OpenAPI spec by Stainless.
+
 package com.moderntreasury.api.services.async.transactions
 
 import com.moderntreasury.api.core.ClientOptions

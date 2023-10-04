@@ -1,3 +1,5 @@
+// File generated from our OpenAPI spec by Stainless.
+
 package com.moderntreasury.api.services.blocking.internalAccounts
 
 import com.moderntreasury.api.TestServerExtension
