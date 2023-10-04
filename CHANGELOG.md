@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.6.1 (2023-10-04)
+
+Full Changelog: [v1.6.0...v1.6.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v1.6.0...v1.6.1)
+
+### Chores
+
+* **internal:** add a top-level generated comment to each file ([#58](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/58)) ([0b2aa37](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0b2aa37828d2ebe200e26ffd2536bb1be9b81ed6))
+
 ## 1.6.0 (2023-10-02)
 
 Full Changelog: [v1.5.2...v1.6.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v1.5.2...v1.6.0)
