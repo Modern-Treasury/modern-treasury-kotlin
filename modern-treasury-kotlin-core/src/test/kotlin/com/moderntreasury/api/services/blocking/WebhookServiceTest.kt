@@ -1,3 +1,5 @@
+// File generated from our OpenAPI spec by Stainless.
+
 package com.moderntreasury.api.services.blocking
 
 import com.google.common.collect.ImmutableListMultimap
