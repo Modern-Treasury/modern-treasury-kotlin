@@ -26,6 +26,7 @@ interface PaymentReferenceService {
     ): PaymentReferenceListPage
 
     /** get payment_reference */
+    @Deprecated("use `retrieve` instead")
     fun retireve(
         params: PaymentReferenceRetireveParams,
         requestOptions: RequestOptions = RequestOptions.none()
