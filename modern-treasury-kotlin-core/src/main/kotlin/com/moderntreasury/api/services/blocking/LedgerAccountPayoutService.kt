@@ -40,6 +40,7 @@ interface LedgerAccountPayoutService {
     ): LedgerAccountPayoutListPage
 
     /** Get details on a single ledger account payout. */
+    @Deprecated("use `retrieve` instead")
     fun retireve(
         params: LedgerAccountPayoutRetireveParams,
         requestOptions: RequestOptions = RequestOptions.none()

@@ -40,6 +40,7 @@ interface LedgerAccountPayoutServiceAsync {
     ): LedgerAccountPayoutListPageAsync
 
     /** Get details on a single ledger account payout. */
+    @Deprecated("use `retrieve` instead")
     suspend fun retireve(
         params: LedgerAccountPayoutRetireveParams,
         requestOptions: RequestOptions = RequestOptions.none()
