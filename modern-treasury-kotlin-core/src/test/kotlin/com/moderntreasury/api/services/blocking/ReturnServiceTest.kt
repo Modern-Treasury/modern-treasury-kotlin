@@ -18,7 +18,7 @@ class ReturnServiceTest {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .organizationId("my-organization-ID")
                 .build()
         val returnService = client.returns()
@@ -42,7 +42,7 @@ class ReturnServiceTest {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .organizationId("my-organization-ID")
                 .build()
         val returnService = client.returns()
@@ -57,7 +57,7 @@ class ReturnServiceTest {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .organizationId("my-organization-ID")
                 .build()
         val returnService = client.returns()

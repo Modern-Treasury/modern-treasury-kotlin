@@ -17,10 +17,10 @@ private constructor(
     val clock: Clock,
     val baseUrl: String,
     val apiKey: String,
-    val headers: ListMultimap<String, String>,
-    val responseValidation: Boolean,
     val organizationId: String,
     val webhookKey: String?,
+    val headers: ListMultimap<String, String>,
+    val responseValidation: Boolean,
 ) {
 
     companion object {
@@ -119,10 +119,10 @@ private constructor(
                 clock,
                 baseUrl,
                 apiKey!!,
-                headers.toUnmodifiable(),
-                responseValidation,
                 organizationId!!,
                 webhookKey,
+                headers.toUnmodifiable(),
+                responseValidation,
             )
         }
     }
