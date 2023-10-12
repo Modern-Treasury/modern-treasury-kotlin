@@ -19,7 +19,7 @@ class ExpectedPaymentServiceTest {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .organizationId("my-organization-ID")
                 .build()
         val expectedPaymentService = client.expectedPayments()
@@ -65,7 +65,7 @@ class ExpectedPaymentServiceTest {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .organizationId("my-organization-ID")
                 .build()
         val expectedPaymentService = client.expectedPayments()
@@ -82,7 +82,7 @@ class ExpectedPaymentServiceTest {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .organizationId("my-organization-ID")
                 .build()
         val expectedPaymentService = client.expectedPayments()
@@ -116,7 +116,7 @@ class ExpectedPaymentServiceTest {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .organizationId("my-organization-ID")
                 .build()
         val expectedPaymentService = client.expectedPayments()
@@ -130,7 +130,7 @@ class ExpectedPaymentServiceTest {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .organizationId("my-organization-ID")
                 .build()
         val expectedPaymentService = client.expectedPayments()
