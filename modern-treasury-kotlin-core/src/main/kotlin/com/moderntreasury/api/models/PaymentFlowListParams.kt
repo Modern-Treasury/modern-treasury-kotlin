@@ -10,45 +10,45 @@ import java.util.Objects
 class PaymentFlowListParams
 constructor(
     private val afterCursor: String?,
-    private val perPage: Long?,
     private val clientToken: String?,
-    private val status: String?,
     private val counterpartyId: String?,
-    private val receivingAccountId: String?,
     private val originatingAccountId: String?,
     private val paymentOrderId: String?,
+    private val perPage: Long?,
+    private val receivingAccountId: String?,
+    private val status: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
     fun afterCursor(): String? = afterCursor
 
-    fun perPage(): Long? = perPage
-
     fun clientToken(): String? = clientToken
 
-    fun status(): String? = status
-
     fun counterpartyId(): String? = counterpartyId
-
-    fun receivingAccountId(): String? = receivingAccountId
 
     fun originatingAccountId(): String? = originatingAccountId
 
     fun paymentOrderId(): String? = paymentOrderId
 
+    fun perPage(): Long? = perPage
+
+    fun receivingAccountId(): String? = receivingAccountId
+
+    fun status(): String? = status
+
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
-        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
         this.clientToken?.let { params.put("client_token", listOf(it.toString())) }
-        this.status?.let { params.put("status", listOf(it.toString())) }
         this.counterpartyId?.let { params.put("counterparty_id", listOf(it.toString())) }
-        this.receivingAccountId?.let { params.put("receiving_account_id", listOf(it.toString())) }
         this.originatingAccountId?.let {
             params.put("originating_account_id", listOf(it.toString()))
         }
         this.paymentOrderId?.let { params.put("payment_order_id", listOf(it.toString())) }
+        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
+        this.receivingAccountId?.let { params.put("receiving_account_id", listOf(it.toString())) }
+        this.status?.let { params.put("status", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -66,13 +66,13 @@ constructor(
 
         return other is PaymentFlowListParams &&
             this.afterCursor == other.afterCursor &&
-            this.perPage == other.perPage &&
             this.clientToken == other.clientToken &&
-            this.status == other.status &&
             this.counterpartyId == other.counterpartyId &&
-            this.receivingAccountId == other.receivingAccountId &&
             this.originatingAccountId == other.originatingAccountId &&
             this.paymentOrderId == other.paymentOrderId &&
+            this.perPage == other.perPage &&
+            this.receivingAccountId == other.receivingAccountId &&
+            this.status == other.status &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
@@ -80,20 +80,20 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             afterCursor,
-            perPage,
             clientToken,
-            status,
             counterpartyId,
-            receivingAccountId,
             originatingAccountId,
             paymentOrderId,
+            perPage,
+            receivingAccountId,
+            status,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "PaymentFlowListParams{afterCursor=$afterCursor, perPage=$perPage, clientToken=$clientToken, status=$status, counterpartyId=$counterpartyId, receivingAccountId=$receivingAccountId, originatingAccountId=$originatingAccountId, paymentOrderId=$paymentOrderId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "PaymentFlowListParams{afterCursor=$afterCursor, clientToken=$clientToken, counterpartyId=$counterpartyId, originatingAccountId=$originatingAccountId, paymentOrderId=$paymentOrderId, perPage=$perPage, receivingAccountId=$receivingAccountId, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -106,48 +106,48 @@ constructor(
     class Builder {
 
         private var afterCursor: String? = null
-        private var perPage: Long? = null
         private var clientToken: String? = null
-        private var status: String? = null
         private var counterpartyId: String? = null
-        private var receivingAccountId: String? = null
         private var originatingAccountId: String? = null
         private var paymentOrderId: String? = null
+        private var perPage: Long? = null
+        private var receivingAccountId: String? = null
+        private var status: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(paymentFlowListParams: PaymentFlowListParams) = apply {
             this.afterCursor = paymentFlowListParams.afterCursor
-            this.perPage = paymentFlowListParams.perPage
             this.clientToken = paymentFlowListParams.clientToken
-            this.status = paymentFlowListParams.status
             this.counterpartyId = paymentFlowListParams.counterpartyId
-            this.receivingAccountId = paymentFlowListParams.receivingAccountId
             this.originatingAccountId = paymentFlowListParams.originatingAccountId
             this.paymentOrderId = paymentFlowListParams.paymentOrderId
+            this.perPage = paymentFlowListParams.perPage
+            this.receivingAccountId = paymentFlowListParams.receivingAccountId
+            this.status = paymentFlowListParams.status
             additionalQueryParams(paymentFlowListParams.additionalQueryParams)
             additionalHeaders(paymentFlowListParams.additionalHeaders)
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
-
         fun clientToken(clientToken: String) = apply { this.clientToken = clientToken }
 
-        fun status(status: String) = apply { this.status = status }
-
         fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
-
-        fun receivingAccountId(receivingAccountId: String) = apply {
-            this.receivingAccountId = receivingAccountId
-        }
 
         fun originatingAccountId(originatingAccountId: String) = apply {
             this.originatingAccountId = originatingAccountId
         }
 
         fun paymentOrderId(paymentOrderId: String) = apply { this.paymentOrderId = paymentOrderId }
+
+        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+
+        fun receivingAccountId(receivingAccountId: String) = apply {
+            this.receivingAccountId = receivingAccountId
+        }
+
+        fun status(status: String) = apply { this.status = status }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -192,13 +192,13 @@ constructor(
         fun build(): PaymentFlowListParams =
             PaymentFlowListParams(
                 afterCursor,
-                perPage,
                 clientToken,
-                status,
                 counterpartyId,
-                receivingAccountId,
                 originatingAccountId,
                 paymentOrderId,
+                perPage,
+                receivingAccountId,
+                status,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

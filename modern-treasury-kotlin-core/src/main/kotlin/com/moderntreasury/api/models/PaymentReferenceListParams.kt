@@ -15,9 +15,9 @@ class PaymentReferenceListParams
 constructor(
     private val afterCursor: String?,
     private val perPage: Long?,
+    private val referenceNumber: String?,
     private val referenceableId: String?,
     private val referenceableType: ReferenceableType?,
-    private val referenceNumber: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
@@ -26,19 +26,19 @@ constructor(
 
     fun perPage(): Long? = perPage
 
+    fun referenceNumber(): String? = referenceNumber
+
     fun referenceableId(): String? = referenceableId
 
     fun referenceableType(): ReferenceableType? = referenceableType
-
-    fun referenceNumber(): String? = referenceNumber
 
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
         this.perPage?.let { params.put("per_page", listOf(it.toString())) }
+        this.referenceNumber?.let { params.put("reference_number", listOf(it.toString())) }
         this.referenceableId?.let { params.put("referenceable_id", listOf(it.toString())) }
         this.referenceableType?.let { params.put("referenceable_type", listOf(it.toString())) }
-        this.referenceNumber?.let { params.put("reference_number", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -57,9 +57,9 @@ constructor(
         return other is PaymentReferenceListParams &&
             this.afterCursor == other.afterCursor &&
             this.perPage == other.perPage &&
+            this.referenceNumber == other.referenceNumber &&
             this.referenceableId == other.referenceableId &&
             this.referenceableType == other.referenceableType &&
-            this.referenceNumber == other.referenceNumber &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
@@ -68,16 +68,16 @@ constructor(
         return Objects.hash(
             afterCursor,
             perPage,
+            referenceNumber,
             referenceableId,
             referenceableType,
-            referenceNumber,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "PaymentReferenceListParams{afterCursor=$afterCursor, perPage=$perPage, referenceableId=$referenceableId, referenceableType=$referenceableType, referenceNumber=$referenceNumber, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "PaymentReferenceListParams{afterCursor=$afterCursor, perPage=$perPage, referenceNumber=$referenceNumber, referenceableId=$referenceableId, referenceableType=$referenceableType, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -91,18 +91,18 @@ constructor(
 
         private var afterCursor: String? = null
         private var perPage: Long? = null
+        private var referenceNumber: String? = null
         private var referenceableId: String? = null
         private var referenceableType: ReferenceableType? = null
-        private var referenceNumber: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(paymentReferenceListParams: PaymentReferenceListParams) = apply {
             this.afterCursor = paymentReferenceListParams.afterCursor
             this.perPage = paymentReferenceListParams.perPage
+            this.referenceNumber = paymentReferenceListParams.referenceNumber
             this.referenceableId = paymentReferenceListParams.referenceableId
             this.referenceableType = paymentReferenceListParams.referenceableType
-            this.referenceNumber = paymentReferenceListParams.referenceNumber
             additionalQueryParams(paymentReferenceListParams.additionalQueryParams)
             additionalHeaders(paymentReferenceListParams.additionalHeaders)
         }
@@ -110,6 +110,11 @@ constructor(
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
         fun perPage(perPage: Long) = apply { this.perPage = perPage }
+
+        /** The actual reference number assigned by the bank. */
+        fun referenceNumber(referenceNumber: String) = apply {
+            this.referenceNumber = referenceNumber
+        }
 
         /**
          * The id of the referenceable to search for. Must be accompanied by the referenceable_type
@@ -125,11 +130,6 @@ constructor(
          */
         fun referenceableType(referenceableType: ReferenceableType) = apply {
             this.referenceableType = referenceableType
-        }
-
-        /** The actual reference number assigned by the bank. */
-        fun referenceNumber(referenceNumber: String) = apply {
-            this.referenceNumber = referenceNumber
         }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
@@ -176,9 +176,9 @@ constructor(
             PaymentReferenceListParams(
                 afterCursor,
                 perPage,
+                referenceNumber,
                 referenceableId,
                 referenceableType,
-                referenceNumber,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

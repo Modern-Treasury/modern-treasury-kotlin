@@ -11,9 +11,9 @@ class DocumentListParamsTest {
     @Test
     fun createDocumentListParams() {
         DocumentListParams.builder()
+            .afterCursor("string")
             .documentableId("string")
             .documentableType(DocumentListParams.DocumentableType.CASES)
-            .afterCursor("string")
             .perPage(123L)
             .build()
     }
@@ -22,18 +22,18 @@ class DocumentListParamsTest {
     fun getQueryParams() {
         val params =
             DocumentListParams.builder()
+                .afterCursor("string")
                 .documentableId("string")
                 .documentableType(DocumentListParams.DocumentableType.CASES)
-                .afterCursor("string")
                 .perPage(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
+        expected.put("after_cursor", listOf("string"))
         expected.put("documentable_id", listOf("string"))
         expected.put(
             "documentable_type",
             listOf(DocumentListParams.DocumentableType.CASES.toString())
         )
-        expected.put("after_cursor", listOf("string"))
         expected.put("per_page", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }

@@ -10,31 +10,31 @@ import java.util.Objects
 
 class PaperItemListParams
 constructor(
-    private val lockboxNumber: String?,
-    private val depositDateStart: LocalDate?,
-    private val depositDateEnd: LocalDate?,
     private val afterCursor: String?,
+    private val depositDateEnd: LocalDate?,
+    private val depositDateStart: LocalDate?,
+    private val lockboxNumber: String?,
     private val perPage: Long?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
-    fun lockboxNumber(): String? = lockboxNumber
-
-    fun depositDateStart(): LocalDate? = depositDateStart
+    fun afterCursor(): String? = afterCursor
 
     fun depositDateEnd(): LocalDate? = depositDateEnd
 
-    fun afterCursor(): String? = afterCursor
+    fun depositDateStart(): LocalDate? = depositDateStart
+
+    fun lockboxNumber(): String? = lockboxNumber
 
     fun perPage(): Long? = perPage
 
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
-        this.lockboxNumber?.let { params.put("lockbox_number", listOf(it.toString())) }
-        this.depositDateStart?.let { params.put("deposit_date_start", listOf(it.toString())) }
-        this.depositDateEnd?.let { params.put("deposit_date_end", listOf(it.toString())) }
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
+        this.depositDateEnd?.let { params.put("deposit_date_end", listOf(it.toString())) }
+        this.depositDateStart?.let { params.put("deposit_date_start", listOf(it.toString())) }
+        this.lockboxNumber?.let { params.put("lockbox_number", listOf(it.toString())) }
         this.perPage?.let { params.put("per_page", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
@@ -52,10 +52,10 @@ constructor(
         }
 
         return other is PaperItemListParams &&
-            this.lockboxNumber == other.lockboxNumber &&
-            this.depositDateStart == other.depositDateStart &&
-            this.depositDateEnd == other.depositDateEnd &&
             this.afterCursor == other.afterCursor &&
+            this.depositDateEnd == other.depositDateEnd &&
+            this.depositDateStart == other.depositDateStart &&
+            this.lockboxNumber == other.lockboxNumber &&
             this.perPage == other.perPage &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
@@ -63,10 +63,10 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
-            lockboxNumber,
-            depositDateStart,
-            depositDateEnd,
             afterCursor,
+            depositDateEnd,
+            depositDateStart,
+            lockboxNumber,
             perPage,
             additionalQueryParams,
             additionalHeaders,
@@ -74,7 +74,7 @@ constructor(
     }
 
     override fun toString() =
-        "PaperItemListParams{lockboxNumber=$lockboxNumber, depositDateStart=$depositDateStart, depositDateEnd=$depositDateEnd, afterCursor=$afterCursor, perPage=$perPage, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "PaperItemListParams{afterCursor=$afterCursor, depositDateEnd=$depositDateEnd, depositDateStart=$depositDateStart, lockboxNumber=$lockboxNumber, perPage=$perPage, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -86,22 +86,34 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var lockboxNumber: String? = null
-        private var depositDateStart: LocalDate? = null
-        private var depositDateEnd: LocalDate? = null
         private var afterCursor: String? = null
+        private var depositDateEnd: LocalDate? = null
+        private var depositDateStart: LocalDate? = null
+        private var lockboxNumber: String? = null
         private var perPage: Long? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(paperItemListParams: PaperItemListParams) = apply {
-            this.lockboxNumber = paperItemListParams.lockboxNumber
-            this.depositDateStart = paperItemListParams.depositDateStart
-            this.depositDateEnd = paperItemListParams.depositDateEnd
             this.afterCursor = paperItemListParams.afterCursor
+            this.depositDateEnd = paperItemListParams.depositDateEnd
+            this.depositDateStart = paperItemListParams.depositDateStart
+            this.lockboxNumber = paperItemListParams.lockboxNumber
             this.perPage = paperItemListParams.perPage
             additionalQueryParams(paperItemListParams.additionalQueryParams)
             additionalHeaders(paperItemListParams.additionalHeaders)
+        }
+
+        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+
+        /** Specify an inclusive end date (YYYY-MM-DD) when filtering by deposit_date */
+        fun depositDateEnd(depositDateEnd: LocalDate) = apply {
+            this.depositDateEnd = depositDateEnd
+        }
+
+        /** Specify an inclusive start date (YYYY-MM-DD) when filtering by deposit_date */
+        fun depositDateStart(depositDateStart: LocalDate) = apply {
+            this.depositDateStart = depositDateStart
         }
 
         /**
@@ -109,18 +121,6 @@ constructor(
          * specific lockbox number.
          */
         fun lockboxNumber(lockboxNumber: String) = apply { this.lockboxNumber = lockboxNumber }
-
-        /** Specify an inclusive start date (YYYY-MM-DD) when filtering by deposit_date */
-        fun depositDateStart(depositDateStart: LocalDate) = apply {
-            this.depositDateStart = depositDateStart
-        }
-
-        /** Specify an inclusive end date (YYYY-MM-DD) when filtering by deposit_date */
-        fun depositDateEnd(depositDateEnd: LocalDate) = apply {
-            this.depositDateEnd = depositDateEnd
-        }
-
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
         fun perPage(perPage: Long) = apply { this.perPage = perPage }
 
@@ -166,10 +166,10 @@ constructor(
 
         fun build(): PaperItemListParams =
             PaperItemListParams(
-                lockboxNumber,
-                depositDateStart,
-                depositDateEnd,
                 afterCursor,
+                depositDateEnd,
+                depositDateStart,
+                lockboxNumber,
                 perPage,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

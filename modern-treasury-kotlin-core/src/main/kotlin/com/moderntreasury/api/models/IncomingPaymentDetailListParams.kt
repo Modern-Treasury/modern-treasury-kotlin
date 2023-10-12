@@ -16,13 +16,13 @@ import java.util.Objects
 class IncomingPaymentDetailListParams
 constructor(
     private val afterCursor: String?,
-    private val perPage: Long?,
+    private val asOfDateEnd: LocalDate?,
+    private val asOfDateStart: LocalDate?,
     private val direction: Direction?,
+    private val metadata: Metadata?,
+    private val perPage: Long?,
     private val status: Status?,
     private val type: Type?,
-    private val asOfDateStart: LocalDate?,
-    private val asOfDateEnd: LocalDate?,
-    private val metadata: Metadata?,
     private val virtualAccountId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -30,32 +30,32 @@ constructor(
 
     fun afterCursor(): String? = afterCursor
 
-    fun perPage(): Long? = perPage
+    fun asOfDateEnd(): LocalDate? = asOfDateEnd
+
+    fun asOfDateStart(): LocalDate? = asOfDateStart
 
     fun direction(): Direction? = direction
+
+    fun metadata(): Metadata? = metadata
+
+    fun perPage(): Long? = perPage
 
     fun status(): Status? = status
 
     fun type(): Type? = type
-
-    fun asOfDateStart(): LocalDate? = asOfDateStart
-
-    fun asOfDateEnd(): LocalDate? = asOfDateEnd
-
-    fun metadata(): Metadata? = metadata
 
     fun virtualAccountId(): String? = virtualAccountId
 
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
-        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
+        this.asOfDateEnd?.let { params.put("as_of_date_end", listOf(it.toString())) }
+        this.asOfDateStart?.let { params.put("as_of_date_start", listOf(it.toString())) }
         this.direction?.let { params.put("direction", listOf(it.toString())) }
+        this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
+        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
         this.status?.let { params.put("status", listOf(it.toString())) }
         this.type?.let { params.put("type", listOf(it.toString())) }
-        this.asOfDateStart?.let { params.put("as_of_date_start", listOf(it.toString())) }
-        this.asOfDateEnd?.let { params.put("as_of_date_end", listOf(it.toString())) }
-        this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
         this.virtualAccountId?.let { params.put("virtual_account_id", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
@@ -74,13 +74,13 @@ constructor(
 
         return other is IncomingPaymentDetailListParams &&
             this.afterCursor == other.afterCursor &&
-            this.perPage == other.perPage &&
+            this.asOfDateEnd == other.asOfDateEnd &&
+            this.asOfDateStart == other.asOfDateStart &&
             this.direction == other.direction &&
+            this.metadata == other.metadata &&
+            this.perPage == other.perPage &&
             this.status == other.status &&
             this.type == other.type &&
-            this.asOfDateStart == other.asOfDateStart &&
-            this.asOfDateEnd == other.asOfDateEnd &&
-            this.metadata == other.metadata &&
             this.virtualAccountId == other.virtualAccountId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
@@ -89,13 +89,13 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             afterCursor,
-            perPage,
+            asOfDateEnd,
+            asOfDateStart,
             direction,
+            metadata,
+            perPage,
             status,
             type,
-            asOfDateStart,
-            asOfDateEnd,
-            metadata,
             virtualAccountId,
             additionalQueryParams,
             additionalHeaders,
@@ -103,7 +103,7 @@ constructor(
     }
 
     override fun toString() =
-        "IncomingPaymentDetailListParams{afterCursor=$afterCursor, perPage=$perPage, direction=$direction, status=$status, type=$type, asOfDateStart=$asOfDateStart, asOfDateEnd=$asOfDateEnd, metadata=$metadata, virtualAccountId=$virtualAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "IncomingPaymentDetailListParams{afterCursor=$afterCursor, asOfDateEnd=$asOfDateEnd, asOfDateStart=$asOfDateStart, direction=$direction, metadata=$metadata, perPage=$perPage, status=$status, type=$type, virtualAccountId=$virtualAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -116,13 +116,13 @@ constructor(
     class Builder {
 
         private var afterCursor: String? = null
-        private var perPage: Long? = null
+        private var asOfDateEnd: LocalDate? = null
+        private var asOfDateStart: LocalDate? = null
         private var direction: Direction? = null
+        private var metadata: Metadata? = null
+        private var perPage: Long? = null
         private var status: Status? = null
         private var type: Type? = null
-        private var asOfDateStart: LocalDate? = null
-        private var asOfDateEnd: LocalDate? = null
-        private var metadata: Metadata? = null
         private var virtualAccountId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -130,13 +130,13 @@ constructor(
         internal fun from(incomingPaymentDetailListParams: IncomingPaymentDetailListParams) =
             apply {
                 this.afterCursor = incomingPaymentDetailListParams.afterCursor
-                this.perPage = incomingPaymentDetailListParams.perPage
+                this.asOfDateEnd = incomingPaymentDetailListParams.asOfDateEnd
+                this.asOfDateStart = incomingPaymentDetailListParams.asOfDateStart
                 this.direction = incomingPaymentDetailListParams.direction
+                this.metadata = incomingPaymentDetailListParams.metadata
+                this.perPage = incomingPaymentDetailListParams.perPage
                 this.status = incomingPaymentDetailListParams.status
                 this.type = incomingPaymentDetailListParams.type
-                this.asOfDateStart = incomingPaymentDetailListParams.asOfDateStart
-                this.asOfDateEnd = incomingPaymentDetailListParams.asOfDateEnd
-                this.metadata = incomingPaymentDetailListParams.metadata
                 this.virtualAccountId = incomingPaymentDetailListParams.virtualAccountId
                 additionalQueryParams(incomingPaymentDetailListParams.additionalQueryParams)
                 additionalHeaders(incomingPaymentDetailListParams.additionalHeaders)
@@ -144,10 +144,28 @@ constructor(
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        /**
+         * Filters incoming payment details with an as_of_date starting on or before the specified
+         * date (YYYY-MM-DD).
+         */
+        fun asOfDateEnd(asOfDateEnd: LocalDate) = apply { this.asOfDateEnd = asOfDateEnd }
+
+        /**
+         * Filters incoming payment details with an as_of_date starting on or after the specified
+         * date (YYYY-MM-DD).
+         */
+        fun asOfDateStart(asOfDateStart: LocalDate) = apply { this.asOfDateStart = asOfDateStart }
 
         /** One of `credit` or `debit`. */
         fun direction(direction: Direction) = apply { this.direction = direction }
+
+        /**
+         * For example, if you want to query for records with metadata key `Type` and value `Loan`,
+         * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+         */
+        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        fun perPage(perPage: Long) = apply { this.perPage = perPage }
 
         /**
          * The current status of the incoming payment order. One of `pending`, `completed`, or
@@ -157,24 +175,6 @@ constructor(
 
         /** One of: `ach`, `book`, `check`, `eft`, `interac`, `rtp`, `sepa`, `signet`, or `wire`. */
         fun type(type: Type) = apply { this.type = type }
-
-        /**
-         * Filters incoming payment details with an as_of_date starting on or after the specified
-         * date (YYYY-MM-DD).
-         */
-        fun asOfDateStart(asOfDateStart: LocalDate) = apply { this.asOfDateStart = asOfDateStart }
-
-        /**
-         * Filters incoming payment details with an as_of_date starting on or before the specified
-         * date (YYYY-MM-DD).
-         */
-        fun asOfDateEnd(asOfDateEnd: LocalDate) = apply { this.asOfDateEnd = asOfDateEnd }
-
-        /**
-         * For example, if you want to query for records with metadata key `Type` and value `Loan`,
-         * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
-         */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
         /**
          * If the incoming payment detail is in a virtual account, the ID of the Virtual Account.
@@ -226,13 +226,13 @@ constructor(
         fun build(): IncomingPaymentDetailListParams =
             IncomingPaymentDetailListParams(
                 afterCursor,
-                perPage,
+                asOfDateEnd,
+                asOfDateStart,
                 direction,
+                metadata,
+                perPage,
                 status,
                 type,
-                asOfDateStart,
-                asOfDateEnd,
-                metadata,
                 virtualAccountId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

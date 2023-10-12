@@ -12,10 +12,10 @@ class LedgerEventHandlerListParamsTest {
     fun createLedgerEventHandlerListParams() {
         LedgerEventHandlerListParams.builder()
             .afterCursor("string")
-            .perPage(123L)
+            .createdAt(LedgerEventHandlerListParams.CreatedAt.builder().build())
             .metadata(LedgerEventHandlerListParams.Metadata.builder().build())
             .name("string")
-            .createdAt(LedgerEventHandlerListParams.CreatedAt.builder().build())
+            .perPage(123L)
             .build()
     }
 
@@ -24,21 +24,21 @@ class LedgerEventHandlerListParamsTest {
         val params =
             LedgerEventHandlerListParams.builder()
                 .afterCursor("string")
-                .perPage(123L)
+                .createdAt(LedgerEventHandlerListParams.CreatedAt.builder().build())
                 .metadata(LedgerEventHandlerListParams.Metadata.builder().build())
                 .name("string")
-                .createdAt(LedgerEventHandlerListParams.CreatedAt.builder().build())
+                .perPage(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("after_cursor", listOf("string"))
-        expected.put("per_page", listOf("123"))
+        LedgerEventHandlerListParams.CreatedAt.builder().build().forEachQueryParam { key, values ->
+            expected.put("created_at[$key]", values)
+        }
         LedgerEventHandlerListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
         expected.put("name", listOf("string"))
-        LedgerEventHandlerListParams.CreatedAt.builder().build().forEachQueryParam { key, values ->
-            expected.put("created_at[$key]", values)
-        }
+        expected.put("per_page", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

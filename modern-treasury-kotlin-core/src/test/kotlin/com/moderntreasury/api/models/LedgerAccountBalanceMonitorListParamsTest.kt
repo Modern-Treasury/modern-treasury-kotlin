@@ -11,11 +11,11 @@ class LedgerAccountBalanceMonitorListParamsTest {
     @Test
     fun createLedgerAccountBalanceMonitorListParams() {
         LedgerAccountBalanceMonitorListParams.builder()
-            .afterCursor("string")
-            .perPage(123L)
-            .metadata(LedgerAccountBalanceMonitorListParams.Metadata.builder().build())
             .id(listOf("string"))
+            .afterCursor("string")
             .ledgerAccountId("string")
+            .metadata(LedgerAccountBalanceMonitorListParams.Metadata.builder().build())
+            .perPage(123L)
             .build()
     }
 
@@ -23,22 +23,22 @@ class LedgerAccountBalanceMonitorListParamsTest {
     fun getQueryParams() {
         val params =
             LedgerAccountBalanceMonitorListParams.builder()
-                .afterCursor("string")
-                .perPage(123L)
-                .metadata(LedgerAccountBalanceMonitorListParams.Metadata.builder().build())
                 .id(listOf("string"))
+                .afterCursor("string")
                 .ledgerAccountId("string")
+                .metadata(LedgerAccountBalanceMonitorListParams.Metadata.builder().build())
+                .perPage(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
+        expected.put("id[]", listOf("string"))
         expected.put("after_cursor", listOf("string"))
-        expected.put("per_page", listOf("123"))
+        expected.put("ledger_account_id", listOf("string"))
         LedgerAccountBalanceMonitorListParams.Metadata.builder().build().forEachQueryParam {
             key,
             values ->
             expected.put("metadata[$key]", values)
         }
-        expected.put("id[]", listOf("string"))
-        expected.put("ledger_account_id", listOf("string"))
+        expected.put("per_page", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

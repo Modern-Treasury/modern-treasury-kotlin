@@ -10,31 +10,31 @@ import java.util.Objects
 
 class LedgerListParams
 constructor(
-    private val afterCursor: String?,
-    private val perPage: Long?,
-    private val metadata: Metadata?,
     private val id: List<String>?,
+    private val afterCursor: String?,
+    private val metadata: Metadata?,
+    private val perPage: Long?,
     private val updatedAt: UpdatedAt?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
-    fun afterCursor(): String? = afterCursor
+    fun id(): List<String>? = id
 
-    fun perPage(): Long? = perPage
+    fun afterCursor(): String? = afterCursor
 
     fun metadata(): Metadata? = metadata
 
-    fun id(): List<String>? = id
+    fun perPage(): Long? = perPage
 
     fun updatedAt(): UpdatedAt? = updatedAt
 
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
-        this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
-        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
-        this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
         this.id?.let { params.put("id[]", it.map(Any::toString)) }
+        this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
+        this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
+        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
         this.updatedAt?.forEachQueryParam { key, values -> params.put("updated_at[$key]", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
@@ -52,10 +52,10 @@ constructor(
         }
 
         return other is LedgerListParams &&
-            this.afterCursor == other.afterCursor &&
-            this.perPage == other.perPage &&
-            this.metadata == other.metadata &&
             this.id == other.id &&
+            this.afterCursor == other.afterCursor &&
+            this.metadata == other.metadata &&
+            this.perPage == other.perPage &&
             this.updatedAt == other.updatedAt &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
@@ -63,10 +63,10 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
-            afterCursor,
-            perPage,
-            metadata,
             id,
+            afterCursor,
+            metadata,
+            perPage,
             updatedAt,
             additionalQueryParams,
             additionalHeaders,
@@ -74,7 +74,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerListParams{afterCursor=$afterCursor, perPage=$perPage, metadata=$metadata, id=$id, updatedAt=$updatedAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "LedgerListParams{id=$id, afterCursor=$afterCursor, metadata=$metadata, perPage=$perPage, updatedAt=$updatedAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -86,33 +86,23 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var afterCursor: String? = null
-        private var perPage: Long? = null
-        private var metadata: Metadata? = null
         private var id: MutableList<String> = mutableListOf()
+        private var afterCursor: String? = null
+        private var metadata: Metadata? = null
+        private var perPage: Long? = null
         private var updatedAt: UpdatedAt? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(ledgerListParams: LedgerListParams) = apply {
-            this.afterCursor = ledgerListParams.afterCursor
-            this.perPage = ledgerListParams.perPage
-            this.metadata = ledgerListParams.metadata
             this.id(ledgerListParams.id ?: listOf())
+            this.afterCursor = ledgerListParams.afterCursor
+            this.metadata = ledgerListParams.metadata
+            this.perPage = ledgerListParams.perPage
             this.updatedAt = ledgerListParams.updatedAt
             additionalQueryParams(ledgerListParams.additionalQueryParams)
             additionalHeaders(ledgerListParams.additionalHeaders)
         }
-
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
-
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
-
-        /**
-         * For example, if you want to query for records with metadata key `Type` and value `Loan`,
-         * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
-         */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
         /**
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
@@ -128,6 +118,16 @@ constructor(
          * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
          */
         fun addId(id: String) = apply { this.id.add(id) }
+
+        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+
+        /**
+         * For example, if you want to query for records with metadata key `Type` and value `Loan`,
+         * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+         */
+        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        fun perPage(perPage: Long) = apply { this.perPage = perPage }
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
@@ -178,10 +178,10 @@ constructor(
 
         fun build(): LedgerListParams =
             LedgerListParams(
-                afterCursor,
-                perPage,
-                metadata,
                 if (id.size == 0) null else id.toUnmodifiable(),
+                afterCursor,
+                metadata,
+                perPage,
                 updatedAt,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

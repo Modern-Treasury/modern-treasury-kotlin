@@ -11,31 +11,31 @@ import java.util.Objects
 class VirtualAccountListParams
 constructor(
     private val afterCursor: String?,
-    private val perPage: Long?,
-    private val internalAccountId: String?,
     private val counterpartyId: String?,
+    private val internalAccountId: String?,
     private val metadata: Metadata?,
+    private val perPage: Long?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
     fun afterCursor(): String? = afterCursor
 
-    fun perPage(): Long? = perPage
+    fun counterpartyId(): String? = counterpartyId
 
     fun internalAccountId(): String? = internalAccountId
 
-    fun counterpartyId(): String? = counterpartyId
-
     fun metadata(): Metadata? = metadata
+
+    fun perPage(): Long? = perPage
 
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
-        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
-        this.internalAccountId?.let { params.put("internal_account_id", listOf(it.toString())) }
         this.counterpartyId?.let { params.put("counterparty_id", listOf(it.toString())) }
+        this.internalAccountId?.let { params.put("internal_account_id", listOf(it.toString())) }
         this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
+        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -53,10 +53,10 @@ constructor(
 
         return other is VirtualAccountListParams &&
             this.afterCursor == other.afterCursor &&
-            this.perPage == other.perPage &&
-            this.internalAccountId == other.internalAccountId &&
             this.counterpartyId == other.counterpartyId &&
+            this.internalAccountId == other.internalAccountId &&
             this.metadata == other.metadata &&
+            this.perPage == other.perPage &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
@@ -64,17 +64,17 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             afterCursor,
-            perPage,
-            internalAccountId,
             counterpartyId,
+            internalAccountId,
             metadata,
+            perPage,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "VirtualAccountListParams{afterCursor=$afterCursor, perPage=$perPage, internalAccountId=$internalAccountId, counterpartyId=$counterpartyId, metadata=$metadata, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "VirtualAccountListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, internalAccountId=$internalAccountId, metadata=$metadata, perPage=$perPage, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -87,38 +87,38 @@ constructor(
     class Builder {
 
         private var afterCursor: String? = null
-        private var perPage: Long? = null
-        private var internalAccountId: String? = null
         private var counterpartyId: String? = null
+        private var internalAccountId: String? = null
         private var metadata: Metadata? = null
+        private var perPage: Long? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(virtualAccountListParams: VirtualAccountListParams) = apply {
             this.afterCursor = virtualAccountListParams.afterCursor
-            this.perPage = virtualAccountListParams.perPage
-            this.internalAccountId = virtualAccountListParams.internalAccountId
             this.counterpartyId = virtualAccountListParams.counterpartyId
+            this.internalAccountId = virtualAccountListParams.internalAccountId
             this.metadata = virtualAccountListParams.metadata
+            this.perPage = virtualAccountListParams.perPage
             additionalQueryParams(virtualAccountListParams.additionalQueryParams)
             additionalHeaders(virtualAccountListParams.additionalHeaders)
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
 
         fun internalAccountId(internalAccountId: String) = apply {
             this.internalAccountId = internalAccountId
         }
-
-        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
 
         /**
          * For example, if you want to query for records with metadata key `Type` and value `Loan`,
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
         fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        fun perPage(perPage: Long) = apply { this.perPage = perPage }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -163,10 +163,10 @@ constructor(
         fun build(): VirtualAccountListParams =
             VirtualAccountListParams(
                 afterCursor,
-                perPage,
-                internalAccountId,
                 counterpartyId,
+                internalAccountId,
                 metadata,
+                perPage,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
