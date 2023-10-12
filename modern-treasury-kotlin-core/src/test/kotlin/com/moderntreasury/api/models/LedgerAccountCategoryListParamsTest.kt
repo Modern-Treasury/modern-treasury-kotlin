@@ -12,19 +12,19 @@ class LedgerAccountCategoryListParamsTest {
     @Test
     fun createLedgerAccountCategoryListParams() {
         LedgerAccountCategoryListParams.builder()
-            .afterCursor("string")
-            .perPage(123L)
-            .metadata(LedgerAccountCategoryListParams.Metadata.builder().build())
             .id(listOf("string"))
-            .name("string")
-            .ledgerId("string")
-            .parentLedgerAccountCategoryId("string")
-            .ledgerAccountId("string")
+            .afterCursor("string")
             .balances(
                 LedgerAccountCategoryListParams.Balances.builder()
                     .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
+            .ledgerAccountId("string")
+            .ledgerId("string")
+            .metadata(LedgerAccountCategoryListParams.Metadata.builder().build())
+            .name("string")
+            .parentLedgerAccountCategoryId("string")
+            .perPage(123L)
             .build()
     }
 
@@ -32,36 +32,36 @@ class LedgerAccountCategoryListParamsTest {
     fun getQueryParams() {
         val params =
             LedgerAccountCategoryListParams.builder()
-                .afterCursor("string")
-                .perPage(123L)
-                .metadata(LedgerAccountCategoryListParams.Metadata.builder().build())
                 .id(listOf("string"))
-                .name("string")
-                .ledgerId("string")
-                .parentLedgerAccountCategoryId("string")
-                .ledgerAccountId("string")
+                .afterCursor("string")
                 .balances(
                     LedgerAccountCategoryListParams.Balances.builder()
                         .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
+                .ledgerAccountId("string")
+                .ledgerId("string")
+                .metadata(LedgerAccountCategoryListParams.Metadata.builder().build())
+                .name("string")
+                .parentLedgerAccountCategoryId("string")
+                .perPage(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("string"))
-        expected.put("per_page", listOf("123"))
-        LedgerAccountCategoryListParams.Metadata.builder().build().forEachQueryParam { key, values
-            ->
-            expected.put("metadata[$key]", values)
-        }
         expected.put("id[]", listOf("string"))
-        expected.put("name", listOf("string"))
-        expected.put("ledger_id", listOf("string"))
-        expected.put("parent_ledger_account_category_id", listOf("string"))
-        expected.put("ledger_account_id", listOf("string"))
+        expected.put("after_cursor", listOf("string"))
         LedgerAccountCategoryListParams.Balances.builder()
             .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("balances[$key]", values) }
+        expected.put("ledger_account_id", listOf("string"))
+        expected.put("ledger_id", listOf("string"))
+        LedgerAccountCategoryListParams.Metadata.builder().build().forEachQueryParam { key, values
+            ->
+            expected.put("metadata[$key]", values)
+        }
+        expected.put("name", listOf("string"))
+        expected.put("parent_ledger_account_category_id", listOf("string"))
+        expected.put("per_page", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

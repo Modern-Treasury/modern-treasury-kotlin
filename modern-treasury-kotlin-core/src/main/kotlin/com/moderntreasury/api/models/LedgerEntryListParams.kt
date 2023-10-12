@@ -14,100 +14,100 @@ import java.util.Objects
 
 class LedgerEntryListParams
 constructor(
-    private val afterCursor: String?,
-    private val perPage: Long?,
     private val id: List<String>?,
-    private val ledgerAccountId: String?,
-    private val ledgerTransactionId: String?,
-    private val ledgerAccountPayoutId: String?,
-    private val effectiveDate: EffectiveDate?,
-    private val effectiveAt: EffectiveAt?,
-    private val updatedAt: UpdatedAt?,
+    private val afterCursor: String?,
     private val asOfLockVersion: Long?,
-    private val ledgerAccountLockVersion: LedgerAccountLockVersion?,
-    private val ledgerAccountCategoryId: String?,
-    private val ledgerAccountStatementId: String?,
-    private val showDeleted: Boolean?,
     private val direction: Direction?,
-    private val status: Status?,
-    private val orderBy: OrderBy?,
-    private val showBalances: Boolean?,
+    private val effectiveAt: EffectiveAt?,
+    private val effectiveDate: EffectiveDate?,
+    private val ledgerAccountCategoryId: String?,
+    private val ledgerAccountId: String?,
+    private val ledgerAccountLockVersion: LedgerAccountLockVersion?,
+    private val ledgerAccountPayoutId: String?,
+    private val ledgerAccountStatementId: String?,
+    private val ledgerTransactionId: String?,
     private val metadata: Metadata?,
+    private val orderBy: OrderBy?,
+    private val perPage: Long?,
+    private val showBalances: Boolean?,
+    private val showDeleted: Boolean?,
+    private val status: Status?,
+    private val updatedAt: UpdatedAt?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
-    fun afterCursor(): String? = afterCursor
-
-    fun perPage(): Long? = perPage
-
     fun id(): List<String>? = id
 
-    fun ledgerAccountId(): String? = ledgerAccountId
-
-    fun ledgerTransactionId(): String? = ledgerTransactionId
-
-    fun ledgerAccountPayoutId(): String? = ledgerAccountPayoutId
-
-    fun effectiveDate(): EffectiveDate? = effectiveDate
-
-    fun effectiveAt(): EffectiveAt? = effectiveAt
-
-    fun updatedAt(): UpdatedAt? = updatedAt
+    fun afterCursor(): String? = afterCursor
 
     fun asOfLockVersion(): Long? = asOfLockVersion
 
-    fun ledgerAccountLockVersion(): LedgerAccountLockVersion? = ledgerAccountLockVersion
+    fun direction(): Direction? = direction
+
+    fun effectiveAt(): EffectiveAt? = effectiveAt
+
+    fun effectiveDate(): EffectiveDate? = effectiveDate
 
     fun ledgerAccountCategoryId(): String? = ledgerAccountCategoryId
 
+    fun ledgerAccountId(): String? = ledgerAccountId
+
+    fun ledgerAccountLockVersion(): LedgerAccountLockVersion? = ledgerAccountLockVersion
+
+    fun ledgerAccountPayoutId(): String? = ledgerAccountPayoutId
+
     fun ledgerAccountStatementId(): String? = ledgerAccountStatementId
 
-    fun showDeleted(): Boolean? = showDeleted
-
-    fun direction(): Direction? = direction
-
-    fun status(): Status? = status
-
-    fun orderBy(): OrderBy? = orderBy
-
-    fun showBalances(): Boolean? = showBalances
+    fun ledgerTransactionId(): String? = ledgerTransactionId
 
     fun metadata(): Metadata? = metadata
 
+    fun orderBy(): OrderBy? = orderBy
+
+    fun perPage(): Long? = perPage
+
+    fun showBalances(): Boolean? = showBalances
+
+    fun showDeleted(): Boolean? = showDeleted
+
+    fun status(): Status? = status
+
+    fun updatedAt(): UpdatedAt? = updatedAt
+
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
-        this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
-        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
         this.id?.let { params.put("id[]", it.map(Any::toString)) }
-        this.ledgerAccountId?.let { params.put("ledger_account_id", listOf(it.toString())) }
-        this.ledgerTransactionId?.let { params.put("ledger_transaction_id", listOf(it.toString())) }
-        this.ledgerAccountPayoutId?.let {
-            params.put("ledger_account_payout_id", listOf(it.toString()))
+        this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
+        this.asOfLockVersion?.let { params.put("as_of_lock_version", listOf(it.toString())) }
+        this.direction?.let { params.put("direction", listOf(it.toString())) }
+        this.effectiveAt?.forEachQueryParam { key, values ->
+            params.put("effective_at[$key]", values)
         }
         this.effectiveDate?.forEachQueryParam { key, values ->
             params.put("effective_date[$key]", values)
         }
-        this.effectiveAt?.forEachQueryParam { key, values ->
-            params.put("effective_at[$key]", values)
+        this.ledgerAccountCategoryId?.let {
+            params.put("ledger_account_category_id", listOf(it.toString()))
         }
-        this.updatedAt?.forEachQueryParam { key, values -> params.put("updated_at[$key]", values) }
-        this.asOfLockVersion?.let { params.put("as_of_lock_version", listOf(it.toString())) }
+        this.ledgerAccountId?.let { params.put("ledger_account_id", listOf(it.toString())) }
         this.ledgerAccountLockVersion?.forEachQueryParam { key, values ->
             params.put("ledger_account_lock_version[$key]", values)
         }
-        this.ledgerAccountCategoryId?.let {
-            params.put("ledger_account_category_id", listOf(it.toString()))
+        this.ledgerAccountPayoutId?.let {
+            params.put("ledger_account_payout_id", listOf(it.toString()))
         }
         this.ledgerAccountStatementId?.let {
             params.put("ledger_account_statement_id", listOf(it.toString()))
         }
-        this.showDeleted?.let { params.put("show_deleted", listOf(it.toString())) }
-        this.direction?.let { params.put("direction", listOf(it.toString())) }
-        this.status?.let { params.put("status", listOf(it.toString())) }
-        this.orderBy?.forEachQueryParam { key, values -> params.put("order_by[$key]", values) }
-        this.showBalances?.let { params.put("show_balances", listOf(it.toString())) }
+        this.ledgerTransactionId?.let { params.put("ledger_transaction_id", listOf(it.toString())) }
         this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
+        this.orderBy?.forEachQueryParam { key, values -> params.put("order_by[$key]", values) }
+        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
+        this.showBalances?.let { params.put("show_balances", listOf(it.toString())) }
+        this.showDeleted?.let { params.put("show_deleted", listOf(it.toString())) }
+        this.status?.let { params.put("status", listOf(it.toString())) }
+        this.updatedAt?.forEachQueryParam { key, values -> params.put("updated_at[$key]", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -124,57 +124,57 @@ constructor(
         }
 
         return other is LedgerEntryListParams &&
-            this.afterCursor == other.afterCursor &&
-            this.perPage == other.perPage &&
             this.id == other.id &&
-            this.ledgerAccountId == other.ledgerAccountId &&
-            this.ledgerTransactionId == other.ledgerTransactionId &&
-            this.ledgerAccountPayoutId == other.ledgerAccountPayoutId &&
-            this.effectiveDate == other.effectiveDate &&
-            this.effectiveAt == other.effectiveAt &&
-            this.updatedAt == other.updatedAt &&
+            this.afterCursor == other.afterCursor &&
             this.asOfLockVersion == other.asOfLockVersion &&
-            this.ledgerAccountLockVersion == other.ledgerAccountLockVersion &&
-            this.ledgerAccountCategoryId == other.ledgerAccountCategoryId &&
-            this.ledgerAccountStatementId == other.ledgerAccountStatementId &&
-            this.showDeleted == other.showDeleted &&
             this.direction == other.direction &&
-            this.status == other.status &&
-            this.orderBy == other.orderBy &&
-            this.showBalances == other.showBalances &&
+            this.effectiveAt == other.effectiveAt &&
+            this.effectiveDate == other.effectiveDate &&
+            this.ledgerAccountCategoryId == other.ledgerAccountCategoryId &&
+            this.ledgerAccountId == other.ledgerAccountId &&
+            this.ledgerAccountLockVersion == other.ledgerAccountLockVersion &&
+            this.ledgerAccountPayoutId == other.ledgerAccountPayoutId &&
+            this.ledgerAccountStatementId == other.ledgerAccountStatementId &&
+            this.ledgerTransactionId == other.ledgerTransactionId &&
             this.metadata == other.metadata &&
+            this.orderBy == other.orderBy &&
+            this.perPage == other.perPage &&
+            this.showBalances == other.showBalances &&
+            this.showDeleted == other.showDeleted &&
+            this.status == other.status &&
+            this.updatedAt == other.updatedAt &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
-            afterCursor,
-            perPage,
             id,
-            ledgerAccountId,
-            ledgerTransactionId,
-            ledgerAccountPayoutId,
-            effectiveDate,
-            effectiveAt,
-            updatedAt,
+            afterCursor,
             asOfLockVersion,
-            ledgerAccountLockVersion,
-            ledgerAccountCategoryId,
-            ledgerAccountStatementId,
-            showDeleted,
             direction,
-            status,
-            orderBy,
-            showBalances,
+            effectiveAt,
+            effectiveDate,
+            ledgerAccountCategoryId,
+            ledgerAccountId,
+            ledgerAccountLockVersion,
+            ledgerAccountPayoutId,
+            ledgerAccountStatementId,
+            ledgerTransactionId,
             metadata,
+            orderBy,
+            perPage,
+            showBalances,
+            showDeleted,
+            status,
+            updatedAt,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "LedgerEntryListParams{afterCursor=$afterCursor, perPage=$perPage, id=$id, ledgerAccountId=$ledgerAccountId, ledgerTransactionId=$ledgerTransactionId, ledgerAccountPayoutId=$ledgerAccountPayoutId, effectiveDate=$effectiveDate, effectiveAt=$effectiveAt, updatedAt=$updatedAt, asOfLockVersion=$asOfLockVersion, ledgerAccountLockVersion=$ledgerAccountLockVersion, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountStatementId=$ledgerAccountStatementId, showDeleted=$showDeleted, direction=$direction, status=$status, orderBy=$orderBy, showBalances=$showBalances, metadata=$metadata, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "LedgerEntryListParams{id=$id, afterCursor=$afterCursor, asOfLockVersion=$asOfLockVersion, direction=$direction, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, ledgerAccountLockVersion=$ledgerAccountLockVersion, ledgerAccountPayoutId=$ledgerAccountPayoutId, ledgerAccountStatementId=$ledgerAccountStatementId, ledgerTransactionId=$ledgerTransactionId, metadata=$metadata, orderBy=$orderBy, perPage=$perPage, showBalances=$showBalances, showDeleted=$showDeleted, status=$status, updatedAt=$updatedAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -186,55 +186,51 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var afterCursor: String? = null
-        private var perPage: Long? = null
         private var id: MutableList<String> = mutableListOf()
-        private var ledgerAccountId: String? = null
-        private var ledgerTransactionId: String? = null
-        private var ledgerAccountPayoutId: String? = null
-        private var effectiveDate: EffectiveDate? = null
-        private var effectiveAt: EffectiveAt? = null
-        private var updatedAt: UpdatedAt? = null
+        private var afterCursor: String? = null
         private var asOfLockVersion: Long? = null
-        private var ledgerAccountLockVersion: LedgerAccountLockVersion? = null
-        private var ledgerAccountCategoryId: String? = null
-        private var ledgerAccountStatementId: String? = null
-        private var showDeleted: Boolean? = null
         private var direction: Direction? = null
-        private var status: Status? = null
-        private var orderBy: OrderBy? = null
-        private var showBalances: Boolean? = null
+        private var effectiveAt: EffectiveAt? = null
+        private var effectiveDate: EffectiveDate? = null
+        private var ledgerAccountCategoryId: String? = null
+        private var ledgerAccountId: String? = null
+        private var ledgerAccountLockVersion: LedgerAccountLockVersion? = null
+        private var ledgerAccountPayoutId: String? = null
+        private var ledgerAccountStatementId: String? = null
+        private var ledgerTransactionId: String? = null
         private var metadata: Metadata? = null
+        private var orderBy: OrderBy? = null
+        private var perPage: Long? = null
+        private var showBalances: Boolean? = null
+        private var showDeleted: Boolean? = null
+        private var status: Status? = null
+        private var updatedAt: UpdatedAt? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(ledgerEntryListParams: LedgerEntryListParams) = apply {
-            this.afterCursor = ledgerEntryListParams.afterCursor
-            this.perPage = ledgerEntryListParams.perPage
             this.id(ledgerEntryListParams.id ?: listOf())
-            this.ledgerAccountId = ledgerEntryListParams.ledgerAccountId
-            this.ledgerTransactionId = ledgerEntryListParams.ledgerTransactionId
-            this.ledgerAccountPayoutId = ledgerEntryListParams.ledgerAccountPayoutId
-            this.effectiveDate = ledgerEntryListParams.effectiveDate
-            this.effectiveAt = ledgerEntryListParams.effectiveAt
-            this.updatedAt = ledgerEntryListParams.updatedAt
+            this.afterCursor = ledgerEntryListParams.afterCursor
             this.asOfLockVersion = ledgerEntryListParams.asOfLockVersion
-            this.ledgerAccountLockVersion = ledgerEntryListParams.ledgerAccountLockVersion
-            this.ledgerAccountCategoryId = ledgerEntryListParams.ledgerAccountCategoryId
-            this.ledgerAccountStatementId = ledgerEntryListParams.ledgerAccountStatementId
-            this.showDeleted = ledgerEntryListParams.showDeleted
             this.direction = ledgerEntryListParams.direction
-            this.status = ledgerEntryListParams.status
-            this.orderBy = ledgerEntryListParams.orderBy
-            this.showBalances = ledgerEntryListParams.showBalances
+            this.effectiveAt = ledgerEntryListParams.effectiveAt
+            this.effectiveDate = ledgerEntryListParams.effectiveDate
+            this.ledgerAccountCategoryId = ledgerEntryListParams.ledgerAccountCategoryId
+            this.ledgerAccountId = ledgerEntryListParams.ledgerAccountId
+            this.ledgerAccountLockVersion = ledgerEntryListParams.ledgerAccountLockVersion
+            this.ledgerAccountPayoutId = ledgerEntryListParams.ledgerAccountPayoutId
+            this.ledgerAccountStatementId = ledgerEntryListParams.ledgerAccountStatementId
+            this.ledgerTransactionId = ledgerEntryListParams.ledgerTransactionId
             this.metadata = ledgerEntryListParams.metadata
+            this.orderBy = ledgerEntryListParams.orderBy
+            this.perPage = ledgerEntryListParams.perPage
+            this.showBalances = ledgerEntryListParams.showBalances
+            this.showDeleted = ledgerEntryListParams.showDeleted
+            this.status = ledgerEntryListParams.status
+            this.updatedAt = ledgerEntryListParams.updatedAt
             additionalQueryParams(ledgerEntryListParams.additionalQueryParams)
             additionalHeaders(ledgerEntryListParams.additionalHeaders)
         }
-
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
-
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
 
         /**
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
@@ -251,17 +247,27 @@ constructor(
          */
         fun addId(id: String) = apply { this.id.add(id) }
 
-        fun ledgerAccountId(ledgerAccountId: String) = apply {
-            this.ledgerAccountId = ledgerAccountId
+        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+
+        /**
+         * Shows all ledger entries that were present on a ledger account at a particular
+         * `lock_version`. You must also specify `ledger_account_id`.
+         */
+        fun asOfLockVersion(asOfLockVersion: Long) = apply {
+            this.asOfLockVersion = asOfLockVersion
         }
 
-        fun ledgerTransactionId(ledgerTransactionId: String) = apply {
-            this.ledgerTransactionId = ledgerTransactionId
-        }
+        /**
+         * If true, response will include ledger entries that were deleted. When you update a ledger
+         * transaction to specify a new set of entries, the previous entries are deleted.
+         */
+        fun direction(direction: Direction) = apply { this.direction = direction }
 
-        fun ledgerAccountPayoutId(ledgerAccountPayoutId: String) = apply {
-            this.ledgerAccountPayoutId = ledgerAccountPayoutId
-        }
+        /**
+         * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the
+         * transaction's effective time. Format ISO8601
+         */
+        fun effectiveAt(effectiveAt: EffectiveAt) = apply { this.effectiveAt = effectiveAt }
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the
@@ -271,25 +277,13 @@ constructor(
             this.effectiveDate = effectiveDate
         }
 
-        /**
-         * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the
-         * transaction's effective time. Format ISO8601
-         */
-        fun effectiveAt(effectiveAt: EffectiveAt) = apply { this.effectiveAt = effectiveAt }
+        /** Get all ledger entries that match the direction specified. One of `credit`, `debit`. */
+        fun ledgerAccountCategoryId(ledgerAccountCategoryId: String) = apply {
+            this.ledgerAccountCategoryId = ledgerAccountCategoryId
+        }
 
-        /**
-         * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
-         * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
-         * updated_at%5Bgt%5D=2000-01-01T12:00:00Z.
-         */
-        fun updatedAt(updatedAt: UpdatedAt) = apply { this.updatedAt = updatedAt }
-
-        /**
-         * Shows all ledger entries that were present on a ledger account at a particular
-         * `lock_version`. You must also specify `ledger_account_id`.
-         */
-        fun asOfLockVersion(asOfLockVersion: Long) = apply {
-            this.asOfLockVersion = asOfLockVersion
+        fun ledgerAccountId(ledgerAccountId: String) = apply {
+            this.ledgerAccountId = ledgerAccountId
         }
 
         /**
@@ -301,9 +295,8 @@ constructor(
             this.ledgerAccountLockVersion = ledgerAccountLockVersion
         }
 
-        /** Get all ledger entries that match the direction specified. One of `credit`, `debit`. */
-        fun ledgerAccountCategoryId(ledgerAccountCategoryId: String) = apply {
-            this.ledgerAccountCategoryId = ledgerAccountCategoryId
+        fun ledgerAccountPayoutId(ledgerAccountPayoutId: String) = apply {
+            this.ledgerAccountPayoutId = ledgerAccountPayoutId
         }
 
         /** Get all ledger entries that are included in the ledger account statement. */
@@ -311,23 +304,15 @@ constructor(
             this.ledgerAccountStatementId = ledgerAccountStatementId
         }
 
-        /**
-         * If true, response will include ledger entries that were deleted. When you update a ledger
-         * transaction to specify a new set of entries, the previous entries are deleted.
-         */
-        fun showDeleted(showDeleted: Boolean) = apply { this.showDeleted = showDeleted }
+        fun ledgerTransactionId(ledgerTransactionId: String) = apply {
+            this.ledgerTransactionId = ledgerTransactionId
+        }
 
         /**
-         * If true, response will include ledger entries that were deleted. When you update a ledger
-         * transaction to specify a new set of entries, the previous entries are deleted.
+         * For example, if you want to query for records with metadata key `Type` and value `Loan`,
+         * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
-        fun direction(direction: Direction) = apply { this.direction = direction }
-
-        /**
-         * Get all ledger entries that match the status specified. One of `pending`, `posted`, or
-         * `archived`.
-         */
-        fun status(status: Status) = apply { this.status = status }
+        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
         /**
          * Order by `created_at` or `effective_at` in `asc` or `desc` order. For example, to order
@@ -336,6 +321,8 @@ constructor(
          */
         fun orderBy(orderBy: OrderBy) = apply { this.orderBy = orderBy }
 
+        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+
         /**
          * If true, response will include the balances attached to the ledger entry. If there is no
          * balance available, null will be returned instead.
@@ -343,10 +330,23 @@ constructor(
         fun showBalances(showBalances: Boolean) = apply { this.showBalances = showBalances }
 
         /**
-         * For example, if you want to query for records with metadata key `Type` and value `Loan`,
-         * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+         * If true, response will include ledger entries that were deleted. When you update a ledger
+         * transaction to specify a new set of entries, the previous entries are deleted.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun showDeleted(showDeleted: Boolean) = apply { this.showDeleted = showDeleted }
+
+        /**
+         * Get all ledger entries that match the status specified. One of `pending`, `posted`, or
+         * `archived`.
+         */
+        fun status(status: Status) = apply { this.status = status }
+
+        /**
+         * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
+         * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
+         * updated_at%5Bgt%5D=2000-01-01T12:00:00Z.
+         */
+        fun updatedAt(updatedAt: UpdatedAt) = apply { this.updatedAt = updatedAt }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -390,25 +390,25 @@ constructor(
 
         fun build(): LedgerEntryListParams =
             LedgerEntryListParams(
-                afterCursor,
-                perPage,
                 if (id.size == 0) null else id.toUnmodifiable(),
-                ledgerAccountId,
-                ledgerTransactionId,
-                ledgerAccountPayoutId,
-                effectiveDate,
-                effectiveAt,
-                updatedAt,
+                afterCursor,
                 asOfLockVersion,
-                ledgerAccountLockVersion,
-                ledgerAccountCategoryId,
-                ledgerAccountStatementId,
-                showDeleted,
                 direction,
-                status,
-                orderBy,
-                showBalances,
+                effectiveAt,
+                effectiveDate,
+                ledgerAccountCategoryId,
+                ledgerAccountId,
+                ledgerAccountLockVersion,
+                ledgerAccountPayoutId,
+                ledgerAccountStatementId,
+                ledgerTransactionId,
                 metadata,
+                orderBy,
+                perPage,
+                showBalances,
+                showDeleted,
+                status,
+                updatedAt,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

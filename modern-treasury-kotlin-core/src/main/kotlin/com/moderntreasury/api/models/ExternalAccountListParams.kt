@@ -11,31 +11,31 @@ import java.util.Objects
 class ExternalAccountListParams
 constructor(
     private val afterCursor: String?,
-    private val perPage: Long?,
-    private val partyName: String?,
     private val counterpartyId: String?,
     private val metadata: Metadata?,
+    private val partyName: String?,
+    private val perPage: Long?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
     fun afterCursor(): String? = afterCursor
 
-    fun perPage(): Long? = perPage
-
-    fun partyName(): String? = partyName
-
     fun counterpartyId(): String? = counterpartyId
 
     fun metadata(): Metadata? = metadata
 
+    fun partyName(): String? = partyName
+
+    fun perPage(): Long? = perPage
+
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
-        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
-        this.partyName?.let { params.put("party_name", listOf(it.toString())) }
         this.counterpartyId?.let { params.put("counterparty_id", listOf(it.toString())) }
         this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
+        this.partyName?.let { params.put("party_name", listOf(it.toString())) }
+        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -53,10 +53,10 @@ constructor(
 
         return other is ExternalAccountListParams &&
             this.afterCursor == other.afterCursor &&
-            this.perPage == other.perPage &&
-            this.partyName == other.partyName &&
             this.counterpartyId == other.counterpartyId &&
             this.metadata == other.metadata &&
+            this.partyName == other.partyName &&
+            this.perPage == other.perPage &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
@@ -64,17 +64,17 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             afterCursor,
-            perPage,
-            partyName,
             counterpartyId,
             metadata,
+            partyName,
+            perPage,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "ExternalAccountListParams{afterCursor=$afterCursor, perPage=$perPage, partyName=$partyName, counterpartyId=$counterpartyId, metadata=$metadata, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "ExternalAccountListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, metadata=$metadata, partyName=$partyName, perPage=$perPage, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -87,29 +87,24 @@ constructor(
     class Builder {
 
         private var afterCursor: String? = null
-        private var perPage: Long? = null
-        private var partyName: String? = null
         private var counterpartyId: String? = null
         private var metadata: Metadata? = null
+        private var partyName: String? = null
+        private var perPage: Long? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(externalAccountListParams: ExternalAccountListParams) = apply {
             this.afterCursor = externalAccountListParams.afterCursor
-            this.perPage = externalAccountListParams.perPage
-            this.partyName = externalAccountListParams.partyName
             this.counterpartyId = externalAccountListParams.counterpartyId
             this.metadata = externalAccountListParams.metadata
+            this.partyName = externalAccountListParams.partyName
+            this.perPage = externalAccountListParams.perPage
             additionalQueryParams(externalAccountListParams.additionalQueryParams)
             additionalHeaders(externalAccountListParams.additionalHeaders)
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
-
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
-
-        /** Searches the ExternalAccount's party_name AND the Counterparty's party_name */
-        fun partyName(partyName: String) = apply { this.partyName = partyName }
 
         fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
 
@@ -118,6 +113,11 @@ constructor(
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
         fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        /** Searches the ExternalAccount's party_name AND the Counterparty's party_name */
+        fun partyName(partyName: String) = apply { this.partyName = partyName }
+
+        fun perPage(perPage: Long) = apply { this.perPage = perPage }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -162,10 +162,10 @@ constructor(
         fun build(): ExternalAccountListParams =
             ExternalAccountListParams(
                 afterCursor,
-                perPage,
-                partyName,
                 counterpartyId,
                 metadata,
+                partyName,
+                perPage,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

@@ -16,55 +16,55 @@ import java.util.Objects
 class ExpectedPaymentListParams
 constructor(
     private val afterCursor: String?,
-    private val perPage: Long?,
-    private val status: Status?,
-    private val internalAccountId: String?,
-    private val direction: Direction?,
-    private val type: Type?,
     private val counterpartyId: String?,
-    private val metadata: Metadata?,
     private val createdAtLowerBound: OffsetDateTime?,
     private val createdAtUpperBound: OffsetDateTime?,
+    private val direction: Direction?,
+    private val internalAccountId: String?,
+    private val metadata: Metadata?,
+    private val perPage: Long?,
+    private val status: Status?,
+    private val type: Type?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
     fun afterCursor(): String? = afterCursor
 
-    fun perPage(): Long? = perPage
-
-    fun status(): Status? = status
-
-    fun internalAccountId(): String? = internalAccountId
-
-    fun direction(): Direction? = direction
-
-    fun type(): Type? = type
-
     fun counterpartyId(): String? = counterpartyId
-
-    fun metadata(): Metadata? = metadata
 
     fun createdAtLowerBound(): OffsetDateTime? = createdAtLowerBound
 
     fun createdAtUpperBound(): OffsetDateTime? = createdAtUpperBound
 
+    fun direction(): Direction? = direction
+
+    fun internalAccountId(): String? = internalAccountId
+
+    fun metadata(): Metadata? = metadata
+
+    fun perPage(): Long? = perPage
+
+    fun status(): Status? = status
+
+    fun type(): Type? = type
+
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
-        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
-        this.status?.let { params.put("status", listOf(it.toString())) }
-        this.internalAccountId?.let { params.put("internal_account_id", listOf(it.toString())) }
-        this.direction?.let { params.put("direction", listOf(it.toString())) }
-        this.type?.let { params.put("type", listOf(it.toString())) }
         this.counterpartyId?.let { params.put("counterparty_id", listOf(it.toString())) }
-        this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
         this.createdAtLowerBound?.let {
             params.put("created_at_lower_bound", listOf(it.toString()))
         }
         this.createdAtUpperBound?.let {
             params.put("created_at_upper_bound", listOf(it.toString()))
         }
+        this.direction?.let { params.put("direction", listOf(it.toString())) }
+        this.internalAccountId?.let { params.put("internal_account_id", listOf(it.toString())) }
+        this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
+        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
+        this.status?.let { params.put("status", listOf(it.toString())) }
+        this.type?.let { params.put("type", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -82,15 +82,15 @@ constructor(
 
         return other is ExpectedPaymentListParams &&
             this.afterCursor == other.afterCursor &&
-            this.perPage == other.perPage &&
-            this.status == other.status &&
-            this.internalAccountId == other.internalAccountId &&
-            this.direction == other.direction &&
-            this.type == other.type &&
             this.counterpartyId == other.counterpartyId &&
-            this.metadata == other.metadata &&
             this.createdAtLowerBound == other.createdAtLowerBound &&
             this.createdAtUpperBound == other.createdAtUpperBound &&
+            this.direction == other.direction &&
+            this.internalAccountId == other.internalAccountId &&
+            this.metadata == other.metadata &&
+            this.perPage == other.perPage &&
+            this.status == other.status &&
+            this.type == other.type &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
@@ -98,22 +98,22 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             afterCursor,
-            perPage,
-            status,
-            internalAccountId,
-            direction,
-            type,
             counterpartyId,
-            metadata,
             createdAtLowerBound,
             createdAtUpperBound,
+            direction,
+            internalAccountId,
+            metadata,
+            perPage,
+            status,
+            type,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "ExpectedPaymentListParams{afterCursor=$afterCursor, perPage=$perPage, status=$status, internalAccountId=$internalAccountId, direction=$direction, type=$type, counterpartyId=$counterpartyId, metadata=$metadata, createdAtLowerBound=$createdAtLowerBound, createdAtUpperBound=$createdAtUpperBound, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "ExpectedPaymentListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, createdAtLowerBound=$createdAtLowerBound, createdAtUpperBound=$createdAtUpperBound, direction=$direction, internalAccountId=$internalAccountId, metadata=$metadata, perPage=$perPage, status=$status, type=$type, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -126,62 +126,37 @@ constructor(
     class Builder {
 
         private var afterCursor: String? = null
-        private var perPage: Long? = null
-        private var status: Status? = null
-        private var internalAccountId: String? = null
-        private var direction: Direction? = null
-        private var type: Type? = null
         private var counterpartyId: String? = null
-        private var metadata: Metadata? = null
         private var createdAtLowerBound: OffsetDateTime? = null
         private var createdAtUpperBound: OffsetDateTime? = null
+        private var direction: Direction? = null
+        private var internalAccountId: String? = null
+        private var metadata: Metadata? = null
+        private var perPage: Long? = null
+        private var status: Status? = null
+        private var type: Type? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(expectedPaymentListParams: ExpectedPaymentListParams) = apply {
             this.afterCursor = expectedPaymentListParams.afterCursor
-            this.perPage = expectedPaymentListParams.perPage
-            this.status = expectedPaymentListParams.status
-            this.internalAccountId = expectedPaymentListParams.internalAccountId
-            this.direction = expectedPaymentListParams.direction
-            this.type = expectedPaymentListParams.type
             this.counterpartyId = expectedPaymentListParams.counterpartyId
-            this.metadata = expectedPaymentListParams.metadata
             this.createdAtLowerBound = expectedPaymentListParams.createdAtLowerBound
             this.createdAtUpperBound = expectedPaymentListParams.createdAtUpperBound
+            this.direction = expectedPaymentListParams.direction
+            this.internalAccountId = expectedPaymentListParams.internalAccountId
+            this.metadata = expectedPaymentListParams.metadata
+            this.perPage = expectedPaymentListParams.perPage
+            this.status = expectedPaymentListParams.status
+            this.type = expectedPaymentListParams.type
             additionalQueryParams(expectedPaymentListParams.additionalQueryParams)
             additionalHeaders(expectedPaymentListParams.additionalHeaders)
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
-
-        /** One of unreconciled, reconciled, or archived. */
-        fun status(status: Status) = apply { this.status = status }
-
-        /** Specify internal_account_id to see expected_payments for a specific account. */
-        fun internalAccountId(internalAccountId: String) = apply {
-            this.internalAccountId = internalAccountId
-        }
-
-        /** One of credit, debit */
-        fun direction(direction: Direction) = apply { this.direction = direction }
-
-        /**
-         * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp,sen, sepa,
-         * signet, wire
-         */
-        fun type(type: Type) = apply { this.type = type }
-
         /** Specify counterparty_id to see expected_payments for a specific account. */
         fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
-
-        /**
-         * For example, if you want to query for records with metadata key `Type` and value `Loan`,
-         * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
-         */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
         /** Used to return expected payments created after some datetime */
         fun createdAtLowerBound(createdAtLowerBound: OffsetDateTime) = apply {
@@ -192,6 +167,31 @@ constructor(
         fun createdAtUpperBound(createdAtUpperBound: OffsetDateTime) = apply {
             this.createdAtUpperBound = createdAtUpperBound
         }
+
+        /** One of credit, debit */
+        fun direction(direction: Direction) = apply { this.direction = direction }
+
+        /** Specify internal_account_id to see expected_payments for a specific account. */
+        fun internalAccountId(internalAccountId: String) = apply {
+            this.internalAccountId = internalAccountId
+        }
+
+        /**
+         * For example, if you want to query for records with metadata key `Type` and value `Loan`,
+         * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+         */
+        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+
+        /** One of unreconciled, reconciled, or archived. */
+        fun status(status: Status) = apply { this.status = status }
+
+        /**
+         * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp,sen, sepa,
+         * signet, wire
+         */
+        fun type(type: Type) = apply { this.type = type }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -236,15 +236,15 @@ constructor(
         fun build(): ExpectedPaymentListParams =
             ExpectedPaymentListParams(
                 afterCursor,
-                perPage,
-                status,
-                internalAccountId,
-                direction,
-                type,
                 counterpartyId,
-                metadata,
                 createdAtLowerBound,
                 createdAtUpperBound,
+                direction,
+                internalAccountId,
+                metadata,
+                perPage,
+                status,
+                type,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

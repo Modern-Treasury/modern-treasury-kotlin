@@ -13,13 +13,13 @@ class IncomingPaymentDetailListParamsTest {
     fun createIncomingPaymentDetailListParams() {
         IncomingPaymentDetailListParams.builder()
             .afterCursor("string")
-            .perPage(123L)
+            .asOfDateEnd(LocalDate.parse("2019-12-27"))
+            .asOfDateStart(LocalDate.parse("2019-12-27"))
             .direction(IncomingPaymentDetailListParams.Direction.CREDIT)
+            .metadata(IncomingPaymentDetailListParams.Metadata.builder().build())
+            .perPage(123L)
             .status(IncomingPaymentDetailListParams.Status.COMPLETED)
             .type(IncomingPaymentDetailListParams.Type.ACH)
-            .asOfDateStart(LocalDate.parse("2019-12-27"))
-            .asOfDateEnd(LocalDate.parse("2019-12-27"))
-            .metadata(IncomingPaymentDetailListParams.Metadata.builder().build())
             .virtualAccountId("string")
             .build()
     }
@@ -29,30 +29,30 @@ class IncomingPaymentDetailListParamsTest {
         val params =
             IncomingPaymentDetailListParams.builder()
                 .afterCursor("string")
-                .perPage(123L)
+                .asOfDateEnd(LocalDate.parse("2019-12-27"))
+                .asOfDateStart(LocalDate.parse("2019-12-27"))
                 .direction(IncomingPaymentDetailListParams.Direction.CREDIT)
+                .metadata(IncomingPaymentDetailListParams.Metadata.builder().build())
+                .perPage(123L)
                 .status(IncomingPaymentDetailListParams.Status.COMPLETED)
                 .type(IncomingPaymentDetailListParams.Type.ACH)
-                .asOfDateStart(LocalDate.parse("2019-12-27"))
-                .asOfDateEnd(LocalDate.parse("2019-12-27"))
-                .metadata(IncomingPaymentDetailListParams.Metadata.builder().build())
                 .virtualAccountId("string")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("after_cursor", listOf("string"))
-        expected.put("per_page", listOf("123"))
+        expected.put("as_of_date_end", listOf("2019-12-27"))
+        expected.put("as_of_date_start", listOf("2019-12-27"))
         expected.put(
             "direction",
             listOf(IncomingPaymentDetailListParams.Direction.CREDIT.toString())
         )
-        expected.put("status", listOf(IncomingPaymentDetailListParams.Status.COMPLETED.toString()))
-        expected.put("type", listOf(IncomingPaymentDetailListParams.Type.ACH.toString()))
-        expected.put("as_of_date_start", listOf("2019-12-27"))
-        expected.put("as_of_date_end", listOf("2019-12-27"))
         IncomingPaymentDetailListParams.Metadata.builder().build().forEachQueryParam { key, values
             ->
             expected.put("metadata[$key]", values)
         }
+        expected.put("per_page", listOf("123"))
+        expected.put("status", listOf(IncomingPaymentDetailListParams.Status.COMPLETED.toString()))
+        expected.put("type", listOf(IncomingPaymentDetailListParams.Type.ACH.toString()))
         expected.put("virtual_account_id", listOf("string"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }

@@ -260,10 +260,10 @@ class ServiceParamsTest {
         val params =
             ExternalAccountListParams.builder()
                 .afterCursor("string")
-                .perPage(123L)
-                .partyName("string")
                 .counterpartyId("string")
                 .metadata(ExternalAccountListParams.Metadata.builder().build())
+                .partyName("string")
+                .perPage(123L)
                 .additionalHeaders(additionalHeaders)
                 .additionalQueryParams(additionalQueryParams)
                 .build()

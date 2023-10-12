@@ -13,9 +13,9 @@ class PaymentReferenceListParamsTest {
         PaymentReferenceListParams.builder()
             .afterCursor("string")
             .perPage(123L)
+            .referenceNumber("string")
             .referenceableId("string")
             .referenceableType(PaymentReferenceListParams.ReferenceableType.PAYMENT_ORDER)
-            .referenceNumber("string")
             .build()
     }
 
@@ -25,19 +25,19 @@ class PaymentReferenceListParamsTest {
             PaymentReferenceListParams.builder()
                 .afterCursor("string")
                 .perPage(123L)
+                .referenceNumber("string")
                 .referenceableId("string")
                 .referenceableType(PaymentReferenceListParams.ReferenceableType.PAYMENT_ORDER)
-                .referenceNumber("string")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("after_cursor", listOf("string"))
         expected.put("per_page", listOf("123"))
+        expected.put("reference_number", listOf("string"))
         expected.put("referenceable_id", listOf("string"))
         expected.put(
             "referenceable_type",
             listOf(PaymentReferenceListParams.ReferenceableType.PAYMENT_ORDER.toString())
         )
-        expected.put("reference_number", listOf("string"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

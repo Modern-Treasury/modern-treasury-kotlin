@@ -12,76 +12,76 @@ import java.util.Objects
 
 class LedgerAccountListParams
 constructor(
-    private val afterCursor: String?,
-    private val perPage: Long?,
-    private val metadata: Metadata?,
     private val id: List<String>?,
-    private val name: String?,
-    private val ledgerId: String?,
-    private val currency: String?,
-    private val balances: Balances?,
-    private val pendingBalanceAmount: PendingBalanceAmount?,
-    private val postedBalanceAmount: PostedBalanceAmount?,
+    private val afterCursor: String?,
     private val availableBalanceAmount: AvailableBalanceAmount?,
+    private val balances: Balances?,
     private val createdAt: CreatedAt?,
-    private val updatedAt: UpdatedAt?,
+    private val currency: String?,
     private val ledgerAccountCategoryId: String?,
+    private val ledgerId: String?,
+    private val metadata: Metadata?,
+    private val name: String?,
+    private val pendingBalanceAmount: PendingBalanceAmount?,
+    private val perPage: Long?,
+    private val postedBalanceAmount: PostedBalanceAmount?,
+    private val updatedAt: UpdatedAt?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
-    fun afterCursor(): String? = afterCursor
-
-    fun perPage(): Long? = perPage
-
-    fun metadata(): Metadata? = metadata
-
     fun id(): List<String>? = id
 
-    fun name(): String? = name
-
-    fun ledgerId(): String? = ledgerId
-
-    fun currency(): String? = currency
-
-    fun balances(): Balances? = balances
-
-    fun pendingBalanceAmount(): PendingBalanceAmount? = pendingBalanceAmount
-
-    fun postedBalanceAmount(): PostedBalanceAmount? = postedBalanceAmount
+    fun afterCursor(): String? = afterCursor
 
     fun availableBalanceAmount(): AvailableBalanceAmount? = availableBalanceAmount
 
+    fun balances(): Balances? = balances
+
     fun createdAt(): CreatedAt? = createdAt
 
-    fun updatedAt(): UpdatedAt? = updatedAt
+    fun currency(): String? = currency
 
     fun ledgerAccountCategoryId(): String? = ledgerAccountCategoryId
 
+    fun ledgerId(): String? = ledgerId
+
+    fun metadata(): Metadata? = metadata
+
+    fun name(): String? = name
+
+    fun pendingBalanceAmount(): PendingBalanceAmount? = pendingBalanceAmount
+
+    fun perPage(): Long? = perPage
+
+    fun postedBalanceAmount(): PostedBalanceAmount? = postedBalanceAmount
+
+    fun updatedAt(): UpdatedAt? = updatedAt
+
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
-        this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
-        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
-        this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
         this.id?.let { params.put("id[]", it.map(Any::toString)) }
-        this.name?.let { params.put("name", listOf(it.toString())) }
-        this.ledgerId?.let { params.put("ledger_id", listOf(it.toString())) }
-        this.currency?.let { params.put("currency", listOf(it.toString())) }
-        this.balances?.forEachQueryParam { key, values -> params.put("balances[$key]", values) }
-        this.pendingBalanceAmount?.forEachQueryParam { key, values ->
-            params.put("pending_balance_amount[$key]", values)
-        }
-        this.postedBalanceAmount?.forEachQueryParam { key, values ->
-            params.put("posted_balance_amount[$key]", values)
-        }
+        this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
         this.availableBalanceAmount?.forEachQueryParam { key, values ->
             params.put("available_balance_amount[$key]", values)
         }
+        this.balances?.forEachQueryParam { key, values -> params.put("balances[$key]", values) }
         this.createdAt?.forEachQueryParam { key, values -> params.put("created_at[$key]", values) }
-        this.updatedAt?.forEachQueryParam { key, values -> params.put("updated_at[$key]", values) }
+        this.currency?.let { params.put("currency", listOf(it.toString())) }
         this.ledgerAccountCategoryId?.let {
             params.put("ledger_account_category_id", listOf(it.toString()))
         }
+        this.ledgerId?.let { params.put("ledger_id", listOf(it.toString())) }
+        this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
+        this.name?.let { params.put("name", listOf(it.toString())) }
+        this.pendingBalanceAmount?.forEachQueryParam { key, values ->
+            params.put("pending_balance_amount[$key]", values)
+        }
+        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
+        this.postedBalanceAmount?.forEachQueryParam { key, values ->
+            params.put("posted_balance_amount[$key]", values)
+        }
+        this.updatedAt?.forEachQueryParam { key, values -> params.put("updated_at[$key]", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -98,47 +98,47 @@ constructor(
         }
 
         return other is LedgerAccountListParams &&
-            this.afterCursor == other.afterCursor &&
-            this.perPage == other.perPage &&
-            this.metadata == other.metadata &&
             this.id == other.id &&
-            this.name == other.name &&
-            this.ledgerId == other.ledgerId &&
-            this.currency == other.currency &&
-            this.balances == other.balances &&
-            this.pendingBalanceAmount == other.pendingBalanceAmount &&
-            this.postedBalanceAmount == other.postedBalanceAmount &&
+            this.afterCursor == other.afterCursor &&
             this.availableBalanceAmount == other.availableBalanceAmount &&
+            this.balances == other.balances &&
             this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
+            this.currency == other.currency &&
             this.ledgerAccountCategoryId == other.ledgerAccountCategoryId &&
+            this.ledgerId == other.ledgerId &&
+            this.metadata == other.metadata &&
+            this.name == other.name &&
+            this.pendingBalanceAmount == other.pendingBalanceAmount &&
+            this.perPage == other.perPage &&
+            this.postedBalanceAmount == other.postedBalanceAmount &&
+            this.updatedAt == other.updatedAt &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
-            afterCursor,
-            perPage,
-            metadata,
             id,
-            name,
-            ledgerId,
-            currency,
-            balances,
-            pendingBalanceAmount,
-            postedBalanceAmount,
+            afterCursor,
             availableBalanceAmount,
+            balances,
             createdAt,
-            updatedAt,
+            currency,
             ledgerAccountCategoryId,
+            ledgerId,
+            metadata,
+            name,
+            pendingBalanceAmount,
+            perPage,
+            postedBalanceAmount,
+            updatedAt,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "LedgerAccountListParams{afterCursor=$afterCursor, perPage=$perPage, metadata=$metadata, id=$id, name=$name, ledgerId=$ledgerId, currency=$currency, balances=$balances, pendingBalanceAmount=$pendingBalanceAmount, postedBalanceAmount=$postedBalanceAmount, availableBalanceAmount=$availableBalanceAmount, createdAt=$createdAt, updatedAt=$updatedAt, ledgerAccountCategoryId=$ledgerAccountCategoryId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "LedgerAccountListParams{id=$id, afterCursor=$afterCursor, availableBalanceAmount=$availableBalanceAmount, balances=$balances, createdAt=$createdAt, currency=$currency, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerId=$ledgerId, metadata=$metadata, name=$name, pendingBalanceAmount=$pendingBalanceAmount, perPage=$perPage, postedBalanceAmount=$postedBalanceAmount, updatedAt=$updatedAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -150,51 +150,41 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var afterCursor: String? = null
-        private var perPage: Long? = null
-        private var metadata: Metadata? = null
         private var id: MutableList<String> = mutableListOf()
-        private var name: String? = null
-        private var ledgerId: String? = null
-        private var currency: String? = null
-        private var balances: Balances? = null
-        private var pendingBalanceAmount: PendingBalanceAmount? = null
-        private var postedBalanceAmount: PostedBalanceAmount? = null
+        private var afterCursor: String? = null
         private var availableBalanceAmount: AvailableBalanceAmount? = null
+        private var balances: Balances? = null
         private var createdAt: CreatedAt? = null
-        private var updatedAt: UpdatedAt? = null
+        private var currency: String? = null
         private var ledgerAccountCategoryId: String? = null
+        private var ledgerId: String? = null
+        private var metadata: Metadata? = null
+        private var name: String? = null
+        private var pendingBalanceAmount: PendingBalanceAmount? = null
+        private var perPage: Long? = null
+        private var postedBalanceAmount: PostedBalanceAmount? = null
+        private var updatedAt: UpdatedAt? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(ledgerAccountListParams: LedgerAccountListParams) = apply {
-            this.afterCursor = ledgerAccountListParams.afterCursor
-            this.perPage = ledgerAccountListParams.perPage
-            this.metadata = ledgerAccountListParams.metadata
             this.id(ledgerAccountListParams.id ?: listOf())
-            this.name = ledgerAccountListParams.name
-            this.ledgerId = ledgerAccountListParams.ledgerId
-            this.currency = ledgerAccountListParams.currency
-            this.balances = ledgerAccountListParams.balances
-            this.pendingBalanceAmount = ledgerAccountListParams.pendingBalanceAmount
-            this.postedBalanceAmount = ledgerAccountListParams.postedBalanceAmount
+            this.afterCursor = ledgerAccountListParams.afterCursor
             this.availableBalanceAmount = ledgerAccountListParams.availableBalanceAmount
+            this.balances = ledgerAccountListParams.balances
             this.createdAt = ledgerAccountListParams.createdAt
-            this.updatedAt = ledgerAccountListParams.updatedAt
+            this.currency = ledgerAccountListParams.currency
             this.ledgerAccountCategoryId = ledgerAccountListParams.ledgerAccountCategoryId
+            this.ledgerId = ledgerAccountListParams.ledgerId
+            this.metadata = ledgerAccountListParams.metadata
+            this.name = ledgerAccountListParams.name
+            this.pendingBalanceAmount = ledgerAccountListParams.pendingBalanceAmount
+            this.perPage = ledgerAccountListParams.perPage
+            this.postedBalanceAmount = ledgerAccountListParams.postedBalanceAmount
+            this.updatedAt = ledgerAccountListParams.updatedAt
             additionalQueryParams(ledgerAccountListParams.additionalQueryParams)
             additionalHeaders(ledgerAccountListParams.additionalHeaders)
         }
-
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
-
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
-
-        /**
-         * For example, if you want to query for records with metadata key `Type` and value `Loan`,
-         * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
-         */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
         /**
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
@@ -211,35 +201,7 @@ constructor(
          */
         fun addId(id: String) = apply { this.id.add(id) }
 
-        fun name(name: String) = apply { this.name = name }
-
-        fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
-
-        fun currency(currency: String) = apply { this.currency = currency }
-
-        /**
-         * Use `balances[effective_at_lower_bound]` and `balances[effective_at_upper_bound]` to get
-         * the balances change between the two timestamps. The lower bound is inclusive while the
-         * upper bound is exclusive of the provided timestamps. If no value is supplied the balances
-         * will be retrieved not including that bound.
-         */
-        fun balances(balances: Balances) = apply { this.balances = balances }
-
-        /**
-         * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), `eq` (=), or `not_eq` (!=) to filter by
-         * balance amount.
-         */
-        fun pendingBalanceAmount(pendingBalanceAmount: PendingBalanceAmount) = apply {
-            this.pendingBalanceAmount = pendingBalanceAmount
-        }
-
-        /**
-         * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), `eq` (=), or `not_eq` (!=) to filter by
-         * balance amount.
-         */
-        fun postedBalanceAmount(postedBalanceAmount: PostedBalanceAmount) = apply {
-            this.postedBalanceAmount = postedBalanceAmount
-        }
+        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), `eq` (=), or `not_eq` (!=) to filter by
@@ -250,11 +212,53 @@ constructor(
         }
 
         /**
+         * Use `balances[effective_at_lower_bound]` and `balances[effective_at_upper_bound]` to get
+         * the balances change between the two timestamps. The lower bound is inclusive while the
+         * upper bound is exclusive of the provided timestamps. If no value is supplied the balances
+         * will be retrieved not including that bound.
+         */
+        fun balances(balances: Balances) = apply { this.balances = balances }
+
+        /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the created at
          * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
          * created_at%5Bgt%5D=2000-01-01T12:00:00Z.
          */
         fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+
+        fun currency(currency: String) = apply { this.currency = currency }
+
+        fun ledgerAccountCategoryId(ledgerAccountCategoryId: String) = apply {
+            this.ledgerAccountCategoryId = ledgerAccountCategoryId
+        }
+
+        fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
+
+        /**
+         * For example, if you want to query for records with metadata key `Type` and value `Loan`,
+         * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+         */
+        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        fun name(name: String) = apply { this.name = name }
+
+        /**
+         * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), `eq` (=), or `not_eq` (!=) to filter by
+         * balance amount.
+         */
+        fun pendingBalanceAmount(pendingBalanceAmount: PendingBalanceAmount) = apply {
+            this.pendingBalanceAmount = pendingBalanceAmount
+        }
+
+        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+
+        /**
+         * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), `eq` (=), or `not_eq` (!=) to filter by
+         * balance amount.
+         */
+        fun postedBalanceAmount(postedBalanceAmount: PostedBalanceAmount) = apply {
+            this.postedBalanceAmount = postedBalanceAmount
+        }
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the updated at
@@ -262,10 +266,6 @@ constructor(
          * updated_at%5Bgt%5D=2000-01-01T12:00:00Z.
          */
         fun updatedAt(updatedAt: UpdatedAt) = apply { this.updatedAt = updatedAt }
-
-        fun ledgerAccountCategoryId(ledgerAccountCategoryId: String) = apply {
-            this.ledgerAccountCategoryId = ledgerAccountCategoryId
-        }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -309,20 +309,20 @@ constructor(
 
         fun build(): LedgerAccountListParams =
             LedgerAccountListParams(
-                afterCursor,
-                perPage,
-                metadata,
                 if (id.size == 0) null else id.toUnmodifiable(),
-                name,
-                ledgerId,
-                currency,
-                balances,
-                pendingBalanceAmount,
-                postedBalanceAmount,
+                afterCursor,
                 availableBalanceAmount,
+                balances,
                 createdAt,
-                updatedAt,
+                currency,
                 ledgerAccountCategoryId,
+                ledgerId,
+                metadata,
+                name,
+                pendingBalanceAmount,
+                perPage,
+                postedBalanceAmount,
+                updatedAt,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
@@ -362,11 +362,11 @@ constructor(
         fun _additionalProperties(): Map<String, List<String>> = additionalProperties
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.gt?.let { putParam("gt", listOf(it.toString())) }
-            this.lt?.let { putParam("lt", listOf(it.toString())) }
-            this.gte?.let { putParam("gte", listOf(it.toString())) }
-            this.lte?.let { putParam("lte", listOf(it.toString())) }
             this.eq?.let { putParam("eq", listOf(it.toString())) }
+            this.gt?.let { putParam("gt", listOf(it.toString())) }
+            this.gte?.let { putParam("gte", listOf(it.toString())) }
+            this.lt?.let { putParam("lt", listOf(it.toString())) }
+            this.lte?.let { putParam("lte", listOf(it.toString())) }
             this.notEq?.let { putParam("not_eq", listOf(it.toString())) }
             this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }
@@ -775,11 +775,11 @@ constructor(
         fun _additionalProperties(): Map<String, List<String>> = additionalProperties
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.gt?.let { putParam("gt", listOf(it.toString())) }
-            this.lt?.let { putParam("lt", listOf(it.toString())) }
-            this.gte?.let { putParam("gte", listOf(it.toString())) }
-            this.lte?.let { putParam("lte", listOf(it.toString())) }
             this.eq?.let { putParam("eq", listOf(it.toString())) }
+            this.gt?.let { putParam("gt", listOf(it.toString())) }
+            this.gte?.let { putParam("gte", listOf(it.toString())) }
+            this.lt?.let { putParam("lt", listOf(it.toString())) }
+            this.lte?.let { putParam("lte", listOf(it.toString())) }
             this.notEq?.let { putParam("not_eq", listOf(it.toString())) }
             this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }
@@ -918,11 +918,11 @@ constructor(
         fun _additionalProperties(): Map<String, List<String>> = additionalProperties
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.gt?.let { putParam("gt", listOf(it.toString())) }
-            this.lt?.let { putParam("lt", listOf(it.toString())) }
-            this.gte?.let { putParam("gte", listOf(it.toString())) }
-            this.lte?.let { putParam("lte", listOf(it.toString())) }
             this.eq?.let { putParam("eq", listOf(it.toString())) }
+            this.gt?.let { putParam("gt", listOf(it.toString())) }
+            this.gte?.let { putParam("gte", listOf(it.toString())) }
+            this.lt?.let { putParam("lt", listOf(it.toString())) }
+            this.lte?.let { putParam("lte", listOf(it.toString())) }
             this.notEq?.let { putParam("not_eq", listOf(it.toString())) }
             this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }

@@ -11,31 +11,31 @@ import java.util.Objects
 class LedgerEventHandlerListParams
 constructor(
     private val afterCursor: String?,
-    private val perPage: Long?,
+    private val createdAt: CreatedAt?,
     private val metadata: Metadata?,
     private val name: String?,
-    private val createdAt: CreatedAt?,
+    private val perPage: Long?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
     fun afterCursor(): String? = afterCursor
 
-    fun perPage(): Long? = perPage
+    fun createdAt(): CreatedAt? = createdAt
 
     fun metadata(): Metadata? = metadata
 
     fun name(): String? = name
 
-    fun createdAt(): CreatedAt? = createdAt
+    fun perPage(): Long? = perPage
 
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
-        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
+        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at[$key]", values) }
         this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
         this.name?.let { params.put("name", listOf(it.toString())) }
-        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at[$key]", values) }
+        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -53,10 +53,10 @@ constructor(
 
         return other is LedgerEventHandlerListParams &&
             this.afterCursor == other.afterCursor &&
-            this.perPage == other.perPage &&
+            this.createdAt == other.createdAt &&
             this.metadata == other.metadata &&
             this.name == other.name &&
-            this.createdAt == other.createdAt &&
+            this.perPage == other.perPage &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
@@ -64,17 +64,17 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             afterCursor,
-            perPage,
+            createdAt,
             metadata,
             name,
-            createdAt,
+            perPage,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "LedgerEventHandlerListParams{afterCursor=$afterCursor, perPage=$perPage, metadata=$metadata, name=$name, createdAt=$createdAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "LedgerEventHandlerListParams{afterCursor=$afterCursor, createdAt=$createdAt, metadata=$metadata, name=$name, perPage=$perPage, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -87,26 +87,31 @@ constructor(
     class Builder {
 
         private var afterCursor: String? = null
-        private var perPage: Long? = null
+        private var createdAt: CreatedAt? = null
         private var metadata: Metadata? = null
         private var name: String? = null
-        private var createdAt: CreatedAt? = null
+        private var perPage: Long? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(ledgerEventHandlerListParams: LedgerEventHandlerListParams) = apply {
             this.afterCursor = ledgerEventHandlerListParams.afterCursor
-            this.perPage = ledgerEventHandlerListParams.perPage
+            this.createdAt = ledgerEventHandlerListParams.createdAt
             this.metadata = ledgerEventHandlerListParams.metadata
             this.name = ledgerEventHandlerListParams.name
-            this.createdAt = ledgerEventHandlerListParams.createdAt
+            this.perPage = ledgerEventHandlerListParams.perPage
             additionalQueryParams(ledgerEventHandlerListParams.additionalQueryParams)
             additionalHeaders(ledgerEventHandlerListParams.additionalHeaders)
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        /**
+         * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
+         * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
+         * created_at%5Bgt%5D=2000-01-01T12:00:00Z.
+         */
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         /**
          * For example, if you want to query for records with metadata key `Type` and value `Loan`,
@@ -116,12 +121,7 @@ constructor(
 
         fun name(name: String) = apply { this.name = name }
 
-        /**
-         * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
-         * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
-         * created_at%5Bgt%5D=2000-01-01T12:00:00Z.
-         */
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+        fun perPage(perPage: Long) = apply { this.perPage = perPage }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -166,10 +166,10 @@ constructor(
         fun build(): LedgerEventHandlerListParams =
             LedgerEventHandlerListParams(
                 afterCursor,
-                perPage,
+                createdAt,
                 metadata,
                 name,
-                createdAt,
+                perPage,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
