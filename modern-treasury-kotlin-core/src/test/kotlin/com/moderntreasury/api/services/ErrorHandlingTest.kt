@@ -41,8 +41,6 @@ class ErrorHandlingTest {
 
     private val JSON_MAPPER: JsonMapper = jsonMapper()
 
-    private val API_KEY: String = "apiKey"
-
     private val MODERN_TREASURY_ERROR: ModernTreasuryError =
         ModernTreasuryError.builder().putAdditionalProperty("key", JsonString.of("value")).build()
 
@@ -52,10 +50,10 @@ class ErrorHandlingTest {
     fun beforeEach(wmRuntimeInfo: WireMockRuntimeInfo) {
         client =
             ModernTreasuryOkHttpClient.builder()
-                .apiKey(API_KEY)
                 .baseUrl(wmRuntimeInfo.getHttpBaseUrl())
+                .apiKey("My API Key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
+                .webhookKey("My Webhook Key")
                 .build()
     }
 

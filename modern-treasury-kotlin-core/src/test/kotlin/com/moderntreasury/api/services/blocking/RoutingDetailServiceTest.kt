@@ -17,7 +17,7 @@ class RoutingDetailServiceTest {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .organizationId("my-organization-ID")
                 .build()
         val routingDetailService = client.routingDetails()
@@ -40,7 +40,7 @@ class RoutingDetailServiceTest {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .organizationId("my-organization-ID")
                 .build()
         val routingDetailService = client.routingDetails()
@@ -61,7 +61,7 @@ class RoutingDetailServiceTest {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .organizationId("my-organization-ID")
                 .build()
         val routingDetailService = client.routingDetails()
@@ -81,7 +81,7 @@ class RoutingDetailServiceTest {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .organizationId("my-organization-ID")
                 .build()
         val routingDetailService = client.routingDetails()

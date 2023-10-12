@@ -31,18 +31,16 @@ class ServiceParamsTest {
 
     private val JSON_MAPPER: JsonMapper = jsonMapper()
 
-    private val API_KEY: String = "apiKey"
-
     private lateinit var client: ModernTreasuryClient
 
     @BeforeEach
     fun beforeEach(wmRuntimeInfo: WireMockRuntimeInfo) {
         client =
             ModernTreasuryOkHttpClient.builder()
-                .apiKey(API_KEY)
-                .baseUrl(wmRuntimeInfo.getHttpBaseUrl())
+                .apiKey("My API Key")
                 .organizationId("my-organization-ID")
-                .webhookKey("string")
+                .webhookKey("My Webhook Key")
+                .baseUrl(wmRuntimeInfo.getHttpBaseUrl())
                 .build()
     }
 
