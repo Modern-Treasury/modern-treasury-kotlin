@@ -16,65 +16,65 @@ import java.util.Objects
 class PaymentOrderListParams
 constructor(
     private val afterCursor: String?,
-    private val perPage: Long?,
-    private val type: Type?,
-    private val priority: Priority?,
     private val counterpartyId: String?,
-    private val originatingAccountId: String?,
-    private val transactionId: String?,
-    private val status: Status?,
     private val direction: Direction?,
-    private val referenceNumber: String?,
-    private val effectiveDateStart: LocalDate?,
     private val effectiveDateEnd: LocalDate?,
+    private val effectiveDateStart: LocalDate?,
     private val metadata: Metadata?,
+    private val originatingAccountId: String?,
+    private val perPage: Long?,
+    private val priority: Priority?,
+    private val referenceNumber: String?,
+    private val status: Status?,
+    private val transactionId: String?,
+    private val type: Type?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
     fun afterCursor(): String? = afterCursor
 
-    fun perPage(): Long? = perPage
-
-    fun type(): Type? = type
-
-    fun priority(): Priority? = priority
-
     fun counterpartyId(): String? = counterpartyId
-
-    fun originatingAccountId(): String? = originatingAccountId
-
-    fun transactionId(): String? = transactionId
-
-    fun status(): Status? = status
 
     fun direction(): Direction? = direction
 
-    fun referenceNumber(): String? = referenceNumber
+    fun effectiveDateEnd(): LocalDate? = effectiveDateEnd
 
     fun effectiveDateStart(): LocalDate? = effectiveDateStart
 
-    fun effectiveDateEnd(): LocalDate? = effectiveDateEnd
-
     fun metadata(): Metadata? = metadata
+
+    fun originatingAccountId(): String? = originatingAccountId
+
+    fun perPage(): Long? = perPage
+
+    fun priority(): Priority? = priority
+
+    fun referenceNumber(): String? = referenceNumber
+
+    fun status(): Status? = status
+
+    fun transactionId(): String? = transactionId
+
+    fun type(): Type? = type
 
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
-        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
-        this.type?.let { params.put("type", listOf(it.toString())) }
-        this.priority?.let { params.put("priority", listOf(it.toString())) }
         this.counterpartyId?.let { params.put("counterparty_id", listOf(it.toString())) }
+        this.direction?.let { params.put("direction", listOf(it.toString())) }
+        this.effectiveDateEnd?.let { params.put("effective_date_end", listOf(it.toString())) }
+        this.effectiveDateStart?.let { params.put("effective_date_start", listOf(it.toString())) }
+        this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
         this.originatingAccountId?.let {
             params.put("originating_account_id", listOf(it.toString()))
         }
-        this.transactionId?.let { params.put("transaction_id", listOf(it.toString())) }
-        this.status?.let { params.put("status", listOf(it.toString())) }
-        this.direction?.let { params.put("direction", listOf(it.toString())) }
+        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
+        this.priority?.let { params.put("priority", listOf(it.toString())) }
         this.referenceNumber?.let { params.put("reference_number", listOf(it.toString())) }
-        this.effectiveDateStart?.let { params.put("effective_date_start", listOf(it.toString())) }
-        this.effectiveDateEnd?.let { params.put("effective_date_end", listOf(it.toString())) }
-        this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
+        this.status?.let { params.put("status", listOf(it.toString())) }
+        this.transactionId?.let { params.put("transaction_id", listOf(it.toString())) }
+        this.type?.let { params.put("type", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -92,18 +92,18 @@ constructor(
 
         return other is PaymentOrderListParams &&
             this.afterCursor == other.afterCursor &&
-            this.perPage == other.perPage &&
-            this.type == other.type &&
-            this.priority == other.priority &&
             this.counterpartyId == other.counterpartyId &&
-            this.originatingAccountId == other.originatingAccountId &&
-            this.transactionId == other.transactionId &&
-            this.status == other.status &&
             this.direction == other.direction &&
-            this.referenceNumber == other.referenceNumber &&
-            this.effectiveDateStart == other.effectiveDateStart &&
             this.effectiveDateEnd == other.effectiveDateEnd &&
+            this.effectiveDateStart == other.effectiveDateStart &&
             this.metadata == other.metadata &&
+            this.originatingAccountId == other.originatingAccountId &&
+            this.perPage == other.perPage &&
+            this.priority == other.priority &&
+            this.referenceNumber == other.referenceNumber &&
+            this.status == other.status &&
+            this.transactionId == other.transactionId &&
+            this.type == other.type &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
@@ -111,25 +111,25 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             afterCursor,
-            perPage,
-            type,
-            priority,
             counterpartyId,
-            originatingAccountId,
-            transactionId,
-            status,
             direction,
-            referenceNumber,
-            effectiveDateStart,
             effectiveDateEnd,
+            effectiveDateStart,
             metadata,
+            originatingAccountId,
+            perPage,
+            priority,
+            referenceNumber,
+            status,
+            transactionId,
+            type,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "PaymentOrderListParams{afterCursor=$afterCursor, perPage=$perPage, type=$type, priority=$priority, counterpartyId=$counterpartyId, originatingAccountId=$originatingAccountId, transactionId=$transactionId, status=$status, direction=$direction, referenceNumber=$referenceNumber, effectiveDateStart=$effectiveDateStart, effectiveDateEnd=$effectiveDateEnd, metadata=$metadata, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "PaymentOrderListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, direction=$direction, effectiveDateEnd=$effectiveDateEnd, effectiveDateStart=$effectiveDateStart, metadata=$metadata, originatingAccountId=$originatingAccountId, perPage=$perPage, priority=$priority, referenceNumber=$referenceNumber, status=$status, transactionId=$transactionId, type=$type, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -142,44 +142,66 @@ constructor(
     class Builder {
 
         private var afterCursor: String? = null
-        private var perPage: Long? = null
-        private var type: Type? = null
-        private var priority: Priority? = null
         private var counterpartyId: String? = null
-        private var originatingAccountId: String? = null
-        private var transactionId: String? = null
-        private var status: Status? = null
         private var direction: Direction? = null
-        private var referenceNumber: String? = null
-        private var effectiveDateStart: LocalDate? = null
         private var effectiveDateEnd: LocalDate? = null
+        private var effectiveDateStart: LocalDate? = null
         private var metadata: Metadata? = null
+        private var originatingAccountId: String? = null
+        private var perPage: Long? = null
+        private var priority: Priority? = null
+        private var referenceNumber: String? = null
+        private var status: Status? = null
+        private var transactionId: String? = null
+        private var type: Type? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(paymentOrderListParams: PaymentOrderListParams) = apply {
             this.afterCursor = paymentOrderListParams.afterCursor
-            this.perPage = paymentOrderListParams.perPage
-            this.type = paymentOrderListParams.type
-            this.priority = paymentOrderListParams.priority
             this.counterpartyId = paymentOrderListParams.counterpartyId
-            this.originatingAccountId = paymentOrderListParams.originatingAccountId
-            this.transactionId = paymentOrderListParams.transactionId
-            this.status = paymentOrderListParams.status
             this.direction = paymentOrderListParams.direction
-            this.referenceNumber = paymentOrderListParams.referenceNumber
-            this.effectiveDateStart = paymentOrderListParams.effectiveDateStart
             this.effectiveDateEnd = paymentOrderListParams.effectiveDateEnd
+            this.effectiveDateStart = paymentOrderListParams.effectiveDateStart
             this.metadata = paymentOrderListParams.metadata
+            this.originatingAccountId = paymentOrderListParams.originatingAccountId
+            this.perPage = paymentOrderListParams.perPage
+            this.priority = paymentOrderListParams.priority
+            this.referenceNumber = paymentOrderListParams.referenceNumber
+            this.status = paymentOrderListParams.status
+            this.transactionId = paymentOrderListParams.transactionId
+            this.type = paymentOrderListParams.type
             additionalQueryParams(paymentOrderListParams.additionalQueryParams)
             additionalHeaders(paymentOrderListParams.additionalHeaders)
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
 
-        fun type(type: Type) = apply { this.type = type }
+        fun direction(direction: Direction) = apply { this.direction = direction }
+
+        /** An inclusive upper bound for searching effective_date */
+        fun effectiveDateEnd(effectiveDateEnd: LocalDate) = apply {
+            this.effectiveDateEnd = effectiveDateEnd
+        }
+
+        /** An inclusive lower bound for searching effective_date */
+        fun effectiveDateStart(effectiveDateStart: LocalDate) = apply {
+            this.effectiveDateStart = effectiveDateStart
+        }
+
+        /**
+         * For example, if you want to query for records with metadata key `Type` and value `Loan`,
+         * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+         */
+        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        fun originatingAccountId(originatingAccountId: String) = apply {
+            this.originatingAccountId = originatingAccountId
+        }
+
+        fun perPage(perPage: Long) = apply { this.perPage = perPage }
 
         /**
          * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH or
@@ -188,39 +210,17 @@ constructor(
          */
         fun priority(priority: Priority) = apply { this.priority = priority }
 
-        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
-
-        fun originatingAccountId(originatingAccountId: String) = apply {
-            this.originatingAccountId = originatingAccountId
-        }
-
-        /** The ID of a transaction that the payment order has been reconciled to. */
-        fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
-
-        fun status(status: Status) = apply { this.status = status }
-
-        fun direction(direction: Direction) = apply { this.direction = direction }
-
         /** Query for records with the provided reference number */
         fun referenceNumber(referenceNumber: String) = apply {
             this.referenceNumber = referenceNumber
         }
 
-        /** An inclusive lower bound for searching effective_date */
-        fun effectiveDateStart(effectiveDateStart: LocalDate) = apply {
-            this.effectiveDateStart = effectiveDateStart
-        }
+        fun status(status: Status) = apply { this.status = status }
 
-        /** An inclusive upper bound for searching effective_date */
-        fun effectiveDateEnd(effectiveDateEnd: LocalDate) = apply {
-            this.effectiveDateEnd = effectiveDateEnd
-        }
+        /** The ID of a transaction that the payment order has been reconciled to. */
+        fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
 
-        /**
-         * For example, if you want to query for records with metadata key `Type` and value `Loan`,
-         * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
-         */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun type(type: Type) = apply { this.type = type }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -265,18 +265,18 @@ constructor(
         fun build(): PaymentOrderListParams =
             PaymentOrderListParams(
                 afterCursor,
-                perPage,
-                type,
-                priority,
                 counterpartyId,
-                originatingAccountId,
-                transactionId,
-                status,
                 direction,
-                referenceNumber,
-                effectiveDateStart,
                 effectiveDateEnd,
+                effectiveDateStart,
                 metadata,
+                originatingAccountId,
+                perPage,
+                priority,
+                referenceNumber,
+                status,
+                transactionId,
+                type,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

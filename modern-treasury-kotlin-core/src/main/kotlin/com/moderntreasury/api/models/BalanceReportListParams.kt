@@ -15,9 +15,9 @@ import java.util.Objects
 class BalanceReportListParams
 constructor(
     private val internalAccountId: String,
+    private val afterCursor: String?,
     private val asOfDate: LocalDate?,
     private val balanceReportType: BalanceReportType?,
-    private val afterCursor: String?,
     private val perPage: Long?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -25,19 +25,19 @@ constructor(
 
     fun internalAccountId(): String = internalAccountId
 
+    fun afterCursor(): String? = afterCursor
+
     fun asOfDate(): LocalDate? = asOfDate
 
     fun balanceReportType(): BalanceReportType? = balanceReportType
-
-    fun afterCursor(): String? = afterCursor
 
     fun perPage(): Long? = perPage
 
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
+        this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
         this.asOfDate?.let { params.put("as_of_date", listOf(it.toString())) }
         this.balanceReportType?.let { params.put("balance_report_type", listOf(it.toString())) }
-        this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
         this.perPage?.let { params.put("per_page", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
@@ -63,9 +63,9 @@ constructor(
 
         return other is BalanceReportListParams &&
             this.internalAccountId == other.internalAccountId &&
+            this.afterCursor == other.afterCursor &&
             this.asOfDate == other.asOfDate &&
             this.balanceReportType == other.balanceReportType &&
-            this.afterCursor == other.afterCursor &&
             this.perPage == other.perPage &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
@@ -74,9 +74,9 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             internalAccountId,
+            afterCursor,
             asOfDate,
             balanceReportType,
-            afterCursor,
             perPage,
             additionalQueryParams,
             additionalHeaders,
@@ -84,7 +84,7 @@ constructor(
     }
 
     override fun toString() =
-        "BalanceReportListParams{internalAccountId=$internalAccountId, asOfDate=$asOfDate, balanceReportType=$balanceReportType, afterCursor=$afterCursor, perPage=$perPage, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "BalanceReportListParams{internalAccountId=$internalAccountId, afterCursor=$afterCursor, asOfDate=$asOfDate, balanceReportType=$balanceReportType, perPage=$perPage, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -97,18 +97,18 @@ constructor(
     class Builder {
 
         private var internalAccountId: String? = null
+        private var afterCursor: String? = null
         private var asOfDate: LocalDate? = null
         private var balanceReportType: BalanceReportType? = null
-        private var afterCursor: String? = null
         private var perPage: Long? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(balanceReportListParams: BalanceReportListParams) = apply {
             this.internalAccountId = balanceReportListParams.internalAccountId
+            this.afterCursor = balanceReportListParams.afterCursor
             this.asOfDate = balanceReportListParams.asOfDate
             this.balanceReportType = balanceReportListParams.balanceReportType
-            this.afterCursor = balanceReportListParams.afterCursor
             this.perPage = balanceReportListParams.perPage
             additionalQueryParams(balanceReportListParams.additionalQueryParams)
             additionalHeaders(balanceReportListParams.additionalHeaders)
@@ -117,6 +117,8 @@ constructor(
         fun internalAccountId(internalAccountId: String) = apply {
             this.internalAccountId = internalAccountId
         }
+
+        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
         /** The date of the balance report in local time. */
         fun asOfDate(asOfDate: LocalDate) = apply { this.asOfDate = asOfDate }
@@ -128,8 +130,6 @@ constructor(
         fun balanceReportType(balanceReportType: BalanceReportType) = apply {
             this.balanceReportType = balanceReportType
         }
-
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
         fun perPage(perPage: Long) = apply { this.perPage = perPage }
 
@@ -178,9 +178,9 @@ constructor(
                 checkNotNull(internalAccountId) {
                     "`internalAccountId` is required but was not set"
                 },
+                afterCursor,
                 asOfDate,
                 balanceReportType,
-                afterCursor,
                 perPage,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

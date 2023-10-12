@@ -15,39 +15,39 @@ import java.util.Objects
 class InternalAccountListParams
 constructor(
     private val afterCursor: String?,
-    private val perPage: Long?,
-    private val currency: Currency?,
     private val counterpartyId: String?,
-    private val paymentType: PaymentType?,
-    private val paymentDirection: PaymentDirection?,
+    private val currency: Currency?,
     private val metadata: Metadata?,
+    private val paymentDirection: PaymentDirection?,
+    private val paymentType: PaymentType?,
+    private val perPage: Long?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
     fun afterCursor(): String? = afterCursor
 
-    fun perPage(): Long? = perPage
+    fun counterpartyId(): String? = counterpartyId
 
     fun currency(): Currency? = currency
 
-    fun counterpartyId(): String? = counterpartyId
-
-    fun paymentType(): PaymentType? = paymentType
+    fun metadata(): Metadata? = metadata
 
     fun paymentDirection(): PaymentDirection? = paymentDirection
 
-    fun metadata(): Metadata? = metadata
+    fun paymentType(): PaymentType? = paymentType
+
+    fun perPage(): Long? = perPage
 
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
-        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
-        this.currency?.let { params.put("currency", listOf(it.toString())) }
         this.counterpartyId?.let { params.put("counterparty_id", listOf(it.toString())) }
-        this.paymentType?.let { params.put("payment_type", listOf(it.toString())) }
-        this.paymentDirection?.let { params.put("payment_direction", listOf(it.toString())) }
+        this.currency?.let { params.put("currency", listOf(it.toString())) }
         this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
+        this.paymentDirection?.let { params.put("payment_direction", listOf(it.toString())) }
+        this.paymentType?.let { params.put("payment_type", listOf(it.toString())) }
+        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -65,12 +65,12 @@ constructor(
 
         return other is InternalAccountListParams &&
             this.afterCursor == other.afterCursor &&
-            this.perPage == other.perPage &&
-            this.currency == other.currency &&
             this.counterpartyId == other.counterpartyId &&
-            this.paymentType == other.paymentType &&
-            this.paymentDirection == other.paymentDirection &&
+            this.currency == other.currency &&
             this.metadata == other.metadata &&
+            this.paymentDirection == other.paymentDirection &&
+            this.paymentType == other.paymentType &&
+            this.perPage == other.perPage &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
@@ -78,19 +78,19 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             afterCursor,
-            perPage,
-            currency,
             counterpartyId,
-            paymentType,
-            paymentDirection,
+            currency,
             metadata,
+            paymentDirection,
+            paymentType,
+            perPage,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "InternalAccountListParams{afterCursor=$afterCursor, perPage=$perPage, currency=$currency, counterpartyId=$counterpartyId, paymentType=$paymentType, paymentDirection=$paymentDirection, metadata=$metadata, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "InternalAccountListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, currency=$currency, metadata=$metadata, paymentDirection=$paymentDirection, paymentType=$paymentType, perPage=$perPage, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -103,50 +103,50 @@ constructor(
     class Builder {
 
         private var afterCursor: String? = null
-        private var perPage: Long? = null
-        private var currency: Currency? = null
         private var counterpartyId: String? = null
-        private var paymentType: PaymentType? = null
-        private var paymentDirection: PaymentDirection? = null
+        private var currency: Currency? = null
         private var metadata: Metadata? = null
+        private var paymentDirection: PaymentDirection? = null
+        private var paymentType: PaymentType? = null
+        private var perPage: Long? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(internalAccountListParams: InternalAccountListParams) = apply {
             this.afterCursor = internalAccountListParams.afterCursor
-            this.perPage = internalAccountListParams.perPage
-            this.currency = internalAccountListParams.currency
             this.counterpartyId = internalAccountListParams.counterpartyId
-            this.paymentType = internalAccountListParams.paymentType
-            this.paymentDirection = internalAccountListParams.paymentDirection
+            this.currency = internalAccountListParams.currency
             this.metadata = internalAccountListParams.metadata
+            this.paymentDirection = internalAccountListParams.paymentDirection
+            this.paymentType = internalAccountListParams.paymentType
+            this.perPage = internalAccountListParams.perPage
             additionalQueryParams(internalAccountListParams.additionalQueryParams)
             additionalHeaders(internalAccountListParams.additionalHeaders)
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
-
-        /** The currency associated with the internal account. */
-        fun currency(currency: Currency) = apply { this.currency = currency }
-
         /** The counterparty associated with the internal account. */
         fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
 
-        /** The type of payment that can be made by the internal account. */
-        fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
-
-        /** The direction of payments that can be made by internal account. */
-        fun paymentDirection(paymentDirection: PaymentDirection) = apply {
-            this.paymentDirection = paymentDirection
-        }
+        /** The currency associated with the internal account. */
+        fun currency(currency: Currency) = apply { this.currency = currency }
 
         /**
          * For example, if you want to query for records with metadata key `Type` and value `Loan`,
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
         fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        /** The direction of payments that can be made by internal account. */
+        fun paymentDirection(paymentDirection: PaymentDirection) = apply {
+            this.paymentDirection = paymentDirection
+        }
+
+        /** The type of payment that can be made by the internal account. */
+        fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
+
+        fun perPage(perPage: Long) = apply { this.perPage = perPage }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -191,12 +191,12 @@ constructor(
         fun build(): InternalAccountListParams =
             InternalAccountListParams(
                 afterCursor,
-                perPage,
-                currency,
                 counterpartyId,
-                paymentType,
-                paymentDirection,
+                currency,
                 metadata,
+                paymentDirection,
+                paymentType,
+                perPage,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

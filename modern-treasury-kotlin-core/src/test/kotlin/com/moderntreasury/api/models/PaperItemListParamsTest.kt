@@ -12,10 +12,10 @@ class PaperItemListParamsTest {
     @Test
     fun createPaperItemListParams() {
         PaperItemListParams.builder()
-            .lockboxNumber("string")
-            .depositDateStart(LocalDate.parse("2019-12-27"))
-            .depositDateEnd(LocalDate.parse("2019-12-27"))
             .afterCursor("string")
+            .depositDateEnd(LocalDate.parse("2019-12-27"))
+            .depositDateStart(LocalDate.parse("2019-12-27"))
+            .lockboxNumber("string")
             .perPage(123L)
             .build()
     }
@@ -24,17 +24,17 @@ class PaperItemListParamsTest {
     fun getQueryParams() {
         val params =
             PaperItemListParams.builder()
-                .lockboxNumber("string")
-                .depositDateStart(LocalDate.parse("2019-12-27"))
-                .depositDateEnd(LocalDate.parse("2019-12-27"))
                 .afterCursor("string")
+                .depositDateEnd(LocalDate.parse("2019-12-27"))
+                .depositDateStart(LocalDate.parse("2019-12-27"))
+                .lockboxNumber("string")
                 .perPage(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("lockbox_number", listOf("string"))
-        expected.put("deposit_date_start", listOf("2019-12-27"))
-        expected.put("deposit_date_end", listOf("2019-12-27"))
         expected.put("after_cursor", listOf("string"))
+        expected.put("deposit_date_end", listOf("2019-12-27"))
+        expected.put("deposit_date_start", listOf("2019-12-27"))
+        expected.put("lockbox_number", listOf("string"))
         expected.put("per_page", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }

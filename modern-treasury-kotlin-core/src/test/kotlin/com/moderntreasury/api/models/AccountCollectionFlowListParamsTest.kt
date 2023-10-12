@@ -12,11 +12,11 @@ class AccountCollectionFlowListParamsTest {
     fun createAccountCollectionFlowListParams() {
         AccountCollectionFlowListParams.builder()
             .afterCursor("string")
-            .perPage(123L)
             .clientToken("string")
-            .status("string")
             .counterpartyId("string")
             .externalAccountId("string")
+            .perPage(123L)
+            .status("string")
             .build()
     }
 
@@ -25,19 +25,19 @@ class AccountCollectionFlowListParamsTest {
         val params =
             AccountCollectionFlowListParams.builder()
                 .afterCursor("string")
-                .perPage(123L)
                 .clientToken("string")
-                .status("string")
                 .counterpartyId("string")
                 .externalAccountId("string")
+                .perPage(123L)
+                .status("string")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("after_cursor", listOf("string"))
-        expected.put("per_page", listOf("123"))
         expected.put("client_token", listOf("string"))
-        expected.put("status", listOf("string"))
         expected.put("counterparty_id", listOf("string"))
         expected.put("external_account_id", listOf("string"))
+        expected.put("per_page", listOf("123"))
+        expected.put("status", listOf("string"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

@@ -183,6 +183,7 @@ constructor(
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
             this.asOfDate?.let { putParam("as_of_date", listOf(it.toString())) }
+            this.asOfLockVersion?.let { putParam("as_of_lock_version", listOf(it.toString())) }
             this.effectiveAt?.let { putParam("effective_at", listOf(it.toString())) }
             this.effectiveAtLowerBound?.let {
                 putParam("effective_at_lower_bound", listOf(it.toString()))
@@ -190,7 +191,6 @@ constructor(
             this.effectiveAtUpperBound?.let {
                 putParam("effective_at_upper_bound", listOf(it.toString()))
             }
-            this.asOfLockVersion?.let { putParam("as_of_lock_version", listOf(it.toString())) }
             this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }
 

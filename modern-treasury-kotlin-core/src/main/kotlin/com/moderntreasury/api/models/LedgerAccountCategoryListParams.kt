@@ -11,50 +11,50 @@ import java.util.Objects
 
 class LedgerAccountCategoryListParams
 constructor(
-    private val afterCursor: String?,
-    private val perPage: Long?,
-    private val metadata: Metadata?,
     private val id: List<String>?,
-    private val name: String?,
-    private val ledgerId: String?,
-    private val parentLedgerAccountCategoryId: String?,
-    private val ledgerAccountId: String?,
+    private val afterCursor: String?,
     private val balances: Balances?,
+    private val ledgerAccountId: String?,
+    private val ledgerId: String?,
+    private val metadata: Metadata?,
+    private val name: String?,
+    private val parentLedgerAccountCategoryId: String?,
+    private val perPage: Long?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
-    fun afterCursor(): String? = afterCursor
-
-    fun perPage(): Long? = perPage
-
-    fun metadata(): Metadata? = metadata
-
     fun id(): List<String>? = id
 
-    fun name(): String? = name
-
-    fun ledgerId(): String? = ledgerId
-
-    fun parentLedgerAccountCategoryId(): String? = parentLedgerAccountCategoryId
-
-    fun ledgerAccountId(): String? = ledgerAccountId
+    fun afterCursor(): String? = afterCursor
 
     fun balances(): Balances? = balances
 
+    fun ledgerAccountId(): String? = ledgerAccountId
+
+    fun ledgerId(): String? = ledgerId
+
+    fun metadata(): Metadata? = metadata
+
+    fun name(): String? = name
+
+    fun parentLedgerAccountCategoryId(): String? = parentLedgerAccountCategoryId
+
+    fun perPage(): Long? = perPage
+
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
-        this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
-        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
-        this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
         this.id?.let { params.put("id[]", it.map(Any::toString)) }
-        this.name?.let { params.put("name", listOf(it.toString())) }
+        this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
+        this.balances?.forEachQueryParam { key, values -> params.put("balances[$key]", values) }
+        this.ledgerAccountId?.let { params.put("ledger_account_id", listOf(it.toString())) }
         this.ledgerId?.let { params.put("ledger_id", listOf(it.toString())) }
+        this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
+        this.name?.let { params.put("name", listOf(it.toString())) }
         this.parentLedgerAccountCategoryId?.let {
             params.put("parent_ledger_account_category_id", listOf(it.toString()))
         }
-        this.ledgerAccountId?.let { params.put("ledger_account_id", listOf(it.toString())) }
-        this.balances?.forEachQueryParam { key, values -> params.put("balances[$key]", values) }
+        this.perPage?.let { params.put("per_page", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -71,37 +71,37 @@ constructor(
         }
 
         return other is LedgerAccountCategoryListParams &&
-            this.afterCursor == other.afterCursor &&
-            this.perPage == other.perPage &&
-            this.metadata == other.metadata &&
             this.id == other.id &&
-            this.name == other.name &&
-            this.ledgerId == other.ledgerId &&
-            this.parentLedgerAccountCategoryId == other.parentLedgerAccountCategoryId &&
-            this.ledgerAccountId == other.ledgerAccountId &&
+            this.afterCursor == other.afterCursor &&
             this.balances == other.balances &&
+            this.ledgerAccountId == other.ledgerAccountId &&
+            this.ledgerId == other.ledgerId &&
+            this.metadata == other.metadata &&
+            this.name == other.name &&
+            this.parentLedgerAccountCategoryId == other.parentLedgerAccountCategoryId &&
+            this.perPage == other.perPage &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
-            afterCursor,
-            perPage,
-            metadata,
             id,
-            name,
-            ledgerId,
-            parentLedgerAccountCategoryId,
-            ledgerAccountId,
+            afterCursor,
             balances,
+            ledgerAccountId,
+            ledgerId,
+            metadata,
+            name,
+            parentLedgerAccountCategoryId,
+            perPage,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "LedgerAccountCategoryListParams{afterCursor=$afterCursor, perPage=$perPage, metadata=$metadata, id=$id, name=$name, ledgerId=$ledgerId, parentLedgerAccountCategoryId=$parentLedgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, balances=$balances, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "LedgerAccountCategoryListParams{id=$id, afterCursor=$afterCursor, balances=$balances, ledgerAccountId=$ledgerAccountId, ledgerId=$ledgerId, metadata=$metadata, name=$name, parentLedgerAccountCategoryId=$parentLedgerAccountCategoryId, perPage=$perPage, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -113,43 +113,33 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var afterCursor: String? = null
-        private var perPage: Long? = null
-        private var metadata: Metadata? = null
         private var id: MutableList<String> = mutableListOf()
-        private var name: String? = null
-        private var ledgerId: String? = null
-        private var parentLedgerAccountCategoryId: String? = null
-        private var ledgerAccountId: String? = null
+        private var afterCursor: String? = null
         private var balances: Balances? = null
+        private var ledgerAccountId: String? = null
+        private var ledgerId: String? = null
+        private var metadata: Metadata? = null
+        private var name: String? = null
+        private var parentLedgerAccountCategoryId: String? = null
+        private var perPage: Long? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(ledgerAccountCategoryListParams: LedgerAccountCategoryListParams) =
             apply {
-                this.afterCursor = ledgerAccountCategoryListParams.afterCursor
-                this.perPage = ledgerAccountCategoryListParams.perPage
-                this.metadata = ledgerAccountCategoryListParams.metadata
                 this.id(ledgerAccountCategoryListParams.id ?: listOf())
-                this.name = ledgerAccountCategoryListParams.name
+                this.afterCursor = ledgerAccountCategoryListParams.afterCursor
+                this.balances = ledgerAccountCategoryListParams.balances
+                this.ledgerAccountId = ledgerAccountCategoryListParams.ledgerAccountId
                 this.ledgerId = ledgerAccountCategoryListParams.ledgerId
+                this.metadata = ledgerAccountCategoryListParams.metadata
+                this.name = ledgerAccountCategoryListParams.name
                 this.parentLedgerAccountCategoryId =
                     ledgerAccountCategoryListParams.parentLedgerAccountCategoryId
-                this.ledgerAccountId = ledgerAccountCategoryListParams.ledgerAccountId
-                this.balances = ledgerAccountCategoryListParams.balances
+                this.perPage = ledgerAccountCategoryListParams.perPage
                 additionalQueryParams(ledgerAccountCategoryListParams.additionalQueryParams)
                 additionalHeaders(ledgerAccountCategoryListParams.additionalHeaders)
             }
-
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
-
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
-
-        /**
-         * For example, if you want to query for records with metadata key `Type` and value `Loan`,
-         * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
-         */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
         /**
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
@@ -166,19 +156,7 @@ constructor(
          */
         fun addId(id: String) = apply { this.id.add(id) }
 
-        fun name(name: String) = apply { this.name = name }
-
-        fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
-
-        /** Query categories that are nested underneath a parent category */
-        fun parentLedgerAccountCategoryId(parentLedgerAccountCategoryId: String) = apply {
-            this.parentLedgerAccountCategoryId = parentLedgerAccountCategoryId
-        }
-
-        /** Query categories which contain a ledger account directly or through child categories. */
-        fun ledgerAccountId(ledgerAccountId: String) = apply {
-            this.ledgerAccountId = ledgerAccountId
-        }
+        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
         /**
          * For example, if you want the balances as of a particular time (ISO8601), the encoded
@@ -186,6 +164,28 @@ constructor(
          * of a time are inclusive of entries with that exact time.
          */
         fun balances(balances: Balances) = apply { this.balances = balances }
+
+        /** Query categories which contain a ledger account directly or through child categories. */
+        fun ledgerAccountId(ledgerAccountId: String) = apply {
+            this.ledgerAccountId = ledgerAccountId
+        }
+
+        fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
+
+        /**
+         * For example, if you want to query for records with metadata key `Type` and value `Loan`,
+         * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+         */
+        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        fun name(name: String) = apply { this.name = name }
+
+        /** Query categories that are nested underneath a parent category */
+        fun parentLedgerAccountCategoryId(parentLedgerAccountCategoryId: String) = apply {
+            this.parentLedgerAccountCategoryId = parentLedgerAccountCategoryId
+        }
+
+        fun perPage(perPage: Long) = apply { this.perPage = perPage }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -229,15 +229,15 @@ constructor(
 
         fun build(): LedgerAccountCategoryListParams =
             LedgerAccountCategoryListParams(
-                afterCursor,
-                perPage,
-                metadata,
                 if (id.size == 0) null else id.toUnmodifiable(),
-                name,
-                ledgerId,
-                parentLedgerAccountCategoryId,
-                ledgerAccountId,
+                afterCursor,
                 balances,
+                ledgerAccountId,
+                ledgerId,
+                metadata,
+                name,
+                parentLedgerAccountCategoryId,
+                perPage,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

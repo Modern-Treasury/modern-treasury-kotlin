@@ -12,11 +12,11 @@ class LedgerTransactionVersionListParamsTest {
     fun createLedgerTransactionVersionListParams() {
         LedgerTransactionVersionListParams.builder()
             .afterCursor("string")
-            .perPage(123L)
             .createdAt(LedgerTransactionVersionListParams.CreatedAt.builder().build())
-            .version(LedgerTransactionVersionListParams.Version.builder().build())
-            .ledgerTransactionId("string")
             .ledgerAccountStatementId("string")
+            .ledgerTransactionId("string")
+            .perPage(123L)
+            .version(LedgerTransactionVersionListParams.Version.builder().build())
             .build()
     }
 
@@ -25,26 +25,26 @@ class LedgerTransactionVersionListParamsTest {
         val params =
             LedgerTransactionVersionListParams.builder()
                 .afterCursor("string")
-                .perPage(123L)
                 .createdAt(LedgerTransactionVersionListParams.CreatedAt.builder().build())
-                .version(LedgerTransactionVersionListParams.Version.builder().build())
-                .ledgerTransactionId("string")
                 .ledgerAccountStatementId("string")
+                .ledgerTransactionId("string")
+                .perPage(123L)
+                .version(LedgerTransactionVersionListParams.Version.builder().build())
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("after_cursor", listOf("string"))
-        expected.put("per_page", listOf("123"))
         LedgerTransactionVersionListParams.CreatedAt.builder().build().forEachQueryParam {
             key,
             values ->
             expected.put("created_at[$key]", values)
         }
+        expected.put("ledger_account_statement_id", listOf("string"))
+        expected.put("ledger_transaction_id", listOf("string"))
+        expected.put("per_page", listOf("123"))
         LedgerTransactionVersionListParams.Version.builder().build().forEachQueryParam { key, values
             ->
             expected.put("version[$key]", values)
         }
-        expected.put("ledger_transaction_id", listOf("string"))
-        expected.put("ledger_account_statement_id", listOf("string"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 
