@@ -4,7 +4,6 @@ package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.ExcludeMissing
@@ -13,7 +12,6 @@ import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.toUnmodifiable
-import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 
@@ -31,7 +29,7 @@ private constructor(
     private val description: JsonField<String>,
     private val metadata: JsonField<Metadata>,
     private val ledgerId: JsonField<String>,
-    private val normalBalance: JsonField<NormalBalance>,
+    private val normalBalance: JsonField<TransactionDirection>,
     private val balances: JsonField<LedgerBalances>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -69,7 +67,7 @@ private constructor(
     fun ledgerId(): String = ledgerId.getRequired("ledger_id")
 
     /** The normal balance of the ledger account category. */
-    fun normalBalance(): NormalBalance = normalBalance.getRequired("normal_balance")
+    fun normalBalance(): TransactionDirection = normalBalance.getRequired("normal_balance")
 
     /**
      * The pending, posted, and available balances for this ledger account category. The posted
@@ -205,7 +203,7 @@ private constructor(
         private var description: JsonField<String> = JsonMissing.of()
         private var metadata: JsonField<Metadata> = JsonMissing.of()
         private var ledgerId: JsonField<String> = JsonMissing.of()
-        private var normalBalance: JsonField<NormalBalance> = JsonMissing.of()
+        private var normalBalance: JsonField<TransactionDirection> = JsonMissing.of()
         private var balances: JsonField<LedgerBalances> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -306,12 +304,13 @@ private constructor(
         fun ledgerId(ledgerId: JsonField<String>) = apply { this.ledgerId = ledgerId }
 
         /** The normal balance of the ledger account category. */
-        fun normalBalance(normalBalance: NormalBalance) = normalBalance(JsonField.of(normalBalance))
+        fun normalBalance(normalBalance: TransactionDirection) =
+            normalBalance(JsonField.of(normalBalance))
 
         /** The normal balance of the ledger account category. */
         @JsonProperty("normal_balance")
         @ExcludeMissing
-        fun normalBalance(normalBalance: JsonField<NormalBalance>) = apply {
+        fun normalBalance(normalBalance: JsonField<TransactionDirection>) = apply {
             this.normalBalance = normalBalance
         }
 
@@ -793,62 +792,5 @@ private constructor(
 
             fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
         }
-    }
-
-    class NormalBalance
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is NormalBalance && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val CREDIT = NormalBalance(JsonField.of("credit"))
-
-            val DEBIT = NormalBalance(JsonField.of("debit"))
-
-            fun of(value: String) = NormalBalance(JsonField.of(value))
-        }
-
-        enum class Known {
-            CREDIT,
-            DEBIT,
-        }
-
-        enum class Value {
-            CREDIT,
-            DEBIT,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                CREDIT -> Value.CREDIT
-                DEBIT -> Value.DEBIT
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                CREDIT -> Known.CREDIT
-                DEBIT -> Known.DEBIT
-                else -> throw ModernTreasuryInvalidDataException("Unknown NormalBalance: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
     }
 }

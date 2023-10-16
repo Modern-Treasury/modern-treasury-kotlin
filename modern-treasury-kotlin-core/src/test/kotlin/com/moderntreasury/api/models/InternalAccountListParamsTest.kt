@@ -15,7 +15,7 @@ class InternalAccountListParamsTest {
             .counterpartyId("string")
             .currency(Currency.AED)
             .metadata(InternalAccountListParams.Metadata.builder().build())
-            .paymentDirection(InternalAccountListParams.PaymentDirection.CREDIT)
+            .paymentDirection(TransactionDirection.CREDIT)
             .paymentType(InternalAccountListParams.PaymentType.ACH)
             .perPage(123L)
             .build()
@@ -29,7 +29,7 @@ class InternalAccountListParamsTest {
                 .counterpartyId("string")
                 .currency(Currency.AED)
                 .metadata(InternalAccountListParams.Metadata.builder().build())
-                .paymentDirection(InternalAccountListParams.PaymentDirection.CREDIT)
+                .paymentDirection(TransactionDirection.CREDIT)
                 .paymentType(InternalAccountListParams.PaymentType.ACH)
                 .perPage(123L)
                 .build()
@@ -40,10 +40,7 @@ class InternalAccountListParamsTest {
         InternalAccountListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
-        expected.put(
-            "payment_direction",
-            listOf(InternalAccountListParams.PaymentDirection.CREDIT.toString())
-        )
+        expected.put("payment_direction", listOf(TransactionDirection.CREDIT.toString()))
         expected.put("payment_type", listOf(InternalAccountListParams.PaymentType.ACH.toString()))
         expected.put("per_page", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)

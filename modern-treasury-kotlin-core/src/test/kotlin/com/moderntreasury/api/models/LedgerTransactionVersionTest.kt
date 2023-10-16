@@ -25,10 +25,7 @@ class LedgerTransactionVersionTest {
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .amount(123L)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .direction(
-                                LedgerTransactionVersion.LedgerEntryOfTransactionVersion.Direction
-                                    .CREDIT
-                            )
+                            .direction(TransactionDirection.CREDIT)
                             .ledgerAccountCurrency("string")
                             .ledgerAccountCurrencyExponent(123L)
                             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -116,9 +113,7 @@ class LedgerTransactionVersionTest {
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .amount(123L)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .direction(
-                        LedgerTransactionVersion.LedgerEntryOfTransactionVersion.Direction.CREDIT
-                    )
+                    .direction(TransactionDirection.CREDIT)
                     .ledgerAccountCurrency("string")
                     .ledgerAccountCurrencyExponent(123L)
                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

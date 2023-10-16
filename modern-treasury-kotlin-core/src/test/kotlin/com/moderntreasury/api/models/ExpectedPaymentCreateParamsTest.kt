@@ -15,7 +15,7 @@ class ExpectedPaymentCreateParamsTest {
         ExpectedPaymentCreateParams.builder()
             .amountLowerBound(123L)
             .amountUpperBound(123L)
-            .direction(ExpectedPaymentCreateParams.Direction.CREDIT)
+            .direction(TransactionDirection.CREDIT)
             .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .currency(Currency.AED)
@@ -49,7 +49,7 @@ class ExpectedPaymentCreateParamsTest {
             ExpectedPaymentCreateParams.builder()
                 .amountLowerBound(123L)
                 .amountUpperBound(123L)
-                .direction(ExpectedPaymentCreateParams.Direction.CREDIT)
+                .direction(TransactionDirection.CREDIT)
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .currency(Currency.AED)
@@ -80,7 +80,7 @@ class ExpectedPaymentCreateParamsTest {
         assertThat(body).isNotNull
         assertThat(body.amountLowerBound()).isEqualTo(123L)
         assertThat(body.amountUpperBound()).isEqualTo(123L)
-        assertThat(body.direction()).isEqualTo(ExpectedPaymentCreateParams.Direction.CREDIT)
+        assertThat(body.direction()).isEqualTo(TransactionDirection.CREDIT)
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.currency()).isEqualTo(Currency.AED)
@@ -115,14 +115,14 @@ class ExpectedPaymentCreateParamsTest {
             ExpectedPaymentCreateParams.builder()
                 .amountLowerBound(123L)
                 .amountUpperBound(123L)
-                .direction(ExpectedPaymentCreateParams.Direction.CREDIT)
+                .direction(TransactionDirection.CREDIT)
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.amountLowerBound()).isEqualTo(123L)
         assertThat(body.amountUpperBound()).isEqualTo(123L)
-        assertThat(body.direction()).isEqualTo(ExpectedPaymentCreateParams.Direction.CREDIT)
+        assertThat(body.direction()).isEqualTo(TransactionDirection.CREDIT)
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
     }
 }
