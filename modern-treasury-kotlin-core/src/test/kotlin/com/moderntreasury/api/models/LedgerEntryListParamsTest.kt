@@ -14,7 +14,7 @@ class LedgerEntryListParamsTest {
             .id(listOf("string"))
             .afterCursor("string")
             .asOfLockVersion(123L)
-            .direction(LedgerEntryListParams.Direction.CREDIT)
+            .direction(TransactionDirection.CREDIT)
             .effectiveAt(LedgerEntryListParams.EffectiveAt.builder().build())
             .effectiveDate(LedgerEntryListParams.EffectiveDate.builder().build())
             .ledgerAccountCategoryId("string")
@@ -47,7 +47,7 @@ class LedgerEntryListParamsTest {
                 .id(listOf("string"))
                 .afterCursor("string")
                 .asOfLockVersion(123L)
-                .direction(LedgerEntryListParams.Direction.CREDIT)
+                .direction(TransactionDirection.CREDIT)
                 .effectiveAt(LedgerEntryListParams.EffectiveAt.builder().build())
                 .effectiveDate(LedgerEntryListParams.EffectiveDate.builder().build())
                 .ledgerAccountCategoryId("string")
@@ -75,7 +75,7 @@ class LedgerEntryListParamsTest {
         expected.put("id[]", listOf("string"))
         expected.put("after_cursor", listOf("string"))
         expected.put("as_of_lock_version", listOf("123"))
-        expected.put("direction", listOf(LedgerEntryListParams.Direction.CREDIT.toString()))
+        expected.put("direction", listOf(TransactionDirection.CREDIT.toString()))
         LedgerEntryListParams.EffectiveAt.builder().build().forEachQueryParam { key, values ->
             expected.put("effective_at[$key]", values)
         }

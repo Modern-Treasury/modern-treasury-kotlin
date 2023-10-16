@@ -15,7 +15,7 @@ class IncomingPaymentDetailListParamsTest {
             .afterCursor("string")
             .asOfDateEnd(LocalDate.parse("2019-12-27"))
             .asOfDateStart(LocalDate.parse("2019-12-27"))
-            .direction(IncomingPaymentDetailListParams.Direction.CREDIT)
+            .direction(TransactionDirection.CREDIT)
             .metadata(IncomingPaymentDetailListParams.Metadata.builder().build())
             .perPage(123L)
             .status(IncomingPaymentDetailListParams.Status.COMPLETED)
@@ -31,7 +31,7 @@ class IncomingPaymentDetailListParamsTest {
                 .afterCursor("string")
                 .asOfDateEnd(LocalDate.parse("2019-12-27"))
                 .asOfDateStart(LocalDate.parse("2019-12-27"))
-                .direction(IncomingPaymentDetailListParams.Direction.CREDIT)
+                .direction(TransactionDirection.CREDIT)
                 .metadata(IncomingPaymentDetailListParams.Metadata.builder().build())
                 .perPage(123L)
                 .status(IncomingPaymentDetailListParams.Status.COMPLETED)
@@ -42,10 +42,7 @@ class IncomingPaymentDetailListParamsTest {
         expected.put("after_cursor", listOf("string"))
         expected.put("as_of_date_end", listOf("2019-12-27"))
         expected.put("as_of_date_start", listOf("2019-12-27"))
-        expected.put(
-            "direction",
-            listOf(IncomingPaymentDetailListParams.Direction.CREDIT.toString())
-        )
+        expected.put("direction", listOf(TransactionDirection.CREDIT.toString()))
         IncomingPaymentDetailListParams.Metadata.builder().build().forEachQueryParam { key, values
             ->
             expected.put("metadata[$key]", values)
