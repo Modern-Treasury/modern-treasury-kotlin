@@ -53,10 +53,7 @@ class ExternalAccountServiceTest {
                             .currency("string")
                             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .name("string")
-                            .normalBalance(
-                                ExternalAccountCreateParams.LedgerAccountCreateRequest.NormalBalance
-                                    .CREDIT
-                            )
+                            .normalBalance(TransactionDirection.CREDIT)
                             .currencyExponent(123L)
                             .description("string")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

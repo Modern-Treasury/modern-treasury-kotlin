@@ -19,7 +19,7 @@ constructor(
     private val counterpartyId: String?,
     private val createdAtLowerBound: OffsetDateTime?,
     private val createdAtUpperBound: OffsetDateTime?,
-    private val direction: Direction?,
+    private val direction: TransactionDirection?,
     private val internalAccountId: String?,
     private val metadata: Metadata?,
     private val perPage: Long?,
@@ -37,7 +37,7 @@ constructor(
 
     fun createdAtUpperBound(): OffsetDateTime? = createdAtUpperBound
 
-    fun direction(): Direction? = direction
+    fun direction(): TransactionDirection? = direction
 
     fun internalAccountId(): String? = internalAccountId
 
@@ -129,7 +129,7 @@ constructor(
         private var counterpartyId: String? = null
         private var createdAtLowerBound: OffsetDateTime? = null
         private var createdAtUpperBound: OffsetDateTime? = null
-        private var direction: Direction? = null
+        private var direction: TransactionDirection? = null
         private var internalAccountId: String? = null
         private var metadata: Metadata? = null
         private var perPage: Long? = null
@@ -169,7 +169,7 @@ constructor(
         }
 
         /** One of credit, debit */
-        fun direction(direction: Direction) = apply { this.direction = direction }
+        fun direction(direction: TransactionDirection) = apply { this.direction = direction }
 
         /** Specify internal_account_id to see expected_payments for a specific account. */
         fun internalAccountId(internalAccountId: String) = apply {
@@ -248,63 +248,6 @@ constructor(
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
-    }
-
-    class Direction
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Direction && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val CREDIT = Direction(JsonField.of("credit"))
-
-            val DEBIT = Direction(JsonField.of("debit"))
-
-            fun of(value: String) = Direction(JsonField.of(value))
-        }
-
-        enum class Known {
-            CREDIT,
-            DEBIT,
-        }
-
-        enum class Value {
-            CREDIT,
-            DEBIT,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                CREDIT -> Value.CREDIT
-                DEBIT -> Value.DEBIT
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                CREDIT -> Known.CREDIT
-                DEBIT -> Known.DEBIT
-                else -> throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
     }
 
     /**

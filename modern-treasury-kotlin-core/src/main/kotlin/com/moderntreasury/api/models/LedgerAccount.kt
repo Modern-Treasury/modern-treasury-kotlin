@@ -29,7 +29,7 @@ private constructor(
     private val discardedAt: JsonField<OffsetDateTime>,
     private val name: JsonField<String>,
     private val description: JsonField<String>,
-    private val normalBalance: JsonField<NormalBalance>,
+    private val normalBalance: JsonField<TransactionDirection>,
     private val balances: JsonField<LedgerBalancesWithEffectiveAt>,
     private val lockVersion: JsonField<Long>,
     private val ledgerId: JsonField<String>,
@@ -66,7 +66,7 @@ private constructor(
     fun description(): String? = description.getNullable("description")
 
     /** The normal balance of the ledger account. */
-    fun normalBalance(): NormalBalance = normalBalance.getRequired("normal_balance")
+    fun normalBalance(): TransactionDirection = normalBalance.getRequired("normal_balance")
 
     /**
      * The pending, posted, and available balances for this ledger account. The posted balance is
@@ -245,7 +245,7 @@ private constructor(
         private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
-        private var normalBalance: JsonField<NormalBalance> = JsonMissing.of()
+        private var normalBalance: JsonField<TransactionDirection> = JsonMissing.of()
         private var balances: JsonField<LedgerBalancesWithEffectiveAt> = JsonMissing.of()
         private var lockVersion: JsonField<Long> = JsonMissing.of()
         private var ledgerId: JsonField<String> = JsonMissing.of()
@@ -334,12 +334,13 @@ private constructor(
         fun description(description: JsonField<String>) = apply { this.description = description }
 
         /** The normal balance of the ledger account. */
-        fun normalBalance(normalBalance: NormalBalance) = normalBalance(JsonField.of(normalBalance))
+        fun normalBalance(normalBalance: TransactionDirection) =
+            normalBalance(JsonField.of(normalBalance))
 
         /** The normal balance of the ledger account. */
         @JsonProperty("normal_balance")
         @ExcludeMissing
-        fun normalBalance(normalBalance: JsonField<NormalBalance>) = apply {
+        fun normalBalance(normalBalance: JsonField<TransactionDirection>) = apply {
             this.normalBalance = normalBalance
         }
 
@@ -1007,62 +1008,5 @@ private constructor(
 
             fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
         }
-    }
-
-    class NormalBalance
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is NormalBalance && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val CREDIT = NormalBalance(JsonField.of("credit"))
-
-            val DEBIT = NormalBalance(JsonField.of("debit"))
-
-            fun of(value: String) = NormalBalance(JsonField.of(value))
-        }
-
-        enum class Known {
-            CREDIT,
-            DEBIT,
-        }
-
-        enum class Value {
-            CREDIT,
-            DEBIT,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                CREDIT -> Value.CREDIT
-                DEBIT -> Value.DEBIT
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                CREDIT -> Known.CREDIT
-                DEBIT -> Known.DEBIT
-                else -> throw ModernTreasuryInvalidDataException("Unknown NormalBalance: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
     }
 }

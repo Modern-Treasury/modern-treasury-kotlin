@@ -17,7 +17,7 @@ constructor(
     private val id: List<String>?,
     private val afterCursor: String?,
     private val asOfLockVersion: Long?,
-    private val direction: Direction?,
+    private val direction: TransactionDirection?,
     private val effectiveAt: EffectiveAt?,
     private val effectiveDate: EffectiveDate?,
     private val ledgerAccountCategoryId: String?,
@@ -43,7 +43,7 @@ constructor(
 
     fun asOfLockVersion(): Long? = asOfLockVersion
 
-    fun direction(): Direction? = direction
+    fun direction(): TransactionDirection? = direction
 
     fun effectiveAt(): EffectiveAt? = effectiveAt
 
@@ -189,7 +189,7 @@ constructor(
         private var id: MutableList<String> = mutableListOf()
         private var afterCursor: String? = null
         private var asOfLockVersion: Long? = null
-        private var direction: Direction? = null
+        private var direction: TransactionDirection? = null
         private var effectiveAt: EffectiveAt? = null
         private var effectiveDate: EffectiveDate? = null
         private var ledgerAccountCategoryId: String? = null
@@ -261,7 +261,7 @@ constructor(
          * If true, response will include ledger entries that were deleted. When you update a ledger
          * transaction to specify a new set of entries, the previous entries are deleted.
          */
-        fun direction(direction: Direction) = apply { this.direction = direction }
+        fun direction(direction: TransactionDirection) = apply { this.direction = direction }
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the
@@ -412,63 +412,6 @@ constructor(
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
-    }
-
-    class Direction
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Direction && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val CREDIT = Direction(JsonField.of("credit"))
-
-            val DEBIT = Direction(JsonField.of("debit"))
-
-            fun of(value: String) = Direction(JsonField.of(value))
-        }
-
-        enum class Known {
-            CREDIT,
-            DEBIT,
-        }
-
-        enum class Value {
-            CREDIT,
-            DEBIT,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                CREDIT -> Value.CREDIT
-                DEBIT -> Value.DEBIT
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                CREDIT -> Known.CREDIT
-                DEBIT -> Known.DEBIT
-                else -> throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
     }
 
     /**

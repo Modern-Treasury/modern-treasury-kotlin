@@ -12,7 +12,7 @@ class CounterpartyCollectAccountParamsTest {
     fun createCounterpartyCollectAccountParams() {
         CounterpartyCollectAccountParams.builder()
             .id("string")
-            .direction(CounterpartyCollectAccountParams.Direction.CREDIT)
+            .direction(TransactionDirection.CREDIT)
             .customRedirect("https://example.com")
             .fields(listOf(CounterpartyCollectAccountParams.Field.NAME))
             .sendEmail(true)
@@ -24,14 +24,14 @@ class CounterpartyCollectAccountParamsTest {
         val params =
             CounterpartyCollectAccountParams.builder()
                 .id("string")
-                .direction(CounterpartyCollectAccountParams.Direction.CREDIT)
+                .direction(TransactionDirection.CREDIT)
                 .customRedirect("https://example.com")
                 .fields(listOf(CounterpartyCollectAccountParams.Field.NAME))
                 .sendEmail(true)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.direction()).isEqualTo(CounterpartyCollectAccountParams.Direction.CREDIT)
+        assertThat(body.direction()).isEqualTo(TransactionDirection.CREDIT)
         assertThat(body.customRedirect()).isEqualTo("https://example.com")
         assertThat(body.fields()).isEqualTo(listOf(CounterpartyCollectAccountParams.Field.NAME))
         assertThat(body.sendEmail()).isEqualTo(true)
@@ -42,11 +42,11 @@ class CounterpartyCollectAccountParamsTest {
         val params =
             CounterpartyCollectAccountParams.builder()
                 .id("string")
-                .direction(CounterpartyCollectAccountParams.Direction.CREDIT)
+                .direction(TransactionDirection.CREDIT)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.direction()).isEqualTo(CounterpartyCollectAccountParams.Direction.CREDIT)
+        assertThat(body.direction()).isEqualTo(TransactionDirection.CREDIT)
     }
 
     @Test
@@ -54,7 +54,7 @@ class CounterpartyCollectAccountParamsTest {
         val params =
             CounterpartyCollectAccountParams.builder()
                 .id("string")
-                .direction(CounterpartyCollectAccountParams.Direction.CREDIT)
+                .direction(TransactionDirection.CREDIT)
                 .build()
         assertThat(params).isNotNull
         // path param "id"

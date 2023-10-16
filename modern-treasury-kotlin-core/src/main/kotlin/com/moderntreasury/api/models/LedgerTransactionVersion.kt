@@ -549,7 +549,7 @@ private constructor(
         private val liveMode: JsonField<Boolean>,
         private val createdAt: JsonField<OffsetDateTime>,
         private val amount: JsonField<Long>,
-        private val direction: JsonField<Direction>,
+        private val direction: JsonField<TransactionDirection>,
         private val status: JsonField<Status>,
         private val ledgerAccountId: JsonField<String>,
         private val ledgerAccountLockVersion: JsonField<Long>,
@@ -589,7 +589,7 @@ private constructor(
          * someone else's account to your own. Note that wire, rtp, and check payments will always
          * be `credit`.
          */
-        fun direction(): Direction = direction.getRequired("direction")
+        fun direction(): TransactionDirection = direction.getRequired("direction")
 
         /**
          * Equal to the state of the ledger transaction when the ledger entry was created. One of
@@ -799,7 +799,7 @@ private constructor(
             private var liveMode: JsonField<Boolean> = JsonMissing.of()
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var amount: JsonField<Long> = JsonMissing.of()
-            private var direction: JsonField<Direction> = JsonMissing.of()
+            private var direction: JsonField<TransactionDirection> = JsonMissing.of()
             private var status: JsonField<Status> = JsonMissing.of()
             private var ledgerAccountId: JsonField<String> = JsonMissing.of()
             private var ledgerAccountLockVersion: JsonField<Long> = JsonMissing.of()
@@ -887,7 +887,7 @@ private constructor(
              * pulls money from someone else's account to your own. Note that wire, rtp, and check
              * payments will always be `credit`.
              */
-            fun direction(direction: Direction) = direction(JsonField.of(direction))
+            fun direction(direction: TransactionDirection) = direction(JsonField.of(direction))
 
             /**
              * One of `credit`, `debit`. Describes the direction money is flowing in the
@@ -897,7 +897,9 @@ private constructor(
              */
             @JsonProperty("direction")
             @ExcludeMissing
-            fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
+            fun direction(direction: JsonField<TransactionDirection>) = apply {
+                this.direction = direction
+            }
 
             /**
              * Equal to the state of the ledger transaction when the ledger entry was created. One
@@ -1052,63 +1054,6 @@ private constructor(
                     resultingLedgerAccountBalances,
                     additionalProperties.toUnmodifiable(),
                 )
-        }
-
-        class Direction
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) {
-
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Direction && this.value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
-            companion object {
-
-                val CREDIT = Direction(JsonField.of("credit"))
-
-                val DEBIT = Direction(JsonField.of("debit"))
-
-                fun of(value: String) = Direction(JsonField.of(value))
-            }
-
-            enum class Known {
-                CREDIT,
-                DEBIT,
-            }
-
-            enum class Value {
-                CREDIT,
-                DEBIT,
-                _UNKNOWN,
-            }
-
-            fun value(): Value =
-                when (this) {
-                    CREDIT -> Value.CREDIT
-                    DEBIT -> Value.DEBIT
-                    else -> Value._UNKNOWN
-                }
-
-            fun known(): Known =
-                when (this) {
-                    CREDIT -> Known.CREDIT
-                    DEBIT -> Known.DEBIT
-                    else -> throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
-                }
-
-            fun asString(): String = _value().asStringOrThrow()
         }
 
         /**

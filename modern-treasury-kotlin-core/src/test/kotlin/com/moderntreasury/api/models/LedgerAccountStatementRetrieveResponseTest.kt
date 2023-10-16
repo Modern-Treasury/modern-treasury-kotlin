@@ -53,9 +53,7 @@ class LedgerAccountStatementRetrieveResponseTest {
                 )
                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerAccountLockVersion(123L)
-                .ledgerAccountNormalBalance(
-                    LedgerAccountStatementRetrieveResponse.LedgerAccountNormalBalance.CREDIT
-                )
+                .ledgerAccountNormalBalance(TransactionDirection.CREDIT)
                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
                 .metadata(LedgerAccountStatementRetrieveResponse.Metadata.builder().build())
@@ -146,7 +144,7 @@ class LedgerAccountStatementRetrieveResponseTest {
         assertThat(ledgerAccountStatementRetrieveResponse.ledgerAccountLockVersion())
             .isEqualTo(123L)
         assertThat(ledgerAccountStatementRetrieveResponse.ledgerAccountNormalBalance())
-            .isEqualTo(LedgerAccountStatementRetrieveResponse.LedgerAccountNormalBalance.CREDIT)
+            .isEqualTo(TransactionDirection.CREDIT)
         assertThat(ledgerAccountStatementRetrieveResponse.ledgerId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(ledgerAccountStatementRetrieveResponse.liveMode()).isEqualTo(true)

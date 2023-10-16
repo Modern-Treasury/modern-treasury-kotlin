@@ -2272,7 +2272,7 @@ constructor(
         class LedgerEntryCreateRequest
         private constructor(
             private val amount: Long?,
-            private val direction: Direction?,
+            private val direction: TransactionDirection?,
             private val ledgerAccountId: String?,
             private val lockVersion: Long?,
             private val pendingBalanceAmount: PendingBalanceAmount?,
@@ -2297,7 +2297,7 @@ constructor(
              * pulls money from someone else's account to your own. Note that wire, rtp, and check
              * payments will always be `credit`.
              */
-            @JsonProperty("direction") fun direction(): Direction? = direction
+            @JsonProperty("direction") fun direction(): TransactionDirection? = direction
 
             /** The ledger account that this ledger entry is associated with. */
             @JsonProperty("ledger_account_id") fun ledgerAccountId(): String? = ledgerAccountId
@@ -2402,7 +2402,7 @@ constructor(
             class Builder {
 
                 private var amount: Long? = null
-                private var direction: Direction? = null
+                private var direction: TransactionDirection? = null
                 private var ledgerAccountId: String? = null
                 private var lockVersion: Long? = null
                 private var pendingBalanceAmount: PendingBalanceAmount? = null
@@ -2439,7 +2439,9 @@ constructor(
                  * and check payments will always be `credit`.
                  */
                 @JsonProperty("direction")
-                fun direction(direction: Direction) = apply { this.direction = direction }
+                fun direction(direction: TransactionDirection) = apply {
+                    this.direction = direction
+                }
 
                 /** The ledger account that this ledger entry is associated with. */
                 @JsonProperty("ledger_account_id")
@@ -2534,64 +2536,6 @@ constructor(
                         metadata,
                         additionalProperties.toUnmodifiable(),
                     )
-            }
-
-            class Direction
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) {
-
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Direction && this.value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-
-                companion object {
-
-                    val CREDIT = Direction(JsonField.of("credit"))
-
-                    val DEBIT = Direction(JsonField.of("debit"))
-
-                    fun of(value: String) = Direction(JsonField.of(value))
-                }
-
-                enum class Known {
-                    CREDIT,
-                    DEBIT,
-                }
-
-                enum class Value {
-                    CREDIT,
-                    DEBIT,
-                    _UNKNOWN,
-                }
-
-                fun value(): Value =
-                    when (this) {
-                        CREDIT -> Value.CREDIT
-                        DEBIT -> Value.DEBIT
-                        else -> Value._UNKNOWN
-                    }
-
-                fun known(): Known =
-                    when (this) {
-                        CREDIT -> Known.CREDIT
-                        DEBIT -> Known.DEBIT
-                        else ->
-                            throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
-                    }
-
-                fun asString(): String = _value().asStringOrThrow()
             }
 
             /**
@@ -4070,7 +4014,7 @@ constructor(
         private constructor(
             private val name: String?,
             private val description: String?,
-            private val normalBalance: NormalBalance?,
+            private val normalBalance: TransactionDirection?,
             private val ledgerId: String?,
             private val currency: String?,
             private val currencyExponent: Long?,
@@ -4089,7 +4033,8 @@ constructor(
             @JsonProperty("description") fun description(): String? = description
 
             /** The normal balance of the ledger account. */
-            @JsonProperty("normal_balance") fun normalBalance(): NormalBalance? = normalBalance
+            @JsonProperty("normal_balance")
+            fun normalBalance(): TransactionDirection? = normalBalance
 
             /** The id of the ledger that this account belongs to. */
             @JsonProperty("ledger_id") fun ledgerId(): String? = ledgerId
@@ -4174,7 +4119,7 @@ constructor(
 
                 private var name: String? = null
                 private var description: String? = null
-                private var normalBalance: NormalBalance? = null
+                private var normalBalance: TransactionDirection? = null
                 private var ledgerId: String? = null
                 private var currency: String? = null
                 private var currencyExponent: Long? = null
@@ -4205,7 +4150,7 @@ constructor(
 
                 /** The normal balance of the ledger account. */
                 @JsonProperty("normal_balance")
-                fun normalBalance(normalBalance: NormalBalance) = apply {
+                fun normalBalance(normalBalance: TransactionDirection) = apply {
                     this.normalBalance = normalBalance
                 }
 
@@ -4277,66 +4222,6 @@ constructor(
                         metadata,
                         additionalProperties.toUnmodifiable(),
                     )
-            }
-
-            class NormalBalance
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) {
-
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is NormalBalance && this.value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-
-                companion object {
-
-                    val CREDIT = NormalBalance(JsonField.of("credit"))
-
-                    val DEBIT = NormalBalance(JsonField.of("debit"))
-
-                    fun of(value: String) = NormalBalance(JsonField.of(value))
-                }
-
-                enum class Known {
-                    CREDIT,
-                    DEBIT,
-                }
-
-                enum class Value {
-                    CREDIT,
-                    DEBIT,
-                    _UNKNOWN,
-                }
-
-                fun value(): Value =
-                    when (this) {
-                        CREDIT -> Value.CREDIT
-                        DEBIT -> Value.DEBIT
-                        else -> Value._UNKNOWN
-                    }
-
-                fun known(): Known =
-                    when (this) {
-                        CREDIT -> Known.CREDIT
-                        DEBIT -> Known.DEBIT
-                        else ->
-                            throw ModernTreasuryInvalidDataException(
-                                "Unknown NormalBalance: $value"
-                            )
-                    }
-
-                fun asString(): String = _value().asStringOrThrow()
             }
 
             class LedgerableType

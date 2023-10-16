@@ -16,9 +16,7 @@ class LedgerTransactionCreateParamsTest {
                 listOf(
                     LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
                         .amount(123L)
-                        .direction(
-                            LedgerTransactionCreateParams.LedgerEntryCreateRequest.Direction.CREDIT
-                        )
+                        .direction(TransactionDirection.CREDIT)
                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .availableBalanceAmount(
                             LedgerTransactionCreateParams.LedgerEntryCreateRequest
@@ -67,10 +65,7 @@ class LedgerTransactionCreateParamsTest {
                     listOf(
                         LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
                             .amount(123L)
-                            .direction(
-                                LedgerTransactionCreateParams.LedgerEntryCreateRequest.Direction
-                                    .CREDIT
-                            )
+                            .direction(TransactionDirection.CREDIT)
                             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .availableBalanceAmount(
                                 LedgerTransactionCreateParams.LedgerEntryCreateRequest
@@ -116,9 +111,7 @@ class LedgerTransactionCreateParamsTest {
                 listOf(
                     LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
                         .amount(123L)
-                        .direction(
-                            LedgerTransactionCreateParams.LedgerEntryCreateRequest.Direction.CREDIT
-                        )
+                        .direction(TransactionDirection.CREDIT)
                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .availableBalanceAmount(
                             LedgerTransactionCreateParams.LedgerEntryCreateRequest
@@ -168,10 +161,7 @@ class LedgerTransactionCreateParamsTest {
                     listOf(
                         LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
                             .amount(123L)
-                            .direction(
-                                LedgerTransactionCreateParams.LedgerEntryCreateRequest.Direction
-                                    .CREDIT
-                            )
+                            .direction(TransactionDirection.CREDIT)
                             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .build()
                     )
@@ -184,9 +174,7 @@ class LedgerTransactionCreateParamsTest {
                 listOf(
                     LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
                         .amount(123L)
-                        .direction(
-                            LedgerTransactionCreateParams.LedgerEntryCreateRequest.Direction.CREDIT
-                        )
+                        .direction(TransactionDirection.CREDIT)
                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()
                 )
