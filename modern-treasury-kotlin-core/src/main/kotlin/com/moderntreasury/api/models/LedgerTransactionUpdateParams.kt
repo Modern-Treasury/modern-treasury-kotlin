@@ -14,14 +14,14 @@ import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import com.moderntreasury.api.models.*
-import java.time.LocalDate
+import java.time.OffsetDateTime
 import java.util.Objects
 
 class LedgerTransactionUpdateParams
 constructor(
     private val id: String,
     private val description: String?,
-    private val effectiveAt: LocalDate?,
+    private val effectiveAt: OffsetDateTime?,
     private val ledgerEntries: List<LedgerEntryCreateRequest>?,
     private val metadata: Metadata?,
     private val status: Status?,
@@ -34,7 +34,7 @@ constructor(
 
     fun description(): String? = description
 
-    fun effectiveAt(): LocalDate? = effectiveAt
+    fun effectiveAt(): OffsetDateTime? = effectiveAt
 
     fun ledgerEntries(): List<LedgerEntryCreateRequest>? = ledgerEntries
 
@@ -69,7 +69,7 @@ constructor(
     class LedgerTransactionUpdateBody
     internal constructor(
         private val description: String?,
-        private val effectiveAt: LocalDate?,
+        private val effectiveAt: OffsetDateTime?,
         private val ledgerEntries: List<LedgerEntryCreateRequest>?,
         private val metadata: Metadata?,
         private val status: Status?,
@@ -85,7 +85,7 @@ constructor(
          * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
          * purposes.
          */
-        @JsonProperty("effective_at") fun effectiveAt(): LocalDate? = effectiveAt
+        @JsonProperty("effective_at") fun effectiveAt(): OffsetDateTime? = effectiveAt
 
         /** An array of ledger entry objects. */
         @JsonProperty("ledger_entries")
@@ -145,7 +145,7 @@ constructor(
         class Builder {
 
             private var description: String? = null
-            private var effectiveAt: LocalDate? = null
+            private var effectiveAt: OffsetDateTime? = null
             private var ledgerEntries: List<LedgerEntryCreateRequest>? = null
             private var metadata: Metadata? = null
             private var status: Status? = null
@@ -169,7 +169,7 @@ constructor(
              * purposes.
              */
             @JsonProperty("effective_at")
-            fun effectiveAt(effectiveAt: LocalDate) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: OffsetDateTime) = apply { this.effectiveAt = effectiveAt }
 
             /** An array of ledger entry objects. */
             @JsonProperty("ledger_entries")
@@ -265,7 +265,7 @@ constructor(
 
         private var id: String? = null
         private var description: String? = null
-        private var effectiveAt: LocalDate? = null
+        private var effectiveAt: OffsetDateTime? = null
         private var ledgerEntries: MutableList<LedgerEntryCreateRequest> = mutableListOf()
         private var metadata: Metadata? = null
         private var status: Status? = null
@@ -294,7 +294,7 @@ constructor(
          * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
          * purposes.
          */
-        fun effectiveAt(effectiveAt: LocalDate) = apply { this.effectiveAt = effectiveAt }
+        fun effectiveAt(effectiveAt: OffsetDateTime) = apply { this.effectiveAt = effectiveAt }
 
         /** An array of ledger entry objects. */
         fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>) = apply {

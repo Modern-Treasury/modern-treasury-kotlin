@@ -7,6 +7,7 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.PaymentOrderReversalListParams
 import java.time.LocalDate
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -75,7 +76,7 @@ class ReversalServiceTest {
                                 )
                             )
                             .description("string")
-                            .effectiveAt(LocalDate.parse("2019-12-27"))
+                            .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .effectiveDate(LocalDate.parse("2019-12-27"))
                             .externalId("string")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

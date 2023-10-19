@@ -61,7 +61,7 @@ class LedgerTransactionServiceTest {
                         )
                     )
                     .description("string")
-                    .effectiveAt(LocalDate.parse("2019-12-27"))
+                    .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .effectiveDate(LocalDate.parse("2019-12-27"))
                     .externalId("string")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -105,7 +105,7 @@ class LedgerTransactionServiceTest {
                 LedgerTransactionUpdateParams.builder()
                     .id("string")
                     .description("string")
-                    .effectiveAt(LocalDate.parse("2019-12-27"))
+                    .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .ledgerEntries(
                         listOf(
                             LedgerTransactionUpdateParams.LedgerEntryCreateRequest.builder()

@@ -3,7 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.models.*
-import java.time.LocalDate
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -14,7 +14,7 @@ class LedgerTransactionUpdateParamsTest {
         LedgerTransactionUpdateParams.builder()
             .id("string")
             .description("string")
-            .effectiveAt(LocalDate.parse("2019-12-27"))
+            .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .ledgerEntries(
                 listOf(
                     LedgerTransactionUpdateParams.LedgerEntryCreateRequest.builder()
@@ -60,7 +60,7 @@ class LedgerTransactionUpdateParamsTest {
             LedgerTransactionUpdateParams.builder()
                 .id("string")
                 .description("string")
-                .effectiveAt(LocalDate.parse("2019-12-27"))
+                .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .ledgerEntries(
                     listOf(
                         LedgerTransactionUpdateParams.LedgerEntryCreateRequest.builder()
@@ -101,7 +101,7 @@ class LedgerTransactionUpdateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.description()).isEqualTo("string")
-        assertThat(body.effectiveAt()).isEqualTo(LocalDate.parse("2019-12-27"))
+        assertThat(body.effectiveAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.ledgerEntries())
             .isEqualTo(
                 listOf(

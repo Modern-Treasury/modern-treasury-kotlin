@@ -16,7 +16,7 @@ class LedgerTransactionTest {
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .description("string")
-                .effectiveAt(LocalDate.parse("2019-12-27"))
+                .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .effectiveDate(LocalDate.parse("2019-12-27"))
                 .externalId("string")
                 .ledgerEntries(
@@ -87,7 +87,8 @@ class LedgerTransactionTest {
         assertThat(ledgerTransaction.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(ledgerTransaction.description()).isEqualTo("string")
-        assertThat(ledgerTransaction.effectiveAt()).isEqualTo(LocalDate.parse("2019-12-27"))
+        assertThat(ledgerTransaction.effectiveAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(ledgerTransaction.effectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(ledgerTransaction.externalId()).isEqualTo("string")
         assertThat(ledgerTransaction.ledgerEntries())
