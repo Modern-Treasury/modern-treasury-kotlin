@@ -6,6 +6,7 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.LedgerEventHandlerListParams
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -28,7 +29,7 @@ class LedgerEventHandlerServiceTest {
                         LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate
                             .builder()
                             .description("string")
-                            .effectiveAt("string")
+                            .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .ledgerEntries(
                                 listOf(
                                     LedgerEventHandlerCreateParams

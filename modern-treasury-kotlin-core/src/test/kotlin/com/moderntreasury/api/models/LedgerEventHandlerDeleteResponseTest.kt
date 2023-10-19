@@ -27,7 +27,7 @@ class LedgerEventHandlerDeleteResponseTest {
                     LedgerEventHandlerDeleteResponse.LedgerEventHandlerLedgerTransactionTemplate
                         .builder()
                         .description("string")
-                        .effectiveAt("string")
+                        .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .ledgerEntries(
                             listOf(
                                 LedgerEventHandlerDeleteResponse
@@ -76,7 +76,7 @@ class LedgerEventHandlerDeleteResponseTest {
                 LedgerEventHandlerDeleteResponse.LedgerEventHandlerLedgerTransactionTemplate
                     .builder()
                     .description("string")
-                    .effectiveAt("string")
+                    .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .ledgerEntries(
                         listOf(
                             LedgerEventHandlerDeleteResponse

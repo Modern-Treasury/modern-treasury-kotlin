@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.models.*
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -14,7 +15,7 @@ class LedgerEventHandlerCreateParamsTest {
             .ledgerTransactionTemplate(
                 LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate.builder()
                     .description("string")
-                    .effectiveAt("string")
+                    .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .ledgerEntries(
                         listOf(
                             LedgerEventHandlerCreateParams
@@ -57,7 +58,7 @@ class LedgerEventHandlerCreateParamsTest {
                     LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate
                         .builder()
                         .description("string")
-                        .effectiveAt("string")
+                        .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .ledgerEntries(
                             listOf(
                                 LedgerEventHandlerCreateParams
@@ -97,7 +98,7 @@ class LedgerEventHandlerCreateParamsTest {
             .isEqualTo(
                 LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate.builder()
                     .description("string")
-                    .effectiveAt("string")
+                    .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .ledgerEntries(
                         listOf(
                             LedgerEventHandlerCreateParams

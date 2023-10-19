@@ -30,7 +30,7 @@ private constructor(
     private val description: JsonField<String>,
     private val status: JsonField<Status>,
     private val metadata: JsonField<Metadata>,
-    private val effectiveAt: JsonField<String>,
+    private val effectiveAt: JsonField<OffsetDateTime>,
     private val effectiveDate: JsonField<LocalDate>,
     private val ledgerEntries: JsonField<List<LedgerEntryOfTransactionVersion>>,
     private val postedAt: JsonField<String>,
@@ -74,7 +74,7 @@ private constructor(
      * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
      * purposes.
      */
-    fun effectiveAt(): String = effectiveAt.getRequired("effective_at")
+    fun effectiveAt(): OffsetDateTime = effectiveAt.getRequired("effective_at")
 
     /** The date (YYYY-MM-DD) on which the ledger transaction happened for reporting purposes. */
     fun effectiveDate(): LocalDate = effectiveDate.getRequired("effective_date")
@@ -283,7 +283,7 @@ private constructor(
         private var description: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var metadata: JsonField<Metadata> = JsonMissing.of()
-        private var effectiveAt: JsonField<String> = JsonMissing.of()
+        private var effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
         private var ledgerEntries: JsonField<List<LedgerEntryOfTransactionVersion>> =
             JsonMissing.of()
@@ -389,7 +389,7 @@ private constructor(
          * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
          * purposes.
          */
-        fun effectiveAt(effectiveAt: String) = effectiveAt(JsonField.of(effectiveAt))
+        fun effectiveAt(effectiveAt: OffsetDateTime) = effectiveAt(JsonField.of(effectiveAt))
 
         /**
          * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
@@ -397,7 +397,9 @@ private constructor(
          */
         @JsonProperty("effective_at")
         @ExcludeMissing
-        fun effectiveAt(effectiveAt: JsonField<String>) = apply { this.effectiveAt = effectiveAt }
+        fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
+            this.effectiveAt = effectiveAt
+        }
 
         /**
          * The date (YYYY-MM-DD) on which the ledger transaction happened for reporting purposes.
