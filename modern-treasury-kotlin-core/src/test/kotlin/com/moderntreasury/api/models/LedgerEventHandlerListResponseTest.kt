@@ -27,7 +27,7 @@ class LedgerEventHandlerListResponseTest {
                     LedgerEventHandlerListResponse.LedgerEventHandlerLedgerTransactionTemplate
                         .builder()
                         .description("string")
-                        .effectiveAt("string")
+                        .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .ledgerEntries(
                             listOf(
                                 LedgerEventHandlerListResponse
@@ -75,7 +75,7 @@ class LedgerEventHandlerListResponseTest {
             .isEqualTo(
                 LedgerEventHandlerListResponse.LedgerEventHandlerLedgerTransactionTemplate.builder()
                     .description("string")
-                    .effectiveAt("string")
+                    .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .ledgerEntries(
                         listOf(
                             LedgerEventHandlerListResponse

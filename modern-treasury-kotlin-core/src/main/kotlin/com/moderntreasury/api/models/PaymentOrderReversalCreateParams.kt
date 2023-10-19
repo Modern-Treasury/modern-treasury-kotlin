@@ -15,6 +15,7 @@ import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
+import java.time.OffsetDateTime
 import java.util.Objects
 
 class PaymentOrderReversalCreateParams
@@ -430,7 +431,7 @@ constructor(
         private val description: String?,
         private val status: Status?,
         private val metadata: Metadata?,
-        private val effectiveAt: LocalDate?,
+        private val effectiveAt: OffsetDateTime?,
         private val effectiveDate: LocalDate?,
         private val ledgerEntries: List<LedgerEntryCreateRequest>?,
         private val externalId: String?,
@@ -456,7 +457,7 @@ constructor(
          * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
          * purposes.
          */
-        @JsonProperty("effective_at") fun effectiveAt(): LocalDate? = effectiveAt
+        @JsonProperty("effective_at") fun effectiveAt(): OffsetDateTime? = effectiveAt
 
         /**
          * The date (YYYY-MM-DD) on which the ledger transaction happened for reporting purposes.
@@ -542,7 +543,7 @@ constructor(
             private var description: String? = null
             private var status: Status? = null
             private var metadata: Metadata? = null
-            private var effectiveAt: LocalDate? = null
+            private var effectiveAt: OffsetDateTime? = null
             private var effectiveDate: LocalDate? = null
             private var ledgerEntries: List<LedgerEntryCreateRequest>? = null
             private var externalId: String? = null
@@ -583,7 +584,7 @@ constructor(
              * purposes.
              */
             @JsonProperty("effective_at")
-            fun effectiveAt(effectiveAt: LocalDate) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: OffsetDateTime) = apply { this.effectiveAt = effectiveAt }
 
             /**
              * The date (YYYY-MM-DD) on which the ledger transaction happened for reporting

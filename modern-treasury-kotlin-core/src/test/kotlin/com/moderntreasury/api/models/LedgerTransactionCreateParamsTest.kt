@@ -4,6 +4,7 @@ package com.moderntreasury.api.models
 
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -47,7 +48,7 @@ class LedgerTransactionCreateParamsTest {
                 )
             )
             .description("string")
-            .effectiveAt(LocalDate.parse("2019-12-27"))
+            .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .effectiveDate(LocalDate.parse("2019-12-27"))
             .externalId("string")
             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -96,7 +97,7 @@ class LedgerTransactionCreateParamsTest {
                     )
                 )
                 .description("string")
-                .effectiveAt(LocalDate.parse("2019-12-27"))
+                .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .effectiveDate(LocalDate.parse("2019-12-27"))
                 .externalId("string")
                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -142,7 +143,7 @@ class LedgerTransactionCreateParamsTest {
                 )
             )
         assertThat(body.description()).isEqualTo("string")
-        assertThat(body.effectiveAt()).isEqualTo(LocalDate.parse("2019-12-27"))
+        assertThat(body.effectiveAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.effectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.externalId()).isEqualTo("string")
         assertThat(body.ledgerableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
