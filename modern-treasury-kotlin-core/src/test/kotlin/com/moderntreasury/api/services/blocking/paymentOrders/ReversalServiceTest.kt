@@ -26,7 +26,7 @@ class ReversalServiceTest {
         val reversal =
             reversalService.create(
                 PaymentOrderReversalCreateParams.builder()
-                    .paymentOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .paymentOrderId("string")
                     .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
                     .ledgerTransaction(
                         PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.builder()
@@ -117,8 +117,8 @@ class ReversalServiceTest {
         val reversal =
             reversalService.retrieve(
                 PaymentOrderReversalRetrieveParams.builder()
-                    .paymentOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .reversalId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .paymentOrderId("string")
+                    .reversalId("string")
                     .build()
             )
         println(reversal)

@@ -31,9 +31,10 @@ private constructor(
     private val status: JsonField<Status>,
     private val payoutLedgerAccountId: JsonField<String>,
     private val fundingLedgerAccountId: JsonField<String>,
-    private val effectiveAtUpperBound: JsonField<String>,
+    private val effectiveAtUpperBound: JsonField<OffsetDateTime>,
     private val ledgerTransactionId: JsonField<String>,
     private val amount: JsonField<Long>,
+    private val payoutEntryDirection: JsonField<String>,
     private val currency: JsonField<String>,
     private val currencyExponent: JsonField<Long>,
     private val metadata: JsonField<Metadata>,
@@ -89,7 +90,7 @@ private constructor(
      * in the ledger account payout. The default value is the created_at timestamp of the ledger
      * account payout.
      */
-    fun effectiveAtUpperBound(): String =
+    fun effectiveAtUpperBound(): OffsetDateTime =
         effectiveAtUpperBound.getRequired("effective_at_upper_bound")
 
     /** The id of the ledger transaction that this payout is associated with. */
@@ -97,6 +98,9 @@ private constructor(
 
     /** The amount of the ledger account payout. */
     fun amount(): Long? = amount.getNullable("amount")
+
+    /** The direction of the ledger entry with the payout_ledger_account. */
+    fun payoutEntryDirection(): String? = payoutEntryDirection.getNullable("payout_entry_direction")
 
     /** The currency of the ledger account payout. */
     fun currency(): String = currency.getRequired("currency")
@@ -166,6 +170,11 @@ private constructor(
     /** The amount of the ledger account payout. */
     @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
+    /** The direction of the ledger entry with the payout_ledger_account. */
+    @JsonProperty("payout_entry_direction")
+    @ExcludeMissing
+    fun _payoutEntryDirection() = payoutEntryDirection
+
     /** The currency of the ledger account payout. */
     @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
@@ -194,6 +203,7 @@ private constructor(
             effectiveAtUpperBound()
             ledgerTransactionId()
             amount()
+            payoutEntryDirection()
             currency()
             currencyExponent()
             metadata().validate()
@@ -222,6 +232,7 @@ private constructor(
             this.effectiveAtUpperBound == other.effectiveAtUpperBound &&
             this.ledgerTransactionId == other.ledgerTransactionId &&
             this.amount == other.amount &&
+            this.payoutEntryDirection == other.payoutEntryDirection &&
             this.currency == other.currency &&
             this.currencyExponent == other.currencyExponent &&
             this.metadata == other.metadata &&
@@ -245,6 +256,7 @@ private constructor(
                     effectiveAtUpperBound,
                     ledgerTransactionId,
                     amount,
+                    payoutEntryDirection,
                     currency,
                     currencyExponent,
                     metadata,
@@ -255,7 +267,7 @@ private constructor(
     }
 
     override fun toString() =
-        "LedgerAccountPayout{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, ledgerId=$ledgerId, description=$description, status=$status, payoutLedgerAccountId=$payoutLedgerAccountId, fundingLedgerAccountId=$fundingLedgerAccountId, effectiveAtUpperBound=$effectiveAtUpperBound, ledgerTransactionId=$ledgerTransactionId, amount=$amount, currency=$currency, currencyExponent=$currencyExponent, metadata=$metadata, additionalProperties=$additionalProperties}"
+        "LedgerAccountPayout{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, ledgerId=$ledgerId, description=$description, status=$status, payoutLedgerAccountId=$payoutLedgerAccountId, fundingLedgerAccountId=$fundingLedgerAccountId, effectiveAtUpperBound=$effectiveAtUpperBound, ledgerTransactionId=$ledgerTransactionId, amount=$amount, payoutEntryDirection=$payoutEntryDirection, currency=$currency, currencyExponent=$currencyExponent, metadata=$metadata, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -274,9 +286,10 @@ private constructor(
         private var status: JsonField<Status> = JsonMissing.of()
         private var payoutLedgerAccountId: JsonField<String> = JsonMissing.of()
         private var fundingLedgerAccountId: JsonField<String> = JsonMissing.of()
-        private var effectiveAtUpperBound: JsonField<String> = JsonMissing.of()
+        private var effectiveAtUpperBound: JsonField<OffsetDateTime> = JsonMissing.of()
         private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
+        private var payoutEntryDirection: JsonField<String> = JsonMissing.of()
         private var currency: JsonField<String> = JsonMissing.of()
         private var currencyExponent: JsonField<Long> = JsonMissing.of()
         private var metadata: JsonField<Metadata> = JsonMissing.of()
@@ -296,6 +309,7 @@ private constructor(
             this.effectiveAtUpperBound = ledgerAccountPayout.effectiveAtUpperBound
             this.ledgerTransactionId = ledgerAccountPayout.ledgerTransactionId
             this.amount = ledgerAccountPayout.amount
+            this.payoutEntryDirection = ledgerAccountPayout.payoutEntryDirection
             this.currency = ledgerAccountPayout.currency
             this.currencyExponent = ledgerAccountPayout.currencyExponent
             this.metadata = ledgerAccountPayout.metadata
@@ -407,7 +421,7 @@ private constructor(
          * included in the ledger account payout. The default value is the created_at timestamp of
          * the ledger account payout.
          */
-        fun effectiveAtUpperBound(effectiveAtUpperBound: String) =
+        fun effectiveAtUpperBound(effectiveAtUpperBound: OffsetDateTime) =
             effectiveAtUpperBound(JsonField.of(effectiveAtUpperBound))
 
         /**
@@ -417,7 +431,7 @@ private constructor(
          */
         @JsonProperty("effective_at_upper_bound")
         @ExcludeMissing
-        fun effectiveAtUpperBound(effectiveAtUpperBound: JsonField<String>) = apply {
+        fun effectiveAtUpperBound(effectiveAtUpperBound: JsonField<OffsetDateTime>) = apply {
             this.effectiveAtUpperBound = effectiveAtUpperBound
         }
 
@@ -439,6 +453,17 @@ private constructor(
         @JsonProperty("amount")
         @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+        /** The direction of the ledger entry with the payout_ledger_account. */
+        fun payoutEntryDirection(payoutEntryDirection: String) =
+            payoutEntryDirection(JsonField.of(payoutEntryDirection))
+
+        /** The direction of the ledger entry with the payout_ledger_account. */
+        @JsonProperty("payout_entry_direction")
+        @ExcludeMissing
+        fun payoutEntryDirection(payoutEntryDirection: JsonField<String>) = apply {
+            this.payoutEntryDirection = payoutEntryDirection
+        }
 
         /** The currency of the ledger account payout. */
         fun currency(currency: String) = currency(JsonField.of(currency))
@@ -500,6 +525,7 @@ private constructor(
                 effectiveAtUpperBound,
                 ledgerTransactionId,
                 amount,
+                payoutEntryDirection,
                 currency,
                 currencyExponent,
                 metadata,

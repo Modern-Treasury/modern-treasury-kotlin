@@ -20,6 +20,7 @@ class LedgerAccountPayoutCreateParams
 constructor(
     private val fundingLedgerAccountId: String,
     private val payoutLedgerAccountId: String,
+    private val allowEitherDirection: Boolean?,
     private val description: String?,
     private val effectiveAtUpperBound: String?,
     private val metadata: Metadata?,
@@ -33,6 +34,8 @@ constructor(
     fun fundingLedgerAccountId(): String = fundingLedgerAccountId
 
     fun payoutLedgerAccountId(): String = payoutLedgerAccountId
+
+    fun allowEitherDirection(): Boolean? = allowEitherDirection
 
     fun description(): String? = description
 
@@ -48,6 +51,7 @@ constructor(
         return LedgerAccountPayoutCreateBody(
             fundingLedgerAccountId,
             payoutLedgerAccountId,
+            allowEitherDirection,
             description,
             effectiveAtUpperBound,
             metadata,
@@ -67,6 +71,7 @@ constructor(
     internal constructor(
         private val fundingLedgerAccountId: String?,
         private val payoutLedgerAccountId: String?,
+        private val allowEitherDirection: Boolean?,
         private val description: String?,
         private val effectiveAtUpperBound: String?,
         private val metadata: Metadata?,
@@ -90,6 +95,13 @@ constructor(
          */
         @JsonProperty("payout_ledger_account_id")
         fun payoutLedgerAccountId(): String? = payoutLedgerAccountId
+
+        /**
+         * If true, the payout amount and payout_entry_direction will bring the payout ledger
+         * account’s balance closer to zero, even if the balance is negative.
+         */
+        @JsonProperty("allow_either_direction")
+        fun allowEitherDirection(): Boolean? = allowEitherDirection
 
         /** The description of the ledger account payout. */
         @JsonProperty("description") fun description(): String? = description
@@ -134,6 +146,7 @@ constructor(
             return other is LedgerAccountPayoutCreateBody &&
                 this.fundingLedgerAccountId == other.fundingLedgerAccountId &&
                 this.payoutLedgerAccountId == other.payoutLedgerAccountId &&
+                this.allowEitherDirection == other.allowEitherDirection &&
                 this.description == other.description &&
                 this.effectiveAtUpperBound == other.effectiveAtUpperBound &&
                 this.metadata == other.metadata &&
@@ -148,6 +161,7 @@ constructor(
                     Objects.hash(
                         fundingLedgerAccountId,
                         payoutLedgerAccountId,
+                        allowEitherDirection,
                         description,
                         effectiveAtUpperBound,
                         metadata,
@@ -160,7 +174,7 @@ constructor(
         }
 
         override fun toString() =
-            "LedgerAccountPayoutCreateBody{fundingLedgerAccountId=$fundingLedgerAccountId, payoutLedgerAccountId=$payoutLedgerAccountId, description=$description, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, skipPayoutLedgerTransaction=$skipPayoutLedgerTransaction, status=$status, additionalProperties=$additionalProperties}"
+            "LedgerAccountPayoutCreateBody{fundingLedgerAccountId=$fundingLedgerAccountId, payoutLedgerAccountId=$payoutLedgerAccountId, allowEitherDirection=$allowEitherDirection, description=$description, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, skipPayoutLedgerTransaction=$skipPayoutLedgerTransaction, status=$status, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -171,6 +185,7 @@ constructor(
 
             private var fundingLedgerAccountId: String? = null
             private var payoutLedgerAccountId: String? = null
+            private var allowEitherDirection: Boolean? = null
             private var description: String? = null
             private var effectiveAtUpperBound: String? = null
             private var metadata: Metadata? = null
@@ -183,6 +198,7 @@ constructor(
                     this.fundingLedgerAccountId =
                         ledgerAccountPayoutCreateBody.fundingLedgerAccountId
                     this.payoutLedgerAccountId = ledgerAccountPayoutCreateBody.payoutLedgerAccountId
+                    this.allowEitherDirection = ledgerAccountPayoutCreateBody.allowEitherDirection
                     this.description = ledgerAccountPayoutCreateBody.description
                     this.effectiveAtUpperBound = ledgerAccountPayoutCreateBody.effectiveAtUpperBound
                     this.metadata = ledgerAccountPayoutCreateBody.metadata
@@ -208,6 +224,15 @@ constructor(
             @JsonProperty("payout_ledger_account_id")
             fun payoutLedgerAccountId(payoutLedgerAccountId: String) = apply {
                 this.payoutLedgerAccountId = payoutLedgerAccountId
+            }
+
+            /**
+             * If true, the payout amount and payout_entry_direction will bring the payout ledger
+             * account’s balance closer to zero, even if the balance is negative.
+             */
+            @JsonProperty("allow_either_direction")
+            fun allowEitherDirection(allowEitherDirection: Boolean) = apply {
+                this.allowEitherDirection = allowEitherDirection
             }
 
             /** The description of the ledger account payout. */
@@ -268,6 +293,7 @@ constructor(
                     checkNotNull(payoutLedgerAccountId) {
                         "`payoutLedgerAccountId` is required but was not set"
                     },
+                    allowEitherDirection,
                     description,
                     effectiveAtUpperBound,
                     metadata,
@@ -292,6 +318,7 @@ constructor(
         return other is LedgerAccountPayoutCreateParams &&
             this.fundingLedgerAccountId == other.fundingLedgerAccountId &&
             this.payoutLedgerAccountId == other.payoutLedgerAccountId &&
+            this.allowEitherDirection == other.allowEitherDirection &&
             this.description == other.description &&
             this.effectiveAtUpperBound == other.effectiveAtUpperBound &&
             this.metadata == other.metadata &&
@@ -306,6 +333,7 @@ constructor(
         return Objects.hash(
             fundingLedgerAccountId,
             payoutLedgerAccountId,
+            allowEitherDirection,
             description,
             effectiveAtUpperBound,
             metadata,
@@ -318,7 +346,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerAccountPayoutCreateParams{fundingLedgerAccountId=$fundingLedgerAccountId, payoutLedgerAccountId=$payoutLedgerAccountId, description=$description, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, skipPayoutLedgerTransaction=$skipPayoutLedgerTransaction, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerAccountPayoutCreateParams{fundingLedgerAccountId=$fundingLedgerAccountId, payoutLedgerAccountId=$payoutLedgerAccountId, allowEitherDirection=$allowEitherDirection, description=$description, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, skipPayoutLedgerTransaction=$skipPayoutLedgerTransaction, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -332,6 +360,7 @@ constructor(
 
         private var fundingLedgerAccountId: String? = null
         private var payoutLedgerAccountId: String? = null
+        private var allowEitherDirection: Boolean? = null
         private var description: String? = null
         private var effectiveAtUpperBound: String? = null
         private var metadata: Metadata? = null
@@ -345,6 +374,7 @@ constructor(
             apply {
                 this.fundingLedgerAccountId = ledgerAccountPayoutCreateParams.fundingLedgerAccountId
                 this.payoutLedgerAccountId = ledgerAccountPayoutCreateParams.payoutLedgerAccountId
+                this.allowEitherDirection = ledgerAccountPayoutCreateParams.allowEitherDirection
                 this.description = ledgerAccountPayoutCreateParams.description
                 this.effectiveAtUpperBound = ledgerAccountPayoutCreateParams.effectiveAtUpperBound
                 this.metadata = ledgerAccountPayoutCreateParams.metadata
@@ -370,6 +400,14 @@ constructor(
          */
         fun payoutLedgerAccountId(payoutLedgerAccountId: String) = apply {
             this.payoutLedgerAccountId = payoutLedgerAccountId
+        }
+
+        /**
+         * If true, the payout amount and payout_entry_direction will bring the payout ledger
+         * account’s balance closer to zero, even if the balance is negative.
+         */
+        fun allowEitherDirection(allowEitherDirection: Boolean) = apply {
+            this.allowEitherDirection = allowEitherDirection
         }
 
         /** The description of the ledger account payout. */
@@ -465,6 +503,7 @@ constructor(
                 checkNotNull(payoutLedgerAccountId) {
                     "`payoutLedgerAccountId` is required but was not set"
                 },
+                allowEitherDirection,
                 description,
                 effectiveAtUpperBound,
                 metadata,

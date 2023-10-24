@@ -11,8 +11,8 @@ class PaymentOrderReversalRetrieveParamsTest {
     @Test
     fun createPaymentOrderReversalRetrieveParams() {
         PaymentOrderReversalRetrieveParams.builder()
-            .paymentOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .reversalId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .paymentOrderId("string")
+            .reversalId("string")
             .build()
     }
 
@@ -20,14 +20,14 @@ class PaymentOrderReversalRetrieveParamsTest {
     fun getPathParam() {
         val params =
             PaymentOrderReversalRetrieveParams.builder()
-                .paymentOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .reversalId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .paymentOrderId("string")
+                .reversalId("string")
                 .build()
         assertThat(params).isNotNull
         // path param "paymentOrderId"
-        assertThat(params.getPathParam(0)).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(params.getPathParam(0)).isEqualTo("string")
         // path param "reversalId"
-        assertThat(params.getPathParam(1)).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(params.getPathParam(1)).isEqualTo("string")
         // out-of-bound path param
         assertThat(params.getPathParam(2)).isEqualTo("")
     }

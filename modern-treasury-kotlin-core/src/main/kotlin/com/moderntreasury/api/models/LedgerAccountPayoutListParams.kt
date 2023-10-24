@@ -13,6 +13,7 @@ constructor(
     private val id: List<String>?,
     private val afterCursor: String?,
     private val metadata: Metadata?,
+    private val payoutEntryDirection: String?,
     private val payoutLedgerAccountId: String?,
     private val perPage: Long?,
     private val additionalQueryParams: Map<String, List<String>>,
@@ -25,6 +26,8 @@ constructor(
 
     fun metadata(): Metadata? = metadata
 
+    fun payoutEntryDirection(): String? = payoutEntryDirection
+
     fun payoutLedgerAccountId(): String? = payoutLedgerAccountId
 
     fun perPage(): Long? = perPage
@@ -34,6 +37,9 @@ constructor(
         this.id?.let { params.put("id[]", it.map(Any::toString)) }
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
         this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
+        this.payoutEntryDirection?.let {
+            params.put("payout_entry_direction", listOf(it.toString()))
+        }
         this.payoutLedgerAccountId?.let {
             params.put("payout_ledger_account_id", listOf(it.toString()))
         }
@@ -57,6 +63,7 @@ constructor(
             this.id == other.id &&
             this.afterCursor == other.afterCursor &&
             this.metadata == other.metadata &&
+            this.payoutEntryDirection == other.payoutEntryDirection &&
             this.payoutLedgerAccountId == other.payoutLedgerAccountId &&
             this.perPage == other.perPage &&
             this.additionalQueryParams == other.additionalQueryParams &&
@@ -68,6 +75,7 @@ constructor(
             id,
             afterCursor,
             metadata,
+            payoutEntryDirection,
             payoutLedgerAccountId,
             perPage,
             additionalQueryParams,
@@ -76,7 +84,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerAccountPayoutListParams{id=$id, afterCursor=$afterCursor, metadata=$metadata, payoutLedgerAccountId=$payoutLedgerAccountId, perPage=$perPage, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "LedgerAccountPayoutListParams{id=$id, afterCursor=$afterCursor, metadata=$metadata, payoutEntryDirection=$payoutEntryDirection, payoutLedgerAccountId=$payoutLedgerAccountId, perPage=$perPage, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -91,6 +99,7 @@ constructor(
         private var id: MutableList<String> = mutableListOf()
         private var afterCursor: String? = null
         private var metadata: Metadata? = null
+        private var payoutEntryDirection: String? = null
         private var payoutLedgerAccountId: String? = null
         private var perPage: Long? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -100,6 +109,7 @@ constructor(
             this.id(ledgerAccountPayoutListParams.id ?: listOf())
             this.afterCursor = ledgerAccountPayoutListParams.afterCursor
             this.metadata = ledgerAccountPayoutListParams.metadata
+            this.payoutEntryDirection = ledgerAccountPayoutListParams.payoutEntryDirection
             this.payoutLedgerAccountId = ledgerAccountPayoutListParams.payoutLedgerAccountId
             this.perPage = ledgerAccountPayoutListParams.perPage
             additionalQueryParams(ledgerAccountPayoutListParams.additionalQueryParams)
@@ -128,6 +138,10 @@ constructor(
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
         fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+        fun payoutEntryDirection(payoutEntryDirection: String) = apply {
+            this.payoutEntryDirection = payoutEntryDirection
+        }
 
         fun payoutLedgerAccountId(payoutLedgerAccountId: String) = apply {
             this.payoutLedgerAccountId = payoutLedgerAccountId
@@ -180,6 +194,7 @@ constructor(
                 if (id.size == 0) null else id.toUnmodifiable(),
                 afterCursor,
                 metadata,
+                payoutEntryDirection,
                 payoutLedgerAccountId,
                 perPage,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

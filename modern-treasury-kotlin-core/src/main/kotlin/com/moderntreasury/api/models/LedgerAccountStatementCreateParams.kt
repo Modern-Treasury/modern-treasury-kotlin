@@ -11,12 +11,13 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.models.*
+import java.time.OffsetDateTime
 import java.util.Objects
 
 class LedgerAccountStatementCreateParams
 constructor(
-    private val effectiveAtLowerBound: String,
-    private val effectiveAtUpperBound: String,
+    private val effectiveAtLowerBound: OffsetDateTime,
+    private val effectiveAtUpperBound: OffsetDateTime,
     private val ledgerAccountId: String,
     private val description: String?,
     private val metadata: Metadata?,
@@ -25,9 +26,9 @@ constructor(
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun effectiveAtLowerBound(): String = effectiveAtLowerBound
+    fun effectiveAtLowerBound(): OffsetDateTime = effectiveAtLowerBound
 
-    fun effectiveAtUpperBound(): String = effectiveAtUpperBound
+    fun effectiveAtUpperBound(): OffsetDateTime = effectiveAtUpperBound
 
     fun ledgerAccountId(): String = ledgerAccountId
 
@@ -54,8 +55,8 @@ constructor(
     @NoAutoDetect
     class LedgerAccountStatementCreateBody
     internal constructor(
-        private val effectiveAtLowerBound: String?,
-        private val effectiveAtUpperBound: String?,
+        private val effectiveAtLowerBound: OffsetDateTime?,
+        private val effectiveAtUpperBound: OffsetDateTime?,
         private val ledgerAccountId: String?,
         private val description: String?,
         private val metadata: Metadata?,
@@ -69,14 +70,14 @@ constructor(
          * included in the ledger account statement.
          */
         @JsonProperty("effective_at_lower_bound")
-        fun effectiveAtLowerBound(): String? = effectiveAtLowerBound
+        fun effectiveAtLowerBound(): OffsetDateTime? = effectiveAtLowerBound
 
         /**
          * The exclusive upper bound of the effective_at timestamp of the ledger entries to be
          * included in the ledger account statement.
          */
         @JsonProperty("effective_at_upper_bound")
-        fun effectiveAtUpperBound(): String? = effectiveAtUpperBound
+        fun effectiveAtUpperBound(): OffsetDateTime? = effectiveAtUpperBound
 
         /**
          * The id of the ledger account whose ledger entries are queried against, and its balances
@@ -137,8 +138,8 @@ constructor(
 
         class Builder {
 
-            private var effectiveAtLowerBound: String? = null
-            private var effectiveAtUpperBound: String? = null
+            private var effectiveAtLowerBound: OffsetDateTime? = null
+            private var effectiveAtUpperBound: OffsetDateTime? = null
             private var ledgerAccountId: String? = null
             private var description: String? = null
             private var metadata: Metadata? = null
@@ -161,7 +162,7 @@ constructor(
              * included in the ledger account statement.
              */
             @JsonProperty("effective_at_lower_bound")
-            fun effectiveAtLowerBound(effectiveAtLowerBound: String) = apply {
+            fun effectiveAtLowerBound(effectiveAtLowerBound: OffsetDateTime) = apply {
                 this.effectiveAtLowerBound = effectiveAtLowerBound
             }
 
@@ -170,7 +171,7 @@ constructor(
              * included in the ledger account statement.
              */
             @JsonProperty("effective_at_upper_bound")
-            fun effectiveAtUpperBound(effectiveAtUpperBound: String) = apply {
+            fun effectiveAtUpperBound(effectiveAtUpperBound: OffsetDateTime) = apply {
                 this.effectiveAtUpperBound = effectiveAtUpperBound
             }
 
@@ -274,8 +275,8 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var effectiveAtLowerBound: String? = null
-        private var effectiveAtUpperBound: String? = null
+        private var effectiveAtLowerBound: OffsetDateTime? = null
+        private var effectiveAtUpperBound: OffsetDateTime? = null
         private var ledgerAccountId: String? = null
         private var description: String? = null
         private var metadata: Metadata? = null
@@ -303,7 +304,7 @@ constructor(
          * The inclusive lower bound of the effective_at timestamp of the ledger entries to be
          * included in the ledger account statement.
          */
-        fun effectiveAtLowerBound(effectiveAtLowerBound: String) = apply {
+        fun effectiveAtLowerBound(effectiveAtLowerBound: OffsetDateTime) = apply {
             this.effectiveAtLowerBound = effectiveAtLowerBound
         }
 
@@ -311,7 +312,7 @@ constructor(
          * The exclusive upper bound of the effective_at timestamp of the ledger entries to be
          * included in the ledger account statement.
          */
-        fun effectiveAtUpperBound(effectiveAtUpperBound: String) = apply {
+        fun effectiveAtUpperBound(effectiveAtUpperBound: OffsetDateTime) = apply {
             this.effectiveAtUpperBound = effectiveAtUpperBound
         }
 

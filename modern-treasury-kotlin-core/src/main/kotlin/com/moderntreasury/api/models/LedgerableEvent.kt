@@ -26,10 +26,6 @@ private constructor(
     private val updatedAt: JsonField<OffsetDateTime>,
     private val name: JsonField<String>,
     private val description: JsonField<String>,
-    private val direction: JsonField<String>,
-    private val amount: JsonField<Long>,
-    private val currency: JsonField<String>,
-    private val currencyExponent: JsonField<Long>,
     private val customData: JsonValue,
     private val ledgerEventHandlerId: JsonField<String>,
     private val metadata: JsonField<Metadata>,
@@ -60,20 +56,6 @@ private constructor(
     /** Description of the ledgerable event. */
     fun description(): String? = description.getNullable("description")
 
-    /** One of `credit`, `debit`. */
-    fun direction(): String? = direction.getNullable("direction")
-
-    /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-    fun amount(): Long = amount.getRequired("amount")
-
-    /** An ISO 4217 conformed currency or a custom currency. */
-    fun currency(): String = currency.getRequired("currency")
-
-    /**
-     * Must be included if currency is a custom currency. The currency_exponent cannot exceed 30.
-     */
-    fun currencyExponent(): Long? = currencyExponent.getNullable("currency_exponent")
-
     /** Id of the ledger event handler that is used to create a ledger transaction. */
     fun ledgerEventHandlerId(): String = ledgerEventHandlerId.getRequired("ledger_event_handler_id")
 
@@ -100,20 +82,6 @@ private constructor(
     /** Description of the ledgerable event. */
     @JsonProperty("description") @ExcludeMissing fun _description() = description
 
-    /** One of `credit`, `debit`. */
-    @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
-
-    /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
-
-    /** An ISO 4217 conformed currency or a custom currency. */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-    /**
-     * Must be included if currency is a custom currency. The currency_exponent cannot exceed 30.
-     */
-    @JsonProperty("currency_exponent") @ExcludeMissing fun _currencyExponent() = currencyExponent
-
     /** Additionally data to be used by the Ledger Event Handler. */
     @JsonProperty("custom_data") @ExcludeMissing fun _customData() = customData
 
@@ -138,10 +106,6 @@ private constructor(
             updatedAt()
             name()
             description()
-            direction()
-            amount()
-            currency()
-            currencyExponent()
             ledgerEventHandlerId()
             metadata()?.validate()
             validated = true
@@ -163,10 +127,6 @@ private constructor(
             this.updatedAt == other.updatedAt &&
             this.name == other.name &&
             this.description == other.description &&
-            this.direction == other.direction &&
-            this.amount == other.amount &&
-            this.currency == other.currency &&
-            this.currencyExponent == other.currencyExponent &&
             this.customData == other.customData &&
             this.ledgerEventHandlerId == other.ledgerEventHandlerId &&
             this.metadata == other.metadata &&
@@ -184,10 +144,6 @@ private constructor(
                     updatedAt,
                     name,
                     description,
-                    direction,
-                    amount,
-                    currency,
-                    currencyExponent,
                     customData,
                     ledgerEventHandlerId,
                     metadata,
@@ -198,7 +154,7 @@ private constructor(
     }
 
     override fun toString() =
-        "LedgerableEvent{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, name=$name, description=$description, direction=$direction, amount=$amount, currency=$currency, currencyExponent=$currencyExponent, customData=$customData, ledgerEventHandlerId=$ledgerEventHandlerId, metadata=$metadata, additionalProperties=$additionalProperties}"
+        "LedgerableEvent{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, name=$name, description=$description, customData=$customData, ledgerEventHandlerId=$ledgerEventHandlerId, metadata=$metadata, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -214,10 +170,6 @@ private constructor(
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
-        private var direction: JsonField<String> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var currency: JsonField<String> = JsonMissing.of()
-        private var currencyExponent: JsonField<Long> = JsonMissing.of()
         private var customData: JsonValue = JsonMissing.of()
         private var ledgerEventHandlerId: JsonField<String> = JsonMissing.of()
         private var metadata: JsonField<Metadata> = JsonMissing.of()
@@ -231,10 +183,6 @@ private constructor(
             this.updatedAt = ledgerableEvent.updatedAt
             this.name = ledgerableEvent.name
             this.description = ledgerableEvent.description
-            this.direction = ledgerableEvent.direction
-            this.amount = ledgerableEvent.amount
-            this.currency = ledgerableEvent.currency
-            this.currencyExponent = ledgerableEvent.currencyExponent
             this.customData = ledgerableEvent.customData
             this.ledgerEventHandlerId = ledgerableEvent.ledgerEventHandlerId
             this.metadata = ledgerableEvent.metadata
@@ -293,47 +241,6 @@ private constructor(
         @ExcludeMissing
         fun description(description: JsonField<String>) = apply { this.description = description }
 
-        /** One of `credit`, `debit`. */
-        fun direction(direction: String) = direction(JsonField.of(direction))
-
-        /** One of `credit`, `debit`. */
-        @JsonProperty("direction")
-        @ExcludeMissing
-        fun direction(direction: JsonField<String>) = apply { this.direction = direction }
-
-        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-        fun amount(amount: Long) = amount(JsonField.of(amount))
-
-        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-        @JsonProperty("amount")
-        @ExcludeMissing
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-        /** An ISO 4217 conformed currency or a custom currency. */
-        fun currency(currency: String) = currency(JsonField.of(currency))
-
-        /** An ISO 4217 conformed currency or a custom currency. */
-        @JsonProperty("currency")
-        @ExcludeMissing
-        fun currency(currency: JsonField<String>) = apply { this.currency = currency }
-
-        /**
-         * Must be included if currency is a custom currency. The currency_exponent cannot exceed
-         * 30.
-         */
-        fun currencyExponent(currencyExponent: Long) =
-            currencyExponent(JsonField.of(currencyExponent))
-
-        /**
-         * Must be included if currency is a custom currency. The currency_exponent cannot exceed
-         * 30.
-         */
-        @JsonProperty("currency_exponent")
-        @ExcludeMissing
-        fun currencyExponent(currencyExponent: JsonField<Long>) = apply {
-            this.currencyExponent = currencyExponent
-        }
-
         /** Additionally data to be used by the Ledger Event Handler. */
         @JsonProperty("custom_data")
         @ExcludeMissing
@@ -385,10 +292,6 @@ private constructor(
                 updatedAt,
                 name,
                 description,
-                direction,
-                amount,
-                currency,
-                currencyExponent,
                 customData,
                 ledgerEventHandlerId,
                 metadata,

@@ -14,7 +14,6 @@ class ReturnObjectTest {
         val returnObject =
             ReturnObject.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .additionalInformation("string")
                 .amount(123L)
                 .code(ReturnObject.Code._901)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -22,7 +21,6 @@ class ReturnObjectTest {
                 .currentReturn(
                     ReturnObject.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .additionalInformation("string")
                         .amount(123L)
                         .code(ReturnObject.Code._901)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -58,6 +56,7 @@ class ReturnObjectTest {
                         .transactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .type(ReturnObject.Type.ACH)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .additionalInformation("string")
                         .build()
                 )
                 .dateOfDeath(LocalDate.parse("2019-12-27"))
@@ -91,10 +90,10 @@ class ReturnObjectTest {
                 .transactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .type(ReturnObject.Type.ACH)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .additionalInformation("string")
                 .build()
         assertThat(returnObject).isNotNull
         assertThat(returnObject.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(returnObject.additionalInformation()).isEqualTo("string")
         assertThat(returnObject.amount()).isEqualTo(123L)
         assertThat(returnObject.code()).isEqualTo(ReturnObject.Code._901)
         assertThat(returnObject.createdAt())
@@ -104,7 +103,6 @@ class ReturnObjectTest {
             .isEqualTo(
                 ReturnObject.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .additionalInformation("string")
                     .amount(123L)
                     .code(ReturnObject.Code._901)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -140,6 +138,7 @@ class ReturnObjectTest {
                     .transactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .type(ReturnObject.Type.ACH)
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .additionalInformation("string")
                     .build()
             )
         assertThat(returnObject.dateOfDeath()).isEqualTo(LocalDate.parse("2019-12-27"))
@@ -176,5 +175,6 @@ class ReturnObjectTest {
         assertThat(returnObject.type()).isEqualTo(ReturnObject.Type.ACH)
         assertThat(returnObject.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(returnObject.additionalInformation()).isEqualTo("string")
     }
 }

@@ -3,7 +3,6 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.models.*
-import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -14,8 +13,8 @@ class LedgerEventHandlerCreateParamsTest {
         LedgerEventHandlerCreateParams.builder()
             .ledgerTransactionTemplate(
                 LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate.builder()
-                    .description("string")
-                    .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .description("My Ledger Transaction Template Description")
+                    .effectiveAt("{{ledgerable_event.custom_data.effective_at}}")
                     .ledgerEntries(
                         listOf(
                             LedgerEventHandlerCreateParams
@@ -28,12 +27,7 @@ class LedgerEventHandlerCreateParamsTest {
                                 .build()
                         )
                     )
-                    .metadata(
-                        LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate
-                            .Metadata
-                            .builder()
-                            .build()
-                    )
+                    .status("posted")
                     .build()
             )
             .name("string")
@@ -47,6 +41,7 @@ class LedgerEventHandlerCreateParamsTest {
             .description("string")
             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .metadata(LedgerEventHandlerCreateParams.Metadata.builder().build())
+            .variables(LedgerEventHandlerCreateParams.LedgerEventHandlerVariables.builder().build())
             .build()
     }
 
@@ -57,8 +52,8 @@ class LedgerEventHandlerCreateParamsTest {
                 .ledgerTransactionTemplate(
                     LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate
                         .builder()
-                        .description("string")
-                        .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .description("My Ledger Transaction Template Description")
+                        .effectiveAt("{{ledgerable_event.custom_data.effective_at}}")
                         .ledgerEntries(
                             listOf(
                                 LedgerEventHandlerCreateParams
@@ -71,13 +66,7 @@ class LedgerEventHandlerCreateParamsTest {
                                     .build()
                             )
                         )
-                        .metadata(
-                            LedgerEventHandlerCreateParams
-                                .LedgerEventHandlerLedgerTransactionTemplate
-                                .Metadata
-                                .builder()
-                                .build()
-                        )
+                        .status("posted")
                         .build()
                 )
                 .name("string")
@@ -91,14 +80,17 @@ class LedgerEventHandlerCreateParamsTest {
                 .description("string")
                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .metadata(LedgerEventHandlerCreateParams.Metadata.builder().build())
+                .variables(
+                    LedgerEventHandlerCreateParams.LedgerEventHandlerVariables.builder().build()
+                )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.ledgerTransactionTemplate())
             .isEqualTo(
                 LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate.builder()
-                    .description("string")
-                    .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .description("My Ledger Transaction Template Description")
+                    .effectiveAt("{{ledgerable_event.custom_data.effective_at}}")
                     .ledgerEntries(
                         listOf(
                             LedgerEventHandlerCreateParams
@@ -111,12 +103,7 @@ class LedgerEventHandlerCreateParamsTest {
                                 .build()
                         )
                     )
-                    .metadata(
-                        LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate
-                            .Metadata
-                            .builder()
-                            .build()
-                    )
+                    .status("posted")
                     .build()
             )
         assertThat(body.name()).isEqualTo("string")
@@ -132,6 +119,8 @@ class LedgerEventHandlerCreateParamsTest {
         assertThat(body.ledgerId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.metadata())
             .isEqualTo(LedgerEventHandlerCreateParams.Metadata.builder().build())
+        assertThat(body.variables())
+            .isEqualTo(LedgerEventHandlerCreateParams.LedgerEventHandlerVariables.builder().build())
     }
 
     @Test

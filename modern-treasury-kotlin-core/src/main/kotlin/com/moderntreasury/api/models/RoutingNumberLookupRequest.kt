@@ -37,9 +37,10 @@ private constructor(
     fun routingNumber(): String? = routingNumber.getNullable("routing_number")
 
     /**
-     * One of `aba`, `au_bsb`, `br_codigo`, `ca_cpa`, `cnaps`, `gb_sort_code`, `in_ifsc`,
-     * `my_branch_code`, `se_bankgiro_clearing_code`, or `swift`. In sandbox mode we currently only
-     * support `aba` and `swift` with routing numbers '123456789' and 'GRINUST0XXX' respectively.
+     * The type of routing number. See
+     * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more details. In
+     * sandbox mode we currently only support `aba` and `swift` with routing numbers '123456789' and
+     * 'GRINUST0XXX' respectively.
      */
     fun routingNumberType(): RoutingNumberType? =
         routingNumberType.getNullable("routing_number_type")
@@ -68,9 +69,10 @@ private constructor(
     @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
 
     /**
-     * One of `aba`, `au_bsb`, `br_codigo`, `ca_cpa`, `cnaps`, `gb_sort_code`, `in_ifsc`,
-     * `my_branch_code`, `se_bankgiro_clearing_code`, or `swift`. In sandbox mode we currently only
-     * support `aba` and `swift` with routing numbers '123456789' and 'GRINUST0XXX' respectively.
+     * The type of routing number. See
+     * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more details. In
+     * sandbox mode we currently only support `aba` and `swift` with routing numbers '123456789' and
+     * 'GRINUST0XXX' respectively.
      */
     @JsonProperty("routing_number_type")
     @ExcludeMissing
@@ -185,19 +187,19 @@ private constructor(
         }
 
         /**
-         * One of `aba`, `au_bsb`, `br_codigo`, `ca_cpa`, `cnaps`, `gb_sort_code`, `in_ifsc`,
-         * `my_branch_code`, `se_bankgiro_clearing_code`, or `swift`. In sandbox mode we currently
-         * only support `aba` and `swift` with routing numbers '123456789' and 'GRINUST0XXX'
-         * respectively.
+         * The type of routing number. See
+         * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
+         * details. In sandbox mode we currently only support `aba` and `swift` with routing numbers
+         * '123456789' and 'GRINUST0XXX' respectively.
          */
         fun routingNumberType(routingNumberType: RoutingNumberType) =
             routingNumberType(JsonField.of(routingNumberType))
 
         /**
-         * One of `aba`, `au_bsb`, `br_codigo`, `ca_cpa`, `cnaps`, `gb_sort_code`, `in_ifsc`,
-         * `my_branch_code`, `se_bankgiro_clearing_code`, or `swift`. In sandbox mode we currently
-         * only support `aba` and `swift` with routing numbers '123456789' and 'GRINUST0XXX'
-         * respectively.
+         * The type of routing number. See
+         * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
+         * details. In sandbox mode we currently only support `aba` and `swift` with routing numbers
+         * '123456789' and 'GRINUST0XXX' respectively.
          */
         @JsonProperty("routing_number_type")
         @ExcludeMissing
@@ -513,6 +515,9 @@ private constructor(
 
             val IN_IFSC = RoutingNumberType(JsonField.of("in_ifsc"))
 
+            val NZ_NATIONAL_CLEARING_CODE =
+                RoutingNumberType(JsonField.of("nz_national_clearing_code"))
+
             val SE_BANKGIRO_CLEARING_CODE =
                 RoutingNumberType(JsonField.of("se_bankgiro_clearing_code"))
 
@@ -527,6 +532,7 @@ private constructor(
             CA_CPA,
             GB_SORT_CODE,
             IN_IFSC,
+            NZ_NATIONAL_CLEARING_CODE,
             SE_BANKGIRO_CLEARING_CODE,
             SWIFT,
         }
@@ -537,6 +543,7 @@ private constructor(
             CA_CPA,
             GB_SORT_CODE,
             IN_IFSC,
+            NZ_NATIONAL_CLEARING_CODE,
             SE_BANKGIRO_CLEARING_CODE,
             SWIFT,
             _UNKNOWN,
@@ -549,6 +556,7 @@ private constructor(
                 CA_CPA -> Value.CA_CPA
                 GB_SORT_CODE -> Value.GB_SORT_CODE
                 IN_IFSC -> Value.IN_IFSC
+                NZ_NATIONAL_CLEARING_CODE -> Value.NZ_NATIONAL_CLEARING_CODE
                 SE_BANKGIRO_CLEARING_CODE -> Value.SE_BANKGIRO_CLEARING_CODE
                 SWIFT -> Value.SWIFT
                 else -> Value._UNKNOWN
@@ -561,6 +569,7 @@ private constructor(
                 CA_CPA -> Known.CA_CPA
                 GB_SORT_CODE -> Known.GB_SORT_CODE
                 IN_IFSC -> Known.IN_IFSC
+                NZ_NATIONAL_CLEARING_CODE -> Known.NZ_NATIONAL_CLEARING_CODE
                 SE_BANKGIRO_CLEARING_CODE -> Known.SE_BANKGIRO_CLEARING_CODE
                 SWIFT -> Known.SWIFT
                 else ->
@@ -678,6 +687,8 @@ private constructor(
 
             val CARD = SupportedPaymentType(JsonField.of("card"))
 
+            val CHATS = SupportedPaymentType(JsonField.of("chats"))
+
             val CHECK = SupportedPaymentType(JsonField.of("check"))
 
             val CROSS_BORDER = SupportedPaymentType(JsonField.of("cross_border"))
@@ -691,6 +702,8 @@ private constructor(
             val NEFT = SupportedPaymentType(JsonField.of("neft"))
 
             val NICS = SupportedPaymentType(JsonField.of("nics"))
+
+            val NZ_BECS = SupportedPaymentType(JsonField.of("nz_becs"))
 
             val PROVXCHANGE = SupportedPaymentType(JsonField.of("provxchange"))
 
@@ -719,6 +732,7 @@ private constructor(
             BACS,
             BOOK,
             CARD,
+            CHATS,
             CHECK,
             CROSS_BORDER,
             EFT,
@@ -726,6 +740,7 @@ private constructor(
             MASAV,
             NEFT,
             NICS,
+            NZ_BECS,
             PROVXCHANGE,
             RTP,
             SE_BANKGIROT,
@@ -743,6 +758,7 @@ private constructor(
             BACS,
             BOOK,
             CARD,
+            CHATS,
             CHECK,
             CROSS_BORDER,
             EFT,
@@ -750,6 +766,7 @@ private constructor(
             MASAV,
             NEFT,
             NICS,
+            NZ_BECS,
             PROVXCHANGE,
             RTP,
             SE_BANKGIROT,
@@ -769,6 +786,7 @@ private constructor(
                 BACS -> Value.BACS
                 BOOK -> Value.BOOK
                 CARD -> Value.CARD
+                CHATS -> Value.CHATS
                 CHECK -> Value.CHECK
                 CROSS_BORDER -> Value.CROSS_BORDER
                 EFT -> Value.EFT
@@ -776,6 +794,7 @@ private constructor(
                 MASAV -> Value.MASAV
                 NEFT -> Value.NEFT
                 NICS -> Value.NICS
+                NZ_BECS -> Value.NZ_BECS
                 PROVXCHANGE -> Value.PROVXCHANGE
                 RTP -> Value.RTP
                 SE_BANKGIROT -> Value.SE_BANKGIROT
@@ -795,6 +814,7 @@ private constructor(
                 BACS -> Known.BACS
                 BOOK -> Known.BOOK
                 CARD -> Known.CARD
+                CHATS -> Known.CHATS
                 CHECK -> Known.CHECK
                 CROSS_BORDER -> Known.CROSS_BORDER
                 EFT -> Known.EFT
@@ -802,6 +822,7 @@ private constructor(
                 MASAV -> Known.MASAV
                 NEFT -> Known.NEFT
                 NICS -> Known.NICS
+                NZ_BECS -> Known.NZ_BECS
                 PROVXCHANGE -> Known.PROVXCHANGE
                 RTP -> Known.RTP
                 SE_BANKGIROT -> Known.SE_BANKGIROT

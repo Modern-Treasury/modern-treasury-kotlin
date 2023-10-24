@@ -1704,9 +1704,15 @@ constructor(
 
                 val GB_SORT_CODE = RoutingNumberType(JsonField.of("gb_sort_code"))
 
+                val HK_INTERBANK_CLEARING_CODE =
+                    RoutingNumberType(JsonField.of("hk_interbank_clearing_code"))
+
                 val IN_IFSC = RoutingNumberType(JsonField.of("in_ifsc"))
 
                 val MY_BRANCH_CODE = RoutingNumberType(JsonField.of("my_branch_code"))
+
+                val NZ_NATIONAL_CLEARING_CODE =
+                    RoutingNumberType(JsonField.of("nz_national_clearing_code"))
 
                 val SWIFT = RoutingNumberType(JsonField.of("swift"))
 
@@ -1724,8 +1730,10 @@ constructor(
                 CHIPS,
                 CNAPS,
                 GB_SORT_CODE,
+                HK_INTERBANK_CLEARING_CODE,
                 IN_IFSC,
                 MY_BRANCH_CODE,
+                NZ_NATIONAL_CLEARING_CODE,
                 SWIFT,
                 JP_ZENGIN_CODE,
             }
@@ -1739,8 +1747,10 @@ constructor(
                 CHIPS,
                 CNAPS,
                 GB_SORT_CODE,
+                HK_INTERBANK_CLEARING_CODE,
                 IN_IFSC,
                 MY_BRANCH_CODE,
+                NZ_NATIONAL_CLEARING_CODE,
                 SWIFT,
                 JP_ZENGIN_CODE,
                 _UNKNOWN,
@@ -1756,8 +1766,10 @@ constructor(
                     CHIPS -> Value.CHIPS
                     CNAPS -> Value.CNAPS
                     GB_SORT_CODE -> Value.GB_SORT_CODE
+                    HK_INTERBANK_CLEARING_CODE -> Value.HK_INTERBANK_CLEARING_CODE
                     IN_IFSC -> Value.IN_IFSC
                     MY_BRANCH_CODE -> Value.MY_BRANCH_CODE
+                    NZ_NATIONAL_CLEARING_CODE -> Value.NZ_NATIONAL_CLEARING_CODE
                     SWIFT -> Value.SWIFT
                     JP_ZENGIN_CODE -> Value.JP_ZENGIN_CODE
                     else -> Value._UNKNOWN
@@ -1773,8 +1785,10 @@ constructor(
                     CHIPS -> Known.CHIPS
                     CNAPS -> Known.CNAPS
                     GB_SORT_CODE -> Known.GB_SORT_CODE
+                    HK_INTERBANK_CLEARING_CODE -> Known.HK_INTERBANK_CLEARING_CODE
                     IN_IFSC -> Known.IN_IFSC
                     MY_BRANCH_CODE -> Known.MY_BRANCH_CODE
+                    NZ_NATIONAL_CLEARING_CODE -> Known.NZ_NATIONAL_CLEARING_CODE
                     SWIFT -> Known.SWIFT
                     JP_ZENGIN_CODE -> Known.JP_ZENGIN_CODE
                     else ->
@@ -1812,19 +1826,19 @@ constructor(
 
                 val AU_BECS = PaymentType(JsonField.of("au_becs"))
 
-                val SE_BANKGIROT = PaymentType(JsonField.of("se_bankgirot"))
-
                 val BACS = PaymentType(JsonField.of("bacs"))
 
                 val BOOK = PaymentType(JsonField.of("book"))
 
                 val CARD = PaymentType(JsonField.of("card"))
 
+                val CHATS = PaymentType(JsonField.of("chats"))
+
                 val CHECK = PaymentType(JsonField.of("check"))
 
-                val EFT = PaymentType(JsonField.of("eft"))
-
                 val CROSS_BORDER = PaymentType(JsonField.of("cross_border"))
+
+                val EFT = PaymentType(JsonField.of("eft"))
 
                 val INTERAC = PaymentType(JsonField.of("interac"))
 
@@ -1834,15 +1848,19 @@ constructor(
 
                 val NICS = PaymentType(JsonField.of("nics"))
 
+                val NZ_BECS = PaymentType(JsonField.of("nz_becs"))
+
                 val PROVXCHANGE = PaymentType(JsonField.of("provxchange"))
 
                 val RTP = PaymentType(JsonField.of("rtp"))
 
+                val SE_BANKGIROT = PaymentType(JsonField.of("se_bankgirot"))
+
                 val SEN = PaymentType(JsonField.of("sen"))
 
-                val SIC = PaymentType(JsonField.of("sic"))
-
                 val SEPA = PaymentType(JsonField.of("sepa"))
+
+                val SIC = PaymentType(JsonField.of("sic"))
 
                 val SIGNET = PaymentType(JsonField.of("signet"))
 
@@ -1856,22 +1874,24 @@ constructor(
             enum class Known {
                 ACH,
                 AU_BECS,
-                SE_BANKGIROT,
                 BACS,
                 BOOK,
                 CARD,
+                CHATS,
                 CHECK,
-                EFT,
                 CROSS_BORDER,
+                EFT,
                 INTERAC,
                 MASAV,
                 NEFT,
                 NICS,
+                NZ_BECS,
                 PROVXCHANGE,
                 RTP,
+                SE_BANKGIROT,
                 SEN,
-                SIC,
                 SEPA,
+                SIC,
                 SIGNET,
                 WIRE,
                 ZENGIN,
@@ -1880,22 +1900,24 @@ constructor(
             enum class Value {
                 ACH,
                 AU_BECS,
-                SE_BANKGIROT,
                 BACS,
                 BOOK,
                 CARD,
+                CHATS,
                 CHECK,
-                EFT,
                 CROSS_BORDER,
+                EFT,
                 INTERAC,
                 MASAV,
                 NEFT,
                 NICS,
+                NZ_BECS,
                 PROVXCHANGE,
                 RTP,
+                SE_BANKGIROT,
                 SEN,
-                SIC,
                 SEPA,
+                SIC,
                 SIGNET,
                 WIRE,
                 ZENGIN,
@@ -1906,22 +1928,24 @@ constructor(
                 when (this) {
                     ACH -> Value.ACH
                     AU_BECS -> Value.AU_BECS
-                    SE_BANKGIROT -> Value.SE_BANKGIROT
                     BACS -> Value.BACS
                     BOOK -> Value.BOOK
                     CARD -> Value.CARD
+                    CHATS -> Value.CHATS
                     CHECK -> Value.CHECK
-                    EFT -> Value.EFT
                     CROSS_BORDER -> Value.CROSS_BORDER
+                    EFT -> Value.EFT
                     INTERAC -> Value.INTERAC
                     MASAV -> Value.MASAV
                     NEFT -> Value.NEFT
                     NICS -> Value.NICS
+                    NZ_BECS -> Value.NZ_BECS
                     PROVXCHANGE -> Value.PROVXCHANGE
                     RTP -> Value.RTP
+                    SE_BANKGIROT -> Value.SE_BANKGIROT
                     SEN -> Value.SEN
-                    SIC -> Value.SIC
                     SEPA -> Value.SEPA
+                    SIC -> Value.SIC
                     SIGNET -> Value.SIGNET
                     WIRE -> Value.WIRE
                     ZENGIN -> Value.ZENGIN
@@ -1932,22 +1956,24 @@ constructor(
                 when (this) {
                     ACH -> Known.ACH
                     AU_BECS -> Known.AU_BECS
-                    SE_BANKGIROT -> Known.SE_BANKGIROT
                     BACS -> Known.BACS
                     BOOK -> Known.BOOK
                     CARD -> Known.CARD
+                    CHATS -> Known.CHATS
                     CHECK -> Known.CHECK
-                    EFT -> Known.EFT
                     CROSS_BORDER -> Known.CROSS_BORDER
+                    EFT -> Known.EFT
                     INTERAC -> Known.INTERAC
                     MASAV -> Known.MASAV
                     NEFT -> Known.NEFT
                     NICS -> Known.NICS
+                    NZ_BECS -> Known.NZ_BECS
                     PROVXCHANGE -> Known.PROVXCHANGE
                     RTP -> Known.RTP
+                    SE_BANKGIROT -> Known.SE_BANKGIROT
                     SEN -> Known.SEN
-                    SIC -> Known.SIC
                     SEPA -> Known.SEPA
+                    SIC -> Known.SIC
                     SIGNET -> Known.SIGNET
                     WIRE -> Known.WIRE
                     ZENGIN -> Known.ZENGIN

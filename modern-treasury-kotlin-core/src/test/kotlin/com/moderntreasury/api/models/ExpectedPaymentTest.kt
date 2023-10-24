@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonNull
+import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -32,6 +33,7 @@ class ExpectedPaymentTest {
                 .reconciliationFilters(JsonNull.of())
                 .reconciliationGroups(JsonNull.of())
                 .reconciliationMethod(ExpectedPayment.ReconciliationMethod.AUTOMATIC)
+                .reconciliationRuleVariables(listOf(JsonValue.from(mapOf<String, Any>())))
                 .remittanceInformation("string")
                 .statementDescriptor("string")
                 .status(ExpectedPayment.Status.ARCHIVED)
@@ -64,6 +66,8 @@ class ExpectedPaymentTest {
         assertThat(expectedPayment._reconciliationGroups()).isEqualTo(JsonNull.of())
         assertThat(expectedPayment.reconciliationMethod())
             .isEqualTo(ExpectedPayment.ReconciliationMethod.AUTOMATIC)
+        assertThat(expectedPayment.reconciliationRuleVariables())
+            .containsExactly(JsonValue.from(mapOf<String, Any>()))
         assertThat(expectedPayment.remittanceInformation()).isEqualTo("string")
         assertThat(expectedPayment.statementDescriptor()).isEqualTo("string")
         assertThat(expectedPayment.status()).isEqualTo(ExpectedPayment.Status.ARCHIVED)
