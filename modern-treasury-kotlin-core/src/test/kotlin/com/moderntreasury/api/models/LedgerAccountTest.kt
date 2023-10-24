@@ -24,8 +24,8 @@ class LedgerAccountTest {
                                 .debits(123L)
                                 .build()
                         )
-                        .effectiveAtLowerBound("string")
-                        .effectiveAtUpperBound("string")
+                        .effectiveAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .pendingBalance(
                             LedgerAccount.LedgerBalancesWithEffectiveAt.LedgerBalance.builder()
                                 .amount(123L)
@@ -74,8 +74,8 @@ class LedgerAccountTest {
                             .debits(123L)
                             .build()
                     )
-                    .effectiveAtLowerBound("string")
-                    .effectiveAtUpperBound("string")
+                    .effectiveAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .pendingBalance(
                         LedgerAccount.LedgerBalancesWithEffectiveAt.LedgerBalance.builder()
                             .amount(123L)

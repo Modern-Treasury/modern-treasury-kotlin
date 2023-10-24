@@ -15,8 +15,8 @@ class LedgerAccountStatementRetrieveResponseTest {
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .description("string")
-                .effectiveAtLowerBound("string")
-                .effectiveAtUpperBound("string")
+                .effectiveAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .endingBalance(
                     LedgerAccountStatementRetrieveResponse.LedgerBalances.builder()
                         .availableBalance(
@@ -101,9 +101,9 @@ class LedgerAccountStatementRetrieveResponseTest {
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(ledgerAccountStatementRetrieveResponse.description()).isEqualTo("string")
         assertThat(ledgerAccountStatementRetrieveResponse.effectiveAtLowerBound())
-            .isEqualTo("string")
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(ledgerAccountStatementRetrieveResponse.effectiveAtUpperBound())
-            .isEqualTo("string")
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(ledgerAccountStatementRetrieveResponse.endingBalance())
             .isEqualTo(
                 LedgerAccountStatementRetrieveResponse.LedgerBalances.builder()

@@ -29,6 +29,7 @@ constructor(
     private val metadata: Metadata?,
     private val reconciliationFilters: JsonValue?,
     private val reconciliationGroups: JsonValue?,
+    private val reconciliationRuleVariables: List<JsonValue>?,
     private val remittanceInformation: String?,
     private val statementDescriptor: String?,
     private val type: ExpectedPaymentType?,
@@ -63,6 +64,8 @@ constructor(
 
     fun reconciliationGroups(): JsonValue? = reconciliationGroups
 
+    fun reconciliationRuleVariables(): List<JsonValue>? = reconciliationRuleVariables
+
     fun remittanceInformation(): String? = remittanceInformation
 
     fun statementDescriptor(): String? = statementDescriptor
@@ -84,6 +87,7 @@ constructor(
             metadata,
             reconciliationFilters,
             reconciliationGroups,
+            reconciliationRuleVariables,
             remittanceInformation,
             statementDescriptor,
             type,
@@ -112,6 +116,7 @@ constructor(
         private val metadata: Metadata?,
         private val reconciliationFilters: JsonValue?,
         private val reconciliationGroups: JsonValue?,
+        private val reconciliationRuleVariables: List<JsonValue>?,
         private val remittanceInformation: String?,
         private val statementDescriptor: String?,
         private val type: ExpectedPaymentType?,
@@ -171,6 +176,10 @@ constructor(
         @JsonProperty("reconciliation_groups")
         fun reconciliationGroups(): JsonValue? = reconciliationGroups
 
+        /** An array of reconciliation rule variables for this payment. */
+        @JsonProperty("reconciliation_rule_variables")
+        fun reconciliationRuleVariables(): List<JsonValue>? = reconciliationRuleVariables
+
         /**
          * For `ach`, this field will be passed through on an addenda record. For `wire` payments
          * the field will be passed through as the "Originator to Beneficiary Information", also
@@ -218,6 +227,7 @@ constructor(
                 this.metadata == other.metadata &&
                 this.reconciliationFilters == other.reconciliationFilters &&
                 this.reconciliationGroups == other.reconciliationGroups &&
+                this.reconciliationRuleVariables == other.reconciliationRuleVariables &&
                 this.remittanceInformation == other.remittanceInformation &&
                 this.statementDescriptor == other.statementDescriptor &&
                 this.type == other.type &&
@@ -241,6 +251,7 @@ constructor(
                         metadata,
                         reconciliationFilters,
                         reconciliationGroups,
+                        reconciliationRuleVariables,
                         remittanceInformation,
                         statementDescriptor,
                         type,
@@ -251,7 +262,7 @@ constructor(
         }
 
         override fun toString() =
-            "ExpectedPaymentCreateBody{amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, direction=$direction, internalAccountId=$internalAccountId, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, lineItems=$lineItems, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, type=$type, additionalProperties=$additionalProperties}"
+            "ExpectedPaymentCreateBody{amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, direction=$direction, internalAccountId=$internalAccountId, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, lineItems=$lineItems, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, type=$type, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -273,6 +284,7 @@ constructor(
             private var metadata: Metadata? = null
             private var reconciliationFilters: JsonValue? = null
             private var reconciliationGroups: JsonValue? = null
+            private var reconciliationRuleVariables: List<JsonValue>? = null
             private var remittanceInformation: String? = null
             private var statementDescriptor: String? = null
             private var type: ExpectedPaymentType? = null
@@ -292,6 +304,8 @@ constructor(
                 this.metadata = expectedPaymentCreateBody.metadata
                 this.reconciliationFilters = expectedPaymentCreateBody.reconciliationFilters
                 this.reconciliationGroups = expectedPaymentCreateBody.reconciliationGroups
+                this.reconciliationRuleVariables =
+                    expectedPaymentCreateBody.reconciliationRuleVariables
                 this.remittanceInformation = expectedPaymentCreateBody.remittanceInformation
                 this.statementDescriptor = expectedPaymentCreateBody.statementDescriptor
                 this.type = expectedPaymentCreateBody.type
@@ -377,6 +391,12 @@ constructor(
                 this.reconciliationGroups = reconciliationGroups
             }
 
+            /** An array of reconciliation rule variables for this payment. */
+            @JsonProperty("reconciliation_rule_variables")
+            fun reconciliationRuleVariables(reconciliationRuleVariables: List<JsonValue>) = apply {
+                this.reconciliationRuleVariables = reconciliationRuleVariables
+            }
+
             /**
              * For `ach`, this field will be passed through on an addenda record. For `wire`
              * payments the field will be passed through as the "Originator to Beneficiary
@@ -438,6 +458,7 @@ constructor(
                     metadata,
                     reconciliationFilters,
                     reconciliationGroups,
+                    reconciliationRuleVariables?.toUnmodifiable(),
                     remittanceInformation,
                     statementDescriptor,
                     type,
@@ -471,6 +492,7 @@ constructor(
             this.metadata == other.metadata &&
             this.reconciliationFilters == other.reconciliationFilters &&
             this.reconciliationGroups == other.reconciliationGroups &&
+            this.reconciliationRuleVariables == other.reconciliationRuleVariables &&
             this.remittanceInformation == other.remittanceInformation &&
             this.statementDescriptor == other.statementDescriptor &&
             this.type == other.type &&
@@ -494,6 +516,7 @@ constructor(
             metadata,
             reconciliationFilters,
             reconciliationGroups,
+            reconciliationRuleVariables,
             remittanceInformation,
             statementDescriptor,
             type,
@@ -504,7 +527,7 @@ constructor(
     }
 
     override fun toString() =
-        "ExpectedPaymentCreateParams{amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, direction=$direction, internalAccountId=$internalAccountId, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, lineItems=$lineItems, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, type=$type, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "ExpectedPaymentCreateParams{amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, direction=$direction, internalAccountId=$internalAccountId, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, lineItems=$lineItems, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, type=$type, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -529,6 +552,7 @@ constructor(
         private var metadata: Metadata? = null
         private var reconciliationFilters: JsonValue? = null
         private var reconciliationGroups: JsonValue? = null
+        private var reconciliationRuleVariables: MutableList<JsonValue> = mutableListOf()
         private var remittanceInformation: String? = null
         private var statementDescriptor: String? = null
         private var type: ExpectedPaymentType? = null
@@ -550,6 +574,9 @@ constructor(
             this.metadata = expectedPaymentCreateParams.metadata
             this.reconciliationFilters = expectedPaymentCreateParams.reconciliationFilters
             this.reconciliationGroups = expectedPaymentCreateParams.reconciliationGroups
+            this.reconciliationRuleVariables(
+                expectedPaymentCreateParams.reconciliationRuleVariables ?: listOf()
+            )
             this.remittanceInformation = expectedPaymentCreateParams.remittanceInformation
             this.statementDescriptor = expectedPaymentCreateParams.statementDescriptor
             this.type = expectedPaymentCreateParams.type
@@ -624,6 +651,17 @@ constructor(
         /** The reconciliation groups you have for this payment. */
         fun reconciliationGroups(reconciliationGroups: JsonValue) = apply {
             this.reconciliationGroups = reconciliationGroups
+        }
+
+        /** An array of reconciliation rule variables for this payment. */
+        fun reconciliationRuleVariables(reconciliationRuleVariables: List<JsonValue>) = apply {
+            this.reconciliationRuleVariables.clear()
+            this.reconciliationRuleVariables.addAll(reconciliationRuleVariables)
+        }
+
+        /** An array of reconciliation rule variables for this payment. */
+        fun addReconciliationRuleVariable(reconciliationRuleVariable: JsonValue) = apply {
+            this.reconciliationRuleVariables.add(reconciliationRuleVariable)
         }
 
         /**
@@ -721,6 +759,8 @@ constructor(
                 metadata,
                 reconciliationFilters,
                 reconciliationGroups,
+                if (reconciliationRuleVariables.size == 0) null
+                else reconciliationRuleVariables.toUnmodifiable(),
                 remittanceInformation,
                 statementDescriptor,
                 type,

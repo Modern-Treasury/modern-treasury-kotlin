@@ -13,7 +13,7 @@ class PaymentOrderReversalCreateParamsTest {
     @Test
     fun createPaymentOrderReversalCreateParams() {
         PaymentOrderReversalCreateParams.builder()
-            .paymentOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .paymentOrderId("string")
             .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
             .ledgerTransaction(
                 PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.builder()
@@ -87,7 +87,7 @@ class PaymentOrderReversalCreateParamsTest {
     fun getBody() {
         val params =
             PaymentOrderReversalCreateParams.builder()
-                .paymentOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .paymentOrderId("string")
                 .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
                 .ledgerTransaction(
                     PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.builder()
@@ -235,7 +235,7 @@ class PaymentOrderReversalCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             PaymentOrderReversalCreateParams.builder()
-                .paymentOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .paymentOrderId("string")
                 .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
                 .build()
         val body = params.getBody()
@@ -247,12 +247,12 @@ class PaymentOrderReversalCreateParamsTest {
     fun getPathParam() {
         val params =
             PaymentOrderReversalCreateParams.builder()
-                .paymentOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .paymentOrderId("string")
                 .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
                 .build()
         assertThat(params).isNotNull
         // path param "paymentOrderId"
-        assertThat(params.getPathParam(0)).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(params.getPathParam(0)).isEqualTo("string")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

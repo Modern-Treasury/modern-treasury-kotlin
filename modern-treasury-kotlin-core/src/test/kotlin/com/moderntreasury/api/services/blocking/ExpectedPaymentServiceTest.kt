@@ -5,6 +5,7 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonNull
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.ExpectedPaymentListParams
 import java.time.LocalDate
@@ -51,6 +52,7 @@ class ExpectedPaymentServiceTest {
                     .metadata(ExpectedPaymentCreateParams.Metadata.builder().build())
                     .reconciliationFilters(JsonNull.of())
                     .reconciliationGroups(JsonNull.of())
+                    .reconciliationRuleVariables(listOf(JsonValue.from(mapOf<String, Any>())))
                     .remittanceInformation("string")
                     .statementDescriptor("string")
                     .type(ExpectedPaymentType.ACH)
@@ -102,6 +104,7 @@ class ExpectedPaymentServiceTest {
                     .metadata(ExpectedPaymentUpdateParams.Metadata.builder().build())
                     .reconciliationFilters(JsonNull.of())
                     .reconciliationGroups(JsonNull.of())
+                    .reconciliationRuleVariables(listOf(JsonValue.from(mapOf<String, Any>())))
                     .remittanceInformation("string")
                     .statementDescriptor("string")
                     .type(ExpectedPaymentType.ACH)

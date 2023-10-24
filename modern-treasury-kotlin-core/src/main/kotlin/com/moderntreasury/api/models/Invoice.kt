@@ -48,9 +48,12 @@ private constructor(
     private val hostedUrl: JsonField<String>,
     private val number: JsonField<String>,
     private val paymentOrders: JsonField<List<PaymentOrder>>,
+    private val expectedPayments: JsonField<List<ExpectedPayment>>,
     private val pdfUrl: JsonField<String>,
     private val status: JsonField<Status>,
     private val totalAmount: JsonField<Long>,
+    private val amountRemaining: JsonField<Long>,
+    private val amountPaid: JsonField<Long>,
     private val transactionLineItemIds: JsonField<List<String>>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -160,6 +163,10 @@ private constructor(
     /** The payment orders created for paying the invoice through the invoice payment UI. */
     fun paymentOrders(): List<PaymentOrder> = paymentOrders.getRequired("payment_orders")
 
+    /** The expected payments created for an unpaid invoice. */
+    fun expectedPayments(): List<ExpectedPayment> =
+        expectedPayments.getRequired("expected_payments")
+
     /** The URL where the invoice PDF can be downloaded. */
     fun pdfUrl(): String? = pdfUrl.getNullable("pdf_url")
 
@@ -171,6 +178,18 @@ private constructor(
      * 1000.
      */
     fun totalAmount(): Long = totalAmount.getRequired("total_amount")
+
+    /**
+     * Amount remaining due on the invoice in specified currency's smallest unit, e.g., $10 USD
+     * would be represented as 1000.
+     */
+    fun amountRemaining(): Long = amountRemaining.getRequired("amount_remaining")
+
+    /**
+     * Amount paid on the invoice in specified currency's smallest unit, e.g., $10 USD would be
+     * represented as 1000.
+     */
+    fun amountPaid(): Long = amountPaid.getRequired("amount_paid")
 
     /** IDs of transaction line items associated with an invoice. */
     fun transactionLineItemIds(): List<String> =
@@ -287,6 +306,9 @@ private constructor(
     /** The payment orders created for paying the invoice through the invoice payment UI. */
     @JsonProperty("payment_orders") @ExcludeMissing fun _paymentOrders() = paymentOrders
 
+    /** The expected payments created for an unpaid invoice. */
+    @JsonProperty("expected_payments") @ExcludeMissing fun _expectedPayments() = expectedPayments
+
     /** The URL where the invoice PDF can be downloaded. */
     @JsonProperty("pdf_url") @ExcludeMissing fun _pdfUrl() = pdfUrl
 
@@ -298,6 +320,18 @@ private constructor(
      * 1000.
      */
     @JsonProperty("total_amount") @ExcludeMissing fun _totalAmount() = totalAmount
+
+    /**
+     * Amount remaining due on the invoice in specified currency's smallest unit, e.g., $10 USD
+     * would be represented as 1000.
+     */
+    @JsonProperty("amount_remaining") @ExcludeMissing fun _amountRemaining() = amountRemaining
+
+    /**
+     * Amount paid on the invoice in specified currency's smallest unit, e.g., $10 USD would be
+     * represented as 1000.
+     */
+    @JsonProperty("amount_paid") @ExcludeMissing fun _amountPaid() = amountPaid
 
     /** IDs of transaction line items associated with an invoice. */
     @JsonProperty("transaction_line_item_ids")
@@ -336,9 +370,12 @@ private constructor(
             hostedUrl()
             number()
             paymentOrders().forEach { it.validate() }
+            expectedPayments().forEach { it.validate() }
             pdfUrl()
             status()
             totalAmount()
+            amountRemaining()
+            amountPaid()
             transactionLineItemIds()
             validated = true
         }
@@ -378,9 +415,12 @@ private constructor(
             this.hostedUrl == other.hostedUrl &&
             this.number == other.number &&
             this.paymentOrders == other.paymentOrders &&
+            this.expectedPayments == other.expectedPayments &&
             this.pdfUrl == other.pdfUrl &&
             this.status == other.status &&
             this.totalAmount == other.totalAmount &&
+            this.amountRemaining == other.amountRemaining &&
+            this.amountPaid == other.amountPaid &&
             this.transactionLineItemIds == other.transactionLineItemIds &&
             this.additionalProperties == other.additionalProperties
     }
@@ -415,9 +455,12 @@ private constructor(
                     hostedUrl,
                     number,
                     paymentOrders,
+                    expectedPayments,
                     pdfUrl,
                     status,
                     totalAmount,
+                    amountRemaining,
+                    amountPaid,
                     transactionLineItemIds,
                     additionalProperties,
                 )
@@ -426,7 +469,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Invoice{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, contactDetails=$contactDetails, recipientEmail=$recipientEmail, recipientName=$recipientName, counterpartyId=$counterpartyId, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, virtualAccountId=$virtualAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentType=$paymentType, paymentMethod=$paymentMethod, notificationsEnabled=$notificationsEnabled, notificationEmailAddresses=$notificationEmailAddresses, hostedUrl=$hostedUrl, number=$number, paymentOrders=$paymentOrders, pdfUrl=$pdfUrl, status=$status, totalAmount=$totalAmount, transactionLineItemIds=$transactionLineItemIds, additionalProperties=$additionalProperties}"
+        "Invoice{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, contactDetails=$contactDetails, recipientEmail=$recipientEmail, recipientName=$recipientName, counterpartyId=$counterpartyId, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, virtualAccountId=$virtualAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentType=$paymentType, paymentMethod=$paymentMethod, notificationsEnabled=$notificationsEnabled, notificationEmailAddresses=$notificationEmailAddresses, hostedUrl=$hostedUrl, number=$number, paymentOrders=$paymentOrders, expectedPayments=$expectedPayments, pdfUrl=$pdfUrl, status=$status, totalAmount=$totalAmount, amountRemaining=$amountRemaining, amountPaid=$amountPaid, transactionLineItemIds=$transactionLineItemIds, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -463,9 +506,12 @@ private constructor(
         private var hostedUrl: JsonField<String> = JsonMissing.of()
         private var number: JsonField<String> = JsonMissing.of()
         private var paymentOrders: JsonField<List<PaymentOrder>> = JsonMissing.of()
+        private var expectedPayments: JsonField<List<ExpectedPayment>> = JsonMissing.of()
         private var pdfUrl: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var totalAmount: JsonField<Long> = JsonMissing.of()
+        private var amountRemaining: JsonField<Long> = JsonMissing.of()
+        private var amountPaid: JsonField<Long> = JsonMissing.of()
         private var transactionLineItemIds: JsonField<List<String>> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -496,9 +542,12 @@ private constructor(
             this.hostedUrl = invoice.hostedUrl
             this.number = invoice.number
             this.paymentOrders = invoice.paymentOrders
+            this.expectedPayments = invoice.expectedPayments
             this.pdfUrl = invoice.pdfUrl
             this.status = invoice.status
             this.totalAmount = invoice.totalAmount
+            this.amountRemaining = invoice.amountRemaining
+            this.amountPaid = invoice.amountPaid
             this.transactionLineItemIds = invoice.transactionLineItemIds
             additionalProperties(invoice.additionalProperties)
         }
@@ -791,6 +840,17 @@ private constructor(
             this.paymentOrders = paymentOrders
         }
 
+        /** The expected payments created for an unpaid invoice. */
+        fun expectedPayments(expectedPayments: List<ExpectedPayment>) =
+            expectedPayments(JsonField.of(expectedPayments))
+
+        /** The expected payments created for an unpaid invoice. */
+        @JsonProperty("expected_payments")
+        @ExcludeMissing
+        fun expectedPayments(expectedPayments: JsonField<List<ExpectedPayment>>) = apply {
+            this.expectedPayments = expectedPayments
+        }
+
         /** The URL where the invoice PDF can be downloaded. */
         fun pdfUrl(pdfUrl: String) = pdfUrl(JsonField.of(pdfUrl))
 
@@ -820,6 +880,36 @@ private constructor(
         @JsonProperty("total_amount")
         @ExcludeMissing
         fun totalAmount(totalAmount: JsonField<Long>) = apply { this.totalAmount = totalAmount }
+
+        /**
+         * Amount remaining due on the invoice in specified currency's smallest unit, e.g., $10 USD
+         * would be represented as 1000.
+         */
+        fun amountRemaining(amountRemaining: Long) = amountRemaining(JsonField.of(amountRemaining))
+
+        /**
+         * Amount remaining due on the invoice in specified currency's smallest unit, e.g., $10 USD
+         * would be represented as 1000.
+         */
+        @JsonProperty("amount_remaining")
+        @ExcludeMissing
+        fun amountRemaining(amountRemaining: JsonField<Long>) = apply {
+            this.amountRemaining = amountRemaining
+        }
+
+        /**
+         * Amount paid on the invoice in specified currency's smallest unit, e.g., $10 USD would be
+         * represented as 1000.
+         */
+        fun amountPaid(amountPaid: Long) = amountPaid(JsonField.of(amountPaid))
+
+        /**
+         * Amount paid on the invoice in specified currency's smallest unit, e.g., $10 USD would be
+         * represented as 1000.
+         */
+        @JsonProperty("amount_paid")
+        @ExcludeMissing
+        fun amountPaid(amountPaid: JsonField<Long>) = apply { this.amountPaid = amountPaid }
 
         /** IDs of transaction line items associated with an invoice. */
         fun transactionLineItemIds(transactionLineItemIds: List<String>) =
@@ -874,9 +964,12 @@ private constructor(
                 hostedUrl,
                 number,
                 paymentOrders.map { it.toUnmodifiable() },
+                expectedPayments.map { it.toUnmodifiable() },
                 pdfUrl,
                 status,
                 totalAmount,
+                amountRemaining,
+                amountPaid,
                 transactionLineItemIds.map { it.toUnmodifiable() },
                 additionalProperties.toUnmodifiable(),
             )
@@ -1937,6 +2030,8 @@ private constructor(
 
             val PAID = Status(JsonField.of("paid"))
 
+            val PARTIALLY_PAID = Status(JsonField.of("partially_paid"))
+
             val PAYMENT_PENDING = Status(JsonField.of("payment_pending"))
 
             val UNPAID = Status(JsonField.of("unpaid"))
@@ -1949,6 +2044,7 @@ private constructor(
         enum class Known {
             DRAFT,
             PAID,
+            PARTIALLY_PAID,
             PAYMENT_PENDING,
             UNPAID,
             VOIDED,
@@ -1957,6 +2053,7 @@ private constructor(
         enum class Value {
             DRAFT,
             PAID,
+            PARTIALLY_PAID,
             PAYMENT_PENDING,
             UNPAID,
             VOIDED,
@@ -1967,6 +2064,7 @@ private constructor(
             when (this) {
                 DRAFT -> Value.DRAFT
                 PAID -> Value.PAID
+                PARTIALLY_PAID -> Value.PARTIALLY_PAID
                 PAYMENT_PENDING -> Value.PAYMENT_PENDING
                 UNPAID -> Value.UNPAID
                 VOIDED -> Value.VOIDED
@@ -1977,6 +2075,7 @@ private constructor(
             when (this) {
                 DRAFT -> Known.DRAFT
                 PAID -> Known.PAID
+                PARTIALLY_PAID -> Known.PARTIALLY_PAID
                 PAYMENT_PENDING -> Known.PAYMENT_PENDING
                 UNPAID -> Known.UNPAID
                 VOIDED -> Known.VOIDED

@@ -6,12 +6,21 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.moderntreasury.api.core.BaseDeserializer
+import com.moderntreasury.api.core.BaseSerializer
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.getOrThrow
 import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
@@ -57,6 +66,9 @@ private constructor(
     private val expiresAt: JsonField<OffsetDateTime>,
     private val status: JsonField<Status>,
     private val receivingAccountType: JsonField<ReceivingAccountType>,
+    private val ultimateOriginatingAccount: JsonField<UltimateOriginatingAccount>,
+    private val ultimateOriginatingAccountId: JsonField<String>,
+    private val ultimateOriginatingAccountType: JsonField<UltimateOriginatingAccountType>,
     private val counterpartyId: JsonField<String>,
     private val transactionIds: JsonField<List<String>>,
     private val ledgerTransactionId: JsonField<String>,
@@ -89,7 +101,8 @@ private constructor(
 
     /**
      * One of `ach`, `bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`,
-     * `au_becs`, `interac`, `neft`, `nics`, `sic`, `signet`, `provexchange`, `zengin`.
+     * `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `signet`,
+     * `provexchange`, `zengin`.
      */
     fun type(): PaymentOrderType = type.getRequired("type")
 
@@ -248,6 +261,20 @@ private constructor(
         receivingAccountType.getRequired("receiving_account_type")
 
     /**
+     * The account to which the originating of this payment should be attributed to. Can be a
+     * `virtual_account` or `internal_account`.
+     */
+    fun ultimateOriginatingAccount(): UltimateOriginatingAccount? =
+        ultimateOriginatingAccount.getNullable("ultimate_originating_account")
+
+    /** The ultimate originating account ID. Can be a `virtual_account` or `internal_account`. */
+    fun ultimateOriginatingAccountId(): String? =
+        ultimateOriginatingAccountId.getNullable("ultimate_originating_account_id")
+
+    fun ultimateOriginatingAccountType(): UltimateOriginatingAccountType? =
+        ultimateOriginatingAccountType.getNullable("ultimate_originating_account_type")
+
+    /**
      * If the payment order is tied to a specific Counterparty, their id will appear, otherwise
      * `null`.
      */
@@ -308,7 +335,8 @@ private constructor(
 
     /**
      * One of `ach`, `bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`,
-     * `au_becs`, `interac`, `neft`, `nics`, `sic`, `signet`, `provexchange`, `zengin`.
+     * `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `signet`,
+     * `provexchange`, `zengin`.
      */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
 
@@ -487,6 +515,23 @@ private constructor(
     fun _receivingAccountType() = receivingAccountType
 
     /**
+     * The account to which the originating of this payment should be attributed to. Can be a
+     * `virtual_account` or `internal_account`.
+     */
+    @JsonProperty("ultimate_originating_account")
+    @ExcludeMissing
+    fun _ultimateOriginatingAccount() = ultimateOriginatingAccount
+
+    /** The ultimate originating account ID. Can be a `virtual_account` or `internal_account`. */
+    @JsonProperty("ultimate_originating_account_id")
+    @ExcludeMissing
+    fun _ultimateOriginatingAccountId() = ultimateOriginatingAccountId
+
+    @JsonProperty("ultimate_originating_account_type")
+    @ExcludeMissing
+    fun _ultimateOriginatingAccountType() = ultimateOriginatingAccountType
+
+    /**
      * If the payment order is tied to a specific Counterparty, their id will appear, otherwise
      * `null`.
      */
@@ -577,6 +622,9 @@ private constructor(
             expiresAt()
             status()
             receivingAccountType()
+            ultimateOriginatingAccount()
+            ultimateOriginatingAccountId()
+            ultimateOriginatingAccountType()
             counterpartyId()
             transactionIds()
             ledgerTransactionId()
@@ -633,6 +681,9 @@ private constructor(
             this.expiresAt == other.expiresAt &&
             this.status == other.status &&
             this.receivingAccountType == other.receivingAccountType &&
+            this.ultimateOriginatingAccount == other.ultimateOriginatingAccount &&
+            this.ultimateOriginatingAccountId == other.ultimateOriginatingAccountId &&
+            this.ultimateOriginatingAccountType == other.ultimateOriginatingAccountType &&
             this.counterpartyId == other.counterpartyId &&
             this.transactionIds == other.transactionIds &&
             this.ledgerTransactionId == other.ledgerTransactionId &&
@@ -684,6 +735,9 @@ private constructor(
                     expiresAt,
                     status,
                     receivingAccountType,
+                    ultimateOriginatingAccount,
+                    ultimateOriginatingAccountId,
+                    ultimateOriginatingAccountType,
                     counterpartyId,
                     transactionIds,
                     ledgerTransactionId,
@@ -700,7 +754,7 @@ private constructor(
     }
 
     override fun toString() =
-        "PaymentOrder{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, type=$type, subtype=$subtype, amount=$amount, direction=$direction, priority=$priority, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, currency=$currency, effectiveDate=$effectiveDate, description=$description, statementDescriptor=$statementDescriptor, remittanceInformation=$remittanceInformation, purpose=$purpose, metadata=$metadata, chargeBearer=$chargeBearer, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeContract=$foreignExchangeContract, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, sendRemittanceAdvice=$sendRemittanceAdvice, expiresAt=$expiresAt, status=$status, receivingAccountType=$receivingAccountType, counterpartyId=$counterpartyId, transactionIds=$transactionIds, ledgerTransactionId=$ledgerTransactionId, currentReturn=$currentReturn, transactionMonitoringEnabled=$transactionMonitoringEnabled, complianceRuleMetadata=$complianceRuleMetadata, referenceNumbers=$referenceNumbers, vendorFailureReason=$vendorFailureReason, decisionId=$decisionId, additionalProperties=$additionalProperties}"
+        "PaymentOrder{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, type=$type, subtype=$subtype, amount=$amount, direction=$direction, priority=$priority, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, currency=$currency, effectiveDate=$effectiveDate, description=$description, statementDescriptor=$statementDescriptor, remittanceInformation=$remittanceInformation, purpose=$purpose, metadata=$metadata, chargeBearer=$chargeBearer, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeContract=$foreignExchangeContract, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, sendRemittanceAdvice=$sendRemittanceAdvice, expiresAt=$expiresAt, status=$status, receivingAccountType=$receivingAccountType, ultimateOriginatingAccount=$ultimateOriginatingAccount, ultimateOriginatingAccountId=$ultimateOriginatingAccountId, ultimateOriginatingAccountType=$ultimateOriginatingAccountType, counterpartyId=$counterpartyId, transactionIds=$transactionIds, ledgerTransactionId=$ledgerTransactionId, currentReturn=$currentReturn, transactionMonitoringEnabled=$transactionMonitoringEnabled, complianceRuleMetadata=$complianceRuleMetadata, referenceNumbers=$referenceNumbers, vendorFailureReason=$vendorFailureReason, decisionId=$decisionId, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -744,6 +798,11 @@ private constructor(
         private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var receivingAccountType: JsonField<ReceivingAccountType> = JsonMissing.of()
+        private var ultimateOriginatingAccount: JsonField<UltimateOriginatingAccount> =
+            JsonMissing.of()
+        private var ultimateOriginatingAccountId: JsonField<String> = JsonMissing.of()
+        private var ultimateOriginatingAccountType: JsonField<UltimateOriginatingAccountType> =
+            JsonMissing.of()
         private var counterpartyId: JsonField<String> = JsonMissing.of()
         private var transactionIds: JsonField<List<String>> = JsonMissing.of()
         private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
@@ -792,6 +851,9 @@ private constructor(
             this.expiresAt = paymentOrder.expiresAt
             this.status = paymentOrder.status
             this.receivingAccountType = paymentOrder.receivingAccountType
+            this.ultimateOriginatingAccount = paymentOrder.ultimateOriginatingAccount
+            this.ultimateOriginatingAccountId = paymentOrder.ultimateOriginatingAccountId
+            this.ultimateOriginatingAccountType = paymentOrder.ultimateOriginatingAccountType
             this.counterpartyId = paymentOrder.counterpartyId
             this.transactionIds = paymentOrder.transactionIds
             this.ledgerTransactionId = paymentOrder.ledgerTransactionId
@@ -842,13 +904,15 @@ private constructor(
 
         /**
          * One of `ach`, `bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`,
-         * `au_becs`, `interac`, `neft`, `nics`, `sic`, `signet`, `provexchange`, `zengin`.
+         * `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `signet`,
+         * `provexchange`, `zengin`.
          */
         fun type(type: PaymentOrderType) = type(JsonField.of(type))
 
         /**
          * One of `ach`, `bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`,
-         * `au_becs`, `interac`, `neft`, `nics`, `sic`, `signet`, `provexchange`, `zengin`.
+         * `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `signet`,
+         * `provexchange`, `zengin`.
          */
         @JsonProperty("type")
         @ExcludeMissing
@@ -1261,6 +1325,48 @@ private constructor(
         }
 
         /**
+         * The account to which the originating of this payment should be attributed to. Can be a
+         * `virtual_account` or `internal_account`.
+         */
+        fun ultimateOriginatingAccount(ultimateOriginatingAccount: UltimateOriginatingAccount) =
+            ultimateOriginatingAccount(JsonField.of(ultimateOriginatingAccount))
+
+        /**
+         * The account to which the originating of this payment should be attributed to. Can be a
+         * `virtual_account` or `internal_account`.
+         */
+        @JsonProperty("ultimate_originating_account")
+        @ExcludeMissing
+        fun ultimateOriginatingAccount(
+            ultimateOriginatingAccount: JsonField<UltimateOriginatingAccount>
+        ) = apply { this.ultimateOriginatingAccount = ultimateOriginatingAccount }
+
+        /**
+         * The ultimate originating account ID. Can be a `virtual_account` or `internal_account`.
+         */
+        fun ultimateOriginatingAccountId(ultimateOriginatingAccountId: String) =
+            ultimateOriginatingAccountId(JsonField.of(ultimateOriginatingAccountId))
+
+        /**
+         * The ultimate originating account ID. Can be a `virtual_account` or `internal_account`.
+         */
+        @JsonProperty("ultimate_originating_account_id")
+        @ExcludeMissing
+        fun ultimateOriginatingAccountId(ultimateOriginatingAccountId: JsonField<String>) = apply {
+            this.ultimateOriginatingAccountId = ultimateOriginatingAccountId
+        }
+
+        fun ultimateOriginatingAccountType(
+            ultimateOriginatingAccountType: UltimateOriginatingAccountType
+        ) = ultimateOriginatingAccountType(JsonField.of(ultimateOriginatingAccountType))
+
+        @JsonProperty("ultimate_originating_account_type")
+        @ExcludeMissing
+        fun ultimateOriginatingAccountType(
+            ultimateOriginatingAccountType: JsonField<UltimateOriginatingAccountType>
+        ) = apply { this.ultimateOriginatingAccountType = ultimateOriginatingAccountType }
+
+        /**
          * If the payment order is tied to a specific Counterparty, their id will appear, otherwise
          * `null`.
          */
@@ -1444,6 +1550,9 @@ private constructor(
                 expiresAt,
                 status,
                 receivingAccountType,
+                ultimateOriginatingAccount,
+                ultimateOriginatingAccountId,
+                ultimateOriginatingAccountType,
                 counterpartyId,
                 transactionIds.map { it.toUnmodifiable() },
                 ledgerTransactionId,
@@ -2798,6 +2907,192 @@ private constructor(
                 REVERSED -> Known.REVERSED
                 SENT -> Known.SENT
                 else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    @JsonDeserialize(using = UltimateOriginatingAccount.Deserializer::class)
+    @JsonSerialize(using = UltimateOriginatingAccount.Serializer::class)
+    class UltimateOriginatingAccount
+    private constructor(
+        private val virtualAccount: VirtualAccount? = null,
+        private val internalAccount: InternalAccount? = null,
+        private val _json: JsonValue? = null,
+    ) {
+
+        private var validated: Boolean = false
+
+        fun virtualAccount(): VirtualAccount? = virtualAccount
+        fun internalAccount(): InternalAccount? = internalAccount
+
+        fun isVirtualAccount(): Boolean = virtualAccount != null
+        fun isInternalAccount(): Boolean = internalAccount != null
+
+        fun asVirtualAccount(): VirtualAccount = virtualAccount.getOrThrow("virtualAccount")
+        fun asInternalAccount(): InternalAccount = internalAccount.getOrThrow("internalAccount")
+
+        fun _json(): JsonValue? = _json
+
+        fun <T> accept(visitor: Visitor<T>): T {
+            return when {
+                virtualAccount != null -> visitor.visitVirtualAccount(virtualAccount)
+                internalAccount != null -> visitor.visitInternalAccount(internalAccount)
+                else -> visitor.unknown(_json)
+            }
+        }
+
+        fun validate(): UltimateOriginatingAccount = apply {
+            if (!validated) {
+                if (virtualAccount == null && internalAccount == null) {
+                    throw ModernTreasuryInvalidDataException(
+                        "Unknown UltimateOriginatingAccount: $_json"
+                    )
+                }
+                virtualAccount?.validate()
+                internalAccount?.validate()
+                validated = true
+            }
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is UltimateOriginatingAccount &&
+                this.virtualAccount == other.virtualAccount &&
+                this.internalAccount == other.internalAccount
+        }
+
+        override fun hashCode(): Int {
+            return Objects.hash(virtualAccount, internalAccount)
+        }
+
+        override fun toString(): String {
+            return when {
+                virtualAccount != null ->
+                    "UltimateOriginatingAccount{virtualAccount=$virtualAccount}"
+                internalAccount != null ->
+                    "UltimateOriginatingAccount{internalAccount=$internalAccount}"
+                _json != null -> "UltimateOriginatingAccount{_unknown=$_json}"
+                else -> throw IllegalStateException("Invalid UltimateOriginatingAccount")
+            }
+        }
+
+        companion object {
+
+            fun ofVirtualAccount(virtualAccount: VirtualAccount) =
+                UltimateOriginatingAccount(virtualAccount = virtualAccount)
+
+            fun ofInternalAccount(internalAccount: InternalAccount) =
+                UltimateOriginatingAccount(internalAccount = internalAccount)
+        }
+
+        interface Visitor<out T> {
+
+            fun visitVirtualAccount(virtualAccount: VirtualAccount): T
+
+            fun visitInternalAccount(internalAccount: InternalAccount): T
+
+            fun unknown(json: JsonValue?): T {
+                throw ModernTreasuryInvalidDataException(
+                    "Unknown UltimateOriginatingAccount: $json"
+                )
+            }
+        }
+
+        class Deserializer :
+            BaseDeserializer<UltimateOriginatingAccount>(UltimateOriginatingAccount::class) {
+
+            override fun ObjectCodec.deserialize(node: JsonNode): UltimateOriginatingAccount {
+                val json = JsonValue.fromJsonNode(node)
+                tryDeserialize(node, jacksonTypeRef<VirtualAccount>()) { it.validate() }
+                    ?.let {
+                        return UltimateOriginatingAccount(virtualAccount = it, _json = json)
+                    }
+                tryDeserialize(node, jacksonTypeRef<InternalAccount>()) { it.validate() }
+                    ?.let {
+                        return UltimateOriginatingAccount(internalAccount = it, _json = json)
+                    }
+
+                return UltimateOriginatingAccount(_json = json)
+            }
+        }
+
+        class Serializer :
+            BaseSerializer<UltimateOriginatingAccount>(UltimateOriginatingAccount::class) {
+
+            override fun serialize(
+                value: UltimateOriginatingAccount,
+                generator: JsonGenerator,
+                provider: SerializerProvider
+            ) {
+                when {
+                    value.virtualAccount != null -> generator.writeObject(value.virtualAccount)
+                    value.internalAccount != null -> generator.writeObject(value.internalAccount)
+                    value._json != null -> generator.writeObject(value._json)
+                    else -> throw IllegalStateException("Invalid UltimateOriginatingAccount")
+                }
+            }
+        }
+    }
+
+    class UltimateOriginatingAccountType
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is UltimateOriginatingAccountType && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val INTERNAL_ACCOUNT = UltimateOriginatingAccountType(JsonField.of("internal_account"))
+
+            val VIRTUAL_ACCOUNT = UltimateOriginatingAccountType(JsonField.of("virtual_account"))
+
+            fun of(value: String) = UltimateOriginatingAccountType(JsonField.of(value))
+        }
+
+        enum class Known {
+            INTERNAL_ACCOUNT,
+            VIRTUAL_ACCOUNT,
+        }
+
+        enum class Value {
+            INTERNAL_ACCOUNT,
+            VIRTUAL_ACCOUNT,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                INTERNAL_ACCOUNT -> Value.INTERNAL_ACCOUNT
+                VIRTUAL_ACCOUNT -> Value.VIRTUAL_ACCOUNT
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                INTERNAL_ACCOUNT -> Known.INTERNAL_ACCOUNT
+                VIRTUAL_ACCOUNT -> Known.VIRTUAL_ACCOUNT
+                else ->
+                    throw ModernTreasuryInvalidDataException(
+                        "Unknown UltimateOriginatingAccountType: $value"
+                    )
             }
 
         fun asString(): String = _value().asStringOrThrow()

@@ -13,6 +13,7 @@ class LedgerAccountPayoutCreateParamsTest {
         LedgerAccountPayoutCreateParams.builder()
             .fundingLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .payoutLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .allowEitherDirection(true)
             .description("string")
             .effectiveAtUpperBound("14:15:22Z")
             .metadata(LedgerAccountPayoutCreateParams.Metadata.builder().build())
@@ -27,6 +28,7 @@ class LedgerAccountPayoutCreateParamsTest {
             LedgerAccountPayoutCreateParams.builder()
                 .fundingLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .payoutLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .allowEitherDirection(true)
                 .description("string")
                 .effectiveAtUpperBound("14:15:22Z")
                 .metadata(LedgerAccountPayoutCreateParams.Metadata.builder().build())
@@ -37,6 +39,7 @@ class LedgerAccountPayoutCreateParamsTest {
         assertThat(body).isNotNull
         assertThat(body.fundingLedgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.payoutLedgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(body.allowEitherDirection()).isEqualTo(true)
         assertThat(body.description()).isEqualTo("string")
         assertThat(body.effectiveAtUpperBound()).isEqualTo("14:15:22Z")
         assertThat(body.metadata())
