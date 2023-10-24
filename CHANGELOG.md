@@ -1,5 +1,38 @@
 # Changelog
 
+## 2.0.0 (2023-10-24)
+
+Full Changelog: [v1.6.1...v2.0.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v1.6.1...v2.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **types:** consolidate direction enums into a shared TransactionDirection type ([#66](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/66))
+
+### Features
+
+* **api:** updates ([#70](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/70)) ([96cdff6](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/96cdff6a804aa5d1a55046ebbfa3f5df97b412cd))
+* **client:** adjust retry behavior ([#71](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/71)) ([9b4f8a9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9b4f8a928dbf5b0e06254c07e95496216f9a8105))
+* make webhook headers case insensitive ([#65](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/65)) ([96ffb1a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/96ffb1a28bbe17031b5a0a48d25055eb64484766))
+* **types:** consolidate direction enums into a shared TransactionDirection type ([#66](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/66)) ([1c038d5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/1c038d5a7bf54ab1e77610a3f30bb364ade40d40))
+
+
+### Bug Fixes
+
+* **api:** use date-time for effective_at ([#69](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/69)) ([2e103ca](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2e103caefc40a2a74367fd033ec5f2911b4f0d26))
+* update maven group id in README ([#63](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/63)) ([01666b6](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/01666b685039ffb0426263410ee0a780e7da3c3a))
+
+
+### Chores
+
+* **internal:** minor reformatting ([#62](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/62)) ([0f24a86](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0f24a8694de582bb0959d539d86f732367cae2d8))
+* **internal:** rearrange client arguments ([#60](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/60)) ([286e005](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/286e0057d4fbfe4943174fc691b33c1d4ec5a09f))
+* show deprecation notice on interfaces ([#59](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/59)) ([46cab99](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/46cab9989b5ed8077c93fd9ca96b5e6a9cb4401f))
+
+
+### Documentation
+
+* organisation -&gt; organization (UK to US English) ([#67](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/67)) ([d727b9f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d727b9fe2a61a36ea1e642cf7de43088ac0895af))
+
 ## 1.6.1 (2023-10-04)
 
 Full Changelog: [v1.6.0...v1.6.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v1.6.0...v1.6.1)
