@@ -14,6 +14,7 @@ class LedgerAccountPayoutListParamsTest {
             .id(listOf("string"))
             .afterCursor("string")
             .metadata(LedgerAccountPayoutListParams.Metadata.builder().build())
+            .payoutEntryDirection("string")
             .payoutLedgerAccountId("string")
             .perPage(123L)
             .build()
@@ -26,6 +27,7 @@ class LedgerAccountPayoutListParamsTest {
                 .id(listOf("string"))
                 .afterCursor("string")
                 .metadata(LedgerAccountPayoutListParams.Metadata.builder().build())
+                .payoutEntryDirection("string")
                 .payoutLedgerAccountId("string")
                 .perPage(123L)
                 .build()
@@ -35,6 +37,7 @@ class LedgerAccountPayoutListParamsTest {
         LedgerAccountPayoutListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
+        expected.put("payout_entry_direction", listOf("string"))
         expected.put("payout_ledger_account_id", listOf("string"))
         expected.put("per_page", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)

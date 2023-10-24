@@ -14,7 +14,7 @@ class ConnectionListParamsTest {
             .afterCursor("string")
             .entity("string")
             .perPage(123L)
-            .vendorCustomerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .vendorCustomerId("string")
             .build()
     }
 
@@ -25,13 +25,13 @@ class ConnectionListParamsTest {
                 .afterCursor("string")
                 .entity("string")
                 .perPage(123L)
-                .vendorCustomerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .vendorCustomerId("string")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("after_cursor", listOf("string"))
         expected.put("entity", listOf("string"))
         expected.put("per_page", listOf("123"))
-        expected.put("vendor_customer_id", listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+        expected.put("vendor_customer_id", listOf("string"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

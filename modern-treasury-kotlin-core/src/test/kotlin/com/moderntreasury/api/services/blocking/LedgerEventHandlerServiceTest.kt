@@ -6,7 +6,6 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.LedgerEventHandlerListParams
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,14 +21,14 @@ class LedgerEventHandlerServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerEventHandlerService = client.ledgerEventHandlers()
-        val ledgerEventHandlerCreateResponse =
+        val ledgerEventHandler =
             ledgerEventHandlerService.create(
                 LedgerEventHandlerCreateParams.builder()
                     .ledgerTransactionTemplate(
                         LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate
                             .builder()
-                            .description("string")
-                            .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .description("My Ledger Transaction Template Description")
+                            .effectiveAt("{{ledgerable_event.custom_data.effective_at}}")
                             .ledgerEntries(
                                 listOf(
                                     LedgerEventHandlerCreateParams
@@ -42,13 +41,7 @@ class LedgerEventHandlerServiceTest {
                                         .build()
                                 )
                             )
-                            .metadata(
-                                LedgerEventHandlerCreateParams
-                                    .LedgerEventHandlerLedgerTransactionTemplate
-                                    .Metadata
-                                    .builder()
-                                    .build()
-                            )
+                            .status("posted")
                             .build()
                     )
                     .name("string")
@@ -62,10 +55,13 @@ class LedgerEventHandlerServiceTest {
                     .description("string")
                     .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .metadata(LedgerEventHandlerCreateParams.Metadata.builder().build())
+                    .variables(
+                        LedgerEventHandlerCreateParams.LedgerEventHandlerVariables.builder().build()
+                    )
                     .build()
             )
-        println(ledgerEventHandlerCreateResponse)
-        ledgerEventHandlerCreateResponse.validate()
+        println(ledgerEventHandler)
+        ledgerEventHandler.validate()
     }
 
     @Test
@@ -77,12 +73,12 @@ class LedgerEventHandlerServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerEventHandlerService = client.ledgerEventHandlers()
-        val ledgerEventHandlerRetrieveResponse =
+        val ledgerEventHandler =
             ledgerEventHandlerService.retrieve(
                 LedgerEventHandlerRetrieveParams.builder().id("string").build()
             )
-        println(ledgerEventHandlerRetrieveResponse)
-        ledgerEventHandlerRetrieveResponse.validate()
+        println(ledgerEventHandler)
+        ledgerEventHandler.validate()
     }
 
     @Test
@@ -109,11 +105,11 @@ class LedgerEventHandlerServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerEventHandlerService = client.ledgerEventHandlers()
-        val ledgerEventHandlerDeleteResponse =
+        val ledgerEventHandler =
             ledgerEventHandlerService.delete(
                 LedgerEventHandlerDeleteParams.builder().id("string").build()
             )
-        println(ledgerEventHandlerDeleteResponse)
-        ledgerEventHandlerDeleteResponse.validate()
+        println(ledgerEventHandler)
+        ledgerEventHandler.validate()
     }
 }

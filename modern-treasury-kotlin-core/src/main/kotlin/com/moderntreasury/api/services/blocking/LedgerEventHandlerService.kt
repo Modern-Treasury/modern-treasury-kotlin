@@ -5,14 +5,12 @@
 package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.core.RequestOptions
+import com.moderntreasury.api.models.LedgerEventHandler
 import com.moderntreasury.api.models.LedgerEventHandlerCreateParams
-import com.moderntreasury.api.models.LedgerEventHandlerCreateResponse
 import com.moderntreasury.api.models.LedgerEventHandlerDeleteParams
-import com.moderntreasury.api.models.LedgerEventHandlerDeleteResponse
 import com.moderntreasury.api.models.LedgerEventHandlerListPage
 import com.moderntreasury.api.models.LedgerEventHandlerListParams
 import com.moderntreasury.api.models.LedgerEventHandlerRetrieveParams
-import com.moderntreasury.api.models.LedgerEventHandlerRetrieveResponse
 
 interface LedgerEventHandlerService {
 
@@ -20,13 +18,13 @@ interface LedgerEventHandlerService {
     fun create(
         params: LedgerEventHandlerCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): LedgerEventHandlerCreateResponse
+    ): LedgerEventHandler
 
     /** Get details on a single ledger event handler. */
     fun retrieve(
         params: LedgerEventHandlerRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): LedgerEventHandlerRetrieveResponse
+    ): LedgerEventHandler
 
     /** Get a list of ledger event handlers. */
     fun list(
@@ -38,5 +36,5 @@ interface LedgerEventHandlerService {
     fun delete(
         params: LedgerEventHandlerDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): LedgerEventHandlerDeleteResponse
+    ): LedgerEventHandler
 }

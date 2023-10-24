@@ -11,7 +11,7 @@ import com.moderntreasury.api.models.LedgerableEventRetrieveParams
 
 interface LedgerableEventService {
 
-    /** Translation missing: en.openapi.descriptions.ledger.operations.create_ledgerable_event */
+    /** Create a ledgerable event. */
     fun create(
         params: LedgerableEventCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()

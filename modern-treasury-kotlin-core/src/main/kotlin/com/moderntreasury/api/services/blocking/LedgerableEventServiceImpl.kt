@@ -26,7 +26,7 @@ constructor(
     private val createHandler: Handler<LedgerableEvent> =
         jsonHandler<LedgerableEvent>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-    /** Translation missing: en.openapi.descriptions.ledger.operations.create_ledgerable_event */
+    /** Create a ledgerable event. */
     override fun create(
         params: LedgerableEventCreateParams,
         requestOptions: RequestOptions

@@ -969,11 +969,17 @@ private constructor(
 
             val GB_SORT_CODE = OriginatingRoutingNumberType(JsonField.of("gb_sort_code"))
 
+            val HK_INTERBANK_CLEARING_CODE =
+                OriginatingRoutingNumberType(JsonField.of("hk_interbank_clearing_code"))
+
             val IN_IFSC = OriginatingRoutingNumberType(JsonField.of("in_ifsc"))
 
             val JP_ZENGIN_CODE = OriginatingRoutingNumberType(JsonField.of("jp_zengin_code"))
 
             val MY_BRANCH_CODE = OriginatingRoutingNumberType(JsonField.of("my_branch_code"))
+
+            val NZ_NATIONAL_CLEARING_CODE =
+                OriginatingRoutingNumberType(JsonField.of("nz_national_clearing_code"))
 
             val SE_BANKGIRO_CLEARING_CODE =
                 OriginatingRoutingNumberType(JsonField.of("se_bankgiro_clearing_code"))
@@ -991,9 +997,11 @@ private constructor(
             CHIPS,
             CNAPS,
             GB_SORT_CODE,
+            HK_INTERBANK_CLEARING_CODE,
             IN_IFSC,
             JP_ZENGIN_CODE,
             MY_BRANCH_CODE,
+            NZ_NATIONAL_CLEARING_CODE,
             SE_BANKGIRO_CLEARING_CODE,
             SWIFT,
         }
@@ -1006,9 +1014,11 @@ private constructor(
             CHIPS,
             CNAPS,
             GB_SORT_CODE,
+            HK_INTERBANK_CLEARING_CODE,
             IN_IFSC,
             JP_ZENGIN_CODE,
             MY_BRANCH_CODE,
+            NZ_NATIONAL_CLEARING_CODE,
             SE_BANKGIRO_CLEARING_CODE,
             SWIFT,
             _UNKNOWN,
@@ -1023,9 +1033,11 @@ private constructor(
                 CHIPS -> Value.CHIPS
                 CNAPS -> Value.CNAPS
                 GB_SORT_CODE -> Value.GB_SORT_CODE
+                HK_INTERBANK_CLEARING_CODE -> Value.HK_INTERBANK_CLEARING_CODE
                 IN_IFSC -> Value.IN_IFSC
                 JP_ZENGIN_CODE -> Value.JP_ZENGIN_CODE
                 MY_BRANCH_CODE -> Value.MY_BRANCH_CODE
+                NZ_NATIONAL_CLEARING_CODE -> Value.NZ_NATIONAL_CLEARING_CODE
                 SE_BANKGIRO_CLEARING_CODE -> Value.SE_BANKGIRO_CLEARING_CODE
                 SWIFT -> Value.SWIFT
                 else -> Value._UNKNOWN
@@ -1040,9 +1052,11 @@ private constructor(
                 CHIPS -> Known.CHIPS
                 CNAPS -> Known.CNAPS
                 GB_SORT_CODE -> Known.GB_SORT_CODE
+                HK_INTERBANK_CLEARING_CODE -> Known.HK_INTERBANK_CLEARING_CODE
                 IN_IFSC -> Known.IN_IFSC
                 JP_ZENGIN_CODE -> Known.JP_ZENGIN_CODE
                 MY_BRANCH_CODE -> Known.MY_BRANCH_CODE
+                NZ_NATIONAL_CLEARING_CODE -> Known.NZ_NATIONAL_CLEARING_CODE
                 SE_BANKGIRO_CLEARING_CODE -> Known.SE_BANKGIRO_CLEARING_CODE
                 SWIFT -> Known.SWIFT
                 else ->

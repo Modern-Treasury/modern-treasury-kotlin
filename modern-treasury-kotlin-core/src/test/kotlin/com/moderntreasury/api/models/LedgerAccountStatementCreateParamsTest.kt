@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.models.*
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -11,8 +12,8 @@ class LedgerAccountStatementCreateParamsTest {
     @Test
     fun createLedgerAccountStatementCreateParams() {
         LedgerAccountStatementCreateParams.builder()
-            .effectiveAtLowerBound("string")
-            .effectiveAtUpperBound("string")
+            .effectiveAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .description("string")
             .metadata(LedgerAccountStatementCreateParams.Metadata.builder().build())
@@ -23,16 +24,18 @@ class LedgerAccountStatementCreateParamsTest {
     fun getBody() {
         val params =
             LedgerAccountStatementCreateParams.builder()
-                .effectiveAtLowerBound("string")
-                .effectiveAtUpperBound("string")
+                .effectiveAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .description("string")
                 .metadata(LedgerAccountStatementCreateParams.Metadata.builder().build())
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.effectiveAtLowerBound()).isEqualTo("string")
-        assertThat(body.effectiveAtUpperBound()).isEqualTo("string")
+        assertThat(body.effectiveAtLowerBound())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(body.effectiveAtUpperBound())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.ledgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.description()).isEqualTo("string")
         assertThat(body.metadata())
@@ -43,14 +46,16 @@ class LedgerAccountStatementCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             LedgerAccountStatementCreateParams.builder()
-                .effectiveAtLowerBound("string")
-                .effectiveAtUpperBound("string")
+                .effectiveAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.effectiveAtLowerBound()).isEqualTo("string")
-        assertThat(body.effectiveAtUpperBound()).isEqualTo("string")
+        assertThat(body.effectiveAtLowerBound())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(body.effectiveAtUpperBound())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.ledgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
     }
 }
