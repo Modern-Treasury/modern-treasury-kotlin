@@ -13,6 +13,7 @@ class InternalAccountUpdateParamsTest {
         InternalAccountUpdateParams.builder()
             .id("string")
             .counterpartyId("string")
+            .ledgerAccountId("string")
             .metadata(InternalAccountUpdateParams.Metadata.builder().build())
             .name("string")
             .parentAccountId("string")
@@ -25,6 +26,7 @@ class InternalAccountUpdateParamsTest {
             InternalAccountUpdateParams.builder()
                 .id("string")
                 .counterpartyId("string")
+                .ledgerAccountId("string")
                 .metadata(InternalAccountUpdateParams.Metadata.builder().build())
                 .name("string")
                 .parentAccountId("string")
@@ -32,6 +34,7 @@ class InternalAccountUpdateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.counterpartyId()).isEqualTo("string")
+        assertThat(body.ledgerAccountId()).isEqualTo("string")
         assertThat(body.metadata())
             .isEqualTo(InternalAccountUpdateParams.Metadata.builder().build())
         assertThat(body.name()).isEqualTo("string")

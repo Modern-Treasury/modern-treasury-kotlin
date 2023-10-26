@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.models.*
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -15,7 +16,7 @@ class LedgerAccountPayoutCreateParamsTest {
             .payoutLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .allowEitherDirection(true)
             .description("string")
-            .effectiveAtUpperBound("14:15:22Z")
+            .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .metadata(LedgerAccountPayoutCreateParams.Metadata.builder().build())
             .skipPayoutLedgerTransaction(true)
             .status(LedgerAccountPayoutCreateParams.Status.PENDING)
@@ -30,7 +31,7 @@ class LedgerAccountPayoutCreateParamsTest {
                 .payoutLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .allowEitherDirection(true)
                 .description("string")
-                .effectiveAtUpperBound("14:15:22Z")
+                .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .metadata(LedgerAccountPayoutCreateParams.Metadata.builder().build())
                 .skipPayoutLedgerTransaction(true)
                 .status(LedgerAccountPayoutCreateParams.Status.PENDING)
@@ -41,7 +42,8 @@ class LedgerAccountPayoutCreateParamsTest {
         assertThat(body.payoutLedgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.allowEitherDirection()).isEqualTo(true)
         assertThat(body.description()).isEqualTo("string")
-        assertThat(body.effectiveAtUpperBound()).isEqualTo("14:15:22Z")
+        assertThat(body.effectiveAtUpperBound())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.metadata())
             .isEqualTo(LedgerAccountPayoutCreateParams.Metadata.builder().build())
         assertThat(body.skipPayoutLedgerTransaction()).isEqualTo(true)
