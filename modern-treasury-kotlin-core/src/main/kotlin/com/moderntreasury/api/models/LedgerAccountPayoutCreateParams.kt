@@ -14,6 +14,7 @@ import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import com.moderntreasury.api.models.*
+import java.time.OffsetDateTime
 import java.util.Objects
 
 class LedgerAccountPayoutCreateParams
@@ -22,7 +23,7 @@ constructor(
     private val payoutLedgerAccountId: String,
     private val allowEitherDirection: Boolean?,
     private val description: String?,
-    private val effectiveAtUpperBound: String?,
+    private val effectiveAtUpperBound: OffsetDateTime?,
     private val metadata: Metadata?,
     private val skipPayoutLedgerTransaction: Boolean?,
     private val status: Status?,
@@ -39,7 +40,7 @@ constructor(
 
     fun description(): String? = description
 
-    fun effectiveAtUpperBound(): String? = effectiveAtUpperBound
+    fun effectiveAtUpperBound(): OffsetDateTime? = effectiveAtUpperBound
 
     fun metadata(): Metadata? = metadata
 
@@ -73,7 +74,7 @@ constructor(
         private val payoutLedgerAccountId: String?,
         private val allowEitherDirection: Boolean?,
         private val description: String?,
-        private val effectiveAtUpperBound: String?,
+        private val effectiveAtUpperBound: OffsetDateTime?,
         private val metadata: Metadata?,
         private val skipPayoutLedgerTransaction: Boolean?,
         private val status: Status?,
@@ -98,7 +99,7 @@ constructor(
 
         /**
          * If true, the payout amount and payout_entry_direction will bring the payout ledger
-         * account’s balance closer to zero, even if the balance is negative.
+         * account's balance closer to zero, even if the balance is negative.
          */
         @JsonProperty("allow_either_direction")
         fun allowEitherDirection(): Boolean? = allowEitherDirection
@@ -112,7 +113,7 @@ constructor(
          * the ledger account payout.
          */
         @JsonProperty("effective_at_upper_bound")
-        fun effectiveAtUpperBound(): String? = effectiveAtUpperBound
+        fun effectiveAtUpperBound(): OffsetDateTime? = effectiveAtUpperBound
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
@@ -187,7 +188,7 @@ constructor(
             private var payoutLedgerAccountId: String? = null
             private var allowEitherDirection: Boolean? = null
             private var description: String? = null
-            private var effectiveAtUpperBound: String? = null
+            private var effectiveAtUpperBound: OffsetDateTime? = null
             private var metadata: Metadata? = null
             private var skipPayoutLedgerTransaction: Boolean? = null
             private var status: Status? = null
@@ -228,7 +229,7 @@ constructor(
 
             /**
              * If true, the payout amount and payout_entry_direction will bring the payout ledger
-             * account’s balance closer to zero, even if the balance is negative.
+             * account's balance closer to zero, even if the balance is negative.
              */
             @JsonProperty("allow_either_direction")
             fun allowEitherDirection(allowEitherDirection: Boolean) = apply {
@@ -245,7 +246,7 @@ constructor(
              * of the ledger account payout.
              */
             @JsonProperty("effective_at_upper_bound")
-            fun effectiveAtUpperBound(effectiveAtUpperBound: String) = apply {
+            fun effectiveAtUpperBound(effectiveAtUpperBound: OffsetDateTime) = apply {
                 this.effectiveAtUpperBound = effectiveAtUpperBound
             }
 
@@ -362,7 +363,7 @@ constructor(
         private var payoutLedgerAccountId: String? = null
         private var allowEitherDirection: Boolean? = null
         private var description: String? = null
-        private var effectiveAtUpperBound: String? = null
+        private var effectiveAtUpperBound: OffsetDateTime? = null
         private var metadata: Metadata? = null
         private var skipPayoutLedgerTransaction: Boolean? = null
         private var status: Status? = null
@@ -404,7 +405,7 @@ constructor(
 
         /**
          * If true, the payout amount and payout_entry_direction will bring the payout ledger
-         * account’s balance closer to zero, even if the balance is negative.
+         * account's balance closer to zero, even if the balance is negative.
          */
         fun allowEitherDirection(allowEitherDirection: Boolean) = apply {
             this.allowEitherDirection = allowEitherDirection
@@ -418,7 +419,7 @@ constructor(
          * included in the ledger account payout. The default value is the created_at timestamp of
          * the ledger account payout.
          */
-        fun effectiveAtUpperBound(effectiveAtUpperBound: String) = apply {
+        fun effectiveAtUpperBound(effectiveAtUpperBound: OffsetDateTime) = apply {
             this.effectiveAtUpperBound = effectiveAtUpperBound
         }
 
