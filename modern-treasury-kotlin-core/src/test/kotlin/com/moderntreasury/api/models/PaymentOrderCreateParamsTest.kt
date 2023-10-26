@@ -106,6 +106,7 @@ class PaymentOrderCreateParamsTest {
                     .status(PaymentOrderCreateParams.LedgerTransactionCreateRequest.Status.ARCHIVED)
                     .build()
             )
+            .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .lineItems(
                 listOf(
                     PaymentOrderCreateParams.LineItemRequest.builder()
@@ -324,6 +325,7 @@ class PaymentOrderCreateParamsTest {
                         )
                         .build()
                 )
+                .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .lineItems(
                     listOf(
                         PaymentOrderCreateParams.LineItemRequest.builder()
@@ -540,6 +542,7 @@ class PaymentOrderCreateParamsTest {
                     .status(PaymentOrderCreateParams.LedgerTransactionCreateRequest.Status.ARCHIVED)
                     .build()
             )
+        assertThat(body.ledgerTransactionId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.lineItems())
             .isEqualTo(
                 listOf(

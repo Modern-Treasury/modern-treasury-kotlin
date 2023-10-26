@@ -80,6 +80,7 @@ class InternalAccountServiceTest {
                 InternalAccountUpdateParams.builder()
                     .id("string")
                     .counterpartyId("string")
+                    .ledgerAccountId("string")
                     .metadata(InternalAccountUpdateParams.Metadata.builder().build())
                     .name("string")
                     .parentAccountId("string")

@@ -67,6 +67,8 @@ private constructor(
 
         val SEPA = PaymentOrderType(JsonField.of("sepa"))
 
+        val SG_GIRO = PaymentOrderType(JsonField.of("sg_giro"))
+
         val SIC = PaymentOrderType(JsonField.of("sic"))
 
         val SIGNET = PaymentOrderType(JsonField.of("signet"))
@@ -98,6 +100,7 @@ private constructor(
         SE_BANKGIROT,
         SEN,
         SEPA,
+        SG_GIRO,
         SIC,
         SIGNET,
         WIRE,
@@ -124,6 +127,7 @@ private constructor(
         SE_BANKGIROT,
         SEN,
         SEPA,
+        SG_GIRO,
         SIC,
         SIGNET,
         WIRE,
@@ -152,6 +156,7 @@ private constructor(
             SE_BANKGIROT -> Value.SE_BANKGIROT
             SEN -> Value.SEN
             SEPA -> Value.SEPA
+            SG_GIRO -> Value.SG_GIRO
             SIC -> Value.SIC
             SIGNET -> Value.SIGNET
             WIRE -> Value.WIRE
@@ -180,6 +185,7 @@ private constructor(
             SE_BANKGIROT -> Known.SE_BANKGIROT
             SEN -> Known.SEN
             SEPA -> Known.SEPA
+            SG_GIRO -> Known.SG_GIRO
             SIC -> Known.SIC
             SIGNET -> Known.SIGNET
             WIRE -> Known.WIRE
