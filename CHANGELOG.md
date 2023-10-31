@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.1.0 (2023-10-31)
+
+Full Changelog: [v2.0.0...v2.1.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.0.0...v2.1.0)
+
+### Features
+
+* **api:** updates ([#75](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/75)) ([4a23577](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4a235778a69887c051cb5f4eff8d39976c8526fd))
+* **github:** include a devcontainer setup ([#76](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/76)) ([348327a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/348327a4007861f9de8d9b49ee558e3395651b3c))
+
 ## 2.0.0 (2023-10-24)
 
 Full Changelog: [v1.6.1...v2.0.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v1.6.1...v2.0.0)
