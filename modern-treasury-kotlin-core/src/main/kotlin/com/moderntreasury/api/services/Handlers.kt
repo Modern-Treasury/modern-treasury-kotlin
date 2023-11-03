@@ -4,6 +4,7 @@ package com.moderntreasury.api.services
 
 import com.fasterxml.jackson.databind.json.JsonMapper
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.moderntreasury.api.core.http.BinaryResponseContent
 import com.moderntreasury.api.core.http.HttpResponse
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.errors.BadRequestException
@@ -16,6 +17,8 @@ import com.moderntreasury.api.errors.RateLimitException
 import com.moderntreasury.api.errors.UnauthorizedException
 import com.moderntreasury.api.errors.UnexpectedStatusCodeException
 import com.moderntreasury.api.errors.UnprocessableEntityException
+import java.io.InputStream
+import java.io.OutputStream
 
 internal fun emptyHandler(): Handler<Void?> = EmptyHandler
 
@@ -25,9 +28,17 @@ private object EmptyHandler : Handler<Void?> {
 
 internal fun stringHandler(): Handler<String> = StringHandler
 
+internal fun binaryHandler(): Handler<BinaryResponseContent> = BinaryHandler
+
 private object StringHandler : Handler<String> {
     override fun handle(response: HttpResponse): String {
         return response.body().readBytes().toString(Charsets.UTF_8)
+    }
+}
+
+private object BinaryHandler : Handler<BinaryResponseContent> {
+    override fun handle(response: HttpResponse): BinaryResponseContent {
+        return BinaryResponseContentImpl(response)
     }
 }
 
@@ -93,5 +104,26 @@ internal fun <T> Handler<T>.withErrorHandler(
                     )
             }
         }
+    }
+}
+
+class BinaryResponseContentImpl
+constructor(
+    private val response: HttpResponse,
+) : BinaryResponseContent {
+    override fun contentType(): String? {
+        return response.headers().get("Content-Type").firstOrNull()
+    }
+
+    override fun body(): InputStream {
+        return response.body()
+    }
+
+    override fun writeTo(outputStream: OutputStream) {
+        response.body().copyTo(outputStream)
+    }
+
+    override fun close() {
+        response.body().close()
     }
 }
