@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.2.0 (2023-11-05)
+
+Full Changelog: [v2.1.0...v2.2.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.1.0...v2.2.0)
+
+### Features
+
+* **client:** allow binary returns ([#77](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/77)) ([6739408](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/673940897a1793a93d90d0c150c2053272903bcd))
+
+
+### Chores
+
+* remove bad tests ([#79](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/79)) ([d70490e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d70490e3ef399950c9f8f8386d4472d9436a6695))
+
 ## 2.1.0 (2023-10-31)
 
 Full Changelog: [v2.0.0...v2.1.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.0.0...v2.1.0)
