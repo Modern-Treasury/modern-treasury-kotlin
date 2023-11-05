@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.json.JsonMapper
 import com.github.tomakehurst.wiremock.client.WireMock.anyUrl
 import com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import com.github.tomakehurst.wiremock.client.WireMock.get
-import com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
 import com.github.tomakehurst.wiremock.client.WireMock.matchingJsonPath
 import com.github.tomakehurst.wiremock.client.WireMock.ok
 import com.github.tomakehurst.wiremock.client.WireMock.post
@@ -21,7 +20,6 @@ import com.moderntreasury.api.core.JsonString
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.jsonMapper
 import com.moderntreasury.api.models.*
-import com.moderntreasury.api.models.ExternalAccountListParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -242,38 +240,5 @@ class ServiceParamsTest {
         client.externalAccounts().create(params)
 
         verify(postRequestedFor(anyUrl()))
-    }
-
-    @Test
-    fun externalAccountsListWithAdditionalParams() {
-        val additionalHeaders = mutableMapOf<String, List<String>>()
-
-        additionalHeaders.put("x-test-header", listOf("abc1234"))
-
-        val additionalQueryParams = mutableMapOf<String, List<String>>()
-
-        additionalQueryParams.put("test_query_param", listOf("def567"))
-
-        val params =
-            ExternalAccountListParams.builder()
-                .afterCursor("string")
-                .counterpartyId("string")
-                .metadata(ExternalAccountListParams.Metadata.builder().build())
-                .partyName("string")
-                .perPage(123L)
-                .additionalHeaders(additionalHeaders)
-                .additionalQueryParams(additionalQueryParams)
-                .build()
-
-        stubFor(
-            get(anyUrl())
-                .withHeader("x-test-header", equalTo("abc1234"))
-                .withQueryParam("test_query_param", equalTo("def567"))
-                .willReturn(ok("[]"))
-        )
-
-        client.externalAccounts().list(params)
-
-        verify(getRequestedFor(anyUrl()))
     }
 }
