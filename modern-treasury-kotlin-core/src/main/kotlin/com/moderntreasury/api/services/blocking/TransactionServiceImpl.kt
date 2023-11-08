@@ -9,12 +9,15 @@ import com.moderntreasury.api.core.http.HttpRequest
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.errors.ModernTreasuryError
 import com.moderntreasury.api.models.Transaction
+import com.moderntreasury.api.models.TransactionCreateParams
+import com.moderntreasury.api.models.TransactionDeleteParams
 import com.moderntreasury.api.models.TransactionListPage
 import com.moderntreasury.api.models.TransactionListParams
 import com.moderntreasury.api.models.TransactionRetrieveParams
 import com.moderntreasury.api.models.TransactionUpdateParams
 import com.moderntreasury.api.services.blocking.transactions.LineItemService
 import com.moderntreasury.api.services.blocking.transactions.LineItemServiceImpl
+import com.moderntreasury.api.services.emptyHandler
 import com.moderntreasury.api.services.errorHandler
 import com.moderntreasury.api.services.json
 import com.moderntreasury.api.services.jsonHandler
@@ -30,6 +33,34 @@ constructor(
     private val lineItems: LineItemService by lazy { LineItemServiceImpl(clientOptions) }
 
     override fun lineItems(): LineItemService = lineItems
+
+    private val createHandler: Handler<Transaction> =
+        jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** create transaction */
+    override fun create(
+        params: TransactionCreateParams,
+        requestOptions: RequestOptions
+    ): Transaction {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments("api", "transactions")
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .build()
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response
+                .use { createHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
 
     private val retrieveHandler: Handler<Transaction> =
         jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
@@ -118,6 +149,24 @@ constructor(
                         .build()
                 }
                 .let { TransactionListPage.of(this, params, it) }
+        }
+    }
+
+    private val deleteHandler: Handler<Void?> = emptyHandler().withErrorHandler(errorHandler)
+
+    /** delete transaction */
+    override fun delete(params: TransactionDeleteParams, requestOptions: RequestOptions) {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.DELETE)
+                .addPathSegments("api", "transactions", params.getPathParam(0))
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .apply { params.getBody()?.also { body(json(clientOptions.jsonMapper, it)) } }
+                .build()
+        clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response.use { deleteHandler.handle(it) }
         }
     }
 }
