@@ -22,6 +22,7 @@ class InvoiceLineItemTest {
                 .object_("string")
                 .quantity(123L)
                 .unitAmount(123L)
+                .unitAmountDecimal("string")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
         assertThat(invoiceLineItem).isNotNull
@@ -36,6 +37,7 @@ class InvoiceLineItemTest {
         assertThat(invoiceLineItem.object_()).isEqualTo("string")
         assertThat(invoiceLineItem.quantity()).isEqualTo(123L)
         assertThat(invoiceLineItem.unitAmount()).isEqualTo(123L)
+        assertThat(invoiceLineItem.unitAmountDecimal()).isEqualTo("string")
         assertThat(invoiceLineItem.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }

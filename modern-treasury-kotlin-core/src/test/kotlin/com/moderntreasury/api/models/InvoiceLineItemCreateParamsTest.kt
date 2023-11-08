@@ -17,6 +17,7 @@ class InvoiceLineItemCreateParamsTest {
             .description("string")
             .direction("string")
             .quantity(123L)
+            .unitAmountDecimal("string")
             .build()
     }
 
@@ -30,6 +31,7 @@ class InvoiceLineItemCreateParamsTest {
                 .description("string")
                 .direction("string")
                 .quantity(123L)
+                .unitAmountDecimal("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -38,6 +40,7 @@ class InvoiceLineItemCreateParamsTest {
         assertThat(body.description()).isEqualTo("string")
         assertThat(body.direction()).isEqualTo("string")
         assertThat(body.quantity()).isEqualTo(123L)
+        assertThat(body.unitAmountDecimal()).isEqualTo("string")
     }
 
     @Test

@@ -6,6 +6,8 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.models.Transaction
+import com.moderntreasury.api.models.TransactionCreateParams
+import com.moderntreasury.api.models.TransactionDeleteParams
 import com.moderntreasury.api.models.TransactionListPage
 import com.moderntreasury.api.models.TransactionListParams
 import com.moderntreasury.api.models.TransactionRetrieveParams
@@ -15,6 +17,12 @@ import com.moderntreasury.api.services.blocking.transactions.LineItemService
 interface TransactionService {
 
     fun lineItems(): LineItemService
+
+    /** create transaction */
+    fun create(
+        params: TransactionCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Transaction
 
     /** Get details on a single transaction. */
     fun retrieve(
@@ -33,4 +41,10 @@ interface TransactionService {
         params: TransactionListParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): TransactionListPage
+
+    /** delete transaction */
+    fun delete(
+        params: TransactionDeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    )
 }
