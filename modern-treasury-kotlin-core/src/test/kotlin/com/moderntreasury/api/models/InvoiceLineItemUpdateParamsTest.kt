@@ -18,6 +18,7 @@ class InvoiceLineItemUpdateParamsTest {
             .name("string")
             .quantity(123L)
             .unitAmount(123L)
+            .unitAmountDecimal("string")
             .build()
     }
 
@@ -32,6 +33,7 @@ class InvoiceLineItemUpdateParamsTest {
                 .name("string")
                 .quantity(123L)
                 .unitAmount(123L)
+                .unitAmountDecimal("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -40,6 +42,7 @@ class InvoiceLineItemUpdateParamsTest {
         assertThat(body.name()).isEqualTo("string")
         assertThat(body.quantity()).isEqualTo(123L)
         assertThat(body.unitAmount()).isEqualTo(123L)
+        assertThat(body.unitAmountDecimal()).isEqualTo("string")
     }
 
     @Test

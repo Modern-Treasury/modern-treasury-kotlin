@@ -6,11 +6,39 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.TransactionListParams
+import java.time.LocalDate
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
 class TransactionServiceTest {
+
+    @Test
+    fun callCreate() {
+        val client =
+            ModernTreasuryOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .organizationId("my-organization-ID")
+                .build()
+        val transactionService = client.transactions()
+        val transaction =
+            transactionService.create(
+                TransactionCreateParams.builder()
+                    .amount(123L)
+                    .asOfDate(LocalDate.parse("2019-12-27"))
+                    .direction("string")
+                    .vendorCode("string")
+                    .vendorCodeType("string")
+                    .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .metadata(TransactionCreateParams.Metadata.builder().build())
+                    .posted(true)
+                    .vendorDescription("string")
+                    .build()
+            )
+        println(transaction)
+        transaction.validate()
+    }
 
     @Test
     fun callRetrieve() {
@@ -59,5 +87,17 @@ class TransactionServiceTest {
         val response = transactionService.list(TransactionListParams.builder().build())
         println(response)
         response.items().forEach { it.validate() }
+    }
+
+    @Test
+    fun callDelete() {
+        val client =
+            ModernTreasuryOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .organizationId("my-organization-ID")
+                .build()
+        val transactionService = client.transactions()
+        transactionService.delete(TransactionDeleteParams.builder().id("string").build())
     }
 }

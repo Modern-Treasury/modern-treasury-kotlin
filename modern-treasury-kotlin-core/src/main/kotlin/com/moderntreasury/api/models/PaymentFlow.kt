@@ -39,6 +39,8 @@ private constructor(
     private val effectiveDateSelectionEnabled: JsonField<Boolean>,
     private val dueDate: JsonField<LocalDate>,
     private val selectedEffectiveDate: JsonField<LocalDate>,
+    private val externalAccountCollection: JsonField<ExternalAccountCollection>,
+    private val existingExternalAccountsFilter: JsonField<ExistingExternalAccountsFilter>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -122,6 +124,21 @@ private constructor(
     fun selectedEffectiveDate(): LocalDate? =
         selectedEffectiveDate.getNullable("selected_effective_date")
 
+    /**
+     * When `enabled`, your end-user can select from an existing external account when completing
+     * the flow. When `disabled`, your end-user must add new payment details when completing the
+     * flow.
+     */
+    fun externalAccountCollection(): ExternalAccountCollection? =
+        externalAccountCollection.getNullable("external_account_collection")
+
+    /**
+     * When `verified` and `external_account_collection` is `enabled`, filters the list of external
+     * accounts your end-user can select to those with a `verification_status` of `verified`.
+     */
+    fun existingExternalAccountsFilter(): ExistingExternalAccountsFilter? =
+        existingExternalAccountsFilter.getNullable("existing_external_accounts_filter")
+
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     @JsonProperty("object") @ExcludeMissing fun _object_() = object_
@@ -204,6 +221,23 @@ private constructor(
     @ExcludeMissing
     fun _selectedEffectiveDate() = selectedEffectiveDate
 
+    /**
+     * When `enabled`, your end-user can select from an existing external account when completing
+     * the flow. When `disabled`, your end-user must add new payment details when completing the
+     * flow.
+     */
+    @JsonProperty("external_account_collection")
+    @ExcludeMissing
+    fun _externalAccountCollection() = externalAccountCollection
+
+    /**
+     * When `verified` and `external_account_collection` is `enabled`, filters the list of external
+     * accounts your end-user can select to those with a `verification_status` of `verified`.
+     */
+    @JsonProperty("existing_external_accounts_filter")
+    @ExcludeMissing
+    fun _existingExternalAccountsFilter() = existingExternalAccountsFilter
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -227,6 +261,8 @@ private constructor(
             effectiveDateSelectionEnabled()
             dueDate()
             selectedEffectiveDate()
+            externalAccountCollection()
+            existingExternalAccountsFilter()
             validated = true
         }
     }
@@ -256,6 +292,8 @@ private constructor(
             this.effectiveDateSelectionEnabled == other.effectiveDateSelectionEnabled &&
             this.dueDate == other.dueDate &&
             this.selectedEffectiveDate == other.selectedEffectiveDate &&
+            this.externalAccountCollection == other.externalAccountCollection &&
+            this.existingExternalAccountsFilter == other.existingExternalAccountsFilter &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -280,6 +318,8 @@ private constructor(
                     effectiveDateSelectionEnabled,
                     dueDate,
                     selectedEffectiveDate,
+                    externalAccountCollection,
+                    existingExternalAccountsFilter,
                     additionalProperties,
                 )
         }
@@ -287,7 +327,7 @@ private constructor(
     }
 
     override fun toString() =
-        "PaymentFlow{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, clientToken=$clientToken, status=$status, amount=$amount, currency=$currency, direction=$direction, counterpartyId=$counterpartyId, receivingAccountId=$receivingAccountId, originatingAccountId=$originatingAccountId, paymentOrderId=$paymentOrderId, effectiveDateSelectionEnabled=$effectiveDateSelectionEnabled, dueDate=$dueDate, selectedEffectiveDate=$selectedEffectiveDate, additionalProperties=$additionalProperties}"
+        "PaymentFlow{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, clientToken=$clientToken, status=$status, amount=$amount, currency=$currency, direction=$direction, counterpartyId=$counterpartyId, receivingAccountId=$receivingAccountId, originatingAccountId=$originatingAccountId, paymentOrderId=$paymentOrderId, effectiveDateSelectionEnabled=$effectiveDateSelectionEnabled, dueDate=$dueDate, selectedEffectiveDate=$selectedEffectiveDate, externalAccountCollection=$externalAccountCollection, existingExternalAccountsFilter=$existingExternalAccountsFilter, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -313,6 +353,10 @@ private constructor(
         private var effectiveDateSelectionEnabled: JsonField<Boolean> = JsonMissing.of()
         private var dueDate: JsonField<LocalDate> = JsonMissing.of()
         private var selectedEffectiveDate: JsonField<LocalDate> = JsonMissing.of()
+        private var externalAccountCollection: JsonField<ExternalAccountCollection> =
+            JsonMissing.of()
+        private var existingExternalAccountsFilter: JsonField<ExistingExternalAccountsFilter> =
+            JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(paymentFlow: PaymentFlow) = apply {
@@ -333,6 +377,8 @@ private constructor(
             this.effectiveDateSelectionEnabled = paymentFlow.effectiveDateSelectionEnabled
             this.dueDate = paymentFlow.dueDate
             this.selectedEffectiveDate = paymentFlow.selectedEffectiveDate
+            this.externalAccountCollection = paymentFlow.externalAccountCollection
+            this.existingExternalAccountsFilter = paymentFlow.existingExternalAccountsFilter
             additionalProperties(paymentFlow.additionalProperties)
         }
 
@@ -535,6 +581,45 @@ private constructor(
             this.selectedEffectiveDate = selectedEffectiveDate
         }
 
+        /**
+         * When `enabled`, your end-user can select from an existing external account when
+         * completing the flow. When `disabled`, your end-user must add new payment details when
+         * completing the flow.
+         */
+        fun externalAccountCollection(externalAccountCollection: ExternalAccountCollection) =
+            externalAccountCollection(JsonField.of(externalAccountCollection))
+
+        /**
+         * When `enabled`, your end-user can select from an existing external account when
+         * completing the flow. When `disabled`, your end-user must add new payment details when
+         * completing the flow.
+         */
+        @JsonProperty("external_account_collection")
+        @ExcludeMissing
+        fun externalAccountCollection(
+            externalAccountCollection: JsonField<ExternalAccountCollection>
+        ) = apply { this.externalAccountCollection = externalAccountCollection }
+
+        /**
+         * When `verified` and `external_account_collection` is `enabled`, filters the list of
+         * external accounts your end-user can select to those with a `verification_status` of
+         * `verified`.
+         */
+        fun existingExternalAccountsFilter(
+            existingExternalAccountsFilter: ExistingExternalAccountsFilter
+        ) = existingExternalAccountsFilter(JsonField.of(existingExternalAccountsFilter))
+
+        /**
+         * When `verified` and `external_account_collection` is `enabled`, filters the list of
+         * external accounts your end-user can select to those with a `verification_status` of
+         * `verified`.
+         */
+        @JsonProperty("existing_external_accounts_filter")
+        @ExcludeMissing
+        fun existingExternalAccountsFilter(
+            existingExternalAccountsFilter: JsonField<ExistingExternalAccountsFilter>
+        ) = apply { this.existingExternalAccountsFilter = existingExternalAccountsFilter }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -568,6 +653,8 @@ private constructor(
                 effectiveDateSelectionEnabled,
                 dueDate,
                 selectedEffectiveDate,
+                externalAccountCollection,
+                existingExternalAccountsFilter,
                 additionalProperties.toUnmodifiable(),
             )
     }
@@ -624,6 +711,120 @@ private constructor(
                 CREDIT -> Known.CREDIT
                 DEBIT -> Known.DEBIT
                 else -> throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class ExistingExternalAccountsFilter
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ExistingExternalAccountsFilter && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val VERIFIED = ExistingExternalAccountsFilter(JsonField.of("verified"))
+
+            fun of(value: String) = ExistingExternalAccountsFilter(JsonField.of(value))
+        }
+
+        enum class Known {
+            VERIFIED,
+        }
+
+        enum class Value {
+            VERIFIED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                VERIFIED -> Value.VERIFIED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                VERIFIED -> Known.VERIFIED
+                else ->
+                    throw ModernTreasuryInvalidDataException(
+                        "Unknown ExistingExternalAccountsFilter: $value"
+                    )
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class ExternalAccountCollection
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ExternalAccountCollection && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val DISABLED = ExternalAccountCollection(JsonField.of("disabled"))
+
+            val ENABLED = ExternalAccountCollection(JsonField.of("enabled"))
+
+            fun of(value: String) = ExternalAccountCollection(JsonField.of(value))
+        }
+
+        enum class Known {
+            DISABLED,
+            ENABLED,
+        }
+
+        enum class Value {
+            DISABLED,
+            ENABLED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                DISABLED -> Value.DISABLED
+                ENABLED -> Value.ENABLED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                DISABLED -> Known.DISABLED
+                ENABLED -> Known.ENABLED
+                else ->
+                    throw ModernTreasuryInvalidDataException(
+                        "Unknown ExternalAccountCollection: $value"
+                    )
             }
 
         fun asString(): String = _value().asStringOrThrow()

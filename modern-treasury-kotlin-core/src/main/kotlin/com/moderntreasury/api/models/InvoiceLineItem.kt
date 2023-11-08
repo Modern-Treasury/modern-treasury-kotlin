@@ -28,6 +28,7 @@ private constructor(
     private val description: JsonField<String>,
     private val quantity: JsonField<Long>,
     private val unitAmount: JsonField<Long>,
+    private val unitAmountDecimal: JsonField<String>,
     private val direction: JsonField<String>,
     private val amount: JsonField<Long>,
     private val additionalProperties: Map<String, JsonValue>,
@@ -68,6 +69,12 @@ private constructor(
      * invoice currency's smallest unit.
      */
     fun unitAmount(): Long = unitAmount.getRequired("unit_amount")
+
+    /**
+     * The cost per unit of the product or service that this line item is for, specified in the
+     * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+     */
+    fun unitAmountDecimal(): String = unitAmountDecimal.getRequired("unit_amount_decimal")
 
     /**
      * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
@@ -111,6 +118,14 @@ private constructor(
     @JsonProperty("unit_amount") @ExcludeMissing fun _unitAmount() = unitAmount
 
     /**
+     * The cost per unit of the product or service that this line item is for, specified in the
+     * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+     */
+    @JsonProperty("unit_amount_decimal")
+    @ExcludeMissing
+    fun _unitAmountDecimal() = unitAmountDecimal
+
+    /**
      * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
      * increases the invoice's `total_amount` due. `credit` has the opposite intention and effect.
      */
@@ -134,6 +149,7 @@ private constructor(
             description()
             quantity()
             unitAmount()
+            unitAmountDecimal()
             direction()
             amount()
             validated = true
@@ -157,6 +173,7 @@ private constructor(
             this.description == other.description &&
             this.quantity == other.quantity &&
             this.unitAmount == other.unitAmount &&
+            this.unitAmountDecimal == other.unitAmountDecimal &&
             this.direction == other.direction &&
             this.amount == other.amount &&
             this.additionalProperties == other.additionalProperties
@@ -175,6 +192,7 @@ private constructor(
                     description,
                     quantity,
                     unitAmount,
+                    unitAmountDecimal,
                     direction,
                     amount,
                     additionalProperties,
@@ -184,7 +202,7 @@ private constructor(
     }
 
     override fun toString() =
-        "InvoiceLineItem{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, name=$name, description=$description, quantity=$quantity, unitAmount=$unitAmount, direction=$direction, amount=$amount, additionalProperties=$additionalProperties}"
+        "InvoiceLineItem{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, name=$name, description=$description, quantity=$quantity, unitAmount=$unitAmount, unitAmountDecimal=$unitAmountDecimal, direction=$direction, amount=$amount, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -202,6 +220,7 @@ private constructor(
         private var description: JsonField<String> = JsonMissing.of()
         private var quantity: JsonField<Long> = JsonMissing.of()
         private var unitAmount: JsonField<Long> = JsonMissing.of()
+        private var unitAmountDecimal: JsonField<String> = JsonMissing.of()
         private var direction: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -216,6 +235,7 @@ private constructor(
             this.description = invoiceLineItem.description
             this.quantity = invoiceLineItem.quantity
             this.unitAmount = invoiceLineItem.unitAmount
+            this.unitAmountDecimal = invoiceLineItem.unitAmountDecimal
             this.direction = invoiceLineItem.direction
             this.amount = invoiceLineItem.amount
             additionalProperties(invoiceLineItem.additionalProperties)
@@ -302,6 +322,23 @@ private constructor(
         fun unitAmount(unitAmount: JsonField<Long>) = apply { this.unitAmount = unitAmount }
 
         /**
+         * The cost per unit of the product or service that this line item is for, specified in the
+         * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+         */
+        fun unitAmountDecimal(unitAmountDecimal: String) =
+            unitAmountDecimal(JsonField.of(unitAmountDecimal))
+
+        /**
+         * The cost per unit of the product or service that this line item is for, specified in the
+         * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+         */
+        @JsonProperty("unit_amount_decimal")
+        @ExcludeMissing
+        fun unitAmountDecimal(unitAmountDecimal: JsonField<String>) = apply {
+            this.unitAmountDecimal = unitAmountDecimal
+        }
+
+        /**
          * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
          * increases the invoice's `total_amount` due. `credit` has the opposite intention and
          * effect.
@@ -354,6 +391,7 @@ private constructor(
                 description,
                 quantity,
                 unitAmount,
+                unitAmountDecimal,
                 direction,
                 amount,
                 additionalProperties.toUnmodifiable(),

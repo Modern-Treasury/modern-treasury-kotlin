@@ -76,6 +76,10 @@ interface ModernTreasuryClientAsync {
 
     fun virtualAccounts(): VirtualAccountServiceAsync
 
+    fun bulkRequests(): BulkRequestServiceAsync
+
+    fun bulkResults(): BulkResultServiceAsync
+
     /**
      * A test endpoint often used to confirm credentials and headers are being passed in correctly.
      */

@@ -137,6 +137,14 @@ constructor(
         VirtualAccountServiceAsyncImpl(clientOptions)
     }
 
+    private val bulkRequests: BulkRequestServiceAsync by lazy {
+        BulkRequestServiceAsyncImpl(clientOptions)
+    }
+
+    private val bulkResults: BulkResultServiceAsync by lazy {
+        BulkResultServiceAsyncImpl(clientOptions)
+    }
+
     override fun sync(): ModernTreasuryClient = sync
 
     override fun connections(): ConnectionServiceAsync = connections
@@ -207,6 +215,10 @@ constructor(
     override fun webhooks(): WebhookServiceAsync = webhooks
 
     override fun virtualAccounts(): VirtualAccountServiceAsync = virtualAccounts
+
+    override fun bulkRequests(): BulkRequestServiceAsync = bulkRequests
+
+    override fun bulkResults(): BulkResultServiceAsync = bulkResults
 
     private val pingHandler: Handler<PingResponse> =
         jsonHandler<PingResponse>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
