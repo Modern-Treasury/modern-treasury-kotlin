@@ -693,6 +693,8 @@ private constructor(
 
             val CROSS_BORDER = SupportedPaymentType(JsonField.of("cross_border"))
 
+            val DK_NETS = SupportedPaymentType(JsonField.of("dk_nets"))
+
             val EFT = SupportedPaymentType(JsonField.of("eft"))
 
             val INTERAC = SupportedPaymentType(JsonField.of("interac"))
@@ -737,6 +739,7 @@ private constructor(
             CHATS,
             CHECK,
             CROSS_BORDER,
+            DK_NETS,
             EFT,
             INTERAC,
             MASAV,
@@ -764,6 +767,7 @@ private constructor(
             CHATS,
             CHECK,
             CROSS_BORDER,
+            DK_NETS,
             EFT,
             INTERAC,
             MASAV,
@@ -793,6 +797,7 @@ private constructor(
                 CHATS -> Value.CHATS
                 CHECK -> Value.CHECK
                 CROSS_BORDER -> Value.CROSS_BORDER
+                DK_NETS -> Value.DK_NETS
                 EFT -> Value.EFT
                 INTERAC -> Value.INTERAC
                 MASAV -> Value.MASAV
@@ -822,6 +827,7 @@ private constructor(
                 CHATS -> Known.CHATS
                 CHECK -> Known.CHECK
                 CROSS_BORDER -> Known.CROSS_BORDER
+                DK_NETS -> Known.DK_NETS
                 EFT -> Known.EFT
                 INTERAC -> Known.INTERAC
                 MASAV -> Known.MASAV

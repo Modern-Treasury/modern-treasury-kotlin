@@ -19,9 +19,9 @@ constructor(
     private val amount: Long,
     private val asOfDate: LocalDate?,
     private val direction: String,
+    private val internalAccountId: String,
     private val vendorCode: String,
     private val vendorCodeType: String,
-    private val internalAccountId: String?,
     private val metadata: Metadata?,
     private val posted: Boolean?,
     private val vendorDescription: String?,
@@ -36,11 +36,11 @@ constructor(
 
     fun direction(): String = direction
 
+    fun internalAccountId(): String = internalAccountId
+
     fun vendorCode(): String = vendorCode
 
     fun vendorCodeType(): String = vendorCodeType
-
-    fun internalAccountId(): String? = internalAccountId
 
     fun metadata(): Metadata? = metadata
 
@@ -53,9 +53,9 @@ constructor(
             amount,
             asOfDate,
             direction,
+            internalAccountId,
             vendorCode,
             vendorCodeType,
-            internalAccountId,
             metadata,
             posted,
             vendorDescription,
@@ -74,9 +74,9 @@ constructor(
         private val amount: Long?,
         private val asOfDate: LocalDate?,
         private val direction: String?,
+        private val internalAccountId: String?,
         private val vendorCode: String?,
         private val vendorCodeType: String?,
-        private val internalAccountId: String?,
         private val metadata: Metadata?,
         private val posted: Boolean?,
         private val vendorDescription: String?,
@@ -94,6 +94,9 @@ constructor(
         /** Either `credit` or `debit`. */
         @JsonProperty("direction") fun direction(): String? = direction
 
+        /** The ID of the relevant Internal Account. */
+        @JsonProperty("internal_account_id") fun internalAccountId(): String? = internalAccountId
+
         /**
          * When applicable, the bank-given code that determines the transaction's category. For most
          * banks this is the BAI2/BTRS transaction code.
@@ -107,9 +110,6 @@ constructor(
          * others.
          */
         @JsonProperty("vendor_code_type") fun vendorCodeType(): String? = vendorCodeType
-
-        /** The ID of the relevant Internal Account. */
-        @JsonProperty("internal_account_id") fun internalAccountId(): String? = internalAccountId
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
@@ -140,9 +140,9 @@ constructor(
                 this.amount == other.amount &&
                 this.asOfDate == other.asOfDate &&
                 this.direction == other.direction &&
+                this.internalAccountId == other.internalAccountId &&
                 this.vendorCode == other.vendorCode &&
                 this.vendorCodeType == other.vendorCodeType &&
-                this.internalAccountId == other.internalAccountId &&
                 this.metadata == other.metadata &&
                 this.posted == other.posted &&
                 this.vendorDescription == other.vendorDescription &&
@@ -156,9 +156,9 @@ constructor(
                         amount,
                         asOfDate,
                         direction,
+                        internalAccountId,
                         vendorCode,
                         vendorCodeType,
-                        internalAccountId,
                         metadata,
                         posted,
                         vendorDescription,
@@ -169,7 +169,7 @@ constructor(
         }
 
         override fun toString() =
-            "TransactionCreateBody{amount=$amount, asOfDate=$asOfDate, direction=$direction, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, internalAccountId=$internalAccountId, metadata=$metadata, posted=$posted, vendorDescription=$vendorDescription, additionalProperties=$additionalProperties}"
+            "TransactionCreateBody{amount=$amount, asOfDate=$asOfDate, direction=$direction, internalAccountId=$internalAccountId, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, metadata=$metadata, posted=$posted, vendorDescription=$vendorDescription, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -181,9 +181,9 @@ constructor(
             private var amount: Long? = null
             private var asOfDate: LocalDate? = null
             private var direction: String? = null
+            private var internalAccountId: String? = null
             private var vendorCode: String? = null
             private var vendorCodeType: String? = null
-            private var internalAccountId: String? = null
             private var metadata: Metadata? = null
             private var posted: Boolean? = null
             private var vendorDescription: String? = null
@@ -193,9 +193,9 @@ constructor(
                 this.amount = transactionCreateBody.amount
                 this.asOfDate = transactionCreateBody.asOfDate
                 this.direction = transactionCreateBody.direction
+                this.internalAccountId = transactionCreateBody.internalAccountId
                 this.vendorCode = transactionCreateBody.vendorCode
                 this.vendorCodeType = transactionCreateBody.vendorCodeType
-                this.internalAccountId = transactionCreateBody.internalAccountId
                 this.metadata = transactionCreateBody.metadata
                 this.posted = transactionCreateBody.posted
                 this.vendorDescription = transactionCreateBody.vendorDescription
@@ -215,6 +215,12 @@ constructor(
             @JsonProperty("direction")
             fun direction(direction: String) = apply { this.direction = direction }
 
+            /** The ID of the relevant Internal Account. */
+            @JsonProperty("internal_account_id")
+            fun internalAccountId(internalAccountId: String) = apply {
+                this.internalAccountId = internalAccountId
+            }
+
             /**
              * When applicable, the bank-given code that determines the transaction's category. For
              * most banks this is the BAI2/BTRS transaction code.
@@ -231,12 +237,6 @@ constructor(
             @JsonProperty("vendor_code_type")
             fun vendorCodeType(vendorCodeType: String) = apply {
                 this.vendorCodeType = vendorCodeType
-            }
-
-            /** The ID of the relevant Internal Account. */
-            @JsonProperty("internal_account_id")
-            fun internalAccountId(internalAccountId: String) = apply {
-                this.internalAccountId = internalAccountId
             }
 
             /**
@@ -277,9 +277,11 @@ constructor(
                     checkNotNull(amount) { "`amount` is required but was not set" },
                     asOfDate,
                     checkNotNull(direction) { "`direction` is required but was not set" },
+                    checkNotNull(internalAccountId) {
+                        "`internalAccountId` is required but was not set"
+                    },
                     checkNotNull(vendorCode) { "`vendorCode` is required but was not set" },
                     checkNotNull(vendorCodeType) { "`vendorCodeType` is required but was not set" },
-                    internalAccountId,
                     metadata,
                     posted,
                     vendorDescription,
@@ -303,9 +305,9 @@ constructor(
             this.amount == other.amount &&
             this.asOfDate == other.asOfDate &&
             this.direction == other.direction &&
+            this.internalAccountId == other.internalAccountId &&
             this.vendorCode == other.vendorCode &&
             this.vendorCodeType == other.vendorCodeType &&
-            this.internalAccountId == other.internalAccountId &&
             this.metadata == other.metadata &&
             this.posted == other.posted &&
             this.vendorDescription == other.vendorDescription &&
@@ -319,9 +321,9 @@ constructor(
             amount,
             asOfDate,
             direction,
+            internalAccountId,
             vendorCode,
             vendorCodeType,
-            internalAccountId,
             metadata,
             posted,
             vendorDescription,
@@ -332,7 +334,7 @@ constructor(
     }
 
     override fun toString() =
-        "TransactionCreateParams{amount=$amount, asOfDate=$asOfDate, direction=$direction, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, internalAccountId=$internalAccountId, metadata=$metadata, posted=$posted, vendorDescription=$vendorDescription, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "TransactionCreateParams{amount=$amount, asOfDate=$asOfDate, direction=$direction, internalAccountId=$internalAccountId, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, metadata=$metadata, posted=$posted, vendorDescription=$vendorDescription, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -347,9 +349,9 @@ constructor(
         private var amount: Long? = null
         private var asOfDate: LocalDate? = null
         private var direction: String? = null
+        private var internalAccountId: String? = null
         private var vendorCode: String? = null
         private var vendorCodeType: String? = null
-        private var internalAccountId: String? = null
         private var metadata: Metadata? = null
         private var posted: Boolean? = null
         private var vendorDescription: String? = null
@@ -361,9 +363,9 @@ constructor(
             this.amount = transactionCreateParams.amount
             this.asOfDate = transactionCreateParams.asOfDate
             this.direction = transactionCreateParams.direction
+            this.internalAccountId = transactionCreateParams.internalAccountId
             this.vendorCode = transactionCreateParams.vendorCode
             this.vendorCodeType = transactionCreateParams.vendorCodeType
-            this.internalAccountId = transactionCreateParams.internalAccountId
             this.metadata = transactionCreateParams.metadata
             this.posted = transactionCreateParams.posted
             this.vendorDescription = transactionCreateParams.vendorDescription
@@ -381,6 +383,11 @@ constructor(
         /** Either `credit` or `debit`. */
         fun direction(direction: String) = apply { this.direction = direction }
 
+        /** The ID of the relevant Internal Account. */
+        fun internalAccountId(internalAccountId: String) = apply {
+            this.internalAccountId = internalAccountId
+        }
+
         /**
          * When applicable, the bank-given code that determines the transaction's category. For most
          * banks this is the BAI2/BTRS transaction code.
@@ -394,11 +401,6 @@ constructor(
          * others.
          */
         fun vendorCodeType(vendorCodeType: String) = apply { this.vendorCodeType = vendorCodeType }
-
-        /** The ID of the relevant Internal Account. */
-        fun internalAccountId(internalAccountId: String) = apply {
-            this.internalAccountId = internalAccountId
-        }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
@@ -475,9 +477,11 @@ constructor(
                 checkNotNull(amount) { "`amount` is required but was not set" },
                 asOfDate,
                 checkNotNull(direction) { "`direction` is required but was not set" },
+                checkNotNull(internalAccountId) {
+                    "`internalAccountId` is required but was not set"
+                },
                 checkNotNull(vendorCode) { "`vendorCode` is required but was not set" },
                 checkNotNull(vendorCodeType) { "`vendorCodeType` is required but was not set" },
-                internalAccountId,
                 metadata,
                 posted,
                 vendorDescription,
