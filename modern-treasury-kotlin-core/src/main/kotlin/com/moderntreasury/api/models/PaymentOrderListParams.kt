@@ -557,6 +557,8 @@ constructor(
 
             val CROSS_BORDER = Type(JsonField.of("cross_border"))
 
+            val DK_NETS = Type(JsonField.of("dk_nets"))
+
             val EFT = Type(JsonField.of("eft"))
 
             val INTERAC = Type(JsonField.of("interac"))
@@ -601,6 +603,7 @@ constructor(
             CHATS,
             CHECK,
             CROSS_BORDER,
+            DK_NETS,
             EFT,
             INTERAC,
             MASAV,
@@ -628,6 +631,7 @@ constructor(
             CHATS,
             CHECK,
             CROSS_BORDER,
+            DK_NETS,
             EFT,
             INTERAC,
             MASAV,
@@ -657,6 +661,7 @@ constructor(
                 CHATS -> Value.CHATS
                 CHECK -> Value.CHECK
                 CROSS_BORDER -> Value.CROSS_BORDER
+                DK_NETS -> Value.DK_NETS
                 EFT -> Value.EFT
                 INTERAC -> Value.INTERAC
                 MASAV -> Value.MASAV
@@ -686,6 +691,7 @@ constructor(
                 CHATS -> Known.CHATS
                 CHECK -> Known.CHECK
                 CROSS_BORDER -> Known.CROSS_BORDER
+                DK_NETS -> Known.DK_NETS
                 EFT -> Known.EFT
                 INTERAC -> Known.INTERAC
                 MASAV -> Known.MASAV

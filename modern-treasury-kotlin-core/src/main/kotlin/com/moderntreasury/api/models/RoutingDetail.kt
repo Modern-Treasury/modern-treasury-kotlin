@@ -690,6 +690,8 @@ private constructor(
 
             val CROSS_BORDER = PaymentType(JsonField.of("cross_border"))
 
+            val DK_NETS = PaymentType(JsonField.of("dk_nets"))
+
             val EFT = PaymentType(JsonField.of("eft"))
 
             val INTERAC = PaymentType(JsonField.of("interac"))
@@ -734,6 +736,7 @@ private constructor(
             CHATS,
             CHECK,
             CROSS_BORDER,
+            DK_NETS,
             EFT,
             INTERAC,
             MASAV,
@@ -761,6 +764,7 @@ private constructor(
             CHATS,
             CHECK,
             CROSS_BORDER,
+            DK_NETS,
             EFT,
             INTERAC,
             MASAV,
@@ -790,6 +794,7 @@ private constructor(
                 CHATS -> Value.CHATS
                 CHECK -> Value.CHECK
                 CROSS_BORDER -> Value.CROSS_BORDER
+                DK_NETS -> Value.DK_NETS
                 EFT -> Value.EFT
                 INTERAC -> Value.INTERAC
                 MASAV -> Value.MASAV
@@ -819,6 +824,7 @@ private constructor(
                 CHATS -> Known.CHATS
                 CHECK -> Known.CHECK
                 CROSS_BORDER -> Known.CROSS_BORDER
+                DK_NETS -> Known.DK_NETS
                 EFT -> Known.EFT
                 INTERAC -> Known.INTERAC
                 MASAV -> Known.MASAV
@@ -875,6 +881,9 @@ private constructor(
 
             val CNAPS = RoutingNumberType(JsonField.of("cnaps"))
 
+            val DK_INTERBANK_CLEARING_CODE =
+                RoutingNumberType(JsonField.of("dk_interbank_clearing_code"))
+
             val GB_SORT_CODE = RoutingNumberType(JsonField.of("gb_sort_code"))
 
             val HK_INTERBANK_CLEARING_CODE =
@@ -904,6 +913,7 @@ private constructor(
             CA_CPA,
             CHIPS,
             CNAPS,
+            DK_INTERBANK_CLEARING_CODE,
             GB_SORT_CODE,
             HK_INTERBANK_CLEARING_CODE,
             IN_IFSC,
@@ -921,6 +931,7 @@ private constructor(
             CA_CPA,
             CHIPS,
             CNAPS,
+            DK_INTERBANK_CLEARING_CODE,
             GB_SORT_CODE,
             HK_INTERBANK_CLEARING_CODE,
             IN_IFSC,
@@ -940,6 +951,7 @@ private constructor(
                 CA_CPA -> Value.CA_CPA
                 CHIPS -> Value.CHIPS
                 CNAPS -> Value.CNAPS
+                DK_INTERBANK_CLEARING_CODE -> Value.DK_INTERBANK_CLEARING_CODE
                 GB_SORT_CODE -> Value.GB_SORT_CODE
                 HK_INTERBANK_CLEARING_CODE -> Value.HK_INTERBANK_CLEARING_CODE
                 IN_IFSC -> Value.IN_IFSC
@@ -959,6 +971,7 @@ private constructor(
                 CA_CPA -> Known.CA_CPA
                 CHIPS -> Known.CHIPS
                 CNAPS -> Known.CNAPS
+                DK_INTERBANK_CLEARING_CODE -> Known.DK_INTERBANK_CLEARING_CODE
                 GB_SORT_CODE -> Known.GB_SORT_CODE
                 HK_INTERBANK_CLEARING_CODE -> Known.HK_INTERBANK_CLEARING_CODE
                 IN_IFSC -> Known.IN_IFSC
