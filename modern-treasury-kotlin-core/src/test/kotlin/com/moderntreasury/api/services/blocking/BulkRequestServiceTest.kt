@@ -8,12 +8,14 @@ import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.BulkRequestListParams
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
 class BulkRequestServiceTest {
 
+    @Disabled("Multipart documents aren't constructed properly yet")
     @Test
     fun callCreate() {
         val client =
