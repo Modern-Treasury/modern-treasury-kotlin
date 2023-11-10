@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.3.0 (2023-11-10)
+
+Full Changelog: [v2.2.0...v2.3.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.2.0...v2.3.0)
+
+### Features
+
+* **api:** add dk_interbank_clearing_code and dk_nets enum members ([#82](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/82)) ([b93796e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b93796e5c4a714aef82acf3946c2630707ad6da1))
+* **api:** updates ([#80](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/80)) ([3d68407](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3d68407ac618f07c0a03c1160ec38e678cabffb9))
+
+
+### Chores
+
+* **internal:** skip bulk requests tests ([#83](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/83)) ([d4a4c57](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d4a4c577fc61fcdeb9a88090431834500852dac6))
+
 ## 2.2.0 (2023-11-05)
 
 Full Changelog: [v2.1.0...v2.2.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.1.0...v2.2.0)
