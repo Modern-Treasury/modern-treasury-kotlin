@@ -17,17 +17,18 @@ class BulkRequestCreateParamsTest {
             .resourceType(BulkRequestCreateParams.ResourceType.PAYMENT_ORDER)
             .resources(
                 listOf(
-                    BulkRequestCreateParams.Resource.ofPaymentOrderCreateRequest(
-                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest.builder()
+                    BulkRequestCreateParams.Resource.ofPaymentOrderAsyncCreateRequest(
+                        BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest.builder()
                             .amount(123L)
                             .direction(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest.Direction
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
+                                    .Direction
                                     .CREDIT
                             )
                             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .type(PaymentOrderType.ACH)
                             .accounting(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .Accounting
                                     .builder()
                                     .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -37,51 +38,33 @@ class BulkRequestCreateParamsTest {
                             .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .chargeBearer(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .ChargeBearer
                                     .SHARED
                             )
                             .currency(Currency.AED)
                             .description("string")
-                            .documents(
-                                listOf(
-                                    BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
-                                        .DocumentCreateRequest
-                                        .builder()
-                                        .documentableId("string")
-                                        .documentableType(
-                                            BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
-                                                .DocumentCreateRequest
-                                                .DocumentableType
-                                                .CASES
-                                        )
-                                        .file("file.txt")
-                                        .documentType("string")
-                                        .build()
-                                )
-                            )
                             .effectiveDate(LocalDate.parse("2019-12-27"))
                             .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .fallbackType(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .FallbackType
                                     .ACH
                             )
                             .foreignExchangeContract("string")
                             .foreignExchangeIndicator(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .ForeignExchangeIndicator
                                     .FIXED_TO_VARIABLE
                             )
                             .ledgerTransaction(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .LedgerTransactionCreateRequest
                                     .builder()
                                     .ledgerEntries(
                                         listOf(
                                             BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
+                                                .PaymentOrderAsyncCreateRequest
                                                 .LedgerTransactionCreateRequest
                                                 .LedgerEntryCreateRequest
                                                 .builder()
@@ -92,7 +75,7 @@ class BulkRequestCreateParamsTest {
                                                 )
                                                 .availableBalanceAmount(
                                                     BulkRequestCreateParams.Resource
-                                                        .PaymentOrderCreateRequest
+                                                        .PaymentOrderAsyncCreateRequest
                                                         .LedgerTransactionCreateRequest
                                                         .LedgerEntryCreateRequest
                                                         .AvailableBalanceAmount
@@ -102,7 +85,7 @@ class BulkRequestCreateParamsTest {
                                                 .lockVersion(123L)
                                                 .metadata(
                                                     BulkRequestCreateParams.Resource
-                                                        .PaymentOrderCreateRequest
+                                                        .PaymentOrderAsyncCreateRequest
                                                         .LedgerTransactionCreateRequest
                                                         .LedgerEntryCreateRequest
                                                         .Metadata
@@ -111,7 +94,7 @@ class BulkRequestCreateParamsTest {
                                                 )
                                                 .pendingBalanceAmount(
                                                     BulkRequestCreateParams.Resource
-                                                        .PaymentOrderCreateRequest
+                                                        .PaymentOrderAsyncCreateRequest
                                                         .LedgerTransactionCreateRequest
                                                         .LedgerEntryCreateRequest
                                                         .PendingBalanceAmount
@@ -120,7 +103,7 @@ class BulkRequestCreateParamsTest {
                                                 )
                                                 .postedBalanceAmount(
                                                     BulkRequestCreateParams.Resource
-                                                        .PaymentOrderCreateRequest
+                                                        .PaymentOrderAsyncCreateRequest
                                                         .LedgerTransactionCreateRequest
                                                         .LedgerEntryCreateRequest
                                                         .PostedBalanceAmount
@@ -137,20 +120,23 @@ class BulkRequestCreateParamsTest {
                                     .externalId("string")
                                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .ledgerableType(
-                                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                        BulkRequestCreateParams.Resource
+                                            .PaymentOrderAsyncCreateRequest
                                             .LedgerTransactionCreateRequest
                                             .LedgerableType
                                             .COUNTERPARTY
                                     )
                                     .metadata(
-                                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                        BulkRequestCreateParams.Resource
+                                            .PaymentOrderAsyncCreateRequest
                                             .LedgerTransactionCreateRequest
                                             .Metadata
                                             .builder()
                                             .build()
                                     )
                                     .status(
-                                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                        BulkRequestCreateParams.Resource
+                                            .PaymentOrderAsyncCreateRequest
                                             .LedgerTransactionCreateRequest
                                             .Status
                                             .ARCHIVED
@@ -160,7 +146,7 @@ class BulkRequestCreateParamsTest {
                             .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .lineItems(
                                 listOf(
-                                    BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .LineItemRequest
                                         .builder()
                                         .amount(123L)
@@ -168,7 +154,7 @@ class BulkRequestCreateParamsTest {
                                         .description("string")
                                         .metadata(
                                             BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
+                                                .PaymentOrderAsyncCreateRequest
                                                 .LineItemRequest
                                                 .Metadata
                                                 .builder()
@@ -178,32 +164,34 @@ class BulkRequestCreateParamsTest {
                                 )
                             )
                             .metadata(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest.Metadata
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
+                                    .Metadata
                                     .builder()
                                     .build()
                             )
                             .nsfProtected(true)
                             .originatingPartyName("string")
                             .priority(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest.Priority
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
+                                    .Priority
                                     .HIGH
                             )
                             .purpose("string")
                             .receivingAccount(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .ReceivingAccount
                                     .builder()
                                     .accountDetails(
                                         listOf(
                                             BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
+                                                .PaymentOrderAsyncCreateRequest
                                                 .ReceivingAccount
                                                 .AccountDetail
                                                 .builder()
                                                 .accountNumber("string")
                                                 .accountNumberType(
                                                     BulkRequestCreateParams.Resource
-                                                        .PaymentOrderCreateRequest
+                                                        .PaymentOrderAsyncCreateRequest
                                                         .ReceivingAccount
                                                         .AccountDetail
                                                         .AccountNumberType
@@ -216,14 +204,14 @@ class BulkRequestCreateParamsTest {
                                     .contactDetails(
                                         listOf(
                                             BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
+                                                .PaymentOrderAsyncCreateRequest
                                                 .ReceivingAccount
                                                 .ContactDetailCreateRequest
                                                 .builder()
                                                 .contactIdentifier("string")
                                                 .contactIdentifierType(
                                                     BulkRequestCreateParams.Resource
-                                                        .PaymentOrderCreateRequest
+                                                        .PaymentOrderAsyncCreateRequest
                                                         .ReceivingAccount
                                                         .ContactDetailCreateRequest
                                                         .ContactIdentifierType
@@ -233,7 +221,8 @@ class BulkRequestCreateParamsTest {
                                         )
                                     )
                                     .ledgerAccount(
-                                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                        BulkRequestCreateParams.Resource
+                                            .PaymentOrderAsyncCreateRequest
                                             .ReceivingAccount
                                             .LedgerAccountCreateRequest
                                             .builder()
@@ -246,7 +235,7 @@ class BulkRequestCreateParamsTest {
                                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                             .ledgerableType(
                                                 BulkRequestCreateParams.Resource
-                                                    .PaymentOrderCreateRequest
+                                                    .PaymentOrderAsyncCreateRequest
                                                     .ReceivingAccount
                                                     .LedgerAccountCreateRequest
                                                     .LedgerableType
@@ -254,7 +243,7 @@ class BulkRequestCreateParamsTest {
                                             )
                                             .metadata(
                                                 BulkRequestCreateParams.Resource
-                                                    .PaymentOrderCreateRequest
+                                                    .PaymentOrderAsyncCreateRequest
                                                     .ReceivingAccount
                                                     .LedgerAccountCreateRequest
                                                     .Metadata
@@ -264,7 +253,8 @@ class BulkRequestCreateParamsTest {
                                             .build()
                                     )
                                     .metadata(
-                                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                        BulkRequestCreateParams.Resource
+                                            .PaymentOrderAsyncCreateRequest
                                             .ReceivingAccount
                                             .Metadata
                                             .builder()
@@ -272,7 +262,8 @@ class BulkRequestCreateParamsTest {
                                     )
                                     .name("string")
                                     .partyAddress(
-                                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                        BulkRequestCreateParams.Resource
+                                            .PaymentOrderAsyncCreateRequest
                                             .ReceivingAccount
                                             .AddressRequest
                                             .builder()
@@ -287,7 +278,8 @@ class BulkRequestCreateParamsTest {
                                     .partyIdentifier("string")
                                     .partyName("string")
                                     .partyType(
-                                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                        BulkRequestCreateParams.Resource
+                                            .PaymentOrderAsyncCreateRequest
                                             .ReceivingAccount
                                             .PartyType
                                             .BUSINESS
@@ -296,14 +288,14 @@ class BulkRequestCreateParamsTest {
                                     .routingDetails(
                                         listOf(
                                             BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
+                                                .PaymentOrderAsyncCreateRequest
                                                 .ReceivingAccount
                                                 .RoutingDetail
                                                 .builder()
                                                 .routingNumber("string")
                                                 .routingNumberType(
                                                     BulkRequestCreateParams.Resource
-                                                        .PaymentOrderCreateRequest
+                                                        .PaymentOrderAsyncCreateRequest
                                                         .ReceivingAccount
                                                         .RoutingDetail
                                                         .RoutingNumberType
@@ -311,7 +303,7 @@ class BulkRequestCreateParamsTest {
                                                 )
                                                 .paymentType(
                                                     BulkRequestCreateParams.Resource
-                                                        .PaymentOrderCreateRequest
+                                                        .PaymentOrderAsyncCreateRequest
                                                         .ReceivingAccount
                                                         .RoutingDetail
                                                         .PaymentType
@@ -348,18 +340,19 @@ class BulkRequestCreateParamsTest {
                 .resourceType(BulkRequestCreateParams.ResourceType.PAYMENT_ORDER)
                 .resources(
                     listOf(
-                        BulkRequestCreateParams.Resource.ofPaymentOrderCreateRequest(
-                            BulkRequestCreateParams.Resource.PaymentOrderCreateRequest.builder()
+                        BulkRequestCreateParams.Resource.ofPaymentOrderAsyncCreateRequest(
+                            BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
+                                .builder()
                                 .amount(123L)
                                 .direction(
-                                    BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .Direction
                                         .CREDIT
                                 )
                                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .type(PaymentOrderType.ACH)
                                 .accounting(
-                                    BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .Accounting
                                         .builder()
                                         .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -369,51 +362,33 @@ class BulkRequestCreateParamsTest {
                                 .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .chargeBearer(
-                                    BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .ChargeBearer
                                         .SHARED
                                 )
                                 .currency(Currency.AED)
                                 .description("string")
-                                .documents(
-                                    listOf(
-                                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
-                                            .DocumentCreateRequest
-                                            .builder()
-                                            .documentableId("string")
-                                            .documentableType(
-                                                BulkRequestCreateParams.Resource
-                                                    .PaymentOrderCreateRequest
-                                                    .DocumentCreateRequest
-                                                    .DocumentableType
-                                                    .CASES
-                                            )
-                                            .file("file.txt")
-                                            .documentType("string")
-                                            .build()
-                                    )
-                                )
                                 .effectiveDate(LocalDate.parse("2019-12-27"))
                                 .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .fallbackType(
-                                    BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .FallbackType
                                         .ACH
                                 )
                                 .foreignExchangeContract("string")
                                 .foreignExchangeIndicator(
-                                    BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .ForeignExchangeIndicator
                                         .FIXED_TO_VARIABLE
                                 )
                                 .ledgerTransaction(
-                                    BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .LedgerTransactionCreateRequest
                                         .builder()
                                         .ledgerEntries(
                                             listOf(
                                                 BulkRequestCreateParams.Resource
-                                                    .PaymentOrderCreateRequest
+                                                    .PaymentOrderAsyncCreateRequest
                                                     .LedgerTransactionCreateRequest
                                                     .LedgerEntryCreateRequest
                                                     .builder()
@@ -424,7 +399,7 @@ class BulkRequestCreateParamsTest {
                                                     )
                                                     .availableBalanceAmount(
                                                         BulkRequestCreateParams.Resource
-                                                            .PaymentOrderCreateRequest
+                                                            .PaymentOrderAsyncCreateRequest
                                                             .LedgerTransactionCreateRequest
                                                             .LedgerEntryCreateRequest
                                                             .AvailableBalanceAmount
@@ -434,7 +409,7 @@ class BulkRequestCreateParamsTest {
                                                     .lockVersion(123L)
                                                     .metadata(
                                                         BulkRequestCreateParams.Resource
-                                                            .PaymentOrderCreateRequest
+                                                            .PaymentOrderAsyncCreateRequest
                                                             .LedgerTransactionCreateRequest
                                                             .LedgerEntryCreateRequest
                                                             .Metadata
@@ -443,7 +418,7 @@ class BulkRequestCreateParamsTest {
                                                     )
                                                     .pendingBalanceAmount(
                                                         BulkRequestCreateParams.Resource
-                                                            .PaymentOrderCreateRequest
+                                                            .PaymentOrderAsyncCreateRequest
                                                             .LedgerTransactionCreateRequest
                                                             .LedgerEntryCreateRequest
                                                             .PendingBalanceAmount
@@ -452,7 +427,7 @@ class BulkRequestCreateParamsTest {
                                                     )
                                                     .postedBalanceAmount(
                                                         BulkRequestCreateParams.Resource
-                                                            .PaymentOrderCreateRequest
+                                                            .PaymentOrderAsyncCreateRequest
                                                             .LedgerTransactionCreateRequest
                                                             .LedgerEntryCreateRequest
                                                             .PostedBalanceAmount
@@ -472,14 +447,14 @@ class BulkRequestCreateParamsTest {
                                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .ledgerableType(
                                             BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
+                                                .PaymentOrderAsyncCreateRequest
                                                 .LedgerTransactionCreateRequest
                                                 .LedgerableType
                                                 .COUNTERPARTY
                                         )
                                         .metadata(
                                             BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
+                                                .PaymentOrderAsyncCreateRequest
                                                 .LedgerTransactionCreateRequest
                                                 .Metadata
                                                 .builder()
@@ -487,7 +462,7 @@ class BulkRequestCreateParamsTest {
                                         )
                                         .status(
                                             BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
+                                                .PaymentOrderAsyncCreateRequest
                                                 .LedgerTransactionCreateRequest
                                                 .Status
                                                 .ARCHIVED
@@ -497,7 +472,8 @@ class BulkRequestCreateParamsTest {
                                 .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .lineItems(
                                     listOf(
-                                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                        BulkRequestCreateParams.Resource
+                                            .PaymentOrderAsyncCreateRequest
                                             .LineItemRequest
                                             .builder()
                                             .amount(123L)
@@ -505,7 +481,7 @@ class BulkRequestCreateParamsTest {
                                             .description("string")
                                             .metadata(
                                                 BulkRequestCreateParams.Resource
-                                                    .PaymentOrderCreateRequest
+                                                    .PaymentOrderAsyncCreateRequest
                                                     .LineItemRequest
                                                     .Metadata
                                                     .builder()
@@ -515,7 +491,7 @@ class BulkRequestCreateParamsTest {
                                     )
                                 )
                                 .metadata(
-                                    BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .Metadata
                                         .builder()
                                         .build()
@@ -523,26 +499,26 @@ class BulkRequestCreateParamsTest {
                                 .nsfProtected(true)
                                 .originatingPartyName("string")
                                 .priority(
-                                    BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .Priority
                                         .HIGH
                                 )
                                 .purpose("string")
                                 .receivingAccount(
-                                    BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .ReceivingAccount
                                         .builder()
                                         .accountDetails(
                                             listOf(
                                                 BulkRequestCreateParams.Resource
-                                                    .PaymentOrderCreateRequest
+                                                    .PaymentOrderAsyncCreateRequest
                                                     .ReceivingAccount
                                                     .AccountDetail
                                                     .builder()
                                                     .accountNumber("string")
                                                     .accountNumberType(
                                                         BulkRequestCreateParams.Resource
-                                                            .PaymentOrderCreateRequest
+                                                            .PaymentOrderAsyncCreateRequest
                                                             .ReceivingAccount
                                                             .AccountDetail
                                                             .AccountNumberType
@@ -555,14 +531,14 @@ class BulkRequestCreateParamsTest {
                                         .contactDetails(
                                             listOf(
                                                 BulkRequestCreateParams.Resource
-                                                    .PaymentOrderCreateRequest
+                                                    .PaymentOrderAsyncCreateRequest
                                                     .ReceivingAccount
                                                     .ContactDetailCreateRequest
                                                     .builder()
                                                     .contactIdentifier("string")
                                                     .contactIdentifierType(
                                                         BulkRequestCreateParams.Resource
-                                                            .PaymentOrderCreateRequest
+                                                            .PaymentOrderAsyncCreateRequest
                                                             .ReceivingAccount
                                                             .ContactDetailCreateRequest
                                                             .ContactIdentifierType
@@ -573,7 +549,7 @@ class BulkRequestCreateParamsTest {
                                         )
                                         .ledgerAccount(
                                             BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
+                                                .PaymentOrderAsyncCreateRequest
                                                 .ReceivingAccount
                                                 .LedgerAccountCreateRequest
                                                 .builder()
@@ -588,7 +564,7 @@ class BulkRequestCreateParamsTest {
                                                 )
                                                 .ledgerableType(
                                                     BulkRequestCreateParams.Resource
-                                                        .PaymentOrderCreateRequest
+                                                        .PaymentOrderAsyncCreateRequest
                                                         .ReceivingAccount
                                                         .LedgerAccountCreateRequest
                                                         .LedgerableType
@@ -596,7 +572,7 @@ class BulkRequestCreateParamsTest {
                                                 )
                                                 .metadata(
                                                     BulkRequestCreateParams.Resource
-                                                        .PaymentOrderCreateRequest
+                                                        .PaymentOrderAsyncCreateRequest
                                                         .ReceivingAccount
                                                         .LedgerAccountCreateRequest
                                                         .Metadata
@@ -607,7 +583,7 @@ class BulkRequestCreateParamsTest {
                                         )
                                         .metadata(
                                             BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
+                                                .PaymentOrderAsyncCreateRequest
                                                 .ReceivingAccount
                                                 .Metadata
                                                 .builder()
@@ -616,7 +592,7 @@ class BulkRequestCreateParamsTest {
                                         .name("string")
                                         .partyAddress(
                                             BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
+                                                .PaymentOrderAsyncCreateRequest
                                                 .ReceivingAccount
                                                 .AddressRequest
                                                 .builder()
@@ -632,7 +608,7 @@ class BulkRequestCreateParamsTest {
                                         .partyName("string")
                                         .partyType(
                                             BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
+                                                .PaymentOrderAsyncCreateRequest
                                                 .ReceivingAccount
                                                 .PartyType
                                                 .BUSINESS
@@ -641,14 +617,14 @@ class BulkRequestCreateParamsTest {
                                         .routingDetails(
                                             listOf(
                                                 BulkRequestCreateParams.Resource
-                                                    .PaymentOrderCreateRequest
+                                                    .PaymentOrderAsyncCreateRequest
                                                     .ReceivingAccount
                                                     .RoutingDetail
                                                     .builder()
                                                     .routingNumber("string")
                                                     .routingNumberType(
                                                         BulkRequestCreateParams.Resource
-                                                            .PaymentOrderCreateRequest
+                                                            .PaymentOrderAsyncCreateRequest
                                                             .ReceivingAccount
                                                             .RoutingDetail
                                                             .RoutingNumberType
@@ -656,7 +632,7 @@ class BulkRequestCreateParamsTest {
                                                     )
                                                     .paymentType(
                                                         BulkRequestCreateParams.Resource
-                                                            .PaymentOrderCreateRequest
+                                                            .PaymentOrderAsyncCreateRequest
                                                             .ReceivingAccount
                                                             .RoutingDetail
                                                             .PaymentType
@@ -691,17 +667,18 @@ class BulkRequestCreateParamsTest {
         assertThat(body.resources())
             .isEqualTo(
                 listOf(
-                    BulkRequestCreateParams.Resource.ofPaymentOrderCreateRequest(
-                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest.builder()
+                    BulkRequestCreateParams.Resource.ofPaymentOrderAsyncCreateRequest(
+                        BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest.builder()
                             .amount(123L)
                             .direction(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest.Direction
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
+                                    .Direction
                                     .CREDIT
                             )
                             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .type(PaymentOrderType.ACH)
                             .accounting(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .Accounting
                                     .builder()
                                     .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -711,51 +688,33 @@ class BulkRequestCreateParamsTest {
                             .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .chargeBearer(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .ChargeBearer
                                     .SHARED
                             )
                             .currency(Currency.AED)
                             .description("string")
-                            .documents(
-                                listOf(
-                                    BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
-                                        .DocumentCreateRequest
-                                        .builder()
-                                        .documentableId("string")
-                                        .documentableType(
-                                            BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
-                                                .DocumentCreateRequest
-                                                .DocumentableType
-                                                .CASES
-                                        )
-                                        .file("file.txt")
-                                        .documentType("string")
-                                        .build()
-                                )
-                            )
                             .effectiveDate(LocalDate.parse("2019-12-27"))
                             .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .fallbackType(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .FallbackType
                                     .ACH
                             )
                             .foreignExchangeContract("string")
                             .foreignExchangeIndicator(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .ForeignExchangeIndicator
                                     .FIXED_TO_VARIABLE
                             )
                             .ledgerTransaction(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .LedgerTransactionCreateRequest
                                     .builder()
                                     .ledgerEntries(
                                         listOf(
                                             BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
+                                                .PaymentOrderAsyncCreateRequest
                                                 .LedgerTransactionCreateRequest
                                                 .LedgerEntryCreateRequest
                                                 .builder()
@@ -766,7 +725,7 @@ class BulkRequestCreateParamsTest {
                                                 )
                                                 .availableBalanceAmount(
                                                     BulkRequestCreateParams.Resource
-                                                        .PaymentOrderCreateRequest
+                                                        .PaymentOrderAsyncCreateRequest
                                                         .LedgerTransactionCreateRequest
                                                         .LedgerEntryCreateRequest
                                                         .AvailableBalanceAmount
@@ -776,7 +735,7 @@ class BulkRequestCreateParamsTest {
                                                 .lockVersion(123L)
                                                 .metadata(
                                                     BulkRequestCreateParams.Resource
-                                                        .PaymentOrderCreateRequest
+                                                        .PaymentOrderAsyncCreateRequest
                                                         .LedgerTransactionCreateRequest
                                                         .LedgerEntryCreateRequest
                                                         .Metadata
@@ -785,7 +744,7 @@ class BulkRequestCreateParamsTest {
                                                 )
                                                 .pendingBalanceAmount(
                                                     BulkRequestCreateParams.Resource
-                                                        .PaymentOrderCreateRequest
+                                                        .PaymentOrderAsyncCreateRequest
                                                         .LedgerTransactionCreateRequest
                                                         .LedgerEntryCreateRequest
                                                         .PendingBalanceAmount
@@ -794,7 +753,7 @@ class BulkRequestCreateParamsTest {
                                                 )
                                                 .postedBalanceAmount(
                                                     BulkRequestCreateParams.Resource
-                                                        .PaymentOrderCreateRequest
+                                                        .PaymentOrderAsyncCreateRequest
                                                         .LedgerTransactionCreateRequest
                                                         .LedgerEntryCreateRequest
                                                         .PostedBalanceAmount
@@ -811,20 +770,23 @@ class BulkRequestCreateParamsTest {
                                     .externalId("string")
                                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .ledgerableType(
-                                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                        BulkRequestCreateParams.Resource
+                                            .PaymentOrderAsyncCreateRequest
                                             .LedgerTransactionCreateRequest
                                             .LedgerableType
                                             .COUNTERPARTY
                                     )
                                     .metadata(
-                                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                        BulkRequestCreateParams.Resource
+                                            .PaymentOrderAsyncCreateRequest
                                             .LedgerTransactionCreateRequest
                                             .Metadata
                                             .builder()
                                             .build()
                                     )
                                     .status(
-                                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                        BulkRequestCreateParams.Resource
+                                            .PaymentOrderAsyncCreateRequest
                                             .LedgerTransactionCreateRequest
                                             .Status
                                             .ARCHIVED
@@ -834,7 +796,7 @@ class BulkRequestCreateParamsTest {
                             .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .lineItems(
                                 listOf(
-                                    BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .LineItemRequest
                                         .builder()
                                         .amount(123L)
@@ -842,7 +804,7 @@ class BulkRequestCreateParamsTest {
                                         .description("string")
                                         .metadata(
                                             BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
+                                                .PaymentOrderAsyncCreateRequest
                                                 .LineItemRequest
                                                 .Metadata
                                                 .builder()
@@ -852,32 +814,34 @@ class BulkRequestCreateParamsTest {
                                 )
                             )
                             .metadata(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest.Metadata
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
+                                    .Metadata
                                     .builder()
                                     .build()
                             )
                             .nsfProtected(true)
                             .originatingPartyName("string")
                             .priority(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest.Priority
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
+                                    .Priority
                                     .HIGH
                             )
                             .purpose("string")
                             .receivingAccount(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .ReceivingAccount
                                     .builder()
                                     .accountDetails(
                                         listOf(
                                             BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
+                                                .PaymentOrderAsyncCreateRequest
                                                 .ReceivingAccount
                                                 .AccountDetail
                                                 .builder()
                                                 .accountNumber("string")
                                                 .accountNumberType(
                                                     BulkRequestCreateParams.Resource
-                                                        .PaymentOrderCreateRequest
+                                                        .PaymentOrderAsyncCreateRequest
                                                         .ReceivingAccount
                                                         .AccountDetail
                                                         .AccountNumberType
@@ -890,14 +854,14 @@ class BulkRequestCreateParamsTest {
                                     .contactDetails(
                                         listOf(
                                             BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
+                                                .PaymentOrderAsyncCreateRequest
                                                 .ReceivingAccount
                                                 .ContactDetailCreateRequest
                                                 .builder()
                                                 .contactIdentifier("string")
                                                 .contactIdentifierType(
                                                     BulkRequestCreateParams.Resource
-                                                        .PaymentOrderCreateRequest
+                                                        .PaymentOrderAsyncCreateRequest
                                                         .ReceivingAccount
                                                         .ContactDetailCreateRequest
                                                         .ContactIdentifierType
@@ -907,7 +871,8 @@ class BulkRequestCreateParamsTest {
                                         )
                                     )
                                     .ledgerAccount(
-                                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                        BulkRequestCreateParams.Resource
+                                            .PaymentOrderAsyncCreateRequest
                                             .ReceivingAccount
                                             .LedgerAccountCreateRequest
                                             .builder()
@@ -920,7 +885,7 @@ class BulkRequestCreateParamsTest {
                                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                             .ledgerableType(
                                                 BulkRequestCreateParams.Resource
-                                                    .PaymentOrderCreateRequest
+                                                    .PaymentOrderAsyncCreateRequest
                                                     .ReceivingAccount
                                                     .LedgerAccountCreateRequest
                                                     .LedgerableType
@@ -928,7 +893,7 @@ class BulkRequestCreateParamsTest {
                                             )
                                             .metadata(
                                                 BulkRequestCreateParams.Resource
-                                                    .PaymentOrderCreateRequest
+                                                    .PaymentOrderAsyncCreateRequest
                                                     .ReceivingAccount
                                                     .LedgerAccountCreateRequest
                                                     .Metadata
@@ -938,7 +903,8 @@ class BulkRequestCreateParamsTest {
                                             .build()
                                     )
                                     .metadata(
-                                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                        BulkRequestCreateParams.Resource
+                                            .PaymentOrderAsyncCreateRequest
                                             .ReceivingAccount
                                             .Metadata
                                             .builder()
@@ -946,7 +912,8 @@ class BulkRequestCreateParamsTest {
                                     )
                                     .name("string")
                                     .partyAddress(
-                                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                        BulkRequestCreateParams.Resource
+                                            .PaymentOrderAsyncCreateRequest
                                             .ReceivingAccount
                                             .AddressRequest
                                             .builder()
@@ -961,7 +928,8 @@ class BulkRequestCreateParamsTest {
                                     .partyIdentifier("string")
                                     .partyName("string")
                                     .partyType(
-                                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                        BulkRequestCreateParams.Resource
+                                            .PaymentOrderAsyncCreateRequest
                                             .ReceivingAccount
                                             .PartyType
                                             .BUSINESS
@@ -970,14 +938,14 @@ class BulkRequestCreateParamsTest {
                                     .routingDetails(
                                         listOf(
                                             BulkRequestCreateParams.Resource
-                                                .PaymentOrderCreateRequest
+                                                .PaymentOrderAsyncCreateRequest
                                                 .ReceivingAccount
                                                 .RoutingDetail
                                                 .builder()
                                                 .routingNumber("string")
                                                 .routingNumberType(
                                                     BulkRequestCreateParams.Resource
-                                                        .PaymentOrderCreateRequest
+                                                        .PaymentOrderAsyncCreateRequest
                                                         .ReceivingAccount
                                                         .RoutingDetail
                                                         .RoutingNumberType
@@ -985,7 +953,7 @@ class BulkRequestCreateParamsTest {
                                                 )
                                                 .paymentType(
                                                     BulkRequestCreateParams.Resource
-                                                        .PaymentOrderCreateRequest
+                                                        .PaymentOrderAsyncCreateRequest
                                                         .ReceivingAccount
                                                         .RoutingDetail
                                                         .PaymentType
@@ -1021,11 +989,12 @@ class BulkRequestCreateParamsTest {
                 .resourceType(BulkRequestCreateParams.ResourceType.PAYMENT_ORDER)
                 .resources(
                     listOf(
-                        BulkRequestCreateParams.Resource.ofPaymentOrderCreateRequest(
-                            BulkRequestCreateParams.Resource.PaymentOrderCreateRequest.builder()
+                        BulkRequestCreateParams.Resource.ofPaymentOrderAsyncCreateRequest(
+                            BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
+                                .builder()
                                 .amount(123L)
                                 .direction(
-                                    BulkRequestCreateParams.Resource.PaymentOrderCreateRequest
+                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .Direction
                                         .CREDIT
                                 )
@@ -1044,11 +1013,12 @@ class BulkRequestCreateParamsTest {
         assertThat(body.resources())
             .isEqualTo(
                 listOf(
-                    BulkRequestCreateParams.Resource.ofPaymentOrderCreateRequest(
-                        BulkRequestCreateParams.Resource.PaymentOrderCreateRequest.builder()
+                    BulkRequestCreateParams.Resource.ofPaymentOrderAsyncCreateRequest(
+                        BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest.builder()
                             .amount(123L)
                             .direction(
-                                BulkRequestCreateParams.Resource.PaymentOrderCreateRequest.Direction
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
+                                    .Direction
                                     .CREDIT
                             )
                             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
