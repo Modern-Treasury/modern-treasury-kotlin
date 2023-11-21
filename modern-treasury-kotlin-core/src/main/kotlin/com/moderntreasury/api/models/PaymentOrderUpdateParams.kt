@@ -3491,9 +3491,6 @@ constructor(
 
                     val AU_BSB = RoutingNumberType(JsonField.of("au_bsb"))
 
-                    val SE_BANKGIRO_CLEARING_CODE =
-                        RoutingNumberType(JsonField.of("se_bankgiro_clearing_code"))
-
                     val BR_CODIGO = RoutingNumberType(JsonField.of("br_codigo"))
 
                     val CA_CPA = RoutingNumberType(JsonField.of("ca_cpa"))
@@ -3510,16 +3507,22 @@ constructor(
                     val HK_INTERBANK_CLEARING_CODE =
                         RoutingNumberType(JsonField.of("hk_interbank_clearing_code"))
 
+                    val HU_INTERBANK_CLEARING_CODE =
+                        RoutingNumberType(JsonField.of("hu_interbank_clearing_code"))
+
                     val IN_IFSC = RoutingNumberType(JsonField.of("in_ifsc"))
+
+                    val JP_ZENGIN_CODE = RoutingNumberType(JsonField.of("jp_zengin_code"))
 
                     val MY_BRANCH_CODE = RoutingNumberType(JsonField.of("my_branch_code"))
 
                     val NZ_NATIONAL_CLEARING_CODE =
                         RoutingNumberType(JsonField.of("nz_national_clearing_code"))
 
-                    val SWIFT = RoutingNumberType(JsonField.of("swift"))
+                    val SE_BANKGIRO_CLEARING_CODE =
+                        RoutingNumberType(JsonField.of("se_bankgiro_clearing_code"))
 
-                    val JP_ZENGIN_CODE = RoutingNumberType(JsonField.of("jp_zengin_code"))
+                    val SWIFT = RoutingNumberType(JsonField.of("swift"))
 
                     fun of(value: String) = RoutingNumberType(JsonField.of(value))
                 }
@@ -3527,7 +3530,6 @@ constructor(
                 enum class Known {
                     ABA,
                     AU_BSB,
-                    SE_BANKGIRO_CLEARING_CODE,
                     BR_CODIGO,
                     CA_CPA,
                     CHIPS,
@@ -3535,17 +3537,18 @@ constructor(
                     DK_INTERBANK_CLEARING_CODE,
                     GB_SORT_CODE,
                     HK_INTERBANK_CLEARING_CODE,
+                    HU_INTERBANK_CLEARING_CODE,
                     IN_IFSC,
+                    JP_ZENGIN_CODE,
                     MY_BRANCH_CODE,
                     NZ_NATIONAL_CLEARING_CODE,
+                    SE_BANKGIRO_CLEARING_CODE,
                     SWIFT,
-                    JP_ZENGIN_CODE,
                 }
 
                 enum class Value {
                     ABA,
                     AU_BSB,
-                    SE_BANKGIRO_CLEARING_CODE,
                     BR_CODIGO,
                     CA_CPA,
                     CHIPS,
@@ -3553,11 +3556,13 @@ constructor(
                     DK_INTERBANK_CLEARING_CODE,
                     GB_SORT_CODE,
                     HK_INTERBANK_CLEARING_CODE,
+                    HU_INTERBANK_CLEARING_CODE,
                     IN_IFSC,
+                    JP_ZENGIN_CODE,
                     MY_BRANCH_CODE,
                     NZ_NATIONAL_CLEARING_CODE,
+                    SE_BANKGIRO_CLEARING_CODE,
                     SWIFT,
-                    JP_ZENGIN_CODE,
                     _UNKNOWN,
                 }
 
@@ -3565,7 +3570,6 @@ constructor(
                     when (this) {
                         ABA -> Value.ABA
                         AU_BSB -> Value.AU_BSB
-                        SE_BANKGIRO_CLEARING_CODE -> Value.SE_BANKGIRO_CLEARING_CODE
                         BR_CODIGO -> Value.BR_CODIGO
                         CA_CPA -> Value.CA_CPA
                         CHIPS -> Value.CHIPS
@@ -3573,11 +3577,13 @@ constructor(
                         DK_INTERBANK_CLEARING_CODE -> Value.DK_INTERBANK_CLEARING_CODE
                         GB_SORT_CODE -> Value.GB_SORT_CODE
                         HK_INTERBANK_CLEARING_CODE -> Value.HK_INTERBANK_CLEARING_CODE
+                        HU_INTERBANK_CLEARING_CODE -> Value.HU_INTERBANK_CLEARING_CODE
                         IN_IFSC -> Value.IN_IFSC
+                        JP_ZENGIN_CODE -> Value.JP_ZENGIN_CODE
                         MY_BRANCH_CODE -> Value.MY_BRANCH_CODE
                         NZ_NATIONAL_CLEARING_CODE -> Value.NZ_NATIONAL_CLEARING_CODE
+                        SE_BANKGIRO_CLEARING_CODE -> Value.SE_BANKGIRO_CLEARING_CODE
                         SWIFT -> Value.SWIFT
-                        JP_ZENGIN_CODE -> Value.JP_ZENGIN_CODE
                         else -> Value._UNKNOWN
                     }
 
@@ -3585,7 +3591,6 @@ constructor(
                     when (this) {
                         ABA -> Known.ABA
                         AU_BSB -> Known.AU_BSB
-                        SE_BANKGIRO_CLEARING_CODE -> Known.SE_BANKGIRO_CLEARING_CODE
                         BR_CODIGO -> Known.BR_CODIGO
                         CA_CPA -> Known.CA_CPA
                         CHIPS -> Known.CHIPS
@@ -3593,11 +3598,13 @@ constructor(
                         DK_INTERBANK_CLEARING_CODE -> Known.DK_INTERBANK_CLEARING_CODE
                         GB_SORT_CODE -> Known.GB_SORT_CODE
                         HK_INTERBANK_CLEARING_CODE -> Known.HK_INTERBANK_CLEARING_CODE
+                        HU_INTERBANK_CLEARING_CODE -> Known.HU_INTERBANK_CLEARING_CODE
                         IN_IFSC -> Known.IN_IFSC
+                        JP_ZENGIN_CODE -> Known.JP_ZENGIN_CODE
                         MY_BRANCH_CODE -> Known.MY_BRANCH_CODE
                         NZ_NATIONAL_CLEARING_CODE -> Known.NZ_NATIONAL_CLEARING_CODE
+                        SE_BANKGIRO_CLEARING_CODE -> Known.SE_BANKGIRO_CLEARING_CODE
                         SWIFT -> Known.SWIFT
-                        JP_ZENGIN_CODE -> Known.JP_ZENGIN_CODE
                         else ->
                             throw ModernTreasuryInvalidDataException(
                                 "Unknown RoutingNumberType: $value"
@@ -3649,6 +3656,8 @@ constructor(
 
                     val EFT = PaymentType(JsonField.of("eft"))
 
+                    val HU_ICS = PaymentType(JsonField.of("hu_ics"))
+
                     val INTERAC = PaymentType(JsonField.of("interac"))
 
                     val MASAV = PaymentType(JsonField.of("masav"))
@@ -3660,6 +3669,8 @@ constructor(
                     val NZ_BECS = PaymentType(JsonField.of("nz_becs"))
 
                     val PROVXCHANGE = PaymentType(JsonField.of("provxchange"))
+
+                    val RO_SENT = PaymentType(JsonField.of("ro_sent"))
 
                     val RTP = PaymentType(JsonField.of("rtp"))
 
@@ -3693,12 +3704,14 @@ constructor(
                     CROSS_BORDER,
                     DK_NETS,
                     EFT,
+                    HU_ICS,
                     INTERAC,
                     MASAV,
                     NEFT,
                     NICS,
                     NZ_BECS,
                     PROVXCHANGE,
+                    RO_SENT,
                     RTP,
                     SG_GIRO,
                     SE_BANKGIROT,
@@ -3721,12 +3734,14 @@ constructor(
                     CROSS_BORDER,
                     DK_NETS,
                     EFT,
+                    HU_ICS,
                     INTERAC,
                     MASAV,
                     NEFT,
                     NICS,
                     NZ_BECS,
                     PROVXCHANGE,
+                    RO_SENT,
                     RTP,
                     SG_GIRO,
                     SE_BANKGIROT,
@@ -3751,12 +3766,14 @@ constructor(
                         CROSS_BORDER -> Value.CROSS_BORDER
                         DK_NETS -> Value.DK_NETS
                         EFT -> Value.EFT
+                        HU_ICS -> Value.HU_ICS
                         INTERAC -> Value.INTERAC
                         MASAV -> Value.MASAV
                         NEFT -> Value.NEFT
                         NICS -> Value.NICS
                         NZ_BECS -> Value.NZ_BECS
                         PROVXCHANGE -> Value.PROVXCHANGE
+                        RO_SENT -> Value.RO_SENT
                         RTP -> Value.RTP
                         SG_GIRO -> Value.SG_GIRO
                         SE_BANKGIROT -> Value.SE_BANKGIROT
@@ -3781,12 +3798,14 @@ constructor(
                         CROSS_BORDER -> Known.CROSS_BORDER
                         DK_NETS -> Known.DK_NETS
                         EFT -> Known.EFT
+                        HU_ICS -> Known.HU_ICS
                         INTERAC -> Known.INTERAC
                         MASAV -> Known.MASAV
                         NEFT -> Known.NEFT
                         NICS -> Known.NICS
                         NZ_BECS -> Known.NZ_BECS
                         PROVXCHANGE -> Known.PROVXCHANGE
+                        RO_SENT -> Known.RO_SENT
                         RTP -> Known.RTP
                         SG_GIRO -> Known.SG_GIRO
                         SE_BANKGIROT -> Known.SE_BANKGIROT
