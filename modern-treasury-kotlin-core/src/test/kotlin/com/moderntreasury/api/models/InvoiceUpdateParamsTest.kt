@@ -54,6 +54,7 @@ class InvoiceUpdateParamsTest {
             .currency(Currency.AED)
             .description("string")
             .dueDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .fallbackPaymentMethod("string")
             .invoicerAddress(
                 InvoiceUpdateParams.InvoicerAddress.builder()
                     .country("string")
@@ -123,6 +124,7 @@ class InvoiceUpdateParamsTest {
                 .currency(Currency.AED)
                 .description("string")
                 .dueDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .fallbackPaymentMethod("string")
                 .invoicerAddress(
                     InvoiceUpdateParams.InvoicerAddress.builder()
                         .country("string")
@@ -190,6 +192,7 @@ class InvoiceUpdateParamsTest {
         assertThat(body.currency()).isEqualTo(Currency.AED)
         assertThat(body.description()).isEqualTo("string")
         assertThat(body.dueDate()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(body.fallbackPaymentMethod()).isEqualTo("string")
         assertThat(body.invoicerAddress())
             .isEqualTo(
                 InvoiceUpdateParams.InvoicerAddress.builder()

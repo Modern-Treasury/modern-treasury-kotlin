@@ -54,6 +54,7 @@ class InvoiceCreateParamsTest {
             )
             .currency(Currency.AED)
             .description("string")
+            .fallbackPaymentMethod("string")
             .invoicerAddress(
                 InvoiceCreateParams.InvoicerAddress.builder()
                     .country("string")
@@ -121,6 +122,7 @@ class InvoiceCreateParamsTest {
                 )
                 .currency(Currency.AED)
                 .description("string")
+                .fallbackPaymentMethod("string")
                 .invoicerAddress(
                     InvoiceCreateParams.InvoicerAddress.builder()
                         .country("string")
@@ -187,6 +189,7 @@ class InvoiceCreateParamsTest {
             )
         assertThat(body.currency()).isEqualTo(Currency.AED)
         assertThat(body.description()).isEqualTo("string")
+        assertThat(body.fallbackPaymentMethod()).isEqualTo("string")
         assertThat(body.invoicerAddress())
             .isEqualTo(
                 InvoiceCreateParams.InvoicerAddress.builder()

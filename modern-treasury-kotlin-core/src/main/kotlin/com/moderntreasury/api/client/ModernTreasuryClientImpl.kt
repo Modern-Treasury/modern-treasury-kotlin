@@ -131,6 +131,10 @@ constructor(
 
     private val bulkResults: BulkResultService by lazy { BulkResultServiceImpl(clientOptions) }
 
+    private val ledgerAccountSettlements: LedgerAccountSettlementService by lazy {
+        LedgerAccountSettlementServiceImpl(clientOptions)
+    }
+
     override fun async(): ModernTreasuryClientAsync = async
 
     override fun connections(): ConnectionService = connections
@@ -201,6 +205,9 @@ constructor(
     override fun bulkRequests(): BulkRequestService = bulkRequests
 
     override fun bulkResults(): BulkResultService = bulkResults
+
+    override fun ledgerAccountSettlements(): LedgerAccountSettlementService =
+        ledgerAccountSettlements
 
     private val pingHandler: Handler<PingResponse> =
         jsonHandler<PingResponse>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

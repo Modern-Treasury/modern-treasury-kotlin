@@ -93,6 +93,7 @@ class InvoiceTest {
                             .build()
                     )
                 )
+                .fallbackPaymentMethod("string")
                 .hostedUrl("string")
                 .invoicerAddress(
                     Invoice.InvoicerAddress.builder()
@@ -105,6 +106,7 @@ class InvoiceTest {
                         .build()
                 )
                 .liveMode(true)
+                .metadata(Invoice.Metadata.builder().build())
                 .notificationEmailAddresses(listOf("string"))
                 .notificationsEnabled(true)
                 .number("string")
@@ -496,6 +498,7 @@ class InvoiceTest {
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
+        assertThat(invoice.fallbackPaymentMethod()).isEqualTo("string")
         assertThat(invoice.hostedUrl()).isEqualTo("string")
         assertThat(invoice.invoicerAddress())
             .isEqualTo(
@@ -509,6 +512,7 @@ class InvoiceTest {
                     .build()
             )
         assertThat(invoice.liveMode()).isEqualTo(true)
+        assertThat(invoice.metadata()).isEqualTo(Invoice.Metadata.builder().build())
         assertThat(invoice.notificationEmailAddresses()).containsExactly("string")
         assertThat(invoice.notificationsEnabled()).isEqualTo(true)
         assertThat(invoice.number()).isEqualTo("string")

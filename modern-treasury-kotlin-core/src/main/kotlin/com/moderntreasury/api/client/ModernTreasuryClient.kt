@@ -80,6 +80,8 @@ interface ModernTreasuryClient {
 
     fun bulkResults(): BulkResultService
 
+    fun ledgerAccountSettlements(): LedgerAccountSettlementService
+
     /**
      * A test endpoint often used to confirm credentials and headers are being passed in correctly.
      */

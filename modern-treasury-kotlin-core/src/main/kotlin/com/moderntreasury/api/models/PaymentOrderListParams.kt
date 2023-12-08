@@ -17,6 +17,8 @@ class PaymentOrderListParams
 constructor(
     private val afterCursor: String?,
     private val counterpartyId: String?,
+    private val createdAtEnd: LocalDate?,
+    private val createdAtStart: LocalDate?,
     private val direction: TransactionDirection?,
     private val effectiveDateEnd: LocalDate?,
     private val effectiveDateStart: LocalDate?,
@@ -35,6 +37,10 @@ constructor(
     fun afterCursor(): String? = afterCursor
 
     fun counterpartyId(): String? = counterpartyId
+
+    fun createdAtEnd(): LocalDate? = createdAtEnd
+
+    fun createdAtStart(): LocalDate? = createdAtStart
 
     fun direction(): TransactionDirection? = direction
 
@@ -62,6 +68,8 @@ constructor(
         val params = mutableMapOf<String, List<String>>()
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
         this.counterpartyId?.let { params.put("counterparty_id", listOf(it.toString())) }
+        this.createdAtEnd?.let { params.put("created_at_end", listOf(it.toString())) }
+        this.createdAtStart?.let { params.put("created_at_start", listOf(it.toString())) }
         this.direction?.let { params.put("direction", listOf(it.toString())) }
         this.effectiveDateEnd?.let { params.put("effective_date_end", listOf(it.toString())) }
         this.effectiveDateStart?.let { params.put("effective_date_start", listOf(it.toString())) }
@@ -93,6 +101,8 @@ constructor(
         return other is PaymentOrderListParams &&
             this.afterCursor == other.afterCursor &&
             this.counterpartyId == other.counterpartyId &&
+            this.createdAtEnd == other.createdAtEnd &&
+            this.createdAtStart == other.createdAtStart &&
             this.direction == other.direction &&
             this.effectiveDateEnd == other.effectiveDateEnd &&
             this.effectiveDateStart == other.effectiveDateStart &&
@@ -112,6 +122,8 @@ constructor(
         return Objects.hash(
             afterCursor,
             counterpartyId,
+            createdAtEnd,
+            createdAtStart,
             direction,
             effectiveDateEnd,
             effectiveDateStart,
@@ -129,7 +141,7 @@ constructor(
     }
 
     override fun toString() =
-        "PaymentOrderListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, direction=$direction, effectiveDateEnd=$effectiveDateEnd, effectiveDateStart=$effectiveDateStart, metadata=$metadata, originatingAccountId=$originatingAccountId, perPage=$perPage, priority=$priority, referenceNumber=$referenceNumber, status=$status, transactionId=$transactionId, type=$type, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "PaymentOrderListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, createdAtEnd=$createdAtEnd, createdAtStart=$createdAtStart, direction=$direction, effectiveDateEnd=$effectiveDateEnd, effectiveDateStart=$effectiveDateStart, metadata=$metadata, originatingAccountId=$originatingAccountId, perPage=$perPage, priority=$priority, referenceNumber=$referenceNumber, status=$status, transactionId=$transactionId, type=$type, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -143,6 +155,8 @@ constructor(
 
         private var afterCursor: String? = null
         private var counterpartyId: String? = null
+        private var createdAtEnd: LocalDate? = null
+        private var createdAtStart: LocalDate? = null
         private var direction: TransactionDirection? = null
         private var effectiveDateEnd: LocalDate? = null
         private var effectiveDateStart: LocalDate? = null
@@ -160,6 +174,8 @@ constructor(
         internal fun from(paymentOrderListParams: PaymentOrderListParams) = apply {
             this.afterCursor = paymentOrderListParams.afterCursor
             this.counterpartyId = paymentOrderListParams.counterpartyId
+            this.createdAtEnd = paymentOrderListParams.createdAtEnd
+            this.createdAtStart = paymentOrderListParams.createdAtStart
             this.direction = paymentOrderListParams.direction
             this.effectiveDateEnd = paymentOrderListParams.effectiveDateEnd
             this.effectiveDateStart = paymentOrderListParams.effectiveDateStart
@@ -178,6 +194,14 @@ constructor(
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
         fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
+
+        /** An inclusive upper bound for searching created_at */
+        fun createdAtEnd(createdAtEnd: LocalDate) = apply { this.createdAtEnd = createdAtEnd }
+
+        /** An inclusive lower bound for searching created_at */
+        fun createdAtStart(createdAtStart: LocalDate) = apply {
+            this.createdAtStart = createdAtStart
+        }
 
         fun direction(direction: TransactionDirection) = apply { this.direction = direction }
 
@@ -266,6 +290,8 @@ constructor(
             PaymentOrderListParams(
                 afterCursor,
                 counterpartyId,
+                createdAtEnd,
+                createdAtStart,
                 direction,
                 effectiveDateEnd,
                 effectiveDateStart,
@@ -567,11 +593,15 @@ constructor(
 
             val MASAV = Type(JsonField.of("masav"))
 
+            val MX_CCEN = Type(JsonField.of("mx_ccen"))
+
             val NEFT = Type(JsonField.of("neft"))
 
             val NICS = Type(JsonField.of("nics"))
 
             val NZ_BECS = Type(JsonField.of("nz_becs"))
+
+            val PL_ELIXIR = Type(JsonField.of("pl_elixir"))
 
             val PROVXCHANGE = Type(JsonField.of("provxchange"))
 
@@ -590,6 +620,8 @@ constructor(
             val SIC = Type(JsonField.of("sic"))
 
             val SIGNET = Type(JsonField.of("signet"))
+
+            val SKNBI = Type(JsonField.of("sknbi"))
 
             val WIRE = Type(JsonField.of("wire"))
 
@@ -612,9 +644,11 @@ constructor(
             HU_ICS,
             INTERAC,
             MASAV,
+            MX_CCEN,
             NEFT,
             NICS,
             NZ_BECS,
+            PL_ELIXIR,
             PROVXCHANGE,
             RO_SENT,
             RTP,
@@ -624,6 +658,7 @@ constructor(
             SG_GIRO,
             SIC,
             SIGNET,
+            SKNBI,
             WIRE,
             ZENGIN,
         }
@@ -642,9 +677,11 @@ constructor(
             HU_ICS,
             INTERAC,
             MASAV,
+            MX_CCEN,
             NEFT,
             NICS,
             NZ_BECS,
+            PL_ELIXIR,
             PROVXCHANGE,
             RO_SENT,
             RTP,
@@ -654,6 +691,7 @@ constructor(
             SG_GIRO,
             SIC,
             SIGNET,
+            SKNBI,
             WIRE,
             ZENGIN,
             _UNKNOWN,
@@ -674,9 +712,11 @@ constructor(
                 HU_ICS -> Value.HU_ICS
                 INTERAC -> Value.INTERAC
                 MASAV -> Value.MASAV
+                MX_CCEN -> Value.MX_CCEN
                 NEFT -> Value.NEFT
                 NICS -> Value.NICS
                 NZ_BECS -> Value.NZ_BECS
+                PL_ELIXIR -> Value.PL_ELIXIR
                 PROVXCHANGE -> Value.PROVXCHANGE
                 RO_SENT -> Value.RO_SENT
                 RTP -> Value.RTP
@@ -686,6 +726,7 @@ constructor(
                 SG_GIRO -> Value.SG_GIRO
                 SIC -> Value.SIC
                 SIGNET -> Value.SIGNET
+                SKNBI -> Value.SKNBI
                 WIRE -> Value.WIRE
                 ZENGIN -> Value.ZENGIN
                 else -> Value._UNKNOWN
@@ -706,9 +747,11 @@ constructor(
                 HU_ICS -> Known.HU_ICS
                 INTERAC -> Known.INTERAC
                 MASAV -> Known.MASAV
+                MX_CCEN -> Known.MX_CCEN
                 NEFT -> Known.NEFT
                 NICS -> Known.NICS
                 NZ_BECS -> Known.NZ_BECS
+                PL_ELIXIR -> Known.PL_ELIXIR
                 PROVXCHANGE -> Known.PROVXCHANGE
                 RO_SENT -> Known.RO_SENT
                 RTP -> Known.RTP
@@ -718,6 +761,7 @@ constructor(
                 SG_GIRO -> Known.SG_GIRO
                 SIC -> Known.SIC
                 SIGNET -> Known.SIGNET
+                SKNBI -> Known.SKNBI
                 WIRE -> Known.WIRE
                 ZENGIN -> Known.ZENGIN
                 else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")

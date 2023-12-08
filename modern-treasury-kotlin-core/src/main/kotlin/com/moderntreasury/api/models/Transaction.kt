@@ -792,11 +792,15 @@ private constructor(
 
             val MASAV = Type(JsonField.of("masav"))
 
+            val MX_CCEN = Type(JsonField.of("mx_ccen"))
+
             val NEFT = Type(JsonField.of("neft"))
 
             val NICS = Type(JsonField.of("nics"))
 
             val NZ_BECS = Type(JsonField.of("nz_becs"))
+
+            val PL_ELIXIR = Type(JsonField.of("pl_elixir"))
 
             val PROVXCHANGE = Type(JsonField.of("provxchange"))
 
@@ -815,6 +819,8 @@ private constructor(
             val SIC = Type(JsonField.of("sic"))
 
             val SIGNET = Type(JsonField.of("signet"))
+
+            val SKNBI = Type(JsonField.of("sknbi"))
 
             val WIRE = Type(JsonField.of("wire"))
 
@@ -837,9 +843,11 @@ private constructor(
             HU_ICS,
             INTERAC,
             MASAV,
+            MX_CCEN,
             NEFT,
             NICS,
             NZ_BECS,
+            PL_ELIXIR,
             PROVXCHANGE,
             RO_SENT,
             RTP,
@@ -849,6 +857,7 @@ private constructor(
             SG_GIRO,
             SIC,
             SIGNET,
+            SKNBI,
             WIRE,
             ZENGIN,
         }
@@ -867,9 +876,11 @@ private constructor(
             HU_ICS,
             INTERAC,
             MASAV,
+            MX_CCEN,
             NEFT,
             NICS,
             NZ_BECS,
+            PL_ELIXIR,
             PROVXCHANGE,
             RO_SENT,
             RTP,
@@ -879,6 +890,7 @@ private constructor(
             SG_GIRO,
             SIC,
             SIGNET,
+            SKNBI,
             WIRE,
             ZENGIN,
             _UNKNOWN,
@@ -899,9 +911,11 @@ private constructor(
                 HU_ICS -> Value.HU_ICS
                 INTERAC -> Value.INTERAC
                 MASAV -> Value.MASAV
+                MX_CCEN -> Value.MX_CCEN
                 NEFT -> Value.NEFT
                 NICS -> Value.NICS
                 NZ_BECS -> Value.NZ_BECS
+                PL_ELIXIR -> Value.PL_ELIXIR
                 PROVXCHANGE -> Value.PROVXCHANGE
                 RO_SENT -> Value.RO_SENT
                 RTP -> Value.RTP
@@ -911,6 +925,7 @@ private constructor(
                 SG_GIRO -> Value.SG_GIRO
                 SIC -> Value.SIC
                 SIGNET -> Value.SIGNET
+                SKNBI -> Value.SKNBI
                 WIRE -> Value.WIRE
                 ZENGIN -> Value.ZENGIN
                 else -> Value._UNKNOWN
@@ -931,9 +946,11 @@ private constructor(
                 HU_ICS -> Known.HU_ICS
                 INTERAC -> Known.INTERAC
                 MASAV -> Known.MASAV
+                MX_CCEN -> Known.MX_CCEN
                 NEFT -> Known.NEFT
                 NICS -> Known.NICS
                 NZ_BECS -> Known.NZ_BECS
+                PL_ELIXIR -> Known.PL_ELIXIR
                 PROVXCHANGE -> Known.PROVXCHANGE
                 RO_SENT -> Known.RO_SENT
                 RTP -> Known.RTP
@@ -943,6 +960,7 @@ private constructor(
                 SG_GIRO -> Known.SG_GIRO
                 SIC -> Known.SIC
                 SIGNET -> Known.SIGNET
+                SKNBI -> Known.SKNBI
                 WIRE -> Known.WIRE
                 ZENGIN -> Known.ZENGIN
                 else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")

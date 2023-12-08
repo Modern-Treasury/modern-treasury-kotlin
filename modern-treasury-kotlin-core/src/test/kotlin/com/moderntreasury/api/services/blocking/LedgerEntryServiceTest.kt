@@ -30,6 +30,26 @@ class LedgerEntryServiceTest {
     }
 
     @Test
+    fun callUpdate() {
+        val client =
+            ModernTreasuryOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .organizationId("my-organization-ID")
+                .build()
+        val ledgerEntryService = client.ledgerEntries()
+        val ledgerEntry =
+            ledgerEntryService.update(
+                LedgerEntryUpdateParams.builder()
+                    .id("string")
+                    .metadata(LedgerEntryUpdateParams.Metadata.builder().build())
+                    .build()
+            )
+        println(ledgerEntry)
+        ledgerEntry.validate()
+    }
+
+    @Test
     fun callList() {
         val client =
             ModernTreasuryOkHttpClient.builder()
