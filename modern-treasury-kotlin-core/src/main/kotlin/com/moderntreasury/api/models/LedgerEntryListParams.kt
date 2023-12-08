@@ -24,6 +24,7 @@ constructor(
     private val ledgerAccountId: String?,
     private val ledgerAccountLockVersion: LedgerAccountLockVersion?,
     private val ledgerAccountPayoutId: String?,
+    private val ledgerAccountSettlementId: String?,
     private val ledgerAccountStatementId: String?,
     private val ledgerTransactionId: String?,
     private val metadata: Metadata?,
@@ -56,6 +57,8 @@ constructor(
     fun ledgerAccountLockVersion(): LedgerAccountLockVersion? = ledgerAccountLockVersion
 
     fun ledgerAccountPayoutId(): String? = ledgerAccountPayoutId
+
+    fun ledgerAccountSettlementId(): String? = ledgerAccountSettlementId
 
     fun ledgerAccountStatementId(): String? = ledgerAccountStatementId
 
@@ -97,6 +100,9 @@ constructor(
         this.ledgerAccountPayoutId?.let {
             params.put("ledger_account_payout_id", listOf(it.toString()))
         }
+        this.ledgerAccountSettlementId?.let {
+            params.put("ledger_account_settlement_id", listOf(it.toString()))
+        }
         this.ledgerAccountStatementId?.let {
             params.put("ledger_account_statement_id", listOf(it.toString()))
         }
@@ -134,6 +140,7 @@ constructor(
             this.ledgerAccountId == other.ledgerAccountId &&
             this.ledgerAccountLockVersion == other.ledgerAccountLockVersion &&
             this.ledgerAccountPayoutId == other.ledgerAccountPayoutId &&
+            this.ledgerAccountSettlementId == other.ledgerAccountSettlementId &&
             this.ledgerAccountStatementId == other.ledgerAccountStatementId &&
             this.ledgerTransactionId == other.ledgerTransactionId &&
             this.metadata == other.metadata &&
@@ -159,6 +166,7 @@ constructor(
             ledgerAccountId,
             ledgerAccountLockVersion,
             ledgerAccountPayoutId,
+            ledgerAccountSettlementId,
             ledgerAccountStatementId,
             ledgerTransactionId,
             metadata,
@@ -174,7 +182,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerEntryListParams{id=$id, afterCursor=$afterCursor, asOfLockVersion=$asOfLockVersion, direction=$direction, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, ledgerAccountLockVersion=$ledgerAccountLockVersion, ledgerAccountPayoutId=$ledgerAccountPayoutId, ledgerAccountStatementId=$ledgerAccountStatementId, ledgerTransactionId=$ledgerTransactionId, metadata=$metadata, orderBy=$orderBy, perPage=$perPage, showBalances=$showBalances, showDeleted=$showDeleted, status=$status, updatedAt=$updatedAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "LedgerEntryListParams{id=$id, afterCursor=$afterCursor, asOfLockVersion=$asOfLockVersion, direction=$direction, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, ledgerAccountLockVersion=$ledgerAccountLockVersion, ledgerAccountPayoutId=$ledgerAccountPayoutId, ledgerAccountSettlementId=$ledgerAccountSettlementId, ledgerAccountStatementId=$ledgerAccountStatementId, ledgerTransactionId=$ledgerTransactionId, metadata=$metadata, orderBy=$orderBy, perPage=$perPage, showBalances=$showBalances, showDeleted=$showDeleted, status=$status, updatedAt=$updatedAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -196,6 +204,7 @@ constructor(
         private var ledgerAccountId: String? = null
         private var ledgerAccountLockVersion: LedgerAccountLockVersion? = null
         private var ledgerAccountPayoutId: String? = null
+        private var ledgerAccountSettlementId: String? = null
         private var ledgerAccountStatementId: String? = null
         private var ledgerTransactionId: String? = null
         private var metadata: Metadata? = null
@@ -219,6 +228,7 @@ constructor(
             this.ledgerAccountId = ledgerEntryListParams.ledgerAccountId
             this.ledgerAccountLockVersion = ledgerEntryListParams.ledgerAccountLockVersion
             this.ledgerAccountPayoutId = ledgerEntryListParams.ledgerAccountPayoutId
+            this.ledgerAccountSettlementId = ledgerEntryListParams.ledgerAccountSettlementId
             this.ledgerAccountStatementId = ledgerEntryListParams.ledgerAccountStatementId
             this.ledgerTransactionId = ledgerEntryListParams.ledgerTransactionId
             this.metadata = ledgerEntryListParams.metadata
@@ -297,6 +307,10 @@ constructor(
 
         fun ledgerAccountPayoutId(ledgerAccountPayoutId: String) = apply {
             this.ledgerAccountPayoutId = ledgerAccountPayoutId
+        }
+
+        fun ledgerAccountSettlementId(ledgerAccountSettlementId: String) = apply {
+            this.ledgerAccountSettlementId = ledgerAccountSettlementId
         }
 
         /** Get all ledger entries that are included in the ledger account statement. */
@@ -400,6 +414,7 @@ constructor(
                 ledgerAccountId,
                 ledgerAccountLockVersion,
                 ledgerAccountPayoutId,
+                ledgerAccountSettlementId,
                 ledgerAccountStatementId,
                 ledgerTransactionId,
                 metadata,

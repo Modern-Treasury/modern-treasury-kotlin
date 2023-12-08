@@ -392,6 +392,8 @@ constructor(
             val HU_INTERBANK_CLEARING_CODE =
                 RoutingNumberType(JsonField.of("hu_interbank_clearing_code"))
 
+            val ID_SKNBI_CODE = RoutingNumberType(JsonField.of("id_sknbi_code"))
+
             val IN_IFSC = RoutingNumberType(JsonField.of("in_ifsc"))
 
             val JP_ZENGIN_CODE = RoutingNumberType(JsonField.of("jp_zengin_code"))
@@ -400,6 +402,9 @@ constructor(
 
             val NZ_NATIONAL_CLEARING_CODE =
                 RoutingNumberType(JsonField.of("nz_national_clearing_code"))
+
+            val PL_NATIONAL_CLEARING_CODE =
+                RoutingNumberType(JsonField.of("pl_national_clearing_code"))
 
             val SE_BANKGIRO_CLEARING_CODE =
                 RoutingNumberType(JsonField.of("se_bankgiro_clearing_code"))
@@ -420,10 +425,12 @@ constructor(
             GB_SORT_CODE,
             HK_INTERBANK_CLEARING_CODE,
             HU_INTERBANK_CLEARING_CODE,
+            ID_SKNBI_CODE,
             IN_IFSC,
             JP_ZENGIN_CODE,
             MY_BRANCH_CODE,
             NZ_NATIONAL_CLEARING_CODE,
+            PL_NATIONAL_CLEARING_CODE,
             SE_BANKGIRO_CLEARING_CODE,
             SWIFT,
         }
@@ -439,10 +446,12 @@ constructor(
             GB_SORT_CODE,
             HK_INTERBANK_CLEARING_CODE,
             HU_INTERBANK_CLEARING_CODE,
+            ID_SKNBI_CODE,
             IN_IFSC,
             JP_ZENGIN_CODE,
             MY_BRANCH_CODE,
             NZ_NATIONAL_CLEARING_CODE,
+            PL_NATIONAL_CLEARING_CODE,
             SE_BANKGIRO_CLEARING_CODE,
             SWIFT,
             _UNKNOWN,
@@ -460,10 +469,12 @@ constructor(
                 GB_SORT_CODE -> Value.GB_SORT_CODE
                 HK_INTERBANK_CLEARING_CODE -> Value.HK_INTERBANK_CLEARING_CODE
                 HU_INTERBANK_CLEARING_CODE -> Value.HU_INTERBANK_CLEARING_CODE
+                ID_SKNBI_CODE -> Value.ID_SKNBI_CODE
                 IN_IFSC -> Value.IN_IFSC
                 JP_ZENGIN_CODE -> Value.JP_ZENGIN_CODE
                 MY_BRANCH_CODE -> Value.MY_BRANCH_CODE
                 NZ_NATIONAL_CLEARING_CODE -> Value.NZ_NATIONAL_CLEARING_CODE
+                PL_NATIONAL_CLEARING_CODE -> Value.PL_NATIONAL_CLEARING_CODE
                 SE_BANKGIRO_CLEARING_CODE -> Value.SE_BANKGIRO_CLEARING_CODE
                 SWIFT -> Value.SWIFT
                 else -> Value._UNKNOWN
@@ -481,10 +492,12 @@ constructor(
                 GB_SORT_CODE -> Known.GB_SORT_CODE
                 HK_INTERBANK_CLEARING_CODE -> Known.HK_INTERBANK_CLEARING_CODE
                 HU_INTERBANK_CLEARING_CODE -> Known.HU_INTERBANK_CLEARING_CODE
+                ID_SKNBI_CODE -> Known.ID_SKNBI_CODE
                 IN_IFSC -> Known.IN_IFSC
                 JP_ZENGIN_CODE -> Known.JP_ZENGIN_CODE
                 MY_BRANCH_CODE -> Known.MY_BRANCH_CODE
                 NZ_NATIONAL_CLEARING_CODE -> Known.NZ_NATIONAL_CLEARING_CODE
+                PL_NATIONAL_CLEARING_CODE -> Known.PL_NATIONAL_CLEARING_CODE
                 SE_BANKGIRO_CLEARING_CODE -> Known.SE_BANKGIRO_CLEARING_CODE
                 SWIFT -> Known.SWIFT
                 else ->
@@ -542,11 +555,15 @@ constructor(
 
             val MASAV = PaymentType(JsonField.of("masav"))
 
+            val MX_CCEN = PaymentType(JsonField.of("mx_ccen"))
+
             val NEFT = PaymentType(JsonField.of("neft"))
 
             val NICS = PaymentType(JsonField.of("nics"))
 
             val NZ_BECS = PaymentType(JsonField.of("nz_becs"))
+
+            val PL_ELIXIR = PaymentType(JsonField.of("pl_elixir"))
 
             val PROVXCHANGE = PaymentType(JsonField.of("provxchange"))
 
@@ -565,6 +582,8 @@ constructor(
             val SIC = PaymentType(JsonField.of("sic"))
 
             val SIGNET = PaymentType(JsonField.of("signet"))
+
+            val SKNBI = PaymentType(JsonField.of("sknbi"))
 
             val WIRE = PaymentType(JsonField.of("wire"))
 
@@ -587,9 +606,11 @@ constructor(
             HU_ICS,
             INTERAC,
             MASAV,
+            MX_CCEN,
             NEFT,
             NICS,
             NZ_BECS,
+            PL_ELIXIR,
             PROVXCHANGE,
             RO_SENT,
             RTP,
@@ -599,6 +620,7 @@ constructor(
             SG_GIRO,
             SIC,
             SIGNET,
+            SKNBI,
             WIRE,
             ZENGIN,
         }
@@ -617,9 +639,11 @@ constructor(
             HU_ICS,
             INTERAC,
             MASAV,
+            MX_CCEN,
             NEFT,
             NICS,
             NZ_BECS,
+            PL_ELIXIR,
             PROVXCHANGE,
             RO_SENT,
             RTP,
@@ -629,6 +653,7 @@ constructor(
             SG_GIRO,
             SIC,
             SIGNET,
+            SKNBI,
             WIRE,
             ZENGIN,
             _UNKNOWN,
@@ -649,9 +674,11 @@ constructor(
                 HU_ICS -> Value.HU_ICS
                 INTERAC -> Value.INTERAC
                 MASAV -> Value.MASAV
+                MX_CCEN -> Value.MX_CCEN
                 NEFT -> Value.NEFT
                 NICS -> Value.NICS
                 NZ_BECS -> Value.NZ_BECS
+                PL_ELIXIR -> Value.PL_ELIXIR
                 PROVXCHANGE -> Value.PROVXCHANGE
                 RO_SENT -> Value.RO_SENT
                 RTP -> Value.RTP
@@ -661,6 +688,7 @@ constructor(
                 SG_GIRO -> Value.SG_GIRO
                 SIC -> Value.SIC
                 SIGNET -> Value.SIGNET
+                SKNBI -> Value.SKNBI
                 WIRE -> Value.WIRE
                 ZENGIN -> Value.ZENGIN
                 else -> Value._UNKNOWN
@@ -681,9 +709,11 @@ constructor(
                 HU_ICS -> Known.HU_ICS
                 INTERAC -> Known.INTERAC
                 MASAV -> Known.MASAV
+                MX_CCEN -> Known.MX_CCEN
                 NEFT -> Known.NEFT
                 NICS -> Known.NICS
                 NZ_BECS -> Known.NZ_BECS
+                PL_ELIXIR -> Known.PL_ELIXIR
                 PROVXCHANGE -> Known.PROVXCHANGE
                 RO_SENT -> Known.RO_SENT
                 RTP -> Known.RTP
@@ -693,6 +723,7 @@ constructor(
                 SG_GIRO -> Known.SG_GIRO
                 SIC -> Known.SIC
                 SIGNET -> Known.SIGNET
+                SKNBI -> Known.SKNBI
                 WIRE -> Known.WIRE
                 ZENGIN -> Known.ZENGIN
                 else -> throw ModernTreasuryInvalidDataException("Unknown PaymentType: $value")

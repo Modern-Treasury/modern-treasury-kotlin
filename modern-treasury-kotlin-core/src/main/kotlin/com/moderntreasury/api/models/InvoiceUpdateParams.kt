@@ -28,6 +28,7 @@ constructor(
     private val currency: Currency?,
     private val description: String?,
     private val dueDate: OffsetDateTime?,
+    private val fallbackPaymentMethod: String?,
     private val invoicerAddress: InvoicerAddress?,
     private val notificationEmailAddresses: List<String>?,
     private val notificationsEnabled: Boolean?,
@@ -60,6 +61,8 @@ constructor(
     fun description(): String? = description
 
     fun dueDate(): OffsetDateTime? = dueDate
+
+    fun fallbackPaymentMethod(): String? = fallbackPaymentMethod
 
     fun invoicerAddress(): InvoicerAddress? = invoicerAddress
 
@@ -94,6 +97,7 @@ constructor(
             currency,
             description,
             dueDate,
+            fallbackPaymentMethod,
             invoicerAddress,
             notificationEmailAddresses,
             notificationsEnabled,
@@ -132,6 +136,7 @@ constructor(
         private val currency: Currency?,
         private val description: String?,
         private val dueDate: OffsetDateTime?,
+        private val fallbackPaymentMethod: String?,
         private val invoicerAddress: InvoicerAddress?,
         private val notificationEmailAddresses: List<String>?,
         private val notificationsEnabled: Boolean?,
@@ -172,6 +177,13 @@ constructor(
 
         /** A future date by when the invoice needs to be paid. */
         @JsonProperty("due_date") fun dueDate(): OffsetDateTime? = dueDate
+
+        /**
+         * When payment_method is automatic, the fallback payment method to use when an automatic
+         * payment fails. One of `manual` or `ui`.
+         */
+        @JsonProperty("fallback_payment_method")
+        fun fallbackPaymentMethod(): String? = fallbackPaymentMethod
 
         /** The invoice issuer's business address. */
         @JsonProperty("invoicer_address") fun invoicerAddress(): InvoicerAddress? = invoicerAddress
@@ -264,6 +276,7 @@ constructor(
                 this.currency == other.currency &&
                 this.description == other.description &&
                 this.dueDate == other.dueDate &&
+                this.fallbackPaymentMethod == other.fallbackPaymentMethod &&
                 this.invoicerAddress == other.invoicerAddress &&
                 this.notificationEmailAddresses == other.notificationEmailAddresses &&
                 this.notificationsEnabled == other.notificationsEnabled &&
@@ -290,6 +303,7 @@ constructor(
                         currency,
                         description,
                         dueDate,
+                        fallbackPaymentMethod,
                         invoicerAddress,
                         notificationEmailAddresses,
                         notificationsEnabled,
@@ -309,7 +323,7 @@ constructor(
         }
 
         override fun toString() =
-            "InvoiceUpdateBody{contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, status=$status, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
+            "InvoiceUpdateBody{contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, fallbackPaymentMethod=$fallbackPaymentMethod, invoicerAddress=$invoicerAddress, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, status=$status, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -325,6 +339,7 @@ constructor(
             private var currency: Currency? = null
             private var description: String? = null
             private var dueDate: OffsetDateTime? = null
+            private var fallbackPaymentMethod: String? = null
             private var invoicerAddress: InvoicerAddress? = null
             private var notificationEmailAddresses: List<String>? = null
             private var notificationsEnabled: Boolean? = null
@@ -347,6 +362,7 @@ constructor(
                 this.currency = invoiceUpdateBody.currency
                 this.description = invoiceUpdateBody.description
                 this.dueDate = invoiceUpdateBody.dueDate
+                this.fallbackPaymentMethod = invoiceUpdateBody.fallbackPaymentMethod
                 this.invoicerAddress = invoiceUpdateBody.invoicerAddress
                 this.notificationEmailAddresses = invoiceUpdateBody.notificationEmailAddresses
                 this.notificationsEnabled = invoiceUpdateBody.notificationsEnabled
@@ -398,6 +414,15 @@ constructor(
             /** A future date by when the invoice needs to be paid. */
             @JsonProperty("due_date")
             fun dueDate(dueDate: OffsetDateTime) = apply { this.dueDate = dueDate }
+
+            /**
+             * When payment_method is automatic, the fallback payment method to use when an
+             * automatic payment fails. One of `manual` or `ui`.
+             */
+            @JsonProperty("fallback_payment_method")
+            fun fallbackPaymentMethod(fallbackPaymentMethod: String) = apply {
+                this.fallbackPaymentMethod = fallbackPaymentMethod
+            }
 
             /** The invoice issuer's business address. */
             @JsonProperty("invoicer_address")
@@ -519,6 +544,7 @@ constructor(
                     currency,
                     description,
                     dueDate,
+                    fallbackPaymentMethod,
                     invoicerAddress,
                     notificationEmailAddresses?.toUnmodifiable(),
                     notificationsEnabled,
@@ -556,6 +582,7 @@ constructor(
             this.currency == other.currency &&
             this.description == other.description &&
             this.dueDate == other.dueDate &&
+            this.fallbackPaymentMethod == other.fallbackPaymentMethod &&
             this.invoicerAddress == other.invoicerAddress &&
             this.notificationEmailAddresses == other.notificationEmailAddresses &&
             this.notificationsEnabled == other.notificationsEnabled &&
@@ -583,6 +610,7 @@ constructor(
             currency,
             description,
             dueDate,
+            fallbackPaymentMethod,
             invoicerAddress,
             notificationEmailAddresses,
             notificationsEnabled,
@@ -602,7 +630,7 @@ constructor(
     }
 
     override fun toString() =
-        "InvoiceUpdateParams{id=$id, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, status=$status, virtualAccountId=$virtualAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "InvoiceUpdateParams{id=$id, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, fallbackPaymentMethod=$fallbackPaymentMethod, invoicerAddress=$invoicerAddress, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, status=$status, virtualAccountId=$virtualAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -622,6 +650,7 @@ constructor(
         private var currency: Currency? = null
         private var description: String? = null
         private var dueDate: OffsetDateTime? = null
+        private var fallbackPaymentMethod: String? = null
         private var invoicerAddress: InvoicerAddress? = null
         private var notificationEmailAddresses: MutableList<String> = mutableListOf()
         private var notificationsEnabled: Boolean? = null
@@ -647,6 +676,7 @@ constructor(
             this.currency = invoiceUpdateParams.currency
             this.description = invoiceUpdateParams.description
             this.dueDate = invoiceUpdateParams.dueDate
+            this.fallbackPaymentMethod = invoiceUpdateParams.fallbackPaymentMethod
             this.invoicerAddress = invoiceUpdateParams.invoicerAddress
             this.notificationEmailAddresses(
                 invoiceUpdateParams.notificationEmailAddresses ?: listOf()
@@ -702,6 +732,14 @@ constructor(
 
         /** A future date by when the invoice needs to be paid. */
         fun dueDate(dueDate: OffsetDateTime) = apply { this.dueDate = dueDate }
+
+        /**
+         * When payment_method is automatic, the fallback payment method to use when an automatic
+         * payment fails. One of `manual` or `ui`.
+         */
+        fun fallbackPaymentMethod(fallbackPaymentMethod: String) = apply {
+            this.fallbackPaymentMethod = fallbackPaymentMethod
+        }
 
         /** The invoice issuer's business address. */
         fun invoicerAddress(invoicerAddress: InvoicerAddress) = apply {
@@ -861,6 +899,7 @@ constructor(
                 currency,
                 description,
                 dueDate,
+                fallbackPaymentMethod,
                 invoicerAddress,
                 if (notificationEmailAddresses.size == 0) null
                 else notificationEmailAddresses.toUnmodifiable(),
@@ -1657,11 +1696,15 @@ constructor(
 
             val MASAV = PaymentType(JsonField.of("masav"))
 
+            val MX_CCEN = PaymentType(JsonField.of("mx_ccen"))
+
             val NEFT = PaymentType(JsonField.of("neft"))
 
             val NICS = PaymentType(JsonField.of("nics"))
 
             val NZ_BECS = PaymentType(JsonField.of("nz_becs"))
+
+            val PL_ELIXIR = PaymentType(JsonField.of("pl_elixir"))
 
             val PROVXCHANGE = PaymentType(JsonField.of("provxchange"))
 
@@ -1680,6 +1723,8 @@ constructor(
             val SIC = PaymentType(JsonField.of("sic"))
 
             val SIGNET = PaymentType(JsonField.of("signet"))
+
+            val SKNBI = PaymentType(JsonField.of("sknbi"))
 
             val WIRE = PaymentType(JsonField.of("wire"))
 
@@ -1702,9 +1747,11 @@ constructor(
             HU_ICS,
             INTERAC,
             MASAV,
+            MX_CCEN,
             NEFT,
             NICS,
             NZ_BECS,
+            PL_ELIXIR,
             PROVXCHANGE,
             RO_SENT,
             RTP,
@@ -1714,6 +1761,7 @@ constructor(
             SEPA,
             SIC,
             SIGNET,
+            SKNBI,
             WIRE,
             ZENGIN,
         }
@@ -1732,9 +1780,11 @@ constructor(
             HU_ICS,
             INTERAC,
             MASAV,
+            MX_CCEN,
             NEFT,
             NICS,
             NZ_BECS,
+            PL_ELIXIR,
             PROVXCHANGE,
             RO_SENT,
             RTP,
@@ -1744,6 +1794,7 @@ constructor(
             SEPA,
             SIC,
             SIGNET,
+            SKNBI,
             WIRE,
             ZENGIN,
             _UNKNOWN,
@@ -1764,9 +1815,11 @@ constructor(
                 HU_ICS -> Value.HU_ICS
                 INTERAC -> Value.INTERAC
                 MASAV -> Value.MASAV
+                MX_CCEN -> Value.MX_CCEN
                 NEFT -> Value.NEFT
                 NICS -> Value.NICS
                 NZ_BECS -> Value.NZ_BECS
+                PL_ELIXIR -> Value.PL_ELIXIR
                 PROVXCHANGE -> Value.PROVXCHANGE
                 RO_SENT -> Value.RO_SENT
                 RTP -> Value.RTP
@@ -1776,6 +1829,7 @@ constructor(
                 SEPA -> Value.SEPA
                 SIC -> Value.SIC
                 SIGNET -> Value.SIGNET
+                SKNBI -> Value.SKNBI
                 WIRE -> Value.WIRE
                 ZENGIN -> Value.ZENGIN
                 else -> Value._UNKNOWN
@@ -1796,9 +1850,11 @@ constructor(
                 HU_ICS -> Known.HU_ICS
                 INTERAC -> Known.INTERAC
                 MASAV -> Known.MASAV
+                MX_CCEN -> Known.MX_CCEN
                 NEFT -> Known.NEFT
                 NICS -> Known.NICS
                 NZ_BECS -> Known.NZ_BECS
+                PL_ELIXIR -> Known.PL_ELIXIR
                 PROVXCHANGE -> Known.PROVXCHANGE
                 RO_SENT -> Known.RO_SENT
                 RTP -> Known.RTP
@@ -1808,6 +1864,7 @@ constructor(
                 SEPA -> Known.SEPA
                 SIC -> Known.SIC
                 SIGNET -> Known.SIGNET
+                SKNBI -> Known.SKNBI
                 WIRE -> Known.WIRE
                 ZENGIN -> Known.ZENGIN
                 else -> throw ModernTreasuryInvalidDataException("Unknown PaymentType: $value")

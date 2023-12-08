@@ -23,6 +23,7 @@ class LedgerEntryListParamsTest {
                 LedgerEntryListParams.LedgerAccountLockVersion.builder().build()
             )
             .ledgerAccountPayoutId("string")
+            .ledgerAccountSettlementId("string")
             .ledgerAccountStatementId("string")
             .ledgerTransactionId("string")
             .metadata(LedgerEntryListParams.Metadata.builder().build())
@@ -56,6 +57,7 @@ class LedgerEntryListParamsTest {
                     LedgerEntryListParams.LedgerAccountLockVersion.builder().build()
                 )
                 .ledgerAccountPayoutId("string")
+                .ledgerAccountSettlementId("string")
                 .ledgerAccountStatementId("string")
                 .ledgerTransactionId("string")
                 .metadata(LedgerEntryListParams.Metadata.builder().build())
@@ -90,6 +92,7 @@ class LedgerEntryListParamsTest {
             expected.put("ledger_account_lock_version[$key]", values)
         }
         expected.put("ledger_account_payout_id", listOf("string"))
+        expected.put("ledger_account_settlement_id", listOf("string"))
         expected.put("ledger_account_statement_id", listOf("string"))
         expected.put("ledger_transaction_id", listOf("string"))
         LedgerEntryListParams.Metadata.builder().build().forEachQueryParam { key, values ->

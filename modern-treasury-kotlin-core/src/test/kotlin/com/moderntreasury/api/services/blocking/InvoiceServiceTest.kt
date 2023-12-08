@@ -67,6 +67,7 @@ class InvoiceServiceTest {
                     )
                     .currency(Currency.AED)
                     .description("string")
+                    .fallbackPaymentMethod("string")
                     .invoicerAddress(
                         InvoiceCreateParams.InvoicerAddress.builder()
                             .country("string")
@@ -159,6 +160,7 @@ class InvoiceServiceTest {
                     .currency(Currency.AED)
                     .description("string")
                     .dueDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .fallbackPaymentMethod("string")
                     .invoicerAddress(
                         InvoiceUpdateParams.InvoicerAddress.builder()
                             .country("string")

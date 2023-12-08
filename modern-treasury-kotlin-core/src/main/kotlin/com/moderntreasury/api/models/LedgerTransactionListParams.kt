@@ -22,6 +22,7 @@ constructor(
     private val ledgerAccountCategoryId: String?,
     private val ledgerAccountId: String?,
     private val ledgerAccountPayoutId: String?,
+    private val ledgerAccountSettlementId: String?,
     private val ledgerId: String?,
     private val ledgerableId: String?,
     private val ledgerableType: LedgerableType?,
@@ -51,6 +52,8 @@ constructor(
     fun ledgerAccountId(): String? = ledgerAccountId
 
     fun ledgerAccountPayoutId(): String? = ledgerAccountPayoutId
+
+    fun ledgerAccountSettlementId(): String? = ledgerAccountSettlementId
 
     fun ledgerId(): String? = ledgerId
 
@@ -90,6 +93,9 @@ constructor(
         this.ledgerAccountPayoutId?.let {
             params.put("ledger_account_payout_id", listOf(it.toString()))
         }
+        this.ledgerAccountSettlementId?.let {
+            params.put("ledger_account_settlement_id", listOf(it.toString()))
+        }
         this.ledgerId?.let { params.put("ledger_id", listOf(it.toString())) }
         this.ledgerableId?.let { params.put("ledgerable_id", listOf(it.toString())) }
         this.ledgerableType?.let { params.put("ledgerable_type", listOf(it.toString())) }
@@ -126,6 +132,7 @@ constructor(
             this.ledgerAccountCategoryId == other.ledgerAccountCategoryId &&
             this.ledgerAccountId == other.ledgerAccountId &&
             this.ledgerAccountPayoutId == other.ledgerAccountPayoutId &&
+            this.ledgerAccountSettlementId == other.ledgerAccountSettlementId &&
             this.ledgerId == other.ledgerId &&
             this.ledgerableId == other.ledgerableId &&
             this.ledgerableType == other.ledgerableType &&
@@ -150,6 +157,7 @@ constructor(
             ledgerAccountCategoryId,
             ledgerAccountId,
             ledgerAccountPayoutId,
+            ledgerAccountSettlementId,
             ledgerId,
             ledgerableId,
             ledgerableType,
@@ -166,7 +174,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerTransactionListParams{id=$id, afterCursor=$afterCursor, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, ledgerAccountPayoutId=$ledgerAccountPayoutId, ledgerId=$ledgerId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, orderBy=$orderBy, perPage=$perPage, postedAt=$postedAt, reversesLedgerTransactionId=$reversesLedgerTransactionId, status=$status, updatedAt=$updatedAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "LedgerTransactionListParams{id=$id, afterCursor=$afterCursor, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, ledgerAccountPayoutId=$ledgerAccountPayoutId, ledgerAccountSettlementId=$ledgerAccountSettlementId, ledgerId=$ledgerId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, orderBy=$orderBy, perPage=$perPage, postedAt=$postedAt, reversesLedgerTransactionId=$reversesLedgerTransactionId, status=$status, updatedAt=$updatedAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -186,6 +194,7 @@ constructor(
         private var ledgerAccountCategoryId: String? = null
         private var ledgerAccountId: String? = null
         private var ledgerAccountPayoutId: String? = null
+        private var ledgerAccountSettlementId: String? = null
         private var ledgerId: String? = null
         private var ledgerableId: String? = null
         private var ledgerableType: LedgerableType? = null
@@ -208,6 +217,7 @@ constructor(
             this.ledgerAccountCategoryId = ledgerTransactionListParams.ledgerAccountCategoryId
             this.ledgerAccountId = ledgerTransactionListParams.ledgerAccountId
             this.ledgerAccountPayoutId = ledgerTransactionListParams.ledgerAccountPayoutId
+            this.ledgerAccountSettlementId = ledgerTransactionListParams.ledgerAccountSettlementId
             this.ledgerId = ledgerTransactionListParams.ledgerId
             this.ledgerableId = ledgerTransactionListParams.ledgerableId
             this.ledgerableType = ledgerTransactionListParams.ledgerableType
@@ -267,6 +277,10 @@ constructor(
 
         fun ledgerAccountPayoutId(ledgerAccountPayoutId: String) = apply {
             this.ledgerAccountPayoutId = ledgerAccountPayoutId
+        }
+
+        fun ledgerAccountSettlementId(ledgerAccountSettlementId: String) = apply {
+            this.ledgerAccountSettlementId = ledgerAccountSettlementId
         }
 
         fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
@@ -362,6 +376,7 @@ constructor(
                 ledgerAccountCategoryId,
                 ledgerAccountId,
                 ledgerAccountPayoutId,
+                ledgerAccountSettlementId,
                 ledgerId,
                 ledgerableId,
                 ledgerableType,

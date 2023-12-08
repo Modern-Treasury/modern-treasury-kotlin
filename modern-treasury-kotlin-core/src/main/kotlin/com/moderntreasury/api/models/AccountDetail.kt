@@ -325,6 +325,8 @@ private constructor(
 
             val CLABE = AccountNumberType(JsonField.of("clabe"))
 
+            val HK_NUMBER = AccountNumberType(JsonField.of("hk_number"))
+
             val IBAN = AccountNumberType(JsonField.of("iban"))
 
             val OTHER = AccountNumberType(JsonField.of("other"))
@@ -338,6 +340,7 @@ private constructor(
 
         enum class Known {
             CLABE,
+            HK_NUMBER,
             IBAN,
             OTHER,
             PAN,
@@ -346,6 +349,7 @@ private constructor(
 
         enum class Value {
             CLABE,
+            HK_NUMBER,
             IBAN,
             OTHER,
             PAN,
@@ -356,6 +360,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 CLABE -> Value.CLABE
+                HK_NUMBER -> Value.HK_NUMBER
                 IBAN -> Value.IBAN
                 OTHER -> Value.OTHER
                 PAN -> Value.PAN
@@ -366,6 +371,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 CLABE -> Known.CLABE
+                HK_NUMBER -> Known.HK_NUMBER
                 IBAN -> Known.IBAN
                 OTHER -> Known.OTHER
                 PAN -> Known.PAN
