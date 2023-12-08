@@ -9,12 +9,19 @@ import com.moderntreasury.api.models.LedgerEntry
 import com.moderntreasury.api.models.LedgerEntryListPageAsync
 import com.moderntreasury.api.models.LedgerEntryListParams
 import com.moderntreasury.api.models.LedgerEntryRetrieveParams
+import com.moderntreasury.api.models.LedgerEntryUpdateParams
 
 interface LedgerEntryServiceAsync {
 
     /** Get details on a single ledger entry. */
     suspend fun retrieve(
         params: LedgerEntryRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): LedgerEntry
+
+    /** Update the details of a ledger entry. */
+    suspend fun update(
+        params: LedgerEntryUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): LedgerEntry
 

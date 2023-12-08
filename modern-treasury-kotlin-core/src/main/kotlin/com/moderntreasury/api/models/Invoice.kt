@@ -43,6 +43,7 @@ private constructor(
     private val paymentEffectiveDate: JsonField<LocalDate>,
     private val paymentType: JsonField<PaymentType>,
     private val paymentMethod: JsonField<PaymentMethod>,
+    private val fallbackPaymentMethod: JsonField<String>,
     private val notificationsEnabled: JsonField<Boolean>,
     private val notificationEmailAddresses: JsonField<List<String>>,
     private val hostedUrl: JsonField<String>,
@@ -55,6 +56,7 @@ private constructor(
     private val amountRemaining: JsonField<Long>,
     private val amountPaid: JsonField<Long>,
     private val transactionLineItemIds: JsonField<List<String>>,
+    private val metadata: JsonField<Metadata>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -141,6 +143,13 @@ private constructor(
     fun paymentMethod(): PaymentMethod? = paymentMethod.getNullable("payment_method")
 
     /**
+     * When payment_method is automatic, the fallback payment method to use when an automatic
+     * payment fails. One of `manual` or `ui`.
+     */
+    fun fallbackPaymentMethod(): String? =
+        fallbackPaymentMethod.getNullable("fallback_payment_method")
+
+    /**
      * If true, the invoice will send email notifications to the invoice recipients about invoice
      * status changes.
      */
@@ -194,6 +203,9 @@ private constructor(
     /** IDs of transaction line items associated with an invoice. */
     fun transactionLineItemIds(): List<String> =
         transactionLineItemIds.getRequired("transaction_line_item_ids")
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun metadata(): Metadata = metadata.getRequired("metadata")
 
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
@@ -281,6 +293,14 @@ private constructor(
     @JsonProperty("payment_method") @ExcludeMissing fun _paymentMethod() = paymentMethod
 
     /**
+     * When payment_method is automatic, the fallback payment method to use when an automatic
+     * payment fails. One of `manual` or `ui`.
+     */
+    @JsonProperty("fallback_payment_method")
+    @ExcludeMissing
+    fun _fallbackPaymentMethod() = fallbackPaymentMethod
+
+    /**
      * If true, the invoice will send email notifications to the invoice recipients about invoice
      * status changes.
      */
@@ -338,6 +358,9 @@ private constructor(
     @ExcludeMissing
     fun _transactionLineItemIds() = transactionLineItemIds
 
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -365,6 +388,7 @@ private constructor(
             paymentEffectiveDate()
             paymentType()
             paymentMethod()
+            fallbackPaymentMethod()
             notificationsEnabled()
             notificationEmailAddresses()
             hostedUrl()
@@ -377,6 +401,7 @@ private constructor(
             amountRemaining()
             amountPaid()
             transactionLineItemIds()
+            metadata().validate()
             validated = true
         }
     }
@@ -410,6 +435,7 @@ private constructor(
             this.paymentEffectiveDate == other.paymentEffectiveDate &&
             this.paymentType == other.paymentType &&
             this.paymentMethod == other.paymentMethod &&
+            this.fallbackPaymentMethod == other.fallbackPaymentMethod &&
             this.notificationsEnabled == other.notificationsEnabled &&
             this.notificationEmailAddresses == other.notificationEmailAddresses &&
             this.hostedUrl == other.hostedUrl &&
@@ -422,6 +448,7 @@ private constructor(
             this.amountRemaining == other.amountRemaining &&
             this.amountPaid == other.amountPaid &&
             this.transactionLineItemIds == other.transactionLineItemIds &&
+            this.metadata == other.metadata &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -450,6 +477,7 @@ private constructor(
                     paymentEffectiveDate,
                     paymentType,
                     paymentMethod,
+                    fallbackPaymentMethod,
                     notificationsEnabled,
                     notificationEmailAddresses,
                     hostedUrl,
@@ -462,6 +490,7 @@ private constructor(
                     amountRemaining,
                     amountPaid,
                     transactionLineItemIds,
+                    metadata,
                     additionalProperties,
                 )
         }
@@ -469,7 +498,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Invoice{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, contactDetails=$contactDetails, recipientEmail=$recipientEmail, recipientName=$recipientName, counterpartyId=$counterpartyId, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, virtualAccountId=$virtualAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentType=$paymentType, paymentMethod=$paymentMethod, notificationsEnabled=$notificationsEnabled, notificationEmailAddresses=$notificationEmailAddresses, hostedUrl=$hostedUrl, number=$number, paymentOrders=$paymentOrders, expectedPayments=$expectedPayments, pdfUrl=$pdfUrl, status=$status, totalAmount=$totalAmount, amountRemaining=$amountRemaining, amountPaid=$amountPaid, transactionLineItemIds=$transactionLineItemIds, additionalProperties=$additionalProperties}"
+        "Invoice{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, contactDetails=$contactDetails, recipientEmail=$recipientEmail, recipientName=$recipientName, counterpartyId=$counterpartyId, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, virtualAccountId=$virtualAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentType=$paymentType, paymentMethod=$paymentMethod, fallbackPaymentMethod=$fallbackPaymentMethod, notificationsEnabled=$notificationsEnabled, notificationEmailAddresses=$notificationEmailAddresses, hostedUrl=$hostedUrl, number=$number, paymentOrders=$paymentOrders, expectedPayments=$expectedPayments, pdfUrl=$pdfUrl, status=$status, totalAmount=$totalAmount, amountRemaining=$amountRemaining, amountPaid=$amountPaid, transactionLineItemIds=$transactionLineItemIds, metadata=$metadata, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -501,6 +530,7 @@ private constructor(
         private var paymentEffectiveDate: JsonField<LocalDate> = JsonMissing.of()
         private var paymentType: JsonField<PaymentType> = JsonMissing.of()
         private var paymentMethod: JsonField<PaymentMethod> = JsonMissing.of()
+        private var fallbackPaymentMethod: JsonField<String> = JsonMissing.of()
         private var notificationsEnabled: JsonField<Boolean> = JsonMissing.of()
         private var notificationEmailAddresses: JsonField<List<String>> = JsonMissing.of()
         private var hostedUrl: JsonField<String> = JsonMissing.of()
@@ -513,6 +543,7 @@ private constructor(
         private var amountRemaining: JsonField<Long> = JsonMissing.of()
         private var amountPaid: JsonField<Long> = JsonMissing.of()
         private var transactionLineItemIds: JsonField<List<String>> = JsonMissing.of()
+        private var metadata: JsonField<Metadata> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(invoice: Invoice) = apply {
@@ -537,6 +568,7 @@ private constructor(
             this.paymentEffectiveDate = invoice.paymentEffectiveDate
             this.paymentType = invoice.paymentType
             this.paymentMethod = invoice.paymentMethod
+            this.fallbackPaymentMethod = invoice.fallbackPaymentMethod
             this.notificationsEnabled = invoice.notificationsEnabled
             this.notificationEmailAddresses = invoice.notificationEmailAddresses
             this.hostedUrl = invoice.hostedUrl
@@ -549,6 +581,7 @@ private constructor(
             this.amountRemaining = invoice.amountRemaining
             this.amountPaid = invoice.amountPaid
             this.transactionLineItemIds = invoice.transactionLineItemIds
+            this.metadata = invoice.metadata
             additionalProperties(invoice.additionalProperties)
         }
 
@@ -777,6 +810,23 @@ private constructor(
         }
 
         /**
+         * When payment_method is automatic, the fallback payment method to use when an automatic
+         * payment fails. One of `manual` or `ui`.
+         */
+        fun fallbackPaymentMethod(fallbackPaymentMethod: String) =
+            fallbackPaymentMethod(JsonField.of(fallbackPaymentMethod))
+
+        /**
+         * When payment_method is automatic, the fallback payment method to use when an automatic
+         * payment fails. One of `manual` or `ui`.
+         */
+        @JsonProperty("fallback_payment_method")
+        @ExcludeMissing
+        fun fallbackPaymentMethod(fallbackPaymentMethod: JsonField<String>) = apply {
+            this.fallbackPaymentMethod = fallbackPaymentMethod
+        }
+
+        /**
          * If true, the invoice will send email notifications to the invoice recipients about
          * invoice status changes.
          */
@@ -922,6 +972,18 @@ private constructor(
             this.transactionLineItemIds = transactionLineItemIds
         }
 
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -959,6 +1021,7 @@ private constructor(
                 paymentEffectiveDate,
                 paymentType,
                 paymentMethod,
+                fallbackPaymentMethod,
                 notificationsEnabled,
                 notificationEmailAddresses.map { it.toUnmodifiable() },
                 hostedUrl,
@@ -971,6 +1034,7 @@ private constructor(
                 amountRemaining,
                 amountPaid,
                 transactionLineItemIds.map { it.toUnmodifiable() },
+                metadata,
                 additionalProperties.toUnmodifiable(),
             )
     }
@@ -1881,6 +1945,78 @@ private constructor(
                     country,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+    }
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    @JsonDeserialize(builder = Metadata.Builder::class)
+    @NoAutoDetect
+    class Metadata
+    private constructor(
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Metadata = apply {
+            if (!validated) {
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties(metadata.additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
         }
     }
 

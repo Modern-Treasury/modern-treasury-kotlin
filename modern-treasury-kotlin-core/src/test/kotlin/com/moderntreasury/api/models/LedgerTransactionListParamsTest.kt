@@ -19,6 +19,7 @@ class LedgerTransactionListParamsTest {
             .ledgerAccountCategoryId("string")
             .ledgerAccountId("string")
             .ledgerAccountPayoutId("string")
+            .ledgerAccountSettlementId("string")
             .ledgerId("string")
             .ledgerableId("string")
             .ledgerableType(LedgerTransactionListParams.LedgerableType.COUNTERPARTY)
@@ -49,6 +50,7 @@ class LedgerTransactionListParamsTest {
                 .ledgerAccountCategoryId("string")
                 .ledgerAccountId("string")
                 .ledgerAccountPayoutId("string")
+                .ledgerAccountSettlementId("string")
                 .ledgerId("string")
                 .ledgerableId("string")
                 .ledgerableType(LedgerTransactionListParams.LedgerableType.COUNTERPARTY)
@@ -79,6 +81,7 @@ class LedgerTransactionListParamsTest {
         expected.put("ledger_account_category_id", listOf("string"))
         expected.put("ledger_account_id", listOf("string"))
         expected.put("ledger_account_payout_id", listOf("string"))
+        expected.put("ledger_account_settlement_id", listOf("string"))
         expected.put("ledger_id", listOf("string"))
         expected.put("ledgerable_id", listOf("string"))
         expected.put(
