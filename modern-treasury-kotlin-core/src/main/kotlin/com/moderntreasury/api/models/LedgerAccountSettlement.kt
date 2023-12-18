@@ -638,10 +638,6 @@ private constructor(
 
             val PROCESSING = Status(JsonField.of("processing"))
 
-            val REVERSED = Status(JsonField.of("reversed"))
-
-            val REVERSING = Status(JsonField.of("reversing"))
-
             fun of(value: String) = Status(JsonField.of(value))
         }
 
@@ -651,8 +647,6 @@ private constructor(
             PENDING,
             POSTED,
             PROCESSING,
-            REVERSED,
-            REVERSING,
         }
 
         enum class Value {
@@ -661,8 +655,6 @@ private constructor(
             PENDING,
             POSTED,
             PROCESSING,
-            REVERSED,
-            REVERSING,
             _UNKNOWN,
         }
 
@@ -673,8 +665,6 @@ private constructor(
                 PENDING -> Value.PENDING
                 POSTED -> Value.POSTED
                 PROCESSING -> Value.PROCESSING
-                REVERSED -> Value.REVERSED
-                REVERSING -> Value.REVERSING
                 else -> Value._UNKNOWN
             }
 
@@ -685,8 +675,6 @@ private constructor(
                 PENDING -> Known.PENDING
                 POSTED -> Known.POSTED
                 PROCESSING -> Known.PROCESSING
-                REVERSED -> Known.REVERSED
-                REVERSING -> Known.REVERSING
                 else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
             }
 
