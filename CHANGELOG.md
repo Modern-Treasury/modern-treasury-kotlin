@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.6.0 (2024-01-02)
+
+Full Changelog: [v2.5.0...v2.6.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.5.0...v2.6.0)
+
+### Features
+
+* **api:** remove reversed and reversing ledger account status type ([#93](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/93)) ([2d29bf5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2d29bf5f0274294048d2247c414b7b118584c802))
+
+
+### Chores
+
+* **ci:** run release workflow once per day ([#91](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/91)) ([5342a3b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5342a3b9ea8dd0d4395413263cefca2d391a984e))
+* **internal:** bump license ([#94](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/94)) ([a360f01](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a360f0137d55dcbd91facde65d7ca962cda22aea))
+
 ## 2.5.0 (2023-12-08)
 
 Full Changelog: [v2.4.1...v2.5.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.4.1...v2.5.0)
