@@ -9,6 +9,7 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.ExpectedPaymentListParams
 import java.time.LocalDate
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -36,6 +37,75 @@ class ExpectedPaymentServiceTest {
                     .dateLowerBound(LocalDate.parse("2019-12-27"))
                     .dateUpperBound(LocalDate.parse("2019-12-27"))
                     .description("string")
+                    .ledgerTransaction(
+                        ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.builder()
+                            .ledgerEntries(
+                                listOf(
+                                    ExpectedPaymentCreateParams.LedgerTransactionCreateRequest
+                                        .LedgerEntryCreateRequest
+                                        .builder()
+                                        .amount(123L)
+                                        .direction(TransactionDirection.CREDIT)
+                                        .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                        .availableBalanceAmount(
+                                            ExpectedPaymentCreateParams
+                                                .LedgerTransactionCreateRequest
+                                                .LedgerEntryCreateRequest
+                                                .AvailableBalanceAmount
+                                                .builder()
+                                                .build()
+                                        )
+                                        .lockVersion(123L)
+                                        .metadata(
+                                            ExpectedPaymentCreateParams
+                                                .LedgerTransactionCreateRequest
+                                                .LedgerEntryCreateRequest
+                                                .Metadata
+                                                .builder()
+                                                .build()
+                                        )
+                                        .pendingBalanceAmount(
+                                            ExpectedPaymentCreateParams
+                                                .LedgerTransactionCreateRequest
+                                                .LedgerEntryCreateRequest
+                                                .PendingBalanceAmount
+                                                .builder()
+                                                .build()
+                                        )
+                                        .postedBalanceAmount(
+                                            ExpectedPaymentCreateParams
+                                                .LedgerTransactionCreateRequest
+                                                .LedgerEntryCreateRequest
+                                                .PostedBalanceAmount
+                                                .builder()
+                                                .build()
+                                        )
+                                        .showResultingLedgerAccountBalances(true)
+                                        .build()
+                                )
+                            )
+                            .description("string")
+                            .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .effectiveDate(LocalDate.parse("2019-12-27"))
+                            .externalId("string")
+                            .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .ledgerableType(
+                                ExpectedPaymentCreateParams.LedgerTransactionCreateRequest
+                                    .LedgerableType
+                                    .COUNTERPARTY
+                            )
+                            .metadata(
+                                ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.Metadata
+                                    .builder()
+                                    .build()
+                            )
+                            .status(
+                                ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.Status
+                                    .ARCHIVED
+                            )
+                            .build()
+                    )
+                    .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .lineItems(
                         listOf(
                             ExpectedPaymentCreateParams.LineItemRequest.builder()

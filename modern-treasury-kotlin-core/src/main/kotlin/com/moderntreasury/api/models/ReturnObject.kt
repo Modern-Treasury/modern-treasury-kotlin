@@ -1318,6 +1318,9 @@ private constructor(
 
                 val JPMC_CCN = ReferenceNumberType(JsonField.of("jpmc_ccn"))
 
+                val JPMC_CLEARING_SYSTEM_REFERENCE =
+                    ReferenceNumberType(JsonField.of("jpmc_clearing_system_reference"))
+
                 val JPMC_CUSTOMER_REFERENCE_ID =
                     ReferenceNumberType(JsonField.of("jpmc_customer_reference_id"))
 
@@ -1366,6 +1369,10 @@ private constructor(
 
                 val SILVERGATE_PAYMENT_ID =
                     ReferenceNumberType(JsonField.of("silvergate_payment_id"))
+
+                val SVB_END_TO_END_ID = ReferenceNumberType(JsonField.of("svb_end_to_end_id"))
+
+                val SVB_PAYMENT_ID = ReferenceNumberType(JsonField.of("svb_payment_id"))
 
                 val SVB_TRANSACTION_CLEARED_FOR_SANCTIONS_REVIEW =
                     ReferenceNumberType(
@@ -1421,6 +1428,7 @@ private constructor(
                 GOLDMAN_SACHS_UNIQUE_PAYMENT_ID,
                 INTERAC_MESSAGE_ID,
                 JPMC_CCN,
+                JPMC_CLEARING_SYSTEM_REFERENCE,
                 JPMC_CUSTOMER_REFERENCE_ID,
                 JPMC_END_TO_END_ID,
                 JPMC_FIRM_ROOT_ID,
@@ -1441,6 +1449,8 @@ private constructor(
                 SIGNET_CONFIRMATION_ID,
                 SIGNET_REQUEST_ID,
                 SILVERGATE_PAYMENT_ID,
+                SVB_END_TO_END_ID,
+                SVB_PAYMENT_ID,
                 SVB_TRANSACTION_CLEARED_FOR_SANCTIONS_REVIEW,
                 SVB_TRANSACTION_HELD_FOR_SANCTIONS_REVIEW,
                 SWIFT_MIR,
@@ -1481,6 +1491,7 @@ private constructor(
                 GOLDMAN_SACHS_UNIQUE_PAYMENT_ID,
                 INTERAC_MESSAGE_ID,
                 JPMC_CCN,
+                JPMC_CLEARING_SYSTEM_REFERENCE,
                 JPMC_CUSTOMER_REFERENCE_ID,
                 JPMC_END_TO_END_ID,
                 JPMC_FIRM_ROOT_ID,
@@ -1501,6 +1512,8 @@ private constructor(
                 SIGNET_CONFIRMATION_ID,
                 SIGNET_REQUEST_ID,
                 SILVERGATE_PAYMENT_ID,
+                SVB_END_TO_END_ID,
+                SVB_PAYMENT_ID,
                 SVB_TRANSACTION_CLEARED_FOR_SANCTIONS_REVIEW,
                 SVB_TRANSACTION_HELD_FOR_SANCTIONS_REVIEW,
                 SWIFT_MIR,
@@ -1543,6 +1556,7 @@ private constructor(
                     GOLDMAN_SACHS_UNIQUE_PAYMENT_ID -> Value.GOLDMAN_SACHS_UNIQUE_PAYMENT_ID
                     INTERAC_MESSAGE_ID -> Value.INTERAC_MESSAGE_ID
                     JPMC_CCN -> Value.JPMC_CCN
+                    JPMC_CLEARING_SYSTEM_REFERENCE -> Value.JPMC_CLEARING_SYSTEM_REFERENCE
                     JPMC_CUSTOMER_REFERENCE_ID -> Value.JPMC_CUSTOMER_REFERENCE_ID
                     JPMC_END_TO_END_ID -> Value.JPMC_END_TO_END_ID
                     JPMC_FIRM_ROOT_ID -> Value.JPMC_FIRM_ROOT_ID
@@ -1563,6 +1577,8 @@ private constructor(
                     SIGNET_CONFIRMATION_ID -> Value.SIGNET_CONFIRMATION_ID
                     SIGNET_REQUEST_ID -> Value.SIGNET_REQUEST_ID
                     SILVERGATE_PAYMENT_ID -> Value.SILVERGATE_PAYMENT_ID
+                    SVB_END_TO_END_ID -> Value.SVB_END_TO_END_ID
+                    SVB_PAYMENT_ID -> Value.SVB_PAYMENT_ID
                     SVB_TRANSACTION_CLEARED_FOR_SANCTIONS_REVIEW ->
                         Value.SVB_TRANSACTION_CLEARED_FOR_SANCTIONS_REVIEW
                     SVB_TRANSACTION_HELD_FOR_SANCTIONS_REVIEW ->
@@ -1607,6 +1623,7 @@ private constructor(
                     GOLDMAN_SACHS_UNIQUE_PAYMENT_ID -> Known.GOLDMAN_SACHS_UNIQUE_PAYMENT_ID
                     INTERAC_MESSAGE_ID -> Known.INTERAC_MESSAGE_ID
                     JPMC_CCN -> Known.JPMC_CCN
+                    JPMC_CLEARING_SYSTEM_REFERENCE -> Known.JPMC_CLEARING_SYSTEM_REFERENCE
                     JPMC_CUSTOMER_REFERENCE_ID -> Known.JPMC_CUSTOMER_REFERENCE_ID
                     JPMC_END_TO_END_ID -> Known.JPMC_END_TO_END_ID
                     JPMC_FIRM_ROOT_ID -> Known.JPMC_FIRM_ROOT_ID
@@ -1627,6 +1644,8 @@ private constructor(
                     SIGNET_CONFIRMATION_ID -> Known.SIGNET_CONFIRMATION_ID
                     SIGNET_REQUEST_ID -> Known.SIGNET_REQUEST_ID
                     SILVERGATE_PAYMENT_ID -> Known.SILVERGATE_PAYMENT_ID
+                    SVB_END_TO_END_ID -> Known.SVB_END_TO_END_ID
+                    SVB_PAYMENT_ID -> Known.SVB_PAYMENT_ID
                     SVB_TRANSACTION_CLEARED_FOR_SANCTIONS_REVIEW ->
                         Known.SVB_TRANSACTION_CLEARED_FOR_SANCTIONS_REVIEW
                     SVB_TRANSACTION_HELD_FOR_SANCTIONS_REVIEW ->

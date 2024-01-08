@@ -39,6 +39,8 @@ private constructor(
     private val ledgerableId: JsonField<String>,
     private val externalId: JsonField<String>,
     private val version: JsonField<Long>,
+    private val reversesLedgerTransactionId: JsonField<String>,
+    private val reversedByLedgerTransactionId: JsonField<String>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -64,7 +66,7 @@ private constructor(
     /** An optional description for internal use. */
     fun description(): String? = description.getNullable("description")
 
-    /** One of `pending`, `posted`, or `archived` */
+    /** One of `pending`, `posted`, or `archived`. */
     fun status(): Status = status.getRequired("status")
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
@@ -114,6 +116,14 @@ private constructor(
     /** Version number of the ledger transaction. */
     fun version(): Long = version.getRequired("version")
 
+    /** The ID of the original ledger transaction. that this ledger transaction reverses. */
+    fun reversesLedgerTransactionId(): String? =
+        reversesLedgerTransactionId.getNullable("reverses_ledger_transaction_id")
+
+    /** The ID of the ledger transaction that reversed this ledger transaction. */
+    fun reversedByLedgerTransactionId(): String? =
+        reversedByLedgerTransactionId.getNullable("reversed_by_ledger_transaction_id")
+
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     @JsonProperty("object") @ExcludeMissing fun _object_() = object_
@@ -134,7 +144,7 @@ private constructor(
     /** An optional description for internal use. */
     @JsonProperty("description") @ExcludeMissing fun _description() = description
 
-    /** One of `pending`, `posted`, or `archived` */
+    /** One of `pending`, `posted`, or `archived`. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
@@ -183,6 +193,16 @@ private constructor(
     /** Version number of the ledger transaction. */
     @JsonProperty("version") @ExcludeMissing fun _version() = version
 
+    /** The ID of the original ledger transaction. that this ledger transaction reverses. */
+    @JsonProperty("reverses_ledger_transaction_id")
+    @ExcludeMissing
+    fun _reversesLedgerTransactionId() = reversesLedgerTransactionId
+
+    /** The ID of the ledger transaction that reversed this ledger transaction. */
+    @JsonProperty("reversed_by_ledger_transaction_id")
+    @ExcludeMissing
+    fun _reversedByLedgerTransactionId() = reversedByLedgerTransactionId
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -206,6 +226,8 @@ private constructor(
             ledgerableId()
             externalId()
             version()
+            reversesLedgerTransactionId()
+            reversedByLedgerTransactionId()
             validated = true
         }
     }
@@ -235,6 +257,8 @@ private constructor(
             this.ledgerableId == other.ledgerableId &&
             this.externalId == other.externalId &&
             this.version == other.version &&
+            this.reversesLedgerTransactionId == other.reversesLedgerTransactionId &&
+            this.reversedByLedgerTransactionId == other.reversedByLedgerTransactionId &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -259,6 +283,8 @@ private constructor(
                     ledgerableId,
                     externalId,
                     version,
+                    reversesLedgerTransactionId,
+                    reversedByLedgerTransactionId,
                     additionalProperties,
                 )
         }
@@ -266,7 +292,7 @@ private constructor(
     }
 
     override fun toString() =
-        "LedgerTransactionVersion{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, ledgerTransactionId=$ledgerTransactionId, description=$description, status=$status, metadata=$metadata, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, ledgerEntries=$ledgerEntries, postedAt=$postedAt, ledgerId=$ledgerId, ledgerableType=$ledgerableType, ledgerableId=$ledgerableId, externalId=$externalId, version=$version, additionalProperties=$additionalProperties}"
+        "LedgerTransactionVersion{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, ledgerTransactionId=$ledgerTransactionId, description=$description, status=$status, metadata=$metadata, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, ledgerEntries=$ledgerEntries, postedAt=$postedAt, ledgerId=$ledgerId, ledgerableType=$ledgerableType, ledgerableId=$ledgerableId, externalId=$externalId, version=$version, reversesLedgerTransactionId=$reversesLedgerTransactionId, reversedByLedgerTransactionId=$reversedByLedgerTransactionId, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -293,6 +319,8 @@ private constructor(
         private var ledgerableId: JsonField<String> = JsonMissing.of()
         private var externalId: JsonField<String> = JsonMissing.of()
         private var version: JsonField<Long> = JsonMissing.of()
+        private var reversesLedgerTransactionId: JsonField<String> = JsonMissing.of()
+        private var reversedByLedgerTransactionId: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerTransactionVersion: LedgerTransactionVersion) = apply {
@@ -313,6 +341,9 @@ private constructor(
             this.ledgerableId = ledgerTransactionVersion.ledgerableId
             this.externalId = ledgerTransactionVersion.externalId
             this.version = ledgerTransactionVersion.version
+            this.reversesLedgerTransactionId = ledgerTransactionVersion.reversesLedgerTransactionId
+            this.reversedByLedgerTransactionId =
+                ledgerTransactionVersion.reversedByLedgerTransactionId
             additionalProperties(ledgerTransactionVersion.additionalProperties)
         }
 
@@ -365,10 +396,10 @@ private constructor(
         @ExcludeMissing
         fun description(description: JsonField<String>) = apply { this.description = description }
 
-        /** One of `pending`, `posted`, or `archived` */
+        /** One of `pending`, `posted`, or `archived`. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** One of `pending`, `posted`, or `archived` */
+        /** One of `pending`, `posted`, or `archived`. */
         @JsonProperty("status")
         @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
@@ -505,6 +536,29 @@ private constructor(
         @ExcludeMissing
         fun version(version: JsonField<Long>) = apply { this.version = version }
 
+        /** The ID of the original ledger transaction. that this ledger transaction reverses. */
+        fun reversesLedgerTransactionId(reversesLedgerTransactionId: String) =
+            reversesLedgerTransactionId(JsonField.of(reversesLedgerTransactionId))
+
+        /** The ID of the original ledger transaction. that this ledger transaction reverses. */
+        @JsonProperty("reverses_ledger_transaction_id")
+        @ExcludeMissing
+        fun reversesLedgerTransactionId(reversesLedgerTransactionId: JsonField<String>) = apply {
+            this.reversesLedgerTransactionId = reversesLedgerTransactionId
+        }
+
+        /** The ID of the ledger transaction that reversed this ledger transaction. */
+        fun reversedByLedgerTransactionId(reversedByLedgerTransactionId: String) =
+            reversedByLedgerTransactionId(JsonField.of(reversedByLedgerTransactionId))
+
+        /** The ID of the ledger transaction that reversed this ledger transaction. */
+        @JsonProperty("reversed_by_ledger_transaction_id")
+        @ExcludeMissing
+        fun reversedByLedgerTransactionId(reversedByLedgerTransactionId: JsonField<String>) =
+            apply {
+                this.reversedByLedgerTransactionId = reversedByLedgerTransactionId
+            }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -538,6 +592,8 @@ private constructor(
                 ledgerableId,
                 externalId,
                 version,
+                reversesLedgerTransactionId,
+                reversedByLedgerTransactionId,
                 additionalProperties.toUnmodifiable(),
             )
     }
