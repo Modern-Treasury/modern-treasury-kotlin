@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.7.0 (2024-01-08)
+
+Full Changelog: [v2.6.0...v2.7.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.6.0...v2.7.0)
+
+### Features
+
+* **api:** add `ledger_transactions` to expected payment request ([#95](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/95)) ([6da6adf](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/6da6adfeb434f6283dfb22bc7137fb003576622a))
+
 ## 2.6.0 (2024-01-02)
 
 Full Changelog: [v2.5.0...v2.6.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.5.0...v2.6.0)
