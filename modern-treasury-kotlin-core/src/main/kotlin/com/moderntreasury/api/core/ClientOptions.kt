@@ -102,10 +102,12 @@ private constructor(
             headers.put("X-Stainless-OS-Version", getOsVersion())
             headers.put("X-Stainless-Package-Version", getPackageVersion())
             headers.put("X-Stainless-Runtime-Version", getJavaVersion())
-            headers.put(
-                "Authorization",
-                "Basic ${Base64.getEncoder().encodeToString("${organizationId}:${apiKey}".toByteArray())}"
-            )
+            if (!organizationId.isNullOrEmpty() && !apiKey.isNullOrEmpty()) {
+                headers.put(
+                    "Authorization",
+                    "Basic ${Base64.getEncoder().encodeToString("${organizationId}:${apiKey}".toByteArray())}"
+                )
+            }
             this.headers.forEach(headers::replaceValues)
 
             return ClientOptions(
