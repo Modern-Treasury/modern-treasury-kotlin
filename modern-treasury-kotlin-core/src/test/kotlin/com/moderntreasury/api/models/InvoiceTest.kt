@@ -105,6 +105,7 @@ class InvoiceTest {
                         .line2("string")
                         .build()
                 )
+                .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
                 .metadata(Invoice.Metadata.builder().build())
                 .notificationEmailAddresses(listOf("string"))
@@ -421,7 +422,7 @@ class InvoiceTest {
                 .totalAmount(123L)
                 .transactionLineItemIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .virtualAccountId("string")
+                .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
         assertThat(invoice).isNotNull
         assertThat(invoice.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -511,6 +512,8 @@ class InvoiceTest {
                     .line2("string")
                     .build()
             )
+        assertThat(invoice.ledgerAccountSettlementId())
+            .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(invoice.liveMode()).isEqualTo(true)
         assertThat(invoice.metadata()).isEqualTo(Invoice.Metadata.builder().build())
         assertThat(invoice.notificationEmailAddresses()).containsExactly("string")
@@ -780,6 +783,6 @@ class InvoiceTest {
         assertThat(invoice.transactionLineItemIds())
             .containsExactly("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(invoice.updatedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(invoice.virtualAccountId()).isEqualTo("string")
+        assertThat(invoice.virtualAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
     }
 }
