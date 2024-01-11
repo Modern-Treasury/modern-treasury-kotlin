@@ -40,6 +40,7 @@ private constructor(
     private val originatingAccountId: JsonField<String>,
     private val receivingAccountId: JsonField<String>,
     private val virtualAccountId: JsonField<String>,
+    private val ledgerAccountSettlementId: JsonField<String>,
     private val paymentEffectiveDate: JsonField<LocalDate>,
     private val paymentType: JsonField<PaymentType>,
     private val paymentMethod: JsonField<PaymentMethod>,
@@ -124,6 +125,10 @@ private constructor(
 
     /** The ID of the virtual account the invoice should be paid to. */
     fun virtualAccountId(): String? = virtualAccountId.getNullable("virtual_account_id")
+
+    /** The ledger account settlment object linked to the invoice. */
+    fun ledgerAccountSettlementId(): String? =
+        ledgerAccountSettlementId.getNullable("ledger_account_settlement_id")
 
     /**
      * Date transactions are to be posted to the participants' account. Defaults to the current
@@ -274,6 +279,11 @@ private constructor(
     /** The ID of the virtual account the invoice should be paid to. */
     @JsonProperty("virtual_account_id") @ExcludeMissing fun _virtualAccountId() = virtualAccountId
 
+    /** The ledger account settlment object linked to the invoice. */
+    @JsonProperty("ledger_account_settlement_id")
+    @ExcludeMissing
+    fun _ledgerAccountSettlementId() = ledgerAccountSettlementId
+
     /**
      * Date transactions are to be posted to the participants' account. Defaults to the current
      * business day or the next business day if the current day is a bank holiday or weekend.
@@ -385,6 +395,7 @@ private constructor(
             originatingAccountId()
             receivingAccountId()
             virtualAccountId()
+            ledgerAccountSettlementId()
             paymentEffectiveDate()
             paymentType()
             paymentMethod()
@@ -432,6 +443,7 @@ private constructor(
             this.originatingAccountId == other.originatingAccountId &&
             this.receivingAccountId == other.receivingAccountId &&
             this.virtualAccountId == other.virtualAccountId &&
+            this.ledgerAccountSettlementId == other.ledgerAccountSettlementId &&
             this.paymentEffectiveDate == other.paymentEffectiveDate &&
             this.paymentType == other.paymentType &&
             this.paymentMethod == other.paymentMethod &&
@@ -474,6 +486,7 @@ private constructor(
                     originatingAccountId,
                     receivingAccountId,
                     virtualAccountId,
+                    ledgerAccountSettlementId,
                     paymentEffectiveDate,
                     paymentType,
                     paymentMethod,
@@ -498,7 +511,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Invoice{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, contactDetails=$contactDetails, recipientEmail=$recipientEmail, recipientName=$recipientName, counterpartyId=$counterpartyId, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, virtualAccountId=$virtualAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentType=$paymentType, paymentMethod=$paymentMethod, fallbackPaymentMethod=$fallbackPaymentMethod, notificationsEnabled=$notificationsEnabled, notificationEmailAddresses=$notificationEmailAddresses, hostedUrl=$hostedUrl, number=$number, paymentOrders=$paymentOrders, expectedPayments=$expectedPayments, pdfUrl=$pdfUrl, status=$status, totalAmount=$totalAmount, amountRemaining=$amountRemaining, amountPaid=$amountPaid, transactionLineItemIds=$transactionLineItemIds, metadata=$metadata, additionalProperties=$additionalProperties}"
+        "Invoice{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, contactDetails=$contactDetails, recipientEmail=$recipientEmail, recipientName=$recipientName, counterpartyId=$counterpartyId, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, virtualAccountId=$virtualAccountId, ledgerAccountSettlementId=$ledgerAccountSettlementId, paymentEffectiveDate=$paymentEffectiveDate, paymentType=$paymentType, paymentMethod=$paymentMethod, fallbackPaymentMethod=$fallbackPaymentMethod, notificationsEnabled=$notificationsEnabled, notificationEmailAddresses=$notificationEmailAddresses, hostedUrl=$hostedUrl, number=$number, paymentOrders=$paymentOrders, expectedPayments=$expectedPayments, pdfUrl=$pdfUrl, status=$status, totalAmount=$totalAmount, amountRemaining=$amountRemaining, amountPaid=$amountPaid, transactionLineItemIds=$transactionLineItemIds, metadata=$metadata, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -527,6 +540,7 @@ private constructor(
         private var originatingAccountId: JsonField<String> = JsonMissing.of()
         private var receivingAccountId: JsonField<String> = JsonMissing.of()
         private var virtualAccountId: JsonField<String> = JsonMissing.of()
+        private var ledgerAccountSettlementId: JsonField<String> = JsonMissing.of()
         private var paymentEffectiveDate: JsonField<LocalDate> = JsonMissing.of()
         private var paymentType: JsonField<PaymentType> = JsonMissing.of()
         private var paymentMethod: JsonField<PaymentMethod> = JsonMissing.of()
@@ -565,6 +579,7 @@ private constructor(
             this.originatingAccountId = invoice.originatingAccountId
             this.receivingAccountId = invoice.receivingAccountId
             this.virtualAccountId = invoice.virtualAccountId
+            this.ledgerAccountSettlementId = invoice.ledgerAccountSettlementId
             this.paymentEffectiveDate = invoice.paymentEffectiveDate
             this.paymentType = invoice.paymentType
             this.paymentMethod = invoice.paymentMethod
@@ -762,6 +777,17 @@ private constructor(
         @ExcludeMissing
         fun virtualAccountId(virtualAccountId: JsonField<String>) = apply {
             this.virtualAccountId = virtualAccountId
+        }
+
+        /** The ledger account settlment object linked to the invoice. */
+        fun ledgerAccountSettlementId(ledgerAccountSettlementId: String) =
+            ledgerAccountSettlementId(JsonField.of(ledgerAccountSettlementId))
+
+        /** The ledger account settlment object linked to the invoice. */
+        @JsonProperty("ledger_account_settlement_id")
+        @ExcludeMissing
+        fun ledgerAccountSettlementId(ledgerAccountSettlementId: JsonField<String>) = apply {
+            this.ledgerAccountSettlementId = ledgerAccountSettlementId
         }
 
         /**
@@ -1018,6 +1044,7 @@ private constructor(
                 originatingAccountId,
                 receivingAccountId,
                 virtualAccountId,
+                ledgerAccountSettlementId,
                 paymentEffectiveDate,
                 paymentType,
                 paymentMethod,

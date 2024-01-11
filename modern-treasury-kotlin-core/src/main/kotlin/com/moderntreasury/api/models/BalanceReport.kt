@@ -406,7 +406,7 @@ private constructor(
         private val currency: JsonField<Currency>,
         private val balanceType: JsonField<BalanceType>,
         private val vendorCode: JsonField<String>,
-        private val vendorCodeType: JsonField<VendorCodeType>,
+        private val vendorCodeType: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -444,8 +444,12 @@ private constructor(
         /** The code used by the bank when reporting this specific balance. */
         fun vendorCode(): String = vendorCode.getRequired("vendor_code")
 
-        /** The code used by the bank when reporting this specific balance. */
-        fun vendorCodeType(): VendorCodeType? = vendorCodeType.getNullable("vendor_code_type")
+        /**
+         * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
+         * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`,
+         * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, or `us_bank`.
+         */
+        fun vendorCodeType(): String? = vendorCodeType.getNullable("vendor_code_type")
 
         @JsonProperty("id") @ExcludeMissing fun _id() = id
 
@@ -477,7 +481,11 @@ private constructor(
         /** The code used by the bank when reporting this specific balance. */
         @JsonProperty("vendor_code") @ExcludeMissing fun _vendorCode() = vendorCode
 
-        /** The code used by the bank when reporting this specific balance. */
+        /**
+         * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
+         * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`,
+         * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, or `us_bank`.
+         */
         @JsonProperty("vendor_code_type") @ExcludeMissing fun _vendorCodeType() = vendorCodeType
 
         @JsonAnyGetter
@@ -560,7 +568,7 @@ private constructor(
             private var currency: JsonField<Currency> = JsonMissing.of()
             private var balanceType: JsonField<BalanceType> = JsonMissing.of()
             private var vendorCode: JsonField<String> = JsonMissing.of()
-            private var vendorCodeType: JsonField<VendorCodeType> = JsonMissing.of()
+            private var vendorCodeType: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(balance: Balance) = apply {
@@ -661,14 +669,24 @@ private constructor(
             @ExcludeMissing
             fun vendorCode(vendorCode: JsonField<String>) = apply { this.vendorCode = vendorCode }
 
-            /** The code used by the bank when reporting this specific balance. */
-            fun vendorCodeType(vendorCodeType: VendorCodeType) =
+            /**
+             * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`,
+             * `bnk_dev`, `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`,
+             * `evolve`, `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`,
+             * or `us_bank`.
+             */
+            fun vendorCodeType(vendorCodeType: String) =
                 vendorCodeType(JsonField.of(vendorCodeType))
 
-            /** The code used by the bank when reporting this specific balance. */
+            /**
+             * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`,
+             * `bnk_dev`, `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`,
+             * `evolve`, `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`,
+             * or `us_bank`.
+             */
             @JsonProperty("vendor_code_type")
             @ExcludeMissing
-            fun vendorCodeType(vendorCodeType: JsonField<VendorCodeType>) = apply {
+            fun vendorCodeType(vendorCodeType: JsonField<String>) = apply {
                 this.vendorCodeType = vendorCodeType
             }
 
@@ -791,172 +809,6 @@ private constructor(
                     OPENING_LEDGER -> Known.OPENING_LEDGER
                     OTHER -> Known.OTHER
                     else -> throw ModernTreasuryInvalidDataException("Unknown BalanceType: $value")
-                }
-
-            fun asString(): String = _value().asStringOrThrow()
-        }
-
-        class VendorCodeType
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) {
-
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is VendorCodeType && this.value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
-            companion object {
-
-                val BAI2 = VendorCodeType(JsonField.of("bai2"))
-
-                val BANKPROV = VendorCodeType(JsonField.of("bankprov"))
-
-                val BNK_DEV = VendorCodeType(JsonField.of("bnk_dev"))
-
-                val CLEARTOUCH = VendorCodeType(JsonField.of("cleartouch"))
-
-                val COLUMN = VendorCodeType(JsonField.of("column"))
-
-                val CROSS_RIVER = VendorCodeType(JsonField.of("cross_river"))
-
-                val CURRENCYCLOUD = VendorCodeType(JsonField.of("currencycloud"))
-
-                val DC_BANK = VendorCodeType(JsonField.of("dc_bank"))
-
-                val DWOLLA = VendorCodeType(JsonField.of("dwolla"))
-
-                val EVOLVE = VendorCodeType(JsonField.of("evolve"))
-
-                val GOLDMAN_SACHS = VendorCodeType(JsonField.of("goldman_sachs"))
-
-                val ISO20022 = VendorCodeType(JsonField.of("iso20022"))
-
-                val JPMC = VendorCodeType(JsonField.of("jpmc"))
-
-                val MX = VendorCodeType(JsonField.of("mx"))
-
-                val PLAID = VendorCodeType(JsonField.of("plaid"))
-
-                val RSPEC_VENDOR = VendorCodeType(JsonField.of("rspec_vendor"))
-
-                val SIGNET = VendorCodeType(JsonField.of("signet"))
-
-                val SILVERGATE = VendorCodeType(JsonField.of("silvergate"))
-
-                val SWIFT = VendorCodeType(JsonField.of("swift"))
-
-                val US_BANK = VendorCodeType(JsonField.of("us_bank"))
-
-                fun of(value: String) = VendorCodeType(JsonField.of(value))
-            }
-
-            enum class Known {
-                BAI2,
-                BANKPROV,
-                BNK_DEV,
-                CLEARTOUCH,
-                COLUMN,
-                CROSS_RIVER,
-                CURRENCYCLOUD,
-                DC_BANK,
-                DWOLLA,
-                EVOLVE,
-                GOLDMAN_SACHS,
-                ISO20022,
-                JPMC,
-                MX,
-                PLAID,
-                RSPEC_VENDOR,
-                SIGNET,
-                SILVERGATE,
-                SWIFT,
-                US_BANK,
-            }
-
-            enum class Value {
-                BAI2,
-                BANKPROV,
-                BNK_DEV,
-                CLEARTOUCH,
-                COLUMN,
-                CROSS_RIVER,
-                CURRENCYCLOUD,
-                DC_BANK,
-                DWOLLA,
-                EVOLVE,
-                GOLDMAN_SACHS,
-                ISO20022,
-                JPMC,
-                MX,
-                PLAID,
-                RSPEC_VENDOR,
-                SIGNET,
-                SILVERGATE,
-                SWIFT,
-                US_BANK,
-                _UNKNOWN,
-            }
-
-            fun value(): Value =
-                when (this) {
-                    BAI2 -> Value.BAI2
-                    BANKPROV -> Value.BANKPROV
-                    BNK_DEV -> Value.BNK_DEV
-                    CLEARTOUCH -> Value.CLEARTOUCH
-                    COLUMN -> Value.COLUMN
-                    CROSS_RIVER -> Value.CROSS_RIVER
-                    CURRENCYCLOUD -> Value.CURRENCYCLOUD
-                    DC_BANK -> Value.DC_BANK
-                    DWOLLA -> Value.DWOLLA
-                    EVOLVE -> Value.EVOLVE
-                    GOLDMAN_SACHS -> Value.GOLDMAN_SACHS
-                    ISO20022 -> Value.ISO20022
-                    JPMC -> Value.JPMC
-                    MX -> Value.MX
-                    PLAID -> Value.PLAID
-                    RSPEC_VENDOR -> Value.RSPEC_VENDOR
-                    SIGNET -> Value.SIGNET
-                    SILVERGATE -> Value.SILVERGATE
-                    SWIFT -> Value.SWIFT
-                    US_BANK -> Value.US_BANK
-                    else -> Value._UNKNOWN
-                }
-
-            fun known(): Known =
-                when (this) {
-                    BAI2 -> Known.BAI2
-                    BANKPROV -> Known.BANKPROV
-                    BNK_DEV -> Known.BNK_DEV
-                    CLEARTOUCH -> Known.CLEARTOUCH
-                    COLUMN -> Known.COLUMN
-                    CROSS_RIVER -> Known.CROSS_RIVER
-                    CURRENCYCLOUD -> Known.CURRENCYCLOUD
-                    DC_BANK -> Known.DC_BANK
-                    DWOLLA -> Known.DWOLLA
-                    EVOLVE -> Known.EVOLVE
-                    GOLDMAN_SACHS -> Known.GOLDMAN_SACHS
-                    ISO20022 -> Known.ISO20022
-                    JPMC -> Known.JPMC
-                    MX -> Known.MX
-                    PLAID -> Known.PLAID
-                    RSPEC_VENDOR -> Known.RSPEC_VENDOR
-                    SIGNET -> Known.SIGNET
-                    SILVERGATE -> Known.SILVERGATE
-                    SWIFT -> Known.SWIFT
-                    US_BANK -> Known.US_BANK
-                    else ->
-                        throw ModernTreasuryInvalidDataException("Unknown VendorCodeType: $value")
                 }
 
             fun asString(): String = _value().asStringOrThrow()
