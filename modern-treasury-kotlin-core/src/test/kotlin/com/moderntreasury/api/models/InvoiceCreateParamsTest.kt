@@ -55,6 +55,7 @@ class InvoiceCreateParamsTest {
             .currency(Currency.AED)
             .description("string")
             .fallbackPaymentMethod("string")
+            .ingestLedgerEntries(true)
             .invoicerAddress(
                 InvoiceCreateParams.InvoicerAddress.builder()
                     .country("string")
@@ -65,6 +66,7 @@ class InvoiceCreateParamsTest {
                     .line2("string")
                     .build()
             )
+            .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .notificationEmailAddresses(listOf("string"))
             .notificationsEnabled(true)
             .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
@@ -73,7 +75,7 @@ class InvoiceCreateParamsTest {
             .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .recipientEmail("string")
             .recipientName("string")
-            .virtualAccountId("string")
+            .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .build()
     }
 
@@ -123,6 +125,7 @@ class InvoiceCreateParamsTest {
                 .currency(Currency.AED)
                 .description("string")
                 .fallbackPaymentMethod("string")
+                .ingestLedgerEntries(true)
                 .invoicerAddress(
                     InvoiceCreateParams.InvoicerAddress.builder()
                         .country("string")
@@ -133,6 +136,7 @@ class InvoiceCreateParamsTest {
                         .line2("string")
                         .build()
                 )
+                .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .notificationEmailAddresses(listOf("string"))
                 .notificationsEnabled(true)
                 .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
@@ -141,7 +145,7 @@ class InvoiceCreateParamsTest {
                 .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .recipientEmail("string")
                 .recipientName("string")
-                .virtualAccountId("string")
+                .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -190,6 +194,7 @@ class InvoiceCreateParamsTest {
         assertThat(body.currency()).isEqualTo(Currency.AED)
         assertThat(body.description()).isEqualTo("string")
         assertThat(body.fallbackPaymentMethod()).isEqualTo("string")
+        assertThat(body.ingestLedgerEntries()).isEqualTo(true)
         assertThat(body.invoicerAddress())
             .isEqualTo(
                 InvoiceCreateParams.InvoicerAddress.builder()
@@ -201,6 +206,8 @@ class InvoiceCreateParamsTest {
                     .line2("string")
                     .build()
             )
+        assertThat(body.ledgerAccountSettlementId())
+            .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.notificationEmailAddresses()).isEqualTo(listOf("string"))
         assertThat(body.notificationsEnabled()).isEqualTo(true)
         assertThat(body.paymentEffectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
@@ -209,7 +216,7 @@ class InvoiceCreateParamsTest {
         assertThat(body.receivingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.recipientEmail()).isEqualTo("string")
         assertThat(body.recipientName()).isEqualTo("string")
-        assertThat(body.virtualAccountId()).isEqualTo("string")
+        assertThat(body.virtualAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
     }
 
     @Test
