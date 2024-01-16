@@ -1,5 +1,25 @@
 # Changelog
 
+## 2.7.0 (2024-01-16)
+
+Full Changelog: [v2.6.0...v2.7.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.6.0...v2.7.0)
+
+### Features
+
+* **api:** add `ledger_transactions` to expected payment request ([#95](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/95)) ([6da6adf](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/6da6adfeb434f6283dfb22bc7137fb003576622a))
+* **api:** add create and delete operations for internal accounts balance reports ([#99](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/99)) ([1d4d2d5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/1d4d2d58abab5d788d9a89b8cd09b0e25aab15fd))
+
+
+### Chores
+
+* add .keep files for examples and custom code directories ([#97](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/97)) ([f2b05a4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f2b05a4c4d96db63527e7032f32a049e2472ba25))
+* **internal:** minor improvements to auth code ([#98](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/98)) ([bf0acc5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/bf0acc5df99ab3b47852b091a46b30deede38eea))
+
+
+### Documentation
+
+* **readme:** improve api reference ([#100](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/100)) ([541d2f3](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/541d2f32352b189bcced0de9bc910a663c5b8f31))
+
 ## 2.6.0 (2024-01-02)
 
 Full Changelog: [v2.5.0...v2.6.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.5.0...v2.6.0)
