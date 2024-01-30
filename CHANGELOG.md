@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.7.1 (2024-01-30)
+
+Full Changelog: [v2.7.0...v2.7.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.7.0...v2.7.1)
+
+### Bug Fixes
+
+* **ci:** ignore stainless-app edits to release PR title ([#103](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/103)) ([8487c6c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8487c6c7caf8275e4b72ba5bf0726c88e04d188d))
+
+
+### Chores
+
+* **internal:** speculative retry-after-ms support ([#101](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/101)) ([895542a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/895542ac7762c638983f38cf5145b7d2584e1c3a))
+
 ## 2.7.0 (2024-01-16)
 
 Full Changelog: [v2.6.0...v2.7.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.6.0...v2.7.0)
