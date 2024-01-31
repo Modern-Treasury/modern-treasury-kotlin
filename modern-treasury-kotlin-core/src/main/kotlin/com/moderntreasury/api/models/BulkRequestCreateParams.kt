@@ -769,6 +769,7 @@ constructor(
             private val description: JsonField<String>,
             private val statementDescriptor: JsonField<String>,
             private val remittanceInformation: JsonField<String>,
+            private val processAfter: JsonField<OffsetDateTime>,
             private val purpose: JsonField<String>,
             private val metadata: JsonField<Metadata>,
             private val chargeBearer: JsonField<ChargeBearer>,
@@ -889,6 +890,12 @@ constructor(
              */
             fun remittanceInformation(): String? =
                 remittanceInformation.getNullable("remittance_information")
+
+            /**
+             * If present, the time until which the payment may not be processed. Format is ISO8601
+             * timestamp.
+             */
+            fun processAfter(): OffsetDateTime? = processAfter.getNullable("process_after")
 
             /**
              * For `wire`, this is usually the purpose which is transmitted via the
@@ -1112,6 +1119,12 @@ constructor(
             fun _remittanceInformation() = remittanceInformation
 
             /**
+             * If present, the time until which the payment may not be processed. Format is ISO8601
+             * timestamp.
+             */
+            @JsonProperty("process_after") @ExcludeMissing fun _processAfter() = processAfter
+
+            /**
              * For `wire`, this is usually the purpose which is transmitted via the
              * "InstrForDbtrAgt" field in the ISO20022 file. If you are using Currencycloud, this is
              * the `payment.purpose_code` field. For `eft`, this field is the 3 digit CPA Code that
@@ -1262,6 +1275,7 @@ constructor(
                     description()
                     statementDescriptor()
                     remittanceInformation()
+                    processAfter()
                     purpose()
                     metadata()?.validate()
                     chargeBearer()
@@ -1308,6 +1322,7 @@ constructor(
                     this.description == other.description &&
                     this.statementDescriptor == other.statementDescriptor &&
                     this.remittanceInformation == other.remittanceInformation &&
+                    this.processAfter == other.processAfter &&
                     this.purpose == other.purpose &&
                     this.metadata == other.metadata &&
                     this.chargeBearer == other.chargeBearer &&
@@ -1351,6 +1366,7 @@ constructor(
                             description,
                             statementDescriptor,
                             remittanceInformation,
+                            processAfter,
                             purpose,
                             metadata,
                             chargeBearer,
@@ -1377,7 +1393,7 @@ constructor(
             }
 
             override fun toString() =
-                "PaymentOrderAsyncCreateRequest{type=$type, subtype=$subtype, amount=$amount, direction=$direction, priority=$priority, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, currency=$currency, effectiveDate=$effectiveDate, description=$description, statementDescriptor=$statementDescriptor, remittanceInformation=$remittanceInformation, purpose=$purpose, metadata=$metadata, chargeBearer=$chargeBearer, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeContract=$foreignExchangeContract, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, sendRemittanceAdvice=$sendRemittanceAdvice, expiresAt=$expiresAt, fallbackType=$fallbackType, receivingAccount=$receivingAccount, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, transactionMonitoringEnabled=$transactionMonitoringEnabled, additionalProperties=$additionalProperties}"
+                "PaymentOrderAsyncCreateRequest{type=$type, subtype=$subtype, amount=$amount, direction=$direction, priority=$priority, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, currency=$currency, effectiveDate=$effectiveDate, description=$description, statementDescriptor=$statementDescriptor, remittanceInformation=$remittanceInformation, processAfter=$processAfter, purpose=$purpose, metadata=$metadata, chargeBearer=$chargeBearer, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeContract=$foreignExchangeContract, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, sendRemittanceAdvice=$sendRemittanceAdvice, expiresAt=$expiresAt, fallbackType=$fallbackType, receivingAccount=$receivingAccount, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, transactionMonitoringEnabled=$transactionMonitoringEnabled, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1401,6 +1417,7 @@ constructor(
                 private var description: JsonField<String> = JsonMissing.of()
                 private var statementDescriptor: JsonField<String> = JsonMissing.of()
                 private var remittanceInformation: JsonField<String> = JsonMissing.of()
+                private var processAfter: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var purpose: JsonField<String> = JsonMissing.of()
                 private var metadata: JsonField<Metadata> = JsonMissing.of()
                 private var chargeBearer: JsonField<ChargeBearer> = JsonMissing.of()
@@ -1446,6 +1463,7 @@ constructor(
                             paymentOrderAsyncCreateRequest.statementDescriptor
                         this.remittanceInformation =
                             paymentOrderAsyncCreateRequest.remittanceInformation
+                        this.processAfter = paymentOrderAsyncCreateRequest.processAfter
                         this.purpose = paymentOrderAsyncCreateRequest.purpose
                         this.metadata = paymentOrderAsyncCreateRequest.metadata
                         this.chargeBearer = paymentOrderAsyncCreateRequest.chargeBearer
@@ -1713,6 +1731,23 @@ constructor(
                 @ExcludeMissing
                 fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
                     this.remittanceInformation = remittanceInformation
+                }
+
+                /**
+                 * If present, the time until which the payment may not be processed. Format is
+                 * ISO8601 timestamp.
+                 */
+                fun processAfter(processAfter: OffsetDateTime) =
+                    processAfter(JsonField.of(processAfter))
+
+                /**
+                 * If present, the time until which the payment may not be processed. Format is
+                 * ISO8601 timestamp.
+                 */
+                @JsonProperty("process_after")
+                @ExcludeMissing
+                fun processAfter(processAfter: JsonField<OffsetDateTime>) = apply {
+                    this.processAfter = processAfter
                 }
 
                 /**
@@ -2062,6 +2097,7 @@ constructor(
                         description,
                         statementDescriptor,
                         remittanceInformation,
+                        processAfter,
                         purpose,
                         metadata,
                         chargeBearer,
@@ -5172,6 +5208,7 @@ constructor(
                     private val ledgerId: JsonField<String>,
                     private val currency: JsonField<String>,
                     private val currencyExponent: JsonField<Long>,
+                    private val ledgerAccountCategoryIds: JsonField<List<String>>,
                     private val ledgerableId: JsonField<String>,
                     private val ledgerableType: JsonField<LedgerableType>,
                     private val metadata: JsonField<Metadata>,
@@ -5201,6 +5238,13 @@ constructor(
                     /** The currency exponent of the ledger account. */
                     fun currencyExponent(): Long? =
                         currencyExponent.getNullable("currency_exponent")
+
+                    /**
+                     * The array of ledger account category ids that this ledger account should be a
+                     * child of.
+                     */
+                    fun ledgerAccountCategoryIds(): List<String>? =
+                        ledgerAccountCategoryIds.getNullable("ledger_account_category_ids")
 
                     /**
                      * If the ledger account links to another object in Modern Treasury, the id will
@@ -5245,6 +5289,14 @@ constructor(
                     fun _currencyExponent() = currencyExponent
 
                     /**
+                     * The array of ledger account category ids that this ledger account should be a
+                     * child of.
+                     */
+                    @JsonProperty("ledger_account_category_ids")
+                    @ExcludeMissing
+                    fun _ledgerAccountCategoryIds() = ledgerAccountCategoryIds
+
+                    /**
                      * If the ledger account links to another object in Modern Treasury, the id will
                      * be populated here, otherwise null.
                      */
@@ -5279,6 +5331,7 @@ constructor(
                             ledgerId()
                             currency()
                             currencyExponent()
+                            ledgerAccountCategoryIds()
                             ledgerableId()
                             ledgerableType()
                             metadata()?.validate()
@@ -5300,6 +5353,7 @@ constructor(
                             this.ledgerId == other.ledgerId &&
                             this.currency == other.currency &&
                             this.currencyExponent == other.currencyExponent &&
+                            this.ledgerAccountCategoryIds == other.ledgerAccountCategoryIds &&
                             this.ledgerableId == other.ledgerableId &&
                             this.ledgerableType == other.ledgerableType &&
                             this.metadata == other.metadata &&
@@ -5316,6 +5370,7 @@ constructor(
                                     ledgerId,
                                     currency,
                                     currencyExponent,
+                                    ledgerAccountCategoryIds,
                                     ledgerableId,
                                     ledgerableType,
                                     metadata,
@@ -5326,7 +5381,7 @@ constructor(
                     }
 
                     override fun toString() =
-                        "LedgerAccountCreateRequest{name=$name, description=$description, normalBalance=$normalBalance, ledgerId=$ledgerId, currency=$currency, currencyExponent=$currencyExponent, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalProperties=$additionalProperties}"
+                        "LedgerAccountCreateRequest{name=$name, description=$description, normalBalance=$normalBalance, ledgerId=$ledgerId, currency=$currency, currencyExponent=$currencyExponent, ledgerAccountCategoryIds=$ledgerAccountCategoryIds, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -5342,6 +5397,8 @@ constructor(
                         private var ledgerId: JsonField<String> = JsonMissing.of()
                         private var currency: JsonField<String> = JsonMissing.of()
                         private var currencyExponent: JsonField<Long> = JsonMissing.of()
+                        private var ledgerAccountCategoryIds: JsonField<List<String>> =
+                            JsonMissing.of()
                         private var ledgerableId: JsonField<String> = JsonMissing.of()
                         private var ledgerableType: JsonField<LedgerableType> = JsonMissing.of()
                         private var metadata: JsonField<Metadata> = JsonMissing.of()
@@ -5356,6 +5413,8 @@ constructor(
                                 this.ledgerId = ledgerAccountCreateRequest.ledgerId
                                 this.currency = ledgerAccountCreateRequest.currency
                                 this.currencyExponent = ledgerAccountCreateRequest.currencyExponent
+                                this.ledgerAccountCategoryIds =
+                                    ledgerAccountCreateRequest.ledgerAccountCategoryIds
                                 this.ledgerableId = ledgerAccountCreateRequest.ledgerableId
                                 this.ledgerableType = ledgerAccountCreateRequest.ledgerableType
                                 this.metadata = ledgerAccountCreateRequest.metadata
@@ -5424,6 +5483,23 @@ constructor(
                         fun currencyExponent(currencyExponent: JsonField<Long>) = apply {
                             this.currencyExponent = currencyExponent
                         }
+
+                        /**
+                         * The array of ledger account category ids that this ledger account should
+                         * be a child of.
+                         */
+                        fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>) =
+                            ledgerAccountCategoryIds(JsonField.of(ledgerAccountCategoryIds))
+
+                        /**
+                         * The array of ledger account category ids that this ledger account should
+                         * be a child of.
+                         */
+                        @JsonProperty("ledger_account_category_ids")
+                        @ExcludeMissing
+                        fun ledgerAccountCategoryIds(
+                            ledgerAccountCategoryIds: JsonField<List<String>>
+                        ) = apply { this.ledgerAccountCategoryIds = ledgerAccountCategoryIds }
 
                         /**
                          * If the ledger account links to another object in Modern Treasury, the id
@@ -5500,6 +5576,7 @@ constructor(
                                 ledgerId,
                                 currency,
                                 currencyExponent,
+                                ledgerAccountCategoryIds.map { it.toUnmodifiable() },
                                 ledgerableId,
                                 ledgerableType,
                                 metadata,
@@ -6192,6 +6269,9 @@ constructor(
 
                             val MY_BRANCH_CODE = RoutingNumberType(JsonField.of("my_branch_code"))
 
+                            val MX_BANK_IDENTIFIER =
+                                RoutingNumberType(JsonField.of("mx_bank_identifier"))
+
                             val NZ_NATIONAL_CLEARING_CODE =
                                 RoutingNumberType(JsonField.of("nz_national_clearing_code"))
 
@@ -6221,6 +6301,7 @@ constructor(
                             IN_IFSC,
                             JP_ZENGIN_CODE,
                             MY_BRANCH_CODE,
+                            MX_BANK_IDENTIFIER,
                             NZ_NATIONAL_CLEARING_CODE,
                             PL_NATIONAL_CLEARING_CODE,
                             SE_BANKGIRO_CLEARING_CODE,
@@ -6242,6 +6323,7 @@ constructor(
                             IN_IFSC,
                             JP_ZENGIN_CODE,
                             MY_BRANCH_CODE,
+                            MX_BANK_IDENTIFIER,
                             NZ_NATIONAL_CLEARING_CODE,
                             PL_NATIONAL_CLEARING_CODE,
                             SE_BANKGIRO_CLEARING_CODE,
@@ -6265,6 +6347,7 @@ constructor(
                                 IN_IFSC -> Value.IN_IFSC
                                 JP_ZENGIN_CODE -> Value.JP_ZENGIN_CODE
                                 MY_BRANCH_CODE -> Value.MY_BRANCH_CODE
+                                MX_BANK_IDENTIFIER -> Value.MX_BANK_IDENTIFIER
                                 NZ_NATIONAL_CLEARING_CODE -> Value.NZ_NATIONAL_CLEARING_CODE
                                 PL_NATIONAL_CLEARING_CODE -> Value.PL_NATIONAL_CLEARING_CODE
                                 SE_BANKGIRO_CLEARING_CODE -> Value.SE_BANKGIRO_CLEARING_CODE
@@ -6288,6 +6371,7 @@ constructor(
                                 IN_IFSC -> Known.IN_IFSC
                                 JP_ZENGIN_CODE -> Known.JP_ZENGIN_CODE
                                 MY_BRANCH_CODE -> Known.MY_BRANCH_CODE
+                                MX_BANK_IDENTIFIER -> Known.MX_BANK_IDENTIFIER
                                 NZ_NATIONAL_CLEARING_CODE -> Known.NZ_NATIONAL_CLEARING_CODE
                                 PL_NATIONAL_CLEARING_CODE -> Known.PL_NATIONAL_CLEARING_CODE
                                 SE_BANKGIRO_CLEARING_CODE -> Known.SE_BANKGIRO_CLEARING_CODE
@@ -10380,6 +10464,7 @@ constructor(
             private val description: JsonField<String>,
             private val statementDescriptor: JsonField<String>,
             private val remittanceInformation: JsonField<String>,
+            private val processAfter: JsonField<OffsetDateTime>,
             private val purpose: JsonField<String>,
             private val metadata: JsonField<Metadata>,
             private val chargeBearer: JsonField<ChargeBearer>,
@@ -10500,6 +10585,12 @@ constructor(
              */
             fun remittanceInformation(): String? =
                 remittanceInformation.getNullable("remittance_information")
+
+            /**
+             * If present, the time until which the payment may not be processed. Format is ISO8601
+             * timestamp.
+             */
+            fun processAfter(): OffsetDateTime? = processAfter.getNullable("process_after")
 
             /**
              * For `wire`, this is usually the purpose which is transmitted via the
@@ -10727,6 +10818,12 @@ constructor(
             fun _remittanceInformation() = remittanceInformation
 
             /**
+             * If present, the time until which the payment may not be processed. Format is ISO8601
+             * timestamp.
+             */
+            @JsonProperty("process_after") @ExcludeMissing fun _processAfter() = processAfter
+
+            /**
              * For `wire`, this is usually the purpose which is transmitted via the
              * "InstrForDbtrAgt" field in the ISO20022 file. If you are using Currencycloud, this is
              * the `payment.purpose_code` field. For `eft`, this field is the 3 digit CPA Code that
@@ -10878,6 +10975,7 @@ constructor(
                     description()
                     statementDescriptor()
                     remittanceInformation()
+                    processAfter()
                     purpose()
                     metadata()?.validate()
                     chargeBearer()
@@ -10924,6 +11022,7 @@ constructor(
                     this.description == other.description &&
                     this.statementDescriptor == other.statementDescriptor &&
                     this.remittanceInformation == other.remittanceInformation &&
+                    this.processAfter == other.processAfter &&
                     this.purpose == other.purpose &&
                     this.metadata == other.metadata &&
                     this.chargeBearer == other.chargeBearer &&
@@ -10967,6 +11066,7 @@ constructor(
                             description,
                             statementDescriptor,
                             remittanceInformation,
+                            processAfter,
                             purpose,
                             metadata,
                             chargeBearer,
@@ -10993,7 +11093,7 @@ constructor(
             }
 
             override fun toString() =
-                "PaymentOrderUpdateRequestWithId{type=$type, subtype=$subtype, amount=$amount, direction=$direction, priority=$priority, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, currency=$currency, effectiveDate=$effectiveDate, description=$description, statementDescriptor=$statementDescriptor, remittanceInformation=$remittanceInformation, purpose=$purpose, metadata=$metadata, chargeBearer=$chargeBearer, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeContract=$foreignExchangeContract, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, sendRemittanceAdvice=$sendRemittanceAdvice, expiresAt=$expiresAt, status=$status, counterpartyId=$counterpartyId, fallbackType=$fallbackType, receivingAccount=$receivingAccount, lineItems=$lineItems, id=$id, additionalProperties=$additionalProperties}"
+                "PaymentOrderUpdateRequestWithId{type=$type, subtype=$subtype, amount=$amount, direction=$direction, priority=$priority, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, currency=$currency, effectiveDate=$effectiveDate, description=$description, statementDescriptor=$statementDescriptor, remittanceInformation=$remittanceInformation, processAfter=$processAfter, purpose=$purpose, metadata=$metadata, chargeBearer=$chargeBearer, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeContract=$foreignExchangeContract, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, sendRemittanceAdvice=$sendRemittanceAdvice, expiresAt=$expiresAt, status=$status, counterpartyId=$counterpartyId, fallbackType=$fallbackType, receivingAccount=$receivingAccount, lineItems=$lineItems, id=$id, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -11017,6 +11117,7 @@ constructor(
                 private var description: JsonField<String> = JsonMissing.of()
                 private var statementDescriptor: JsonField<String> = JsonMissing.of()
                 private var remittanceInformation: JsonField<String> = JsonMissing.of()
+                private var processAfter: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var purpose: JsonField<String> = JsonMissing.of()
                 private var metadata: JsonField<Metadata> = JsonMissing.of()
                 private var chargeBearer: JsonField<ChargeBearer> = JsonMissing.of()
@@ -11059,6 +11160,7 @@ constructor(
                     this.statementDescriptor = paymentOrderUpdateRequestWithId.statementDescriptor
                     this.remittanceInformation =
                         paymentOrderUpdateRequestWithId.remittanceInformation
+                    this.processAfter = paymentOrderUpdateRequestWithId.processAfter
                     this.purpose = paymentOrderUpdateRequestWithId.purpose
                     this.metadata = paymentOrderUpdateRequestWithId.metadata
                     this.chargeBearer = paymentOrderUpdateRequestWithId.chargeBearer
@@ -11322,6 +11424,23 @@ constructor(
                 @ExcludeMissing
                 fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
                     this.remittanceInformation = remittanceInformation
+                }
+
+                /**
+                 * If present, the time until which the payment may not be processed. Format is
+                 * ISO8601 timestamp.
+                 */
+                fun processAfter(processAfter: OffsetDateTime) =
+                    processAfter(JsonField.of(processAfter))
+
+                /**
+                 * If present, the time until which the payment may not be processed. Format is
+                 * ISO8601 timestamp.
+                 */
+                @JsonProperty("process_after")
+                @ExcludeMissing
+                fun processAfter(processAfter: JsonField<OffsetDateTime>) = apply {
+                    this.processAfter = processAfter
                 }
 
                 /**
@@ -11676,6 +11795,7 @@ constructor(
                         description,
                         statementDescriptor,
                         remittanceInformation,
+                        processAfter,
                         purpose,
                         metadata,
                         chargeBearer,
@@ -13373,6 +13493,7 @@ constructor(
                     private val ledgerId: JsonField<String>,
                     private val currency: JsonField<String>,
                     private val currencyExponent: JsonField<Long>,
+                    private val ledgerAccountCategoryIds: JsonField<List<String>>,
                     private val ledgerableId: JsonField<String>,
                     private val ledgerableType: JsonField<LedgerableType>,
                     private val metadata: JsonField<Metadata>,
@@ -13402,6 +13523,13 @@ constructor(
                     /** The currency exponent of the ledger account. */
                     fun currencyExponent(): Long? =
                         currencyExponent.getNullable("currency_exponent")
+
+                    /**
+                     * The array of ledger account category ids that this ledger account should be a
+                     * child of.
+                     */
+                    fun ledgerAccountCategoryIds(): List<String>? =
+                        ledgerAccountCategoryIds.getNullable("ledger_account_category_ids")
 
                     /**
                      * If the ledger account links to another object in Modern Treasury, the id will
@@ -13446,6 +13574,14 @@ constructor(
                     fun _currencyExponent() = currencyExponent
 
                     /**
+                     * The array of ledger account category ids that this ledger account should be a
+                     * child of.
+                     */
+                    @JsonProperty("ledger_account_category_ids")
+                    @ExcludeMissing
+                    fun _ledgerAccountCategoryIds() = ledgerAccountCategoryIds
+
+                    /**
                      * If the ledger account links to another object in Modern Treasury, the id will
                      * be populated here, otherwise null.
                      */
@@ -13480,6 +13616,7 @@ constructor(
                             ledgerId()
                             currency()
                             currencyExponent()
+                            ledgerAccountCategoryIds()
                             ledgerableId()
                             ledgerableType()
                             metadata()?.validate()
@@ -13501,6 +13638,7 @@ constructor(
                             this.ledgerId == other.ledgerId &&
                             this.currency == other.currency &&
                             this.currencyExponent == other.currencyExponent &&
+                            this.ledgerAccountCategoryIds == other.ledgerAccountCategoryIds &&
                             this.ledgerableId == other.ledgerableId &&
                             this.ledgerableType == other.ledgerableType &&
                             this.metadata == other.metadata &&
@@ -13517,6 +13655,7 @@ constructor(
                                     ledgerId,
                                     currency,
                                     currencyExponent,
+                                    ledgerAccountCategoryIds,
                                     ledgerableId,
                                     ledgerableType,
                                     metadata,
@@ -13527,7 +13666,7 @@ constructor(
                     }
 
                     override fun toString() =
-                        "LedgerAccountCreateRequest{name=$name, description=$description, normalBalance=$normalBalance, ledgerId=$ledgerId, currency=$currency, currencyExponent=$currencyExponent, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalProperties=$additionalProperties}"
+                        "LedgerAccountCreateRequest{name=$name, description=$description, normalBalance=$normalBalance, ledgerId=$ledgerId, currency=$currency, currencyExponent=$currencyExponent, ledgerAccountCategoryIds=$ledgerAccountCategoryIds, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -13543,6 +13682,8 @@ constructor(
                         private var ledgerId: JsonField<String> = JsonMissing.of()
                         private var currency: JsonField<String> = JsonMissing.of()
                         private var currencyExponent: JsonField<Long> = JsonMissing.of()
+                        private var ledgerAccountCategoryIds: JsonField<List<String>> =
+                            JsonMissing.of()
                         private var ledgerableId: JsonField<String> = JsonMissing.of()
                         private var ledgerableType: JsonField<LedgerableType> = JsonMissing.of()
                         private var metadata: JsonField<Metadata> = JsonMissing.of()
@@ -13557,6 +13698,8 @@ constructor(
                                 this.ledgerId = ledgerAccountCreateRequest.ledgerId
                                 this.currency = ledgerAccountCreateRequest.currency
                                 this.currencyExponent = ledgerAccountCreateRequest.currencyExponent
+                                this.ledgerAccountCategoryIds =
+                                    ledgerAccountCreateRequest.ledgerAccountCategoryIds
                                 this.ledgerableId = ledgerAccountCreateRequest.ledgerableId
                                 this.ledgerableType = ledgerAccountCreateRequest.ledgerableType
                                 this.metadata = ledgerAccountCreateRequest.metadata
@@ -13625,6 +13768,23 @@ constructor(
                         fun currencyExponent(currencyExponent: JsonField<Long>) = apply {
                             this.currencyExponent = currencyExponent
                         }
+
+                        /**
+                         * The array of ledger account category ids that this ledger account should
+                         * be a child of.
+                         */
+                        fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>) =
+                            ledgerAccountCategoryIds(JsonField.of(ledgerAccountCategoryIds))
+
+                        /**
+                         * The array of ledger account category ids that this ledger account should
+                         * be a child of.
+                         */
+                        @JsonProperty("ledger_account_category_ids")
+                        @ExcludeMissing
+                        fun ledgerAccountCategoryIds(
+                            ledgerAccountCategoryIds: JsonField<List<String>>
+                        ) = apply { this.ledgerAccountCategoryIds = ledgerAccountCategoryIds }
 
                         /**
                          * If the ledger account links to another object in Modern Treasury, the id
@@ -13701,6 +13861,7 @@ constructor(
                                 ledgerId,
                                 currency,
                                 currencyExponent,
+                                ledgerAccountCategoryIds.map { it.toUnmodifiable() },
                                 ledgerableId,
                                 ledgerableType,
                                 metadata,
@@ -14393,6 +14554,9 @@ constructor(
 
                             val MY_BRANCH_CODE = RoutingNumberType(JsonField.of("my_branch_code"))
 
+                            val MX_BANK_IDENTIFIER =
+                                RoutingNumberType(JsonField.of("mx_bank_identifier"))
+
                             val NZ_NATIONAL_CLEARING_CODE =
                                 RoutingNumberType(JsonField.of("nz_national_clearing_code"))
 
@@ -14422,6 +14586,7 @@ constructor(
                             IN_IFSC,
                             JP_ZENGIN_CODE,
                             MY_BRANCH_CODE,
+                            MX_BANK_IDENTIFIER,
                             NZ_NATIONAL_CLEARING_CODE,
                             PL_NATIONAL_CLEARING_CODE,
                             SE_BANKGIRO_CLEARING_CODE,
@@ -14443,6 +14608,7 @@ constructor(
                             IN_IFSC,
                             JP_ZENGIN_CODE,
                             MY_BRANCH_CODE,
+                            MX_BANK_IDENTIFIER,
                             NZ_NATIONAL_CLEARING_CODE,
                             PL_NATIONAL_CLEARING_CODE,
                             SE_BANKGIRO_CLEARING_CODE,
@@ -14466,6 +14632,7 @@ constructor(
                                 IN_IFSC -> Value.IN_IFSC
                                 JP_ZENGIN_CODE -> Value.JP_ZENGIN_CODE
                                 MY_BRANCH_CODE -> Value.MY_BRANCH_CODE
+                                MX_BANK_IDENTIFIER -> Value.MX_BANK_IDENTIFIER
                                 NZ_NATIONAL_CLEARING_CODE -> Value.NZ_NATIONAL_CLEARING_CODE
                                 PL_NATIONAL_CLEARING_CODE -> Value.PL_NATIONAL_CLEARING_CODE
                                 SE_BANKGIRO_CLEARING_CODE -> Value.SE_BANKGIRO_CLEARING_CODE
@@ -14489,6 +14656,7 @@ constructor(
                                 IN_IFSC -> Known.IN_IFSC
                                 JP_ZENGIN_CODE -> Known.JP_ZENGIN_CODE
                                 MY_BRANCH_CODE -> Known.MY_BRANCH_CODE
+                                MX_BANK_IDENTIFIER -> Known.MX_BANK_IDENTIFIER
                                 NZ_NATIONAL_CLEARING_CODE -> Known.NZ_NATIONAL_CLEARING_CODE
                                 PL_NATIONAL_CLEARING_CODE -> Known.PL_NATIONAL_CLEARING_CODE
                                 SE_BANKGIRO_CLEARING_CODE -> Known.SE_BANKGIRO_CLEARING_CODE

@@ -93,6 +93,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
                         .description("string")
+                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -270,6 +271,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
                         .description("string")
+                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -360,6 +362,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
                         .description("string")
+                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -450,6 +453,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
                         .description("string")
+                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -544,6 +548,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
                         .description("string")
+                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -634,6 +639,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
                         .description("string")
+                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -728,6 +734,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
                         .description("string")
+                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -818,6 +825,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
                         .description("string")
+                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -912,6 +920,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
                         .description("string")
+                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -1007,6 +1016,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
                         .description("string")
+                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -1094,6 +1104,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
                         .description("string")
+                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType

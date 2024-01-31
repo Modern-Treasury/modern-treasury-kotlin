@@ -176,6 +176,7 @@ class BulkRequestCreateParamsTest {
                                     .Priority
                                     .HIGH
                             )
+                            .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .purpose("string")
                             .receivingAccount(
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
@@ -232,6 +233,9 @@ class BulkRequestCreateParamsTest {
                                             .normalBalance(TransactionDirection.CREDIT)
                                             .currencyExponent(123L)
                                             .description("string")
+                                            .ledgerAccountCategoryIds(
+                                                listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                            )
                                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                             .ledgerableType(
                                                 BulkRequestCreateParams.Resource
@@ -503,6 +507,7 @@ class BulkRequestCreateParamsTest {
                                         .Priority
                                         .HIGH
                                 )
+                                .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .purpose("string")
                                 .receivingAccount(
                                     BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
@@ -559,6 +564,9 @@ class BulkRequestCreateParamsTest {
                                                 .normalBalance(TransactionDirection.CREDIT)
                                                 .currencyExponent(123L)
                                                 .description("string")
+                                                .ledgerAccountCategoryIds(
+                                                    listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                                )
                                                 .ledgerableId(
                                                     "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
                                                 )
@@ -826,6 +834,7 @@ class BulkRequestCreateParamsTest {
                                     .Priority
                                     .HIGH
                             )
+                            .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .purpose("string")
                             .receivingAccount(
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
@@ -882,6 +891,9 @@ class BulkRequestCreateParamsTest {
                                             .normalBalance(TransactionDirection.CREDIT)
                                             .currencyExponent(123L)
                                             .description("string")
+                                            .ledgerAccountCategoryIds(
+                                                listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                            )
                                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                             .ledgerableType(
                                                 BulkRequestCreateParams.Resource

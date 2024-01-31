@@ -52,6 +52,7 @@ class PaymentOrderUpdateParamsTest {
             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .originatingPartyName("string")
             .priority(PaymentOrderUpdateParams.Priority.HIGH)
+            .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .purpose("string")
             .receivingAccount(
                 PaymentOrderUpdateParams.ReceivingAccount.builder()
@@ -91,6 +92,9 @@ class PaymentOrderUpdateParamsTest {
                             .normalBalance(TransactionDirection.CREDIT)
                             .currencyExponent(123L)
                             .description("string")
+                            .ledgerAccountCategoryIds(
+                                listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            )
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableType(
                                 PaymentOrderUpdateParams.ReceivingAccount.LedgerAccountCreateRequest
@@ -197,6 +201,7 @@ class PaymentOrderUpdateParamsTest {
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .originatingPartyName("string")
                 .priority(PaymentOrderUpdateParams.Priority.HIGH)
+                .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .purpose("string")
                 .receivingAccount(
                     PaymentOrderUpdateParams.ReceivingAccount.builder()
@@ -236,6 +241,9 @@ class PaymentOrderUpdateParamsTest {
                                 .normalBalance(TransactionDirection.CREDIT)
                                 .currencyExponent(123L)
                                 .description("string")
+                                .ledgerAccountCategoryIds(
+                                    listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                )
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
                                     PaymentOrderUpdateParams.ReceivingAccount
@@ -342,6 +350,7 @@ class PaymentOrderUpdateParamsTest {
         assertThat(body.originatingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.originatingPartyName()).isEqualTo("string")
         assertThat(body.priority()).isEqualTo(PaymentOrderUpdateParams.Priority.HIGH)
+        assertThat(body.processAfter()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.purpose()).isEqualTo("string")
         assertThat(body.receivingAccount())
             .isEqualTo(
@@ -382,6 +391,9 @@ class PaymentOrderUpdateParamsTest {
                             .normalBalance(TransactionDirection.CREDIT)
                             .currencyExponent(123L)
                             .description("string")
+                            .ledgerAccountCategoryIds(
+                                listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            )
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableType(
                                 PaymentOrderUpdateParams.ReceivingAccount.LedgerAccountCreateRequest

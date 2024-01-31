@@ -51,6 +51,7 @@ private constructor(
     private val description: JsonField<String>,
     private val statementDescriptor: JsonField<String>,
     private val remittanceInformation: JsonField<String>,
+    private val processAfter: JsonField<OffsetDateTime>,
     private val purpose: JsonField<String>,
     private val metadata: JsonField<Metadata>,
     private val chargeBearer: JsonField<ChargeBearer>,
@@ -184,6 +185,12 @@ private constructor(
      */
     fun remittanceInformation(): String? =
         remittanceInformation.getNullable("remittance_information")
+
+    /**
+     * If present, the time until which the payment may not be processed. Format is ISO8601
+     * timestamp.
+     */
+    fun processAfter(): OffsetDateTime? = processAfter.getNullable("process_after")
 
     /**
      * For `wire`, this is usually the purpose which is transmitted via the "InstrForDbtrAgt" field
@@ -430,6 +437,12 @@ private constructor(
     fun _remittanceInformation() = remittanceInformation
 
     /**
+     * If present, the time until which the payment may not be processed. Format is ISO8601
+     * timestamp.
+     */
+    @JsonProperty("process_after") @ExcludeMissing fun _processAfter() = processAfter
+
+    /**
      * For `wire`, this is usually the purpose which is transmitted via the "InstrForDbtrAgt" field
      * in the ISO20022 file. If you are using Currencycloud, this is the `payment.purpose_code`
      * field. For `eft`, this field is the 3 digit CPA Code that will be attached to the payment.
@@ -607,6 +620,7 @@ private constructor(
             description()
             statementDescriptor()
             remittanceInformation()
+            processAfter()
             purpose()
             metadata().validate()
             chargeBearer()
@@ -666,6 +680,7 @@ private constructor(
             this.description == other.description &&
             this.statementDescriptor == other.statementDescriptor &&
             this.remittanceInformation == other.remittanceInformation &&
+            this.processAfter == other.processAfter &&
             this.purpose == other.purpose &&
             this.metadata == other.metadata &&
             this.chargeBearer == other.chargeBearer &&
@@ -720,6 +735,7 @@ private constructor(
                     description,
                     statementDescriptor,
                     remittanceInformation,
+                    processAfter,
                     purpose,
                     metadata,
                     chargeBearer,
@@ -754,7 +770,7 @@ private constructor(
     }
 
     override fun toString() =
-        "PaymentOrder{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, type=$type, subtype=$subtype, amount=$amount, direction=$direction, priority=$priority, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, currency=$currency, effectiveDate=$effectiveDate, description=$description, statementDescriptor=$statementDescriptor, remittanceInformation=$remittanceInformation, purpose=$purpose, metadata=$metadata, chargeBearer=$chargeBearer, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeContract=$foreignExchangeContract, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, sendRemittanceAdvice=$sendRemittanceAdvice, expiresAt=$expiresAt, status=$status, receivingAccountType=$receivingAccountType, ultimateOriginatingAccount=$ultimateOriginatingAccount, ultimateOriginatingAccountId=$ultimateOriginatingAccountId, ultimateOriginatingAccountType=$ultimateOriginatingAccountType, counterpartyId=$counterpartyId, transactionIds=$transactionIds, ledgerTransactionId=$ledgerTransactionId, currentReturn=$currentReturn, transactionMonitoringEnabled=$transactionMonitoringEnabled, complianceRuleMetadata=$complianceRuleMetadata, referenceNumbers=$referenceNumbers, vendorFailureReason=$vendorFailureReason, decisionId=$decisionId, additionalProperties=$additionalProperties}"
+        "PaymentOrder{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, type=$type, subtype=$subtype, amount=$amount, direction=$direction, priority=$priority, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, currency=$currency, effectiveDate=$effectiveDate, description=$description, statementDescriptor=$statementDescriptor, remittanceInformation=$remittanceInformation, processAfter=$processAfter, purpose=$purpose, metadata=$metadata, chargeBearer=$chargeBearer, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeContract=$foreignExchangeContract, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, sendRemittanceAdvice=$sendRemittanceAdvice, expiresAt=$expiresAt, status=$status, receivingAccountType=$receivingAccountType, ultimateOriginatingAccount=$ultimateOriginatingAccount, ultimateOriginatingAccountId=$ultimateOriginatingAccountId, ultimateOriginatingAccountType=$ultimateOriginatingAccountType, counterpartyId=$counterpartyId, transactionIds=$transactionIds, ledgerTransactionId=$ledgerTransactionId, currentReturn=$currentReturn, transactionMonitoringEnabled=$transactionMonitoringEnabled, complianceRuleMetadata=$complianceRuleMetadata, referenceNumbers=$referenceNumbers, vendorFailureReason=$vendorFailureReason, decisionId=$decisionId, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -783,6 +799,7 @@ private constructor(
         private var description: JsonField<String> = JsonMissing.of()
         private var statementDescriptor: JsonField<String> = JsonMissing.of()
         private var remittanceInformation: JsonField<String> = JsonMissing.of()
+        private var processAfter: JsonField<OffsetDateTime> = JsonMissing.of()
         private var purpose: JsonField<String> = JsonMissing.of()
         private var metadata: JsonField<Metadata> = JsonMissing.of()
         private var chargeBearer: JsonField<ChargeBearer> = JsonMissing.of()
@@ -835,6 +852,7 @@ private constructor(
             this.description = paymentOrder.description
             this.statementDescriptor = paymentOrder.statementDescriptor
             this.remittanceInformation = paymentOrder.remittanceInformation
+            this.processAfter = paymentOrder.processAfter
             this.purpose = paymentOrder.purpose
             this.metadata = paymentOrder.metadata
             this.chargeBearer = paymentOrder.chargeBearer
@@ -1120,6 +1138,22 @@ private constructor(
         @ExcludeMissing
         fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
             this.remittanceInformation = remittanceInformation
+        }
+
+        /**
+         * If present, the time until which the payment may not be processed. Format is ISO8601
+         * timestamp.
+         */
+        fun processAfter(processAfter: OffsetDateTime) = processAfter(JsonField.of(processAfter))
+
+        /**
+         * If present, the time until which the payment may not be processed. Format is ISO8601
+         * timestamp.
+         */
+        @JsonProperty("process_after")
+        @ExcludeMissing
+        fun processAfter(processAfter: JsonField<OffsetDateTime>) = apply {
+            this.processAfter = processAfter
         }
 
         /**
@@ -1535,6 +1569,7 @@ private constructor(
                 description,
                 statementDescriptor,
                 remittanceInformation,
+                processAfter,
                 purpose,
                 metadata,
                 chargeBearer,

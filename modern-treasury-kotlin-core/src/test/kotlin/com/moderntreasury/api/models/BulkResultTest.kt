@@ -162,6 +162,7 @@ class BulkResultTest {
                             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .originatingPartyName("string")
                             .priority(PaymentOrder.Priority.HIGH)
+                            .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .purpose("string")
                             .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .receivingAccountType(
@@ -464,6 +465,7 @@ class BulkResultTest {
                         .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .originatingPartyName("string")
                         .priority(PaymentOrder.Priority.HIGH)
+                        .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .purpose("string")
                         .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .receivingAccountType(PaymentOrder.ReceivingAccountType.INTERNAL_ACCOUNT)

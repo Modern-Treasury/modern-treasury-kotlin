@@ -4,6 +4,7 @@ package com.moderntreasury.api.models
 
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -23,6 +24,8 @@ class PaymentOrderListParamsTest {
             .originatingAccountId("string")
             .perPage(123L)
             .priority(PaymentOrderListParams.Priority.HIGH)
+            .processAfterEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .processAfterStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .referenceNumber("string")
             .status(PaymentOrderListParams.Status.APPROVED)
             .transactionId("string")
@@ -45,6 +48,8 @@ class PaymentOrderListParamsTest {
                 .originatingAccountId("string")
                 .perPage(123L)
                 .priority(PaymentOrderListParams.Priority.HIGH)
+                .processAfterEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .processAfterStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .referenceNumber("string")
                 .status(PaymentOrderListParams.Status.APPROVED)
                 .transactionId("string")
@@ -64,6 +69,8 @@ class PaymentOrderListParamsTest {
         expected.put("originating_account_id", listOf("string"))
         expected.put("per_page", listOf("123"))
         expected.put("priority", listOf(PaymentOrderListParams.Priority.HIGH.toString()))
+        expected.put("process_after_end", listOf("2019-12-27T18:11:19.117Z"))
+        expected.put("process_after_start", listOf("2019-12-27T18:11:19.117Z"))
         expected.put("reference_number", listOf("string"))
         expected.put("status", listOf(PaymentOrderListParams.Status.APPROVED.toString()))
         expected.put("transaction_id", listOf("string"))
