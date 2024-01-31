@@ -13,6 +13,7 @@ class LedgerAccountSettlementListParamsTest {
         LedgerAccountSettlementListParams.builder()
             .id(listOf("string"))
             .afterCursor("string")
+            .ledgerTransactionId("string")
             .metadata(LedgerAccountSettlementListParams.Metadata.builder().build())
             .perPage(123L)
             .settledLedgerAccountId("string")
@@ -26,6 +27,7 @@ class LedgerAccountSettlementListParamsTest {
             LedgerAccountSettlementListParams.builder()
                 .id(listOf("string"))
                 .afterCursor("string")
+                .ledgerTransactionId("string")
                 .metadata(LedgerAccountSettlementListParams.Metadata.builder().build())
                 .perPage(123L)
                 .settledLedgerAccountId("string")
@@ -34,6 +36,7 @@ class LedgerAccountSettlementListParamsTest {
         val expected = mutableMapOf<String, List<String>>()
         expected.put("id[]", listOf("string"))
         expected.put("after_cursor", listOf("string"))
+        expected.put("ledger_transaction_id", listOf("string"))
         LedgerAccountSettlementListParams.Metadata.builder().build().forEachQueryParam { key, values
             ->
             expected.put("metadata[$key]", values)
