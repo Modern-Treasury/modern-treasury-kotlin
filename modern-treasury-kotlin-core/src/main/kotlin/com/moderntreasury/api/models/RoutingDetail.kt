@@ -928,6 +928,8 @@ private constructor(
 
             val JP_ZENGIN_CODE = RoutingNumberType(JsonField.of("jp_zengin_code"))
 
+            val MX_BANK_IDENTIFIER = RoutingNumberType(JsonField.of("mx_bank_identifier"))
+
             val MY_BRANCH_CODE = RoutingNumberType(JsonField.of("my_branch_code"))
 
             val NZ_NATIONAL_CLEARING_CODE =
@@ -958,6 +960,7 @@ private constructor(
             ID_SKNBI_CODE,
             IN_IFSC,
             JP_ZENGIN_CODE,
+            MX_BANK_IDENTIFIER,
             MY_BRANCH_CODE,
             NZ_NATIONAL_CLEARING_CODE,
             PL_NATIONAL_CLEARING_CODE,
@@ -979,6 +982,7 @@ private constructor(
             ID_SKNBI_CODE,
             IN_IFSC,
             JP_ZENGIN_CODE,
+            MX_BANK_IDENTIFIER,
             MY_BRANCH_CODE,
             NZ_NATIONAL_CLEARING_CODE,
             PL_NATIONAL_CLEARING_CODE,
@@ -1002,6 +1006,7 @@ private constructor(
                 ID_SKNBI_CODE -> Value.ID_SKNBI_CODE
                 IN_IFSC -> Value.IN_IFSC
                 JP_ZENGIN_CODE -> Value.JP_ZENGIN_CODE
+                MX_BANK_IDENTIFIER -> Value.MX_BANK_IDENTIFIER
                 MY_BRANCH_CODE -> Value.MY_BRANCH_CODE
                 NZ_NATIONAL_CLEARING_CODE -> Value.NZ_NATIONAL_CLEARING_CODE
                 PL_NATIONAL_CLEARING_CODE -> Value.PL_NATIONAL_CLEARING_CODE
@@ -1025,6 +1030,7 @@ private constructor(
                 ID_SKNBI_CODE -> Known.ID_SKNBI_CODE
                 IN_IFSC -> Known.IN_IFSC
                 JP_ZENGIN_CODE -> Known.JP_ZENGIN_CODE
+                MX_BANK_IDENTIFIER -> Known.MX_BANK_IDENTIFIER
                 MY_BRANCH_CODE -> Known.MY_BRANCH_CODE
                 NZ_NATIONAL_CLEARING_CODE -> Known.NZ_NATIONAL_CLEARING_CODE
                 PL_NATIONAL_CLEARING_CODE -> Known.PL_NATIONAL_CLEARING_CODE
