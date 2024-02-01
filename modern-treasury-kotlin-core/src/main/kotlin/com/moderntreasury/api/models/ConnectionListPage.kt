@@ -53,11 +53,7 @@ private constructor(
         "ConnectionListPage{connectionsService=$connectionsService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
-        if (items().isEmpty()) {
-            return false
-        }
-
-        return true
+        return !items().isEmpty()
     }
 
     fun getNextPageParams(): ConnectionListParams? {
