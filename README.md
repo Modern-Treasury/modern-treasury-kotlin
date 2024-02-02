@@ -6,7 +6,7 @@ The Modern Treasury Kotlin SDK is similar to the Modern Treasury Java SDK but wi
 
 ## Documentation
 
-The REST API documentation can be found [on docs.moderntreasury.com](https://docs.moderntreasury.com). The full API of this library can be found in [api.md](https://www.github.com/Modern-Treasury/modern-treasury-kotlin/blob/main/api.md).
+The REST API documentation can be found [on docs.moderntreasury.com](https://docs.moderntreasury.com). The full API of this library can be found in [api.md](api.md).
 
 ---
 
