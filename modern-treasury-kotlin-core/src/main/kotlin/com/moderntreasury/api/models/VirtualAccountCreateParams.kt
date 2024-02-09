@@ -25,6 +25,7 @@ constructor(
     private val creditLedgerAccountId: String?,
     private val debitLedgerAccountId: String?,
     private val description: String?,
+    private val ledgerAccount: LedgerAccountCreateRequest?,
     private val metadata: Metadata?,
     private val routingDetails: List<RoutingDetailCreateRequest>?,
     private val additionalQueryParams: Map<String, List<String>>,
@@ -46,6 +47,8 @@ constructor(
 
     fun description(): String? = description
 
+    fun ledgerAccount(): LedgerAccountCreateRequest? = ledgerAccount
+
     fun metadata(): Metadata? = metadata
 
     fun routingDetails(): List<RoutingDetailCreateRequest>? = routingDetails
@@ -59,6 +62,7 @@ constructor(
             creditLedgerAccountId,
             debitLedgerAccountId,
             description,
+            ledgerAccount,
             metadata,
             routingDetails,
             additionalBodyProperties,
@@ -80,6 +84,7 @@ constructor(
         private val creditLedgerAccountId: String?,
         private val debitLedgerAccountId: String?,
         private val description: String?,
+        private val ledgerAccount: LedgerAccountCreateRequest?,
         private val metadata: Metadata?,
         private val routingDetails: List<RoutingDetailCreateRequest>?,
         private val additionalProperties: Map<String, JsonValue>,
@@ -120,6 +125,13 @@ constructor(
         @JsonProperty("description") fun description(): String? = description
 
         /**
+         * Specifies a ledger account object that will be created with the virtual account. The
+         * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
+         */
+        @JsonProperty("ledger_account")
+        fun ledgerAccount(): LedgerAccountCreateRequest? = ledgerAccount
+
+        /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
         @JsonProperty("metadata") fun metadata(): Metadata? = metadata
@@ -147,6 +159,7 @@ constructor(
                 this.creditLedgerAccountId == other.creditLedgerAccountId &&
                 this.debitLedgerAccountId == other.debitLedgerAccountId &&
                 this.description == other.description &&
+                this.ledgerAccount == other.ledgerAccount &&
                 this.metadata == other.metadata &&
                 this.routingDetails == other.routingDetails &&
                 this.additionalProperties == other.additionalProperties
@@ -163,6 +176,7 @@ constructor(
                         creditLedgerAccountId,
                         debitLedgerAccountId,
                         description,
+                        ledgerAccount,
                         metadata,
                         routingDetails,
                         additionalProperties,
@@ -172,7 +186,7 @@ constructor(
         }
 
         override fun toString() =
-            "VirtualAccountCreateBody{internalAccountId=$internalAccountId, name=$name, accountDetails=$accountDetails, counterpartyId=$counterpartyId, creditLedgerAccountId=$creditLedgerAccountId, debitLedgerAccountId=$debitLedgerAccountId, description=$description, metadata=$metadata, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
+            "VirtualAccountCreateBody{internalAccountId=$internalAccountId, name=$name, accountDetails=$accountDetails, counterpartyId=$counterpartyId, creditLedgerAccountId=$creditLedgerAccountId, debitLedgerAccountId=$debitLedgerAccountId, description=$description, ledgerAccount=$ledgerAccount, metadata=$metadata, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -188,6 +202,7 @@ constructor(
             private var creditLedgerAccountId: String? = null
             private var debitLedgerAccountId: String? = null
             private var description: String? = null
+            private var ledgerAccount: LedgerAccountCreateRequest? = null
             private var metadata: Metadata? = null
             private var routingDetails: List<RoutingDetailCreateRequest>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -200,6 +215,7 @@ constructor(
                 this.creditLedgerAccountId = virtualAccountCreateBody.creditLedgerAccountId
                 this.debitLedgerAccountId = virtualAccountCreateBody.debitLedgerAccountId
                 this.description = virtualAccountCreateBody.description
+                this.ledgerAccount = virtualAccountCreateBody.ledgerAccount
                 this.metadata = virtualAccountCreateBody.metadata
                 this.routingDetails = virtualAccountCreateBody.routingDetails
                 additionalProperties(virtualAccountCreateBody.additionalProperties)
@@ -251,6 +267,15 @@ constructor(
             fun description(description: String) = apply { this.description = description }
 
             /**
+             * Specifies a ledger account object that will be created with the virtual account. The
+             * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
+             */
+            @JsonProperty("ledger_account")
+            fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest) = apply {
+                this.ledgerAccount = ledgerAccount
+            }
+
+            /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
@@ -288,6 +313,7 @@ constructor(
                     creditLedgerAccountId,
                     debitLedgerAccountId,
                     description,
+                    ledgerAccount,
                     metadata,
                     routingDetails?.toUnmodifiable(),
                     additionalProperties.toUnmodifiable(),
@@ -314,6 +340,7 @@ constructor(
             this.creditLedgerAccountId == other.creditLedgerAccountId &&
             this.debitLedgerAccountId == other.debitLedgerAccountId &&
             this.description == other.description &&
+            this.ledgerAccount == other.ledgerAccount &&
             this.metadata == other.metadata &&
             this.routingDetails == other.routingDetails &&
             this.additionalQueryParams == other.additionalQueryParams &&
@@ -330,6 +357,7 @@ constructor(
             creditLedgerAccountId,
             debitLedgerAccountId,
             description,
+            ledgerAccount,
             metadata,
             routingDetails,
             additionalQueryParams,
@@ -339,7 +367,7 @@ constructor(
     }
 
     override fun toString() =
-        "VirtualAccountCreateParams{internalAccountId=$internalAccountId, name=$name, accountDetails=$accountDetails, counterpartyId=$counterpartyId, creditLedgerAccountId=$creditLedgerAccountId, debitLedgerAccountId=$debitLedgerAccountId, description=$description, metadata=$metadata, routingDetails=$routingDetails, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "VirtualAccountCreateParams{internalAccountId=$internalAccountId, name=$name, accountDetails=$accountDetails, counterpartyId=$counterpartyId, creditLedgerAccountId=$creditLedgerAccountId, debitLedgerAccountId=$debitLedgerAccountId, description=$description, ledgerAccount=$ledgerAccount, metadata=$metadata, routingDetails=$routingDetails, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -358,6 +386,7 @@ constructor(
         private var creditLedgerAccountId: String? = null
         private var debitLedgerAccountId: String? = null
         private var description: String? = null
+        private var ledgerAccount: LedgerAccountCreateRequest? = null
         private var metadata: Metadata? = null
         private var routingDetails: MutableList<RoutingDetailCreateRequest> = mutableListOf()
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -372,6 +401,7 @@ constructor(
             this.creditLedgerAccountId = virtualAccountCreateParams.creditLedgerAccountId
             this.debitLedgerAccountId = virtualAccountCreateParams.debitLedgerAccountId
             this.description = virtualAccountCreateParams.description
+            this.ledgerAccount = virtualAccountCreateParams.ledgerAccount
             this.metadata = virtualAccountCreateParams.metadata
             this.routingDetails(virtualAccountCreateParams.routingDetails ?: listOf())
             additionalQueryParams(virtualAccountCreateParams.additionalQueryParams)
@@ -421,6 +451,14 @@ constructor(
 
         /** An optional description for internal use. */
         fun description(description: String) = apply { this.description = description }
+
+        /**
+         * Specifies a ledger account object that will be created with the virtual account. The
+         * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
+         */
+        fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest) = apply {
+            this.ledgerAccount = ledgerAccount
+        }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
@@ -503,6 +541,7 @@ constructor(
                 creditLedgerAccountId,
                 debitLedgerAccountId,
                 description,
+                ledgerAccount,
                 metadata,
                 if (routingDetails.size == 0) null else routingDetails.toUnmodifiable(),
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
@@ -698,6 +737,373 @@ constructor(
                 }
 
             fun asString(): String = _value().asStringOrThrow()
+        }
+    }
+
+    /**
+     * Specifies a ledger account object that will be created with the virtual account. The
+     * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
+     */
+    @JsonDeserialize(builder = LedgerAccountCreateRequest.Builder::class)
+    @NoAutoDetect
+    class LedgerAccountCreateRequest
+    private constructor(
+        private val name: String?,
+        private val description: String?,
+        private val normalBalance: TransactionDirection?,
+        private val ledgerId: String?,
+        private val currency: String?,
+        private val currencyExponent: Long?,
+        private val ledgerAccountCategoryIds: List<String>?,
+        private val ledgerableId: String?,
+        private val ledgerableType: LedgerableType?,
+        private val metadata: Metadata?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        /** The name of the ledger account. */
+        @JsonProperty("name") fun name(): String? = name
+
+        /** The description of the ledger account. */
+        @JsonProperty("description") fun description(): String? = description
+
+        /** The normal balance of the ledger account. */
+        @JsonProperty("normal_balance") fun normalBalance(): TransactionDirection? = normalBalance
+
+        /** The id of the ledger that this account belongs to. */
+        @JsonProperty("ledger_id") fun ledgerId(): String? = ledgerId
+
+        /** The currency of the ledger account. */
+        @JsonProperty("currency") fun currency(): String? = currency
+
+        /** The currency exponent of the ledger account. */
+        @JsonProperty("currency_exponent") fun currencyExponent(): Long? = currencyExponent
+
+        /**
+         * The array of ledger account category ids that this ledger account should be a child of.
+         */
+        @JsonProperty("ledger_account_category_ids")
+        fun ledgerAccountCategoryIds(): List<String>? = ledgerAccountCategoryIds
+
+        /**
+         * If the ledger account links to another object in Modern Treasury, the id will be
+         * populated here, otherwise null.
+         */
+        @JsonProperty("ledgerable_id") fun ledgerableId(): String? = ledgerableId
+
+        /**
+         * If the ledger account links to another object in Modern Treasury, the type will be
+         * populated here, otherwise null. The value is one of internal_account or external_account.
+         */
+        @JsonProperty("ledgerable_type") fun ledgerableType(): LedgerableType? = ledgerableType
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is LedgerAccountCreateRequest &&
+                this.name == other.name &&
+                this.description == other.description &&
+                this.normalBalance == other.normalBalance &&
+                this.ledgerId == other.ledgerId &&
+                this.currency == other.currency &&
+                this.currencyExponent == other.currencyExponent &&
+                this.ledgerAccountCategoryIds == other.ledgerAccountCategoryIds &&
+                this.ledgerableId == other.ledgerableId &&
+                this.ledgerableType == other.ledgerableType &&
+                this.metadata == other.metadata &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        name,
+                        description,
+                        normalBalance,
+                        ledgerId,
+                        currency,
+                        currencyExponent,
+                        ledgerAccountCategoryIds,
+                        ledgerableId,
+                        ledgerableType,
+                        metadata,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "LedgerAccountCreateRequest{name=$name, description=$description, normalBalance=$normalBalance, ledgerId=$ledgerId, currency=$currency, currencyExponent=$currencyExponent, ledgerAccountCategoryIds=$ledgerAccountCategoryIds, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var name: String? = null
+            private var description: String? = null
+            private var normalBalance: TransactionDirection? = null
+            private var ledgerId: String? = null
+            private var currency: String? = null
+            private var currencyExponent: Long? = null
+            private var ledgerAccountCategoryIds: List<String>? = null
+            private var ledgerableId: String? = null
+            private var ledgerableType: LedgerableType? = null
+            private var metadata: Metadata? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(ledgerAccountCreateRequest: LedgerAccountCreateRequest) = apply {
+                this.name = ledgerAccountCreateRequest.name
+                this.description = ledgerAccountCreateRequest.description
+                this.normalBalance = ledgerAccountCreateRequest.normalBalance
+                this.ledgerId = ledgerAccountCreateRequest.ledgerId
+                this.currency = ledgerAccountCreateRequest.currency
+                this.currencyExponent = ledgerAccountCreateRequest.currencyExponent
+                this.ledgerAccountCategoryIds = ledgerAccountCreateRequest.ledgerAccountCategoryIds
+                this.ledgerableId = ledgerAccountCreateRequest.ledgerableId
+                this.ledgerableType = ledgerAccountCreateRequest.ledgerableType
+                this.metadata = ledgerAccountCreateRequest.metadata
+                additionalProperties(ledgerAccountCreateRequest.additionalProperties)
+            }
+
+            /** The name of the ledger account. */
+            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+
+            /** The description of the ledger account. */
+            @JsonProperty("description")
+            fun description(description: String) = apply { this.description = description }
+
+            /** The normal balance of the ledger account. */
+            @JsonProperty("normal_balance")
+            fun normalBalance(normalBalance: TransactionDirection) = apply {
+                this.normalBalance = normalBalance
+            }
+
+            /** The id of the ledger that this account belongs to. */
+            @JsonProperty("ledger_id")
+            fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
+
+            /** The currency of the ledger account. */
+            @JsonProperty("currency")
+            fun currency(currency: String) = apply { this.currency = currency }
+
+            /** The currency exponent of the ledger account. */
+            @JsonProperty("currency_exponent")
+            fun currencyExponent(currencyExponent: Long) = apply {
+                this.currencyExponent = currencyExponent
+            }
+
+            /**
+             * The array of ledger account category ids that this ledger account should be a child
+             * of.
+             */
+            @JsonProperty("ledger_account_category_ids")
+            fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>) = apply {
+                this.ledgerAccountCategoryIds = ledgerAccountCategoryIds
+            }
+
+            /**
+             * If the ledger account links to another object in Modern Treasury, the id will be
+             * populated here, otherwise null.
+             */
+            @JsonProperty("ledgerable_id")
+            fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
+
+            /**
+             * If the ledger account links to another object in Modern Treasury, the type will be
+             * populated here, otherwise null. The value is one of internal_account or
+             * external_account.
+             */
+            @JsonProperty("ledgerable_type")
+            fun ledgerableType(ledgerableType: LedgerableType) = apply {
+                this.ledgerableType = ledgerableType
+            }
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            @JsonProperty("metadata")
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): LedgerAccountCreateRequest =
+                LedgerAccountCreateRequest(
+                    checkNotNull(name) { "`name` is required but was not set" },
+                    description,
+                    checkNotNull(normalBalance) { "`normalBalance` is required but was not set" },
+                    checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
+                    checkNotNull(currency) { "`currency` is required but was not set" },
+                    currencyExponent,
+                    ledgerAccountCategoryIds?.toUnmodifiable(),
+                    ledgerableId,
+                    ledgerableType,
+                    metadata,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+
+        class LedgerableType
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is LedgerableType && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                val EXTERNAL_ACCOUNT = LedgerableType(JsonField.of("external_account"))
+
+                val INTERNAL_ACCOUNT = LedgerableType(JsonField.of("internal_account"))
+
+                val VIRTUAL_ACCOUNT = LedgerableType(JsonField.of("virtual_account"))
+
+                fun of(value: String) = LedgerableType(JsonField.of(value))
+            }
+
+            enum class Known {
+                EXTERNAL_ACCOUNT,
+                INTERNAL_ACCOUNT,
+                VIRTUAL_ACCOUNT,
+            }
+
+            enum class Value {
+                EXTERNAL_ACCOUNT,
+                INTERNAL_ACCOUNT,
+                VIRTUAL_ACCOUNT,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    EXTERNAL_ACCOUNT -> Value.EXTERNAL_ACCOUNT
+                    INTERNAL_ACCOUNT -> Value.INTERNAL_ACCOUNT
+                    VIRTUAL_ACCOUNT -> Value.VIRTUAL_ACCOUNT
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    EXTERNAL_ACCOUNT -> Known.EXTERNAL_ACCOUNT
+                    INTERNAL_ACCOUNT -> Known.INTERNAL_ACCOUNT
+                    VIRTUAL_ACCOUNT -> Known.VIRTUAL_ACCOUNT
+                    else ->
+                        throw ModernTreasuryInvalidDataException("Unknown LedgerableType: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonDeserialize(builder = Metadata.Builder::class)
+        @NoAutoDetect
+        class Metadata
+        private constructor(
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var hashCode: Int = 0
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Metadata && this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(metadata: Metadata) = apply {
+                    additionalProperties(metadata.additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+            }
         }
     }
 

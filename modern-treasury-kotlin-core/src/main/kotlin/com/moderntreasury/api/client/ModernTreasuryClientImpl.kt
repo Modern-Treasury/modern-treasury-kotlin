@@ -135,6 +135,10 @@ constructor(
         LedgerAccountSettlementServiceImpl(clientOptions)
     }
 
+    private val foreignExchangeQuotes: ForeignExchangeQuoteService by lazy {
+        ForeignExchangeQuoteServiceImpl(clientOptions)
+    }
+
     override fun async(): ModernTreasuryClientAsync = async
 
     override fun connections(): ConnectionService = connections
@@ -208,6 +212,8 @@ constructor(
 
     override fun ledgerAccountSettlements(): LedgerAccountSettlementService =
         ledgerAccountSettlements
+
+    override fun foreignExchangeQuotes(): ForeignExchangeQuoteService = foreignExchangeQuotes
 
     private val pingHandler: Handler<PingResponse> =
         jsonHandler<PingResponse>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
