@@ -82,6 +82,8 @@ interface ModernTreasuryClientAsync {
 
     fun ledgerAccountSettlements(): LedgerAccountSettlementServiceAsync
 
+    fun foreignExchangeQuotes(): ForeignExchangeQuoteServiceAsync
+
     /**
      * A test endpoint often used to confirm credentials and headers are being passed in correctly.
      */

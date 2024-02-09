@@ -187,8 +187,10 @@ private constructor(
         remittanceInformation.getNullable("remittance_information")
 
     /**
-     * If present, the time until which the payment may not be processed. Format is ISO8601
-     * timestamp.
+     * If present, Modern Treasury will not process the payment until after this time. If
+     * `process_after` is past the cutoff for `effective_date`, `process_after` will take precedence
+     * and `effective_date` will automatically update to reflect the earliest possible sending date
+     * after `process_after`. Format is ISO8601 timestamp.
      */
     fun processAfter(): OffsetDateTime? = processAfter.getNullable("process_after")
 
@@ -437,8 +439,10 @@ private constructor(
     fun _remittanceInformation() = remittanceInformation
 
     /**
-     * If present, the time until which the payment may not be processed. Format is ISO8601
-     * timestamp.
+     * If present, Modern Treasury will not process the payment until after this time. If
+     * `process_after` is past the cutoff for `effective_date`, `process_after` will take precedence
+     * and `effective_date` will automatically update to reflect the earliest possible sending date
+     * after `process_after`. Format is ISO8601 timestamp.
      */
     @JsonProperty("process_after") @ExcludeMissing fun _processAfter() = processAfter
 
@@ -1141,14 +1145,18 @@ private constructor(
         }
 
         /**
-         * If present, the time until which the payment may not be processed. Format is ISO8601
-         * timestamp.
+         * If present, Modern Treasury will not process the payment until after this time. If
+         * `process_after` is past the cutoff for `effective_date`, `process_after` will take
+         * precedence and `effective_date` will automatically update to reflect the earliest
+         * possible sending date after `process_after`. Format is ISO8601 timestamp.
          */
         fun processAfter(processAfter: OffsetDateTime) = processAfter(JsonField.of(processAfter))
 
         /**
-         * If present, the time until which the payment may not be processed. Format is ISO8601
-         * timestamp.
+         * If present, Modern Treasury will not process the payment until after this time. If
+         * `process_after` is past the cutoff for `effective_date`, `process_after` will take
+         * precedence and `effective_date` will automatically update to reflect the earliest
+         * possible sending date after `process_after`. Format is ISO8601 timestamp.
          */
         @JsonProperty("process_after")
         @ExcludeMissing

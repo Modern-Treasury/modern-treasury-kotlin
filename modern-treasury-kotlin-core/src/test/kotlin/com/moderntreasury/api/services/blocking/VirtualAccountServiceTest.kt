@@ -42,6 +42,29 @@ class VirtualAccountServiceTest {
                     .creditLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .debitLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .description("string")
+                    .ledgerAccount(
+                        VirtualAccountCreateParams.LedgerAccountCreateRequest.builder()
+                            .currency("string")
+                            .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .name("string")
+                            .normalBalance(TransactionDirection.CREDIT)
+                            .currencyExponent(123L)
+                            .description("string")
+                            .ledgerAccountCategoryIds(
+                                listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            )
+                            .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .ledgerableType(
+                                VirtualAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
+                                    .EXTERNAL_ACCOUNT
+                            )
+                            .metadata(
+                                VirtualAccountCreateParams.LedgerAccountCreateRequest.Metadata
+                                    .builder()
+                                    .build()
+                            )
+                            .build()
+                    )
                     .metadata(VirtualAccountCreateParams.Metadata.builder().build())
                     .routingDetails(
                         listOf(
@@ -97,6 +120,7 @@ class VirtualAccountServiceTest {
                 VirtualAccountUpdateParams.builder()
                     .id("string")
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .metadata(VirtualAccountUpdateParams.Metadata.builder().build())
                     .name("string")
                     .build()
