@@ -28,6 +28,26 @@ class VirtualAccountCreateParamsTest {
             .creditLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .debitLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .description("string")
+            .ledgerAccount(
+                VirtualAccountCreateParams.LedgerAccountCreateRequest.builder()
+                    .currency("string")
+                    .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .name("string")
+                    .normalBalance(TransactionDirection.CREDIT)
+                    .currencyExponent(123L)
+                    .description("string")
+                    .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+                    .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .ledgerableType(
+                        VirtualAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
+                            .EXTERNAL_ACCOUNT
+                    )
+                    .metadata(
+                        VirtualAccountCreateParams.LedgerAccountCreateRequest.Metadata.builder()
+                            .build()
+                    )
+                    .build()
+            )
             .metadata(VirtualAccountCreateParams.Metadata.builder().build())
             .routingDetails(
                 listOf(
@@ -68,6 +88,26 @@ class VirtualAccountCreateParamsTest {
                 .creditLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .debitLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .description("string")
+                .ledgerAccount(
+                    VirtualAccountCreateParams.LedgerAccountCreateRequest.builder()
+                        .currency("string")
+                        .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .name("string")
+                        .normalBalance(TransactionDirection.CREDIT)
+                        .currencyExponent(123L)
+                        .description("string")
+                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+                        .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .ledgerableType(
+                            VirtualAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
+                                .EXTERNAL_ACCOUNT
+                        )
+                        .metadata(
+                            VirtualAccountCreateParams.LedgerAccountCreateRequest.Metadata.builder()
+                                .build()
+                        )
+                        .build()
+                )
                 .metadata(VirtualAccountCreateParams.Metadata.builder().build())
                 .routingDetails(
                     listOf(
@@ -106,6 +146,27 @@ class VirtualAccountCreateParamsTest {
         assertThat(body.creditLedgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.debitLedgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.description()).isEqualTo("string")
+        assertThat(body.ledgerAccount())
+            .isEqualTo(
+                VirtualAccountCreateParams.LedgerAccountCreateRequest.builder()
+                    .currency("string")
+                    .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .name("string")
+                    .normalBalance(TransactionDirection.CREDIT)
+                    .currencyExponent(123L)
+                    .description("string")
+                    .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+                    .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .ledgerableType(
+                        VirtualAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
+                            .EXTERNAL_ACCOUNT
+                    )
+                    .metadata(
+                        VirtualAccountCreateParams.LedgerAccountCreateRequest.Metadata.builder()
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(body.metadata()).isEqualTo(VirtualAccountCreateParams.Metadata.builder().build())
         assertThat(body.routingDetails())
             .isEqualTo(
