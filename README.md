@@ -39,7 +39,7 @@ implementation("com.moderntreasury:modern-treasury-kotlin:2.7.1")
 Use `ModernTreasuryOkHttpClient.builder()` to configure the client. At a minimum you need to set `.apiKey()` and `.organizationId()`:
 
 ```kotlin
-import com.moderntreasury.api.client.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.client.ModernTreasuryClient
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 
 val client = ModernTreasuryOkHttpClient.builder()
