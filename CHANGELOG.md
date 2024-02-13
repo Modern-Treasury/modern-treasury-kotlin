@@ -1,5 +1,26 @@
 # Changelog
 
+## 2.8.0 (2024-02-13)
+
+Full Changelog: [v2.7.1...v2.8.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.7.1...v2.8.0)
+
+### Features
+
+* **api:** updates ([#109](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/109)) ([16d8280](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/16d828011032940705750e68aff8fee0e9b21805))
+* **api:** updates parameters, error codes ([#106](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/106)) ([ec0470d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ec0470dfa8f74a7337a913350beff253948cdf85))
+
+
+### Bug Fixes
+
+* **docs:** wrong client import in readme usage example ([#110](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/110)) ([6332461](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/633246138f75f30b2f05bfa13457a8a17f47c09b))
+* **pagination:** correct hasNextPage check ([#107](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/107)) ([54bacb3](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/54bacb366fe416d033539ce573280dbaec4fa977))
+
+
+### Chores
+
+* **interal:** make link to api.md relative ([#108](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/108)) ([5976287](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/59762872d3a060a2eb109bd486b94fc21a9c109d))
+* **internal:** support pre-release versioning ([#104](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/104)) ([0d28c33](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0d28c331fefeda7a798a0faf286a51ef4e903ed1))
+
 ## 2.7.1 (2024-01-30)
 
 Full Changelog: [v2.7.0...v2.7.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.7.0...v2.7.1)
