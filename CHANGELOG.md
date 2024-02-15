@@ -1,5 +1,63 @@
 # Changelog
 
+## 0.0.1 (2024-02-15)
+
+Full Changelog: [...abc-v0.0.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/...abc-v0.0.1)
+
+### ⚠ BREAKING CHANGES
+
+* **types:** consolidate direction enums into a shared TransactionDirection type ([#66](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/66))
+* **types:** rename account connection flow to account collection flow ([#9](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/9))
+* **api:** update parameters for virtual account create request ([#5](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/5))
+
+### Features
+
+* **api:** add `ledger_transactions` to expected payment request ([#95](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/95)) ([200b539](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/200b539a786db2a90efaa40efbc933c655cda53a))
+* **api:** add `metadata` in several places it was missing; add `description` ([#20](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/20)) ([1b83131](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/1b8313160e71f34ed3d4f6bddd92ec85437b3af9))
+* **api:** add create and delete operations for internal accounts balance reports ([#99](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/99)) ([ef055ad](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ef055ada70f13e20c55aef372f823ad3767e9557))
+* **api:** add dk_interbank_clearing_code and dk_nets enum members ([#82](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/82)) ([dd29033](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/dd29033b7cb8cba99ac81bda0c326ea8dd472211))
+* **api:** remove reversed and reversing ledger account status type ([#93](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/93)) ([703b4d7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/703b4d79e3d4164227f52e268fe57e07f7774453))
+* **api:** support multiple `id`s in `ledger` `retrieve`/`list` endpoints ([#35](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/35)) ([212d5a0](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/212d5a0fa030c25308cd137a864e0575ca7786e7))
+* **api:** update parameters for virtual account create request ([#5](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/5)) ([3f00568](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3f00568d1cd48ca870d5c0286d516e953cb25bd0))
+* **api:** updates ([#109](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/109)) ([b0ac4ec](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b0ac4ec000230289403dced8fd41d0ec585f9011))
+* **api:** updates ([#11](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/11)) ([3a8a0bb](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3a8a0bb1b45e0f41384c61b9305ee91fddaa0f43))
+* **api:** updates ([#14](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/14)) ([7c7600f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7c7600f9382ca55698127e65638d359e1745650d))
+* **api:** updates ([#26](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/26)) ([b8a6071](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b8a6071fea653bbebb3811aa6383d2ccdfb43105))
+* **api:** updates ([#54](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/54)) ([43eb7dc](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/43eb7dcd6613b1eab8788171da287867256f8af0))
+* **api:** updates ([#70](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/70)) ([512bbc6](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/512bbc638114c3ba40a4c672c36bdecd8e3b1f73))
+* **api:** updates ([#75](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/75)) ([ee52bc8](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ee52bc8cc52e6e2909fadc8c1923a5c8305a7e21))
+* **api:** updates ([#80](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/80)) ([328005f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/328005f7cc27e582198a2059d963a50510d403ee))
+* **api:** updates ([#84](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/84)) ([4e96cd8](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4e96cd871ff2a64f207c13bc16fc12486da14139))
+* **api:** updates ([#90](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/90)) ([193d62f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/193d62f54e58affbb137147e657dbe42fca325cb))
+* **api:** updates parameters, error codes ([#106](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/106)) ([5a7d394](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5a7d39457110fe461fbe0c066d39862c636a4d66))
+* **ci:** add a publish-sonatype workflow for manual running ([#12](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/12)) ([d1e3229](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d1e3229a94d81b2d10483c1b2c685a43a4e1d8ed))
+* **client:** adjust retry behavior ([#71](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/71)) ([1bfce60](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/1bfce60e8224e2e8aea43a4b839939ee3b652b45))
+* **client:** allow binary returns ([#77](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/77)) ([93233a1](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/93233a132e54f141348231477a5c1c4887d782c4))
+* **client:** retry on 408 Request Timeout ([#51](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/51)) ([7cfac20](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7cfac20da862638e66650433529f237c51d8c6b5))
+* default timeout is set for java clients ([#36](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/36)) ([daafcb5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/daafcb5b24b4fdce6b34cd655566cb9414989811))
+* generate addXxx methods for array types ([#38](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/38)) ([6ad9a81](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/6ad9a81bae627d417b3a066572c4bca9ecd12b86))
+* **github:** include a devcontainer setup ([#76](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/76)) ([9421c70](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9421c7010237216ea89f1163a372c0bf52462deb))
+* make webhook headers case insensitive ([#65](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/65)) ([f0574d3](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f0574d3a3e4128b3f82acc7327216f01048dd827))
+* **test:** unskip file uploads tests ([#19](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/19)) ([5922066](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/592206624d6cb5677b9dd96cf65a19739c5a370b))
+* **types:** consolidate direction enums into a shared TransactionDirection type ([#66](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/66)) ([3839ea0](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3839ea0efa918e505a208e9304605d1913e5e4d0))
+
+
+### Bug Fixes
+
+* **api:** add response body to `get /api/virtual_accounts` and update resources ([#3](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/3)) ([c4034e0](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c4034e0faeebc08aabfd7cbedb5cc521436a6b29))
+* **api:** use date-time for effective_at ([#69](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/69)) ([c0804d7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c0804d7ac0184e1654e1fa2e24d571f3e265aaee))
+* auto-close responses even if an exception is thrown during deserialization ([9d023d7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9d023d751e54cc4376f99f41090ab53d4fb917b9))
+* **ci:** ignore stainless-app edits to release PR title ([#103](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/103)) ([8aa85bd](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8aa85bd648ba86434382db3a1ddf04ee0e948845))
+* **docs:** wrong client import in readme usage example ([#110](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/110)) ([ae4943a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ae4943ac5d42ed6812dc6f50558298f870fb4638))
+* **pagination:** correct hasNextPage check ([#107](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/107)) ([9454c83](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9454c83e70f526581fbba0197bb16316c2cd3660))
+* set correct timeouts on okhttp client ([#40](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/40)) ([ec53ab9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ec53ab9dceabfe658de1d4af94a9aabd80e06f3f))
+* update maven group id in README ([#63](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/63)) ([9db4d9c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9db4d9c59f9551d96ed8aecbdb5e66a7f1757f97))
+
+
+### Code Refactoring
+
+* **types:** rename account connection flow to account collection flow ([#9](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/9)) ([50ee109](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/50ee10924b16ce57f26b45553a109c74e31406e8))
+
 ## 2.8.0 (2024-02-13)
 
 Full Changelog: [v2.7.1...v2.8.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.7.1...v2.8.0)
