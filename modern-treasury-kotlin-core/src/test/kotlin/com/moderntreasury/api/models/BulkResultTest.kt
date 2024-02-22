@@ -154,6 +154,17 @@ class BulkResultTest {
                             .foreignExchangeIndicator(
                                 PaymentOrder.ForeignExchangeIndicator.FIXED_TO_VARIABLE
                             )
+                            .foreignExchangeRate(
+                                PaymentOrder.ForeignExchangeRate.builder()
+                                    .baseAmount(123L)
+                                    .baseCurrency(Currency.AED)
+                                    .exponent(123L)
+                                    .rateString("string")
+                                    .targetAmount(123L)
+                                    .targetCurrency(Currency.AED)
+                                    .value(123L)
+                                    .build()
+                            )
                             .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .liveMode(true)
                             .metadata(PaymentOrder.Metadata.builder().build())
@@ -457,6 +468,17 @@ class BulkResultTest {
                         .foreignExchangeContract("string")
                         .foreignExchangeIndicator(
                             PaymentOrder.ForeignExchangeIndicator.FIXED_TO_VARIABLE
+                        )
+                        .foreignExchangeRate(
+                            PaymentOrder.ForeignExchangeRate.builder()
+                                .baseAmount(123L)
+                                .baseCurrency(Currency.AED)
+                                .exponent(123L)
+                                .rateString("string")
+                                .targetAmount(123L)
+                                .targetCurrency(Currency.AED)
+                                .value(123L)
+                                .build()
                         )
                         .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .liveMode(true)
