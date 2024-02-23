@@ -188,8 +188,8 @@ private constructor(
     fun status(): Status = status.getRequired("status")
 
     /**
-     * Total amount due in specified currency's smallest unit, e.g., $10 USD would be represented as
-     * 1000.
+     * Total amount due in specified currency's smallest unit, e.g., $10 USD would be represented
+     * as 1000.
      */
     fun totalAmount(): Long = totalAmount.getRequired("total_amount")
 
@@ -346,8 +346,8 @@ private constructor(
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /**
-     * Total amount due in specified currency's smallest unit, e.g., $10 USD would be represented as
-     * 1000.
+     * Total amount due in specified currency's smallest unit, e.g., $10 USD would be represented
+     * as 1000.
      */
     @JsonProperty("total_amount") @ExcludeMissing fun _totalAmount() = totalAmount
 

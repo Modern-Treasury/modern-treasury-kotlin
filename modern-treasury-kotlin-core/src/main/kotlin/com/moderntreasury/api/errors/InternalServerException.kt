@@ -9,5 +9,6 @@ constructor(
     private val error: ModernTreasuryError,
 ) : ModernTreasuryServiceException(headers, "${error}") {
     override fun statusCode(): Int = statusCode
+
     fun error(): ModernTreasuryError = error
 }

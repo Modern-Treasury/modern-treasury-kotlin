@@ -3322,12 +3322,15 @@ private constructor(
         private var validated: Boolean = false
 
         fun virtualAccount(): VirtualAccount? = virtualAccount
+
         fun internalAccount(): InternalAccount? = internalAccount
 
         fun isVirtualAccount(): Boolean = virtualAccount != null
+
         fun isInternalAccount(): Boolean = internalAccount != null
 
         fun asVirtualAccount(): VirtualAccount = virtualAccount.getOrThrow("virtualAccount")
+
         fun asInternalAccount(): InternalAccount = internalAccount.getOrThrow("internalAccount")
 
         fun _json(): JsonValue? = _json
