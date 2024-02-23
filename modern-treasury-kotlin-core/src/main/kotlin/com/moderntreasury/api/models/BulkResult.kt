@@ -430,19 +430,28 @@ private constructor(
         private var validated: Boolean = false
 
         fun paymentOrder(): PaymentOrder? = paymentOrder
+
         fun expectedPayment(): ExpectedPayment? = expectedPayment
+
         fun ledgerTransaction(): LedgerTransaction? = ledgerTransaction
+
         fun bulkError(): BulkError? = bulkError
 
         fun isPaymentOrder(): Boolean = paymentOrder != null
+
         fun isExpectedPayment(): Boolean = expectedPayment != null
+
         fun isLedgerTransaction(): Boolean = ledgerTransaction != null
+
         fun isBulkError(): Boolean = bulkError != null
 
         fun asPaymentOrder(): PaymentOrder = paymentOrder.getOrThrow("paymentOrder")
+
         fun asExpectedPayment(): ExpectedPayment = expectedPayment.getOrThrow("expectedPayment")
+
         fun asLedgerTransaction(): LedgerTransaction =
             ledgerTransaction.getOrThrow("ledgerTransaction")
+
         fun asBulkError(): BulkError = bulkError.getOrThrow("bulkError")
 
         fun _json(): JsonValue? = _json
