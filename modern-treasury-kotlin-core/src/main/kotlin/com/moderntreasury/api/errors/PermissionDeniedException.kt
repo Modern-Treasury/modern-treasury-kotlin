@@ -8,5 +8,6 @@ constructor(
     private val error: ModernTreasuryError,
 ) : ModernTreasuryServiceException(headers, "${error}") {
     override fun statusCode(): Int = 403
+
     fun error(): ModernTreasuryError = error
 }
