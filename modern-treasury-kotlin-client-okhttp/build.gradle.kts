@@ -7,7 +7,7 @@ dependencies {
     api(project(":modern-treasury-kotlin-core"))
 
     implementation("com.google.guava:guava:31.1-jre")
-    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 
     testImplementation(kotlin("test"))
