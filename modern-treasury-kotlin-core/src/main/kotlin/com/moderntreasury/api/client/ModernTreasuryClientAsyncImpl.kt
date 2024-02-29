@@ -153,6 +153,18 @@ constructor(
         ForeignExchangeQuoteServiceAsyncImpl(clientOptions)
     }
 
+    private val connectionLegalEntities: ConnectionLegalEntityServiceAsync by lazy {
+        ConnectionLegalEntityServiceAsyncImpl(clientOptions)
+    }
+
+    private val legalEntities: LegalEntityServiceAsync by lazy {
+        LegalEntityServiceAsyncImpl(clientOptions)
+    }
+
+    private val legalEntityAssociations: LegalEntityAssociationServiceAsync by lazy {
+        LegalEntityAssociationServiceAsyncImpl(clientOptions)
+    }
+
     override fun sync(): ModernTreasuryClient = sync
 
     override fun connections(): ConnectionServiceAsync = connections
@@ -232,6 +244,14 @@ constructor(
         ledgerAccountSettlements
 
     override fun foreignExchangeQuotes(): ForeignExchangeQuoteServiceAsync = foreignExchangeQuotes
+
+    override fun connectionLegalEntities(): ConnectionLegalEntityServiceAsync =
+        connectionLegalEntities
+
+    override fun legalEntities(): LegalEntityServiceAsync = legalEntities
+
+    override fun legalEntityAssociations(): LegalEntityAssociationServiceAsync =
+        legalEntityAssociations
 
     private val pingHandler: Handler<PingResponse> =
         jsonHandler<PingResponse>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

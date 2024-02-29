@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.models.*
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -14,7 +15,8 @@ class ForeignExchangeQuoteListParamsTest {
         ForeignExchangeQuoteListParams.builder()
             .afterCursor("string")
             .baseCurrency("string")
-            .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .effectiveAtEnd(LocalDate.parse("2019-12-27"))
+            .effectiveAtStart(LocalDate.parse("2019-12-27"))
             .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .internalAccountId("string")
             .metadata(ForeignExchangeQuoteListParams.Metadata.builder().build())
@@ -29,7 +31,8 @@ class ForeignExchangeQuoteListParamsTest {
             ForeignExchangeQuoteListParams.builder()
                 .afterCursor("string")
                 .baseCurrency("string")
-                .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .effectiveAtEnd(LocalDate.parse("2019-12-27"))
+                .effectiveAtStart(LocalDate.parse("2019-12-27"))
                 .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .internalAccountId("string")
                 .metadata(ForeignExchangeQuoteListParams.Metadata.builder().build())
@@ -39,7 +42,8 @@ class ForeignExchangeQuoteListParamsTest {
         val expected = mutableMapOf<String, List<String>>()
         expected.put("after_cursor", listOf("string"))
         expected.put("base_currency", listOf("string"))
-        expected.put("effective_at", listOf("2019-12-27T18:11:19.117Z"))
+        expected.put("effective_at_end", listOf("2019-12-27"))
+        expected.put("effective_at_start", listOf("2019-12-27"))
         expected.put("expires_at", listOf("2019-12-27T18:11:19.117Z"))
         expected.put("internal_account_id", listOf("string"))
         ForeignExchangeQuoteListParams.Metadata.builder().build().forEachQueryParam { key, values ->

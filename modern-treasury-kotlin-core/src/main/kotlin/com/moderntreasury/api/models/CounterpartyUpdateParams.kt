@@ -17,6 +17,7 @@ class CounterpartyUpdateParams
 constructor(
     private val id: String,
     private val email: String?,
+    private val legalEntityId: String?,
     private val metadata: Metadata?,
     private val name: String?,
     private val sendRemittanceAdvice: Boolean?,
@@ -30,6 +31,8 @@ constructor(
 
     fun email(): String? = email
 
+    fun legalEntityId(): String? = legalEntityId
+
     fun metadata(): Metadata? = metadata
 
     fun name(): String? = name
@@ -41,6 +44,7 @@ constructor(
     internal fun getBody(): CounterpartyUpdateBody {
         return CounterpartyUpdateBody(
             email,
+            legalEntityId,
             metadata,
             name,
             sendRemittanceAdvice,
@@ -65,6 +69,7 @@ constructor(
     class CounterpartyUpdateBody
     internal constructor(
         private val email: String?,
+        private val legalEntityId: String?,
         private val metadata: Metadata?,
         private val name: String?,
         private val sendRemittanceAdvice: Boolean?,
@@ -76,6 +81,9 @@ constructor(
 
         /** A new email for the counterparty. */
         @JsonProperty("email") fun email(): String? = email
+
+        /** The id of the legal entity. */
+        @JsonProperty("legal_entity_id") fun legalEntityId(): String? = legalEntityId
 
         /**
          * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
@@ -109,6 +117,7 @@ constructor(
 
             return other is CounterpartyUpdateBody &&
                 this.email == other.email &&
+                this.legalEntityId == other.legalEntityId &&
                 this.metadata == other.metadata &&
                 this.name == other.name &&
                 this.sendRemittanceAdvice == other.sendRemittanceAdvice &&
@@ -121,6 +130,7 @@ constructor(
                 hashCode =
                     Objects.hash(
                         email,
+                        legalEntityId,
                         metadata,
                         name,
                         sendRemittanceAdvice,
@@ -132,7 +142,7 @@ constructor(
         }
 
         override fun toString() =
-            "CounterpartyUpdateBody{email=$email, metadata=$metadata, name=$name, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, additionalProperties=$additionalProperties}"
+            "CounterpartyUpdateBody{email=$email, legalEntityId=$legalEntityId, metadata=$metadata, name=$name, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -142,6 +152,7 @@ constructor(
         class Builder {
 
             private var email: String? = null
+            private var legalEntityId: String? = null
             private var metadata: Metadata? = null
             private var name: String? = null
             private var sendRemittanceAdvice: Boolean? = null
@@ -150,6 +161,7 @@ constructor(
 
             internal fun from(counterpartyUpdateBody: CounterpartyUpdateBody) = apply {
                 this.email = counterpartyUpdateBody.email
+                this.legalEntityId = counterpartyUpdateBody.legalEntityId
                 this.metadata = counterpartyUpdateBody.metadata
                 this.name = counterpartyUpdateBody.name
                 this.sendRemittanceAdvice = counterpartyUpdateBody.sendRemittanceAdvice
@@ -159,6 +171,10 @@ constructor(
 
             /** A new email for the counterparty. */
             @JsonProperty("email") fun email(email: String) = apply { this.email = email }
+
+            /** The id of the legal entity. */
+            @JsonProperty("legal_entity_id")
+            fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
 
             /**
              * Additional data in the form of key-value pairs. Pairs can be removed by passing an
@@ -202,6 +218,7 @@ constructor(
             fun build(): CounterpartyUpdateBody =
                 CounterpartyUpdateBody(
                     email,
+                    legalEntityId,
                     metadata,
                     name,
                     sendRemittanceAdvice,
@@ -225,6 +242,7 @@ constructor(
         return other is CounterpartyUpdateParams &&
             this.id == other.id &&
             this.email == other.email &&
+            this.legalEntityId == other.legalEntityId &&
             this.metadata == other.metadata &&
             this.name == other.name &&
             this.sendRemittanceAdvice == other.sendRemittanceAdvice &&
@@ -238,6 +256,7 @@ constructor(
         return Objects.hash(
             id,
             email,
+            legalEntityId,
             metadata,
             name,
             sendRemittanceAdvice,
@@ -249,7 +268,7 @@ constructor(
     }
 
     override fun toString() =
-        "CounterpartyUpdateParams{id=$id, email=$email, metadata=$metadata, name=$name, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "CounterpartyUpdateParams{id=$id, email=$email, legalEntityId=$legalEntityId, metadata=$metadata, name=$name, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -263,6 +282,7 @@ constructor(
 
         private var id: String? = null
         private var email: String? = null
+        private var legalEntityId: String? = null
         private var metadata: Metadata? = null
         private var name: String? = null
         private var sendRemittanceAdvice: Boolean? = null
@@ -274,6 +294,7 @@ constructor(
         internal fun from(counterpartyUpdateParams: CounterpartyUpdateParams) = apply {
             this.id = counterpartyUpdateParams.id
             this.email = counterpartyUpdateParams.email
+            this.legalEntityId = counterpartyUpdateParams.legalEntityId
             this.metadata = counterpartyUpdateParams.metadata
             this.name = counterpartyUpdateParams.name
             this.sendRemittanceAdvice = counterpartyUpdateParams.sendRemittanceAdvice
@@ -287,6 +308,9 @@ constructor(
 
         /** A new email for the counterparty. */
         fun email(email: String) = apply { this.email = email }
+
+        /** The id of the legal entity. */
+        fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
 
         /**
          * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
@@ -368,6 +392,7 @@ constructor(
             CounterpartyUpdateParams(
                 checkNotNull(id) { "`id` is required but was not set" },
                 email,
+                legalEntityId,
                 metadata,
                 name,
                 sendRemittanceAdvice,

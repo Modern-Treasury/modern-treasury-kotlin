@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.models.*
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 
@@ -13,7 +14,8 @@ class ForeignExchangeQuoteListParams
 constructor(
     private val afterCursor: String?,
     private val baseCurrency: String?,
-    private val effectiveAt: OffsetDateTime?,
+    private val effectiveAtEnd: LocalDate?,
+    private val effectiveAtStart: LocalDate?,
     private val expiresAt: OffsetDateTime?,
     private val internalAccountId: String?,
     private val metadata: Metadata?,
@@ -27,7 +29,9 @@ constructor(
 
     fun baseCurrency(): String? = baseCurrency
 
-    fun effectiveAt(): OffsetDateTime? = effectiveAt
+    fun effectiveAtEnd(): LocalDate? = effectiveAtEnd
+
+    fun effectiveAtStart(): LocalDate? = effectiveAtStart
 
     fun expiresAt(): OffsetDateTime? = expiresAt
 
@@ -43,7 +47,8 @@ constructor(
         val params = mutableMapOf<String, List<String>>()
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
         this.baseCurrency?.let { params.put("base_currency", listOf(it.toString())) }
-        this.effectiveAt?.let { params.put("effective_at", listOf(it.toString())) }
+        this.effectiveAtEnd?.let { params.put("effective_at_end", listOf(it.toString())) }
+        this.effectiveAtStart?.let { params.put("effective_at_start", listOf(it.toString())) }
         this.expiresAt?.let { params.put("expires_at", listOf(it.toString())) }
         this.internalAccountId?.let { params.put("internal_account_id", listOf(it.toString())) }
         this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
@@ -67,7 +72,8 @@ constructor(
         return other is ForeignExchangeQuoteListParams &&
             this.afterCursor == other.afterCursor &&
             this.baseCurrency == other.baseCurrency &&
-            this.effectiveAt == other.effectiveAt &&
+            this.effectiveAtEnd == other.effectiveAtEnd &&
+            this.effectiveAtStart == other.effectiveAtStart &&
             this.expiresAt == other.expiresAt &&
             this.internalAccountId == other.internalAccountId &&
             this.metadata == other.metadata &&
@@ -81,7 +87,8 @@ constructor(
         return Objects.hash(
             afterCursor,
             baseCurrency,
-            effectiveAt,
+            effectiveAtEnd,
+            effectiveAtStart,
             expiresAt,
             internalAccountId,
             metadata,
@@ -93,7 +100,7 @@ constructor(
     }
 
     override fun toString() =
-        "ForeignExchangeQuoteListParams{afterCursor=$afterCursor, baseCurrency=$baseCurrency, effectiveAt=$effectiveAt, expiresAt=$expiresAt, internalAccountId=$internalAccountId, metadata=$metadata, perPage=$perPage, targetCurrency=$targetCurrency, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "ForeignExchangeQuoteListParams{afterCursor=$afterCursor, baseCurrency=$baseCurrency, effectiveAtEnd=$effectiveAtEnd, effectiveAtStart=$effectiveAtStart, expiresAt=$expiresAt, internalAccountId=$internalAccountId, metadata=$metadata, perPage=$perPage, targetCurrency=$targetCurrency, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -107,7 +114,8 @@ constructor(
 
         private var afterCursor: String? = null
         private var baseCurrency: String? = null
-        private var effectiveAt: OffsetDateTime? = null
+        private var effectiveAtEnd: LocalDate? = null
+        private var effectiveAtStart: LocalDate? = null
         private var expiresAt: OffsetDateTime? = null
         private var internalAccountId: String? = null
         private var metadata: Metadata? = null
@@ -119,7 +127,8 @@ constructor(
         internal fun from(foreignExchangeQuoteListParams: ForeignExchangeQuoteListParams) = apply {
             this.afterCursor = foreignExchangeQuoteListParams.afterCursor
             this.baseCurrency = foreignExchangeQuoteListParams.baseCurrency
-            this.effectiveAt = foreignExchangeQuoteListParams.effectiveAt
+            this.effectiveAtEnd = foreignExchangeQuoteListParams.effectiveAtEnd
+            this.effectiveAtStart = foreignExchangeQuoteListParams.effectiveAtStart
             this.expiresAt = foreignExchangeQuoteListParams.expiresAt
             this.internalAccountId = foreignExchangeQuoteListParams.internalAccountId
             this.metadata = foreignExchangeQuoteListParams.metadata
@@ -134,8 +143,15 @@ constructor(
         /** Currency to convert, often called the "sell" currency. */
         fun baseCurrency(baseCurrency: String) = apply { this.baseCurrency = baseCurrency }
 
-        /** The timestamp until when the quoted rate is valid. */
-        fun effectiveAt(effectiveAt: OffsetDateTime) = apply { this.effectiveAt = effectiveAt }
+        /** An inclusive upper bound for searching effective_at */
+        fun effectiveAtEnd(effectiveAtEnd: LocalDate) = apply {
+            this.effectiveAtEnd = effectiveAtEnd
+        }
+
+        /** An inclusive lower bound for searching effective_at */
+        fun effectiveAtStart(effectiveAtStart: LocalDate) = apply {
+            this.effectiveAtStart = effectiveAtStart
+        }
 
         /** The timestamp until which the quote must be booked by. */
         fun expiresAt(expiresAt: OffsetDateTime) = apply { this.expiresAt = expiresAt }
@@ -200,7 +216,8 @@ constructor(
             ForeignExchangeQuoteListParams(
                 afterCursor,
                 baseCurrency,
-                effectiveAt,
+                effectiveAtEnd,
+                effectiveAtStart,
                 expiresAt,
                 internalAccountId,
                 metadata,

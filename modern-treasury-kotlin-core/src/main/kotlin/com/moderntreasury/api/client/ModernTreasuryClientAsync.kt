@@ -84,6 +84,12 @@ interface ModernTreasuryClientAsync {
 
     fun foreignExchangeQuotes(): ForeignExchangeQuoteServiceAsync
 
+    fun connectionLegalEntities(): ConnectionLegalEntityServiceAsync
+
+    fun legalEntities(): LegalEntityServiceAsync
+
+    fun legalEntityAssociations(): LegalEntityAssociationServiceAsync
+
     /**
      * A test endpoint often used to confirm credentials and headers are being passed in correctly.
      */

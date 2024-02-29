@@ -13,6 +13,7 @@ class CounterpartyUpdateParamsTest {
         CounterpartyUpdateParams.builder()
             .id("string")
             .email("dev@stainlessapi.com")
+            .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .metadata(CounterpartyUpdateParams.Metadata.builder().build())
             .name("string")
             .sendRemittanceAdvice(true)
@@ -26,6 +27,7 @@ class CounterpartyUpdateParamsTest {
             CounterpartyUpdateParams.builder()
                 .id("string")
                 .email("dev@stainlessapi.com")
+                .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .metadata(CounterpartyUpdateParams.Metadata.builder().build())
                 .name("string")
                 .sendRemittanceAdvice(true)
@@ -34,6 +36,7 @@ class CounterpartyUpdateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.email()).isEqualTo("dev@stainlessapi.com")
+        assertThat(body.legalEntityId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.metadata()).isEqualTo(CounterpartyUpdateParams.Metadata.builder().build())
         assertThat(body.name()).isEqualTo("string")
         assertThat(body.sendRemittanceAdvice()).isEqualTo(true)

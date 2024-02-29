@@ -23,6 +23,7 @@ constructor(
     private val name: String,
     private val partyName: String,
     private val counterpartyId: String?,
+    private val legalEntityId: String?,
     private val parentAccountId: String?,
     private val partyAddress: PartyAddress?,
     private val vendorAttributes: VendorAttributes?,
@@ -41,6 +42,8 @@ constructor(
 
     fun counterpartyId(): String? = counterpartyId
 
+    fun legalEntityId(): String? = legalEntityId
+
     fun parentAccountId(): String? = parentAccountId
 
     fun partyAddress(): PartyAddress? = partyAddress
@@ -54,6 +57,7 @@ constructor(
             name,
             partyName,
             counterpartyId,
+            legalEntityId,
             parentAccountId,
             partyAddress,
             vendorAttributes,
@@ -74,6 +78,7 @@ constructor(
         private val name: String?,
         private val partyName: String?,
         private val counterpartyId: String?,
+        private val legalEntityId: String?,
         private val parentAccountId: String?,
         private val partyAddress: PartyAddress?,
         private val vendorAttributes: VendorAttributes?,
@@ -96,6 +101,9 @@ constructor(
 
         /** The Counterparty associated to this account. */
         @JsonProperty("counterparty_id") fun counterpartyId(): String? = counterpartyId
+
+        /** The LegalEntity associated to this account. */
+        @JsonProperty("legal_entity_id") fun legalEntityId(): String? = legalEntityId
 
         /** The parent internal account of this new account. */
         @JsonProperty("parent_account_id") fun parentAccountId(): String? = parentAccountId
@@ -127,6 +135,7 @@ constructor(
                 this.name == other.name &&
                 this.partyName == other.partyName &&
                 this.counterpartyId == other.counterpartyId &&
+                this.legalEntityId == other.legalEntityId &&
                 this.parentAccountId == other.parentAccountId &&
                 this.partyAddress == other.partyAddress &&
                 this.vendorAttributes == other.vendorAttributes &&
@@ -142,6 +151,7 @@ constructor(
                         name,
                         partyName,
                         counterpartyId,
+                        legalEntityId,
                         parentAccountId,
                         partyAddress,
                         vendorAttributes,
@@ -152,7 +162,7 @@ constructor(
         }
 
         override fun toString() =
-            "InternalAccountCreateBody{connectionId=$connectionId, currency=$currency, name=$name, partyName=$partyName, counterpartyId=$counterpartyId, parentAccountId=$parentAccountId, partyAddress=$partyAddress, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
+            "InternalAccountCreateBody{connectionId=$connectionId, currency=$currency, name=$name, partyName=$partyName, counterpartyId=$counterpartyId, legalEntityId=$legalEntityId, parentAccountId=$parentAccountId, partyAddress=$partyAddress, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -166,6 +176,7 @@ constructor(
             private var name: String? = null
             private var partyName: String? = null
             private var counterpartyId: String? = null
+            private var legalEntityId: String? = null
             private var parentAccountId: String? = null
             private var partyAddress: PartyAddress? = null
             private var vendorAttributes: VendorAttributes? = null
@@ -177,6 +188,7 @@ constructor(
                 this.name = internalAccountCreateBody.name
                 this.partyName = internalAccountCreateBody.partyName
                 this.counterpartyId = internalAccountCreateBody.counterpartyId
+                this.legalEntityId = internalAccountCreateBody.legalEntityId
                 this.parentAccountId = internalAccountCreateBody.parentAccountId
                 this.partyAddress = internalAccountCreateBody.partyAddress
                 this.vendorAttributes = internalAccountCreateBody.vendorAttributes
@@ -203,6 +215,10 @@ constructor(
             fun counterpartyId(counterpartyId: String) = apply {
                 this.counterpartyId = counterpartyId
             }
+
+            /** The LegalEntity associated to this account. */
+            @JsonProperty("legal_entity_id")
+            fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
 
             /** The parent internal account of this new account. */
             @JsonProperty("parent_account_id")
@@ -246,6 +262,7 @@ constructor(
                     checkNotNull(name) { "`name` is required but was not set" },
                     checkNotNull(partyName) { "`partyName` is required but was not set" },
                     counterpartyId,
+                    legalEntityId,
                     parentAccountId,
                     partyAddress,
                     vendorAttributes,
@@ -271,6 +288,7 @@ constructor(
             this.name == other.name &&
             this.partyName == other.partyName &&
             this.counterpartyId == other.counterpartyId &&
+            this.legalEntityId == other.legalEntityId &&
             this.parentAccountId == other.parentAccountId &&
             this.partyAddress == other.partyAddress &&
             this.vendorAttributes == other.vendorAttributes &&
@@ -286,6 +304,7 @@ constructor(
             name,
             partyName,
             counterpartyId,
+            legalEntityId,
             parentAccountId,
             partyAddress,
             vendorAttributes,
@@ -296,7 +315,7 @@ constructor(
     }
 
     override fun toString() =
-        "InternalAccountCreateParams{connectionId=$connectionId, currency=$currency, name=$name, partyName=$partyName, counterpartyId=$counterpartyId, parentAccountId=$parentAccountId, partyAddress=$partyAddress, vendorAttributes=$vendorAttributes, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "InternalAccountCreateParams{connectionId=$connectionId, currency=$currency, name=$name, partyName=$partyName, counterpartyId=$counterpartyId, legalEntityId=$legalEntityId, parentAccountId=$parentAccountId, partyAddress=$partyAddress, vendorAttributes=$vendorAttributes, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -313,6 +332,7 @@ constructor(
         private var name: String? = null
         private var partyName: String? = null
         private var counterpartyId: String? = null
+        private var legalEntityId: String? = null
         private var parentAccountId: String? = null
         private var partyAddress: PartyAddress? = null
         private var vendorAttributes: VendorAttributes? = null
@@ -326,6 +346,7 @@ constructor(
             this.name = internalAccountCreateParams.name
             this.partyName = internalAccountCreateParams.partyName
             this.counterpartyId = internalAccountCreateParams.counterpartyId
+            this.legalEntityId = internalAccountCreateParams.legalEntityId
             this.parentAccountId = internalAccountCreateParams.parentAccountId
             this.partyAddress = internalAccountCreateParams.partyAddress
             this.vendorAttributes = internalAccountCreateParams.vendorAttributes
@@ -348,6 +369,9 @@ constructor(
 
         /** The Counterparty associated to this account. */
         fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
+
+        /** The LegalEntity associated to this account. */
+        fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
 
         /** The parent internal account of this new account. */
         fun parentAccountId(parentAccountId: String) = apply {
@@ -426,6 +450,7 @@ constructor(
                 checkNotNull(name) { "`name` is required but was not set" },
                 checkNotNull(partyName) { "`partyName` is required but was not set" },
                 counterpartyId,
+                legalEntityId,
                 parentAccountId,
                 partyAddress,
                 vendorAttributes,

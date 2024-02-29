@@ -15,6 +15,7 @@ constructor(
     private val createdAtLowerBound: OffsetDateTime?,
     private val createdAtUpperBound: OffsetDateTime?,
     private val email: String?,
+    private val legalEntityId: String?,
     private val metadata: Metadata?,
     private val name: String?,
     private val perPage: Long?,
@@ -29,6 +30,8 @@ constructor(
     fun createdAtUpperBound(): OffsetDateTime? = createdAtUpperBound
 
     fun email(): String? = email
+
+    fun legalEntityId(): String? = legalEntityId
 
     fun metadata(): Metadata? = metadata
 
@@ -46,6 +49,7 @@ constructor(
             params.put("created_at_upper_bound", listOf(it.toString()))
         }
         this.email?.let { params.put("email", listOf(it.toString())) }
+        this.legalEntityId?.let { params.put("legal_entity_id", listOf(it.toString())) }
         this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
         this.name?.let { params.put("name", listOf(it.toString())) }
         this.perPage?.let { params.put("per_page", listOf(it.toString())) }
@@ -69,6 +73,7 @@ constructor(
             this.createdAtLowerBound == other.createdAtLowerBound &&
             this.createdAtUpperBound == other.createdAtUpperBound &&
             this.email == other.email &&
+            this.legalEntityId == other.legalEntityId &&
             this.metadata == other.metadata &&
             this.name == other.name &&
             this.perPage == other.perPage &&
@@ -82,6 +87,7 @@ constructor(
             createdAtLowerBound,
             createdAtUpperBound,
             email,
+            legalEntityId,
             metadata,
             name,
             perPage,
@@ -91,7 +97,7 @@ constructor(
     }
 
     override fun toString() =
-        "CounterpartyListParams{afterCursor=$afterCursor, createdAtLowerBound=$createdAtLowerBound, createdAtUpperBound=$createdAtUpperBound, email=$email, metadata=$metadata, name=$name, perPage=$perPage, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "CounterpartyListParams{afterCursor=$afterCursor, createdAtLowerBound=$createdAtLowerBound, createdAtUpperBound=$createdAtUpperBound, email=$email, legalEntityId=$legalEntityId, metadata=$metadata, name=$name, perPage=$perPage, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -107,6 +113,7 @@ constructor(
         private var createdAtLowerBound: OffsetDateTime? = null
         private var createdAtUpperBound: OffsetDateTime? = null
         private var email: String? = null
+        private var legalEntityId: String? = null
         private var metadata: Metadata? = null
         private var name: String? = null
         private var perPage: Long? = null
@@ -118,6 +125,7 @@ constructor(
             this.createdAtLowerBound = counterpartyListParams.createdAtLowerBound
             this.createdAtUpperBound = counterpartyListParams.createdAtUpperBound
             this.email = counterpartyListParams.email
+            this.legalEntityId = counterpartyListParams.legalEntityId
             this.metadata = counterpartyListParams.metadata
             this.name = counterpartyListParams.name
             this.perPage = counterpartyListParams.perPage
@@ -139,6 +147,9 @@ constructor(
 
         /** Performs a partial string match of the email field. This is also case insensitive. */
         fun email(email: String) = apply { this.email = email }
+
+        /** Filters for counterparties with the given legal entity ID. */
+        fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
 
         /**
          * For example, if you want to query for records with metadata key `Type` and value `Loan`,
@@ -197,6 +208,7 @@ constructor(
                 createdAtLowerBound,
                 createdAtUpperBound,
                 email,
+                legalEntityId,
                 metadata,
                 name,
                 perPage,

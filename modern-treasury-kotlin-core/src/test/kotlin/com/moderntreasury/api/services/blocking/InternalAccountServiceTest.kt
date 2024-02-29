@@ -29,6 +29,7 @@ class InternalAccountServiceTest {
                     .name("string")
                     .partyName("string")
                     .counterpartyId("string")
+                    .legalEntityId("string")
                     .parentAccountId("string")
                     .partyAddress(
                         InternalAccountCreateParams.PartyAddress.builder()
