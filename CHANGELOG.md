@@ -1,5 +1,31 @@
 # Changelog
 
+## 2.9.0 (2024-02-29)
+
+Full Changelog: [v2.8.0...v2.9.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.8.0...v2.9.0)
+
+### Features
+
+* **api:** add legal_entities resource ([#127](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/127)) ([115738d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/115738d2fc2abca10a3e92e0b3c2605bd013e476))
+* **api:** added foreign exchange rate information ([#115](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/115)) ([b71184b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b71184b0a6b5f1212ab1452b480103b51657a9e8))
+
+
+### Chores
+
+* **ci:** update actions/setup-java action to v4 ([#121](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/121)) ([cb39752](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/cb397520b2ed877a13bb3214b4f5646e4e571693))
+* **ci:** uses Stainless GitHub App for releases ([#111](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/111)) ([8b88e71](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8b88e71920c80cbb8fc58fd682cfdf9377707227))
+* **internal:** refactor release environment script ([#113](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/113)) ([65b9074](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/65b907418544fc57ef7ce9f8ab616ccbc6843efc))
+* **internal:** update deps ([#119](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/119)) ([5b0a6d3](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5b0a6d38cc60f30b2f95fe774808bf78b5c2c2cc))
+* update dependency com.diffplug.spotless:spotless-plugin-gradle to v6.25.0 ([#123](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/123)) ([a5cf1e5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a5cf1e57017c17662e775995c43b23e531640f3c))
+* update dependency com.github.tomakehurst:wiremock-jre8 to v2.35.2 ([#126](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/126)) ([c35f291](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c35f29175084128aae65cdce06d404c733255cc7))
+* update dependency com.google.guava:guava to v33 ([#124](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/124)) ([49b23b4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/49b23b499549fe71169636a6407737fa574b0e53))
+* update dependency com.squareup.okhttp3:okhttp to v4.12.0 ([#122](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/122)) ([64e90c3](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/64e90c37c1cafcb9ffc7a4b299a88d8c09de64c2))
+* update dependency org.apache.httpcomponents.client5:httpclient5 to v5.3.1 ([#120](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/120)) ([ce543cb](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ce543cbe593a3dd6404092e55bee6fce12420859))
+* update dependency org.apache.httpcomponents.core5:httpcore5 to v5.2.4 ([#116](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/116)) ([3c0fb0a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3c0fb0af48fd7e4874ad10ec24c0c1c6820c1586))
+* update dependency org.assertj:assertj-guava to v3.25.3 ([#118](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/118)) ([314f053](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/314f0531572d0ec590609637c2fc16e33d599ab1))
+* update dependency org.slf4j:slf4j-simple to v1.7.36 ([#117](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/117)) ([8782308](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/87823086eb710bb9ba2e3ed4301423d7e5eaee30))
+* update dependency org.slf4j:slf4j-simple to v2 ([#125](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/125)) ([1bf8a11](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/1bf8a11e6303c2c5dcc337d87ad10fa4c458d977))
+
 ## 2.8.0 (2024-02-13)
 
 Full Changelog: [v2.7.1...v2.8.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.7.1...v2.8.0)
