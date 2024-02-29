@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.models.*
+import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -108,6 +109,62 @@ class CounterpartyCreateParamsTest {
             )
             .email("dev@stainlessapi.com")
             .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
+            .legalEntity(
+                CounterpartyCreateParams.LegalEntityCreateRequest.builder()
+                    .legalEntityType(
+                        CounterpartyCreateParams.LegalEntityCreateRequest.LegalEntityType.BUSINESS
+                    )
+                    .addresses(
+                        listOf(
+                            CounterpartyCreateParams.LegalEntityCreateRequest
+                                .LegalEntityAddressCreateRequest
+                                .builder()
+                                .country("string")
+                                .line1("string")
+                                .locality("string")
+                                .postalCode("string")
+                                .region("string")
+                                .addressTypes(listOf("string"))
+                                .line2("string")
+                                .build()
+                        )
+                    )
+                    .businessName("string")
+                    .dateOfBirth(LocalDate.parse("2019-12-27"))
+                    .doingBusinessAsNames(listOf("string"))
+                    .email("string")
+                    .firstName("string")
+                    .identifications(
+                        listOf(
+                            CounterpartyCreateParams.LegalEntityCreateRequest
+                                .IdentificationCreateRequest
+                                .builder()
+                                .idNumber("string")
+                                .idType(
+                                    CounterpartyCreateParams.LegalEntityCreateRequest
+                                        .IdentificationCreateRequest
+                                        .IdType
+                                        .AR_CUIL
+                                )
+                                .issuingCountry("string")
+                                .build()
+                        )
+                    )
+                    .lastName("string")
+                    .metadata(
+                        CounterpartyCreateParams.LegalEntityCreateRequest.Metadata.builder().build()
+                    )
+                    .phoneNumbers(
+                        listOf(
+                            CounterpartyCreateParams.LegalEntityCreateRequest.PhoneNumber.builder()
+                                .phoneNumber("string")
+                                .build()
+                        )
+                    )
+                    .website("string")
+                    .build()
+            )
+            .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .metadata(CounterpartyCreateParams.Metadata.builder().build())
             .sendRemittanceAdvice(true)
             .taxpayerIdentifier("string")
@@ -219,6 +276,65 @@ class CounterpartyCreateParamsTest {
                 )
                 .email("dev@stainlessapi.com")
                 .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
+                .legalEntity(
+                    CounterpartyCreateParams.LegalEntityCreateRequest.builder()
+                        .legalEntityType(
+                            CounterpartyCreateParams.LegalEntityCreateRequest.LegalEntityType
+                                .BUSINESS
+                        )
+                        .addresses(
+                            listOf(
+                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                    .LegalEntityAddressCreateRequest
+                                    .builder()
+                                    .country("string")
+                                    .line1("string")
+                                    .locality("string")
+                                    .postalCode("string")
+                                    .region("string")
+                                    .addressTypes(listOf("string"))
+                                    .line2("string")
+                                    .build()
+                            )
+                        )
+                        .businessName("string")
+                        .dateOfBirth(LocalDate.parse("2019-12-27"))
+                        .doingBusinessAsNames(listOf("string"))
+                        .email("string")
+                        .firstName("string")
+                        .identifications(
+                            listOf(
+                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                    .IdentificationCreateRequest
+                                    .builder()
+                                    .idNumber("string")
+                                    .idType(
+                                        CounterpartyCreateParams.LegalEntityCreateRequest
+                                            .IdentificationCreateRequest
+                                            .IdType
+                                            .AR_CUIL
+                                    )
+                                    .issuingCountry("string")
+                                    .build()
+                            )
+                        )
+                        .lastName("string")
+                        .metadata(
+                            CounterpartyCreateParams.LegalEntityCreateRequest.Metadata.builder()
+                                .build()
+                        )
+                        .phoneNumbers(
+                            listOf(
+                                CounterpartyCreateParams.LegalEntityCreateRequest.PhoneNumber
+                                    .builder()
+                                    .phoneNumber("string")
+                                    .build()
+                            )
+                        )
+                        .website("string")
+                        .build()
+                )
+                .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .metadata(CounterpartyCreateParams.Metadata.builder().build())
                 .sendRemittanceAdvice(true)
                 .taxpayerIdentifier("string")
@@ -325,6 +441,63 @@ class CounterpartyCreateParamsTest {
             )
         assertThat(body.email()).isEqualTo("dev@stainlessapi.com")
         assertThat(body.ledgerType()).isEqualTo(CounterpartyCreateParams.LedgerType.CUSTOMER)
+        assertThat(body.legalEntity())
+            .isEqualTo(
+                CounterpartyCreateParams.LegalEntityCreateRequest.builder()
+                    .legalEntityType(
+                        CounterpartyCreateParams.LegalEntityCreateRequest.LegalEntityType.BUSINESS
+                    )
+                    .addresses(
+                        listOf(
+                            CounterpartyCreateParams.LegalEntityCreateRequest
+                                .LegalEntityAddressCreateRequest
+                                .builder()
+                                .country("string")
+                                .line1("string")
+                                .locality("string")
+                                .postalCode("string")
+                                .region("string")
+                                .addressTypes(listOf("string"))
+                                .line2("string")
+                                .build()
+                        )
+                    )
+                    .businessName("string")
+                    .dateOfBirth(LocalDate.parse("2019-12-27"))
+                    .doingBusinessAsNames(listOf("string"))
+                    .email("string")
+                    .firstName("string")
+                    .identifications(
+                        listOf(
+                            CounterpartyCreateParams.LegalEntityCreateRequest
+                                .IdentificationCreateRequest
+                                .builder()
+                                .idNumber("string")
+                                .idType(
+                                    CounterpartyCreateParams.LegalEntityCreateRequest
+                                        .IdentificationCreateRequest
+                                        .IdType
+                                        .AR_CUIL
+                                )
+                                .issuingCountry("string")
+                                .build()
+                        )
+                    )
+                    .lastName("string")
+                    .metadata(
+                        CounterpartyCreateParams.LegalEntityCreateRequest.Metadata.builder().build()
+                    )
+                    .phoneNumbers(
+                        listOf(
+                            CounterpartyCreateParams.LegalEntityCreateRequest.PhoneNumber.builder()
+                                .phoneNumber("string")
+                                .build()
+                        )
+                    )
+                    .website("string")
+                    .build()
+            )
+        assertThat(body.legalEntityId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.metadata()).isEqualTo(CounterpartyCreateParams.Metadata.builder().build())
         assertThat(body.sendRemittanceAdvice()).isEqualTo(true)
         assertThat(body.taxpayerIdentifier()).isEqualTo("string")

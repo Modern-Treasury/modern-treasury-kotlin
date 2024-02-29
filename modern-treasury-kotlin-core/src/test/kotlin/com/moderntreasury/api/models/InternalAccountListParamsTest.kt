@@ -14,6 +14,7 @@ class InternalAccountListParamsTest {
             .afterCursor("string")
             .counterpartyId("string")
             .currency(Currency.AED)
+            .legalEntityId("string")
             .metadata(InternalAccountListParams.Metadata.builder().build())
             .paymentDirection(TransactionDirection.CREDIT)
             .paymentType(InternalAccountListParams.PaymentType.ACH)
@@ -28,6 +29,7 @@ class InternalAccountListParamsTest {
                 .afterCursor("string")
                 .counterpartyId("string")
                 .currency(Currency.AED)
+                .legalEntityId("string")
                 .metadata(InternalAccountListParams.Metadata.builder().build())
                 .paymentDirection(TransactionDirection.CREDIT)
                 .paymentType(InternalAccountListParams.PaymentType.ACH)
@@ -37,6 +39,7 @@ class InternalAccountListParamsTest {
         expected.put("after_cursor", listOf("string"))
         expected.put("counterparty_id", listOf("string"))
         expected.put("currency", listOf(Currency.AED.toString()))
+        expected.put("legal_entity_id", listOf("string"))
         InternalAccountListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }

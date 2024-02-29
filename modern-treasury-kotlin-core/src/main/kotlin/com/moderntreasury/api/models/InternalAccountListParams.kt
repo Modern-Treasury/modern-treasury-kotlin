@@ -17,6 +17,7 @@ constructor(
     private val afterCursor: String?,
     private val counterpartyId: String?,
     private val currency: Currency?,
+    private val legalEntityId: String?,
     private val metadata: Metadata?,
     private val paymentDirection: TransactionDirection?,
     private val paymentType: PaymentType?,
@@ -31,6 +32,8 @@ constructor(
 
     fun currency(): Currency? = currency
 
+    fun legalEntityId(): String? = legalEntityId
+
     fun metadata(): Metadata? = metadata
 
     fun paymentDirection(): TransactionDirection? = paymentDirection
@@ -44,6 +47,7 @@ constructor(
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
         this.counterpartyId?.let { params.put("counterparty_id", listOf(it.toString())) }
         this.currency?.let { params.put("currency", listOf(it.toString())) }
+        this.legalEntityId?.let { params.put("legal_entity_id", listOf(it.toString())) }
         this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
         this.paymentDirection?.let { params.put("payment_direction", listOf(it.toString())) }
         this.paymentType?.let { params.put("payment_type", listOf(it.toString())) }
@@ -67,6 +71,7 @@ constructor(
             this.afterCursor == other.afterCursor &&
             this.counterpartyId == other.counterpartyId &&
             this.currency == other.currency &&
+            this.legalEntityId == other.legalEntityId &&
             this.metadata == other.metadata &&
             this.paymentDirection == other.paymentDirection &&
             this.paymentType == other.paymentType &&
@@ -80,6 +85,7 @@ constructor(
             afterCursor,
             counterpartyId,
             currency,
+            legalEntityId,
             metadata,
             paymentDirection,
             paymentType,
@@ -90,7 +96,7 @@ constructor(
     }
 
     override fun toString() =
-        "InternalAccountListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, currency=$currency, metadata=$metadata, paymentDirection=$paymentDirection, paymentType=$paymentType, perPage=$perPage, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "InternalAccountListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, currency=$currency, legalEntityId=$legalEntityId, metadata=$metadata, paymentDirection=$paymentDirection, paymentType=$paymentType, perPage=$perPage, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -105,6 +111,7 @@ constructor(
         private var afterCursor: String? = null
         private var counterpartyId: String? = null
         private var currency: Currency? = null
+        private var legalEntityId: String? = null
         private var metadata: Metadata? = null
         private var paymentDirection: TransactionDirection? = null
         private var paymentType: PaymentType? = null
@@ -116,6 +123,7 @@ constructor(
             this.afterCursor = internalAccountListParams.afterCursor
             this.counterpartyId = internalAccountListParams.counterpartyId
             this.currency = internalAccountListParams.currency
+            this.legalEntityId = internalAccountListParams.legalEntityId
             this.metadata = internalAccountListParams.metadata
             this.paymentDirection = internalAccountListParams.paymentDirection
             this.paymentType = internalAccountListParams.paymentType
@@ -126,11 +134,14 @@ constructor(
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
-        /** The counterparty associated with the internal account. */
+        /** Only return internal accounts associated with this counterparty. */
         fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
 
-        /** The currency associated with the internal account. */
+        /** Only return internal accounts with this currency. */
         fun currency(currency: Currency) = apply { this.currency = currency }
+
+        /** Only return internal accounts associated with this legal entity. */
+        fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
 
         /**
          * For example, if you want to query for records with metadata key `Type` and value `Loan`,
@@ -138,12 +149,12 @@ constructor(
          */
         fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
-        /** The direction of payments that can be made by internal account. */
+        /** Only return internal accounts that can originate payments with this direction. */
         fun paymentDirection(paymentDirection: TransactionDirection) = apply {
             this.paymentDirection = paymentDirection
         }
 
-        /** The type of payment that can be made by the internal account. */
+        /** Only return internal accounts that can make this type of payment. */
         fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
 
         fun perPage(perPage: Long) = apply { this.perPage = perPage }
@@ -193,6 +204,7 @@ constructor(
                 afterCursor,
                 counterpartyId,
                 currency,
+                legalEntityId,
                 metadata,
                 paymentDirection,
                 paymentType,
