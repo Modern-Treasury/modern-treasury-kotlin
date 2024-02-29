@@ -38,6 +38,7 @@ private constructor(
     private val metadata: JsonField<Metadata>,
     private val parentAccountId: JsonField<String>,
     private val counterpartyId: JsonField<String>,
+    private val legalEntityId: JsonField<String>,
     private val ledgerAccountId: JsonField<String>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -96,6 +97,9 @@ private constructor(
     /** The Counterparty associated to this account. */
     fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
 
+    /** The Legal Entity associated to this account */
+    fun legalEntityId(): String? = legalEntityId.getNullable("legal_entity_id")
+
     /**
      * If the internal account links to a ledger account in Modern Treasury, the id of the ledger
      * account will be populated here.
@@ -152,6 +156,9 @@ private constructor(
     /** The Counterparty associated to this account. */
     @JsonProperty("counterparty_id") @ExcludeMissing fun _counterpartyId() = counterpartyId
 
+    /** The Legal Entity associated to this account */
+    @JsonProperty("legal_entity_id") @ExcludeMissing fun _legalEntityId() = legalEntityId
+
     /**
      * If the internal account links to a ledger account in Modern Treasury, the id of the ledger
      * account will be populated here.
@@ -181,6 +188,7 @@ private constructor(
             metadata().validate()
             parentAccountId()
             counterpartyId()
+            legalEntityId()
             ledgerAccountId()
             validated = true
         }
@@ -211,6 +219,7 @@ private constructor(
             this.metadata == other.metadata &&
             this.parentAccountId == other.parentAccountId &&
             this.counterpartyId == other.counterpartyId &&
+            this.legalEntityId == other.legalEntityId &&
             this.ledgerAccountId == other.ledgerAccountId &&
             this.additionalProperties == other.additionalProperties
     }
@@ -236,6 +245,7 @@ private constructor(
                     metadata,
                     parentAccountId,
                     counterpartyId,
+                    legalEntityId,
                     ledgerAccountId,
                     additionalProperties,
                 )
@@ -244,7 +254,7 @@ private constructor(
     }
 
     override fun toString() =
-        "InternalAccount{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, accountType=$accountType, partyName=$partyName, partyType=$partyType, partyAddress=$partyAddress, name=$name, accountDetails=$accountDetails, routingDetails=$routingDetails, connection=$connection, currency=$currency, metadata=$metadata, parentAccountId=$parentAccountId, counterpartyId=$counterpartyId, ledgerAccountId=$ledgerAccountId, additionalProperties=$additionalProperties}"
+        "InternalAccount{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, accountType=$accountType, partyName=$partyName, partyType=$partyType, partyAddress=$partyAddress, name=$name, accountDetails=$accountDetails, routingDetails=$routingDetails, connection=$connection, currency=$currency, metadata=$metadata, parentAccountId=$parentAccountId, counterpartyId=$counterpartyId, legalEntityId=$legalEntityId, ledgerAccountId=$ledgerAccountId, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -270,6 +280,7 @@ private constructor(
         private var metadata: JsonField<Metadata> = JsonMissing.of()
         private var parentAccountId: JsonField<String> = JsonMissing.of()
         private var counterpartyId: JsonField<String> = JsonMissing.of()
+        private var legalEntityId: JsonField<String> = JsonMissing.of()
         private var ledgerAccountId: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -291,6 +302,7 @@ private constructor(
             this.metadata = internalAccount.metadata
             this.parentAccountId = internalAccount.parentAccountId
             this.counterpartyId = internalAccount.counterpartyId
+            this.legalEntityId = internalAccount.legalEntityId
             this.ledgerAccountId = internalAccount.ledgerAccountId
             additionalProperties(internalAccount.additionalProperties)
         }
@@ -446,6 +458,16 @@ private constructor(
             this.counterpartyId = counterpartyId
         }
 
+        /** The Legal Entity associated to this account */
+        fun legalEntityId(legalEntityId: String) = legalEntityId(JsonField.of(legalEntityId))
+
+        /** The Legal Entity associated to this account */
+        @JsonProperty("legal_entity_id")
+        @ExcludeMissing
+        fun legalEntityId(legalEntityId: JsonField<String>) = apply {
+            this.legalEntityId = legalEntityId
+        }
+
         /**
          * If the internal account links to a ledger account in Modern Treasury, the id of the
          * ledger account will be populated here.
@@ -496,6 +518,7 @@ private constructor(
                 metadata,
                 parentAccountId,
                 counterpartyId,
+                legalEntityId,
                 ledgerAccountId,
                 additionalProperties.toUnmodifiable(),
             )

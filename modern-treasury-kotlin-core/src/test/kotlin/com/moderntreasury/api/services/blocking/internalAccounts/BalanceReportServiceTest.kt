@@ -26,7 +26,6 @@ class BalanceReportServiceTest {
             balanceReportService.create(
                 BalanceReportCreateParams.builder()
                     .internalAccountId("string")
-                    .amount(123L)
                     .asOfDate(LocalDate.parse("2019-12-27"))
                     .asOfTime("string")
                     .balanceReportType(BalanceReportCreateParams.BalanceReportType.INTRADAY)

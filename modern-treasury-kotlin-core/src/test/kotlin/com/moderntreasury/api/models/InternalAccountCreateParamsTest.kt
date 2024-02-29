@@ -16,6 +16,7 @@ class InternalAccountCreateParamsTest {
             .name("string")
             .partyName("string")
             .counterpartyId("string")
+            .legalEntityId("string")
             .parentAccountId("string")
             .partyAddress(
                 InternalAccountCreateParams.PartyAddress.builder()
@@ -40,6 +41,7 @@ class InternalAccountCreateParamsTest {
                 .name("string")
                 .partyName("string")
                 .counterpartyId("string")
+                .legalEntityId("string")
                 .parentAccountId("string")
                 .partyAddress(
                     InternalAccountCreateParams.PartyAddress.builder()
@@ -60,6 +62,7 @@ class InternalAccountCreateParamsTest {
         assertThat(body.name()).isEqualTo("string")
         assertThat(body.partyName()).isEqualTo("string")
         assertThat(body.counterpartyId()).isEqualTo("string")
+        assertThat(body.legalEntityId()).isEqualTo("string")
         assertThat(body.parentAccountId()).isEqualTo("string")
         assertThat(body.partyAddress())
             .isEqualTo(

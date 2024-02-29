@@ -6,6 +6,7 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.CounterpartyListParams
+import java.time.LocalDate
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -128,6 +129,65 @@ class CounterpartyServiceTest {
                     )
                     .email("dev@stainlessapi.com")
                     .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
+                    .legalEntity(
+                        CounterpartyCreateParams.LegalEntityCreateRequest.builder()
+                            .legalEntityType(
+                                CounterpartyCreateParams.LegalEntityCreateRequest.LegalEntityType
+                                    .BUSINESS
+                            )
+                            .addresses(
+                                listOf(
+                                    CounterpartyCreateParams.LegalEntityCreateRequest
+                                        .LegalEntityAddressCreateRequest
+                                        .builder()
+                                        .country("string")
+                                        .line1("string")
+                                        .locality("string")
+                                        .postalCode("string")
+                                        .region("string")
+                                        .addressTypes(listOf("string"))
+                                        .line2("string")
+                                        .build()
+                                )
+                            )
+                            .businessName("string")
+                            .dateOfBirth(LocalDate.parse("2019-12-27"))
+                            .doingBusinessAsNames(listOf("string"))
+                            .email("string")
+                            .firstName("string")
+                            .identifications(
+                                listOf(
+                                    CounterpartyCreateParams.LegalEntityCreateRequest
+                                        .IdentificationCreateRequest
+                                        .builder()
+                                        .idNumber("string")
+                                        .idType(
+                                            CounterpartyCreateParams.LegalEntityCreateRequest
+                                                .IdentificationCreateRequest
+                                                .IdType
+                                                .AR_CUIL
+                                        )
+                                        .issuingCountry("string")
+                                        .build()
+                                )
+                            )
+                            .lastName("string")
+                            .metadata(
+                                CounterpartyCreateParams.LegalEntityCreateRequest.Metadata.builder()
+                                    .build()
+                            )
+                            .phoneNumbers(
+                                listOf(
+                                    CounterpartyCreateParams.LegalEntityCreateRequest.PhoneNumber
+                                        .builder()
+                                        .phoneNumber("string")
+                                        .build()
+                                )
+                            )
+                            .website("string")
+                            .build()
+                    )
+                    .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .metadata(CounterpartyCreateParams.Metadata.builder().build())
                     .sendRemittanceAdvice(true)
                     .taxpayerIdentifier("string")
@@ -167,6 +227,7 @@ class CounterpartyServiceTest {
                 CounterpartyUpdateParams.builder()
                     .id("string")
                     .email("dev@stainlessapi.com")
+                    .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .metadata(CounterpartyUpdateParams.Metadata.builder().build())
                     .name("string")
                     .sendRemittanceAdvice(true)

@@ -13,7 +13,6 @@ class BalanceReportCreateParamsTest {
     fun createBalanceReportCreateParams() {
         BalanceReportCreateParams.builder()
             .internalAccountId("string")
-            .amount(123L)
             .asOfDate(LocalDate.parse("2019-12-27"))
             .asOfTime("string")
             .balanceReportType(BalanceReportCreateParams.BalanceReportType.INTRADAY)
@@ -38,7 +37,6 @@ class BalanceReportCreateParamsTest {
         val params =
             BalanceReportCreateParams.builder()
                 .internalAccountId("string")
-                .amount(123L)
                 .asOfDate(LocalDate.parse("2019-12-27"))
                 .asOfTime("string")
                 .balanceReportType(BalanceReportCreateParams.BalanceReportType.INTRADAY)
@@ -58,7 +56,6 @@ class BalanceReportCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.asOfTime()).isEqualTo("string")
         assertThat(body.balanceReportType())
@@ -84,7 +81,6 @@ class BalanceReportCreateParamsTest {
         val params =
             BalanceReportCreateParams.builder()
                 .internalAccountId("string")
-                .amount(123L)
                 .asOfDate(LocalDate.parse("2019-12-27"))
                 .asOfTime("string")
                 .balanceReportType(BalanceReportCreateParams.BalanceReportType.INTRADAY)
@@ -103,7 +99,6 @@ class BalanceReportCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.asOfTime()).isEqualTo("string")
         assertThat(body.balanceReportType())
@@ -128,7 +123,6 @@ class BalanceReportCreateParamsTest {
         val params =
             BalanceReportCreateParams.builder()
                 .internalAccountId("string")
-                .amount(123L)
                 .asOfDate(LocalDate.parse("2019-12-27"))
                 .asOfTime("string")
                 .balanceReportType(BalanceReportCreateParams.BalanceReportType.INTRADAY)
