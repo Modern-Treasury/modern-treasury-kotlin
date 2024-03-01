@@ -21,7 +21,12 @@ class LegalEntityCreateParamsTest {
                         .locality("string")
                         .postalCode("string")
                         .region("string")
-                        .addressTypes(listOf("string"))
+                        .addressTypes(
+                            listOf(
+                                LegalEntityCreateParams.LegalEntityAddressCreateRequest.AddressType
+                                    .BUSINESS
+                            )
+                        )
                         .line2("string")
                         .build()
                 )
@@ -41,6 +46,7 @@ class LegalEntityCreateParamsTest {
                 )
             )
             .lastName("string")
+            .legalStructure(LegalEntityCreateParams.LegalStructure.CORPORATION)
             .metadata(LegalEntityCreateParams.Metadata.builder().build())
             .phoneNumbers(
                 listOf(LegalEntityCreateParams.PhoneNumber.builder().phoneNumber("string").build())
@@ -62,7 +68,13 @@ class LegalEntityCreateParamsTest {
                             .locality("string")
                             .postalCode("string")
                             .region("string")
-                            .addressTypes(listOf("string"))
+                            .addressTypes(
+                                listOf(
+                                    LegalEntityCreateParams.LegalEntityAddressCreateRequest
+                                        .AddressType
+                                        .BUSINESS
+                                )
+                            )
                             .line2("string")
                             .build()
                     )
@@ -84,6 +96,7 @@ class LegalEntityCreateParamsTest {
                     )
                 )
                 .lastName("string")
+                .legalStructure(LegalEntityCreateParams.LegalStructure.CORPORATION)
                 .metadata(LegalEntityCreateParams.Metadata.builder().build())
                 .phoneNumbers(
                     listOf(
@@ -105,7 +118,12 @@ class LegalEntityCreateParamsTest {
                         .locality("string")
                         .postalCode("string")
                         .region("string")
-                        .addressTypes(listOf("string"))
+                        .addressTypes(
+                            listOf(
+                                LegalEntityCreateParams.LegalEntityAddressCreateRequest.AddressType
+                                    .BUSINESS
+                            )
+                        )
                         .line2("string")
                         .build()
                 )
@@ -126,6 +144,8 @@ class LegalEntityCreateParamsTest {
                 )
             )
         assertThat(body.lastName()).isEqualTo("string")
+        assertThat(body.legalStructure())
+            .isEqualTo(LegalEntityCreateParams.LegalStructure.CORPORATION)
         assertThat(body.metadata()).isEqualTo(LegalEntityCreateParams.Metadata.builder().build())
         assertThat(body.phoneNumbers())
             .isEqualTo(

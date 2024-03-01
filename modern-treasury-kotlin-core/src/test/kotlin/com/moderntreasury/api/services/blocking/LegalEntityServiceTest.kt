@@ -34,7 +34,13 @@ class LegalEntityServiceTest {
                                 .locality("string")
                                 .postalCode("string")
                                 .region("string")
-                                .addressTypes(listOf("string"))
+                                .addressTypes(
+                                    listOf(
+                                        LegalEntityCreateParams.LegalEntityAddressCreateRequest
+                                            .AddressType
+                                            .BUSINESS
+                                    )
+                                )
                                 .line2("string")
                                 .build()
                         )
@@ -57,6 +63,7 @@ class LegalEntityServiceTest {
                         )
                     )
                     .lastName("string")
+                    .legalStructure(LegalEntityCreateParams.LegalStructure.CORPORATION)
                     .metadata(LegalEntityCreateParams.Metadata.builder().build())
                     .phoneNumbers(
                         listOf(
@@ -106,6 +113,7 @@ class LegalEntityServiceTest {
                     .email("string")
                     .firstName("string")
                     .lastName("string")
+                    .legalStructure(LegalEntityUpdateParams.LegalStructure.CORPORATION)
                     .metadata(LegalEntityUpdateParams.Metadata.builder().build())
                     .phoneNumbers(
                         listOf(

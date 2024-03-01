@@ -27,7 +27,15 @@ class LegalEntityAssociationCreateParamsTest {
                                 .locality("string")
                                 .postalCode("string")
                                 .region("string")
-                                .addressTypes(listOf("string"))
+                                .addressTypes(
+                                    listOf(
+                                        LegalEntityAssociationCreateParams
+                                            .AssociatedLegalEntityCreate
+                                            .LegalEntityAddressCreateRequest
+                                            .AddressType
+                                            .BUSINESS
+                                    )
+                                )
                                 .line2("string")
                                 .build()
                         )
@@ -58,6 +66,11 @@ class LegalEntityAssociationCreateParamsTest {
                         LegalEntityAssociationCreateParams.AssociatedLegalEntityCreate
                             .LegalEntityType
                             .BUSINESS
+                    )
+                    .legalStructure(
+                        LegalEntityAssociationCreateParams.AssociatedLegalEntityCreate
+                            .LegalStructure
+                            .CORPORATION
                     )
                     .metadata(
                         LegalEntityAssociationCreateParams.AssociatedLegalEntityCreate.Metadata
@@ -102,7 +115,15 @@ class LegalEntityAssociationCreateParamsTest {
                                     .locality("string")
                                     .postalCode("string")
                                     .region("string")
-                                    .addressTypes(listOf("string"))
+                                    .addressTypes(
+                                        listOf(
+                                            LegalEntityAssociationCreateParams
+                                                .AssociatedLegalEntityCreate
+                                                .LegalEntityAddressCreateRequest
+                                                .AddressType
+                                                .BUSINESS
+                                        )
+                                    )
                                     .line2("string")
                                     .build()
                             )
@@ -134,6 +155,11 @@ class LegalEntityAssociationCreateParamsTest {
                             LegalEntityAssociationCreateParams.AssociatedLegalEntityCreate
                                 .LegalEntityType
                                 .BUSINESS
+                        )
+                        .legalStructure(
+                            LegalEntityAssociationCreateParams.AssociatedLegalEntityCreate
+                                .LegalStructure
+                                .CORPORATION
                         )
                         .metadata(
                             LegalEntityAssociationCreateParams.AssociatedLegalEntityCreate.Metadata
@@ -174,7 +200,15 @@ class LegalEntityAssociationCreateParamsTest {
                                 .locality("string")
                                 .postalCode("string")
                                 .region("string")
-                                .addressTypes(listOf("string"))
+                                .addressTypes(
+                                    listOf(
+                                        LegalEntityAssociationCreateParams
+                                            .AssociatedLegalEntityCreate
+                                            .LegalEntityAddressCreateRequest
+                                            .AddressType
+                                            .BUSINESS
+                                    )
+                                )
                                 .line2("string")
                                 .build()
                         )
@@ -205,6 +239,11 @@ class LegalEntityAssociationCreateParamsTest {
                         LegalEntityAssociationCreateParams.AssociatedLegalEntityCreate
                             .LegalEntityType
                             .BUSINESS
+                    )
+                    .legalStructure(
+                        LegalEntityAssociationCreateParams.AssociatedLegalEntityCreate
+                            .LegalStructure
+                            .CORPORATION
                     )
                     .metadata(
                         LegalEntityAssociationCreateParams.AssociatedLegalEntityCreate.Metadata

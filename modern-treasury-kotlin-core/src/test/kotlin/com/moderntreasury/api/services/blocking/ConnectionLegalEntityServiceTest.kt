@@ -38,7 +38,14 @@ class ConnectionLegalEntityServiceTest {
                                         .locality("string")
                                         .postalCode("string")
                                         .region("string")
-                                        .addressTypes(listOf("string"))
+                                        .addressTypes(
+                                            listOf(
+                                                ConnectionLegalEntityCreateParams.LegalEntity
+                                                    .LegalEntityAddressCreateRequest
+                                                    .AddressType
+                                                    .BUSINESS
+                                            )
+                                        )
                                         .line2("string")
                                         .build()
                                 )
@@ -68,6 +75,10 @@ class ConnectionLegalEntityServiceTest {
                             .legalEntityType(
                                 ConnectionLegalEntityCreateParams.LegalEntity.LegalEntityType
                                     .BUSINESS
+                            )
+                            .legalStructure(
+                                ConnectionLegalEntityCreateParams.LegalEntity.LegalStructure
+                                    .CORPORATION
                             )
                             .metadata(
                                 ConnectionLegalEntityCreateParams.LegalEntity.Metadata.builder()

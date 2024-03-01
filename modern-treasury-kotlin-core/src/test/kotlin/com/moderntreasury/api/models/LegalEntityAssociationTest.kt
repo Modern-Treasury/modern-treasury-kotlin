@@ -22,7 +22,14 @@ class LegalEntityAssociationTest {
                                 LegalEntityAssociation.AssociatedLegalEntity.LegalEntityAddress
                                     .builder()
                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .addressTypes(listOf("string"))
+                                    .addressTypes(
+                                        listOf(
+                                            LegalEntityAssociation.AssociatedLegalEntity
+                                                .LegalEntityAddress
+                                                .AddressType
+                                                .BUSINESS
+                                        )
+                                    )
                                     .country("string")
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -67,6 +74,9 @@ class LegalEntityAssociationTest {
                         .legalEntityType(
                             LegalEntityAssociation.AssociatedLegalEntity.LegalEntityType.BUSINESS
                         )
+                        .legalStructure(
+                            LegalEntityAssociation.AssociatedLegalEntity.LegalStructure.CORPORATION
+                        )
                         .liveMode(true)
                         .metadata(
                             LegalEntityAssociation.AssociatedLegalEntity.Metadata.builder().build()
@@ -104,7 +114,14 @@ class LegalEntityAssociationTest {
                             LegalEntityAssociation.AssociatedLegalEntity.LegalEntityAddress
                                 .builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .addressTypes(listOf("string"))
+                                .addressTypes(
+                                    listOf(
+                                        LegalEntityAssociation.AssociatedLegalEntity
+                                            .LegalEntityAddress
+                                            .AddressType
+                                            .BUSINESS
+                                    )
+                                )
                                 .country("string")
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -147,6 +164,9 @@ class LegalEntityAssociationTest {
                     .lastName("string")
                     .legalEntityType(
                         LegalEntityAssociation.AssociatedLegalEntity.LegalEntityType.BUSINESS
+                    )
+                    .legalStructure(
+                        LegalEntityAssociation.AssociatedLegalEntity.LegalStructure.CORPORATION
                     )
                     .liveMode(true)
                     .metadata(
