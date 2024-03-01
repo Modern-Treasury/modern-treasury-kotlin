@@ -369,6 +369,9 @@ private constructor(
 
             val CROSS_RIVER_PAYMENT_ID = ReferenceNumberType(JsonField.of("cross_river_payment_id"))
 
+            val CROSS_RIVER_SERVICE_MESSAGE =
+                ReferenceNumberType(JsonField.of("cross_river_service_message"))
+
             val CROSS_RIVER_TRANSACTION_ID =
                 ReferenceNumberType(JsonField.of("cross_river_transaction_id"))
 
@@ -501,6 +504,7 @@ private constructor(
             COLUMN_REVERSAL_PAIR_TRANSFER_ID,
             COLUMN_TRANSFER_ID,
             CROSS_RIVER_PAYMENT_ID,
+            CROSS_RIVER_SERVICE_MESSAGE,
             CROSS_RIVER_TRANSACTION_ID,
             CURRENCYCLOUD_CONVERSION_ID,
             CURRENCYCLOUD_PAYMENT_ID,
@@ -565,6 +569,7 @@ private constructor(
             COLUMN_REVERSAL_PAIR_TRANSFER_ID,
             COLUMN_TRANSFER_ID,
             CROSS_RIVER_PAYMENT_ID,
+            CROSS_RIVER_SERVICE_MESSAGE,
             CROSS_RIVER_TRANSACTION_ID,
             CURRENCYCLOUD_CONVERSION_ID,
             CURRENCYCLOUD_PAYMENT_ID,
@@ -631,6 +636,7 @@ private constructor(
                 COLUMN_REVERSAL_PAIR_TRANSFER_ID -> Value.COLUMN_REVERSAL_PAIR_TRANSFER_ID
                 COLUMN_TRANSFER_ID -> Value.COLUMN_TRANSFER_ID
                 CROSS_RIVER_PAYMENT_ID -> Value.CROSS_RIVER_PAYMENT_ID
+                CROSS_RIVER_SERVICE_MESSAGE -> Value.CROSS_RIVER_SERVICE_MESSAGE
                 CROSS_RIVER_TRANSACTION_ID -> Value.CROSS_RIVER_TRANSACTION_ID
                 CURRENCYCLOUD_CONVERSION_ID -> Value.CURRENCYCLOUD_CONVERSION_ID
                 CURRENCYCLOUD_PAYMENT_ID -> Value.CURRENCYCLOUD_PAYMENT_ID
@@ -699,6 +705,7 @@ private constructor(
                 COLUMN_REVERSAL_PAIR_TRANSFER_ID -> Known.COLUMN_REVERSAL_PAIR_TRANSFER_ID
                 COLUMN_TRANSFER_ID -> Known.COLUMN_TRANSFER_ID
                 CROSS_RIVER_PAYMENT_ID -> Known.CROSS_RIVER_PAYMENT_ID
+                CROSS_RIVER_SERVICE_MESSAGE -> Known.CROSS_RIVER_SERVICE_MESSAGE
                 CROSS_RIVER_TRANSACTION_ID -> Known.CROSS_RIVER_TRANSACTION_ID
                 CURRENCYCLOUD_CONVERSION_ID -> Known.CURRENCYCLOUD_CONVERSION_ID
                 CURRENCYCLOUD_PAYMENT_ID -> Known.CURRENCYCLOUD_PAYMENT_ID
