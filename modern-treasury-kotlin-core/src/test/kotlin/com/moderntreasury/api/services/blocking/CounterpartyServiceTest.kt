@@ -145,7 +145,14 @@ class CounterpartyServiceTest {
                                         .locality("string")
                                         .postalCode("string")
                                         .region("string")
-                                        .addressTypes(listOf("string"))
+                                        .addressTypes(
+                                            listOf(
+                                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                                    .LegalEntityAddressCreateRequest
+                                                    .AddressType
+                                                    .BUSINESS
+                                            )
+                                        )
                                         .line2("string")
                                         .build()
                                 )
@@ -172,6 +179,10 @@ class CounterpartyServiceTest {
                                 )
                             )
                             .lastName("string")
+                            .legalStructure(
+                                CounterpartyCreateParams.LegalEntityCreateRequest.LegalStructure
+                                    .CORPORATION
+                            )
                             .metadata(
                                 CounterpartyCreateParams.LegalEntityCreateRequest.Metadata.builder()
                                     .build()

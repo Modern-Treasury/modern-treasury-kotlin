@@ -19,6 +19,7 @@ class LegalEntityUpdateParamsTest {
             .email("string")
             .firstName("string")
             .lastName("string")
+            .legalStructure(LegalEntityUpdateParams.LegalStructure.CORPORATION)
             .metadata(LegalEntityUpdateParams.Metadata.builder().build())
             .phoneNumbers(
                 listOf(LegalEntityUpdateParams.PhoneNumber.builder().phoneNumber("string").build())
@@ -38,6 +39,7 @@ class LegalEntityUpdateParamsTest {
                 .email("string")
                 .firstName("string")
                 .lastName("string")
+                .legalStructure(LegalEntityUpdateParams.LegalStructure.CORPORATION)
                 .metadata(LegalEntityUpdateParams.Metadata.builder().build())
                 .phoneNumbers(
                     listOf(
@@ -54,6 +56,8 @@ class LegalEntityUpdateParamsTest {
         assertThat(body.email()).isEqualTo("string")
         assertThat(body.firstName()).isEqualTo("string")
         assertThat(body.lastName()).isEqualTo("string")
+        assertThat(body.legalStructure())
+            .isEqualTo(LegalEntityUpdateParams.LegalStructure.CORPORATION)
         assertThat(body.metadata()).isEqualTo(LegalEntityUpdateParams.Metadata.builder().build())
         assertThat(body.phoneNumbers())
             .isEqualTo(
