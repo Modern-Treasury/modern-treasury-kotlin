@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.10.0 (2024-03-05)
+
+Full Changelog: [v2.9.0...v2.10.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.9.0...v2.10.0)
+
+### Features
+
+* **api:** add legal_structure enum member ([#128](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/128)) ([515d31c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/515d31c951e7b621b170b6d8eb638da1b3400edf))
+
+
+### Chores
+
+* add api.md ([#130](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/130)) ([8fe41fb](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8fe41fbebafb31bb228ce5cd764af5781c3b5deb))
+
 ## 2.9.0 (2024-02-29)
 
 Full Changelog: [v2.8.0...v2.9.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.8.0...v2.9.0)
