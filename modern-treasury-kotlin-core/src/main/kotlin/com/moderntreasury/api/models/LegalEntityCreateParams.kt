@@ -22,6 +22,7 @@ constructor(
     private val legalEntityType: LegalEntityType,
     private val addresses: List<LegalEntityAddressCreateRequest>?,
     private val businessName: String?,
+    private val dateFormed: LocalDate?,
     private val dateOfBirth: LocalDate?,
     private val doingBusinessAsNames: List<String>?,
     private val email: String?,
@@ -42,6 +43,8 @@ constructor(
     fun addresses(): List<LegalEntityAddressCreateRequest>? = addresses
 
     fun businessName(): String? = businessName
+
+    fun dateFormed(): LocalDate? = dateFormed
 
     fun dateOfBirth(): LocalDate? = dateOfBirth
 
@@ -68,6 +71,7 @@ constructor(
             legalEntityType,
             addresses,
             businessName,
+            dateFormed,
             dateOfBirth,
             doingBusinessAsNames,
             email,
@@ -93,6 +97,7 @@ constructor(
         private val legalEntityType: LegalEntityType?,
         private val addresses: List<LegalEntityAddressCreateRequest>?,
         private val businessName: String?,
+        private val dateFormed: LocalDate?,
         private val dateOfBirth: LocalDate?,
         private val doingBusinessAsNames: List<String>?,
         private val email: String?,
@@ -118,7 +123,10 @@ constructor(
         /** The business's legal business name. */
         @JsonProperty("business_name") fun businessName(): String? = businessName
 
-        /** An individual's data of birth (YYYY-MM-DD). */
+        /** A business's formation date (YYYY-MM-DD). */
+        @JsonProperty("date_formed") fun dateFormed(): LocalDate? = dateFormed
+
+        /** An individual's date of birth (YYYY-MM-DD). */
         @JsonProperty("date_of_birth") fun dateOfBirth(): LocalDate? = dateOfBirth
 
         @JsonProperty("doing_business_as_names")
@@ -165,6 +173,7 @@ constructor(
                 this.legalEntityType == other.legalEntityType &&
                 this.addresses == other.addresses &&
                 this.businessName == other.businessName &&
+                this.dateFormed == other.dateFormed &&
                 this.dateOfBirth == other.dateOfBirth &&
                 this.doingBusinessAsNames == other.doingBusinessAsNames &&
                 this.email == other.email &&
@@ -185,6 +194,7 @@ constructor(
                         legalEntityType,
                         addresses,
                         businessName,
+                        dateFormed,
                         dateOfBirth,
                         doingBusinessAsNames,
                         email,
@@ -202,7 +212,7 @@ constructor(
         }
 
         override fun toString() =
-            "LegalEntityCreateBody{legalEntityType=$legalEntityType, addresses=$addresses, businessName=$businessName, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, identifications=$identifications, lastName=$lastName, legalStructure=$legalStructure, metadata=$metadata, phoneNumbers=$phoneNumbers, website=$website, additionalProperties=$additionalProperties}"
+            "LegalEntityCreateBody{legalEntityType=$legalEntityType, addresses=$addresses, businessName=$businessName, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, identifications=$identifications, lastName=$lastName, legalStructure=$legalStructure, metadata=$metadata, phoneNumbers=$phoneNumbers, website=$website, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -214,6 +224,7 @@ constructor(
             private var legalEntityType: LegalEntityType? = null
             private var addresses: List<LegalEntityAddressCreateRequest>? = null
             private var businessName: String? = null
+            private var dateFormed: LocalDate? = null
             private var dateOfBirth: LocalDate? = null
             private var doingBusinessAsNames: List<String>? = null
             private var email: String? = null
@@ -230,6 +241,7 @@ constructor(
                 this.legalEntityType = legalEntityCreateBody.legalEntityType
                 this.addresses = legalEntityCreateBody.addresses
                 this.businessName = legalEntityCreateBody.businessName
+                this.dateFormed = legalEntityCreateBody.dateFormed
                 this.dateOfBirth = legalEntityCreateBody.dateOfBirth
                 this.doingBusinessAsNames = legalEntityCreateBody.doingBusinessAsNames
                 this.email = legalEntityCreateBody.email
@@ -259,7 +271,11 @@ constructor(
             @JsonProperty("business_name")
             fun businessName(businessName: String) = apply { this.businessName = businessName }
 
-            /** An individual's data of birth (YYYY-MM-DD). */
+            /** A business's formation date (YYYY-MM-DD). */
+            @JsonProperty("date_formed")
+            fun dateFormed(dateFormed: LocalDate) = apply { this.dateFormed = dateFormed }
+
+            /** An individual's date of birth (YYYY-MM-DD). */
             @JsonProperty("date_of_birth")
             fun dateOfBirth(dateOfBirth: LocalDate) = apply { this.dateOfBirth = dateOfBirth }
 
@@ -327,6 +343,7 @@ constructor(
                     },
                     addresses?.toUnmodifiable(),
                     businessName,
+                    dateFormed,
                     dateOfBirth,
                     doingBusinessAsNames?.toUnmodifiable(),
                     email,
@@ -357,6 +374,7 @@ constructor(
             this.legalEntityType == other.legalEntityType &&
             this.addresses == other.addresses &&
             this.businessName == other.businessName &&
+            this.dateFormed == other.dateFormed &&
             this.dateOfBirth == other.dateOfBirth &&
             this.doingBusinessAsNames == other.doingBusinessAsNames &&
             this.email == other.email &&
@@ -377,6 +395,7 @@ constructor(
             legalEntityType,
             addresses,
             businessName,
+            dateFormed,
             dateOfBirth,
             doingBusinessAsNames,
             email,
@@ -394,7 +413,7 @@ constructor(
     }
 
     override fun toString() =
-        "LegalEntityCreateParams{legalEntityType=$legalEntityType, addresses=$addresses, businessName=$businessName, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, identifications=$identifications, lastName=$lastName, legalStructure=$legalStructure, metadata=$metadata, phoneNumbers=$phoneNumbers, website=$website, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "LegalEntityCreateParams{legalEntityType=$legalEntityType, addresses=$addresses, businessName=$businessName, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, identifications=$identifications, lastName=$lastName, legalStructure=$legalStructure, metadata=$metadata, phoneNumbers=$phoneNumbers, website=$website, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -409,6 +428,7 @@ constructor(
         private var legalEntityType: LegalEntityType? = null
         private var addresses: MutableList<LegalEntityAddressCreateRequest> = mutableListOf()
         private var businessName: String? = null
+        private var dateFormed: LocalDate? = null
         private var dateOfBirth: LocalDate? = null
         private var doingBusinessAsNames: MutableList<String> = mutableListOf()
         private var email: String? = null
@@ -427,6 +447,7 @@ constructor(
             this.legalEntityType = legalEntityCreateParams.legalEntityType
             this.addresses(legalEntityCreateParams.addresses ?: listOf())
             this.businessName = legalEntityCreateParams.businessName
+            this.dateFormed = legalEntityCreateParams.dateFormed
             this.dateOfBirth = legalEntityCreateParams.dateOfBirth
             this.doingBusinessAsNames(legalEntityCreateParams.doingBusinessAsNames ?: listOf())
             this.email = legalEntityCreateParams.email
@@ -461,7 +482,10 @@ constructor(
         /** The business's legal business name. */
         fun businessName(businessName: String) = apply { this.businessName = businessName }
 
-        /** An individual's data of birth (YYYY-MM-DD). */
+        /** A business's formation date (YYYY-MM-DD). */
+        fun dateFormed(dateFormed: LocalDate) = apply { this.dateFormed = dateFormed }
+
+        /** An individual's date of birth (YYYY-MM-DD). */
         fun dateOfBirth(dateOfBirth: LocalDate) = apply { this.dateOfBirth = dateOfBirth }
 
         fun doingBusinessAsNames(doingBusinessAsNames: List<String>) = apply {
@@ -572,6 +596,7 @@ constructor(
                 checkNotNull(legalEntityType) { "`legalEntityType` is required but was not set" },
                 if (addresses.size == 0) null else addresses.toUnmodifiable(),
                 businessName,
+                dateFormed,
                 dateOfBirth,
                 if (doingBusinessAsNames.size == 0) null else doingBusinessAsNames.toUnmodifiable(),
                 email,
