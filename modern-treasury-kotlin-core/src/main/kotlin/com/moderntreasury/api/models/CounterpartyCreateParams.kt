@@ -2508,6 +2508,7 @@ constructor(
         private val firstName: String?,
         private val lastName: String?,
         private val dateOfBirth: LocalDate?,
+        private val dateFormed: LocalDate?,
         private val businessName: String?,
         private val doingBusinessAsNames: List<String>?,
         private val legalStructure: LegalStructure?,
@@ -2531,8 +2532,11 @@ constructor(
         /** An individual's last name. */
         @JsonProperty("last_name") fun lastName(): String? = lastName
 
-        /** An individual's data of birth (YYYY-MM-DD). */
+        /** An individual's date of birth (YYYY-MM-DD). */
         @JsonProperty("date_of_birth") fun dateOfBirth(): LocalDate? = dateOfBirth
+
+        /** A business's formation date (YYYY-MM-DD). */
+        @JsonProperty("date_formed") fun dateFormed(): LocalDate? = dateFormed
 
         /** The business's legal business name. */
         @JsonProperty("business_name") fun businessName(): String? = businessName
@@ -2580,6 +2584,7 @@ constructor(
                 this.firstName == other.firstName &&
                 this.lastName == other.lastName &&
                 this.dateOfBirth == other.dateOfBirth &&
+                this.dateFormed == other.dateFormed &&
                 this.businessName == other.businessName &&
                 this.doingBusinessAsNames == other.doingBusinessAsNames &&
                 this.legalStructure == other.legalStructure &&
@@ -2600,6 +2605,7 @@ constructor(
                         firstName,
                         lastName,
                         dateOfBirth,
+                        dateFormed,
                         businessName,
                         doingBusinessAsNames,
                         legalStructure,
@@ -2616,7 +2622,7 @@ constructor(
         }
 
         override fun toString() =
-            "LegalEntityCreateRequest{legalEntityType=$legalEntityType, firstName=$firstName, lastName=$lastName, dateOfBirth=$dateOfBirth, businessName=$businessName, doingBusinessAsNames=$doingBusinessAsNames, legalStructure=$legalStructure, phoneNumbers=$phoneNumbers, email=$email, website=$website, metadata=$metadata, addresses=$addresses, identifications=$identifications, additionalProperties=$additionalProperties}"
+            "LegalEntityCreateRequest{legalEntityType=$legalEntityType, firstName=$firstName, lastName=$lastName, dateOfBirth=$dateOfBirth, dateFormed=$dateFormed, businessName=$businessName, doingBusinessAsNames=$doingBusinessAsNames, legalStructure=$legalStructure, phoneNumbers=$phoneNumbers, email=$email, website=$website, metadata=$metadata, addresses=$addresses, identifications=$identifications, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2629,6 +2635,7 @@ constructor(
             private var firstName: String? = null
             private var lastName: String? = null
             private var dateOfBirth: LocalDate? = null
+            private var dateFormed: LocalDate? = null
             private var businessName: String? = null
             private var doingBusinessAsNames: List<String>? = null
             private var legalStructure: LegalStructure? = null
@@ -2645,6 +2652,7 @@ constructor(
                 this.firstName = legalEntityCreateRequest.firstName
                 this.lastName = legalEntityCreateRequest.lastName
                 this.dateOfBirth = legalEntityCreateRequest.dateOfBirth
+                this.dateFormed = legalEntityCreateRequest.dateFormed
                 this.businessName = legalEntityCreateRequest.businessName
                 this.doingBusinessAsNames = legalEntityCreateRequest.doingBusinessAsNames
                 this.legalStructure = legalEntityCreateRequest.legalStructure
@@ -2671,9 +2679,13 @@ constructor(
             @JsonProperty("last_name")
             fun lastName(lastName: String) = apply { this.lastName = lastName }
 
-            /** An individual's data of birth (YYYY-MM-DD). */
+            /** An individual's date of birth (YYYY-MM-DD). */
             @JsonProperty("date_of_birth")
             fun dateOfBirth(dateOfBirth: LocalDate) = apply { this.dateOfBirth = dateOfBirth }
+
+            /** A business's formation date (YYYY-MM-DD). */
+            @JsonProperty("date_formed")
+            fun dateFormed(dateFormed: LocalDate) = apply { this.dateFormed = dateFormed }
 
             /** The business's legal business name. */
             @JsonProperty("business_name")
@@ -2742,6 +2754,7 @@ constructor(
                     firstName,
                     lastName,
                     dateOfBirth,
+                    dateFormed,
                     businessName,
                     doingBusinessAsNames?.toUnmodifiable(),
                     legalStructure,

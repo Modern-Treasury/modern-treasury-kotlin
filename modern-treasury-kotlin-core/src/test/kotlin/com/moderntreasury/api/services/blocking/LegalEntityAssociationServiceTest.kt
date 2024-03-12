@@ -53,6 +53,7 @@ class LegalEntityAssociationServiceTest {
                                 )
                             )
                             .businessName("string")
+                            .dateFormed(LocalDate.parse("2019-12-27"))
                             .dateOfBirth(LocalDate.parse("2019-12-27"))
                             .doingBusinessAsNames(listOf("string"))
                             .email("string")
