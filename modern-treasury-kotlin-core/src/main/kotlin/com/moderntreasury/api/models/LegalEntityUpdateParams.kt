@@ -21,6 +21,7 @@ class LegalEntityUpdateParams
 constructor(
     private val id: String,
     private val businessName: String?,
+    private val dateFormed: LocalDate?,
     private val dateOfBirth: LocalDate?,
     private val doingBusinessAsNames: List<String>?,
     private val email: String?,
@@ -38,6 +39,8 @@ constructor(
     fun id(): String = id
 
     fun businessName(): String? = businessName
+
+    fun dateFormed(): LocalDate? = dateFormed
 
     fun dateOfBirth(): LocalDate? = dateOfBirth
 
@@ -60,6 +63,7 @@ constructor(
     internal fun getBody(): LegalEntityUpdateBody {
         return LegalEntityUpdateBody(
             businessName,
+            dateFormed,
             dateOfBirth,
             doingBusinessAsNames,
             email,
@@ -89,6 +93,7 @@ constructor(
     class LegalEntityUpdateBody
     internal constructor(
         private val businessName: String?,
+        private val dateFormed: LocalDate?,
         private val dateOfBirth: LocalDate?,
         private val doingBusinessAsNames: List<String>?,
         private val email: String?,
@@ -106,7 +111,10 @@ constructor(
         /** The business's legal business name. */
         @JsonProperty("business_name") fun businessName(): String? = businessName
 
-        /** An individual's data of birth (YYYY-MM-DD). */
+        /** A business's formation date (YYYY-MM-DD). */
+        @JsonProperty("date_formed") fun dateFormed(): LocalDate? = dateFormed
+
+        /** An individual's date of birth (YYYY-MM-DD). */
         @JsonProperty("date_of_birth") fun dateOfBirth(): LocalDate? = dateOfBirth
 
         @JsonProperty("doing_business_as_names")
@@ -147,6 +155,7 @@ constructor(
 
             return other is LegalEntityUpdateBody &&
                 this.businessName == other.businessName &&
+                this.dateFormed == other.dateFormed &&
                 this.dateOfBirth == other.dateOfBirth &&
                 this.doingBusinessAsNames == other.doingBusinessAsNames &&
                 this.email == other.email &&
@@ -164,6 +173,7 @@ constructor(
                 hashCode =
                     Objects.hash(
                         businessName,
+                        dateFormed,
                         dateOfBirth,
                         doingBusinessAsNames,
                         email,
@@ -180,7 +190,7 @@ constructor(
         }
 
         override fun toString() =
-            "LegalEntityUpdateBody{businessName=$businessName, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, lastName=$lastName, legalStructure=$legalStructure, metadata=$metadata, phoneNumbers=$phoneNumbers, website=$website, additionalProperties=$additionalProperties}"
+            "LegalEntityUpdateBody{businessName=$businessName, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, lastName=$lastName, legalStructure=$legalStructure, metadata=$metadata, phoneNumbers=$phoneNumbers, website=$website, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -190,6 +200,7 @@ constructor(
         class Builder {
 
             private var businessName: String? = null
+            private var dateFormed: LocalDate? = null
             private var dateOfBirth: LocalDate? = null
             private var doingBusinessAsNames: List<String>? = null
             private var email: String? = null
@@ -203,6 +214,7 @@ constructor(
 
             internal fun from(legalEntityUpdateBody: LegalEntityUpdateBody) = apply {
                 this.businessName = legalEntityUpdateBody.businessName
+                this.dateFormed = legalEntityUpdateBody.dateFormed
                 this.dateOfBirth = legalEntityUpdateBody.dateOfBirth
                 this.doingBusinessAsNames = legalEntityUpdateBody.doingBusinessAsNames
                 this.email = legalEntityUpdateBody.email
@@ -219,7 +231,11 @@ constructor(
             @JsonProperty("business_name")
             fun businessName(businessName: String) = apply { this.businessName = businessName }
 
-            /** An individual's data of birth (YYYY-MM-DD). */
+            /** A business's formation date (YYYY-MM-DD). */
+            @JsonProperty("date_formed")
+            fun dateFormed(dateFormed: LocalDate) = apply { this.dateFormed = dateFormed }
+
+            /** An individual's date of birth (YYYY-MM-DD). */
             @JsonProperty("date_of_birth")
             fun dateOfBirth(dateOfBirth: LocalDate) = apply { this.dateOfBirth = dateOfBirth }
 
@@ -277,6 +293,7 @@ constructor(
             fun build(): LegalEntityUpdateBody =
                 LegalEntityUpdateBody(
                     businessName,
+                    dateFormed,
                     dateOfBirth,
                     doingBusinessAsNames?.toUnmodifiable(),
                     email,
@@ -305,6 +322,7 @@ constructor(
         return other is LegalEntityUpdateParams &&
             this.id == other.id &&
             this.businessName == other.businessName &&
+            this.dateFormed == other.dateFormed &&
             this.dateOfBirth == other.dateOfBirth &&
             this.doingBusinessAsNames == other.doingBusinessAsNames &&
             this.email == other.email &&
@@ -323,6 +341,7 @@ constructor(
         return Objects.hash(
             id,
             businessName,
+            dateFormed,
             dateOfBirth,
             doingBusinessAsNames,
             email,
@@ -339,7 +358,7 @@ constructor(
     }
 
     override fun toString() =
-        "LegalEntityUpdateParams{id=$id, businessName=$businessName, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, lastName=$lastName, legalStructure=$legalStructure, metadata=$metadata, phoneNumbers=$phoneNumbers, website=$website, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "LegalEntityUpdateParams{id=$id, businessName=$businessName, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, lastName=$lastName, legalStructure=$legalStructure, metadata=$metadata, phoneNumbers=$phoneNumbers, website=$website, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -353,6 +372,7 @@ constructor(
 
         private var id: String? = null
         private var businessName: String? = null
+        private var dateFormed: LocalDate? = null
         private var dateOfBirth: LocalDate? = null
         private var doingBusinessAsNames: MutableList<String> = mutableListOf()
         private var email: String? = null
@@ -369,6 +389,7 @@ constructor(
         internal fun from(legalEntityUpdateParams: LegalEntityUpdateParams) = apply {
             this.id = legalEntityUpdateParams.id
             this.businessName = legalEntityUpdateParams.businessName
+            this.dateFormed = legalEntityUpdateParams.dateFormed
             this.dateOfBirth = legalEntityUpdateParams.dateOfBirth
             this.doingBusinessAsNames(legalEntityUpdateParams.doingBusinessAsNames ?: listOf())
             this.email = legalEntityUpdateParams.email
@@ -388,7 +409,10 @@ constructor(
         /** The business's legal business name. */
         fun businessName(businessName: String) = apply { this.businessName = businessName }
 
-        /** An individual's data of birth (YYYY-MM-DD). */
+        /** A business's formation date (YYYY-MM-DD). */
+        fun dateFormed(dateFormed: LocalDate) = apply { this.dateFormed = dateFormed }
+
+        /** An individual's date of birth (YYYY-MM-DD). */
         fun dateOfBirth(dateOfBirth: LocalDate) = apply { this.dateOfBirth = dateOfBirth }
 
         fun doingBusinessAsNames(doingBusinessAsNames: List<String>) = apply {
@@ -487,6 +511,7 @@ constructor(
             LegalEntityUpdateParams(
                 checkNotNull(id) { "`id` is required but was not set" },
                 businessName,
+                dateFormed,
                 dateOfBirth,
                 if (doingBusinessAsNames.size == 0) null else doingBusinessAsNames.toUnmodifiable(),
                 email,

@@ -14,6 +14,7 @@ class LegalEntityUpdateParamsTest {
         LegalEntityUpdateParams.builder()
             .id("string")
             .businessName("string")
+            .dateFormed(LocalDate.parse("2019-12-27"))
             .dateOfBirth(LocalDate.parse("2019-12-27"))
             .doingBusinessAsNames(listOf("string"))
             .email("string")
@@ -34,6 +35,7 @@ class LegalEntityUpdateParamsTest {
             LegalEntityUpdateParams.builder()
                 .id("string")
                 .businessName("string")
+                .dateFormed(LocalDate.parse("2019-12-27"))
                 .dateOfBirth(LocalDate.parse("2019-12-27"))
                 .doingBusinessAsNames(listOf("string"))
                 .email("string")
@@ -51,6 +53,7 @@ class LegalEntityUpdateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.businessName()).isEqualTo("string")
+        assertThat(body.dateFormed()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.dateOfBirth()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.doingBusinessAsNames()).isEqualTo(listOf("string"))
         assertThat(body.email()).isEqualTo("string")
