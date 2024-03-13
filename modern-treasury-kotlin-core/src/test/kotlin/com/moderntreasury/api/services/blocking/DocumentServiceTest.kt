@@ -6,12 +6,14 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.DocumentListParams
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
 class DocumentServiceTest {
 
+    @Disabled("multipart/form-data not yet supported")
     @Test
     fun callCreate() {
         val client =
