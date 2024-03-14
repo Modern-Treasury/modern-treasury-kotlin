@@ -19,7 +19,7 @@ class LedgerAccountCreateParamsTest {
             .description("string")
             .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .ledgerableType(LedgerAccountCreateParams.LedgerableType.EXTERNAL_ACCOUNT)
+            .ledgerableType(LedgerAccountCreateParams.LedgerableType.COUNTERPARTY)
             .metadata(LedgerAccountCreateParams.Metadata.builder().build())
             .build()
     }
@@ -36,7 +36,7 @@ class LedgerAccountCreateParamsTest {
                 .description("string")
                 .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .ledgerableType(LedgerAccountCreateParams.LedgerableType.EXTERNAL_ACCOUNT)
+                .ledgerableType(LedgerAccountCreateParams.LedgerableType.COUNTERPARTY)
                 .metadata(LedgerAccountCreateParams.Metadata.builder().build())
                 .build()
         val body = params.getBody()
@@ -51,7 +51,7 @@ class LedgerAccountCreateParamsTest {
             .isEqualTo(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
         assertThat(body.ledgerableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.ledgerableType())
-            .isEqualTo(LedgerAccountCreateParams.LedgerableType.EXTERNAL_ACCOUNT)
+            .isEqualTo(LedgerAccountCreateParams.LedgerableType.COUNTERPARTY)
         assertThat(body.metadata()).isEqualTo(LedgerAccountCreateParams.Metadata.builder().build())
     }
 

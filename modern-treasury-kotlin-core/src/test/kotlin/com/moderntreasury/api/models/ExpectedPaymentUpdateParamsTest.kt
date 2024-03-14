@@ -3,7 +3,6 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonNull
-import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
@@ -27,7 +26,9 @@ class ExpectedPaymentUpdateParamsTest {
             .metadata(ExpectedPaymentUpdateParams.Metadata.builder().build())
             .reconciliationFilters(JsonNull.of())
             .reconciliationGroups(JsonNull.of())
-            .reconciliationRuleVariables(listOf(JsonValue.from(mapOf<String, Any>())))
+            .reconciliationRuleVariables(
+                listOf(ExpectedPaymentUpdateParams.ReconciliationRuleVariable.builder().build())
+            )
             .remittanceInformation("string")
             .statementDescriptor("string")
             .type(ExpectedPaymentType.ACH)
@@ -51,7 +52,9 @@ class ExpectedPaymentUpdateParamsTest {
                 .metadata(ExpectedPaymentUpdateParams.Metadata.builder().build())
                 .reconciliationFilters(JsonNull.of())
                 .reconciliationGroups(JsonNull.of())
-                .reconciliationRuleVariables(listOf(JsonValue.from(mapOf<String, Any>())))
+                .reconciliationRuleVariables(
+                    listOf(ExpectedPaymentUpdateParams.ReconciliationRuleVariable.builder().build())
+                )
                 .remittanceInformation("string")
                 .statementDescriptor("string")
                 .type(ExpectedPaymentType.ACH)
@@ -72,7 +75,9 @@ class ExpectedPaymentUpdateParamsTest {
         assertThat(body.reconciliationFilters()).isEqualTo(JsonNull.of())
         assertThat(body.reconciliationGroups()).isEqualTo(JsonNull.of())
         assertThat(body.reconciliationRuleVariables())
-            .isEqualTo(listOf(JsonValue.from(mapOf<String, Any>())))
+            .isEqualTo(
+                listOf(ExpectedPaymentUpdateParams.ReconciliationRuleVariable.builder().build())
+            )
         assertThat(body.remittanceInformation()).isEqualTo("string")
         assertThat(body.statementDescriptor()).isEqualTo("string")
         assertThat(body.type()).isEqualTo(ExpectedPaymentType.ACH)

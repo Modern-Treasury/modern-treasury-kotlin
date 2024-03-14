@@ -99,7 +99,7 @@ class PaymentOrderUpdateParamsTest {
                             .ledgerableType(
                                 PaymentOrderUpdateParams.ReceivingAccount.LedgerAccountCreateRequest
                                     .LedgerableType
-                                    .EXTERNAL_ACCOUNT
+                                    .COUNTERPARTY
                             )
                             .metadata(
                                 PaymentOrderUpdateParams.ReceivingAccount.LedgerAccountCreateRequest
@@ -249,7 +249,7 @@ class PaymentOrderUpdateParamsTest {
                                     PaymentOrderUpdateParams.ReceivingAccount
                                         .LedgerAccountCreateRequest
                                         .LedgerableType
-                                        .EXTERNAL_ACCOUNT
+                                        .COUNTERPARTY
                                 )
                                 .metadata(
                                     PaymentOrderUpdateParams.ReceivingAccount
@@ -398,7 +398,7 @@ class PaymentOrderUpdateParamsTest {
                             .ledgerableType(
                                 PaymentOrderUpdateParams.ReceivingAccount.LedgerAccountCreateRequest
                                     .LedgerableType
-                                    .EXTERNAL_ACCOUNT
+                                    .COUNTERPARTY
                             )
                             .metadata(
                                 PaymentOrderUpdateParams.ReceivingAccount.LedgerAccountCreateRequest
