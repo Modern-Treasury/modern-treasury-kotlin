@@ -4082,6 +4082,8 @@ constructor(
 
                 companion object {
 
+                    val COUNTERPARTY = LedgerableType(JsonField.of("counterparty"))
+
                     val EXTERNAL_ACCOUNT = LedgerableType(JsonField.of("external_account"))
 
                     val INTERNAL_ACCOUNT = LedgerableType(JsonField.of("internal_account"))
@@ -4092,12 +4094,14 @@ constructor(
                 }
 
                 enum class Known {
+                    COUNTERPARTY,
                     EXTERNAL_ACCOUNT,
                     INTERNAL_ACCOUNT,
                     VIRTUAL_ACCOUNT,
                 }
 
                 enum class Value {
+                    COUNTERPARTY,
                     EXTERNAL_ACCOUNT,
                     INTERNAL_ACCOUNT,
                     VIRTUAL_ACCOUNT,
@@ -4106,6 +4110,7 @@ constructor(
 
                 fun value(): Value =
                     when (this) {
+                        COUNTERPARTY -> Value.COUNTERPARTY
                         EXTERNAL_ACCOUNT -> Value.EXTERNAL_ACCOUNT
                         INTERNAL_ACCOUNT -> Value.INTERNAL_ACCOUNT
                         VIRTUAL_ACCOUNT -> Value.VIRTUAL_ACCOUNT
@@ -4114,6 +4119,7 @@ constructor(
 
                 fun known(): Known =
                     when (this) {
+                        COUNTERPARTY -> Known.COUNTERPARTY
                         EXTERNAL_ACCOUNT -> Known.EXTERNAL_ACCOUNT
                         INTERNAL_ACCOUNT -> Known.INTERNAL_ACCOUNT
                         VIRTUAL_ACCOUNT -> Known.VIRTUAL_ACCOUNT

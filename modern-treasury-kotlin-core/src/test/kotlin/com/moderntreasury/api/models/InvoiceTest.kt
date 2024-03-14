@@ -3,7 +3,6 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonNull
-import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -81,7 +80,7 @@ class InvoiceTest {
                             .reconciliationGroups(JsonNull.of())
                             .reconciliationMethod(ExpectedPayment.ReconciliationMethod.AUTOMATIC)
                             .reconciliationRuleVariables(
-                                listOf(JsonValue.from(mapOf<String, Any>()))
+                                listOf(ExpectedPayment.ReconciliationRuleVariable.builder().build())
                             )
                             .remittanceInformation("string")
                             .statementDescriptor("string")
@@ -502,7 +501,9 @@ class InvoiceTest {
                     .reconciliationFilters(JsonNull.of())
                     .reconciliationGroups(JsonNull.of())
                     .reconciliationMethod(ExpectedPayment.ReconciliationMethod.AUTOMATIC)
-                    .reconciliationRuleVariables(listOf(JsonValue.from(mapOf<String, Any>())))
+                    .reconciliationRuleVariables(
+                        listOf(ExpectedPayment.ReconciliationRuleVariable.builder().build())
+                    )
                     .remittanceInformation("string")
                     .statementDescriptor("string")
                     .status(ExpectedPayment.Status.ARCHIVED)

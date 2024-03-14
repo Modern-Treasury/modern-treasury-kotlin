@@ -63,7 +63,7 @@ class ExternalAccountServiceTest {
                             .ledgerableType(
                                 ExternalAccountCreateParams.LedgerAccountCreateRequest
                                     .LedgerableType
-                                    .EXTERNAL_ACCOUNT
+                                    .COUNTERPARTY
                             )
                             .metadata(
                                 ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata

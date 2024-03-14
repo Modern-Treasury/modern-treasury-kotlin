@@ -62,7 +62,7 @@ class CounterpartyCreateParamsTest {
                                 .ledgerableType(
                                     CounterpartyCreateParams.Account.LedgerAccountCreateRequest
                                         .LedgerableType
-                                        .EXTERNAL_ACCOUNT
+                                        .COUNTERPARTY
                                 )
                                 .metadata(
                                     CounterpartyCreateParams.Account.LedgerAccountCreateRequest
@@ -159,6 +159,121 @@ class CounterpartyCreateParamsTest {
                         )
                     )
                     .lastName("string")
+                    .legalEntityAssociations(
+                        listOf(
+                            CounterpartyCreateParams.LegalEntityCreateRequest
+                                .LegalEntityAssociationInlineCreateRequest
+                                .builder()
+                                .relationshipTypes(
+                                    listOf(
+                                        CounterpartyCreateParams.LegalEntityCreateRequest
+                                            .LegalEntityAssociationInlineCreateRequest
+                                            .RelationshipType
+                                            .BENEFICIAL_OWNER
+                                    )
+                                )
+                                .associatedLegalEntity(
+                                    CounterpartyCreateParams.LegalEntityCreateRequest
+                                        .LegalEntityAssociationInlineCreateRequest
+                                        .AssociatedLegalEntityCreate
+                                        .builder()
+                                        .addresses(
+                                            listOf(
+                                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                                    .LegalEntityAssociationInlineCreateRequest
+                                                    .AssociatedLegalEntityCreate
+                                                    .LegalEntityAddressCreateRequest
+                                                    .builder()
+                                                    .country("string")
+                                                    .line1("string")
+                                                    .locality("string")
+                                                    .postalCode("string")
+                                                    .region("string")
+                                                    .addressTypes(
+                                                        listOf(
+                                                            CounterpartyCreateParams
+                                                                .LegalEntityCreateRequest
+                                                                .LegalEntityAssociationInlineCreateRequest
+                                                                .AssociatedLegalEntityCreate
+                                                                .LegalEntityAddressCreateRequest
+                                                                .AddressType
+                                                                .BUSINESS
+                                                        )
+                                                    )
+                                                    .line2("string")
+                                                    .build()
+                                            )
+                                        )
+                                        .businessName("string")
+                                        .dateFormed(LocalDate.parse("2019-12-27"))
+                                        .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                        .doingBusinessAsNames(listOf("string"))
+                                        .email("string")
+                                        .firstName("string")
+                                        .identifications(
+                                            listOf(
+                                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                                    .LegalEntityAssociationInlineCreateRequest
+                                                    .AssociatedLegalEntityCreate
+                                                    .IdentificationCreateRequest
+                                                    .builder()
+                                                    .idNumber("string")
+                                                    .idType(
+                                                        CounterpartyCreateParams
+                                                            .LegalEntityCreateRequest
+                                                            .LegalEntityAssociationInlineCreateRequest
+                                                            .AssociatedLegalEntityCreate
+                                                            .IdentificationCreateRequest
+                                                            .IdType
+                                                            .AR_CUIL
+                                                    )
+                                                    .issuingCountry("string")
+                                                    .build()
+                                            )
+                                        )
+                                        .lastName("string")
+                                        .legalEntityType(
+                                            CounterpartyCreateParams.LegalEntityCreateRequest
+                                                .LegalEntityAssociationInlineCreateRequest
+                                                .AssociatedLegalEntityCreate
+                                                .LegalEntityType
+                                                .BUSINESS
+                                        )
+                                        .legalStructure(
+                                            CounterpartyCreateParams.LegalEntityCreateRequest
+                                                .LegalEntityAssociationInlineCreateRequest
+                                                .AssociatedLegalEntityCreate
+                                                .LegalStructure
+                                                .CORPORATION
+                                        )
+                                        .metadata(
+                                            CounterpartyCreateParams.LegalEntityCreateRequest
+                                                .LegalEntityAssociationInlineCreateRequest
+                                                .AssociatedLegalEntityCreate
+                                                .Metadata
+                                                .builder()
+                                                .build()
+                                        )
+                                        .phoneNumbers(
+                                            listOf(
+                                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                                    .LegalEntityAssociationInlineCreateRequest
+                                                    .AssociatedLegalEntityCreate
+                                                    .PhoneNumber
+                                                    .builder()
+                                                    .phoneNumber("string")
+                                                    .build()
+                                            )
+                                        )
+                                        .website("string")
+                                        .build()
+                                )
+                                .associatedLegalEntityId("string")
+                                .ownershipPercentage(123L)
+                                .title("string")
+                                .build()
+                        )
+                    )
                     .legalStructure(
                         CounterpartyCreateParams.LegalEntityCreateRequest.LegalStructure.CORPORATION
                     )
@@ -239,7 +354,7 @@ class CounterpartyCreateParamsTest {
                                     .ledgerableType(
                                         CounterpartyCreateParams.Account.LedgerAccountCreateRequest
                                             .LedgerableType
-                                            .EXTERNAL_ACCOUNT
+                                            .COUNTERPARTY
                                     )
                                     .metadata(
                                         CounterpartyCreateParams.Account.LedgerAccountCreateRequest
@@ -338,6 +453,124 @@ class CounterpartyCreateParamsTest {
                             )
                         )
                         .lastName("string")
+                        .legalEntityAssociations(
+                            listOf(
+                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                    .LegalEntityAssociationInlineCreateRequest
+                                    .builder()
+                                    .relationshipTypes(
+                                        listOf(
+                                            CounterpartyCreateParams.LegalEntityCreateRequest
+                                                .LegalEntityAssociationInlineCreateRequest
+                                                .RelationshipType
+                                                .BENEFICIAL_OWNER
+                                        )
+                                    )
+                                    .associatedLegalEntity(
+                                        CounterpartyCreateParams.LegalEntityCreateRequest
+                                            .LegalEntityAssociationInlineCreateRequest
+                                            .AssociatedLegalEntityCreate
+                                            .builder()
+                                            .addresses(
+                                                listOf(
+                                                    CounterpartyCreateParams
+                                                        .LegalEntityCreateRequest
+                                                        .LegalEntityAssociationInlineCreateRequest
+                                                        .AssociatedLegalEntityCreate
+                                                        .LegalEntityAddressCreateRequest
+                                                        .builder()
+                                                        .country("string")
+                                                        .line1("string")
+                                                        .locality("string")
+                                                        .postalCode("string")
+                                                        .region("string")
+                                                        .addressTypes(
+                                                            listOf(
+                                                                CounterpartyCreateParams
+                                                                    .LegalEntityCreateRequest
+                                                                    .LegalEntityAssociationInlineCreateRequest
+                                                                    .AssociatedLegalEntityCreate
+                                                                    .LegalEntityAddressCreateRequest
+                                                                    .AddressType
+                                                                    .BUSINESS
+                                                            )
+                                                        )
+                                                        .line2("string")
+                                                        .build()
+                                                )
+                                            )
+                                            .businessName("string")
+                                            .dateFormed(LocalDate.parse("2019-12-27"))
+                                            .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                            .doingBusinessAsNames(listOf("string"))
+                                            .email("string")
+                                            .firstName("string")
+                                            .identifications(
+                                                listOf(
+                                                    CounterpartyCreateParams
+                                                        .LegalEntityCreateRequest
+                                                        .LegalEntityAssociationInlineCreateRequest
+                                                        .AssociatedLegalEntityCreate
+                                                        .IdentificationCreateRequest
+                                                        .builder()
+                                                        .idNumber("string")
+                                                        .idType(
+                                                            CounterpartyCreateParams
+                                                                .LegalEntityCreateRequest
+                                                                .LegalEntityAssociationInlineCreateRequest
+                                                                .AssociatedLegalEntityCreate
+                                                                .IdentificationCreateRequest
+                                                                .IdType
+                                                                .AR_CUIL
+                                                        )
+                                                        .issuingCountry("string")
+                                                        .build()
+                                                )
+                                            )
+                                            .lastName("string")
+                                            .legalEntityType(
+                                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                                    .LegalEntityAssociationInlineCreateRequest
+                                                    .AssociatedLegalEntityCreate
+                                                    .LegalEntityType
+                                                    .BUSINESS
+                                            )
+                                            .legalStructure(
+                                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                                    .LegalEntityAssociationInlineCreateRequest
+                                                    .AssociatedLegalEntityCreate
+                                                    .LegalStructure
+                                                    .CORPORATION
+                                            )
+                                            .metadata(
+                                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                                    .LegalEntityAssociationInlineCreateRequest
+                                                    .AssociatedLegalEntityCreate
+                                                    .Metadata
+                                                    .builder()
+                                                    .build()
+                                            )
+                                            .phoneNumbers(
+                                                listOf(
+                                                    CounterpartyCreateParams
+                                                        .LegalEntityCreateRequest
+                                                        .LegalEntityAssociationInlineCreateRequest
+                                                        .AssociatedLegalEntityCreate
+                                                        .PhoneNumber
+                                                        .builder()
+                                                        .phoneNumber("string")
+                                                        .build()
+                                                )
+                                            )
+                                            .website("string")
+                                            .build()
+                                    )
+                                    .associatedLegalEntityId("string")
+                                    .ownershipPercentage(123L)
+                                    .title("string")
+                                    .build()
+                            )
+                        )
                         .legalStructure(
                             CounterpartyCreateParams.LegalEntityCreateRequest.LegalStructure
                                 .CORPORATION
@@ -417,7 +650,7 @@ class CounterpartyCreateParamsTest {
                                 .ledgerableType(
                                     CounterpartyCreateParams.Account.LedgerAccountCreateRequest
                                         .LedgerableType
-                                        .EXTERNAL_ACCOUNT
+                                        .COUNTERPARTY
                                 )
                                 .metadata(
                                     CounterpartyCreateParams.Account.LedgerAccountCreateRequest
@@ -515,6 +748,121 @@ class CounterpartyCreateParamsTest {
                         )
                     )
                     .lastName("string")
+                    .legalEntityAssociations(
+                        listOf(
+                            CounterpartyCreateParams.LegalEntityCreateRequest
+                                .LegalEntityAssociationInlineCreateRequest
+                                .builder()
+                                .relationshipTypes(
+                                    listOf(
+                                        CounterpartyCreateParams.LegalEntityCreateRequest
+                                            .LegalEntityAssociationInlineCreateRequest
+                                            .RelationshipType
+                                            .BENEFICIAL_OWNER
+                                    )
+                                )
+                                .associatedLegalEntity(
+                                    CounterpartyCreateParams.LegalEntityCreateRequest
+                                        .LegalEntityAssociationInlineCreateRequest
+                                        .AssociatedLegalEntityCreate
+                                        .builder()
+                                        .addresses(
+                                            listOf(
+                                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                                    .LegalEntityAssociationInlineCreateRequest
+                                                    .AssociatedLegalEntityCreate
+                                                    .LegalEntityAddressCreateRequest
+                                                    .builder()
+                                                    .country("string")
+                                                    .line1("string")
+                                                    .locality("string")
+                                                    .postalCode("string")
+                                                    .region("string")
+                                                    .addressTypes(
+                                                        listOf(
+                                                            CounterpartyCreateParams
+                                                                .LegalEntityCreateRequest
+                                                                .LegalEntityAssociationInlineCreateRequest
+                                                                .AssociatedLegalEntityCreate
+                                                                .LegalEntityAddressCreateRequest
+                                                                .AddressType
+                                                                .BUSINESS
+                                                        )
+                                                    )
+                                                    .line2("string")
+                                                    .build()
+                                            )
+                                        )
+                                        .businessName("string")
+                                        .dateFormed(LocalDate.parse("2019-12-27"))
+                                        .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                        .doingBusinessAsNames(listOf("string"))
+                                        .email("string")
+                                        .firstName("string")
+                                        .identifications(
+                                            listOf(
+                                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                                    .LegalEntityAssociationInlineCreateRequest
+                                                    .AssociatedLegalEntityCreate
+                                                    .IdentificationCreateRequest
+                                                    .builder()
+                                                    .idNumber("string")
+                                                    .idType(
+                                                        CounterpartyCreateParams
+                                                            .LegalEntityCreateRequest
+                                                            .LegalEntityAssociationInlineCreateRequest
+                                                            .AssociatedLegalEntityCreate
+                                                            .IdentificationCreateRequest
+                                                            .IdType
+                                                            .AR_CUIL
+                                                    )
+                                                    .issuingCountry("string")
+                                                    .build()
+                                            )
+                                        )
+                                        .lastName("string")
+                                        .legalEntityType(
+                                            CounterpartyCreateParams.LegalEntityCreateRequest
+                                                .LegalEntityAssociationInlineCreateRequest
+                                                .AssociatedLegalEntityCreate
+                                                .LegalEntityType
+                                                .BUSINESS
+                                        )
+                                        .legalStructure(
+                                            CounterpartyCreateParams.LegalEntityCreateRequest
+                                                .LegalEntityAssociationInlineCreateRequest
+                                                .AssociatedLegalEntityCreate
+                                                .LegalStructure
+                                                .CORPORATION
+                                        )
+                                        .metadata(
+                                            CounterpartyCreateParams.LegalEntityCreateRequest
+                                                .LegalEntityAssociationInlineCreateRequest
+                                                .AssociatedLegalEntityCreate
+                                                .Metadata
+                                                .builder()
+                                                .build()
+                                        )
+                                        .phoneNumbers(
+                                            listOf(
+                                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                                    .LegalEntityAssociationInlineCreateRequest
+                                                    .AssociatedLegalEntityCreate
+                                                    .PhoneNumber
+                                                    .builder()
+                                                    .phoneNumber("string")
+                                                    .build()
+                                            )
+                                        )
+                                        .website("string")
+                                        .build()
+                                )
+                                .associatedLegalEntityId("string")
+                                .ownershipPercentage(123L)
+                                .title("string")
+                                .build()
+                        )
+                    )
                     .legalStructure(
                         CounterpartyCreateParams.LegalEntityCreateRequest.LegalStructure.CORPORATION
                     )

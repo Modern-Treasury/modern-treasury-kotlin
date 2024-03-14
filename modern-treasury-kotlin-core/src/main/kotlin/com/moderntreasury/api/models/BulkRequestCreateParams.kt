@@ -5632,6 +5632,8 @@ constructor(
 
                         companion object {
 
+                            val COUNTERPARTY = LedgerableType(JsonField.of("counterparty"))
+
                             val EXTERNAL_ACCOUNT = LedgerableType(JsonField.of("external_account"))
 
                             val INTERNAL_ACCOUNT = LedgerableType(JsonField.of("internal_account"))
@@ -5642,12 +5644,14 @@ constructor(
                         }
 
                         enum class Known {
+                            COUNTERPARTY,
                             EXTERNAL_ACCOUNT,
                             INTERNAL_ACCOUNT,
                             VIRTUAL_ACCOUNT,
                         }
 
                         enum class Value {
+                            COUNTERPARTY,
                             EXTERNAL_ACCOUNT,
                             INTERNAL_ACCOUNT,
                             VIRTUAL_ACCOUNT,
@@ -5656,6 +5660,7 @@ constructor(
 
                         fun value(): Value =
                             when (this) {
+                                COUNTERPARTY -> Value.COUNTERPARTY
                                 EXTERNAL_ACCOUNT -> Value.EXTERNAL_ACCOUNT
                                 INTERNAL_ACCOUNT -> Value.INTERNAL_ACCOUNT
                                 VIRTUAL_ACCOUNT -> Value.VIRTUAL_ACCOUNT
@@ -5664,6 +5669,7 @@ constructor(
 
                         fun known(): Known =
                             when (this) {
+                                COUNTERPARTY -> Known.COUNTERPARTY
                                 EXTERNAL_ACCOUNT -> Known.EXTERNAL_ACCOUNT
                                 INTERNAL_ACCOUNT -> Known.INTERNAL_ACCOUNT
                                 VIRTUAL_ACCOUNT -> Known.VIRTUAL_ACCOUNT
@@ -6667,7 +6673,7 @@ constructor(
             private val remittanceInformation: JsonField<String>,
             private val reconciliationGroups: JsonValue,
             private val reconciliationFilters: JsonValue,
-            private val reconciliationRuleVariables: JsonField<List<JsonValue>>,
+            private val reconciliationRuleVariables: JsonField<List<ReconciliationRuleVariable>>,
             private val lineItems: JsonField<List<LineItemRequest>>,
             private val ledgerTransaction: JsonField<LedgerTransactionCreateRequest>,
             private val ledgerTransactionId: JsonField<String>,
@@ -6743,7 +6749,7 @@ constructor(
                 remittanceInformation.getNullable("remittance_information")
 
             /** An array of reconciliation rule variables for this payment. */
-            fun reconciliationRuleVariables(): List<JsonValue>? =
+            fun reconciliationRuleVariables(): List<ReconciliationRuleVariable>? =
                 reconciliationRuleVariables.getNullable("reconciliation_rule_variables")
 
             fun lineItems(): List<LineItemRequest>? = lineItems.getNullable("line_items")
@@ -6894,7 +6900,7 @@ constructor(
                     metadata()?.validate()
                     counterpartyId()
                     remittanceInformation()
-                    reconciliationRuleVariables()
+                    reconciliationRuleVariables()?.forEach { it.validate() }
                     lineItems()?.forEach { it.validate() }
                     ledgerTransaction()?.validate()
                     ledgerTransactionId()
@@ -6986,7 +6992,8 @@ constructor(
                 private var remittanceInformation: JsonField<String> = JsonMissing.of()
                 private var reconciliationGroups: JsonValue = JsonMissing.of()
                 private var reconciliationFilters: JsonValue = JsonMissing.of()
-                private var reconciliationRuleVariables: JsonField<List<JsonValue>> =
+                private var reconciliationRuleVariables:
+                    JsonField<List<ReconciliationRuleVariable>> =
                     JsonMissing.of()
                 private var lineItems: JsonField<List<LineItemRequest>> = JsonMissing.of()
                 private var ledgerTransaction: JsonField<LedgerTransactionCreateRequest> =
@@ -7217,14 +7224,15 @@ constructor(
                 }
 
                 /** An array of reconciliation rule variables for this payment. */
-                fun reconciliationRuleVariables(reconciliationRuleVariables: List<JsonValue>) =
-                    reconciliationRuleVariables(JsonField.of(reconciliationRuleVariables))
+                fun reconciliationRuleVariables(
+                    reconciliationRuleVariables: List<ReconciliationRuleVariable>
+                ) = reconciliationRuleVariables(JsonField.of(reconciliationRuleVariables))
 
                 /** An array of reconciliation rule variables for this payment. */
                 @JsonProperty("reconciliation_rule_variables")
                 @ExcludeMissing
                 fun reconciliationRuleVariables(
-                    reconciliationRuleVariables: JsonField<List<JsonValue>>
+                    reconciliationRuleVariables: JsonField<List<ReconciliationRuleVariable>>
                 ) = apply { this.reconciliationRuleVariables = reconciliationRuleVariables }
 
                 fun lineItems(lineItems: List<LineItemRequest>) = lineItems(JsonField.of(lineItems))
@@ -9091,6 +9099,82 @@ constructor(
                         }
 
                     fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                }
+            }
+
+            @JsonDeserialize(builder = ReconciliationRuleVariable.Builder::class)
+            @NoAutoDetect
+            class ReconciliationRuleVariable
+            private constructor(
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): ReconciliationRuleVariable = apply {
+                    if (!validated) {
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is ReconciliationRuleVariable &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode = Objects.hash(additionalProperties)
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "ReconciliationRuleVariable{additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    internal fun from(reconciliationRuleVariable: ReconciliationRuleVariable) =
+                        apply {
+                            additionalProperties(reconciliationRuleVariable.additionalProperties)
+                        }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): ReconciliationRuleVariable =
+                        ReconciliationRuleVariable(additionalProperties.toUnmodifiable())
                 }
             }
         }
@@ -13933,6 +14017,8 @@ constructor(
 
                         companion object {
 
+                            val COUNTERPARTY = LedgerableType(JsonField.of("counterparty"))
+
                             val EXTERNAL_ACCOUNT = LedgerableType(JsonField.of("external_account"))
 
                             val INTERNAL_ACCOUNT = LedgerableType(JsonField.of("internal_account"))
@@ -13943,12 +14029,14 @@ constructor(
                         }
 
                         enum class Known {
+                            COUNTERPARTY,
                             EXTERNAL_ACCOUNT,
                             INTERNAL_ACCOUNT,
                             VIRTUAL_ACCOUNT,
                         }
 
                         enum class Value {
+                            COUNTERPARTY,
                             EXTERNAL_ACCOUNT,
                             INTERNAL_ACCOUNT,
                             VIRTUAL_ACCOUNT,
@@ -13957,6 +14045,7 @@ constructor(
 
                         fun value(): Value =
                             when (this) {
+                                COUNTERPARTY -> Value.COUNTERPARTY
                                 EXTERNAL_ACCOUNT -> Value.EXTERNAL_ACCOUNT
                                 INTERNAL_ACCOUNT -> Value.INTERNAL_ACCOUNT
                                 VIRTUAL_ACCOUNT -> Value.VIRTUAL_ACCOUNT
@@ -13965,6 +14054,7 @@ constructor(
 
                         fun known(): Known =
                             when (this) {
+                                COUNTERPARTY -> Known.COUNTERPARTY
                                 EXTERNAL_ACCOUNT -> Known.EXTERNAL_ACCOUNT
                                 INTERNAL_ACCOUNT -> Known.INTERNAL_ACCOUNT
                                 VIRTUAL_ACCOUNT -> Known.VIRTUAL_ACCOUNT
@@ -15079,7 +15169,7 @@ constructor(
             private val remittanceInformation: JsonField<String>,
             private val reconciliationGroups: JsonValue,
             private val reconciliationFilters: JsonValue,
-            private val reconciliationRuleVariables: JsonField<List<JsonValue>>,
+            private val reconciliationRuleVariables: JsonField<List<ReconciliationRuleVariable>>,
             private val id: JsonField<String>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
@@ -15153,7 +15243,7 @@ constructor(
                 remittanceInformation.getNullable("remittance_information")
 
             /** An array of reconciliation rule variables for this payment. */
-            fun reconciliationRuleVariables(): List<JsonValue>? =
+            fun reconciliationRuleVariables(): List<ReconciliationRuleVariable>? =
                 reconciliationRuleVariables.getNullable("reconciliation_rule_variables")
 
             fun id(): String? = id.getNullable("id")
@@ -15266,7 +15356,7 @@ constructor(
                     metadata()?.validate()
                     counterpartyId()
                     remittanceInformation()
-                    reconciliationRuleVariables()
+                    reconciliationRuleVariables()?.forEach { it.validate() }
                     id()
                     validated = true
                 }
@@ -15352,7 +15442,8 @@ constructor(
                 private var remittanceInformation: JsonField<String> = JsonMissing.of()
                 private var reconciliationGroups: JsonValue = JsonMissing.of()
                 private var reconciliationFilters: JsonValue = JsonMissing.of()
-                private var reconciliationRuleVariables: JsonField<List<JsonValue>> =
+                private var reconciliationRuleVariables:
+                    JsonField<List<ReconciliationRuleVariable>> =
                     JsonMissing.of()
                 private var id: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -15580,14 +15671,15 @@ constructor(
                 }
 
                 /** An array of reconciliation rule variables for this payment. */
-                fun reconciliationRuleVariables(reconciliationRuleVariables: List<JsonValue>) =
-                    reconciliationRuleVariables(JsonField.of(reconciliationRuleVariables))
+                fun reconciliationRuleVariables(
+                    reconciliationRuleVariables: List<ReconciliationRuleVariable>
+                ) = reconciliationRuleVariables(JsonField.of(reconciliationRuleVariables))
 
                 /** An array of reconciliation rule variables for this payment. */
                 @JsonProperty("reconciliation_rule_variables")
                 @ExcludeMissing
                 fun reconciliationRuleVariables(
-                    reconciliationRuleVariables: JsonField<List<JsonValue>>
+                    reconciliationRuleVariables: JsonField<List<ReconciliationRuleVariable>>
                 ) = apply { this.reconciliationRuleVariables = reconciliationRuleVariables }
 
                 fun id(id: String) = id(JsonField.of(id))
@@ -15708,6 +15800,82 @@ constructor(
                         }
 
                     fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                }
+            }
+
+            @JsonDeserialize(builder = ReconciliationRuleVariable.Builder::class)
+            @NoAutoDetect
+            class ReconciliationRuleVariable
+            private constructor(
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): ReconciliationRuleVariable = apply {
+                    if (!validated) {
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is ReconciliationRuleVariable &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode = Objects.hash(additionalProperties)
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "ReconciliationRuleVariable{additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    internal fun from(reconciliationRuleVariable: ReconciliationRuleVariable) =
+                        apply {
+                            additionalProperties(reconciliationRuleVariable.additionalProperties)
+                        }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): ReconciliationRuleVariable =
+                        ReconciliationRuleVariable(additionalProperties.toUnmodifiable())
                 }
             }
         }

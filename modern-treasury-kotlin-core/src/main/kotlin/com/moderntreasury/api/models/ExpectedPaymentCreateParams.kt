@@ -35,7 +35,7 @@ constructor(
     private val metadata: Metadata?,
     private val reconciliationFilters: JsonValue?,
     private val reconciliationGroups: JsonValue?,
-    private val reconciliationRuleVariables: List<JsonValue>?,
+    private val reconciliationRuleVariables: List<ReconciliationRuleVariable>?,
     private val remittanceInformation: String?,
     private val statementDescriptor: String?,
     private val type: ExpectedPaymentType?,
@@ -74,7 +74,8 @@ constructor(
 
     fun reconciliationGroups(): JsonValue? = reconciliationGroups
 
-    fun reconciliationRuleVariables(): List<JsonValue>? = reconciliationRuleVariables
+    fun reconciliationRuleVariables(): List<ReconciliationRuleVariable>? =
+        reconciliationRuleVariables
 
     fun remittanceInformation(): String? = remittanceInformation
 
@@ -130,7 +131,7 @@ constructor(
         private val metadata: Metadata?,
         private val reconciliationFilters: JsonValue?,
         private val reconciliationGroups: JsonValue?,
-        private val reconciliationRuleVariables: List<JsonValue>?,
+        private val reconciliationRuleVariables: List<ReconciliationRuleVariable>?,
         private val remittanceInformation: String?,
         private val statementDescriptor: String?,
         private val type: ExpectedPaymentType?,
@@ -208,7 +209,8 @@ constructor(
 
         /** An array of reconciliation rule variables for this payment. */
         @JsonProperty("reconciliation_rule_variables")
-        fun reconciliationRuleVariables(): List<JsonValue>? = reconciliationRuleVariables
+        fun reconciliationRuleVariables(): List<ReconciliationRuleVariable>? =
+            reconciliationRuleVariables
 
         /**
          * For `ach`, this field will be passed through on an addenda record. For `wire` payments
@@ -320,7 +322,7 @@ constructor(
             private var metadata: Metadata? = null
             private var reconciliationFilters: JsonValue? = null
             private var reconciliationGroups: JsonValue? = null
-            private var reconciliationRuleVariables: List<JsonValue>? = null
+            private var reconciliationRuleVariables: List<ReconciliationRuleVariable>? = null
             private var remittanceInformation: String? = null
             private var statementDescriptor: String? = null
             private var type: ExpectedPaymentType? = null
@@ -453,9 +455,9 @@ constructor(
 
             /** An array of reconciliation rule variables for this payment. */
             @JsonProperty("reconciliation_rule_variables")
-            fun reconciliationRuleVariables(reconciliationRuleVariables: List<JsonValue>) = apply {
-                this.reconciliationRuleVariables = reconciliationRuleVariables
-            }
+            fun reconciliationRuleVariables(
+                reconciliationRuleVariables: List<ReconciliationRuleVariable>
+            ) = apply { this.reconciliationRuleVariables = reconciliationRuleVariables }
 
             /**
              * For `ach`, this field will be passed through on an addenda record. For `wire`
@@ -620,7 +622,8 @@ constructor(
         private var metadata: Metadata? = null
         private var reconciliationFilters: JsonValue? = null
         private var reconciliationGroups: JsonValue? = null
-        private var reconciliationRuleVariables: MutableList<JsonValue> = mutableListOf()
+        private var reconciliationRuleVariables: MutableList<ReconciliationRuleVariable> =
+            mutableListOf()
         private var remittanceInformation: String? = null
         private var statementDescriptor: String? = null
         private var type: ExpectedPaymentType? = null
@@ -742,15 +745,18 @@ constructor(
         }
 
         /** An array of reconciliation rule variables for this payment. */
-        fun reconciliationRuleVariables(reconciliationRuleVariables: List<JsonValue>) = apply {
+        fun reconciliationRuleVariables(
+            reconciliationRuleVariables: List<ReconciliationRuleVariable>
+        ) = apply {
             this.reconciliationRuleVariables.clear()
             this.reconciliationRuleVariables.addAll(reconciliationRuleVariables)
         }
 
         /** An array of reconciliation rule variables for this payment. */
-        fun addReconciliationRuleVariable(reconciliationRuleVariable: JsonValue) = apply {
-            this.reconciliationRuleVariables.add(reconciliationRuleVariable)
-        }
+        fun addReconciliationRuleVariable(reconciliationRuleVariable: ReconciliationRuleVariable) =
+            apply {
+                this.reconciliationRuleVariables.add(reconciliationRuleVariable)
+            }
 
         /**
          * For `ach`, this field will be passed through on an addenda record. For `wire` payments
@@ -2157,6 +2163,72 @@ constructor(
             }
 
             fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+        }
+    }
+
+    @JsonDeserialize(builder = ReconciliationRuleVariable.Builder::class)
+    @NoAutoDetect
+    class ReconciliationRuleVariable
+    private constructor(
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ReconciliationRuleVariable &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "ReconciliationRuleVariable{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(reconciliationRuleVariable: ReconciliationRuleVariable) = apply {
+                additionalProperties(reconciliationRuleVariable.additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): ReconciliationRuleVariable =
+                ReconciliationRuleVariable(additionalProperties.toUnmodifiable())
         }
     }
 }
