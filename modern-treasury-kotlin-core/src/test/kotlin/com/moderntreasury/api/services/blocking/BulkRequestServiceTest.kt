@@ -277,7 +277,7 @@ class BulkRequestServiceTest {
                                                             .ReceivingAccount
                                                             .LedgerAccountCreateRequest
                                                             .LedgerableType
-                                                            .EXTERNAL_ACCOUNT
+                                                            .COUNTERPARTY
                                                     )
                                                     .metadata(
                                                         BulkRequestCreateParams.Resource

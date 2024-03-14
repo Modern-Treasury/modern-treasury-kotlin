@@ -193,7 +193,7 @@ class PaymentOrderServiceTest {
                                         PaymentOrderCreateParams.ReceivingAccount
                                             .LedgerAccountCreateRequest
                                             .LedgerableType
-                                            .EXTERNAL_ACCOUNT
+                                            .COUNTERPARTY
                                     )
                                     .metadata(
                                         PaymentOrderCreateParams.ReceivingAccount
@@ -375,7 +375,7 @@ class PaymentOrderServiceTest {
                                         PaymentOrderUpdateParams.ReceivingAccount
                                             .LedgerAccountCreateRequest
                                             .LedgerableType
-                                            .EXTERNAL_ACCOUNT
+                                            .COUNTERPARTY
                                     )
                                     .metadata(
                                         PaymentOrderUpdateParams.ReceivingAccount
@@ -628,7 +628,7 @@ class PaymentOrderServiceTest {
                                         PaymentOrderCreateAsyncParams.ReceivingAccount
                                             .LedgerAccountCreateRequest
                                             .LedgerableType
-                                            .EXTERNAL_ACCOUNT
+                                            .COUNTERPARTY
                                     )
                                     .metadata(
                                         PaymentOrderCreateAsyncParams.ReceivingAccount

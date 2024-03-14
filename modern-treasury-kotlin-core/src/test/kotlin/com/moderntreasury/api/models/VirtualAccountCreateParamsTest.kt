@@ -40,7 +40,7 @@ class VirtualAccountCreateParamsTest {
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
                         VirtualAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
-                            .EXTERNAL_ACCOUNT
+                            .COUNTERPARTY
                     )
                     .metadata(
                         VirtualAccountCreateParams.LedgerAccountCreateRequest.Metadata.builder()
@@ -100,7 +100,7 @@ class VirtualAccountCreateParamsTest {
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             VirtualAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
-                                .EXTERNAL_ACCOUNT
+                                .COUNTERPARTY
                         )
                         .metadata(
                             VirtualAccountCreateParams.LedgerAccountCreateRequest.Metadata.builder()
@@ -159,7 +159,7 @@ class VirtualAccountCreateParamsTest {
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
                         VirtualAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
-                            .EXTERNAL_ACCOUNT
+                            .COUNTERPARTY
                     )
                     .metadata(
                         VirtualAccountCreateParams.LedgerAccountCreateRequest.Metadata.builder()

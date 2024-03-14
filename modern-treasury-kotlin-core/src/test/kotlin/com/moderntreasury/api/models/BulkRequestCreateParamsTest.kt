@@ -243,7 +243,7 @@ class BulkRequestCreateParamsTest {
                                                     .ReceivingAccount
                                                     .LedgerAccountCreateRequest
                                                     .LedgerableType
-                                                    .EXTERNAL_ACCOUNT
+                                                    .COUNTERPARTY
                                             )
                                             .metadata(
                                                 BulkRequestCreateParams.Resource
@@ -576,7 +576,7 @@ class BulkRequestCreateParamsTest {
                                                         .ReceivingAccount
                                                         .LedgerAccountCreateRequest
                                                         .LedgerableType
-                                                        .EXTERNAL_ACCOUNT
+                                                        .COUNTERPARTY
                                                 )
                                                 .metadata(
                                                     BulkRequestCreateParams.Resource
@@ -901,7 +901,7 @@ class BulkRequestCreateParamsTest {
                                                     .ReceivingAccount
                                                     .LedgerAccountCreateRequest
                                                     .LedgerableType
-                                                    .EXTERNAL_ACCOUNT
+                                                    .COUNTERPARTY
                                             )
                                             .metadata(
                                                 BulkRequestCreateParams.Resource

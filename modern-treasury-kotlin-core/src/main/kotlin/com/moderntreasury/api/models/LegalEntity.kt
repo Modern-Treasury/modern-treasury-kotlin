@@ -42,6 +42,7 @@ private constructor(
     private val metadata: JsonField<Metadata>,
     private val addresses: JsonField<List<LegalEntityAddress>>,
     private val identifications: JsonField<List<Identification>>,
+    private val legalEntityAssociations: JsonField<List<LegalEntityAssociation>>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -106,6 +107,10 @@ private constructor(
     /** A list of identifications for the legal entity. */
     fun identifications(): List<Identification>? = identifications.getNullable("identifications")
 
+    /** The legal entity associations and its associated legal entities. */
+    fun legalEntityAssociations(): List<LegalEntityAssociation>? =
+        legalEntityAssociations.getNullable("legal_entity_associations")
+
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     @JsonProperty("object") @ExcludeMissing fun _object_() = object_
@@ -164,6 +169,11 @@ private constructor(
     /** A list of identifications for the legal entity. */
     @JsonProperty("identifications") @ExcludeMissing fun _identifications() = identifications
 
+    /** The legal entity associations and its associated legal entities. */
+    @JsonProperty("legal_entity_associations")
+    @ExcludeMissing
+    fun _legalEntityAssociations() = legalEntityAssociations
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -190,6 +200,7 @@ private constructor(
             metadata()?.validate()
             addresses()?.forEach { it.validate() }
             identifications()?.forEach { it.validate() }
+            legalEntityAssociations()?.forEach { it.validate() }
             validated = true
         }
     }
@@ -222,6 +233,7 @@ private constructor(
             this.metadata == other.metadata &&
             this.addresses == other.addresses &&
             this.identifications == other.identifications &&
+            this.legalEntityAssociations == other.legalEntityAssociations &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -249,6 +261,7 @@ private constructor(
                     metadata,
                     addresses,
                     identifications,
+                    legalEntityAssociations,
                     additionalProperties,
                 )
         }
@@ -256,7 +269,7 @@ private constructor(
     }
 
     override fun toString() =
-        "LegalEntity{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, legalEntityType=$legalEntityType, firstName=$firstName, lastName=$lastName, dateOfBirth=$dateOfBirth, dateFormed=$dateFormed, businessName=$businessName, doingBusinessAsNames=$doingBusinessAsNames, legalStructure=$legalStructure, phoneNumbers=$phoneNumbers, email=$email, website=$website, metadata=$metadata, addresses=$addresses, identifications=$identifications, additionalProperties=$additionalProperties}"
+        "LegalEntity{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, legalEntityType=$legalEntityType, firstName=$firstName, lastName=$lastName, dateOfBirth=$dateOfBirth, dateFormed=$dateFormed, businessName=$businessName, doingBusinessAsNames=$doingBusinessAsNames, legalStructure=$legalStructure, phoneNumbers=$phoneNumbers, email=$email, website=$website, metadata=$metadata, addresses=$addresses, identifications=$identifications, legalEntityAssociations=$legalEntityAssociations, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -285,6 +298,8 @@ private constructor(
         private var metadata: JsonField<Metadata> = JsonMissing.of()
         private var addresses: JsonField<List<LegalEntityAddress>> = JsonMissing.of()
         private var identifications: JsonField<List<Identification>> = JsonMissing.of()
+        private var legalEntityAssociations: JsonField<List<LegalEntityAssociation>> =
+            JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(legalEntity: LegalEntity) = apply {
@@ -308,6 +323,7 @@ private constructor(
             this.metadata = legalEntity.metadata
             this.addresses = legalEntity.addresses
             this.identifications = legalEntity.identifications
+            this.legalEntityAssociations = legalEntity.legalEntityAssociations
             additionalProperties(legalEntity.additionalProperties)
         }
 
@@ -487,6 +503,17 @@ private constructor(
             this.identifications = identifications
         }
 
+        /** The legal entity associations and its associated legal entities. */
+        fun legalEntityAssociations(legalEntityAssociations: List<LegalEntityAssociation>) =
+            legalEntityAssociations(JsonField.of(legalEntityAssociations))
+
+        /** The legal entity associations and its associated legal entities. */
+        @JsonProperty("legal_entity_associations")
+        @ExcludeMissing
+        fun legalEntityAssociations(
+            legalEntityAssociations: JsonField<List<LegalEntityAssociation>>
+        ) = apply { this.legalEntityAssociations = legalEntityAssociations }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -523,6 +550,7 @@ private constructor(
                 metadata,
                 addresses.map { it.toUnmodifiable() },
                 identifications.map { it.toUnmodifiable() },
+                legalEntityAssociations.map { it.toUnmodifiable() },
                 additionalProperties.toUnmodifiable(),
             )
     }
