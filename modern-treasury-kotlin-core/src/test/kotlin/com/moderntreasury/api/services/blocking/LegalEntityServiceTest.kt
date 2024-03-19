@@ -76,16 +76,16 @@ class LegalEntityServiceTest {
                                             .BENEFICIAL_OWNER
                                     )
                                 )
-                                .associatedLegalEntity(
+                                .childLegalEntity(
                                     LegalEntityCreateParams
                                         .LegalEntityAssociationInlineCreateRequest
-                                        .AssociatedLegalEntityCreate
+                                        .ChildLegalEntityCreate
                                         .builder()
                                         .addresses(
                                             listOf(
                                                 LegalEntityCreateParams
                                                     .LegalEntityAssociationInlineCreateRequest
-                                                    .AssociatedLegalEntityCreate
+                                                    .ChildLegalEntityCreate
                                                     .LegalEntityAddressCreateRequest
                                                     .builder()
                                                     .country("string")
@@ -97,7 +97,7 @@ class LegalEntityServiceTest {
                                                         listOf(
                                                             LegalEntityCreateParams
                                                                 .LegalEntityAssociationInlineCreateRequest
-                                                                .AssociatedLegalEntityCreate
+                                                                .ChildLegalEntityCreate
                                                                 .LegalEntityAddressCreateRequest
                                                                 .AddressType
                                                                 .BUSINESS
@@ -117,14 +117,14 @@ class LegalEntityServiceTest {
                                             listOf(
                                                 LegalEntityCreateParams
                                                     .LegalEntityAssociationInlineCreateRequest
-                                                    .AssociatedLegalEntityCreate
+                                                    .ChildLegalEntityCreate
                                                     .IdentificationCreateRequest
                                                     .builder()
                                                     .idNumber("string")
                                                     .idType(
                                                         LegalEntityCreateParams
                                                             .LegalEntityAssociationInlineCreateRequest
-                                                            .AssociatedLegalEntityCreate
+                                                            .ChildLegalEntityCreate
                                                             .IdentificationCreateRequest
                                                             .IdType
                                                             .AR_CUIL
@@ -137,21 +137,21 @@ class LegalEntityServiceTest {
                                         .legalEntityType(
                                             LegalEntityCreateParams
                                                 .LegalEntityAssociationInlineCreateRequest
-                                                .AssociatedLegalEntityCreate
+                                                .ChildLegalEntityCreate
                                                 .LegalEntityType
                                                 .BUSINESS
                                         )
                                         .legalStructure(
                                             LegalEntityCreateParams
                                                 .LegalEntityAssociationInlineCreateRequest
-                                                .AssociatedLegalEntityCreate
+                                                .ChildLegalEntityCreate
                                                 .LegalStructure
                                                 .CORPORATION
                                         )
                                         .metadata(
                                             LegalEntityCreateParams
                                                 .LegalEntityAssociationInlineCreateRequest
-                                                .AssociatedLegalEntityCreate
+                                                .ChildLegalEntityCreate
                                                 .Metadata
                                                 .builder()
                                                 .build()
@@ -160,7 +160,7 @@ class LegalEntityServiceTest {
                                             listOf(
                                                 LegalEntityCreateParams
                                                     .LegalEntityAssociationInlineCreateRequest
-                                                    .AssociatedLegalEntityCreate
+                                                    .ChildLegalEntityCreate
                                                     .PhoneNumber
                                                     .builder()
                                                     .phoneNumber("string")
@@ -170,7 +170,7 @@ class LegalEntityServiceTest {
                                         .website("string")
                                         .build()
                                 )
-                                .associatedLegalEntityId("string")
+                                .childLegalEntityId("string")
                                 .ownershipPercentage(123L)
                                 .title("string")
                                 .build()
