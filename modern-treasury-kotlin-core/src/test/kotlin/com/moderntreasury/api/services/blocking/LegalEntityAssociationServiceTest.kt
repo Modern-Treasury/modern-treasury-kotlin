@@ -27,11 +27,11 @@ class LegalEntityAssociationServiceTest {
                     .relationshipTypes(
                         listOf(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER)
                     )
-                    .associatedLegalEntity(
-                        LegalEntityAssociationCreateParams.AssociatedLegalEntityCreate.builder()
+                    .childLegalEntity(
+                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate.builder()
                             .addresses(
                                 listOf(
-                                    LegalEntityAssociationCreateParams.AssociatedLegalEntityCreate
+                                    LegalEntityAssociationCreateParams.ChildLegalEntityCreate
                                         .LegalEntityAddressCreateRequest
                                         .builder()
                                         .country("string")
@@ -42,7 +42,7 @@ class LegalEntityAssociationServiceTest {
                                         .addressTypes(
                                             listOf(
                                                 LegalEntityAssociationCreateParams
-                                                    .AssociatedLegalEntityCreate
+                                                    .ChildLegalEntityCreate
                                                     .LegalEntityAddressCreateRequest
                                                     .AddressType
                                                     .BUSINESS
@@ -60,13 +60,13 @@ class LegalEntityAssociationServiceTest {
                             .firstName("string")
                             .identifications(
                                 listOf(
-                                    LegalEntityAssociationCreateParams.AssociatedLegalEntityCreate
+                                    LegalEntityAssociationCreateParams.ChildLegalEntityCreate
                                         .IdentificationCreateRequest
                                         .builder()
                                         .idNumber("string")
                                         .idType(
                                             LegalEntityAssociationCreateParams
-                                                .AssociatedLegalEntityCreate
+                                                .ChildLegalEntityCreate
                                                 .IdentificationCreateRequest
                                                 .IdType
                                                 .AR_CUIL
@@ -77,24 +77,23 @@ class LegalEntityAssociationServiceTest {
                             )
                             .lastName("string")
                             .legalEntityType(
-                                LegalEntityAssociationCreateParams.AssociatedLegalEntityCreate
+                                LegalEntityAssociationCreateParams.ChildLegalEntityCreate
                                     .LegalEntityType
                                     .BUSINESS
                             )
                             .legalStructure(
-                                LegalEntityAssociationCreateParams.AssociatedLegalEntityCreate
+                                LegalEntityAssociationCreateParams.ChildLegalEntityCreate
                                     .LegalStructure
                                     .CORPORATION
                             )
                             .metadata(
-                                LegalEntityAssociationCreateParams.AssociatedLegalEntityCreate
-                                    .Metadata
+                                LegalEntityAssociationCreateParams.ChildLegalEntityCreate.Metadata
                                     .builder()
                                     .build()
                             )
                             .phoneNumbers(
                                 listOf(
-                                    LegalEntityAssociationCreateParams.AssociatedLegalEntityCreate
+                                    LegalEntityAssociationCreateParams.ChildLegalEntityCreate
                                         .PhoneNumber
                                         .builder()
                                         .phoneNumber("string")
@@ -104,9 +103,9 @@ class LegalEntityAssociationServiceTest {
                             .website("string")
                             .build()
                     )
-                    .associatedLegalEntityId("string")
-                    .associatorLegalEntityId("string")
+                    .childLegalEntityId("string")
                     .ownershipPercentage(123L)
+                    .parentLegalEntityId("string")
                     .title("string")
                     .build()
             )

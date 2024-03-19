@@ -193,17 +193,17 @@ class CounterpartyServiceTest {
                                                     .BENEFICIAL_OWNER
                                             )
                                         )
-                                        .associatedLegalEntity(
+                                        .childLegalEntity(
                                             CounterpartyCreateParams.LegalEntityCreateRequest
                                                 .LegalEntityAssociationInlineCreateRequest
-                                                .AssociatedLegalEntityCreate
+                                                .ChildLegalEntityCreate
                                                 .builder()
                                                 .addresses(
                                                     listOf(
                                                         CounterpartyCreateParams
                                                             .LegalEntityCreateRequest
                                                             .LegalEntityAssociationInlineCreateRequest
-                                                            .AssociatedLegalEntityCreate
+                                                            .ChildLegalEntityCreate
                                                             .LegalEntityAddressCreateRequest
                                                             .builder()
                                                             .country("string")
@@ -216,7 +216,7 @@ class CounterpartyServiceTest {
                                                                     CounterpartyCreateParams
                                                                         .LegalEntityCreateRequest
                                                                         .LegalEntityAssociationInlineCreateRequest
-                                                                        .AssociatedLegalEntityCreate
+                                                                        .ChildLegalEntityCreate
                                                                         .LegalEntityAddressCreateRequest
                                                                         .AddressType
                                                                         .BUSINESS
@@ -237,7 +237,7 @@ class CounterpartyServiceTest {
                                                         CounterpartyCreateParams
                                                             .LegalEntityCreateRequest
                                                             .LegalEntityAssociationInlineCreateRequest
-                                                            .AssociatedLegalEntityCreate
+                                                            .ChildLegalEntityCreate
                                                             .IdentificationCreateRequest
                                                             .builder()
                                                             .idNumber("string")
@@ -245,7 +245,7 @@ class CounterpartyServiceTest {
                                                                 CounterpartyCreateParams
                                                                     .LegalEntityCreateRequest
                                                                     .LegalEntityAssociationInlineCreateRequest
-                                                                    .AssociatedLegalEntityCreate
+                                                                    .ChildLegalEntityCreate
                                                                     .IdentificationCreateRequest
                                                                     .IdType
                                                                     .AR_CUIL
@@ -259,7 +259,7 @@ class CounterpartyServiceTest {
                                                     CounterpartyCreateParams
                                                         .LegalEntityCreateRequest
                                                         .LegalEntityAssociationInlineCreateRequest
-                                                        .AssociatedLegalEntityCreate
+                                                        .ChildLegalEntityCreate
                                                         .LegalEntityType
                                                         .BUSINESS
                                                 )
@@ -267,7 +267,7 @@ class CounterpartyServiceTest {
                                                     CounterpartyCreateParams
                                                         .LegalEntityCreateRequest
                                                         .LegalEntityAssociationInlineCreateRequest
-                                                        .AssociatedLegalEntityCreate
+                                                        .ChildLegalEntityCreate
                                                         .LegalStructure
                                                         .CORPORATION
                                                 )
@@ -275,7 +275,7 @@ class CounterpartyServiceTest {
                                                     CounterpartyCreateParams
                                                         .LegalEntityCreateRequest
                                                         .LegalEntityAssociationInlineCreateRequest
-                                                        .AssociatedLegalEntityCreate
+                                                        .ChildLegalEntityCreate
                                                         .Metadata
                                                         .builder()
                                                         .build()
@@ -285,7 +285,7 @@ class CounterpartyServiceTest {
                                                         CounterpartyCreateParams
                                                             .LegalEntityCreateRequest
                                                             .LegalEntityAssociationInlineCreateRequest
-                                                            .AssociatedLegalEntityCreate
+                                                            .ChildLegalEntityCreate
                                                             .PhoneNumber
                                                             .builder()
                                                             .phoneNumber("string")
@@ -295,7 +295,7 @@ class CounterpartyServiceTest {
                                                 .website("string")
                                                 .build()
                                         )
-                                        .associatedLegalEntityId("string")
+                                        .childLegalEntityId("string")
                                         .ownershipPercentage(123L)
                                         .title("string")
                                         .build()

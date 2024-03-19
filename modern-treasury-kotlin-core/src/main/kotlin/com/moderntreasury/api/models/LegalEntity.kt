@@ -107,7 +107,7 @@ private constructor(
     /** A list of identifications for the legal entity. */
     fun identifications(): List<Identification>? = identifications.getNullable("identifications")
 
-    /** The legal entity associations and its associated legal entities. */
+    /** The legal entity associations and its child legal entities. */
     fun legalEntityAssociations(): List<LegalEntityAssociation>? =
         legalEntityAssociations.getNullable("legal_entity_associations")
 
@@ -169,7 +169,7 @@ private constructor(
     /** A list of identifications for the legal entity. */
     @JsonProperty("identifications") @ExcludeMissing fun _identifications() = identifications
 
-    /** The legal entity associations and its associated legal entities. */
+    /** The legal entity associations and its child legal entities. */
     @JsonProperty("legal_entity_associations")
     @ExcludeMissing
     fun _legalEntityAssociations() = legalEntityAssociations
@@ -503,11 +503,11 @@ private constructor(
             this.identifications = identifications
         }
 
-        /** The legal entity associations and its associated legal entities. */
+        /** The legal entity associations and its child legal entities. */
         fun legalEntityAssociations(legalEntityAssociations: List<LegalEntityAssociation>) =
             legalEntityAssociations(JsonField.of(legalEntityAssociations))
 
-        /** The legal entity associations and its associated legal entities. */
+        /** The legal entity associations and its child legal entities. */
         @JsonProperty("legal_entity_associations")
         @ExcludeMissing
         fun legalEntityAssociations(
@@ -1252,7 +1252,7 @@ private constructor(
 
                 val BR_CPF = IdType(JsonField.of("br_cpf"))
 
-                val CL_NUT = IdType(JsonField.of("cl_nut"))
+                val CL_RUT = IdType(JsonField.of("cl_rut"))
 
                 val CO_CEDULAS = IdType(JsonField.of("co_cedulas"))
 
@@ -1278,7 +1278,7 @@ private constructor(
                 AR_CUIT,
                 BR_CNPJ,
                 BR_CPF,
-                CL_NUT,
+                CL_RUT,
                 CO_CEDULAS,
                 CO_NIT,
                 HN_ID,
@@ -1294,7 +1294,7 @@ private constructor(
                 AR_CUIT,
                 BR_CNPJ,
                 BR_CPF,
-                CL_NUT,
+                CL_RUT,
                 CO_CEDULAS,
                 CO_NIT,
                 HN_ID,
@@ -1312,7 +1312,7 @@ private constructor(
                     AR_CUIT -> Value.AR_CUIT
                     BR_CNPJ -> Value.BR_CNPJ
                     BR_CPF -> Value.BR_CPF
-                    CL_NUT -> Value.CL_NUT
+                    CL_RUT -> Value.CL_RUT
                     CO_CEDULAS -> Value.CO_CEDULAS
                     CO_NIT -> Value.CO_NIT
                     HN_ID -> Value.HN_ID
@@ -1330,7 +1330,7 @@ private constructor(
                     AR_CUIT -> Known.AR_CUIT
                     BR_CNPJ -> Known.BR_CNPJ
                     BR_CPF -> Known.BR_CPF
-                    CL_NUT -> Known.CL_NUT
+                    CL_RUT -> Known.CL_RUT
                     CO_CEDULAS -> Known.CO_CEDULAS
                     CO_NIT -> Known.CO_NIT
                     HN_ID -> Known.HN_ID

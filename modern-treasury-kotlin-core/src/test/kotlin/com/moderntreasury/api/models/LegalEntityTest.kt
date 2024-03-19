@@ -62,18 +62,18 @@ class LegalEntityTest {
                     listOf(
                         LegalEntityAssociation.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .associatedLegalEntity(
-                                LegalEntityAssociation.AssociatedLegalEntity.builder()
+                            .childLegalEntity(
+                                LegalEntityAssociation.ChildLegalEntity.builder()
                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .addresses(
                                         listOf(
-                                            LegalEntityAssociation.AssociatedLegalEntity
+                                            LegalEntityAssociation.ChildLegalEntity
                                                 .LegalEntityAddress
                                                 .builder()
                                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                                 .addressTypes(
                                                     listOf(
-                                                        LegalEntityAssociation.AssociatedLegalEntity
+                                                        LegalEntityAssociation.ChildLegalEntity
                                                             .LegalEntityAddress
                                                             .AddressType
                                                             .BUSINESS
@@ -109,8 +109,7 @@ class LegalEntityTest {
                                     .firstName("string")
                                     .identifications(
                                         listOf(
-                                            LegalEntityAssociation.AssociatedLegalEntity
-                                                .Identification
+                                            LegalEntityAssociation.ChildLegalEntity.Identification
                                                 .builder()
                                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                                 .createdAt(
@@ -120,7 +119,7 @@ class LegalEntityTest {
                                                     OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                                 )
                                                 .idType(
-                                                    LegalEntityAssociation.AssociatedLegalEntity
+                                                    LegalEntityAssociation.ChildLegalEntity
                                                         .Identification
                                                         .IdType
                                                         .AR_CUIL
@@ -136,23 +135,22 @@ class LegalEntityTest {
                                     )
                                     .lastName("string")
                                     .legalEntityType(
-                                        LegalEntityAssociation.AssociatedLegalEntity.LegalEntityType
+                                        LegalEntityAssociation.ChildLegalEntity.LegalEntityType
                                             .BUSINESS
                                     )
                                     .legalStructure(
-                                        LegalEntityAssociation.AssociatedLegalEntity.LegalStructure
+                                        LegalEntityAssociation.ChildLegalEntity.LegalStructure
                                             .CORPORATION
                                     )
                                     .liveMode(true)
                                     .metadata(
-                                        LegalEntityAssociation.AssociatedLegalEntity.Metadata
-                                            .builder()
+                                        LegalEntityAssociation.ChildLegalEntity.Metadata.builder()
                                             .build()
                                     )
                                     .object_("string")
                                     .phoneNumbers(
                                         listOf(
-                                            LegalEntityAssociation.AssociatedLegalEntity.PhoneNumber
+                                            LegalEntityAssociation.ChildLegalEntity.PhoneNumber
                                                 .builder()
                                                 .phoneNumber("string")
                                                 .build()
@@ -162,12 +160,12 @@ class LegalEntityTest {
                                     .website("string")
                                     .build()
                             )
-                            .associatorLegalEntityId("string")
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .liveMode(true)
                             .object_("string")
                             .ownershipPercentage(123L)
+                            .parentLegalEntityId("string")
                             .relationshipTypes(
                                 listOf(LegalEntityAssociation.RelationshipType.BENEFICIAL_OWNER)
                             )
@@ -235,17 +233,17 @@ class LegalEntityTest {
             .containsExactly(
                 LegalEntityAssociation.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .associatedLegalEntity(
-                        LegalEntityAssociation.AssociatedLegalEntity.builder()
+                    .childLegalEntity(
+                        LegalEntityAssociation.ChildLegalEntity.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .addresses(
                                 listOf(
-                                    LegalEntityAssociation.AssociatedLegalEntity.LegalEntityAddress
+                                    LegalEntityAssociation.ChildLegalEntity.LegalEntityAddress
                                         .builder()
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .addressTypes(
                                             listOf(
-                                                LegalEntityAssociation.AssociatedLegalEntity
+                                                LegalEntityAssociation.ChildLegalEntity
                                                     .LegalEntityAddress
                                                     .AddressType
                                                     .BUSINESS
@@ -277,16 +275,14 @@ class LegalEntityTest {
                             .firstName("string")
                             .identifications(
                                 listOf(
-                                    LegalEntityAssociation.AssociatedLegalEntity.Identification
-                                        .builder()
+                                    LegalEntityAssociation.ChildLegalEntity.Identification.builder()
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .discardedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
                                         .idType(
-                                            LegalEntityAssociation.AssociatedLegalEntity
-                                                .Identification
+                                            LegalEntityAssociation.ChildLegalEntity.Identification
                                                 .IdType
                                                 .AR_CUIL
                                         )
@@ -299,23 +295,19 @@ class LegalEntityTest {
                             )
                             .lastName("string")
                             .legalEntityType(
-                                LegalEntityAssociation.AssociatedLegalEntity.LegalEntityType
-                                    .BUSINESS
+                                LegalEntityAssociation.ChildLegalEntity.LegalEntityType.BUSINESS
                             )
                             .legalStructure(
-                                LegalEntityAssociation.AssociatedLegalEntity.LegalStructure
-                                    .CORPORATION
+                                LegalEntityAssociation.ChildLegalEntity.LegalStructure.CORPORATION
                             )
                             .liveMode(true)
                             .metadata(
-                                LegalEntityAssociation.AssociatedLegalEntity.Metadata.builder()
-                                    .build()
+                                LegalEntityAssociation.ChildLegalEntity.Metadata.builder().build()
                             )
                             .object_("string")
                             .phoneNumbers(
                                 listOf(
-                                    LegalEntityAssociation.AssociatedLegalEntity.PhoneNumber
-                                        .builder()
+                                    LegalEntityAssociation.ChildLegalEntity.PhoneNumber.builder()
                                         .phoneNumber("string")
                                         .build()
                                 )
@@ -324,12 +316,12 @@ class LegalEntityTest {
                             .website("string")
                             .build()
                     )
-                    .associatorLegalEntityId("string")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .liveMode(true)
                     .object_("string")
                     .ownershipPercentage(123L)
+                    .parentLegalEntityId("string")
                     .relationshipTypes(
                         listOf(LegalEntityAssociation.RelationshipType.BENEFICIAL_OWNER)
                     )

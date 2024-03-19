@@ -73,16 +73,16 @@ class ConnectionLegalEntityCreateParamsTest {
                                             .BENEFICIAL_OWNER
                                     )
                                 )
-                                .associatedLegalEntity(
+                                .childLegalEntity(
                                     ConnectionLegalEntityCreateParams.LegalEntity
                                         .LegalEntityAssociationInlineCreateRequest
-                                        .AssociatedLegalEntityCreate
+                                        .ChildLegalEntityCreate
                                         .builder()
                                         .addresses(
                                             listOf(
                                                 ConnectionLegalEntityCreateParams.LegalEntity
                                                     .LegalEntityAssociationInlineCreateRequest
-                                                    .AssociatedLegalEntityCreate
+                                                    .ChildLegalEntityCreate
                                                     .LegalEntityAddressCreateRequest
                                                     .builder()
                                                     .country("string")
@@ -95,7 +95,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                                             ConnectionLegalEntityCreateParams
                                                                 .LegalEntity
                                                                 .LegalEntityAssociationInlineCreateRequest
-                                                                .AssociatedLegalEntityCreate
+                                                                .ChildLegalEntityCreate
                                                                 .LegalEntityAddressCreateRequest
                                                                 .AddressType
                                                                 .BUSINESS
@@ -115,7 +115,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                             listOf(
                                                 ConnectionLegalEntityCreateParams.LegalEntity
                                                     .LegalEntityAssociationInlineCreateRequest
-                                                    .AssociatedLegalEntityCreate
+                                                    .ChildLegalEntityCreate
                                                     .IdentificationCreateRequest
                                                     .builder()
                                                     .idNumber("string")
@@ -123,7 +123,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                                         ConnectionLegalEntityCreateParams
                                                             .LegalEntity
                                                             .LegalEntityAssociationInlineCreateRequest
-                                                            .AssociatedLegalEntityCreate
+                                                            .ChildLegalEntityCreate
                                                             .IdentificationCreateRequest
                                                             .IdType
                                                             .AR_CUIL
@@ -136,21 +136,21 @@ class ConnectionLegalEntityCreateParamsTest {
                                         .legalEntityType(
                                             ConnectionLegalEntityCreateParams.LegalEntity
                                                 .LegalEntityAssociationInlineCreateRequest
-                                                .AssociatedLegalEntityCreate
+                                                .ChildLegalEntityCreate
                                                 .LegalEntityType
                                                 .BUSINESS
                                         )
                                         .legalStructure(
                                             ConnectionLegalEntityCreateParams.LegalEntity
                                                 .LegalEntityAssociationInlineCreateRequest
-                                                .AssociatedLegalEntityCreate
+                                                .ChildLegalEntityCreate
                                                 .LegalStructure
                                                 .CORPORATION
                                         )
                                         .metadata(
                                             ConnectionLegalEntityCreateParams.LegalEntity
                                                 .LegalEntityAssociationInlineCreateRequest
-                                                .AssociatedLegalEntityCreate
+                                                .ChildLegalEntityCreate
                                                 .Metadata
                                                 .builder()
                                                 .build()
@@ -159,7 +159,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                             listOf(
                                                 ConnectionLegalEntityCreateParams.LegalEntity
                                                     .LegalEntityAssociationInlineCreateRequest
-                                                    .AssociatedLegalEntityCreate
+                                                    .ChildLegalEntityCreate
                                                     .PhoneNumber
                                                     .builder()
                                                     .phoneNumber("string")
@@ -169,7 +169,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                         .website("string")
                                         .build()
                                 )
-                                .associatedLegalEntityId("string")
+                                .childLegalEntityId("string")
                                 .ownershipPercentage(123L)
                                 .title("string")
                                 .build()
@@ -263,16 +263,16 @@ class ConnectionLegalEntityCreateParamsTest {
                                                 .BENEFICIAL_OWNER
                                         )
                                     )
-                                    .associatedLegalEntity(
+                                    .childLegalEntity(
                                         ConnectionLegalEntityCreateParams.LegalEntity
                                             .LegalEntityAssociationInlineCreateRequest
-                                            .AssociatedLegalEntityCreate
+                                            .ChildLegalEntityCreate
                                             .builder()
                                             .addresses(
                                                 listOf(
                                                     ConnectionLegalEntityCreateParams.LegalEntity
                                                         .LegalEntityAssociationInlineCreateRequest
-                                                        .AssociatedLegalEntityCreate
+                                                        .ChildLegalEntityCreate
                                                         .LegalEntityAddressCreateRequest
                                                         .builder()
                                                         .country("string")
@@ -285,7 +285,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                                                 ConnectionLegalEntityCreateParams
                                                                     .LegalEntity
                                                                     .LegalEntityAssociationInlineCreateRequest
-                                                                    .AssociatedLegalEntityCreate
+                                                                    .ChildLegalEntityCreate
                                                                     .LegalEntityAddressCreateRequest
                                                                     .AddressType
                                                                     .BUSINESS
@@ -305,7 +305,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                                 listOf(
                                                     ConnectionLegalEntityCreateParams.LegalEntity
                                                         .LegalEntityAssociationInlineCreateRequest
-                                                        .AssociatedLegalEntityCreate
+                                                        .ChildLegalEntityCreate
                                                         .IdentificationCreateRequest
                                                         .builder()
                                                         .idNumber("string")
@@ -313,7 +313,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                                             ConnectionLegalEntityCreateParams
                                                                 .LegalEntity
                                                                 .LegalEntityAssociationInlineCreateRequest
-                                                                .AssociatedLegalEntityCreate
+                                                                .ChildLegalEntityCreate
                                                                 .IdentificationCreateRequest
                                                                 .IdType
                                                                 .AR_CUIL
@@ -326,21 +326,21 @@ class ConnectionLegalEntityCreateParamsTest {
                                             .legalEntityType(
                                                 ConnectionLegalEntityCreateParams.LegalEntity
                                                     .LegalEntityAssociationInlineCreateRequest
-                                                    .AssociatedLegalEntityCreate
+                                                    .ChildLegalEntityCreate
                                                     .LegalEntityType
                                                     .BUSINESS
                                             )
                                             .legalStructure(
                                                 ConnectionLegalEntityCreateParams.LegalEntity
                                                     .LegalEntityAssociationInlineCreateRequest
-                                                    .AssociatedLegalEntityCreate
+                                                    .ChildLegalEntityCreate
                                                     .LegalStructure
                                                     .CORPORATION
                                             )
                                             .metadata(
                                                 ConnectionLegalEntityCreateParams.LegalEntity
                                                     .LegalEntityAssociationInlineCreateRequest
-                                                    .AssociatedLegalEntityCreate
+                                                    .ChildLegalEntityCreate
                                                     .Metadata
                                                     .builder()
                                                     .build()
@@ -349,7 +349,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                                 listOf(
                                                     ConnectionLegalEntityCreateParams.LegalEntity
                                                         .LegalEntityAssociationInlineCreateRequest
-                                                        .AssociatedLegalEntityCreate
+                                                        .ChildLegalEntityCreate
                                                         .PhoneNumber
                                                         .builder()
                                                         .phoneNumber("string")
@@ -359,7 +359,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                             .website("string")
                                             .build()
                                     )
-                                    .associatedLegalEntityId("string")
+                                    .childLegalEntityId("string")
                                     .ownershipPercentage(123L)
                                     .title("string")
                                     .build()
@@ -450,16 +450,16 @@ class ConnectionLegalEntityCreateParamsTest {
                                             .BENEFICIAL_OWNER
                                     )
                                 )
-                                .associatedLegalEntity(
+                                .childLegalEntity(
                                     ConnectionLegalEntityCreateParams.LegalEntity
                                         .LegalEntityAssociationInlineCreateRequest
-                                        .AssociatedLegalEntityCreate
+                                        .ChildLegalEntityCreate
                                         .builder()
                                         .addresses(
                                             listOf(
                                                 ConnectionLegalEntityCreateParams.LegalEntity
                                                     .LegalEntityAssociationInlineCreateRequest
-                                                    .AssociatedLegalEntityCreate
+                                                    .ChildLegalEntityCreate
                                                     .LegalEntityAddressCreateRequest
                                                     .builder()
                                                     .country("string")
@@ -472,7 +472,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                                             ConnectionLegalEntityCreateParams
                                                                 .LegalEntity
                                                                 .LegalEntityAssociationInlineCreateRequest
-                                                                .AssociatedLegalEntityCreate
+                                                                .ChildLegalEntityCreate
                                                                 .LegalEntityAddressCreateRequest
                                                                 .AddressType
                                                                 .BUSINESS
@@ -492,7 +492,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                             listOf(
                                                 ConnectionLegalEntityCreateParams.LegalEntity
                                                     .LegalEntityAssociationInlineCreateRequest
-                                                    .AssociatedLegalEntityCreate
+                                                    .ChildLegalEntityCreate
                                                     .IdentificationCreateRequest
                                                     .builder()
                                                     .idNumber("string")
@@ -500,7 +500,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                                         ConnectionLegalEntityCreateParams
                                                             .LegalEntity
                                                             .LegalEntityAssociationInlineCreateRequest
-                                                            .AssociatedLegalEntityCreate
+                                                            .ChildLegalEntityCreate
                                                             .IdentificationCreateRequest
                                                             .IdType
                                                             .AR_CUIL
@@ -513,21 +513,21 @@ class ConnectionLegalEntityCreateParamsTest {
                                         .legalEntityType(
                                             ConnectionLegalEntityCreateParams.LegalEntity
                                                 .LegalEntityAssociationInlineCreateRequest
-                                                .AssociatedLegalEntityCreate
+                                                .ChildLegalEntityCreate
                                                 .LegalEntityType
                                                 .BUSINESS
                                         )
                                         .legalStructure(
                                             ConnectionLegalEntityCreateParams.LegalEntity
                                                 .LegalEntityAssociationInlineCreateRequest
-                                                .AssociatedLegalEntityCreate
+                                                .ChildLegalEntityCreate
                                                 .LegalStructure
                                                 .CORPORATION
                                         )
                                         .metadata(
                                             ConnectionLegalEntityCreateParams.LegalEntity
                                                 .LegalEntityAssociationInlineCreateRequest
-                                                .AssociatedLegalEntityCreate
+                                                .ChildLegalEntityCreate
                                                 .Metadata
                                                 .builder()
                                                 .build()
@@ -536,7 +536,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                             listOf(
                                                 ConnectionLegalEntityCreateParams.LegalEntity
                                                     .LegalEntityAssociationInlineCreateRequest
-                                                    .AssociatedLegalEntityCreate
+                                                    .ChildLegalEntityCreate
                                                     .PhoneNumber
                                                     .builder()
                                                     .phoneNumber("string")
@@ -546,7 +546,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                         .website("string")
                                         .build()
                                 )
-                                .associatedLegalEntityId("string")
+                                .childLegalEntityId("string")
                                 .ownershipPercentage(123L)
                                 .title("string")
                                 .build()
