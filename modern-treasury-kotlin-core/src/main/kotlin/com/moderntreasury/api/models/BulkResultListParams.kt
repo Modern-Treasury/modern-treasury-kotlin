@@ -231,6 +231,8 @@ constructor(
 
             val LEDGER_TRANSACTION = EntityType(JsonField.of("ledger_transaction"))
 
+            val TRANSACTION = EntityType(JsonField.of("transaction"))
+
             val EXPECTED_PAYMENT = EntityType(JsonField.of("expected_payment"))
 
             val BULK_ERROR = EntityType(JsonField.of("bulk_error"))
@@ -241,6 +243,7 @@ constructor(
         enum class Known {
             PAYMENT_ORDER,
             LEDGER_TRANSACTION,
+            TRANSACTION,
             EXPECTED_PAYMENT,
             BULK_ERROR,
         }
@@ -248,6 +251,7 @@ constructor(
         enum class Value {
             PAYMENT_ORDER,
             LEDGER_TRANSACTION,
+            TRANSACTION,
             EXPECTED_PAYMENT,
             BULK_ERROR,
             _UNKNOWN,
@@ -257,6 +261,7 @@ constructor(
             when (this) {
                 PAYMENT_ORDER -> Value.PAYMENT_ORDER
                 LEDGER_TRANSACTION -> Value.LEDGER_TRANSACTION
+                TRANSACTION -> Value.TRANSACTION
                 EXPECTED_PAYMENT -> Value.EXPECTED_PAYMENT
                 BULK_ERROR -> Value.BULK_ERROR
                 else -> Value._UNKNOWN
@@ -266,6 +271,7 @@ constructor(
             when (this) {
                 PAYMENT_ORDER -> Known.PAYMENT_ORDER
                 LEDGER_TRANSACTION -> Known.LEDGER_TRANSACTION
+                TRANSACTION -> Known.TRANSACTION
                 EXPECTED_PAYMENT -> Known.EXPECTED_PAYMENT
                 BULK_ERROR -> Known.BULK_ERROR
                 else -> throw ModernTreasuryInvalidDataException("Unknown EntityType: $value")
