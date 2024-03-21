@@ -340,6 +340,8 @@ constructor(
 
             val LEDGER_TRANSACTION = ResourceType(JsonField.of("ledger_transaction"))
 
+            val TRANSACTION = ResourceType(JsonField.of("transaction"))
+
             val EXPECTED_PAYMENT = ResourceType(JsonField.of("expected_payment"))
 
             fun of(value: String) = ResourceType(JsonField.of(value))
@@ -348,12 +350,14 @@ constructor(
         enum class Known {
             PAYMENT_ORDER,
             LEDGER_TRANSACTION,
+            TRANSACTION,
             EXPECTED_PAYMENT,
         }
 
         enum class Value {
             PAYMENT_ORDER,
             LEDGER_TRANSACTION,
+            TRANSACTION,
             EXPECTED_PAYMENT,
             _UNKNOWN,
         }
@@ -362,6 +366,7 @@ constructor(
             when (this) {
                 PAYMENT_ORDER -> Value.PAYMENT_ORDER
                 LEDGER_TRANSACTION -> Value.LEDGER_TRANSACTION
+                TRANSACTION -> Value.TRANSACTION
                 EXPECTED_PAYMENT -> Value.EXPECTED_PAYMENT
                 else -> Value._UNKNOWN
             }
@@ -370,6 +375,7 @@ constructor(
             when (this) {
                 PAYMENT_ORDER -> Known.PAYMENT_ORDER
                 LEDGER_TRANSACTION -> Known.LEDGER_TRANSACTION
+                TRANSACTION -> Known.TRANSACTION
                 EXPECTED_PAYMENT -> Known.EXPECTED_PAYMENT
                 else -> throw ModernTreasuryInvalidDataException("Unknown ResourceType: $value")
             }

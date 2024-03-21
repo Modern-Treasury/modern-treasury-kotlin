@@ -44,6 +44,7 @@ private constructor(
     private val reconciled: JsonField<Boolean>,
     private val details: JsonField<Details>,
     private val type: JsonField<Type>,
+    private val foreignExchangeRate: JsonField<ForeignExchangeRate>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -140,6 +141,10 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /** Associated serialized foreign exchange rate information. */
+    fun foreignExchangeRate(): ForeignExchangeRate? =
+        foreignExchangeRate.getNullable("foreign_exchange_rate")
+
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     @JsonProperty("object") @ExcludeMissing fun _object_() = object_
@@ -231,6 +236,11 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
 
+    /** Associated serialized foreign exchange rate information. */
+    @JsonProperty("foreign_exchange_rate")
+    @ExcludeMissing
+    fun _foreignExchangeRate() = foreignExchangeRate
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -259,6 +269,7 @@ private constructor(
             reconciled()
             details()?.validate()
             type()
+            foreignExchangeRate()?.validate()
             validated = true
         }
     }
@@ -293,6 +304,7 @@ private constructor(
             this.reconciled == other.reconciled &&
             this.details == other.details &&
             this.type == other.type &&
+            this.foreignExchangeRate == other.foreignExchangeRate &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -322,6 +334,7 @@ private constructor(
                     reconciled,
                     details,
                     type,
+                    foreignExchangeRate,
                     additionalProperties,
                 )
         }
@@ -329,7 +342,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Transaction{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, amount=$amount, currency=$currency, direction=$direction, vendorDescription=$vendorDescription, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, vendorId=$vendorId, asOfDate=$asOfDate, asOfTime=$asOfTime, internalAccountId=$internalAccountId, metadata=$metadata, posted=$posted, vendorCustomerId=$vendorCustomerId, reconciled=$reconciled, details=$details, type=$type, additionalProperties=$additionalProperties}"
+        "Transaction{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, amount=$amount, currency=$currency, direction=$direction, vendorDescription=$vendorDescription, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, vendorId=$vendorId, asOfDate=$asOfDate, asOfTime=$asOfTime, internalAccountId=$internalAccountId, metadata=$metadata, posted=$posted, vendorCustomerId=$vendorCustomerId, reconciled=$reconciled, details=$details, type=$type, foreignExchangeRate=$foreignExchangeRate, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -360,6 +373,7 @@ private constructor(
         private var reconciled: JsonField<Boolean> = JsonMissing.of()
         private var details: JsonField<Details> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
+        private var foreignExchangeRate: JsonField<ForeignExchangeRate> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(transaction: Transaction) = apply {
@@ -385,6 +399,7 @@ private constructor(
             this.reconciled = transaction.reconciled
             this.details = transaction.details
             this.type = transaction.type
+            this.foreignExchangeRate = transaction.foreignExchangeRate
             additionalProperties(transaction.additionalProperties)
         }
 
@@ -630,6 +645,17 @@ private constructor(
         @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
+        /** Associated serialized foreign exchange rate information. */
+        fun foreignExchangeRate(foreignExchangeRate: ForeignExchangeRate) =
+            foreignExchangeRate(JsonField.of(foreignExchangeRate))
+
+        /** Associated serialized foreign exchange rate information. */
+        @JsonProperty("foreign_exchange_rate")
+        @ExcludeMissing
+        fun foreignExchangeRate(foreignExchangeRate: JsonField<ForeignExchangeRate>) = apply {
+            this.foreignExchangeRate = foreignExchangeRate
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -668,8 +694,291 @@ private constructor(
                 reconciled,
                 details,
                 type,
+                foreignExchangeRate,
                 additionalProperties.toUnmodifiable(),
             )
+    }
+
+    /** Associated serialized foreign exchange rate information. */
+    @JsonDeserialize(builder = ForeignExchangeRate.Builder::class)
+    @NoAutoDetect
+    class ForeignExchangeRate
+    private constructor(
+        private val baseAmount: JsonField<Long>,
+        private val baseCurrency: JsonField<Currency>,
+        private val exponent: JsonField<Long>,
+        private val rateString: JsonField<String>,
+        private val targetAmount: JsonField<Long>,
+        private val targetCurrency: JsonField<Currency>,
+        private val value: JsonField<Long>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /**
+         * Amount in the lowest denomination of the `base_currency` to convert, often called the
+         * "sell" amount.
+         */
+        fun baseAmount(): Long = baseAmount.getRequired("base_amount")
+
+        /** Currency to convert, often called the "sell" currency. */
+        fun baseCurrency(): Currency? = baseCurrency.getNullable("base_currency")
+
+        /**
+         * The exponent component of the rate. The decimal is calculated as `value` / (10 ^
+         * `exponent`).
+         */
+        fun exponent(): Long = exponent.getRequired("exponent")
+
+        /** A string representation of the rate. */
+        fun rateString(): String = rateString.getRequired("rate_string")
+
+        /**
+         * Amount in the lowest denomination of the `target_currency`, often called the "buy"
+         * amount.
+         */
+        fun targetAmount(): Long = targetAmount.getRequired("target_amount")
+
+        /** Currency to convert the `base_currency` to, often called the "buy" currency. */
+        fun targetCurrency(): Currency? = targetCurrency.getNullable("target_currency")
+
+        /**
+         * The whole number component of the rate. The decimal is calculated as `value` / (10 ^
+         * `exponent`).
+         */
+        fun value(): Long = value.getRequired("value")
+
+        /**
+         * Amount in the lowest denomination of the `base_currency` to convert, often called the
+         * "sell" amount.
+         */
+        @JsonProperty("base_amount") @ExcludeMissing fun _baseAmount() = baseAmount
+
+        /** Currency to convert, often called the "sell" currency. */
+        @JsonProperty("base_currency") @ExcludeMissing fun _baseCurrency() = baseCurrency
+
+        /**
+         * The exponent component of the rate. The decimal is calculated as `value` / (10 ^
+         * `exponent`).
+         */
+        @JsonProperty("exponent") @ExcludeMissing fun _exponent() = exponent
+
+        /** A string representation of the rate. */
+        @JsonProperty("rate_string") @ExcludeMissing fun _rateString() = rateString
+
+        /**
+         * Amount in the lowest denomination of the `target_currency`, often called the "buy"
+         * amount.
+         */
+        @JsonProperty("target_amount") @ExcludeMissing fun _targetAmount() = targetAmount
+
+        /** Currency to convert the `base_currency` to, often called the "buy" currency. */
+        @JsonProperty("target_currency") @ExcludeMissing fun _targetCurrency() = targetCurrency
+
+        /**
+         * The whole number component of the rate. The decimal is calculated as `value` / (10 ^
+         * `exponent`).
+         */
+        @JsonProperty("value") @ExcludeMissing fun _value() = value
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): ForeignExchangeRate = apply {
+            if (!validated) {
+                baseAmount()
+                baseCurrency()
+                exponent()
+                rateString()
+                targetAmount()
+                targetCurrency()
+                value()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ForeignExchangeRate &&
+                this.baseAmount == other.baseAmount &&
+                this.baseCurrency == other.baseCurrency &&
+                this.exponent == other.exponent &&
+                this.rateString == other.rateString &&
+                this.targetAmount == other.targetAmount &&
+                this.targetCurrency == other.targetCurrency &&
+                this.value == other.value &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        baseAmount,
+                        baseCurrency,
+                        exponent,
+                        rateString,
+                        targetAmount,
+                        targetCurrency,
+                        value,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "ForeignExchangeRate{baseAmount=$baseAmount, baseCurrency=$baseCurrency, exponent=$exponent, rateString=$rateString, targetAmount=$targetAmount, targetCurrency=$targetCurrency, value=$value, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var baseAmount: JsonField<Long> = JsonMissing.of()
+            private var baseCurrency: JsonField<Currency> = JsonMissing.of()
+            private var exponent: JsonField<Long> = JsonMissing.of()
+            private var rateString: JsonField<String> = JsonMissing.of()
+            private var targetAmount: JsonField<Long> = JsonMissing.of()
+            private var targetCurrency: JsonField<Currency> = JsonMissing.of()
+            private var value: JsonField<Long> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(foreignExchangeRate: ForeignExchangeRate) = apply {
+                this.baseAmount = foreignExchangeRate.baseAmount
+                this.baseCurrency = foreignExchangeRate.baseCurrency
+                this.exponent = foreignExchangeRate.exponent
+                this.rateString = foreignExchangeRate.rateString
+                this.targetAmount = foreignExchangeRate.targetAmount
+                this.targetCurrency = foreignExchangeRate.targetCurrency
+                this.value = foreignExchangeRate.value
+                additionalProperties(foreignExchangeRate.additionalProperties)
+            }
+
+            /**
+             * Amount in the lowest denomination of the `base_currency` to convert, often called the
+             * "sell" amount.
+             */
+            fun baseAmount(baseAmount: Long) = baseAmount(JsonField.of(baseAmount))
+
+            /**
+             * Amount in the lowest denomination of the `base_currency` to convert, often called the
+             * "sell" amount.
+             */
+            @JsonProperty("base_amount")
+            @ExcludeMissing
+            fun baseAmount(baseAmount: JsonField<Long>) = apply { this.baseAmount = baseAmount }
+
+            /** Currency to convert, often called the "sell" currency. */
+            fun baseCurrency(baseCurrency: Currency) = baseCurrency(JsonField.of(baseCurrency))
+
+            /** Currency to convert, often called the "sell" currency. */
+            @JsonProperty("base_currency")
+            @ExcludeMissing
+            fun baseCurrency(baseCurrency: JsonField<Currency>) = apply {
+                this.baseCurrency = baseCurrency
+            }
+
+            /**
+             * The exponent component of the rate. The decimal is calculated as `value` / (10 ^
+             * `exponent`).
+             */
+            fun exponent(exponent: Long) = exponent(JsonField.of(exponent))
+
+            /**
+             * The exponent component of the rate. The decimal is calculated as `value` / (10 ^
+             * `exponent`).
+             */
+            @JsonProperty("exponent")
+            @ExcludeMissing
+            fun exponent(exponent: JsonField<Long>) = apply { this.exponent = exponent }
+
+            /** A string representation of the rate. */
+            fun rateString(rateString: String) = rateString(JsonField.of(rateString))
+
+            /** A string representation of the rate. */
+            @JsonProperty("rate_string")
+            @ExcludeMissing
+            fun rateString(rateString: JsonField<String>) = apply { this.rateString = rateString }
+
+            /**
+             * Amount in the lowest denomination of the `target_currency`, often called the "buy"
+             * amount.
+             */
+            fun targetAmount(targetAmount: Long) = targetAmount(JsonField.of(targetAmount))
+
+            /**
+             * Amount in the lowest denomination of the `target_currency`, often called the "buy"
+             * amount.
+             */
+            @JsonProperty("target_amount")
+            @ExcludeMissing
+            fun targetAmount(targetAmount: JsonField<Long>) = apply {
+                this.targetAmount = targetAmount
+            }
+
+            /** Currency to convert the `base_currency` to, often called the "buy" currency. */
+            fun targetCurrency(targetCurrency: Currency) =
+                targetCurrency(JsonField.of(targetCurrency))
+
+            /** Currency to convert the `base_currency` to, often called the "buy" currency. */
+            @JsonProperty("target_currency")
+            @ExcludeMissing
+            fun targetCurrency(targetCurrency: JsonField<Currency>) = apply {
+                this.targetCurrency = targetCurrency
+            }
+
+            /**
+             * The whole number component of the rate. The decimal is calculated as `value` / (10 ^
+             * `exponent`).
+             */
+            fun value(value: Long) = value(JsonField.of(value))
+
+            /**
+             * The whole number component of the rate. The decimal is calculated as `value` / (10 ^
+             * `exponent`).
+             */
+            @JsonProperty("value")
+            @ExcludeMissing
+            fun value(value: JsonField<Long>) = apply { this.value = value }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): ForeignExchangeRate =
+                ForeignExchangeRate(
+                    baseAmount,
+                    baseCurrency,
+                    exponent,
+                    rateString,
+                    targetAmount,
+                    targetCurrency,
+                    value,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */

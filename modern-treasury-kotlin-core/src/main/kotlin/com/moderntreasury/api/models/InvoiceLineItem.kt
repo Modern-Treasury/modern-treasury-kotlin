@@ -30,6 +30,7 @@ private constructor(
     private val unitAmount: JsonField<Long>,
     private val unitAmountDecimal: JsonField<String>,
     private val direction: JsonField<String>,
+    private val metadata: JsonField<Metadata>,
     private val amount: JsonField<Long>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -82,6 +83,9 @@ private constructor(
      */
     fun direction(): String = direction.getRequired("direction")
 
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun metadata(): Metadata = metadata.getRequired("metadata")
+
     /** The total amount for this line item specified in the invoice currency's smallest unit. */
     fun amount(): Long = amount.getRequired("amount")
 
@@ -131,6 +135,9 @@ private constructor(
      */
     @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
 
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+
     /** The total amount for this line item specified in the invoice currency's smallest unit. */
     @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
@@ -151,6 +158,7 @@ private constructor(
             unitAmount()
             unitAmountDecimal()
             direction()
+            metadata().validate()
             amount()
             validated = true
         }
@@ -175,6 +183,7 @@ private constructor(
             this.unitAmount == other.unitAmount &&
             this.unitAmountDecimal == other.unitAmountDecimal &&
             this.direction == other.direction &&
+            this.metadata == other.metadata &&
             this.amount == other.amount &&
             this.additionalProperties == other.additionalProperties
     }
@@ -194,6 +203,7 @@ private constructor(
                     unitAmount,
                     unitAmountDecimal,
                     direction,
+                    metadata,
                     amount,
                     additionalProperties,
                 )
@@ -202,7 +212,7 @@ private constructor(
     }
 
     override fun toString() =
-        "InvoiceLineItem{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, name=$name, description=$description, quantity=$quantity, unitAmount=$unitAmount, unitAmountDecimal=$unitAmountDecimal, direction=$direction, amount=$amount, additionalProperties=$additionalProperties}"
+        "InvoiceLineItem{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, name=$name, description=$description, quantity=$quantity, unitAmount=$unitAmount, unitAmountDecimal=$unitAmountDecimal, direction=$direction, metadata=$metadata, amount=$amount, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -222,6 +232,7 @@ private constructor(
         private var unitAmount: JsonField<Long> = JsonMissing.of()
         private var unitAmountDecimal: JsonField<String> = JsonMissing.of()
         private var direction: JsonField<String> = JsonMissing.of()
+        private var metadata: JsonField<Metadata> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -237,6 +248,7 @@ private constructor(
             this.unitAmount = invoiceLineItem.unitAmount
             this.unitAmountDecimal = invoiceLineItem.unitAmountDecimal
             this.direction = invoiceLineItem.direction
+            this.metadata = invoiceLineItem.metadata
             this.amount = invoiceLineItem.amount
             additionalProperties(invoiceLineItem.additionalProperties)
         }
@@ -355,6 +367,18 @@ private constructor(
         fun direction(direction: JsonField<String>) = apply { this.direction = direction }
 
         /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+        /**
          * The total amount for this line item specified in the invoice currency's smallest unit.
          */
         fun amount(amount: Long) = amount(JsonField.of(amount))
@@ -393,8 +417,81 @@ private constructor(
                 unitAmount,
                 unitAmountDecimal,
                 direction,
+                metadata,
                 amount,
                 additionalProperties.toUnmodifiable(),
             )
+    }
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    @JsonDeserialize(builder = Metadata.Builder::class)
+    @NoAutoDetect
+    class Metadata
+    private constructor(
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Metadata = apply {
+            if (!validated) {
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties(metadata.additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+        }
     }
 }
