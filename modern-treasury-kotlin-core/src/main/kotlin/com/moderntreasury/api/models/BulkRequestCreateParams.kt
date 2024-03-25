@@ -489,8 +489,10 @@ constructor(
         private val expectedPaymentCreateRequest: ExpectedPaymentCreateRequest? = null,
         private val ledgerTransactionCreateRequest: LedgerTransactionCreateRequest? = null,
         private val transactionCreateRequest: TransactionCreateRequest? = null,
+        private val id: Id? = null,
         private val paymentOrderUpdateRequestWithId: PaymentOrderUpdateRequestWithId? = null,
         private val expectedPaymentUpdateRequestWithId: ExpectedPaymentUpdateRequestWithId? = null,
+        private val transactionUpdateRequestWithId: TransactionUpdateRequestWithId? = null,
         private val ledgerTransactionUpdateRequestWithId: LedgerTransactionUpdateRequestWithId? =
             null,
         private val _json: JsonValue? = null,
@@ -509,11 +511,16 @@ constructor(
 
         fun transactionCreateRequest(): TransactionCreateRequest? = transactionCreateRequest
 
+        fun id(): Id? = id
+
         fun paymentOrderUpdateRequestWithId(): PaymentOrderUpdateRequestWithId? =
             paymentOrderUpdateRequestWithId
 
         fun expectedPaymentUpdateRequestWithId(): ExpectedPaymentUpdateRequestWithId? =
             expectedPaymentUpdateRequestWithId
+
+        fun transactionUpdateRequestWithId(): TransactionUpdateRequestWithId? =
+            transactionUpdateRequestWithId
 
         fun ledgerTransactionUpdateRequestWithId(): LedgerTransactionUpdateRequestWithId? =
             ledgerTransactionUpdateRequestWithId
@@ -526,10 +533,14 @@ constructor(
 
         fun isTransactionCreateRequest(): Boolean = transactionCreateRequest != null
 
+        fun isId(): Boolean = id != null
+
         fun isPaymentOrderUpdateRequestWithId(): Boolean = paymentOrderUpdateRequestWithId != null
 
         fun isExpectedPaymentUpdateRequestWithId(): Boolean =
             expectedPaymentUpdateRequestWithId != null
+
+        fun isTransactionUpdateRequestWithId(): Boolean = transactionUpdateRequestWithId != null
 
         fun isLedgerTransactionUpdateRequestWithId(): Boolean =
             ledgerTransactionUpdateRequestWithId != null
@@ -546,11 +557,16 @@ constructor(
         fun asTransactionCreateRequest(): TransactionCreateRequest =
             transactionCreateRequest.getOrThrow("transactionCreateRequest")
 
+        fun asId(): Id = id.getOrThrow("id")
+
         fun asPaymentOrderUpdateRequestWithId(): PaymentOrderUpdateRequestWithId =
             paymentOrderUpdateRequestWithId.getOrThrow("paymentOrderUpdateRequestWithId")
 
         fun asExpectedPaymentUpdateRequestWithId(): ExpectedPaymentUpdateRequestWithId =
             expectedPaymentUpdateRequestWithId.getOrThrow("expectedPaymentUpdateRequestWithId")
+
+        fun asTransactionUpdateRequestWithId(): TransactionUpdateRequestWithId =
+            transactionUpdateRequestWithId.getOrThrow("transactionUpdateRequestWithId")
 
         fun asLedgerTransactionUpdateRequestWithId(): LedgerTransactionUpdateRequestWithId =
             ledgerTransactionUpdateRequestWithId.getOrThrow("ledgerTransactionUpdateRequestWithId")
@@ -567,12 +583,15 @@ constructor(
                     visitor.visitLedgerTransactionCreateRequest(ledgerTransactionCreateRequest)
                 transactionCreateRequest != null ->
                     visitor.visitTransactionCreateRequest(transactionCreateRequest)
+                id != null -> visitor.visitId(id)
                 paymentOrderUpdateRequestWithId != null ->
                     visitor.visitPaymentOrderUpdateRequestWithId(paymentOrderUpdateRequestWithId)
                 expectedPaymentUpdateRequestWithId != null ->
                     visitor.visitExpectedPaymentUpdateRequestWithId(
                         expectedPaymentUpdateRequestWithId
                     )
+                transactionUpdateRequestWithId != null ->
+                    visitor.visitTransactionUpdateRequestWithId(transactionUpdateRequestWithId)
                 ledgerTransactionUpdateRequestWithId != null ->
                     visitor.visitLedgerTransactionUpdateRequestWithId(
                         ledgerTransactionUpdateRequestWithId
@@ -588,8 +607,10 @@ constructor(
                         expectedPaymentCreateRequest == null &&
                         ledgerTransactionCreateRequest == null &&
                         transactionCreateRequest == null &&
+                        id == null &&
                         paymentOrderUpdateRequestWithId == null &&
                         expectedPaymentUpdateRequestWithId == null &&
+                        transactionUpdateRequestWithId == null &&
                         ledgerTransactionUpdateRequestWithId == null
                 ) {
                     throw ModernTreasuryInvalidDataException("Unknown Resource: $_json")
@@ -598,8 +619,10 @@ constructor(
                 expectedPaymentCreateRequest?.validate()
                 ledgerTransactionCreateRequest?.validate()
                 transactionCreateRequest?.validate()
+                id?.validate()
                 paymentOrderUpdateRequestWithId?.validate()
                 expectedPaymentUpdateRequestWithId?.validate()
+                transactionUpdateRequestWithId?.validate()
                 ledgerTransactionUpdateRequestWithId?.validate()
                 validated = true
             }
@@ -615,9 +638,11 @@ constructor(
                 this.expectedPaymentCreateRequest == other.expectedPaymentCreateRequest &&
                 this.ledgerTransactionCreateRequest == other.ledgerTransactionCreateRequest &&
                 this.transactionCreateRequest == other.transactionCreateRequest &&
+                this.id == other.id &&
                 this.paymentOrderUpdateRequestWithId == other.paymentOrderUpdateRequestWithId &&
                 this.expectedPaymentUpdateRequestWithId ==
                     other.expectedPaymentUpdateRequestWithId &&
+                this.transactionUpdateRequestWithId == other.transactionUpdateRequestWithId &&
                 this.ledgerTransactionUpdateRequestWithId ==
                     other.ledgerTransactionUpdateRequestWithId
         }
@@ -628,8 +653,10 @@ constructor(
                 expectedPaymentCreateRequest,
                 ledgerTransactionCreateRequest,
                 transactionCreateRequest,
+                id,
                 paymentOrderUpdateRequestWithId,
                 expectedPaymentUpdateRequestWithId,
+                transactionUpdateRequestWithId,
                 ledgerTransactionUpdateRequestWithId,
             )
         }
@@ -644,10 +671,13 @@ constructor(
                     "Resource{ledgerTransactionCreateRequest=$ledgerTransactionCreateRequest}"
                 transactionCreateRequest != null ->
                     "Resource{transactionCreateRequest=$transactionCreateRequest}"
+                id != null -> "Resource{id=$id}"
                 paymentOrderUpdateRequestWithId != null ->
                     "Resource{paymentOrderUpdateRequestWithId=$paymentOrderUpdateRequestWithId}"
                 expectedPaymentUpdateRequestWithId != null ->
                     "Resource{expectedPaymentUpdateRequestWithId=$expectedPaymentUpdateRequestWithId}"
+                transactionUpdateRequestWithId != null ->
+                    "Resource{transactionUpdateRequestWithId=$transactionUpdateRequestWithId}"
                 ledgerTransactionUpdateRequestWithId != null ->
                     "Resource{ledgerTransactionUpdateRequestWithId=$ledgerTransactionUpdateRequestWithId}"
                 _json != null -> "Resource{_unknown=$_json}"
@@ -672,6 +702,8 @@ constructor(
             fun ofTransactionCreateRequest(transactionCreateRequest: TransactionCreateRequest) =
                 Resource(transactionCreateRequest = transactionCreateRequest)
 
+            fun ofId(id: Id) = Resource(id = id)
+
             fun ofPaymentOrderUpdateRequestWithId(
                 paymentOrderUpdateRequestWithId: PaymentOrderUpdateRequestWithId
             ) = Resource(paymentOrderUpdateRequestWithId = paymentOrderUpdateRequestWithId)
@@ -679,6 +711,10 @@ constructor(
             fun ofExpectedPaymentUpdateRequestWithId(
                 expectedPaymentUpdateRequestWithId: ExpectedPaymentUpdateRequestWithId
             ) = Resource(expectedPaymentUpdateRequestWithId = expectedPaymentUpdateRequestWithId)
+
+            fun ofTransactionUpdateRequestWithId(
+                transactionUpdateRequestWithId: TransactionUpdateRequestWithId
+            ) = Resource(transactionUpdateRequestWithId = transactionUpdateRequestWithId)
 
             fun ofLedgerTransactionUpdateRequestWithId(
                 ledgerTransactionUpdateRequestWithId: LedgerTransactionUpdateRequestWithId
@@ -704,12 +740,18 @@ constructor(
 
             fun visitTransactionCreateRequest(transactionCreateRequest: TransactionCreateRequest): T
 
+            fun visitId(id: Id): T
+
             fun visitPaymentOrderUpdateRequestWithId(
                 paymentOrderUpdateRequestWithId: PaymentOrderUpdateRequestWithId
             ): T
 
             fun visitExpectedPaymentUpdateRequestWithId(
                 expectedPaymentUpdateRequestWithId: ExpectedPaymentUpdateRequestWithId
+            ): T
+
+            fun visitTransactionUpdateRequestWithId(
+                transactionUpdateRequestWithId: TransactionUpdateRequestWithId
             ): T
 
             fun visitLedgerTransactionUpdateRequestWithId(
@@ -747,6 +789,10 @@ constructor(
                     ?.let {
                         return Resource(transactionCreateRequest = it, _json = json)
                     }
+                tryDeserialize(node, jacksonTypeRef<Id>()) { it.validate() }
+                    ?.let {
+                        return Resource(id = it, _json = json)
+                    }
                 tryDeserialize(node, jacksonTypeRef<PaymentOrderUpdateRequestWithId>()) {
                         it.validate()
                     }
@@ -758,6 +804,12 @@ constructor(
                     }
                     ?.let {
                         return Resource(expectedPaymentUpdateRequestWithId = it, _json = json)
+                    }
+                tryDeserialize(node, jacksonTypeRef<TransactionUpdateRequestWithId>()) {
+                        it.validate()
+                    }
+                    ?.let {
+                        return Resource(transactionUpdateRequestWithId = it, _json = json)
                     }
                 tryDeserialize(node, jacksonTypeRef<LedgerTransactionUpdateRequestWithId>()) {
                         it.validate()
@@ -786,10 +838,13 @@ constructor(
                         generator.writeObject(value.ledgerTransactionCreateRequest)
                     value.transactionCreateRequest != null ->
                         generator.writeObject(value.transactionCreateRequest)
+                    value.id != null -> generator.writeObject(value.id)
                     value.paymentOrderUpdateRequestWithId != null ->
                         generator.writeObject(value.paymentOrderUpdateRequestWithId)
                     value.expectedPaymentUpdateRequestWithId != null ->
                         generator.writeObject(value.expectedPaymentUpdateRequestWithId)
+                    value.transactionUpdateRequestWithId != null ->
+                        generator.writeObject(value.transactionUpdateRequestWithId)
                     value.ledgerTransactionUpdateRequestWithId != null ->
                         generator.writeObject(value.ledgerTransactionUpdateRequestWithId)
                     value._json != null -> generator.writeObject(value._json)
@@ -11020,6 +11075,94 @@ constructor(
             }
         }
 
+        @JsonDeserialize(builder = Id.Builder::class)
+        @NoAutoDetect
+        class Id
+        private constructor(
+            private val id: JsonField<String>,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var validated: Boolean = false
+
+            private var hashCode: Int = 0
+
+            fun id(): String? = id.getNullable("id")
+
+            @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun validate(): Id = apply {
+                if (!validated) {
+                    id()
+                    validated = true
+                }
+            }
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Id &&
+                    this.id == other.id &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(id, additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() = "Id{id=$id, additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var id: JsonField<String> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(id: Id) = apply {
+                    this.id = id.id
+                    additionalProperties(id.additionalProperties)
+                }
+
+                fun id(id: String) = id(JsonField.of(id))
+
+                @JsonProperty("id")
+                @ExcludeMissing
+                fun id(id: JsonField<String>) = apply { this.id = id }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): Id = Id(id, additionalProperties.toUnmodifiable())
+            }
+        }
+
         @JsonDeserialize(builder = PaymentOrderUpdateRequestWithId.Builder::class)
         @NoAutoDetect
         class PaymentOrderUpdateRequestWithId
@@ -16336,6 +16479,214 @@ constructor(
 
                     fun build(): ReconciliationRuleVariable =
                         ReconciliationRuleVariable(additionalProperties.toUnmodifiable())
+                }
+            }
+        }
+
+        @JsonDeserialize(builder = TransactionUpdateRequestWithId.Builder::class)
+        @NoAutoDetect
+        class TransactionUpdateRequestWithId
+        private constructor(
+            private val metadata: JsonField<Metadata>,
+            private val id: JsonField<String>,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var validated: Boolean = false
+
+            private var hashCode: Int = 0
+
+            /**
+             * Additional data in the form of key-value pairs. Pairs can be removed by passing an
+             * empty string or `null` as the value.
+             */
+            fun metadata(): Metadata? = metadata.getNullable("metadata")
+
+            fun id(): String? = id.getNullable("id")
+
+            /**
+             * Additional data in the form of key-value pairs. Pairs can be removed by passing an
+             * empty string or `null` as the value.
+             */
+            @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+
+            @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun validate(): TransactionUpdateRequestWithId = apply {
+                if (!validated) {
+                    metadata()?.validate()
+                    id()
+                    validated = true
+                }
+            }
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is TransactionUpdateRequestWithId &&
+                    this.metadata == other.metadata &&
+                    this.id == other.id &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            metadata,
+                            id,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "TransactionUpdateRequestWithId{metadata=$metadata, id=$id, additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var metadata: JsonField<Metadata> = JsonMissing.of()
+                private var id: JsonField<String> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(transactionUpdateRequestWithId: TransactionUpdateRequestWithId) =
+                    apply {
+                        this.metadata = transactionUpdateRequestWithId.metadata
+                        this.id = transactionUpdateRequestWithId.id
+                        additionalProperties(transactionUpdateRequestWithId.additionalProperties)
+                    }
+
+                /**
+                 * Additional data in the form of key-value pairs. Pairs can be removed by passing
+                 * an empty string or `null` as the value.
+                 */
+                fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+                /**
+                 * Additional data in the form of key-value pairs. Pairs can be removed by passing
+                 * an empty string or `null` as the value.
+                 */
+                @JsonProperty("metadata")
+                @ExcludeMissing
+                fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+                fun id(id: String) = id(JsonField.of(id))
+
+                @JsonProperty("id")
+                @ExcludeMissing
+                fun id(id: JsonField<String>) = apply { this.id = id }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): TransactionUpdateRequestWithId =
+                    TransactionUpdateRequestWithId(
+                        metadata,
+                        id,
+                        additionalProperties.toUnmodifiable(),
+                    )
+            }
+
+            /**
+             * Additional data in the form of key-value pairs. Pairs can be removed by passing an
+             * empty string or `null` as the value.
+             */
+            @JsonDeserialize(builder = Metadata.Builder::class)
+            @NoAutoDetect
+            class Metadata
+            private constructor(
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): Metadata = apply {
+                    if (!validated) {
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Metadata &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode = Objects.hash(additionalProperties)
+                    }
+                    return hashCode
+                }
+
+                override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    internal fun from(metadata: Metadata) = apply {
+                        additionalProperties(metadata.additionalProperties)
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
                 }
             }
         }
