@@ -1,5 +1,32 @@
 # Changelog
 
+## 2.11.0 (2024-03-26)
+
+Full Changelog: [v2.10.0...v2.11.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.10.0...v2.11.0)
+
+### Features
+
+* add HttpRequestBody.contentLength() ([#133](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/133)) ([8d03d2c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8d03d2c39e6b58e75f4f40fa2b2da92a48364115))
+* **api:** add citibank enums ([#139](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/139)) ([0006fde](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0006fdee4e101226644647721be07a45a7ec388e))
+* **api:** add date_formed property to legal entities ([#131](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/131)) ([4239b76](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4239b76a8cc523d52b0c5aa6bf716f2032e57600))
+* **api:** add line item metadata ([4fc10db](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4fc10dbb9074cc59bdeb0260337c0af4be688636))
+* **api:** extend list invoices query params ([#134](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/134)) ([85118ef](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/85118ef0e8e0ee871cb8d04b0f90b449c2062621))
+* **api:** introduce bulk transaction create ([#137](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/137)) ([4fc10db](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4fc10dbb9074cc59bdeb0260337c0af4be688636))
+* **api:** rename `associated_legal_entity` to `child_legal_entity` ([#135](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/135)) ([16cdeff](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/16cdeff7ea634670953da94bc0c2c38758a1695a))
+* **api:** rename `id_type` enum from `cl_nut` to `cl_rut` ([16cdeff](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/16cdeff7ea634670953da94bc0c2c38758a1695a))
+* **api:** updates ([#138](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/138)) ([48020dc](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/48020dc1ca9e09ed4ab9abed634e23fb6dc99f3a))
+
+
+### Chores
+
+* add back removed code ([8424e94](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8424e94b378c248b07712ba36da56eb9ea565641))
+* **internal:** temporary commit ([#140](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/140)) ([d673027](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d6730276c11536bbc4dd7fb1484263d2c73ed6f8))
+
+
+### Documentation
+
+* **readme:** consistent use of sentence case in headings ([#136](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/136)) ([9d46fdf](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9d46fdfa3a4a7e0bf261cfaa0112bf3922536550))
+
 ## 2.10.0 (2024-03-05)
 
 Full Changelog: [v2.9.0...v2.10.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.9.0...v2.10.0)
