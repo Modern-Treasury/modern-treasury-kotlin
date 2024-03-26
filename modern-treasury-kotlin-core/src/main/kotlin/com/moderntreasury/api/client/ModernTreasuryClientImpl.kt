@@ -121,6 +121,8 @@ constructor(
 
     private val paperItems: PaperItemService by lazy { PaperItemServiceImpl(clientOptions) }
 
+    private val webhooks: WebhookService by lazy { WebhookServiceImpl(clientOptions) }
+
     private val virtualAccounts: VirtualAccountService by lazy {
         VirtualAccountServiceImpl(clientOptions)
     }
@@ -209,6 +211,8 @@ constructor(
     override fun validations(): ValidationService = validations
 
     override fun paperItems(): PaperItemService = paperItems
+
+    override fun webhooks(): WebhookService = webhooks
 
     override fun virtualAccounts(): VirtualAccountService = virtualAccounts
 

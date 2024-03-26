@@ -72,6 +72,8 @@ interface ModernTreasuryClient {
 
     fun paperItems(): PaperItemService
 
+    fun webhooks(): WebhookService
+
     fun virtualAccounts(): VirtualAccountService
 
     fun bulkRequests(): BulkRequestService
