@@ -72,8 +72,6 @@ interface ModernTreasuryClientAsync {
 
     fun paperItems(): PaperItemServiceAsync
 
-    fun webhooks(): WebhookServiceAsync
-
     fun virtualAccounts(): VirtualAccountServiceAsync
 
     fun bulkRequests(): BulkRequestServiceAsync
