@@ -114,7 +114,7 @@ To make a request to the Modern Treasury API, you generally build an instance of
 In [Example: creating a resource](#example-creating-a-resource) above, we used the `ExternalAccountCreateParams.builder()` to pass to
 the `create` method of the `externalAccounts` service.
 
-Sometimes, the API may support other properties that are not yet supported in the Kotlin SDK types. In that case,
+Sometimes, the Modern Treasury API may support other properties that are not yet supported in the Kotlin SDK types. In that case,
 you can attach them using the `putAdditionalProperty` method.
 
 ```kotlin
@@ -128,7 +128,7 @@ val params = ExternalAccountCreateParams.builder()
 
 ### Response validation
 
-When receiving a response, the Modern Treasury Kotlin SDK will deserialize it into instances of the typed model classes. In rare cases, the API may return a response property that doesn't match the expected Kotlin type. If you directly access the mistaken property, the SDK will throw an unchecked `ModernTreasuryInvalidDataException` at runtime. If you would prefer to check in advance that that response is completely well-typed, call `.validate()` on the returned model.
+When receiving a response, the Modern Treasury Kotlin SDK will deserialize it into instances of the typed model classes. In rare cases, the Modern Treasury API may return a response property that doesn't match the expected Kotlin type. If you directly access the mistaken property, the SDK will throw an unchecked `ModernTreasuryInvalidDataException` at runtime. You can check the response is completely well-typed in advance by calling `.validate()` on the returned model.
 
 ```kotlin
 val externalAccount = client.externalAccounts().create().validate()
@@ -158,7 +158,7 @@ if (field.isMissing()) {
 
 ### Additional model properties
 
-Sometimes, the server response may include additional properties that are not yet available in this library's types. You can access them using the model's `_additionalProperties` method:
+Sometimes, the server response may include additional properties that are not yet available in Modern Treasury Kotlin's types. You can access the additional properties using the model's `_additionalProperties` method:
 
 ```kotlin
 val secret = externalAccount._additionalProperties().get("secret_field")
@@ -168,13 +168,12 @@ val secret = externalAccount._additionalProperties().get("secret_field")
 
 ## Pagination
 
-For methods that return a paginated list of results, this library provides convenient ways access
+For methods that return a paginated list of results, Modern Treasury Kotlin provides convenient ways to access
 the results either one page at a time, or item-by-item across all pages.
 
 ### Auto-pagination
 
-To iterate through all results across all pages, you can use `autoPager`,
-which automatically handles fetching more pages for you:
+You can use `autoPager` to iterate through all results across all pages. It automatically handles fetching more pages for you:
 
 ### Synchronous
 
@@ -198,8 +197,12 @@ asyncClient.externalAccounts().list(params).autoPager()
 
 If none of the above helpers meet your needs, you can also manually request pages one-by-one.
 A page of results has a `data()` method to fetch the list of objects, as well as top-level
-`response` and other methods to fetch top-level data about the page. It also has methods
-`hasNextPage`, `getNextPage`, and `getNextPageParams` methods to help with pagination.
+`response` and other methods to fetch top-level data about the page. It also has methods,
+* `hasNextPage`
+* `getNextPage`
+* `getNextPageParams` 
+
+to help with pagination.
 
 ```kotlin
 val page = client.externalAccounts().list(params)
@@ -216,11 +219,11 @@ while (page != null) {
 
 ## Error handling
 
-This library throws exceptions in a single hierarchy for easy handling:
+Modern Treasury Kotlin throws exceptions in a single hierarchy for easy handling:
 
 - **`ModernTreasuryException`** - Base exception for all exceptions
 
-  - **`ModernTreasuryServiceException`** - HTTP errors with a well-formed response body we were able to parse. The exception message and the `.debuggingRequestId()` will be set by the server.
+  - **`ModernTreasuryServiceException`** -  We were able to parse HTTP errors with a well-formed response body. The server will set the exception message and the `.debuggingRequestId()`.
 
     | 400    | BadRequestException           |
     | ------ | ----------------------------- |
@@ -241,7 +244,13 @@ This library throws exceptions in a single hierarchy for easy handling:
 
 ### Retries
 
-Requests that experience certain errors are automatically retried 2 times by default, with a short exponential backoff. Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, and >=500 Internal errors will all be retried by default.
+Requests that experience certain errors are automatically retried 2 times by default, with a short exponential backoff. Connection errors (for example, due to a network connectivity problem): 
+* 408 Request Timeout
+* 409 Conflict
+* 429 Rate Limit
+* >=500 Internal errors
+
+will all be retried by default.
 You can provide a `maxRetries` on the client builder to configure this:
 
 ```kotlin
@@ -253,7 +262,7 @@ val client = ModernTreasuryOkHttpClient.builder()
 
 ### Timeouts
 
-Requests time out after 1 minute by default. You can configure this on the client builder:
+Requests time out after 1 minute by default. You can configure requests on the client builder:
 
 ```kotlin
 val client = ModernTreasuryOkHttpClient.builder()
@@ -264,7 +273,7 @@ val client = ModernTreasuryOkHttpClient.builder()
 
 ### Proxies
 
-Requests can be routed through a proxy. You can configure this on the client builder:
+Requests can be routed through a proxy. You can configure requests on the client builder:
 
 ```kotlin
 val client = ModernTreasuryOkHttpClient.builder()
