@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.12.0 (2024-03-28)
+
+Full Changelog: [v2.11.0...v2.12.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.11.0...v2.12.0)
+
+### Features
+
+* **api:** update account number type enum ([#142](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/142)) ([996e7d4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/996e7d45922c8cefb4de82d7f865f9bd392edf23))
+
 ## 2.11.0 (2024-03-26)
 
 Full Changelog: [v2.10.0...v2.11.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.10.0...v2.11.0)
