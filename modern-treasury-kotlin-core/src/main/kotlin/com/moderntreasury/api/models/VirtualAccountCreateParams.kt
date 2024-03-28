@@ -683,6 +683,8 @@ constructor(
 
                 val IBAN = AccountNumberType(JsonField.of("iban"))
 
+                val NZ_NUMBER = AccountNumberType(JsonField.of("nz_number"))
+
                 val OTHER = AccountNumberType(JsonField.of("other"))
 
                 val PAN = AccountNumberType(JsonField.of("pan"))
@@ -696,6 +698,7 @@ constructor(
                 CLABE,
                 HK_NUMBER,
                 IBAN,
+                NZ_NUMBER,
                 OTHER,
                 PAN,
                 WALLET_ADDRESS,
@@ -705,6 +708,7 @@ constructor(
                 CLABE,
                 HK_NUMBER,
                 IBAN,
+                NZ_NUMBER,
                 OTHER,
                 PAN,
                 WALLET_ADDRESS,
@@ -716,6 +720,7 @@ constructor(
                     CLABE -> Value.CLABE
                     HK_NUMBER -> Value.HK_NUMBER
                     IBAN -> Value.IBAN
+                    NZ_NUMBER -> Value.NZ_NUMBER
                     OTHER -> Value.OTHER
                     PAN -> Value.PAN
                     WALLET_ADDRESS -> Value.WALLET_ADDRESS
@@ -727,6 +732,7 @@ constructor(
                     CLABE -> Known.CLABE
                     HK_NUMBER -> Known.HK_NUMBER
                     IBAN -> Known.IBAN
+                    NZ_NUMBER -> Known.NZ_NUMBER
                     OTHER -> Known.OTHER
                     PAN -> Known.PAN
                     WALLET_ADDRESS -> Known.WALLET_ADDRESS
