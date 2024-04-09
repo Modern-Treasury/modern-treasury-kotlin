@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.12.0 (2024-04-09)
+
+Full Changelog: [v2.11.0...v2.12.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.11.0...v2.12.0)
+
+### Features
+
+* **api:** add id type in_lei ([#148](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/148)) ([6a533e7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/6a533e786c777acf6ff3d9d69a0dbdae253e6a1f))
+* **api:** update account number type enum ([#142](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/142)) ([996e7d4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/996e7d45922c8cefb4de82d7f865f9bd392edf23))
+
+
+### Chores
+
+* **deps:** update jackson to v2.14.3 ([#144](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/144)) ([c5edf39](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c5edf39bf0fcb4d54e2bcf0ea88e5a48bdbe970d))
+* **deps:** update junit5 to v5.9.3 ([#146](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/146)) ([6bcc7fd](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/6bcc7fd85a85ef7996c32ea7965c3d8ebf901db6))
+* **deps:** update kotlin-gradle-plugin to v1.9.23 ([#145](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/145)) ([8df62b7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8df62b791e0ea8221797c52b618ab94707a6e960))
+* **deps:** update kotlinx-coroutines-core to v1.8.0 ([#147](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/147)) ([699f561](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/699f561c52bd834a0a308dfee723afac5fd753a8))
+* **tests:** import wiremock.client.WireMock.put ([#149](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/149)) ([3047524](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3047524fad00755d32ed29ee74dec72d8bc98a6a))
+
 ## 2.11.0 (2024-03-26)
 
 Full Changelog: [v2.10.0...v2.11.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.10.0...v2.11.0)
