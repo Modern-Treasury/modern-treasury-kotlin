@@ -28,7 +28,7 @@ class DocumentServiceTest {
                 DocumentCreateParams.builder()
                     .documentableId("string")
                     .documentableType(DocumentCreateParams.DocumentableType.CASES)
-                    .file("file.txt")
+                    .file("some content".toByteArray())
                     .documentType("string")
                     .build()
             )

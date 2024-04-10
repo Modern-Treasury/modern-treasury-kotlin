@@ -4,6 +4,7 @@ package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
@@ -35,6 +36,7 @@ constructor(
     private val updatedAt: UpdatedAt?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun id(): List<String>? = id
@@ -118,6 +120,8 @@ constructor(
 
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -144,7 +148,8 @@ constructor(
             this.status == other.status &&
             this.updatedAt == other.updatedAt &&
             this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
@@ -170,11 +175,12 @@ constructor(
             updatedAt,
             additionalQueryParams,
             additionalHeaders,
+            additionalBodyProperties,
         )
     }
 
     override fun toString() =
-        "LedgerTransactionListParams{id=$id, afterCursor=$afterCursor, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, ledgerAccountPayoutId=$ledgerAccountPayoutId, ledgerAccountSettlementId=$ledgerAccountSettlementId, ledgerId=$ledgerId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, orderBy=$orderBy, perPage=$perPage, postedAt=$postedAt, reversesLedgerTransactionId=$reversesLedgerTransactionId, status=$status, updatedAt=$updatedAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "LedgerTransactionListParams{id=$id, afterCursor=$afterCursor, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, ledgerAccountPayoutId=$ledgerAccountPayoutId, ledgerAccountSettlementId=$ledgerAccountSettlementId, ledgerId=$ledgerId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, orderBy=$orderBy, perPage=$perPage, postedAt=$postedAt, reversesLedgerTransactionId=$reversesLedgerTransactionId, status=$status, updatedAt=$updatedAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -207,6 +213,7 @@ constructor(
         private var updatedAt: UpdatedAt? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
+        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerTransactionListParams: LedgerTransactionListParams) = apply {
             this.id(ledgerTransactionListParams.id ?: listOf())
@@ -231,6 +238,7 @@ constructor(
             this.updatedAt = ledgerTransactionListParams.updatedAt
             additionalQueryParams(ledgerTransactionListParams.additionalQueryParams)
             additionalHeaders(ledgerTransactionListParams.additionalHeaders)
+            additionalBodyProperties(ledgerTransactionListParams.additionalBodyProperties)
         }
 
         /**
@@ -366,6 +374,20 @@ constructor(
 
         fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.clear()
+            this.additionalBodyProperties.putAll(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            this.additionalBodyProperties.put(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
+
         fun build(): LedgerTransactionListParams =
             LedgerTransactionListParams(
                 if (id.size == 0) null else id.toUnmodifiable(),
@@ -389,6 +411,7 @@ constructor(
                 updatedAt,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
             )
     }
 
@@ -535,7 +558,7 @@ constructor(
     @JsonCreator
     private constructor(
         private val value: JsonField<String>,
-    ) {
+    ) : Enum {
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
@@ -808,7 +831,7 @@ constructor(
         @JsonCreator
         private constructor(
             private val value: JsonField<String>,
-        ) {
+        ) : Enum {
 
             @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
@@ -865,7 +888,7 @@ constructor(
         @JsonCreator
         private constructor(
             private val value: JsonField<String>,
-        ) {
+        ) : Enum {
 
             @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
@@ -993,7 +1016,7 @@ constructor(
     @JsonCreator
     private constructor(
         private val value: JsonField<String>,
-    ) {
+    ) : Enum {
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 

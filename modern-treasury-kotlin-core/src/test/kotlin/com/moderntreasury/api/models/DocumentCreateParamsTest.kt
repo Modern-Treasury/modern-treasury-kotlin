@@ -2,6 +2,8 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.ContentTypes
+import com.moderntreasury.api.core.MultipartFormValue
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -13,7 +15,7 @@ class DocumentCreateParamsTest {
         DocumentCreateParams.builder()
             .documentableId("string")
             .documentableType(DocumentCreateParams.DocumentableType.CASES)
-            .file("file.txt")
+            .file("some content".toByteArray())
             .documentType("string")
             .build()
     }
@@ -24,15 +26,26 @@ class DocumentCreateParamsTest {
             DocumentCreateParams.builder()
                 .documentableId("string")
                 .documentableType(DocumentCreateParams.DocumentableType.CASES)
-                .file("file.txt")
+                .file("some content".toByteArray())
                 .documentType("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.documentableId()).isEqualTo("string")
-        assertThat(body.documentableType()).isEqualTo(DocumentCreateParams.DocumentableType.CASES)
-        assertThat(body.file()).isEqualTo("file.txt")
-        assertThat(body.documentType()).isEqualTo("string")
+        assertThat(body)
+            .containsExactly(
+                MultipartFormValue.fromString("documentableId", "string", ContentTypes.DefaultText),
+                MultipartFormValue.fromEnum(
+                    "documentableType",
+                    DocumentCreateParams.DocumentableType.CASES,
+                    ContentTypes.DefaultText
+                ),
+                MultipartFormValue.fromByteArray(
+                    "file",
+                    "some content".toByteArray(),
+                    ContentTypes.DefaultBinary
+                ),
+                MultipartFormValue.fromString("documentType", "string", ContentTypes.DefaultText),
+            )
     }
 
     @Test
@@ -41,12 +54,24 @@ class DocumentCreateParamsTest {
             DocumentCreateParams.builder()
                 .documentableId("string")
                 .documentableType(DocumentCreateParams.DocumentableType.CASES)
-                .file("file.txt")
+                .file("some content".toByteArray())
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.documentableId()).isEqualTo("string")
-        assertThat(body.documentableType()).isEqualTo(DocumentCreateParams.DocumentableType.CASES)
-        assertThat(body.file()).isEqualTo("file.txt")
+        assertThat(body)
+            .containsExactly(
+                MultipartFormValue.fromString("documentableId", "string", ContentTypes.DefaultText),
+                MultipartFormValue.fromEnum(
+                    "documentableType",
+                    DocumentCreateParams.DocumentableType.CASES,
+                    ContentTypes.DefaultText
+                ),
+                MultipartFormValue.fromByteArray(
+                    "file",
+                    "some content".toByteArray(),
+                    ContentTypes.DefaultBinary
+                ),
+                null,
+            )
     }
 }

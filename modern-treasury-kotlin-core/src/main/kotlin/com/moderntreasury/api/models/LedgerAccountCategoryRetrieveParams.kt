@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.models.*
@@ -16,6 +17,7 @@ constructor(
     private val balances: Balances?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun id(): String = id
@@ -42,6 +44,8 @@ constructor(
 
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -51,7 +55,8 @@ constructor(
             this.id == other.id &&
             this.balances == other.balances &&
             this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
@@ -60,11 +65,12 @@ constructor(
             balances,
             additionalQueryParams,
             additionalHeaders,
+            additionalBodyProperties,
         )
     }
 
     override fun toString() =
-        "LedgerAccountCategoryRetrieveParams{id=$id, balances=$balances, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "LedgerAccountCategoryRetrieveParams{id=$id, balances=$balances, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -80,6 +86,7 @@ constructor(
         private var balances: Balances? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
+        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(
             ledgerAccountCategoryRetrieveParams: LedgerAccountCategoryRetrieveParams
@@ -88,6 +95,7 @@ constructor(
             this.balances = ledgerAccountCategoryRetrieveParams.balances
             additionalQueryParams(ledgerAccountCategoryRetrieveParams.additionalQueryParams)
             additionalHeaders(ledgerAccountCategoryRetrieveParams.additionalHeaders)
+            additionalBodyProperties(ledgerAccountCategoryRetrieveParams.additionalBodyProperties)
         }
 
         fun id(id: String) = apply { this.id = id }
@@ -139,12 +147,27 @@ constructor(
 
         fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.clear()
+            this.additionalBodyProperties.putAll(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            this.additionalBodyProperties.put(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
+
         fun build(): LedgerAccountCategoryRetrieveParams =
             LedgerAccountCategoryRetrieveParams(
                 checkNotNull(id) { "`id` is required but was not set" },
                 balances,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
             )
     }
 
