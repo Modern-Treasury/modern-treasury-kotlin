@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.models.*
@@ -14,6 +15,7 @@ constructor(
     private val id: String,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun accountsType(): AccountsType = accountsType
@@ -39,6 +41,8 @@ constructor(
 
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -49,7 +53,8 @@ constructor(
             this.accountId == other.accountId &&
             this.id == other.id &&
             this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
@@ -59,11 +64,12 @@ constructor(
             id,
             additionalQueryParams,
             additionalHeaders,
+            additionalBodyProperties,
         )
     }
 
     override fun toString() =
-        "RoutingDetailRetrieveParams{accountsType=$accountsType, accountId=$accountId, id=$id, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "RoutingDetailRetrieveParams{accountsType=$accountsType, accountId=$accountId, id=$id, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -80,6 +86,7 @@ constructor(
         private var id: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
+        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(routingDetailRetrieveParams: RoutingDetailRetrieveParams) = apply {
             this.accountsType = routingDetailRetrieveParams.accountsType
@@ -87,6 +94,7 @@ constructor(
             this.id = routingDetailRetrieveParams.id
             additionalQueryParams(routingDetailRetrieveParams.additionalQueryParams)
             additionalHeaders(routingDetailRetrieveParams.additionalHeaders)
+            additionalBodyProperties(routingDetailRetrieveParams.additionalBodyProperties)
         }
 
         fun accountsType(accountsType: AccountsType) = apply { this.accountsType = accountsType }
@@ -135,6 +143,20 @@ constructor(
 
         fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.clear()
+            this.additionalBodyProperties.putAll(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            this.additionalBodyProperties.put(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
+
         fun build(): RoutingDetailRetrieveParams =
             RoutingDetailRetrieveParams(
                 checkNotNull(accountsType) { "`accountsType` is required but was not set" },
@@ -142,6 +164,7 @@ constructor(
                 checkNotNull(id) { "`id` is required but was not set" },
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
             )
     }
 }

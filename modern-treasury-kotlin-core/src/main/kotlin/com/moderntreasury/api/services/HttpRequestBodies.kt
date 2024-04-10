@@ -3,6 +3,9 @@
 package com.moderntreasury.api.services
 
 import com.fasterxml.jackson.databind.json.JsonMapper
+import com.moderntreasury.api.core.Enum
+import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.core.MultipartFormValue
 import com.moderntreasury.api.core.http.HttpRequestBody
 import com.moderntreasury.api.errors.ModernTreasuryException
 import java.io.ByteArrayOutputStream
@@ -46,10 +49,47 @@ internal inline fun <reified T> json(
 }
 
 internal fun multipartFormData(
-    files: Map<String, ByteArray>,
+    jsonMapper: JsonMapper,
+    parts: Array<MultipartFormValue<*>?>
 ): HttpRequestBody {
     val builder = MultipartEntityBuilder.create()
-    files.forEach { file, bytes -> builder.addBinaryBody(file, bytes) }
+    parts.forEach { part ->
+        if (part?.value != null) {
+            when (part.value) {
+                is JsonValue -> {
+                    val buffer = ByteArrayOutputStream()
+                    try {
+                        jsonMapper.writeValue(buffer, part.value)
+                    } catch (e: Exception) {
+                        throw ModernTreasuryException("Error serializing value to json", e)
+                    }
+                    builder.addBinaryBody(
+                        part.name,
+                        buffer.toByteArray(),
+                        part.contentType,
+                        part.filename
+                    )
+                }
+                is Boolean ->
+                    builder.addTextBody(
+                        part.name,
+                        if (part.value) "true" else "false",
+                        part.contentType
+                    )
+                is Int -> builder.addTextBody(part.name, part.value.toString(), part.contentType)
+                is Long -> builder.addTextBody(part.name, part.value.toString(), part.contentType)
+                is Double -> builder.addTextBody(part.name, part.value.toString(), part.contentType)
+                is ByteArray ->
+                    builder.addBinaryBody(part.name, part.value, part.contentType, part.filename)
+                is String -> builder.addTextBody(part.name, part.value, part.contentType)
+                is Enum -> builder.addTextBody(part.name, part.value.toString(), part.contentType)
+                else ->
+                    throw IllegalArgumentException(
+                        "Unsupported content type: ${part.value::class.java.simpleName}"
+                    )
+            }
+        }
+    }
     val entity = builder.build()
 
     return object : HttpRequestBody {
