@@ -72,32 +72,31 @@ Read the documentation for more configuration options.
 
 ### Example: creating a resource
 
-To create a new external account, first use the `ExternalAccountCreateParams` builder to specify attributes,
-then pass that to the `create` method of the `externalAccounts` service.
+To create a new counterparty, first use the `CounterpartyCreateParams` builder to specify attributes,
+then pass that to the `create` method of the `counterparties` service.
 
 ```kotlin
-import com.moderntreasury.api.models.ExternalAccount
-import com.moderntreasury.api.models.ExternalAccountCreateParams
+import com.moderntreasury.api.models.Counterparty
+import com.moderntreasury.api.models.CounterpartyCreateParams
 
-val params = ExternalAccountCreateParams.builder()
-    .counterpartyId("9eba513a-53fd-4d6d-ad52-ccce122ab92a")
-    .name("my bank")
+val params = CounterpartyCreateParams.builder()
+    .name("my first counterparty")
     .build()
-val externalAccount = client.externalAccounts().create(params)
+val counterparty = client.counterparties().create(params)
 ```
 
 ### Example: listing resources
 
-The Modern Treasury API provides a `list` method to get a paginated list of external accounts.
+The Modern Treasury API provides a `list` method to get a paginated list of counterparties.
 You can retrieve the first page by:
 
 ```kotlin
-import com.moderntreasury.api.models.ExternalAccount
+import com.moderntreasury.api.models.Counterparty
 import com.moderntreasury.api.models.Page
 
-val page = client.externalAccounts().list()
-for (externalAccount: ExternalAccount in page.items()) {
-    print(externalAccount)
+val page = client.counterparties().list()
+for (counterparty: Counterparty in page.items()) {
+    print(counterparty)
 }
 ```
 
@@ -111,14 +110,14 @@ See [Pagination](#pagination) below for more information on transparently workin
 
 To make a request to the Modern Treasury API, you generally build an instance of the appropriate `Params` class.
 
-In [Example: creating a resource](#example-creating-a-resource) above, we used the `ExternalAccountCreateParams.builder()` to pass to
-the `create` method of the `externalAccounts` service.
+In [Example: creating a resource](#example-creating-a-resource) above, we used the `CounterpartyCreateParams.builder()` to pass to
+the `create` method of the `counterparties` service.
 
 Sometimes, the API may support other properties that are not yet supported in the Kotlin SDK types. In that case,
 you can attach them using the `putAdditionalProperty` method.
 
 ```kotlin
-val params = ExternalAccountCreateParams.builder()
+val params = CounterpartyCreateParams.builder()
     // ... normal properties
     .putAdditionalProperty("secret_param", "4242")
     .build()
@@ -131,7 +130,7 @@ val params = ExternalAccountCreateParams.builder()
 When receiving a response, the Modern Treasury Kotlin SDK will deserialize it into instances of the typed model classes. In rare cases, the API may return a response property that doesn't match the expected Kotlin type. If you directly access the mistaken property, the SDK will throw an unchecked `ModernTreasuryInvalidDataException` at runtime. If you would prefer to check in advance that that response is completely well-typed, call `.validate()` on the returned model.
 
 ```kotlin
-val externalAccount = client.externalAccounts().create().validate()
+val counterparty = client.counterparties().create().validate()
 ```
 
 ### Response properties as JSON
@@ -161,7 +160,7 @@ if (field.isMissing()) {
 Sometimes, the server response may include additional properties that are not yet available in this library's types. You can access them using the model's `_additionalProperties` method:
 
 ```kotlin
-val secret = externalAccount._additionalProperties().get("secret_field")
+val secret = counterparty._additionalProperties().get("secret_field")
 ```
 
 ---
@@ -180,18 +179,18 @@ which automatically handles fetching more pages for you:
 
 ```kotlin
 // As a Sequence:
-client.externalAccounts().list(params).autoPager()
+client.counterparties().list(params).autoPager()
     .take(50)
-    .forEach { externalAccount -> print(externalAccount) }
+    .forEach { counterparty -> print(counterparty) }
 ```
 
 ### Asynchronous
 
 ```kotlin
 // As a Flow:
-asyncClient.externalAccounts().list(params).autoPager()
+asyncClient.counterparties().list(params).autoPager()
     .take(50)
-    .collect { externalAccount -> print(externalAccount) }
+    .collect { counterparty -> print(counterparty) }
 ```
 
 ### Manual pagination
@@ -202,10 +201,10 @@ A page of results has a `data()` method to fetch the list of objects, as well as
 `hasNextPage`, `getNextPage`, and `getNextPageParams` methods to help with pagination.
 
 ```kotlin
-val page = client.externalAccounts().list(params)
+val page = client.counterparties().list(params)
 while (page != null) {
-    for (externalAccount in page.items) {
-        print(externalAccount)
+    for (counterparty in page.items) {
+        print(counterparty)
     }
 
     page = page.getNextPage()
