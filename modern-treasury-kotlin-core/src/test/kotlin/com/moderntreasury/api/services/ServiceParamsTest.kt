@@ -21,6 +21,7 @@ import com.moderntreasury.api.core.JsonString
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.jsonMapper
 import com.moderntreasury.api.models.*
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -44,7 +45,7 @@ class ServiceParamsTest {
     }
 
     @Test
-    fun externalAccountsCreateWithAdditionalParams() {
+    fun counterpartiesCreateWithAdditionalParams() {
         val additionalHeaders = mutableMapOf<String, List<String>>()
 
         additionalHeaders.put("x-test-header", listOf("abc1234"))
@@ -58,150 +59,358 @@ class ServiceParamsTest {
         additionalBodyProperties.put("testBodyProperty", JsonString.of("ghi890"))
 
         val params =
-            ExternalAccountCreateParams.builder()
-                .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .accountDetails(
+            CounterpartyCreateParams.builder()
+                .name("string")
+                .accounting(
+                    CounterpartyCreateParams.Accounting.builder()
+                        .type(CounterpartyCreateParams.Accounting.Type.CUSTOMER)
+                        .build()
+                )
+                .accounts(
                     listOf(
-                        ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("string")
-                            .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType.IBAN
+                        CounterpartyCreateParams.Account.builder()
+                            .accountDetails(
+                                listOf(
+                                    CounterpartyCreateParams.Account.AccountDetail.builder()
+                                        .accountNumber("string")
+                                        .accountNumberType(
+                                            CounterpartyCreateParams.Account.AccountDetail
+                                                .AccountNumberType
+                                                .IBAN
+                                        )
+                                        .build()
+                                )
+                            )
+                            .accountType(ExternalAccountType.CASH)
+                            .contactDetails(
+                                listOf(
+                                    CounterpartyCreateParams.Account.ContactDetailCreateRequest
+                                        .builder()
+                                        .contactIdentifier("string")
+                                        .contactIdentifierType(
+                                            CounterpartyCreateParams.Account
+                                                .ContactDetailCreateRequest
+                                                .ContactIdentifierType
+                                                .EMAIL
+                                        )
+                                        .build()
+                                )
+                            )
+                            .ledgerAccount(
+                                CounterpartyCreateParams.Account.LedgerAccountCreateRequest
+                                    .builder()
+                                    .currency("string")
+                                    .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .name("string")
+                                    .normalBalance(TransactionDirection.CREDIT)
+                                    .currencyExponent(123L)
+                                    .description("string")
+                                    .ledgerAccountCategoryIds(
+                                        listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    )
+                                    .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .ledgerableType(
+                                        CounterpartyCreateParams.Account.LedgerAccountCreateRequest
+                                            .LedgerableType
+                                            .COUNTERPARTY
+                                    )
+                                    .metadata(
+                                        CounterpartyCreateParams.Account.LedgerAccountCreateRequest
+                                            .Metadata
+                                            .builder()
+                                            .build()
+                                    )
+                                    .build()
+                            )
+                            .metadata(CounterpartyCreateParams.Account.Metadata.builder().build())
+                            .name("string")
+                            .partyAddress(
+                                CounterpartyCreateParams.Account.AddressRequest.builder()
+                                    .country("string")
+                                    .line1("string")
+                                    .line2("string")
+                                    .locality("string")
+                                    .postalCode("string")
+                                    .region("string")
+                                    .build()
+                            )
+                            .partyIdentifier("string")
+                            .partyName("string")
+                            .partyType(CounterpartyCreateParams.Account.PartyType.BUSINESS)
+                            .plaidProcessorToken("string")
+                            .routingDetails(
+                                listOf(
+                                    CounterpartyCreateParams.Account.RoutingDetail.builder()
+                                        .routingNumber("string")
+                                        .routingNumberType(
+                                            CounterpartyCreateParams.Account.RoutingDetail
+                                                .RoutingNumberType
+                                                .ABA
+                                        )
+                                        .paymentType(
+                                            CounterpartyCreateParams.Account.RoutingDetail
+                                                .PaymentType
+                                                .ACH
+                                        )
+                                        .build()
+                                )
                             )
                             .build()
                     )
                 )
-                .accountType(ExternalAccountType.CASH)
-                .contactDetails(
-                    listOf(
-                        ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("string")
-                            .contactIdentifierType(
-                                ExternalAccountCreateParams.ContactDetailCreateRequest
-                                    .ContactIdentifierType
-                                    .EMAIL
+                .email("dev@stainlessapi.com")
+                .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
+                .legalEntity(
+                    CounterpartyCreateParams.LegalEntityCreateRequest.builder()
+                        .legalEntityType(
+                            CounterpartyCreateParams.LegalEntityCreateRequest.LegalEntityType
+                                .BUSINESS
+                        )
+                        .addresses(
+                            listOf(
+                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                    .LegalEntityAddressCreateRequest
+                                    .builder()
+                                    .country("string")
+                                    .line1("string")
+                                    .locality("string")
+                                    .postalCode("string")
+                                    .region("string")
+                                    .addressTypes(
+                                        listOf(
+                                            CounterpartyCreateParams.LegalEntityCreateRequest
+                                                .LegalEntityAddressCreateRequest
+                                                .AddressType
+                                                .BUSINESS
+                                        )
+                                    )
+                                    .line2("string")
+                                    .build()
                             )
-                            .build()
-                    )
-                )
-                .ledgerAccount(
-                    ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
-                        .currency("string")
-                        .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .name("string")
-                        .normalBalance(TransactionDirection.CREDIT)
-                        .currencyExponent(123L)
-                        .description("string")
-                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
-                        .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .ledgerableType(
-                            ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
-                                .COUNTERPARTY
+                        )
+                        .businessName("string")
+                        .dateFormed(LocalDate.parse("2019-12-27"))
+                        .dateOfBirth(LocalDate.parse("2019-12-27"))
+                        .doingBusinessAsNames(listOf("string"))
+                        .email("string")
+                        .firstName("string")
+                        .identifications(
+                            listOf(
+                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                    .IdentificationCreateRequest
+                                    .builder()
+                                    .idNumber("string")
+                                    .idType(
+                                        CounterpartyCreateParams.LegalEntityCreateRequest
+                                            .IdentificationCreateRequest
+                                            .IdType
+                                            .AR_CUIL
+                                    )
+                                    .issuingCountry("string")
+                                    .build()
+                            )
+                        )
+                        .lastName("string")
+                        .legalEntityAssociations(
+                            listOf(
+                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                    .LegalEntityAssociationInlineCreateRequest
+                                    .builder()
+                                    .relationshipTypes(
+                                        listOf(
+                                            CounterpartyCreateParams.LegalEntityCreateRequest
+                                                .LegalEntityAssociationInlineCreateRequest
+                                                .RelationshipType
+                                                .BENEFICIAL_OWNER
+                                        )
+                                    )
+                                    .childLegalEntity(
+                                        CounterpartyCreateParams.LegalEntityCreateRequest
+                                            .LegalEntityAssociationInlineCreateRequest
+                                            .ChildLegalEntityCreate
+                                            .builder()
+                                            .addresses(
+                                                listOf(
+                                                    CounterpartyCreateParams
+                                                        .LegalEntityCreateRequest
+                                                        .LegalEntityAssociationInlineCreateRequest
+                                                        .ChildLegalEntityCreate
+                                                        .LegalEntityAddressCreateRequest
+                                                        .builder()
+                                                        .country("string")
+                                                        .line1("string")
+                                                        .locality("string")
+                                                        .postalCode("string")
+                                                        .region("string")
+                                                        .addressTypes(
+                                                            listOf(
+                                                                CounterpartyCreateParams
+                                                                    .LegalEntityCreateRequest
+                                                                    .LegalEntityAssociationInlineCreateRequest
+                                                                    .ChildLegalEntityCreate
+                                                                    .LegalEntityAddressCreateRequest
+                                                                    .AddressType
+                                                                    .BUSINESS
+                                                            )
+                                                        )
+                                                        .line2("string")
+                                                        .build()
+                                                )
+                                            )
+                                            .businessName("string")
+                                            .dateFormed(LocalDate.parse("2019-12-27"))
+                                            .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                            .doingBusinessAsNames(listOf("string"))
+                                            .email("string")
+                                            .firstName("string")
+                                            .identifications(
+                                                listOf(
+                                                    CounterpartyCreateParams
+                                                        .LegalEntityCreateRequest
+                                                        .LegalEntityAssociationInlineCreateRequest
+                                                        .ChildLegalEntityCreate
+                                                        .IdentificationCreateRequest
+                                                        .builder()
+                                                        .idNumber("string")
+                                                        .idType(
+                                                            CounterpartyCreateParams
+                                                                .LegalEntityCreateRequest
+                                                                .LegalEntityAssociationInlineCreateRequest
+                                                                .ChildLegalEntityCreate
+                                                                .IdentificationCreateRequest
+                                                                .IdType
+                                                                .AR_CUIL
+                                                        )
+                                                        .issuingCountry("string")
+                                                        .build()
+                                                )
+                                            )
+                                            .lastName("string")
+                                            .legalEntityType(
+                                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                                    .LegalEntityAssociationInlineCreateRequest
+                                                    .ChildLegalEntityCreate
+                                                    .LegalEntityType
+                                                    .BUSINESS
+                                            )
+                                            .legalStructure(
+                                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                                    .LegalEntityAssociationInlineCreateRequest
+                                                    .ChildLegalEntityCreate
+                                                    .LegalStructure
+                                                    .CORPORATION
+                                            )
+                                            .metadata(
+                                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                                    .LegalEntityAssociationInlineCreateRequest
+                                                    .ChildLegalEntityCreate
+                                                    .Metadata
+                                                    .builder()
+                                                    .build()
+                                            )
+                                            .phoneNumbers(
+                                                listOf(
+                                                    CounterpartyCreateParams
+                                                        .LegalEntityCreateRequest
+                                                        .LegalEntityAssociationInlineCreateRequest
+                                                        .ChildLegalEntityCreate
+                                                        .PhoneNumber
+                                                        .builder()
+                                                        .phoneNumber("string")
+                                                        .build()
+                                                )
+                                            )
+                                            .website("string")
+                                            .build()
+                                    )
+                                    .childLegalEntityId("string")
+                                    .ownershipPercentage(123L)
+                                    .title("string")
+                                    .build()
+                            )
+                        )
+                        .legalStructure(
+                            CounterpartyCreateParams.LegalEntityCreateRequest.LegalStructure
+                                .CORPORATION
                         )
                         .metadata(
-                            ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
-                                .builder()
+                            CounterpartyCreateParams.LegalEntityCreateRequest.Metadata.builder()
                                 .build()
                         )
-                        .build()
-                )
-                .metadata(ExternalAccountCreateParams.Metadata.builder().build())
-                .name("string")
-                .partyAddress(
-                    ExternalAccountCreateParams.AddressRequest.builder()
-                        .country("string")
-                        .line1("string")
-                        .line2("string")
-                        .locality("string")
-                        .postalCode("string")
-                        .region("string")
-                        .build()
-                )
-                .partyIdentifier("string")
-                .partyName("string")
-                .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
-                .plaidProcessorToken("string")
-                .routingDetails(
-                    listOf(
-                        ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("string")
-                            .routingNumberType(
-                                ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                        .phoneNumbers(
+                            listOf(
+                                CounterpartyCreateParams.LegalEntityCreateRequest.PhoneNumber
+                                    .builder()
+                                    .phoneNumber("string")
+                                    .build()
                             )
-                            .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
-                            .build()
-                    )
+                        )
+                        .website("string")
+                        .build()
                 )
+                .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .metadata(CounterpartyCreateParams.Metadata.builder().build())
+                .sendRemittanceAdvice(true)
+                .taxpayerIdentifier("string")
+                .verificationStatus(CounterpartyCreateParams.VerificationStatus.DENIED)
                 .additionalHeaders(additionalHeaders)
                 .additionalBodyProperties(additionalBodyProperties)
                 .additionalQueryParams(additionalQueryParams)
                 .build()
 
         val apiResponse =
-            ExternalAccount.builder()
+            Counterparty.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .accountDetails(
+                .accounts(
                     listOf(
-                        AccountDetail.builder()
+                        Counterparty.Account.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .accountNumberSafe("string")
-                            .accountNumberType(AccountDetail.AccountNumberType.CLABE)
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .liveMode(true)
-                            .object_("string")
-                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .accountNumber("string")
-                            .build()
-                    )
-                )
-                .accountType(ExternalAccountType.CASH)
-                .contactDetails(
-                    listOf(
-                        ExternalAccount.ContactDetail.builder()
-                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .contactIdentifier("string")
-                            .contactIdentifierType(
-                                ExternalAccount.ContactDetail.ContactIdentifierType.EMAIL
+                            .accountDetails(
+                                listOf(
+                                    AccountDetail.builder()
+                                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                        .accountNumberSafe("string")
+                                        .accountNumberType(AccountDetail.AccountNumberType.CLABE)
+                                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .discardedAt(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .liveMode(true)
+                                        .object_("string")
+                                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .accountNumber("string")
+                                        .build()
+                                )
+                            )
+                            .accountType(ExternalAccountType.CASH)
+                            .contactDetails(
+                                listOf(
+                                    Counterparty.Account.ContactDetail.builder()
+                                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                        .contactIdentifier("string")
+                                        .contactIdentifierType(
+                                            Counterparty.Account.ContactDetail.ContactIdentifierType
+                                                .EMAIL
+                                        )
+                                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .discardedAt(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .liveMode(true)
+                                        .object_("string")
+                                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .build()
+                                )
                             )
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .liveMode(true)
+                            .metadata(Counterparty.Account.Metadata.builder().build())
+                            .name("string")
                             .object_("string")
-                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
-                )
-                .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .liveMode(true)
-                .metadata(ExternalAccount.Metadata.builder().build())
-                .name("string")
-                .object_("string")
-                .partyAddress(
-                    ExternalAccount.Address.builder()
-                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .country("string")
-                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .line1("string")
-                        .line2("string")
-                        .liveMode(true)
-                        .locality("string")
-                        .object_("string")
-                        .postalCode("string")
-                        .region("string")
-                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .build()
-                )
-                .partyName("string")
-                .partyType(ExternalAccount.PartyType.BUSINESS)
-                .routingDetails(
-                    listOf(
-                        RoutingDetail.builder()
-                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .bankAddress(
-                                RoutingDetail.Address.builder()
+                            .partyAddress(
+                                Counterparty.Account.Address.builder()
                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .country("string")
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -215,20 +424,63 @@ class ServiceParamsTest {
                                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
                             )
-                            .bankName("string")
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .liveMode(true)
-                            .object_("string")
-                            .paymentType(RoutingDetail.PaymentType.ACH)
-                            .routingNumber("string")
-                            .routingNumberType(RoutingDetail.RoutingNumberType.ABA)
+                            .partyName("string")
+                            .partyType(Counterparty.Account.PartyType.BUSINESS)
+                            .routingDetails(
+                                listOf(
+                                    RoutingDetail.builder()
+                                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                        .bankAddress(
+                                            RoutingDetail.Address.builder()
+                                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                                .country("string")
+                                                .createdAt(
+                                                    OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                                )
+                                                .line1("string")
+                                                .line2("string")
+                                                .liveMode(true)
+                                                .locality("string")
+                                                .object_("string")
+                                                .postalCode("string")
+                                                .region("string")
+                                                .updatedAt(
+                                                    OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                                )
+                                                .build()
+                                        )
+                                        .bankName("string")
+                                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .discardedAt(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .liveMode(true)
+                                        .object_("string")
+                                        .paymentType(RoutingDetail.PaymentType.ACH)
+                                        .routingNumber("string")
+                                        .routingNumberType(RoutingDetail.RoutingNumberType.ABA)
+                                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .build()
+                                )
+                            )
                             .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .verificationStatus(
+                                Counterparty.Account.VerificationStatus.PENDING_VERIFICATION
+                            )
                             .build()
                     )
                 )
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .email("dev@stainlessapi.com")
+                .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .liveMode(true)
+                .metadata(Counterparty.Metadata.builder().build())
+                .name("string")
+                .object_("string")
+                .sendRemittanceAdvice(true)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .verificationStatus(ExternalAccount.VerificationStatus.PENDING_VERIFICATION)
+                .verificationStatus(Counterparty.VerificationStatus.DENIED)
                 .build()
 
         stubFor(
@@ -239,7 +491,7 @@ class ServiceParamsTest {
                 .willReturn(ok(JSON_MAPPER.writeValueAsString(apiResponse)))
         )
 
-        client.externalAccounts().create(params)
+        client.counterparties().create(params)
 
         verify(postRequestedFor(anyUrl()))
     }
