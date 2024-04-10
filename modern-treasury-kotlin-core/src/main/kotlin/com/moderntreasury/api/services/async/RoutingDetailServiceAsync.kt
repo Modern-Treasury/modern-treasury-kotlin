@@ -5,6 +5,7 @@
 package com.moderntreasury.api.services.async
 
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
@@ -46,7 +47,7 @@ interface RoutingDetailServiceAsync {
     @JsonCreator
     private constructor(
         private val value: JsonField<String>,
-    ) {
+    ) : Enum {
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 

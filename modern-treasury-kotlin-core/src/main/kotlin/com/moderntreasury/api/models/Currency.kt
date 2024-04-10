@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -11,7 +12,7 @@ class Currency
 @JsonCreator
 private constructor(
     private val value: JsonField<String>,
-) {
+) : Enum {
 
     @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
