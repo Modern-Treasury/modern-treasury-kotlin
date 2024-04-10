@@ -14,8 +14,8 @@ import com.moderntreasury.api.models.DocumentListPage
 import com.moderntreasury.api.models.DocumentListParams
 import com.moderntreasury.api.models.DocumentRetrieveParams
 import com.moderntreasury.api.services.errorHandler
-import com.moderntreasury.api.services.json
 import com.moderntreasury.api.services.jsonHandler
+import com.moderntreasury.api.services.multipartFormData
 import com.moderntreasury.api.services.withErrorHandler
 
 class DocumentServiceImpl
@@ -37,7 +37,7 @@ constructor(
                 .putAllQueryParams(params.getQueryParams())
                 .putAllHeaders(clientOptions.headers)
                 .putAllHeaders(params.getHeaders())
-                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .body(multipartFormData(clientOptions.jsonMapper, params.getBody()))
                 .build()
         return clientOptions.httpClient.execute(request, requestOptions).let { response ->
             response

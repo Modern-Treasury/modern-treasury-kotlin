@@ -35,7 +35,7 @@ class PaymentOrderCreateParamsTest {
                         .documentableType(
                             PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CASES
                         )
-                        .file("file.txt")
+                        .file("some content")
                         .documentType("string")
                         .build()
                 )
@@ -255,7 +255,7 @@ class PaymentOrderCreateParamsTest {
                                 PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
                                     .CASES
                             )
-                            .file("file.txt")
+                            .file("some content")
                             .documentType("string")
                             .build()
                     )
@@ -479,7 +479,7 @@ class PaymentOrderCreateParamsTest {
                         .documentableType(
                             PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CASES
                         )
-                        .file("file.txt")
+                        .file("some content")
                         .documentType("string")
                         .build()
                 )

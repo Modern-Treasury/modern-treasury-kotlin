@@ -49,7 +49,7 @@ class PaymentOrderServiceTest {
                                     PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
                                         .CASES
                                 )
-                                .file("file.txt")
+                                .file("some content")
                                 .documentType("string")
                                 .build()
                         )
