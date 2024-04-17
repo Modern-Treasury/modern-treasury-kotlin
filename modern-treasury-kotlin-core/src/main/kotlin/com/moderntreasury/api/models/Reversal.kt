@@ -29,6 +29,7 @@ private constructor(
     private val updatedAt: JsonField<OffsetDateTime>,
     private val status: JsonField<Status>,
     private val paymentOrderId: JsonField<String>,
+    private val ledgerTransactionId: JsonField<String>,
     private val metadata: JsonField<Metadata>,
     private val reason: JsonField<Reason>,
     private val additionalProperties: Map<String, JsonValue>,
@@ -58,6 +59,9 @@ private constructor(
     /** The ID of the relevant Payment Order. */
     fun paymentOrderId(): String? = paymentOrderId.getNullable("payment_order_id")
 
+    /** The ID of the ledger transaction linked to the reversal. */
+    fun ledgerTransactionId(): String? = ledgerTransactionId.getNullable("ledger_transaction_id")
+
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
     fun metadata(): Metadata = metadata.getRequired("metadata")
 
@@ -84,6 +88,11 @@ private constructor(
     /** The ID of the relevant Payment Order. */
     @JsonProperty("payment_order_id") @ExcludeMissing fun _paymentOrderId() = paymentOrderId
 
+    /** The ID of the ledger transaction linked to the reversal. */
+    @JsonProperty("ledger_transaction_id")
+    @ExcludeMissing
+    fun _ledgerTransactionId() = ledgerTransactionId
+
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
     @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
 
@@ -103,6 +112,7 @@ private constructor(
             updatedAt()
             status()
             paymentOrderId()
+            ledgerTransactionId()
             metadata().validate()
             reason()
             validated = true
@@ -124,6 +134,7 @@ private constructor(
             this.updatedAt == other.updatedAt &&
             this.status == other.status &&
             this.paymentOrderId == other.paymentOrderId &&
+            this.ledgerTransactionId == other.ledgerTransactionId &&
             this.metadata == other.metadata &&
             this.reason == other.reason &&
             this.additionalProperties == other.additionalProperties
@@ -140,6 +151,7 @@ private constructor(
                     updatedAt,
                     status,
                     paymentOrderId,
+                    ledgerTransactionId,
                     metadata,
                     reason,
                     additionalProperties,
@@ -149,7 +161,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Reversal{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, status=$status, paymentOrderId=$paymentOrderId, metadata=$metadata, reason=$reason, additionalProperties=$additionalProperties}"
+        "Reversal{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, status=$status, paymentOrderId=$paymentOrderId, ledgerTransactionId=$ledgerTransactionId, metadata=$metadata, reason=$reason, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -165,6 +177,7 @@ private constructor(
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var paymentOrderId: JsonField<String> = JsonMissing.of()
+        private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
         private var metadata: JsonField<Metadata> = JsonMissing.of()
         private var reason: JsonField<Reason> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -177,6 +190,7 @@ private constructor(
             this.updatedAt = reversal.updatedAt
             this.status = reversal.status
             this.paymentOrderId = reversal.paymentOrderId
+            this.ledgerTransactionId = reversal.ledgerTransactionId
             this.metadata = reversal.metadata
             this.reason = reversal.reason
             additionalProperties(reversal.additionalProperties)
@@ -236,6 +250,17 @@ private constructor(
             this.paymentOrderId = paymentOrderId
         }
 
+        /** The ID of the ledger transaction linked to the reversal. */
+        fun ledgerTransactionId(ledgerTransactionId: String) =
+            ledgerTransactionId(JsonField.of(ledgerTransactionId))
+
+        /** The ID of the ledger transaction linked to the reversal. */
+        @JsonProperty("ledger_transaction_id")
+        @ExcludeMissing
+        fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
+            this.ledgerTransactionId = ledgerTransactionId
+        }
+
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
@@ -279,6 +304,7 @@ private constructor(
                 updatedAt,
                 status,
                 paymentOrderId,
+                ledgerTransactionId,
                 metadata,
                 reason,
                 additionalProperties.toUnmodifiable(),
