@@ -1,5 +1,30 @@
 # Changelog
 
+## 2.13.0 (2024-04-21)
+
+Full Changelog: [v2.12.0...v2.13.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.12.0...v2.13.0)
+
+### Features
+
+* **api:** add ledger_transaction_id field to reversal ([#155](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/155)) ([29f6174](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/29f617483b7aac71429ad741ab98dd0305c1914e))
+* **client:** implement support for multipart/form-data body requests ([#152](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/152)) ([ef3db8b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ef3db8b1236dabb5de7d01177cb8f53914ac3395))
+
+
+### Chores
+
+* **ci:** validate Gradle wrapper ([#156](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/156)) ([48ff372](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/48ff37263b20ff66a4d156b32e48066b451ec68b))
+* **internal:** formatting ([#153](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/153)) ([a39d7a1](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a39d7a137bdb8629d1d75d788bc76604ce86ad07))
+
+
+### Documentation
+
+* **examples:** use counterparties in snippets ([#150](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/150)) ([d5ca6ce](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d5ca6ce77249cc0a192dc78b18d0faf1541f34d8))
+
+
+### Build System
+
+* configure UTF-8 locale in devcontainer ([#154](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/154)) ([7154287](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7154287e9d31dd6da6bf7508d0deedff9be6db00))
+
 ## 2.12.0 (2024-04-09)
 
 Full Changelog: [v2.11.0...v2.12.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.11.0...v2.12.0)
