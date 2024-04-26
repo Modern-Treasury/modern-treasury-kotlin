@@ -112,7 +112,7 @@ class PaymentOrderServiceTest {
                             .ledgerableType(
                                 PaymentOrderCreateParams.LedgerTransactionCreateRequest
                                     .LedgerableType
-                                    .COUNTERPARTY
+                                    .EXPECTED_PAYMENT
                             )
                             .metadata(
                                 PaymentOrderCreateParams.LedgerTransactionCreateRequest.Metadata
@@ -544,7 +544,7 @@ class PaymentOrderServiceTest {
                             .ledgerableType(
                                 PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest
                                     .LedgerableType
-                                    .COUNTERPARTY
+                                    .EXPECTED_PAYMENT
                             )
                             .metadata(
                                 PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest

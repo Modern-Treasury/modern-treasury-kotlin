@@ -17,7 +17,7 @@ class LedgerTransactionCreateReversalParamsTest {
             .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .externalId("string")
             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .ledgerableType(LedgerTransactionCreateReversalParams.LedgerableType.COUNTERPARTY)
+            .ledgerableType(LedgerTransactionCreateReversalParams.LedgerableType.EXPECTED_PAYMENT)
             .metadata(LedgerTransactionCreateReversalParams.Metadata.builder().build())
             .status(LedgerTransactionCreateReversalParams.Status.ARCHIVED)
             .build()
@@ -32,7 +32,9 @@ class LedgerTransactionCreateReversalParamsTest {
                 .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .externalId("string")
                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .ledgerableType(LedgerTransactionCreateReversalParams.LedgerableType.COUNTERPARTY)
+                .ledgerableType(
+                    LedgerTransactionCreateReversalParams.LedgerableType.EXPECTED_PAYMENT
+                )
                 .metadata(LedgerTransactionCreateReversalParams.Metadata.builder().build())
                 .status(LedgerTransactionCreateReversalParams.Status.ARCHIVED)
                 .build()
@@ -43,7 +45,7 @@ class LedgerTransactionCreateReversalParamsTest {
         assertThat(body.externalId()).isEqualTo("string")
         assertThat(body.ledgerableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.ledgerableType())
-            .isEqualTo(LedgerTransactionCreateReversalParams.LedgerableType.COUNTERPARTY)
+            .isEqualTo(LedgerTransactionCreateReversalParams.LedgerableType.EXPECTED_PAYMENT)
         assertThat(body.metadata())
             .isEqualTo(LedgerTransactionCreateReversalParams.Metadata.builder().build())
         assertThat(body.status()).isEqualTo(LedgerTransactionCreateReversalParams.Status.ARCHIVED)
