@@ -124,7 +124,7 @@ class BulkRequestCreateParamsTest {
                                             .PaymentOrderAsyncCreateRequest
                                             .LedgerTransactionCreateRequest
                                             .LedgerableType
-                                            .COUNTERPARTY
+                                            .EXPECTED_PAYMENT
                                     )
                                     .metadata(
                                         BulkRequestCreateParams.Resource
@@ -454,7 +454,7 @@ class BulkRequestCreateParamsTest {
                                                 .PaymentOrderAsyncCreateRequest
                                                 .LedgerTransactionCreateRequest
                                                 .LedgerableType
-                                                .COUNTERPARTY
+                                                .EXPECTED_PAYMENT
                                         )
                                         .metadata(
                                             BulkRequestCreateParams.Resource
@@ -782,7 +782,7 @@ class BulkRequestCreateParamsTest {
                                             .PaymentOrderAsyncCreateRequest
                                             .LedgerTransactionCreateRequest
                                             .LedgerableType
-                                            .COUNTERPARTY
+                                            .EXPECTED_PAYMENT
                                     )
                                     .metadata(
                                         BulkRequestCreateParams.Resource

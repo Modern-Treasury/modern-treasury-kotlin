@@ -73,7 +73,7 @@ class ExpectedPaymentCreateParamsTest {
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
                         ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.LedgerableType
-                            .COUNTERPARTY
+                            .EXPECTED_PAYMENT
                     )
                     .metadata(
                         ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.Metadata
@@ -174,7 +174,7 @@ class ExpectedPaymentCreateParamsTest {
                         .ledgerableType(
                             ExpectedPaymentCreateParams.LedgerTransactionCreateRequest
                                 .LedgerableType
-                                .COUNTERPARTY
+                                .EXPECTED_PAYMENT
                         )
                         .metadata(
                             ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.Metadata
@@ -273,7 +273,7 @@ class ExpectedPaymentCreateParamsTest {
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
                         ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.LedgerableType
-                            .COUNTERPARTY
+                            .EXPECTED_PAYMENT
                     )
                     .metadata(
                         ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.Metadata

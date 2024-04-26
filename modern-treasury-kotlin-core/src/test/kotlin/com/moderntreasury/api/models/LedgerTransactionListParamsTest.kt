@@ -22,7 +22,7 @@ class LedgerTransactionListParamsTest {
             .ledgerAccountSettlementId("string")
             .ledgerId("string")
             .ledgerableId("string")
-            .ledgerableType(LedgerTransactionListParams.LedgerableType.COUNTERPARTY)
+            .ledgerableType(LedgerTransactionListParams.LedgerableType.EXPECTED_PAYMENT)
             .metadata(LedgerTransactionListParams.Metadata.builder().build())
             .orderBy(
                 LedgerTransactionListParams.OrderBy.builder()
@@ -53,7 +53,7 @@ class LedgerTransactionListParamsTest {
                 .ledgerAccountSettlementId("string")
                 .ledgerId("string")
                 .ledgerableId("string")
-                .ledgerableType(LedgerTransactionListParams.LedgerableType.COUNTERPARTY)
+                .ledgerableType(LedgerTransactionListParams.LedgerableType.EXPECTED_PAYMENT)
                 .metadata(LedgerTransactionListParams.Metadata.builder().build())
                 .orderBy(
                     LedgerTransactionListParams.OrderBy.builder()
@@ -86,7 +86,7 @@ class LedgerTransactionListParamsTest {
         expected.put("ledgerable_id", listOf("string"))
         expected.put(
             "ledgerable_type",
-            listOf(LedgerTransactionListParams.LedgerableType.COUNTERPARTY.toString())
+            listOf(LedgerTransactionListParams.LedgerableType.EXPECTED_PAYMENT.toString())
         )
         LedgerTransactionListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)

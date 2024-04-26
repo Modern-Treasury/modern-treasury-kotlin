@@ -31,6 +31,7 @@ constructor(
     private val dueDate: OffsetDateTime?,
     private val fallbackPaymentMethod: String?,
     private val ingestLedgerEntries: Boolean?,
+    private val invoiceLineItems: List<InvoiceLineItemCreateRequest>?,
     private val invoicerAddress: InvoicerAddress?,
     private val ledgerAccountSettlementId: String?,
     private val notificationEmailAddresses: List<String>?,
@@ -69,6 +70,8 @@ constructor(
 
     fun ingestLedgerEntries(): Boolean? = ingestLedgerEntries
 
+    fun invoiceLineItems(): List<InvoiceLineItemCreateRequest>? = invoiceLineItems
+
     fun invoicerAddress(): InvoicerAddress? = invoicerAddress
 
     fun ledgerAccountSettlementId(): String? = ledgerAccountSettlementId
@@ -106,6 +109,7 @@ constructor(
             dueDate,
             fallbackPaymentMethod,
             ingestLedgerEntries,
+            invoiceLineItems,
             invoicerAddress,
             ledgerAccountSettlementId,
             notificationEmailAddresses,
@@ -147,6 +151,7 @@ constructor(
         private val dueDate: OffsetDateTime?,
         private val fallbackPaymentMethod: String?,
         private val ingestLedgerEntries: Boolean?,
+        private val invoiceLineItems: List<InvoiceLineItemCreateRequest>?,
         private val invoicerAddress: InvoicerAddress?,
         private val ledgerAccountSettlementId: String?,
         private val notificationEmailAddresses: List<String>?,
@@ -203,6 +208,13 @@ constructor(
          */
         @JsonProperty("ingest_ledger_entries")
         fun ingestLedgerEntries(): Boolean? = ingestLedgerEntries
+
+        /**
+         * An array of invoice line items. The API supports a maximum of 50 invoice line items per
+         * invoice. If a greater number of invoice line items is required, please contact support.
+         */
+        @JsonProperty("invoice_line_items")
+        fun invoiceLineItems(): List<InvoiceLineItemCreateRequest>? = invoiceLineItems
 
         /** The invoice issuer's business address. */
         @JsonProperty("invoicer_address") fun invoicerAddress(): InvoicerAddress? = invoicerAddress
@@ -301,6 +313,7 @@ constructor(
                 this.dueDate == other.dueDate &&
                 this.fallbackPaymentMethod == other.fallbackPaymentMethod &&
                 this.ingestLedgerEntries == other.ingestLedgerEntries &&
+                this.invoiceLineItems == other.invoiceLineItems &&
                 this.invoicerAddress == other.invoicerAddress &&
                 this.ledgerAccountSettlementId == other.ledgerAccountSettlementId &&
                 this.notificationEmailAddresses == other.notificationEmailAddresses &&
@@ -330,6 +343,7 @@ constructor(
                         dueDate,
                         fallbackPaymentMethod,
                         ingestLedgerEntries,
+                        invoiceLineItems,
                         invoicerAddress,
                         ledgerAccountSettlementId,
                         notificationEmailAddresses,
@@ -350,7 +364,7 @@ constructor(
         }
 
         override fun toString() =
-            "InvoiceUpdateBody{contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, status=$status, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
+            "InvoiceUpdateBody{contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, status=$status, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -368,6 +382,7 @@ constructor(
             private var dueDate: OffsetDateTime? = null
             private var fallbackPaymentMethod: String? = null
             private var ingestLedgerEntries: Boolean? = null
+            private var invoiceLineItems: List<InvoiceLineItemCreateRequest>? = null
             private var invoicerAddress: InvoicerAddress? = null
             private var ledgerAccountSettlementId: String? = null
             private var notificationEmailAddresses: List<String>? = null
@@ -393,6 +408,7 @@ constructor(
                 this.dueDate = invoiceUpdateBody.dueDate
                 this.fallbackPaymentMethod = invoiceUpdateBody.fallbackPaymentMethod
                 this.ingestLedgerEntries = invoiceUpdateBody.ingestLedgerEntries
+                this.invoiceLineItems = invoiceUpdateBody.invoiceLineItems
                 this.invoicerAddress = invoiceUpdateBody.invoicerAddress
                 this.ledgerAccountSettlementId = invoiceUpdateBody.ledgerAccountSettlementId
                 this.notificationEmailAddresses = invoiceUpdateBody.notificationEmailAddresses
@@ -463,6 +479,16 @@ constructor(
             @JsonProperty("ingest_ledger_entries")
             fun ingestLedgerEntries(ingestLedgerEntries: Boolean) = apply {
                 this.ingestLedgerEntries = ingestLedgerEntries
+            }
+
+            /**
+             * An array of invoice line items. The API supports a maximum of 50 invoice line items
+             * per invoice. If a greater number of invoice line items is required, please contact
+             * support.
+             */
+            @JsonProperty("invoice_line_items")
+            fun invoiceLineItems(invoiceLineItems: List<InvoiceLineItemCreateRequest>) = apply {
+                this.invoiceLineItems = invoiceLineItems
             }
 
             /** The invoice issuer's business address. */
@@ -593,6 +619,7 @@ constructor(
                     dueDate,
                     fallbackPaymentMethod,
                     ingestLedgerEntries,
+                    invoiceLineItems?.toUnmodifiable(),
                     invoicerAddress,
                     ledgerAccountSettlementId,
                     notificationEmailAddresses?.toUnmodifiable(),
@@ -633,6 +660,7 @@ constructor(
             this.dueDate == other.dueDate &&
             this.fallbackPaymentMethod == other.fallbackPaymentMethod &&
             this.ingestLedgerEntries == other.ingestLedgerEntries &&
+            this.invoiceLineItems == other.invoiceLineItems &&
             this.invoicerAddress == other.invoicerAddress &&
             this.ledgerAccountSettlementId == other.ledgerAccountSettlementId &&
             this.notificationEmailAddresses == other.notificationEmailAddresses &&
@@ -663,6 +691,7 @@ constructor(
             dueDate,
             fallbackPaymentMethod,
             ingestLedgerEntries,
+            invoiceLineItems,
             invoicerAddress,
             ledgerAccountSettlementId,
             notificationEmailAddresses,
@@ -683,7 +712,7 @@ constructor(
     }
 
     override fun toString() =
-        "InvoiceUpdateParams{id=$id, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, status=$status, virtualAccountId=$virtualAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "InvoiceUpdateParams{id=$id, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, status=$status, virtualAccountId=$virtualAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -705,6 +734,7 @@ constructor(
         private var dueDate: OffsetDateTime? = null
         private var fallbackPaymentMethod: String? = null
         private var ingestLedgerEntries: Boolean? = null
+        private var invoiceLineItems: MutableList<InvoiceLineItemCreateRequest> = mutableListOf()
         private var invoicerAddress: InvoicerAddress? = null
         private var ledgerAccountSettlementId: String? = null
         private var notificationEmailAddresses: MutableList<String> = mutableListOf()
@@ -733,6 +763,7 @@ constructor(
             this.dueDate = invoiceUpdateParams.dueDate
             this.fallbackPaymentMethod = invoiceUpdateParams.fallbackPaymentMethod
             this.ingestLedgerEntries = invoiceUpdateParams.ingestLedgerEntries
+            this.invoiceLineItems(invoiceUpdateParams.invoiceLineItems ?: listOf())
             this.invoicerAddress = invoiceUpdateParams.invoicerAddress
             this.ledgerAccountSettlementId = invoiceUpdateParams.ledgerAccountSettlementId
             this.notificationEmailAddresses(
@@ -805,6 +836,23 @@ constructor(
          */
         fun ingestLedgerEntries(ingestLedgerEntries: Boolean) = apply {
             this.ingestLedgerEntries = ingestLedgerEntries
+        }
+
+        /**
+         * An array of invoice line items. The API supports a maximum of 50 invoice line items per
+         * invoice. If a greater number of invoice line items is required, please contact support.
+         */
+        fun invoiceLineItems(invoiceLineItems: List<InvoiceLineItemCreateRequest>) = apply {
+            this.invoiceLineItems.clear()
+            this.invoiceLineItems.addAll(invoiceLineItems)
+        }
+
+        /**
+         * An array of invoice line items. The API supports a maximum of 50 invoice line items per
+         * invoice. If a greater number of invoice line items is required, please contact support.
+         */
+        fun addInvoiceLineItem(invoiceLineItem: InvoiceLineItemCreateRequest) = apply {
+            this.invoiceLineItems.add(invoiceLineItem)
         }
 
         /** The invoice issuer's business address. */
@@ -972,6 +1020,7 @@ constructor(
                 dueDate,
                 fallbackPaymentMethod,
                 ingestLedgerEntries,
+                if (invoiceLineItems.size == 0) null else invoiceLineItems.toUnmodifiable(),
                 invoicerAddress,
                 ledgerAccountSettlementId,
                 if (notificationEmailAddresses.size == 0) null
@@ -1513,6 +1562,267 @@ constructor(
                     checkNotNull(country) { "`country` is required but was not set" },
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+    }
+
+    @JsonDeserialize(builder = InvoiceLineItemCreateRequest.Builder::class)
+    @NoAutoDetect
+    class InvoiceLineItemCreateRequest
+    private constructor(
+        private val name: String?,
+        private val description: String?,
+        private val quantity: Long?,
+        private val unitAmount: Long?,
+        private val unitAmountDecimal: String?,
+        private val direction: String?,
+        private val metadata: Metadata?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        /** The name of the line item, typically a product or SKU name. */
+        @JsonProperty("name") fun name(): String? = name
+
+        /** An optional free-form description of the line item. */
+        @JsonProperty("description") fun description(): String? = description
+
+        /**
+         * The number of units of a product or service that this line item is for. Must be a whole
+         * number. Defaults to 1 if not provided.
+         */
+        @JsonProperty("quantity") fun quantity(): Long? = quantity
+
+        /**
+         * The cost per unit of the product or service that this line item is for, specified in the
+         * invoice currency's smallest unit.
+         */
+        @JsonProperty("unit_amount") fun unitAmount(): Long? = unitAmount
+
+        /**
+         * The cost per unit of the product or service that this line item is for, specified in the
+         * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+         */
+        @JsonProperty("unit_amount_decimal") fun unitAmountDecimal(): String? = unitAmountDecimal
+
+        /**
+         * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
+         * increases the invoice's `total_amount` due. `credit` has the opposite intention and
+         * effect.
+         */
+        @JsonProperty("direction") fun direction(): String? = direction
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is InvoiceLineItemCreateRequest &&
+                this.name == other.name &&
+                this.description == other.description &&
+                this.quantity == other.quantity &&
+                this.unitAmount == other.unitAmount &&
+                this.unitAmountDecimal == other.unitAmountDecimal &&
+                this.direction == other.direction &&
+                this.metadata == other.metadata &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        name,
+                        description,
+                        quantity,
+                        unitAmount,
+                        unitAmountDecimal,
+                        direction,
+                        metadata,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "InvoiceLineItemCreateRequest{name=$name, description=$description, quantity=$quantity, unitAmount=$unitAmount, unitAmountDecimal=$unitAmountDecimal, direction=$direction, metadata=$metadata, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var name: String? = null
+            private var description: String? = null
+            private var quantity: Long? = null
+            private var unitAmount: Long? = null
+            private var unitAmountDecimal: String? = null
+            private var direction: String? = null
+            private var metadata: Metadata? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(invoiceLineItemCreateRequest: InvoiceLineItemCreateRequest) = apply {
+                this.name = invoiceLineItemCreateRequest.name
+                this.description = invoiceLineItemCreateRequest.description
+                this.quantity = invoiceLineItemCreateRequest.quantity
+                this.unitAmount = invoiceLineItemCreateRequest.unitAmount
+                this.unitAmountDecimal = invoiceLineItemCreateRequest.unitAmountDecimal
+                this.direction = invoiceLineItemCreateRequest.direction
+                this.metadata = invoiceLineItemCreateRequest.metadata
+                additionalProperties(invoiceLineItemCreateRequest.additionalProperties)
+            }
+
+            /** The name of the line item, typically a product or SKU name. */
+            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+
+            /** An optional free-form description of the line item. */
+            @JsonProperty("description")
+            fun description(description: String) = apply { this.description = description }
+
+            /**
+             * The number of units of a product or service that this line item is for. Must be a
+             * whole number. Defaults to 1 if not provided.
+             */
+            @JsonProperty("quantity")
+            fun quantity(quantity: Long) = apply { this.quantity = quantity }
+
+            /**
+             * The cost per unit of the product or service that this line item is for, specified in
+             * the invoice currency's smallest unit.
+             */
+            @JsonProperty("unit_amount")
+            fun unitAmount(unitAmount: Long) = apply { this.unitAmount = unitAmount }
+
+            /**
+             * The cost per unit of the product or service that this line item is for, specified in
+             * the invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+             */
+            @JsonProperty("unit_amount_decimal")
+            fun unitAmountDecimal(unitAmountDecimal: String) = apply {
+                this.unitAmountDecimal = unitAmountDecimal
+            }
+
+            /**
+             * Either `debit` or `credit`. `debit` indicates that a client owes the business money
+             * and increases the invoice's `total_amount` due. `credit` has the opposite intention
+             * and effect.
+             */
+            @JsonProperty("direction")
+            fun direction(direction: String) = apply { this.direction = direction }
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            @JsonProperty("metadata")
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): InvoiceLineItemCreateRequest =
+                InvoiceLineItemCreateRequest(
+                    checkNotNull(name) { "`name` is required but was not set" },
+                    description,
+                    quantity,
+                    checkNotNull(unitAmount) { "`unitAmount` is required but was not set" },
+                    unitAmountDecimal,
+                    direction,
+                    metadata,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonDeserialize(builder = Metadata.Builder::class)
+        @NoAutoDetect
+        class Metadata
+        private constructor(
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var hashCode: Int = 0
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Metadata && this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(metadata: Metadata) = apply {
+                    additionalProperties(metadata.additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+            }
         }
     }
 

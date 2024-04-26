@@ -148,7 +148,7 @@ class BulkRequestServiceTest {
                                                     .PaymentOrderAsyncCreateRequest
                                                     .LedgerTransactionCreateRequest
                                                     .LedgerableType
-                                                    .COUNTERPARTY
+                                                    .EXPECTED_PAYMENT
                                             )
                                             .metadata(
                                                 BulkRequestCreateParams.Resource

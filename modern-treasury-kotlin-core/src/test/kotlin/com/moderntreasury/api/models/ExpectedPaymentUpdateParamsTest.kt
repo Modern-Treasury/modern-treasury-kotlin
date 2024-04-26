@@ -31,6 +31,7 @@ class ExpectedPaymentUpdateParamsTest {
             )
             .remittanceInformation("string")
             .statementDescriptor("string")
+            .status(ExpectedPaymentUpdateParams.Status.RECONCILED)
             .type(ExpectedPaymentType.ACH)
             .build()
     }
@@ -57,6 +58,7 @@ class ExpectedPaymentUpdateParamsTest {
                 )
                 .remittanceInformation("string")
                 .statementDescriptor("string")
+                .status(ExpectedPaymentUpdateParams.Status.RECONCILED)
                 .type(ExpectedPaymentType.ACH)
                 .build()
         val body = params.getBody()
@@ -80,6 +82,7 @@ class ExpectedPaymentUpdateParamsTest {
             )
         assertThat(body.remittanceInformation()).isEqualTo("string")
         assertThat(body.statementDescriptor()).isEqualTo("string")
+        assertThat(body.status()).isEqualTo(ExpectedPaymentUpdateParams.Status.RECONCILED)
         assertThat(body.type()).isEqualTo(ExpectedPaymentType.ACH)
     }
 

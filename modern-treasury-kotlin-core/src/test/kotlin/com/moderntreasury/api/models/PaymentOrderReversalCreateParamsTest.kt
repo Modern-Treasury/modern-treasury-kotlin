@@ -66,7 +66,7 @@ class PaymentOrderReversalCreateParamsTest {
                     .ledgerableType(
                         PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
                             .LedgerableType
-                            .COUNTERPARTY
+                            .EXPECTED_PAYMENT
                     )
                     .metadata(
                         PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.Metadata
@@ -144,7 +144,7 @@ class PaymentOrderReversalCreateParamsTest {
                         .ledgerableType(
                             PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
                                 .LedgerableType
-                                .COUNTERPARTY
+                                .EXPECTED_PAYMENT
                         )
                         .metadata(
                             PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.Metadata
@@ -214,7 +214,7 @@ class PaymentOrderReversalCreateParamsTest {
                     .ledgerableType(
                         PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
                             .LedgerableType
-                            .COUNTERPARTY
+                            .EXPECTED_PAYMENT
                     )
                     .metadata(
                         PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.Metadata
