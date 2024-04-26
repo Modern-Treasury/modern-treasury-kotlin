@@ -69,6 +69,23 @@ class InvoiceServiceTest {
                     .description("string")
                     .fallbackPaymentMethod("string")
                     .ingestLedgerEntries(true)
+                    .invoiceLineItems(
+                        listOf(
+                            InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
+                                .name("string")
+                                .unitAmount(123L)
+                                .description("string")
+                                .direction("string")
+                                .metadata(
+                                    InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata
+                                        .builder()
+                                        .build()
+                                )
+                                .quantity(123L)
+                                .unitAmountDecimal("string")
+                                .build()
+                        )
+                    )
                     .invoicerAddress(
                         InvoiceCreateParams.InvoicerAddress.builder()
                             .country("string")
@@ -164,6 +181,23 @@ class InvoiceServiceTest {
                     .dueDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .fallbackPaymentMethod("string")
                     .ingestLedgerEntries(true)
+                    .invoiceLineItems(
+                        listOf(
+                            InvoiceUpdateParams.InvoiceLineItemCreateRequest.builder()
+                                .name("string")
+                                .unitAmount(123L)
+                                .description("string")
+                                .direction("string")
+                                .metadata(
+                                    InvoiceUpdateParams.InvoiceLineItemCreateRequest.Metadata
+                                        .builder()
+                                        .build()
+                                )
+                                .quantity(123L)
+                                .unitAmountDecimal("string")
+                                .build()
+                        )
+                    )
                     .invoicerAddress(
                         InvoiceUpdateParams.InvoicerAddress.builder()
                             .country("string")

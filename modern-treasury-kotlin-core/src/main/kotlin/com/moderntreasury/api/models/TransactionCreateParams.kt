@@ -4,12 +4,16 @@ package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
+import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.toUnmodifiable
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.util.Objects
@@ -20,10 +24,11 @@ constructor(
     private val asOfDate: LocalDate?,
     private val direction: String,
     private val internalAccountId: String,
-    private val vendorCode: String,
-    private val vendorCodeType: String,
+    private val vendorCode: String?,
+    private val vendorCodeType: String?,
     private val metadata: Metadata?,
     private val posted: Boolean?,
+    private val type: Type?,
     private val vendorDescription: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -38,13 +43,15 @@ constructor(
 
     fun internalAccountId(): String = internalAccountId
 
-    fun vendorCode(): String = vendorCode
+    fun vendorCode(): String? = vendorCode
 
-    fun vendorCodeType(): String = vendorCodeType
+    fun vendorCodeType(): String? = vendorCodeType
 
     fun metadata(): Metadata? = metadata
 
     fun posted(): Boolean? = posted
+
+    fun type(): Type? = type
 
     fun vendorDescription(): String? = vendorDescription
 
@@ -58,6 +65,7 @@ constructor(
             vendorCodeType,
             metadata,
             posted,
+            type,
             vendorDescription,
             additionalBodyProperties,
         )
@@ -79,6 +87,7 @@ constructor(
         private val vendorCodeType: String?,
         private val metadata: Metadata?,
         private val posted: Boolean?,
+        private val type: Type?,
         private val vendorDescription: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -120,6 +129,12 @@ constructor(
         @JsonProperty("posted") fun posted(): Boolean? = posted
 
         /**
+         * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
+         * `book`, or `sen`.
+         */
+        @JsonProperty("type") fun type(): Type? = type
+
+        /**
          * The transaction detail text that often appears in on your bank statement and in your
          * banking portal.
          */
@@ -145,6 +160,7 @@ constructor(
                 this.vendorCodeType == other.vendorCodeType &&
                 this.metadata == other.metadata &&
                 this.posted == other.posted &&
+                this.type == other.type &&
                 this.vendorDescription == other.vendorDescription &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -161,6 +177,7 @@ constructor(
                         vendorCodeType,
                         metadata,
                         posted,
+                        type,
                         vendorDescription,
                         additionalProperties,
                     )
@@ -169,7 +186,7 @@ constructor(
         }
 
         override fun toString() =
-            "TransactionCreateBody{amount=$amount, asOfDate=$asOfDate, direction=$direction, internalAccountId=$internalAccountId, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, metadata=$metadata, posted=$posted, vendorDescription=$vendorDescription, additionalProperties=$additionalProperties}"
+            "TransactionCreateBody{amount=$amount, asOfDate=$asOfDate, direction=$direction, internalAccountId=$internalAccountId, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, metadata=$metadata, posted=$posted, type=$type, vendorDescription=$vendorDescription, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -186,6 +203,7 @@ constructor(
             private var vendorCodeType: String? = null
             private var metadata: Metadata? = null
             private var posted: Boolean? = null
+            private var type: Type? = null
             private var vendorDescription: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -198,6 +216,7 @@ constructor(
                 this.vendorCodeType = transactionCreateBody.vendorCodeType
                 this.metadata = transactionCreateBody.metadata
                 this.posted = transactionCreateBody.posted
+                this.type = transactionCreateBody.type
                 this.vendorDescription = transactionCreateBody.vendorDescription
                 additionalProperties(transactionCreateBody.additionalProperties)
             }
@@ -250,6 +269,12 @@ constructor(
             @JsonProperty("posted") fun posted(posted: Boolean) = apply { this.posted = posted }
 
             /**
+             * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
+             * `book`, or `sen`.
+             */
+            @JsonProperty("type") fun type(type: Type) = apply { this.type = type }
+
+            /**
              * The transaction detail text that often appears in on your bank statement and in your
              * banking portal.
              */
@@ -280,10 +305,11 @@ constructor(
                     checkNotNull(internalAccountId) {
                         "`internalAccountId` is required but was not set"
                     },
-                    checkNotNull(vendorCode) { "`vendorCode` is required but was not set" },
-                    checkNotNull(vendorCodeType) { "`vendorCodeType` is required but was not set" },
+                    vendorCode,
+                    vendorCodeType,
                     metadata,
                     posted,
+                    type,
                     vendorDescription,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -310,6 +336,7 @@ constructor(
             this.vendorCodeType == other.vendorCodeType &&
             this.metadata == other.metadata &&
             this.posted == other.posted &&
+            this.type == other.type &&
             this.vendorDescription == other.vendorDescription &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -326,6 +353,7 @@ constructor(
             vendorCodeType,
             metadata,
             posted,
+            type,
             vendorDescription,
             additionalQueryParams,
             additionalHeaders,
@@ -334,7 +362,7 @@ constructor(
     }
 
     override fun toString() =
-        "TransactionCreateParams{amount=$amount, asOfDate=$asOfDate, direction=$direction, internalAccountId=$internalAccountId, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, metadata=$metadata, posted=$posted, vendorDescription=$vendorDescription, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "TransactionCreateParams{amount=$amount, asOfDate=$asOfDate, direction=$direction, internalAccountId=$internalAccountId, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, metadata=$metadata, posted=$posted, type=$type, vendorDescription=$vendorDescription, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -354,6 +382,7 @@ constructor(
         private var vendorCodeType: String? = null
         private var metadata: Metadata? = null
         private var posted: Boolean? = null
+        private var type: Type? = null
         private var vendorDescription: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -368,6 +397,7 @@ constructor(
             this.vendorCodeType = transactionCreateParams.vendorCodeType
             this.metadata = transactionCreateParams.metadata
             this.posted = transactionCreateParams.posted
+            this.type = transactionCreateParams.type
             this.vendorDescription = transactionCreateParams.vendorDescription
             additionalQueryParams(transactionCreateParams.additionalQueryParams)
             additionalHeaders(transactionCreateParams.additionalHeaders)
@@ -409,6 +439,12 @@ constructor(
 
         /** This field will be `true` if the transaction has posted to the account. */
         fun posted(posted: Boolean) = apply { this.posted = posted }
+
+        /**
+         * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
+         * `book`, or `sen`.
+         */
+        fun type(type: Type) = apply { this.type = type }
 
         /**
          * The transaction detail text that often appears in on your bank statement and in your
@@ -480,10 +516,11 @@ constructor(
                 checkNotNull(internalAccountId) {
                     "`internalAccountId` is required but was not set"
                 },
-                checkNotNull(vendorCode) { "`vendorCode` is required but was not set" },
-                checkNotNull(vendorCodeType) { "`vendorCodeType` is required but was not set" },
+                vendorCode,
+                vendorCodeType,
                 metadata,
                 posted,
+                type,
                 vendorDescription,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
@@ -553,5 +590,236 @@ constructor(
 
             fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
         }
+    }
+
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Type && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val ACH = Type(JsonField.of("ach"))
+
+            val AU_BECS = Type(JsonField.of("au_becs"))
+
+            val BACS = Type(JsonField.of("bacs"))
+
+            val BOOK = Type(JsonField.of("book"))
+
+            val CARD = Type(JsonField.of("card"))
+
+            val CHATS = Type(JsonField.of("chats"))
+
+            val CHECK = Type(JsonField.of("check"))
+
+            val CROSS_BORDER = Type(JsonField.of("cross_border"))
+
+            val DK_NETS = Type(JsonField.of("dk_nets"))
+
+            val EFT = Type(JsonField.of("eft"))
+
+            val HU_ICS = Type(JsonField.of("hu_ics"))
+
+            val INTERAC = Type(JsonField.of("interac"))
+
+            val MASAV = Type(JsonField.of("masav"))
+
+            val MX_CCEN = Type(JsonField.of("mx_ccen"))
+
+            val NEFT = Type(JsonField.of("neft"))
+
+            val NICS = Type(JsonField.of("nics"))
+
+            val NZ_BECS = Type(JsonField.of("nz_becs"))
+
+            val PL_ELIXIR = Type(JsonField.of("pl_elixir"))
+
+            val PROVXCHANGE = Type(JsonField.of("provxchange"))
+
+            val RO_SENT = Type(JsonField.of("ro_sent"))
+
+            val RTP = Type(JsonField.of("rtp"))
+
+            val SE_BANKGIROT = Type(JsonField.of("se_bankgirot"))
+
+            val SEN = Type(JsonField.of("sen"))
+
+            val SEPA = Type(JsonField.of("sepa"))
+
+            val SG_GIRO = Type(JsonField.of("sg_giro"))
+
+            val SIC = Type(JsonField.of("sic"))
+
+            val SIGNET = Type(JsonField.of("signet"))
+
+            val SKNBI = Type(JsonField.of("sknbi"))
+
+            val WIRE = Type(JsonField.of("wire"))
+
+            val ZENGIN = Type(JsonField.of("zengin"))
+
+            val OTHER = Type(JsonField.of("other"))
+
+            fun of(value: String) = Type(JsonField.of(value))
+        }
+
+        enum class Known {
+            ACH,
+            AU_BECS,
+            BACS,
+            BOOK,
+            CARD,
+            CHATS,
+            CHECK,
+            CROSS_BORDER,
+            DK_NETS,
+            EFT,
+            HU_ICS,
+            INTERAC,
+            MASAV,
+            MX_CCEN,
+            NEFT,
+            NICS,
+            NZ_BECS,
+            PL_ELIXIR,
+            PROVXCHANGE,
+            RO_SENT,
+            RTP,
+            SE_BANKGIROT,
+            SEN,
+            SEPA,
+            SG_GIRO,
+            SIC,
+            SIGNET,
+            SKNBI,
+            WIRE,
+            ZENGIN,
+            OTHER,
+        }
+
+        enum class Value {
+            ACH,
+            AU_BECS,
+            BACS,
+            BOOK,
+            CARD,
+            CHATS,
+            CHECK,
+            CROSS_BORDER,
+            DK_NETS,
+            EFT,
+            HU_ICS,
+            INTERAC,
+            MASAV,
+            MX_CCEN,
+            NEFT,
+            NICS,
+            NZ_BECS,
+            PL_ELIXIR,
+            PROVXCHANGE,
+            RO_SENT,
+            RTP,
+            SE_BANKGIROT,
+            SEN,
+            SEPA,
+            SG_GIRO,
+            SIC,
+            SIGNET,
+            SKNBI,
+            WIRE,
+            ZENGIN,
+            OTHER,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                ACH -> Value.ACH
+                AU_BECS -> Value.AU_BECS
+                BACS -> Value.BACS
+                BOOK -> Value.BOOK
+                CARD -> Value.CARD
+                CHATS -> Value.CHATS
+                CHECK -> Value.CHECK
+                CROSS_BORDER -> Value.CROSS_BORDER
+                DK_NETS -> Value.DK_NETS
+                EFT -> Value.EFT
+                HU_ICS -> Value.HU_ICS
+                INTERAC -> Value.INTERAC
+                MASAV -> Value.MASAV
+                MX_CCEN -> Value.MX_CCEN
+                NEFT -> Value.NEFT
+                NICS -> Value.NICS
+                NZ_BECS -> Value.NZ_BECS
+                PL_ELIXIR -> Value.PL_ELIXIR
+                PROVXCHANGE -> Value.PROVXCHANGE
+                RO_SENT -> Value.RO_SENT
+                RTP -> Value.RTP
+                SE_BANKGIROT -> Value.SE_BANKGIROT
+                SEN -> Value.SEN
+                SEPA -> Value.SEPA
+                SG_GIRO -> Value.SG_GIRO
+                SIC -> Value.SIC
+                SIGNET -> Value.SIGNET
+                SKNBI -> Value.SKNBI
+                WIRE -> Value.WIRE
+                ZENGIN -> Value.ZENGIN
+                OTHER -> Value.OTHER
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                ACH -> Known.ACH
+                AU_BECS -> Known.AU_BECS
+                BACS -> Known.BACS
+                BOOK -> Known.BOOK
+                CARD -> Known.CARD
+                CHATS -> Known.CHATS
+                CHECK -> Known.CHECK
+                CROSS_BORDER -> Known.CROSS_BORDER
+                DK_NETS -> Known.DK_NETS
+                EFT -> Known.EFT
+                HU_ICS -> Known.HU_ICS
+                INTERAC -> Known.INTERAC
+                MASAV -> Known.MASAV
+                MX_CCEN -> Known.MX_CCEN
+                NEFT -> Known.NEFT
+                NICS -> Known.NICS
+                NZ_BECS -> Known.NZ_BECS
+                PL_ELIXIR -> Known.PL_ELIXIR
+                PROVXCHANGE -> Known.PROVXCHANGE
+                RO_SENT -> Known.RO_SENT
+                RTP -> Known.RTP
+                SE_BANKGIROT -> Known.SE_BANKGIROT
+                SEN -> Known.SEN
+                SEPA -> Known.SEPA
+                SG_GIRO -> Known.SG_GIRO
+                SIC -> Known.SIC
+                SIGNET -> Known.SIGNET
+                SKNBI -> Known.SKNBI
+                WIRE -> Known.WIRE
+                ZENGIN -> Known.ZENGIN
+                OTHER -> Known.OTHER
+                else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 }

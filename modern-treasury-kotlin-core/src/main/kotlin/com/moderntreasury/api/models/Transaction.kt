@@ -138,7 +138,8 @@ private constructor(
     fun details(): Details? = details.getNullable("details")
 
     /**
-     * The type of the transaction. Can be one of `ach`, `wire`, `check`, `rtp`, `book`, or `sen`.
+     * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`, `book`,
+     * or `sen`.
      */
     fun type(): Type = type.getRequired("type")
 
@@ -233,7 +234,8 @@ private constructor(
     @JsonProperty("details") @ExcludeMissing fun _details() = details
 
     /**
-     * The type of the transaction. Can be one of `ach`, `wire`, `check`, `rtp`, `book`, or `sen`.
+     * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`, `book`,
+     * or `sen`.
      */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
 
@@ -633,14 +635,14 @@ private constructor(
         fun details(details: JsonField<Details>) = apply { this.details = details }
 
         /**
-         * The type of the transaction. Can be one of `ach`, `wire`, `check`, `rtp`, `book`, or
-         * `sen`.
+         * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
+         * `book`, or `sen`.
          */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * The type of the transaction. Can be one of `ach`, `wire`, `check`, `rtp`, `book`, or
-         * `sen`.
+         * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
+         * `book`, or `sen`.
          */
         @JsonProperty("type")
         @ExcludeMissing
@@ -1347,6 +1349,8 @@ private constructor(
 
             val US_BANK = VendorCodeType(JsonField.of("us_bank"))
 
+            val USER = VendorCodeType(JsonField.of("user"))
+
             fun of(value: String) = VendorCodeType(JsonField.of(value))
         }
 
@@ -1371,6 +1375,7 @@ private constructor(
             SILVERGATE,
             SWIFT,
             US_BANK,
+            USER,
         }
 
         enum class Value {
@@ -1394,6 +1399,7 @@ private constructor(
             SILVERGATE,
             SWIFT,
             US_BANK,
+            USER,
             _UNKNOWN,
         }
 
@@ -1419,6 +1425,7 @@ private constructor(
                 SILVERGATE -> Value.SILVERGATE
                 SWIFT -> Value.SWIFT
                 US_BANK -> Value.US_BANK
+                USER -> Value.USER
                 else -> Value._UNKNOWN
             }
 
@@ -1444,6 +1451,7 @@ private constructor(
                 SILVERGATE -> Known.SILVERGATE
                 SWIFT -> Known.SWIFT
                 US_BANK -> Known.US_BANK
+                USER -> Known.USER
                 else -> throw ModernTreasuryInvalidDataException("Unknown VendorCodeType: $value")
             }
 

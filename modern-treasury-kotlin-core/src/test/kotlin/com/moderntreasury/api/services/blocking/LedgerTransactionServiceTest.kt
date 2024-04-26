@@ -65,7 +65,7 @@ class LedgerTransactionServiceTest {
                     .effectiveDate(LocalDate.parse("2019-12-27"))
                     .externalId("string")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .ledgerableType(LedgerTransactionCreateParams.LedgerableType.COUNTERPARTY)
+                    .ledgerableType(LedgerTransactionCreateParams.LedgerableType.EXPECTED_PAYMENT)
                     .metadata(LedgerTransactionCreateParams.Metadata.builder().build())
                     .status(LedgerTransactionCreateParams.Status.ARCHIVED)
                     .build()
@@ -140,6 +140,8 @@ class LedgerTransactionServiceTest {
                                 .build()
                         )
                     )
+                    .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .ledgerableType(LedgerTransactionUpdateParams.LedgerableType.EXPECTED_PAYMENT)
                     .metadata(LedgerTransactionUpdateParams.Metadata.builder().build())
                     .status(LedgerTransactionUpdateParams.Status.ARCHIVED)
                     .build()
@@ -180,7 +182,7 @@ class LedgerTransactionServiceTest {
                     .externalId("string")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
-                        LedgerTransactionCreateReversalParams.LedgerableType.COUNTERPARTY
+                        LedgerTransactionCreateReversalParams.LedgerableType.EXPECTED_PAYMENT
                     )
                     .metadata(LedgerTransactionCreateReversalParams.Metadata.builder().build())
                     .status(LedgerTransactionCreateReversalParams.Status.ARCHIVED)

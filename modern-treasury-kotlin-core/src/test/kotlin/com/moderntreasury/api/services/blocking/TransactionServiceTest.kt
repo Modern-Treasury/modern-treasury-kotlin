@@ -33,6 +33,7 @@ class TransactionServiceTest {
                     .vendorCodeType("string")
                     .metadata(TransactionCreateParams.Metadata.builder().build())
                     .posted(true)
+                    .type(TransactionCreateParams.Type.ACH)
                     .vendorDescription("string")
                     .build()
             )

@@ -97,7 +97,7 @@ class PaymentOrderCreateParamsTest {
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
                         PaymentOrderCreateParams.LedgerTransactionCreateRequest.LedgerableType
-                            .COUNTERPARTY
+                            .EXPECTED_PAYMENT
                     )
                     .metadata(
                         PaymentOrderCreateParams.LedgerTransactionCreateRequest.Metadata.builder()
@@ -317,7 +317,7 @@ class PaymentOrderCreateParamsTest {
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             PaymentOrderCreateParams.LedgerTransactionCreateRequest.LedgerableType
-                                .COUNTERPARTY
+                                .EXPECTED_PAYMENT
                         )
                         .metadata(
                             PaymentOrderCreateParams.LedgerTransactionCreateRequest.Metadata
@@ -541,7 +541,7 @@ class PaymentOrderCreateParamsTest {
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
                         PaymentOrderCreateParams.LedgerTransactionCreateRequest.LedgerableType
-                            .COUNTERPARTY
+                            .EXPECTED_PAYMENT
                     )
                     .metadata(
                         PaymentOrderCreateParams.LedgerTransactionCreateRequest.Metadata.builder()
