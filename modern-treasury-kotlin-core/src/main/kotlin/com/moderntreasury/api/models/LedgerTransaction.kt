@@ -95,7 +95,7 @@ private constructor(
     /**
      * If the ledger transaction can be reconciled to another object in Modern Treasury, the type
      * will be populated here, otherwise null. This can be one of payment_order,
-     * incoming_payment_detail, expected_payment, return, or reversal.
+     * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
      */
     fun ledgerableType(): LedgerableType? = ledgerableType.getNullable("ledgerable_type")
 
@@ -166,7 +166,7 @@ private constructor(
     /**
      * If the ledger transaction can be reconciled to another object in Modern Treasury, the type
      * will be populated here, otherwise null. This can be one of payment_order,
-     * incoming_payment_detail, expected_payment, return, or reversal.
+     * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
      */
     @JsonProperty("ledgerable_type") @ExcludeMissing fun _ledgerableType() = ledgerableType
 
@@ -459,7 +459,7 @@ private constructor(
         /**
          * If the ledger transaction can be reconciled to another object in Modern Treasury, the
          * type will be populated here, otherwise null. This can be one of payment_order,
-         * incoming_payment_detail, expected_payment, return, or reversal.
+         * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
          */
         fun ledgerableType(ledgerableType: LedgerableType) =
             ledgerableType(JsonField.of(ledgerableType))
@@ -467,7 +467,7 @@ private constructor(
         /**
          * If the ledger transaction can be reconciled to another object in Modern Treasury, the
          * type will be populated here, otherwise null. This can be one of payment_order,
-         * incoming_payment_detail, expected_payment, return, or reversal.
+         * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
          */
         @JsonProperty("ledgerable_type")
         @ExcludeMissing
@@ -588,21 +588,13 @@ private constructor(
 
         companion object {
 
-            val COUNTERPARTY = LedgerableType(JsonField.of("counterparty"))
-
             val EXPECTED_PAYMENT = LedgerableType(JsonField.of("expected_payment"))
 
             val INCOMING_PAYMENT_DETAIL = LedgerableType(JsonField.of("incoming_payment_detail"))
 
-            val INTERNAL_ACCOUNT = LedgerableType(JsonField.of("internal_account"))
-
-            val LINE_ITEM = LedgerableType(JsonField.of("line_item"))
-
             val PAPER_ITEM = LedgerableType(JsonField.of("paper_item"))
 
             val PAYMENT_ORDER = LedgerableType(JsonField.of("payment_order"))
-
-            val PAYMENT_ORDER_ATTEMPT = LedgerableType(JsonField.of("payment_order_attempt"))
 
             val RETURN = LedgerableType(JsonField.of("return"))
 
@@ -612,27 +604,19 @@ private constructor(
         }
 
         enum class Known {
-            COUNTERPARTY,
             EXPECTED_PAYMENT,
             INCOMING_PAYMENT_DETAIL,
-            INTERNAL_ACCOUNT,
-            LINE_ITEM,
             PAPER_ITEM,
             PAYMENT_ORDER,
-            PAYMENT_ORDER_ATTEMPT,
             RETURN,
             REVERSAL,
         }
 
         enum class Value {
-            COUNTERPARTY,
             EXPECTED_PAYMENT,
             INCOMING_PAYMENT_DETAIL,
-            INTERNAL_ACCOUNT,
-            LINE_ITEM,
             PAPER_ITEM,
             PAYMENT_ORDER,
-            PAYMENT_ORDER_ATTEMPT,
             RETURN,
             REVERSAL,
             _UNKNOWN,
@@ -640,14 +624,10 @@ private constructor(
 
         fun value(): Value =
             when (this) {
-                COUNTERPARTY -> Value.COUNTERPARTY
                 EXPECTED_PAYMENT -> Value.EXPECTED_PAYMENT
                 INCOMING_PAYMENT_DETAIL -> Value.INCOMING_PAYMENT_DETAIL
-                INTERNAL_ACCOUNT -> Value.INTERNAL_ACCOUNT
-                LINE_ITEM -> Value.LINE_ITEM
                 PAPER_ITEM -> Value.PAPER_ITEM
                 PAYMENT_ORDER -> Value.PAYMENT_ORDER
-                PAYMENT_ORDER_ATTEMPT -> Value.PAYMENT_ORDER_ATTEMPT
                 RETURN -> Value.RETURN
                 REVERSAL -> Value.REVERSAL
                 else -> Value._UNKNOWN
@@ -655,14 +635,10 @@ private constructor(
 
         fun known(): Known =
             when (this) {
-                COUNTERPARTY -> Known.COUNTERPARTY
                 EXPECTED_PAYMENT -> Known.EXPECTED_PAYMENT
                 INCOMING_PAYMENT_DETAIL -> Known.INCOMING_PAYMENT_DETAIL
-                INTERNAL_ACCOUNT -> Known.INTERNAL_ACCOUNT
-                LINE_ITEM -> Known.LINE_ITEM
                 PAPER_ITEM -> Known.PAPER_ITEM
                 PAYMENT_ORDER -> Known.PAYMENT_ORDER
-                PAYMENT_ORDER_ATTEMPT -> Known.PAYMENT_ORDER_ATTEMPT
                 RETURN -> Known.RETURN
                 REVERSAL -> Known.REVERSAL
                 else -> throw ModernTreasuryInvalidDataException("Unknown LedgerableType: $value")

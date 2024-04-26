@@ -56,6 +56,22 @@ class InvoiceCreateParamsTest {
             .description("string")
             .fallbackPaymentMethod("string")
             .ingestLedgerEntries(true)
+            .invoiceLineItems(
+                listOf(
+                    InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
+                        .name("string")
+                        .unitAmount(123L)
+                        .description("string")
+                        .direction("string")
+                        .metadata(
+                            InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                                .build()
+                        )
+                        .quantity(123L)
+                        .unitAmountDecimal("string")
+                        .build()
+                )
+            )
             .invoicerAddress(
                 InvoiceCreateParams.InvoicerAddress.builder()
                     .country("string")
@@ -126,6 +142,22 @@ class InvoiceCreateParamsTest {
                 .description("string")
                 .fallbackPaymentMethod("string")
                 .ingestLedgerEntries(true)
+                .invoiceLineItems(
+                    listOf(
+                        InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
+                            .name("string")
+                            .unitAmount(123L)
+                            .description("string")
+                            .direction("string")
+                            .metadata(
+                                InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                                    .build()
+                            )
+                            .quantity(123L)
+                            .unitAmountDecimal("string")
+                            .build()
+                    )
+                )
                 .invoicerAddress(
                     InvoiceCreateParams.InvoicerAddress.builder()
                         .country("string")
@@ -195,6 +227,23 @@ class InvoiceCreateParamsTest {
         assertThat(body.description()).isEqualTo("string")
         assertThat(body.fallbackPaymentMethod()).isEqualTo("string")
         assertThat(body.ingestLedgerEntries()).isEqualTo(true)
+        assertThat(body.invoiceLineItems())
+            .isEqualTo(
+                listOf(
+                    InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
+                        .name("string")
+                        .unitAmount(123L)
+                        .description("string")
+                        .direction("string")
+                        .metadata(
+                            InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                                .build()
+                        )
+                        .quantity(123L)
+                        .unitAmountDecimal("string")
+                        .build()
+                )
+            )
         assertThat(body.invoicerAddress())
             .isEqualTo(
                 InvoiceCreateParams.InvoicerAddress.builder()

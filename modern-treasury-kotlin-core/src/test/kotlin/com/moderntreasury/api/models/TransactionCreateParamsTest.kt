@@ -20,6 +20,7 @@ class TransactionCreateParamsTest {
             .vendorCodeType("string")
             .metadata(TransactionCreateParams.Metadata.builder().build())
             .posted(true)
+            .type(TransactionCreateParams.Type.ACH)
             .vendorDescription("string")
             .build()
     }
@@ -36,6 +37,7 @@ class TransactionCreateParamsTest {
                 .vendorCodeType("string")
                 .metadata(TransactionCreateParams.Metadata.builder().build())
                 .posted(true)
+                .type(TransactionCreateParams.Type.ACH)
                 .vendorDescription("string")
                 .build()
         val body = params.getBody()
@@ -48,6 +50,7 @@ class TransactionCreateParamsTest {
         assertThat(body.vendorCodeType()).isEqualTo("string")
         assertThat(body.metadata()).isEqualTo(TransactionCreateParams.Metadata.builder().build())
         assertThat(body.posted()).isEqualTo(true)
+        assertThat(body.type()).isEqualTo(TransactionCreateParams.Type.ACH)
         assertThat(body.vendorDescription()).isEqualTo("string")
     }
 
@@ -58,15 +61,11 @@ class TransactionCreateParamsTest {
                 .amount(123L)
                 .direction("string")
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .vendorCode("string")
-                .vendorCodeType("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.direction()).isEqualTo("string")
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.vendorCode()).isEqualTo("string")
-        assertThat(body.vendorCodeType()).isEqualTo("string")
     }
 }

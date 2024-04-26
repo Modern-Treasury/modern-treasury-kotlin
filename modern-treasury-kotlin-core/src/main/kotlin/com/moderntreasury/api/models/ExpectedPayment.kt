@@ -141,7 +141,7 @@ private constructor(
     fun transactionLineItemId(): String? =
         transactionLineItemId.getNullable("transaction_line_item_id")
 
-    /** One of unreconciled, reconciled, or archived. */
+    /** One of unreconciled, partially_reconciled, reconciled, or archived. */
     fun status(): Status = status.getRequired("status")
 
     /**
@@ -256,7 +256,7 @@ private constructor(
     @ExcludeMissing
     fun _transactionLineItemId() = transactionLineItemId
 
-    /** One of unreconciled, reconciled, or archived. */
+    /** One of unreconciled, partially_reconciled, reconciled, or archived. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /**
@@ -702,10 +702,10 @@ private constructor(
             this.transactionLineItemId = transactionLineItemId
         }
 
-        /** One of unreconciled, reconciled, or archived. */
+        /** One of unreconciled, partially_reconciled, reconciled, or archived. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** One of unreconciled, reconciled, or archived. */
+        /** One of unreconciled, partially_reconciled, reconciled, or archived. */
         @JsonProperty("status")
         @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }

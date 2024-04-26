@@ -24,6 +24,8 @@ constructor(
     private val description: String?,
     private val effectiveAt: OffsetDateTime?,
     private val ledgerEntries: List<LedgerEntryCreateRequest>?,
+    private val ledgerableId: String?,
+    private val ledgerableType: LedgerableType?,
     private val metadata: Metadata?,
     private val status: Status?,
     private val additionalQueryParams: Map<String, List<String>>,
@@ -39,6 +41,10 @@ constructor(
 
     fun ledgerEntries(): List<LedgerEntryCreateRequest>? = ledgerEntries
 
+    fun ledgerableId(): String? = ledgerableId
+
+    fun ledgerableType(): LedgerableType? = ledgerableType
+
     fun metadata(): Metadata? = metadata
 
     fun status(): Status? = status
@@ -48,6 +54,8 @@ constructor(
             description,
             effectiveAt,
             ledgerEntries,
+            ledgerableId,
+            ledgerableType,
             metadata,
             status,
             additionalBodyProperties,
@@ -72,6 +80,8 @@ constructor(
         private val description: String?,
         private val effectiveAt: OffsetDateTime?,
         private val ledgerEntries: List<LedgerEntryCreateRequest>?,
+        private val ledgerableId: String?,
+        private val ledgerableType: LedgerableType?,
         private val metadata: Metadata?,
         private val status: Status?,
         private val additionalProperties: Map<String, JsonValue>,
@@ -91,6 +101,19 @@ constructor(
         /** An array of ledger entry objects. */
         @JsonProperty("ledger_entries")
         fun ledgerEntries(): List<LedgerEntryCreateRequest>? = ledgerEntries
+
+        /**
+         * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
+         * will be populated here, otherwise null.
+         */
+        @JsonProperty("ledgerable_id") fun ledgerableId(): String? = ledgerableId
+
+        /**
+         * If the ledger transaction can be reconciled to another object in Modern Treasury, the
+         * type will be populated here, otherwise null. This can be one of payment_order,
+         * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
+         */
+        @JsonProperty("ledgerable_type") fun ledgerableType(): LedgerableType? = ledgerableType
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
@@ -115,6 +138,8 @@ constructor(
                 this.description == other.description &&
                 this.effectiveAt == other.effectiveAt &&
                 this.ledgerEntries == other.ledgerEntries &&
+                this.ledgerableId == other.ledgerableId &&
+                this.ledgerableType == other.ledgerableType &&
                 this.metadata == other.metadata &&
                 this.status == other.status &&
                 this.additionalProperties == other.additionalProperties
@@ -127,6 +152,8 @@ constructor(
                         description,
                         effectiveAt,
                         ledgerEntries,
+                        ledgerableId,
+                        ledgerableType,
                         metadata,
                         status,
                         additionalProperties,
@@ -136,7 +163,7 @@ constructor(
         }
 
         override fun toString() =
-            "LedgerTransactionUpdateBody{description=$description, effectiveAt=$effectiveAt, ledgerEntries=$ledgerEntries, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
+            "LedgerTransactionUpdateBody{description=$description, effectiveAt=$effectiveAt, ledgerEntries=$ledgerEntries, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -148,6 +175,8 @@ constructor(
             private var description: String? = null
             private var effectiveAt: OffsetDateTime? = null
             private var ledgerEntries: List<LedgerEntryCreateRequest>? = null
+            private var ledgerableId: String? = null
+            private var ledgerableType: LedgerableType? = null
             private var metadata: Metadata? = null
             private var status: Status? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -156,6 +185,8 @@ constructor(
                 this.description = ledgerTransactionUpdateBody.description
                 this.effectiveAt = ledgerTransactionUpdateBody.effectiveAt
                 this.ledgerEntries = ledgerTransactionUpdateBody.ledgerEntries
+                this.ledgerableId = ledgerTransactionUpdateBody.ledgerableId
+                this.ledgerableType = ledgerTransactionUpdateBody.ledgerableType
                 this.metadata = ledgerTransactionUpdateBody.metadata
                 this.status = ledgerTransactionUpdateBody.status
                 additionalProperties(ledgerTransactionUpdateBody.additionalProperties)
@@ -176,6 +207,23 @@ constructor(
             @JsonProperty("ledger_entries")
             fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>) = apply {
                 this.ledgerEntries = ledgerEntries
+            }
+
+            /**
+             * If the ledger transaction can be reconciled to another object in Modern Treasury, the
+             * id will be populated here, otherwise null.
+             */
+            @JsonProperty("ledgerable_id")
+            fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
+
+            /**
+             * If the ledger transaction can be reconciled to another object in Modern Treasury, the
+             * type will be populated here, otherwise null. This can be one of payment_order,
+             * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
+             */
+            @JsonProperty("ledgerable_type")
+            fun ledgerableType(ledgerableType: LedgerableType) = apply {
+                this.ledgerableType = ledgerableType
             }
 
             /**
@@ -207,6 +255,8 @@ constructor(
                     description,
                     effectiveAt,
                     ledgerEntries?.toUnmodifiable(),
+                    ledgerableId,
+                    ledgerableType,
                     metadata,
                     status,
                     additionalProperties.toUnmodifiable(),
@@ -230,6 +280,8 @@ constructor(
             this.description == other.description &&
             this.effectiveAt == other.effectiveAt &&
             this.ledgerEntries == other.ledgerEntries &&
+            this.ledgerableId == other.ledgerableId &&
+            this.ledgerableType == other.ledgerableType &&
             this.metadata == other.metadata &&
             this.status == other.status &&
             this.additionalQueryParams == other.additionalQueryParams &&
@@ -243,6 +295,8 @@ constructor(
             description,
             effectiveAt,
             ledgerEntries,
+            ledgerableId,
+            ledgerableType,
             metadata,
             status,
             additionalQueryParams,
@@ -252,7 +306,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerTransactionUpdateParams{id=$id, description=$description, effectiveAt=$effectiveAt, ledgerEntries=$ledgerEntries, metadata=$metadata, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerTransactionUpdateParams{id=$id, description=$description, effectiveAt=$effectiveAt, ledgerEntries=$ledgerEntries, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -268,6 +322,8 @@ constructor(
         private var description: String? = null
         private var effectiveAt: OffsetDateTime? = null
         private var ledgerEntries: MutableList<LedgerEntryCreateRequest> = mutableListOf()
+        private var ledgerableId: String? = null
+        private var ledgerableType: LedgerableType? = null
         private var metadata: Metadata? = null
         private var status: Status? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -279,6 +335,8 @@ constructor(
             this.description = ledgerTransactionUpdateParams.description
             this.effectiveAt = ledgerTransactionUpdateParams.effectiveAt
             this.ledgerEntries(ledgerTransactionUpdateParams.ledgerEntries ?: listOf())
+            this.ledgerableId = ledgerTransactionUpdateParams.ledgerableId
+            this.ledgerableType = ledgerTransactionUpdateParams.ledgerableType
             this.metadata = ledgerTransactionUpdateParams.metadata
             this.status = ledgerTransactionUpdateParams.status
             additionalQueryParams(ledgerTransactionUpdateParams.additionalQueryParams)
@@ -306,6 +364,21 @@ constructor(
         /** An array of ledger entry objects. */
         fun addLedgerEntry(ledgerEntry: LedgerEntryCreateRequest) = apply {
             this.ledgerEntries.add(ledgerEntry)
+        }
+
+        /**
+         * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
+         * will be populated here, otherwise null.
+         */
+        fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
+
+        /**
+         * If the ledger transaction can be reconciled to another object in Modern Treasury, the
+         * type will be populated here, otherwise null. This can be one of payment_order,
+         * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
+         */
+        fun ledgerableType(ledgerableType: LedgerableType) = apply {
+            this.ledgerableType = ledgerableType
         }
 
         /**
@@ -376,6 +449,8 @@ constructor(
                 description,
                 effectiveAt,
                 if (ledgerEntries.size == 0) null else ledgerEntries.toUnmodifiable(),
+                ledgerableId,
+                ledgerableType,
                 metadata,
                 status,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
@@ -931,6 +1006,87 @@ constructor(
                     PostedBalanceAmount(additionalProperties.toUnmodifiable())
             }
         }
+    }
+
+    class LedgerableType
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is LedgerableType && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val EXPECTED_PAYMENT = LedgerableType(JsonField.of("expected_payment"))
+
+            val INCOMING_PAYMENT_DETAIL = LedgerableType(JsonField.of("incoming_payment_detail"))
+
+            val PAPER_ITEM = LedgerableType(JsonField.of("paper_item"))
+
+            val PAYMENT_ORDER = LedgerableType(JsonField.of("payment_order"))
+
+            val RETURN = LedgerableType(JsonField.of("return"))
+
+            val REVERSAL = LedgerableType(JsonField.of("reversal"))
+
+            fun of(value: String) = LedgerableType(JsonField.of(value))
+        }
+
+        enum class Known {
+            EXPECTED_PAYMENT,
+            INCOMING_PAYMENT_DETAIL,
+            PAPER_ITEM,
+            PAYMENT_ORDER,
+            RETURN,
+            REVERSAL,
+        }
+
+        enum class Value {
+            EXPECTED_PAYMENT,
+            INCOMING_PAYMENT_DETAIL,
+            PAPER_ITEM,
+            PAYMENT_ORDER,
+            RETURN,
+            REVERSAL,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                EXPECTED_PAYMENT -> Value.EXPECTED_PAYMENT
+                INCOMING_PAYMENT_DETAIL -> Value.INCOMING_PAYMENT_DETAIL
+                PAPER_ITEM -> Value.PAPER_ITEM
+                PAYMENT_ORDER -> Value.PAYMENT_ORDER
+                RETURN -> Value.RETURN
+                REVERSAL -> Value.REVERSAL
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                EXPECTED_PAYMENT -> Known.EXPECTED_PAYMENT
+                INCOMING_PAYMENT_DETAIL -> Known.INCOMING_PAYMENT_DETAIL
+                PAPER_ITEM -> Known.PAPER_ITEM
+                PAYMENT_ORDER -> Known.PAYMENT_ORDER
+                RETURN -> Known.RETURN
+                REVERSAL -> Known.REVERSAL
+                else -> throw ModernTreasuryInvalidDataException("Unknown LedgerableType: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */

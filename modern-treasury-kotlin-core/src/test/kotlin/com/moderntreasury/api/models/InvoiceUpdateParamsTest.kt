@@ -56,6 +56,22 @@ class InvoiceUpdateParamsTest {
             .dueDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .fallbackPaymentMethod("string")
             .ingestLedgerEntries(true)
+            .invoiceLineItems(
+                listOf(
+                    InvoiceUpdateParams.InvoiceLineItemCreateRequest.builder()
+                        .name("string")
+                        .unitAmount(123L)
+                        .description("string")
+                        .direction("string")
+                        .metadata(
+                            InvoiceUpdateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                                .build()
+                        )
+                        .quantity(123L)
+                        .unitAmountDecimal("string")
+                        .build()
+                )
+            )
             .invoicerAddress(
                 InvoiceUpdateParams.InvoicerAddress.builder()
                     .country("string")
@@ -128,6 +144,22 @@ class InvoiceUpdateParamsTest {
                 .dueDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .fallbackPaymentMethod("string")
                 .ingestLedgerEntries(true)
+                .invoiceLineItems(
+                    listOf(
+                        InvoiceUpdateParams.InvoiceLineItemCreateRequest.builder()
+                            .name("string")
+                            .unitAmount(123L)
+                            .description("string")
+                            .direction("string")
+                            .metadata(
+                                InvoiceUpdateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                                    .build()
+                            )
+                            .quantity(123L)
+                            .unitAmountDecimal("string")
+                            .build()
+                    )
+                )
                 .invoicerAddress(
                     InvoiceUpdateParams.InvoicerAddress.builder()
                         .country("string")
@@ -198,6 +230,23 @@ class InvoiceUpdateParamsTest {
         assertThat(body.dueDate()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.fallbackPaymentMethod()).isEqualTo("string")
         assertThat(body.ingestLedgerEntries()).isEqualTo(true)
+        assertThat(body.invoiceLineItems())
+            .isEqualTo(
+                listOf(
+                    InvoiceUpdateParams.InvoiceLineItemCreateRequest.builder()
+                        .name("string")
+                        .unitAmount(123L)
+                        .description("string")
+                        .direction("string")
+                        .metadata(
+                            InvoiceUpdateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                                .build()
+                        )
+                        .quantity(123L)
+                        .unitAmountDecimal("string")
+                        .build()
+                )
+            )
         assertThat(body.invoicerAddress())
             .isEqualTo(
                 InvoiceUpdateParams.InvoicerAddress.builder()

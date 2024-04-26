@@ -91,7 +91,7 @@ class ExpectedPaymentServiceTest {
                             .ledgerableType(
                                 ExpectedPaymentCreateParams.LedgerTransactionCreateRequest
                                     .LedgerableType
-                                    .COUNTERPARTY
+                                    .EXPECTED_PAYMENT
                             )
                             .metadata(
                                 ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.Metadata
@@ -184,6 +184,7 @@ class ExpectedPaymentServiceTest {
                     )
                     .remittanceInformation("string")
                     .statementDescriptor("string")
+                    .status(ExpectedPaymentUpdateParams.Status.RECONCILED)
                     .type(ExpectedPaymentType.ACH)
                     .build()
             )
