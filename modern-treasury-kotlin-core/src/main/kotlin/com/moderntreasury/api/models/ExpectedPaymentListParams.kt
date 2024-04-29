@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import com.moderntreasury.api.models.*
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 
 class ExpectedPaymentListParams
@@ -56,10 +57,16 @@ constructor(
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
         this.counterpartyId?.let { params.put("counterparty_id", listOf(it.toString())) }
         this.createdAtLowerBound?.let {
-            params.put("created_at_lower_bound", listOf(it.toString()))
+            params.put(
+                "created_at_lower_bound",
+                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+            )
         }
         this.createdAtUpperBound?.let {
-            params.put("created_at_upper_bound", listOf(it.toString()))
+            params.put(
+                "created_at_upper_bound",
+                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+            )
         }
         this.direction?.let { params.put("direction", listOf(it.toString())) }
         this.internalAccountId?.let { params.put("internal_account_id", listOf(it.toString())) }

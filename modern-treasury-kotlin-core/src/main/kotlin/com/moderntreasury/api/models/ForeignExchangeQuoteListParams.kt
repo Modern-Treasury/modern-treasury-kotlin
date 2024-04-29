@@ -9,6 +9,7 @@ import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 
 class ForeignExchangeQuoteListParams
@@ -51,7 +52,9 @@ constructor(
         this.baseCurrency?.let { params.put("base_currency", listOf(it.toString())) }
         this.effectiveAtEnd?.let { params.put("effective_at_end", listOf(it.toString())) }
         this.effectiveAtStart?.let { params.put("effective_at_start", listOf(it.toString())) }
-        this.expiresAt?.let { params.put("expires_at", listOf(it.toString())) }
+        this.expiresAt?.let {
+            params.put("expires_at", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
+        }
         this.internalAccountId?.let { params.put("internal_account_id", listOf(it.toString())) }
         this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
         this.perPage?.let { params.put("per_page", listOf(it.toString())) }
