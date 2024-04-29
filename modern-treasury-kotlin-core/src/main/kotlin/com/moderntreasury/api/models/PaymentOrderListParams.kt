@@ -13,6 +13,7 @@ import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 
 class PaymentOrderListParams
@@ -88,8 +89,18 @@ constructor(
         }
         this.perPage?.let { params.put("per_page", listOf(it.toString())) }
         this.priority?.let { params.put("priority", listOf(it.toString())) }
-        this.processAfterEnd?.let { params.put("process_after_end", listOf(it.toString())) }
-        this.processAfterStart?.let { params.put("process_after_start", listOf(it.toString())) }
+        this.processAfterEnd?.let {
+            params.put(
+                "process_after_end",
+                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+            )
+        }
+        this.processAfterStart?.let {
+            params.put(
+                "process_after_start",
+                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+            )
+        }
         this.referenceNumber?.let { params.put("reference_number", listOf(it.toString())) }
         this.status?.let { params.put("status", listOf(it.toString())) }
         this.transactionId?.let { params.put("transaction_id", listOf(it.toString())) }
