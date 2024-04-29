@@ -8,6 +8,7 @@ import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.models.*
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 
 class CounterpartyListParams
@@ -45,10 +46,16 @@ constructor(
         val params = mutableMapOf<String, List<String>>()
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
         this.createdAtLowerBound?.let {
-            params.put("created_at_lower_bound", listOf(it.toString()))
+            params.put(
+                "created_at_lower_bound",
+                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+            )
         }
         this.createdAtUpperBound?.let {
-            params.put("created_at_upper_bound", listOf(it.toString()))
+            params.put(
+                "created_at_upper_bound",
+                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+            )
         }
         this.email?.let { params.put("email", listOf(it.toString())) }
         this.legalEntityId?.let { params.put("legal_entity_id", listOf(it.toString())) }

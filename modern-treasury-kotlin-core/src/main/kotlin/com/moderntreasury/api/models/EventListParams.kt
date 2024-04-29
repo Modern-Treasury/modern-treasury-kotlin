@@ -7,6 +7,7 @@ import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.models.*
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 
 class EventListParams
@@ -42,8 +43,15 @@ constructor(
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
         this.entityId?.let { params.put("entity_id", listOf(it.toString())) }
         this.eventName?.let { params.put("event_name", listOf(it.toString())) }
-        this.eventTimeEnd?.let { params.put("event_time_end", listOf(it.toString())) }
-        this.eventTimeStart?.let { params.put("event_time_start", listOf(it.toString())) }
+        this.eventTimeEnd?.let {
+            params.put("event_time_end", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
+        }
+        this.eventTimeStart?.let {
+            params.put(
+                "event_time_start",
+                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+            )
+        }
         this.perPage?.let { params.put("per_page", listOf(it.toString())) }
         this.resource?.let { params.put("resource", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
