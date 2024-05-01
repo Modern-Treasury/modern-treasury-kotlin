@@ -13,6 +13,7 @@ class LedgerAccountSettlementListParams
 constructor(
     private val id: List<String>?,
     private val afterCursor: String?,
+    private val ledgerId: String?,
     private val ledgerTransactionId: String?,
     private val metadata: Metadata?,
     private val perPage: Long?,
@@ -26,6 +27,8 @@ constructor(
     fun id(): List<String>? = id
 
     fun afterCursor(): String? = afterCursor
+
+    fun ledgerId(): String? = ledgerId
 
     fun ledgerTransactionId(): String? = ledgerTransactionId
 
@@ -41,6 +44,7 @@ constructor(
         val params = mutableMapOf<String, List<String>>()
         this.id?.let { params.put("id[]", it.map(Any::toString)) }
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
+        this.ledgerId?.let { params.put("ledger_id", listOf(it.toString())) }
         this.ledgerTransactionId?.let { params.put("ledger_transaction_id", listOf(it.toString())) }
         this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
         this.perPage?.let { params.put("per_page", listOf(it.toString())) }
@@ -70,6 +74,7 @@ constructor(
         return other is LedgerAccountSettlementListParams &&
             this.id == other.id &&
             this.afterCursor == other.afterCursor &&
+            this.ledgerId == other.ledgerId &&
             this.ledgerTransactionId == other.ledgerTransactionId &&
             this.metadata == other.metadata &&
             this.perPage == other.perPage &&
@@ -84,6 +89,7 @@ constructor(
         return Objects.hash(
             id,
             afterCursor,
+            ledgerId,
             ledgerTransactionId,
             metadata,
             perPage,
@@ -96,7 +102,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerAccountSettlementListParams{id=$id, afterCursor=$afterCursor, ledgerTransactionId=$ledgerTransactionId, metadata=$metadata, perPage=$perPage, settledLedgerAccountId=$settledLedgerAccountId, settlementEntryDirection=$settlementEntryDirection, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerAccountSettlementListParams{id=$id, afterCursor=$afterCursor, ledgerId=$ledgerId, ledgerTransactionId=$ledgerTransactionId, metadata=$metadata, perPage=$perPage, settledLedgerAccountId=$settledLedgerAccountId, settlementEntryDirection=$settlementEntryDirection, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -110,6 +116,7 @@ constructor(
 
         private var id: MutableList<String> = mutableListOf()
         private var afterCursor: String? = null
+        private var ledgerId: String? = null
         private var ledgerTransactionId: String? = null
         private var metadata: Metadata? = null
         private var perPage: Long? = null
@@ -123,6 +130,7 @@ constructor(
             apply {
                 this.id(ledgerAccountSettlementListParams.id ?: listOf())
                 this.afterCursor = ledgerAccountSettlementListParams.afterCursor
+                this.ledgerId = ledgerAccountSettlementListParams.ledgerId
                 this.ledgerTransactionId = ledgerAccountSettlementListParams.ledgerTransactionId
                 this.metadata = ledgerAccountSettlementListParams.metadata
                 this.perPage = ledgerAccountSettlementListParams.perPage
@@ -151,6 +159,8 @@ constructor(
         fun addId(id: String) = apply { this.id.add(id) }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+
+        fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
 
         fun ledgerTransactionId(ledgerTransactionId: String) = apply {
             this.ledgerTransactionId = ledgerTransactionId
@@ -230,6 +240,7 @@ constructor(
             LedgerAccountSettlementListParams(
                 if (id.size == 0) null else id.toUnmodifiable(),
                 afterCursor,
+                ledgerId,
                 ledgerTransactionId,
                 metadata,
                 perPage,
