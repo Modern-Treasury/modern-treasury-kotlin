@@ -198,8 +198,8 @@ private constructor(
 
     /**
      * For `wire`, this is usually the purpose which is transmitted via the "InstrForDbtrAgt" field
-     * in the ISO20022 file. If you are using Currencycloud, this is the `payment.purpose_code`
-     * field. For `eft`, this field is the 3 digit CPA Code that will be attached to the payment.
+     * in the ISO20022 file. For `eft`, this field is the 3 digit CPA Code that will be attached to
+     * the payment.
      */
     fun purpose(): String? = purpose.getNullable("purpose")
 
@@ -319,8 +319,8 @@ private constructor(
         referenceNumbers.getRequired("reference_numbers")
 
     /**
-     * This field will be populated if a vendor (e.g. Currencycloud) failure occurs. Logic shouldn't
-     * be built on its value as it is free-form.
+     * This field will be populated if a vendor failure occurs. Logic shouldn't be built on its
+     * value as it is free-form.
      */
     fun vendorFailureReason(): String? = vendorFailureReason.getNullable("vendor_failure_reason")
 
@@ -454,8 +454,8 @@ private constructor(
 
     /**
      * For `wire`, this is usually the purpose which is transmitted via the "InstrForDbtrAgt" field
-     * in the ISO20022 file. If you are using Currencycloud, this is the `payment.purpose_code`
-     * field. For `eft`, this field is the 3 digit CPA Code that will be attached to the payment.
+     * in the ISO20022 file. For `eft`, this field is the 3 digit CPA Code that will be attached to
+     * the payment.
      */
     @JsonProperty("purpose") @ExcludeMissing fun _purpose() = purpose
 
@@ -591,8 +591,8 @@ private constructor(
     @JsonProperty("reference_numbers") @ExcludeMissing fun _referenceNumbers() = referenceNumbers
 
     /**
-     * This field will be populated if a vendor (e.g. Currencycloud) failure occurs. Logic shouldn't
-     * be built on its value as it is free-form.
+     * This field will be populated if a vendor failure occurs. Logic shouldn't be built on its
+     * value as it is free-form.
      */
     @JsonProperty("vendor_failure_reason")
     @ExcludeMissing
@@ -1182,16 +1182,14 @@ private constructor(
 
         /**
          * For `wire`, this is usually the purpose which is transmitted via the "InstrForDbtrAgt"
-         * field in the ISO20022 file. If you are using Currencycloud, this is the
-         * `payment.purpose_code` field. For `eft`, this field is the 3 digit CPA Code that will be
+         * field in the ISO20022 file. For `eft`, this field is the 3 digit CPA Code that will be
          * attached to the payment.
          */
         fun purpose(purpose: String) = purpose(JsonField.of(purpose))
 
         /**
          * For `wire`, this is usually the purpose which is transmitted via the "InstrForDbtrAgt"
-         * field in the ISO20022 file. If you are using Currencycloud, this is the
-         * `payment.purpose_code` field. For `eft`, this field is the 3 digit CPA Code that will be
+         * field in the ISO20022 file. For `eft`, this field is the 3 digit CPA Code that will be
          * attached to the payment.
          */
         @JsonProperty("purpose")
@@ -1527,15 +1525,15 @@ private constructor(
         }
 
         /**
-         * This field will be populated if a vendor (e.g. Currencycloud) failure occurs. Logic
-         * shouldn't be built on its value as it is free-form.
+         * This field will be populated if a vendor failure occurs. Logic shouldn't be built on its
+         * value as it is free-form.
          */
         fun vendorFailureReason(vendorFailureReason: String) =
             vendorFailureReason(JsonField.of(vendorFailureReason))
 
         /**
-         * This field will be populated if a vendor (e.g. Currencycloud) failure occurs. Logic
-         * shouldn't be built on its value as it is free-form.
+         * This field will be populated if a vendor failure occurs. Logic shouldn't be built on its
+         * value as it is free-form.
          */
         @JsonProperty("vendor_failure_reason")
         @ExcludeMissing
