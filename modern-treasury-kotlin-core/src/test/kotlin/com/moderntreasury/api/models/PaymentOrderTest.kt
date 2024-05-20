@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonNull
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -251,6 +252,7 @@ class PaymentOrderTest {
                 .ultimateReceivingPartyIdentifier("string")
                 .ultimateReceivingPartyName("string")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .vendorAttributes(JsonNull.of())
                 .vendorFailureReason("string")
                 .build()
         assertThat(paymentOrder).isNotNull
@@ -499,6 +501,7 @@ class PaymentOrderTest {
         assertThat(paymentOrder.ultimateReceivingPartyName()).isEqualTo("string")
         assertThat(paymentOrder.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(paymentOrder._vendorAttributes()).isEqualTo(JsonNull.of())
         assertThat(paymentOrder.vendorFailureReason()).isEqualTo("string")
     }
 }
