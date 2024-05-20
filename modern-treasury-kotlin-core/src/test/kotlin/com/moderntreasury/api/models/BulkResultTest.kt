@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonNull
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -322,6 +323,7 @@ class BulkResultTest {
                             .ultimateReceivingPartyIdentifier("string")
                             .ultimateReceivingPartyName("string")
                             .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .vendorAttributes(JsonNull.of())
                             .vendorFailureReason("string")
                             .build()
                     )
@@ -615,6 +617,7 @@ class BulkResultTest {
                         .ultimateReceivingPartyIdentifier("string")
                         .ultimateReceivingPartyName("string")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .vendorAttributes(JsonNull.of())
                         .vendorFailureReason("string")
                         .build()
                 )
