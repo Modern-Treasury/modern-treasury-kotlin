@@ -19,6 +19,7 @@ class LedgerAccountCategoryListParamsTest {
                     .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
+            .currency("string")
             .ledgerAccountId("string")
             .ledgerId("string")
             .metadata(LedgerAccountCategoryListParams.Metadata.builder().build())
@@ -39,6 +40,7 @@ class LedgerAccountCategoryListParamsTest {
                         .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
+                .currency("string")
                 .ledgerAccountId("string")
                 .ledgerId("string")
                 .metadata(LedgerAccountCategoryListParams.Metadata.builder().build())
@@ -53,6 +55,7 @@ class LedgerAccountCategoryListParamsTest {
             .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("balances[$key]", values) }
+        expected.put("currency", listOf("string"))
         expected.put("ledger_account_id", listOf("string"))
         expected.put("ledger_id", listOf("string"))
         LedgerAccountCategoryListParams.Metadata.builder().build().forEachQueryParam { key, values
