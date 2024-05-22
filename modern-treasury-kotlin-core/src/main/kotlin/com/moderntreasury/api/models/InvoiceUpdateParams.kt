@@ -43,6 +43,7 @@ constructor(
     private val receivingAccountId: String?,
     private val recipientEmail: String?,
     private val recipientName: String?,
+    private val remindAfterOverdueDays: List<Long>?,
     private val status: String?,
     private val virtualAccountId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
@@ -94,6 +95,8 @@ constructor(
 
     fun recipientName(): String? = recipientName
 
+    fun remindAfterOverdueDays(): List<Long>? = remindAfterOverdueDays
+
     fun status(): String? = status
 
     fun virtualAccountId(): String? = virtualAccountId
@@ -121,6 +124,7 @@ constructor(
             receivingAccountId,
             recipientEmail,
             recipientName,
+            remindAfterOverdueDays,
             status,
             virtualAccountId,
             additionalBodyProperties,
@@ -163,6 +167,7 @@ constructor(
         private val receivingAccountId: String?,
         private val recipientEmail: String?,
         private val recipientName: String?,
+        private val remindAfterOverdueDays: List<Long>?,
         private val status: String?,
         private val virtualAccountId: String?,
         private val additionalProperties: Map<String, JsonValue>,
@@ -283,6 +288,13 @@ constructor(
         @JsonProperty("recipient_name") fun recipientName(): String? = recipientName
 
         /**
+         * Number of days after due date when overdue reminder emails will be sent out to invoice
+         * recipients.
+         */
+        @JsonProperty("remind_after_overdue_days")
+        fun remindAfterOverdueDays(): List<Long>? = remindAfterOverdueDays
+
+        /**
          * Invoice status must be updated in a `PATCH` request that does not modify any other
          * invoice attributes. Valid state transitions are `draft` to `unpaid`, `draft` or `unpaid`
          * to `voided`, and `draft` or `unpaid` to `paid`.
@@ -325,6 +337,7 @@ constructor(
                 this.receivingAccountId == other.receivingAccountId &&
                 this.recipientEmail == other.recipientEmail &&
                 this.recipientName == other.recipientName &&
+                this.remindAfterOverdueDays == other.remindAfterOverdueDays &&
                 this.status == other.status &&
                 this.virtualAccountId == other.virtualAccountId &&
                 this.additionalProperties == other.additionalProperties
@@ -355,6 +368,7 @@ constructor(
                         receivingAccountId,
                         recipientEmail,
                         recipientName,
+                        remindAfterOverdueDays,
                         status,
                         virtualAccountId,
                         additionalProperties,
@@ -364,7 +378,7 @@ constructor(
         }
 
         override fun toString() =
-            "InvoiceUpdateBody{contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, status=$status, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
+            "InvoiceUpdateBody{contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, status=$status, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -394,6 +408,7 @@ constructor(
             private var receivingAccountId: String? = null
             private var recipientEmail: String? = null
             private var recipientName: String? = null
+            private var remindAfterOverdueDays: List<Long>? = null
             private var status: String? = null
             private var virtualAccountId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -420,6 +435,7 @@ constructor(
                 this.receivingAccountId = invoiceUpdateBody.receivingAccountId
                 this.recipientEmail = invoiceUpdateBody.recipientEmail
                 this.recipientName = invoiceUpdateBody.recipientName
+                this.remindAfterOverdueDays = invoiceUpdateBody.remindAfterOverdueDays
                 this.status = invoiceUpdateBody.status
                 this.virtualAccountId = invoiceUpdateBody.virtualAccountId
                 additionalProperties(invoiceUpdateBody.additionalProperties)
@@ -582,6 +598,15 @@ constructor(
             fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
 
             /**
+             * Number of days after due date when overdue reminder emails will be sent out to
+             * invoice recipients.
+             */
+            @JsonProperty("remind_after_overdue_days")
+            fun remindAfterOverdueDays(remindAfterOverdueDays: List<Long>) = apply {
+                this.remindAfterOverdueDays = remindAfterOverdueDays
+            }
+
+            /**
              * Invoice status must be updated in a `PATCH` request that does not modify any other
              * invoice attributes. Valid state transitions are `draft` to `unpaid`, `draft` or
              * `unpaid` to `voided`, and `draft` or `unpaid` to `paid`.
@@ -631,6 +656,7 @@ constructor(
                     receivingAccountId,
                     recipientEmail,
                     recipientName,
+                    remindAfterOverdueDays?.toUnmodifiable(),
                     status,
                     virtualAccountId,
                     additionalProperties.toUnmodifiable(),
@@ -672,6 +698,7 @@ constructor(
             this.receivingAccountId == other.receivingAccountId &&
             this.recipientEmail == other.recipientEmail &&
             this.recipientName == other.recipientName &&
+            this.remindAfterOverdueDays == other.remindAfterOverdueDays &&
             this.status == other.status &&
             this.virtualAccountId == other.virtualAccountId &&
             this.additionalQueryParams == other.additionalQueryParams &&
@@ -703,6 +730,7 @@ constructor(
             receivingAccountId,
             recipientEmail,
             recipientName,
+            remindAfterOverdueDays,
             status,
             virtualAccountId,
             additionalQueryParams,
@@ -712,7 +740,7 @@ constructor(
     }
 
     override fun toString() =
-        "InvoiceUpdateParams{id=$id, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, status=$status, virtualAccountId=$virtualAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "InvoiceUpdateParams{id=$id, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, status=$status, virtualAccountId=$virtualAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -746,6 +774,7 @@ constructor(
         private var receivingAccountId: String? = null
         private var recipientEmail: String? = null
         private var recipientName: String? = null
+        private var remindAfterOverdueDays: MutableList<Long> = mutableListOf()
         private var status: String? = null
         private var virtualAccountId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -777,6 +806,7 @@ constructor(
             this.receivingAccountId = invoiceUpdateParams.receivingAccountId
             this.recipientEmail = invoiceUpdateParams.recipientEmail
             this.recipientName = invoiceUpdateParams.recipientName
+            this.remindAfterOverdueDays(invoiceUpdateParams.remindAfterOverdueDays ?: listOf())
             this.status = invoiceUpdateParams.status
             this.virtualAccountId = invoiceUpdateParams.virtualAccountId
             additionalQueryParams(invoiceUpdateParams.additionalQueryParams)
@@ -943,6 +973,23 @@ constructor(
         fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
 
         /**
+         * Number of days after due date when overdue reminder emails will be sent out to invoice
+         * recipients.
+         */
+        fun remindAfterOverdueDays(remindAfterOverdueDays: List<Long>) = apply {
+            this.remindAfterOverdueDays.clear()
+            this.remindAfterOverdueDays.addAll(remindAfterOverdueDays)
+        }
+
+        /**
+         * Number of days after due date when overdue reminder emails will be sent out to invoice
+         * recipients.
+         */
+        fun addRemindAfterOverdueDay(remindAfterOverdueDay: Long) = apply {
+            this.remindAfterOverdueDays.add(remindAfterOverdueDay)
+        }
+
+        /**
          * Invoice status must be updated in a `PATCH` request that does not modify any other
          * invoice attributes. Valid state transitions are `draft` to `unpaid`, `draft` or `unpaid`
          * to `voided`, and `draft` or `unpaid` to `paid`.
@@ -1033,6 +1080,8 @@ constructor(
                 receivingAccountId,
                 recipientEmail,
                 recipientName,
+                if (remindAfterOverdueDays.size == 0) null
+                else remindAfterOverdueDays.toUnmodifiable(),
                 status,
                 virtualAccountId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
