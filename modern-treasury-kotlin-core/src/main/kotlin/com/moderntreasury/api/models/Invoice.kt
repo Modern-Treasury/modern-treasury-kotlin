@@ -48,6 +48,7 @@ private constructor(
     private val fallbackPaymentMethod: JsonField<String>,
     private val notificationsEnabled: JsonField<Boolean>,
     private val notificationEmailAddresses: JsonField<List<String>>,
+    private val remindAfterOverdueDays: JsonField<List<Long>>,
     private val hostedUrl: JsonField<String>,
     private val number: JsonField<String>,
     private val paymentOrders: JsonField<List<PaymentOrder>>,
@@ -168,6 +169,13 @@ private constructor(
      */
     fun notificationEmailAddresses(): List<String>? =
         notificationEmailAddresses.getNullable("notification_email_addresses")
+
+    /**
+     * Number of days after due date when overdue reminder emails will be sent out to invoice
+     * recipients.
+     */
+    fun remindAfterOverdueDays(): List<Long>? =
+        remindAfterOverdueDays.getNullable("remind_after_overdue_days")
 
     /** The URL of the hosted web UI where the invoice can be viewed. */
     fun hostedUrl(): String = hostedUrl.getRequired("hosted_url")
@@ -328,6 +336,14 @@ private constructor(
     @ExcludeMissing
     fun _notificationEmailAddresses() = notificationEmailAddresses
 
+    /**
+     * Number of days after due date when overdue reminder emails will be sent out to invoice
+     * recipients.
+     */
+    @JsonProperty("remind_after_overdue_days")
+    @ExcludeMissing
+    fun _remindAfterOverdueDays() = remindAfterOverdueDays
+
     /** The URL of the hosted web UI where the invoice can be viewed. */
     @JsonProperty("hosted_url") @ExcludeMissing fun _hostedUrl() = hostedUrl
 
@@ -403,6 +419,7 @@ private constructor(
             fallbackPaymentMethod()
             notificationsEnabled()
             notificationEmailAddresses()
+            remindAfterOverdueDays()
             hostedUrl()
             number()
             paymentOrders().forEach { it.validate() }
@@ -451,6 +468,7 @@ private constructor(
             this.fallbackPaymentMethod == other.fallbackPaymentMethod &&
             this.notificationsEnabled == other.notificationsEnabled &&
             this.notificationEmailAddresses == other.notificationEmailAddresses &&
+            this.remindAfterOverdueDays == other.remindAfterOverdueDays &&
             this.hostedUrl == other.hostedUrl &&
             this.number == other.number &&
             this.paymentOrders == other.paymentOrders &&
@@ -494,6 +512,7 @@ private constructor(
                     fallbackPaymentMethod,
                     notificationsEnabled,
                     notificationEmailAddresses,
+                    remindAfterOverdueDays,
                     hostedUrl,
                     number,
                     paymentOrders,
@@ -512,7 +531,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Invoice{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, contactDetails=$contactDetails, recipientEmail=$recipientEmail, recipientName=$recipientName, counterpartyId=$counterpartyId, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, virtualAccountId=$virtualAccountId, ledgerAccountSettlementId=$ledgerAccountSettlementId, paymentEffectiveDate=$paymentEffectiveDate, paymentType=$paymentType, paymentMethod=$paymentMethod, fallbackPaymentMethod=$fallbackPaymentMethod, notificationsEnabled=$notificationsEnabled, notificationEmailAddresses=$notificationEmailAddresses, hostedUrl=$hostedUrl, number=$number, paymentOrders=$paymentOrders, expectedPayments=$expectedPayments, pdfUrl=$pdfUrl, status=$status, totalAmount=$totalAmount, amountRemaining=$amountRemaining, amountPaid=$amountPaid, transactionLineItemIds=$transactionLineItemIds, metadata=$metadata, additionalProperties=$additionalProperties}"
+        "Invoice{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, contactDetails=$contactDetails, recipientEmail=$recipientEmail, recipientName=$recipientName, counterpartyId=$counterpartyId, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, invoicerAddress=$invoicerAddress, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, virtualAccountId=$virtualAccountId, ledgerAccountSettlementId=$ledgerAccountSettlementId, paymentEffectiveDate=$paymentEffectiveDate, paymentType=$paymentType, paymentMethod=$paymentMethod, fallbackPaymentMethod=$fallbackPaymentMethod, notificationsEnabled=$notificationsEnabled, notificationEmailAddresses=$notificationEmailAddresses, remindAfterOverdueDays=$remindAfterOverdueDays, hostedUrl=$hostedUrl, number=$number, paymentOrders=$paymentOrders, expectedPayments=$expectedPayments, pdfUrl=$pdfUrl, status=$status, totalAmount=$totalAmount, amountRemaining=$amountRemaining, amountPaid=$amountPaid, transactionLineItemIds=$transactionLineItemIds, metadata=$metadata, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -548,6 +567,7 @@ private constructor(
         private var fallbackPaymentMethod: JsonField<String> = JsonMissing.of()
         private var notificationsEnabled: JsonField<Boolean> = JsonMissing.of()
         private var notificationEmailAddresses: JsonField<List<String>> = JsonMissing.of()
+        private var remindAfterOverdueDays: JsonField<List<Long>> = JsonMissing.of()
         private var hostedUrl: JsonField<String> = JsonMissing.of()
         private var number: JsonField<String> = JsonMissing.of()
         private var paymentOrders: JsonField<List<PaymentOrder>> = JsonMissing.of()
@@ -587,6 +607,7 @@ private constructor(
             this.fallbackPaymentMethod = invoice.fallbackPaymentMethod
             this.notificationsEnabled = invoice.notificationsEnabled
             this.notificationEmailAddresses = invoice.notificationEmailAddresses
+            this.remindAfterOverdueDays = invoice.remindAfterOverdueDays
             this.hostedUrl = invoice.hostedUrl
             this.number = invoice.number
             this.paymentOrders = invoice.paymentOrders
@@ -890,6 +911,23 @@ private constructor(
                 this.notificationEmailAddresses = notificationEmailAddresses
             }
 
+        /**
+         * Number of days after due date when overdue reminder emails will be sent out to invoice
+         * recipients.
+         */
+        fun remindAfterOverdueDays(remindAfterOverdueDays: List<Long>) =
+            remindAfterOverdueDays(JsonField.of(remindAfterOverdueDays))
+
+        /**
+         * Number of days after due date when overdue reminder emails will be sent out to invoice
+         * recipients.
+         */
+        @JsonProperty("remind_after_overdue_days")
+        @ExcludeMissing
+        fun remindAfterOverdueDays(remindAfterOverdueDays: JsonField<List<Long>>) = apply {
+            this.remindAfterOverdueDays = remindAfterOverdueDays
+        }
+
         /** The URL of the hosted web UI where the invoice can be viewed. */
         fun hostedUrl(hostedUrl: String) = hostedUrl(JsonField.of(hostedUrl))
 
@@ -1052,6 +1090,7 @@ private constructor(
                 fallbackPaymentMethod,
                 notificationsEnabled,
                 notificationEmailAddresses.map { it.toUnmodifiable() },
+                remindAfterOverdueDays.map { it.toUnmodifiable() },
                 hostedUrl,
                 number,
                 paymentOrders.map { it.toUnmodifiable() },
