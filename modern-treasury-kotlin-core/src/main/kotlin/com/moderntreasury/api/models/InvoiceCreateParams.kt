@@ -42,6 +42,7 @@ constructor(
     private val receivingAccountId: String?,
     private val recipientEmail: String?,
     private val recipientName: String?,
+    private val remindAfterOverdueDays: List<Long>?,
     private val virtualAccountId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -90,6 +91,8 @@ constructor(
 
     fun recipientName(): String? = recipientName
 
+    fun remindAfterOverdueDays(): List<Long>? = remindAfterOverdueDays
+
     fun virtualAccountId(): String? = virtualAccountId
 
     internal fun getBody(): InvoiceCreateBody {
@@ -115,6 +118,7 @@ constructor(
             receivingAccountId,
             recipientEmail,
             recipientName,
+            remindAfterOverdueDays,
             virtualAccountId,
             additionalBodyProperties,
         )
@@ -149,6 +153,7 @@ constructor(
         private val receivingAccountId: String?,
         private val recipientEmail: String?,
         private val recipientName: String?,
+        private val remindAfterOverdueDays: List<Long>?,
         private val virtualAccountId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -267,6 +272,13 @@ constructor(
          */
         @JsonProperty("recipient_name") fun recipientName(): String? = recipientName
 
+        /**
+         * Number of days after due date when overdue reminder emails will be sent out to invoice
+         * recipients.
+         */
+        @JsonProperty("remind_after_overdue_days")
+        fun remindAfterOverdueDays(): List<Long>? = remindAfterOverdueDays
+
         /** The ID of the virtual account the invoice should be paid to. */
         @JsonProperty("virtual_account_id") fun virtualAccountId(): String? = virtualAccountId
 
@@ -303,6 +315,7 @@ constructor(
                 this.receivingAccountId == other.receivingAccountId &&
                 this.recipientEmail == other.recipientEmail &&
                 this.recipientName == other.recipientName &&
+                this.remindAfterOverdueDays == other.remindAfterOverdueDays &&
                 this.virtualAccountId == other.virtualAccountId &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -332,6 +345,7 @@ constructor(
                         receivingAccountId,
                         recipientEmail,
                         recipientName,
+                        remindAfterOverdueDays,
                         virtualAccountId,
                         additionalProperties,
                     )
@@ -340,7 +354,7 @@ constructor(
         }
 
         override fun toString() =
-            "InvoiceCreateBody{counterpartyId=$counterpartyId, dueDate=$dueDate, originatingAccountId=$originatingAccountId, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
+            "InvoiceCreateBody{counterpartyId=$counterpartyId, dueDate=$dueDate, originatingAccountId=$originatingAccountId, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -370,6 +384,7 @@ constructor(
             private var receivingAccountId: String? = null
             private var recipientEmail: String? = null
             private var recipientName: String? = null
+            private var remindAfterOverdueDays: List<Long>? = null
             private var virtualAccountId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -395,6 +410,7 @@ constructor(
                 this.receivingAccountId = invoiceCreateBody.receivingAccountId
                 this.recipientEmail = invoiceCreateBody.recipientEmail
                 this.recipientName = invoiceCreateBody.recipientName
+                this.remindAfterOverdueDays = invoiceCreateBody.remindAfterOverdueDays
                 this.virtualAccountId = invoiceCreateBody.virtualAccountId
                 additionalProperties(invoiceCreateBody.additionalProperties)
             }
@@ -555,6 +571,15 @@ constructor(
             @JsonProperty("recipient_name")
             fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
 
+            /**
+             * Number of days after due date when overdue reminder emails will be sent out to
+             * invoice recipients.
+             */
+            @JsonProperty("remind_after_overdue_days")
+            fun remindAfterOverdueDays(remindAfterOverdueDays: List<Long>) = apply {
+                this.remindAfterOverdueDays = remindAfterOverdueDays
+            }
+
             /** The ID of the virtual account the invoice should be paid to. */
             @JsonProperty("virtual_account_id")
             fun virtualAccountId(virtualAccountId: String) = apply {
@@ -600,6 +625,7 @@ constructor(
                     receivingAccountId,
                     recipientEmail,
                     recipientName,
+                    remindAfterOverdueDays?.toUnmodifiable(),
                     virtualAccountId,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -639,6 +665,7 @@ constructor(
             this.receivingAccountId == other.receivingAccountId &&
             this.recipientEmail == other.recipientEmail &&
             this.recipientName == other.recipientName &&
+            this.remindAfterOverdueDays == other.remindAfterOverdueDays &&
             this.virtualAccountId == other.virtualAccountId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -668,6 +695,7 @@ constructor(
             receivingAccountId,
             recipientEmail,
             recipientName,
+            remindAfterOverdueDays,
             virtualAccountId,
             additionalQueryParams,
             additionalHeaders,
@@ -676,7 +704,7 @@ constructor(
     }
 
     override fun toString() =
-        "InvoiceCreateParams{counterpartyId=$counterpartyId, dueDate=$dueDate, originatingAccountId=$originatingAccountId, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, virtualAccountId=$virtualAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "InvoiceCreateParams{counterpartyId=$counterpartyId, dueDate=$dueDate, originatingAccountId=$originatingAccountId, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, virtualAccountId=$virtualAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -709,6 +737,7 @@ constructor(
         private var receivingAccountId: String? = null
         private var recipientEmail: String? = null
         private var recipientName: String? = null
+        private var remindAfterOverdueDays: MutableList<Long> = mutableListOf()
         private var virtualAccountId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -738,6 +767,7 @@ constructor(
             this.receivingAccountId = invoiceCreateParams.receivingAccountId
             this.recipientEmail = invoiceCreateParams.recipientEmail
             this.recipientName = invoiceCreateParams.recipientName
+            this.remindAfterOverdueDays(invoiceCreateParams.remindAfterOverdueDays ?: listOf())
             this.virtualAccountId = invoiceCreateParams.virtualAccountId
             additionalQueryParams(invoiceCreateParams.additionalQueryParams)
             additionalHeaders(invoiceCreateParams.additionalHeaders)
@@ -900,6 +930,23 @@ constructor(
          */
         fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
 
+        /**
+         * Number of days after due date when overdue reminder emails will be sent out to invoice
+         * recipients.
+         */
+        fun remindAfterOverdueDays(remindAfterOverdueDays: List<Long>) = apply {
+            this.remindAfterOverdueDays.clear()
+            this.remindAfterOverdueDays.addAll(remindAfterOverdueDays)
+        }
+
+        /**
+         * Number of days after due date when overdue reminder emails will be sent out to invoice
+         * recipients.
+         */
+        fun addRemindAfterOverdueDay(remindAfterOverdueDay: Long) = apply {
+            this.remindAfterOverdueDays.add(remindAfterOverdueDay)
+        }
+
         /** The ID of the virtual account the invoice should be paid to. */
         fun virtualAccountId(virtualAccountId: String) = apply {
             this.virtualAccountId = virtualAccountId
@@ -985,6 +1032,8 @@ constructor(
                 receivingAccountId,
                 recipientEmail,
                 recipientName,
+                if (remindAfterOverdueDays.size == 0) null
+                else remindAfterOverdueDays.toUnmodifiable(),
                 virtualAccountId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
