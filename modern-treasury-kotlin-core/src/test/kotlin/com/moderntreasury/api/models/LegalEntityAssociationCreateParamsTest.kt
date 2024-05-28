@@ -12,6 +12,7 @@ class LegalEntityAssociationCreateParamsTest {
     @Test
     fun createLegalEntityAssociationCreateParams() {
         LegalEntityAssociationCreateParams.builder()
+            .parentLegalEntityId("string")
             .relationshipTypes(
                 listOf(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER)
             )
@@ -87,7 +88,6 @@ class LegalEntityAssociationCreateParamsTest {
             )
             .childLegalEntityId("string")
             .ownershipPercentage(123L)
-            .parentLegalEntityId("string")
             .title("string")
             .build()
     }
@@ -96,6 +96,7 @@ class LegalEntityAssociationCreateParamsTest {
     fun getBody() {
         val params =
             LegalEntityAssociationCreateParams.builder()
+                .parentLegalEntityId("string")
                 .relationshipTypes(
                     listOf(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER)
                 )
@@ -175,11 +176,11 @@ class LegalEntityAssociationCreateParamsTest {
                 )
                 .childLegalEntityId("string")
                 .ownershipPercentage(123L)
-                .parentLegalEntityId("string")
                 .title("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
+        assertThat(body.parentLegalEntityId()).isEqualTo("string")
         assertThat(body.relationshipTypes())
             .isEqualTo(listOf(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER))
         assertThat(body.childLegalEntity())
@@ -255,7 +256,6 @@ class LegalEntityAssociationCreateParamsTest {
             )
         assertThat(body.childLegalEntityId()).isEqualTo("string")
         assertThat(body.ownershipPercentage()).isEqualTo(123L)
-        assertThat(body.parentLegalEntityId()).isEqualTo("string")
         assertThat(body.title()).isEqualTo("string")
     }
 
@@ -263,12 +263,14 @@ class LegalEntityAssociationCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             LegalEntityAssociationCreateParams.builder()
+                .parentLegalEntityId("string")
                 .relationshipTypes(
                     listOf(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER)
                 )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
+        assertThat(body.parentLegalEntityId()).isEqualTo("string")
         assertThat(body.relationshipTypes())
             .isEqualTo(listOf(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER))
     }

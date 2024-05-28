@@ -4629,6 +4629,9 @@ constructor(
 
                     val SWIFT = RoutingNumberType(JsonField.of("swift"))
 
+                    val ZA_NATIONAL_CLEARING_CODE =
+                        RoutingNumberType(JsonField.of("za_national_clearing_code"))
+
                     fun of(value: String) = RoutingNumberType(JsonField.of(value))
                 }
 
@@ -4652,6 +4655,7 @@ constructor(
                     PL_NATIONAL_CLEARING_CODE,
                     SE_BANKGIRO_CLEARING_CODE,
                     SWIFT,
+                    ZA_NATIONAL_CLEARING_CODE,
                 }
 
                 enum class Value {
@@ -4674,6 +4678,7 @@ constructor(
                     PL_NATIONAL_CLEARING_CODE,
                     SE_BANKGIRO_CLEARING_CODE,
                     SWIFT,
+                    ZA_NATIONAL_CLEARING_CODE,
                     _UNKNOWN,
                 }
 
@@ -4698,6 +4703,7 @@ constructor(
                         PL_NATIONAL_CLEARING_CODE -> Value.PL_NATIONAL_CLEARING_CODE
                         SE_BANKGIRO_CLEARING_CODE -> Value.SE_BANKGIRO_CLEARING_CODE
                         SWIFT -> Value.SWIFT
+                        ZA_NATIONAL_CLEARING_CODE -> Value.ZA_NATIONAL_CLEARING_CODE
                         else -> Value._UNKNOWN
                     }
 
@@ -4722,6 +4728,7 @@ constructor(
                         PL_NATIONAL_CLEARING_CODE -> Known.PL_NATIONAL_CLEARING_CODE
                         SE_BANKGIRO_CLEARING_CODE -> Known.SE_BANKGIRO_CLEARING_CODE
                         SWIFT -> Known.SWIFT
+                        ZA_NATIONAL_CLEARING_CODE -> Known.ZA_NATIONAL_CLEARING_CODE
                         else ->
                             throw ModernTreasuryInvalidDataException(
                                 "Unknown RoutingNumberType: $value"
@@ -4795,13 +4802,13 @@ constructor(
 
                     val RTP = PaymentType(JsonField.of("rtp"))
 
-                    val SG_GIRO = PaymentType(JsonField.of("sg_giro"))
-
                     val SE_BANKGIROT = PaymentType(JsonField.of("se_bankgirot"))
 
                     val SEN = PaymentType(JsonField.of("sen"))
 
                     val SEPA = PaymentType(JsonField.of("sepa"))
+
+                    val SG_GIRO = PaymentType(JsonField.of("sg_giro"))
 
                     val SIC = PaymentType(JsonField.of("sic"))
 
@@ -4838,10 +4845,10 @@ constructor(
                     PROVXCHANGE,
                     RO_SENT,
                     RTP,
-                    SG_GIRO,
                     SE_BANKGIROT,
                     SEN,
                     SEPA,
+                    SG_GIRO,
                     SIC,
                     SIGNET,
                     SKNBI,
@@ -4871,10 +4878,10 @@ constructor(
                     PROVXCHANGE,
                     RO_SENT,
                     RTP,
-                    SG_GIRO,
                     SE_BANKGIROT,
                     SEN,
                     SEPA,
+                    SG_GIRO,
                     SIC,
                     SIGNET,
                     SKNBI,
@@ -4906,10 +4913,10 @@ constructor(
                         PROVXCHANGE -> Value.PROVXCHANGE
                         RO_SENT -> Value.RO_SENT
                         RTP -> Value.RTP
-                        SG_GIRO -> Value.SG_GIRO
                         SE_BANKGIROT -> Value.SE_BANKGIROT
                         SEN -> Value.SEN
                         SEPA -> Value.SEPA
+                        SG_GIRO -> Value.SG_GIRO
                         SIC -> Value.SIC
                         SIGNET -> Value.SIGNET
                         SKNBI -> Value.SKNBI
@@ -4941,10 +4948,10 @@ constructor(
                         PROVXCHANGE -> Known.PROVXCHANGE
                         RO_SENT -> Known.RO_SENT
                         RTP -> Known.RTP
-                        SG_GIRO -> Known.SG_GIRO
                         SE_BANKGIROT -> Known.SE_BANKGIROT
                         SEN -> Known.SEN
                         SEPA -> Known.SEPA
+                        SG_GIRO -> Known.SG_GIRO
                         SIC -> Known.SIC
                         SIGNET -> Known.SIGNET
                         SKNBI -> Known.SKNBI

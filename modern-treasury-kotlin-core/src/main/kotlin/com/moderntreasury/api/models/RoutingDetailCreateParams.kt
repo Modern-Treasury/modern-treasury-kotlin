@@ -414,6 +414,9 @@ constructor(
 
             val SWIFT = RoutingNumberType(JsonField.of("swift"))
 
+            val ZA_NATIONAL_CLEARING_CODE =
+                RoutingNumberType(JsonField.of("za_national_clearing_code"))
+
             fun of(value: String) = RoutingNumberType(JsonField.of(value))
         }
 
@@ -437,6 +440,7 @@ constructor(
             PL_NATIONAL_CLEARING_CODE,
             SE_BANKGIRO_CLEARING_CODE,
             SWIFT,
+            ZA_NATIONAL_CLEARING_CODE,
         }
 
         enum class Value {
@@ -459,6 +463,7 @@ constructor(
             PL_NATIONAL_CLEARING_CODE,
             SE_BANKGIRO_CLEARING_CODE,
             SWIFT,
+            ZA_NATIONAL_CLEARING_CODE,
             _UNKNOWN,
         }
 
@@ -483,6 +488,7 @@ constructor(
                 PL_NATIONAL_CLEARING_CODE -> Value.PL_NATIONAL_CLEARING_CODE
                 SE_BANKGIRO_CLEARING_CODE -> Value.SE_BANKGIRO_CLEARING_CODE
                 SWIFT -> Value.SWIFT
+                ZA_NATIONAL_CLEARING_CODE -> Value.ZA_NATIONAL_CLEARING_CODE
                 else -> Value._UNKNOWN
             }
 
@@ -507,6 +513,7 @@ constructor(
                 PL_NATIONAL_CLEARING_CODE -> Known.PL_NATIONAL_CLEARING_CODE
                 SE_BANKGIRO_CLEARING_CODE -> Known.SE_BANKGIRO_CLEARING_CODE
                 SWIFT -> Known.SWIFT
+                ZA_NATIONAL_CLEARING_CODE -> Known.ZA_NATIONAL_CLEARING_CODE
                 else ->
                     throw ModernTreasuryInvalidDataException("Unknown RoutingNumberType: $value")
             }

@@ -38,30 +38,30 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    fun id(): String? = id.getNullable("id")
+    fun id(): String = id.getRequired("id")
 
-    fun object_(): String? = object_.getNullable("object")
+    fun object_(): String = object_.getRequired("object")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    fun liveMode(): Boolean? = liveMode.getNullable("live_mode")
+    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    fun createdAt(): OffsetDateTime? = createdAt.getNullable("created_at")
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    fun updatedAt(): OffsetDateTime? = updatedAt.getNullable("updated_at")
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
     /** The ID of the connection. */
-    fun connectionId(): String? = connectionId.getNullable("connection_id")
+    fun connectionId(): String = connectionId.getRequired("connection_id")
 
     /** The ID of the legal entity. */
-    fun legalEntityId(): String? = legalEntityId.getNullable("legal_entity_id")
+    fun legalEntityId(): String = legalEntityId.getRequired("legal_entity_id")
 
     /** The status of the connection legal entity. */
-    fun status(): Status? = status.getNullable("status")
+    fun status(): Status = status.getRequired("status")
 
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
