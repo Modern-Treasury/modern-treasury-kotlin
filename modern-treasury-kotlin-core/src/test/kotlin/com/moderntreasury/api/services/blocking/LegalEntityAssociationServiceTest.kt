@@ -24,6 +24,7 @@ class LegalEntityAssociationServiceTest {
         val legalEntityAssociation =
             legalEntityAssociationService.create(
                 LegalEntityAssociationCreateParams.builder()
+                    .parentLegalEntityId("string")
                     .relationshipTypes(
                         listOf(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER)
                     )
@@ -105,7 +106,6 @@ class LegalEntityAssociationServiceTest {
                     )
                     .childLegalEntityId("string")
                     .ownershipPercentage(123L)
-                    .parentLegalEntityId("string")
                     .title("string")
                     .build()
             )
