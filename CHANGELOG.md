@@ -1,5 +1,37 @@
 # Changelog
 
+## 2.14.0 (2024-05-28)
+
+Full Changelog: [v2.13.0...v2.14.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.13.0...v2.14.0)
+
+### Features
+
+* **api:** add currency to ledger account categories ([#171](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/171)) ([3b14a1c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3b14a1c8fdb1ed175c1522c694184bfdda9526bc))
+* **api:** invoice overdue reminders ([aea03ef](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/aea03efc2a99c0da8f7cec24ac5ec59cd42d9c51))
+* **api:** mark ConnectionLegalEntity response properties as required ([#173](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/173)) ([a23854a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a23854a984a77e2073a98671513c9c8cd94583f6))
+* **api:** remove deprecated ledger account payouts ([#172](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/172)) ([aea03ef](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/aea03efc2a99c0da8f7cec24ac5ec59cd42d9c51))
+* **api:** updates ([#165](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/165)) ([b974879](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b97487987aa4765f26c7faa47ae438912ad50cb1))
+* **api:** various API updates ([#160](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/160)) ([772e345](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/772e345810d1d5e82ca482b99d00030f2f41c1a4))
+* propagate resource description field from stainless config to SDK docs ([#167](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/167)) ([6b14459](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/6b144592cc0d75b30e9edfe4a016a9276f25a09d))
+
+
+### Bug Fixes
+
+* **client:** do not strip date-time 00 seconds when getQueryParams() is called ([#161](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/161)) ([a3a2332](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a3a23325874c6557c8a6876f9dd16f0c295a918f))
+
+
+### Chores
+
+* **docs:** add SECURITY.md ([#168](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/168)) ([50419c1](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/50419c1225c4112b311aae6852b4486b5f1e987b))
+* **docs:** streamline payment purpose and vendor failure handling ([#169](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/169)) ([89fb3e4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/89fb3e4cb1544b46ddfd63f364309cdd26549fc2))
+* **internal:** add dev scripts ([#174](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/174)) ([c6f6875](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c6f6875c7b73cf92c682e0eff6f15c6e9847da90))
+* **internal:** add link to openapi spec ([#162](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/162)) ([46e75e7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/46e75e73868ea6c0290e8915faa142e8a7fd66bb))
+* **internal:** add scripts-to-rule-them-all ([#170](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/170)) ([ce2fbc6](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ce2fbc6e844749df39f385ed40e2caa1a8d519a4))
+* **internal:** add scripts/mock ([#163](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/163)) ([c317e48](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c317e48fdd4ef6e117c9514dedf5d8557770978b))
+* **internal:** bump mock server version to ~5.8.0 ([#164](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/164)) ([7399951](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7399951f5f541efcc2da90f22cf4505cc6471f79))
+* **internal:** gradlew v8.7, use gradle task config avoidance APIs ([#157](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/157)) ([e1660e2](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e1660e29c0a4b2cd5a9496a96b44e41f8c23d97b))
+* **internal:** use actions/checkout@v4 for codeflow ([#159](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/159)) ([20838b6](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/20838b6eba500d098cac7780d3043a052933908e))
+
 ## 2.13.0 (2024-04-21)
 
 Full Changelog: [v2.12.0...v2.13.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.12.0...v2.13.0)
