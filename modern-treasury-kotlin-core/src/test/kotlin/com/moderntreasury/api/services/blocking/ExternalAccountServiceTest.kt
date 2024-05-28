@@ -221,6 +221,8 @@ class ExternalAccountServiceTest {
                     .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .paymentType(ExternalAccountVerifyParams.PaymentType.ACH)
                     .currency(Currency.AED)
+                    .fallbackType(ExternalAccountVerifyParams.FallbackType.ACH)
+                    .priority(ExternalAccountVerifyParams.Priority.HIGH)
                     .build()
             )
         println(externalAccount)

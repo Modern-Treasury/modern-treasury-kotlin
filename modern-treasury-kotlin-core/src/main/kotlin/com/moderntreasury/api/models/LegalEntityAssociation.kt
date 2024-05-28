@@ -41,27 +41,27 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    fun id(): String? = id.getNullable("id")
+    fun id(): String = id.getRequired("id")
 
-    fun object_(): String? = object_.getNullable("object")
+    fun object_(): String = object_.getRequired("object")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    fun liveMode(): Boolean? = liveMode.getNullable("live_mode")
+    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    fun createdAt(): OffsetDateTime? = createdAt.getNullable("created_at")
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    fun updatedAt(): OffsetDateTime? = updatedAt.getNullable("updated_at")
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
     /** The ID of the parent legal entity. This must be a business or joint legal entity. */
-    fun parentLegalEntityId(): String? = parentLegalEntityId.getNullable("parent_legal_entity_id")
+    fun parentLegalEntityId(): String = parentLegalEntityId.getRequired("parent_legal_entity_id")
 
-    fun relationshipTypes(): List<RelationshipType>? =
-        relationshipTypes.getNullable("relationship_types")
+    fun relationshipTypes(): List<RelationshipType> =
+        relationshipTypes.getRequired("relationship_types")
 
     /** The job title of the child entity at the parent entity. */
     fun title(): String? = title.getNullable("title")
@@ -70,7 +70,7 @@ private constructor(
     fun ownershipPercentage(): Long? = ownershipPercentage.getNullable("ownership_percentage")
 
     /** The child legal entity. */
-    fun childLegalEntity(): ChildLegalEntity? = childLegalEntity.getNullable("child_legal_entity")
+    fun childLegalEntity(): ChildLegalEntity = childLegalEntity.getRequired("child_legal_entity")
 
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
@@ -122,7 +122,7 @@ private constructor(
             relationshipTypes()
             title()
             ownershipPercentage()
-            childLegalEntity()?.validate()
+            childLegalEntity().validate()
             validated = true
         }
     }
@@ -365,24 +365,24 @@ private constructor(
 
         private var hashCode: Int = 0
 
-        fun id(): String? = id.getNullable("id")
+        fun id(): String = id.getRequired("id")
 
-        fun object_(): String? = object_.getNullable("object")
+        fun object_(): String = object_.getRequired("object")
 
         /**
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
          */
-        fun liveMode(): Boolean? = liveMode.getNullable("live_mode")
+        fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-        fun createdAt(): OffsetDateTime? = createdAt.getNullable("created_at")
+        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-        fun updatedAt(): OffsetDateTime? = updatedAt.getNullable("updated_at")
+        fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
         fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
         /** The type of legal entity. */
-        fun legalEntityType(): LegalEntityType? = legalEntityType.getNullable("legal_entity_type")
+        fun legalEntityType(): LegalEntityType = legalEntityType.getRequired("legal_entity_type")
 
         /** An individual's first name. */
         fun firstName(): String? = firstName.getNullable("first_name")
@@ -399,13 +399,13 @@ private constructor(
         /** The business's legal business name. */
         fun businessName(): String? = businessName.getNullable("business_name")
 
-        fun doingBusinessAsNames(): List<String>? =
-            doingBusinessAsNames.getNullable("doing_business_as_names")
+        fun doingBusinessAsNames(): List<String> =
+            doingBusinessAsNames.getRequired("doing_business_as_names")
 
         /** The business's legal structure. */
         fun legalStructure(): LegalStructure? = legalStructure.getNullable("legal_structure")
 
-        fun phoneNumbers(): List<PhoneNumber>? = phoneNumbers.getNullable("phone_numbers")
+        fun phoneNumbers(): List<PhoneNumber> = phoneNumbers.getRequired("phone_numbers")
 
         /** The entity's primary email. */
         fun email(): String? = email.getNullable("email")
@@ -416,14 +416,13 @@ private constructor(
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(): Metadata? = metadata.getNullable("metadata")
+        fun metadata(): Metadata = metadata.getRequired("metadata")
 
         /** A list of addresses for the entity. */
-        fun addresses(): List<LegalEntityAddress>? = addresses.getNullable("addresses")
+        fun addresses(): List<LegalEntityAddress> = addresses.getRequired("addresses")
 
         /** A list of identifications for the legal entity. */
-        fun identifications(): List<Identification>? =
-            identifications.getNullable("identifications")
+        fun identifications(): List<Identification> = identifications.getRequired("identifications")
 
         @JsonProperty("id") @ExcludeMissing fun _id() = id
 
@@ -505,12 +504,12 @@ private constructor(
                 businessName()
                 doingBusinessAsNames()
                 legalStructure()
-                phoneNumbers()?.forEach { it.validate() }
+                phoneNumbers().forEach { it.validate() }
                 email()
                 website()
-                metadata()?.validate()
-                addresses()?.forEach { it.validate() }
-                identifications()?.forEach { it.validate() }
+                metadata().validate()
+                addresses().forEach { it.validate() }
+                identifications().forEach { it.validate() }
                 validated = true
             }
         }
