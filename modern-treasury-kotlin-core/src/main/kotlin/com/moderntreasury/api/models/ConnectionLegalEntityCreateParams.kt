@@ -970,6 +970,12 @@ constructor(
 
                     val IN_LEI = IdType(JsonField.of("in_lei"))
 
+                    val KR_BRN = IdType(JsonField.of("kr_brn"))
+
+                    val KR_CRN = IdType(JsonField.of("kr_crn"))
+
+                    val KR_RRN = IdType(JsonField.of("kr_rrn"))
+
                     val PASSPORT = IdType(JsonField.of("passport"))
 
                     val SA_TIN = IdType(JsonField.of("sa_tin"))
@@ -998,6 +1004,9 @@ constructor(
                     HN_ID,
                     HN_RTN,
                     IN_LEI,
+                    KR_BRN,
+                    KR_CRN,
+                    KR_RRN,
                     PASSPORT,
                     SA_TIN,
                     SA_VAT,
@@ -1018,6 +1027,9 @@ constructor(
                     HN_ID,
                     HN_RTN,
                     IN_LEI,
+                    KR_BRN,
+                    KR_CRN,
+                    KR_RRN,
                     PASSPORT,
                     SA_TIN,
                     SA_VAT,
@@ -1040,6 +1052,9 @@ constructor(
                         HN_ID -> Value.HN_ID
                         HN_RTN -> Value.HN_RTN
                         IN_LEI -> Value.IN_LEI
+                        KR_BRN -> Value.KR_BRN
+                        KR_CRN -> Value.KR_CRN
+                        KR_RRN -> Value.KR_RRN
                         PASSPORT -> Value.PASSPORT
                         SA_TIN -> Value.SA_TIN
                         SA_VAT -> Value.SA_VAT
@@ -1062,6 +1077,9 @@ constructor(
                         HN_ID -> Known.HN_ID
                         HN_RTN -> Known.HN_RTN
                         IN_LEI -> Known.IN_LEI
+                        KR_BRN -> Known.KR_BRN
+                        KR_CRN -> Known.KR_CRN
+                        KR_RRN -> Known.KR_RRN
                         PASSPORT -> Known.PASSPORT
                         SA_TIN -> Known.SA_TIN
                         SA_VAT -> Known.SA_VAT
@@ -1980,6 +1998,12 @@ constructor(
 
                             val IN_LEI = IdType(JsonField.of("in_lei"))
 
+                            val KR_BRN = IdType(JsonField.of("kr_brn"))
+
+                            val KR_CRN = IdType(JsonField.of("kr_crn"))
+
+                            val KR_RRN = IdType(JsonField.of("kr_rrn"))
+
                             val PASSPORT = IdType(JsonField.of("passport"))
 
                             val SA_TIN = IdType(JsonField.of("sa_tin"))
@@ -2008,6 +2032,9 @@ constructor(
                             HN_ID,
                             HN_RTN,
                             IN_LEI,
+                            KR_BRN,
+                            KR_CRN,
+                            KR_RRN,
                             PASSPORT,
                             SA_TIN,
                             SA_VAT,
@@ -2028,6 +2055,9 @@ constructor(
                             HN_ID,
                             HN_RTN,
                             IN_LEI,
+                            KR_BRN,
+                            KR_CRN,
+                            KR_RRN,
                             PASSPORT,
                             SA_TIN,
                             SA_VAT,
@@ -2050,6 +2080,9 @@ constructor(
                                 HN_ID -> Value.HN_ID
                                 HN_RTN -> Value.HN_RTN
                                 IN_LEI -> Value.IN_LEI
+                                KR_BRN -> Value.KR_BRN
+                                KR_CRN -> Value.KR_CRN
+                                KR_RRN -> Value.KR_RRN
                                 PASSPORT -> Value.PASSPORT
                                 SA_TIN -> Value.SA_TIN
                                 SA_VAT -> Value.SA_VAT
@@ -2072,6 +2105,9 @@ constructor(
                                 HN_ID -> Known.HN_ID
                                 HN_RTN -> Known.HN_RTN
                                 IN_LEI -> Known.IN_LEI
+                                KR_BRN -> Known.KR_BRN
+                                KR_CRN -> Known.KR_CRN
+                                KR_RRN -> Known.KR_RRN
                                 PASSPORT -> Known.PASSPORT
                                 SA_TIN -> Known.SA_TIN
                                 SA_VAT -> Known.SA_VAT
