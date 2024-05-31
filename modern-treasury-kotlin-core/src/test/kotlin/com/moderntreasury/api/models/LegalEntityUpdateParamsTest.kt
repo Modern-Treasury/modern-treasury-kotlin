@@ -25,6 +25,7 @@ class LegalEntityUpdateParamsTest {
             .phoneNumbers(
                 listOf(LegalEntityUpdateParams.PhoneNumber.builder().phoneNumber("string").build())
             )
+            .riskRating(LegalEntityUpdateParams.RiskRating.LOW)
             .website("string")
             .build()
     }
@@ -48,6 +49,7 @@ class LegalEntityUpdateParamsTest {
                         LegalEntityUpdateParams.PhoneNumber.builder().phoneNumber("string").build()
                     )
                 )
+                .riskRating(LegalEntityUpdateParams.RiskRating.LOW)
                 .website("string")
                 .build()
         val body = params.getBody()
@@ -66,6 +68,7 @@ class LegalEntityUpdateParamsTest {
             .isEqualTo(
                 listOf(LegalEntityUpdateParams.PhoneNumber.builder().phoneNumber("string").build())
             )
+        assertThat(body.riskRating()).isEqualTo(LegalEntityUpdateParams.RiskRating.LOW)
         assertThat(body.website()).isEqualTo("string")
     }
 

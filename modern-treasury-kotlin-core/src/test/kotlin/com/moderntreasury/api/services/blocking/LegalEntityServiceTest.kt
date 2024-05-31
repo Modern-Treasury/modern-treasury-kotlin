@@ -167,6 +167,13 @@ class LegalEntityServiceTest {
                                                     .build()
                                             )
                                         )
+                                        .riskRating(
+                                            LegalEntityCreateParams
+                                                .LegalEntityAssociationInlineCreateRequest
+                                                .ChildLegalEntityCreate
+                                                .RiskRating
+                                                .LOW
+                                        )
                                         .website("string")
                                         .build()
                                 )
@@ -185,6 +192,7 @@ class LegalEntityServiceTest {
                                 .build()
                         )
                     )
+                    .riskRating(LegalEntityCreateParams.RiskRating.LOW)
                     .website("string")
                     .build()
             )
@@ -236,6 +244,7 @@ class LegalEntityServiceTest {
                                 .build()
                         )
                     )
+                    .riskRating(LegalEntityUpdateParams.RiskRating.LOW)
                     .website("string")
                     .build()
             )

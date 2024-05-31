@@ -34,6 +34,7 @@ constructor(
     private val legalStructure: LegalStructure?,
     private val metadata: Metadata?,
     private val phoneNumbers: List<PhoneNumber>?,
+    private val riskRating: RiskRating?,
     private val website: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -69,6 +70,8 @@ constructor(
 
     fun phoneNumbers(): List<PhoneNumber>? = phoneNumbers
 
+    fun riskRating(): RiskRating? = riskRating
+
     fun website(): String? = website
 
     internal fun getBody(): LegalEntityCreateBody {
@@ -87,6 +90,7 @@ constructor(
             legalStructure,
             metadata,
             phoneNumbers,
+            riskRating,
             website,
             additionalBodyProperties,
         )
@@ -114,6 +118,7 @@ constructor(
         private val legalStructure: LegalStructure?,
         private val metadata: Metadata?,
         private val phoneNumbers: List<PhoneNumber>?,
+        private val riskRating: RiskRating?,
         private val website: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -167,6 +172,9 @@ constructor(
 
         @JsonProperty("phone_numbers") fun phoneNumbers(): List<PhoneNumber>? = phoneNumbers
 
+        /** Translation missing: en.openapi.descriptions.legal_entity.schema.risk_rating */
+        @JsonProperty("risk_rating") fun riskRating(): RiskRating? = riskRating
+
         /** The entity's primary website URL. */
         @JsonProperty("website") fun website(): String? = website
 
@@ -196,6 +204,7 @@ constructor(
                 this.legalStructure == other.legalStructure &&
                 this.metadata == other.metadata &&
                 this.phoneNumbers == other.phoneNumbers &&
+                this.riskRating == other.riskRating &&
                 this.website == other.website &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -218,6 +227,7 @@ constructor(
                         legalStructure,
                         metadata,
                         phoneNumbers,
+                        riskRating,
                         website,
                         additionalProperties,
                     )
@@ -226,7 +236,7 @@ constructor(
         }
 
         override fun toString() =
-            "LegalEntityCreateBody{legalEntityType=$legalEntityType, addresses=$addresses, businessName=$businessName, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, identifications=$identifications, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalStructure=$legalStructure, metadata=$metadata, phoneNumbers=$phoneNumbers, website=$website, additionalProperties=$additionalProperties}"
+            "LegalEntityCreateBody{legalEntityType=$legalEntityType, addresses=$addresses, businessName=$businessName, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, identifications=$identifications, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalStructure=$legalStructure, metadata=$metadata, phoneNumbers=$phoneNumbers, riskRating=$riskRating, website=$website, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -250,6 +260,7 @@ constructor(
             private var legalStructure: LegalStructure? = null
             private var metadata: Metadata? = null
             private var phoneNumbers: List<PhoneNumber>? = null
+            private var riskRating: RiskRating? = null
             private var website: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -268,6 +279,7 @@ constructor(
                 this.legalStructure = legalEntityCreateBody.legalStructure
                 this.metadata = legalEntityCreateBody.metadata
                 this.phoneNumbers = legalEntityCreateBody.phoneNumbers
+                this.riskRating = legalEntityCreateBody.riskRating
                 this.website = legalEntityCreateBody.website
                 additionalProperties(legalEntityCreateBody.additionalProperties)
             }
@@ -342,6 +354,10 @@ constructor(
                 this.phoneNumbers = phoneNumbers
             }
 
+            /** Translation missing: en.openapi.descriptions.legal_entity.schema.risk_rating */
+            @JsonProperty("risk_rating")
+            fun riskRating(riskRating: RiskRating) = apply { this.riskRating = riskRating }
+
             /** The entity's primary website URL. */
             @JsonProperty("website") fun website(website: String) = apply { this.website = website }
 
@@ -377,6 +393,7 @@ constructor(
                     legalStructure,
                     metadata,
                     phoneNumbers?.toUnmodifiable(),
+                    riskRating,
                     website,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -409,6 +426,7 @@ constructor(
             this.legalStructure == other.legalStructure &&
             this.metadata == other.metadata &&
             this.phoneNumbers == other.phoneNumbers &&
+            this.riskRating == other.riskRating &&
             this.website == other.website &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -431,6 +449,7 @@ constructor(
             legalStructure,
             metadata,
             phoneNumbers,
+            riskRating,
             website,
             additionalQueryParams,
             additionalHeaders,
@@ -439,7 +458,7 @@ constructor(
     }
 
     override fun toString() =
-        "LegalEntityCreateParams{legalEntityType=$legalEntityType, addresses=$addresses, businessName=$businessName, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, identifications=$identifications, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalStructure=$legalStructure, metadata=$metadata, phoneNumbers=$phoneNumbers, website=$website, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "LegalEntityCreateParams{legalEntityType=$legalEntityType, addresses=$addresses, businessName=$businessName, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, identifications=$identifications, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalStructure=$legalStructure, metadata=$metadata, phoneNumbers=$phoneNumbers, riskRating=$riskRating, website=$website, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -467,6 +486,7 @@ constructor(
         private var legalStructure: LegalStructure? = null
         private var metadata: Metadata? = null
         private var phoneNumbers: MutableList<PhoneNumber> = mutableListOf()
+        private var riskRating: RiskRating? = null
         private var website: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -489,6 +509,7 @@ constructor(
             this.legalStructure = legalEntityCreateParams.legalStructure
             this.metadata = legalEntityCreateParams.metadata
             this.phoneNumbers(legalEntityCreateParams.phoneNumbers ?: listOf())
+            this.riskRating = legalEntityCreateParams.riskRating
             this.website = legalEntityCreateParams.website
             additionalQueryParams(legalEntityCreateParams.additionalQueryParams)
             additionalHeaders(legalEntityCreateParams.additionalHeaders)
@@ -579,6 +600,9 @@ constructor(
 
         fun addPhoneNumber(phoneNumber: PhoneNumber) = apply { this.phoneNumbers.add(phoneNumber) }
 
+        /** Translation missing: en.openapi.descriptions.legal_entity.schema.risk_rating */
+        fun riskRating(riskRating: RiskRating) = apply { this.riskRating = riskRating }
+
         /** The entity's primary website URL. */
         fun website(website: String) = apply { this.website = website }
 
@@ -653,6 +677,7 @@ constructor(
                 legalStructure,
                 metadata,
                 if (phoneNumbers.size == 0) null else phoneNumbers.toUnmodifiable(),
+                riskRating,
                 website,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
@@ -1439,6 +1464,7 @@ constructor(
         class ChildLegalEntityCreate
         private constructor(
             private val legalEntityType: LegalEntityType?,
+            private val riskRating: RiskRating?,
             private val firstName: String?,
             private val lastName: String?,
             private val dateOfBirth: LocalDate?,
@@ -1460,6 +1486,9 @@ constructor(
             /** The type of legal entity. */
             @JsonProperty("legal_entity_type")
             fun legalEntityType(): LegalEntityType? = legalEntityType
+
+            /** Translation missing: en.openapi.descriptions.legal_entity.schema.risk_rating */
+            @JsonProperty("risk_rating") fun riskRating(): RiskRating? = riskRating
 
             /** An individual's first name. */
             @JsonProperty("first_name") fun firstName(): String? = firstName
@@ -1517,6 +1546,7 @@ constructor(
 
                 return other is ChildLegalEntityCreate &&
                     this.legalEntityType == other.legalEntityType &&
+                    this.riskRating == other.riskRating &&
                     this.firstName == other.firstName &&
                     this.lastName == other.lastName &&
                     this.dateOfBirth == other.dateOfBirth &&
@@ -1538,6 +1568,7 @@ constructor(
                     hashCode =
                         Objects.hash(
                             legalEntityType,
+                            riskRating,
                             firstName,
                             lastName,
                             dateOfBirth,
@@ -1558,7 +1589,7 @@ constructor(
             }
 
             override fun toString() =
-                "ChildLegalEntityCreate{legalEntityType=$legalEntityType, firstName=$firstName, lastName=$lastName, dateOfBirth=$dateOfBirth, dateFormed=$dateFormed, businessName=$businessName, doingBusinessAsNames=$doingBusinessAsNames, legalStructure=$legalStructure, phoneNumbers=$phoneNumbers, email=$email, website=$website, metadata=$metadata, addresses=$addresses, identifications=$identifications, additionalProperties=$additionalProperties}"
+                "ChildLegalEntityCreate{legalEntityType=$legalEntityType, riskRating=$riskRating, firstName=$firstName, lastName=$lastName, dateOfBirth=$dateOfBirth, dateFormed=$dateFormed, businessName=$businessName, doingBusinessAsNames=$doingBusinessAsNames, legalStructure=$legalStructure, phoneNumbers=$phoneNumbers, email=$email, website=$website, metadata=$metadata, addresses=$addresses, identifications=$identifications, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1568,6 +1599,7 @@ constructor(
             class Builder {
 
                 private var legalEntityType: LegalEntityType? = null
+                private var riskRating: RiskRating? = null
                 private var firstName: String? = null
                 private var lastName: String? = null
                 private var dateOfBirth: LocalDate? = null
@@ -1585,6 +1617,7 @@ constructor(
 
                 internal fun from(childLegalEntityCreate: ChildLegalEntityCreate) = apply {
                     this.legalEntityType = childLegalEntityCreate.legalEntityType
+                    this.riskRating = childLegalEntityCreate.riskRating
                     this.firstName = childLegalEntityCreate.firstName
                     this.lastName = childLegalEntityCreate.lastName
                     this.dateOfBirth = childLegalEntityCreate.dateOfBirth
@@ -1606,6 +1639,10 @@ constructor(
                 fun legalEntityType(legalEntityType: LegalEntityType) = apply {
                     this.legalEntityType = legalEntityType
                 }
+
+                /** Translation missing: en.openapi.descriptions.legal_entity.schema.risk_rating */
+                @JsonProperty("risk_rating")
+                fun riskRating(riskRating: RiskRating) = apply { this.riskRating = riskRating }
 
                 /** An individual's first name. */
                 @JsonProperty("first_name")
@@ -1687,6 +1724,7 @@ constructor(
                 fun build(): ChildLegalEntityCreate =
                     ChildLegalEntityCreate(
                         legalEntityType,
+                        riskRating,
                         firstName,
                         lastName,
                         dateOfBirth,
@@ -2519,6 +2557,70 @@ constructor(
                         PhoneNumber(phoneNumber, additionalProperties.toUnmodifiable())
                 }
             }
+
+            class RiskRating
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) : Enum {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is RiskRating && this.value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    val LOW = RiskRating(JsonField.of("low"))
+
+                    val MEDIUM = RiskRating(JsonField.of("medium"))
+
+                    val HIGH = RiskRating(JsonField.of("high"))
+
+                    fun of(value: String) = RiskRating(JsonField.of(value))
+                }
+
+                enum class Known {
+                    LOW,
+                    MEDIUM,
+                    HIGH,
+                }
+
+                enum class Value {
+                    LOW,
+                    MEDIUM,
+                    HIGH,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        LOW -> Value.LOW
+                        MEDIUM -> Value.MEDIUM
+                        HIGH -> Value.HIGH
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        LOW -> Known.LOW
+                        MEDIUM -> Known.MEDIUM
+                        HIGH -> Known.HIGH
+                        else ->
+                            throw ModernTreasuryInvalidDataException("Unknown RiskRating: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+            }
         }
     }
 
@@ -2741,5 +2843,68 @@ constructor(
             fun build(): PhoneNumber =
                 PhoneNumber(phoneNumber, additionalProperties.toUnmodifiable())
         }
+    }
+
+    class RiskRating
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is RiskRating && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val LOW = RiskRating(JsonField.of("low"))
+
+            val MEDIUM = RiskRating(JsonField.of("medium"))
+
+            val HIGH = RiskRating(JsonField.of("high"))
+
+            fun of(value: String) = RiskRating(JsonField.of(value))
+        }
+
+        enum class Known {
+            LOW,
+            MEDIUM,
+            HIGH,
+        }
+
+        enum class Value {
+            LOW,
+            MEDIUM,
+            HIGH,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                LOW -> Value.LOW
+                MEDIUM -> Value.MEDIUM
+                HIGH -> Value.HIGH
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                LOW -> Known.LOW
+                MEDIUM -> Known.MEDIUM
+                HIGH -> Known.HIGH
+                else -> throw ModernTreasuryInvalidDataException("Unknown RiskRating: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 }
