@@ -147,6 +147,13 @@ class LegalEntityCreateParamsTest {
                                             .build()
                                     )
                                 )
+                                .riskRating(
+                                    LegalEntityCreateParams
+                                        .LegalEntityAssociationInlineCreateRequest
+                                        .ChildLegalEntityCreate
+                                        .RiskRating
+                                        .LOW
+                                )
                                 .website("string")
                                 .build()
                         )
@@ -161,6 +168,7 @@ class LegalEntityCreateParamsTest {
             .phoneNumbers(
                 listOf(LegalEntityCreateParams.PhoneNumber.builder().phoneNumber("string").build())
             )
+            .riskRating(LegalEntityCreateParams.RiskRating.LOW)
             .website("string")
             .build()
     }
@@ -308,6 +316,13 @@ class LegalEntityCreateParamsTest {
                                                 .build()
                                         )
                                     )
+                                    .riskRating(
+                                        LegalEntityCreateParams
+                                            .LegalEntityAssociationInlineCreateRequest
+                                            .ChildLegalEntityCreate
+                                            .RiskRating
+                                            .LOW
+                                    )
                                     .website("string")
                                     .build()
                             )
@@ -324,6 +339,7 @@ class LegalEntityCreateParamsTest {
                         LegalEntityCreateParams.PhoneNumber.builder().phoneNumber("string").build()
                     )
                 )
+                .riskRating(LegalEntityCreateParams.RiskRating.LOW)
                 .website("string")
                 .build()
         val body = params.getBody()
@@ -467,6 +483,13 @@ class LegalEntityCreateParamsTest {
                                             .build()
                                     )
                                 )
+                                .riskRating(
+                                    LegalEntityCreateParams
+                                        .LegalEntityAssociationInlineCreateRequest
+                                        .ChildLegalEntityCreate
+                                        .RiskRating
+                                        .LOW
+                                )
                                 .website("string")
                                 .build()
                         )
@@ -483,6 +506,7 @@ class LegalEntityCreateParamsTest {
             .isEqualTo(
                 listOf(LegalEntityCreateParams.PhoneNumber.builder().phoneNumber("string").build())
             )
+        assertThat(body.riskRating()).isEqualTo(LegalEntityCreateParams.RiskRating.LOW)
         assertThat(body.website()).isEqualTo("string")
     }
 

@@ -101,6 +101,10 @@ class LegalEntityAssociationServiceTest {
                                         .build()
                                 )
                             )
+                            .riskRating(
+                                LegalEntityAssociationCreateParams.ChildLegalEntityCreate.RiskRating
+                                    .LOW
+                            )
                             .website("string")
                             .build()
                     )

@@ -320,6 +320,13 @@ class ServiceParamsTest {
                                                         .build()
                                                 )
                                             )
+                                            .riskRating(
+                                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                                    .LegalEntityAssociationInlineCreateRequest
+                                                    .ChildLegalEntityCreate
+                                                    .RiskRating
+                                                    .LOW
+                                            )
                                             .website("string")
                                             .build()
                                     )
@@ -344,6 +351,9 @@ class ServiceParamsTest {
                                     .phoneNumber("string")
                                     .build()
                             )
+                        )
+                        .riskRating(
+                            CounterpartyCreateParams.LegalEntityCreateRequest.RiskRating.LOW
                         )
                         .website("string")
                         .build()

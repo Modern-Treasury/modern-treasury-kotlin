@@ -166,6 +166,13 @@ class ConnectionLegalEntityCreateParamsTest {
                                                     .build()
                                             )
                                         )
+                                        .riskRating(
+                                            ConnectionLegalEntityCreateParams.LegalEntity
+                                                .LegalEntityAssociationInlineCreateRequest
+                                                .ChildLegalEntityCreate
+                                                .RiskRating
+                                                .LOW
+                                        )
                                         .website("string")
                                         .build()
                                 )
@@ -191,6 +198,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                 .build()
                         )
                     )
+                    .riskRating(ConnectionLegalEntityCreateParams.LegalEntity.RiskRating.LOW)
                     .website("string")
                     .build()
             )
@@ -356,6 +364,13 @@ class ConnectionLegalEntityCreateParamsTest {
                                                         .build()
                                                 )
                                             )
+                                            .riskRating(
+                                                ConnectionLegalEntityCreateParams.LegalEntity
+                                                    .LegalEntityAssociationInlineCreateRequest
+                                                    .ChildLegalEntityCreate
+                                                    .RiskRating
+                                                    .LOW
+                                            )
                                             .website("string")
                                             .build()
                                     )
@@ -381,6 +396,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                     .build()
                             )
                         )
+                        .riskRating(ConnectionLegalEntityCreateParams.LegalEntity.RiskRating.LOW)
                         .website("string")
                         .build()
                 )
@@ -543,6 +559,13 @@ class ConnectionLegalEntityCreateParamsTest {
                                                     .build()
                                             )
                                         )
+                                        .riskRating(
+                                            ConnectionLegalEntityCreateParams.LegalEntity
+                                                .LegalEntityAssociationInlineCreateRequest
+                                                .ChildLegalEntityCreate
+                                                .RiskRating
+                                                .LOW
+                                        )
                                         .website("string")
                                         .build()
                                 )
@@ -568,6 +591,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                 .build()
                         )
                     )
+                    .riskRating(ConnectionLegalEntityCreateParams.LegalEntity.RiskRating.LOW)
                     .website("string")
                     .build()
             )

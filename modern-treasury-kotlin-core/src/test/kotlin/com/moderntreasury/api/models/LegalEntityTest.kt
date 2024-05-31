@@ -156,6 +156,9 @@ class LegalEntityTest {
                                                 .build()
                                         )
                                     )
+                                    .riskRating(
+                                        LegalEntityAssociation.ChildLegalEntity.RiskRating.LOW
+                                    )
                                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .website("string")
                                     .build()
@@ -182,6 +185,7 @@ class LegalEntityTest {
                 .phoneNumbers(
                     listOf(LegalEntity.PhoneNumber.builder().phoneNumber("string").build())
                 )
+                .riskRating(LegalEntity.RiskRating.LOW)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .website("string")
                 .build()
@@ -312,6 +316,7 @@ class LegalEntityTest {
                                         .build()
                                 )
                             )
+                            .riskRating(LegalEntityAssociation.ChildLegalEntity.RiskRating.LOW)
                             .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .website("string")
                             .build()
@@ -336,6 +341,7 @@ class LegalEntityTest {
         assertThat(legalEntity.object_()).isEqualTo("string")
         assertThat(legalEntity.phoneNumbers())
             .containsExactly(LegalEntity.PhoneNumber.builder().phoneNumber("string").build())
+        assertThat(legalEntity.riskRating()).isEqualTo(LegalEntity.RiskRating.LOW)
         assertThat(legalEntity.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(legalEntity.website()).isEqualTo("string")
