@@ -292,6 +292,14 @@ class CounterpartyServiceTest {
                                                             .build()
                                                     )
                                                 )
+                                                .riskRating(
+                                                    CounterpartyCreateParams
+                                                        .LegalEntityCreateRequest
+                                                        .LegalEntityAssociationInlineCreateRequest
+                                                        .ChildLegalEntityCreate
+                                                        .RiskRating
+                                                        .LOW
+                                                )
                                                 .website("string")
                                                 .build()
                                         )
@@ -316,6 +324,9 @@ class CounterpartyServiceTest {
                                         .phoneNumber("string")
                                         .build()
                                 )
+                            )
+                            .riskRating(
+                                CounterpartyCreateParams.LegalEntityCreateRequest.RiskRating.LOW
                             )
                             .website("string")
                             .build()

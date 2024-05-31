@@ -83,6 +83,9 @@ class LegalEntityAssociationCreateParamsTest {
                                 .build()
                         )
                     )
+                    .riskRating(
+                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate.RiskRating.LOW
+                    )
                     .website("string")
                     .build()
             )
@@ -171,6 +174,9 @@ class LegalEntityAssociationCreateParamsTest {
                                     .build()
                             )
                         )
+                        .riskRating(
+                            LegalEntityAssociationCreateParams.ChildLegalEntityCreate.RiskRating.LOW
+                        )
                         .website("string")
                         .build()
                 )
@@ -250,6 +256,9 @@ class LegalEntityAssociationCreateParamsTest {
                                 .phoneNumber("string")
                                 .build()
                         )
+                    )
+                    .riskRating(
+                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate.RiskRating.LOW
                     )
                     .website("string")
                     .build()

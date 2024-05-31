@@ -265,6 +265,13 @@ class CounterpartyCreateParamsTest {
                                                     .build()
                                             )
                                         )
+                                        .riskRating(
+                                            CounterpartyCreateParams.LegalEntityCreateRequest
+                                                .LegalEntityAssociationInlineCreateRequest
+                                                .ChildLegalEntityCreate
+                                                .RiskRating
+                                                .LOW
+                                        )
                                         .website("string")
                                         .build()
                                 )
@@ -287,6 +294,7 @@ class CounterpartyCreateParamsTest {
                                 .build()
                         )
                     )
+                    .riskRating(CounterpartyCreateParams.LegalEntityCreateRequest.RiskRating.LOW)
                     .website("string")
                     .build()
             )
@@ -562,6 +570,13 @@ class CounterpartyCreateParamsTest {
                                                         .build()
                                                 )
                                             )
+                                            .riskRating(
+                                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                                    .LegalEntityAssociationInlineCreateRequest
+                                                    .ChildLegalEntityCreate
+                                                    .RiskRating
+                                                    .LOW
+                                            )
                                             .website("string")
                                             .build()
                                     )
@@ -586,6 +601,9 @@ class CounterpartyCreateParamsTest {
                                     .phoneNumber("string")
                                     .build()
                             )
+                        )
+                        .riskRating(
+                            CounterpartyCreateParams.LegalEntityCreateRequest.RiskRating.LOW
                         )
                         .website("string")
                         .build()
@@ -854,6 +872,13 @@ class CounterpartyCreateParamsTest {
                                                     .build()
                                             )
                                         )
+                                        .riskRating(
+                                            CounterpartyCreateParams.LegalEntityCreateRequest
+                                                .LegalEntityAssociationInlineCreateRequest
+                                                .ChildLegalEntityCreate
+                                                .RiskRating
+                                                .LOW
+                                        )
                                         .website("string")
                                         .build()
                                 )
@@ -876,6 +901,7 @@ class CounterpartyCreateParamsTest {
                                 .build()
                         )
                     )
+                    .riskRating(CounterpartyCreateParams.LegalEntityCreateRequest.RiskRating.LOW)
                     .website("string")
                     .build()
             )
