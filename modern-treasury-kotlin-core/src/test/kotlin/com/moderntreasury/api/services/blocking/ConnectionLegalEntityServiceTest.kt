@@ -182,6 +182,13 @@ class ConnectionLegalEntityServiceTest {
                                                             .build()
                                                     )
                                                 )
+                                                .riskRating(
+                                                    ConnectionLegalEntityCreateParams.LegalEntity
+                                                        .LegalEntityAssociationInlineCreateRequest
+                                                        .ChildLegalEntityCreate
+                                                        .RiskRating
+                                                        .LOW
+                                                )
                                                 .website("string")
                                                 .build()
                                         )
@@ -210,6 +217,9 @@ class ConnectionLegalEntityServiceTest {
                                         .phoneNumber("string")
                                         .build()
                                 )
+                            )
+                            .riskRating(
+                                ConnectionLegalEntityCreateParams.LegalEntity.RiskRating.LOW
                             )
                             .website("string")
                             .build()
