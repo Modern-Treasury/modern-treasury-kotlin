@@ -101,7 +101,7 @@ private constructor(
     fun amount(): Long = amount.getRequired("amount")
 
     /** The currency of the incoming payment detail. */
-    fun currency(): Currency? = currency.getNullable("currency")
+    fun currency(): Currency = currency.getRequired("currency")
 
     /** One of `credit` or `debit`. */
     fun direction(): TransactionDirection = direction.getRequired("direction")

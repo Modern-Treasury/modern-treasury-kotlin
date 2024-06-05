@@ -87,7 +87,7 @@ private constructor(
     fun connection(): Connection = connection.getRequired("connection")
 
     /** The currency of the account. */
-    fun currency(): Currency? = currency.getNullable("currency")
+    fun currency(): Currency = currency.getRequired("currency")
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
     fun metadata(): Metadata = metadata.getRequired("metadata")
