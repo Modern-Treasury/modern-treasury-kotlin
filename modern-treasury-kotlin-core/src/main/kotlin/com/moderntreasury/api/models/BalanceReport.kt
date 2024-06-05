@@ -433,7 +433,7 @@ private constructor(
         fun amount(): Long = amount.getRequired("amount")
 
         /** The currency of the balance. */
-        fun currency(): Currency? = currency.getNullable("currency")
+        fun currency(): Currency = currency.getRequired("currency")
 
         /**
          * The specific type of balance reported. One of `opening_ledger`, `closing_ledger`,
