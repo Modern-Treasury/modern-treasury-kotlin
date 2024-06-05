@@ -117,7 +117,7 @@ private constructor(
     fun amount(): Long = amount.getRequired("amount")
 
     /** Currency that this transaction is denominated in. */
-    fun currency(): Currency? = currency.getNullable("currency")
+    fun currency(): Currency = currency.getRequired("currency")
 
     /**
      * If an originating return failed to be processed by the bank, a description of the failure

@@ -82,7 +82,7 @@ private constructor(
     fun amount(): Long = amount.getRequired("amount")
 
     /** The currency of the paper item. */
-    fun currency(): Currency? = currency.getNullable("currency")
+    fun currency(): Currency = currency.getRequired("currency")
 
     /** The account number on the paper item. */
     fun accountNumber(): String? = accountNumber.getNullable("account_number")
