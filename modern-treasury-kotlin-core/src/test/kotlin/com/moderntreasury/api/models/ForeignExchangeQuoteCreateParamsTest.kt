@@ -47,9 +47,11 @@ class ForeignExchangeQuoteCreateParamsTest {
         val params =
             ForeignExchangeQuoteCreateParams.builder()
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .targetCurrency(Currency.AED)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(body.targetCurrency()).isEqualTo(Currency.AED)
     }
 }

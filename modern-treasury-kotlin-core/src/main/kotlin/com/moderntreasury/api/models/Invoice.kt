@@ -108,7 +108,7 @@ private constructor(
         counterpartyShippingAddress.getNullable("counterparty_shipping_address")
 
     /** Currency that the invoice is denominated in. Defaults to `USD` if not provided. */
-    fun currency(): Currency? = currency.getNullable("currency")
+    fun currency(): Currency = currency.getRequired("currency")
 
     /** A free-form description of the invoice. */
     fun description(): String = description.getRequired("description")
