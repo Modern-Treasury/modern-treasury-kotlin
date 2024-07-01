@@ -19,7 +19,7 @@ class VirtualAccountCreateParamsTest {
                         .accountNumber("string")
                         .accountNumberType(
                             VirtualAccountCreateParams.AccountDetailCreateRequest.AccountNumberType
-                                .CLABE
+                                .AU_NUMBER
                         )
                         .build()
                 )
@@ -79,7 +79,7 @@ class VirtualAccountCreateParamsTest {
                             .accountNumberType(
                                 VirtualAccountCreateParams.AccountDetailCreateRequest
                                     .AccountNumberType
-                                    .CLABE
+                                    .AU_NUMBER
                             )
                             .build()
                     )
@@ -137,7 +137,7 @@ class VirtualAccountCreateParamsTest {
                         .accountNumber("string")
                         .accountNumberType(
                             VirtualAccountCreateParams.AccountDetailCreateRequest.AccountNumberType
-                                .CLABE
+                                .AU_NUMBER
                         )
                         .build()
                 )
