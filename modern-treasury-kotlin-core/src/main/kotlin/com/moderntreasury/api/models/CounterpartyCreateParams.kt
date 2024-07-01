@@ -1057,65 +1057,83 @@ constructor(
 
                 companion object {
 
-                    val IBAN = AccountNumberType(JsonField.of("iban"))
-
-                    val HK_NUMBER = AccountNumberType(JsonField.of("hk_number"))
+                    val AU_NUMBER = AccountNumberType(JsonField.of("au_number"))
 
                     val CLABE = AccountNumberType(JsonField.of("clabe"))
 
+                    val HK_NUMBER = AccountNumberType(JsonField.of("hk_number"))
+
+                    val IBAN = AccountNumberType(JsonField.of("iban"))
+
+                    val ID_NUMBER = AccountNumberType(JsonField.of("id_number"))
+
                     val NZ_NUMBER = AccountNumberType(JsonField.of("nz_number"))
 
-                    val WALLET_ADDRESS = AccountNumberType(JsonField.of("wallet_address"))
+                    val OTHER = AccountNumberType(JsonField.of("other"))
 
                     val PAN = AccountNumberType(JsonField.of("pan"))
 
-                    val OTHER = AccountNumberType(JsonField.of("other"))
+                    val SG_NUMBER = AccountNumberType(JsonField.of("sg_number"))
+
+                    val WALLET_ADDRESS = AccountNumberType(JsonField.of("wallet_address"))
 
                     fun of(value: String) = AccountNumberType(JsonField.of(value))
                 }
 
                 enum class Known {
-                    IBAN,
-                    HK_NUMBER,
+                    AU_NUMBER,
                     CLABE,
+                    HK_NUMBER,
+                    IBAN,
+                    ID_NUMBER,
                     NZ_NUMBER,
-                    WALLET_ADDRESS,
-                    PAN,
                     OTHER,
+                    PAN,
+                    SG_NUMBER,
+                    WALLET_ADDRESS,
                 }
 
                 enum class Value {
-                    IBAN,
-                    HK_NUMBER,
+                    AU_NUMBER,
                     CLABE,
+                    HK_NUMBER,
+                    IBAN,
+                    ID_NUMBER,
                     NZ_NUMBER,
-                    WALLET_ADDRESS,
-                    PAN,
                     OTHER,
+                    PAN,
+                    SG_NUMBER,
+                    WALLET_ADDRESS,
                     _UNKNOWN,
                 }
 
                 fun value(): Value =
                     when (this) {
-                        IBAN -> Value.IBAN
-                        HK_NUMBER -> Value.HK_NUMBER
+                        AU_NUMBER -> Value.AU_NUMBER
                         CLABE -> Value.CLABE
+                        HK_NUMBER -> Value.HK_NUMBER
+                        IBAN -> Value.IBAN
+                        ID_NUMBER -> Value.ID_NUMBER
                         NZ_NUMBER -> Value.NZ_NUMBER
-                        WALLET_ADDRESS -> Value.WALLET_ADDRESS
-                        PAN -> Value.PAN
                         OTHER -> Value.OTHER
+                        PAN -> Value.PAN
+                        SG_NUMBER -> Value.SG_NUMBER
+                        WALLET_ADDRESS -> Value.WALLET_ADDRESS
                         else -> Value._UNKNOWN
                     }
 
                 fun known(): Known =
                     when (this) {
-                        IBAN -> Known.IBAN
-                        HK_NUMBER -> Known.HK_NUMBER
+                        AU_NUMBER -> Known.AU_NUMBER
                         CLABE -> Known.CLABE
+                        HK_NUMBER -> Known.HK_NUMBER
+                        IBAN -> Known.IBAN
+                        ID_NUMBER -> Known.ID_NUMBER
                         NZ_NUMBER -> Known.NZ_NUMBER
-                        WALLET_ADDRESS -> Known.WALLET_ADDRESS
-                        PAN -> Known.PAN
                         OTHER -> Known.OTHER
+                        PAN -> Known.PAN
+                        SG_NUMBER -> Known.SG_NUMBER
+                        WALLET_ADDRESS -> Known.WALLET_ADDRESS
                         else ->
                             throw ModernTreasuryInvalidDataException(
                                 "Unknown AccountNumberType: $value"

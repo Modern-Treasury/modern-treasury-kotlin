@@ -466,19 +466,19 @@ constructor(
 
             val ADDRESS = Field(JsonField.of("address"))
 
-            val JP_ZENGIN_CODE = Field(JsonField.of("jp_zengin_code"))
+            val JP_ZENGIN_CODE = Field(JsonField.of("jpZenginCode"))
 
-            val SE_BANKGIRO_CLEARING_CODE = Field(JsonField.of("se_bankgiro_clearing_code"))
+            val SE_BANKGIRO_CLEARING_CODE = Field(JsonField.of("seBankgiroClearingCode"))
 
-            val NZ_NATIONAL_CLEARING_CODE = Field(JsonField.of("nz_national_clearing_code"))
+            val NZ_NATIONAL_CLEARING_CODE = Field(JsonField.of("nzNationalClearingCode"))
 
-            val HK_INTERBANK_CLEARING_CODE = Field(JsonField.of("hk_interbank_clearing_code"))
+            val HK_INTERBANK_CLEARING_CODE = Field(JsonField.of("hkInterbankClearingCode"))
 
-            val HU_INTERBANK_CLEARING_CODE = Field(JsonField.of("hu_interbank_clearing_code"))
+            val HU_INTERBANK_CLEARING_CODE = Field(JsonField.of("huInterbankClearingCode"))
 
-            val DK_INTERBANK_CLEARING_CODE = Field(JsonField.of("dk_interbank_clearing_code"))
+            val DK_INTERBANK_CLEARING_CODE = Field(JsonField.of("dkInterbankClearingCode"))
 
-            val ID_SKNBI_CODE = Field(JsonField.of("id_sknbi_code"))
+            val ID_SKNBI_CODE = Field(JsonField.of("idSknbiCode"))
 
             fun of(value: String) = Field(JsonField.of(value))
         }

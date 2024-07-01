@@ -33,7 +33,7 @@ class VirtualAccountServiceTest {
                                 .accountNumberType(
                                     VirtualAccountCreateParams.AccountDetailCreateRequest
                                         .AccountNumberType
-                                        .CLABE
+                                        .AU_NUMBER
                                 )
                                 .build()
                         )

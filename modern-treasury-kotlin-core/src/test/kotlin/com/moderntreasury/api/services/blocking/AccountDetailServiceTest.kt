@@ -27,7 +27,7 @@ class AccountDetailServiceTest {
                     .accountsType(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
                     .accountId("string")
                     .accountNumber("string")
-                    .accountNumberType(AccountDetailCreateParams.AccountNumberType.CLABE)
+                    .accountNumberType(AccountDetailCreateParams.AccountNumberType.AU_NUMBER)
                     .build()
             )
         println(accountDetail)

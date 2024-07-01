@@ -67,7 +67,8 @@ class ErrorHandlingTest {
                         ExternalAccountCreateParams.AccountDetail.builder()
                             .accountNumber("string")
                             .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType.IBAN
+                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                    .AU_NUMBER
                             )
                             .build()
                     )
@@ -143,7 +144,7 @@ class ErrorHandlingTest {
                         AccountDetail.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .accountNumberSafe("string")
-                            .accountNumberType(AccountDetail.AccountNumberType.CLABE)
+                            .accountNumberType(AccountDetail.AccountNumberType.AU_NUMBER)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .liveMode(true)
@@ -227,6 +228,7 @@ class ErrorHandlingTest {
                     )
                 )
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .verificationSource(ExternalAccount.VerificationSource.ACH_PRENOTE)
                 .verificationStatus(ExternalAccount.VerificationStatus.PENDING_VERIFICATION)
                 .build()
 
@@ -245,7 +247,8 @@ class ErrorHandlingTest {
                         ExternalAccountCreateParams.AccountDetail.builder()
                             .accountNumber("string")
                             .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType.IBAN
+                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                    .AU_NUMBER
                             )
                             .build()
                     )
@@ -336,7 +339,8 @@ class ErrorHandlingTest {
                         ExternalAccountCreateParams.AccountDetail.builder()
                             .accountNumber("string")
                             .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType.IBAN
+                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                    .AU_NUMBER
                             )
                             .build()
                     )
@@ -427,7 +431,8 @@ class ErrorHandlingTest {
                         ExternalAccountCreateParams.AccountDetail.builder()
                             .accountNumber("string")
                             .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType.IBAN
+                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                    .AU_NUMBER
                             )
                             .build()
                     )
@@ -522,7 +527,8 @@ class ErrorHandlingTest {
                         ExternalAccountCreateParams.AccountDetail.builder()
                             .accountNumber("string")
                             .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType.IBAN
+                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                    .AU_NUMBER
                             )
                             .build()
                     )
@@ -613,7 +619,8 @@ class ErrorHandlingTest {
                         ExternalAccountCreateParams.AccountDetail.builder()
                             .accountNumber("string")
                             .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType.IBAN
+                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                    .AU_NUMBER
                             )
                             .build()
                     )
@@ -708,7 +715,8 @@ class ErrorHandlingTest {
                         ExternalAccountCreateParams.AccountDetail.builder()
                             .accountNumber("string")
                             .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType.IBAN
+                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                    .AU_NUMBER
                             )
                             .build()
                     )
@@ -799,7 +807,8 @@ class ErrorHandlingTest {
                         ExternalAccountCreateParams.AccountDetail.builder()
                             .accountNumber("string")
                             .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType.IBAN
+                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                    .AU_NUMBER
                             )
                             .build()
                     )
@@ -894,7 +903,8 @@ class ErrorHandlingTest {
                         ExternalAccountCreateParams.AccountDetail.builder()
                             .accountNumber("string")
                             .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType.IBAN
+                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                    .AU_NUMBER
                             )
                             .build()
                     )
@@ -990,7 +1000,8 @@ class ErrorHandlingTest {
                         ExternalAccountCreateParams.AccountDetail.builder()
                             .accountNumber("string")
                             .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType.IBAN
+                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                    .AU_NUMBER
                             )
                             .build()
                     )
@@ -1078,7 +1089,8 @@ class ErrorHandlingTest {
                         ExternalAccountCreateParams.AccountDetail.builder()
                             .accountNumber("string")
                             .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType.IBAN
+                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                    .AU_NUMBER
                             )
                             .build()
                     )

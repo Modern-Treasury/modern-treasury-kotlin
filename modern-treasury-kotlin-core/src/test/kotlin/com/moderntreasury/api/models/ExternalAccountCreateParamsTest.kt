@@ -17,7 +17,7 @@ class ExternalAccountCreateParamsTest {
                     ExternalAccountCreateParams.AccountDetail.builder()
                         .accountNumber("string")
                         .accountNumberType(
-                            ExternalAccountCreateParams.AccountDetail.AccountNumberType.IBAN
+                            ExternalAccountCreateParams.AccountDetail.AccountNumberType.AU_NUMBER
                         )
                         .build()
                 )
@@ -95,7 +95,8 @@ class ExternalAccountCreateParamsTest {
                         ExternalAccountCreateParams.AccountDetail.builder()
                             .accountNumber("string")
                             .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType.IBAN
+                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                    .AU_NUMBER
                             )
                             .build()
                     )
@@ -171,7 +172,7 @@ class ExternalAccountCreateParamsTest {
                     ExternalAccountCreateParams.AccountDetail.builder()
                         .accountNumber("string")
                         .accountNumberType(
-                            ExternalAccountCreateParams.AccountDetail.AccountNumberType.IBAN
+                            ExternalAccountCreateParams.AccountDetail.AccountNumberType.AU_NUMBER
                         )
                         .build()
                 )

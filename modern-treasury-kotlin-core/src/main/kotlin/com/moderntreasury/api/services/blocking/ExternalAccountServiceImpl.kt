@@ -17,6 +17,7 @@ import com.moderntreasury.api.models.ExternalAccountListParams
 import com.moderntreasury.api.models.ExternalAccountRetrieveParams
 import com.moderntreasury.api.models.ExternalAccountUpdateParams
 import com.moderntreasury.api.models.ExternalAccountVerifyParams
+import com.moderntreasury.api.models.ExternalAccountVerifyResponse
 import com.moderntreasury.api.services.emptyHandler
 import com.moderntreasury.api.services.errorHandler
 import com.moderntreasury.api.services.json
@@ -205,14 +206,15 @@ constructor(
         }
     }
 
-    private val verifyHandler: Handler<ExternalAccount> =
-        jsonHandler<ExternalAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    private val verifyHandler: Handler<ExternalAccountVerifyResponse> =
+        jsonHandler<ExternalAccountVerifyResponse>(clientOptions.jsonMapper)
+            .withErrorHandler(errorHandler)
 
     /** verify external account */
     override fun verify(
         params: ExternalAccountVerifyParams,
         requestOptions: RequestOptions
-    ): ExternalAccount {
+    ): ExternalAccountVerifyResponse {
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.POST)

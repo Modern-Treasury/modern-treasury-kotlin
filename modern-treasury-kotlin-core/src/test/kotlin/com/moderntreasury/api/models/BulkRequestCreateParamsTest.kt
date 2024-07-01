@@ -196,7 +196,7 @@ class BulkRequestCreateParamsTest {
                                                         .ReceivingAccount
                                                         .AccountDetail
                                                         .AccountNumberType
-                                                        .IBAN
+                                                        .AU_NUMBER
                                                 )
                                                 .build()
                                         )
@@ -527,7 +527,7 @@ class BulkRequestCreateParamsTest {
                                                             .ReceivingAccount
                                                             .AccountDetail
                                                             .AccountNumberType
-                                                            .IBAN
+                                                            .AU_NUMBER
                                                     )
                                                     .build()
                                             )
@@ -854,7 +854,7 @@ class BulkRequestCreateParamsTest {
                                                         .ReceivingAccount
                                                         .AccountDetail
                                                         .AccountNumberType
-                                                        .IBAN
+                                                        .AU_NUMBER
                                                 )
                                                 .build()
                                         )
