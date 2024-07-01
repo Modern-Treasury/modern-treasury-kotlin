@@ -134,7 +134,7 @@ class PaymentOrderCreateParamsTest {
                                 .accountNumberType(
                                     PaymentOrderCreateParams.ReceivingAccount.AccountDetail
                                         .AccountNumberType
-                                        .IBAN
+                                        .AU_NUMBER
                                 )
                                 .build()
                         )
@@ -357,7 +357,7 @@ class PaymentOrderCreateParamsTest {
                                     .accountNumberType(
                                         PaymentOrderCreateParams.ReceivingAccount.AccountDetail
                                             .AccountNumberType
-                                            .IBAN
+                                            .AU_NUMBER
                                     )
                                     .build()
                             )
@@ -580,7 +580,7 @@ class PaymentOrderCreateParamsTest {
                                 .accountNumberType(
                                     PaymentOrderCreateParams.ReceivingAccount.AccountDetail
                                         .AccountNumberType
-                                        .IBAN
+                                        .AU_NUMBER
                                 )
                                 .build()
                         )

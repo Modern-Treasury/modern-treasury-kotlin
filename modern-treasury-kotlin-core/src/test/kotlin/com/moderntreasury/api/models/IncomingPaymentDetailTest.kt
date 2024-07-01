@@ -27,7 +27,7 @@ class IncomingPaymentDetailTest {
                 .object_("string")
                 .originatingAccountNumberSafe("string")
                 .originatingAccountNumberType(
-                    IncomingPaymentDetail.OriginatingAccountNumberType.CLABE
+                    IncomingPaymentDetail.OriginatingAccountNumberType.AU_NUMBER
                 )
                 .originatingRoutingNumber("string")
                 .originatingRoutingNumberType(
@@ -47,7 +47,7 @@ class IncomingPaymentDetailTest {
                                 AccountDetail.builder()
                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .accountNumberSafe("string")
-                                    .accountNumberType(AccountDetail.AccountNumberType.CLABE)
+                                    .accountNumberType(AccountDetail.AccountNumberType.AU_NUMBER)
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .liveMode(true)
@@ -130,7 +130,7 @@ class IncomingPaymentDetailTest {
         assertThat(incomingPaymentDetail.object_()).isEqualTo("string")
         assertThat(incomingPaymentDetail.originatingAccountNumberSafe()).isEqualTo("string")
         assertThat(incomingPaymentDetail.originatingAccountNumberType())
-            .isEqualTo(IncomingPaymentDetail.OriginatingAccountNumberType.CLABE)
+            .isEqualTo(IncomingPaymentDetail.OriginatingAccountNumberType.AU_NUMBER)
         assertThat(incomingPaymentDetail.originatingRoutingNumber()).isEqualTo("string")
         assertThat(incomingPaymentDetail.originatingRoutingNumberType())
             .isEqualTo(IncomingPaymentDetail.OriginatingRoutingNumberType.ABA)
@@ -153,7 +153,7 @@ class IncomingPaymentDetailTest {
                             AccountDetail.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .accountNumberSafe("string")
-                                .accountNumberType(AccountDetail.AccountNumberType.CLABE)
+                                .accountNumberType(AccountDetail.AccountNumberType.AU_NUMBER)
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .liveMode(true)

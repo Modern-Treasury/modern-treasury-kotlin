@@ -14,6 +14,7 @@ import com.moderntreasury.api.models.ExternalAccountListParams
 import com.moderntreasury.api.models.ExternalAccountRetrieveParams
 import com.moderntreasury.api.models.ExternalAccountUpdateParams
 import com.moderntreasury.api.models.ExternalAccountVerifyParams
+import com.moderntreasury.api.models.ExternalAccountVerifyResponse
 
 interface ExternalAccountServiceAsync {
 
@@ -57,5 +58,5 @@ interface ExternalAccountServiceAsync {
     suspend fun verify(
         params: ExternalAccountVerifyParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): ExternalAccount
+    ): ExternalAccountVerifyResponse
 }

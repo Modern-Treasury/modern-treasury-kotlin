@@ -1339,6 +1339,8 @@ private constructor(
 
             val PLAID = VendorCodeType(JsonField.of("plaid"))
 
+            val PNC = VendorCodeType(JsonField.of("pnc"))
+
             val RSPEC_VENDOR = VendorCodeType(JsonField.of("rspec_vendor"))
 
             val SIGNET = VendorCodeType(JsonField.of("signet"))
@@ -1370,6 +1372,7 @@ private constructor(
             JPMC,
             MX,
             PLAID,
+            PNC,
             RSPEC_VENDOR,
             SIGNET,
             SILVERGATE,
@@ -1394,6 +1397,7 @@ private constructor(
             JPMC,
             MX,
             PLAID,
+            PNC,
             RSPEC_VENDOR,
             SIGNET,
             SILVERGATE,
@@ -1420,6 +1424,7 @@ private constructor(
                 JPMC -> Value.JPMC
                 MX -> Value.MX
                 PLAID -> Value.PLAID
+                PNC -> Value.PNC
                 RSPEC_VENDOR -> Value.RSPEC_VENDOR
                 SIGNET -> Value.SIGNET
                 SILVERGATE -> Value.SILVERGATE
@@ -1446,6 +1451,7 @@ private constructor(
                 JPMC -> Known.JPMC
                 MX -> Known.MX
                 PLAID -> Known.PLAID
+                PNC -> Known.PNC
                 RSPEC_VENDOR -> Known.RSPEC_VENDOR
                 SIGNET -> Known.SIGNET
                 SILVERGATE -> Known.SILVERGATE

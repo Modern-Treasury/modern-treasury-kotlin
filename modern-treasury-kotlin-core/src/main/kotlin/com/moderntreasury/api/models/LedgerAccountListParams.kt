@@ -22,7 +22,7 @@ constructor(
     private val ledgerAccountCategoryId: String?,
     private val ledgerId: String?,
     private val metadata: Metadata?,
-    private val name: String?,
+    private val name: List<String>?,
     private val pendingBalanceAmount: PendingBalanceAmount?,
     private val perPage: Long?,
     private val postedBalanceAmount: PostedBalanceAmount?,
@@ -50,7 +50,7 @@ constructor(
 
     fun metadata(): Metadata? = metadata
 
-    fun name(): String? = name
+    fun name(): List<String>? = name
 
     fun pendingBalanceAmount(): PendingBalanceAmount? = pendingBalanceAmount
 
@@ -75,7 +75,7 @@ constructor(
         }
         this.ledgerId?.let { params.put("ledger_id", listOf(it.toString())) }
         this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
-        this.name?.let { params.put("name", listOf(it.toString())) }
+        this.name?.let { params.put("name[]", it.map(Any::toString)) }
         this.pendingBalanceAmount?.forEachQueryParam { key, values ->
             params.put("pending_balance_amount[$key]", values)
         }
@@ -165,7 +165,7 @@ constructor(
         private var ledgerAccountCategoryId: String? = null
         private var ledgerId: String? = null
         private var metadata: Metadata? = null
-        private var name: String? = null
+        private var name: MutableList<String> = mutableListOf()
         private var pendingBalanceAmount: PendingBalanceAmount? = null
         private var perPage: Long? = null
         private var postedBalanceAmount: PostedBalanceAmount? = null
@@ -184,7 +184,7 @@ constructor(
             this.ledgerAccountCategoryId = ledgerAccountListParams.ledgerAccountCategoryId
             this.ledgerId = ledgerAccountListParams.ledgerId
             this.metadata = ledgerAccountListParams.metadata
-            this.name = ledgerAccountListParams.name
+            this.name(ledgerAccountListParams.name ?: listOf())
             this.pendingBalanceAmount = ledgerAccountListParams.pendingBalanceAmount
             this.perPage = ledgerAccountListParams.perPage
             this.postedBalanceAmount = ledgerAccountListParams.postedBalanceAmount
@@ -248,7 +248,20 @@ constructor(
          */
         fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
-        fun name(name: String) = apply { this.name = name }
+        /**
+         * If you have specific names to retrieve in bulk, you can pass them as query parameters
+         * delimited with `name[]=`, for example `?name[]=123&name[]=abc`.
+         */
+        fun name(name: List<String>) = apply {
+            this.name.clear()
+            this.name.addAll(name)
+        }
+
+        /**
+         * If you have specific names to retrieve in bulk, you can pass them as query parameters
+         * delimited with `name[]=`, for example `?name[]=123&name[]=abc`.
+         */
+        fun addName(name: String) = apply { this.name.add(name) }
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), `eq` (=), or `not_eq` (!=) to filter by
@@ -340,7 +353,7 @@ constructor(
                 ledgerAccountCategoryId,
                 ledgerId,
                 metadata,
-                name,
+                if (name.size == 0) null else name.toUnmodifiable(),
                 pendingBalanceAmount,
                 perPage,
                 postedBalanceAmount,

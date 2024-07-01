@@ -40,6 +40,7 @@ private constructor(
     private val contactDetails: JsonField<List<ContactDetail>>,
     private val ledgerAccountId: JsonField<String>,
     private val verificationStatus: JsonField<VerificationStatus>,
+    private val verificationSource: JsonField<VerificationSource>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -101,6 +102,9 @@ private constructor(
     fun verificationStatus(): VerificationStatus =
         verificationStatus.getRequired("verification_status")
 
+    fun verificationSource(): VerificationSource? =
+        verificationSource.getNullable("verification_source")
+
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     @JsonProperty("object") @ExcludeMissing fun _object_() = object_
@@ -156,6 +160,10 @@ private constructor(
     @ExcludeMissing
     fun _verificationStatus() = verificationStatus
 
+    @JsonProperty("verification_source")
+    @ExcludeMissing
+    fun _verificationSource() = verificationSource
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -180,6 +188,7 @@ private constructor(
             contactDetails().forEach { it.validate() }
             ledgerAccountId()
             verificationStatus()
+            verificationSource()
             validated = true
         }
     }
@@ -210,6 +219,7 @@ private constructor(
             this.contactDetails == other.contactDetails &&
             this.ledgerAccountId == other.ledgerAccountId &&
             this.verificationStatus == other.verificationStatus &&
+            this.verificationSource == other.verificationSource &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -235,6 +245,7 @@ private constructor(
                     contactDetails,
                     ledgerAccountId,
                     verificationStatus,
+                    verificationSource,
                     additionalProperties,
                 )
         }
@@ -242,7 +253,7 @@ private constructor(
     }
 
     override fun toString() =
-        "ExternalAccount{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, accountType=$accountType, partyType=$partyType, partyAddress=$partyAddress, name=$name, counterpartyId=$counterpartyId, accountDetails=$accountDetails, routingDetails=$routingDetails, metadata=$metadata, partyName=$partyName, contactDetails=$contactDetails, ledgerAccountId=$ledgerAccountId, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
+        "ExternalAccount{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, accountType=$accountType, partyType=$partyType, partyAddress=$partyAddress, name=$name, counterpartyId=$counterpartyId, accountDetails=$accountDetails, routingDetails=$routingDetails, metadata=$metadata, partyName=$partyName, contactDetails=$contactDetails, ledgerAccountId=$ledgerAccountId, verificationStatus=$verificationStatus, verificationSource=$verificationSource, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -269,6 +280,7 @@ private constructor(
         private var contactDetails: JsonField<List<ContactDetail>> = JsonMissing.of()
         private var ledgerAccountId: JsonField<String> = JsonMissing.of()
         private var verificationStatus: JsonField<VerificationStatus> = JsonMissing.of()
+        private var verificationSource: JsonField<VerificationSource> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(externalAccount: ExternalAccount) = apply {
@@ -290,6 +302,7 @@ private constructor(
             this.contactDetails = externalAccount.contactDetails
             this.ledgerAccountId = externalAccount.ledgerAccountId
             this.verificationStatus = externalAccount.verificationStatus
+            this.verificationSource = externalAccount.verificationSource
             additionalProperties(externalAccount.additionalProperties)
         }
 
@@ -460,6 +473,15 @@ private constructor(
             this.verificationStatus = verificationStatus
         }
 
+        fun verificationSource(verificationSource: VerificationSource) =
+            verificationSource(JsonField.of(verificationSource))
+
+        @JsonProperty("verification_source")
+        @ExcludeMissing
+        fun verificationSource(verificationSource: JsonField<VerificationSource>) = apply {
+            this.verificationSource = verificationSource
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -494,6 +516,7 @@ private constructor(
                 contactDetails.map { it.toUnmodifiable() },
                 ledgerAccountId,
                 verificationStatus,
+                verificationSource,
                 additionalProperties.toUnmodifiable(),
             )
     }
@@ -1240,6 +1263,70 @@ private constructor(
                 BUSINESS -> Known.BUSINESS
                 INDIVIDUAL -> Known.INDIVIDUAL
                 else -> throw ModernTreasuryInvalidDataException("Unknown PartyType: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class VerificationSource
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is VerificationSource && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val ACH_PRENOTE = VerificationSource(JsonField.of("ach_prenote"))
+
+            val MICRODEPOSITS = VerificationSource(JsonField.of("microdeposits"))
+
+            val PLAID = VerificationSource(JsonField.of("plaid"))
+
+            fun of(value: String) = VerificationSource(JsonField.of(value))
+        }
+
+        enum class Known {
+            ACH_PRENOTE,
+            MICRODEPOSITS,
+            PLAID,
+        }
+
+        enum class Value {
+            ACH_PRENOTE,
+            MICRODEPOSITS,
+            PLAID,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                ACH_PRENOTE -> Value.ACH_PRENOTE
+                MICRODEPOSITS -> Value.MICRODEPOSITS
+                PLAID -> Value.PLAID
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                ACH_PRENOTE -> Known.ACH_PRENOTE
+                MICRODEPOSITS -> Known.MICRODEPOSITS
+                PLAID -> Known.PLAID
+                else ->
+                    throw ModernTreasuryInvalidDataException("Unknown VerificationSource: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()

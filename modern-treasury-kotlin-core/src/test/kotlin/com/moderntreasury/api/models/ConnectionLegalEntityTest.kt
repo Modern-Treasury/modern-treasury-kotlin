@@ -21,6 +21,7 @@ class ConnectionLegalEntityTest {
                 .object_("string")
                 .status(ConnectionLegalEntity.Status.COMPLETED)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .vendorId("string")
                 .build()
         assertThat(connectionLegalEntity).isNotNull
         assertThat(connectionLegalEntity.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -35,5 +36,6 @@ class ConnectionLegalEntityTest {
         assertThat(connectionLegalEntity.status()).isEqualTo(ConnectionLegalEntity.Status.COMPLETED)
         assertThat(connectionLegalEntity.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(connectionLegalEntity.vendorId()).isEqualTo("string")
     }
 }

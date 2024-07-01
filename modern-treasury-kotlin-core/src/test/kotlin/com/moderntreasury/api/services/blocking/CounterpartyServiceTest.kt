@@ -41,7 +41,7 @@ class CounterpartyServiceTest {
                                             .accountNumberType(
                                                 CounterpartyCreateParams.Account.AccountDetail
                                                     .AccountNumberType
-                                                    .IBAN
+                                                    .AU_NUMBER
                                             )
                                             .build()
                                     )

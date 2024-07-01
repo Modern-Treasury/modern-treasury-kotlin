@@ -63,7 +63,7 @@ class PaymentOrderUpdateParamsTest {
                                 .accountNumberType(
                                     PaymentOrderUpdateParams.ReceivingAccount.AccountDetail
                                         .AccountNumberType
-                                        .IBAN
+                                        .AU_NUMBER
                                 )
                                 .build()
                         )
@@ -212,7 +212,7 @@ class PaymentOrderUpdateParamsTest {
                                     .accountNumberType(
                                         PaymentOrderUpdateParams.ReceivingAccount.AccountDetail
                                             .AccountNumberType
-                                            .IBAN
+                                            .AU_NUMBER
                                     )
                                     .build()
                             )
@@ -362,7 +362,7 @@ class PaymentOrderUpdateParamsTest {
                                 .accountNumberType(
                                     PaymentOrderUpdateParams.ReceivingAccount.AccountDetail
                                         .AccountNumberType
-                                        .IBAN
+                                        .AU_NUMBER
                                 )
                                 .build()
                         )
