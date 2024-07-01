@@ -1,5 +1,28 @@
 # Changelog
 
+## 2.15.0 (2024-07-01)
+
+Full Changelog: [v2.14.0...v2.15.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.14.0...v2.15.0)
+
+### Features
+
+* **api:** add kr_brn kr_crn kr_rrn enum values ([#177](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/177)) ([929b060](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/929b060c1e1a9202905e34eab2a184dd8e06c7ec))
+* **api:** add risk rating field ([#178](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/178)) ([d9455a1](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d9455a16112e91c614ffb06486d294741dc43219))
+* **api:** updates ([#183](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/183)) ([bf14c8a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/bf14c8aad845dc98ec3a6d358908f7ab531e7bf0))
+* **client:** add support for `putQueryParam` on `ClientOptions` ([#181](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/181)) ([4fd26bd](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4fd26bdd6d91389043e6cd3a5218dbe945a31720))
+
+
+### Bug Fixes
+
+* fix enum type to be non nullable ([#180](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/180)) ([d56c560](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d56c560623cf871bdaf43c9e37894f20611c493a))
+
+
+### Chores
+
+* gitignore test server logs ([#182](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/182)) ([c985d55](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c985d55bbefa5ca72b118ea96054794cf25e99cb))
+* **internal:** add code reviewer ([#175](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/175)) ([fa1567a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/fa1567a78941af28db4d835ea78470e465243954))
+* **internal:** sync urls ([#179](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/179)) ([2abbf8a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2abbf8ac4fbfc4ef7b0517e5b341131d3f84b438))
+
 ## 2.14.0 (2024-05-28)
 
 Full Changelog: [v2.13.0...v2.14.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.13.0...v2.14.0)
