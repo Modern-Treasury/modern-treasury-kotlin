@@ -38,7 +38,7 @@ class LedgerAccountListParamsTest {
             .ledgerAccountCategoryId("string")
             .ledgerId("string")
             .metadata(LedgerAccountListParams.Metadata.builder().build())
-            .name("string")
+            .name(listOf("string"))
             .pendingBalanceAmount(
                 LedgerAccountListParams.PendingBalanceAmount.builder()
                     .eq(123L)
@@ -93,7 +93,7 @@ class LedgerAccountListParamsTest {
                 .ledgerAccountCategoryId("string")
                 .ledgerId("string")
                 .metadata(LedgerAccountListParams.Metadata.builder().build())
-                .name("string")
+                .name(listOf("string"))
                 .pendingBalanceAmount(
                     LedgerAccountListParams.PendingBalanceAmount.builder()
                         .eq(123L)
@@ -147,7 +147,7 @@ class LedgerAccountListParamsTest {
         LedgerAccountListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
-        expected.put("name", listOf("string"))
+        expected.put("name[]", listOf("string"))
         LedgerAccountListParams.PendingBalanceAmount.builder()
             .eq(123L)
             .gt(123L)

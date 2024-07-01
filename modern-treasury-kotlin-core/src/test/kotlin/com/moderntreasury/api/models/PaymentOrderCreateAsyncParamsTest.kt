@@ -125,7 +125,7 @@ class PaymentOrderCreateAsyncParamsTest {
                                 .accountNumberType(
                                     PaymentOrderCreateAsyncParams.ReceivingAccount.AccountDetail
                                         .AccountNumberType
-                                        .IBAN
+                                        .AU_NUMBER
                                 )
                                 .build()
                         )
@@ -344,7 +344,7 @@ class PaymentOrderCreateAsyncParamsTest {
                                     .accountNumberType(
                                         PaymentOrderCreateAsyncParams.ReceivingAccount.AccountDetail
                                             .AccountNumberType
-                                            .IBAN
+                                            .AU_NUMBER
                                     )
                                     .build()
                             )
@@ -564,7 +564,7 @@ class PaymentOrderCreateAsyncParamsTest {
                                 .accountNumberType(
                                     PaymentOrderCreateAsyncParams.ReceivingAccount.AccountDetail
                                         .AccountNumberType
-                                        .IBAN
+                                        .AU_NUMBER
                                 )
                                 .build()
                         )

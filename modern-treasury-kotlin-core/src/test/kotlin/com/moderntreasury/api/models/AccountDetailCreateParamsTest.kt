@@ -14,7 +14,7 @@ class AccountDetailCreateParamsTest {
             .accountsType(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
             .accountId("string")
             .accountNumber("string")
-            .accountNumberType(AccountDetailCreateParams.AccountNumberType.CLABE)
+            .accountNumberType(AccountDetailCreateParams.AccountNumberType.AU_NUMBER)
             .build()
     }
 
@@ -25,13 +25,13 @@ class AccountDetailCreateParamsTest {
                 .accountsType(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
                 .accountId("string")
                 .accountNumber("string")
-                .accountNumberType(AccountDetailCreateParams.AccountNumberType.CLABE)
+                .accountNumberType(AccountDetailCreateParams.AccountNumberType.AU_NUMBER)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountNumber()).isEqualTo("string")
         assertThat(body.accountNumberType())
-            .isEqualTo(AccountDetailCreateParams.AccountNumberType.CLABE)
+            .isEqualTo(AccountDetailCreateParams.AccountNumberType.AU_NUMBER)
     }
 
     @Test

@@ -30,7 +30,8 @@ class ExternalAccountServiceTest {
                             ExternalAccountCreateParams.AccountDetail.builder()
                                 .accountNumber("string")
                                 .accountNumberType(
-                                    ExternalAccountCreateParams.AccountDetail.AccountNumberType.IBAN
+                                    ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                        .AU_NUMBER
                                 )
                                 .build()
                         )
@@ -214,7 +215,7 @@ class ExternalAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val externalAccountService = client.externalAccounts()
-        val externalAccount =
+        val externalAccountVerifyResponse =
             externalAccountService.verify(
                 ExternalAccountVerifyParams.builder()
                     .id("string")
@@ -225,7 +226,6 @@ class ExternalAccountServiceTest {
                     .priority(ExternalAccountVerifyParams.Priority.HIGH)
                     .build()
             )
-        println(externalAccount)
-        externalAccount.validate()
+        println(externalAccountVerifyResponse)
     }
 }

@@ -28,7 +28,7 @@ class CounterpartyCreateParamsTest {
                                     .accountNumberType(
                                         CounterpartyCreateParams.Account.AccountDetail
                                             .AccountNumberType
-                                            .IBAN
+                                            .AU_NUMBER
                                     )
                                     .build()
                             )
@@ -326,7 +326,7 @@ class CounterpartyCreateParamsTest {
                                         .accountNumberType(
                                             CounterpartyCreateParams.Account.AccountDetail
                                                 .AccountNumberType
-                                                .IBAN
+                                                .AU_NUMBER
                                         )
                                         .build()
                                 )
@@ -634,7 +634,7 @@ class CounterpartyCreateParamsTest {
                                     .accountNumberType(
                                         CounterpartyCreateParams.Account.AccountDetail
                                             .AccountNumberType
-                                            .IBAN
+                                            .AU_NUMBER
                                     )
                                     .build()
                             )

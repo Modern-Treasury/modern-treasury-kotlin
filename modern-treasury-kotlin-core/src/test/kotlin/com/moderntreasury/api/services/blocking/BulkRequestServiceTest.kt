@@ -224,7 +224,7 @@ class BulkRequestServiceTest {
                                                                 .ReceivingAccount
                                                                 .AccountDetail
                                                                 .AccountNumberType
-                                                                .IBAN
+                                                                .AU_NUMBER
                                                         )
                                                         .build()
                                                 )
