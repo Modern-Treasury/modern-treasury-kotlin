@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.15.1 (2024-07-10)
+
+Full Changelog: [v2.15.0...v2.15.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.15.0...v2.15.1)
+
+### Chores
+
+* **docs:** document minimum Java version (Java 8) in README ([#184](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/184)) ([a9eb7cd](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a9eb7cd41b7c17d54cbcf75c1ccf20804c7c87ad))
+
 ## 2.15.0 (2024-07-01)
 
 Full Changelog: [v2.14.0...v2.15.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.14.0...v2.15.0)
