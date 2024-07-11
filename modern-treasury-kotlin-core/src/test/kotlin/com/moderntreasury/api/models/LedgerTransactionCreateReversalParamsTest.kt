@@ -12,10 +12,10 @@ class LedgerTransactionCreateReversalParamsTest {
     @Test
     fun createLedgerTransactionCreateReversalParams() {
         LedgerTransactionCreateReversalParams.builder()
-            .id("string")
-            .description("string")
+            .id("id")
+            .description("description")
             .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .externalId("string")
+            .externalId("external_id")
             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .ledgerableType(LedgerTransactionCreateReversalParams.LedgerableType.EXPECTED_PAYMENT)
             .metadata(LedgerTransactionCreateReversalParams.Metadata.builder().build())
@@ -27,10 +27,10 @@ class LedgerTransactionCreateReversalParamsTest {
     fun getBody() {
         val params =
             LedgerTransactionCreateReversalParams.builder()
-                .id("string")
-                .description("string")
+                .id("id")
+                .description("description")
                 .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .externalId("string")
+                .externalId("external_id")
                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerableType(
                     LedgerTransactionCreateReversalParams.LedgerableType.EXPECTED_PAYMENT
@@ -40,9 +40,9 @@ class LedgerTransactionCreateReversalParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.description()).isEqualTo("string")
+        assertThat(body.description()).isEqualTo("description")
         assertThat(body.effectiveAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(body.externalId()).isEqualTo("string")
+        assertThat(body.externalId()).isEqualTo("external_id")
         assertThat(body.ledgerableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.ledgerableType())
             .isEqualTo(LedgerTransactionCreateReversalParams.LedgerableType.EXPECTED_PAYMENT)
@@ -53,17 +53,17 @@ class LedgerTransactionCreateReversalParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = LedgerTransactionCreateReversalParams.builder().id("string").build()
+        val params = LedgerTransactionCreateReversalParams.builder().id("id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
 
     @Test
     fun getPathParam() {
-        val params = LedgerTransactionCreateReversalParams.builder().id("string").build()
+        val params = LedgerTransactionCreateReversalParams.builder().id("id").build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

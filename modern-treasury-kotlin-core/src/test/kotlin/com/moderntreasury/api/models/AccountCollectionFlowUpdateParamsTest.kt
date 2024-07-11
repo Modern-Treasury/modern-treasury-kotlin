@@ -11,7 +11,7 @@ class AccountCollectionFlowUpdateParamsTest {
     @Test
     fun createAccountCollectionFlowUpdateParams() {
         AccountCollectionFlowUpdateParams.builder()
-            .id("string")
+            .id("id")
             .status(AccountCollectionFlowUpdateParams.Status.CANCELLED)
             .build()
     }
@@ -20,7 +20,7 @@ class AccountCollectionFlowUpdateParamsTest {
     fun getBody() {
         val params =
             AccountCollectionFlowUpdateParams.builder()
-                .id("string")
+                .id("id")
                 .status(AccountCollectionFlowUpdateParams.Status.CANCELLED)
                 .build()
         val body = params.getBody()
@@ -32,7 +32,7 @@ class AccountCollectionFlowUpdateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             AccountCollectionFlowUpdateParams.builder()
-                .id("string")
+                .id("id")
                 .status(AccountCollectionFlowUpdateParams.Status.CANCELLED)
                 .build()
         val body = params.getBody()
@@ -44,12 +44,12 @@ class AccountCollectionFlowUpdateParamsTest {
     fun getPathParam() {
         val params =
             AccountCollectionFlowUpdateParams.builder()
-                .id("string")
+                .id("id")
                 .status(AccountCollectionFlowUpdateParams.Status.CANCELLED)
                 .build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

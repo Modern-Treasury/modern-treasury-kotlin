@@ -22,7 +22,7 @@ class ExpectedPaymentCreateParamsTest {
             .currency(Currency.AED)
             .dateLowerBound(LocalDate.parse("2019-12-27"))
             .dateUpperBound(LocalDate.parse("2019-12-27"))
-            .description("string")
+            .description("description")
             .ledgerTransaction(
                 ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.builder()
                     .ledgerEntries(
@@ -66,10 +66,10 @@ class ExpectedPaymentCreateParamsTest {
                                 .build()
                         )
                     )
-                    .description("string")
+                    .description("description")
                     .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .effectiveDate(LocalDate.parse("2019-12-27"))
-                    .externalId("string")
+                    .externalId("external_id")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
                         ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.LedgerableType
@@ -90,8 +90,8 @@ class ExpectedPaymentCreateParamsTest {
                 listOf(
                     ExpectedPaymentCreateParams.LineItemRequest.builder()
                         .amount(123L)
-                        .accountingCategoryId("string")
-                        .description("string")
+                        .accountingCategoryId("accounting_category_id")
+                        .description("description")
                         .metadata(
                             ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder().build()
                         )
@@ -104,8 +104,8 @@ class ExpectedPaymentCreateParamsTest {
             .reconciliationRuleVariables(
                 listOf(ExpectedPaymentCreateParams.ReconciliationRuleVariable.builder().build())
             )
-            .remittanceInformation("string")
-            .statementDescriptor("string")
+            .remittanceInformation("remittance_information")
+            .statementDescriptor("statement_descriptor")
             .type(ExpectedPaymentType.ACH)
             .build()
     }
@@ -122,7 +122,7 @@ class ExpectedPaymentCreateParamsTest {
                 .currency(Currency.AED)
                 .dateLowerBound(LocalDate.parse("2019-12-27"))
                 .dateUpperBound(LocalDate.parse("2019-12-27"))
-                .description("string")
+                .description("description")
                 .ledgerTransaction(
                     ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.builder()
                         .ledgerEntries(
@@ -166,10 +166,10 @@ class ExpectedPaymentCreateParamsTest {
                                     .build()
                             )
                         )
-                        .description("string")
+                        .description("description")
                         .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .effectiveDate(LocalDate.parse("2019-12-27"))
-                        .externalId("string")
+                        .externalId("external_id")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExpectedPaymentCreateParams.LedgerTransactionCreateRequest
@@ -192,8 +192,8 @@ class ExpectedPaymentCreateParamsTest {
                     listOf(
                         ExpectedPaymentCreateParams.LineItemRequest.builder()
                             .amount(123L)
-                            .accountingCategoryId("string")
-                            .description("string")
+                            .accountingCategoryId("accounting_category_id")
+                            .description("description")
                             .metadata(
                                 ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder()
                                     .build()
@@ -207,8 +207,8 @@ class ExpectedPaymentCreateParamsTest {
                 .reconciliationRuleVariables(
                     listOf(ExpectedPaymentCreateParams.ReconciliationRuleVariable.builder().build())
                 )
-                .remittanceInformation("string")
-                .statementDescriptor("string")
+                .remittanceInformation("remittance_information")
+                .statementDescriptor("statement_descriptor")
                 .type(ExpectedPaymentType.ACH)
                 .build()
         val body = params.getBody()
@@ -221,7 +221,7 @@ class ExpectedPaymentCreateParamsTest {
         assertThat(body.currency()).isEqualTo(Currency.AED)
         assertThat(body.dateLowerBound()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.dateUpperBound()).isEqualTo(LocalDate.parse("2019-12-27"))
-        assertThat(body.description()).isEqualTo("string")
+        assertThat(body.description()).isEqualTo("description")
         assertThat(body.ledgerTransaction())
             .isEqualTo(
                 ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.builder()
@@ -266,10 +266,10 @@ class ExpectedPaymentCreateParamsTest {
                                 .build()
                         )
                     )
-                    .description("string")
+                    .description("description")
                     .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .effectiveDate(LocalDate.parse("2019-12-27"))
-                    .externalId("string")
+                    .externalId("external_id")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
                         ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.LedgerableType
@@ -291,8 +291,8 @@ class ExpectedPaymentCreateParamsTest {
                 listOf(
                     ExpectedPaymentCreateParams.LineItemRequest.builder()
                         .amount(123L)
-                        .accountingCategoryId("string")
-                        .description("string")
+                        .accountingCategoryId("accounting_category_id")
+                        .description("description")
                         .metadata(
                             ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder().build()
                         )
@@ -307,8 +307,8 @@ class ExpectedPaymentCreateParamsTest {
             .isEqualTo(
                 listOf(ExpectedPaymentCreateParams.ReconciliationRuleVariable.builder().build())
             )
-        assertThat(body.remittanceInformation()).isEqualTo("string")
-        assertThat(body.statementDescriptor()).isEqualTo("string")
+        assertThat(body.remittanceInformation()).isEqualTo("remittance_information")
+        assertThat(body.statementDescriptor()).isEqualTo("statement_descriptor")
         assertThat(body.type()).isEqualTo(ExpectedPaymentType.ACH)
     }
 

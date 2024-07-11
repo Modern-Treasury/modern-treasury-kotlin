@@ -60,10 +60,10 @@ class LedgerTransactionServiceTest {
                                 .build()
                         )
                     )
-                    .description("string")
+                    .description("description")
                     .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .effectiveDate(LocalDate.parse("2019-12-27"))
-                    .externalId("string")
+                    .externalId("external_id")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(LedgerTransactionCreateParams.LedgerableType.EXPECTED_PAYMENT)
                     .metadata(LedgerTransactionCreateParams.Metadata.builder().build())
@@ -85,7 +85,7 @@ class LedgerTransactionServiceTest {
         val ledgerTransactionService = client.ledgerTransactions()
         val ledgerTransaction =
             ledgerTransactionService.retrieve(
-                LedgerTransactionRetrieveParams.builder().id("string").build()
+                LedgerTransactionRetrieveParams.builder().id("id").build()
             )
         println(ledgerTransaction)
         ledgerTransaction.validate()
@@ -103,8 +103,8 @@ class LedgerTransactionServiceTest {
         val ledgerTransaction =
             ledgerTransactionService.update(
                 LedgerTransactionUpdateParams.builder()
-                    .id("string")
-                    .description("string")
+                    .id("id")
+                    .description("description")
                     .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .ledgerEntries(
                         listOf(
@@ -176,10 +176,10 @@ class LedgerTransactionServiceTest {
         val ledgerTransaction =
             ledgerTransactionService.createReversal(
                 LedgerTransactionCreateReversalParams.builder()
-                    .id("string")
-                    .description("string")
+                    .id("id")
+                    .description("description")
                     .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .externalId("string")
+                    .externalId("external_id")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
                         LedgerTransactionCreateReversalParams.LedgerableType.EXPECTED_PAYMENT

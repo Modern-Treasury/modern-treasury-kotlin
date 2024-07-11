@@ -26,12 +26,12 @@ class LedgerAccountCategoryServiceTest {
         val ledgerAccountCategory =
             ledgerAccountCategoryService.create(
                 LedgerAccountCategoryCreateParams.builder()
-                    .currency("string")
+                    .currency("currency")
                     .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .name("string")
+                    .name("name")
                     .normalBalance(TransactionDirection.CREDIT)
                     .currencyExponent(123L)
-                    .description("string")
+                    .description("description")
                     .metadata(LedgerAccountCategoryCreateParams.Metadata.builder().build())
                     .build()
             )
@@ -51,7 +51,7 @@ class LedgerAccountCategoryServiceTest {
         val ledgerAccountCategory =
             ledgerAccountCategoryService.retrieve(
                 LedgerAccountCategoryRetrieveParams.builder()
-                    .id("string")
+                    .id("id")
                     .balances(
                         LedgerAccountCategoryRetrieveParams.Balances.builder()
                             .asOfDate(LocalDate.parse("2019-12-27"))
@@ -76,10 +76,10 @@ class LedgerAccountCategoryServiceTest {
         val ledgerAccountCategory =
             ledgerAccountCategoryService.update(
                 LedgerAccountCategoryUpdateParams.builder()
-                    .id("string")
-                    .description("string")
+                    .id("id")
+                    .description("description")
                     .metadata(LedgerAccountCategoryUpdateParams.Metadata.builder().build())
-                    .name("string")
+                    .name("name")
                     .build()
             )
         println(ledgerAccountCategory)
@@ -112,7 +112,7 @@ class LedgerAccountCategoryServiceTest {
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
         val ledgerAccountCategory =
             ledgerAccountCategoryService.delete(
-                LedgerAccountCategoryDeleteParams.builder().id("string").build()
+                LedgerAccountCategoryDeleteParams.builder().id("id").build()
             )
         println(ledgerAccountCategory)
         ledgerAccountCategory.validate()
@@ -129,8 +129,8 @@ class LedgerAccountCategoryServiceTest {
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
         ledgerAccountCategoryService.addLedgerAccount(
             LedgerAccountCategoryAddLedgerAccountParams.builder()
-                .id("string")
-                .ledgerAccountId("string")
+                .id("id")
+                .ledgerAccountId("ledger_account_id")
                 .build()
         )
     }
@@ -146,8 +146,8 @@ class LedgerAccountCategoryServiceTest {
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
         ledgerAccountCategoryService.addNestedCategory(
             LedgerAccountCategoryAddNestedCategoryParams.builder()
-                .id("string")
-                .subCategoryId("string")
+                .id("id")
+                .subCategoryId("sub_category_id")
                 .build()
         )
     }
@@ -163,8 +163,8 @@ class LedgerAccountCategoryServiceTest {
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
         ledgerAccountCategoryService.removeLedgerAccount(
             LedgerAccountCategoryRemoveLedgerAccountParams.builder()
-                .id("string")
-                .ledgerAccountId("string")
+                .id("id")
+                .ledgerAccountId("ledger_account_id")
                 .build()
         )
     }
@@ -180,8 +180,8 @@ class LedgerAccountCategoryServiceTest {
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
         ledgerAccountCategoryService.removeNestedCategory(
             LedgerAccountCategoryRemoveNestedCategoryParams.builder()
-                .id("string")
-                .subCategoryId("string")
+                .id("id")
+                .subCategoryId("sub_category_id")
                 .build()
         )
     }

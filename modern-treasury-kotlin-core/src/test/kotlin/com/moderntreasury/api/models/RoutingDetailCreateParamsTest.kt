@@ -12,8 +12,8 @@ class RoutingDetailCreateParamsTest {
     fun createRoutingDetailCreateParams() {
         RoutingDetailCreateParams.builder()
             .accountsType(RoutingDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
-            .accountId("string")
-            .routingNumber("string")
+            .accountId("account_id")
+            .routingNumber("routing_number")
             .routingNumberType(RoutingDetailCreateParams.RoutingNumberType.ABA)
             .paymentType(RoutingDetailCreateParams.PaymentType.ACH)
             .build()
@@ -24,14 +24,14 @@ class RoutingDetailCreateParamsTest {
         val params =
             RoutingDetailCreateParams.builder()
                 .accountsType(RoutingDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
-                .accountId("string")
-                .routingNumber("string")
+                .accountId("account_id")
+                .routingNumber("routing_number")
                 .routingNumberType(RoutingDetailCreateParams.RoutingNumberType.ABA)
                 .paymentType(RoutingDetailCreateParams.PaymentType.ACH)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.routingNumber()).isEqualTo("string")
+        assertThat(body.routingNumber()).isEqualTo("routing_number")
         assertThat(body.routingNumberType())
             .isEqualTo(RoutingDetailCreateParams.RoutingNumberType.ABA)
         assertThat(body.paymentType()).isEqualTo(RoutingDetailCreateParams.PaymentType.ACH)
@@ -42,13 +42,13 @@ class RoutingDetailCreateParamsTest {
         val params =
             RoutingDetailCreateParams.builder()
                 .accountsType(RoutingDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
-                .accountId("string")
-                .routingNumber("string")
+                .accountId("account_id")
+                .routingNumber("routing_number")
                 .routingNumberType(RoutingDetailCreateParams.RoutingNumberType.ABA)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.routingNumber()).isEqualTo("string")
+        assertThat(body.routingNumber()).isEqualTo("routing_number")
         assertThat(body.routingNumberType())
             .isEqualTo(RoutingDetailCreateParams.RoutingNumberType.ABA)
     }
@@ -58,8 +58,8 @@ class RoutingDetailCreateParamsTest {
         val params =
             RoutingDetailCreateParams.builder()
                 .accountsType(RoutingDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
-                .accountId("string")
-                .routingNumber("string")
+                .accountId("account_id")
+                .routingNumber("routing_number")
                 .routingNumberType(RoutingDetailCreateParams.RoutingNumberType.ABA)
                 .build()
         assertThat(params).isNotNull
@@ -67,7 +67,7 @@ class RoutingDetailCreateParamsTest {
         assertThat(params.getPathParam(0))
             .isEqualTo(RoutingDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS.toString())
         // path param "accountId"
-        assertThat(params.getPathParam(1)).isEqualTo("string")
+        assertThat(params.getPathParam(1)).isEqualTo("account_id")
         // out-of-bound path param
         assertThat(params.getPathParam(2)).isEqualTo("")
     }

@@ -12,15 +12,15 @@ class LedgerTransactionListParamsTest {
     fun createLedgerTransactionListParams() {
         LedgerTransactionListParams.builder()
             .id(listOf("string"))
-            .afterCursor("string")
+            .afterCursor("after_cursor")
             .effectiveAt(LedgerTransactionListParams.EffectiveAt.builder().build())
             .effectiveDate(LedgerTransactionListParams.EffectiveDate.builder().build())
-            .externalId("string")
-            .ledgerAccountCategoryId("string")
-            .ledgerAccountId("string")
-            .ledgerAccountSettlementId("string")
-            .ledgerId("string")
-            .ledgerableId("string")
+            .externalId("external_id")
+            .ledgerAccountCategoryId("ledger_account_category_id")
+            .ledgerAccountId("ledger_account_id")
+            .ledgerAccountSettlementId("ledger_account_settlement_id")
+            .ledgerId("ledger_id")
+            .ledgerableId("ledgerable_id")
             .ledgerableType(LedgerTransactionListParams.LedgerableType.EXPECTED_PAYMENT)
             .metadata(LedgerTransactionListParams.Metadata.builder().build())
             .orderBy(
@@ -31,7 +31,7 @@ class LedgerTransactionListParamsTest {
             )
             .perPage(123L)
             .postedAt(LedgerTransactionListParams.PostedAt.builder().build())
-            .reversesLedgerTransactionId("string")
+            .reversesLedgerTransactionId("reverses_ledger_transaction_id")
             .status(LedgerTransactionListParams.Status.PENDING)
             .updatedAt(LedgerTransactionListParams.UpdatedAt.builder().build())
             .build()
@@ -42,15 +42,15 @@ class LedgerTransactionListParamsTest {
         val params =
             LedgerTransactionListParams.builder()
                 .id(listOf("string"))
-                .afterCursor("string")
+                .afterCursor("after_cursor")
                 .effectiveAt(LedgerTransactionListParams.EffectiveAt.builder().build())
                 .effectiveDate(LedgerTransactionListParams.EffectiveDate.builder().build())
-                .externalId("string")
-                .ledgerAccountCategoryId("string")
-                .ledgerAccountId("string")
-                .ledgerAccountSettlementId("string")
-                .ledgerId("string")
-                .ledgerableId("string")
+                .externalId("external_id")
+                .ledgerAccountCategoryId("ledger_account_category_id")
+                .ledgerAccountId("ledger_account_id")
+                .ledgerAccountSettlementId("ledger_account_settlement_id")
+                .ledgerId("ledger_id")
+                .ledgerableId("ledgerable_id")
                 .ledgerableType(LedgerTransactionListParams.LedgerableType.EXPECTED_PAYMENT)
                 .metadata(LedgerTransactionListParams.Metadata.builder().build())
                 .orderBy(
@@ -61,13 +61,13 @@ class LedgerTransactionListParamsTest {
                 )
                 .perPage(123L)
                 .postedAt(LedgerTransactionListParams.PostedAt.builder().build())
-                .reversesLedgerTransactionId("string")
+                .reversesLedgerTransactionId("reverses_ledger_transaction_id")
                 .status(LedgerTransactionListParams.Status.PENDING)
                 .updatedAt(LedgerTransactionListParams.UpdatedAt.builder().build())
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("id[]", listOf("string"))
-        expected.put("after_cursor", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
         LedgerTransactionListParams.EffectiveAt.builder().build().forEachQueryParam { key, values ->
             expected.put("effective_at[$key]", values)
         }
@@ -75,12 +75,12 @@ class LedgerTransactionListParamsTest {
             ->
             expected.put("effective_date[$key]", values)
         }
-        expected.put("external_id", listOf("string"))
-        expected.put("ledger_account_category_id", listOf("string"))
-        expected.put("ledger_account_id", listOf("string"))
-        expected.put("ledger_account_settlement_id", listOf("string"))
-        expected.put("ledger_id", listOf("string"))
-        expected.put("ledgerable_id", listOf("string"))
+        expected.put("external_id", listOf("external_id"))
+        expected.put("ledger_account_category_id", listOf("ledger_account_category_id"))
+        expected.put("ledger_account_id", listOf("ledger_account_id"))
+        expected.put("ledger_account_settlement_id", listOf("ledger_account_settlement_id"))
+        expected.put("ledger_id", listOf("ledger_id"))
+        expected.put("ledgerable_id", listOf("ledgerable_id"))
         expected.put(
             "ledgerable_type",
             listOf(LedgerTransactionListParams.LedgerableType.EXPECTED_PAYMENT.toString())
@@ -97,7 +97,7 @@ class LedgerTransactionListParamsTest {
         LedgerTransactionListParams.PostedAt.builder().build().forEachQueryParam { key, values ->
             expected.put("posted_at[$key]", values)
         }
-        expected.put("reverses_ledger_transaction_id", listOf("string"))
+        expected.put("reverses_ledger_transaction_id", listOf("reverses_ledger_transaction_id"))
         expected.put("status", listOf(LedgerTransactionListParams.Status.PENDING.toString()))
         LedgerTransactionListParams.UpdatedAt.builder().build().forEachQueryParam { key, values ->
             expected.put("updated_at[$key]", values)

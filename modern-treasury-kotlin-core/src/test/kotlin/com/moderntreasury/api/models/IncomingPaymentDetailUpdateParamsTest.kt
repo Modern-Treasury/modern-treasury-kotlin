@@ -11,7 +11,7 @@ class IncomingPaymentDetailUpdateParamsTest {
     @Test
     fun createIncomingPaymentDetailUpdateParams() {
         IncomingPaymentDetailUpdateParams.builder()
-            .id("string")
+            .id("id")
             .metadata(IncomingPaymentDetailUpdateParams.Metadata.builder().build())
             .build()
     }
@@ -20,7 +20,7 @@ class IncomingPaymentDetailUpdateParamsTest {
     fun getBody() {
         val params =
             IncomingPaymentDetailUpdateParams.builder()
-                .id("string")
+                .id("id")
                 .metadata(IncomingPaymentDetailUpdateParams.Metadata.builder().build())
                 .build()
         val body = params.getBody()
@@ -31,17 +31,17 @@ class IncomingPaymentDetailUpdateParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = IncomingPaymentDetailUpdateParams.builder().id("string").build()
+        val params = IncomingPaymentDetailUpdateParams.builder().id("id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
 
     @Test
     fun getPathParam() {
-        val params = IncomingPaymentDetailUpdateParams.builder().id("string").build()
+        val params = IncomingPaymentDetailUpdateParams.builder().id("id").build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

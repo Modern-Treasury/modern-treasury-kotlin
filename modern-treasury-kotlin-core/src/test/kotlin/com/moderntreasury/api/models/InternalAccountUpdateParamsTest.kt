@@ -11,12 +11,12 @@ class InternalAccountUpdateParamsTest {
     @Test
     fun createInternalAccountUpdateParams() {
         InternalAccountUpdateParams.builder()
-            .id("string")
-            .counterpartyId("string")
-            .ledgerAccountId("string")
+            .id("id")
+            .counterpartyId("counterparty_id")
+            .ledgerAccountId("ledger_account_id")
             .metadata(InternalAccountUpdateParams.Metadata.builder().build())
-            .name("string")
-            .parentAccountId("string")
+            .name("name")
+            .parentAccountId("parent_account_id")
             .build()
     }
 
@@ -24,36 +24,36 @@ class InternalAccountUpdateParamsTest {
     fun getBody() {
         val params =
             InternalAccountUpdateParams.builder()
-                .id("string")
-                .counterpartyId("string")
-                .ledgerAccountId("string")
+                .id("id")
+                .counterpartyId("counterparty_id")
+                .ledgerAccountId("ledger_account_id")
                 .metadata(InternalAccountUpdateParams.Metadata.builder().build())
-                .name("string")
-                .parentAccountId("string")
+                .name("name")
+                .parentAccountId("parent_account_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.counterpartyId()).isEqualTo("string")
-        assertThat(body.ledgerAccountId()).isEqualTo("string")
+        assertThat(body.counterpartyId()).isEqualTo("counterparty_id")
+        assertThat(body.ledgerAccountId()).isEqualTo("ledger_account_id")
         assertThat(body.metadata())
             .isEqualTo(InternalAccountUpdateParams.Metadata.builder().build())
-        assertThat(body.name()).isEqualTo("string")
-        assertThat(body.parentAccountId()).isEqualTo("string")
+        assertThat(body.name()).isEqualTo("name")
+        assertThat(body.parentAccountId()).isEqualTo("parent_account_id")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = InternalAccountUpdateParams.builder().id("string").build()
+        val params = InternalAccountUpdateParams.builder().id("id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
 
     @Test
     fun getPathParam() {
-        val params = InternalAccountUpdateParams.builder().id("string").build()
+        val params = InternalAccountUpdateParams.builder().id("id").build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

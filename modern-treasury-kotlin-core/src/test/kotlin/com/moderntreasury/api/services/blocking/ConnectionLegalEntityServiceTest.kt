@@ -25,7 +25,7 @@ class ConnectionLegalEntityServiceTest {
         val connectionLegalEntity =
             connectionLegalEntityService.create(
                 ConnectionLegalEntityCreateParams.builder()
-                    .connectionId("string")
+                    .connectionId("connection_id")
                     .legalEntity(
                         ConnectionLegalEntityCreateParams.LegalEntity.builder()
                             .addresses(
@@ -33,11 +33,11 @@ class ConnectionLegalEntityServiceTest {
                                     ConnectionLegalEntityCreateParams.LegalEntity
                                         .LegalEntityAddressCreateRequest
                                         .builder()
-                                        .country("string")
-                                        .line1("string")
-                                        .locality("string")
-                                        .postalCode("string")
-                                        .region("string")
+                                        .country("country")
+                                        .line1("line1")
+                                        .locality("locality")
+                                        .postalCode("postal_code")
+                                        .region("region")
                                         .addressTypes(
                                             listOf(
                                                 ConnectionLegalEntityCreateParams.LegalEntity
@@ -46,33 +46,33 @@ class ConnectionLegalEntityServiceTest {
                                                     .BUSINESS
                                             )
                                         )
-                                        .line2("string")
+                                        .line2("line2")
                                         .build()
                                 )
                             )
-                            .businessName("string")
+                            .businessName("business_name")
                             .dateFormed(LocalDate.parse("2019-12-27"))
                             .dateOfBirth(LocalDate.parse("2019-12-27"))
                             .doingBusinessAsNames(listOf("string"))
-                            .email("string")
-                            .firstName("string")
+                            .email("email")
+                            .firstName("first_name")
                             .identifications(
                                 listOf(
                                     ConnectionLegalEntityCreateParams.LegalEntity
                                         .IdentificationCreateRequest
                                         .builder()
-                                        .idNumber("string")
+                                        .idNumber("id_number")
                                         .idType(
                                             ConnectionLegalEntityCreateParams.LegalEntity
                                                 .IdentificationCreateRequest
                                                 .IdType
                                                 .AR_CUIL
                                         )
-                                        .issuingCountry("string")
+                                        .issuingCountry("issuing_country")
                                         .build()
                                 )
                             )
-                            .lastName("string")
+                            .lastName("last_name")
                             .legalEntityAssociations(
                                 listOf(
                                     ConnectionLegalEntityCreateParams.LegalEntity
@@ -99,11 +99,11 @@ class ConnectionLegalEntityServiceTest {
                                                             .ChildLegalEntityCreate
                                                             .LegalEntityAddressCreateRequest
                                                             .builder()
-                                                            .country("string")
-                                                            .line1("string")
-                                                            .locality("string")
-                                                            .postalCode("string")
-                                                            .region("string")
+                                                            .country("country")
+                                                            .line1("line1")
+                                                            .locality("locality")
+                                                            .postalCode("postal_code")
+                                                            .region("region")
                                                             .addressTypes(
                                                                 listOf(
                                                                     ConnectionLegalEntityCreateParams
@@ -115,16 +115,16 @@ class ConnectionLegalEntityServiceTest {
                                                                         .BUSINESS
                                                                 )
                                                             )
-                                                            .line2("string")
+                                                            .line2("line2")
                                                             .build()
                                                     )
                                                 )
-                                                .businessName("string")
+                                                .businessName("business_name")
                                                 .dateFormed(LocalDate.parse("2019-12-27"))
                                                 .dateOfBirth(LocalDate.parse("2019-12-27"))
                                                 .doingBusinessAsNames(listOf("string"))
-                                                .email("string")
-                                                .firstName("string")
+                                                .email("email")
+                                                .firstName("first_name")
                                                 .identifications(
                                                     listOf(
                                                         ConnectionLegalEntityCreateParams
@@ -133,7 +133,7 @@ class ConnectionLegalEntityServiceTest {
                                                             .ChildLegalEntityCreate
                                                             .IdentificationCreateRequest
                                                             .builder()
-                                                            .idNumber("string")
+                                                            .idNumber("id_number")
                                                             .idType(
                                                                 ConnectionLegalEntityCreateParams
                                                                     .LegalEntity
@@ -143,11 +143,11 @@ class ConnectionLegalEntityServiceTest {
                                                                     .IdType
                                                                     .AR_CUIL
                                                             )
-                                                            .issuingCountry("string")
+                                                            .issuingCountry("issuing_country")
                                                             .build()
                                                     )
                                                 )
-                                                .lastName("string")
+                                                .lastName("last_name")
                                                 .legalEntityType(
                                                     ConnectionLegalEntityCreateParams.LegalEntity
                                                         .LegalEntityAssociationInlineCreateRequest
@@ -178,7 +178,7 @@ class ConnectionLegalEntityServiceTest {
                                                             .ChildLegalEntityCreate
                                                             .PhoneNumber
                                                             .builder()
-                                                            .phoneNumber("string")
+                                                            .phoneNumber("phone_number")
                                                             .build()
                                                     )
                                                 )
@@ -189,12 +189,12 @@ class ConnectionLegalEntityServiceTest {
                                                         .RiskRating
                                                         .LOW
                                                 )
-                                                .website("string")
+                                                .website("website")
                                                 .build()
                                         )
-                                        .childLegalEntityId("string")
+                                        .childLegalEntityId("child_legal_entity_id")
                                         .ownershipPercentage(123L)
-                                        .title("string")
+                                        .title("title")
                                         .build()
                                 )
                             )
@@ -214,17 +214,17 @@ class ConnectionLegalEntityServiceTest {
                                 listOf(
                                     ConnectionLegalEntityCreateParams.LegalEntity.PhoneNumber
                                         .builder()
-                                        .phoneNumber("string")
+                                        .phoneNumber("phone_number")
                                         .build()
                                 )
                             )
                             .riskRating(
                                 ConnectionLegalEntityCreateParams.LegalEntity.RiskRating.LOW
                             )
-                            .website("string")
+                            .website("website")
                             .build()
                     )
-                    .legalEntityId("string")
+                    .legalEntityId("legal_entity_id")
                     .build()
             )
         println(connectionLegalEntity)
@@ -242,7 +242,7 @@ class ConnectionLegalEntityServiceTest {
         val connectionLegalEntityService = client.connectionLegalEntities()
         val connectionLegalEntity =
             connectionLegalEntityService.retrieve(
-                ConnectionLegalEntityRetrieveParams.builder().id("string").build()
+                ConnectionLegalEntityRetrieveParams.builder().id("id").build()
             )
         println(connectionLegalEntity)
         connectionLegalEntity.validate()
@@ -260,7 +260,7 @@ class ConnectionLegalEntityServiceTest {
         val connectionLegalEntity =
             connectionLegalEntityService.update(
                 ConnectionLegalEntityUpdateParams.builder()
-                    .id("string")
+                    .id("id")
                     .status(ConnectionLegalEntityUpdateParams.Status.PROCESSING)
                     .build()
             )

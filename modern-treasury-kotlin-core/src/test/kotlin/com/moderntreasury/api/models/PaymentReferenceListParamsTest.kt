@@ -11,10 +11,10 @@ class PaymentReferenceListParamsTest {
     @Test
     fun createPaymentReferenceListParams() {
         PaymentReferenceListParams.builder()
-            .afterCursor("string")
+            .afterCursor("after_cursor")
             .perPage(123L)
-            .referenceNumber("string")
-            .referenceableId("string")
+            .referenceNumber("reference_number")
+            .referenceableId("referenceable_id")
             .referenceableType(PaymentReferenceListParams.ReferenceableType.PAYMENT_ORDER)
             .build()
     }
@@ -23,17 +23,17 @@ class PaymentReferenceListParamsTest {
     fun getQueryParams() {
         val params =
             PaymentReferenceListParams.builder()
-                .afterCursor("string")
+                .afterCursor("after_cursor")
                 .perPage(123L)
-                .referenceNumber("string")
-                .referenceableId("string")
+                .referenceNumber("reference_number")
+                .referenceableId("referenceable_id")
                 .referenceableType(PaymentReferenceListParams.ReferenceableType.PAYMENT_ORDER)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
         expected.put("per_page", listOf("123"))
-        expected.put("reference_number", listOf("string"))
-        expected.put("referenceable_id", listOf("string"))
+        expected.put("reference_number", listOf("reference_number"))
+        expected.put("referenceable_id", listOf("referenceable_id"))
         expected.put(
             "referenceable_type",
             listOf(PaymentReferenceListParams.ReferenceableType.PAYMENT_ORDER.toString())

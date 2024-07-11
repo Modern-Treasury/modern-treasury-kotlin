@@ -25,8 +25,8 @@ class AccountDetailServiceTest {
             accountDetailService.create(
                 AccountDetailCreateParams.builder()
                     .accountsType(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
-                    .accountId("string")
-                    .accountNumber("string")
+                    .accountId("account_id")
+                    .accountNumber("account_number")
                     .accountNumberType(AccountDetailCreateParams.AccountNumberType.AU_NUMBER)
                     .build()
             )
@@ -47,8 +47,8 @@ class AccountDetailServiceTest {
             accountDetailService.retrieve(
                 AccountDetailRetrieveParams.builder()
                     .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
-                    .accountId("string")
-                    .id("string")
+                    .accountId("account_id")
+                    .id("id")
                     .build()
             )
         println(accountDetail)
@@ -68,7 +68,7 @@ class AccountDetailServiceTest {
             accountDetailService.list(
                 AccountDetailListParams.builder()
                     .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
-                    .accountId("string")
+                    .accountId("account_id")
                     .build()
             )
         println(response)
@@ -87,8 +87,8 @@ class AccountDetailServiceTest {
         accountDetailService.delete(
             AccountDetailDeleteParams.builder()
                 .accountsType(AccountDetailDeleteParams.AccountsType.EXTERNAL_ACCOUNTS)
-                .accountId("string")
-                .id("string")
+                .accountId("account_id")
+                .id("id")
                 .build()
         )
     }

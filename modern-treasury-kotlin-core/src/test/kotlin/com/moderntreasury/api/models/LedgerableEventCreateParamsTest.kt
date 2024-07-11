@@ -12,9 +12,9 @@ class LedgerableEventCreateParamsTest {
     @Test
     fun createLedgerableEventCreateParams() {
         LedgerableEventCreateParams.builder()
-            .name("string")
+            .name("name")
             .customData(JsonNull.of())
-            .description("string")
+            .description("description")
             .metadata(LedgerableEventCreateParams.Metadata.builder().build())
             .build()
     }
@@ -23,25 +23,25 @@ class LedgerableEventCreateParamsTest {
     fun getBody() {
         val params =
             LedgerableEventCreateParams.builder()
-                .name("string")
+                .name("name")
                 .customData(JsonNull.of())
-                .description("string")
+                .description("description")
                 .metadata(LedgerableEventCreateParams.Metadata.builder().build())
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.name()).isEqualTo("string")
+        assertThat(body.name()).isEqualTo("name")
         assertThat(body.customData()).isEqualTo(JsonNull.of())
-        assertThat(body.description()).isEqualTo("string")
+        assertThat(body.description()).isEqualTo("description")
         assertThat(body.metadata())
             .isEqualTo(LedgerableEventCreateParams.Metadata.builder().build())
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = LedgerableEventCreateParams.builder().name("string").build()
+        val params = LedgerableEventCreateParams.builder().name("name").build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.name()).isEqualTo("string")
+        assertThat(body.name()).isEqualTo("name")
     }
 }

@@ -26,20 +26,20 @@ class ReturnObjectTest {
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .currency(Currency.AED)
                         .dateOfDeath(LocalDate.parse("2019-12-27"))
-                        .failureReason("string")
+                        .failureReason("failure_reason")
                         .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .liveMode(true)
-                        .object_("string")
-                        .reason("string")
+                        .object_("object")
+                        .reason("reason")
                         .referenceNumbers(
                             listOf(
                                 ReturnObject.PaymentReference.builder()
                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .liveMode(true)
-                                    .object_("string")
-                                    .referenceNumber("string")
+                                    .object_("object")
+                                    .referenceNumber("reference_number")
                                     .referenceNumberType(
                                         ReturnObject.PaymentReference.ReferenceNumberType
                                             .ACH_ORIGINAL_TRACE_NUMBER
@@ -56,24 +56,24 @@ class ReturnObjectTest {
                         .transactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .type(ReturnObject.Type.ACH)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .additionalInformation("string")
+                        .additionalInformation("additional_information")
                         .build()
                 )
                 .dateOfDeath(LocalDate.parse("2019-12-27"))
-                .failureReason("string")
+                .failureReason("failure_reason")
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
-                .object_("string")
-                .reason("string")
+                .object_("object")
+                .reason("reason")
                 .referenceNumbers(
                     listOf(
                         ReturnObject.PaymentReference.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .liveMode(true)
-                            .object_("string")
-                            .referenceNumber("string")
+                            .object_("object")
+                            .referenceNumber("reference_number")
                             .referenceNumberType(
                                 ReturnObject.PaymentReference.ReferenceNumberType
                                     .ACH_ORIGINAL_TRACE_NUMBER
@@ -90,7 +90,7 @@ class ReturnObjectTest {
                 .transactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .type(ReturnObject.Type.ACH)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .additionalInformation("string")
+                .additionalInformation("additional_information")
                 .build()
         assertThat(returnObject).isNotNull
         assertThat(returnObject.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -108,20 +108,20 @@ class ReturnObjectTest {
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .currency(Currency.AED)
                     .dateOfDeath(LocalDate.parse("2019-12-27"))
-                    .failureReason("string")
+                    .failureReason("failure_reason")
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .liveMode(true)
-                    .object_("string")
-                    .reason("string")
+                    .object_("object")
+                    .reason("reason")
                     .referenceNumbers(
                         listOf(
                             ReturnObject.PaymentReference.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .liveMode(true)
-                                .object_("string")
-                                .referenceNumber("string")
+                                .object_("object")
+                                .referenceNumber("reference_number")
                                 .referenceNumberType(
                                     ReturnObject.PaymentReference.ReferenceNumberType
                                         .ACH_ORIGINAL_TRACE_NUMBER
@@ -138,26 +138,26 @@ class ReturnObjectTest {
                     .transactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .type(ReturnObject.Type.ACH)
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .additionalInformation("string")
+                    .additionalInformation("additional_information")
                     .build()
             )
         assertThat(returnObject.dateOfDeath()).isEqualTo(LocalDate.parse("2019-12-27"))
-        assertThat(returnObject.failureReason()).isEqualTo("string")
+        assertThat(returnObject.failureReason()).isEqualTo("failure_reason")
         assertThat(returnObject.internalAccountId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(returnObject.ledgerTransactionId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(returnObject.liveMode()).isEqualTo(true)
-        assertThat(returnObject.object_()).isEqualTo("string")
-        assertThat(returnObject.reason()).isEqualTo("string")
+        assertThat(returnObject.object_()).isEqualTo("object")
+        assertThat(returnObject.reason()).isEqualTo("reason")
         assertThat(returnObject.referenceNumbers())
             .containsExactly(
                 ReturnObject.PaymentReference.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .liveMode(true)
-                    .object_("string")
-                    .referenceNumber("string")
+                    .object_("object")
+                    .referenceNumber("reference_number")
                     .referenceNumberType(
                         ReturnObject.PaymentReference.ReferenceNumberType.ACH_ORIGINAL_TRACE_NUMBER
                     )
@@ -175,6 +175,6 @@ class ReturnObjectTest {
         assertThat(returnObject.type()).isEqualTo(ReturnObject.Type.ACH)
         assertThat(returnObject.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(returnObject.additionalInformation()).isEqualTo("string")
+        assertThat(returnObject.additionalInformation()).isEqualTo("additional_information")
     }
 }

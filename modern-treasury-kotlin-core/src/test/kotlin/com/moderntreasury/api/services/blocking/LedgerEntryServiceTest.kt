@@ -23,7 +23,7 @@ class LedgerEntryServiceTest {
         val ledgerEntryService = client.ledgerEntries()
         val ledgerEntry =
             ledgerEntryService.retrieve(
-                LedgerEntryRetrieveParams.builder().id("string").showBalances(true).build()
+                LedgerEntryRetrieveParams.builder().id("id").showBalances(true).build()
             )
         println(ledgerEntry)
         ledgerEntry.validate()
@@ -41,7 +41,7 @@ class LedgerEntryServiceTest {
         val ledgerEntry =
             ledgerEntryService.update(
                 LedgerEntryUpdateParams.builder()
-                    .id("string")
+                    .id("id")
                     .metadata(LedgerEntryUpdateParams.Metadata.builder().build())
                     .build()
             )

@@ -11,12 +11,12 @@ class CounterpartyCollectAccountResponseTest {
     fun createCounterpartyCollectAccountResponse() {
         val counterpartyCollectAccountResponse =
             CounterpartyCollectAccountResponse.builder()
-                .id("string")
+                .id("id")
                 .formLink("https://example.com")
                 .isResend(true)
                 .build()
         assertThat(counterpartyCollectAccountResponse).isNotNull
-        assertThat(counterpartyCollectAccountResponse.id()).isEqualTo("string")
+        assertThat(counterpartyCollectAccountResponse.id()).isEqualTo("id")
         assertThat(counterpartyCollectAccountResponse.formLink()).isEqualTo("https://example.com")
         assertThat(counterpartyCollectAccountResponse.isResend()).isEqualTo(true)
     }

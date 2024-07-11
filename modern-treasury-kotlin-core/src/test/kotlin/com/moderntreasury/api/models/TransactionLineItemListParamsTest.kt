@@ -12,9 +12,9 @@ class TransactionLineItemListParamsTest {
     fun createTransactionLineItemListParams() {
         TransactionLineItemListParams.builder()
             .id(TransactionLineItemListParams.Id.builder().build())
-            .afterCursor("string")
+            .afterCursor("after_cursor")
             .perPage(123L)
-            .transactionId("string")
+            .transactionId("transaction_id")
             .type(TransactionLineItemListParams.Type.ORIGINATING)
             .build()
     }
@@ -24,18 +24,18 @@ class TransactionLineItemListParamsTest {
         val params =
             TransactionLineItemListParams.builder()
                 .id(TransactionLineItemListParams.Id.builder().build())
-                .afterCursor("string")
+                .afterCursor("after_cursor")
                 .perPage(123L)
-                .transactionId("string")
+                .transactionId("transaction_id")
                 .type(TransactionLineItemListParams.Type.ORIGINATING)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         TransactionLineItemListParams.Id.builder().build().forEachQueryParam { key, values ->
             expected.put("id[$key]", values)
         }
-        expected.put("after_cursor", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
         expected.put("per_page", listOf("123"))
-        expected.put("transaction_id", listOf("string"))
+        expected.put("transaction_id", listOf("transaction_id"))
         expected.put("type", listOf(TransactionLineItemListParams.Type.ORIGINATING.toString()))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }

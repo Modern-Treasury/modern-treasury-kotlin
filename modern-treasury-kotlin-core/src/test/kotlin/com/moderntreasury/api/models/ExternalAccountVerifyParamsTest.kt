@@ -11,7 +11,7 @@ class ExternalAccountVerifyParamsTest {
     @Test
     fun createExternalAccountVerifyParams() {
         ExternalAccountVerifyParams.builder()
-            .id("string")
+            .id("id")
             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .paymentType(ExternalAccountVerifyParams.PaymentType.ACH)
             .currency(Currency.AED)
@@ -24,7 +24,7 @@ class ExternalAccountVerifyParamsTest {
     fun getBody() {
         val params =
             ExternalAccountVerifyParams.builder()
-                .id("string")
+                .id("id")
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .paymentType(ExternalAccountVerifyParams.PaymentType.ACH)
                 .currency(Currency.AED)
@@ -44,7 +44,7 @@ class ExternalAccountVerifyParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             ExternalAccountVerifyParams.builder()
-                .id("string")
+                .id("id")
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .paymentType(ExternalAccountVerifyParams.PaymentType.ACH)
                 .build()
@@ -58,13 +58,13 @@ class ExternalAccountVerifyParamsTest {
     fun getPathParam() {
         val params =
             ExternalAccountVerifyParams.builder()
-                .id("string")
+                .id("id")
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .paymentType(ExternalAccountVerifyParams.PaymentType.ACH)
                 .build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

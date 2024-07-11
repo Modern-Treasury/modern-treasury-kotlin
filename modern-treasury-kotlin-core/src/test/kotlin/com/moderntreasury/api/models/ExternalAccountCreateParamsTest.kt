@@ -15,7 +15,7 @@ class ExternalAccountCreateParamsTest {
             .accountDetails(
                 listOf(
                     ExternalAccountCreateParams.AccountDetail.builder()
-                        .accountNumber("string")
+                        .accountNumber("account_number")
                         .accountNumberType(
                             ExternalAccountCreateParams.AccountDetail.AccountNumberType.AU_NUMBER
                         )
@@ -26,7 +26,7 @@ class ExternalAccountCreateParamsTest {
             .contactDetails(
                 listOf(
                     ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                        .contactIdentifier("string")
+                        .contactIdentifier("contact_identifier")
                         .contactIdentifierType(
                             ExternalAccountCreateParams.ContactDetailCreateRequest
                                 .ContactIdentifierType
@@ -37,12 +37,12 @@ class ExternalAccountCreateParamsTest {
             )
             .ledgerAccount(
                 ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
-                    .currency("string")
+                    .currency("currency")
                     .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .name("string")
+                    .name("name")
                     .normalBalance(TransactionDirection.CREDIT)
                     .currencyExponent(123L)
-                    .description("string")
+                    .description("description")
                     .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
@@ -56,25 +56,25 @@ class ExternalAccountCreateParamsTest {
                     .build()
             )
             .metadata(ExternalAccountCreateParams.Metadata.builder().build())
-            .name("string")
+            .name("name")
             .partyAddress(
                 ExternalAccountCreateParams.AddressRequest.builder()
-                    .country("string")
-                    .line1("string")
-                    .line2("string")
-                    .locality("string")
-                    .postalCode("string")
-                    .region("string")
+                    .country("country")
+                    .line1("line1")
+                    .line2("line2")
+                    .locality("locality")
+                    .postalCode("postal_code")
+                    .region("region")
                     .build()
             )
-            .partyIdentifier("string")
-            .partyName("string")
+            .partyIdentifier("party_identifier")
+            .partyName("party_name")
             .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
-            .plaidProcessorToken("string")
+            .plaidProcessorToken("plaid_processor_token")
             .routingDetails(
                 listOf(
                     ExternalAccountCreateParams.RoutingDetail.builder()
-                        .routingNumber("string")
+                        .routingNumber("routing_number")
                         .routingNumberType(
                             ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
                         )
@@ -93,7 +93,7 @@ class ExternalAccountCreateParamsTest {
                 .accountDetails(
                     listOf(
                         ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("string")
+                            .accountNumber("account_number")
                             .accountNumberType(
                                 ExternalAccountCreateParams.AccountDetail.AccountNumberType
                                     .AU_NUMBER
@@ -105,7 +105,7 @@ class ExternalAccountCreateParamsTest {
                 .contactDetails(
                     listOf(
                         ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("string")
+                            .contactIdentifier("contact_identifier")
                             .contactIdentifierType(
                                 ExternalAccountCreateParams.ContactDetailCreateRequest
                                     .ContactIdentifierType
@@ -116,12 +116,12 @@ class ExternalAccountCreateParamsTest {
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
-                        .currency("string")
+                        .currency("currency")
                         .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .name("string")
+                        .name("name")
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
-                        .description("string")
+                        .description("description")
                         .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
@@ -136,25 +136,25 @@ class ExternalAccountCreateParamsTest {
                         .build()
                 )
                 .metadata(ExternalAccountCreateParams.Metadata.builder().build())
-                .name("string")
+                .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
-                        .country("string")
-                        .line1("string")
-                        .line2("string")
-                        .locality("string")
-                        .postalCode("string")
-                        .region("string")
+                        .country("country")
+                        .line1("line1")
+                        .line2("line2")
+                        .locality("locality")
+                        .postalCode("postal_code")
+                        .region("region")
                         .build()
                 )
-                .partyIdentifier("string")
-                .partyName("string")
+                .partyIdentifier("party_identifier")
+                .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
-                .plaidProcessorToken("string")
+                .plaidProcessorToken("plaid_processor_token")
                 .routingDetails(
                     listOf(
                         ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("string")
+                            .routingNumber("routing_number")
                             .routingNumberType(
                                 ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
                             )
@@ -170,7 +170,7 @@ class ExternalAccountCreateParamsTest {
             .isEqualTo(
                 listOf(
                     ExternalAccountCreateParams.AccountDetail.builder()
-                        .accountNumber("string")
+                        .accountNumber("account_number")
                         .accountNumberType(
                             ExternalAccountCreateParams.AccountDetail.AccountNumberType.AU_NUMBER
                         )
@@ -182,7 +182,7 @@ class ExternalAccountCreateParamsTest {
             .isEqualTo(
                 listOf(
                     ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                        .contactIdentifier("string")
+                        .contactIdentifier("contact_identifier")
                         .contactIdentifierType(
                             ExternalAccountCreateParams.ContactDetailCreateRequest
                                 .ContactIdentifierType
@@ -194,12 +194,12 @@ class ExternalAccountCreateParamsTest {
         assertThat(body.ledgerAccount())
             .isEqualTo(
                 ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
-                    .currency("string")
+                    .currency("currency")
                     .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .name("string")
+                    .name("name")
                     .normalBalance(TransactionDirection.CREDIT)
                     .currencyExponent(123L)
-                    .description("string")
+                    .description("description")
                     .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
@@ -214,27 +214,27 @@ class ExternalAccountCreateParamsTest {
             )
         assertThat(body.metadata())
             .isEqualTo(ExternalAccountCreateParams.Metadata.builder().build())
-        assertThat(body.name()).isEqualTo("string")
+        assertThat(body.name()).isEqualTo("name")
         assertThat(body.partyAddress())
             .isEqualTo(
                 ExternalAccountCreateParams.AddressRequest.builder()
-                    .country("string")
-                    .line1("string")
-                    .line2("string")
-                    .locality("string")
-                    .postalCode("string")
-                    .region("string")
+                    .country("country")
+                    .line1("line1")
+                    .line2("line2")
+                    .locality("locality")
+                    .postalCode("postal_code")
+                    .region("region")
                     .build()
             )
-        assertThat(body.partyIdentifier()).isEqualTo("string")
-        assertThat(body.partyName()).isEqualTo("string")
+        assertThat(body.partyIdentifier()).isEqualTo("party_identifier")
+        assertThat(body.partyName()).isEqualTo("party_name")
         assertThat(body.partyType()).isEqualTo(ExternalAccountCreateParams.PartyType.BUSINESS)
-        assertThat(body.plaidProcessorToken()).isEqualTo("string")
+        assertThat(body.plaidProcessorToken()).isEqualTo("plaid_processor_token")
         assertThat(body.routingDetails())
             .isEqualTo(
                 listOf(
                     ExternalAccountCreateParams.RoutingDetail.builder()
-                        .routingNumber("string")
+                        .routingNumber("routing_number")
                         .routingNumberType(
                             ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
                         )

@@ -26,12 +26,12 @@ class LedgerAccountServiceTest {
         val ledgerAccount =
             ledgerAccountService.create(
                 LedgerAccountCreateParams.builder()
-                    .currency("string")
+                    .currency("currency")
                     .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .name("string")
+                    .name("name")
                     .normalBalance(TransactionDirection.CREDIT)
                     .currencyExponent(123L)
-                    .description("string")
+                    .description("description")
                     .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(LedgerAccountCreateParams.LedgerableType.COUNTERPARTY)
@@ -54,7 +54,7 @@ class LedgerAccountServiceTest {
         val ledgerAccount =
             ledgerAccountService.retrieve(
                 LedgerAccountRetrieveParams.builder()
-                    .id("string")
+                    .id("id")
                     .balances(
                         LedgerAccountRetrieveParams.Balances.builder()
                             .asOfDate(LocalDate.parse("2019-12-27"))
@@ -82,10 +82,10 @@ class LedgerAccountServiceTest {
         val ledgerAccount =
             ledgerAccountService.update(
                 LedgerAccountUpdateParams.builder()
-                    .id("string")
-                    .description("string")
+                    .id("id")
+                    .description("description")
                     .metadata(LedgerAccountUpdateParams.Metadata.builder().build())
-                    .name("string")
+                    .name("name")
                     .build()
             )
         println(ledgerAccount)
@@ -116,7 +116,7 @@ class LedgerAccountServiceTest {
                 .build()
         val ledgerAccountService = client.ledgerAccounts()
         val ledgerAccount =
-            ledgerAccountService.delete(LedgerAccountDeleteParams.builder().id("string").build())
+            ledgerAccountService.delete(LedgerAccountDeleteParams.builder().id("id").build())
         println(ledgerAccount)
         ledgerAccount.validate()
     }

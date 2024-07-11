@@ -12,13 +12,13 @@ class CounterpartyListParamsTest {
     @Test
     fun createCounterpartyListParams() {
         CounterpartyListParams.builder()
-            .afterCursor("string")
+            .afterCursor("after_cursor")
             .createdAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .createdAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .email("dev@stainlessapi.com")
-            .legalEntityId("string")
+            .legalEntityId("legal_entity_id")
             .metadata(CounterpartyListParams.Metadata.builder().build())
-            .name("string")
+            .name("name")
             .perPage(123L)
             .build()
     }
@@ -27,25 +27,25 @@ class CounterpartyListParamsTest {
     fun getQueryParams() {
         val params =
             CounterpartyListParams.builder()
-                .afterCursor("string")
+                .afterCursor("after_cursor")
                 .createdAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .email("dev@stainlessapi.com")
-                .legalEntityId("string")
+                .legalEntityId("legal_entity_id")
                 .metadata(CounterpartyListParams.Metadata.builder().build())
-                .name("string")
+                .name("name")
                 .perPage(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
         expected.put("created_at_lower_bound", listOf("2019-12-27T18:11:19.117Z"))
         expected.put("created_at_upper_bound", listOf("2019-12-27T18:11:19.117Z"))
         expected.put("email", listOf("dev@stainlessapi.com"))
-        expected.put("legal_entity_id", listOf("string"))
+        expected.put("legal_entity_id", listOf("legal_entity_id"))
         CounterpartyListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
-        expected.put("name", listOf("string"))
+        expected.put("name", listOf("name"))
         expected.put("per_page", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }

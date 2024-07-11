@@ -12,8 +12,8 @@ class LedgerAccountBalanceMonitorListParamsTest {
     fun createLedgerAccountBalanceMonitorListParams() {
         LedgerAccountBalanceMonitorListParams.builder()
             .id(listOf("string"))
-            .afterCursor("string")
-            .ledgerAccountId("string")
+            .afterCursor("after_cursor")
+            .ledgerAccountId("ledger_account_id")
             .metadata(LedgerAccountBalanceMonitorListParams.Metadata.builder().build())
             .perPage(123L)
             .build()
@@ -24,15 +24,15 @@ class LedgerAccountBalanceMonitorListParamsTest {
         val params =
             LedgerAccountBalanceMonitorListParams.builder()
                 .id(listOf("string"))
-                .afterCursor("string")
-                .ledgerAccountId("string")
+                .afterCursor("after_cursor")
+                .ledgerAccountId("ledger_account_id")
                 .metadata(LedgerAccountBalanceMonitorListParams.Metadata.builder().build())
                 .perPage(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("id[]", listOf("string"))
-        expected.put("after_cursor", listOf("string"))
-        expected.put("ledger_account_id", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
+        expected.put("ledger_account_id", listOf("ledger_account_id"))
         LedgerAccountBalanceMonitorListParams.Metadata.builder().build().forEachQueryParam {
             key,
             values ->

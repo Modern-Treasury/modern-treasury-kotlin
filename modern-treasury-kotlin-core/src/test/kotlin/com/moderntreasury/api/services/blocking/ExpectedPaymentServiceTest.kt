@@ -35,7 +35,7 @@ class ExpectedPaymentServiceTest {
                     .currency(Currency.AED)
                     .dateLowerBound(LocalDate.parse("2019-12-27"))
                     .dateUpperBound(LocalDate.parse("2019-12-27"))
-                    .description("string")
+                    .description("description")
                     .ledgerTransaction(
                         ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.builder()
                             .ledgerEntries(
@@ -83,10 +83,10 @@ class ExpectedPaymentServiceTest {
                                         .build()
                                 )
                             )
-                            .description("string")
+                            .description("description")
                             .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .effectiveDate(LocalDate.parse("2019-12-27"))
-                            .externalId("string")
+                            .externalId("external_id")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableType(
                                 ExpectedPaymentCreateParams.LedgerTransactionCreateRequest
@@ -109,8 +109,8 @@ class ExpectedPaymentServiceTest {
                         listOf(
                             ExpectedPaymentCreateParams.LineItemRequest.builder()
                                 .amount(123L)
-                                .accountingCategoryId("string")
-                                .description("string")
+                                .accountingCategoryId("accounting_category_id")
+                                .description("description")
                                 .metadata(
                                     ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder()
                                         .build()
@@ -126,8 +126,8 @@ class ExpectedPaymentServiceTest {
                             ExpectedPaymentCreateParams.ReconciliationRuleVariable.builder().build()
                         )
                     )
-                    .remittanceInformation("string")
-                    .statementDescriptor("string")
+                    .remittanceInformation("remittance_information")
+                    .statementDescriptor("statement_descriptor")
                     .type(ExpectedPaymentType.ACH)
                     .build()
             )
@@ -146,7 +146,7 @@ class ExpectedPaymentServiceTest {
         val expectedPaymentService = client.expectedPayments()
         val expectedPayment =
             expectedPaymentService.retrieve(
-                ExpectedPaymentRetrieveParams.builder().id("string").build()
+                ExpectedPaymentRetrieveParams.builder().id("id").build()
             )
         println(expectedPayment)
         expectedPayment.validate()
@@ -164,14 +164,14 @@ class ExpectedPaymentServiceTest {
         val expectedPayment =
             expectedPaymentService.update(
                 ExpectedPaymentUpdateParams.builder()
-                    .id("string")
+                    .id("id")
                     .amountLowerBound(123L)
                     .amountUpperBound(123L)
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .currency(Currency.AED)
                     .dateLowerBound(LocalDate.parse("2019-12-27"))
                     .dateUpperBound(LocalDate.parse("2019-12-27"))
-                    .description("string")
+                    .description("description")
                     .direction(TransactionDirection.CREDIT)
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .metadata(ExpectedPaymentUpdateParams.Metadata.builder().build())
@@ -182,8 +182,8 @@ class ExpectedPaymentServiceTest {
                             ExpectedPaymentUpdateParams.ReconciliationRuleVariable.builder().build()
                         )
                     )
-                    .remittanceInformation("string")
-                    .statementDescriptor("string")
+                    .remittanceInformation("remittance_information")
+                    .statementDescriptor("statement_descriptor")
                     .status(ExpectedPaymentUpdateParams.Status.RECONCILED)
                     .type(ExpectedPaymentType.ACH)
                     .build()
@@ -216,9 +216,7 @@ class ExpectedPaymentServiceTest {
                 .build()
         val expectedPaymentService = client.expectedPayments()
         val expectedPayment =
-            expectedPaymentService.delete(
-                ExpectedPaymentDeleteParams.builder().id("string").build()
-            )
+            expectedPaymentService.delete(ExpectedPaymentDeleteParams.builder().id("id").build())
         println(expectedPayment)
         expectedPayment.validate()
     }

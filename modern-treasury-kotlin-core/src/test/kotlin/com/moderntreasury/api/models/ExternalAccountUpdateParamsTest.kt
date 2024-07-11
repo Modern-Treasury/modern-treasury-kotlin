@@ -11,22 +11,22 @@ class ExternalAccountUpdateParamsTest {
     @Test
     fun createExternalAccountUpdateParams() {
         ExternalAccountUpdateParams.builder()
-            .id("string")
+            .id("id")
             .accountType(ExternalAccountType.CASH)
             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .metadata(ExternalAccountUpdateParams.Metadata.builder().build())
-            .name("string")
+            .name("name")
             .partyAddress(
                 ExternalAccountUpdateParams.AddressRequest.builder()
-                    .country("string")
-                    .line1("string")
-                    .line2("string")
-                    .locality("string")
-                    .postalCode("string")
-                    .region("string")
+                    .country("country")
+                    .line1("line1")
+                    .line2("line2")
+                    .locality("locality")
+                    .postalCode("postal_code")
+                    .region("region")
                     .build()
             )
-            .partyName("string")
+            .partyName("party_name")
             .partyType(ExternalAccountUpdateParams.PartyType.BUSINESS)
             .build()
     }
@@ -35,22 +35,22 @@ class ExternalAccountUpdateParamsTest {
     fun getBody() {
         val params =
             ExternalAccountUpdateParams.builder()
-                .id("string")
+                .id("id")
                 .accountType(ExternalAccountType.CASH)
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .metadata(ExternalAccountUpdateParams.Metadata.builder().build())
-                .name("string")
+                .name("name")
                 .partyAddress(
                     ExternalAccountUpdateParams.AddressRequest.builder()
-                        .country("string")
-                        .line1("string")
-                        .line2("string")
-                        .locality("string")
-                        .postalCode("string")
-                        .region("string")
+                        .country("country")
+                        .line1("line1")
+                        .line2("line2")
+                        .locality("locality")
+                        .postalCode("postal_code")
+                        .region("region")
                         .build()
                 )
-                .partyName("string")
+                .partyName("party_name")
                 .partyType(ExternalAccountUpdateParams.PartyType.BUSINESS)
                 .build()
         val body = params.getBody()
@@ -59,35 +59,35 @@ class ExternalAccountUpdateParamsTest {
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.metadata())
             .isEqualTo(ExternalAccountUpdateParams.Metadata.builder().build())
-        assertThat(body.name()).isEqualTo("string")
+        assertThat(body.name()).isEqualTo("name")
         assertThat(body.partyAddress())
             .isEqualTo(
                 ExternalAccountUpdateParams.AddressRequest.builder()
-                    .country("string")
-                    .line1("string")
-                    .line2("string")
-                    .locality("string")
-                    .postalCode("string")
-                    .region("string")
+                    .country("country")
+                    .line1("line1")
+                    .line2("line2")
+                    .locality("locality")
+                    .postalCode("postal_code")
+                    .region("region")
                     .build()
             )
-        assertThat(body.partyName()).isEqualTo("string")
+        assertThat(body.partyName()).isEqualTo("party_name")
         assertThat(body.partyType()).isEqualTo(ExternalAccountUpdateParams.PartyType.BUSINESS)
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = ExternalAccountUpdateParams.builder().id("string").build()
+        val params = ExternalAccountUpdateParams.builder().id("id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
 
     @Test
     fun getPathParam() {
-        val params = ExternalAccountUpdateParams.builder().id("string").build()
+        val params = ExternalAccountUpdateParams.builder().id("id").build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

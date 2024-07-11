@@ -11,8 +11,8 @@ class LedgerAccountCategoryAddNestedCategoryParamsTest {
     @Test
     fun createLedgerAccountCategoryAddNestedCategoryParams() {
         LedgerAccountCategoryAddNestedCategoryParams.builder()
-            .id("string")
-            .subCategoryId("string")
+            .id("id")
+            .subCategoryId("sub_category_id")
             .build()
     }
 
@@ -20,14 +20,14 @@ class LedgerAccountCategoryAddNestedCategoryParamsTest {
     fun getPathParam() {
         val params =
             LedgerAccountCategoryAddNestedCategoryParams.builder()
-                .id("string")
-                .subCategoryId("string")
+                .id("id")
+                .subCategoryId("sub_category_id")
                 .build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // path param "subCategoryId"
-        assertThat(params.getPathParam(1)).isEqualTo("string")
+        assertThat(params.getPathParam(1)).isEqualTo("sub_category_id")
         // out-of-bound path param
         assertThat(params.getPathParam(2)).isEqualTo("")
     }
