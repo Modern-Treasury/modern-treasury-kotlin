@@ -12,7 +12,7 @@ class LegalEntityAssociationCreateParamsTest {
     @Test
     fun createLegalEntityAssociationCreateParams() {
         LegalEntityAssociationCreateParams.builder()
-            .parentLegalEntityId("string")
+            .parentLegalEntityId("parent_legal_entity_id")
             .relationshipTypes(
                 listOf(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER)
             )
@@ -23,11 +23,11 @@ class LegalEntityAssociationCreateParamsTest {
                             LegalEntityAssociationCreateParams.ChildLegalEntityCreate
                                 .LegalEntityAddressCreateRequest
                                 .builder()
-                                .country("string")
-                                .line1("string")
-                                .locality("string")
-                                .postalCode("string")
-                                .region("string")
+                                .country("country")
+                                .line1("line1")
+                                .locality("locality")
+                                .postalCode("postal_code")
+                                .region("region")
                                 .addressTypes(
                                     listOf(
                                         LegalEntityAssociationCreateParams.ChildLegalEntityCreate
@@ -36,33 +36,33 @@ class LegalEntityAssociationCreateParamsTest {
                                             .BUSINESS
                                     )
                                 )
-                                .line2("string")
+                                .line2("line2")
                                 .build()
                         )
                     )
-                    .businessName("string")
+                    .businessName("business_name")
                     .dateFormed(LocalDate.parse("2019-12-27"))
                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .doingBusinessAsNames(listOf("string"))
-                    .email("string")
-                    .firstName("string")
+                    .email("email")
+                    .firstName("first_name")
                     .identifications(
                         listOf(
                             LegalEntityAssociationCreateParams.ChildLegalEntityCreate
                                 .IdentificationCreateRequest
                                 .builder()
-                                .idNumber("string")
+                                .idNumber("id_number")
                                 .idType(
                                     LegalEntityAssociationCreateParams.ChildLegalEntityCreate
                                         .IdentificationCreateRequest
                                         .IdType
                                         .AR_CUIL
                                 )
-                                .issuingCountry("string")
+                                .issuingCountry("issuing_country")
                                 .build()
                         )
                     )
-                    .lastName("string")
+                    .lastName("last_name")
                     .legalEntityType(
                         LegalEntityAssociationCreateParams.ChildLegalEntityCreate.LegalEntityType
                             .BUSINESS
@@ -79,19 +79,19 @@ class LegalEntityAssociationCreateParamsTest {
                         listOf(
                             LegalEntityAssociationCreateParams.ChildLegalEntityCreate.PhoneNumber
                                 .builder()
-                                .phoneNumber("string")
+                                .phoneNumber("phone_number")
                                 .build()
                         )
                     )
                     .riskRating(
                         LegalEntityAssociationCreateParams.ChildLegalEntityCreate.RiskRating.LOW
                     )
-                    .website("string")
+                    .website("website")
                     .build()
             )
-            .childLegalEntityId("string")
+            .childLegalEntityId("child_legal_entity_id")
             .ownershipPercentage(123L)
-            .title("string")
+            .title("title")
             .build()
     }
 
@@ -99,7 +99,7 @@ class LegalEntityAssociationCreateParamsTest {
     fun getBody() {
         val params =
             LegalEntityAssociationCreateParams.builder()
-                .parentLegalEntityId("string")
+                .parentLegalEntityId("parent_legal_entity_id")
                 .relationshipTypes(
                     listOf(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER)
                 )
@@ -110,11 +110,11 @@ class LegalEntityAssociationCreateParamsTest {
                                 LegalEntityAssociationCreateParams.ChildLegalEntityCreate
                                     .LegalEntityAddressCreateRequest
                                     .builder()
-                                    .country("string")
-                                    .line1("string")
-                                    .locality("string")
-                                    .postalCode("string")
-                                    .region("string")
+                                    .country("country")
+                                    .line1("line1")
+                                    .locality("locality")
+                                    .postalCode("postal_code")
+                                    .region("region")
                                     .addressTypes(
                                         listOf(
                                             LegalEntityAssociationCreateParams
@@ -124,33 +124,33 @@ class LegalEntityAssociationCreateParamsTest {
                                                 .BUSINESS
                                         )
                                     )
-                                    .line2("string")
+                                    .line2("line2")
                                     .build()
                             )
                         )
-                        .businessName("string")
+                        .businessName("business_name")
                         .dateFormed(LocalDate.parse("2019-12-27"))
                         .dateOfBirth(LocalDate.parse("2019-12-27"))
                         .doingBusinessAsNames(listOf("string"))
-                        .email("string")
-                        .firstName("string")
+                        .email("email")
+                        .firstName("first_name")
                         .identifications(
                             listOf(
                                 LegalEntityAssociationCreateParams.ChildLegalEntityCreate
                                     .IdentificationCreateRequest
                                     .builder()
-                                    .idNumber("string")
+                                    .idNumber("id_number")
                                     .idType(
                                         LegalEntityAssociationCreateParams.ChildLegalEntityCreate
                                             .IdentificationCreateRequest
                                             .IdType
                                             .AR_CUIL
                                     )
-                                    .issuingCountry("string")
+                                    .issuingCountry("issuing_country")
                                     .build()
                             )
                         )
-                        .lastName("string")
+                        .lastName("last_name")
                         .legalEntityType(
                             LegalEntityAssociationCreateParams.ChildLegalEntityCreate
                                 .LegalEntityType
@@ -170,23 +170,23 @@ class LegalEntityAssociationCreateParamsTest {
                                 LegalEntityAssociationCreateParams.ChildLegalEntityCreate
                                     .PhoneNumber
                                     .builder()
-                                    .phoneNumber("string")
+                                    .phoneNumber("phone_number")
                                     .build()
                             )
                         )
                         .riskRating(
                             LegalEntityAssociationCreateParams.ChildLegalEntityCreate.RiskRating.LOW
                         )
-                        .website("string")
+                        .website("website")
                         .build()
                 )
-                .childLegalEntityId("string")
+                .childLegalEntityId("child_legal_entity_id")
                 .ownershipPercentage(123L)
-                .title("string")
+                .title("title")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.parentLegalEntityId()).isEqualTo("string")
+        assertThat(body.parentLegalEntityId()).isEqualTo("parent_legal_entity_id")
         assertThat(body.relationshipTypes())
             .isEqualTo(listOf(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER))
         assertThat(body.childLegalEntity())
@@ -197,11 +197,11 @@ class LegalEntityAssociationCreateParamsTest {
                             LegalEntityAssociationCreateParams.ChildLegalEntityCreate
                                 .LegalEntityAddressCreateRequest
                                 .builder()
-                                .country("string")
-                                .line1("string")
-                                .locality("string")
-                                .postalCode("string")
-                                .region("string")
+                                .country("country")
+                                .line1("line1")
+                                .locality("locality")
+                                .postalCode("postal_code")
+                                .region("region")
                                 .addressTypes(
                                     listOf(
                                         LegalEntityAssociationCreateParams.ChildLegalEntityCreate
@@ -210,33 +210,33 @@ class LegalEntityAssociationCreateParamsTest {
                                             .BUSINESS
                                     )
                                 )
-                                .line2("string")
+                                .line2("line2")
                                 .build()
                         )
                     )
-                    .businessName("string")
+                    .businessName("business_name")
                     .dateFormed(LocalDate.parse("2019-12-27"))
                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .doingBusinessAsNames(listOf("string"))
-                    .email("string")
-                    .firstName("string")
+                    .email("email")
+                    .firstName("first_name")
                     .identifications(
                         listOf(
                             LegalEntityAssociationCreateParams.ChildLegalEntityCreate
                                 .IdentificationCreateRequest
                                 .builder()
-                                .idNumber("string")
+                                .idNumber("id_number")
                                 .idType(
                                     LegalEntityAssociationCreateParams.ChildLegalEntityCreate
                                         .IdentificationCreateRequest
                                         .IdType
                                         .AR_CUIL
                                 )
-                                .issuingCountry("string")
+                                .issuingCountry("issuing_country")
                                 .build()
                         )
                     )
-                    .lastName("string")
+                    .lastName("last_name")
                     .legalEntityType(
                         LegalEntityAssociationCreateParams.ChildLegalEntityCreate.LegalEntityType
                             .BUSINESS
@@ -253,33 +253,33 @@ class LegalEntityAssociationCreateParamsTest {
                         listOf(
                             LegalEntityAssociationCreateParams.ChildLegalEntityCreate.PhoneNumber
                                 .builder()
-                                .phoneNumber("string")
+                                .phoneNumber("phone_number")
                                 .build()
                         )
                     )
                     .riskRating(
                         LegalEntityAssociationCreateParams.ChildLegalEntityCreate.RiskRating.LOW
                     )
-                    .website("string")
+                    .website("website")
                     .build()
             )
-        assertThat(body.childLegalEntityId()).isEqualTo("string")
+        assertThat(body.childLegalEntityId()).isEqualTo("child_legal_entity_id")
         assertThat(body.ownershipPercentage()).isEqualTo(123L)
-        assertThat(body.title()).isEqualTo("string")
+        assertThat(body.title()).isEqualTo("title")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
             LegalEntityAssociationCreateParams.builder()
-                .parentLegalEntityId("string")
+                .parentLegalEntityId("parent_legal_entity_id")
                 .relationshipTypes(
                     listOf(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER)
                 )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.parentLegalEntityId()).isEqualTo("string")
+        assertThat(body.parentLegalEntityId()).isEqualTo("parent_legal_entity_id")
         assertThat(body.relationshipTypes())
             .isEqualTo(listOf(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER))
     }

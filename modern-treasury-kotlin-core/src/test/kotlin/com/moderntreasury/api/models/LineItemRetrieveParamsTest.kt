@@ -12,8 +12,8 @@ class LineItemRetrieveParamsTest {
     fun createLineItemRetrieveParams() {
         LineItemRetrieveParams.builder()
             .itemizableType(LineItemRetrieveParams.ItemizableType.EXPECTED_PAYMENTS)
-            .itemizableId("string")
-            .id("string")
+            .itemizableId("itemizable_id")
+            .id("id")
             .build()
     }
 
@@ -22,17 +22,17 @@ class LineItemRetrieveParamsTest {
         val params =
             LineItemRetrieveParams.builder()
                 .itemizableType(LineItemRetrieveParams.ItemizableType.EXPECTED_PAYMENTS)
-                .itemizableId("string")
-                .id("string")
+                .itemizableId("itemizable_id")
+                .id("id")
                 .build()
         assertThat(params).isNotNull
         // path param "itemizableType"
         assertThat(params.getPathParam(0))
             .isEqualTo(LineItemRetrieveParams.ItemizableType.EXPECTED_PAYMENTS.toString())
         // path param "itemizableId"
-        assertThat(params.getPathParam(1)).isEqualTo("string")
+        assertThat(params.getPathParam(1)).isEqualTo("itemizable_id")
         // path param "id"
-        assertThat(params.getPathParam(2)).isEqualTo("string")
+        assertThat(params.getPathParam(2)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(3)).isEqualTo("")
     }

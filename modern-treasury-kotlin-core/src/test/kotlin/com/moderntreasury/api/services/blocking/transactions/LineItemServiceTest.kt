@@ -43,9 +43,7 @@ class LineItemServiceTest {
                 .build()
         val lineItemService = client.transactions().lineItems()
         val transactionLineItem =
-            lineItemService.retrieve(
-                TransactionLineItemRetrieveParams.builder().id("string").build()
-            )
+            lineItemService.retrieve(TransactionLineItemRetrieveParams.builder().id("id").build())
         println(transactionLineItem)
         transactionLineItem.validate()
     }
@@ -73,6 +71,6 @@ class LineItemServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val lineItemService = client.transactions().lineItems()
-        lineItemService.delete(TransactionLineItemDeleteParams.builder().id("string").build())
+        lineItemService.delete(TransactionLineItemDeleteParams.builder().id("id").build())
     }
 }

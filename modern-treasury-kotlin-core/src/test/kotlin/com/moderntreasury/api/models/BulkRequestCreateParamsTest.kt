@@ -43,7 +43,7 @@ class BulkRequestCreateParamsTest {
                                     .SHARED
                             )
                             .currency(Currency.AED)
-                            .description("string")
+                            .description("description")
                             .effectiveDate(LocalDate.parse("2019-12-27"))
                             .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .fallbackType(
@@ -51,7 +51,7 @@ class BulkRequestCreateParamsTest {
                                     .FallbackType
                                     .ACH
                             )
-                            .foreignExchangeContract("string")
+                            .foreignExchangeContract("foreign_exchange_contract")
                             .foreignExchangeIndicator(
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .ForeignExchangeIndicator
@@ -114,10 +114,10 @@ class BulkRequestCreateParamsTest {
                                                 .build()
                                         )
                                     )
-                                    .description("string")
+                                    .description("description")
                                     .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .effectiveDate(LocalDate.parse("2019-12-27"))
-                                    .externalId("string")
+                                    .externalId("external_id")
                                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .ledgerableType(
                                         BulkRequestCreateParams.Resource
@@ -150,8 +150,8 @@ class BulkRequestCreateParamsTest {
                                         .LineItemRequest
                                         .builder()
                                         .amount(123L)
-                                        .accountingCategoryId("string")
-                                        .description("string")
+                                        .accountingCategoryId("accounting_category_id")
+                                        .description("description")
                                         .metadata(
                                             BulkRequestCreateParams.Resource
                                                 .PaymentOrderAsyncCreateRequest
@@ -170,14 +170,14 @@ class BulkRequestCreateParamsTest {
                                     .build()
                             )
                             .nsfProtected(true)
-                            .originatingPartyName("string")
+                            .originatingPartyName("originating_party_name")
                             .priority(
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .Priority
                                     .HIGH
                             )
                             .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .purpose("string")
+                            .purpose("purpose")
                             .receivingAccount(
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .ReceivingAccount
@@ -189,7 +189,7 @@ class BulkRequestCreateParamsTest {
                                                 .ReceivingAccount
                                                 .AccountDetail
                                                 .builder()
-                                                .accountNumber("string")
+                                                .accountNumber("account_number")
                                                 .accountNumberType(
                                                     BulkRequestCreateParams.Resource
                                                         .PaymentOrderAsyncCreateRequest
@@ -209,7 +209,7 @@ class BulkRequestCreateParamsTest {
                                                 .ReceivingAccount
                                                 .ContactDetailCreateRequest
                                                 .builder()
-                                                .contactIdentifier("string")
+                                                .contactIdentifier("contact_identifier")
                                                 .contactIdentifierType(
                                                     BulkRequestCreateParams.Resource
                                                         .PaymentOrderAsyncCreateRequest
@@ -227,12 +227,12 @@ class BulkRequestCreateParamsTest {
                                             .ReceivingAccount
                                             .LedgerAccountCreateRequest
                                             .builder()
-                                            .currency("string")
+                                            .currency("currency")
                                             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                            .name("string")
+                                            .name("name")
                                             .normalBalance(TransactionDirection.CREDIT)
                                             .currencyExponent(123L)
-                                            .description("string")
+                                            .description("description")
                                             .ledgerAccountCategoryIds(
                                                 listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                             )
@@ -264,23 +264,23 @@ class BulkRequestCreateParamsTest {
                                             .builder()
                                             .build()
                                     )
-                                    .name("string")
+                                    .name("name")
                                     .partyAddress(
                                         BulkRequestCreateParams.Resource
                                             .PaymentOrderAsyncCreateRequest
                                             .ReceivingAccount
                                             .AddressRequest
                                             .builder()
-                                            .country("string")
-                                            .line1("string")
-                                            .line2("string")
-                                            .locality("string")
-                                            .postalCode("string")
-                                            .region("string")
+                                            .country("country")
+                                            .line1("line1")
+                                            .line2("line2")
+                                            .locality("locality")
+                                            .postalCode("postal_code")
+                                            .region("region")
                                             .build()
                                     )
-                                    .partyIdentifier("string")
-                                    .partyName("string")
+                                    .partyIdentifier("party_identifier")
+                                    .partyName("party_name")
                                     .partyType(
                                         BulkRequestCreateParams.Resource
                                             .PaymentOrderAsyncCreateRequest
@@ -288,7 +288,7 @@ class BulkRequestCreateParamsTest {
                                             .PartyType
                                             .BUSINESS
                                     )
-                                    .plaidProcessorToken("string")
+                                    .plaidProcessorToken("plaid_processor_token")
                                     .routingDetails(
                                         listOf(
                                             BulkRequestCreateParams.Resource
@@ -296,7 +296,7 @@ class BulkRequestCreateParamsTest {
                                                 .ReceivingAccount
                                                 .RoutingDetail
                                                 .builder()
-                                                .routingNumber("string")
+                                                .routingNumber("routing_number")
                                                 .routingNumberType(
                                                     BulkRequestCreateParams.Resource
                                                         .PaymentOrderAsyncCreateRequest
@@ -319,15 +319,17 @@ class BulkRequestCreateParamsTest {
                                     .build()
                             )
                             .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .remittanceInformation("string")
+                            .remittanceInformation("remittance_information")
                             .sendRemittanceAdvice(true)
-                            .statementDescriptor("string")
+                            .statementDescriptor("statement_descriptor")
                             .subtype(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
                             .transactionMonitoringEnabled(true)
-                            .ultimateOriginatingPartyIdentifier("string")
-                            .ultimateOriginatingPartyName("string")
-                            .ultimateReceivingPartyIdentifier("string")
-                            .ultimateReceivingPartyName("string")
+                            .ultimateOriginatingPartyIdentifier(
+                                "ultimate_originating_party_identifier"
+                            )
+                            .ultimateOriginatingPartyName("ultimate_originating_party_name")
+                            .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
+                            .ultimateReceivingPartyName("ultimate_receiving_party_name")
                             .build()
                     )
                 )
@@ -371,7 +373,7 @@ class BulkRequestCreateParamsTest {
                                         .SHARED
                                 )
                                 .currency(Currency.AED)
-                                .description("string")
+                                .description("description")
                                 .effectiveDate(LocalDate.parse("2019-12-27"))
                                 .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .fallbackType(
@@ -379,7 +381,7 @@ class BulkRequestCreateParamsTest {
                                         .FallbackType
                                         .ACH
                                 )
-                                .foreignExchangeContract("string")
+                                .foreignExchangeContract("foreign_exchange_contract")
                                 .foreignExchangeIndicator(
                                     BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .ForeignExchangeIndicator
@@ -442,12 +444,12 @@ class BulkRequestCreateParamsTest {
                                                     .build()
                                             )
                                         )
-                                        .description("string")
+                                        .description("description")
                                         .effectiveAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
                                         .effectiveDate(LocalDate.parse("2019-12-27"))
-                                        .externalId("string")
+                                        .externalId("external_id")
                                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .ledgerableType(
                                             BulkRequestCreateParams.Resource
@@ -481,8 +483,8 @@ class BulkRequestCreateParamsTest {
                                             .LineItemRequest
                                             .builder()
                                             .amount(123L)
-                                            .accountingCategoryId("string")
-                                            .description("string")
+                                            .accountingCategoryId("accounting_category_id")
+                                            .description("description")
                                             .metadata(
                                                 BulkRequestCreateParams.Resource
                                                     .PaymentOrderAsyncCreateRequest
@@ -501,14 +503,14 @@ class BulkRequestCreateParamsTest {
                                         .build()
                                 )
                                 .nsfProtected(true)
-                                .originatingPartyName("string")
+                                .originatingPartyName("originating_party_name")
                                 .priority(
                                     BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .Priority
                                         .HIGH
                                 )
                                 .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .purpose("string")
+                                .purpose("purpose")
                                 .receivingAccount(
                                     BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .ReceivingAccount
@@ -520,7 +522,7 @@ class BulkRequestCreateParamsTest {
                                                     .ReceivingAccount
                                                     .AccountDetail
                                                     .builder()
-                                                    .accountNumber("string")
+                                                    .accountNumber("account_number")
                                                     .accountNumberType(
                                                         BulkRequestCreateParams.Resource
                                                             .PaymentOrderAsyncCreateRequest
@@ -540,7 +542,7 @@ class BulkRequestCreateParamsTest {
                                                     .ReceivingAccount
                                                     .ContactDetailCreateRequest
                                                     .builder()
-                                                    .contactIdentifier("string")
+                                                    .contactIdentifier("contact_identifier")
                                                     .contactIdentifierType(
                                                         BulkRequestCreateParams.Resource
                                                             .PaymentOrderAsyncCreateRequest
@@ -558,12 +560,12 @@ class BulkRequestCreateParamsTest {
                                                 .ReceivingAccount
                                                 .LedgerAccountCreateRequest
                                                 .builder()
-                                                .currency("string")
+                                                .currency("currency")
                                                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                                .name("string")
+                                                .name("name")
                                                 .normalBalance(TransactionDirection.CREDIT)
                                                 .currencyExponent(123L)
-                                                .description("string")
+                                                .description("description")
                                                 .ledgerAccountCategoryIds(
                                                     listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                                 )
@@ -597,23 +599,23 @@ class BulkRequestCreateParamsTest {
                                                 .builder()
                                                 .build()
                                         )
-                                        .name("string")
+                                        .name("name")
                                         .partyAddress(
                                             BulkRequestCreateParams.Resource
                                                 .PaymentOrderAsyncCreateRequest
                                                 .ReceivingAccount
                                                 .AddressRequest
                                                 .builder()
-                                                .country("string")
-                                                .line1("string")
-                                                .line2("string")
-                                                .locality("string")
-                                                .postalCode("string")
-                                                .region("string")
+                                                .country("country")
+                                                .line1("line1")
+                                                .line2("line2")
+                                                .locality("locality")
+                                                .postalCode("postal_code")
+                                                .region("region")
                                                 .build()
                                         )
-                                        .partyIdentifier("string")
-                                        .partyName("string")
+                                        .partyIdentifier("party_identifier")
+                                        .partyName("party_name")
                                         .partyType(
                                             BulkRequestCreateParams.Resource
                                                 .PaymentOrderAsyncCreateRequest
@@ -621,7 +623,7 @@ class BulkRequestCreateParamsTest {
                                                 .PartyType
                                                 .BUSINESS
                                         )
-                                        .plaidProcessorToken("string")
+                                        .plaidProcessorToken("plaid_processor_token")
                                         .routingDetails(
                                             listOf(
                                                 BulkRequestCreateParams.Resource
@@ -629,7 +631,7 @@ class BulkRequestCreateParamsTest {
                                                     .ReceivingAccount
                                                     .RoutingDetail
                                                     .builder()
-                                                    .routingNumber("string")
+                                                    .routingNumber("routing_number")
                                                     .routingNumberType(
                                                         BulkRequestCreateParams.Resource
                                                             .PaymentOrderAsyncCreateRequest
@@ -652,15 +654,19 @@ class BulkRequestCreateParamsTest {
                                         .build()
                                 )
                                 .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .remittanceInformation("string")
+                                .remittanceInformation("remittance_information")
                                 .sendRemittanceAdvice(true)
-                                .statementDescriptor("string")
+                                .statementDescriptor("statement_descriptor")
                                 .subtype(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
                                 .transactionMonitoringEnabled(true)
-                                .ultimateOriginatingPartyIdentifier("string")
-                                .ultimateOriginatingPartyName("string")
-                                .ultimateReceivingPartyIdentifier("string")
-                                .ultimateReceivingPartyName("string")
+                                .ultimateOriginatingPartyIdentifier(
+                                    "ultimate_originating_party_identifier"
+                                )
+                                .ultimateOriginatingPartyName("ultimate_originating_party_name")
+                                .ultimateReceivingPartyIdentifier(
+                                    "ultimate_receiving_party_identifier"
+                                )
+                                .ultimateReceivingPartyName("ultimate_receiving_party_name")
                                 .build()
                         )
                     )
@@ -701,7 +707,7 @@ class BulkRequestCreateParamsTest {
                                     .SHARED
                             )
                             .currency(Currency.AED)
-                            .description("string")
+                            .description("description")
                             .effectiveDate(LocalDate.parse("2019-12-27"))
                             .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .fallbackType(
@@ -709,7 +715,7 @@ class BulkRequestCreateParamsTest {
                                     .FallbackType
                                     .ACH
                             )
-                            .foreignExchangeContract("string")
+                            .foreignExchangeContract("foreign_exchange_contract")
                             .foreignExchangeIndicator(
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .ForeignExchangeIndicator
@@ -772,10 +778,10 @@ class BulkRequestCreateParamsTest {
                                                 .build()
                                         )
                                     )
-                                    .description("string")
+                                    .description("description")
                                     .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .effectiveDate(LocalDate.parse("2019-12-27"))
-                                    .externalId("string")
+                                    .externalId("external_id")
                                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .ledgerableType(
                                         BulkRequestCreateParams.Resource
@@ -808,8 +814,8 @@ class BulkRequestCreateParamsTest {
                                         .LineItemRequest
                                         .builder()
                                         .amount(123L)
-                                        .accountingCategoryId("string")
-                                        .description("string")
+                                        .accountingCategoryId("accounting_category_id")
+                                        .description("description")
                                         .metadata(
                                             BulkRequestCreateParams.Resource
                                                 .PaymentOrderAsyncCreateRequest
@@ -828,14 +834,14 @@ class BulkRequestCreateParamsTest {
                                     .build()
                             )
                             .nsfProtected(true)
-                            .originatingPartyName("string")
+                            .originatingPartyName("originating_party_name")
                             .priority(
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .Priority
                                     .HIGH
                             )
                             .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .purpose("string")
+                            .purpose("purpose")
                             .receivingAccount(
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .ReceivingAccount
@@ -847,7 +853,7 @@ class BulkRequestCreateParamsTest {
                                                 .ReceivingAccount
                                                 .AccountDetail
                                                 .builder()
-                                                .accountNumber("string")
+                                                .accountNumber("account_number")
                                                 .accountNumberType(
                                                     BulkRequestCreateParams.Resource
                                                         .PaymentOrderAsyncCreateRequest
@@ -867,7 +873,7 @@ class BulkRequestCreateParamsTest {
                                                 .ReceivingAccount
                                                 .ContactDetailCreateRequest
                                                 .builder()
-                                                .contactIdentifier("string")
+                                                .contactIdentifier("contact_identifier")
                                                 .contactIdentifierType(
                                                     BulkRequestCreateParams.Resource
                                                         .PaymentOrderAsyncCreateRequest
@@ -885,12 +891,12 @@ class BulkRequestCreateParamsTest {
                                             .ReceivingAccount
                                             .LedgerAccountCreateRequest
                                             .builder()
-                                            .currency("string")
+                                            .currency("currency")
                                             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                            .name("string")
+                                            .name("name")
                                             .normalBalance(TransactionDirection.CREDIT)
                                             .currencyExponent(123L)
-                                            .description("string")
+                                            .description("description")
                                             .ledgerAccountCategoryIds(
                                                 listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                             )
@@ -922,23 +928,23 @@ class BulkRequestCreateParamsTest {
                                             .builder()
                                             .build()
                                     )
-                                    .name("string")
+                                    .name("name")
                                     .partyAddress(
                                         BulkRequestCreateParams.Resource
                                             .PaymentOrderAsyncCreateRequest
                                             .ReceivingAccount
                                             .AddressRequest
                                             .builder()
-                                            .country("string")
-                                            .line1("string")
-                                            .line2("string")
-                                            .locality("string")
-                                            .postalCode("string")
-                                            .region("string")
+                                            .country("country")
+                                            .line1("line1")
+                                            .line2("line2")
+                                            .locality("locality")
+                                            .postalCode("postal_code")
+                                            .region("region")
                                             .build()
                                     )
-                                    .partyIdentifier("string")
-                                    .partyName("string")
+                                    .partyIdentifier("party_identifier")
+                                    .partyName("party_name")
                                     .partyType(
                                         BulkRequestCreateParams.Resource
                                             .PaymentOrderAsyncCreateRequest
@@ -946,7 +952,7 @@ class BulkRequestCreateParamsTest {
                                             .PartyType
                                             .BUSINESS
                                     )
-                                    .plaidProcessorToken("string")
+                                    .plaidProcessorToken("plaid_processor_token")
                                     .routingDetails(
                                         listOf(
                                             BulkRequestCreateParams.Resource
@@ -954,7 +960,7 @@ class BulkRequestCreateParamsTest {
                                                 .ReceivingAccount
                                                 .RoutingDetail
                                                 .builder()
-                                                .routingNumber("string")
+                                                .routingNumber("routing_number")
                                                 .routingNumberType(
                                                     BulkRequestCreateParams.Resource
                                                         .PaymentOrderAsyncCreateRequest
@@ -977,15 +983,17 @@ class BulkRequestCreateParamsTest {
                                     .build()
                             )
                             .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .remittanceInformation("string")
+                            .remittanceInformation("remittance_information")
                             .sendRemittanceAdvice(true)
-                            .statementDescriptor("string")
+                            .statementDescriptor("statement_descriptor")
                             .subtype(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
                             .transactionMonitoringEnabled(true)
-                            .ultimateOriginatingPartyIdentifier("string")
-                            .ultimateOriginatingPartyName("string")
-                            .ultimateReceivingPartyIdentifier("string")
-                            .ultimateReceivingPartyName("string")
+                            .ultimateOriginatingPartyIdentifier(
+                                "ultimate_originating_party_identifier"
+                            )
+                            .ultimateOriginatingPartyName("ultimate_originating_party_name")
+                            .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
+                            .ultimateReceivingPartyName("ultimate_receiving_party_name")
                             .build()
                     )
                 )

@@ -25,8 +25,8 @@ class RoutingDetailServiceTest {
             routingDetailService.create(
                 RoutingDetailCreateParams.builder()
                     .accountsType(RoutingDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
-                    .accountId("string")
-                    .routingNumber("string")
+                    .accountId("account_id")
+                    .routingNumber("routing_number")
                     .routingNumberType(RoutingDetailCreateParams.RoutingNumberType.ABA)
                     .paymentType(RoutingDetailCreateParams.PaymentType.ACH)
                     .build()
@@ -48,8 +48,8 @@ class RoutingDetailServiceTest {
             routingDetailService.retrieve(
                 RoutingDetailRetrieveParams.builder()
                     .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
-                    .accountId("string")
-                    .id("string")
+                    .accountId("account_id")
+                    .id("id")
                     .build()
             )
         println(routingDetail)
@@ -69,7 +69,7 @@ class RoutingDetailServiceTest {
             routingDetailService.list(
                 RoutingDetailListParams.builder()
                     .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
-                    .accountId("string")
+                    .accountId("account_id")
                     .build()
             )
         println(response)
@@ -88,8 +88,8 @@ class RoutingDetailServiceTest {
         routingDetailService.delete(
             RoutingDetailDeleteParams.builder()
                 .accountsType(RoutingDetailDeleteParams.AccountsType.EXTERNAL_ACCOUNTS)
-                .accountId("string")
-                .id("string")
+                .accountId("account_id")
+                .id("id")
                 .build()
         )
     }

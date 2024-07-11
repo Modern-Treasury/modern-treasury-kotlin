@@ -26,8 +26,8 @@ class LineItemServiceTest {
             lineItemService.retrieve(
                 LineItemRetrieveParams.builder()
                     .itemizableType(LineItemRetrieveParams.ItemizableType.EXPECTED_PAYMENTS)
-                    .itemizableId("string")
-                    .id("string")
+                    .itemizableId("itemizable_id")
+                    .id("id")
                     .build()
             )
         println(lineItem)
@@ -47,8 +47,8 @@ class LineItemServiceTest {
             lineItemService.update(
                 LineItemUpdateParams.builder()
                     .itemizableType(LineItemUpdateParams.ItemizableType.EXPECTED_PAYMENTS)
-                    .itemizableId("string")
-                    .id("string")
+                    .itemizableId("itemizable_id")
+                    .id("id")
                     .metadata(LineItemUpdateParams.Metadata.builder().build())
                     .build()
             )
@@ -70,7 +70,7 @@ class LineItemServiceTest {
             lineItemService.list(
                 LineItemListParams.builder()
                     .itemizableType(LineItemListParams.ItemizableType.EXPECTED_PAYMENTS)
-                    .itemizableId("string")
+                    .itemizableId("itemizable_id")
                     .build()
             )
         println(response)

@@ -11,10 +11,10 @@ class LedgerTransactionVersionListParamsTest {
     @Test
     fun createLedgerTransactionVersionListParams() {
         LedgerTransactionVersionListParams.builder()
-            .afterCursor("string")
+            .afterCursor("after_cursor")
             .createdAt(LedgerTransactionVersionListParams.CreatedAt.builder().build())
-            .ledgerAccountStatementId("string")
-            .ledgerTransactionId("string")
+            .ledgerAccountStatementId("ledger_account_statement_id")
+            .ledgerTransactionId("ledger_transaction_id")
             .perPage(123L)
             .version(LedgerTransactionVersionListParams.Version.builder().build())
             .build()
@@ -24,22 +24,22 @@ class LedgerTransactionVersionListParamsTest {
     fun getQueryParams() {
         val params =
             LedgerTransactionVersionListParams.builder()
-                .afterCursor("string")
+                .afterCursor("after_cursor")
                 .createdAt(LedgerTransactionVersionListParams.CreatedAt.builder().build())
-                .ledgerAccountStatementId("string")
-                .ledgerTransactionId("string")
+                .ledgerAccountStatementId("ledger_account_statement_id")
+                .ledgerTransactionId("ledger_transaction_id")
                 .perPage(123L)
                 .version(LedgerTransactionVersionListParams.Version.builder().build())
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
         LedgerTransactionVersionListParams.CreatedAt.builder().build().forEachQueryParam {
             key,
             values ->
             expected.put("created_at[$key]", values)
         }
-        expected.put("ledger_account_statement_id", listOf("string"))
-        expected.put("ledger_transaction_id", listOf("string"))
+        expected.put("ledger_account_statement_id", listOf("ledger_account_statement_id"))
+        expected.put("ledger_transaction_id", listOf("ledger_transaction_id"))
         expected.put("per_page", listOf("123"))
         LedgerTransactionVersionListParams.Version.builder().build().forEachQueryParam { key, values
             ->

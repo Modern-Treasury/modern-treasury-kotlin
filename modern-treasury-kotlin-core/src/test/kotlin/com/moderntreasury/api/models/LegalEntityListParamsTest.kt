@@ -11,11 +11,11 @@ class LegalEntityListParamsTest {
     @Test
     fun createLegalEntityListParams() {
         LegalEntityListParams.builder()
-            .afterCursor("string")
+            .afterCursor("after_cursor")
             .legalEntityType(LegalEntityListParams.LegalEntityType.BUSINESS)
             .metadata(LegalEntityListParams.Metadata.builder().build())
             .perPage(123L)
-            .showDeleted("string")
+            .showDeleted("show_deleted")
             .build()
     }
 
@@ -23,14 +23,14 @@ class LegalEntityListParamsTest {
     fun getQueryParams() {
         val params =
             LegalEntityListParams.builder()
-                .afterCursor("string")
+                .afterCursor("after_cursor")
                 .legalEntityType(LegalEntityListParams.LegalEntityType.BUSINESS)
                 .metadata(LegalEntityListParams.Metadata.builder().build())
                 .perPage(123L)
-                .showDeleted("string")
+                .showDeleted("show_deleted")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
         expected.put(
             "legal_entity_type",
             listOf(LegalEntityListParams.LegalEntityType.BUSINESS.toString())
@@ -39,7 +39,7 @@ class LegalEntityListParamsTest {
             expected.put("metadata[$key]", values)
         }
         expected.put("per_page", listOf("123"))
-        expected.put("show_deleted", listOf("string"))
+        expected.put("show_deleted", listOf("show_deleted"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

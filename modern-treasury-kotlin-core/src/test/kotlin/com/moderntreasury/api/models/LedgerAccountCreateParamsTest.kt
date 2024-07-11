@@ -11,12 +11,12 @@ class LedgerAccountCreateParamsTest {
     @Test
     fun createLedgerAccountCreateParams() {
         LedgerAccountCreateParams.builder()
-            .currency("string")
+            .currency("currency")
             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .name("string")
+            .name("name")
             .normalBalance(TransactionDirection.CREDIT)
             .currencyExponent(123L)
-            .description("string")
+            .description("description")
             .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .ledgerableType(LedgerAccountCreateParams.LedgerableType.COUNTERPARTY)
@@ -28,12 +28,12 @@ class LedgerAccountCreateParamsTest {
     fun getBody() {
         val params =
             LedgerAccountCreateParams.builder()
-                .currency("string")
+                .currency("currency")
                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .name("string")
+                .name("name")
                 .normalBalance(TransactionDirection.CREDIT)
                 .currencyExponent(123L)
-                .description("string")
+                .description("description")
                 .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerableType(LedgerAccountCreateParams.LedgerableType.COUNTERPARTY)
@@ -41,12 +41,12 @@ class LedgerAccountCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.currency()).isEqualTo("string")
+        assertThat(body.currency()).isEqualTo("currency")
         assertThat(body.ledgerId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.name()).isEqualTo("string")
+        assertThat(body.name()).isEqualTo("name")
         assertThat(body.normalBalance()).isEqualTo(TransactionDirection.CREDIT)
         assertThat(body.currencyExponent()).isEqualTo(123L)
-        assertThat(body.description()).isEqualTo("string")
+        assertThat(body.description()).isEqualTo("description")
         assertThat(body.ledgerAccountCategoryIds())
             .isEqualTo(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
         assertThat(body.ledgerableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -59,16 +59,16 @@ class LedgerAccountCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             LedgerAccountCreateParams.builder()
-                .currency("string")
+                .currency("currency")
                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .name("string")
+                .name("name")
                 .normalBalance(TransactionDirection.CREDIT)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.currency()).isEqualTo("string")
+        assertThat(body.currency()).isEqualTo("currency")
         assertThat(body.ledgerId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.name()).isEqualTo("string")
+        assertThat(body.name()).isEqualTo("name")
         assertThat(body.normalBalance()).isEqualTo(TransactionDirection.CREDIT)
     }
 }

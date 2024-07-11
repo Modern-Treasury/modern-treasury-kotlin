@@ -24,14 +24,14 @@ class LineItemServiceTest {
         val invoiceLineItem =
             lineItemService.create(
                 InvoiceLineItemCreateParams.builder()
-                    .invoiceId("string")
-                    .name("string")
+                    .invoiceId("invoice_id")
+                    .name("name")
                     .unitAmount(123L)
-                    .description("string")
-                    .direction("string")
+                    .description("description")
+                    .direction("direction")
                     .metadata(InvoiceLineItemCreateParams.Metadata.builder().build())
                     .quantity(123L)
-                    .unitAmountDecimal("string")
+                    .unitAmountDecimal("unit_amount_decimal")
                     .build()
             )
         println(invoiceLineItem)
@@ -49,7 +49,7 @@ class LineItemServiceTest {
         val lineItemService = client.invoices().lineItems()
         val invoiceLineItem =
             lineItemService.retrieve(
-                InvoiceLineItemRetrieveParams.builder().invoiceId("string").id("string").build()
+                InvoiceLineItemRetrieveParams.builder().invoiceId("invoice_id").id("id").build()
             )
         println(invoiceLineItem)
         invoiceLineItem.validate()
@@ -67,15 +67,15 @@ class LineItemServiceTest {
         val invoiceLineItem =
             lineItemService.update(
                 InvoiceLineItemUpdateParams.builder()
-                    .invoiceId("string")
-                    .id("string")
-                    .description("string")
-                    .direction("string")
+                    .invoiceId("invoice_id")
+                    .id("id")
+                    .description("description")
+                    .direction("direction")
                     .metadata(InvoiceLineItemUpdateParams.Metadata.builder().build())
-                    .name("string")
+                    .name("name")
                     .quantity(123L)
                     .unitAmount(123L)
-                    .unitAmountDecimal("string")
+                    .unitAmountDecimal("unit_amount_decimal")
                     .build()
             )
         println(invoiceLineItem)
@@ -92,7 +92,9 @@ class LineItemServiceTest {
                 .build()
         val lineItemService = client.invoices().lineItems()
         val response =
-            lineItemService.list(InvoiceLineItemListParams.builder().invoiceId("string").build())
+            lineItemService.list(
+                InvoiceLineItemListParams.builder().invoiceId("invoice_id").build()
+            )
         println(response)
         response.items().forEach { it.validate() }
     }
@@ -108,7 +110,7 @@ class LineItemServiceTest {
         val lineItemService = client.invoices().lineItems()
         val invoiceLineItem =
             lineItemService.delete(
-                InvoiceLineItemDeleteParams.builder().invoiceId("string").id("string").build()
+                InvoiceLineItemDeleteParams.builder().invoiceId("invoice_id").id("id").build()
             )
         println(invoiceLineItem)
         invoiceLineItem.validate()

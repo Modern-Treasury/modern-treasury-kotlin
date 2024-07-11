@@ -13,10 +13,10 @@ class DocumentCreateParamsTest {
     @Test
     fun createDocumentCreateParams() {
         DocumentCreateParams.builder()
-            .documentableId("string")
+            .documentableId("documentable_id")
             .documentableType(DocumentCreateParams.DocumentableType.CASES)
             .file("some content".toByteArray())
-            .documentType("string")
+            .documentType("document_type")
             .build()
     }
 
@@ -24,16 +24,20 @@ class DocumentCreateParamsTest {
     fun getBody() {
         val params =
             DocumentCreateParams.builder()
-                .documentableId("string")
+                .documentableId("documentable_id")
                 .documentableType(DocumentCreateParams.DocumentableType.CASES)
                 .file("some content".toByteArray())
-                .documentType("string")
+                .documentType("document_type")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body)
             .containsExactly(
-                MultipartFormValue.fromString("documentableId", "string", ContentTypes.DefaultText),
+                MultipartFormValue.fromString(
+                    "documentableId",
+                    "documentable_id",
+                    ContentTypes.DefaultText
+                ),
                 MultipartFormValue.fromEnum(
                     "documentableType",
                     DocumentCreateParams.DocumentableType.CASES,
@@ -44,7 +48,11 @@ class DocumentCreateParamsTest {
                     "some content".toByteArray(),
                     ContentTypes.DefaultBinary
                 ),
-                MultipartFormValue.fromString("documentType", "string", ContentTypes.DefaultText),
+                MultipartFormValue.fromString(
+                    "documentType",
+                    "document_type",
+                    ContentTypes.DefaultText
+                ),
             )
     }
 
@@ -52,7 +60,7 @@ class DocumentCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             DocumentCreateParams.builder()
-                .documentableId("string")
+                .documentableId("documentable_id")
                 .documentableType(DocumentCreateParams.DocumentableType.CASES)
                 .file("some content".toByteArray())
                 .build()
@@ -60,7 +68,11 @@ class DocumentCreateParamsTest {
         assertThat(body).isNotNull
         assertThat(body)
             .containsExactly(
-                MultipartFormValue.fromString("documentableId", "string", ContentTypes.DefaultText),
+                MultipartFormValue.fromString(
+                    "documentableId",
+                    "documentable_id",
+                    ContentTypes.DefaultText
+                ),
                 MultipartFormValue.fromEnum(
                     "documentableType",
                     DocumentCreateParams.DocumentableType.CASES,

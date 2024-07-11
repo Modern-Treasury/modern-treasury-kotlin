@@ -12,20 +12,20 @@ class LedgerEntryListParamsTest {
     fun createLedgerEntryListParams() {
         LedgerEntryListParams.builder()
             .id(listOf("string"))
-            .afterCursor("string")
+            .afterCursor("after_cursor")
             .asOfLockVersion(123L)
             .direction(TransactionDirection.CREDIT)
             .effectiveAt(LedgerEntryListParams.EffectiveAt.builder().build())
             .effectiveDate(LedgerEntryListParams.EffectiveDate.builder().build())
-            .ledgerAccountCategoryId("string")
-            .ledgerAccountId("string")
+            .ledgerAccountCategoryId("ledger_account_category_id")
+            .ledgerAccountId("ledger_account_id")
             .ledgerAccountLockVersion(
                 LedgerEntryListParams.LedgerAccountLockVersion.builder().build()
             )
-            .ledgerAccountPayoutId("string")
-            .ledgerAccountSettlementId("string")
-            .ledgerAccountStatementId("string")
-            .ledgerTransactionId("string")
+            .ledgerAccountPayoutId("ledger_account_payout_id")
+            .ledgerAccountSettlementId("ledger_account_settlement_id")
+            .ledgerAccountStatementId("ledger_account_statement_id")
+            .ledgerTransactionId("ledger_transaction_id")
             .metadata(LedgerEntryListParams.Metadata.builder().build())
             .orderBy(
                 LedgerEntryListParams.OrderBy.builder()
@@ -46,20 +46,20 @@ class LedgerEntryListParamsTest {
         val params =
             LedgerEntryListParams.builder()
                 .id(listOf("string"))
-                .afterCursor("string")
+                .afterCursor("after_cursor")
                 .asOfLockVersion(123L)
                 .direction(TransactionDirection.CREDIT)
                 .effectiveAt(LedgerEntryListParams.EffectiveAt.builder().build())
                 .effectiveDate(LedgerEntryListParams.EffectiveDate.builder().build())
-                .ledgerAccountCategoryId("string")
-                .ledgerAccountId("string")
+                .ledgerAccountCategoryId("ledger_account_category_id")
+                .ledgerAccountId("ledger_account_id")
                 .ledgerAccountLockVersion(
                     LedgerEntryListParams.LedgerAccountLockVersion.builder().build()
                 )
-                .ledgerAccountPayoutId("string")
-                .ledgerAccountSettlementId("string")
-                .ledgerAccountStatementId("string")
-                .ledgerTransactionId("string")
+                .ledgerAccountPayoutId("ledger_account_payout_id")
+                .ledgerAccountSettlementId("ledger_account_settlement_id")
+                .ledgerAccountStatementId("ledger_account_statement_id")
+                .ledgerTransactionId("ledger_transaction_id")
                 .metadata(LedgerEntryListParams.Metadata.builder().build())
                 .orderBy(
                     LedgerEntryListParams.OrderBy.builder()
@@ -75,7 +75,7 @@ class LedgerEntryListParamsTest {
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("id[]", listOf("string"))
-        expected.put("after_cursor", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
         expected.put("as_of_lock_version", listOf("123"))
         expected.put("direction", listOf(TransactionDirection.CREDIT.toString()))
         LedgerEntryListParams.EffectiveAt.builder().build().forEachQueryParam { key, values ->
@@ -84,17 +84,17 @@ class LedgerEntryListParamsTest {
         LedgerEntryListParams.EffectiveDate.builder().build().forEachQueryParam { key, values ->
             expected.put("effective_date[$key]", values)
         }
-        expected.put("ledger_account_category_id", listOf("string"))
-        expected.put("ledger_account_id", listOf("string"))
+        expected.put("ledger_account_category_id", listOf("ledger_account_category_id"))
+        expected.put("ledger_account_id", listOf("ledger_account_id"))
         LedgerEntryListParams.LedgerAccountLockVersion.builder().build().forEachQueryParam {
             key,
             values ->
             expected.put("ledger_account_lock_version[$key]", values)
         }
-        expected.put("ledger_account_payout_id", listOf("string"))
-        expected.put("ledger_account_settlement_id", listOf("string"))
-        expected.put("ledger_account_statement_id", listOf("string"))
-        expected.put("ledger_transaction_id", listOf("string"))
+        expected.put("ledger_account_payout_id", listOf("ledger_account_payout_id"))
+        expected.put("ledger_account_settlement_id", listOf("ledger_account_settlement_id"))
+        expected.put("ledger_account_statement_id", listOf("ledger_account_statement_id"))
+        expected.put("ledger_transaction_id", listOf("ledger_transaction_id"))
         LedgerEntryListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }

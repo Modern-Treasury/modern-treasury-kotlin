@@ -11,8 +11,8 @@ class LedgerAccountCategoryRemoveLedgerAccountParamsTest {
     @Test
     fun createLedgerAccountCategoryRemoveLedgerAccountParams() {
         LedgerAccountCategoryRemoveLedgerAccountParams.builder()
-            .id("string")
-            .ledgerAccountId("string")
+            .id("id")
+            .ledgerAccountId("ledger_account_id")
             .build()
     }
 
@@ -20,14 +20,14 @@ class LedgerAccountCategoryRemoveLedgerAccountParamsTest {
     fun getPathParam() {
         val params =
             LedgerAccountCategoryRemoveLedgerAccountParams.builder()
-                .id("string")
-                .ledgerAccountId("string")
+                .id("id")
+                .ledgerAccountId("ledger_account_id")
                 .build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // path param "ledgerAccountId"
-        assertThat(params.getPathParam(1)).isEqualTo("string")
+        assertThat(params.getPathParam(1)).isEqualTo("ledger_account_id")
         // out-of-bound path param
         assertThat(params.getPathParam(2)).isEqualTo("")
     }

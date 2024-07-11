@@ -25,7 +25,7 @@ class CounterpartyServiceTest {
         val counterparty =
             counterpartyService.create(
                 CounterpartyCreateParams.builder()
-                    .name("string")
+                    .name("name")
                     .accounting(
                         CounterpartyCreateParams.Accounting.builder()
                             .type(CounterpartyCreateParams.Accounting.Type.CUSTOMER)
@@ -37,7 +37,7 @@ class CounterpartyServiceTest {
                                 .accountDetails(
                                     listOf(
                                         CounterpartyCreateParams.Account.AccountDetail.builder()
-                                            .accountNumber("string")
+                                            .accountNumber("account_number")
                                             .accountNumberType(
                                                 CounterpartyCreateParams.Account.AccountDetail
                                                     .AccountNumberType
@@ -51,7 +51,7 @@ class CounterpartyServiceTest {
                                     listOf(
                                         CounterpartyCreateParams.Account.ContactDetailCreateRequest
                                             .builder()
-                                            .contactIdentifier("string")
+                                            .contactIdentifier("contact_identifier")
                                             .contactIdentifierType(
                                                 CounterpartyCreateParams.Account
                                                     .ContactDetailCreateRequest
@@ -64,12 +64,12 @@ class CounterpartyServiceTest {
                                 .ledgerAccount(
                                     CounterpartyCreateParams.Account.LedgerAccountCreateRequest
                                         .builder()
-                                        .currency("string")
+                                        .currency("currency")
                                         .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                        .name("string")
+                                        .name("name")
                                         .normalBalance(TransactionDirection.CREDIT)
                                         .currencyExponent(123L)
-                                        .description("string")
+                                        .description("description")
                                         .ledgerAccountCategoryIds(
                                             listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         )
@@ -92,25 +92,25 @@ class CounterpartyServiceTest {
                                 .metadata(
                                     CounterpartyCreateParams.Account.Metadata.builder().build()
                                 )
-                                .name("string")
+                                .name("name")
                                 .partyAddress(
                                     CounterpartyCreateParams.Account.AddressRequest.builder()
-                                        .country("string")
-                                        .line1("string")
-                                        .line2("string")
-                                        .locality("string")
-                                        .postalCode("string")
-                                        .region("string")
+                                        .country("country")
+                                        .line1("line1")
+                                        .line2("line2")
+                                        .locality("locality")
+                                        .postalCode("postal_code")
+                                        .region("region")
                                         .build()
                                 )
-                                .partyIdentifier("string")
-                                .partyName("string")
+                                .partyIdentifier("party_identifier")
+                                .partyName("party_name")
                                 .partyType(CounterpartyCreateParams.Account.PartyType.BUSINESS)
-                                .plaidProcessorToken("string")
+                                .plaidProcessorToken("plaid_processor_token")
                                 .routingDetails(
                                     listOf(
                                         CounterpartyCreateParams.Account.RoutingDetail.builder()
-                                            .routingNumber("string")
+                                            .routingNumber("routing_number")
                                             .routingNumberType(
                                                 CounterpartyCreateParams.Account.RoutingDetail
                                                     .RoutingNumberType
@@ -140,11 +140,11 @@ class CounterpartyServiceTest {
                                     CounterpartyCreateParams.LegalEntityCreateRequest
                                         .LegalEntityAddressCreateRequest
                                         .builder()
-                                        .country("string")
-                                        .line1("string")
-                                        .locality("string")
-                                        .postalCode("string")
-                                        .region("string")
+                                        .country("country")
+                                        .line1("line1")
+                                        .locality("locality")
+                                        .postalCode("postal_code")
+                                        .region("region")
                                         .addressTypes(
                                             listOf(
                                                 CounterpartyCreateParams.LegalEntityCreateRequest
@@ -153,33 +153,33 @@ class CounterpartyServiceTest {
                                                     .BUSINESS
                                             )
                                         )
-                                        .line2("string")
+                                        .line2("line2")
                                         .build()
                                 )
                             )
-                            .businessName("string")
+                            .businessName("business_name")
                             .dateFormed(LocalDate.parse("2019-12-27"))
                             .dateOfBirth(LocalDate.parse("2019-12-27"))
                             .doingBusinessAsNames(listOf("string"))
-                            .email("string")
-                            .firstName("string")
+                            .email("email")
+                            .firstName("first_name")
                             .identifications(
                                 listOf(
                                     CounterpartyCreateParams.LegalEntityCreateRequest
                                         .IdentificationCreateRequest
                                         .builder()
-                                        .idNumber("string")
+                                        .idNumber("id_number")
                                         .idType(
                                             CounterpartyCreateParams.LegalEntityCreateRequest
                                                 .IdentificationCreateRequest
                                                 .IdType
                                                 .AR_CUIL
                                         )
-                                        .issuingCountry("string")
+                                        .issuingCountry("issuing_country")
                                         .build()
                                 )
                             )
-                            .lastName("string")
+                            .lastName("last_name")
                             .legalEntityAssociations(
                                 listOf(
                                     CounterpartyCreateParams.LegalEntityCreateRequest
@@ -206,11 +206,11 @@ class CounterpartyServiceTest {
                                                             .ChildLegalEntityCreate
                                                             .LegalEntityAddressCreateRequest
                                                             .builder()
-                                                            .country("string")
-                                                            .line1("string")
-                                                            .locality("string")
-                                                            .postalCode("string")
-                                                            .region("string")
+                                                            .country("country")
+                                                            .line1("line1")
+                                                            .locality("locality")
+                                                            .postalCode("postal_code")
+                                                            .region("region")
                                                             .addressTypes(
                                                                 listOf(
                                                                     CounterpartyCreateParams
@@ -222,16 +222,16 @@ class CounterpartyServiceTest {
                                                                         .BUSINESS
                                                                 )
                                                             )
-                                                            .line2("string")
+                                                            .line2("line2")
                                                             .build()
                                                     )
                                                 )
-                                                .businessName("string")
+                                                .businessName("business_name")
                                                 .dateFormed(LocalDate.parse("2019-12-27"))
                                                 .dateOfBirth(LocalDate.parse("2019-12-27"))
                                                 .doingBusinessAsNames(listOf("string"))
-                                                .email("string")
-                                                .firstName("string")
+                                                .email("email")
+                                                .firstName("first_name")
                                                 .identifications(
                                                     listOf(
                                                         CounterpartyCreateParams
@@ -240,7 +240,7 @@ class CounterpartyServiceTest {
                                                             .ChildLegalEntityCreate
                                                             .IdentificationCreateRequest
                                                             .builder()
-                                                            .idNumber("string")
+                                                            .idNumber("id_number")
                                                             .idType(
                                                                 CounterpartyCreateParams
                                                                     .LegalEntityCreateRequest
@@ -250,11 +250,11 @@ class CounterpartyServiceTest {
                                                                     .IdType
                                                                     .AR_CUIL
                                                             )
-                                                            .issuingCountry("string")
+                                                            .issuingCountry("issuing_country")
                                                             .build()
                                                     )
                                                 )
-                                                .lastName("string")
+                                                .lastName("last_name")
                                                 .legalEntityType(
                                                     CounterpartyCreateParams
                                                         .LegalEntityCreateRequest
@@ -288,7 +288,7 @@ class CounterpartyServiceTest {
                                                             .ChildLegalEntityCreate
                                                             .PhoneNumber
                                                             .builder()
-                                                            .phoneNumber("string")
+                                                            .phoneNumber("phone_number")
                                                             .build()
                                                     )
                                                 )
@@ -300,12 +300,12 @@ class CounterpartyServiceTest {
                                                         .RiskRating
                                                         .LOW
                                                 )
-                                                .website("string")
+                                                .website("website")
                                                 .build()
                                         )
-                                        .childLegalEntityId("string")
+                                        .childLegalEntityId("child_legal_entity_id")
                                         .ownershipPercentage(123L)
-                                        .title("string")
+                                        .title("title")
                                         .build()
                                 )
                             )
@@ -321,20 +321,20 @@ class CounterpartyServiceTest {
                                 listOf(
                                     CounterpartyCreateParams.LegalEntityCreateRequest.PhoneNumber
                                         .builder()
-                                        .phoneNumber("string")
+                                        .phoneNumber("phone_number")
                                         .build()
                                 )
                             )
                             .riskRating(
                                 CounterpartyCreateParams.LegalEntityCreateRequest.RiskRating.LOW
                             )
-                            .website("string")
+                            .website("website")
                             .build()
                     )
                     .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .metadata(CounterpartyCreateParams.Metadata.builder().build())
                     .sendRemittanceAdvice(true)
-                    .taxpayerIdentifier("string")
+                    .taxpayerIdentifier("taxpayer_identifier")
                     .verificationStatus(CounterpartyCreateParams.VerificationStatus.DENIED)
                     .build()
             )
@@ -352,7 +352,7 @@ class CounterpartyServiceTest {
                 .build()
         val counterpartyService = client.counterparties()
         val counterparty =
-            counterpartyService.retrieve(CounterpartyRetrieveParams.builder().id("string").build())
+            counterpartyService.retrieve(CounterpartyRetrieveParams.builder().id("id").build())
         println(counterparty)
         counterparty.validate()
     }
@@ -369,13 +369,13 @@ class CounterpartyServiceTest {
         val counterparty =
             counterpartyService.update(
                 CounterpartyUpdateParams.builder()
-                    .id("string")
+                    .id("id")
                     .email("dev@stainlessapi.com")
                     .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .metadata(CounterpartyUpdateParams.Metadata.builder().build())
-                    .name("string")
+                    .name("name")
                     .sendRemittanceAdvice(true)
-                    .taxpayerIdentifier("string")
+                    .taxpayerIdentifier("taxpayer_identifier")
                     .build()
             )
         println(counterparty)
@@ -405,7 +405,7 @@ class CounterpartyServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val counterpartyService = client.counterparties()
-        counterpartyService.delete(CounterpartyDeleteParams.builder().id("string").build())
+        counterpartyService.delete(CounterpartyDeleteParams.builder().id("id").build())
     }
 
     @Test
@@ -420,7 +420,7 @@ class CounterpartyServiceTest {
         val counterpartyCollectAccountResponse =
             counterpartyService.collectAccount(
                 CounterpartyCollectAccountParams.builder()
-                    .id("string")
+                    .id("id")
                     .direction(TransactionDirection.CREDIT)
                     .customRedirect("https://example.com")
                     .fields(listOf(CounterpartyCollectAccountParams.Field.NAME))

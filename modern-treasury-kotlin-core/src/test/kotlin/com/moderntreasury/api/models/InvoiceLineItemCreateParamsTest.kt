@@ -11,14 +11,14 @@ class InvoiceLineItemCreateParamsTest {
     @Test
     fun createInvoiceLineItemCreateParams() {
         InvoiceLineItemCreateParams.builder()
-            .invoiceId("string")
-            .name("string")
+            .invoiceId("invoice_id")
+            .name("name")
             .unitAmount(123L)
-            .description("string")
-            .direction("string")
+            .description("description")
+            .direction("direction")
             .metadata(InvoiceLineItemCreateParams.Metadata.builder().build())
             .quantity(123L)
-            .unitAmountDecimal("string")
+            .unitAmountDecimal("unit_amount_decimal")
             .build()
     }
 
@@ -26,38 +26,38 @@ class InvoiceLineItemCreateParamsTest {
     fun getBody() {
         val params =
             InvoiceLineItemCreateParams.builder()
-                .invoiceId("string")
-                .name("string")
+                .invoiceId("invoice_id")
+                .name("name")
                 .unitAmount(123L)
-                .description("string")
-                .direction("string")
+                .description("description")
+                .direction("direction")
                 .metadata(InvoiceLineItemCreateParams.Metadata.builder().build())
                 .quantity(123L)
-                .unitAmountDecimal("string")
+                .unitAmountDecimal("unit_amount_decimal")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.name()).isEqualTo("string")
+        assertThat(body.name()).isEqualTo("name")
         assertThat(body.unitAmount()).isEqualTo(123L)
-        assertThat(body.description()).isEqualTo("string")
-        assertThat(body.direction()).isEqualTo("string")
+        assertThat(body.description()).isEqualTo("description")
+        assertThat(body.direction()).isEqualTo("direction")
         assertThat(body.metadata())
             .isEqualTo(InvoiceLineItemCreateParams.Metadata.builder().build())
         assertThat(body.quantity()).isEqualTo(123L)
-        assertThat(body.unitAmountDecimal()).isEqualTo("string")
+        assertThat(body.unitAmountDecimal()).isEqualTo("unit_amount_decimal")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
             InvoiceLineItemCreateParams.builder()
-                .invoiceId("string")
-                .name("string")
+                .invoiceId("invoice_id")
+                .name("name")
                 .unitAmount(123L)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.name()).isEqualTo("string")
+        assertThat(body.name()).isEqualTo("name")
         assertThat(body.unitAmount()).isEqualTo(123L)
     }
 
@@ -65,13 +65,13 @@ class InvoiceLineItemCreateParamsTest {
     fun getPathParam() {
         val params =
             InvoiceLineItemCreateParams.builder()
-                .invoiceId("string")
-                .name("string")
+                .invoiceId("invoice_id")
+                .name("name")
                 .unitAmount(123L)
                 .build()
         assertThat(params).isNotNull
         // path param "invoiceId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("invoice_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

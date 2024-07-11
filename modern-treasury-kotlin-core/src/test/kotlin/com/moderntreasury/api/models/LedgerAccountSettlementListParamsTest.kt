@@ -12,13 +12,13 @@ class LedgerAccountSettlementListParamsTest {
     fun createLedgerAccountSettlementListParams() {
         LedgerAccountSettlementListParams.builder()
             .id(listOf("string"))
-            .afterCursor("string")
-            .ledgerId("string")
-            .ledgerTransactionId("string")
+            .afterCursor("after_cursor")
+            .ledgerId("ledger_id")
+            .ledgerTransactionId("ledger_transaction_id")
             .metadata(LedgerAccountSettlementListParams.Metadata.builder().build())
             .perPage(123L)
-            .settledLedgerAccountId("string")
-            .settlementEntryDirection("string")
+            .settledLedgerAccountId("settled_ledger_account_id")
+            .settlementEntryDirection("settlement_entry_direction")
             .build()
     }
 
@@ -27,26 +27,26 @@ class LedgerAccountSettlementListParamsTest {
         val params =
             LedgerAccountSettlementListParams.builder()
                 .id(listOf("string"))
-                .afterCursor("string")
-                .ledgerId("string")
-                .ledgerTransactionId("string")
+                .afterCursor("after_cursor")
+                .ledgerId("ledger_id")
+                .ledgerTransactionId("ledger_transaction_id")
                 .metadata(LedgerAccountSettlementListParams.Metadata.builder().build())
                 .perPage(123L)
-                .settledLedgerAccountId("string")
-                .settlementEntryDirection("string")
+                .settledLedgerAccountId("settled_ledger_account_id")
+                .settlementEntryDirection("settlement_entry_direction")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("id[]", listOf("string"))
-        expected.put("after_cursor", listOf("string"))
-        expected.put("ledger_id", listOf("string"))
-        expected.put("ledger_transaction_id", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
+        expected.put("ledger_id", listOf("ledger_id"))
+        expected.put("ledger_transaction_id", listOf("ledger_transaction_id"))
         LedgerAccountSettlementListParams.Metadata.builder().build().forEachQueryParam { key, values
             ->
             expected.put("metadata[$key]", values)
         }
         expected.put("per_page", listOf("123"))
-        expected.put("settled_ledger_account_id", listOf("string"))
-        expected.put("settlement_entry_direction", listOf("string"))
+        expected.put("settled_ledger_account_id", listOf("settled_ledger_account_id"))
+        expected.put("settlement_entry_direction", listOf("settlement_entry_direction"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

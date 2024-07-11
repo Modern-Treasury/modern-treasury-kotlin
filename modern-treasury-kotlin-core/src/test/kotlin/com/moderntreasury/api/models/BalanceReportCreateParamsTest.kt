@@ -12,9 +12,9 @@ class BalanceReportCreateParamsTest {
     @Test
     fun createBalanceReportCreateParams() {
         BalanceReportCreateParams.builder()
-            .internalAccountId("string")
+            .internalAccountId("internal_account_id")
             .asOfDate(LocalDate.parse("2019-12-27"))
-            .asOfTime("string")
+            .asOfTime("as_of_time")
             .balanceReportType(BalanceReportCreateParams.BalanceReportType.INTRADAY)
             .balances(
                 listOf(
@@ -24,8 +24,8 @@ class BalanceReportCreateParamsTest {
                             BalanceReportCreateParams.BalanceCreateRequest.BalanceType
                                 .CLOSING_AVAILABLE
                         )
-                        .vendorCode("string")
-                        .vendorCodeType("string")
+                        .vendorCode("vendor_code")
+                        .vendorCodeType("vendor_code_type")
                         .build()
                 )
             )
@@ -36,9 +36,9 @@ class BalanceReportCreateParamsTest {
     fun getBody() {
         val params =
             BalanceReportCreateParams.builder()
-                .internalAccountId("string")
+                .internalAccountId("internal_account_id")
                 .asOfDate(LocalDate.parse("2019-12-27"))
-                .asOfTime("string")
+                .asOfTime("as_of_time")
                 .balanceReportType(BalanceReportCreateParams.BalanceReportType.INTRADAY)
                 .balances(
                     listOf(
@@ -48,8 +48,8 @@ class BalanceReportCreateParamsTest {
                                 BalanceReportCreateParams.BalanceCreateRequest.BalanceType
                                     .CLOSING_AVAILABLE
                             )
-                            .vendorCode("string")
-                            .vendorCodeType("string")
+                            .vendorCode("vendor_code")
+                            .vendorCodeType("vendor_code_type")
                             .build()
                     )
                 )
@@ -57,7 +57,7 @@ class BalanceReportCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
-        assertThat(body.asOfTime()).isEqualTo("string")
+        assertThat(body.asOfTime()).isEqualTo("as_of_time")
         assertThat(body.balanceReportType())
             .isEqualTo(BalanceReportCreateParams.BalanceReportType.INTRADAY)
         assertThat(body.balances())
@@ -69,8 +69,8 @@ class BalanceReportCreateParamsTest {
                             BalanceReportCreateParams.BalanceCreateRequest.BalanceType
                                 .CLOSING_AVAILABLE
                         )
-                        .vendorCode("string")
-                        .vendorCodeType("string")
+                        .vendorCode("vendor_code")
+                        .vendorCodeType("vendor_code_type")
                         .build()
                 )
             )
@@ -80,9 +80,9 @@ class BalanceReportCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             BalanceReportCreateParams.builder()
-                .internalAccountId("string")
+                .internalAccountId("internal_account_id")
                 .asOfDate(LocalDate.parse("2019-12-27"))
-                .asOfTime("string")
+                .asOfTime("as_of_time")
                 .balanceReportType(BalanceReportCreateParams.BalanceReportType.INTRADAY)
                 .balances(
                     listOf(
@@ -92,7 +92,7 @@ class BalanceReportCreateParamsTest {
                                 BalanceReportCreateParams.BalanceCreateRequest.BalanceType
                                     .CLOSING_AVAILABLE
                             )
-                            .vendorCode("string")
+                            .vendorCode("vendor_code")
                             .build()
                     )
                 )
@@ -100,7 +100,7 @@ class BalanceReportCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
-        assertThat(body.asOfTime()).isEqualTo("string")
+        assertThat(body.asOfTime()).isEqualTo("as_of_time")
         assertThat(body.balanceReportType())
             .isEqualTo(BalanceReportCreateParams.BalanceReportType.INTRADAY)
         assertThat(body.balances())
@@ -112,7 +112,7 @@ class BalanceReportCreateParamsTest {
                             BalanceReportCreateParams.BalanceCreateRequest.BalanceType
                                 .CLOSING_AVAILABLE
                         )
-                        .vendorCode("string")
+                        .vendorCode("vendor_code")
                         .build()
                 )
             )
@@ -122,9 +122,9 @@ class BalanceReportCreateParamsTest {
     fun getPathParam() {
         val params =
             BalanceReportCreateParams.builder()
-                .internalAccountId("string")
+                .internalAccountId("internal_account_id")
                 .asOfDate(LocalDate.parse("2019-12-27"))
-                .asOfTime("string")
+                .asOfTime("as_of_time")
                 .balanceReportType(BalanceReportCreateParams.BalanceReportType.INTRADAY)
                 .balances(
                     listOf(
@@ -134,14 +134,14 @@ class BalanceReportCreateParamsTest {
                                 BalanceReportCreateParams.BalanceCreateRequest.BalanceType
                                     .CLOSING_AVAILABLE
                             )
-                            .vendorCode("string")
+                            .vendorCode("vendor_code")
                             .build()
                     )
                 )
                 .build()
         assertThat(params).isNotNull
         // path param "internalAccountId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("internal_account_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

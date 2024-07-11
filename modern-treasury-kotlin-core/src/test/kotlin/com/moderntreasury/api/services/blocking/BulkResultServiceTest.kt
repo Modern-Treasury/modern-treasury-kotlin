@@ -22,7 +22,7 @@ class BulkResultServiceTest {
                 .build()
         val bulkResultService = client.bulkResults()
         val bulkResult =
-            bulkResultService.retrieve(BulkResultRetrieveParams.builder().id("string").build())
+            bulkResultService.retrieve(BulkResultRetrieveParams.builder().id("id").build())
         println(bulkResult)
         bulkResult.validate()
     }

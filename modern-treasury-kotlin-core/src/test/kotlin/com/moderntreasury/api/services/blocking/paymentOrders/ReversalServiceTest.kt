@@ -26,7 +26,7 @@ class ReversalServiceTest {
         val reversal =
             reversalService.create(
                 PaymentOrderReversalCreateParams.builder()
-                    .paymentOrderId("string")
+                    .paymentOrderId("payment_order_id")
                     .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
                     .ledgerTransaction(
                         PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.builder()
@@ -75,10 +75,10 @@ class ReversalServiceTest {
                                         .build()
                                 )
                             )
-                            .description("string")
+                            .description("description")
                             .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .effectiveDate(LocalDate.parse("2019-12-27"))
-                            .externalId("string")
+                            .externalId("external_id")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableType(
                                 PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
@@ -117,8 +117,8 @@ class ReversalServiceTest {
         val reversal =
             reversalService.retrieve(
                 PaymentOrderReversalRetrieveParams.builder()
-                    .paymentOrderId("string")
-                    .reversalId("string")
+                    .paymentOrderId("payment_order_id")
+                    .reversalId("reversal_id")
                     .build()
             )
         println(reversal)
@@ -136,7 +136,7 @@ class ReversalServiceTest {
         val reversalService = client.paymentOrders().reversals()
         val response =
             reversalService.list(
-                PaymentOrderReversalListParams.builder().paymentOrderId("string").build()
+                PaymentOrderReversalListParams.builder().paymentOrderId("payment_order_id").build()
             )
         println(response)
         response.items().forEach { it.validate() }

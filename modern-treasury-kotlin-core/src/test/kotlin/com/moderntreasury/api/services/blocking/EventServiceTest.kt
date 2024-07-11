@@ -21,7 +21,7 @@ class EventServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val eventService = client.events()
-        val event = eventService.retrieve(EventRetrieveParams.builder().id("string").build())
+        val event = eventService.retrieve(EventRetrieveParams.builder().id("id").build())
         println(event)
         event.validate()
     }

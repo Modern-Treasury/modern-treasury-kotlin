@@ -12,11 +12,11 @@ class VirtualAccountCreateParamsTest {
     fun createVirtualAccountCreateParams() {
         VirtualAccountCreateParams.builder()
             .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .name("string")
+            .name("name")
             .accountDetails(
                 listOf(
                     VirtualAccountCreateParams.AccountDetailCreateRequest.builder()
-                        .accountNumber("string")
+                        .accountNumber("account_number")
                         .accountNumberType(
                             VirtualAccountCreateParams.AccountDetailCreateRequest.AccountNumberType
                                 .AU_NUMBER
@@ -27,15 +27,15 @@ class VirtualAccountCreateParamsTest {
             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .creditLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .debitLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .description("string")
+            .description("description")
             .ledgerAccount(
                 VirtualAccountCreateParams.LedgerAccountCreateRequest.builder()
-                    .currency("string")
+                    .currency("currency")
                     .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .name("string")
+                    .name("name")
                     .normalBalance(TransactionDirection.CREDIT)
                     .currencyExponent(123L)
-                    .description("string")
+                    .description("description")
                     .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
@@ -52,7 +52,7 @@ class VirtualAccountCreateParamsTest {
             .routingDetails(
                 listOf(
                     VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
-                        .routingNumber("string")
+                        .routingNumber("routing_number")
                         .routingNumberType(
                             VirtualAccountCreateParams.RoutingDetailCreateRequest.RoutingNumberType
                                 .ABA
@@ -71,11 +71,11 @@ class VirtualAccountCreateParamsTest {
         val params =
             VirtualAccountCreateParams.builder()
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .name("string")
+                .name("name")
                 .accountDetails(
                     listOf(
                         VirtualAccountCreateParams.AccountDetailCreateRequest.builder()
-                            .accountNumber("string")
+                            .accountNumber("account_number")
                             .accountNumberType(
                                 VirtualAccountCreateParams.AccountDetailCreateRequest
                                     .AccountNumberType
@@ -87,15 +87,15 @@ class VirtualAccountCreateParamsTest {
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .creditLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .debitLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .description("string")
+                .description("description")
                 .ledgerAccount(
                     VirtualAccountCreateParams.LedgerAccountCreateRequest.builder()
-                        .currency("string")
+                        .currency("currency")
                         .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .name("string")
+                        .name("name")
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
-                        .description("string")
+                        .description("description")
                         .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
@@ -112,7 +112,7 @@ class VirtualAccountCreateParamsTest {
                 .routingDetails(
                     listOf(
                         VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
-                            .routingNumber("string")
+                            .routingNumber("routing_number")
                             .routingNumberType(
                                 VirtualAccountCreateParams.RoutingDetailCreateRequest
                                     .RoutingNumberType
@@ -129,12 +129,12 @@ class VirtualAccountCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.name()).isEqualTo("string")
+        assertThat(body.name()).isEqualTo("name")
         assertThat(body.accountDetails())
             .isEqualTo(
                 listOf(
                     VirtualAccountCreateParams.AccountDetailCreateRequest.builder()
-                        .accountNumber("string")
+                        .accountNumber("account_number")
                         .accountNumberType(
                             VirtualAccountCreateParams.AccountDetailCreateRequest.AccountNumberType
                                 .AU_NUMBER
@@ -145,16 +145,16 @@ class VirtualAccountCreateParamsTest {
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.creditLedgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.debitLedgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.description()).isEqualTo("string")
+        assertThat(body.description()).isEqualTo("description")
         assertThat(body.ledgerAccount())
             .isEqualTo(
                 VirtualAccountCreateParams.LedgerAccountCreateRequest.builder()
-                    .currency("string")
+                    .currency("currency")
                     .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .name("string")
+                    .name("name")
                     .normalBalance(TransactionDirection.CREDIT)
                     .currencyExponent(123L)
-                    .description("string")
+                    .description("description")
                     .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
@@ -172,7 +172,7 @@ class VirtualAccountCreateParamsTest {
             .isEqualTo(
                 listOf(
                     VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
-                        .routingNumber("string")
+                        .routingNumber("routing_number")
                         .routingNumberType(
                             VirtualAccountCreateParams.RoutingDetailCreateRequest.RoutingNumberType
                                 .ABA
@@ -190,11 +190,11 @@ class VirtualAccountCreateParamsTest {
         val params =
             VirtualAccountCreateParams.builder()
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .name("string")
+                .name("name")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.name()).isEqualTo("string")
+        assertThat(body.name()).isEqualTo("name")
     }
 }

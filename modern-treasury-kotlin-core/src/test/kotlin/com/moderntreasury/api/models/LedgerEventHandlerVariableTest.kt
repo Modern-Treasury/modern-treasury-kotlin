@@ -13,22 +13,22 @@ class LedgerEventHandlerVariableTest {
             LedgerEventHandlerVariable.builder()
                 .query(
                     LedgerEventHandlerVariable.LedgerEventHandlerConditions.builder()
-                        .field("string")
-                        .operator("string")
-                        .value("string")
+                        .field("field")
+                        .operator("operator")
+                        .value("value")
                         .build()
                 )
-                .type("string")
+                .type("type")
                 .build()
         assertThat(ledgerEventHandlerVariable).isNotNull
         assertThat(ledgerEventHandlerVariable.query())
             .isEqualTo(
                 LedgerEventHandlerVariable.LedgerEventHandlerConditions.builder()
-                    .field("string")
-                    .operator("string")
-                    .value("string")
+                    .field("field")
+                    .operator("operator")
+                    .value("value")
                     .build()
             )
-        assertThat(ledgerEventHandlerVariable.type()).isEqualTo("string")
+        assertThat(ledgerEventHandlerVariable.type()).isEqualTo("type")
     }
 }

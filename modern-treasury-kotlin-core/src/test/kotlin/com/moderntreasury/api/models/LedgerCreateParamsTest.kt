@@ -11,8 +11,8 @@ class LedgerCreateParamsTest {
     @Test
     fun createLedgerCreateParams() {
         LedgerCreateParams.builder()
-            .name("string")
-            .description("string")
+            .name("name")
+            .description("description")
             .metadata(LedgerCreateParams.Metadata.builder().build())
             .build()
     }
@@ -21,22 +21,22 @@ class LedgerCreateParamsTest {
     fun getBody() {
         val params =
             LedgerCreateParams.builder()
-                .name("string")
-                .description("string")
+                .name("name")
+                .description("description")
                 .metadata(LedgerCreateParams.Metadata.builder().build())
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.name()).isEqualTo("string")
-        assertThat(body.description()).isEqualTo("string")
+        assertThat(body.name()).isEqualTo("name")
+        assertThat(body.description()).isEqualTo("description")
         assertThat(body.metadata()).isEqualTo(LedgerCreateParams.Metadata.builder().build())
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = LedgerCreateParams.builder().name("string").build()
+        val params = LedgerCreateParams.builder().name("name").build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.name()).isEqualTo("string")
+        assertThat(body.name()).isEqualTo("name")
     }
 }

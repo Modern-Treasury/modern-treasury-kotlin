@@ -13,7 +13,7 @@ class LedgerAccountRetrieveParamsTest {
     @Test
     fun createLedgerAccountRetrieveParams() {
         LedgerAccountRetrieveParams.builder()
-            .id("string")
+            .id("id")
             .balances(
                 LedgerAccountRetrieveParams.Balances.builder()
                     .asOfDate(LocalDate.parse("2019-12-27"))
@@ -30,7 +30,7 @@ class LedgerAccountRetrieveParamsTest {
     fun getQueryParams() {
         val params =
             LedgerAccountRetrieveParams.builder()
-                .id("string")
+                .id("id")
                 .balances(
                     LedgerAccountRetrieveParams.Balances.builder()
                         .asOfDate(LocalDate.parse("2019-12-27"))
@@ -55,17 +55,17 @@ class LedgerAccountRetrieveParamsTest {
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
-        val params = LedgerAccountRetrieveParams.builder().id("string").build()
+        val params = LedgerAccountRetrieveParams.builder().id("id").build()
         val expected = mutableMapOf<String, List<String>>()
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 
     @Test
     fun getPathParam() {
-        val params = LedgerAccountRetrieveParams.builder().id("string").build()
+        val params = LedgerAccountRetrieveParams.builder().id("id").build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

@@ -12,8 +12,8 @@ class AccountDetailCreateParamsTest {
     fun createAccountDetailCreateParams() {
         AccountDetailCreateParams.builder()
             .accountsType(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
-            .accountId("string")
-            .accountNumber("string")
+            .accountId("account_id")
+            .accountNumber("account_number")
             .accountNumberType(AccountDetailCreateParams.AccountNumberType.AU_NUMBER)
             .build()
     }
@@ -23,13 +23,13 @@ class AccountDetailCreateParamsTest {
         val params =
             AccountDetailCreateParams.builder()
                 .accountsType(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
-                .accountId("string")
-                .accountNumber("string")
+                .accountId("account_id")
+                .accountNumber("account_number")
                 .accountNumberType(AccountDetailCreateParams.AccountNumberType.AU_NUMBER)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountNumber()).isEqualTo("string")
+        assertThat(body.accountNumber()).isEqualTo("account_number")
         assertThat(body.accountNumberType())
             .isEqualTo(AccountDetailCreateParams.AccountNumberType.AU_NUMBER)
     }
@@ -39,12 +39,12 @@ class AccountDetailCreateParamsTest {
         val params =
             AccountDetailCreateParams.builder()
                 .accountsType(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
-                .accountId("string")
-                .accountNumber("string")
+                .accountId("account_id")
+                .accountNumber("account_number")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountNumber()).isEqualTo("string")
+        assertThat(body.accountNumber()).isEqualTo("account_number")
     }
 
     @Test
@@ -52,15 +52,15 @@ class AccountDetailCreateParamsTest {
         val params =
             AccountDetailCreateParams.builder()
                 .accountsType(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
-                .accountId("string")
-                .accountNumber("string")
+                .accountId("account_id")
+                .accountNumber("account_number")
                 .build()
         assertThat(params).isNotNull
         // path param "accountsType"
         assertThat(params.getPathParam(0))
             .isEqualTo(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS.toString())
         // path param "accountId"
-        assertThat(params.getPathParam(1)).isEqualTo("string")
+        assertThat(params.getPathParam(1)).isEqualTo("account_id")
         // out-of-bound path param
         assertThat(params.getPathParam(2)).isEqualTo("")
     }

@@ -53,7 +53,7 @@ class BulkResultTest {
                                             )
                                             .currency(Currency.AED)
                                             .dateOfDeath(LocalDate.parse("2019-12-27"))
-                                            .failureReason("string")
+                                            .failureReason("failure_reason")
                                             .internalAccountId(
                                                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
                                             )
@@ -61,8 +61,8 @@ class BulkResultTest {
                                                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
                                             )
                                             .liveMode(true)
-                                            .object_("string")
-                                            .reason("string")
+                                            .object_("object")
+                                            .reason("reason")
                                             .referenceNumbers(
                                                 listOf(
                                                     ReturnObject.PaymentReference.builder()
@@ -73,8 +73,8 @@ class BulkResultTest {
                                                             )
                                                         )
                                                         .liveMode(true)
-                                                        .object_("string")
-                                                        .referenceNumber("string")
+                                                        .object_("object")
+                                                        .referenceNumber("reference_number")
                                                         .referenceNumberType(
                                                             ReturnObject.PaymentReference
                                                                 .ReferenceNumberType
@@ -102,16 +102,16 @@ class BulkResultTest {
                                             .updatedAt(
                                                 OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                             )
-                                            .additionalInformation("string")
+                                            .additionalInformation("additional_information")
                                             .build()
                                     )
                                     .dateOfDeath(LocalDate.parse("2019-12-27"))
-                                    .failureReason("string")
+                                    .failureReason("failure_reason")
                                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .liveMode(true)
-                                    .object_("string")
-                                    .reason("string")
+                                    .object_("object")
+                                    .reason("reason")
                                     .referenceNumbers(
                                         listOf(
                                             ReturnObject.PaymentReference.builder()
@@ -120,8 +120,8 @@ class BulkResultTest {
                                                     OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                                 )
                                                 .liveMode(true)
-                                                .object_("string")
-                                                .referenceNumber("string")
+                                                .object_("object")
+                                                .referenceNumber("reference_number")
                                                 .referenceNumberType(
                                                     ReturnObject.PaymentReference
                                                         .ReferenceNumberType
@@ -143,15 +143,15 @@ class BulkResultTest {
                                     .transactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .type(ReturnObject.Type.ACH)
                                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .additionalInformation("string")
+                                    .additionalInformation("additional_information")
                                     .build()
                             )
                             .decisionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .description("string")
+                            .description("description")
                             .direction(PaymentOrder.Direction.CREDIT)
                             .effectiveDate(LocalDate.parse("2019-12-27"))
                             .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .foreignExchangeContract("string")
+                            .foreignExchangeContract("foreign_exchange_contract")
                             .foreignExchangeIndicator(
                                 PaymentOrder.ForeignExchangeIndicator.FIXED_TO_VARIABLE
                             )
@@ -160,7 +160,7 @@ class BulkResultTest {
                                     .baseAmount(123L)
                                     .baseCurrency(Currency.AED)
                                     .exponent(123L)
-                                    .rateString("string")
+                                    .rateString("rate_string")
                                     .targetAmount(123L)
                                     .targetCurrency(Currency.AED)
                                     .value(123L)
@@ -170,12 +170,12 @@ class BulkResultTest {
                             .liveMode(true)
                             .metadata(PaymentOrder.Metadata.builder().build())
                             .nsfProtected(true)
-                            .object_("string")
+                            .object_("object")
                             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .originatingPartyName("string")
+                            .originatingPartyName("originating_party_name")
                             .priority(PaymentOrder.Priority.HIGH)
                             .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .purpose("string")
+                            .purpose("purpose")
                             .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .receivingAccountType(
                                 PaymentOrder.ReceivingAccountType.INTERNAL_ACCOUNT
@@ -186,8 +186,8 @@ class BulkResultTest {
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .liveMode(true)
-                                        .object_("string")
-                                        .referenceNumber("string")
+                                        .object_("object")
+                                        .referenceNumber("reference_number")
                                         .referenceNumberType(
                                             PaymentOrder.PaymentReference.ReferenceNumberType
                                                 .ACH_ORIGINAL_TRACE_NUMBER
@@ -196,9 +196,9 @@ class BulkResultTest {
                                         .build()
                                 )
                             )
-                            .remittanceInformation("string")
+                            .remittanceInformation("remittance_information")
                             .sendRemittanceAdvice(true)
-                            .statementDescriptor("string")
+                            .statementDescriptor("statement_descriptor")
                             .status(PaymentOrder.Status.APPROVED)
                             .subtype(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
                             .transactionIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
@@ -212,7 +212,7 @@ class BulkResultTest {
                                             listOf(
                                                 AccountDetail.builder()
                                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                                    .accountNumberSafe("string")
+                                                    .accountNumberSafe("account_number_safe")
                                                     .accountNumberType(
                                                         AccountDetail.AccountNumberType.AU_NUMBER
                                                     )
@@ -227,13 +227,13 @@ class BulkResultTest {
                                                         )
                                                     )
                                                     .liveMode(true)
-                                                    .object_("string")
+                                                    .object_("object")
                                                     .updatedAt(
                                                         OffsetDateTime.parse(
                                                             "2019-12-27T18:11:19.117Z"
                                                         )
                                                     )
-                                                    .accountNumber("string")
+                                                    .accountNumber("account_number")
                                                     .build()
                                             )
                                         )
@@ -245,7 +245,7 @@ class BulkResultTest {
                                         .debitLedgerAccountId(
                                             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
                                         )
-                                        .description("string")
+                                        .description("description")
                                         .discardedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
@@ -253,8 +253,8 @@ class BulkResultTest {
                                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .liveMode(true)
                                         .metadata(VirtualAccount.Metadata.builder().build())
-                                        .name("string")
-                                        .object_("string")
+                                        .name("name")
+                                        .object_("object")
                                         .routingDetails(
                                             listOf(
                                                 RoutingDetail.builder()
@@ -264,19 +264,19 @@ class BulkResultTest {
                                                             .id(
                                                                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
                                                             )
-                                                            .country("string")
+                                                            .country("country")
                                                             .createdAt(
                                                                 OffsetDateTime.parse(
                                                                     "2019-12-27T18:11:19.117Z"
                                                                 )
                                                             )
-                                                            .line1("string")
-                                                            .line2("string")
+                                                            .line1("line1")
+                                                            .line2("line2")
                                                             .liveMode(true)
-                                                            .locality("string")
-                                                            .object_("string")
-                                                            .postalCode("string")
-                                                            .region("string")
+                                                            .locality("locality")
+                                                            .object_("object")
+                                                            .postalCode("postal_code")
+                                                            .region("region")
                                                             .updatedAt(
                                                                 OffsetDateTime.parse(
                                                                     "2019-12-27T18:11:19.117Z"
@@ -284,7 +284,7 @@ class BulkResultTest {
                                                             )
                                                             .build()
                                                     )
-                                                    .bankName("string")
+                                                    .bankName("bank_name")
                                                     .createdAt(
                                                         OffsetDateTime.parse(
                                                             "2019-12-27T18:11:19.117Z"
@@ -296,9 +296,9 @@ class BulkResultTest {
                                                         )
                                                     )
                                                     .liveMode(true)
-                                                    .object_("string")
+                                                    .object_("object")
                                                     .paymentType(RoutingDetail.PaymentType.ACH)
-                                                    .routingNumber("string")
+                                                    .routingNumber("routing_number")
                                                     .routingNumberType(
                                                         RoutingDetail.RoutingNumberType.ABA
                                                     )
@@ -318,20 +318,22 @@ class BulkResultTest {
                             .ultimateOriginatingAccountType(
                                 PaymentOrder.UltimateOriginatingAccountType.INTERNAL_ACCOUNT
                             )
-                            .ultimateOriginatingPartyIdentifier("string")
-                            .ultimateOriginatingPartyName("string")
-                            .ultimateReceivingPartyIdentifier("string")
-                            .ultimateReceivingPartyName("string")
+                            .ultimateOriginatingPartyIdentifier(
+                                "ultimate_originating_party_identifier"
+                            )
+                            .ultimateOriginatingPartyName("ultimate_originating_party_name")
+                            .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
+                            .ultimateReceivingPartyName("ultimate_receiving_party_name")
                             .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .vendorAttributes(JsonNull.of())
-                            .vendorFailureReason("string")
+                            .vendorFailureReason("vendor_failure_reason")
                             .build()
                     )
                 )
                 .entityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .entityType(BulkResult.EntityType.PAYMENT_ORDER)
                 .liveMode(true)
-                .object_("string")
+                .object_("object")
                 .requestId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .requestParams(BulkResult.RequestParams.builder().build())
                 .requestType(BulkResult.RequestType.BULK_REQUEST)
@@ -378,12 +380,12 @@ class BulkResultTest {
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .currency(Currency.AED)
                                         .dateOfDeath(LocalDate.parse("2019-12-27"))
-                                        .failureReason("string")
+                                        .failureReason("failure_reason")
                                         .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .liveMode(true)
-                                        .object_("string")
-                                        .reason("string")
+                                        .object_("object")
+                                        .reason("reason")
                                         .referenceNumbers(
                                             listOf(
                                                 ReturnObject.PaymentReference.builder()
@@ -394,8 +396,8 @@ class BulkResultTest {
                                                         )
                                                     )
                                                     .liveMode(true)
-                                                    .object_("string")
-                                                    .referenceNumber("string")
+                                                    .object_("object")
+                                                    .referenceNumber("reference_number")
                                                     .referenceNumberType(
                                                         ReturnObject.PaymentReference
                                                             .ReferenceNumberType
@@ -421,16 +423,16 @@ class BulkResultTest {
                                         )
                                         .type(ReturnObject.Type.ACH)
                                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .additionalInformation("string")
+                                        .additionalInformation("additional_information")
                                         .build()
                                 )
                                 .dateOfDeath(LocalDate.parse("2019-12-27"))
-                                .failureReason("string")
+                                .failureReason("failure_reason")
                                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .liveMode(true)
-                                .object_("string")
-                                .reason("string")
+                                .object_("object")
+                                .reason("reason")
                                 .referenceNumbers(
                                     listOf(
                                         ReturnObject.PaymentReference.builder()
@@ -439,8 +441,8 @@ class BulkResultTest {
                                                 OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                             )
                                             .liveMode(true)
-                                            .object_("string")
-                                            .referenceNumber("string")
+                                            .object_("object")
+                                            .referenceNumber("reference_number")
                                             .referenceNumberType(
                                                 ReturnObject.PaymentReference.ReferenceNumberType
                                                     .ACH_ORIGINAL_TRACE_NUMBER
@@ -459,15 +461,15 @@ class BulkResultTest {
                                 .transactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .type(ReturnObject.Type.ACH)
                                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .additionalInformation("string")
+                                .additionalInformation("additional_information")
                                 .build()
                         )
                         .decisionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .description("string")
+                        .description("description")
                         .direction(PaymentOrder.Direction.CREDIT)
                         .effectiveDate(LocalDate.parse("2019-12-27"))
                         .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .foreignExchangeContract("string")
+                        .foreignExchangeContract("foreign_exchange_contract")
                         .foreignExchangeIndicator(
                             PaymentOrder.ForeignExchangeIndicator.FIXED_TO_VARIABLE
                         )
@@ -476,7 +478,7 @@ class BulkResultTest {
                                 .baseAmount(123L)
                                 .baseCurrency(Currency.AED)
                                 .exponent(123L)
-                                .rateString("string")
+                                .rateString("rate_string")
                                 .targetAmount(123L)
                                 .targetCurrency(Currency.AED)
                                 .value(123L)
@@ -486,12 +488,12 @@ class BulkResultTest {
                         .liveMode(true)
                         .metadata(PaymentOrder.Metadata.builder().build())
                         .nsfProtected(true)
-                        .object_("string")
+                        .object_("object")
                         .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .originatingPartyName("string")
+                        .originatingPartyName("originating_party_name")
                         .priority(PaymentOrder.Priority.HIGH)
                         .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .purpose("string")
+                        .purpose("purpose")
                         .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .receivingAccountType(PaymentOrder.ReceivingAccountType.INTERNAL_ACCOUNT)
                         .referenceNumbers(
@@ -500,8 +502,8 @@ class BulkResultTest {
                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .liveMode(true)
-                                    .object_("string")
-                                    .referenceNumber("string")
+                                    .object_("object")
+                                    .referenceNumber("reference_number")
                                     .referenceNumberType(
                                         PaymentOrder.PaymentReference.ReferenceNumberType
                                             .ACH_ORIGINAL_TRACE_NUMBER
@@ -510,9 +512,9 @@ class BulkResultTest {
                                     .build()
                             )
                         )
-                        .remittanceInformation("string")
+                        .remittanceInformation("remittance_information")
                         .sendRemittanceAdvice(true)
-                        .statementDescriptor("string")
+                        .statementDescriptor("statement_descriptor")
                         .status(PaymentOrder.Status.APPROVED)
                         .subtype(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
                         .transactionIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
@@ -526,7 +528,7 @@ class BulkResultTest {
                                         listOf(
                                             AccountDetail.builder()
                                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                                .accountNumberSafe("string")
+                                                .accountNumberSafe("account_number_safe")
                                                 .accountNumberType(
                                                     AccountDetail.AccountNumberType.AU_NUMBER
                                                 )
@@ -537,11 +539,11 @@ class BulkResultTest {
                                                     OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                                 )
                                                 .liveMode(true)
-                                                .object_("string")
+                                                .object_("object")
                                                 .updatedAt(
                                                     OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                                 )
-                                                .accountNumber("string")
+                                                .accountNumber("account_number")
                                                 .build()
                                         )
                                     )
@@ -549,14 +551,14 @@ class BulkResultTest {
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .creditLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .debitLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .description("string")
+                                    .description("description")
                                     .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .liveMode(true)
                                     .metadata(VirtualAccount.Metadata.builder().build())
-                                    .name("string")
-                                    .object_("string")
+                                    .name("name")
+                                    .object_("object")
                                     .routingDetails(
                                         listOf(
                                             RoutingDetail.builder()
@@ -564,19 +566,19 @@ class BulkResultTest {
                                                 .bankAddress(
                                                     RoutingDetail.Address.builder()
                                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                                        .country("string")
+                                                        .country("country")
                                                         .createdAt(
                                                             OffsetDateTime.parse(
                                                                 "2019-12-27T18:11:19.117Z"
                                                             )
                                                         )
-                                                        .line1("string")
-                                                        .line2("string")
+                                                        .line1("line1")
+                                                        .line2("line2")
                                                         .liveMode(true)
-                                                        .locality("string")
-                                                        .object_("string")
-                                                        .postalCode("string")
-                                                        .region("string")
+                                                        .locality("locality")
+                                                        .object_("object")
+                                                        .postalCode("postal_code")
+                                                        .region("region")
                                                         .updatedAt(
                                                             OffsetDateTime.parse(
                                                                 "2019-12-27T18:11:19.117Z"
@@ -584,7 +586,7 @@ class BulkResultTest {
                                                         )
                                                         .build()
                                                 )
-                                                .bankName("string")
+                                                .bankName("bank_name")
                                                 .createdAt(
                                                     OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                                 )
@@ -592,9 +594,9 @@ class BulkResultTest {
                                                     OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                                 )
                                                 .liveMode(true)
-                                                .object_("string")
+                                                .object_("object")
                                                 .paymentType(RoutingDetail.PaymentType.ACH)
-                                                .routingNumber("string")
+                                                .routingNumber("routing_number")
                                                 .routingNumberType(
                                                     RoutingDetail.RoutingNumberType.ABA
                                                 )
@@ -612,20 +614,20 @@ class BulkResultTest {
                         .ultimateOriginatingAccountType(
                             PaymentOrder.UltimateOriginatingAccountType.INTERNAL_ACCOUNT
                         )
-                        .ultimateOriginatingPartyIdentifier("string")
-                        .ultimateOriginatingPartyName("string")
-                        .ultimateReceivingPartyIdentifier("string")
-                        .ultimateReceivingPartyName("string")
+                        .ultimateOriginatingPartyIdentifier("ultimate_originating_party_identifier")
+                        .ultimateOriginatingPartyName("ultimate_originating_party_name")
+                        .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
+                        .ultimateReceivingPartyName("ultimate_receiving_party_name")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .vendorAttributes(JsonNull.of())
-                        .vendorFailureReason("string")
+                        .vendorFailureReason("vendor_failure_reason")
                         .build()
                 )
             )
         assertThat(bulkResult.entityId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(bulkResult.entityType()).isEqualTo(BulkResult.EntityType.PAYMENT_ORDER)
         assertThat(bulkResult.liveMode()).isEqualTo(true)
-        assertThat(bulkResult.object_()).isEqualTo("string")
+        assertThat(bulkResult.object_()).isEqualTo("object")
         assertThat(bulkResult.requestId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(bulkResult.requestParams()).isEqualTo(BulkResult.RequestParams.builder().build())
         assertThat(bulkResult.requestType()).isEqualTo(BulkResult.RequestType.BULK_REQUEST)

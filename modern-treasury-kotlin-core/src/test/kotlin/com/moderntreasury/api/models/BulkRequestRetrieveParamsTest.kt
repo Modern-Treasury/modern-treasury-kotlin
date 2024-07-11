@@ -10,15 +10,15 @@ class BulkRequestRetrieveParamsTest {
 
     @Test
     fun createBulkRequestRetrieveParams() {
-        BulkRequestRetrieveParams.builder().id("string").build()
+        BulkRequestRetrieveParams.builder().id("id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = BulkRequestRetrieveParams.builder().id("string").build()
+        val params = BulkRequestRetrieveParams.builder().id("id").build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

@@ -46,7 +46,7 @@ class AccountCollectionFlowServiceTest {
         val accountCollectionFlowService = client.accountCollectionFlows()
         val accountCollectionFlow =
             accountCollectionFlowService.retrieve(
-                AccountCollectionFlowRetrieveParams.builder().id("string").build()
+                AccountCollectionFlowRetrieveParams.builder().id("id").build()
             )
         println(accountCollectionFlow)
         accountCollectionFlow.validate()
@@ -64,7 +64,7 @@ class AccountCollectionFlowServiceTest {
         val accountCollectionFlow =
             accountCollectionFlowService.update(
                 AccountCollectionFlowUpdateParams.builder()
-                    .id("string")
+                    .id("id")
                     .status(AccountCollectionFlowUpdateParams.Status.CANCELLED)
                     .build()
             )
