@@ -29,11 +29,11 @@ class LegalEntityServiceTest {
                     .addresses(
                         listOf(
                             LegalEntityCreateParams.LegalEntityAddressCreateRequest.builder()
-                                .country("string")
-                                .line1("string")
-                                .locality("string")
-                                .postalCode("string")
-                                .region("string")
+                                .country("country")
+                                .line1("line1")
+                                .locality("locality")
+                                .postalCode("postal_code")
+                                .region("region")
                                 .addressTypes(
                                     listOf(
                                         LegalEntityCreateParams.LegalEntityAddressCreateRequest
@@ -41,29 +41,29 @@ class LegalEntityServiceTest {
                                             .BUSINESS
                                     )
                                 )
-                                .line2("string")
+                                .line2("line2")
                                 .build()
                         )
                     )
-                    .businessName("string")
+                    .businessName("business_name")
                     .dateFormed(LocalDate.parse("2019-12-27"))
                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .doingBusinessAsNames(listOf("string"))
-                    .email("string")
-                    .firstName("string")
+                    .email("email")
+                    .firstName("first_name")
                     .identifications(
                         listOf(
                             LegalEntityCreateParams.IdentificationCreateRequest.builder()
-                                .idNumber("string")
+                                .idNumber("id_number")
                                 .idType(
                                     LegalEntityCreateParams.IdentificationCreateRequest.IdType
                                         .AR_CUIL
                                 )
-                                .issuingCountry("string")
+                                .issuingCountry("issuing_country")
                                 .build()
                         )
                     )
-                    .lastName("string")
+                    .lastName("last_name")
                     .legalEntityAssociations(
                         listOf(
                             LegalEntityCreateParams.LegalEntityAssociationInlineCreateRequest
@@ -88,11 +88,11 @@ class LegalEntityServiceTest {
                                                     .ChildLegalEntityCreate
                                                     .LegalEntityAddressCreateRequest
                                                     .builder()
-                                                    .country("string")
-                                                    .line1("string")
-                                                    .locality("string")
-                                                    .postalCode("string")
-                                                    .region("string")
+                                                    .country("country")
+                                                    .line1("line1")
+                                                    .locality("locality")
+                                                    .postalCode("postal_code")
+                                                    .region("region")
                                                     .addressTypes(
                                                         listOf(
                                                             LegalEntityCreateParams
@@ -103,16 +103,16 @@ class LegalEntityServiceTest {
                                                                 .BUSINESS
                                                         )
                                                     )
-                                                    .line2("string")
+                                                    .line2("line2")
                                                     .build()
                                             )
                                         )
-                                        .businessName("string")
+                                        .businessName("business_name")
                                         .dateFormed(LocalDate.parse("2019-12-27"))
                                         .dateOfBirth(LocalDate.parse("2019-12-27"))
                                         .doingBusinessAsNames(listOf("string"))
-                                        .email("string")
-                                        .firstName("string")
+                                        .email("email")
+                                        .firstName("first_name")
                                         .identifications(
                                             listOf(
                                                 LegalEntityCreateParams
@@ -120,7 +120,7 @@ class LegalEntityServiceTest {
                                                     .ChildLegalEntityCreate
                                                     .IdentificationCreateRequest
                                                     .builder()
-                                                    .idNumber("string")
+                                                    .idNumber("id_number")
                                                     .idType(
                                                         LegalEntityCreateParams
                                                             .LegalEntityAssociationInlineCreateRequest
@@ -129,11 +129,11 @@ class LegalEntityServiceTest {
                                                             .IdType
                                                             .AR_CUIL
                                                     )
-                                                    .issuingCountry("string")
+                                                    .issuingCountry("issuing_country")
                                                     .build()
                                             )
                                         )
-                                        .lastName("string")
+                                        .lastName("last_name")
                                         .legalEntityType(
                                             LegalEntityCreateParams
                                                 .LegalEntityAssociationInlineCreateRequest
@@ -163,7 +163,7 @@ class LegalEntityServiceTest {
                                                     .ChildLegalEntityCreate
                                                     .PhoneNumber
                                                     .builder()
-                                                    .phoneNumber("string")
+                                                    .phoneNumber("phone_number")
                                                     .build()
                                             )
                                         )
@@ -174,12 +174,12 @@ class LegalEntityServiceTest {
                                                 .RiskRating
                                                 .LOW
                                         )
-                                        .website("string")
+                                        .website("website")
                                         .build()
                                 )
-                                .childLegalEntityId("string")
+                                .childLegalEntityId("child_legal_entity_id")
                                 .ownershipPercentage(123L)
-                                .title("string")
+                                .title("title")
                                 .build()
                         )
                     )
@@ -188,12 +188,12 @@ class LegalEntityServiceTest {
                     .phoneNumbers(
                         listOf(
                             LegalEntityCreateParams.PhoneNumber.builder()
-                                .phoneNumber("string")
+                                .phoneNumber("phone_number")
                                 .build()
                         )
                     )
                     .riskRating(LegalEntityCreateParams.RiskRating.LOW)
-                    .website("string")
+                    .website("website")
                     .build()
             )
         println(legalEntity)
@@ -210,7 +210,7 @@ class LegalEntityServiceTest {
                 .build()
         val legalEntityService = client.legalEntities()
         val legalEntity =
-            legalEntityService.retrieve(LegalEntityRetrieveParams.builder().id("string").build())
+            legalEntityService.retrieve(LegalEntityRetrieveParams.builder().id("id").build())
         println(legalEntity)
         legalEntity.validate()
     }
@@ -227,25 +227,25 @@ class LegalEntityServiceTest {
         val legalEntity =
             legalEntityService.update(
                 LegalEntityUpdateParams.builder()
-                    .id("string")
-                    .businessName("string")
+                    .id("id")
+                    .businessName("business_name")
                     .dateFormed(LocalDate.parse("2019-12-27"))
                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .doingBusinessAsNames(listOf("string"))
-                    .email("string")
-                    .firstName("string")
-                    .lastName("string")
+                    .email("email")
+                    .firstName("first_name")
+                    .lastName("last_name")
                     .legalStructure(LegalEntityUpdateParams.LegalStructure.CORPORATION)
                     .metadata(LegalEntityUpdateParams.Metadata.builder().build())
                     .phoneNumbers(
                         listOf(
                             LegalEntityUpdateParams.PhoneNumber.builder()
-                                .phoneNumber("string")
+                                .phoneNumber("phone_number")
                                 .build()
                         )
                     )
                     .riskRating(LegalEntityUpdateParams.RiskRating.LOW)
-                    .website("string")
+                    .website("website")
                     .build()
             )
         println(legalEntity)

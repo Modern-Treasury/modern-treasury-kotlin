@@ -22,7 +22,7 @@ class PaperItemServiceTest {
                 .build()
         val paperItemService = client.paperItems()
         val paperItem =
-            paperItemService.retrieve(PaperItemRetrieveParams.builder().id("string").build())
+            paperItemService.retrieve(PaperItemRetrieveParams.builder().id("id").build())
         println(paperItem)
         paperItem.validate()
     }

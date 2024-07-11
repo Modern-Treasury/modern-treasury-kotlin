@@ -23,7 +23,7 @@ class ValidationServiceTest {
         val routingNumberLookupRequest =
             validationService.validateRoutingNumber(
                 ValidationValidateRoutingNumberParams.builder()
-                    .routingNumber("string")
+                    .routingNumber("routing_number")
                     .routingNumberType(ValidationValidateRoutingNumberParams.RoutingNumberType.ABA)
                     .build()
             )

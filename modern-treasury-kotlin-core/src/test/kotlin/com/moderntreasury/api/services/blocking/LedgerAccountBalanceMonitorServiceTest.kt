@@ -27,13 +27,13 @@ class LedgerAccountBalanceMonitorServiceTest {
                     .alertCondition(
                         LedgerAccountBalanceMonitorCreateParams.AlertConditionCreateRequest
                             .builder()
-                            .field("string")
-                            .operator("string")
+                            .field("field")
+                            .operator("operator")
                             .value(123L)
                             .build()
                     )
-                    .ledgerAccountId("string")
-                    .description("string")
+                    .ledgerAccountId("ledger_account_id")
+                    .description("description")
                     .metadata(LedgerAccountBalanceMonitorCreateParams.Metadata.builder().build())
                     .build()
             )
@@ -52,7 +52,7 @@ class LedgerAccountBalanceMonitorServiceTest {
         val ledgerAccountBalanceMonitorService = client.ledgerAccountBalanceMonitors()
         val ledgerAccountBalanceMonitor =
             ledgerAccountBalanceMonitorService.retrieve(
-                LedgerAccountBalanceMonitorRetrieveParams.builder().id("string").build()
+                LedgerAccountBalanceMonitorRetrieveParams.builder().id("id").build()
             )
         println(ledgerAccountBalanceMonitor)
         ledgerAccountBalanceMonitor.validate()
@@ -70,8 +70,8 @@ class LedgerAccountBalanceMonitorServiceTest {
         val ledgerAccountBalanceMonitor =
             ledgerAccountBalanceMonitorService.update(
                 LedgerAccountBalanceMonitorUpdateParams.builder()
-                    .id("string")
-                    .description("string")
+                    .id("id")
+                    .description("description")
                     .metadata(LedgerAccountBalanceMonitorUpdateParams.Metadata.builder().build())
                     .build()
             )
@@ -107,7 +107,7 @@ class LedgerAccountBalanceMonitorServiceTest {
         val ledgerAccountBalanceMonitorService = client.ledgerAccountBalanceMonitors()
         val ledgerAccountBalanceMonitor =
             ledgerAccountBalanceMonitorService.delete(
-                LedgerAccountBalanceMonitorDeleteParams.builder().id("string").build()
+                LedgerAccountBalanceMonitorDeleteParams.builder().id("id").build()
             )
         println(ledgerAccountBalanceMonitor)
         ledgerAccountBalanceMonitor.validate()

@@ -27,14 +27,14 @@ class TransactionServiceTest {
                 TransactionCreateParams.builder()
                     .amount(123L)
                     .asOfDate(LocalDate.parse("2019-12-27"))
-                    .direction("string")
+                    .direction("direction")
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .vendorCode("string")
-                    .vendorCodeType("string")
+                    .vendorCode("vendor_code")
+                    .vendorCodeType("vendor_code_type")
                     .metadata(TransactionCreateParams.Metadata.builder().build())
                     .posted(true)
                     .type(TransactionCreateParams.Type.ACH)
-                    .vendorDescription("string")
+                    .vendorDescription("vendor_description")
                     .build()
             )
         println(transaction)
@@ -51,7 +51,7 @@ class TransactionServiceTest {
                 .build()
         val transactionService = client.transactions()
         val transaction =
-            transactionService.retrieve(TransactionRetrieveParams.builder().id("string").build())
+            transactionService.retrieve(TransactionRetrieveParams.builder().id("id").build())
         println(transaction)
         transaction.validate()
     }
@@ -68,7 +68,7 @@ class TransactionServiceTest {
         val transaction =
             transactionService.update(
                 TransactionUpdateParams.builder()
-                    .id("string")
+                    .id("id")
                     .metadata(TransactionUpdateParams.Metadata.builder().build())
                     .build()
             )
@@ -99,6 +99,6 @@ class TransactionServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val transactionService = client.transactions()
-        transactionService.delete(TransactionDeleteParams.builder().id("string").build())
+        transactionService.delete(TransactionDeleteParams.builder().id("id").build())
     }
 }

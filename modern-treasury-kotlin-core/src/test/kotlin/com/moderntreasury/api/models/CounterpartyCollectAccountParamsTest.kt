@@ -11,7 +11,7 @@ class CounterpartyCollectAccountParamsTest {
     @Test
     fun createCounterpartyCollectAccountParams() {
         CounterpartyCollectAccountParams.builder()
-            .id("string")
+            .id("id")
             .direction(TransactionDirection.CREDIT)
             .customRedirect("https://example.com")
             .fields(listOf(CounterpartyCollectAccountParams.Field.NAME))
@@ -23,7 +23,7 @@ class CounterpartyCollectAccountParamsTest {
     fun getBody() {
         val params =
             CounterpartyCollectAccountParams.builder()
-                .id("string")
+                .id("id")
                 .direction(TransactionDirection.CREDIT)
                 .customRedirect("https://example.com")
                 .fields(listOf(CounterpartyCollectAccountParams.Field.NAME))
@@ -41,7 +41,7 @@ class CounterpartyCollectAccountParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             CounterpartyCollectAccountParams.builder()
-                .id("string")
+                .id("id")
                 .direction(TransactionDirection.CREDIT)
                 .build()
         val body = params.getBody()
@@ -53,12 +53,12 @@ class CounterpartyCollectAccountParamsTest {
     fun getPathParam() {
         val params =
             CounterpartyCollectAccountParams.builder()
-                .id("string")
+                .id("id")
                 .direction(TransactionDirection.CREDIT)
                 .build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

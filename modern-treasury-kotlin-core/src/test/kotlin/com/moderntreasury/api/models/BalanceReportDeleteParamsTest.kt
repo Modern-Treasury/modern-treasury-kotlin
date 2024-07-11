@@ -10,18 +10,24 @@ class BalanceReportDeleteParamsTest {
 
     @Test
     fun createBalanceReportDeleteParams() {
-        BalanceReportDeleteParams.builder().internalAccountId("string").id("string").build()
+        BalanceReportDeleteParams.builder()
+            .internalAccountId("internal_account_id")
+            .id("id")
+            .build()
     }
 
     @Test
     fun getPathParam() {
         val params =
-            BalanceReportDeleteParams.builder().internalAccountId("string").id("string").build()
+            BalanceReportDeleteParams.builder()
+                .internalAccountId("internal_account_id")
+                .id("id")
+                .build()
         assertThat(params).isNotNull
         // path param "internalAccountId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("internal_account_id")
         // path param "id"
-        assertThat(params.getPathParam(1)).isEqualTo("string")
+        assertThat(params.getPathParam(1)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(2)).isEqualTo("")
     }

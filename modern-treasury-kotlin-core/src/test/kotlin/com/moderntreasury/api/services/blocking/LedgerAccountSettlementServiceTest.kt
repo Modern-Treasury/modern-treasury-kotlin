@@ -28,7 +28,7 @@ class LedgerAccountSettlementServiceTest {
                     .contraLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .settledLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .allowEitherDirection(true)
-                    .description("string")
+                    .description("description")
                     .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .metadata(LedgerAccountSettlementCreateParams.Metadata.builder().build())
                     .skipSettlementLedgerTransaction(true)
@@ -50,7 +50,7 @@ class LedgerAccountSettlementServiceTest {
         val ledgerAccountSettlementService = client.ledgerAccountSettlements()
         val ledgerAccountSettlement =
             ledgerAccountSettlementService.retrieve(
-                LedgerAccountSettlementRetrieveParams.builder().id("string").build()
+                LedgerAccountSettlementRetrieveParams.builder().id("id").build()
             )
         println(ledgerAccountSettlement)
         ledgerAccountSettlement.validate()
@@ -68,8 +68,8 @@ class LedgerAccountSettlementServiceTest {
         val ledgerAccountSettlement =
             ledgerAccountSettlementService.update(
                 LedgerAccountSettlementUpdateParams.builder()
-                    .id("string")
-                    .description("string")
+                    .id("id")
+                    .description("description")
                     .metadata(LedgerAccountSettlementUpdateParams.Metadata.builder().build())
                     .status(LedgerAccountSettlementUpdateParams.Status.POSTED)
                     .build()

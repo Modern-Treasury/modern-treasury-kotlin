@@ -12,8 +12,8 @@ class LineItemListParamsTest {
     fun createLineItemListParams() {
         LineItemListParams.builder()
             .itemizableType(LineItemListParams.ItemizableType.EXPECTED_PAYMENTS)
-            .itemizableId("string")
-            .afterCursor("string")
+            .itemizableId("itemizable_id")
+            .afterCursor("after_cursor")
             .perPage(123L)
             .build()
     }
@@ -23,12 +23,12 @@ class LineItemListParamsTest {
         val params =
             LineItemListParams.builder()
                 .itemizableType(LineItemListParams.ItemizableType.EXPECTED_PAYMENTS)
-                .itemizableId("string")
-                .afterCursor("string")
+                .itemizableId("itemizable_id")
+                .afterCursor("after_cursor")
                 .perPage(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
         expected.put("per_page", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
@@ -38,7 +38,7 @@ class LineItemListParamsTest {
         val params =
             LineItemListParams.builder()
                 .itemizableType(LineItemListParams.ItemizableType.EXPECTED_PAYMENTS)
-                .itemizableId("string")
+                .itemizableId("itemizable_id")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         assertThat(params.getQueryParams()).isEqualTo(expected)
@@ -49,14 +49,14 @@ class LineItemListParamsTest {
         val params =
             LineItemListParams.builder()
                 .itemizableType(LineItemListParams.ItemizableType.EXPECTED_PAYMENTS)
-                .itemizableId("string")
+                .itemizableId("itemizable_id")
                 .build()
         assertThat(params).isNotNull
         // path param "itemizableType"
         assertThat(params.getPathParam(0))
             .isEqualTo(LineItemListParams.ItemizableType.EXPECTED_PAYMENTS.toString())
         // path param "itemizableId"
-        assertThat(params.getPathParam(1)).isEqualTo("string")
+        assertThat(params.getPathParam(1)).isEqualTo("itemizable_id")
         // out-of-bound path param
         assertThat(params.getPathParam(2)).isEqualTo("")
     }

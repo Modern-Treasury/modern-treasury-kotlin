@@ -12,13 +12,13 @@ class EventListParamsTest {
     @Test
     fun createEventListParams() {
         EventListParams.builder()
-            .afterCursor("string")
-            .entityId("string")
-            .eventName("string")
+            .afterCursor("after_cursor")
+            .entityId("entity_id")
+            .eventName("event_name")
             .eventTimeEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .eventTimeStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .perPage(123L)
-            .resource("string")
+            .resource("resource")
             .build()
     }
 
@@ -26,22 +26,22 @@ class EventListParamsTest {
     fun getQueryParams() {
         val params =
             EventListParams.builder()
-                .afterCursor("string")
-                .entityId("string")
-                .eventName("string")
+                .afterCursor("after_cursor")
+                .entityId("entity_id")
+                .eventName("event_name")
                 .eventTimeEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .eventTimeStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .perPage(123L)
-                .resource("string")
+                .resource("resource")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("string"))
-        expected.put("entity_id", listOf("string"))
-        expected.put("event_name", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
+        expected.put("entity_id", listOf("entity_id"))
+        expected.put("event_name", listOf("event_name"))
         expected.put("event_time_end", listOf("2019-12-27T18:11:19.117Z"))
         expected.put("event_time_start", listOf("2019-12-27T18:11:19.117Z"))
         expected.put("per_page", listOf("123"))
-        expected.put("resource", listOf("string"))
+        expected.put("resource", listOf("resource"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

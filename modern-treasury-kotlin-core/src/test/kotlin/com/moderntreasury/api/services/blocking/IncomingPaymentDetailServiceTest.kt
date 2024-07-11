@@ -24,7 +24,7 @@ class IncomingPaymentDetailServiceTest {
         val incomingPaymentDetailService = client.incomingPaymentDetails()
         val incomingPaymentDetail =
             incomingPaymentDetailService.retrieve(
-                IncomingPaymentDetailRetrieveParams.builder().id("string").build()
+                IncomingPaymentDetailRetrieveParams.builder().id("id").build()
             )
         println(incomingPaymentDetail)
         incomingPaymentDetail.validate()
@@ -42,7 +42,7 @@ class IncomingPaymentDetailServiceTest {
         val incomingPaymentDetail =
             incomingPaymentDetailService.update(
                 IncomingPaymentDetailUpdateParams.builder()
-                    .id("string")
+                    .id("id")
                     .metadata(IncomingPaymentDetailUpdateParams.Metadata.builder().build())
                     .build()
             )
@@ -80,7 +80,7 @@ class IncomingPaymentDetailServiceTest {
                     .amount(123L)
                     .asOfDate(LocalDate.parse("2019-12-27"))
                     .currency(Currency.AED)
-                    .description("string")
+                    .description("description")
                     .direction(IncomingPaymentDetailCreateAsyncParams.Direction.CREDIT)
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .type(IncomingPaymentDetailCreateAsyncParams.Type.ACH)

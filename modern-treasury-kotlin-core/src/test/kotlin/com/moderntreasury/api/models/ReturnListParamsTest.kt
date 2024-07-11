@@ -11,11 +11,11 @@ class ReturnListParamsTest {
     @Test
     fun createReturnListParams() {
         ReturnListParams.builder()
-            .afterCursor("string")
-            .counterpartyId("string")
-            .internalAccountId("string")
+            .afterCursor("after_cursor")
+            .counterpartyId("counterparty_id")
+            .internalAccountId("internal_account_id")
             .perPage(123L)
-            .returnableId("string")
+            .returnableId("returnable_id")
             .returnableType(ReturnListParams.ReturnableType.INCOMING_PAYMENT_DETAIL)
             .build()
     }
@@ -24,19 +24,19 @@ class ReturnListParamsTest {
     fun getQueryParams() {
         val params =
             ReturnListParams.builder()
-                .afterCursor("string")
-                .counterpartyId("string")
-                .internalAccountId("string")
+                .afterCursor("after_cursor")
+                .counterpartyId("counterparty_id")
+                .internalAccountId("internal_account_id")
                 .perPage(123L)
-                .returnableId("string")
+                .returnableId("returnable_id")
                 .returnableType(ReturnListParams.ReturnableType.INCOMING_PAYMENT_DETAIL)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("string"))
-        expected.put("counterparty_id", listOf("string"))
-        expected.put("internal_account_id", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
+        expected.put("counterparty_id", listOf("counterparty_id"))
+        expected.put("internal_account_id", listOf("internal_account_id"))
         expected.put("per_page", listOf("123"))
-        expected.put("returnable_id", listOf("string"))
+        expected.put("returnable_id", listOf("returnable_id"))
         expected.put(
             "returnable_type",
             listOf(ReturnListParams.ReturnableType.INCOMING_PAYMENT_DETAIL.toString())

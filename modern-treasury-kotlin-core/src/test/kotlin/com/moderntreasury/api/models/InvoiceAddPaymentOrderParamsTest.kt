@@ -10,18 +10,21 @@ class InvoiceAddPaymentOrderParamsTest {
 
     @Test
     fun createInvoiceAddPaymentOrderParams() {
-        InvoiceAddPaymentOrderParams.builder().id("string").paymentOrderId("string").build()
+        InvoiceAddPaymentOrderParams.builder().id("id").paymentOrderId("payment_order_id").build()
     }
 
     @Test
     fun getPathParam() {
         val params =
-            InvoiceAddPaymentOrderParams.builder().id("string").paymentOrderId("string").build()
+            InvoiceAddPaymentOrderParams.builder()
+                .id("id")
+                .paymentOrderId("payment_order_id")
+                .build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // path param "paymentOrderId"
-        assertThat(params.getPathParam(1)).isEqualTo("string")
+        assertThat(params.getPathParam(1)).isEqualTo("payment_order_id")
         // out-of-bound path param
         assertThat(params.getPathParam(2)).isEqualTo("")
     }

@@ -29,7 +29,7 @@ class LedgerAccountStatementServiceTest {
                     .effectiveAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .description("string")
+                    .description("description")
                     .metadata(LedgerAccountStatementCreateParams.Metadata.builder().build())
                     .build()
             )
@@ -48,7 +48,7 @@ class LedgerAccountStatementServiceTest {
         val ledgerAccountStatementService = client.ledgerAccountStatements()
         val ledgerAccountStatementRetrieveResponse =
             ledgerAccountStatementService.retrieve(
-                LedgerAccountStatementRetrieveParams.builder().id("string").build()
+                LedgerAccountStatementRetrieveParams.builder().id("id").build()
             )
         println(ledgerAccountStatementRetrieveResponse)
         ledgerAccountStatementRetrieveResponse.validate()

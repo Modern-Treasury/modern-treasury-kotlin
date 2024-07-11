@@ -12,7 +12,7 @@ class IncomingPaymentDetailListParamsTest {
     @Test
     fun createIncomingPaymentDetailListParams() {
         IncomingPaymentDetailListParams.builder()
-            .afterCursor("string")
+            .afterCursor("after_cursor")
             .asOfDateEnd(LocalDate.parse("2019-12-27"))
             .asOfDateStart(LocalDate.parse("2019-12-27"))
             .direction(TransactionDirection.CREDIT)
@@ -20,7 +20,7 @@ class IncomingPaymentDetailListParamsTest {
             .perPage(123L)
             .status(IncomingPaymentDetailListParams.Status.COMPLETED)
             .type(IncomingPaymentDetailListParams.Type.ACH)
-            .virtualAccountId("string")
+            .virtualAccountId("virtual_account_id")
             .build()
     }
 
@@ -28,7 +28,7 @@ class IncomingPaymentDetailListParamsTest {
     fun getQueryParams() {
         val params =
             IncomingPaymentDetailListParams.builder()
-                .afterCursor("string")
+                .afterCursor("after_cursor")
                 .asOfDateEnd(LocalDate.parse("2019-12-27"))
                 .asOfDateStart(LocalDate.parse("2019-12-27"))
                 .direction(TransactionDirection.CREDIT)
@@ -36,10 +36,10 @@ class IncomingPaymentDetailListParamsTest {
                 .perPage(123L)
                 .status(IncomingPaymentDetailListParams.Status.COMPLETED)
                 .type(IncomingPaymentDetailListParams.Type.ACH)
-                .virtualAccountId("string")
+                .virtualAccountId("virtual_account_id")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
         expected.put("as_of_date_end", listOf("2019-12-27"))
         expected.put("as_of_date_start", listOf("2019-12-27"))
         expected.put("direction", listOf(TransactionDirection.CREDIT.toString()))
@@ -50,7 +50,7 @@ class IncomingPaymentDetailListParamsTest {
         expected.put("per_page", listOf("123"))
         expected.put("status", listOf(IncomingPaymentDetailListParams.Status.COMPLETED.toString()))
         expected.put("type", listOf(IncomingPaymentDetailListParams.Type.ACH.toString()))
-        expected.put("virtual_account_id", listOf("string"))
+        expected.put("virtual_account_id", listOf("virtual_account_id"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

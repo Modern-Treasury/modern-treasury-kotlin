@@ -27,10 +27,10 @@ class ReturnServiceTest {
                 ReturnCreateParams.builder()
                     .returnableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .returnableType(ReturnCreateParams.ReturnableType.INCOMING_PAYMENT_DETAIL)
-                    .additionalInformation("string")
+                    .additionalInformation("additional_information")
                     .code(ReturnCreateParams.Code._901)
                     .dateOfDeath(LocalDate.parse("2019-12-27"))
-                    .reason("string")
+                    .reason("reason")
                     .build()
             )
         println(returnObject)
@@ -46,8 +46,7 @@ class ReturnServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val returnService = client.returns()
-        val returnObject =
-            returnService.retrieve(ReturnRetrieveParams.builder().id("string").build())
+        val returnObject = returnService.retrieve(ReturnRetrieveParams.builder().id("id").build())
         println(returnObject)
         returnObject.validate()
     }

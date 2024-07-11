@@ -11,9 +11,9 @@ class VirtualAccountListParamsTest {
     @Test
     fun createVirtualAccountListParams() {
         VirtualAccountListParams.builder()
-            .afterCursor("string")
-            .counterpartyId("string")
-            .internalAccountId("string")
+            .afterCursor("after_cursor")
+            .counterpartyId("counterparty_id")
+            .internalAccountId("internal_account_id")
             .metadata(VirtualAccountListParams.Metadata.builder().build())
             .perPage(123L)
             .build()
@@ -23,16 +23,16 @@ class VirtualAccountListParamsTest {
     fun getQueryParams() {
         val params =
             VirtualAccountListParams.builder()
-                .afterCursor("string")
-                .counterpartyId("string")
-                .internalAccountId("string")
+                .afterCursor("after_cursor")
+                .counterpartyId("counterparty_id")
+                .internalAccountId("internal_account_id")
                 .metadata(VirtualAccountListParams.Metadata.builder().build())
                 .perPage(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("string"))
-        expected.put("counterparty_id", listOf("string"))
-        expected.put("internal_account_id", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
+        expected.put("counterparty_id", listOf("counterparty_id"))
+        expected.put("internal_account_id", listOf("internal_account_id"))
         VirtualAccountListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }

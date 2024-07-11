@@ -10,15 +10,15 @@ class TransactionLineItemRetrieveParamsTest {
 
     @Test
     fun createTransactionLineItemRetrieveParams() {
-        TransactionLineItemRetrieveParams.builder().id("string").build()
+        TransactionLineItemRetrieveParams.builder().id("id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = TransactionLineItemRetrieveParams.builder().id("string").build()
+        val params = TransactionLineItemRetrieveParams.builder().id("id").build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

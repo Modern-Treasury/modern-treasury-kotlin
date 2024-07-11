@@ -27,11 +27,11 @@ class PaymentOrderCreateAsyncParamsTest {
             .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .chargeBearer(PaymentOrderCreateAsyncParams.ChargeBearer.SHARED)
             .currency(Currency.AED)
-            .description("string")
+            .description("description")
             .effectiveDate(LocalDate.parse("2019-12-27"))
             .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .fallbackType(PaymentOrderCreateAsyncParams.FallbackType.ACH)
-            .foreignExchangeContract("string")
+            .foreignExchangeContract("foreign_exchange_contract")
             .foreignExchangeIndicator(
                 PaymentOrderCreateAsyncParams.ForeignExchangeIndicator.FIXED_TO_VARIABLE
             )
@@ -78,10 +78,10 @@ class PaymentOrderCreateAsyncParamsTest {
                                 .build()
                         )
                     )
-                    .description("string")
+                    .description("description")
                     .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .effectiveDate(LocalDate.parse("2019-12-27"))
-                    .externalId("string")
+                    .externalId("external_id")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
                         PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest.LedgerableType
@@ -102,8 +102,8 @@ class PaymentOrderCreateAsyncParamsTest {
                 listOf(
                     PaymentOrderCreateAsyncParams.LineItemRequest.builder()
                         .amount(123L)
-                        .accountingCategoryId("string")
-                        .description("string")
+                        .accountingCategoryId("accounting_category_id")
+                        .description("description")
                         .metadata(
                             PaymentOrderCreateAsyncParams.LineItemRequest.Metadata.builder().build()
                         )
@@ -112,16 +112,16 @@ class PaymentOrderCreateAsyncParamsTest {
             )
             .metadata(PaymentOrderCreateAsyncParams.Metadata.builder().build())
             .nsfProtected(true)
-            .originatingPartyName("string")
+            .originatingPartyName("originating_party_name")
             .priority(PaymentOrderCreateAsyncParams.Priority.HIGH)
             .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .purpose("string")
+            .purpose("purpose")
             .receivingAccount(
                 PaymentOrderCreateAsyncParams.ReceivingAccount.builder()
                     .accountDetails(
                         listOf(
                             PaymentOrderCreateAsyncParams.ReceivingAccount.AccountDetail.builder()
-                                .accountNumber("string")
+                                .accountNumber("account_number")
                                 .accountNumberType(
                                     PaymentOrderCreateAsyncParams.ReceivingAccount.AccountDetail
                                         .AccountNumberType
@@ -136,7 +136,7 @@ class PaymentOrderCreateAsyncParamsTest {
                             PaymentOrderCreateAsyncParams.ReceivingAccount
                                 .ContactDetailCreateRequest
                                 .builder()
-                                .contactIdentifier("string")
+                                .contactIdentifier("contact_identifier")
                                 .contactIdentifierType(
                                     PaymentOrderCreateAsyncParams.ReceivingAccount
                                         .ContactDetailCreateRequest
@@ -149,12 +149,12 @@ class PaymentOrderCreateAsyncParamsTest {
                     .ledgerAccount(
                         PaymentOrderCreateAsyncParams.ReceivingAccount.LedgerAccountCreateRequest
                             .builder()
-                            .currency("string")
+                            .currency("currency")
                             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .name("string")
+                            .name("name")
                             .normalBalance(TransactionDirection.CREDIT)
                             .currencyExponent(123L)
-                            .description("string")
+                            .description("description")
                             .ledgerAccountCategoryIds(
                                 listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             )
@@ -177,25 +177,25 @@ class PaymentOrderCreateAsyncParamsTest {
                     .metadata(
                         PaymentOrderCreateAsyncParams.ReceivingAccount.Metadata.builder().build()
                     )
-                    .name("string")
+                    .name("name")
                     .partyAddress(
                         PaymentOrderCreateAsyncParams.ReceivingAccount.AddressRequest.builder()
-                            .country("string")
-                            .line1("string")
-                            .line2("string")
-                            .locality("string")
-                            .postalCode("string")
-                            .region("string")
+                            .country("country")
+                            .line1("line1")
+                            .line2("line2")
+                            .locality("locality")
+                            .postalCode("postal_code")
+                            .region("region")
                             .build()
                     )
-                    .partyIdentifier("string")
-                    .partyName("string")
+                    .partyIdentifier("party_identifier")
+                    .partyName("party_name")
                     .partyType(PaymentOrderCreateAsyncParams.ReceivingAccount.PartyType.BUSINESS)
-                    .plaidProcessorToken("string")
+                    .plaidProcessorToken("plaid_processor_token")
                     .routingDetails(
                         listOf(
                             PaymentOrderCreateAsyncParams.ReceivingAccount.RoutingDetail.builder()
-                                .routingNumber("string")
+                                .routingNumber("routing_number")
                                 .routingNumberType(
                                     PaymentOrderCreateAsyncParams.ReceivingAccount.RoutingDetail
                                         .RoutingNumberType
@@ -212,15 +212,15 @@ class PaymentOrderCreateAsyncParamsTest {
                     .build()
             )
             .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .remittanceInformation("string")
+            .remittanceInformation("remittance_information")
             .sendRemittanceAdvice(true)
-            .statementDescriptor("string")
+            .statementDescriptor("statement_descriptor")
             .subtype(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
             .transactionMonitoringEnabled(true)
-            .ultimateOriginatingPartyIdentifier("string")
-            .ultimateOriginatingPartyName("string")
-            .ultimateReceivingPartyIdentifier("string")
-            .ultimateReceivingPartyName("string")
+            .ultimateOriginatingPartyIdentifier("ultimate_originating_party_identifier")
+            .ultimateOriginatingPartyName("ultimate_originating_party_name")
+            .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
+            .ultimateReceivingPartyName("ultimate_receiving_party_name")
             .build()
     }
 
@@ -242,11 +242,11 @@ class PaymentOrderCreateAsyncParamsTest {
                 .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .chargeBearer(PaymentOrderCreateAsyncParams.ChargeBearer.SHARED)
                 .currency(Currency.AED)
-                .description("string")
+                .description("description")
                 .effectiveDate(LocalDate.parse("2019-12-27"))
                 .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .fallbackType(PaymentOrderCreateAsyncParams.FallbackType.ACH)
-                .foreignExchangeContract("string")
+                .foreignExchangeContract("foreign_exchange_contract")
                 .foreignExchangeIndicator(
                     PaymentOrderCreateAsyncParams.ForeignExchangeIndicator.FIXED_TO_VARIABLE
                 )
@@ -293,10 +293,10 @@ class PaymentOrderCreateAsyncParamsTest {
                                     .build()
                             )
                         )
-                        .description("string")
+                        .description("description")
                         .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .effectiveDate(LocalDate.parse("2019-12-27"))
-                        .externalId("string")
+                        .externalId("external_id")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest
@@ -319,8 +319,8 @@ class PaymentOrderCreateAsyncParamsTest {
                     listOf(
                         PaymentOrderCreateAsyncParams.LineItemRequest.builder()
                             .amount(123L)
-                            .accountingCategoryId("string")
-                            .description("string")
+                            .accountingCategoryId("accounting_category_id")
+                            .description("description")
                             .metadata(
                                 PaymentOrderCreateAsyncParams.LineItemRequest.Metadata.builder()
                                     .build()
@@ -330,17 +330,17 @@ class PaymentOrderCreateAsyncParamsTest {
                 )
                 .metadata(PaymentOrderCreateAsyncParams.Metadata.builder().build())
                 .nsfProtected(true)
-                .originatingPartyName("string")
+                .originatingPartyName("originating_party_name")
                 .priority(PaymentOrderCreateAsyncParams.Priority.HIGH)
                 .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .purpose("string")
+                .purpose("purpose")
                 .receivingAccount(
                     PaymentOrderCreateAsyncParams.ReceivingAccount.builder()
                         .accountDetails(
                             listOf(
                                 PaymentOrderCreateAsyncParams.ReceivingAccount.AccountDetail
                                     .builder()
-                                    .accountNumber("string")
+                                    .accountNumber("account_number")
                                     .accountNumberType(
                                         PaymentOrderCreateAsyncParams.ReceivingAccount.AccountDetail
                                             .AccountNumberType
@@ -355,7 +355,7 @@ class PaymentOrderCreateAsyncParamsTest {
                                 PaymentOrderCreateAsyncParams.ReceivingAccount
                                     .ContactDetailCreateRequest
                                     .builder()
-                                    .contactIdentifier("string")
+                                    .contactIdentifier("contact_identifier")
                                     .contactIdentifierType(
                                         PaymentOrderCreateAsyncParams.ReceivingAccount
                                             .ContactDetailCreateRequest
@@ -369,12 +369,12 @@ class PaymentOrderCreateAsyncParamsTest {
                             PaymentOrderCreateAsyncParams.ReceivingAccount
                                 .LedgerAccountCreateRequest
                                 .builder()
-                                .currency("string")
+                                .currency("currency")
                                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .name("string")
+                                .name("name")
                                 .normalBalance(TransactionDirection.CREDIT)
                                 .currencyExponent(123L)
-                                .description("string")
+                                .description("description")
                                 .ledgerAccountCategoryIds(
                                     listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 )
@@ -398,28 +398,28 @@ class PaymentOrderCreateAsyncParamsTest {
                             PaymentOrderCreateAsyncParams.ReceivingAccount.Metadata.builder()
                                 .build()
                         )
-                        .name("string")
+                        .name("name")
                         .partyAddress(
                             PaymentOrderCreateAsyncParams.ReceivingAccount.AddressRequest.builder()
-                                .country("string")
-                                .line1("string")
-                                .line2("string")
-                                .locality("string")
-                                .postalCode("string")
-                                .region("string")
+                                .country("country")
+                                .line1("line1")
+                                .line2("line2")
+                                .locality("locality")
+                                .postalCode("postal_code")
+                                .region("region")
                                 .build()
                         )
-                        .partyIdentifier("string")
-                        .partyName("string")
+                        .partyIdentifier("party_identifier")
+                        .partyName("party_name")
                         .partyType(
                             PaymentOrderCreateAsyncParams.ReceivingAccount.PartyType.BUSINESS
                         )
-                        .plaidProcessorToken("string")
+                        .plaidProcessorToken("plaid_processor_token")
                         .routingDetails(
                             listOf(
                                 PaymentOrderCreateAsyncParams.ReceivingAccount.RoutingDetail
                                     .builder()
-                                    .routingNumber("string")
+                                    .routingNumber("routing_number")
                                     .routingNumberType(
                                         PaymentOrderCreateAsyncParams.ReceivingAccount.RoutingDetail
                                             .RoutingNumberType
@@ -436,15 +436,15 @@ class PaymentOrderCreateAsyncParamsTest {
                         .build()
                 )
                 .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .remittanceInformation("string")
+                .remittanceInformation("remittance_information")
                 .sendRemittanceAdvice(true)
-                .statementDescriptor("string")
+                .statementDescriptor("statement_descriptor")
                 .subtype(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
                 .transactionMonitoringEnabled(true)
-                .ultimateOriginatingPartyIdentifier("string")
-                .ultimateOriginatingPartyName("string")
-                .ultimateReceivingPartyIdentifier("string")
-                .ultimateReceivingPartyName("string")
+                .ultimateOriginatingPartyIdentifier("ultimate_originating_party_identifier")
+                .ultimateOriginatingPartyName("ultimate_originating_party_name")
+                .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
+                .ultimateReceivingPartyName("ultimate_receiving_party_name")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -463,11 +463,11 @@ class PaymentOrderCreateAsyncParamsTest {
         assertThat(body.accountingLedgerClassId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.chargeBearer()).isEqualTo(PaymentOrderCreateAsyncParams.ChargeBearer.SHARED)
         assertThat(body.currency()).isEqualTo(Currency.AED)
-        assertThat(body.description()).isEqualTo("string")
+        assertThat(body.description()).isEqualTo("description")
         assertThat(body.effectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.expiresAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.fallbackType()).isEqualTo(PaymentOrderCreateAsyncParams.FallbackType.ACH)
-        assertThat(body.foreignExchangeContract()).isEqualTo("string")
+        assertThat(body.foreignExchangeContract()).isEqualTo("foreign_exchange_contract")
         assertThat(body.foreignExchangeIndicator())
             .isEqualTo(PaymentOrderCreateAsyncParams.ForeignExchangeIndicator.FIXED_TO_VARIABLE)
         assertThat(body.ledgerTransaction())
@@ -514,10 +514,10 @@ class PaymentOrderCreateAsyncParamsTest {
                                 .build()
                         )
                     )
-                    .description("string")
+                    .description("description")
                     .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .effectiveDate(LocalDate.parse("2019-12-27"))
-                    .externalId("string")
+                    .externalId("external_id")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
                         PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest.LedgerableType
@@ -539,8 +539,8 @@ class PaymentOrderCreateAsyncParamsTest {
                 listOf(
                     PaymentOrderCreateAsyncParams.LineItemRequest.builder()
                         .amount(123L)
-                        .accountingCategoryId("string")
-                        .description("string")
+                        .accountingCategoryId("accounting_category_id")
+                        .description("description")
                         .metadata(
                             PaymentOrderCreateAsyncParams.LineItemRequest.Metadata.builder().build()
                         )
@@ -550,17 +550,17 @@ class PaymentOrderCreateAsyncParamsTest {
         assertThat(body.metadata())
             .isEqualTo(PaymentOrderCreateAsyncParams.Metadata.builder().build())
         assertThat(body.nsfProtected()).isEqualTo(true)
-        assertThat(body.originatingPartyName()).isEqualTo("string")
+        assertThat(body.originatingPartyName()).isEqualTo("originating_party_name")
         assertThat(body.priority()).isEqualTo(PaymentOrderCreateAsyncParams.Priority.HIGH)
         assertThat(body.processAfter()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(body.purpose()).isEqualTo("string")
+        assertThat(body.purpose()).isEqualTo("purpose")
         assertThat(body.receivingAccount())
             .isEqualTo(
                 PaymentOrderCreateAsyncParams.ReceivingAccount.builder()
                     .accountDetails(
                         listOf(
                             PaymentOrderCreateAsyncParams.ReceivingAccount.AccountDetail.builder()
-                                .accountNumber("string")
+                                .accountNumber("account_number")
                                 .accountNumberType(
                                     PaymentOrderCreateAsyncParams.ReceivingAccount.AccountDetail
                                         .AccountNumberType
@@ -575,7 +575,7 @@ class PaymentOrderCreateAsyncParamsTest {
                             PaymentOrderCreateAsyncParams.ReceivingAccount
                                 .ContactDetailCreateRequest
                                 .builder()
-                                .contactIdentifier("string")
+                                .contactIdentifier("contact_identifier")
                                 .contactIdentifierType(
                                     PaymentOrderCreateAsyncParams.ReceivingAccount
                                         .ContactDetailCreateRequest
@@ -588,12 +588,12 @@ class PaymentOrderCreateAsyncParamsTest {
                     .ledgerAccount(
                         PaymentOrderCreateAsyncParams.ReceivingAccount.LedgerAccountCreateRequest
                             .builder()
-                            .currency("string")
+                            .currency("currency")
                             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .name("string")
+                            .name("name")
                             .normalBalance(TransactionDirection.CREDIT)
                             .currencyExponent(123L)
-                            .description("string")
+                            .description("description")
                             .ledgerAccountCategoryIds(
                                 listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             )
@@ -616,25 +616,25 @@ class PaymentOrderCreateAsyncParamsTest {
                     .metadata(
                         PaymentOrderCreateAsyncParams.ReceivingAccount.Metadata.builder().build()
                     )
-                    .name("string")
+                    .name("name")
                     .partyAddress(
                         PaymentOrderCreateAsyncParams.ReceivingAccount.AddressRequest.builder()
-                            .country("string")
-                            .line1("string")
-                            .line2("string")
-                            .locality("string")
-                            .postalCode("string")
-                            .region("string")
+                            .country("country")
+                            .line1("line1")
+                            .line2("line2")
+                            .locality("locality")
+                            .postalCode("postal_code")
+                            .region("region")
                             .build()
                     )
-                    .partyIdentifier("string")
-                    .partyName("string")
+                    .partyIdentifier("party_identifier")
+                    .partyName("party_name")
                     .partyType(PaymentOrderCreateAsyncParams.ReceivingAccount.PartyType.BUSINESS)
-                    .plaidProcessorToken("string")
+                    .plaidProcessorToken("plaid_processor_token")
                     .routingDetails(
                         listOf(
                             PaymentOrderCreateAsyncParams.ReceivingAccount.RoutingDetail.builder()
-                                .routingNumber("string")
+                                .routingNumber("routing_number")
                                 .routingNumberType(
                                     PaymentOrderCreateAsyncParams.ReceivingAccount.RoutingDetail
                                         .RoutingNumberType
@@ -651,15 +651,17 @@ class PaymentOrderCreateAsyncParamsTest {
                     .build()
             )
         assertThat(body.receivingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.remittanceInformation()).isEqualTo("string")
+        assertThat(body.remittanceInformation()).isEqualTo("remittance_information")
         assertThat(body.sendRemittanceAdvice()).isEqualTo(true)
-        assertThat(body.statementDescriptor()).isEqualTo("string")
+        assertThat(body.statementDescriptor()).isEqualTo("statement_descriptor")
         assertThat(body.subtype()).isEqualTo(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
         assertThat(body.transactionMonitoringEnabled()).isEqualTo(true)
-        assertThat(body.ultimateOriginatingPartyIdentifier()).isEqualTo("string")
-        assertThat(body.ultimateOriginatingPartyName()).isEqualTo("string")
-        assertThat(body.ultimateReceivingPartyIdentifier()).isEqualTo("string")
-        assertThat(body.ultimateReceivingPartyName()).isEqualTo("string")
+        assertThat(body.ultimateOriginatingPartyIdentifier())
+            .isEqualTo("ultimate_originating_party_identifier")
+        assertThat(body.ultimateOriginatingPartyName()).isEqualTo("ultimate_originating_party_name")
+        assertThat(body.ultimateReceivingPartyIdentifier())
+            .isEqualTo("ultimate_receiving_party_identifier")
+        assertThat(body.ultimateReceivingPartyName()).isEqualTo("ultimate_receiving_party_name")
     }
 
     @Test

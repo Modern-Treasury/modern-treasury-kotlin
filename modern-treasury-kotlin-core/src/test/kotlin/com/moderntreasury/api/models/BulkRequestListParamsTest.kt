@@ -12,7 +12,7 @@ class BulkRequestListParamsTest {
     fun createBulkRequestListParams() {
         BulkRequestListParams.builder()
             .actionType(BulkRequestListParams.ActionType.CREATE)
-            .afterCursor("string")
+            .afterCursor("after_cursor")
             .metadata(BulkRequestListParams.Metadata.builder().build())
             .perPage(123L)
             .resourceType(BulkRequestListParams.ResourceType.PAYMENT_ORDER)
@@ -25,7 +25,7 @@ class BulkRequestListParamsTest {
         val params =
             BulkRequestListParams.builder()
                 .actionType(BulkRequestListParams.ActionType.CREATE)
-                .afterCursor("string")
+                .afterCursor("after_cursor")
                 .metadata(BulkRequestListParams.Metadata.builder().build())
                 .perPage(123L)
                 .resourceType(BulkRequestListParams.ResourceType.PAYMENT_ORDER)
@@ -33,7 +33,7 @@ class BulkRequestListParamsTest {
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("action_type", listOf(BulkRequestListParams.ActionType.CREATE.toString()))
-        expected.put("after_cursor", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
         BulkRequestListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }

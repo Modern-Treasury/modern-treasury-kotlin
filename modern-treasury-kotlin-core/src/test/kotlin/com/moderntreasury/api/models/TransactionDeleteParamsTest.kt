@@ -10,15 +10,15 @@ class TransactionDeleteParamsTest {
 
     @Test
     fun createTransactionDeleteParams() {
-        TransactionDeleteParams.builder().id("string").build()
+        TransactionDeleteParams.builder().id("id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = TransactionDeleteParams.builder().id("string").build()
+        val params = TransactionDeleteParams.builder().id("id").build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

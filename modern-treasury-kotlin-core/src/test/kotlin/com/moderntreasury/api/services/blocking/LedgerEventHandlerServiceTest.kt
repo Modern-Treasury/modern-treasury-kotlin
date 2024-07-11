@@ -35,24 +35,24 @@ class LedgerEventHandlerServiceTest {
                                         .LedgerEventHandlerLedgerTransactionTemplate
                                         .LedgerEventHandlerLedgerEntries
                                         .builder()
-                                        .amount("string")
-                                        .direction("string")
-                                        .ledgerAccountId("string")
+                                        .amount("amount")
+                                        .direction("direction")
+                                        .ledgerAccountId("ledger_account_id")
                                         .build()
                                 )
                             )
                             .status("posted")
                             .build()
                     )
-                    .name("string")
+                    .name("name")
                     .conditions(
                         LedgerEventHandlerCreateParams.LedgerEventHandlerConditions.builder()
-                            .field("string")
-                            .operator("string")
-                            .value("string")
+                            .field("field")
+                            .operator("operator")
+                            .value("value")
                             .build()
                     )
-                    .description("string")
+                    .description("description")
                     .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .metadata(LedgerEventHandlerCreateParams.Metadata.builder().build())
                     .variables(
@@ -75,7 +75,7 @@ class LedgerEventHandlerServiceTest {
         val ledgerEventHandlerService = client.ledgerEventHandlers()
         val ledgerEventHandler =
             ledgerEventHandlerService.retrieve(
-                LedgerEventHandlerRetrieveParams.builder().id("string").build()
+                LedgerEventHandlerRetrieveParams.builder().id("id").build()
             )
         println(ledgerEventHandler)
         ledgerEventHandler.validate()
@@ -107,7 +107,7 @@ class LedgerEventHandlerServiceTest {
         val ledgerEventHandlerService = client.ledgerEventHandlers()
         val ledgerEventHandler =
             ledgerEventHandlerService.delete(
-                LedgerEventHandlerDeleteParams.builder().id("string").build()
+                LedgerEventHandlerDeleteParams.builder().id("id").build()
             )
         println(ledgerEventHandler)
         ledgerEventHandler.validate()

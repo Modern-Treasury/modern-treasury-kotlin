@@ -13,7 +13,7 @@ class PaymentOrderReversalCreateParamsTest {
     @Test
     fun createPaymentOrderReversalCreateParams() {
         PaymentOrderReversalCreateParams.builder()
-            .paymentOrderId("string")
+            .paymentOrderId("payment_order_id")
             .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
             .ledgerTransaction(
                 PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.builder()
@@ -58,10 +58,10 @@ class PaymentOrderReversalCreateParamsTest {
                                 .build()
                         )
                     )
-                    .description("string")
+                    .description("description")
                     .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .effectiveDate(LocalDate.parse("2019-12-27"))
-                    .externalId("string")
+                    .externalId("external_id")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
                         PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
@@ -87,7 +87,7 @@ class PaymentOrderReversalCreateParamsTest {
     fun getBody() {
         val params =
             PaymentOrderReversalCreateParams.builder()
-                .paymentOrderId("string")
+                .paymentOrderId("payment_order_id")
                 .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
                 .ledgerTransaction(
                     PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.builder()
@@ -136,10 +136,10 @@ class PaymentOrderReversalCreateParamsTest {
                                     .build()
                             )
                         )
-                        .description("string")
+                        .description("description")
                         .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .effectiveDate(LocalDate.parse("2019-12-27"))
-                        .externalId("string")
+                        .externalId("external_id")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
@@ -206,10 +206,10 @@ class PaymentOrderReversalCreateParamsTest {
                                 .build()
                         )
                     )
-                    .description("string")
+                    .description("description")
                     .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .effectiveDate(LocalDate.parse("2019-12-27"))
-                    .externalId("string")
+                    .externalId("external_id")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableType(
                         PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
@@ -235,7 +235,7 @@ class PaymentOrderReversalCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             PaymentOrderReversalCreateParams.builder()
-                .paymentOrderId("string")
+                .paymentOrderId("payment_order_id")
                 .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
                 .build()
         val body = params.getBody()
@@ -247,12 +247,12 @@ class PaymentOrderReversalCreateParamsTest {
     fun getPathParam() {
         val params =
             PaymentOrderReversalCreateParams.builder()
-                .paymentOrderId("string")
+                .paymentOrderId("payment_order_id")
                 .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
                 .build()
         assertThat(params).isNotNull
         // path param "paymentOrderId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("payment_order_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

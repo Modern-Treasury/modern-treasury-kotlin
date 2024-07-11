@@ -25,9 +25,9 @@ class BalanceReportServiceTest {
         val balanceReport =
             balanceReportService.create(
                 BalanceReportCreateParams.builder()
-                    .internalAccountId("string")
+                    .internalAccountId("internal_account_id")
                     .asOfDate(LocalDate.parse("2019-12-27"))
-                    .asOfTime("string")
+                    .asOfTime("as_of_time")
                     .balanceReportType(BalanceReportCreateParams.BalanceReportType.INTRADAY)
                     .balances(
                         listOf(
@@ -37,8 +37,8 @@ class BalanceReportServiceTest {
                                     BalanceReportCreateParams.BalanceCreateRequest.BalanceType
                                         .CLOSING_AVAILABLE
                                 )
-                                .vendorCode("string")
-                                .vendorCodeType("string")
+                                .vendorCode("vendor_code")
+                                .vendorCodeType("vendor_code_type")
                                 .build()
                         )
                     )
@@ -60,8 +60,8 @@ class BalanceReportServiceTest {
         val balanceReport =
             balanceReportService.retrieve(
                 BalanceReportRetrieveParams.builder()
-                    .internalAccountId("string")
-                    .id("string")
+                    .internalAccountId("internal_account_id")
+                    .id("id")
                     .build()
             )
         println(balanceReport)
@@ -79,7 +79,7 @@ class BalanceReportServiceTest {
         val balanceReportService = client.internalAccounts().balanceReports()
         val response =
             balanceReportService.list(
-                BalanceReportListParams.builder().internalAccountId("string").build()
+                BalanceReportListParams.builder().internalAccountId("internal_account_id").build()
             )
         println(response)
         response.items().forEach { it.validate() }
@@ -95,7 +95,10 @@ class BalanceReportServiceTest {
                 .build()
         val balanceReportService = client.internalAccounts().balanceReports()
         balanceReportService.delete(
-            BalanceReportDeleteParams.builder().internalAccountId("string").id("string").build()
+            BalanceReportDeleteParams.builder()
+                .internalAccountId("internal_account_id")
+                .id("id")
+                .build()
         )
     }
 }

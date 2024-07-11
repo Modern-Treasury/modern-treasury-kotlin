@@ -12,8 +12,8 @@ class BalanceReportListParamsTest {
     @Test
     fun createBalanceReportListParams() {
         BalanceReportListParams.builder()
-            .internalAccountId("string")
-            .afterCursor("string")
+            .internalAccountId("internal_account_id")
+            .afterCursor("after_cursor")
             .asOfDate(LocalDate.parse("2019-12-27"))
             .balanceReportType(BalanceReportListParams.BalanceReportType.INTRADAY)
             .perPage(123L)
@@ -24,14 +24,14 @@ class BalanceReportListParamsTest {
     fun getQueryParams() {
         val params =
             BalanceReportListParams.builder()
-                .internalAccountId("string")
-                .afterCursor("string")
+                .internalAccountId("internal_account_id")
+                .afterCursor("after_cursor")
                 .asOfDate(LocalDate.parse("2019-12-27"))
                 .balanceReportType(BalanceReportListParams.BalanceReportType.INTRADAY)
                 .perPage(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
         expected.put("as_of_date", listOf("2019-12-27"))
         expected.put(
             "balance_report_type",
@@ -43,17 +43,19 @@ class BalanceReportListParamsTest {
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
-        val params = BalanceReportListParams.builder().internalAccountId("string").build()
+        val params =
+            BalanceReportListParams.builder().internalAccountId("internal_account_id").build()
         val expected = mutableMapOf<String, List<String>>()
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 
     @Test
     fun getPathParam() {
-        val params = BalanceReportListParams.builder().internalAccountId("string").build()
+        val params =
+            BalanceReportListParams.builder().internalAccountId("internal_account_id").build()
         assertThat(params).isNotNull
         // path param "internalAccountId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("internal_account_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

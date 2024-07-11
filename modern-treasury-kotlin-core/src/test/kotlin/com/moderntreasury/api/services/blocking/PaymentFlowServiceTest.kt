@@ -27,7 +27,7 @@ class PaymentFlowServiceTest {
                 PaymentFlowCreateParams.builder()
                     .amount(123L)
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .currency("string")
+                    .currency("currency")
                     .direction(PaymentFlowCreateParams.Direction.CREDIT)
                     .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .dueDate(LocalDate.parse("2019-12-27"))
@@ -47,7 +47,7 @@ class PaymentFlowServiceTest {
                 .build()
         val paymentFlowService = client.paymentFlows()
         val paymentFlow =
-            paymentFlowService.retrieve(PaymentFlowRetrieveParams.builder().id("string").build())
+            paymentFlowService.retrieve(PaymentFlowRetrieveParams.builder().id("id").build())
         println(paymentFlow)
         paymentFlow.validate()
     }
@@ -64,7 +64,7 @@ class PaymentFlowServiceTest {
         val paymentFlow =
             paymentFlowService.update(
                 PaymentFlowUpdateParams.builder()
-                    .id("string")
+                    .id("id")
                     .status(PaymentFlowUpdateParams.Status.CANCELLED)
                     .build()
             )

@@ -11,10 +11,10 @@ class InternalAccountListParamsTest {
     @Test
     fun createInternalAccountListParams() {
         InternalAccountListParams.builder()
-            .afterCursor("string")
-            .counterpartyId("string")
+            .afterCursor("after_cursor")
+            .counterpartyId("counterparty_id")
             .currency(Currency.AED)
-            .legalEntityId("string")
+            .legalEntityId("legal_entity_id")
             .metadata(InternalAccountListParams.Metadata.builder().build())
             .paymentDirection(TransactionDirection.CREDIT)
             .paymentType(InternalAccountListParams.PaymentType.ACH)
@@ -26,20 +26,20 @@ class InternalAccountListParamsTest {
     fun getQueryParams() {
         val params =
             InternalAccountListParams.builder()
-                .afterCursor("string")
-                .counterpartyId("string")
+                .afterCursor("after_cursor")
+                .counterpartyId("counterparty_id")
                 .currency(Currency.AED)
-                .legalEntityId("string")
+                .legalEntityId("legal_entity_id")
                 .metadata(InternalAccountListParams.Metadata.builder().build())
                 .paymentDirection(TransactionDirection.CREDIT)
                 .paymentType(InternalAccountListParams.PaymentType.ACH)
                 .perPage(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("string"))
-        expected.put("counterparty_id", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
+        expected.put("counterparty_id", listOf("counterparty_id"))
         expected.put("currency", listOf(Currency.AED.toString()))
-        expected.put("legal_entity_id", listOf("string"))
+        expected.put("legal_entity_id", listOf("legal_entity_id"))
         InternalAccountListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
