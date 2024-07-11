@@ -11,7 +11,7 @@ class PaymentFlowUpdateParamsTest {
     @Test
     fun createPaymentFlowUpdateParams() {
         PaymentFlowUpdateParams.builder()
-            .id("string")
+            .id("id")
             .status(PaymentFlowUpdateParams.Status.CANCELLED)
             .build()
     }
@@ -20,7 +20,7 @@ class PaymentFlowUpdateParamsTest {
     fun getBody() {
         val params =
             PaymentFlowUpdateParams.builder()
-                .id("string")
+                .id("id")
                 .status(PaymentFlowUpdateParams.Status.CANCELLED)
                 .build()
         val body = params.getBody()
@@ -32,7 +32,7 @@ class PaymentFlowUpdateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             PaymentFlowUpdateParams.builder()
-                .id("string")
+                .id("id")
                 .status(PaymentFlowUpdateParams.Status.CANCELLED)
                 .build()
         val body = params.getBody()
@@ -44,12 +44,12 @@ class PaymentFlowUpdateParamsTest {
     fun getPathParam() {
         val params =
             PaymentFlowUpdateParams.builder()
-                .id("string")
+                .id("id")
                 .status(PaymentFlowUpdateParams.Status.CANCELLED)
                 .build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

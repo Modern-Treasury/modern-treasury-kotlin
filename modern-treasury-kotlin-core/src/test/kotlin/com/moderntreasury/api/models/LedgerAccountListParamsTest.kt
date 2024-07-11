@@ -14,7 +14,7 @@ class LedgerAccountListParamsTest {
     fun createLedgerAccountListParams() {
         LedgerAccountListParams.builder()
             .id(listOf("string"))
-            .afterCursor("string")
+            .afterCursor("after_cursor")
             .availableBalanceAmount(
                 LedgerAccountListParams.AvailableBalanceAmount.builder()
                     .eq(123L)
@@ -34,9 +34,9 @@ class LedgerAccountListParamsTest {
                     .build()
             )
             .createdAt(LedgerAccountListParams.CreatedAt.builder().build())
-            .currency("string")
-            .ledgerAccountCategoryId("string")
-            .ledgerId("string")
+            .currency("currency")
+            .ledgerAccountCategoryId("ledger_account_category_id")
+            .ledgerId("ledger_id")
             .metadata(LedgerAccountListParams.Metadata.builder().build())
             .name(listOf("string"))
             .pendingBalanceAmount(
@@ -69,7 +69,7 @@ class LedgerAccountListParamsTest {
         val params =
             LedgerAccountListParams.builder()
                 .id(listOf("string"))
-                .afterCursor("string")
+                .afterCursor("after_cursor")
                 .availableBalanceAmount(
                     LedgerAccountListParams.AvailableBalanceAmount.builder()
                         .eq(123L)
@@ -89,9 +89,9 @@ class LedgerAccountListParamsTest {
                         .build()
                 )
                 .createdAt(LedgerAccountListParams.CreatedAt.builder().build())
-                .currency("string")
-                .ledgerAccountCategoryId("string")
-                .ledgerId("string")
+                .currency("currency")
+                .ledgerAccountCategoryId("ledger_account_category_id")
+                .ledgerId("ledger_id")
                 .metadata(LedgerAccountListParams.Metadata.builder().build())
                 .name(listOf("string"))
                 .pendingBalanceAmount(
@@ -119,7 +119,7 @@ class LedgerAccountListParamsTest {
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("id[]", listOf("string"))
-        expected.put("after_cursor", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
         LedgerAccountListParams.AvailableBalanceAmount.builder()
             .eq(123L)
             .gt(123L)
@@ -141,9 +141,9 @@ class LedgerAccountListParamsTest {
         LedgerAccountListParams.CreatedAt.builder().build().forEachQueryParam { key, values ->
             expected.put("created_at[$key]", values)
         }
-        expected.put("currency", listOf("string"))
-        expected.put("ledger_account_category_id", listOf("string"))
-        expected.put("ledger_id", listOf("string"))
+        expected.put("currency", listOf("currency"))
+        expected.put("ledger_account_category_id", listOf("ledger_account_category_id"))
+        expected.put("ledger_id", listOf("ledger_id"))
         LedgerAccountListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }

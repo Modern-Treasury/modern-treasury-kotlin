@@ -65,7 +65,7 @@ class ErrorHandlingTest {
                 .accountDetails(
                     listOf(
                         ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("string")
+                            .accountNumber("account_number")
                             .accountNumberType(
                                 ExternalAccountCreateParams.AccountDetail.AccountNumberType
                                     .AU_NUMBER
@@ -77,7 +77,7 @@ class ErrorHandlingTest {
                 .contactDetails(
                     listOf(
                         ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("string")
+                            .contactIdentifier("contact_identifier")
                             .contactIdentifierType(
                                 ExternalAccountCreateParams.ContactDetailCreateRequest
                                     .ContactIdentifierType
@@ -88,12 +88,12 @@ class ErrorHandlingTest {
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
-                        .currency("string")
+                        .currency("currency")
                         .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .name("string")
+                        .name("name")
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
-                        .description("string")
+                        .description("description")
                         .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
@@ -108,25 +108,25 @@ class ErrorHandlingTest {
                         .build()
                 )
                 .metadata(ExternalAccountCreateParams.Metadata.builder().build())
-                .name("string")
+                .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
-                        .country("string")
-                        .line1("string")
-                        .line2("string")
-                        .locality("string")
-                        .postalCode("string")
-                        .region("string")
+                        .country("country")
+                        .line1("line1")
+                        .line2("line2")
+                        .locality("locality")
+                        .postalCode("postal_code")
+                        .region("region")
                         .build()
                 )
-                .partyIdentifier("string")
-                .partyName("string")
+                .partyIdentifier("party_identifier")
+                .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
-                .plaidProcessorToken("string")
+                .plaidProcessorToken("plaid_processor_token")
                 .routingDetails(
                     listOf(
                         ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("string")
+                            .routingNumber("routing_number")
                             .routingNumberType(
                                 ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
                             )
@@ -143,14 +143,14 @@ class ErrorHandlingTest {
                     listOf(
                         AccountDetail.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .accountNumberSafe("string")
+                            .accountNumberSafe("account_number_safe")
                             .accountNumberType(AccountDetail.AccountNumberType.AU_NUMBER)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .liveMode(true)
-                            .object_("string")
+                            .object_("object")
                             .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .accountNumber("string")
+                            .accountNumber("account_number")
                             .build()
                     )
                 )
@@ -159,14 +159,14 @@ class ErrorHandlingTest {
                     listOf(
                         ExternalAccount.ContactDetail.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .contactIdentifier("string")
+                            .contactIdentifier("contact_identifier")
                             .contactIdentifierType(
                                 ExternalAccount.ContactDetail.ContactIdentifierType.EMAIL
                             )
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .liveMode(true)
-                            .object_("string")
+                            .object_("object")
                             .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .build()
                     )
@@ -177,24 +177,24 @@ class ErrorHandlingTest {
                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
                 .metadata(ExternalAccount.Metadata.builder().build())
-                .name("string")
-                .object_("string")
+                .name("name")
+                .object_("object")
                 .partyAddress(
                     ExternalAccount.Address.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .country("string")
+                        .country("country")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .line1("string")
-                        .line2("string")
+                        .line1("line1")
+                        .line2("line2")
                         .liveMode(true)
-                        .locality("string")
-                        .object_("string")
-                        .postalCode("string")
-                        .region("string")
+                        .locality("locality")
+                        .object_("object")
+                        .postalCode("postal_code")
+                        .region("region")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
-                .partyName("string")
+                .partyName("party_name")
                 .partyType(ExternalAccount.PartyType.BUSINESS)
                 .routingDetails(
                     listOf(
@@ -203,25 +203,25 @@ class ErrorHandlingTest {
                             .bankAddress(
                                 RoutingDetail.Address.builder()
                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .country("string")
+                                    .country("country")
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .line1("string")
-                                    .line2("string")
+                                    .line1("line1")
+                                    .line2("line2")
                                     .liveMode(true)
-                                    .locality("string")
-                                    .object_("string")
-                                    .postalCode("string")
-                                    .region("string")
+                                    .locality("locality")
+                                    .object_("object")
+                                    .postalCode("postal_code")
+                                    .region("region")
                                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
                             )
-                            .bankName("string")
+                            .bankName("bank_name")
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .liveMode(true)
-                            .object_("string")
+                            .object_("object")
                             .paymentType(RoutingDetail.PaymentType.ACH)
-                            .routingNumber("string")
+                            .routingNumber("routing_number")
                             .routingNumberType(RoutingDetail.RoutingNumberType.ABA)
                             .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .build()
@@ -245,7 +245,7 @@ class ErrorHandlingTest {
                 .accountDetails(
                     listOf(
                         ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("string")
+                            .accountNumber("account_number")
                             .accountNumberType(
                                 ExternalAccountCreateParams.AccountDetail.AccountNumberType
                                     .AU_NUMBER
@@ -257,7 +257,7 @@ class ErrorHandlingTest {
                 .contactDetails(
                     listOf(
                         ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("string")
+                            .contactIdentifier("contact_identifier")
                             .contactIdentifierType(
                                 ExternalAccountCreateParams.ContactDetailCreateRequest
                                     .ContactIdentifierType
@@ -268,12 +268,12 @@ class ErrorHandlingTest {
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
-                        .currency("string")
+                        .currency("currency")
                         .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .name("string")
+                        .name("name")
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
-                        .description("string")
+                        .description("description")
                         .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
@@ -288,25 +288,25 @@ class ErrorHandlingTest {
                         .build()
                 )
                 .metadata(ExternalAccountCreateParams.Metadata.builder().build())
-                .name("string")
+                .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
-                        .country("string")
-                        .line1("string")
-                        .line2("string")
-                        .locality("string")
-                        .postalCode("string")
-                        .region("string")
+                        .country("country")
+                        .line1("line1")
+                        .line2("line2")
+                        .locality("locality")
+                        .postalCode("postal_code")
+                        .region("region")
                         .build()
                 )
-                .partyIdentifier("string")
-                .partyName("string")
+                .partyIdentifier("party_identifier")
+                .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
-                .plaidProcessorToken("string")
+                .plaidProcessorToken("plaid_processor_token")
                 .routingDetails(
                     listOf(
                         ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("string")
+                            .routingNumber("routing_number")
                             .routingNumberType(
                                 ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
                             )
@@ -337,7 +337,7 @@ class ErrorHandlingTest {
                 .accountDetails(
                     listOf(
                         ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("string")
+                            .accountNumber("account_number")
                             .accountNumberType(
                                 ExternalAccountCreateParams.AccountDetail.AccountNumberType
                                     .AU_NUMBER
@@ -349,7 +349,7 @@ class ErrorHandlingTest {
                 .contactDetails(
                     listOf(
                         ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("string")
+                            .contactIdentifier("contact_identifier")
                             .contactIdentifierType(
                                 ExternalAccountCreateParams.ContactDetailCreateRequest
                                     .ContactIdentifierType
@@ -360,12 +360,12 @@ class ErrorHandlingTest {
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
-                        .currency("string")
+                        .currency("currency")
                         .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .name("string")
+                        .name("name")
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
-                        .description("string")
+                        .description("description")
                         .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
@@ -380,25 +380,25 @@ class ErrorHandlingTest {
                         .build()
                 )
                 .metadata(ExternalAccountCreateParams.Metadata.builder().build())
-                .name("string")
+                .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
-                        .country("string")
-                        .line1("string")
-                        .line2("string")
-                        .locality("string")
-                        .postalCode("string")
-                        .region("string")
+                        .country("country")
+                        .line1("line1")
+                        .line2("line2")
+                        .locality("locality")
+                        .postalCode("postal_code")
+                        .region("region")
                         .build()
                 )
-                .partyIdentifier("string")
-                .partyName("string")
+                .partyIdentifier("party_identifier")
+                .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
-                .plaidProcessorToken("string")
+                .plaidProcessorToken("plaid_processor_token")
                 .routingDetails(
                     listOf(
                         ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("string")
+                            .routingNumber("routing_number")
                             .routingNumberType(
                                 ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
                             )
@@ -429,7 +429,7 @@ class ErrorHandlingTest {
                 .accountDetails(
                     listOf(
                         ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("string")
+                            .accountNumber("account_number")
                             .accountNumberType(
                                 ExternalAccountCreateParams.AccountDetail.AccountNumberType
                                     .AU_NUMBER
@@ -441,7 +441,7 @@ class ErrorHandlingTest {
                 .contactDetails(
                     listOf(
                         ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("string")
+                            .contactIdentifier("contact_identifier")
                             .contactIdentifierType(
                                 ExternalAccountCreateParams.ContactDetailCreateRequest
                                     .ContactIdentifierType
@@ -452,12 +452,12 @@ class ErrorHandlingTest {
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
-                        .currency("string")
+                        .currency("currency")
                         .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .name("string")
+                        .name("name")
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
-                        .description("string")
+                        .description("description")
                         .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
@@ -472,25 +472,25 @@ class ErrorHandlingTest {
                         .build()
                 )
                 .metadata(ExternalAccountCreateParams.Metadata.builder().build())
-                .name("string")
+                .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
-                        .country("string")
-                        .line1("string")
-                        .line2("string")
-                        .locality("string")
-                        .postalCode("string")
-                        .region("string")
+                        .country("country")
+                        .line1("line1")
+                        .line2("line2")
+                        .locality("locality")
+                        .postalCode("postal_code")
+                        .region("region")
                         .build()
                 )
-                .partyIdentifier("string")
-                .partyName("string")
+                .partyIdentifier("party_identifier")
+                .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
-                .plaidProcessorToken("string")
+                .plaidProcessorToken("plaid_processor_token")
                 .routingDetails(
                     listOf(
                         ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("string")
+                            .routingNumber("routing_number")
                             .routingNumberType(
                                 ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
                             )
@@ -525,7 +525,7 @@ class ErrorHandlingTest {
                 .accountDetails(
                     listOf(
                         ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("string")
+                            .accountNumber("account_number")
                             .accountNumberType(
                                 ExternalAccountCreateParams.AccountDetail.AccountNumberType
                                     .AU_NUMBER
@@ -537,7 +537,7 @@ class ErrorHandlingTest {
                 .contactDetails(
                     listOf(
                         ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("string")
+                            .contactIdentifier("contact_identifier")
                             .contactIdentifierType(
                                 ExternalAccountCreateParams.ContactDetailCreateRequest
                                     .ContactIdentifierType
@@ -548,12 +548,12 @@ class ErrorHandlingTest {
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
-                        .currency("string")
+                        .currency("currency")
                         .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .name("string")
+                        .name("name")
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
-                        .description("string")
+                        .description("description")
                         .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
@@ -568,25 +568,25 @@ class ErrorHandlingTest {
                         .build()
                 )
                 .metadata(ExternalAccountCreateParams.Metadata.builder().build())
-                .name("string")
+                .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
-                        .country("string")
-                        .line1("string")
-                        .line2("string")
-                        .locality("string")
-                        .postalCode("string")
-                        .region("string")
+                        .country("country")
+                        .line1("line1")
+                        .line2("line2")
+                        .locality("locality")
+                        .postalCode("postal_code")
+                        .region("region")
                         .build()
                 )
-                .partyIdentifier("string")
-                .partyName("string")
+                .partyIdentifier("party_identifier")
+                .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
-                .plaidProcessorToken("string")
+                .plaidProcessorToken("plaid_processor_token")
                 .routingDetails(
                     listOf(
                         ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("string")
+                            .routingNumber("routing_number")
                             .routingNumberType(
                                 ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
                             )
@@ -617,7 +617,7 @@ class ErrorHandlingTest {
                 .accountDetails(
                     listOf(
                         ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("string")
+                            .accountNumber("account_number")
                             .accountNumberType(
                                 ExternalAccountCreateParams.AccountDetail.AccountNumberType
                                     .AU_NUMBER
@@ -629,7 +629,7 @@ class ErrorHandlingTest {
                 .contactDetails(
                     listOf(
                         ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("string")
+                            .contactIdentifier("contact_identifier")
                             .contactIdentifierType(
                                 ExternalAccountCreateParams.ContactDetailCreateRequest
                                     .ContactIdentifierType
@@ -640,12 +640,12 @@ class ErrorHandlingTest {
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
-                        .currency("string")
+                        .currency("currency")
                         .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .name("string")
+                        .name("name")
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
-                        .description("string")
+                        .description("description")
                         .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
@@ -660,25 +660,25 @@ class ErrorHandlingTest {
                         .build()
                 )
                 .metadata(ExternalAccountCreateParams.Metadata.builder().build())
-                .name("string")
+                .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
-                        .country("string")
-                        .line1("string")
-                        .line2("string")
-                        .locality("string")
-                        .postalCode("string")
-                        .region("string")
+                        .country("country")
+                        .line1("line1")
+                        .line2("line2")
+                        .locality("locality")
+                        .postalCode("postal_code")
+                        .region("region")
                         .build()
                 )
-                .partyIdentifier("string")
-                .partyName("string")
+                .partyIdentifier("party_identifier")
+                .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
-                .plaidProcessorToken("string")
+                .plaidProcessorToken("plaid_processor_token")
                 .routingDetails(
                     listOf(
                         ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("string")
+                            .routingNumber("routing_number")
                             .routingNumberType(
                                 ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
                             )
@@ -713,7 +713,7 @@ class ErrorHandlingTest {
                 .accountDetails(
                     listOf(
                         ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("string")
+                            .accountNumber("account_number")
                             .accountNumberType(
                                 ExternalAccountCreateParams.AccountDetail.AccountNumberType
                                     .AU_NUMBER
@@ -725,7 +725,7 @@ class ErrorHandlingTest {
                 .contactDetails(
                     listOf(
                         ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("string")
+                            .contactIdentifier("contact_identifier")
                             .contactIdentifierType(
                                 ExternalAccountCreateParams.ContactDetailCreateRequest
                                     .ContactIdentifierType
@@ -736,12 +736,12 @@ class ErrorHandlingTest {
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
-                        .currency("string")
+                        .currency("currency")
                         .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .name("string")
+                        .name("name")
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
-                        .description("string")
+                        .description("description")
                         .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
@@ -756,25 +756,25 @@ class ErrorHandlingTest {
                         .build()
                 )
                 .metadata(ExternalAccountCreateParams.Metadata.builder().build())
-                .name("string")
+                .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
-                        .country("string")
-                        .line1("string")
-                        .line2("string")
-                        .locality("string")
-                        .postalCode("string")
-                        .region("string")
+                        .country("country")
+                        .line1("line1")
+                        .line2("line2")
+                        .locality("locality")
+                        .postalCode("postal_code")
+                        .region("region")
                         .build()
                 )
-                .partyIdentifier("string")
-                .partyName("string")
+                .partyIdentifier("party_identifier")
+                .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
-                .plaidProcessorToken("string")
+                .plaidProcessorToken("plaid_processor_token")
                 .routingDetails(
                     listOf(
                         ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("string")
+                            .routingNumber("routing_number")
                             .routingNumberType(
                                 ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
                             )
@@ -805,7 +805,7 @@ class ErrorHandlingTest {
                 .accountDetails(
                     listOf(
                         ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("string")
+                            .accountNumber("account_number")
                             .accountNumberType(
                                 ExternalAccountCreateParams.AccountDetail.AccountNumberType
                                     .AU_NUMBER
@@ -817,7 +817,7 @@ class ErrorHandlingTest {
                 .contactDetails(
                     listOf(
                         ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("string")
+                            .contactIdentifier("contact_identifier")
                             .contactIdentifierType(
                                 ExternalAccountCreateParams.ContactDetailCreateRequest
                                     .ContactIdentifierType
@@ -828,12 +828,12 @@ class ErrorHandlingTest {
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
-                        .currency("string")
+                        .currency("currency")
                         .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .name("string")
+                        .name("name")
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
-                        .description("string")
+                        .description("description")
                         .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
@@ -848,25 +848,25 @@ class ErrorHandlingTest {
                         .build()
                 )
                 .metadata(ExternalAccountCreateParams.Metadata.builder().build())
-                .name("string")
+                .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
-                        .country("string")
-                        .line1("string")
-                        .line2("string")
-                        .locality("string")
-                        .postalCode("string")
-                        .region("string")
+                        .country("country")
+                        .line1("line1")
+                        .line2("line2")
+                        .locality("locality")
+                        .postalCode("postal_code")
+                        .region("region")
                         .build()
                 )
-                .partyIdentifier("string")
-                .partyName("string")
+                .partyIdentifier("party_identifier")
+                .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
-                .plaidProcessorToken("string")
+                .plaidProcessorToken("plaid_processor_token")
                 .routingDetails(
                     listOf(
                         ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("string")
+                            .routingNumber("routing_number")
                             .routingNumberType(
                                 ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
                             )
@@ -901,7 +901,7 @@ class ErrorHandlingTest {
                 .accountDetails(
                     listOf(
                         ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("string")
+                            .accountNumber("account_number")
                             .accountNumberType(
                                 ExternalAccountCreateParams.AccountDetail.AccountNumberType
                                     .AU_NUMBER
@@ -913,7 +913,7 @@ class ErrorHandlingTest {
                 .contactDetails(
                     listOf(
                         ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("string")
+                            .contactIdentifier("contact_identifier")
                             .contactIdentifierType(
                                 ExternalAccountCreateParams.ContactDetailCreateRequest
                                     .ContactIdentifierType
@@ -924,12 +924,12 @@ class ErrorHandlingTest {
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
-                        .currency("string")
+                        .currency("currency")
                         .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .name("string")
+                        .name("name")
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
-                        .description("string")
+                        .description("description")
                         .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
@@ -944,25 +944,25 @@ class ErrorHandlingTest {
                         .build()
                 )
                 .metadata(ExternalAccountCreateParams.Metadata.builder().build())
-                .name("string")
+                .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
-                        .country("string")
-                        .line1("string")
-                        .line2("string")
-                        .locality("string")
-                        .postalCode("string")
-                        .region("string")
+                        .country("country")
+                        .line1("line1")
+                        .line2("line2")
+                        .locality("locality")
+                        .postalCode("postal_code")
+                        .region("region")
                         .build()
                 )
-                .partyIdentifier("string")
-                .partyName("string")
+                .partyIdentifier("party_identifier")
+                .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
-                .plaidProcessorToken("string")
+                .plaidProcessorToken("plaid_processor_token")
                 .routingDetails(
                     listOf(
                         ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("string")
+                            .routingNumber("routing_number")
                             .routingNumberType(
                                 ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
                             )
@@ -998,7 +998,7 @@ class ErrorHandlingTest {
                 .accountDetails(
                     listOf(
                         ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("string")
+                            .accountNumber("account_number")
                             .accountNumberType(
                                 ExternalAccountCreateParams.AccountDetail.AccountNumberType
                                     .AU_NUMBER
@@ -1010,7 +1010,7 @@ class ErrorHandlingTest {
                 .contactDetails(
                     listOf(
                         ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("string")
+                            .contactIdentifier("contact_identifier")
                             .contactIdentifierType(
                                 ExternalAccountCreateParams.ContactDetailCreateRequest
                                     .ContactIdentifierType
@@ -1021,12 +1021,12 @@ class ErrorHandlingTest {
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
-                        .currency("string")
+                        .currency("currency")
                         .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .name("string")
+                        .name("name")
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
-                        .description("string")
+                        .description("description")
                         .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
@@ -1041,25 +1041,25 @@ class ErrorHandlingTest {
                         .build()
                 )
                 .metadata(ExternalAccountCreateParams.Metadata.builder().build())
-                .name("string")
+                .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
-                        .country("string")
-                        .line1("string")
-                        .line2("string")
-                        .locality("string")
-                        .postalCode("string")
-                        .region("string")
+                        .country("country")
+                        .line1("line1")
+                        .line2("line2")
+                        .locality("locality")
+                        .postalCode("postal_code")
+                        .region("region")
                         .build()
                 )
-                .partyIdentifier("string")
-                .partyName("string")
+                .partyIdentifier("party_identifier")
+                .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
-                .plaidProcessorToken("string")
+                .plaidProcessorToken("plaid_processor_token")
                 .routingDetails(
                     listOf(
                         ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("string")
+                            .routingNumber("routing_number")
                             .routingNumberType(
                                 ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
                             )
@@ -1087,7 +1087,7 @@ class ErrorHandlingTest {
                 .accountDetails(
                     listOf(
                         ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("string")
+                            .accountNumber("account_number")
                             .accountNumberType(
                                 ExternalAccountCreateParams.AccountDetail.AccountNumberType
                                     .AU_NUMBER
@@ -1099,7 +1099,7 @@ class ErrorHandlingTest {
                 .contactDetails(
                     listOf(
                         ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("string")
+                            .contactIdentifier("contact_identifier")
                             .contactIdentifierType(
                                 ExternalAccountCreateParams.ContactDetailCreateRequest
                                     .ContactIdentifierType
@@ -1110,12 +1110,12 @@ class ErrorHandlingTest {
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
-                        .currency("string")
+                        .currency("currency")
                         .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .name("string")
+                        .name("name")
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(123L)
-                        .description("string")
+                        .description("description")
                         .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
@@ -1130,25 +1130,25 @@ class ErrorHandlingTest {
                         .build()
                 )
                 .metadata(ExternalAccountCreateParams.Metadata.builder().build())
-                .name("string")
+                .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
-                        .country("string")
-                        .line1("string")
-                        .line2("string")
-                        .locality("string")
-                        .postalCode("string")
-                        .region("string")
+                        .country("country")
+                        .line1("line1")
+                        .line2("line2")
+                        .locality("locality")
+                        .postalCode("postal_code")
+                        .region("region")
                         .build()
                 )
-                .partyIdentifier("string")
-                .partyName("string")
+                .partyIdentifier("party_identifier")
+                .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
-                .plaidProcessorToken("string")
+                .plaidProcessorToken("plaid_processor_token")
                 .routingDetails(
                     listOf(
                         ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("string")
+                            .routingNumber("routing_number")
                             .routingNumberType(
                                 ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
                             )

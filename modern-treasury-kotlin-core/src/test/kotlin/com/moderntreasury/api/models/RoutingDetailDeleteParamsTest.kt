@@ -12,8 +12,8 @@ class RoutingDetailDeleteParamsTest {
     fun createRoutingDetailDeleteParams() {
         RoutingDetailDeleteParams.builder()
             .accountsType(RoutingDetailDeleteParams.AccountsType.EXTERNAL_ACCOUNTS)
-            .accountId("string")
-            .id("string")
+            .accountId("account_id")
+            .id("id")
             .build()
     }
 
@@ -22,17 +22,17 @@ class RoutingDetailDeleteParamsTest {
         val params =
             RoutingDetailDeleteParams.builder()
                 .accountsType(RoutingDetailDeleteParams.AccountsType.EXTERNAL_ACCOUNTS)
-                .accountId("string")
-                .id("string")
+                .accountId("account_id")
+                .id("id")
                 .build()
         assertThat(params).isNotNull
         // path param "accountsType"
         assertThat(params.getPathParam(0))
             .isEqualTo(RoutingDetailDeleteParams.AccountsType.EXTERNAL_ACCOUNTS.toString())
         // path param "accountId"
-        assertThat(params.getPathParam(1)).isEqualTo("string")
+        assertThat(params.getPathParam(1)).isEqualTo("account_id")
         // path param "id"
-        assertThat(params.getPathParam(2)).isEqualTo("string")
+        assertThat(params.getPathParam(2)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(3)).isEqualTo("")
     }

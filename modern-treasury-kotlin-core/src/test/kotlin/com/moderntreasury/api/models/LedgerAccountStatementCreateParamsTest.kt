@@ -15,7 +15,7 @@ class LedgerAccountStatementCreateParamsTest {
             .effectiveAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .description("string")
+            .description("description")
             .metadata(LedgerAccountStatementCreateParams.Metadata.builder().build())
             .build()
     }
@@ -27,7 +27,7 @@ class LedgerAccountStatementCreateParamsTest {
                 .effectiveAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .description("string")
+                .description("description")
                 .metadata(LedgerAccountStatementCreateParams.Metadata.builder().build())
                 .build()
         val body = params.getBody()
@@ -37,7 +37,7 @@ class LedgerAccountStatementCreateParamsTest {
         assertThat(body.effectiveAtUpperBound())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.ledgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.description()).isEqualTo("string")
+        assertThat(body.description()).isEqualTo("description")
         assertThat(body.metadata())
             .isEqualTo(LedgerAccountStatementCreateParams.Metadata.builder().build())
     }

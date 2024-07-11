@@ -11,7 +11,7 @@ class LedgerEntryUpdateParamsTest {
     @Test
     fun createLedgerEntryUpdateParams() {
         LedgerEntryUpdateParams.builder()
-            .id("string")
+            .id("id")
             .metadata(LedgerEntryUpdateParams.Metadata.builder().build())
             .build()
     }
@@ -20,7 +20,7 @@ class LedgerEntryUpdateParamsTest {
     fun getBody() {
         val params =
             LedgerEntryUpdateParams.builder()
-                .id("string")
+                .id("id")
                 .metadata(LedgerEntryUpdateParams.Metadata.builder().build())
                 .build()
         val body = params.getBody()
@@ -30,17 +30,17 @@ class LedgerEntryUpdateParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = LedgerEntryUpdateParams.builder().id("string").build()
+        val params = LedgerEntryUpdateParams.builder().id("id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
 
     @Test
     fun getPathParam() {
-        val params = LedgerEntryUpdateParams.builder().id("string").build()
+        val params = LedgerEntryUpdateParams.builder().id("id").build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

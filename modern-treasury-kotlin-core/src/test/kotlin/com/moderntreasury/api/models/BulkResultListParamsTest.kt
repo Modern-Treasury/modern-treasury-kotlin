@@ -11,11 +11,11 @@ class BulkResultListParamsTest {
     @Test
     fun createBulkResultListParams() {
         BulkResultListParams.builder()
-            .afterCursor("string")
-            .entityId("string")
+            .afterCursor("after_cursor")
+            .entityId("entity_id")
             .entityType(BulkResultListParams.EntityType.PAYMENT_ORDER)
             .perPage(123L)
-            .requestId("string")
+            .requestId("request_id")
             .requestType(BulkResultListParams.RequestType.BULK_REQUEST)
             .status(BulkResultListParams.Status.PENDING)
             .build()
@@ -25,23 +25,23 @@ class BulkResultListParamsTest {
     fun getQueryParams() {
         val params =
             BulkResultListParams.builder()
-                .afterCursor("string")
-                .entityId("string")
+                .afterCursor("after_cursor")
+                .entityId("entity_id")
                 .entityType(BulkResultListParams.EntityType.PAYMENT_ORDER)
                 .perPage(123L)
-                .requestId("string")
+                .requestId("request_id")
                 .requestType(BulkResultListParams.RequestType.BULK_REQUEST)
                 .status(BulkResultListParams.Status.PENDING)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("string"))
-        expected.put("entity_id", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
+        expected.put("entity_id", listOf("entity_id"))
         expected.put(
             "entity_type",
             listOf(BulkResultListParams.EntityType.PAYMENT_ORDER.toString())
         )
         expected.put("per_page", listOf("123"))
-        expected.put("request_id", listOf("string"))
+        expected.put("request_id", listOf("request_id"))
         expected.put(
             "request_type",
             listOf(BulkResultListParams.RequestType.BULK_REQUEST.toString())

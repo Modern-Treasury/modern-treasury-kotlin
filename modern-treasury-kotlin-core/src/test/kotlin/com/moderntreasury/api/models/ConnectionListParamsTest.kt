@@ -11,10 +11,10 @@ class ConnectionListParamsTest {
     @Test
     fun createConnectionListParams() {
         ConnectionListParams.builder()
-            .afterCursor("string")
-            .entity("string")
+            .afterCursor("after_cursor")
+            .entity("entity")
             .perPage(123L)
-            .vendorCustomerId("string")
+            .vendorCustomerId("vendor_customer_id")
             .build()
     }
 
@@ -22,16 +22,16 @@ class ConnectionListParamsTest {
     fun getQueryParams() {
         val params =
             ConnectionListParams.builder()
-                .afterCursor("string")
-                .entity("string")
+                .afterCursor("after_cursor")
+                .entity("entity")
                 .perPage(123L)
-                .vendorCustomerId("string")
+                .vendorCustomerId("vendor_customer_id")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("string"))
-        expected.put("entity", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
+        expected.put("entity", listOf("entity"))
         expected.put("per_page", listOf("123"))
-        expected.put("vendor_customer_id", listOf("string"))
+        expected.put("vendor_customer_id", listOf("vendor_customer_id"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

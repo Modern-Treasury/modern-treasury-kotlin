@@ -24,9 +24,9 @@ class LedgerableEventServiceTest {
         val ledgerableEvent =
             ledgerableEventService.create(
                 LedgerableEventCreateParams.builder()
-                    .name("string")
+                    .name("name")
                     .customData(JsonNull.of())
-                    .description("string")
+                    .description("description")
                     .metadata(LedgerableEventCreateParams.Metadata.builder().build())
                     .build()
             )
@@ -45,7 +45,7 @@ class LedgerableEventServiceTest {
         val ledgerableEventService = client.ledgerableEvents()
         val ledgerableEvent =
             ledgerableEventService.retrieve(
-                LedgerableEventRetrieveParams.builder().id("string").build()
+                LedgerableEventRetrieveParams.builder().id("id").build()
             )
         println(ledgerableEvent)
         ledgerableEvent.validate()

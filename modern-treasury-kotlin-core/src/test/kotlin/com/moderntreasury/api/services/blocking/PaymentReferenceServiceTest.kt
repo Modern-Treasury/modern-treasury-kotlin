@@ -23,7 +23,7 @@ class PaymentReferenceServiceTest {
         val paymentReferenceService = client.paymentReferences()
         val paymentReference =
             paymentReferenceService.retrieve(
-                PaymentReferenceRetrieveParams.builder().id("string").build()
+                PaymentReferenceRetrieveParams.builder().id("id").build()
             )
         println(paymentReference)
         paymentReference.validate()
@@ -55,7 +55,7 @@ class PaymentReferenceServiceTest {
         @Suppress("DEPRECATION")
         val paymentReference =
             paymentReferenceService.retireve(
-                PaymentReferenceRetireveParams.builder().id("string").build()
+                PaymentReferenceRetireveParams.builder().id("id").build()
             )
         println(paymentReference)
         paymentReference.validate()

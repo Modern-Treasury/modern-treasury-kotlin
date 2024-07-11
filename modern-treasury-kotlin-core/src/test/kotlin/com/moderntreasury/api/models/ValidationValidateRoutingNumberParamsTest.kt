@@ -11,7 +11,7 @@ class ValidationValidateRoutingNumberParamsTest {
     @Test
     fun createValidationValidateRoutingNumberParams() {
         ValidationValidateRoutingNumberParams.builder()
-            .routingNumber("string")
+            .routingNumber("routing_number")
             .routingNumberType(ValidationValidateRoutingNumberParams.RoutingNumberType.ABA)
             .build()
     }
@@ -20,11 +20,11 @@ class ValidationValidateRoutingNumberParamsTest {
     fun getQueryParams() {
         val params =
             ValidationValidateRoutingNumberParams.builder()
-                .routingNumber("string")
+                .routingNumber("routing_number")
                 .routingNumberType(ValidationValidateRoutingNumberParams.RoutingNumberType.ABA)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("routing_number", listOf("string"))
+        expected.put("routing_number", listOf("routing_number"))
         expected.put(
             "routing_number_type",
             listOf(ValidationValidateRoutingNumberParams.RoutingNumberType.ABA.toString())
@@ -36,11 +36,11 @@ class ValidationValidateRoutingNumberParamsTest {
     fun getQueryParamsWithoutOptionalFields() {
         val params =
             ValidationValidateRoutingNumberParams.builder()
-                .routingNumber("string")
+                .routingNumber("routing_number")
                 .routingNumberType(ValidationValidateRoutingNumberParams.RoutingNumberType.ABA)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("routing_number", listOf("string"))
+        expected.put("routing_number", listOf("routing_number"))
         expected.put(
             "routing_number_type",
             listOf(ValidationValidateRoutingNumberParams.RoutingNumberType.ABA.toString())

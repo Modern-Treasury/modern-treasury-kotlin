@@ -10,15 +10,15 @@ class LedgerAccountDeleteParamsTest {
 
     @Test
     fun createLedgerAccountDeleteParams() {
-        LedgerAccountDeleteParams.builder().id("string").build()
+        LedgerAccountDeleteParams.builder().id("id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = LedgerAccountDeleteParams.builder().id("string").build()
+        val params = LedgerAccountDeleteParams.builder().id("id").build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

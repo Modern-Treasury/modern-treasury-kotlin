@@ -26,10 +26,10 @@ class DocumentServiceTest {
         val document =
             documentService.create(
                 DocumentCreateParams.builder()
-                    .documentableId("string")
+                    .documentableId("documentable_id")
                     .documentableType(DocumentCreateParams.DocumentableType.CASES)
                     .file("some content".toByteArray())
-                    .documentType("string")
+                    .documentType("document_type")
                     .build()
             )
         println(document)
@@ -45,8 +45,7 @@ class DocumentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val documentService = client.documents()
-        val document =
-            documentService.retrieve(DocumentRetrieveParams.builder().id("string").build())
+        val document = documentService.retrieve(DocumentRetrieveParams.builder().id("id").build())
         println(document)
         document.validate()
     }

@@ -11,7 +11,7 @@ class TransactionUpdateParamsTest {
     @Test
     fun createTransactionUpdateParams() {
         TransactionUpdateParams.builder()
-            .id("string")
+            .id("id")
             .metadata(TransactionUpdateParams.Metadata.builder().build())
             .build()
     }
@@ -20,7 +20,7 @@ class TransactionUpdateParamsTest {
     fun getBody() {
         val params =
             TransactionUpdateParams.builder()
-                .id("string")
+                .id("id")
                 .metadata(TransactionUpdateParams.Metadata.builder().build())
                 .build()
         val body = params.getBody()
@@ -30,17 +30,17 @@ class TransactionUpdateParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = TransactionUpdateParams.builder().id("string").build()
+        val params = TransactionUpdateParams.builder().id("id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
 
     @Test
     fun getPathParam() {
-        val params = TransactionUpdateParams.builder().id("string").build()
+        val params = TransactionUpdateParams.builder().id("id").build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

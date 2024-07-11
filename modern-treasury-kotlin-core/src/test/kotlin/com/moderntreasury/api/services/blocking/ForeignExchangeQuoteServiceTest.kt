@@ -48,7 +48,7 @@ class ForeignExchangeQuoteServiceTest {
         val foreignExchangeQuoteService = client.foreignExchangeQuotes()
         val foreignExchangeQuote =
             foreignExchangeQuoteService.retrieve(
-                ForeignExchangeQuoteRetrieveParams.builder().id("string").build()
+                ForeignExchangeQuoteRetrieveParams.builder().id("id").build()
             )
         println(foreignExchangeQuote)
         foreignExchangeQuote.validate()

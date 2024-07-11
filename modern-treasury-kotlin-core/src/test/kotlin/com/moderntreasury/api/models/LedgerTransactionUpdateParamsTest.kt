@@ -12,8 +12,8 @@ class LedgerTransactionUpdateParamsTest {
     @Test
     fun createLedgerTransactionUpdateParams() {
         LedgerTransactionUpdateParams.builder()
-            .id("string")
-            .description("string")
+            .id("id")
+            .description("description")
             .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .ledgerEntries(
                 listOf(
@@ -60,8 +60,8 @@ class LedgerTransactionUpdateParamsTest {
     fun getBody() {
         val params =
             LedgerTransactionUpdateParams.builder()
-                .id("string")
-                .description("string")
+                .id("id")
+                .description("description")
                 .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .ledgerEntries(
                     listOf(
@@ -104,7 +104,7 @@ class LedgerTransactionUpdateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.description()).isEqualTo("string")
+        assertThat(body.description()).isEqualTo("description")
         assertThat(body.effectiveAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.ledgerEntries())
             .isEqualTo(
@@ -151,17 +151,17 @@ class LedgerTransactionUpdateParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = LedgerTransactionUpdateParams.builder().id("string").build()
+        val params = LedgerTransactionUpdateParams.builder().id("id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
 
     @Test
     fun getPathParam() {
-        val params = LedgerTransactionUpdateParams.builder().id("string").build()
+        val params = LedgerTransactionUpdateParams.builder().id("id").build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

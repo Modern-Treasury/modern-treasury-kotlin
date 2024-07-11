@@ -10,15 +10,15 @@ class ConnectionLegalEntityRetrieveParamsTest {
 
     @Test
     fun createConnectionLegalEntityRetrieveParams() {
-        ConnectionLegalEntityRetrieveParams.builder().id("string").build()
+        ConnectionLegalEntityRetrieveParams.builder().id("id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = ConnectionLegalEntityRetrieveParams.builder().id("string").build()
+        val params = ConnectionLegalEntityRetrieveParams.builder().id("id").build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

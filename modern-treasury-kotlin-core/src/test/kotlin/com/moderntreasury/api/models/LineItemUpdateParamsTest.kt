@@ -12,8 +12,8 @@ class LineItemUpdateParamsTest {
     fun createLineItemUpdateParams() {
         LineItemUpdateParams.builder()
             .itemizableType(LineItemUpdateParams.ItemizableType.EXPECTED_PAYMENTS)
-            .itemizableId("string")
-            .id("string")
+            .itemizableId("itemizable_id")
+            .id("id")
             .metadata(LineItemUpdateParams.Metadata.builder().build())
             .build()
     }
@@ -23,8 +23,8 @@ class LineItemUpdateParamsTest {
         val params =
             LineItemUpdateParams.builder()
                 .itemizableType(LineItemUpdateParams.ItemizableType.EXPECTED_PAYMENTS)
-                .itemizableId("string")
-                .id("string")
+                .itemizableId("itemizable_id")
+                .id("id")
                 .metadata(LineItemUpdateParams.Metadata.builder().build())
                 .build()
         val body = params.getBody()
@@ -37,8 +37,8 @@ class LineItemUpdateParamsTest {
         val params =
             LineItemUpdateParams.builder()
                 .itemizableType(LineItemUpdateParams.ItemizableType.EXPECTED_PAYMENTS)
-                .itemizableId("string")
-                .id("string")
+                .itemizableId("itemizable_id")
+                .id("id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -49,17 +49,17 @@ class LineItemUpdateParamsTest {
         val params =
             LineItemUpdateParams.builder()
                 .itemizableType(LineItemUpdateParams.ItemizableType.EXPECTED_PAYMENTS)
-                .itemizableId("string")
-                .id("string")
+                .itemizableId("itemizable_id")
+                .id("id")
                 .build()
         assertThat(params).isNotNull
         // path param "itemizableType"
         assertThat(params.getPathParam(0))
             .isEqualTo(LineItemUpdateParams.ItemizableType.EXPECTED_PAYMENTS.toString())
         // path param "itemizableId"
-        assertThat(params.getPathParam(1)).isEqualTo("string")
+        assertThat(params.getPathParam(1)).isEqualTo("itemizable_id")
         // path param "id"
-        assertThat(params.getPathParam(2)).isEqualTo("string")
+        assertThat(params.getPathParam(2)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(3)).isEqualTo("")
     }

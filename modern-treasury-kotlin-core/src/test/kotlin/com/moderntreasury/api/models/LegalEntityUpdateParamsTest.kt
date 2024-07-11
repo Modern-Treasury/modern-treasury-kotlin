@@ -12,21 +12,25 @@ class LegalEntityUpdateParamsTest {
     @Test
     fun createLegalEntityUpdateParams() {
         LegalEntityUpdateParams.builder()
-            .id("string")
-            .businessName("string")
+            .id("id")
+            .businessName("business_name")
             .dateFormed(LocalDate.parse("2019-12-27"))
             .dateOfBirth(LocalDate.parse("2019-12-27"))
             .doingBusinessAsNames(listOf("string"))
-            .email("string")
-            .firstName("string")
-            .lastName("string")
+            .email("email")
+            .firstName("first_name")
+            .lastName("last_name")
             .legalStructure(LegalEntityUpdateParams.LegalStructure.CORPORATION)
             .metadata(LegalEntityUpdateParams.Metadata.builder().build())
             .phoneNumbers(
-                listOf(LegalEntityUpdateParams.PhoneNumber.builder().phoneNumber("string").build())
+                listOf(
+                    LegalEntityUpdateParams.PhoneNumber.builder()
+                        .phoneNumber("phone_number")
+                        .build()
+                )
             )
             .riskRating(LegalEntityUpdateParams.RiskRating.LOW)
-            .website("string")
+            .website("website")
             .build()
     }
 
@@ -34,57 +38,63 @@ class LegalEntityUpdateParamsTest {
     fun getBody() {
         val params =
             LegalEntityUpdateParams.builder()
-                .id("string")
-                .businessName("string")
+                .id("id")
+                .businessName("business_name")
                 .dateFormed(LocalDate.parse("2019-12-27"))
                 .dateOfBirth(LocalDate.parse("2019-12-27"))
                 .doingBusinessAsNames(listOf("string"))
-                .email("string")
-                .firstName("string")
-                .lastName("string")
+                .email("email")
+                .firstName("first_name")
+                .lastName("last_name")
                 .legalStructure(LegalEntityUpdateParams.LegalStructure.CORPORATION)
                 .metadata(LegalEntityUpdateParams.Metadata.builder().build())
                 .phoneNumbers(
                     listOf(
-                        LegalEntityUpdateParams.PhoneNumber.builder().phoneNumber("string").build()
+                        LegalEntityUpdateParams.PhoneNumber.builder()
+                            .phoneNumber("phone_number")
+                            .build()
                     )
                 )
                 .riskRating(LegalEntityUpdateParams.RiskRating.LOW)
-                .website("string")
+                .website("website")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.businessName()).isEqualTo("string")
+        assertThat(body.businessName()).isEqualTo("business_name")
         assertThat(body.dateFormed()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.dateOfBirth()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.doingBusinessAsNames()).isEqualTo(listOf("string"))
-        assertThat(body.email()).isEqualTo("string")
-        assertThat(body.firstName()).isEqualTo("string")
-        assertThat(body.lastName()).isEqualTo("string")
+        assertThat(body.email()).isEqualTo("email")
+        assertThat(body.firstName()).isEqualTo("first_name")
+        assertThat(body.lastName()).isEqualTo("last_name")
         assertThat(body.legalStructure())
             .isEqualTo(LegalEntityUpdateParams.LegalStructure.CORPORATION)
         assertThat(body.metadata()).isEqualTo(LegalEntityUpdateParams.Metadata.builder().build())
         assertThat(body.phoneNumbers())
             .isEqualTo(
-                listOf(LegalEntityUpdateParams.PhoneNumber.builder().phoneNumber("string").build())
+                listOf(
+                    LegalEntityUpdateParams.PhoneNumber.builder()
+                        .phoneNumber("phone_number")
+                        .build()
+                )
             )
         assertThat(body.riskRating()).isEqualTo(LegalEntityUpdateParams.RiskRating.LOW)
-        assertThat(body.website()).isEqualTo("string")
+        assertThat(body.website()).isEqualTo("website")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = LegalEntityUpdateParams.builder().id("string").build()
+        val params = LegalEntityUpdateParams.builder().id("id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
 
     @Test
     fun getPathParam() {
-        val params = LegalEntityUpdateParams.builder().id("string").build()
+        val params = LegalEntityUpdateParams.builder().id("id").build()
         assertThat(params).isNotNull
         // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

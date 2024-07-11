@@ -28,7 +28,7 @@ class ExternalAccountServiceTest {
                     .accountDetails(
                         listOf(
                             ExternalAccountCreateParams.AccountDetail.builder()
-                                .accountNumber("string")
+                                .accountNumber("account_number")
                                 .accountNumberType(
                                     ExternalAccountCreateParams.AccountDetail.AccountNumberType
                                         .AU_NUMBER
@@ -40,7 +40,7 @@ class ExternalAccountServiceTest {
                     .contactDetails(
                         listOf(
                             ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                                .contactIdentifier("string")
+                                .contactIdentifier("contact_identifier")
                                 .contactIdentifierType(
                                     ExternalAccountCreateParams.ContactDetailCreateRequest
                                         .ContactIdentifierType
@@ -51,12 +51,12 @@ class ExternalAccountServiceTest {
                     )
                     .ledgerAccount(
                         ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
-                            .currency("string")
+                            .currency("currency")
                             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .name("string")
+                            .name("name")
                             .normalBalance(TransactionDirection.CREDIT)
                             .currencyExponent(123L)
-                            .description("string")
+                            .description("description")
                             .ledgerAccountCategoryIds(
                                 listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             )
@@ -74,25 +74,25 @@ class ExternalAccountServiceTest {
                             .build()
                     )
                     .metadata(ExternalAccountCreateParams.Metadata.builder().build())
-                    .name("string")
+                    .name("name")
                     .partyAddress(
                         ExternalAccountCreateParams.AddressRequest.builder()
-                            .country("string")
-                            .line1("string")
-                            .line2("string")
-                            .locality("string")
-                            .postalCode("string")
-                            .region("string")
+                            .country("country")
+                            .line1("line1")
+                            .line2("line2")
+                            .locality("locality")
+                            .postalCode("postal_code")
+                            .region("region")
                             .build()
                     )
-                    .partyIdentifier("string")
-                    .partyName("string")
+                    .partyIdentifier("party_identifier")
+                    .partyName("party_name")
                     .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
-                    .plaidProcessorToken("string")
+                    .plaidProcessorToken("plaid_processor_token")
                     .routingDetails(
                         listOf(
                             ExternalAccountCreateParams.RoutingDetail.builder()
-                                .routingNumber("string")
+                                .routingNumber("routing_number")
                                 .routingNumberType(
                                     ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
                                 )
@@ -119,7 +119,7 @@ class ExternalAccountServiceTest {
         val externalAccountService = client.externalAccounts()
         val externalAccount =
             externalAccountService.retrieve(
-                ExternalAccountRetrieveParams.builder().id("string").build()
+                ExternalAccountRetrieveParams.builder().id("id").build()
             )
         println(externalAccount)
         externalAccount.validate()
@@ -137,22 +137,22 @@ class ExternalAccountServiceTest {
         val externalAccount =
             externalAccountService.update(
                 ExternalAccountUpdateParams.builder()
-                    .id("string")
+                    .id("id")
                     .accountType(ExternalAccountType.CASH)
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .metadata(ExternalAccountUpdateParams.Metadata.builder().build())
-                    .name("string")
+                    .name("name")
                     .partyAddress(
                         ExternalAccountUpdateParams.AddressRequest.builder()
-                            .country("string")
-                            .line1("string")
-                            .line2("string")
-                            .locality("string")
-                            .postalCode("string")
-                            .region("string")
+                            .country("country")
+                            .line1("line1")
+                            .line2("line2")
+                            .locality("locality")
+                            .postalCode("postal_code")
+                            .region("region")
                             .build()
                     )
-                    .partyName("string")
+                    .partyName("party_name")
                     .partyType(ExternalAccountUpdateParams.PartyType.BUSINESS)
                     .build()
             )
@@ -183,7 +183,7 @@ class ExternalAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val externalAccountService = client.externalAccounts()
-        externalAccountService.delete(ExternalAccountDeleteParams.builder().id("string").build())
+        externalAccountService.delete(ExternalAccountDeleteParams.builder().id("id").build())
     }
 
     @Test
@@ -198,7 +198,7 @@ class ExternalAccountServiceTest {
         val externalAccount =
             externalAccountService.completeVerification(
                 ExternalAccountCompleteVerificationParams.builder()
-                    .id("string")
+                    .id("id")
                     .amounts(listOf(123L))
                     .build()
             )
@@ -218,7 +218,7 @@ class ExternalAccountServiceTest {
         val externalAccountVerifyResponse =
             externalAccountService.verify(
                 ExternalAccountVerifyParams.builder()
-                    .id("string")
+                    .id("id")
                     .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .paymentType(ExternalAccountVerifyParams.PaymentType.ACH)
                     .currency(Currency.AED)

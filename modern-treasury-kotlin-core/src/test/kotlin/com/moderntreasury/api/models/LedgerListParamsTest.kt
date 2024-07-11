@@ -12,7 +12,7 @@ class LedgerListParamsTest {
     fun createLedgerListParams() {
         LedgerListParams.builder()
             .id(listOf("string"))
-            .afterCursor("string")
+            .afterCursor("after_cursor")
             .metadata(LedgerListParams.Metadata.builder().build())
             .perPage(123L)
             .updatedAt(LedgerListParams.UpdatedAt.builder().build())
@@ -24,14 +24,14 @@ class LedgerListParamsTest {
         val params =
             LedgerListParams.builder()
                 .id(listOf("string"))
-                .afterCursor("string")
+                .afterCursor("after_cursor")
                 .metadata(LedgerListParams.Metadata.builder().build())
                 .perPage(123L)
                 .updatedAt(LedgerListParams.UpdatedAt.builder().build())
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("id[]", listOf("string"))
-        expected.put("after_cursor", listOf("string"))
+        expected.put("after_cursor", listOf("after_cursor"))
         LedgerListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }

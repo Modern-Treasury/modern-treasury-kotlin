@@ -24,8 +24,8 @@ class LedgerServiceTest {
         val ledger =
             ledgerService.create(
                 LedgerCreateParams.builder()
-                    .name("string")
-                    .description("string")
+                    .name("name")
+                    .description("description")
                     .metadata(LedgerCreateParams.Metadata.builder().build())
                     .build()
             )
@@ -42,7 +42,7 @@ class LedgerServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerService = client.ledgers()
-        val ledger = ledgerService.retrieve(LedgerRetrieveParams.builder().id("string").build())
+        val ledger = ledgerService.retrieve(LedgerRetrieveParams.builder().id("id").build())
         println(ledger)
         ledger.validate()
     }
@@ -59,10 +59,10 @@ class LedgerServiceTest {
         val ledger =
             ledgerService.update(
                 LedgerUpdateParams.builder()
-                    .id("string")
-                    .description("string")
+                    .id("id")
+                    .description("description")
                     .metadata(LedgerUpdateParams.Metadata.builder().build())
-                    .name("string")
+                    .name("name")
                     .build()
             )
         println(ledger)
@@ -92,7 +92,7 @@ class LedgerServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerService = client.ledgers()
-        val ledger = ledgerService.delete(LedgerDeleteParams.builder().id("string").build())
+        val ledger = ledgerService.delete(LedgerDeleteParams.builder().id("id").build())
         println(ledger)
         ledger.validate()
     }

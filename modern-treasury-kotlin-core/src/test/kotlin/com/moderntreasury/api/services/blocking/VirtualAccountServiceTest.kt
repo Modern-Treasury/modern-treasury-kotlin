@@ -25,11 +25,11 @@ class VirtualAccountServiceTest {
             virtualAccountService.create(
                 VirtualAccountCreateParams.builder()
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .name("string")
+                    .name("name")
                     .accountDetails(
                         listOf(
                             VirtualAccountCreateParams.AccountDetailCreateRequest.builder()
-                                .accountNumber("string")
+                                .accountNumber("account_number")
                                 .accountNumberType(
                                     VirtualAccountCreateParams.AccountDetailCreateRequest
                                         .AccountNumberType
@@ -41,15 +41,15 @@ class VirtualAccountServiceTest {
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .creditLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .debitLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .description("string")
+                    .description("description")
                     .ledgerAccount(
                         VirtualAccountCreateParams.LedgerAccountCreateRequest.builder()
-                            .currency("string")
+                            .currency("currency")
                             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .name("string")
+                            .name("name")
                             .normalBalance(TransactionDirection.CREDIT)
                             .currencyExponent(123L)
-                            .description("string")
+                            .description("description")
                             .ledgerAccountCategoryIds(
                                 listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             )
@@ -69,7 +69,7 @@ class VirtualAccountServiceTest {
                     .routingDetails(
                         listOf(
                             VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
-                                .routingNumber("string")
+                                .routingNumber("routing_number")
                                 .routingNumberType(
                                     VirtualAccountCreateParams.RoutingDetailCreateRequest
                                         .RoutingNumberType
@@ -99,9 +99,7 @@ class VirtualAccountServiceTest {
                 .build()
         val virtualAccountService = client.virtualAccounts()
         val virtualAccount =
-            virtualAccountService.retrieve(
-                VirtualAccountRetrieveParams.builder().id("string").build()
-            )
+            virtualAccountService.retrieve(VirtualAccountRetrieveParams.builder().id("id").build())
         println(virtualAccount)
         virtualAccount.validate()
     }
@@ -118,11 +116,11 @@ class VirtualAccountServiceTest {
         val virtualAccount =
             virtualAccountService.update(
                 VirtualAccountUpdateParams.builder()
-                    .id("string")
+                    .id("id")
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .metadata(VirtualAccountUpdateParams.Metadata.builder().build())
-                    .name("string")
+                    .name("name")
                     .build()
             )
         println(virtualAccount)
@@ -153,7 +151,7 @@ class VirtualAccountServiceTest {
                 .build()
         val virtualAccountService = client.virtualAccounts()
         val virtualAccount =
-            virtualAccountService.delete(VirtualAccountDeleteParams.builder().id("string").build())
+            virtualAccountService.delete(VirtualAccountDeleteParams.builder().id("id").build())
         println(virtualAccount)
         virtualAccount.validate()
     }
