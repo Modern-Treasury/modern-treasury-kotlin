@@ -19,7 +19,7 @@ The REST API documentation can be found on [docs.moderntreasury.com](https://do
 <!-- x-release-please-start-version -->
 
 ```kotlin
-implementation("com.moderntreasury:modern-treasury-kotlin:2.15.1")
+implementation("com.moderntreasury:modern-treasury-kotlin:2.16.0")
 ```
 
 #### Maven
@@ -28,7 +28,7 @@ implementation("com.moderntreasury:modern-treasury-kotlin:2.15.1")
 <dependency>
     <groupId>com.moderntreasury</groupId>
     <artifactId>modern-treasury-kotlin</artifactId>
-    <version>2.15.1</version>
+    <version>2.16.0</version>
 </dependency>
 ```
 

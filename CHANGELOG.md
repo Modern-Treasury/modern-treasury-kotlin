@@ -1,5 +1,24 @@
 # Changelog
 
+## 2.16.0 (2024-07-15)
+
+Full Changelog: [v2.15.1...v2.16.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.15.1...v2.16.0)
+
+### Features
+
+* **api:** updates ([#189](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/189)) ([4954613](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4954613bb0c55a6e7addbc386f7c704731d83511))
+
+
+### Chores
+
+* **ci:** also run workflows for PRs targeting `next` ([#186](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/186)) ([86013ea](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/86013eabda25c082ce49eaba56db68f2907fc92f))
+* **docs:** minor update to formatting of API link in README ([#190](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/190)) ([147b0b7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/147b0b7cbfffcbace07a7330d04273fd0a5c50cc))
+
+
+### Documentation
+
+* **examples:** update example values ([#188](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/188)) ([f6f79dd](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f6f79ddd8c76e43e46f236aa9e2ccaf0c66fba68))
+
 ## 2.15.1 (2024-07-10)
 
 Full Changelog: [v2.15.0...v2.15.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.15.0...v2.15.1)
