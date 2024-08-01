@@ -21,6 +21,7 @@ constructor(
     private val normalBalance: TransactionDirection,
     private val currencyExponent: Long?,
     private val description: String?,
+    private val ledgerAccountCategoryIds: List<String>?,
     private val metadata: Metadata?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -39,6 +40,8 @@ constructor(
 
     fun description(): String? = description
 
+    fun ledgerAccountCategoryIds(): List<String>? = ledgerAccountCategoryIds
+
     fun metadata(): Metadata? = metadata
 
     internal fun getBody(): LedgerAccountCategoryCreateBody {
@@ -49,6 +52,7 @@ constructor(
             normalBalance,
             currencyExponent,
             description,
+            ledgerAccountCategoryIds,
             metadata,
             additionalBodyProperties,
         )
@@ -68,6 +72,7 @@ constructor(
         private val normalBalance: TransactionDirection?,
         private val currencyExponent: Long?,
         private val description: String?,
+        private val ledgerAccountCategoryIds: List<String>?,
         private val metadata: Metadata?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -93,6 +98,13 @@ constructor(
         @JsonProperty("description") fun description(): String? = description
 
         /**
+         * The array of ledger account category ids that this ledger account category should be a
+         * child of.
+         */
+        @JsonProperty("ledger_account_category_ids")
+        fun ledgerAccountCategoryIds(): List<String>? = ledgerAccountCategoryIds
+
+        /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
         @JsonProperty("metadata") fun metadata(): Metadata? = metadata
@@ -115,6 +127,7 @@ constructor(
                 this.normalBalance == other.normalBalance &&
                 this.currencyExponent == other.currencyExponent &&
                 this.description == other.description &&
+                this.ledgerAccountCategoryIds == other.ledgerAccountCategoryIds &&
                 this.metadata == other.metadata &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -129,6 +142,7 @@ constructor(
                         normalBalance,
                         currencyExponent,
                         description,
+                        ledgerAccountCategoryIds,
                         metadata,
                         additionalProperties,
                     )
@@ -137,7 +151,7 @@ constructor(
         }
 
         override fun toString() =
-            "LedgerAccountCategoryCreateBody{currency=$currency, ledgerId=$ledgerId, name=$name, normalBalance=$normalBalance, currencyExponent=$currencyExponent, description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
+            "LedgerAccountCategoryCreateBody{currency=$currency, ledgerId=$ledgerId, name=$name, normalBalance=$normalBalance, currencyExponent=$currencyExponent, description=$description, ledgerAccountCategoryIds=$ledgerAccountCategoryIds, metadata=$metadata, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -152,6 +166,7 @@ constructor(
             private var normalBalance: TransactionDirection? = null
             private var currencyExponent: Long? = null
             private var description: String? = null
+            private var ledgerAccountCategoryIds: List<String>? = null
             private var metadata: Metadata? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -163,6 +178,8 @@ constructor(
                     this.normalBalance = ledgerAccountCategoryCreateBody.normalBalance
                     this.currencyExponent = ledgerAccountCategoryCreateBody.currencyExponent
                     this.description = ledgerAccountCategoryCreateBody.description
+                    this.ledgerAccountCategoryIds =
+                        ledgerAccountCategoryCreateBody.ledgerAccountCategoryIds
                     this.metadata = ledgerAccountCategoryCreateBody.metadata
                     additionalProperties(ledgerAccountCategoryCreateBody.additionalProperties)
                 }
@@ -195,6 +212,15 @@ constructor(
             fun description(description: String) = apply { this.description = description }
 
             /**
+             * The array of ledger account category ids that this ledger account category should be
+             * a child of.
+             */
+            @JsonProperty("ledger_account_category_ids")
+            fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>) = apply {
+                this.ledgerAccountCategoryIds = ledgerAccountCategoryIds
+            }
+
+            /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
@@ -223,6 +249,7 @@ constructor(
                     checkNotNull(normalBalance) { "`normalBalance` is required but was not set" },
                     currencyExponent,
                     description,
+                    ledgerAccountCategoryIds?.toUnmodifiable(),
                     metadata,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -247,6 +274,7 @@ constructor(
             this.normalBalance == other.normalBalance &&
             this.currencyExponent == other.currencyExponent &&
             this.description == other.description &&
+            this.ledgerAccountCategoryIds == other.ledgerAccountCategoryIds &&
             this.metadata == other.metadata &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -261,6 +289,7 @@ constructor(
             normalBalance,
             currencyExponent,
             description,
+            ledgerAccountCategoryIds,
             metadata,
             additionalQueryParams,
             additionalHeaders,
@@ -269,7 +298,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerAccountCategoryCreateParams{currency=$currency, ledgerId=$ledgerId, name=$name, normalBalance=$normalBalance, currencyExponent=$currencyExponent, description=$description, metadata=$metadata, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerAccountCategoryCreateParams{currency=$currency, ledgerId=$ledgerId, name=$name, normalBalance=$normalBalance, currencyExponent=$currencyExponent, description=$description, ledgerAccountCategoryIds=$ledgerAccountCategoryIds, metadata=$metadata, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -287,6 +316,7 @@ constructor(
         private var normalBalance: TransactionDirection? = null
         private var currencyExponent: Long? = null
         private var description: String? = null
+        private var ledgerAccountCategoryIds: MutableList<String> = mutableListOf()
         private var metadata: Metadata? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -300,6 +330,9 @@ constructor(
                 this.normalBalance = ledgerAccountCategoryCreateParams.normalBalance
                 this.currencyExponent = ledgerAccountCategoryCreateParams.currencyExponent
                 this.description = ledgerAccountCategoryCreateParams.description
+                this.ledgerAccountCategoryIds(
+                    ledgerAccountCategoryCreateParams.ledgerAccountCategoryIds ?: listOf()
+                )
                 this.metadata = ledgerAccountCategoryCreateParams.metadata
                 additionalQueryParams(ledgerAccountCategoryCreateParams.additionalQueryParams)
                 additionalHeaders(ledgerAccountCategoryCreateParams.additionalHeaders)
@@ -327,6 +360,23 @@ constructor(
 
         /** The description of the ledger account category. */
         fun description(description: String) = apply { this.description = description }
+
+        /**
+         * The array of ledger account category ids that this ledger account category should be a
+         * child of.
+         */
+        fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>) = apply {
+            this.ledgerAccountCategoryIds.clear()
+            this.ledgerAccountCategoryIds.addAll(ledgerAccountCategoryIds)
+        }
+
+        /**
+         * The array of ledger account category ids that this ledger account category should be a
+         * child of.
+         */
+        fun addLedgerAccountCategoryId(ledgerAccountCategoryId: String) = apply {
+            this.ledgerAccountCategoryIds.add(ledgerAccountCategoryId)
+        }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
@@ -395,6 +445,8 @@ constructor(
                 checkNotNull(normalBalance) { "`normalBalance` is required but was not set" },
                 currencyExponent,
                 description,
+                if (ledgerAccountCategoryIds.size == 0) null
+                else ledgerAccountCategoryIds.toUnmodifiable(),
                 metadata,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

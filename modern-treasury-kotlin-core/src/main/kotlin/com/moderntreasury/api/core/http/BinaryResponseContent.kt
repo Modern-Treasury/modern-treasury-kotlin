@@ -1,11 +1,11 @@
 package com.moderntreasury.api.core.http
 
-import java.io.Closeable
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
+import java.lang.AutoCloseable
 
-interface BinaryResponseContent : Closeable {
+interface BinaryResponseContent : AutoCloseable {
 
     fun contentType(): String?
 

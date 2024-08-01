@@ -19,6 +19,7 @@ class TransactionTest {
                 .asOfTime("as_of_time")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(Currency.AED)
+                .customIdentifiers(Transaction.CustomIdentifiers.builder().build())
                 .direction("direction")
                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .foreignExchangeRate(
@@ -55,6 +56,8 @@ class TransactionTest {
         assertThat(transaction.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(transaction.currency()).isEqualTo(Currency.AED)
+        assertThat(transaction.customIdentifiers())
+            .isEqualTo(Transaction.CustomIdentifiers.builder().build())
         assertThat(transaction.direction()).isEqualTo("direction")
         assertThat(transaction.discardedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
