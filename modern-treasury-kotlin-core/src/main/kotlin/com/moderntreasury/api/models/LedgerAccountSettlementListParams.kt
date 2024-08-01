@@ -13,12 +13,14 @@ class LedgerAccountSettlementListParams
 constructor(
     private val id: List<String>?,
     private val afterCursor: String?,
+    private val createdAt: CreatedAt?,
     private val ledgerId: String?,
     private val ledgerTransactionId: String?,
     private val metadata: Metadata?,
     private val perPage: Long?,
     private val settledLedgerAccountId: String?,
     private val settlementEntryDirection: String?,
+    private val updatedAt: UpdatedAt?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -27,6 +29,8 @@ constructor(
     fun id(): List<String>? = id
 
     fun afterCursor(): String? = afterCursor
+
+    fun createdAt(): CreatedAt? = createdAt
 
     fun ledgerId(): String? = ledgerId
 
@@ -40,10 +44,13 @@ constructor(
 
     fun settlementEntryDirection(): String? = settlementEntryDirection
 
+    fun updatedAt(): UpdatedAt? = updatedAt
+
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.id?.let { params.put("id[]", it.map(Any::toString)) }
         this.afterCursor?.let { params.put("after_cursor", listOf(it.toString())) }
+        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at[$key]", values) }
         this.ledgerId?.let { params.put("ledger_id", listOf(it.toString())) }
         this.ledgerTransactionId?.let { params.put("ledger_transaction_id", listOf(it.toString())) }
         this.metadata?.forEachQueryParam { key, values -> params.put("metadata[$key]", values) }
@@ -54,6 +61,7 @@ constructor(
         this.settlementEntryDirection?.let {
             params.put("settlement_entry_direction", listOf(it.toString()))
         }
+        this.updatedAt?.forEachQueryParam { key, values -> params.put("updated_at[$key]", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -74,12 +82,14 @@ constructor(
         return other is LedgerAccountSettlementListParams &&
             this.id == other.id &&
             this.afterCursor == other.afterCursor &&
+            this.createdAt == other.createdAt &&
             this.ledgerId == other.ledgerId &&
             this.ledgerTransactionId == other.ledgerTransactionId &&
             this.metadata == other.metadata &&
             this.perPage == other.perPage &&
             this.settledLedgerAccountId == other.settledLedgerAccountId &&
             this.settlementEntryDirection == other.settlementEntryDirection &&
+            this.updatedAt == other.updatedAt &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -89,12 +99,14 @@ constructor(
         return Objects.hash(
             id,
             afterCursor,
+            createdAt,
             ledgerId,
             ledgerTransactionId,
             metadata,
             perPage,
             settledLedgerAccountId,
             settlementEntryDirection,
+            updatedAt,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -102,7 +114,7 @@ constructor(
     }
 
     override fun toString() =
-        "LedgerAccountSettlementListParams{id=$id, afterCursor=$afterCursor, ledgerId=$ledgerId, ledgerTransactionId=$ledgerTransactionId, metadata=$metadata, perPage=$perPage, settledLedgerAccountId=$settledLedgerAccountId, settlementEntryDirection=$settlementEntryDirection, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerAccountSettlementListParams{id=$id, afterCursor=$afterCursor, createdAt=$createdAt, ledgerId=$ledgerId, ledgerTransactionId=$ledgerTransactionId, metadata=$metadata, perPage=$perPage, settledLedgerAccountId=$settledLedgerAccountId, settlementEntryDirection=$settlementEntryDirection, updatedAt=$updatedAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -116,12 +128,14 @@ constructor(
 
         private var id: MutableList<String> = mutableListOf()
         private var afterCursor: String? = null
+        private var createdAt: CreatedAt? = null
         private var ledgerId: String? = null
         private var ledgerTransactionId: String? = null
         private var metadata: Metadata? = null
         private var perPage: Long? = null
         private var settledLedgerAccountId: String? = null
         private var settlementEntryDirection: String? = null
+        private var updatedAt: UpdatedAt? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -130,6 +144,7 @@ constructor(
             apply {
                 this.id(ledgerAccountSettlementListParams.id ?: listOf())
                 this.afterCursor = ledgerAccountSettlementListParams.afterCursor
+                this.createdAt = ledgerAccountSettlementListParams.createdAt
                 this.ledgerId = ledgerAccountSettlementListParams.ledgerId
                 this.ledgerTransactionId = ledgerAccountSettlementListParams.ledgerTransactionId
                 this.metadata = ledgerAccountSettlementListParams.metadata
@@ -138,6 +153,7 @@ constructor(
                     ledgerAccountSettlementListParams.settledLedgerAccountId
                 this.settlementEntryDirection =
                     ledgerAccountSettlementListParams.settlementEntryDirection
+                this.updatedAt = ledgerAccountSettlementListParams.updatedAt
                 additionalQueryParams(ledgerAccountSettlementListParams.additionalQueryParams)
                 additionalHeaders(ledgerAccountSettlementListParams.additionalHeaders)
                 additionalBodyProperties(ledgerAccountSettlementListParams.additionalBodyProperties)
@@ -160,6 +176,13 @@ constructor(
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
+        /**
+         * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the created at
+         * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
+         * created_at%5Bgt%5D=2000-01-01T12:00:00Z.
+         */
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+
         fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
 
         fun ledgerTransactionId(ledgerTransactionId: String) = apply {
@@ -181,6 +204,13 @@ constructor(
         fun settlementEntryDirection(settlementEntryDirection: String) = apply {
             this.settlementEntryDirection = settlementEntryDirection
         }
+
+        /**
+         * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the updated at
+         * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
+         * updated_at%5Bgt%5D=2000-01-01T12:00:00Z.
+         */
+        fun updatedAt(updatedAt: UpdatedAt) = apply { this.updatedAt = updatedAt }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -240,16 +270,88 @@ constructor(
             LedgerAccountSettlementListParams(
                 if (id.size == 0) null else id.toUnmodifiable(),
                 afterCursor,
+                createdAt,
                 ledgerId,
                 ledgerTransactionId,
                 metadata,
                 perPage,
                 settledLedgerAccountId,
                 settlementEntryDirection,
+                updatedAt,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
             )
+    }
+
+    /**
+     * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the created at
+     * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
+     * created_at%5Bgt%5D=2000-01-01T12:00:00Z.
+     */
+    @JsonDeserialize(builder = CreatedAt.Builder::class)
+    @NoAutoDetect
+    class CreatedAt
+    private constructor(
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+
+        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CreatedAt && this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "CreatedAt{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+
+            internal fun from(createdAt: CreatedAt) = apply {
+                additionalProperties(createdAt.additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun build(): CreatedAt = CreatedAt(additionalProperties.toUnmodifiable())
+        }
     }
 
     /**
@@ -318,6 +420,76 @@ constructor(
                 }
 
             fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+        }
+    }
+
+    /**
+     * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the updated at
+     * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
+     * updated_at%5Bgt%5D=2000-01-01T12:00:00Z.
+     */
+    @JsonDeserialize(builder = UpdatedAt.Builder::class)
+    @NoAutoDetect
+    class UpdatedAt
+    private constructor(
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+
+        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is UpdatedAt && this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "UpdatedAt{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+
+            internal fun from(updatedAt: UpdatedAt) = apply {
+                additionalProperties(updatedAt.additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun build(): UpdatedAt = UpdatedAt(additionalProperties.toUnmodifiable())
         }
     }
 }
