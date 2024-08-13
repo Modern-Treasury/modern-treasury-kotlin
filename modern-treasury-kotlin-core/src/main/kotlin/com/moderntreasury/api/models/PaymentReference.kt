@@ -434,6 +434,8 @@ private constructor(
 
             val JPMC_FIRM_ROOT_ID = ReferenceNumberType(JsonField.of("jpmc_firm_root_id"))
 
+            val JPMC_FX_TRN_ID = ReferenceNumberType(JsonField.of("jpmc_fx_trn_id"))
+
             val JPMC_P3_ID = ReferenceNumberType(JsonField.of("jpmc_p3_id"))
 
             val JPMC_PAYMENT_BATCH_ID = ReferenceNumberType(JsonField.of("jpmc_payment_batch_id"))
@@ -537,6 +539,7 @@ private constructor(
             JPMC_CUSTOMER_REFERENCE_ID,
             JPMC_END_TO_END_ID,
             JPMC_FIRM_ROOT_ID,
+            JPMC_FX_TRN_ID,
             JPMC_P3_ID,
             JPMC_PAYMENT_BATCH_ID,
             JPMC_PAYMENT_INFORMATION_ID,
@@ -604,6 +607,7 @@ private constructor(
             JPMC_CUSTOMER_REFERENCE_ID,
             JPMC_END_TO_END_ID,
             JPMC_FIRM_ROOT_ID,
+            JPMC_FX_TRN_ID,
             JPMC_P3_ID,
             JPMC_PAYMENT_BATCH_ID,
             JPMC_PAYMENT_INFORMATION_ID,
@@ -674,6 +678,7 @@ private constructor(
                 JPMC_CUSTOMER_REFERENCE_ID -> Value.JPMC_CUSTOMER_REFERENCE_ID
                 JPMC_END_TO_END_ID -> Value.JPMC_END_TO_END_ID
                 JPMC_FIRM_ROOT_ID -> Value.JPMC_FIRM_ROOT_ID
+                JPMC_FX_TRN_ID -> Value.JPMC_FX_TRN_ID
                 JPMC_P3_ID -> Value.JPMC_P3_ID
                 JPMC_PAYMENT_BATCH_ID -> Value.JPMC_PAYMENT_BATCH_ID
                 JPMC_PAYMENT_INFORMATION_ID -> Value.JPMC_PAYMENT_INFORMATION_ID
@@ -746,6 +751,7 @@ private constructor(
                 JPMC_CUSTOMER_REFERENCE_ID -> Known.JPMC_CUSTOMER_REFERENCE_ID
                 JPMC_END_TO_END_ID -> Known.JPMC_END_TO_END_ID
                 JPMC_FIRM_ROOT_ID -> Known.JPMC_FIRM_ROOT_ID
+                JPMC_FX_TRN_ID -> Known.JPMC_FX_TRN_ID
                 JPMC_P3_ID -> Known.JPMC_P3_ID
                 JPMC_PAYMENT_BATCH_ID -> Known.JPMC_PAYMENT_BATCH_ID
                 JPMC_PAYMENT_INFORMATION_ID -> Known.JPMC_PAYMENT_INFORMATION_ID
