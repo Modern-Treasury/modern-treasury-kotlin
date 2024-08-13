@@ -62,8 +62,6 @@ private constructor(
 
         val HU_ICS = PaymentOrderSubtype(JsonField.of("hu_ics"))
 
-        val INTERAC = PaymentOrderSubtype(JsonField.of("interac"))
-
         val MASAV = PaymentOrderSubtype(JsonField.of("masav"))
 
         val MX_CCEN = PaymentOrderSubtype(JsonField.of("mx_ccen"))
@@ -110,7 +108,6 @@ private constructor(
         DK_NETS,
         EFT,
         HU_ICS,
-        INTERAC,
         MASAV,
         MX_CCEN,
         NEFT,
@@ -143,7 +140,6 @@ private constructor(
         DK_NETS,
         EFT,
         HU_ICS,
-        INTERAC,
         MASAV,
         MX_CCEN,
         NEFT,
@@ -178,7 +174,6 @@ private constructor(
             DK_NETS -> Value.DK_NETS
             EFT -> Value.EFT
             HU_ICS -> Value.HU_ICS
-            INTERAC -> Value.INTERAC
             MASAV -> Value.MASAV
             MX_CCEN -> Value.MX_CCEN
             NEFT -> Value.NEFT
@@ -213,7 +208,6 @@ private constructor(
             DK_NETS -> Known.DK_NETS
             EFT -> Known.EFT
             HU_ICS -> Known.HU_ICS
-            INTERAC -> Known.INTERAC
             MASAV -> Known.MASAV
             MX_CCEN -> Known.MX_CCEN
             NEFT -> Known.NEFT
