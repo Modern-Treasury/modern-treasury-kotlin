@@ -1,5 +1,24 @@
 # Changelog
 
+## 2.17.0 (2024-08-13)
+
+Full Changelog: [v2.16.0...v2.17.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.16.0...v2.17.0)
+
+### Features
+
+* **api:** add pagination params 'created at' and 'updated at' ([#197](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/197)) ([95fcab9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/95fcab91b90fb7aa8aeab565448096a61fccfd72))
+* **api:** updates ([#199](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/199)) ([7a64edf](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7a64edf1d58eef16e56476d8365748402dc0ab06))
+* **client:** improve binary return values ([#195](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/195)) ([4049778](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/40497786014f35af37636037a1b76a743dda8132))
+
+
+### Chores
+
+* **ci:** bump prism mock server version ([#198](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/198)) ([8f885aa](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8f885aa1e4de604b5f41e6c3b4fed5bf98190d74))
+* **ci:** limit release doctor target branches ([#191](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/191)) ([494ca06](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/494ca0660cb6527f8f6bdccc85d333fe41babf30))
+* **ci:** run tests in CI ([#196](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/196)) ([fbf2896](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/fbf2896cb6fedf853121e0aedf60ba9eb729f92c))
+* **internal:** remove unused test file ([#194](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/194)) ([936258c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/936258cd9a054053e61c794d71b9830115848f2f))
+* **tests:** update prism version ([#193](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/193)) ([43fd6bf](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/43fd6bf95d3e8b5adb3341ebd24512d029b35608))
+
 ## 2.16.0 (2024-07-15)
 
 Full Changelog: [v2.15.1...v2.16.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.15.1...v2.16.0)
