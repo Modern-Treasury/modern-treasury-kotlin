@@ -2952,11 +2952,16 @@ private constructor(
 
                 val USBANK_PAYMENT_ID = ReferenceNumberType(JsonField.of("usbank_payment_id"))
 
+                val WELLS_FARGO_END_TO_END_ID =
+                    ReferenceNumberType(JsonField.of("wells_fargo_end_to_end_id"))
+
                 val WELLS_FARGO_PAYMENT_ID =
                     ReferenceNumberType(JsonField.of("wells_fargo_payment_id"))
 
                 val WELLS_FARGO_TRACE_NUMBER =
                     ReferenceNumberType(JsonField.of("wells_fargo_trace_number"))
+
+                val WELLS_FARGO_UETR = ReferenceNumberType(JsonField.of("wells_fargo_uetr"))
 
                 fun of(value: String) = ReferenceNumberType(JsonField.of(value))
             }
@@ -3025,8 +3030,10 @@ private constructor(
                 SWIFT_UETR,
                 UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER,
                 USBANK_PAYMENT_ID,
+                WELLS_FARGO_END_TO_END_ID,
                 WELLS_FARGO_PAYMENT_ID,
                 WELLS_FARGO_TRACE_NUMBER,
+                WELLS_FARGO_UETR,
             }
 
             enum class Value {
@@ -3093,8 +3100,10 @@ private constructor(
                 SWIFT_UETR,
                 UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER,
                 USBANK_PAYMENT_ID,
+                WELLS_FARGO_END_TO_END_ID,
                 WELLS_FARGO_PAYMENT_ID,
                 WELLS_FARGO_TRACE_NUMBER,
+                WELLS_FARGO_UETR,
                 _UNKNOWN,
             }
 
@@ -3166,8 +3175,10 @@ private constructor(
                     SWIFT_UETR -> Value.SWIFT_UETR
                     UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER -> Value.UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER
                     USBANK_PAYMENT_ID -> Value.USBANK_PAYMENT_ID
+                    WELLS_FARGO_END_TO_END_ID -> Value.WELLS_FARGO_END_TO_END_ID
                     WELLS_FARGO_PAYMENT_ID -> Value.WELLS_FARGO_PAYMENT_ID
                     WELLS_FARGO_TRACE_NUMBER -> Value.WELLS_FARGO_TRACE_NUMBER
+                    WELLS_FARGO_UETR -> Value.WELLS_FARGO_UETR
                     else -> Value._UNKNOWN
                 }
 
@@ -3239,8 +3250,10 @@ private constructor(
                     SWIFT_UETR -> Known.SWIFT_UETR
                     UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER -> Known.UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER
                     USBANK_PAYMENT_ID -> Known.USBANK_PAYMENT_ID
+                    WELLS_FARGO_END_TO_END_ID -> Known.WELLS_FARGO_END_TO_END_ID
                     WELLS_FARGO_PAYMENT_ID -> Known.WELLS_FARGO_PAYMENT_ID
                     WELLS_FARGO_TRACE_NUMBER -> Known.WELLS_FARGO_TRACE_NUMBER
+                    WELLS_FARGO_UETR -> Known.WELLS_FARGO_UETR
                     else ->
                         throw ModernTreasuryInvalidDataException(
                             "Unknown ReferenceNumberType: $value"
