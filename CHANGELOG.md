@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.18.0 (2024-08-21)
+
+Full Changelog: [v2.17.0...v2.18.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.17.0...v2.18.0)
+
+### Features
+
+* **api:** add wells fargo reference number types ([#200](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/200)) ([b7efc13](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b7efc1336c7ecf3dd3adf712abef068c8b820a2d))
+
+
+### Bug Fixes
+
+* **docs:** use correct putAdditionalProperty value ([#202](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/202)) ([56456d0](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/56456d071a5507d4b71b18fd02ff68151a200539))
+
 ## 2.17.0 (2024-08-13)
 
 Full Changelog: [v2.16.0...v2.17.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.16.0...v2.17.0)
