@@ -117,9 +117,10 @@ Sometimes, the API may support other properties that are not yet supported in th
 you can attach them using the `putAdditionalProperty` method.
 
 ```kotlin
+import com.moderntreasury.api.models.core.JsonValue
 val params = CounterpartyCreateParams.builder()
     // ... normal properties
-    .putAdditionalProperty("secret_param", "4242")
+    .putAdditionalProperty("secret_param", JsonValue.from("4242"))
     .build()
 ```
 
