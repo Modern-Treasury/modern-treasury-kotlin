@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.18.1 (2024-08-22)
+
+Full Changelog: [v2.18.0...v2.18.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.18.0...v2.18.1)
+
+### Bug Fixes
+
+* remove additionalBodyProperties from methods that don't support request bodies ([#203](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/203)) ([36cd19b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/36cd19b17746b83783ca7ded4843ab433941a8ac))
+
 ## 2.18.0 (2024-08-21)
 
 Full Changelog: [v2.17.0...v2.18.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.17.0...v2.18.0)
