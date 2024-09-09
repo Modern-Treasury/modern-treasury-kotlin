@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.19.0 (2024-09-09)
+
+Full Changelog: [v2.18.1...v2.19.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.18.1...v2.19.0)
+
+### Features
+
+* **api:** add us_bank RTP ID's as reference_number_type ([#207](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/207)) ([8282ccb](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8282ccb881b75a6f4010d61883e775a97d59dfde))
+
+
+### Chores
+
+* **docs:** update description of `bankgirot` to `se_bankgirot` ([#208](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/208)) ([90050f6](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/90050f62869b2c4b460320d9ecb18fd1881f0a83))
+* use headless jdk for containers ([#205](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/205)) ([a5dffc4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a5dffc4decd88036499e63430e4ffa7e1eca2372))
+
 ## 2.18.1 (2024-08-22)
 
 Full Changelog: [v2.18.0...v2.18.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.18.0...v2.18.1)
