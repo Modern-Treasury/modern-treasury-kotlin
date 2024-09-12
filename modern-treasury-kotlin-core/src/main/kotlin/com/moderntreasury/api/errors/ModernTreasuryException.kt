@@ -1,4 +1,4 @@
 package com.moderntreasury.api.errors
 
-open class ModernTreasuryException constructor(message: String? = null, cause: Throwable? = null) :
+open class ModernTreasuryException(message: String? = null, cause: Throwable? = null) :
     RuntimeException(message, cause)
