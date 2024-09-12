@@ -2,12 +2,8 @@ package com.moderntreasury.api.errors
 
 import com.google.common.collect.ListMultimap
 
-class RateLimitException
-constructor(
+class RateLimitException(
     headers: ListMultimap<String, String>,
-    private val error: ModernTreasuryError,
-) : ModernTreasuryServiceException(headers, "${error}") {
-    override fun statusCode(): Int = 429
-
-    fun error(): ModernTreasuryError = error
-}
+    body: String,
+    error: ModernTreasuryError,
+) : ModernTreasuryServiceException(429, headers, body, error)

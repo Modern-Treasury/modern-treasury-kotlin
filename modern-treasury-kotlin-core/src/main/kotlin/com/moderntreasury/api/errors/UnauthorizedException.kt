@@ -2,12 +2,8 @@ package com.moderntreasury.api.errors
 
 import com.google.common.collect.ListMultimap
 
-class UnauthorizedException
-constructor(
+class UnauthorizedException(
     headers: ListMultimap<String, String>,
-    private val error: ModernTreasuryError,
-) : ModernTreasuryServiceException(headers, "${error}") {
-    override fun statusCode(): Int = 401
-
-    fun error(): ModernTreasuryError = error
-}
+    body: String,
+    error: ModernTreasuryError,
+) : ModernTreasuryServiceException(401, headers, body, error)
