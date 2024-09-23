@@ -29,6 +29,7 @@ class InvoiceServiceTest {
                     .counterpartyId("counterparty_id")
                     .dueDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .originatingAccountId("originating_account_id")
+                    .autoAdvance(true)
                     .contactDetails(
                         listOf(
                             InvoiceCreateParams.ContactDetail.builder()
@@ -97,6 +98,7 @@ class InvoiceServiceTest {
                             .build()
                     )
                     .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .metadata(InvoiceCreateParams.Metadata.builder().build())
                     .notificationEmailAddresses(listOf("string"))
                     .notificationsEnabled(true)
                     .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
@@ -210,6 +212,7 @@ class InvoiceServiceTest {
                             .build()
                     )
                     .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .metadata(InvoiceUpdateParams.Metadata.builder().build())
                     .notificationEmailAddresses(listOf("string"))
                     .notificationsEnabled(true)
                     .originatingAccountId("originating_account_id")
