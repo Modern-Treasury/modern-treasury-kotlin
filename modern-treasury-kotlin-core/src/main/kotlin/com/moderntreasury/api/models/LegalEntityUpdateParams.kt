@@ -145,7 +145,7 @@ constructor(
 
         @JsonProperty("phone_numbers") fun phoneNumbers(): List<PhoneNumber>? = phoneNumbers
 
-        /** Translation missing: en.openapi.descriptions.legal_entity.schema.risk_rating */
+        /** The risk rating of the legal entity. One of low, medium, high. */
         @JsonProperty("risk_rating") fun riskRating(): RiskRating? = riskRating
 
         /** The entity's primary website URL. */
@@ -286,7 +286,7 @@ constructor(
                 this.phoneNumbers = phoneNumbers
             }
 
-            /** Translation missing: en.openapi.descriptions.legal_entity.schema.risk_rating */
+            /** The risk rating of the legal entity. One of low, medium, high. */
             @JsonProperty("risk_rating")
             fun riskRating(riskRating: RiskRating) = apply { this.riskRating = riskRating }
 
@@ -472,7 +472,7 @@ constructor(
 
         fun addPhoneNumber(phoneNumber: PhoneNumber) = apply { this.phoneNumbers.add(phoneNumber) }
 
-        /** Translation missing: en.openapi.descriptions.legal_entity.schema.risk_rating */
+        /** The risk rating of the legal entity. One of low, medium, high. */
         fun riskRating(riskRating: RiskRating) = apply { this.riskRating = riskRating }
 
         /** The entity's primary website URL. */
