@@ -24,6 +24,7 @@ constructor(
     private val counterpartyId: String,
     private val dueDate: OffsetDateTime,
     private val originatingAccountId: String,
+    private val autoAdvance: Boolean?,
     private val contactDetails: List<ContactDetail>?,
     private val counterpartyBillingAddress: CounterpartyBillingAddress?,
     private val counterpartyShippingAddress: CounterpartyShippingAddress?,
@@ -34,6 +35,7 @@ constructor(
     private val invoiceLineItems: List<InvoiceLineItemCreateRequest>?,
     private val invoicerAddress: InvoicerAddress?,
     private val ledgerAccountSettlementId: String?,
+    private val metadata: Metadata?,
     private val notificationEmailAddresses: List<String>?,
     private val notificationsEnabled: Boolean?,
     private val paymentEffectiveDate: LocalDate?,
@@ -55,6 +57,8 @@ constructor(
 
     fun originatingAccountId(): String = originatingAccountId
 
+    fun autoAdvance(): Boolean? = autoAdvance
+
     fun contactDetails(): List<ContactDetail>? = contactDetails
 
     fun counterpartyBillingAddress(): CounterpartyBillingAddress? = counterpartyBillingAddress
@@ -74,6 +78,8 @@ constructor(
     fun invoicerAddress(): InvoicerAddress? = invoicerAddress
 
     fun ledgerAccountSettlementId(): String? = ledgerAccountSettlementId
+
+    fun metadata(): Metadata? = metadata
 
     fun notificationEmailAddresses(): List<String>? = notificationEmailAddresses
 
@@ -100,6 +106,7 @@ constructor(
             counterpartyId,
             dueDate,
             originatingAccountId,
+            autoAdvance,
             contactDetails,
             counterpartyBillingAddress,
             counterpartyShippingAddress,
@@ -110,6 +117,7 @@ constructor(
             invoiceLineItems,
             invoicerAddress,
             ledgerAccountSettlementId,
+            metadata,
             notificationEmailAddresses,
             notificationsEnabled,
             paymentEffectiveDate,
@@ -135,6 +143,7 @@ constructor(
         private val counterpartyId: String?,
         private val dueDate: OffsetDateTime?,
         private val originatingAccountId: String?,
+        private val autoAdvance: Boolean?,
         private val contactDetails: List<ContactDetail>?,
         private val counterpartyBillingAddress: CounterpartyBillingAddress?,
         private val counterpartyShippingAddress: CounterpartyShippingAddress?,
@@ -145,6 +154,7 @@ constructor(
         private val invoiceLineItems: List<InvoiceLineItemCreateRequest>?,
         private val invoicerAddress: InvoicerAddress?,
         private val ledgerAccountSettlementId: String?,
+        private val metadata: Metadata?,
         private val notificationEmailAddresses: List<String>?,
         private val notificationsEnabled: Boolean?,
         private val paymentEffectiveDate: LocalDate?,
@@ -169,6 +179,13 @@ constructor(
         /** The ID of the internal account the invoice should be paid to. */
         @JsonProperty("originating_account_id")
         fun originatingAccountId(): String? = originatingAccountId
+
+        /**
+         * When true, the invoice will progress to unpaid automatically and cannot be edited after
+         * entering that state. If the invoice fails to progress to unpaid, the errors will be
+         * returned and the invoice will not be created.
+         */
+        @JsonProperty("auto_advance") fun autoAdvance(): Boolean? = autoAdvance
 
         /** The invoicer's contact details displayed at the top of the invoice. */
         @JsonProperty("contact_details") fun contactDetails(): List<ContactDetail>? = contactDetails
@@ -216,6 +233,11 @@ constructor(
         /** The ID of the virtual account the invoice should be paid to. */
         @JsonProperty("ledger_account_settlement_id")
         fun ledgerAccountSettlementId(): String? = ledgerAccountSettlementId
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
 
         /**
          * Emails in addition to the counterparty email to send invoice status notifications to. At
@@ -297,6 +319,7 @@ constructor(
                 this.counterpartyId == other.counterpartyId &&
                 this.dueDate == other.dueDate &&
                 this.originatingAccountId == other.originatingAccountId &&
+                this.autoAdvance == other.autoAdvance &&
                 this.contactDetails == other.contactDetails &&
                 this.counterpartyBillingAddress == other.counterpartyBillingAddress &&
                 this.counterpartyShippingAddress == other.counterpartyShippingAddress &&
@@ -307,6 +330,7 @@ constructor(
                 this.invoiceLineItems == other.invoiceLineItems &&
                 this.invoicerAddress == other.invoicerAddress &&
                 this.ledgerAccountSettlementId == other.ledgerAccountSettlementId &&
+                this.metadata == other.metadata &&
                 this.notificationEmailAddresses == other.notificationEmailAddresses &&
                 this.notificationsEnabled == other.notificationsEnabled &&
                 this.paymentEffectiveDate == other.paymentEffectiveDate &&
@@ -327,6 +351,7 @@ constructor(
                         counterpartyId,
                         dueDate,
                         originatingAccountId,
+                        autoAdvance,
                         contactDetails,
                         counterpartyBillingAddress,
                         counterpartyShippingAddress,
@@ -337,6 +362,7 @@ constructor(
                         invoiceLineItems,
                         invoicerAddress,
                         ledgerAccountSettlementId,
+                        metadata,
                         notificationEmailAddresses,
                         notificationsEnabled,
                         paymentEffectiveDate,
@@ -354,7 +380,7 @@ constructor(
         }
 
         override fun toString() =
-            "InvoiceCreateBody{counterpartyId=$counterpartyId, dueDate=$dueDate, originatingAccountId=$originatingAccountId, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
+            "InvoiceCreateBody{counterpartyId=$counterpartyId, dueDate=$dueDate, originatingAccountId=$originatingAccountId, autoAdvance=$autoAdvance, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, metadata=$metadata, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -366,6 +392,7 @@ constructor(
             private var counterpartyId: String? = null
             private var dueDate: OffsetDateTime? = null
             private var originatingAccountId: String? = null
+            private var autoAdvance: Boolean? = null
             private var contactDetails: List<ContactDetail>? = null
             private var counterpartyBillingAddress: CounterpartyBillingAddress? = null
             private var counterpartyShippingAddress: CounterpartyShippingAddress? = null
@@ -376,6 +403,7 @@ constructor(
             private var invoiceLineItems: List<InvoiceLineItemCreateRequest>? = null
             private var invoicerAddress: InvoicerAddress? = null
             private var ledgerAccountSettlementId: String? = null
+            private var metadata: Metadata? = null
             private var notificationEmailAddresses: List<String>? = null
             private var notificationsEnabled: Boolean? = null
             private var paymentEffectiveDate: LocalDate? = null
@@ -392,6 +420,7 @@ constructor(
                 this.counterpartyId = invoiceCreateBody.counterpartyId
                 this.dueDate = invoiceCreateBody.dueDate
                 this.originatingAccountId = invoiceCreateBody.originatingAccountId
+                this.autoAdvance = invoiceCreateBody.autoAdvance
                 this.contactDetails = invoiceCreateBody.contactDetails
                 this.counterpartyBillingAddress = invoiceCreateBody.counterpartyBillingAddress
                 this.counterpartyShippingAddress = invoiceCreateBody.counterpartyShippingAddress
@@ -402,6 +431,7 @@ constructor(
                 this.invoiceLineItems = invoiceCreateBody.invoiceLineItems
                 this.invoicerAddress = invoiceCreateBody.invoicerAddress
                 this.ledgerAccountSettlementId = invoiceCreateBody.ledgerAccountSettlementId
+                this.metadata = invoiceCreateBody.metadata
                 this.notificationEmailAddresses = invoiceCreateBody.notificationEmailAddresses
                 this.notificationsEnabled = invoiceCreateBody.notificationsEnabled
                 this.paymentEffectiveDate = invoiceCreateBody.paymentEffectiveDate
@@ -430,6 +460,14 @@ constructor(
             fun originatingAccountId(originatingAccountId: String) = apply {
                 this.originatingAccountId = originatingAccountId
             }
+
+            /**
+             * When true, the invoice will progress to unpaid automatically and cannot be edited
+             * after entering that state. If the invoice fails to progress to unpaid, the errors
+             * will be returned and the invoice will not be created.
+             */
+            @JsonProperty("auto_advance")
+            fun autoAdvance(autoAdvance: Boolean) = apply { this.autoAdvance = autoAdvance }
 
             /** The invoicer's contact details displayed at the top of the invoice. */
             @JsonProperty("contact_details")
@@ -498,6 +536,13 @@ constructor(
             fun ledgerAccountSettlementId(ledgerAccountSettlementId: String) = apply {
                 this.ledgerAccountSettlementId = ledgerAccountSettlementId
             }
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            @JsonProperty("metadata")
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             /**
              * Emails in addition to the counterparty email to send invoice status notifications to.
@@ -609,6 +654,7 @@ constructor(
                     checkNotNull(originatingAccountId) {
                         "`originatingAccountId` is required but was not set"
                     },
+                    autoAdvance,
                     contactDetails?.toUnmodifiable(),
                     counterpartyBillingAddress,
                     counterpartyShippingAddress,
@@ -619,6 +665,7 @@ constructor(
                     invoiceLineItems?.toUnmodifiable(),
                     invoicerAddress,
                     ledgerAccountSettlementId,
+                    metadata,
                     notificationEmailAddresses?.toUnmodifiable(),
                     notificationsEnabled,
                     paymentEffectiveDate,
@@ -649,6 +696,7 @@ constructor(
             this.counterpartyId == other.counterpartyId &&
             this.dueDate == other.dueDate &&
             this.originatingAccountId == other.originatingAccountId &&
+            this.autoAdvance == other.autoAdvance &&
             this.contactDetails == other.contactDetails &&
             this.counterpartyBillingAddress == other.counterpartyBillingAddress &&
             this.counterpartyShippingAddress == other.counterpartyShippingAddress &&
@@ -659,6 +707,7 @@ constructor(
             this.invoiceLineItems == other.invoiceLineItems &&
             this.invoicerAddress == other.invoicerAddress &&
             this.ledgerAccountSettlementId == other.ledgerAccountSettlementId &&
+            this.metadata == other.metadata &&
             this.notificationEmailAddresses == other.notificationEmailAddresses &&
             this.notificationsEnabled == other.notificationsEnabled &&
             this.paymentEffectiveDate == other.paymentEffectiveDate &&
@@ -679,6 +728,7 @@ constructor(
             counterpartyId,
             dueDate,
             originatingAccountId,
+            autoAdvance,
             contactDetails,
             counterpartyBillingAddress,
             counterpartyShippingAddress,
@@ -689,6 +739,7 @@ constructor(
             invoiceLineItems,
             invoicerAddress,
             ledgerAccountSettlementId,
+            metadata,
             notificationEmailAddresses,
             notificationsEnabled,
             paymentEffectiveDate,
@@ -706,7 +757,7 @@ constructor(
     }
 
     override fun toString() =
-        "InvoiceCreateParams{counterpartyId=$counterpartyId, dueDate=$dueDate, originatingAccountId=$originatingAccountId, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, virtualAccountId=$virtualAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "InvoiceCreateParams{counterpartyId=$counterpartyId, dueDate=$dueDate, originatingAccountId=$originatingAccountId, autoAdvance=$autoAdvance, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, metadata=$metadata, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, virtualAccountId=$virtualAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -721,6 +772,7 @@ constructor(
         private var counterpartyId: String? = null
         private var dueDate: OffsetDateTime? = null
         private var originatingAccountId: String? = null
+        private var autoAdvance: Boolean? = null
         private var contactDetails: MutableList<ContactDetail> = mutableListOf()
         private var counterpartyBillingAddress: CounterpartyBillingAddress? = null
         private var counterpartyShippingAddress: CounterpartyShippingAddress? = null
@@ -731,6 +783,7 @@ constructor(
         private var invoiceLineItems: MutableList<InvoiceLineItemCreateRequest> = mutableListOf()
         private var invoicerAddress: InvoicerAddress? = null
         private var ledgerAccountSettlementId: String? = null
+        private var metadata: Metadata? = null
         private var notificationEmailAddresses: MutableList<String> = mutableListOf()
         private var notificationsEnabled: Boolean? = null
         private var paymentEffectiveDate: LocalDate? = null
@@ -749,6 +802,7 @@ constructor(
             this.counterpartyId = invoiceCreateParams.counterpartyId
             this.dueDate = invoiceCreateParams.dueDate
             this.originatingAccountId = invoiceCreateParams.originatingAccountId
+            this.autoAdvance = invoiceCreateParams.autoAdvance
             this.contactDetails(invoiceCreateParams.contactDetails ?: listOf())
             this.counterpartyBillingAddress = invoiceCreateParams.counterpartyBillingAddress
             this.counterpartyShippingAddress = invoiceCreateParams.counterpartyShippingAddress
@@ -759,6 +813,7 @@ constructor(
             this.invoiceLineItems(invoiceCreateParams.invoiceLineItems ?: listOf())
             this.invoicerAddress = invoiceCreateParams.invoicerAddress
             this.ledgerAccountSettlementId = invoiceCreateParams.ledgerAccountSettlementId
+            this.metadata = invoiceCreateParams.metadata
             this.notificationEmailAddresses(
                 invoiceCreateParams.notificationEmailAddresses ?: listOf()
             )
@@ -786,6 +841,13 @@ constructor(
         fun originatingAccountId(originatingAccountId: String) = apply {
             this.originatingAccountId = originatingAccountId
         }
+
+        /**
+         * When true, the invoice will progress to unpaid automatically and cannot be edited after
+         * entering that state. If the invoice fails to progress to unpaid, the errors will be
+         * returned and the invoice will not be created.
+         */
+        fun autoAdvance(autoAdvance: Boolean) = apply { this.autoAdvance = autoAdvance }
 
         /** The invoicer's contact details displayed at the top of the invoice. */
         fun contactDetails(contactDetails: List<ContactDetail>) = apply {
@@ -859,6 +921,11 @@ constructor(
         fun ledgerAccountSettlementId(ledgerAccountSettlementId: String) = apply {
             this.ledgerAccountSettlementId = ledgerAccountSettlementId
         }
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
         /**
          * Emails in addition to the counterparty email to send invoice status notifications to. At
@@ -1015,6 +1082,7 @@ constructor(
                 checkNotNull(originatingAccountId) {
                     "`originatingAccountId` is required but was not set"
                 },
+                autoAdvance,
                 if (contactDetails.size == 0) null else contactDetails.toUnmodifiable(),
                 counterpartyBillingAddress,
                 counterpartyShippingAddress,
@@ -1025,6 +1093,7 @@ constructor(
                 if (invoiceLineItems.size == 0) null else invoiceLineItems.toUnmodifiable(),
                 invoicerAddress,
                 ledgerAccountSettlementId,
+                metadata,
                 if (notificationEmailAddresses.size == 0) null
                 else notificationEmailAddresses.toUnmodifiable(),
                 notificationsEnabled,
@@ -1967,6 +2036,70 @@ constructor(
                     checkNotNull(country) { "`country` is required but was not set" },
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+    }
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    @JsonDeserialize(builder = Metadata.Builder::class)
+    @NoAutoDetect
+    class Metadata
+    private constructor(
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties(metadata.additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
         }
     }
 

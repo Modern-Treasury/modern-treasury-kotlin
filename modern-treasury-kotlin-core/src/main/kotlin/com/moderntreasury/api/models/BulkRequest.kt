@@ -401,17 +401,21 @@ private constructor(
 
             val UPDATE = ActionType(JsonField.of("update"))
 
+            val DELETE = ActionType(JsonField.of("delete"))
+
             fun of(value: String) = ActionType(JsonField.of(value))
         }
 
         enum class Known {
             CREATE,
             UPDATE,
+            DELETE,
         }
 
         enum class Value {
             CREATE,
             UPDATE,
+            DELETE,
             _UNKNOWN,
         }
 
@@ -419,6 +423,7 @@ private constructor(
             when (this) {
                 CREATE -> Value.CREATE
                 UPDATE -> Value.UPDATE
+                DELETE -> Value.DELETE
                 else -> Value._UNKNOWN
             }
 
@@ -426,6 +431,7 @@ private constructor(
             when (this) {
                 CREATE -> Known.CREATE
                 UPDATE -> Known.UPDATE
+                DELETE -> Known.DELETE
                 else -> throw ModernTreasuryInvalidDataException("Unknown ActionType: $value")
             }
 

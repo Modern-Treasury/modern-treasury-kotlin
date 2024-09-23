@@ -16,6 +16,7 @@ class InvoiceCreateParamsTest {
             .counterpartyId("counterparty_id")
             .dueDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .originatingAccountId("originating_account_id")
+            .autoAdvance(true)
             .contactDetails(
                 listOf(
                     InvoiceCreateParams.ContactDetail.builder()
@@ -83,6 +84,7 @@ class InvoiceCreateParamsTest {
                     .build()
             )
             .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .metadata(InvoiceCreateParams.Metadata.builder().build())
             .notificationEmailAddresses(listOf("string"))
             .notificationsEnabled(true)
             .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
@@ -103,6 +105,7 @@ class InvoiceCreateParamsTest {
                 .counterpartyId("counterparty_id")
                 .dueDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .originatingAccountId("originating_account_id")
+                .autoAdvance(true)
                 .contactDetails(
                     listOf(
                         InvoiceCreateParams.ContactDetail.builder()
@@ -170,6 +173,7 @@ class InvoiceCreateParamsTest {
                         .build()
                 )
                 .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .metadata(InvoiceCreateParams.Metadata.builder().build())
                 .notificationEmailAddresses(listOf("string"))
                 .notificationsEnabled(true)
                 .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
@@ -186,6 +190,7 @@ class InvoiceCreateParamsTest {
         assertThat(body.counterpartyId()).isEqualTo("counterparty_id")
         assertThat(body.dueDate()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.originatingAccountId()).isEqualTo("originating_account_id")
+        assertThat(body.autoAdvance()).isEqualTo(true)
         assertThat(body.contactDetails())
             .isEqualTo(
                 listOf(
@@ -259,6 +264,7 @@ class InvoiceCreateParamsTest {
             )
         assertThat(body.ledgerAccountSettlementId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(body.metadata()).isEqualTo(InvoiceCreateParams.Metadata.builder().build())
         assertThat(body.notificationEmailAddresses()).isEqualTo(listOf("string"))
         assertThat(body.notificationsEnabled()).isEqualTo(true)
         assertThat(body.paymentEffectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))

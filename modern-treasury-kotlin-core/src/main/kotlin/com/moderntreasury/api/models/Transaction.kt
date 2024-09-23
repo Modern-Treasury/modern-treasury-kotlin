@@ -38,6 +38,7 @@ private constructor(
     private val vendorId: JsonField<String>,
     private val asOfDate: JsonField<LocalDate>,
     private val asOfTime: JsonField<String>,
+    private val asOfTimezone: JsonField<String>,
     private val internalAccountId: JsonField<String>,
     private val metadata: JsonField<Metadata>,
     private val posted: JsonField<Boolean>,
@@ -109,6 +110,12 @@ private constructor(
      * information received from the bank, it may be `null`.
      */
     fun asOfTime(): String? = asOfTime.getNullable("as_of_time")
+
+    /**
+     * The timezone in which the `as_of_time` is represented. Can be `null` if the bank does not
+     * provide timezone info.
+     */
+    fun asOfTimezone(): String? = asOfTimezone.getNullable("as_of_timezone")
 
     /** The ID of the relevant Internal Account. */
     fun internalAccountId(): String = internalAccountId.getRequired("internal_account_id")
@@ -210,6 +217,12 @@ private constructor(
      */
     @JsonProperty("as_of_time") @ExcludeMissing fun _asOfTime() = asOfTime
 
+    /**
+     * The timezone in which the `as_of_time` is represented. Can be `null` if the bank does not
+     * provide timezone info.
+     */
+    @JsonProperty("as_of_timezone") @ExcludeMissing fun _asOfTimezone() = asOfTimezone
+
     /** The ID of the relevant Internal Account. */
     @JsonProperty("internal_account_id")
     @ExcludeMissing
@@ -278,6 +291,7 @@ private constructor(
             vendorId()
             asOfDate()
             asOfTime()
+            asOfTimezone()
             internalAccountId()
             metadata().validate()
             posted()
@@ -314,6 +328,7 @@ private constructor(
             this.vendorId == other.vendorId &&
             this.asOfDate == other.asOfDate &&
             this.asOfTime == other.asOfTime &&
+            this.asOfTimezone == other.asOfTimezone &&
             this.internalAccountId == other.internalAccountId &&
             this.metadata == other.metadata &&
             this.posted == other.posted &&
@@ -345,6 +360,7 @@ private constructor(
                     vendorId,
                     asOfDate,
                     asOfTime,
+                    asOfTimezone,
                     internalAccountId,
                     metadata,
                     posted,
@@ -361,7 +377,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Transaction{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, amount=$amount, currency=$currency, direction=$direction, vendorDescription=$vendorDescription, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, vendorId=$vendorId, asOfDate=$asOfDate, asOfTime=$asOfTime, internalAccountId=$internalAccountId, metadata=$metadata, posted=$posted, vendorCustomerId=$vendorCustomerId, reconciled=$reconciled, details=$details, type=$type, foreignExchangeRate=$foreignExchangeRate, customIdentifiers=$customIdentifiers, additionalProperties=$additionalProperties}"
+        "Transaction{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, amount=$amount, currency=$currency, direction=$direction, vendorDescription=$vendorDescription, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, vendorId=$vendorId, asOfDate=$asOfDate, asOfTime=$asOfTime, asOfTimezone=$asOfTimezone, internalAccountId=$internalAccountId, metadata=$metadata, posted=$posted, vendorCustomerId=$vendorCustomerId, reconciled=$reconciled, details=$details, type=$type, foreignExchangeRate=$foreignExchangeRate, customIdentifiers=$customIdentifiers, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -385,6 +401,7 @@ private constructor(
         private var vendorId: JsonField<String> = JsonMissing.of()
         private var asOfDate: JsonField<LocalDate> = JsonMissing.of()
         private var asOfTime: JsonField<String> = JsonMissing.of()
+        private var asOfTimezone: JsonField<String> = JsonMissing.of()
         private var internalAccountId: JsonField<String> = JsonMissing.of()
         private var metadata: JsonField<Metadata> = JsonMissing.of()
         private var posted: JsonField<Boolean> = JsonMissing.of()
@@ -412,6 +429,7 @@ private constructor(
             this.vendorId = transaction.vendorId
             this.asOfDate = transaction.asOfDate
             this.asOfTime = transaction.asOfTime
+            this.asOfTimezone = transaction.asOfTimezone
             this.internalAccountId = transaction.internalAccountId
             this.metadata = transaction.metadata
             this.posted = transaction.posted
@@ -574,6 +592,22 @@ private constructor(
         @ExcludeMissing
         fun asOfTime(asOfTime: JsonField<String>) = apply { this.asOfTime = asOfTime }
 
+        /**
+         * The timezone in which the `as_of_time` is represented. Can be `null` if the bank does not
+         * provide timezone info.
+         */
+        fun asOfTimezone(asOfTimezone: String) = asOfTimezone(JsonField.of(asOfTimezone))
+
+        /**
+         * The timezone in which the `as_of_time` is represented. Can be `null` if the bank does not
+         * provide timezone info.
+         */
+        @JsonProperty("as_of_timezone")
+        @ExcludeMissing
+        fun asOfTimezone(asOfTimezone: JsonField<String>) = apply {
+            this.asOfTimezone = asOfTimezone
+        }
+
         /** The ID of the relevant Internal Account. */
         fun internalAccountId(internalAccountId: String) =
             internalAccountId(JsonField.of(internalAccountId))
@@ -725,6 +759,7 @@ private constructor(
                 vendorId,
                 asOfDate,
                 asOfTime,
+                asOfTimezone,
                 internalAccountId,
                 metadata,
                 posted,
