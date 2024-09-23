@@ -34,6 +34,7 @@ constructor(
     private val invoiceLineItems: List<InvoiceLineItemCreateRequest>?,
     private val invoicerAddress: InvoicerAddress?,
     private val ledgerAccountSettlementId: String?,
+    private val metadata: Metadata?,
     private val notificationEmailAddresses: List<String>?,
     private val notificationsEnabled: Boolean?,
     private val originatingAccountId: String?,
@@ -77,6 +78,8 @@ constructor(
 
     fun ledgerAccountSettlementId(): String? = ledgerAccountSettlementId
 
+    fun metadata(): Metadata? = metadata
+
     fun notificationEmailAddresses(): List<String>? = notificationEmailAddresses
 
     fun notificationsEnabled(): Boolean? = notificationsEnabled
@@ -115,6 +118,7 @@ constructor(
             invoiceLineItems,
             invoicerAddress,
             ledgerAccountSettlementId,
+            metadata,
             notificationEmailAddresses,
             notificationsEnabled,
             originatingAccountId,
@@ -158,6 +162,7 @@ constructor(
         private val invoiceLineItems: List<InvoiceLineItemCreateRequest>?,
         private val invoicerAddress: InvoicerAddress?,
         private val ledgerAccountSettlementId: String?,
+        private val metadata: Metadata?,
         private val notificationEmailAddresses: List<String>?,
         private val notificationsEnabled: Boolean?,
         private val originatingAccountId: String?,
@@ -227,6 +232,11 @@ constructor(
         /** The ID of the virtual account the invoice should be paid to. */
         @JsonProperty("ledger_account_settlement_id")
         fun ledgerAccountSettlementId(): String? = ledgerAccountSettlementId
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
 
         /**
          * Emails in addition to the counterparty email to send invoice status notifications to. At
@@ -328,6 +338,7 @@ constructor(
                 this.invoiceLineItems == other.invoiceLineItems &&
                 this.invoicerAddress == other.invoicerAddress &&
                 this.ledgerAccountSettlementId == other.ledgerAccountSettlementId &&
+                this.metadata == other.metadata &&
                 this.notificationEmailAddresses == other.notificationEmailAddresses &&
                 this.notificationsEnabled == other.notificationsEnabled &&
                 this.originatingAccountId == other.originatingAccountId &&
@@ -359,6 +370,7 @@ constructor(
                         invoiceLineItems,
                         invoicerAddress,
                         ledgerAccountSettlementId,
+                        metadata,
                         notificationEmailAddresses,
                         notificationsEnabled,
                         originatingAccountId,
@@ -378,7 +390,7 @@ constructor(
         }
 
         override fun toString() =
-            "InvoiceUpdateBody{contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, status=$status, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
+            "InvoiceUpdateBody{contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, metadata=$metadata, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, status=$status, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -399,6 +411,7 @@ constructor(
             private var invoiceLineItems: List<InvoiceLineItemCreateRequest>? = null
             private var invoicerAddress: InvoicerAddress? = null
             private var ledgerAccountSettlementId: String? = null
+            private var metadata: Metadata? = null
             private var notificationEmailAddresses: List<String>? = null
             private var notificationsEnabled: Boolean? = null
             private var originatingAccountId: String? = null
@@ -426,6 +439,7 @@ constructor(
                 this.invoiceLineItems = invoiceUpdateBody.invoiceLineItems
                 this.invoicerAddress = invoiceUpdateBody.invoicerAddress
                 this.ledgerAccountSettlementId = invoiceUpdateBody.ledgerAccountSettlementId
+                this.metadata = invoiceUpdateBody.metadata
                 this.notificationEmailAddresses = invoiceUpdateBody.notificationEmailAddresses
                 this.notificationsEnabled = invoiceUpdateBody.notificationsEnabled
                 this.originatingAccountId = invoiceUpdateBody.originatingAccountId
@@ -518,6 +532,13 @@ constructor(
             fun ledgerAccountSettlementId(ledgerAccountSettlementId: String) = apply {
                 this.ledgerAccountSettlementId = ledgerAccountSettlementId
             }
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            @JsonProperty("metadata")
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             /**
              * Emails in addition to the counterparty email to send invoice status notifications to.
@@ -649,6 +670,7 @@ constructor(
                     invoiceLineItems?.toUnmodifiable(),
                     invoicerAddress,
                     ledgerAccountSettlementId,
+                    metadata,
                     notificationEmailAddresses?.toUnmodifiable(),
                     notificationsEnabled,
                     originatingAccountId,
@@ -691,6 +713,7 @@ constructor(
             this.invoiceLineItems == other.invoiceLineItems &&
             this.invoicerAddress == other.invoicerAddress &&
             this.ledgerAccountSettlementId == other.ledgerAccountSettlementId &&
+            this.metadata == other.metadata &&
             this.notificationEmailAddresses == other.notificationEmailAddresses &&
             this.notificationsEnabled == other.notificationsEnabled &&
             this.originatingAccountId == other.originatingAccountId &&
@@ -723,6 +746,7 @@ constructor(
             invoiceLineItems,
             invoicerAddress,
             ledgerAccountSettlementId,
+            metadata,
             notificationEmailAddresses,
             notificationsEnabled,
             originatingAccountId,
@@ -742,7 +766,7 @@ constructor(
     }
 
     override fun toString() =
-        "InvoiceUpdateParams{id=$id, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, status=$status, virtualAccountId=$virtualAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "InvoiceUpdateParams{id=$id, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, metadata=$metadata, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, status=$status, virtualAccountId=$virtualAccountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -767,6 +791,7 @@ constructor(
         private var invoiceLineItems: MutableList<InvoiceLineItemCreateRequest> = mutableListOf()
         private var invoicerAddress: InvoicerAddress? = null
         private var ledgerAccountSettlementId: String? = null
+        private var metadata: Metadata? = null
         private var notificationEmailAddresses: MutableList<String> = mutableListOf()
         private var notificationsEnabled: Boolean? = null
         private var originatingAccountId: String? = null
@@ -797,6 +822,7 @@ constructor(
             this.invoiceLineItems(invoiceUpdateParams.invoiceLineItems ?: listOf())
             this.invoicerAddress = invoiceUpdateParams.invoicerAddress
             this.ledgerAccountSettlementId = invoiceUpdateParams.ledgerAccountSettlementId
+            this.metadata = invoiceUpdateParams.metadata
             this.notificationEmailAddresses(
                 invoiceUpdateParams.notificationEmailAddresses ?: listOf()
             )
@@ -896,6 +922,11 @@ constructor(
         fun ledgerAccountSettlementId(ledgerAccountSettlementId: String) = apply {
             this.ledgerAccountSettlementId = ledgerAccountSettlementId
         }
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
         /**
          * Emails in addition to the counterparty email to send invoice status notifications to. At
@@ -1072,6 +1103,7 @@ constructor(
                 if (invoiceLineItems.size == 0) null else invoiceLineItems.toUnmodifiable(),
                 invoicerAddress,
                 ledgerAccountSettlementId,
+                metadata,
                 if (notificationEmailAddresses.size == 0) null
                 else notificationEmailAddresses.toUnmodifiable(),
                 notificationsEnabled,
@@ -2016,6 +2048,70 @@ constructor(
                     checkNotNull(country) { "`country` is required but was not set" },
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+    }
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    @JsonDeserialize(builder = Metadata.Builder::class)
+    @NoAutoDetect
+    class Metadata
+    private constructor(
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties(metadata.additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
         }
     }
 
