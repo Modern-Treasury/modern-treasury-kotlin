@@ -1,5 +1,25 @@
 # Changelog
 
+## 2.20.0 (2024-09-24)
+
+Full Changelog: [v2.19.0...v2.20.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.19.0...v2.20.0)
+
+### Features
+
+* **api:** add `usbank_payment_application_reference_id` to `reference_number_type` ([#209](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/209)) ([347658a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/347658a0906708b8330c959a880f91fdbfb57f89))
+* **client:** added structured fields to errors ([#212](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/212)) ([25322b4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/25322b4af31f5ea25edd1938eb97e115d6920823))
+* **client:** send retry count header ([#214](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/214)) ([93c32da](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/93c32da160dec4d69f50b67993b085d7775f6d5d))
+
+
+### Chores
+
+* **api:** fields and parameters added to bulk actions, transactions and invoice creation ([#213](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/213)) ([f261a36](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f261a360f2163336c965d1c54c1af458a6f6e7df))
+
+
+### Documentation
+
+* adjust additional properties example ([#211](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/211)) ([0ddce69](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0ddce69ba00c7234e3e7599c8a716264e88060e2))
+
 ## 2.19.0 (2024-09-09)
 
 Full Changelog: [v2.18.1...v2.19.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.18.1...v2.19.0)
