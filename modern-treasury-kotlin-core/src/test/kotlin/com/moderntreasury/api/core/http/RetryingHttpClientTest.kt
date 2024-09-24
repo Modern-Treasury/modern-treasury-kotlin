@@ -5,9 +5,12 @@ import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.github.tomakehurst.wiremock.stubbing.Scenario
 import com.moderntreasury.api.client.okhttp.OkHttpClient
+import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 
 @WireMockTest
 internal class RetryingHttpClientTest {
@@ -50,8 +53,9 @@ internal class RetryingHttpClientTest {
         verify(1, postRequestedFor(urlPathEqualTo("/something")))
     }
 
-    @Test
-    fun retryAfterHeader() {
+    @ParameterizedTest
+    @ValueSource(booleans = [false, true])
+    fun retryAfterHeader(async: Boolean) {
         val request =
             HttpRequest.builder().method(HttpMethod.POST).addPathSegment("something").build()
         stubFor(
@@ -79,9 +83,67 @@ internal class RetryingHttpClientTest {
         )
         val retryingClient =
             RetryingHttpClient.builder().httpClient(httpClient).maxRetries(2).build()
-        val response = retryingClient.execute(request)
+
+        val response =
+            if (async) runBlocking { retryingClient.executeAsync(request) }
+            else retryingClient.execute(request)
+
         assertThat(response.statusCode()).isEqualTo(200)
-        verify(3, postRequestedFor(urlPathEqualTo("/something")))
+        verify(
+            1,
+            postRequestedFor(urlPathEqualTo("/something"))
+                .withHeader("x-stainless-retry-count", equalTo("0"))
+        )
+        verify(
+            1,
+            postRequestedFor(urlPathEqualTo("/something"))
+                .withHeader("x-stainless-retry-count", equalTo("1"))
+        )
+        verify(
+            1,
+            postRequestedFor(urlPathEqualTo("/something"))
+                .withHeader("x-stainless-retry-count", equalTo("2"))
+        )
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = [false, true])
+    fun overwriteRetryCountHeader(async: Boolean) {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegment("something")
+                .putHeader("x-stainless-retry-count", "42")
+                .build()
+        stubFor(
+            post(urlPathEqualTo("/something"))
+                .inScenario("foo") // first we fail with a retry after header given as a date
+                .whenScenarioStateIs(Scenario.STARTED)
+                .willReturn(
+                    serviceUnavailable().withHeader("Retry-After", "Wed, 21 Oct 2015 07:28:00 GMT")
+                )
+                .willSetStateTo("RETRY_AFTER_DATE")
+        )
+        stubFor(
+            post(urlPathEqualTo("/something"))
+                .inScenario("foo") // then we return a success
+                .whenScenarioStateIs("RETRY_AFTER_DATE")
+                .willReturn(ok())
+                .willSetStateTo("COMPLETED")
+        )
+        val retryingClient =
+            RetryingHttpClient.builder().httpClient(httpClient).maxRetries(2).build()
+
+        val response =
+            if (async) runBlocking { retryingClient.executeAsync(request) }
+            else retryingClient.execute(request)
+
+        assertThat(response.statusCode()).isEqualTo(200)
+        verify(
+            2,
+            postRequestedFor(urlPathEqualTo("/something"))
+                .withHeader("x-stainless-retry-count", equalTo("42"))
+        )
     }
 
     @Test
