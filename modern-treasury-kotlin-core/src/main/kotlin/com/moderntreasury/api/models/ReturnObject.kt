@@ -51,8 +51,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -268,74 +266,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is ReturnObject &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.returnableId == other.returnableId &&
-            this.returnableType == other.returnableType &&
-            this.code == other.code &&
-            this.reason == other.reason &&
-            this.dateOfDeath == other.dateOfDeath &&
-            this.additionalInformation == other.additionalInformation &&
-            this.status == other.status &&
-            this.transactionLineItemId == other.transactionLineItemId &&
-            this.transactionId == other.transactionId &&
-            this.internalAccountId == other.internalAccountId &&
-            this.type == other.type &&
-            this.amount == other.amount &&
-            this.currency == other.currency &&
-            this.failureReason == other.failureReason &&
-            this.role == other.role &&
-            this.currentReturn == other.currentReturn &&
-            this.referenceNumbers == other.referenceNumbers &&
-            this.ledgerTransactionId == other.ledgerTransactionId &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    returnableId,
-                    returnableType,
-                    code,
-                    reason,
-                    dateOfDeath,
-                    additionalInformation,
-                    status,
-                    transactionLineItemId,
-                    transactionId,
-                    internalAccountId,
-                    type,
-                    amount,
-                    currency,
-                    failureReason,
-                    role,
-                    currentReturn,
-                    referenceNumbers,
-                    ledgerTransactionId,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "ReturnObject{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, returnableId=$returnableId, returnableType=$returnableType, code=$code, reason=$reason, dateOfDeath=$dateOfDeath, additionalInformation=$additionalInformation, status=$status, transactionLineItemId=$transactionLineItemId, transactionId=$transactionId, internalAccountId=$internalAccountId, type=$type, amount=$amount, currency=$currency, failureReason=$failureReason, role=$role, currentReturn=$currentReturn, referenceNumbers=$referenceNumbers, ledgerTransactionId=$ledgerTransactionId, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -1062,8 +992,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         fun id(): String = id.getRequired("id")
 
         fun object_(): String = object_.getRequired("object")
@@ -1125,42 +1053,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is PaymentReference &&
-                this.id == other.id &&
-                this.object_ == other.object_ &&
-                this.liveMode == other.liveMode &&
-                this.createdAt == other.createdAt &&
-                this.updatedAt == other.updatedAt &&
-                this.referenceNumber == other.referenceNumber &&
-                this.referenceNumberType == other.referenceNumberType &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        id,
-                        object_,
-                        liveMode,
-                        createdAt,
-                        updatedAt,
-                        referenceNumber,
-                        referenceNumberType,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "PaymentReference{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, referenceNumber=$referenceNumber, referenceNumberType=$referenceNumberType, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1798,6 +1690,44 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PaymentReference &&
+                this.id == other.id &&
+                this.object_ == other.object_ &&
+                this.liveMode == other.liveMode &&
+                this.createdAt == other.createdAt &&
+                this.updatedAt == other.updatedAt &&
+                this.referenceNumber == other.referenceNumber &&
+                this.referenceNumberType == other.referenceNumberType &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        id,
+                        object_,
+                        liveMode,
+                        createdAt,
+                        updatedAt,
+                        referenceNumber,
+                        referenceNumberType,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "PaymentReference{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, referenceNumber=$referenceNumber, referenceNumberType=$referenceNumberType, additionalProperties=$additionalProperties}"
     }
 
     class ReturnableType
@@ -2135,4 +2065,74 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is ReturnObject &&
+            this.id == other.id &&
+            this.object_ == other.object_ &&
+            this.liveMode == other.liveMode &&
+            this.createdAt == other.createdAt &&
+            this.updatedAt == other.updatedAt &&
+            this.returnableId == other.returnableId &&
+            this.returnableType == other.returnableType &&
+            this.code == other.code &&
+            this.reason == other.reason &&
+            this.dateOfDeath == other.dateOfDeath &&
+            this.additionalInformation == other.additionalInformation &&
+            this.status == other.status &&
+            this.transactionLineItemId == other.transactionLineItemId &&
+            this.transactionId == other.transactionId &&
+            this.internalAccountId == other.internalAccountId &&
+            this.type == other.type &&
+            this.amount == other.amount &&
+            this.currency == other.currency &&
+            this.failureReason == other.failureReason &&
+            this.role == other.role &&
+            this.currentReturn == other.currentReturn &&
+            this.referenceNumbers == other.referenceNumbers &&
+            this.ledgerTransactionId == other.ledgerTransactionId &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    id,
+                    object_,
+                    liveMode,
+                    createdAt,
+                    updatedAt,
+                    returnableId,
+                    returnableType,
+                    code,
+                    reason,
+                    dateOfDeath,
+                    additionalInformation,
+                    status,
+                    transactionLineItemId,
+                    transactionId,
+                    internalAccountId,
+                    type,
+                    amount,
+                    currency,
+                    failureReason,
+                    role,
+                    currentReturn,
+                    referenceNumbers,
+                    ledgerTransactionId,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "ReturnObject{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, returnableId=$returnableId, returnableType=$returnableType, code=$code, reason=$reason, dateOfDeath=$dateOfDeath, additionalInformation=$additionalInformation, status=$status, transactionLineItemId=$transactionLineItemId, transactionId=$transactionId, internalAccountId=$internalAccountId, type=$type, amount=$amount, currency=$currency, failureReason=$failureReason, role=$role, currentReturn=$currentReturn, referenceNumbers=$referenceNumbers, ledgerTransactionId=$ledgerTransactionId, additionalProperties=$additionalProperties}"
 }

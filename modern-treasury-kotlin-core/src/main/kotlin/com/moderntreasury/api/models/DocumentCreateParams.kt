@@ -57,8 +57,6 @@ constructor(
         private val documentType: String?,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The unique identifier for the associated object. */
         fun documentableId(): String? = documentableId
 
@@ -70,34 +68,6 @@ constructor(
         fun documentType(): String? = documentType
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is DocumentCreateBody &&
-                this.documentableId == other.documentableId &&
-                this.documentableType == other.documentableType &&
-                this.file == other.file &&
-                this.documentType == other.documentType
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        documentableId,
-                        documentableType,
-                        file,
-                        documentType,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "DocumentCreateBody{documentableId=$documentableId, documentableType=$documentableType, file=$file, documentType=$documentType}"
 
         companion object {
 
@@ -132,6 +102,36 @@ constructor(
             /** A category given to the document, can be `null`. */
             fun documentType(documentType: String) = apply { this.documentType = documentType }
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DocumentCreateBody &&
+                this.documentableId == other.documentableId &&
+                this.documentableType == other.documentableType &&
+                this.file == other.file &&
+                this.documentType == other.documentType
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        documentableId,
+                        documentableType,
+                        file,
+                        documentType,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "DocumentCreateBody{documentableId=$documentableId, documentableType=$documentableType, file=$file, documentType=$documentType}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams

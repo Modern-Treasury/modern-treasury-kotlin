@@ -42,8 +42,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -198,58 +196,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is TransactionLineItem &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.discardedAt == other.discardedAt &&
-            this.type == other.type &&
-            this.transactableType == other.transactableType &&
-            this.transactableId == other.transactableId &&
-            this.amount == other.amount &&
-            this.description == other.description &&
-            this.counterpartyId == other.counterpartyId &&
-            this.expectedPaymentId == other.expectedPaymentId &&
-            this.transactionId == other.transactionId &&
-            this.reconcilable == other.reconcilable &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    discardedAt,
-                    type,
-                    transactableType,
-                    transactableId,
-                    amount,
-                    description,
-                    counterpartyId,
-                    expectedPaymentId,
-                    transactionId,
-                    reconcilable,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "TransactionLineItem{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, type=$type, transactableType=$transactableType, transactableId=$transactableId, amount=$amount, description=$description, counterpartyId=$counterpartyId, expectedPaymentId=$expectedPaymentId, transactionId=$transactionId, reconcilable=$reconcilable, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -636,4 +582,58 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is TransactionLineItem &&
+            this.id == other.id &&
+            this.object_ == other.object_ &&
+            this.liveMode == other.liveMode &&
+            this.createdAt == other.createdAt &&
+            this.updatedAt == other.updatedAt &&
+            this.discardedAt == other.discardedAt &&
+            this.type == other.type &&
+            this.transactableType == other.transactableType &&
+            this.transactableId == other.transactableId &&
+            this.amount == other.amount &&
+            this.description == other.description &&
+            this.counterpartyId == other.counterpartyId &&
+            this.expectedPaymentId == other.expectedPaymentId &&
+            this.transactionId == other.transactionId &&
+            this.reconcilable == other.reconcilable &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    id,
+                    object_,
+                    liveMode,
+                    createdAt,
+                    updatedAt,
+                    discardedAt,
+                    type,
+                    transactableType,
+                    transactableId,
+                    amount,
+                    description,
+                    counterpartyId,
+                    expectedPaymentId,
+                    transactionId,
+                    reconcilable,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "TransactionLineItem{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, type=$type, transactableType=$transactableType, transactableId=$transactableId, amount=$amount, description=$description, counterpartyId=$counterpartyId, expectedPaymentId=$expectedPaymentId, transactionId=$transactionId, reconcilable=$reconcilable, additionalProperties=$additionalProperties}"
 }

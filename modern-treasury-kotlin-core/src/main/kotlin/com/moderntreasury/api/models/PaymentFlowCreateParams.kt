@@ -72,8 +72,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /**
          * Required. Value in specified currency's smallest unit. e.g. $10 would be represented
          * as 1000. Can be any integer up to 36 digits.
@@ -111,40 +109,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is PaymentFlowCreateBody &&
-                this.amount == other.amount &&
-                this.counterpartyId == other.counterpartyId &&
-                this.currency == other.currency &&
-                this.direction == other.direction &&
-                this.originatingAccountId == other.originatingAccountId &&
-                this.dueDate == other.dueDate &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        amount,
-                        counterpartyId,
-                        currency,
-                        direction,
-                        originatingAccountId,
-                        dueDate,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "PaymentFlowCreateBody{amount=$amount, counterpartyId=$counterpartyId, currency=$currency, direction=$direction, originatingAccountId=$originatingAccountId, dueDate=$dueDate, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -238,6 +202,42 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PaymentFlowCreateBody &&
+                this.amount == other.amount &&
+                this.counterpartyId == other.counterpartyId &&
+                this.currency == other.currency &&
+                this.direction == other.direction &&
+                this.originatingAccountId == other.originatingAccountId &&
+                this.dueDate == other.dueDate &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        amount,
+                        counterpartyId,
+                        currency,
+                        direction,
+                        originatingAccountId,
+                        dueDate,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "PaymentFlowCreateBody{amount=$amount, counterpartyId=$counterpartyId, currency=$currency, direction=$direction, originatingAccountId=$originatingAccountId, dueDate=$dueDate, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams

@@ -358,8 +358,6 @@ constructor(
         private val additionalProperties: Map<String, List<String>>,
     ) {
 
-        private var hashCode: Int = 0
-
         fun gt(): Long? = gt
 
         fun lt(): Long? = lt
@@ -385,40 +383,6 @@ constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is AvailableBalanceAmount &&
-                this.gt == other.gt &&
-                this.lt == other.lt &&
-                this.gte == other.gte &&
-                this.lte == other.lte &&
-                this.eq == other.eq &&
-                this.notEq == other.notEq &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        gt,
-                        lt,
-                        gte,
-                        lte,
-                        eq,
-                        notEq,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "AvailableBalanceAmount{gt=$gt, lt=$lt, gte=$gte, lte=$lte, eq=$eq, notEq=$notEq, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -482,6 +446,42 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is AvailableBalanceAmount &&
+                this.gt == other.gt &&
+                this.lt == other.lt &&
+                this.gte == other.gte &&
+                this.lte == other.lte &&
+                this.eq == other.eq &&
+                this.notEq == other.notEq &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        gt,
+                        lt,
+                        gte,
+                        lte,
+                        eq,
+                        notEq,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "AvailableBalanceAmount{gt=$gt, lt=$lt, gte=$gte, lte=$lte, eq=$eq, notEq=$notEq, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -500,8 +500,6 @@ constructor(
         private val effectiveAtUpperBound: OffsetDateTime?,
         private val additionalProperties: Map<String, List<String>>,
     ) {
-
-        private var hashCode: Int = 0
 
         fun asOfDate(): LocalDate? = asOfDate
 
@@ -526,36 +524,6 @@ constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Balances &&
-                this.asOfDate == other.asOfDate &&
-                this.effectiveAt == other.effectiveAt &&
-                this.effectiveAtLowerBound == other.effectiveAtLowerBound &&
-                this.effectiveAtUpperBound == other.effectiveAtUpperBound &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        asOfDate,
-                        effectiveAt,
-                        effectiveAtLowerBound,
-                        effectiveAtUpperBound,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Balances{asOfDate=$asOfDate, effectiveAt=$effectiveAt, effectiveAtLowerBound=$effectiveAtLowerBound, effectiveAtUpperBound=$effectiveAtUpperBound, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -613,6 +581,38 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Balances &&
+                this.asOfDate == other.asOfDate &&
+                this.effectiveAt == other.effectiveAt &&
+                this.effectiveAtLowerBound == other.effectiveAtLowerBound &&
+                this.effectiveAtUpperBound == other.effectiveAtUpperBound &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        asOfDate,
+                        effectiveAt,
+                        effectiveAtLowerBound,
+                        effectiveAtUpperBound,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Balances{asOfDate=$asOfDate, effectiveAt=$effectiveAt, effectiveAtLowerBound=$effectiveAtLowerBound, effectiveAtUpperBound=$effectiveAtUpperBound, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -627,8 +627,6 @@ constructor(
         private val additionalProperties: Map<String, List<String>>,
     ) {
 
-        private var hashCode: Int = 0
-
         fun _additionalProperties(): Map<String, List<String>> = additionalProperties
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
@@ -636,23 +634,6 @@ constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is CreatedAt && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "CreatedAt{additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -683,6 +664,25 @@ constructor(
 
             fun build(): CreatedAt = CreatedAt(additionalProperties.toUnmodifiable())
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CreatedAt && this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "CreatedAt{additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -696,8 +696,6 @@ constructor(
         private val additionalProperties: Map<String, List<String>>,
     ) {
 
-        private var hashCode: Int = 0
-
         fun _additionalProperties(): Map<String, List<String>> = additionalProperties
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
@@ -705,23 +703,6 @@ constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Metadata && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -752,6 +733,25 @@ constructor(
 
             fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -770,8 +770,6 @@ constructor(
         private val notEq: Long?,
         private val additionalProperties: Map<String, List<String>>,
     ) {
-
-        private var hashCode: Int = 0
 
         fun gt(): Long? = gt
 
@@ -798,40 +796,6 @@ constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is PendingBalanceAmount &&
-                this.gt == other.gt &&
-                this.lt == other.lt &&
-                this.gte == other.gte &&
-                this.lte == other.lte &&
-                this.eq == other.eq &&
-                this.notEq == other.notEq &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        gt,
-                        lt,
-                        gte,
-                        lte,
-                        eq,
-                        notEq,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "PendingBalanceAmount{gt=$gt, lt=$lt, gte=$gte, lte=$lte, eq=$eq, notEq=$notEq, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -895,6 +859,42 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PendingBalanceAmount &&
+                this.gt == other.gt &&
+                this.lt == other.lt &&
+                this.gte == other.gte &&
+                this.lte == other.lte &&
+                this.eq == other.eq &&
+                this.notEq == other.notEq &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        gt,
+                        lt,
+                        gte,
+                        lte,
+                        eq,
+                        notEq,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "PendingBalanceAmount{gt=$gt, lt=$lt, gte=$gte, lte=$lte, eq=$eq, notEq=$notEq, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -913,8 +913,6 @@ constructor(
         private val notEq: Long?,
         private val additionalProperties: Map<String, List<String>>,
     ) {
-
-        private var hashCode: Int = 0
 
         fun gt(): Long? = gt
 
@@ -941,40 +939,6 @@ constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is PostedBalanceAmount &&
-                this.gt == other.gt &&
-                this.lt == other.lt &&
-                this.gte == other.gte &&
-                this.lte == other.lte &&
-                this.eq == other.eq &&
-                this.notEq == other.notEq &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        gt,
-                        lt,
-                        gte,
-                        lte,
-                        eq,
-                        notEq,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "PostedBalanceAmount{gt=$gt, lt=$lt, gte=$gte, lte=$lte, eq=$eq, notEq=$notEq, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1038,6 +1002,42 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PostedBalanceAmount &&
+                this.gt == other.gt &&
+                this.lt == other.lt &&
+                this.gte == other.gte &&
+                this.lte == other.lte &&
+                this.eq == other.eq &&
+                this.notEq == other.notEq &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        gt,
+                        lt,
+                        gte,
+                        lte,
+                        eq,
+                        notEq,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "PostedBalanceAmount{gt=$gt, lt=$lt, gte=$gte, lte=$lte, eq=$eq, notEq=$notEq, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -1052,8 +1052,6 @@ constructor(
         private val additionalProperties: Map<String, List<String>>,
     ) {
 
-        private var hashCode: Int = 0
-
         fun _additionalProperties(): Map<String, List<String>> = additionalProperties
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
@@ -1061,23 +1059,6 @@ constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is UpdatedAt && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "UpdatedAt{additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1108,5 +1089,24 @@ constructor(
 
             fun build(): UpdatedAt = UpdatedAt(additionalProperties.toUnmodifiable())
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is UpdatedAt && this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "UpdatedAt{additionalProperties=$additionalProperties}"
     }
 }
