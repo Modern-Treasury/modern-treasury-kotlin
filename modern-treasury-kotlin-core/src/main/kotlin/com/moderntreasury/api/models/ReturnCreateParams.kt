@@ -72,8 +72,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The ID of the object being returned or `null`. */
         @JsonProperty("returnable_id") fun returnableId(): String? = returnableId
 
@@ -109,40 +107,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is ReturnCreateBody &&
-                this.returnableId == other.returnableId &&
-                this.returnableType == other.returnableType &&
-                this.additionalInformation == other.additionalInformation &&
-                this.code == other.code &&
-                this.dateOfDeath == other.dateOfDeath &&
-                this.reason == other.reason &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        returnableId,
-                        returnableType,
-                        additionalInformation,
-                        code,
-                        dateOfDeath,
-                        reason,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "ReturnCreateBody{returnableId=$returnableId, returnableType=$returnableType, additionalInformation=$additionalInformation, code=$code, dateOfDeath=$dateOfDeath, reason=$reason, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -232,6 +196,42 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ReturnCreateBody &&
+                this.returnableId == other.returnableId &&
+                this.returnableType == other.returnableType &&
+                this.additionalInformation == other.additionalInformation &&
+                this.code == other.code &&
+                this.dateOfDeath == other.dateOfDeath &&
+                this.reason == other.reason &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        returnableId,
+                        returnableType,
+                        additionalInformation,
+                        code,
+                        dateOfDeath,
+                        reason,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "ReturnCreateBody{returnableId=$returnableId, returnableType=$returnableType, additionalInformation=$additionalInformation, code=$code, dateOfDeath=$dateOfDeath, reason=$reason, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams

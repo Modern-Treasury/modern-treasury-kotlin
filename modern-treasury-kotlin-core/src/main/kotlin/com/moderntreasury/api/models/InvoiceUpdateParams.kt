@@ -178,8 +178,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The invoicer's contact details displayed at the top of the invoice. */
         @JsonProperty("contact_details") fun contactDetails(): List<ContactDetail>? = contactDetails
 
@@ -319,78 +317,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is InvoiceUpdateBody &&
-                this.contactDetails == other.contactDetails &&
-                this.counterpartyBillingAddress == other.counterpartyBillingAddress &&
-                this.counterpartyId == other.counterpartyId &&
-                this.counterpartyShippingAddress == other.counterpartyShippingAddress &&
-                this.currency == other.currency &&
-                this.description == other.description &&
-                this.dueDate == other.dueDate &&
-                this.fallbackPaymentMethod == other.fallbackPaymentMethod &&
-                this.ingestLedgerEntries == other.ingestLedgerEntries &&
-                this.invoiceLineItems == other.invoiceLineItems &&
-                this.invoicerAddress == other.invoicerAddress &&
-                this.ledgerAccountSettlementId == other.ledgerAccountSettlementId &&
-                this.metadata == other.metadata &&
-                this.notificationEmailAddresses == other.notificationEmailAddresses &&
-                this.notificationsEnabled == other.notificationsEnabled &&
-                this.originatingAccountId == other.originatingAccountId &&
-                this.paymentEffectiveDate == other.paymentEffectiveDate &&
-                this.paymentMethod == other.paymentMethod &&
-                this.paymentType == other.paymentType &&
-                this.receivingAccountId == other.receivingAccountId &&
-                this.recipientEmail == other.recipientEmail &&
-                this.recipientName == other.recipientName &&
-                this.remindAfterOverdueDays == other.remindAfterOverdueDays &&
-                this.status == other.status &&
-                this.virtualAccountId == other.virtualAccountId &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        contactDetails,
-                        counterpartyBillingAddress,
-                        counterpartyId,
-                        counterpartyShippingAddress,
-                        currency,
-                        description,
-                        dueDate,
-                        fallbackPaymentMethod,
-                        ingestLedgerEntries,
-                        invoiceLineItems,
-                        invoicerAddress,
-                        ledgerAccountSettlementId,
-                        metadata,
-                        notificationEmailAddresses,
-                        notificationsEnabled,
-                        originatingAccountId,
-                        paymentEffectiveDate,
-                        paymentMethod,
-                        paymentType,
-                        receivingAccountId,
-                        recipientEmail,
-                        recipientName,
-                        remindAfterOverdueDays,
-                        status,
-                        virtualAccountId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "InvoiceUpdateBody{contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, metadata=$metadata, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, status=$status, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -686,6 +612,80 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is InvoiceUpdateBody &&
+                this.contactDetails == other.contactDetails &&
+                this.counterpartyBillingAddress == other.counterpartyBillingAddress &&
+                this.counterpartyId == other.counterpartyId &&
+                this.counterpartyShippingAddress == other.counterpartyShippingAddress &&
+                this.currency == other.currency &&
+                this.description == other.description &&
+                this.dueDate == other.dueDate &&
+                this.fallbackPaymentMethod == other.fallbackPaymentMethod &&
+                this.ingestLedgerEntries == other.ingestLedgerEntries &&
+                this.invoiceLineItems == other.invoiceLineItems &&
+                this.invoicerAddress == other.invoicerAddress &&
+                this.ledgerAccountSettlementId == other.ledgerAccountSettlementId &&
+                this.metadata == other.metadata &&
+                this.notificationEmailAddresses == other.notificationEmailAddresses &&
+                this.notificationsEnabled == other.notificationsEnabled &&
+                this.originatingAccountId == other.originatingAccountId &&
+                this.paymentEffectiveDate == other.paymentEffectiveDate &&
+                this.paymentMethod == other.paymentMethod &&
+                this.paymentType == other.paymentType &&
+                this.receivingAccountId == other.receivingAccountId &&
+                this.recipientEmail == other.recipientEmail &&
+                this.recipientName == other.recipientName &&
+                this.remindAfterOverdueDays == other.remindAfterOverdueDays &&
+                this.status == other.status &&
+                this.virtualAccountId == other.virtualAccountId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        contactDetails,
+                        counterpartyBillingAddress,
+                        counterpartyId,
+                        counterpartyShippingAddress,
+                        currency,
+                        description,
+                        dueDate,
+                        fallbackPaymentMethod,
+                        ingestLedgerEntries,
+                        invoiceLineItems,
+                        invoicerAddress,
+                        ledgerAccountSettlementId,
+                        metadata,
+                        notificationEmailAddresses,
+                        notificationsEnabled,
+                        originatingAccountId,
+                        paymentEffectiveDate,
+                        paymentMethod,
+                        paymentType,
+                        receivingAccountId,
+                        recipientEmail,
+                        recipientName,
+                        remindAfterOverdueDays,
+                        status,
+                        virtualAccountId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "InvoiceUpdateBody{contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, dueDate=$dueDate, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, metadata=$metadata, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, status=$status, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -1139,8 +1139,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         @JsonProperty("id") fun id(): String? = id
 
         @JsonProperty("object") fun object_(): String? = object_
@@ -1167,44 +1165,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is ContactDetail &&
-                this.id == other.id &&
-                this.object_ == other.object_ &&
-                this.liveMode == other.liveMode &&
-                this.createdAt == other.createdAt &&
-                this.updatedAt == other.updatedAt &&
-                this.discardedAt == other.discardedAt &&
-                this.contactIdentifier == other.contactIdentifier &&
-                this.contactIdentifierType == other.contactIdentifierType &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        id,
-                        object_,
-                        liveMode,
-                        createdAt,
-                        updatedAt,
-                        discardedAt,
-                        contactIdentifier,
-                        contactIdentifierType,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "ContactDetail{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, contactIdentifier=$contactIdentifier, contactIdentifierType=$contactIdentifierType, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1362,6 +1322,46 @@ constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ContactDetail &&
+                this.id == other.id &&
+                this.object_ == other.object_ &&
+                this.liveMode == other.liveMode &&
+                this.createdAt == other.createdAt &&
+                this.updatedAt == other.updatedAt &&
+                this.discardedAt == other.discardedAt &&
+                this.contactIdentifier == other.contactIdentifier &&
+                this.contactIdentifierType == other.contactIdentifierType &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        id,
+                        object_,
+                        liveMode,
+                        createdAt,
+                        updatedAt,
+                        discardedAt,
+                        contactIdentifier,
+                        contactIdentifierType,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "ContactDetail{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, contactIdentifier=$contactIdentifier, contactIdentifierType=$contactIdentifierType, additionalProperties=$additionalProperties}"
     }
 
     /** The counterparty's billing address. */
@@ -1377,8 +1377,6 @@ constructor(
         private val country: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
-
-        private var hashCode: Int = 0
 
         @JsonProperty("line1") fun line1(): String? = line1
 
@@ -1401,40 +1399,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is CounterpartyBillingAddress &&
-                this.line1 == other.line1 &&
-                this.line2 == other.line2 &&
-                this.locality == other.locality &&
-                this.region == other.region &&
-                this.postalCode == other.postalCode &&
-                this.country == other.country &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        line1,
-                        line2,
-                        locality,
-                        region,
-                        postalCode,
-                        country,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "CounterpartyBillingAddress{line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1504,6 +1468,42 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CounterpartyBillingAddress &&
+                this.line1 == other.line1 &&
+                this.line2 == other.line2 &&
+                this.locality == other.locality &&
+                this.region == other.region &&
+                this.postalCode == other.postalCode &&
+                this.country == other.country &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        line1,
+                        line2,
+                        locality,
+                        region,
+                        postalCode,
+                        country,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "CounterpartyBillingAddress{line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
     }
 
     /** The counterparty's shipping address where physical goods should be delivered. */
@@ -1519,8 +1519,6 @@ constructor(
         private val country: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
-
-        private var hashCode: Int = 0
 
         @JsonProperty("line1") fun line1(): String? = line1
 
@@ -1543,40 +1541,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is CounterpartyShippingAddress &&
-                this.line1 == other.line1 &&
-                this.line2 == other.line2 &&
-                this.locality == other.locality &&
-                this.region == other.region &&
-                this.postalCode == other.postalCode &&
-                this.country == other.country &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        line1,
-                        line2,
-                        locality,
-                        region,
-                        postalCode,
-                        country,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "CounterpartyShippingAddress{line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1646,6 +1610,42 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CounterpartyShippingAddress &&
+                this.line1 == other.line1 &&
+                this.line2 == other.line2 &&
+                this.locality == other.locality &&
+                this.region == other.region &&
+                this.postalCode == other.postalCode &&
+                this.country == other.country &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        line1,
+                        line2,
+                        locality,
+                        region,
+                        postalCode,
+                        country,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "CounterpartyShippingAddress{line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
     }
 
     @JsonDeserialize(builder = InvoiceLineItemCreateRequest.Builder::class)
@@ -1661,8 +1661,6 @@ constructor(
         private val metadata: Metadata?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
-
-        private var hashCode: Int = 0
 
         /** The name of the line item, typically a product or SKU name. */
         @JsonProperty("name") fun name(): String? = name
@@ -1705,42 +1703,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is InvoiceLineItemCreateRequest &&
-                this.name == other.name &&
-                this.description == other.description &&
-                this.quantity == other.quantity &&
-                this.unitAmount == other.unitAmount &&
-                this.unitAmountDecimal == other.unitAmountDecimal &&
-                this.direction == other.direction &&
-                this.metadata == other.metadata &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        name,
-                        description,
-                        quantity,
-                        unitAmount,
-                        unitAmountDecimal,
-                        direction,
-                        metadata,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "InvoiceLineItemCreateRequest{name=$name, description=$description, quantity=$quantity, unitAmount=$unitAmount, unitAmountDecimal=$unitAmountDecimal, direction=$direction, metadata=$metadata, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1851,30 +1813,11 @@ constructor(
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
-            private var hashCode: Int = 0
-
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Metadata && this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = Objects.hash(additionalProperties)
-                }
-                return hashCode
-            }
-
-            override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1906,7 +1849,64 @@ constructor(
 
                 fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Metadata && this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is InvoiceLineItemCreateRequest &&
+                this.name == other.name &&
+                this.description == other.description &&
+                this.quantity == other.quantity &&
+                this.unitAmount == other.unitAmount &&
+                this.unitAmountDecimal == other.unitAmountDecimal &&
+                this.direction == other.direction &&
+                this.metadata == other.metadata &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        name,
+                        description,
+                        quantity,
+                        unitAmount,
+                        unitAmountDecimal,
+                        direction,
+                        metadata,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "InvoiceLineItemCreateRequest{name=$name, description=$description, quantity=$quantity, unitAmount=$unitAmount, unitAmountDecimal=$unitAmountDecimal, direction=$direction, metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
     /** The invoice issuer's business address. */
@@ -1922,8 +1922,6 @@ constructor(
         private val country: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
-
-        private var hashCode: Int = 0
 
         @JsonProperty("line1") fun line1(): String? = line1
 
@@ -1946,40 +1944,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is InvoicerAddress &&
-                this.line1 == other.line1 &&
-                this.line2 == other.line2 &&
-                this.locality == other.locality &&
-                this.region == other.region &&
-                this.postalCode == other.postalCode &&
-                this.country == other.country &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        line1,
-                        line2,
-                        locality,
-                        region,
-                        postalCode,
-                        country,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "InvoicerAddress{line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2049,6 +2013,42 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is InvoicerAddress &&
+                this.line1 == other.line1 &&
+                this.line2 == other.line2 &&
+                this.locality == other.locality &&
+                this.region == other.region &&
+                this.postalCode == other.postalCode &&
+                this.country == other.country &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        line1,
+                        line2,
+                        locality,
+                        region,
+                        postalCode,
+                        country,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "InvoicerAddress{line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
@@ -2059,30 +2059,11 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Metadata && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2113,6 +2094,25 @@ constructor(
 
             fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
     class PaymentMethod

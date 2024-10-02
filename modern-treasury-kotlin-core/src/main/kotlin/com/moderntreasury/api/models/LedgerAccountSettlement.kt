@@ -44,8 +44,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -214,62 +212,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is LedgerAccountSettlement &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.ledgerId == other.ledgerId &&
-            this.description == other.description &&
-            this.status == other.status &&
-            this.settledLedgerAccountId == other.settledLedgerAccountId &&
-            this.contraLedgerAccountId == other.contraLedgerAccountId &&
-            this.effectiveAtUpperBound == other.effectiveAtUpperBound &&
-            this.ledgerTransactionId == other.ledgerTransactionId &&
-            this.amount == other.amount &&
-            this.settlementEntryDirection == other.settlementEntryDirection &&
-            this.currency == other.currency &&
-            this.currencyExponent == other.currencyExponent &&
-            this.metadata == other.metadata &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    ledgerId,
-                    description,
-                    status,
-                    settledLedgerAccountId,
-                    contraLedgerAccountId,
-                    effectiveAtUpperBound,
-                    ledgerTransactionId,
-                    amount,
-                    settlementEntryDirection,
-                    currency,
-                    currencyExponent,
-                    metadata,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "LedgerAccountSettlement{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, ledgerId=$ledgerId, description=$description, status=$status, settledLedgerAccountId=$settledLedgerAccountId, contraLedgerAccountId=$contraLedgerAccountId, effectiveAtUpperBound=$effectiveAtUpperBound, ledgerTransactionId=$ledgerTransactionId, amount=$amount, settlementEntryDirection=$settlementEntryDirection, currency=$currency, currencyExponent=$currencyExponent, metadata=$metadata, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -545,8 +487,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -558,23 +498,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Metadata && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -605,6 +528,25 @@ private constructor(
 
             fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
     class Status
@@ -681,4 +623,62 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is LedgerAccountSettlement &&
+            this.id == other.id &&
+            this.object_ == other.object_ &&
+            this.liveMode == other.liveMode &&
+            this.createdAt == other.createdAt &&
+            this.updatedAt == other.updatedAt &&
+            this.ledgerId == other.ledgerId &&
+            this.description == other.description &&
+            this.status == other.status &&
+            this.settledLedgerAccountId == other.settledLedgerAccountId &&
+            this.contraLedgerAccountId == other.contraLedgerAccountId &&
+            this.effectiveAtUpperBound == other.effectiveAtUpperBound &&
+            this.ledgerTransactionId == other.ledgerTransactionId &&
+            this.amount == other.amount &&
+            this.settlementEntryDirection == other.settlementEntryDirection &&
+            this.currency == other.currency &&
+            this.currencyExponent == other.currencyExponent &&
+            this.metadata == other.metadata &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    id,
+                    object_,
+                    liveMode,
+                    createdAt,
+                    updatedAt,
+                    ledgerId,
+                    description,
+                    status,
+                    settledLedgerAccountId,
+                    contraLedgerAccountId,
+                    effectiveAtUpperBound,
+                    ledgerTransactionId,
+                    amount,
+                    settlementEntryDirection,
+                    currency,
+                    currencyExponent,
+                    metadata,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "LedgerAccountSettlement{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, ledgerId=$ledgerId, description=$description, status=$status, settledLedgerAccountId=$settledLedgerAccountId, contraLedgerAccountId=$contraLedgerAccountId, effectiveAtUpperBound=$effectiveAtUpperBound, ledgerTransactionId=$ledgerTransactionId, amount=$amount, settlementEntryDirection=$settlementEntryDirection, currency=$currency, currencyExponent=$currencyExponent, metadata=$metadata, additionalProperties=$additionalProperties}"
 }
