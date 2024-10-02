@@ -71,8 +71,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /**
          * One of `credit` or `debit`. Use `credit` when you want to pay a counterparty. Use `debit`
          * when you need to charge a counterparty. This field helps us send a more tailored email to
@@ -108,36 +106,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is CounterpartyCollectAccountBody &&
-                this.direction == other.direction &&
-                this.customRedirect == other.customRedirect &&
-                this.fields == other.fields &&
-                this.sendEmail == other.sendEmail &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        direction,
-                        customRedirect,
-                        fields,
-                        sendEmail,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "CounterpartyCollectAccountBody{direction=$direction, customRedirect=$customRedirect, fields=$fields, sendEmail=$sendEmail, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -220,6 +188,38 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CounterpartyCollectAccountBody &&
+                this.direction == other.direction &&
+                this.customRedirect == other.customRedirect &&
+                this.fields == other.fields &&
+                this.sendEmail == other.sendEmail &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        direction,
+                        customRedirect,
+                        fields,
+                        sendEmail,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "CounterpartyCollectAccountBody{direction=$direction, customRedirect=$customRedirect, fields=$fields, sendEmail=$sendEmail, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams

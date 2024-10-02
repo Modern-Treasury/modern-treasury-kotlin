@@ -39,8 +39,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -146,52 +144,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is BulkRequest &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.actionType == other.actionType &&
-            this.resourceType == other.resourceType &&
-            this.status == other.status &&
-            this.totalResourceCount == other.totalResourceCount &&
-            this.successResultCount == other.successResultCount &&
-            this.failedResultCount == other.failedResultCount &&
-            this.metadata == other.metadata &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    actionType,
-                    resourceType,
-                    status,
-                    totalResourceCount,
-                    successResultCount,
-                    failedResultCount,
-                    metadata,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "BulkRequest{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, actionType=$actionType, resourceType=$resourceType, status=$status, totalResourceCount=$totalResourceCount, successResultCount=$successResultCount, failedResultCount=$failedResultCount, metadata=$metadata, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -448,8 +400,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -461,23 +411,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Metadata && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -508,6 +441,25 @@ private constructor(
 
             fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
     class ResourceType
@@ -641,4 +593,52 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is BulkRequest &&
+            this.id == other.id &&
+            this.object_ == other.object_ &&
+            this.liveMode == other.liveMode &&
+            this.createdAt == other.createdAt &&
+            this.updatedAt == other.updatedAt &&
+            this.actionType == other.actionType &&
+            this.resourceType == other.resourceType &&
+            this.status == other.status &&
+            this.totalResourceCount == other.totalResourceCount &&
+            this.successResultCount == other.successResultCount &&
+            this.failedResultCount == other.failedResultCount &&
+            this.metadata == other.metadata &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    id,
+                    object_,
+                    liveMode,
+                    createdAt,
+                    updatedAt,
+                    actionType,
+                    resourceType,
+                    status,
+                    totalResourceCount,
+                    successResultCount,
+                    failedResultCount,
+                    metadata,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "BulkRequest{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, actionType=$actionType, resourceType=$resourceType, status=$status, totalResourceCount=$totalResourceCount, successResultCount=$successResultCount, failedResultCount=$failedResultCount, metadata=$metadata, additionalProperties=$additionalProperties}"
 }

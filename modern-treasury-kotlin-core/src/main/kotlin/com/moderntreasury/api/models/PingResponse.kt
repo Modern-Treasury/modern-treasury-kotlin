@@ -24,8 +24,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     fun ping(): String = ping.getRequired("ping")
 
     @JsonProperty("ping") @ExcludeMissing fun _ping() = ping
@@ -42,25 +40,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is PingResponse &&
-            this.ping == other.ping &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = Objects.hash(ping, additionalProperties)
-        }
-        return hashCode
-    }
-
-    override fun toString() = "PingResponse{ping=$ping, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -99,4 +78,25 @@ private constructor(
 
         fun build(): PingResponse = PingResponse(ping, additionalProperties.toUnmodifiable())
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is PingResponse &&
+            this.ping == other.ping &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode = Objects.hash(ping, additionalProperties)
+        }
+        return hashCode
+    }
+
+    override fun toString() = "PingResponse{ping=$ping, additionalProperties=$additionalProperties}"
 }

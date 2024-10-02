@@ -39,8 +39,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -136,52 +134,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is Document &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.discardedAt == other.discardedAt &&
-            this.documentType == other.documentType &&
-            this.source == other.source &&
-            this.documentableId == other.documentableId &&
-            this.documentableType == other.documentableType &&
-            this.documentDetails == other.documentDetails &&
-            this.file == other.file &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    discardedAt,
-                    documentType,
-                    source,
-                    documentableId,
-                    documentableType,
-                    documentDetails,
-                    file,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "Document{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, documentType=$documentType, source=$source, documentableId=$documentableId, documentableType=$documentableType, documentDetails=$documentDetails, file=$file, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -375,8 +327,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         fun id(): String = id.getRequired("id")
 
         fun object_(): String = object_.getRequired("object")
@@ -441,44 +391,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is DocumentDetail &&
-                this.id == other.id &&
-                this.object_ == other.object_ &&
-                this.liveMode == other.liveMode &&
-                this.createdAt == other.createdAt &&
-                this.updatedAt == other.updatedAt &&
-                this.discardedAt == other.discardedAt &&
-                this.documentIdentifierType == other.documentIdentifierType &&
-                this.documentIdentifier == other.documentIdentifier &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        id,
-                        object_,
-                        liveMode,
-                        createdAt,
-                        updatedAt,
-                        discardedAt,
-                        documentIdentifierType,
-                        documentIdentifier,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "DocumentDetail{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, documentIdentifierType=$documentIdentifierType, documentIdentifier=$documentIdentifier, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -604,6 +516,46 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DocumentDetail &&
+                this.id == other.id &&
+                this.object_ == other.object_ &&
+                this.liveMode == other.liveMode &&
+                this.createdAt == other.createdAt &&
+                this.updatedAt == other.updatedAt &&
+                this.discardedAt == other.discardedAt &&
+                this.documentIdentifierType == other.documentIdentifierType &&
+                this.documentIdentifier == other.documentIdentifier &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        id,
+                        object_,
+                        liveMode,
+                        createdAt,
+                        updatedAt,
+                        discardedAt,
+                        documentIdentifierType,
+                        documentIdentifier,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "DocumentDetail{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, documentIdentifierType=$documentIdentifierType, documentIdentifier=$documentIdentifier, additionalProperties=$additionalProperties}"
     }
 
     class DocumentableType
@@ -735,8 +687,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /** The size of the document in bytes. */
         fun size(): Long? = size.getNullable("size")
 
@@ -769,34 +719,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is File &&
-                this.size == other.size &&
-                this.filename == other.filename &&
-                this.contentType == other.contentType &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        size,
-                        filename,
-                        contentType,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "File{size=$size, filename=$filename, contentType=$contentType, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -865,5 +787,83 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is File &&
+                this.size == other.size &&
+                this.filename == other.filename &&
+                this.contentType == other.contentType &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        size,
+                        filename,
+                        contentType,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "File{size=$size, filename=$filename, contentType=$contentType, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is Document &&
+            this.id == other.id &&
+            this.object_ == other.object_ &&
+            this.liveMode == other.liveMode &&
+            this.createdAt == other.createdAt &&
+            this.updatedAt == other.updatedAt &&
+            this.discardedAt == other.discardedAt &&
+            this.documentType == other.documentType &&
+            this.source == other.source &&
+            this.documentableId == other.documentableId &&
+            this.documentableType == other.documentableType &&
+            this.documentDetails == other.documentDetails &&
+            this.file == other.file &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    id,
+                    object_,
+                    liveMode,
+                    createdAt,
+                    updatedAt,
+                    discardedAt,
+                    documentType,
+                    source,
+                    documentableId,
+                    documentableType,
+                    documentDetails,
+                    file,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "Document{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, documentType=$documentType, source=$source, documentableId=$documentableId, documentableType=$documentableType, documentDetails=$documentDetails, file=$file, additionalProperties=$additionalProperties}"
 }

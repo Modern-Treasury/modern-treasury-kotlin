@@ -162,8 +162,6 @@ constructor(
         private val additionalProperties: Map<String, List<String>>,
     ) {
 
-        private var hashCode: Int = 0
-
         fun asOfDate(): LocalDate? = asOfDate
 
         fun effectiveAt(): OffsetDateTime? = effectiveAt
@@ -177,32 +175,6 @@ constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Balances &&
-                this.asOfDate == other.asOfDate &&
-                this.effectiveAt == other.effectiveAt &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        asOfDate,
-                        effectiveAt,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Balances{asOfDate=$asOfDate, effectiveAt=$effectiveAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -246,5 +218,33 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Balances &&
+                this.asOfDate == other.asOfDate &&
+                this.effectiveAt == other.effectiveAt &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        asOfDate,
+                        effectiveAt,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Balances{asOfDate=$asOfDate, effectiveAt=$effectiveAt, additionalProperties=$additionalProperties}"
     }
 }

@@ -47,8 +47,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     fun id(): String? = id.getNullable("id")
 
     fun object_(): String? = object_.getNullable("object")
@@ -269,66 +267,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is PaymentFlow &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.clientToken == other.clientToken &&
-            this.status == other.status &&
-            this.amount == other.amount &&
-            this.currency == other.currency &&
-            this.direction == other.direction &&
-            this.counterpartyId == other.counterpartyId &&
-            this.receivingAccountId == other.receivingAccountId &&
-            this.originatingAccountId == other.originatingAccountId &&
-            this.paymentOrderId == other.paymentOrderId &&
-            this.effectiveDateSelectionEnabled == other.effectiveDateSelectionEnabled &&
-            this.dueDate == other.dueDate &&
-            this.selectedEffectiveDate == other.selectedEffectiveDate &&
-            this.externalAccountCollection == other.externalAccountCollection &&
-            this.existingExternalAccountsFilter == other.existingExternalAccountsFilter &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    clientToken,
-                    status,
-                    amount,
-                    currency,
-                    direction,
-                    counterpartyId,
-                    receivingAccountId,
-                    originatingAccountId,
-                    paymentOrderId,
-                    effectiveDateSelectionEnabled,
-                    dueDate,
-                    selectedEffectiveDate,
-                    externalAccountCollection,
-                    existingExternalAccountsFilter,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "PaymentFlow{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, clientToken=$clientToken, status=$status, amount=$amount, currency=$currency, direction=$direction, counterpartyId=$counterpartyId, receivingAccountId=$receivingAccountId, originatingAccountId=$originatingAccountId, paymentOrderId=$paymentOrderId, effectiveDateSelectionEnabled=$effectiveDateSelectionEnabled, dueDate=$dueDate, selectedEffectiveDate=$selectedEffectiveDate, externalAccountCollection=$externalAccountCollection, existingExternalAccountsFilter=$existingExternalAccountsFilter, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -899,4 +837,66 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is PaymentFlow &&
+            this.id == other.id &&
+            this.object_ == other.object_ &&
+            this.liveMode == other.liveMode &&
+            this.createdAt == other.createdAt &&
+            this.updatedAt == other.updatedAt &&
+            this.clientToken == other.clientToken &&
+            this.status == other.status &&
+            this.amount == other.amount &&
+            this.currency == other.currency &&
+            this.direction == other.direction &&
+            this.counterpartyId == other.counterpartyId &&
+            this.receivingAccountId == other.receivingAccountId &&
+            this.originatingAccountId == other.originatingAccountId &&
+            this.paymentOrderId == other.paymentOrderId &&
+            this.effectiveDateSelectionEnabled == other.effectiveDateSelectionEnabled &&
+            this.dueDate == other.dueDate &&
+            this.selectedEffectiveDate == other.selectedEffectiveDate &&
+            this.externalAccountCollection == other.externalAccountCollection &&
+            this.existingExternalAccountsFilter == other.existingExternalAccountsFilter &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    id,
+                    object_,
+                    liveMode,
+                    createdAt,
+                    updatedAt,
+                    clientToken,
+                    status,
+                    amount,
+                    currency,
+                    direction,
+                    counterpartyId,
+                    receivingAccountId,
+                    originatingAccountId,
+                    paymentOrderId,
+                    effectiveDateSelectionEnabled,
+                    dueDate,
+                    selectedEffectiveDate,
+                    externalAccountCollection,
+                    existingExternalAccountsFilter,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "PaymentFlow{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, clientToken=$clientToken, status=$status, amount=$amount, currency=$currency, direction=$direction, counterpartyId=$counterpartyId, receivingAccountId=$receivingAccountId, originatingAccountId=$originatingAccountId, paymentOrderId=$paymentOrderId, effectiveDateSelectionEnabled=$effectiveDateSelectionEnabled, dueDate=$dueDate, selectedEffectiveDate=$selectedEffectiveDate, externalAccountCollection=$externalAccountCollection, existingExternalAccountsFilter=$existingExternalAccountsFilter, additionalProperties=$additionalProperties}"
 }
