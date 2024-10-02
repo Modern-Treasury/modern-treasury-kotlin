@@ -53,8 +53,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -273,78 +271,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is IncomingPaymentDetail &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.internalAccountId == other.internalAccountId &&
-            this.virtualAccountId == other.virtualAccountId &&
-            this.virtualAccount == other.virtualAccount &&
-            this.transactionLineItemId == other.transactionLineItemId &&
-            this.transactionId == other.transactionId &&
-            this.ledgerTransactionId == other.ledgerTransactionId &&
-            this.type == other.type &&
-            this.data == other.data &&
-            this.amount == other.amount &&
-            this.currency == other.currency &&
-            this.direction == other.direction &&
-            this.status == other.status &&
-            this.metadata == other.metadata &&
-            this.asOfDate == other.asOfDate &&
-            this.vendorId == other.vendorId &&
-            this.originatingRoutingNumber == other.originatingRoutingNumber &&
-            this.originatingRoutingNumberType == other.originatingRoutingNumberType &&
-            this.originatingAccountNumber == other.originatingAccountNumber &&
-            this.originatingAccountNumberSafe == other.originatingAccountNumberSafe &&
-            this.originatingAccountNumberType == other.originatingAccountNumberType &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    internalAccountId,
-                    virtualAccountId,
-                    virtualAccount,
-                    transactionLineItemId,
-                    transactionId,
-                    ledgerTransactionId,
-                    type,
-                    data,
-                    amount,
-                    currency,
-                    direction,
-                    status,
-                    metadata,
-                    asOfDate,
-                    vendorId,
-                    originatingRoutingNumber,
-                    originatingRoutingNumberType,
-                    originatingAccountNumber,
-                    originatingAccountNumberSafe,
-                    originatingAccountNumberType,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "IncomingPaymentDetail{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, internalAccountId=$internalAccountId, virtualAccountId=$virtualAccountId, virtualAccount=$virtualAccount, transactionLineItemId=$transactionLineItemId, transactionId=$transactionId, ledgerTransactionId=$ledgerTransactionId, type=$type, data=$data, amount=$amount, currency=$currency, direction=$direction, status=$status, metadata=$metadata, asOfDate=$asOfDate, vendorId=$vendorId, originatingRoutingNumber=$originatingRoutingNumber, originatingRoutingNumberType=$originatingRoutingNumberType, originatingAccountNumber=$originatingAccountNumber, originatingAccountNumberSafe=$originatingAccountNumberSafe, originatingAccountNumberType=$originatingAccountNumberType, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -722,8 +648,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -735,23 +659,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Data && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Data{additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -782,6 +689,25 @@ private constructor(
 
             fun build(): Data = Data(additionalProperties.toUnmodifiable())
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Data && this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Data{additionalProperties=$additionalProperties}"
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
@@ -794,8 +720,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -807,23 +731,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Metadata && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -854,6 +761,25 @@ private constructor(
 
             fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
     class OriginatingAccountNumberType
@@ -1301,4 +1227,78 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is IncomingPaymentDetail &&
+            this.id == other.id &&
+            this.object_ == other.object_ &&
+            this.liveMode == other.liveMode &&
+            this.createdAt == other.createdAt &&
+            this.updatedAt == other.updatedAt &&
+            this.internalAccountId == other.internalAccountId &&
+            this.virtualAccountId == other.virtualAccountId &&
+            this.virtualAccount == other.virtualAccount &&
+            this.transactionLineItemId == other.transactionLineItemId &&
+            this.transactionId == other.transactionId &&
+            this.ledgerTransactionId == other.ledgerTransactionId &&
+            this.type == other.type &&
+            this.data == other.data &&
+            this.amount == other.amount &&
+            this.currency == other.currency &&
+            this.direction == other.direction &&
+            this.status == other.status &&
+            this.metadata == other.metadata &&
+            this.asOfDate == other.asOfDate &&
+            this.vendorId == other.vendorId &&
+            this.originatingRoutingNumber == other.originatingRoutingNumber &&
+            this.originatingRoutingNumberType == other.originatingRoutingNumberType &&
+            this.originatingAccountNumber == other.originatingAccountNumber &&
+            this.originatingAccountNumberSafe == other.originatingAccountNumberSafe &&
+            this.originatingAccountNumberType == other.originatingAccountNumberType &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    id,
+                    object_,
+                    liveMode,
+                    createdAt,
+                    updatedAt,
+                    internalAccountId,
+                    virtualAccountId,
+                    virtualAccount,
+                    transactionLineItemId,
+                    transactionId,
+                    ledgerTransactionId,
+                    type,
+                    data,
+                    amount,
+                    currency,
+                    direction,
+                    status,
+                    metadata,
+                    asOfDate,
+                    vendorId,
+                    originatingRoutingNumber,
+                    originatingRoutingNumberType,
+                    originatingAccountNumber,
+                    originatingAccountNumberSafe,
+                    originatingAccountNumberType,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "IncomingPaymentDetail{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, internalAccountId=$internalAccountId, virtualAccountId=$virtualAccountId, virtualAccount=$virtualAccount, transactionLineItemId=$transactionLineItemId, transactionId=$transactionId, ledgerTransactionId=$ledgerTransactionId, type=$type, data=$data, amount=$amount, currency=$currency, direction=$direction, status=$status, metadata=$metadata, asOfDate=$asOfDate, vendorId=$vendorId, originatingRoutingNumber=$originatingRoutingNumber, originatingRoutingNumberType=$originatingRoutingNumberType, originatingAccountNumber=$originatingAccountNumber, originatingAccountNumberSafe=$originatingAccountNumberSafe, originatingAccountNumberType=$originatingAccountNumberType, additionalProperties=$additionalProperties}"
 }

@@ -72,8 +72,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The ID of the parent legal entity. This must be a business or joint legal entity. */
         @JsonProperty("parent_legal_entity_id")
         fun parentLegalEntityId(): String? = parentLegalEntityId
@@ -100,40 +98,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is LegalEntityAssociationCreateBody &&
-                this.parentLegalEntityId == other.parentLegalEntityId &&
-                this.relationshipTypes == other.relationshipTypes &&
-                this.childLegalEntity == other.childLegalEntity &&
-                this.childLegalEntityId == other.childLegalEntityId &&
-                this.ownershipPercentage == other.ownershipPercentage &&
-                this.title == other.title &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        parentLegalEntityId,
-                        relationshipTypes,
-                        childLegalEntity,
-                        childLegalEntityId,
-                        ownershipPercentage,
-                        title,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "LegalEntityAssociationCreateBody{parentLegalEntityId=$parentLegalEntityId, relationshipTypes=$relationshipTypes, childLegalEntity=$childLegalEntity, childLegalEntityId=$childLegalEntityId, ownershipPercentage=$ownershipPercentage, title=$title, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -223,6 +187,42 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is LegalEntityAssociationCreateBody &&
+                this.parentLegalEntityId == other.parentLegalEntityId &&
+                this.relationshipTypes == other.relationshipTypes &&
+                this.childLegalEntity == other.childLegalEntity &&
+                this.childLegalEntityId == other.childLegalEntityId &&
+                this.ownershipPercentage == other.ownershipPercentage &&
+                this.title == other.title &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        parentLegalEntityId,
+                        relationshipTypes,
+                        childLegalEntity,
+                        childLegalEntityId,
+                        ownershipPercentage,
+                        title,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "LegalEntityAssociationCreateBody{parentLegalEntityId=$parentLegalEntityId, relationshipTypes=$relationshipTypes, childLegalEntity=$childLegalEntity, childLegalEntityId=$childLegalEntityId, ownershipPercentage=$ownershipPercentage, title=$title, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -485,8 +485,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The type of legal entity. */
         @JsonProperty("legal_entity_type") fun legalEntityType(): LegalEntityType? = legalEntityType
 
@@ -540,58 +538,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is ChildLegalEntityCreate &&
-                this.legalEntityType == other.legalEntityType &&
-                this.riskRating == other.riskRating &&
-                this.firstName == other.firstName &&
-                this.lastName == other.lastName &&
-                this.dateOfBirth == other.dateOfBirth &&
-                this.dateFormed == other.dateFormed &&
-                this.businessName == other.businessName &&
-                this.doingBusinessAsNames == other.doingBusinessAsNames &&
-                this.legalStructure == other.legalStructure &&
-                this.phoneNumbers == other.phoneNumbers &&
-                this.email == other.email &&
-                this.website == other.website &&
-                this.metadata == other.metadata &&
-                this.addresses == other.addresses &&
-                this.identifications == other.identifications &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        legalEntityType,
-                        riskRating,
-                        firstName,
-                        lastName,
-                        dateOfBirth,
-                        dateFormed,
-                        businessName,
-                        doingBusinessAsNames,
-                        legalStructure,
-                        phoneNumbers,
-                        email,
-                        website,
-                        metadata,
-                        addresses,
-                        identifications,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "ChildLegalEntityCreate{legalEntityType=$legalEntityType, riskRating=$riskRating, firstName=$firstName, lastName=$lastName, dateOfBirth=$dateOfBirth, dateFormed=$dateFormed, businessName=$businessName, doingBusinessAsNames=$doingBusinessAsNames, legalStructure=$legalStructure, phoneNumbers=$phoneNumbers, email=$email, website=$website, metadata=$metadata, addresses=$addresses, identifications=$identifications, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -756,8 +702,6 @@ constructor(
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
-            private var hashCode: Int = 0
-
             /** The types of this address. */
             @JsonProperty("address_types") fun addressTypes(): List<AddressType>? = addressTypes
 
@@ -782,42 +726,6 @@ constructor(
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is LegalEntityAddressCreateRequest &&
-                    this.addressTypes == other.addressTypes &&
-                    this.line1 == other.line1 &&
-                    this.line2 == other.line2 &&
-                    this.locality == other.locality &&
-                    this.region == other.region &&
-                    this.postalCode == other.postalCode &&
-                    this.country == other.country &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            addressTypes,
-                            line1,
-                            line2,
-                            locality,
-                            region,
-                            postalCode,
-                            country,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "LegalEntityAddressCreateRequest{addressTypes=$addressTypes, line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -976,6 +884,44 @@ constructor(
 
                 fun asString(): String = _value().asStringOrThrow()
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is LegalEntityAddressCreateRequest &&
+                    this.addressTypes == other.addressTypes &&
+                    this.line1 == other.line1 &&
+                    this.line2 == other.line2 &&
+                    this.locality == other.locality &&
+                    this.region == other.region &&
+                    this.postalCode == other.postalCode &&
+                    this.country == other.country &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            addressTypes,
+                            line1,
+                            line2,
+                            locality,
+                            region,
+                            postalCode,
+                            country,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "LegalEntityAddressCreateRequest{addressTypes=$addressTypes, line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
         }
 
         @JsonDeserialize(builder = IdentificationCreateRequest.Builder::class)
@@ -987,8 +933,6 @@ constructor(
             private val issuingCountry: String?,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
-
-            private var hashCode: Int = 0
 
             /** The ID number of identification document. */
             @JsonProperty("id_number") fun idNumber(): String? = idNumber
@@ -1004,34 +948,6 @@ constructor(
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is IdentificationCreateRequest &&
-                    this.idNumber == other.idNumber &&
-                    this.idType == other.idType &&
-                    this.issuingCountry == other.issuingCountry &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            idNumber,
-                            idType,
-                            issuingCountry,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "IdentificationCreateRequest{idNumber=$idNumber, idType=$idType, issuingCountry=$issuingCountry, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1262,6 +1178,36 @@ constructor(
 
                 fun asString(): String = _value().asStringOrThrow()
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is IdentificationCreateRequest &&
+                    this.idNumber == other.idNumber &&
+                    this.idType == other.idType &&
+                    this.issuingCountry == other.issuingCountry &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            idNumber,
+                            idType,
+                            issuingCountry,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "IdentificationCreateRequest{idNumber=$idNumber, idType=$idType, issuingCountry=$issuingCountry, additionalProperties=$additionalProperties}"
         }
 
         class LegalEntityType
@@ -1414,30 +1360,11 @@ constructor(
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
-            private var hashCode: Int = 0
-
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Metadata && this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = Objects.hash(additionalProperties)
-                }
-                return hashCode
-            }
-
-            override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1469,6 +1396,25 @@ constructor(
 
                 fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Metadata && this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
         }
 
         /** A list of phone numbers in E.164 format. */
@@ -1480,8 +1426,6 @@ constructor(
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
-            private var hashCode: Int = 0
-
             @JsonProperty("phone_number") fun phoneNumber(): String? = phoneNumber
 
             @JsonAnyGetter
@@ -1489,26 +1433,6 @@ constructor(
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is PhoneNumber &&
-                    this.phoneNumber == other.phoneNumber &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = Objects.hash(phoneNumber, additionalProperties)
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "PhoneNumber{phoneNumber=$phoneNumber, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1546,6 +1470,28 @@ constructor(
                 fun build(): PhoneNumber =
                     PhoneNumber(phoneNumber, additionalProperties.toUnmodifiable())
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is PhoneNumber &&
+                    this.phoneNumber == other.phoneNumber &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(phoneNumber, additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "PhoneNumber{phoneNumber=$phoneNumber, additionalProperties=$additionalProperties}"
         }
 
         class RiskRating
@@ -1610,5 +1556,59 @@ constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ChildLegalEntityCreate &&
+                this.legalEntityType == other.legalEntityType &&
+                this.riskRating == other.riskRating &&
+                this.firstName == other.firstName &&
+                this.lastName == other.lastName &&
+                this.dateOfBirth == other.dateOfBirth &&
+                this.dateFormed == other.dateFormed &&
+                this.businessName == other.businessName &&
+                this.doingBusinessAsNames == other.doingBusinessAsNames &&
+                this.legalStructure == other.legalStructure &&
+                this.phoneNumbers == other.phoneNumbers &&
+                this.email == other.email &&
+                this.website == other.website &&
+                this.metadata == other.metadata &&
+                this.addresses == other.addresses &&
+                this.identifications == other.identifications &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        legalEntityType,
+                        riskRating,
+                        firstName,
+                        lastName,
+                        dateOfBirth,
+                        dateFormed,
+                        businessName,
+                        doingBusinessAsNames,
+                        legalStructure,
+                        phoneNumbers,
+                        email,
+                        website,
+                        metadata,
+                        addresses,
+                        identifications,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "ChildLegalEntityCreate{legalEntityType=$legalEntityType, riskRating=$riskRating, firstName=$firstName, lastName=$lastName, dateOfBirth=$dateOfBirth, dateFormed=$dateFormed, businessName=$businessName, doingBusinessAsNames=$doingBusinessAsNames, legalStructure=$legalStructure, phoneNumbers=$phoneNumbers, email=$email, website=$website, metadata=$metadata, addresses=$addresses, identifications=$identifications, additionalProperties=$additionalProperties}"
     }
 }

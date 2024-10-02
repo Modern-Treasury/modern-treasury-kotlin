@@ -267,8 +267,6 @@ constructor(
         private val additionalProperties: Map<String, List<String>>,
     ) {
 
-        private var hashCode: Int = 0
-
         fun effectiveAt(): OffsetDateTime? = effectiveAt
 
         fun _additionalProperties(): Map<String, List<String>> = additionalProperties
@@ -279,26 +277,6 @@ constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Balances &&
-                this.effectiveAt == other.effectiveAt &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(effectiveAt, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Balances{effectiveAt=$effectiveAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -333,6 +311,28 @@ constructor(
 
             fun build(): Balances = Balances(effectiveAt, additionalProperties.toUnmodifiable())
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Balances &&
+                this.effectiveAt == other.effectiveAt &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(effectiveAt, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Balances{effectiveAt=$effectiveAt, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -346,8 +346,6 @@ constructor(
         private val additionalProperties: Map<String, List<String>>,
     ) {
 
-        private var hashCode: Int = 0
-
         fun _additionalProperties(): Map<String, List<String>> = additionalProperties
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
@@ -355,23 +353,6 @@ constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Metadata && this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -402,5 +383,24 @@ constructor(
 
             fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 }

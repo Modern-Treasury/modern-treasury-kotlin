@@ -26,8 +26,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The id of the existing counterparty. */
     fun id(): String = id.getRequired("id")
 
@@ -76,34 +74,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is CounterpartyCollectAccountResponse &&
-            this.id == other.id &&
-            this.isResend == other.isResend &&
-            this.formLink == other.formLink &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    isResend,
-                    formLink,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "CounterpartyCollectAccountResponse{id=$id, isResend=$isResend, formLink=$formLink, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -185,4 +155,34 @@ private constructor(
                 additionalProperties.toUnmodifiable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is CounterpartyCollectAccountResponse &&
+            this.id == other.id &&
+            this.isResend == other.isResend &&
+            this.formLink == other.formLink &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    id,
+                    isResend,
+                    formLink,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "CounterpartyCollectAccountResponse{id=$id, isResend=$isResend, formLink=$formLink, additionalProperties=$additionalProperties}"
 }
