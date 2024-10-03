@@ -519,7 +519,7 @@ private constructor(
                 return true
             }
 
-            return other is LedgerableType && this.value == other.value
+            return /* spotless:off */ other is LedgerableType && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -644,14 +644,14 @@ private constructor(
                 return true
             }
 
-            return other is Metadata && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -672,7 +672,7 @@ private constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -727,54 +727,14 @@ private constructor(
             return true
         }
 
-        return other is LedgerTransaction &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.description == other.description &&
-            this.status == other.status &&
-            this.metadata == other.metadata &&
-            this.effectiveAt == other.effectiveAt &&
-            this.effectiveDate == other.effectiveDate &&
-            this.ledgerEntries == other.ledgerEntries &&
-            this.postedAt == other.postedAt &&
-            this.ledgerId == other.ledgerId &&
-            this.ledgerableType == other.ledgerableType &&
-            this.ledgerableId == other.ledgerableId &&
-            this.externalId == other.externalId &&
-            this.reversesLedgerTransactionId == other.reversesLedgerTransactionId &&
-            this.reversedByLedgerTransactionId == other.reversedByLedgerTransactionId &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is LedgerTransaction && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.description == other.description && this.status == other.status && this.metadata == other.metadata && this.effectiveAt == other.effectiveAt && this.effectiveDate == other.effectiveDate && this.ledgerEntries == other.ledgerEntries && this.postedAt == other.postedAt && this.ledgerId == other.ledgerId && this.ledgerableType == other.ledgerableType && this.ledgerableId == other.ledgerableId && this.externalId == other.externalId && this.reversesLedgerTransactionId == other.reversesLedgerTransactionId && this.reversedByLedgerTransactionId == other.reversedByLedgerTransactionId && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    description,
-                    status,
-                    metadata,
-                    effectiveAt,
-                    effectiveDate,
-                    ledgerEntries,
-                    postedAt,
-                    ledgerId,
-                    ledgerableType,
-                    ledgerableId,
-                    externalId,
-                    reversesLedgerTransactionId,
-                    reversedByLedgerTransactionId,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, description, status, metadata, effectiveAt, effectiveDate, ledgerEntries, postedAt, ledgerId, ledgerableType, ledgerableId, externalId, reversesLedgerTransactionId, reversedByLedgerTransactionId, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

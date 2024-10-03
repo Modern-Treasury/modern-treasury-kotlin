@@ -48,22 +48,11 @@ constructor(
             return true
         }
 
-        return other is LedgerAccountCategoryRemoveNestedCategoryParams &&
-            this.id == other.id &&
-            this.subCategoryId == other.subCategoryId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is LedgerAccountCategoryRemoveNestedCategoryParams && this.id == other.id && this.subCategoryId == other.subCategoryId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            id,
-            subCategoryId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(id, subCategoryId, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

@@ -310,14 +310,14 @@ private constructor(
                 return true
             }
 
-            return other is Data && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Data && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -330,38 +330,14 @@ private constructor(
             return true
         }
 
-        return other is Event &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.resource == other.resource &&
-            this.eventName == other.eventName &&
-            this.eventTime == other.eventTime &&
-            this.data == other.data &&
-            this.entityId == other.entityId &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is Event && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.resource == other.resource && this.eventName == other.eventName && this.eventTime == other.eventTime && this.data == other.data && this.entityId == other.entityId && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    resource,
-                    eventName,
-                    eventTime,
-                    data,
-                    entityId,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, resource, eventName, eventTime, data, entityId, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

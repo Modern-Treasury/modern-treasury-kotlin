@@ -168,26 +168,14 @@ constructor(
                 return true
             }
 
-            return other is BalanceReportCreateBody &&
-                this.asOfDate == other.asOfDate &&
-                this.asOfTime == other.asOfTime &&
-                this.balanceReportType == other.balanceReportType &&
-                this.balances == other.balances &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is BalanceReportCreateBody && this.asOfDate == other.asOfDate && this.asOfTime == other.asOfTime && this.balanceReportType == other.balanceReportType && this.balances == other.balances && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        asOfDate,
-                        asOfTime,
-                        balanceReportType,
-                        balances,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(asOfDate, asOfTime, balanceReportType, balances, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -207,28 +195,11 @@ constructor(
             return true
         }
 
-        return other is BalanceReportCreateParams &&
-            this.internalAccountId == other.internalAccountId &&
-            this.asOfDate == other.asOfDate &&
-            this.asOfTime == other.asOfTime &&
-            this.balanceReportType == other.balanceReportType &&
-            this.balances == other.balances &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is BalanceReportCreateParams && this.internalAccountId == other.internalAccountId && this.asOfDate == other.asOfDate && this.asOfTime == other.asOfTime && this.balanceReportType == other.balanceReportType && this.balances == other.balances && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            internalAccountId,
-            asOfDate,
-            asOfTime,
-            balanceReportType,
-            balances,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(internalAccountId, asOfDate, asOfTime, balanceReportType, balances, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -376,7 +347,7 @@ constructor(
                 return true
             }
 
-            return other is BalanceReportType && this.value == other.value
+            return /* spotless:off */ other is BalanceReportType && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -554,7 +525,7 @@ constructor(
                     return true
                 }
 
-                return other is BalanceType && this.value == other.value
+                return /* spotless:off */ other is BalanceType && this.value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -640,26 +611,14 @@ constructor(
                 return true
             }
 
-            return other is BalanceCreateRequest &&
-                this.amount == other.amount &&
-                this.balanceType == other.balanceType &&
-                this.vendorCode == other.vendorCode &&
-                this.vendorCodeType == other.vendorCodeType &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is BalanceCreateRequest && this.amount == other.amount && this.balanceType == other.balanceType && this.vendorCode == other.vendorCode && this.vendorCodeType == other.vendorCodeType && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        amount,
-                        balanceType,
-                        vendorCode,
-                        vendorCodeType,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(amount, balanceType, vendorCode, vendorCodeType, additionalProperties) /* spotless:on */
             }
             return hashCode
         }

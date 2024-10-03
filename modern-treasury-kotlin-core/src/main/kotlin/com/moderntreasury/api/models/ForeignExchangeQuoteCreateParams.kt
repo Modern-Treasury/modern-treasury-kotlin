@@ -191,30 +191,14 @@ constructor(
                 return true
             }
 
-            return other is ForeignExchangeQuoteCreateBody &&
-                this.internalAccountId == other.internalAccountId &&
-                this.targetCurrency == other.targetCurrency &&
-                this.baseAmount == other.baseAmount &&
-                this.baseCurrency == other.baseCurrency &&
-                this.effectiveAt == other.effectiveAt &&
-                this.targetAmount == other.targetAmount &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is ForeignExchangeQuoteCreateBody && this.internalAccountId == other.internalAccountId && this.targetCurrency == other.targetCurrency && this.baseAmount == other.baseAmount && this.baseCurrency == other.baseCurrency && this.effectiveAt == other.effectiveAt && this.targetAmount == other.targetAmount && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        internalAccountId,
-                        targetCurrency,
-                        baseAmount,
-                        baseCurrency,
-                        effectiveAt,
-                        targetAmount,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(internalAccountId, targetCurrency, baseAmount, baseCurrency, effectiveAt, targetAmount, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -234,30 +218,11 @@ constructor(
             return true
         }
 
-        return other is ForeignExchangeQuoteCreateParams &&
-            this.internalAccountId == other.internalAccountId &&
-            this.targetCurrency == other.targetCurrency &&
-            this.baseAmount == other.baseAmount &&
-            this.baseCurrency == other.baseCurrency &&
-            this.effectiveAt == other.effectiveAt &&
-            this.targetAmount == other.targetAmount &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is ForeignExchangeQuoteCreateParams && this.internalAccountId == other.internalAccountId && this.targetCurrency == other.targetCurrency && this.baseAmount == other.baseAmount && this.baseCurrency == other.baseCurrency && this.effectiveAt == other.effectiveAt && this.targetAmount == other.targetAmount && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            internalAccountId,
-            targetCurrency,
-            baseAmount,
-            baseCurrency,
-            effectiveAt,
-            targetAmount,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(internalAccountId, targetCurrency, baseAmount, baseCurrency, effectiveAt, targetAmount, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

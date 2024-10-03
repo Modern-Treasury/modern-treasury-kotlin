@@ -218,24 +218,14 @@ private constructor(
                 return true
             }
 
-            return other is LedgerEventHandlerConditions &&
-                this.field == other.field &&
-                this.operator == other.operator &&
-                this.value == other.value &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is LedgerEventHandlerConditions && this.field == other.field && this.operator == other.operator && this.value == other.value && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        field,
-                        operator,
-                        value,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(field, operator, value, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -249,22 +239,14 @@ private constructor(
             return true
         }
 
-        return other is LedgerEventHandlerVariable &&
-            this.type == other.type &&
-            this.query == other.query &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is LedgerEventHandlerVariable && this.type == other.type && this.query == other.query && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    type,
-                    query,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(type, query, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

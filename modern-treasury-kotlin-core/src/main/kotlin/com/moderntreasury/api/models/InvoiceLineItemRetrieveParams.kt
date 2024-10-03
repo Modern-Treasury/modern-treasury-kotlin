@@ -40,20 +40,11 @@ constructor(
             return true
         }
 
-        return other is InvoiceLineItemRetrieveParams &&
-            this.invoiceId == other.invoiceId &&
-            this.id == other.id &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is InvoiceLineItemRetrieveParams && this.invoiceId == other.invoiceId && this.id == other.id && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            invoiceId,
-            id,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(invoiceId, id, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

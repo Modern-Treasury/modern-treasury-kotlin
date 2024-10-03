@@ -240,36 +240,14 @@ private constructor(
             return true
         }
 
-        return other is Connection &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.discardedAt == other.discardedAt &&
-            this.vendorId == other.vendorId &&
-            this.vendorCustomerId == other.vendorCustomerId &&
-            this.vendorName == other.vendorName &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is Connection && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.discardedAt == other.discardedAt && this.vendorId == other.vendorId && this.vendorCustomerId == other.vendorCustomerId && this.vendorName == other.vendorName && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    discardedAt,
-                    vendorId,
-                    vendorCustomerId,
-                    vendorName,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, vendorId, vendorCustomerId, vendorName, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

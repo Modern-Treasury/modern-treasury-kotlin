@@ -35,18 +35,11 @@ private constructor(
             return true
         }
 
-        return other is LedgerListPage &&
-            this.ledgersService == other.ledgersService &&
-            this.params == other.params &&
-            this.response == other.response
+        return /* spotless:off */ other is LedgerListPage && this.ledgersService == other.ledgersService && this.params == other.params && this.response == other.response /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            ledgersService,
-            params,
-            response,
-        )
+        return /* spotless:off */ Objects.hash(ledgersService, params, response) /* spotless:on */
     }
 
     override fun toString() =
@@ -118,13 +111,11 @@ private constructor(
                 return true
             }
 
-            return other is Response &&
-                this.items == other.items &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Response && this.items == other.items && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         override fun hashCode(): Int {
-            return Objects.hash(items, additionalProperties)
+            return /* spotless:off */ Objects.hash(items, additionalProperties) /* spotless:on */
         }
 
         override fun toString() =

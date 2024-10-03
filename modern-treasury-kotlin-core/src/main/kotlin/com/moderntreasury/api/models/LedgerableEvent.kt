@@ -312,14 +312,14 @@ private constructor(
                 return true
             }
 
-            return other is Metadata && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -332,38 +332,14 @@ private constructor(
             return true
         }
 
-        return other is LedgerableEvent &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.name == other.name &&
-            this.description == other.description &&
-            this.customData == other.customData &&
-            this.ledgerEventHandlerId == other.ledgerEventHandlerId &&
-            this.metadata == other.metadata &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is LedgerableEvent && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.name == other.name && this.description == other.description && this.customData == other.customData && this.ledgerEventHandlerId == other.ledgerEventHandlerId && this.metadata == other.metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    name,
-                    description,
-                    customData,
-                    ledgerEventHandlerId,
-                    metadata,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, name, description, customData, ledgerEventHandlerId, metadata, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

@@ -55,26 +55,11 @@ constructor(
             return true
         }
 
-        return other is ConnectionLegalEntityListParams &&
-            this.afterCursor == other.afterCursor &&
-            this.connectionId == other.connectionId &&
-            this.legalEntityId == other.legalEntityId &&
-            this.perPage == other.perPage &&
-            this.status == other.status &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is ConnectionLegalEntityListParams && this.afterCursor == other.afterCursor && this.connectionId == other.connectionId && this.legalEntityId == other.legalEntityId && this.perPage == other.perPage && this.status == other.status && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            afterCursor,
-            connectionId,
-            legalEntityId,
-            perPage,
-            status,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(afterCursor, connectionId, legalEntityId, perPage, status, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =
@@ -184,7 +169,7 @@ constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

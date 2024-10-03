@@ -234,36 +234,14 @@ constructor(
                 return true
             }
 
-            return other is InternalAccountCreateBody &&
-                this.connectionId == other.connectionId &&
-                this.currency == other.currency &&
-                this.name == other.name &&
-                this.partyName == other.partyName &&
-                this.counterpartyId == other.counterpartyId &&
-                this.legalEntityId == other.legalEntityId &&
-                this.parentAccountId == other.parentAccountId &&
-                this.partyAddress == other.partyAddress &&
-                this.vendorAttributes == other.vendorAttributes &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is InternalAccountCreateBody && this.connectionId == other.connectionId && this.currency == other.currency && this.name == other.name && this.partyName == other.partyName && this.counterpartyId == other.counterpartyId && this.legalEntityId == other.legalEntityId && this.parentAccountId == other.parentAccountId && this.partyAddress == other.partyAddress && this.vendorAttributes == other.vendorAttributes && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        connectionId,
-                        currency,
-                        name,
-                        partyName,
-                        counterpartyId,
-                        legalEntityId,
-                        parentAccountId,
-                        partyAddress,
-                        vendorAttributes,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(connectionId, currency, name, partyName, counterpartyId, legalEntityId, parentAccountId, partyAddress, vendorAttributes, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -283,36 +261,11 @@ constructor(
             return true
         }
 
-        return other is InternalAccountCreateParams &&
-            this.connectionId == other.connectionId &&
-            this.currency == other.currency &&
-            this.name == other.name &&
-            this.partyName == other.partyName &&
-            this.counterpartyId == other.counterpartyId &&
-            this.legalEntityId == other.legalEntityId &&
-            this.parentAccountId == other.parentAccountId &&
-            this.partyAddress == other.partyAddress &&
-            this.vendorAttributes == other.vendorAttributes &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is InternalAccountCreateParams && this.connectionId == other.connectionId && this.currency == other.currency && this.name == other.name && this.partyName == other.partyName && this.counterpartyId == other.counterpartyId && this.legalEntityId == other.legalEntityId && this.parentAccountId == other.parentAccountId && this.partyAddress == other.partyAddress && this.vendorAttributes == other.vendorAttributes && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            connectionId,
-            currency,
-            name,
-            partyName,
-            counterpartyId,
-            legalEntityId,
-            parentAccountId,
-            partyAddress,
-            vendorAttributes,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(connectionId, currency, name, partyName, counterpartyId, legalEntityId, parentAccountId, partyAddress, vendorAttributes, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -474,7 +427,7 @@ constructor(
                 return true
             }
 
-            return other is Currency && this.value == other.value
+            return /* spotless:off */ other is Currency && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -628,30 +581,14 @@ constructor(
                 return true
             }
 
-            return other is PartyAddress &&
-                this.line1 == other.line1 &&
-                this.line2 == other.line2 &&
-                this.locality == other.locality &&
-                this.region == other.region &&
-                this.postalCode == other.postalCode &&
-                this.country == other.country &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is PartyAddress && this.line1 == other.line1 && this.line2 == other.line2 && this.locality == other.locality && this.region == other.region && this.postalCode == other.postalCode && this.country == other.country && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        line1,
-                        line2,
-                        locality,
-                        region,
-                        postalCode,
-                        country,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(line1, line2, locality, region, postalCode, country, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -712,15 +649,14 @@ constructor(
                 return true
             }
 
-            return other is VendorAttributes &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is VendorAttributes && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }

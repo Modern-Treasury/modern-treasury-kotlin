@@ -72,34 +72,11 @@ constructor(
             return true
         }
 
-        return other is ForeignExchangeQuoteListParams &&
-            this.afterCursor == other.afterCursor &&
-            this.baseCurrency == other.baseCurrency &&
-            this.effectiveAtEnd == other.effectiveAtEnd &&
-            this.effectiveAtStart == other.effectiveAtStart &&
-            this.expiresAt == other.expiresAt &&
-            this.internalAccountId == other.internalAccountId &&
-            this.metadata == other.metadata &&
-            this.perPage == other.perPage &&
-            this.targetCurrency == other.targetCurrency &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is ForeignExchangeQuoteListParams && this.afterCursor == other.afterCursor && this.baseCurrency == other.baseCurrency && this.effectiveAtEnd == other.effectiveAtEnd && this.effectiveAtStart == other.effectiveAtStart && this.expiresAt == other.expiresAt && this.internalAccountId == other.internalAccountId && this.metadata == other.metadata && this.perPage == other.perPage && this.targetCurrency == other.targetCurrency && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            afterCursor,
-            baseCurrency,
-            effectiveAtEnd,
-            effectiveAtStart,
-            expiresAt,
-            internalAccountId,
-            metadata,
-            perPage,
-            targetCurrency,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(afterCursor, baseCurrency, effectiveAtEnd, effectiveAtStart, expiresAt, internalAccountId, metadata, perPage, targetCurrency, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =
@@ -285,14 +262,14 @@ constructor(
                 return true
             }
 
-            return other is Metadata && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }

@@ -26,12 +26,11 @@ constructor(
             return true
         }
 
-        return other is ModernTreasuryError &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is ModernTreasuryError && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(additionalProperties)
+        return /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
     }
 
     override fun toString() = "ModernTreasuryError{additionalProperties=$additionalProperties}"

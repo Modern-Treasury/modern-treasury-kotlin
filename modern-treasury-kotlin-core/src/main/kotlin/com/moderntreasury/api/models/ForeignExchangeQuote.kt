@@ -574,32 +574,14 @@ private constructor(
                 return true
             }
 
-            return other is ForeignExchangeRate &&
-                this.baseAmount == other.baseAmount &&
-                this.baseCurrency == other.baseCurrency &&
-                this.exponent == other.exponent &&
-                this.rateString == other.rateString &&
-                this.targetAmount == other.targetAmount &&
-                this.targetCurrency == other.targetCurrency &&
-                this.value == other.value &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is ForeignExchangeRate && this.baseAmount == other.baseAmount && this.baseCurrency == other.baseCurrency && this.exponent == other.exponent && this.rateString == other.rateString && this.targetAmount == other.targetAmount && this.targetCurrency == other.targetCurrency && this.value == other.value && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        baseAmount,
-                        baseCurrency,
-                        exponent,
-                        rateString,
-                        targetAmount,
-                        targetCurrency,
-                        value,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(baseAmount, baseCurrency, exponent, rateString, targetAmount, targetCurrency, value, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -665,14 +647,14 @@ private constructor(
                 return true
             }
 
-            return other is Metadata && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -685,42 +667,14 @@ private constructor(
             return true
         }
 
-        return other is ForeignExchangeQuote &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.effectiveAt == other.effectiveAt &&
-            this.expiresAt == other.expiresAt &&
-            this.foreignExchangeIndicator == other.foreignExchangeIndicator &&
-            this.foreignExchangeRate == other.foreignExchangeRate &&
-            this.internalAccountId == other.internalAccountId &&
-            this.metadata == other.metadata &&
-            this.vendorId == other.vendorId &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is ForeignExchangeQuote && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.effectiveAt == other.effectiveAt && this.expiresAt == other.expiresAt && this.foreignExchangeIndicator == other.foreignExchangeIndicator && this.foreignExchangeRate == other.foreignExchangeRate && this.internalAccountId == other.internalAccountId && this.metadata == other.metadata && this.vendorId == other.vendorId && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    effectiveAt,
-                    expiresAt,
-                    foreignExchangeIndicator,
-                    foreignExchangeRate,
-                    internalAccountId,
-                    metadata,
-                    vendorId,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, effectiveAt, expiresAt, foreignExchangeIndicator, foreignExchangeRate, internalAccountId, metadata, vendorId, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

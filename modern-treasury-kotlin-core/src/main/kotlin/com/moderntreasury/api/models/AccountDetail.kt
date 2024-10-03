@@ -273,7 +273,7 @@ private constructor(
                 return true
             }
 
-            return other is AccountNumberType && this.value == other.value
+            return /* spotless:off */ other is AccountNumberType && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -371,36 +371,14 @@ private constructor(
             return true
         }
 
-        return other is AccountDetail &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.discardedAt == other.discardedAt &&
-            this.accountNumber == other.accountNumber &&
-            this.accountNumberType == other.accountNumberType &&
-            this.accountNumberSafe == other.accountNumberSafe &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is AccountDetail && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.discardedAt == other.discardedAt && this.accountNumber == other.accountNumber && this.accountNumberType == other.accountNumberType && this.accountNumberSafe == other.accountNumberSafe && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    discardedAt,
-                    accountNumber,
-                    accountNumberType,
-                    accountNumberSafe,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, accountNumber, accountNumberType, accountNumberSafe, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

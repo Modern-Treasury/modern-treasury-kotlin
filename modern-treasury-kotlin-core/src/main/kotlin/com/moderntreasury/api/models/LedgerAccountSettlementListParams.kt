@@ -75,36 +75,11 @@ constructor(
             return true
         }
 
-        return other is LedgerAccountSettlementListParams &&
-            this.id == other.id &&
-            this.afterCursor == other.afterCursor &&
-            this.createdAt == other.createdAt &&
-            this.ledgerId == other.ledgerId &&
-            this.ledgerTransactionId == other.ledgerTransactionId &&
-            this.metadata == other.metadata &&
-            this.perPage == other.perPage &&
-            this.settledLedgerAccountId == other.settledLedgerAccountId &&
-            this.settlementEntryDirection == other.settlementEntryDirection &&
-            this.updatedAt == other.updatedAt &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is LedgerAccountSettlementListParams && this.id == other.id && this.afterCursor == other.afterCursor && this.createdAt == other.createdAt && this.ledgerId == other.ledgerId && this.ledgerTransactionId == other.ledgerTransactionId && this.metadata == other.metadata && this.perPage == other.perPage && this.settledLedgerAccountId == other.settledLedgerAccountId && this.settlementEntryDirection == other.settlementEntryDirection && this.updatedAt == other.updatedAt && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            id,
-            afterCursor,
-            createdAt,
-            ledgerId,
-            ledgerTransactionId,
-            metadata,
-            perPage,
-            settledLedgerAccountId,
-            settlementEntryDirection,
-            updatedAt,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(id, afterCursor, createdAt, ledgerId, ledgerTransactionId, metadata, perPage, settledLedgerAccountId, settlementEntryDirection, updatedAt, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =
@@ -316,14 +291,14 @@ constructor(
                 return true
             }
 
-            return other is CreatedAt && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is CreatedAt && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -385,14 +360,14 @@ constructor(
                 return true
             }
 
-            return other is Metadata && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -455,14 +430,14 @@ constructor(
                 return true
             }
 
-            return other is UpdatedAt && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is UpdatedAt && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }

@@ -48,22 +48,11 @@ constructor(
             return true
         }
 
-        return other is InvoiceAddPaymentOrderParams &&
-            this.id == other.id &&
-            this.paymentOrderId == other.paymentOrderId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is InvoiceAddPaymentOrderParams && this.id == other.id && this.paymentOrderId == other.paymentOrderId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            id,
-            paymentOrderId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(id, paymentOrderId, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

@@ -64,32 +64,11 @@ constructor(
             return true
         }
 
-        return other is PaymentFlowListParams &&
-            this.afterCursor == other.afterCursor &&
-            this.clientToken == other.clientToken &&
-            this.counterpartyId == other.counterpartyId &&
-            this.originatingAccountId == other.originatingAccountId &&
-            this.paymentOrderId == other.paymentOrderId &&
-            this.perPage == other.perPage &&
-            this.receivingAccountId == other.receivingAccountId &&
-            this.status == other.status &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is PaymentFlowListParams && this.afterCursor == other.afterCursor && this.clientToken == other.clientToken && this.counterpartyId == other.counterpartyId && this.originatingAccountId == other.originatingAccountId && this.paymentOrderId == other.paymentOrderId && this.perPage == other.perPage && this.receivingAccountId == other.receivingAccountId && this.status == other.status && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            afterCursor,
-            clientToken,
-            counterpartyId,
-            originatingAccountId,
-            paymentOrderId,
-            perPage,
-            receivingAccountId,
-            status,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(afterCursor, clientToken, counterpartyId, originatingAccountId, paymentOrderId, perPage, receivingAccountId, status, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =
