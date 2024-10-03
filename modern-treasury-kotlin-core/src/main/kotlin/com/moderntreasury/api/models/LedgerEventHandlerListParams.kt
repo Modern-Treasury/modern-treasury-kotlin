@@ -51,26 +51,11 @@ constructor(
             return true
         }
 
-        return other is LedgerEventHandlerListParams &&
-            this.afterCursor == other.afterCursor &&
-            this.createdAt == other.createdAt &&
-            this.metadata == other.metadata &&
-            this.name == other.name &&
-            this.perPage == other.perPage &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is LedgerEventHandlerListParams && this.afterCursor == other.afterCursor && this.createdAt == other.createdAt && this.metadata == other.metadata && this.name == other.name && this.perPage == other.perPage && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            afterCursor,
-            createdAt,
-            metadata,
-            name,
-            perPage,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(afterCursor, createdAt, metadata, name, perPage, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =
@@ -230,14 +215,14 @@ constructor(
                 return true
             }
 
-            return other is CreatedAt && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is CreatedAt && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -299,14 +284,14 @@ constructor(
                 return true
             }
 
-            return other is Metadata && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }

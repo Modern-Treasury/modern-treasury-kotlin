@@ -54,28 +54,11 @@ constructor(
             return true
         }
 
-        return other is AccountCollectionFlowListParams &&
-            this.afterCursor == other.afterCursor &&
-            this.clientToken == other.clientToken &&
-            this.counterpartyId == other.counterpartyId &&
-            this.externalAccountId == other.externalAccountId &&
-            this.perPage == other.perPage &&
-            this.status == other.status &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is AccountCollectionFlowListParams && this.afterCursor == other.afterCursor && this.clientToken == other.clientToken && this.counterpartyId == other.counterpartyId && this.externalAccountId == other.externalAccountId && this.perPage == other.perPage && this.status == other.status && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            afterCursor,
-            clientToken,
-            counterpartyId,
-            externalAccountId,
-            perPage,
-            status,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(afterCursor, clientToken, counterpartyId, externalAccountId, perPage, status, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

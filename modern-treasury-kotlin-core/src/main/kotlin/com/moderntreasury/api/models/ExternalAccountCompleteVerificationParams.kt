@@ -103,16 +103,14 @@ constructor(
                 return true
             }
 
-            return other is ExternalAccountCompleteVerificationBody &&
-                this.amounts == other.amounts &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is ExternalAccountCompleteVerificationBody && this.amounts == other.amounts && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(amounts, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(amounts, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -132,22 +130,11 @@ constructor(
             return true
         }
 
-        return other is ExternalAccountCompleteVerificationParams &&
-            this.id == other.id &&
-            this.amounts == other.amounts &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is ExternalAccountCompleteVerificationParams && this.id == other.id && this.amounts == other.amounts && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            id,
-            amounts,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(id, amounts, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

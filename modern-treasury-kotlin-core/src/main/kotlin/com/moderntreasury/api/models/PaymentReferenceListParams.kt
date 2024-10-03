@@ -55,26 +55,11 @@ constructor(
             return true
         }
 
-        return other is PaymentReferenceListParams &&
-            this.afterCursor == other.afterCursor &&
-            this.perPage == other.perPage &&
-            this.referenceNumber == other.referenceNumber &&
-            this.referenceableId == other.referenceableId &&
-            this.referenceableType == other.referenceableType &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is PaymentReferenceListParams && this.afterCursor == other.afterCursor && this.perPage == other.perPage && this.referenceNumber == other.referenceNumber && this.referenceableId == other.referenceableId && this.referenceableType == other.referenceableType && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            afterCursor,
-            perPage,
-            referenceNumber,
-            referenceableId,
-            referenceableType,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(afterCursor, perPage, referenceNumber, referenceableId, referenceableType, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =
@@ -198,7 +183,7 @@ constructor(
                 return true
             }
 
-            return other is ReferenceableType && this.value == other.value
+            return /* spotless:off */ other is ReferenceableType && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

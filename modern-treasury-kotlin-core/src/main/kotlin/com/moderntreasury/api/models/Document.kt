@@ -522,34 +522,14 @@ private constructor(
                 return true
             }
 
-            return other is DocumentDetail &&
-                this.id == other.id &&
-                this.object_ == other.object_ &&
-                this.liveMode == other.liveMode &&
-                this.createdAt == other.createdAt &&
-                this.updatedAt == other.updatedAt &&
-                this.discardedAt == other.discardedAt &&
-                this.documentIdentifierType == other.documentIdentifierType &&
-                this.documentIdentifier == other.documentIdentifier &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is DocumentDetail && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.discardedAt == other.discardedAt && this.documentIdentifierType == other.documentIdentifierType && this.documentIdentifier == other.documentIdentifier && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        id,
-                        object_,
-                        liveMode,
-                        createdAt,
-                        updatedAt,
-                        discardedAt,
-                        documentIdentifierType,
-                        documentIdentifier,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, documentIdentifierType, documentIdentifier, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -571,7 +551,7 @@ private constructor(
                 return true
             }
 
-            return other is DocumentableType && this.value == other.value
+            return /* spotless:off */ other is DocumentableType && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -793,24 +773,14 @@ private constructor(
                 return true
             }
 
-            return other is File &&
-                this.size == other.size &&
-                this.filename == other.filename &&
-                this.contentType == other.contentType &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is File && this.size == other.size && this.filename == other.filename && this.contentType == other.contentType && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        size,
-                        filename,
-                        contentType,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(size, filename, contentType, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -824,42 +794,14 @@ private constructor(
             return true
         }
 
-        return other is Document &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.discardedAt == other.discardedAt &&
-            this.documentType == other.documentType &&
-            this.source == other.source &&
-            this.documentableId == other.documentableId &&
-            this.documentableType == other.documentableType &&
-            this.documentDetails == other.documentDetails &&
-            this.file == other.file &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is Document && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.discardedAt == other.discardedAt && this.documentType == other.documentType && this.source == other.source && this.documentableId == other.documentableId && this.documentableType == other.documentableType && this.documentDetails == other.documentDetails && this.file == other.file && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    discardedAt,
-                    documentType,
-                    source,
-                    documentableId,
-                    documentableType,
-                    documentDetails,
-                    file,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, documentType, source, documentableId, documentableType, documentDetails, file, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

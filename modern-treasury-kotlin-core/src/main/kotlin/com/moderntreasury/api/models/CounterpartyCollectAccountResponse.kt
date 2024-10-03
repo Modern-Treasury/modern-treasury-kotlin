@@ -161,24 +161,14 @@ private constructor(
             return true
         }
 
-        return other is CounterpartyCollectAccountResponse &&
-            this.id == other.id &&
-            this.isResend == other.isResend &&
-            this.formLink == other.formLink &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is CounterpartyCollectAccountResponse && this.id == other.id && this.isResend == other.isResend && this.formLink == other.formLink && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    isResend,
-                    formLink,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(id, isResend, formLink, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

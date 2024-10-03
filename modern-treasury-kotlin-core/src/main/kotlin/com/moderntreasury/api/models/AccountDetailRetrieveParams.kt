@@ -44,22 +44,11 @@ constructor(
             return true
         }
 
-        return other is AccountDetailRetrieveParams &&
-            this.accountsType == other.accountsType &&
-            this.accountId == other.accountId &&
-            this.id == other.id &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is AccountDetailRetrieveParams && this.accountsType == other.accountsType && this.accountId == other.accountId && this.id == other.id && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountsType,
-            accountId,
-            id,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(accountsType, accountId, id, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

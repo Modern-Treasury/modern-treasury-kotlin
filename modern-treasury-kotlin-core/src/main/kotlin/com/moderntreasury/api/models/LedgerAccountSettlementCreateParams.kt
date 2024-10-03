@@ -271,34 +271,14 @@ constructor(
                 return true
             }
 
-            return other is LedgerAccountSettlementCreateBody &&
-                this.contraLedgerAccountId == other.contraLedgerAccountId &&
-                this.settledLedgerAccountId == other.settledLedgerAccountId &&
-                this.allowEitherDirection == other.allowEitherDirection &&
-                this.description == other.description &&
-                this.effectiveAtUpperBound == other.effectiveAtUpperBound &&
-                this.metadata == other.metadata &&
-                this.skipSettlementLedgerTransaction == other.skipSettlementLedgerTransaction &&
-                this.status == other.status &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is LedgerAccountSettlementCreateBody && this.contraLedgerAccountId == other.contraLedgerAccountId && this.settledLedgerAccountId == other.settledLedgerAccountId && this.allowEitherDirection == other.allowEitherDirection && this.description == other.description && this.effectiveAtUpperBound == other.effectiveAtUpperBound && this.metadata == other.metadata && this.skipSettlementLedgerTransaction == other.skipSettlementLedgerTransaction && this.status == other.status && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        contraLedgerAccountId,
-                        settledLedgerAccountId,
-                        allowEitherDirection,
-                        description,
-                        effectiveAtUpperBound,
-                        metadata,
-                        skipSettlementLedgerTransaction,
-                        status,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(contraLedgerAccountId, settledLedgerAccountId, allowEitherDirection, description, effectiveAtUpperBound, metadata, skipSettlementLedgerTransaction, status, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -318,34 +298,11 @@ constructor(
             return true
         }
 
-        return other is LedgerAccountSettlementCreateParams &&
-            this.contraLedgerAccountId == other.contraLedgerAccountId &&
-            this.settledLedgerAccountId == other.settledLedgerAccountId &&
-            this.allowEitherDirection == other.allowEitherDirection &&
-            this.description == other.description &&
-            this.effectiveAtUpperBound == other.effectiveAtUpperBound &&
-            this.metadata == other.metadata &&
-            this.skipSettlementLedgerTransaction == other.skipSettlementLedgerTransaction &&
-            this.status == other.status &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is LedgerAccountSettlementCreateParams && this.contraLedgerAccountId == other.contraLedgerAccountId && this.settledLedgerAccountId == other.settledLedgerAccountId && this.allowEitherDirection == other.allowEitherDirection && this.description == other.description && this.effectiveAtUpperBound == other.effectiveAtUpperBound && this.metadata == other.metadata && this.skipSettlementLedgerTransaction == other.skipSettlementLedgerTransaction && this.status == other.status && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            contraLedgerAccountId,
-            settledLedgerAccountId,
-            allowEitherDirection,
-            description,
-            effectiveAtUpperBound,
-            metadata,
-            skipSettlementLedgerTransaction,
-            status,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(contraLedgerAccountId, settledLedgerAccountId, allowEitherDirection, description, effectiveAtUpperBound, metadata, skipSettlementLedgerTransaction, status, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -568,14 +525,14 @@ constructor(
                 return true
             }
 
-            return other is Metadata && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -596,7 +553,7 @@ constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

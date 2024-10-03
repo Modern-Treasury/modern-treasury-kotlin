@@ -482,22 +482,14 @@ private constructor(
                 return true
             }
 
-            return other is Accounting &&
-                this.accountId == other.accountId &&
-                this.classId == other.classId &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Accounting && this.accountId == other.accountId && this.classId == other.classId && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        classId,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(accountId, classId, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -519,7 +511,7 @@ private constructor(
                 return true
             }
 
-            return other is ItemizableType && this.value == other.value
+            return /* spotless:off */ other is ItemizableType && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -620,14 +612,14 @@ private constructor(
                 return true
             }
 
-            return other is Metadata && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -640,44 +632,14 @@ private constructor(
             return true
         }
 
-        return other is LineItem &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.itemizableId == other.itemizableId &&
-            this.itemizableType == other.itemizableType &&
-            this.amount == other.amount &&
-            this.description == other.description &&
-            this.metadata == other.metadata &&
-            this.accounting == other.accounting &&
-            this.accountingCategoryId == other.accountingCategoryId &&
-            this.accountingLedgerClassId == other.accountingLedgerClassId &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is LineItem && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.itemizableId == other.itemizableId && this.itemizableType == other.itemizableType && this.amount == other.amount && this.description == other.description && this.metadata == other.metadata && this.accounting == other.accounting && this.accountingCategoryId == other.accountingCategoryId && this.accountingLedgerClassId == other.accountingLedgerClassId && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    itemizableId,
-                    itemizableType,
-                    amount,
-                    description,
-                    metadata,
-                    accounting,
-                    accountingCategoryId,
-                    accountingLedgerClassId,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, itemizableId, itemizableType, amount, description, metadata, accounting, accountingCategoryId, accountingLedgerClassId, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

@@ -56,7 +56,7 @@ interface RoutingDetailServiceAsync {
                 return true
             }
 
-            return other is AccountsType && this.value == other.value
+            return /* spotless:off */ other is AccountsType && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

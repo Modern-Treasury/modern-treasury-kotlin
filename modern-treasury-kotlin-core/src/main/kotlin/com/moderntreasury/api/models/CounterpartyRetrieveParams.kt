@@ -36,18 +36,11 @@ constructor(
             return true
         }
 
-        return other is CounterpartyRetrieveParams &&
-            this.id == other.id &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is CounterpartyRetrieveParams && this.id == other.id && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            id,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(id, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =
