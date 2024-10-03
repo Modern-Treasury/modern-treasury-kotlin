@@ -56,24 +56,11 @@ constructor(
             return true
         }
 
-        return other is RoutingDetailDeleteParams &&
-            this.accountsType == other.accountsType &&
-            this.accountId == other.accountId &&
-            this.id == other.id &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is RoutingDetailDeleteParams && this.accountsType == other.accountsType && this.accountId == other.accountId && this.id == other.id && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountsType,
-            accountId,
-            id,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(accountsType, accountId, id, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -189,7 +176,7 @@ constructor(
                 return true
             }
 
-            return other is AccountsType && this.value == other.value
+            return /* spotless:off */ other is AccountsType && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

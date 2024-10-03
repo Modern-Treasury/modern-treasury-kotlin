@@ -534,14 +534,14 @@ private constructor(
                 return true
             }
 
-            return other is Metadata && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -562,7 +562,7 @@ private constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -629,52 +629,14 @@ private constructor(
             return true
         }
 
-        return other is LedgerAccountSettlement &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.ledgerId == other.ledgerId &&
-            this.description == other.description &&
-            this.status == other.status &&
-            this.settledLedgerAccountId == other.settledLedgerAccountId &&
-            this.contraLedgerAccountId == other.contraLedgerAccountId &&
-            this.effectiveAtUpperBound == other.effectiveAtUpperBound &&
-            this.ledgerTransactionId == other.ledgerTransactionId &&
-            this.amount == other.amount &&
-            this.settlementEntryDirection == other.settlementEntryDirection &&
-            this.currency == other.currency &&
-            this.currencyExponent == other.currencyExponent &&
-            this.metadata == other.metadata &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is LedgerAccountSettlement && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.ledgerId == other.ledgerId && this.description == other.description && this.status == other.status && this.settledLedgerAccountId == other.settledLedgerAccountId && this.contraLedgerAccountId == other.contraLedgerAccountId && this.effectiveAtUpperBound == other.effectiveAtUpperBound && this.ledgerTransactionId == other.ledgerTransactionId && this.amount == other.amount && this.settlementEntryDirection == other.settlementEntryDirection && this.currency == other.currency && this.currencyExponent == other.currencyExponent && this.metadata == other.metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    ledgerId,
-                    description,
-                    status,
-                    settledLedgerAccountId,
-                    contraLedgerAccountId,
-                    effectiveAtUpperBound,
-                    ledgerTransactionId,
-                    amount,
-                    settlementEntryDirection,
-                    currency,
-                    currencyExponent,
-                    metadata,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, ledgerId, description, status, settledLedgerAccountId, contraLedgerAccountId, effectiveAtUpperBound, ledgerTransactionId, amount, settlementEntryDirection, currency, currencyExponent, metadata, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

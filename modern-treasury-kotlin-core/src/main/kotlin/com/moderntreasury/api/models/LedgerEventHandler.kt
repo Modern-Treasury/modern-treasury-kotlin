@@ -430,24 +430,14 @@ private constructor(
                 return true
             }
 
-            return other is LedgerEventHandlerConditions &&
-                this.field == other.field &&
-                this.operator == other.operator &&
-                this.value == other.value &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is LedgerEventHandlerConditions && this.field == other.field && this.operator == other.operator && this.value == other.value && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        field,
-                        operator,
-                        value,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(field, operator, value, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -737,24 +727,14 @@ private constructor(
                     return true
                 }
 
-                return other is LedgerEventHandlerLedgerEntries &&
-                    this.amount == other.amount &&
-                    this.direction == other.direction &&
-                    this.ledgerAccountId == other.ledgerAccountId &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is LedgerEventHandlerLedgerEntries && this.amount == other.amount && this.direction == other.direction && this.ledgerAccountId == other.ledgerAccountId && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            amount,
-                            direction,
-                            ledgerAccountId,
-                            additionalProperties,
-                        )
+                    hashCode = /* spotless:off */ Objects.hash(amount, direction, ledgerAccountId, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -768,26 +748,14 @@ private constructor(
                 return true
             }
 
-            return other is LedgerEventHandlerLedgerTransactionTemplate &&
-                this.description == other.description &&
-                this.effectiveAt == other.effectiveAt &&
-                this.status == other.status &&
-                this.ledgerEntries == other.ledgerEntries &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is LedgerEventHandlerLedgerTransactionTemplate && this.description == other.description && this.effectiveAt == other.effectiveAt && this.status == other.status && this.ledgerEntries == other.ledgerEntries && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        description,
-                        effectiveAt,
-                        status,
-                        ledgerEntries,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(description, effectiveAt, status, ledgerEntries, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -853,14 +821,14 @@ private constructor(
                 return true
             }
 
-            return other is Metadata && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -925,15 +893,14 @@ private constructor(
                 return true
             }
 
-            return other is LedgerEventHandlerVariables &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is LedgerEventHandlerVariables && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -947,44 +914,14 @@ private constructor(
             return true
         }
 
-        return other is LedgerEventHandler &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.discardedAt == other.discardedAt &&
-            this.name == other.name &&
-            this.description == other.description &&
-            this.ledgerId == other.ledgerId &&
-            this.variables == other.variables &&
-            this.ledgerTransactionTemplate == other.ledgerTransactionTemplate &&
-            this.conditions == other.conditions &&
-            this.metadata == other.metadata &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is LedgerEventHandler && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.discardedAt == other.discardedAt && this.name == other.name && this.description == other.description && this.ledgerId == other.ledgerId && this.variables == other.variables && this.ledgerTransactionTemplate == other.ledgerTransactionTemplate && this.conditions == other.conditions && this.metadata == other.metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    discardedAt,
-                    name,
-                    description,
-                    ledgerId,
-                    variables,
-                    ledgerTransactionTemplate,
-                    conditions,
-                    metadata,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, name, description, ledgerId, variables, ledgerTransactionTemplate, conditions, metadata, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

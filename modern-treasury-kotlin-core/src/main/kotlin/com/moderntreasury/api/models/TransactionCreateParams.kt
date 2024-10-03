@@ -276,38 +276,14 @@ constructor(
                 return true
             }
 
-            return other is TransactionCreateBody &&
-                this.amount == other.amount &&
-                this.asOfDate == other.asOfDate &&
-                this.direction == other.direction &&
-                this.internalAccountId == other.internalAccountId &&
-                this.vendorCode == other.vendorCode &&
-                this.vendorCodeType == other.vendorCodeType &&
-                this.metadata == other.metadata &&
-                this.posted == other.posted &&
-                this.type == other.type &&
-                this.vendorDescription == other.vendorDescription &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is TransactionCreateBody && this.amount == other.amount && this.asOfDate == other.asOfDate && this.direction == other.direction && this.internalAccountId == other.internalAccountId && this.vendorCode == other.vendorCode && this.vendorCodeType == other.vendorCodeType && this.metadata == other.metadata && this.posted == other.posted && this.type == other.type && this.vendorDescription == other.vendorDescription && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        amount,
-                        asOfDate,
-                        direction,
-                        internalAccountId,
-                        vendorCode,
-                        vendorCodeType,
-                        metadata,
-                        posted,
-                        type,
-                        vendorDescription,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(amount, asOfDate, direction, internalAccountId, vendorCode, vendorCodeType, metadata, posted, type, vendorDescription, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -327,38 +303,11 @@ constructor(
             return true
         }
 
-        return other is TransactionCreateParams &&
-            this.amount == other.amount &&
-            this.asOfDate == other.asOfDate &&
-            this.direction == other.direction &&
-            this.internalAccountId == other.internalAccountId &&
-            this.vendorCode == other.vendorCode &&
-            this.vendorCodeType == other.vendorCodeType &&
-            this.metadata == other.metadata &&
-            this.posted == other.posted &&
-            this.type == other.type &&
-            this.vendorDescription == other.vendorDescription &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is TransactionCreateParams && this.amount == other.amount && this.asOfDate == other.asOfDate && this.direction == other.direction && this.internalAccountId == other.internalAccountId && this.vendorCode == other.vendorCode && this.vendorCodeType == other.vendorCodeType && this.metadata == other.metadata && this.posted == other.posted && this.type == other.type && this.vendorDescription == other.vendorDescription && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            amount,
-            asOfDate,
-            direction,
-            internalAccountId,
-            vendorCode,
-            vendorCodeType,
-            metadata,
-            posted,
-            type,
-            vendorDescription,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(amount, asOfDate, direction, internalAccountId, vendorCode, vendorCodeType, metadata, posted, type, vendorDescription, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -577,14 +526,14 @@ constructor(
                 return true
             }
 
-            return other is Metadata && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -605,7 +554,7 @@ constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

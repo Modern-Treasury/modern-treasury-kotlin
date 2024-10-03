@@ -59,28 +59,11 @@ constructor(
             return true
         }
 
-        return other is ReturnListParams &&
-            this.afterCursor == other.afterCursor &&
-            this.counterpartyId == other.counterpartyId &&
-            this.internalAccountId == other.internalAccountId &&
-            this.perPage == other.perPage &&
-            this.returnableId == other.returnableId &&
-            this.returnableType == other.returnableType &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is ReturnListParams && this.afterCursor == other.afterCursor && this.counterpartyId == other.counterpartyId && this.internalAccountId == other.internalAccountId && this.perPage == other.perPage && this.returnableId == other.returnableId && this.returnableType == other.returnableType && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            afterCursor,
-            counterpartyId,
-            internalAccountId,
-            perPage,
-            returnableId,
-            returnableType,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(afterCursor, counterpartyId, internalAccountId, perPage, returnableId, returnableType, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =
@@ -208,7 +191,7 @@ constructor(
                 return true
             }
 
-            return other is ReturnableType && this.value == other.value
+            return /* spotless:off */ other is ReturnableType && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

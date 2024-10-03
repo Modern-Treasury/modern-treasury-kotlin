@@ -458,7 +458,7 @@ private constructor(
                 return true
             }
 
-            return other is TransactableType && this.value == other.value
+            return /* spotless:off */ other is TransactableType && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -539,7 +539,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -588,48 +588,14 @@ private constructor(
             return true
         }
 
-        return other is TransactionLineItem &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.discardedAt == other.discardedAt &&
-            this.type == other.type &&
-            this.transactableType == other.transactableType &&
-            this.transactableId == other.transactableId &&
-            this.amount == other.amount &&
-            this.description == other.description &&
-            this.counterpartyId == other.counterpartyId &&
-            this.expectedPaymentId == other.expectedPaymentId &&
-            this.transactionId == other.transactionId &&
-            this.reconcilable == other.reconcilable &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is TransactionLineItem && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.discardedAt == other.discardedAt && this.type == other.type && this.transactableType == other.transactableType && this.transactableId == other.transactableId && this.amount == other.amount && this.description == other.description && this.counterpartyId == other.counterpartyId && this.expectedPaymentId == other.expectedPaymentId && this.transactionId == other.transactionId && this.reconcilable == other.reconcilable && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    discardedAt,
-                    type,
-                    transactableType,
-                    transactableId,
-                    amount,
-                    description,
-                    counterpartyId,
-                    expectedPaymentId,
-                    transactionId,
-                    reconcilable,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, type, transactableType, transactableId, amount, description, counterpartyId, expectedPaymentId, transactionId, reconcilable, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

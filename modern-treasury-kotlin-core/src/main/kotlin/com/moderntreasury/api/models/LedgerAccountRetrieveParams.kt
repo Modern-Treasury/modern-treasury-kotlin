@@ -47,20 +47,11 @@ constructor(
             return true
         }
 
-        return other is LedgerAccountRetrieveParams &&
-            this.id == other.id &&
-            this.balances == other.balances &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is LedgerAccountRetrieveParams && this.id == other.id && this.balances == other.balances && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            id,
-            balances,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(id, balances, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =
@@ -263,28 +254,14 @@ constructor(
                 return true
             }
 
-            return other is Balances &&
-                this.asOfDate == other.asOfDate &&
-                this.effectiveAt == other.effectiveAt &&
-                this.effectiveAtLowerBound == other.effectiveAtLowerBound &&
-                this.effectiveAtUpperBound == other.effectiveAtUpperBound &&
-                this.asOfLockVersion == other.asOfLockVersion &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Balances && this.asOfDate == other.asOfDate && this.effectiveAt == other.effectiveAt && this.effectiveAtLowerBound == other.effectiveAtLowerBound && this.effectiveAtUpperBound == other.effectiveAtUpperBound && this.asOfLockVersion == other.asOfLockVersion && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        asOfDate,
-                        effectiveAt,
-                        effectiveAtLowerBound,
-                        effectiveAtUpperBound,
-                        asOfLockVersion,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(asOfDate, effectiveAt, effectiveAtLowerBound, effectiveAtUpperBound, asOfLockVersion, additionalProperties) /* spotless:on */
             }
             return hashCode
         }

@@ -46,24 +46,11 @@ constructor(
             return true
         }
 
-        return other is ConnectionListParams &&
-            this.afterCursor == other.afterCursor &&
-            this.entity == other.entity &&
-            this.perPage == other.perPage &&
-            this.vendorCustomerId == other.vendorCustomerId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is ConnectionListParams && this.afterCursor == other.afterCursor && this.entity == other.entity && this.perPage == other.perPage && this.vendorCustomerId == other.vendorCustomerId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            afterCursor,
-            entity,
-            perPage,
-            vendorCustomerId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(afterCursor, entity, perPage, vendorCustomerId, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

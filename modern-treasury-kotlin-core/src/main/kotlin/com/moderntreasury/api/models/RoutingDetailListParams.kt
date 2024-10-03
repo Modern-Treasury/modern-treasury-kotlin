@@ -52,24 +52,11 @@ constructor(
             return true
         }
 
-        return other is RoutingDetailListParams &&
-            this.accountsType == other.accountsType &&
-            this.accountId == other.accountId &&
-            this.afterCursor == other.afterCursor &&
-            this.perPage == other.perPage &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is RoutingDetailListParams && this.accountsType == other.accountsType && this.accountId == other.accountId && this.afterCursor == other.afterCursor && this.perPage == other.perPage && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountsType,
-            accountId,
-            afterCursor,
-            perPage,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(accountsType, accountId, afterCursor, perPage, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

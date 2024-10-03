@@ -293,7 +293,7 @@ private constructor(
                 return true
             }
 
-            return other is BalanceReportType && this.value == other.value
+            return /* spotless:off */ other is BalanceReportType && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -646,7 +646,7 @@ private constructor(
                     return true
                 }
 
-                return other is BalanceType && this.value == other.value
+                return /* spotless:off */ other is BalanceType && this.value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -732,38 +732,14 @@ private constructor(
                 return true
             }
 
-            return other is Balance &&
-                this.id == other.id &&
-                this.object_ == other.object_ &&
-                this.liveMode == other.liveMode &&
-                this.createdAt == other.createdAt &&
-                this.updatedAt == other.updatedAt &&
-                this.amount == other.amount &&
-                this.currency == other.currency &&
-                this.balanceType == other.balanceType &&
-                this.vendorCode == other.vendorCode &&
-                this.vendorCodeType == other.vendorCodeType &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Balance && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.amount == other.amount && this.currency == other.currency && this.balanceType == other.balanceType && this.vendorCode == other.vendorCode && this.vendorCodeType == other.vendorCodeType && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        id,
-                        object_,
-                        liveMode,
-                        createdAt,
-                        updatedAt,
-                        amount,
-                        currency,
-                        balanceType,
-                        vendorCode,
-                        vendorCodeType,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, amount, currency, balanceType, vendorCode, vendorCodeType, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -777,38 +753,14 @@ private constructor(
             return true
         }
 
-        return other is BalanceReport &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.balanceReportType == other.balanceReportType &&
-            this.asOfDate == other.asOfDate &&
-            this.asOfTime == other.asOfTime &&
-            this.balances == other.balances &&
-            this.internalAccountId == other.internalAccountId &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is BalanceReport && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.balanceReportType == other.balanceReportType && this.asOfDate == other.asOfDate && this.asOfTime == other.asOfTime && this.balances == other.balances && this.internalAccountId == other.internalAccountId && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    balanceReportType,
-                    asOfDate,
-                    asOfTime,
-                    balances,
-                    internalAccountId,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, balanceReportType, asOfDate, asOfTime, balances, internalAccountId, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

@@ -40,20 +40,11 @@ constructor(
             return true
         }
 
-        return other is BalanceReportRetrieveParams &&
-            this.internalAccountId == other.internalAccountId &&
-            this.id == other.id &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is BalanceReportRetrieveParams && this.internalAccountId == other.internalAccountId && this.id == other.id && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            internalAccountId,
-            id,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(internalAccountId, id, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

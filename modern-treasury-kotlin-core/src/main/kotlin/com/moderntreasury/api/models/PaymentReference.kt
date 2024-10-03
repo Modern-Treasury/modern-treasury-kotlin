@@ -289,7 +289,7 @@ private constructor(
                 return true
             }
 
-            return other is ReferenceNumberType && this.value == other.value
+            return /* spotless:off */ other is ReferenceNumberType && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -795,7 +795,7 @@ private constructor(
                 return true
             }
 
-            return other is ReferenceableType && this.value == other.value
+            return /* spotless:off */ other is ReferenceableType && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -851,36 +851,14 @@ private constructor(
             return true
         }
 
-        return other is PaymentReference &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.referenceableId == other.referenceableId &&
-            this.referenceableType == other.referenceableType &&
-            this.referenceNumber == other.referenceNumber &&
-            this.referenceNumberType == other.referenceNumberType &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is PaymentReference && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.referenceableId == other.referenceableId && this.referenceableType == other.referenceableType && this.referenceNumber == other.referenceNumber && this.referenceNumberType == other.referenceNumberType && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    referenceableId,
-                    referenceableType,
-                    referenceNumber,
-                    referenceNumberType,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, referenceableId, referenceableType, referenceNumber, referenceNumberType, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

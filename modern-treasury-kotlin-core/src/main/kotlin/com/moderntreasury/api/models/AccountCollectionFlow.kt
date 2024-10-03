@@ -331,7 +331,7 @@ private constructor(
                 return true
             }
 
-            return other is PaymentType && this.value == other.value
+            return /* spotless:off */ other is PaymentType && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -388,7 +388,7 @@ private constructor(
                 return true
             }
 
-            return other is ReceivingCountry && this.value == other.value
+            return /* spotless:off */ other is ReceivingCountry && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -541,7 +541,7 @@ private constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -602,40 +602,14 @@ private constructor(
             return true
         }
 
-        return other is AccountCollectionFlow &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.clientToken == other.clientToken &&
-            this.status == other.status &&
-            this.counterpartyId == other.counterpartyId &&
-            this.externalAccountId == other.externalAccountId &&
-            this.paymentTypes == other.paymentTypes &&
-            this.receivingCountries == other.receivingCountries &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is AccountCollectionFlow && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.clientToken == other.clientToken && this.status == other.status && this.counterpartyId == other.counterpartyId && this.externalAccountId == other.externalAccountId && this.paymentTypes == other.paymentTypes && this.receivingCountries == other.receivingCountries && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    clientToken,
-                    status,
-                    counterpartyId,
-                    externalAccountId,
-                    paymentTypes,
-                    receivingCountries,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, clientToken, status, counterpartyId, externalAccountId, paymentTypes, receivingCountries, additionalProperties) /* spotless:on */
         }
         return hashCode
     }
