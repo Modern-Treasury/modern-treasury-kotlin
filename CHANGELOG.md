@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.20.1 (2024-10-03)
+
+Full Changelog: [v2.20.0...v2.20.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.20.0...v2.20.1)
+
+### Styles
+
+* **client:** disable formatting for java boilerplate ([#217](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/217)) ([4efc5d2](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4efc5d28fbbdd89b58c06c9257ca8b1dc5766bc5))
+* **client:** move equals, hashCode, and toString to the bottom of entity files ([#215](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/215)) ([abd9a3b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/abd9a3bfe4e1f4cd7553186b1b530c8ced43687c))
+
 ## 2.20.0 (2024-09-24)
 
 Full Changelog: [v2.19.0...v2.20.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.19.0...v2.20.0)
