@@ -445,7 +445,7 @@ private constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -500,54 +500,14 @@ private constructor(
             return true
         }
 
-        return other is PaperItem &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.transactionLineItemId == other.transactionLineItemId &&
-            this.transactionId == other.transactionId &&
-            this.status == other.status &&
-            this.lockboxNumber == other.lockboxNumber &&
-            this.depositDate == other.depositDate &&
-            this.amount == other.amount &&
-            this.currency == other.currency &&
-            this.accountNumber == other.accountNumber &&
-            this.accountNumberSafe == other.accountNumberSafe &&
-            this.routingNumber == other.routingNumber &&
-            this.checkNumber == other.checkNumber &&
-            this.remitterName == other.remitterName &&
-            this.memoField == other.memoField &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is PaperItem && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.transactionLineItemId == other.transactionLineItemId && this.transactionId == other.transactionId && this.status == other.status && this.lockboxNumber == other.lockboxNumber && this.depositDate == other.depositDate && this.amount == other.amount && this.currency == other.currency && this.accountNumber == other.accountNumber && this.accountNumberSafe == other.accountNumberSafe && this.routingNumber == other.routingNumber && this.checkNumber == other.checkNumber && this.remitterName == other.remitterName && this.memoField == other.memoField && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    transactionLineItemId,
-                    transactionId,
-                    status,
-                    lockboxNumber,
-                    depositDate,
-                    amount,
-                    currency,
-                    accountNumber,
-                    accountNumberSafe,
-                    routingNumber,
-                    checkNumber,
-                    remitterName,
-                    memoField,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, transactionLineItemId, transactionId, status, lockboxNumber, depositDate, amount, currency, accountNumber, accountNumberSafe, routingNumber, checkNumber, remitterName, memoField, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

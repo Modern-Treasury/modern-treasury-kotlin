@@ -426,52 +426,14 @@ constructor(
                 return true
             }
 
-            return other is ExpectedPaymentUpdateBody &&
-                this.amountLowerBound == other.amountLowerBound &&
-                this.amountUpperBound == other.amountUpperBound &&
-                this.counterpartyId == other.counterpartyId &&
-                this.currency == other.currency &&
-                this.dateLowerBound == other.dateLowerBound &&
-                this.dateUpperBound == other.dateUpperBound &&
-                this.description == other.description &&
-                this.direction == other.direction &&
-                this.internalAccountId == other.internalAccountId &&
-                this.metadata == other.metadata &&
-                this.reconciliationFilters == other.reconciliationFilters &&
-                this.reconciliationGroups == other.reconciliationGroups &&
-                this.reconciliationRuleVariables == other.reconciliationRuleVariables &&
-                this.remittanceInformation == other.remittanceInformation &&
-                this.statementDescriptor == other.statementDescriptor &&
-                this.status == other.status &&
-                this.type == other.type &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is ExpectedPaymentUpdateBody && this.amountLowerBound == other.amountLowerBound && this.amountUpperBound == other.amountUpperBound && this.counterpartyId == other.counterpartyId && this.currency == other.currency && this.dateLowerBound == other.dateLowerBound && this.dateUpperBound == other.dateUpperBound && this.description == other.description && this.direction == other.direction && this.internalAccountId == other.internalAccountId && this.metadata == other.metadata && this.reconciliationFilters == other.reconciliationFilters && this.reconciliationGroups == other.reconciliationGroups && this.reconciliationRuleVariables == other.reconciliationRuleVariables && this.remittanceInformation == other.remittanceInformation && this.statementDescriptor == other.statementDescriptor && this.status == other.status && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        amountLowerBound,
-                        amountUpperBound,
-                        counterpartyId,
-                        currency,
-                        dateLowerBound,
-                        dateUpperBound,
-                        description,
-                        direction,
-                        internalAccountId,
-                        metadata,
-                        reconciliationFilters,
-                        reconciliationGroups,
-                        reconciliationRuleVariables,
-                        remittanceInformation,
-                        statementDescriptor,
-                        status,
-                        type,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(amountLowerBound, amountUpperBound, counterpartyId, currency, dateLowerBound, dateUpperBound, description, direction, internalAccountId, metadata, reconciliationFilters, reconciliationGroups, reconciliationRuleVariables, remittanceInformation, statementDescriptor, status, type, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -491,54 +453,11 @@ constructor(
             return true
         }
 
-        return other is ExpectedPaymentUpdateParams &&
-            this.id == other.id &&
-            this.amountLowerBound == other.amountLowerBound &&
-            this.amountUpperBound == other.amountUpperBound &&
-            this.counterpartyId == other.counterpartyId &&
-            this.currency == other.currency &&
-            this.dateLowerBound == other.dateLowerBound &&
-            this.dateUpperBound == other.dateUpperBound &&
-            this.description == other.description &&
-            this.direction == other.direction &&
-            this.internalAccountId == other.internalAccountId &&
-            this.metadata == other.metadata &&
-            this.reconciliationFilters == other.reconciliationFilters &&
-            this.reconciliationGroups == other.reconciliationGroups &&
-            this.reconciliationRuleVariables == other.reconciliationRuleVariables &&
-            this.remittanceInformation == other.remittanceInformation &&
-            this.statementDescriptor == other.statementDescriptor &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is ExpectedPaymentUpdateParams && this.id == other.id && this.amountLowerBound == other.amountLowerBound && this.amountUpperBound == other.amountUpperBound && this.counterpartyId == other.counterpartyId && this.currency == other.currency && this.dateLowerBound == other.dateLowerBound && this.dateUpperBound == other.dateUpperBound && this.description == other.description && this.direction == other.direction && this.internalAccountId == other.internalAccountId && this.metadata == other.metadata && this.reconciliationFilters == other.reconciliationFilters && this.reconciliationGroups == other.reconciliationGroups && this.reconciliationRuleVariables == other.reconciliationRuleVariables && this.remittanceInformation == other.remittanceInformation && this.statementDescriptor == other.statementDescriptor && this.status == other.status && this.type == other.type && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            id,
-            amountLowerBound,
-            amountUpperBound,
-            counterpartyId,
-            currency,
-            dateLowerBound,
-            dateUpperBound,
-            description,
-            direction,
-            internalAccountId,
-            metadata,
-            reconciliationFilters,
-            reconciliationGroups,
-            reconciliationRuleVariables,
-            remittanceInformation,
-            statementDescriptor,
-            status,
-            type,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(id, amountLowerBound, amountUpperBound, counterpartyId, currency, dateLowerBound, dateUpperBound, description, direction, internalAccountId, metadata, reconciliationFilters, reconciliationGroups, reconciliationRuleVariables, remittanceInformation, statementDescriptor, status, type, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -837,14 +756,14 @@ constructor(
                 return true
             }
 
-            return other is Metadata && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -901,15 +820,14 @@ constructor(
                 return true
             }
 
-            return other is ReconciliationRuleVariable &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is ReconciliationRuleVariable && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -931,7 +849,7 @@ constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

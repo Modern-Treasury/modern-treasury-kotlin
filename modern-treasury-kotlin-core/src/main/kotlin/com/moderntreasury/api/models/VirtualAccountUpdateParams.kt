@@ -148,26 +148,14 @@ constructor(
                 return true
             }
 
-            return other is VirtualAccountUpdateBody &&
-                this.counterpartyId == other.counterpartyId &&
-                this.ledgerAccountId == other.ledgerAccountId &&
-                this.metadata == other.metadata &&
-                this.name == other.name &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is VirtualAccountUpdateBody && this.counterpartyId == other.counterpartyId && this.ledgerAccountId == other.ledgerAccountId && this.metadata == other.metadata && this.name == other.name && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        counterpartyId,
-                        ledgerAccountId,
-                        metadata,
-                        name,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(counterpartyId, ledgerAccountId, metadata, name, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -187,28 +175,11 @@ constructor(
             return true
         }
 
-        return other is VirtualAccountUpdateParams &&
-            this.id == other.id &&
-            this.counterpartyId == other.counterpartyId &&
-            this.ledgerAccountId == other.ledgerAccountId &&
-            this.metadata == other.metadata &&
-            this.name == other.name &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is VirtualAccountUpdateParams && this.id == other.id && this.counterpartyId == other.counterpartyId && this.ledgerAccountId == other.ledgerAccountId && this.metadata == other.metadata && this.name == other.name && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            id,
-            counterpartyId,
-            ledgerAccountId,
-            metadata,
-            name,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(id, counterpartyId, ledgerAccountId, metadata, name, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -372,14 +343,14 @@ constructor(
                 return true
             }
 
-            return other is Metadata && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }

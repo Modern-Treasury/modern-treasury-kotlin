@@ -57,28 +57,11 @@ constructor(
             return true
         }
 
-        return other is LedgerTransactionVersionListParams &&
-            this.afterCursor == other.afterCursor &&
-            this.createdAt == other.createdAt &&
-            this.ledgerAccountStatementId == other.ledgerAccountStatementId &&
-            this.ledgerTransactionId == other.ledgerTransactionId &&
-            this.perPage == other.perPage &&
-            this.version == other.version &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is LedgerTransactionVersionListParams && this.afterCursor == other.afterCursor && this.createdAt == other.createdAt && this.ledgerAccountStatementId == other.ledgerAccountStatementId && this.ledgerTransactionId == other.ledgerTransactionId && this.perPage == other.perPage && this.version == other.version && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            afterCursor,
-            createdAt,
-            ledgerAccountStatementId,
-            ledgerTransactionId,
-            perPage,
-            version,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(afterCursor, createdAt, ledgerAccountStatementId, ledgerTransactionId, perPage, version, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =
@@ -255,14 +238,14 @@ constructor(
                 return true
             }
 
-            return other is CreatedAt && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is CreatedAt && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -324,14 +307,14 @@ constructor(
                 return true
             }
 
-            return other is Version && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Version && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }

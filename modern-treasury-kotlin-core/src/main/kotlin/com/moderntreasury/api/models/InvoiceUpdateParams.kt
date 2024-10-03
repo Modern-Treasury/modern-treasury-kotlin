@@ -618,68 +618,14 @@ constructor(
                 return true
             }
 
-            return other is InvoiceUpdateBody &&
-                this.contactDetails == other.contactDetails &&
-                this.counterpartyBillingAddress == other.counterpartyBillingAddress &&
-                this.counterpartyId == other.counterpartyId &&
-                this.counterpartyShippingAddress == other.counterpartyShippingAddress &&
-                this.currency == other.currency &&
-                this.description == other.description &&
-                this.dueDate == other.dueDate &&
-                this.fallbackPaymentMethod == other.fallbackPaymentMethod &&
-                this.ingestLedgerEntries == other.ingestLedgerEntries &&
-                this.invoiceLineItems == other.invoiceLineItems &&
-                this.invoicerAddress == other.invoicerAddress &&
-                this.ledgerAccountSettlementId == other.ledgerAccountSettlementId &&
-                this.metadata == other.metadata &&
-                this.notificationEmailAddresses == other.notificationEmailAddresses &&
-                this.notificationsEnabled == other.notificationsEnabled &&
-                this.originatingAccountId == other.originatingAccountId &&
-                this.paymentEffectiveDate == other.paymentEffectiveDate &&
-                this.paymentMethod == other.paymentMethod &&
-                this.paymentType == other.paymentType &&
-                this.receivingAccountId == other.receivingAccountId &&
-                this.recipientEmail == other.recipientEmail &&
-                this.recipientName == other.recipientName &&
-                this.remindAfterOverdueDays == other.remindAfterOverdueDays &&
-                this.status == other.status &&
-                this.virtualAccountId == other.virtualAccountId &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is InvoiceUpdateBody && this.contactDetails == other.contactDetails && this.counterpartyBillingAddress == other.counterpartyBillingAddress && this.counterpartyId == other.counterpartyId && this.counterpartyShippingAddress == other.counterpartyShippingAddress && this.currency == other.currency && this.description == other.description && this.dueDate == other.dueDate && this.fallbackPaymentMethod == other.fallbackPaymentMethod && this.ingestLedgerEntries == other.ingestLedgerEntries && this.invoiceLineItems == other.invoiceLineItems && this.invoicerAddress == other.invoicerAddress && this.ledgerAccountSettlementId == other.ledgerAccountSettlementId && this.metadata == other.metadata && this.notificationEmailAddresses == other.notificationEmailAddresses && this.notificationsEnabled == other.notificationsEnabled && this.originatingAccountId == other.originatingAccountId && this.paymentEffectiveDate == other.paymentEffectiveDate && this.paymentMethod == other.paymentMethod && this.paymentType == other.paymentType && this.receivingAccountId == other.receivingAccountId && this.recipientEmail == other.recipientEmail && this.recipientName == other.recipientName && this.remindAfterOverdueDays == other.remindAfterOverdueDays && this.status == other.status && this.virtualAccountId == other.virtualAccountId && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        contactDetails,
-                        counterpartyBillingAddress,
-                        counterpartyId,
-                        counterpartyShippingAddress,
-                        currency,
-                        description,
-                        dueDate,
-                        fallbackPaymentMethod,
-                        ingestLedgerEntries,
-                        invoiceLineItems,
-                        invoicerAddress,
-                        ledgerAccountSettlementId,
-                        metadata,
-                        notificationEmailAddresses,
-                        notificationsEnabled,
-                        originatingAccountId,
-                        paymentEffectiveDate,
-                        paymentMethod,
-                        paymentType,
-                        receivingAccountId,
-                        recipientEmail,
-                        recipientName,
-                        remindAfterOverdueDays,
-                        status,
-                        virtualAccountId,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(contactDetails, counterpartyBillingAddress, counterpartyId, counterpartyShippingAddress, currency, description, dueDate, fallbackPaymentMethod, ingestLedgerEntries, invoiceLineItems, invoicerAddress, ledgerAccountSettlementId, metadata, notificationEmailAddresses, notificationsEnabled, originatingAccountId, paymentEffectiveDate, paymentMethod, paymentType, receivingAccountId, recipientEmail, recipientName, remindAfterOverdueDays, status, virtualAccountId, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -699,70 +645,11 @@ constructor(
             return true
         }
 
-        return other is InvoiceUpdateParams &&
-            this.id == other.id &&
-            this.contactDetails == other.contactDetails &&
-            this.counterpartyBillingAddress == other.counterpartyBillingAddress &&
-            this.counterpartyId == other.counterpartyId &&
-            this.counterpartyShippingAddress == other.counterpartyShippingAddress &&
-            this.currency == other.currency &&
-            this.description == other.description &&
-            this.dueDate == other.dueDate &&
-            this.fallbackPaymentMethod == other.fallbackPaymentMethod &&
-            this.ingestLedgerEntries == other.ingestLedgerEntries &&
-            this.invoiceLineItems == other.invoiceLineItems &&
-            this.invoicerAddress == other.invoicerAddress &&
-            this.ledgerAccountSettlementId == other.ledgerAccountSettlementId &&
-            this.metadata == other.metadata &&
-            this.notificationEmailAddresses == other.notificationEmailAddresses &&
-            this.notificationsEnabled == other.notificationsEnabled &&
-            this.originatingAccountId == other.originatingAccountId &&
-            this.paymentEffectiveDate == other.paymentEffectiveDate &&
-            this.paymentMethod == other.paymentMethod &&
-            this.paymentType == other.paymentType &&
-            this.receivingAccountId == other.receivingAccountId &&
-            this.recipientEmail == other.recipientEmail &&
-            this.recipientName == other.recipientName &&
-            this.remindAfterOverdueDays == other.remindAfterOverdueDays &&
-            this.status == other.status &&
-            this.virtualAccountId == other.virtualAccountId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is InvoiceUpdateParams && this.id == other.id && this.contactDetails == other.contactDetails && this.counterpartyBillingAddress == other.counterpartyBillingAddress && this.counterpartyId == other.counterpartyId && this.counterpartyShippingAddress == other.counterpartyShippingAddress && this.currency == other.currency && this.description == other.description && this.dueDate == other.dueDate && this.fallbackPaymentMethod == other.fallbackPaymentMethod && this.ingestLedgerEntries == other.ingestLedgerEntries && this.invoiceLineItems == other.invoiceLineItems && this.invoicerAddress == other.invoicerAddress && this.ledgerAccountSettlementId == other.ledgerAccountSettlementId && this.metadata == other.metadata && this.notificationEmailAddresses == other.notificationEmailAddresses && this.notificationsEnabled == other.notificationsEnabled && this.originatingAccountId == other.originatingAccountId && this.paymentEffectiveDate == other.paymentEffectiveDate && this.paymentMethod == other.paymentMethod && this.paymentType == other.paymentType && this.receivingAccountId == other.receivingAccountId && this.recipientEmail == other.recipientEmail && this.recipientName == other.recipientName && this.remindAfterOverdueDays == other.remindAfterOverdueDays && this.status == other.status && this.virtualAccountId == other.virtualAccountId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            id,
-            contactDetails,
-            counterpartyBillingAddress,
-            counterpartyId,
-            counterpartyShippingAddress,
-            currency,
-            description,
-            dueDate,
-            fallbackPaymentMethod,
-            ingestLedgerEntries,
-            invoiceLineItems,
-            invoicerAddress,
-            ledgerAccountSettlementId,
-            metadata,
-            notificationEmailAddresses,
-            notificationsEnabled,
-            originatingAccountId,
-            paymentEffectiveDate,
-            paymentMethod,
-            paymentType,
-            receivingAccountId,
-            recipientEmail,
-            recipientName,
-            remindAfterOverdueDays,
-            status,
-            virtualAccountId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(id, contactDetails, counterpartyBillingAddress, counterpartyId, counterpartyShippingAddress, currency, description, dueDate, fallbackPaymentMethod, ingestLedgerEntries, invoiceLineItems, invoicerAddress, ledgerAccountSettlementId, metadata, notificationEmailAddresses, notificationsEnabled, originatingAccountId, paymentEffectiveDate, paymentMethod, paymentType, receivingAccountId, recipientEmail, recipientName, remindAfterOverdueDays, status, virtualAccountId, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -1270,7 +1157,7 @@ constructor(
                     return true
                 }
 
-                return other is ContactIdentifierType && this.value == other.value
+                return /* spotless:off */ other is ContactIdentifierType && this.value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1328,34 +1215,14 @@ constructor(
                 return true
             }
 
-            return other is ContactDetail &&
-                this.id == other.id &&
-                this.object_ == other.object_ &&
-                this.liveMode == other.liveMode &&
-                this.createdAt == other.createdAt &&
-                this.updatedAt == other.updatedAt &&
-                this.discardedAt == other.discardedAt &&
-                this.contactIdentifier == other.contactIdentifier &&
-                this.contactIdentifierType == other.contactIdentifierType &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is ContactDetail && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.discardedAt == other.discardedAt && this.contactIdentifier == other.contactIdentifier && this.contactIdentifierType == other.contactIdentifierType && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        id,
-                        object_,
-                        liveMode,
-                        createdAt,
-                        updatedAt,
-                        discardedAt,
-                        contactIdentifier,
-                        contactIdentifierType,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, contactIdentifier, contactIdentifierType, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -1474,30 +1341,14 @@ constructor(
                 return true
             }
 
-            return other is CounterpartyBillingAddress &&
-                this.line1 == other.line1 &&
-                this.line2 == other.line2 &&
-                this.locality == other.locality &&
-                this.region == other.region &&
-                this.postalCode == other.postalCode &&
-                this.country == other.country &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is CounterpartyBillingAddress && this.line1 == other.line1 && this.line2 == other.line2 && this.locality == other.locality && this.region == other.region && this.postalCode == other.postalCode && this.country == other.country && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        line1,
-                        line2,
-                        locality,
-                        region,
-                        postalCode,
-                        country,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(line1, line2, locality, region, postalCode, country, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -1616,30 +1467,14 @@ constructor(
                 return true
             }
 
-            return other is CounterpartyShippingAddress &&
-                this.line1 == other.line1 &&
-                this.line2 == other.line2 &&
-                this.locality == other.locality &&
-                this.region == other.region &&
-                this.postalCode == other.postalCode &&
-                this.country == other.country &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is CounterpartyShippingAddress && this.line1 == other.line1 && this.line2 == other.line2 && this.locality == other.locality && this.region == other.region && this.postalCode == other.postalCode && this.country == other.country && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        line1,
-                        line2,
-                        locality,
-                        region,
-                        postalCode,
-                        country,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(line1, line2, locality, region, postalCode, country, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -1855,14 +1690,14 @@ constructor(
                     return true
                 }
 
-                return other is Metadata && this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode = Objects.hash(additionalProperties)
+                    hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -1875,32 +1710,14 @@ constructor(
                 return true
             }
 
-            return other is InvoiceLineItemCreateRequest &&
-                this.name == other.name &&
-                this.description == other.description &&
-                this.quantity == other.quantity &&
-                this.unitAmount == other.unitAmount &&
-                this.unitAmountDecimal == other.unitAmountDecimal &&
-                this.direction == other.direction &&
-                this.metadata == other.metadata &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is InvoiceLineItemCreateRequest && this.name == other.name && this.description == other.description && this.quantity == other.quantity && this.unitAmount == other.unitAmount && this.unitAmountDecimal == other.unitAmountDecimal && this.direction == other.direction && this.metadata == other.metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        name,
-                        description,
-                        quantity,
-                        unitAmount,
-                        unitAmountDecimal,
-                        direction,
-                        metadata,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(name, description, quantity, unitAmount, unitAmountDecimal, direction, metadata, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -2019,30 +1836,14 @@ constructor(
                 return true
             }
 
-            return other is InvoicerAddress &&
-                this.line1 == other.line1 &&
-                this.line2 == other.line2 &&
-                this.locality == other.locality &&
-                this.region == other.region &&
-                this.postalCode == other.postalCode &&
-                this.country == other.country &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is InvoicerAddress && this.line1 == other.line1 && this.line2 == other.line2 && this.locality == other.locality && this.region == other.region && this.postalCode == other.postalCode && this.country == other.country && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        line1,
-                        line2,
-                        locality,
-                        region,
-                        postalCode,
-                        country,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(line1, line2, locality, region, postalCode, country, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -2100,14 +1901,14 @@ constructor(
                 return true
             }
 
-            return other is Metadata && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -2128,7 +1929,7 @@ constructor(
                 return true
             }
 
-            return other is PaymentMethod && this.value == other.value
+            return /* spotless:off */ other is PaymentMethod && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

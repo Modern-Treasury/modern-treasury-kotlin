@@ -57,24 +57,11 @@ constructor(
             return true
         }
 
-        return other is LineItemListParams &&
-            this.itemizableType == other.itemizableType &&
-            this.itemizableId == other.itemizableId &&
-            this.afterCursor == other.afterCursor &&
-            this.perPage == other.perPage &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is LineItemListParams && this.itemizableType == other.itemizableType && this.itemizableId == other.itemizableId && this.afterCursor == other.afterCursor && this.perPage == other.perPage && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            itemizableType,
-            itemizableId,
-            afterCursor,
-            perPage,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(itemizableType, itemizableId, afterCursor, perPage, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =
@@ -180,7 +167,7 @@ constructor(
                 return true
             }
 
-            return other is ItemizableType && this.value == other.value
+            return /* spotless:off */ other is ItemizableType && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

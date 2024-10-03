@@ -67,30 +67,11 @@ constructor(
             return true
         }
 
-        return other is EventListParams &&
-            this.afterCursor == other.afterCursor &&
-            this.entityId == other.entityId &&
-            this.eventName == other.eventName &&
-            this.eventTimeEnd == other.eventTimeEnd &&
-            this.eventTimeStart == other.eventTimeStart &&
-            this.perPage == other.perPage &&
-            this.resource == other.resource &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is EventListParams && this.afterCursor == other.afterCursor && this.entityId == other.entityId && this.eventName == other.eventName && this.eventTimeEnd == other.eventTimeEnd && this.eventTimeStart == other.eventTimeStart && this.perPage == other.perPage && this.resource == other.resource && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            afterCursor,
-            entityId,
-            eventName,
-            eventTimeEnd,
-            eventTimeStart,
-            perPage,
-            resource,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(afterCursor, entityId, eventName, eventTimeEnd, eventTimeStart, perPage, resource, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

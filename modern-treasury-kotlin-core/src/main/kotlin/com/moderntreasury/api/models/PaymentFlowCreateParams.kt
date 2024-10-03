@@ -208,30 +208,14 @@ constructor(
                 return true
             }
 
-            return other is PaymentFlowCreateBody &&
-                this.amount == other.amount &&
-                this.counterpartyId == other.counterpartyId &&
-                this.currency == other.currency &&
-                this.direction == other.direction &&
-                this.originatingAccountId == other.originatingAccountId &&
-                this.dueDate == other.dueDate &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is PaymentFlowCreateBody && this.amount == other.amount && this.counterpartyId == other.counterpartyId && this.currency == other.currency && this.direction == other.direction && this.originatingAccountId == other.originatingAccountId && this.dueDate == other.dueDate && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        amount,
-                        counterpartyId,
-                        currency,
-                        direction,
-                        originatingAccountId,
-                        dueDate,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(amount, counterpartyId, currency, direction, originatingAccountId, dueDate, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -251,30 +235,11 @@ constructor(
             return true
         }
 
-        return other is PaymentFlowCreateParams &&
-            this.amount == other.amount &&
-            this.counterpartyId == other.counterpartyId &&
-            this.currency == other.currency &&
-            this.direction == other.direction &&
-            this.originatingAccountId == other.originatingAccountId &&
-            this.dueDate == other.dueDate &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is PaymentFlowCreateParams && this.amount == other.amount && this.counterpartyId == other.counterpartyId && this.currency == other.currency && this.direction == other.direction && this.originatingAccountId == other.originatingAccountId && this.dueDate == other.dueDate && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            amount,
-            counterpartyId,
-            currency,
-            direction,
-            originatingAccountId,
-            dueDate,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(amount, counterpartyId, currency, direction, originatingAccountId, dueDate, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -428,7 +393,7 @@ constructor(
                 return true
             }
 
-            return other is Direction && this.value == other.value
+            return /* spotless:off */ other is Direction && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

@@ -51,26 +51,11 @@ constructor(
             return true
         }
 
-        return other is PaperItemListParams &&
-            this.afterCursor == other.afterCursor &&
-            this.depositDateEnd == other.depositDateEnd &&
-            this.depositDateStart == other.depositDateStart &&
-            this.lockboxNumber == other.lockboxNumber &&
-            this.perPage == other.perPage &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is PaperItemListParams && this.afterCursor == other.afterCursor && this.depositDateEnd == other.depositDateEnd && this.depositDateStart == other.depositDateStart && this.lockboxNumber == other.lockboxNumber && this.perPage == other.perPage && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            afterCursor,
-            depositDateEnd,
-            depositDateStart,
-            lockboxNumber,
-            perPage,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(afterCursor, depositDateEnd, depositDateStart, lockboxNumber, perPage, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

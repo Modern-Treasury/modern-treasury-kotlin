@@ -62,26 +62,11 @@ constructor(
             return true
         }
 
-        return other is BalanceReportListParams &&
-            this.internalAccountId == other.internalAccountId &&
-            this.afterCursor == other.afterCursor &&
-            this.asOfDate == other.asOfDate &&
-            this.balanceReportType == other.balanceReportType &&
-            this.perPage == other.perPage &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is BalanceReportListParams && this.internalAccountId == other.internalAccountId && this.afterCursor == other.afterCursor && this.asOfDate == other.asOfDate && this.balanceReportType == other.balanceReportType && this.perPage == other.perPage && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            internalAccountId,
-            afterCursor,
-            asOfDate,
-            balanceReportType,
-            perPage,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(internalAccountId, afterCursor, asOfDate, balanceReportType, perPage, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =
@@ -201,7 +186,7 @@ constructor(
                 return true
             }
 
-            return other is BalanceReportType && this.value == other.value
+            return /* spotless:off */ other is BalanceReportType && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

@@ -228,32 +228,14 @@ constructor(
                 return true
             }
 
-            return other is InvoiceLineItemCreateBody &&
-                this.name == other.name &&
-                this.unitAmount == other.unitAmount &&
-                this.description == other.description &&
-                this.direction == other.direction &&
-                this.metadata == other.metadata &&
-                this.quantity == other.quantity &&
-                this.unitAmountDecimal == other.unitAmountDecimal &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is InvoiceLineItemCreateBody && this.name == other.name && this.unitAmount == other.unitAmount && this.description == other.description && this.direction == other.direction && this.metadata == other.metadata && this.quantity == other.quantity && this.unitAmountDecimal == other.unitAmountDecimal && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        name,
-                        unitAmount,
-                        description,
-                        direction,
-                        metadata,
-                        quantity,
-                        unitAmountDecimal,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(name, unitAmount, description, direction, metadata, quantity, unitAmountDecimal, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -273,34 +255,11 @@ constructor(
             return true
         }
 
-        return other is InvoiceLineItemCreateParams &&
-            this.invoiceId == other.invoiceId &&
-            this.name == other.name &&
-            this.unitAmount == other.unitAmount &&
-            this.description == other.description &&
-            this.direction == other.direction &&
-            this.metadata == other.metadata &&
-            this.quantity == other.quantity &&
-            this.unitAmountDecimal == other.unitAmountDecimal &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is InvoiceLineItemCreateParams && this.invoiceId == other.invoiceId && this.name == other.name && this.unitAmount == other.unitAmount && this.description == other.description && this.direction == other.direction && this.metadata == other.metadata && this.quantity == other.quantity && this.unitAmountDecimal == other.unitAmountDecimal && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            invoiceId,
-            name,
-            unitAmount,
-            description,
-            direction,
-            metadata,
-            quantity,
-            unitAmountDecimal,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(invoiceId, name, unitAmount, description, direction, metadata, quantity, unitAmountDecimal, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -501,14 +460,14 @@ constructor(
                 return true
             }
 
-            return other is Metadata && this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
             }
             return hashCode
         }

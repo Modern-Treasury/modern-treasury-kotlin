@@ -271,7 +271,7 @@ private constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -332,38 +332,14 @@ private constructor(
             return true
         }
 
-        return other is ConnectionLegalEntity &&
-            this.id == other.id &&
-            this.object_ == other.object_ &&
-            this.liveMode == other.liveMode &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.discardedAt == other.discardedAt &&
-            this.connectionId == other.connectionId &&
-            this.legalEntityId == other.legalEntityId &&
-            this.status == other.status &&
-            this.vendorId == other.vendorId &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is ConnectionLegalEntity && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.discardedAt == other.discardedAt && this.connectionId == other.connectionId && this.legalEntityId == other.legalEntityId && this.status == other.status && this.vendorId == other.vendorId && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    discardedAt,
-                    connectionId,
-                    legalEntityId,
-                    status,
-                    vendorId,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, connectionId, legalEntityId, status, vendorId, additionalProperties) /* spotless:on */
         }
         return hashCode
     }
