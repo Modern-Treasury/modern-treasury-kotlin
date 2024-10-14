@@ -30,17 +30,16 @@ private object EmptyHandler : Handler<Void?> {
 
 internal fun stringHandler(): Handler<String> = StringHandler
 
-internal fun binaryHandler(): Handler<BinaryResponseContent> = BinaryHandler
-
 private object StringHandler : Handler<String> {
-    override fun handle(response: HttpResponse): String {
-        return response.body().readBytes().toString(Charsets.UTF_8)
-    }
+    override fun handle(response: HttpResponse): String =
+        response.body().readBytes().toString(Charsets.UTF_8)
 }
 
+internal fun binaryHandler(): Handler<BinaryResponseContent> = BinaryHandler
+
 private object BinaryHandler : Handler<BinaryResponseContent> {
-    override fun handle(response: HttpResponse): BinaryResponseContent {
-        return object : BinaryResponseContent {
+    override fun handle(response: HttpResponse): BinaryResponseContent =
+        object : BinaryResponseContent {
             override fun contentType(): String? =
                 response.headers().get("Content-Type").firstOrNull()
 
@@ -52,11 +51,10 @@ private object BinaryHandler : Handler<BinaryResponseContent> {
                 response.body().copyTo(outputStream)
             }
         }
-    }
 }
 
-internal inline fun <reified T> jsonHandler(jsonMapper: JsonMapper): Handler<T> {
-    return object : Handler<T> {
+internal inline fun <reified T> jsonHandler(jsonMapper: JsonMapper): Handler<T> =
+    object : Handler<T> {
         override fun handle(response: HttpResponse): T {
             try {
                 return jsonMapper.readValue(response.body(), jacksonTypeRef())
@@ -65,26 +63,24 @@ internal inline fun <reified T> jsonHandler(jsonMapper: JsonMapper): Handler<T> 
             }
         }
     }
-}
 
 internal fun errorHandler(jsonMapper: JsonMapper): Handler<ModernTreasuryError> {
     val handler = jsonHandler<ModernTreasuryError>(jsonMapper)
 
     return object : Handler<ModernTreasuryError> {
-        override fun handle(response: HttpResponse): ModernTreasuryError {
+        override fun handle(response: HttpResponse): ModernTreasuryError =
             try {
-                return handler.handle(response)
+                handler.handle(response)
             } catch (e: Exception) {
-                return ModernTreasuryError.builder().build()
+                ModernTreasuryError.builder().build()
             }
-        }
     }
 }
 
 internal fun <T> Handler<T>.withErrorHandler(
     errorHandler: Handler<ModernTreasuryError>
-): Handler<T> {
-    return object : Handler<T> {
+): Handler<T> =
+    object : Handler<T> {
         override fun handle(response: HttpResponse): T {
             when (val statusCode = response.statusCode()) {
                 in 200..299 -> {
@@ -159,26 +155,17 @@ internal fun <T> Handler<T>.withErrorHandler(
             }
         }
     }
-}
 
 private fun HttpResponse.buffered(): HttpResponse {
     val body = body().readBytes()
 
     return object : HttpResponse {
-        override fun statusCode(): Int {
-            return this@buffered.statusCode()
-        }
+        override fun statusCode(): Int = this@buffered.statusCode()
 
-        override fun headers(): ListMultimap<String, String> {
-            return this@buffered.headers()
-        }
+        override fun headers(): ListMultimap<String, String> = this@buffered.headers()
 
-        override fun body(): InputStream {
-            return ByteArrayInputStream(body)
-        }
+        override fun body(): InputStream = ByteArrayInputStream(body)
 
-        override fun close() {
-            this@buffered.close()
-        }
+        override fun close() = this@buffered.close()
     }
 }
