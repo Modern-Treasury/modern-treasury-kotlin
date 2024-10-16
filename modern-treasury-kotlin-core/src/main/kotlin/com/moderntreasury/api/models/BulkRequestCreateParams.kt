@@ -6467,7 +6467,7 @@ constructor(
         private constructor(
             private val amountUpperBound: JsonField<Long>,
             private val amountLowerBound: JsonField<Long>,
-            private val direction: JsonField<TransactionDirection>,
+            private val direction: JsonField<Direction>,
             private val internalAccountId: JsonField<String>,
             private val type: JsonField<ExpectedPaymentType>,
             private val currency: JsonField<Currency>,
@@ -6480,7 +6480,7 @@ constructor(
             private val remittanceInformation: JsonField<String>,
             private val reconciliationGroups: JsonValue,
             private val reconciliationFilters: JsonValue,
-            private val reconciliationRuleVariables: JsonField<List<ReconciliationRuleVariable>>,
+            private val reconciliationRuleVariables: JsonField<List<ReconciliationRule>>,
             private val lineItems: JsonField<List<LineItemRequest>>,
             private val ledgerTransaction: JsonField<LedgerTransactionCreateRequest>,
             private val ledgerTransactionId: JsonField<String>,
@@ -6493,22 +6493,22 @@ constructor(
              * The highest amount this expected payment may be equal to. Value in specified
              * currency's smallest unit. e.g. $10 would be represented as 1000.
              */
-            fun amountUpperBound(): Long = amountUpperBound.getRequired("amount_upper_bound")
+            fun amountUpperBound(): Long? = amountUpperBound.getNullable("amount_upper_bound")
 
             /**
              * The lowest amount this expected payment may be equal to. Value in specified
              * currency's smallest unit. e.g. $10 would be represented as 1000.
              */
-            fun amountLowerBound(): Long = amountLowerBound.getRequired("amount_lower_bound")
+            fun amountLowerBound(): Long? = amountLowerBound.getNullable("amount_lower_bound")
 
             /**
              * One of credit or debit. When you are receiving money, use credit. When you are being
              * charged, use debit.
              */
-            fun direction(): TransactionDirection = direction.getRequired("direction")
+            fun direction(): Direction? = direction.getNullable("direction")
 
             /** The ID of the Internal Account for the expected payment. */
-            fun internalAccountId(): String = internalAccountId.getRequired("internal_account_id")
+            fun internalAccountId(): String? = internalAccountId.getNullable("internal_account_id")
 
             /**
              * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa,
@@ -6554,7 +6554,7 @@ constructor(
                 remittanceInformation.getNullable("remittance_information")
 
             /** An array of reconciliation rule variables for this payment. */
-            fun reconciliationRuleVariables(): List<ReconciliationRuleVariable>? =
+            fun reconciliationRuleVariables(): List<ReconciliationRule>? =
                 reconciliationRuleVariables.getNullable("reconciliation_rule_variables")
 
             fun lineItems(): List<LineItemRequest>? = lineItems.getNullable("line_items")
@@ -6724,7 +6724,7 @@ constructor(
 
                 private var amountUpperBound: JsonField<Long> = JsonMissing.of()
                 private var amountLowerBound: JsonField<Long> = JsonMissing.of()
-                private var direction: JsonField<TransactionDirection> = JsonMissing.of()
+                private var direction: JsonField<Direction> = JsonMissing.of()
                 private var internalAccountId: JsonField<String> = JsonMissing.of()
                 private var type: JsonField<ExpectedPaymentType> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
@@ -6737,8 +6737,7 @@ constructor(
                 private var remittanceInformation: JsonField<String> = JsonMissing.of()
                 private var reconciliationGroups: JsonValue = JsonMissing.of()
                 private var reconciliationFilters: JsonValue = JsonMissing.of()
-                private var reconciliationRuleVariables:
-                    JsonField<List<ReconciliationRuleVariable>> =
+                private var reconciliationRuleVariables: JsonField<List<ReconciliationRule>> =
                     JsonMissing.of()
                 private var lineItems: JsonField<List<LineItemRequest>> = JsonMissing.of()
                 private var ledgerTransaction: JsonField<LedgerTransactionCreateRequest> =
@@ -6812,7 +6811,7 @@ constructor(
                  * One of credit or debit. When you are receiving money, use credit. When you are
                  * being charged, use debit.
                  */
-                fun direction(direction: TransactionDirection) = direction(JsonField.of(direction))
+                fun direction(direction: Direction) = direction(JsonField.of(direction))
 
                 /**
                  * One of credit or debit. When you are receiving money, use credit. When you are
@@ -6820,7 +6819,7 @@ constructor(
                  */
                 @JsonProperty("direction")
                 @ExcludeMissing
-                fun direction(direction: JsonField<TransactionDirection>) = apply {
+                fun direction(direction: JsonField<Direction>) = apply {
                     this.direction = direction
                 }
 
@@ -6970,14 +6969,14 @@ constructor(
 
                 /** An array of reconciliation rule variables for this payment. */
                 fun reconciliationRuleVariables(
-                    reconciliationRuleVariables: List<ReconciliationRuleVariable>
+                    reconciliationRuleVariables: List<ReconciliationRule>
                 ) = reconciliationRuleVariables(JsonField.of(reconciliationRuleVariables))
 
                 /** An array of reconciliation rule variables for this payment. */
                 @JsonProperty("reconciliation_rule_variables")
                 @ExcludeMissing
                 fun reconciliationRuleVariables(
-                    reconciliationRuleVariables: JsonField<List<ReconciliationRuleVariable>>
+                    reconciliationRuleVariables: JsonField<List<ReconciliationRule>>
                 ) = apply { this.reconciliationRuleVariables = reconciliationRuleVariables }
 
                 fun lineItems(lineItems: List<LineItemRequest>) = lineItems(JsonField.of(lineItems))
@@ -7068,6 +7067,64 @@ constructor(
                         ledgerTransactionId,
                         additionalProperties.toUnmodifiable(),
                     )
+            }
+
+            class Direction
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) : Enum {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return /* spotless:off */ other is Direction && this.value == other.value /* spotless:on */
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    val CREDIT = Direction(JsonField.of("credit"))
+
+                    val DEBIT = Direction(JsonField.of("debit"))
+
+                    fun of(value: String) = Direction(JsonField.of(value))
+                }
+
+                enum class Known {
+                    CREDIT,
+                    DEBIT,
+                }
+
+                enum class Value {
+                    CREDIT,
+                    DEBIT,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        CREDIT -> Value.CREDIT
+                        DEBIT -> Value.DEBIT
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        CREDIT -> Known.CREDIT
+                        DEBIT -> Known.DEBIT
+                        else ->
+                            throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
             }
 
             /**
@@ -8758,81 +8815,6 @@ constructor(
                 }
 
                 override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-            }
-
-            @JsonDeserialize(builder = ReconciliationRuleVariable.Builder::class)
-            @NoAutoDetect
-            class ReconciliationRuleVariable
-            private constructor(
-                private val additionalProperties: Map<String, JsonValue>,
-            ) {
-
-                private var validated: Boolean = false
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                fun validate(): ReconciliationRuleVariable = apply {
-                    if (!validated) {
-                        validated = true
-                    }
-                }
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    fun builder() = Builder()
-                }
-
-                class Builder {
-
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(reconciliationRuleVariable: ReconciliationRuleVariable) =
-                        apply {
-                            additionalProperties(reconciliationRuleVariable.additionalProperties)
-                        }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                    @JsonAnySetter
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        this.additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun build(): ReconciliationRuleVariable =
-                        ReconciliationRuleVariable(additionalProperties.toUnmodifiable())
-                }
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return /* spotless:off */ other is ReconciliationRuleVariable && this.additionalProperties == other.additionalProperties /* spotless:on */
-                }
-
-                private var hashCode: Int = 0
-
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-                    }
-                    return hashCode
-                }
-
-                override fun toString() =
-                    "ReconciliationRuleVariable{additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {
@@ -15345,7 +15327,7 @@ constructor(
         private constructor(
             private val amountUpperBound: JsonField<Long>,
             private val amountLowerBound: JsonField<Long>,
-            private val direction: JsonField<TransactionDirection>,
+            private val direction: JsonField<Direction>,
             private val internalAccountId: JsonField<String>,
             private val type: JsonField<ExpectedPaymentType>,
             private val currency: JsonField<Currency>,
@@ -15358,7 +15340,7 @@ constructor(
             private val remittanceInformation: JsonField<String>,
             private val reconciliationGroups: JsonValue,
             private val reconciliationFilters: JsonValue,
-            private val reconciliationRuleVariables: JsonField<List<ReconciliationRuleVariable>>,
+            private val reconciliationRuleVariables: JsonField<List<ReconciliationRule>>,
             private val status: JsonField<Status>,
             private val id: JsonField<String>,
             private val additionalProperties: Map<String, JsonValue>,
@@ -15382,7 +15364,7 @@ constructor(
              * One of credit or debit. When you are receiving money, use credit. When you are being
              * charged, use debit.
              */
-            fun direction(): TransactionDirection? = direction.getNullable("direction")
+            fun direction(): Direction? = direction.getNullable("direction")
 
             /** The ID of the Internal Account for the expected payment. */
             fun internalAccountId(): String? = internalAccountId.getNullable("internal_account_id")
@@ -15431,7 +15413,7 @@ constructor(
                 remittanceInformation.getNullable("remittance_information")
 
             /** An array of reconciliation rule variables for this payment. */
-            fun reconciliationRuleVariables(): List<ReconciliationRuleVariable>? =
+            fun reconciliationRuleVariables(): List<ReconciliationRule>? =
                 reconciliationRuleVariables.getNullable("reconciliation_rule_variables")
 
             /**
@@ -15572,7 +15554,7 @@ constructor(
 
                 private var amountUpperBound: JsonField<Long> = JsonMissing.of()
                 private var amountLowerBound: JsonField<Long> = JsonMissing.of()
-                private var direction: JsonField<TransactionDirection> = JsonMissing.of()
+                private var direction: JsonField<Direction> = JsonMissing.of()
                 private var internalAccountId: JsonField<String> = JsonMissing.of()
                 private var type: JsonField<ExpectedPaymentType> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
@@ -15585,8 +15567,7 @@ constructor(
                 private var remittanceInformation: JsonField<String> = JsonMissing.of()
                 private var reconciliationGroups: JsonValue = JsonMissing.of()
                 private var reconciliationFilters: JsonValue = JsonMissing.of()
-                private var reconciliationRuleVariables:
-                    JsonField<List<ReconciliationRuleVariable>> =
+                private var reconciliationRuleVariables: JsonField<List<ReconciliationRule>> =
                     JsonMissing.of()
                 private var status: JsonField<Status> = JsonMissing.of()
                 private var id: JsonField<String> = JsonMissing.of()
@@ -15659,7 +15640,7 @@ constructor(
                  * One of credit or debit. When you are receiving money, use credit. When you are
                  * being charged, use debit.
                  */
-                fun direction(direction: TransactionDirection) = direction(JsonField.of(direction))
+                fun direction(direction: Direction) = direction(JsonField.of(direction))
 
                 /**
                  * One of credit or debit. When you are receiving money, use credit. When you are
@@ -15667,7 +15648,7 @@ constructor(
                  */
                 @JsonProperty("direction")
                 @ExcludeMissing
-                fun direction(direction: JsonField<TransactionDirection>) = apply {
+                fun direction(direction: JsonField<Direction>) = apply {
                     this.direction = direction
                 }
 
@@ -15817,14 +15798,14 @@ constructor(
 
                 /** An array of reconciliation rule variables for this payment. */
                 fun reconciliationRuleVariables(
-                    reconciliationRuleVariables: List<ReconciliationRuleVariable>
+                    reconciliationRuleVariables: List<ReconciliationRule>
                 ) = reconciliationRuleVariables(JsonField.of(reconciliationRuleVariables))
 
                 /** An array of reconciliation rule variables for this payment. */
                 @JsonProperty("reconciliation_rule_variables")
                 @ExcludeMissing
                 fun reconciliationRuleVariables(
-                    reconciliationRuleVariables: JsonField<List<ReconciliationRuleVariable>>
+                    reconciliationRuleVariables: JsonField<List<ReconciliationRule>>
                 ) = apply { this.reconciliationRuleVariables = reconciliationRuleVariables }
 
                 /**
@@ -15884,6 +15865,64 @@ constructor(
                         id,
                         additionalProperties.toUnmodifiable(),
                     )
+            }
+
+            class Direction
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) : Enum {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return /* spotless:off */ other is Direction && this.value == other.value /* spotless:on */
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    val CREDIT = Direction(JsonField.of("credit"))
+
+                    val DEBIT = Direction(JsonField.of("debit"))
+
+                    fun of(value: String) = Direction(JsonField.of(value))
+                }
+
+                enum class Known {
+                    CREDIT,
+                    DEBIT,
+                }
+
+                enum class Value {
+                    CREDIT,
+                    DEBIT,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        CREDIT -> Value.CREDIT
+                        DEBIT -> Value.DEBIT
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        CREDIT -> Known.CREDIT
+                        DEBIT -> Known.DEBIT
+                        else ->
+                            throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
             }
 
             /**
@@ -15960,81 +15999,6 @@ constructor(
                 }
 
                 override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-            }
-
-            @JsonDeserialize(builder = ReconciliationRuleVariable.Builder::class)
-            @NoAutoDetect
-            class ReconciliationRuleVariable
-            private constructor(
-                private val additionalProperties: Map<String, JsonValue>,
-            ) {
-
-                private var validated: Boolean = false
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                fun validate(): ReconciliationRuleVariable = apply {
-                    if (!validated) {
-                        validated = true
-                    }
-                }
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    fun builder() = Builder()
-                }
-
-                class Builder {
-
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(reconciliationRuleVariable: ReconciliationRuleVariable) =
-                        apply {
-                            additionalProperties(reconciliationRuleVariable.additionalProperties)
-                        }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                    @JsonAnySetter
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        this.additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun build(): ReconciliationRuleVariable =
-                        ReconciliationRuleVariable(additionalProperties.toUnmodifiable())
-                }
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return /* spotless:off */ other is ReconciliationRuleVariable && this.additionalProperties == other.additionalProperties /* spotless:on */
-                }
-
-                private var hashCode: Int = 0
-
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-                    }
-                    return hashCode
-                }
-
-                override fun toString() =
-                    "ReconciliationRuleVariable{additionalProperties=$additionalProperties}"
             }
 
             class Status
