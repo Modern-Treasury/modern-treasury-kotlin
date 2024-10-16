@@ -5,8 +5,8 @@ package com.moderntreasury.api.services.async
 import com.google.common.collect.ListMultimap
 import com.google.common.io.BaseEncoding
 import com.moderntreasury.api.core.ClientOptions
-import com.moderntreasury.api.core.errorHandler
 import com.moderntreasury.api.core.getRequiredHeader
+import com.moderntreasury.api.core.handlers.errorHandler
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.errors.ModernTreasuryError
 import javax.crypto.Mac
