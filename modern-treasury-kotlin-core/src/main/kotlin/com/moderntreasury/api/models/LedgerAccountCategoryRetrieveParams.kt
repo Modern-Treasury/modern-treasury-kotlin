@@ -8,6 +8,7 @@ import com.moderntreasury.api.core.toUnmodifiable
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 
 class LedgerAccountCategoryRetrieveParams
@@ -161,7 +162,9 @@ constructor(
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
             this.asOfDate?.let { putParam("as_of_date", listOf(it.toString())) }
-            this.effectiveAt?.let { putParam("effective_at", listOf(it.toString())) }
+            this.effectiveAt?.let {
+                putParam("effective_at", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
+            }
             this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }
 

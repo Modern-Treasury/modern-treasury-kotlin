@@ -6,9 +6,9 @@ import com.google.common.collect.ListMultimap
 import com.google.common.io.BaseEncoding
 import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.getRequiredHeader
+import com.moderntreasury.api.core.handlers.errorHandler
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.errors.ModernTreasuryError
-import com.moderntreasury.api.services.errorHandler
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 

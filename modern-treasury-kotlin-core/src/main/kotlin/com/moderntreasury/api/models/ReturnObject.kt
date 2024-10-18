@@ -1320,6 +1320,9 @@ private constructor(
 
                 val PNC_PAYMENT_TRACE_ID = ReferenceNumberType(JsonField.of("pnc_payment_trace_id"))
 
+                val PNC_TRANSACTION_REFERENCE_NUMBER =
+                    ReferenceNumberType(JsonField.of("pnc_transaction_reference_number"))
+
                 val RSPEC_VENDOR_PAYMENT_ID =
                     ReferenceNumberType(JsonField.of("rspec_vendor_payment_id"))
 
@@ -1430,6 +1433,7 @@ private constructor(
                 PNC_INSTRUCTION_ID,
                 PNC_MULTIPAYMENT_ID,
                 PNC_PAYMENT_TRACE_ID,
+                PNC_TRANSACTION_REFERENCE_NUMBER,
                 RSPEC_VENDOR_PAYMENT_ID,
                 RTP_INSTRUCTION_ID,
                 SIGNET_API_REFERENCE_ID,
@@ -1503,6 +1507,7 @@ private constructor(
                 PNC_INSTRUCTION_ID,
                 PNC_MULTIPAYMENT_ID,
                 PNC_PAYMENT_TRACE_ID,
+                PNC_TRANSACTION_REFERENCE_NUMBER,
                 RSPEC_VENDOR_PAYMENT_ID,
                 RTP_INSTRUCTION_ID,
                 SIGNET_API_REFERENCE_ID,
@@ -1579,6 +1584,7 @@ private constructor(
                     PNC_INSTRUCTION_ID -> Value.PNC_INSTRUCTION_ID
                     PNC_MULTIPAYMENT_ID -> Value.PNC_MULTIPAYMENT_ID
                     PNC_PAYMENT_TRACE_ID -> Value.PNC_PAYMENT_TRACE_ID
+                    PNC_TRANSACTION_REFERENCE_NUMBER -> Value.PNC_TRANSACTION_REFERENCE_NUMBER
                     RSPEC_VENDOR_PAYMENT_ID -> Value.RSPEC_VENDOR_PAYMENT_ID
                     RTP_INSTRUCTION_ID -> Value.RTP_INSTRUCTION_ID
                     SIGNET_API_REFERENCE_ID -> Value.SIGNET_API_REFERENCE_ID
@@ -1658,6 +1664,7 @@ private constructor(
                     PNC_INSTRUCTION_ID -> Known.PNC_INSTRUCTION_ID
                     PNC_MULTIPAYMENT_ID -> Known.PNC_MULTIPAYMENT_ID
                     PNC_PAYMENT_TRACE_ID -> Known.PNC_PAYMENT_TRACE_ID
+                    PNC_TRANSACTION_REFERENCE_NUMBER -> Known.PNC_TRANSACTION_REFERENCE_NUMBER
                     RSPEC_VENDOR_PAYMENT_ID -> Known.RSPEC_VENDOR_PAYMENT_ID
                     RTP_INSTRUCTION_ID -> Known.RTP_INSTRUCTION_ID
                     SIGNET_API_REFERENCE_ID -> Known.SIGNET_API_REFERENCE_ID

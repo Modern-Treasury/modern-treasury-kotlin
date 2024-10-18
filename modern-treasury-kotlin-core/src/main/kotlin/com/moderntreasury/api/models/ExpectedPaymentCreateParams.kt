@@ -21,22 +21,22 @@ import java.util.Objects
 
 class ExpectedPaymentCreateParams
 constructor(
-    private val amountLowerBound: Long,
-    private val amountUpperBound: Long,
-    private val direction: TransactionDirection,
-    private val internalAccountId: String,
+    private val amountLowerBound: Long?,
+    private val amountUpperBound: Long?,
     private val counterpartyId: String?,
     private val currency: Currency?,
     private val dateLowerBound: LocalDate?,
     private val dateUpperBound: LocalDate?,
     private val description: String?,
+    private val direction: Direction?,
+    private val internalAccountId: String?,
     private val ledgerTransaction: LedgerTransactionCreateRequest?,
     private val ledgerTransactionId: String?,
     private val lineItems: List<LineItemRequest>?,
     private val metadata: Metadata?,
     private val reconciliationFilters: JsonValue?,
     private val reconciliationGroups: JsonValue?,
-    private val reconciliationRuleVariables: List<ReconciliationRuleVariable>?,
+    private val reconciliationRuleVariables: List<ReconciliationRule>?,
     private val remittanceInformation: String?,
     private val statementDescriptor: String?,
     private val type: ExpectedPaymentType?,
@@ -45,13 +45,9 @@ constructor(
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun amountLowerBound(): Long = amountLowerBound
+    fun amountLowerBound(): Long? = amountLowerBound
 
-    fun amountUpperBound(): Long = amountUpperBound
-
-    fun direction(): TransactionDirection = direction
-
-    fun internalAccountId(): String = internalAccountId
+    fun amountUpperBound(): Long? = amountUpperBound
 
     fun counterpartyId(): String? = counterpartyId
 
@@ -62,6 +58,10 @@ constructor(
     fun dateUpperBound(): LocalDate? = dateUpperBound
 
     fun description(): String? = description
+
+    fun direction(): Direction? = direction
+
+    fun internalAccountId(): String? = internalAccountId
 
     fun ledgerTransaction(): LedgerTransactionCreateRequest? = ledgerTransaction
 
@@ -75,8 +75,7 @@ constructor(
 
     fun reconciliationGroups(): JsonValue? = reconciliationGroups
 
-    fun reconciliationRuleVariables(): List<ReconciliationRuleVariable>? =
-        reconciliationRuleVariables
+    fun reconciliationRuleVariables(): List<ReconciliationRule>? = reconciliationRuleVariables
 
     fun remittanceInformation(): String? = remittanceInformation
 
@@ -88,13 +87,13 @@ constructor(
         return ExpectedPaymentCreateBody(
             amountLowerBound,
             amountUpperBound,
-            direction,
-            internalAccountId,
             counterpartyId,
             currency,
             dateLowerBound,
             dateUpperBound,
             description,
+            direction,
+            internalAccountId,
             ledgerTransaction,
             ledgerTransactionId,
             lineItems,
@@ -119,20 +118,20 @@ constructor(
     internal constructor(
         private val amountLowerBound: Long?,
         private val amountUpperBound: Long?,
-        private val direction: TransactionDirection?,
-        private val internalAccountId: String?,
         private val counterpartyId: String?,
         private val currency: Currency?,
         private val dateLowerBound: LocalDate?,
         private val dateUpperBound: LocalDate?,
         private val description: String?,
+        private val direction: Direction?,
+        private val internalAccountId: String?,
         private val ledgerTransaction: LedgerTransactionCreateRequest?,
         private val ledgerTransactionId: String?,
         private val lineItems: List<LineItemRequest>?,
         private val metadata: Metadata?,
         private val reconciliationFilters: JsonValue?,
         private val reconciliationGroups: JsonValue?,
-        private val reconciliationRuleVariables: List<ReconciliationRuleVariable>?,
+        private val reconciliationRuleVariables: List<ReconciliationRule>?,
         private val remittanceInformation: String?,
         private val statementDescriptor: String?,
         private val type: ExpectedPaymentType?,
@@ -151,15 +150,6 @@ constructor(
          */
         @JsonProperty("amount_upper_bound") fun amountUpperBound(): Long? = amountUpperBound
 
-        /**
-         * One of credit or debit. When you are receiving money, use credit. When you are being
-         * charged, use debit.
-         */
-        @JsonProperty("direction") fun direction(): TransactionDirection? = direction
-
-        /** The ID of the Internal Account for the expected payment. */
-        @JsonProperty("internal_account_id") fun internalAccountId(): String? = internalAccountId
-
         /** The ID of the counterparty you expect for this payment. */
         @JsonProperty("counterparty_id") fun counterpartyId(): String? = counterpartyId
 
@@ -174,6 +164,15 @@ constructor(
 
         /** An optional description for internal use. */
         @JsonProperty("description") fun description(): String? = description
+
+        /**
+         * One of credit or debit. When you are receiving money, use credit. When you are being
+         * charged, use debit.
+         */
+        @JsonProperty("direction") fun direction(): Direction? = direction
+
+        /** The ID of the Internal Account for the expected payment. */
+        @JsonProperty("internal_account_id") fun internalAccountId(): String? = internalAccountId
 
         /**
          * Specifies a ledger transaction object that will be created with the expected payment. If
@@ -208,8 +207,7 @@ constructor(
 
         /** An array of reconciliation rule variables for this payment. */
         @JsonProperty("reconciliation_rule_variables")
-        fun reconciliationRuleVariables(): List<ReconciliationRuleVariable>? =
-            reconciliationRuleVariables
+        fun reconciliationRuleVariables(): List<ReconciliationRule>? = reconciliationRuleVariables
 
         /**
          * For `ach`, this field will be passed through on an addenda record. For `wire` payments
@@ -248,20 +246,20 @@ constructor(
 
             private var amountLowerBound: Long? = null
             private var amountUpperBound: Long? = null
-            private var direction: TransactionDirection? = null
-            private var internalAccountId: String? = null
             private var counterpartyId: String? = null
             private var currency: Currency? = null
             private var dateLowerBound: LocalDate? = null
             private var dateUpperBound: LocalDate? = null
             private var description: String? = null
+            private var direction: Direction? = null
+            private var internalAccountId: String? = null
             private var ledgerTransaction: LedgerTransactionCreateRequest? = null
             private var ledgerTransactionId: String? = null
             private var lineItems: List<LineItemRequest>? = null
             private var metadata: Metadata? = null
             private var reconciliationFilters: JsonValue? = null
             private var reconciliationGroups: JsonValue? = null
-            private var reconciliationRuleVariables: List<ReconciliationRuleVariable>? = null
+            private var reconciliationRuleVariables: List<ReconciliationRule>? = null
             private var remittanceInformation: String? = null
             private var statementDescriptor: String? = null
             private var type: ExpectedPaymentType? = null
@@ -270,13 +268,13 @@ constructor(
             internal fun from(expectedPaymentCreateBody: ExpectedPaymentCreateBody) = apply {
                 this.amountLowerBound = expectedPaymentCreateBody.amountLowerBound
                 this.amountUpperBound = expectedPaymentCreateBody.amountUpperBound
-                this.direction = expectedPaymentCreateBody.direction
-                this.internalAccountId = expectedPaymentCreateBody.internalAccountId
                 this.counterpartyId = expectedPaymentCreateBody.counterpartyId
                 this.currency = expectedPaymentCreateBody.currency
                 this.dateLowerBound = expectedPaymentCreateBody.dateLowerBound
                 this.dateUpperBound = expectedPaymentCreateBody.dateUpperBound
                 this.description = expectedPaymentCreateBody.description
+                this.direction = expectedPaymentCreateBody.direction
+                this.internalAccountId = expectedPaymentCreateBody.internalAccountId
                 this.ledgerTransaction = expectedPaymentCreateBody.ledgerTransaction
                 this.ledgerTransactionId = expectedPaymentCreateBody.ledgerTransactionId
                 this.lineItems = expectedPaymentCreateBody.lineItems
@@ -309,19 +307,6 @@ constructor(
                 this.amountUpperBound = amountUpperBound
             }
 
-            /**
-             * One of credit or debit. When you are receiving money, use credit. When you are being
-             * charged, use debit.
-             */
-            @JsonProperty("direction")
-            fun direction(direction: TransactionDirection) = apply { this.direction = direction }
-
-            /** The ID of the Internal Account for the expected payment. */
-            @JsonProperty("internal_account_id")
-            fun internalAccountId(internalAccountId: String) = apply {
-                this.internalAccountId = internalAccountId
-            }
-
             /** The ID of the counterparty you expect for this payment. */
             @JsonProperty("counterparty_id")
             fun counterpartyId(counterpartyId: String) = apply {
@@ -347,6 +332,19 @@ constructor(
             /** An optional description for internal use. */
             @JsonProperty("description")
             fun description(description: String) = apply { this.description = description }
+
+            /**
+             * One of credit or debit. When you are receiving money, use credit. When you are being
+             * charged, use debit.
+             */
+            @JsonProperty("direction")
+            fun direction(direction: Direction) = apply { this.direction = direction }
+
+            /** The ID of the Internal Account for the expected payment. */
+            @JsonProperty("internal_account_id")
+            fun internalAccountId(internalAccountId: String) = apply {
+                this.internalAccountId = internalAccountId
+            }
 
             /**
              * Specifies a ledger transaction object that will be created with the expected payment.
@@ -394,9 +392,10 @@ constructor(
 
             /** An array of reconciliation rule variables for this payment. */
             @JsonProperty("reconciliation_rule_variables")
-            fun reconciliationRuleVariables(
-                reconciliationRuleVariables: List<ReconciliationRuleVariable>
-            ) = apply { this.reconciliationRuleVariables = reconciliationRuleVariables }
+            fun reconciliationRuleVariables(reconciliationRuleVariables: List<ReconciliationRule>) =
+                apply {
+                    this.reconciliationRuleVariables = reconciliationRuleVariables
+                }
 
             /**
              * For `ach`, this field will be passed through on an addenda record. For `wire`
@@ -440,21 +439,15 @@ constructor(
 
             fun build(): ExpectedPaymentCreateBody =
                 ExpectedPaymentCreateBody(
-                    checkNotNull(amountLowerBound) {
-                        "`amountLowerBound` is required but was not set"
-                    },
-                    checkNotNull(amountUpperBound) {
-                        "`amountUpperBound` is required but was not set"
-                    },
-                    checkNotNull(direction) { "`direction` is required but was not set" },
-                    checkNotNull(internalAccountId) {
-                        "`internalAccountId` is required but was not set"
-                    },
+                    amountLowerBound,
+                    amountUpperBound,
                     counterpartyId,
                     currency,
                     dateLowerBound,
                     dateUpperBound,
                     description,
+                    direction,
+                    internalAccountId,
                     ledgerTransaction,
                     ledgerTransactionId,
                     lineItems?.toUnmodifiable(),
@@ -474,20 +467,20 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExpectedPaymentCreateBody && this.amountLowerBound == other.amountLowerBound && this.amountUpperBound == other.amountUpperBound && this.direction == other.direction && this.internalAccountId == other.internalAccountId && this.counterpartyId == other.counterpartyId && this.currency == other.currency && this.dateLowerBound == other.dateLowerBound && this.dateUpperBound == other.dateUpperBound && this.description == other.description && this.ledgerTransaction == other.ledgerTransaction && this.ledgerTransactionId == other.ledgerTransactionId && this.lineItems == other.lineItems && this.metadata == other.metadata && this.reconciliationFilters == other.reconciliationFilters && this.reconciliationGroups == other.reconciliationGroups && this.reconciliationRuleVariables == other.reconciliationRuleVariables && this.remittanceInformation == other.remittanceInformation && this.statementDescriptor == other.statementDescriptor && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ExpectedPaymentCreateBody && this.amountLowerBound == other.amountLowerBound && this.amountUpperBound == other.amountUpperBound && this.counterpartyId == other.counterpartyId && this.currency == other.currency && this.dateLowerBound == other.dateLowerBound && this.dateUpperBound == other.dateUpperBound && this.description == other.description && this.direction == other.direction && this.internalAccountId == other.internalAccountId && this.ledgerTransaction == other.ledgerTransaction && this.ledgerTransactionId == other.ledgerTransactionId && this.lineItems == other.lineItems && this.metadata == other.metadata && this.reconciliationFilters == other.reconciliationFilters && this.reconciliationGroups == other.reconciliationGroups && this.reconciliationRuleVariables == other.reconciliationRuleVariables && this.remittanceInformation == other.remittanceInformation && this.statementDescriptor == other.statementDescriptor && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(amountLowerBound, amountUpperBound, direction, internalAccountId, counterpartyId, currency, dateLowerBound, dateUpperBound, description, ledgerTransaction, ledgerTransactionId, lineItems, metadata, reconciliationFilters, reconciliationGroups, reconciliationRuleVariables, remittanceInformation, statementDescriptor, type, additionalProperties) /* spotless:on */
+                hashCode = /* spotless:off */ Objects.hash(amountLowerBound, amountUpperBound, counterpartyId, currency, dateLowerBound, dateUpperBound, description, direction, internalAccountId, ledgerTransaction, ledgerTransactionId, lineItems, metadata, reconciliationFilters, reconciliationGroups, reconciliationRuleVariables, remittanceInformation, statementDescriptor, type, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
 
         override fun toString() =
-            "ExpectedPaymentCreateBody{amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, direction=$direction, internalAccountId=$internalAccountId, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, type=$type, additionalProperties=$additionalProperties}"
+            "ExpectedPaymentCreateBody{amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, direction=$direction, internalAccountId=$internalAccountId, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, type=$type, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -501,15 +494,15 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExpectedPaymentCreateParams && this.amountLowerBound == other.amountLowerBound && this.amountUpperBound == other.amountUpperBound && this.direction == other.direction && this.internalAccountId == other.internalAccountId && this.counterpartyId == other.counterpartyId && this.currency == other.currency && this.dateLowerBound == other.dateLowerBound && this.dateUpperBound == other.dateUpperBound && this.description == other.description && this.ledgerTransaction == other.ledgerTransaction && this.ledgerTransactionId == other.ledgerTransactionId && this.lineItems == other.lineItems && this.metadata == other.metadata && this.reconciliationFilters == other.reconciliationFilters && this.reconciliationGroups == other.reconciliationGroups && this.reconciliationRuleVariables == other.reconciliationRuleVariables && this.remittanceInformation == other.remittanceInformation && this.statementDescriptor == other.statementDescriptor && this.type == other.type && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is ExpectedPaymentCreateParams && this.amountLowerBound == other.amountLowerBound && this.amountUpperBound == other.amountUpperBound && this.counterpartyId == other.counterpartyId && this.currency == other.currency && this.dateLowerBound == other.dateLowerBound && this.dateUpperBound == other.dateUpperBound && this.description == other.description && this.direction == other.direction && this.internalAccountId == other.internalAccountId && this.ledgerTransaction == other.ledgerTransaction && this.ledgerTransactionId == other.ledgerTransactionId && this.lineItems == other.lineItems && this.metadata == other.metadata && this.reconciliationFilters == other.reconciliationFilters && this.reconciliationGroups == other.reconciliationGroups && this.reconciliationRuleVariables == other.reconciliationRuleVariables && this.remittanceInformation == other.remittanceInformation && this.statementDescriptor == other.statementDescriptor && this.type == other.type && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(amountLowerBound, amountUpperBound, direction, internalAccountId, counterpartyId, currency, dateLowerBound, dateUpperBound, description, ledgerTransaction, ledgerTransactionId, lineItems, metadata, reconciliationFilters, reconciliationGroups, reconciliationRuleVariables, remittanceInformation, statementDescriptor, type, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
+        return /* spotless:off */ Objects.hash(amountLowerBound, amountUpperBound, counterpartyId, currency, dateLowerBound, dateUpperBound, description, direction, internalAccountId, ledgerTransaction, ledgerTransactionId, lineItems, metadata, reconciliationFilters, reconciliationGroups, reconciliationRuleVariables, remittanceInformation, statementDescriptor, type, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
-        "ExpectedPaymentCreateParams{amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, direction=$direction, internalAccountId=$internalAccountId, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, type=$type, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "ExpectedPaymentCreateParams{amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, direction=$direction, internalAccountId=$internalAccountId, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, type=$type, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -523,21 +516,20 @@ constructor(
 
         private var amountLowerBound: Long? = null
         private var amountUpperBound: Long? = null
-        private var direction: TransactionDirection? = null
-        private var internalAccountId: String? = null
         private var counterpartyId: String? = null
         private var currency: Currency? = null
         private var dateLowerBound: LocalDate? = null
         private var dateUpperBound: LocalDate? = null
         private var description: String? = null
+        private var direction: Direction? = null
+        private var internalAccountId: String? = null
         private var ledgerTransaction: LedgerTransactionCreateRequest? = null
         private var ledgerTransactionId: String? = null
         private var lineItems: MutableList<LineItemRequest> = mutableListOf()
         private var metadata: Metadata? = null
         private var reconciliationFilters: JsonValue? = null
         private var reconciliationGroups: JsonValue? = null
-        private var reconciliationRuleVariables: MutableList<ReconciliationRuleVariable> =
-            mutableListOf()
+        private var reconciliationRuleVariables: MutableList<ReconciliationRule> = mutableListOf()
         private var remittanceInformation: String? = null
         private var statementDescriptor: String? = null
         private var type: ExpectedPaymentType? = null
@@ -548,13 +540,13 @@ constructor(
         internal fun from(expectedPaymentCreateParams: ExpectedPaymentCreateParams) = apply {
             this.amountLowerBound = expectedPaymentCreateParams.amountLowerBound
             this.amountUpperBound = expectedPaymentCreateParams.amountUpperBound
-            this.direction = expectedPaymentCreateParams.direction
-            this.internalAccountId = expectedPaymentCreateParams.internalAccountId
             this.counterpartyId = expectedPaymentCreateParams.counterpartyId
             this.currency = expectedPaymentCreateParams.currency
             this.dateLowerBound = expectedPaymentCreateParams.dateLowerBound
             this.dateUpperBound = expectedPaymentCreateParams.dateUpperBound
             this.description = expectedPaymentCreateParams.description
+            this.direction = expectedPaymentCreateParams.direction
+            this.internalAccountId = expectedPaymentCreateParams.internalAccountId
             this.ledgerTransaction = expectedPaymentCreateParams.ledgerTransaction
             this.ledgerTransactionId = expectedPaymentCreateParams.ledgerTransactionId
             this.lineItems(expectedPaymentCreateParams.lineItems ?: listOf())
@@ -588,17 +580,6 @@ constructor(
             this.amountUpperBound = amountUpperBound
         }
 
-        /**
-         * One of credit or debit. When you are receiving money, use credit. When you are being
-         * charged, use debit.
-         */
-        fun direction(direction: TransactionDirection) = apply { this.direction = direction }
-
-        /** The ID of the Internal Account for the expected payment. */
-        fun internalAccountId(internalAccountId: String) = apply {
-            this.internalAccountId = internalAccountId
-        }
-
         /** The ID of the counterparty you expect for this payment. */
         fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
 
@@ -617,6 +598,17 @@ constructor(
 
         /** An optional description for internal use. */
         fun description(description: String) = apply { this.description = description }
+
+        /**
+         * One of credit or debit. When you are receiving money, use credit. When you are being
+         * charged, use debit.
+         */
+        fun direction(direction: Direction) = apply { this.direction = direction }
+
+        /** The ID of the Internal Account for the expected payment. */
+        fun internalAccountId(internalAccountId: String) = apply {
+            this.internalAccountId = internalAccountId
+        }
 
         /**
          * Specifies a ledger transaction object that will be created with the expected payment. If
@@ -659,18 +651,16 @@ constructor(
         }
 
         /** An array of reconciliation rule variables for this payment. */
-        fun reconciliationRuleVariables(
-            reconciliationRuleVariables: List<ReconciliationRuleVariable>
-        ) = apply {
-            this.reconciliationRuleVariables.clear()
-            this.reconciliationRuleVariables.addAll(reconciliationRuleVariables)
-        }
+        fun reconciliationRuleVariables(reconciliationRuleVariables: List<ReconciliationRule>) =
+            apply {
+                this.reconciliationRuleVariables.clear()
+                this.reconciliationRuleVariables.addAll(reconciliationRuleVariables)
+            }
 
         /** An array of reconciliation rule variables for this payment. */
-        fun addReconciliationRuleVariable(reconciliationRuleVariable: ReconciliationRuleVariable) =
-            apply {
-                this.reconciliationRuleVariables.add(reconciliationRuleVariable)
-            }
+        fun addReconciliationRuleVariable(reconciliationRuleVariable: ReconciliationRule) = apply {
+            this.reconciliationRuleVariables.add(reconciliationRuleVariable)
+        }
 
         /**
          * For `ach`, this field will be passed through on an addenda record. For `wire` payments
@@ -752,17 +742,15 @@ constructor(
 
         fun build(): ExpectedPaymentCreateParams =
             ExpectedPaymentCreateParams(
-                checkNotNull(amountLowerBound) { "`amountLowerBound` is required but was not set" },
-                checkNotNull(amountUpperBound) { "`amountUpperBound` is required but was not set" },
-                checkNotNull(direction) { "`direction` is required but was not set" },
-                checkNotNull(internalAccountId) {
-                    "`internalAccountId` is required but was not set"
-                },
+                amountLowerBound,
+                amountUpperBound,
                 counterpartyId,
                 currency,
                 dateLowerBound,
                 dateUpperBound,
                 description,
+                direction,
+                internalAccountId,
                 ledgerTransaction,
                 ledgerTransactionId,
                 if (lineItems.size == 0) null else lineItems.toUnmodifiable(),
@@ -778,6 +766,63 @@ constructor(
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
             )
+    }
+
+    class Direction
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Direction && this.value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val CREDIT = Direction(JsonField.of("credit"))
+
+            val DEBIT = Direction(JsonField.of("debit"))
+
+            fun of(value: String) = Direction(JsonField.of(value))
+        }
+
+        enum class Known {
+            CREDIT,
+            DEBIT,
+        }
+
+        enum class Value {
+            CREDIT,
+            DEBIT,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                CREDIT -> Value.CREDIT
+                DEBIT -> Value.DEBIT
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                CREDIT -> Known.CREDIT
+                DEBIT -> Known.DEBIT
+                else -> throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     /**
@@ -1993,70 +2038,5 @@ constructor(
         }
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-    }
-
-    @JsonDeserialize(builder = ReconciliationRuleVariable.Builder::class)
-    @NoAutoDetect
-    class ReconciliationRuleVariable
-    private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(reconciliationRuleVariable: ReconciliationRuleVariable) = apply {
-                additionalProperties(reconciliationRuleVariable.additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): ReconciliationRuleVariable =
-                ReconciliationRuleVariable(additionalProperties.toUnmodifiable())
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is ReconciliationRuleVariable && this.additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        private var hashCode: Int = 0
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "ReconciliationRuleVariable{additionalProperties=$additionalProperties}"
     }
 }
