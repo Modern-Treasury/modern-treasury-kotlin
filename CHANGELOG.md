@@ -1,5 +1,31 @@
 # Changelog
 
+## 2.21.0 (2024-10-18)
+
+Full Changelog: [v2.20.1...v2.21.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.20.1...v2.21.0)
+
+### Features
+
+* **api:** updates to required fields for ExpectedPayments ([#224](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/224)) ([0e93a3c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0e93a3c5d186e91b84ba7a76e25ba3d5fb9a2a38))
+
+
+### Bug Fixes
+
+* use date time serialization for query parameters ([#218](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/218)) ([06adac6](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/06adac6a92c1073a5bb9aad5dd683614af60832c))
+
+
+### Chores
+
+* **internal:** omit unnecessary code ([68ab76a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/68ab76aefb0e2cf61fd228288882664a5018fe54))
+
+
+### Styles
+
+* **internal:** improve terseness of handlers ([#220](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/220)) ([fa5407d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/fa5407d455fb42b1f147bae99ad3a03f6c8b97e1))
+* **internal:** improve terseness of Properties.kt ([#221](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/221)) ([be63d21](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/be63d21f72b18710d4571e2082e6032ed4dd5dfd))
+* **internal:** move Handlers.kt and HttpRequestBodies.kt to core ([31ec99c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/31ec99c257d56ffa5a585bde5354d1bf3f23f778))
+* **internal:** update some spacing ([#225](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/225)) ([003d77d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/003d77dff7f00bd087d43f1f88df9d4dbade566e))
+
 ## 2.20.1 (2024-10-03)
 
 Full Changelog: [v2.20.0...v2.20.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.20.0...v2.20.1)
