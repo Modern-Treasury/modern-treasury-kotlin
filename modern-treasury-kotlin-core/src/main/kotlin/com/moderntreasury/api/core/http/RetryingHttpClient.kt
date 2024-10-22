@@ -1,5 +1,3 @@
-@file:JvmSynthetic
-
 package com.moderntreasury.api.core.http
 
 import com.moderntreasury.api.core.RequestOptions
