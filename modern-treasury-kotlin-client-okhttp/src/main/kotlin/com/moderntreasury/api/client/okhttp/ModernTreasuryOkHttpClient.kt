@@ -72,8 +72,8 @@ class ModernTreasuryOkHttpClient private constructor() {
 
         fun fromEnv() = apply { clientOptions.fromEnv() }
 
-        fun build(): ModernTreasuryClient {
-            return ModernTreasuryClientImpl(
+        fun build(): ModernTreasuryClient =
+            ModernTreasuryClientImpl(
                 clientOptions
                     .httpClient(
                         OkHttpClient.builder()
@@ -84,6 +84,5 @@ class ModernTreasuryOkHttpClient private constructor() {
                     )
                     .build()
             )
-        }
     }
 }
