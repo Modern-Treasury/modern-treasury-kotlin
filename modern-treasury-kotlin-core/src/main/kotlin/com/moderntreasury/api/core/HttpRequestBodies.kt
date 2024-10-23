@@ -1,11 +1,8 @@
 @file:JvmName("HttpRequestBodies")
 
-package com.moderntreasury.api.services
+package com.moderntreasury.api.core
 
 import com.fasterxml.jackson.databind.json.JsonMapper
-import com.moderntreasury.api.core.Enum
-import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.MultipartFormValue
 import com.moderntreasury.api.core.http.HttpRequestBody
 import com.moderntreasury.api.errors.ModernTreasuryException
 import java.io.ByteArrayOutputStream

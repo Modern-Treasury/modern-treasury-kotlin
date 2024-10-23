@@ -507,6 +507,7 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): Entity {
                 val json = JsonValue.fromJsonNode(node)
+
                 tryDeserialize(node, jacksonTypeRef<PaymentOrder>()) { it.validate() }
                     ?.let {
                         return Entity(paymentOrder = it, _json = json)
