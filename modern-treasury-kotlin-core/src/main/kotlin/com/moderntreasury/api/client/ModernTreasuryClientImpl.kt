@@ -4,6 +4,7 @@ package com.moderntreasury.api.client
 
 import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
+import com.moderntreasury.api.core.getPackageVersion
 import com.moderntreasury.api.core.handlers.errorHandler
 import com.moderntreasury.api.core.handlers.jsonHandler
 import com.moderntreasury.api.core.handlers.withErrorHandler
@@ -19,130 +20,161 @@ constructor(
     private val clientOptions: ClientOptions,
 ) : ModernTreasuryClient {
 
+    private val clientOptionsWithUserAgent =
+        if (clientOptions.headers.containsKey("User-Agent")) clientOptions
+        else
+            clientOptions
+                .toBuilder()
+                .putHeader("User-Agent", "${javaClass.simpleName}/Kotlin ${getPackageVersion()}")
+                .build()
+
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
+    // Pass the original clientOptions so that this client sets its own User-Agent.
     private val async: ModernTreasuryClientAsync by lazy {
         ModernTreasuryClientAsyncImpl(clientOptions)
     }
 
-    private val connections: ConnectionService by lazy { ConnectionServiceImpl(clientOptions) }
-
-    private val counterparties: CounterpartyService by lazy {
-        CounterpartyServiceImpl(clientOptions)
+    private val connections: ConnectionService by lazy {
+        ConnectionServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val events: EventService by lazy { EventServiceImpl(clientOptions) }
+    private val counterparties: CounterpartyService by lazy {
+        CounterpartyServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val events: EventService by lazy { EventServiceImpl(clientOptionsWithUserAgent) }
 
     private val expectedPayments: ExpectedPaymentService by lazy {
-        ExpectedPaymentServiceImpl(clientOptions)
+        ExpectedPaymentServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val externalAccounts: ExternalAccountService by lazy {
-        ExternalAccountServiceImpl(clientOptions)
+        ExternalAccountServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val incomingPaymentDetails: IncomingPaymentDetailService by lazy {
-        IncomingPaymentDetailServiceImpl(clientOptions)
+        IncomingPaymentDetailServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val invoices: InvoiceService by lazy { InvoiceServiceImpl(clientOptions) }
+    private val invoices: InvoiceService by lazy { InvoiceServiceImpl(clientOptionsWithUserAgent) }
 
-    private val documents: DocumentService by lazy { DocumentServiceImpl(clientOptions) }
+    private val documents: DocumentService by lazy {
+        DocumentServiceImpl(clientOptionsWithUserAgent)
+    }
 
     private val accountCollectionFlows: AccountCollectionFlowService by lazy {
-        AccountCollectionFlowServiceImpl(clientOptions)
+        AccountCollectionFlowServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val accountDetails: AccountDetailService by lazy {
-        AccountDetailServiceImpl(clientOptions)
+        AccountDetailServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val routingDetails: RoutingDetailService by lazy {
-        RoutingDetailServiceImpl(clientOptions)
+        RoutingDetailServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val internalAccounts: InternalAccountService by lazy {
-        InternalAccountServiceImpl(clientOptions)
+        InternalAccountServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val ledgers: LedgerService by lazy { LedgerServiceImpl(clientOptions) }
+    private val ledgers: LedgerService by lazy { LedgerServiceImpl(clientOptionsWithUserAgent) }
 
     private val ledgerableEvents: LedgerableEventService by lazy {
-        LedgerableEventServiceImpl(clientOptions)
+        LedgerableEventServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val ledgerAccountCategories: LedgerAccountCategoryService by lazy {
-        LedgerAccountCategoryServiceImpl(clientOptions)
+        LedgerAccountCategoryServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val ledgerAccounts: LedgerAccountService by lazy {
-        LedgerAccountServiceImpl(clientOptions)
+        LedgerAccountServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val ledgerAccountBalanceMonitors: LedgerAccountBalanceMonitorService by lazy {
-        LedgerAccountBalanceMonitorServiceImpl(clientOptions)
+        LedgerAccountBalanceMonitorServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val ledgerAccountStatements: LedgerAccountStatementService by lazy {
-        LedgerAccountStatementServiceImpl(clientOptions)
+        LedgerAccountStatementServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val ledgerEntries: LedgerEntryService by lazy { LedgerEntryServiceImpl(clientOptions) }
+    private val ledgerEntries: LedgerEntryService by lazy {
+        LedgerEntryServiceImpl(clientOptionsWithUserAgent)
+    }
 
     private val ledgerEventHandlers: LedgerEventHandlerService by lazy {
-        LedgerEventHandlerServiceImpl(clientOptions)
+        LedgerEventHandlerServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val ledgerTransactions: LedgerTransactionService by lazy {
-        LedgerTransactionServiceImpl(clientOptions)
+        LedgerTransactionServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val lineItems: LineItemService by lazy { LineItemServiceImpl(clientOptions) }
+    private val lineItems: LineItemService by lazy {
+        LineItemServiceImpl(clientOptionsWithUserAgent)
+    }
 
-    private val paymentFlows: PaymentFlowService by lazy { PaymentFlowServiceImpl(clientOptions) }
+    private val paymentFlows: PaymentFlowService by lazy {
+        PaymentFlowServiceImpl(clientOptionsWithUserAgent)
+    }
 
     private val paymentOrders: PaymentOrderService by lazy {
-        PaymentOrderServiceImpl(clientOptions)
+        PaymentOrderServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val paymentReferences: PaymentReferenceService by lazy {
-        PaymentReferenceServiceImpl(clientOptions)
+        PaymentReferenceServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val returns: ReturnService by lazy { ReturnServiceImpl(clientOptions) }
+    private val returns: ReturnService by lazy { ReturnServiceImpl(clientOptionsWithUserAgent) }
 
-    private val transactions: TransactionService by lazy { TransactionServiceImpl(clientOptions) }
+    private val transactions: TransactionService by lazy {
+        TransactionServiceImpl(clientOptionsWithUserAgent)
+    }
 
-    private val validations: ValidationService by lazy { ValidationServiceImpl(clientOptions) }
+    private val validations: ValidationService by lazy {
+        ValidationServiceImpl(clientOptionsWithUserAgent)
+    }
 
-    private val paperItems: PaperItemService by lazy { PaperItemServiceImpl(clientOptions) }
+    private val paperItems: PaperItemService by lazy {
+        PaperItemServiceImpl(clientOptionsWithUserAgent)
+    }
 
     private val webhooks: WebhookService by lazy { WebhookServiceImpl(clientOptions) }
 
     private val virtualAccounts: VirtualAccountService by lazy {
-        VirtualAccountServiceImpl(clientOptions)
+        VirtualAccountServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val bulkRequests: BulkRequestService by lazy { BulkRequestServiceImpl(clientOptions) }
+    private val bulkRequests: BulkRequestService by lazy {
+        BulkRequestServiceImpl(clientOptionsWithUserAgent)
+    }
 
-    private val bulkResults: BulkResultService by lazy { BulkResultServiceImpl(clientOptions) }
+    private val bulkResults: BulkResultService by lazy {
+        BulkResultServiceImpl(clientOptionsWithUserAgent)
+    }
 
     private val ledgerAccountSettlements: LedgerAccountSettlementService by lazy {
-        LedgerAccountSettlementServiceImpl(clientOptions)
+        LedgerAccountSettlementServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val foreignExchangeQuotes: ForeignExchangeQuoteService by lazy {
-        ForeignExchangeQuoteServiceImpl(clientOptions)
+        ForeignExchangeQuoteServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val connectionLegalEntities: ConnectionLegalEntityService by lazy {
-        ConnectionLegalEntityServiceImpl(clientOptions)
+        ConnectionLegalEntityServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val legalEntities: LegalEntityService by lazy { LegalEntityServiceImpl(clientOptions) }
+    private val legalEntities: LegalEntityService by lazy {
+        LegalEntityServiceImpl(clientOptionsWithUserAgent)
+    }
 
     private val legalEntityAssociations: LegalEntityAssociationService by lazy {
-        LegalEntityAssociationServiceImpl(clientOptions)
+        LegalEntityAssociationServiceImpl(clientOptionsWithUserAgent)
     }
 
     override fun async(): ModernTreasuryClientAsync = async
