@@ -1,5 +1,43 @@
 # Changelog
 
+## 2.21.0 (2024-10-25)
+
+Full Changelog: [v2.20.1...v2.21.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.20.1...v2.21.0)
+
+### Features
+
+* **api:** updates to required fields for ExpectedPayments ([#224](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/224)) ([0e93a3c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0e93a3c5d186e91b84ba7a76e25ba3d5fb9a2a38))
+* **client:** add `User-Agent` header ([#236](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/236)) ([a743ad0](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a743ad05d62bc2d169afcc57494e89f091d0a5be))
+* **client:** set `X-Stainless-Runtime` header ([#235](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/235)) ([2cb241a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2cb241a5bc0aa859482f4c46a5f5540882fc73f4))
+
+
+### Bug Fixes
+
+* **client:** accidental double-wrapping with `RetryingHttpClient` ([#237](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/237)) ([636de8b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/636de8b24e4bce1e3727a6f7e6501a64d3456b46))
+* **client:** implement `hashCode` for `IsMissing` ([#234](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/234)) ([cf9a189](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/cf9a189afcf947fa5b8a86b76c927cdfbcc8b6b7))
+* use date time serialization for query parameters ([#218](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/218)) ([06adac6](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/06adac6a92c1073a5bb9aad5dd683614af60832c))
+
+
+### Chores
+
+* **internal:** omit unnecessary code ([68ab76a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/68ab76aefb0e2cf61fd228288882664a5018fe54))
+* **internal:** remove unnecessary `[@file](https://github.com/file):Suppress("OVERLOADS_INTERFACE")` ([#228](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/228)) ([66933ce](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/66933ce739cdb342094ea1915f7bc91ec6622638))
+* **internal:** remove unnecessary `[@file](https://github.com/file):Suppress("OVERLOADS_INTERFACE")` ([#232](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/232)) ([c479746](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c479746df98b4a37219804bb41d384b2f3f15054))
+* **internal:** remove useless `[@file](https://github.com/file):JvmSynthetic` ([#231](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/231)) ([bd00994](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/bd00994d2a5545ae7bcd345e789e7a962d3492fa))
+
+
+### Styles
+
+* **client:** make toString methods consistent ([#226](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/226)) ([9ab186a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9ab186a3cbc42899174f5e1ca4da91d6b48a8c40))
+* **internal:** improve `OkHttpClient` formatting ([#229](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/229)) ([7c9011d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7c9011d28d51ca0c5ebc88e81f91f98eda7b170e))
+* **internal:** improve `RetryingHttpClient` formatting ([#233](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/233)) ([dc12770](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/dc12770cf5df75bd3e6537005e92aa847cbc3d47))
+* **internal:** improve terseness of handlers ([#220](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/220)) ([fa5407d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/fa5407d455fb42b1f147bae99ad3a03f6c8b97e1))
+* **internal:** improve terseness of Properties.kt ([#221](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/221)) ([be63d21](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/be63d21f72b18710d4571e2082e6032ed4dd5dfd))
+* **internal:** move Handlers.kt and HttpRequestBodies.kt to core ([31ec99c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/31ec99c257d56ffa5a585bde5354d1bf3f23f778))
+* **internal:** simplify client build method ([#230](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/230)) ([55be460](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/55be460391dd8a6b9fc704c6ca874bd434937eaa))
+* **internal:** update comment formatting ([#227](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/227)) ([9d2416b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9d2416b354d0d0a20de95617e6642b5ababa6701))
+* **internal:** update some spacing ([#225](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/225)) ([003d77d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/003d77dff7f00bd087d43f1f88df9d4dbade566e))
+
 ## 2.20.1 (2024-10-03)
 
 Full Changelog: [v2.20.0...v2.20.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.20.0...v2.20.1)
