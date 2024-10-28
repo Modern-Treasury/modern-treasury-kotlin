@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper
 import com.google.common.collect.ArrayListMultimap
 import com.google.common.collect.ListMultimap
 import com.moderntreasury.api.core.http.HttpClient
+import com.moderntreasury.api.core.http.PhantomReachableClosingHttpClient
 import com.moderntreasury.api.core.http.RetryingHttpClient
 import java.time.Clock
 import java.util.Base64
@@ -160,12 +161,14 @@ private constructor(
 
             return ClientOptions(
                 httpClient!!,
-                RetryingHttpClient.builder()
-                    .httpClient(httpClient!!)
-                    .clock(clock)
-                    .maxRetries(maxRetries)
-                    .idempotencyHeader("Idempotency-Key")
-                    .build(),
+                PhantomReachableClosingHttpClient(
+                    RetryingHttpClient.builder()
+                        .httpClient(httpClient!!)
+                        .clock(clock)
+                        .maxRetries(maxRetries)
+                        .idempotencyHeader("Idempotency-Key")
+                        .build()
+                ),
                 jsonMapper ?: jsonMapper(),
                 clock,
                 baseUrl,
