@@ -35,17 +35,4 @@ internal fun <K, V> ListMultimap<K, V>.toUnmodifiable(): ListMultimap<K, V> {
     return Multimaps.unmodifiableListMultimap(this)
 }
 
-internal fun ListMultimap<String, String>.getRequiredHeader(header: String): String {
-    val value =
-        entries()
-            .stream()
-            .filter { entry -> entry.key.equals(header, ignoreCase = true) }
-            .map { entry -> entry.value }
-            .findFirst()
-    if (!value.isPresent) {
-        throw ModernTreasuryInvalidDataException("Could not find $header header")
-    }
-    return value.get()
-}
-
 internal interface Enum
