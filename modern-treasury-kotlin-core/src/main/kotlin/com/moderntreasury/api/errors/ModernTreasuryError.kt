@@ -37,7 +37,7 @@ constructor(
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        fun builder() = Builder()
     }
 
     class Builder {
