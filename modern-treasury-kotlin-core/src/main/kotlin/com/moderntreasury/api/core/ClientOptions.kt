@@ -175,8 +175,8 @@ private constructor(
                 apiKey!!,
                 organizationId!!,
                 webhookKey,
-                headers.toUnmodifiable(),
-                queryParams.toUnmodifiable(),
+                headers.toImmutable(),
+                queryParams.toImmutable(),
                 responseValidation,
                 maxRetries,
             )

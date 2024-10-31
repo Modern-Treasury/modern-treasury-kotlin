@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.toUnmodifiable
+import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.models.*
 import java.util.Objects
 
@@ -93,8 +93,8 @@ constructor(
 
             fun build(): ExternalAccountCompleteVerificationBody =
                 ExternalAccountCompleteVerificationBody(
-                    amounts?.toUnmodifiable(),
-                    additionalProperties.toUnmodifiable()
+                    amounts?.toImmutable(),
+                    additionalProperties.toImmutable()
                 )
         }
 
@@ -234,10 +234,10 @@ constructor(
         fun build(): ExternalAccountCompleteVerificationParams =
             ExternalAccountCompleteVerificationParams(
                 checkNotNull(id) { "`id` is required but was not set" },
-                if (amounts.size == 0) null else amounts.toUnmodifiable(),
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
+                if (amounts.size == 0) null else amounts.toImmutable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 }

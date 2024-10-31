@@ -13,7 +13,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.toUnmodifiable
+import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -274,9 +274,9 @@ private constructor(
                 balanceReportType,
                 asOfDate,
                 asOfTime,
-                balances.map { it.toUnmodifiable() },
+                balances.map { it.toImmutable() },
                 internalAccountId,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -629,7 +629,7 @@ private constructor(
                     balanceType,
                     vendorCode,
                     vendorCodeType,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 

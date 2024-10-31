@@ -13,7 +13,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.toUnmodifiable
+import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.util.Objects
@@ -327,7 +327,7 @@ private constructor(
                 dateLowerBound,
                 counterpartyId,
                 customIdentifiers,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -437,8 +437,7 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): CustomIdentifiers =
-                CustomIdentifiers(additionalProperties.toUnmodifiable())
+            fun build(): CustomIdentifiers = CustomIdentifiers(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {

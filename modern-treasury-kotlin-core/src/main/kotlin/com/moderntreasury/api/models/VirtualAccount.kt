@@ -11,7 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.toUnmodifiable
+import com.moderntreasury.api.core.toImmutable
 import java.time.OffsetDateTime
 import java.util.Objects
 
@@ -439,13 +439,13 @@ private constructor(
                 description,
                 counterpartyId,
                 internalAccountId,
-                accountDetails.map { it.toUnmodifiable() },
-                routingDetails.map { it.toUnmodifiable() },
+                accountDetails.map { it.toImmutable() },
+                routingDetails.map { it.toImmutable() },
                 debitLedgerAccountId,
                 creditLedgerAccountId,
                 ledgerAccountId,
                 metadata,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -498,7 +498,7 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {

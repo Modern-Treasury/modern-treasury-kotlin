@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.toUnmodifiable
+import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
 @JsonDeserialize(builder = ModernTreasuryError.Builder::class)
@@ -62,7 +62,6 @@ constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): ModernTreasuryError =
-            ModernTreasuryError(additionalProperties.toUnmodifiable())
+        fun build(): ModernTreasuryError = ModernTreasuryError(additionalProperties.toImmutable())
     }
 }
