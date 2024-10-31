@@ -11,7 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.toUnmodifiable
+import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
 @JsonDeserialize(builder = CounterpartyCollectAccountResponse.Builder::class)
@@ -152,7 +152,7 @@ private constructor(
                 id,
                 isResend,
                 formLink,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
