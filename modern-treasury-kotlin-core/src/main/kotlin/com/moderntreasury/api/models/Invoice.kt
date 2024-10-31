@@ -13,7 +13,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.toUnmodifiable
+import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -972,7 +972,7 @@ private constructor(
                 liveMode,
                 createdAt,
                 updatedAt,
-                contactDetails.map { it.toUnmodifiable() },
+                contactDetails.map { it.toImmutable() },
                 recipientEmail,
                 recipientName,
                 counterpartyId,
@@ -991,20 +991,20 @@ private constructor(
                 paymentMethod,
                 fallbackPaymentMethod,
                 notificationsEnabled,
-                notificationEmailAddresses.map { it.toUnmodifiable() },
-                remindAfterOverdueDays.map { it.toUnmodifiable() },
+                notificationEmailAddresses.map { it.toImmutable() },
+                remindAfterOverdueDays.map { it.toImmutable() },
                 metadata,
                 hostedUrl,
                 number,
-                paymentOrders.map { it.toUnmodifiable() },
-                expectedPayments.map { it.toUnmodifiable() },
+                paymentOrders.map { it.toImmutable() },
+                expectedPayments.map { it.toImmutable() },
                 pdfUrl,
                 status,
                 totalAmount,
                 amountRemaining,
                 amountPaid,
-                transactionLineItemIds.map { it.toUnmodifiable() },
-                additionalProperties.toUnmodifiable(),
+                transactionLineItemIds.map { it.toImmutable() },
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -1212,7 +1212,7 @@ private constructor(
                     discardedAt,
                     contactIdentifier,
                     contactIdentifierType,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1460,7 +1460,7 @@ private constructor(
                     region,
                     postalCode,
                     country,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1642,7 +1642,7 @@ private constructor(
                     region,
                     postalCode,
                     country,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1824,7 +1824,7 @@ private constructor(
                     region,
                     postalCode,
                     country,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1898,7 +1898,7 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {

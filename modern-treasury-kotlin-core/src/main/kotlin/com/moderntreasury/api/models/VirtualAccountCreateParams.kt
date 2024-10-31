@@ -12,7 +12,7 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.toUnmodifiable
+import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import com.moderntreasury.api.models.*
 import java.util.Objects
@@ -265,15 +265,15 @@ constructor(
                         "`internalAccountId` is required but was not set"
                     },
                     checkNotNull(name) { "`name` is required but was not set" },
-                    accountDetails?.toUnmodifiable(),
+                    accountDetails?.toImmutable(),
                     counterpartyId,
                     creditLedgerAccountId,
                     debitLedgerAccountId,
                     description,
                     ledgerAccount,
                     metadata,
-                    routingDetails?.toUnmodifiable(),
-                    additionalProperties.toUnmodifiable(),
+                    routingDetails?.toImmutable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -486,17 +486,17 @@ constructor(
                     "`internalAccountId` is required but was not set"
                 },
                 checkNotNull(name) { "`name` is required but was not set" },
-                if (accountDetails.size == 0) null else accountDetails.toUnmodifiable(),
+                if (accountDetails.size == 0) null else accountDetails.toImmutable(),
                 counterpartyId,
                 creditLedgerAccountId,
                 debitLedgerAccountId,
                 description,
                 ledgerAccount,
                 metadata,
-                if (routingDetails.size == 0) null else routingDetails.toUnmodifiable(),
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
+                if (routingDetails.size == 0) null else routingDetails.toImmutable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -573,7 +573,7 @@ constructor(
                 AccountDetailCreateRequest(
                     checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
                     accountNumberType,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -889,11 +889,11 @@ constructor(
                     checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
                     checkNotNull(currency) { "`currency` is required but was not set" },
                     currencyExponent,
-                    ledgerAccountCategoryIds?.toUnmodifiable(),
+                    ledgerAccountCategoryIds?.toImmutable(),
                     ledgerableId,
                     ledgerableType,
                     metadata,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1011,7 +1011,7 @@ constructor(
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                fun build(): Metadata = Metadata(additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1096,7 +1096,7 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -1213,7 +1213,7 @@ constructor(
                         "`routingNumberType` is required but was not set"
                     },
                     paymentType,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
