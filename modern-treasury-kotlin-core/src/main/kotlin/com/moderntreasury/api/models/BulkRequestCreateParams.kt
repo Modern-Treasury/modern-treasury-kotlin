@@ -22,7 +22,7 @@ import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.getOrThrow
-import com.moderntreasury.api.core.toUnmodifiable
+import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
@@ -160,9 +160,9 @@ constructor(
                     checkNotNull(actionType) { "`actionType` is required but was not set" },
                     checkNotNull(resourceType) { "`resourceType` is required but was not set" },
                     checkNotNull(resources) { "`resources` is required but was not set" }
-                        .toUnmodifiable(),
+                        .toImmutable(),
                     metadata,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -320,12 +320,11 @@ constructor(
             BulkRequestCreateParams(
                 checkNotNull(actionType) { "`actionType` is required but was not set" },
                 checkNotNull(resourceType) { "`resourceType` is required but was not set" },
-                checkNotNull(resources) { "`resources` is required but was not set" }
-                    .toUnmodifiable(),
+                checkNotNull(resources) { "`resources` is required but was not set" }.toImmutable(),
                 metadata,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -2088,9 +2087,9 @@ constructor(
                         receivingAccount,
                         ledgerTransaction,
                         ledgerTransactionId,
-                        lineItems.map { it.toUnmodifiable() },
+                        lineItems.map { it.toImmutable() },
                         transactionMonitoringEnabled,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2271,7 +2270,7 @@ constructor(
                         Accounting(
                             accountId,
                             classId,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -2804,11 +2803,11 @@ constructor(
                             metadata,
                             effectiveAt,
                             effectiveDate,
-                            ledgerEntries.map { it.toUnmodifiable() },
+                            ledgerEntries.map { it.toImmutable() },
                             externalId,
                             ledgerableType,
                             ledgerableId,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -3219,7 +3218,7 @@ constructor(
                                 availableBalanceAmount,
                                 showResultingLedgerAccountBalances,
                                 metadata,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -3282,7 +3281,7 @@ constructor(
                             ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                             fun build(): AvailableBalanceAmount =
-                                AvailableBalanceAmount(additionalProperties.toUnmodifiable())
+                                AvailableBalanceAmount(additionalProperties.toImmutable())
                         }
 
                         override fun equals(other: Any?): Boolean {
@@ -3360,7 +3359,7 @@ constructor(
                                 additionalProperties: Map<String, JsonValue>
                             ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
-                            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                         }
 
                         override fun equals(other: Any?): Boolean {
@@ -3440,7 +3439,7 @@ constructor(
                             ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                             fun build(): PendingBalanceAmount =
-                                PendingBalanceAmount(additionalProperties.toUnmodifiable())
+                                PendingBalanceAmount(additionalProperties.toImmutable())
                         }
 
                         override fun equals(other: Any?): Boolean {
@@ -3520,7 +3519,7 @@ constructor(
                             ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                             fun build(): PostedBalanceAmount =
-                                PostedBalanceAmount(additionalProperties.toUnmodifiable())
+                                PostedBalanceAmount(additionalProperties.toImmutable())
                         }
 
                         override fun equals(other: Any?): Boolean {
@@ -3705,7 +3704,7 @@ constructor(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
-                        fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                        fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                     }
 
                     override fun equals(other: Any?): Boolean {
@@ -3985,7 +3984,7 @@ constructor(
                             metadata,
                             description,
                             accountingCategoryId,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -4043,7 +4042,7 @@ constructor(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
-                        fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                        fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                     }
 
                     override fun equals(other: Any?): Boolean {
@@ -4140,7 +4139,7 @@ constructor(
                             this.additionalProperties.putAll(additionalProperties)
                         }
 
-                    fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -4596,15 +4595,15 @@ constructor(
                             partyType,
                             partyAddress,
                             name,
-                            accountDetails.map { it.toUnmodifiable() },
-                            routingDetails.map { it.toUnmodifiable() },
+                            accountDetails.map { it.toImmutable() },
+                            routingDetails.map { it.toImmutable() },
                             metadata,
                             partyName,
                             partyIdentifier,
                             ledgerAccount,
                             plaidProcessorToken,
-                            contactDetails.map { it.toUnmodifiable() },
-                            additionalProperties.toUnmodifiable(),
+                            contactDetails.map { it.toImmutable() },
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -4703,7 +4702,7 @@ constructor(
                             AccountDetail(
                                 accountNumber,
                                 accountNumberType,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -4937,7 +4936,7 @@ constructor(
                             ContactDetailCreateRequest(
                                 contactIdentifier,
                                 contactIdentifierType,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -5370,11 +5369,11 @@ constructor(
                                 ledgerId,
                                 currency,
                                 currencyExponent,
-                                ledgerAccountCategoryIds.map { it.toUnmodifiable() },
+                                ledgerAccountCategoryIds.map { it.toImmutable() },
                                 ledgerableId,
                                 ledgerableType,
                                 metadata,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -5505,7 +5504,7 @@ constructor(
                                 additionalProperties: Map<String, JsonValue>
                             ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
-                            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                         }
 
                         override fun equals(other: Any?): Boolean {
@@ -5604,7 +5603,7 @@ constructor(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
-                        fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                        fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                     }
 
                     override fun equals(other: Any?): Boolean {
@@ -5790,7 +5789,7 @@ constructor(
                                 region,
                                 postalCode,
                                 country,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -5989,7 +5988,7 @@ constructor(
                                 routingNumber,
                                 routingNumberType,
                                 paymentType,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -7062,11 +7061,11 @@ constructor(
                         remittanceInformation,
                         reconciliationGroups,
                         reconciliationFilters,
-                        reconciliationRuleVariables.map { it.toUnmodifiable() },
-                        lineItems.map { it.toUnmodifiable() },
+                        reconciliationRuleVariables.map { it.toImmutable() },
+                        lineItems.map { it.toImmutable() },
                         ledgerTransaction,
                         ledgerTransactionId,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -7459,11 +7458,11 @@ constructor(
                             metadata,
                             effectiveAt,
                             effectiveDate,
-                            ledgerEntries.map { it.toUnmodifiable() },
+                            ledgerEntries.map { it.toImmutable() },
                             externalId,
                             ledgerableType,
                             ledgerableId,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -7874,7 +7873,7 @@ constructor(
                                 availableBalanceAmount,
                                 showResultingLedgerAccountBalances,
                                 metadata,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -7937,7 +7936,7 @@ constructor(
                             ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                             fun build(): AvailableBalanceAmount =
-                                AvailableBalanceAmount(additionalProperties.toUnmodifiable())
+                                AvailableBalanceAmount(additionalProperties.toImmutable())
                         }
 
                         override fun equals(other: Any?): Boolean {
@@ -8015,7 +8014,7 @@ constructor(
                                 additionalProperties: Map<String, JsonValue>
                             ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
-                            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                         }
 
                         override fun equals(other: Any?): Boolean {
@@ -8095,7 +8094,7 @@ constructor(
                             ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                             fun build(): PendingBalanceAmount =
-                                PendingBalanceAmount(additionalProperties.toUnmodifiable())
+                                PendingBalanceAmount(additionalProperties.toImmutable())
                         }
 
                         override fun equals(other: Any?): Boolean {
@@ -8175,7 +8174,7 @@ constructor(
                             ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                             fun build(): PostedBalanceAmount =
-                                PostedBalanceAmount(additionalProperties.toUnmodifiable())
+                                PostedBalanceAmount(additionalProperties.toImmutable())
                         }
 
                         override fun equals(other: Any?): Boolean {
@@ -8360,7 +8359,7 @@ constructor(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
-                        fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                        fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                     }
 
                     override fun equals(other: Any?): Boolean {
@@ -8640,7 +8639,7 @@ constructor(
                             metadata,
                             description,
                             accountingCategoryId,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -8698,7 +8697,7 @@ constructor(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
-                        fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                        fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                     }
 
                     override fun equals(other: Any?): Boolean {
@@ -8795,7 +8794,7 @@ constructor(
                             this.additionalProperties.putAll(additionalProperties)
                         }
 
-                    fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -9157,11 +9156,11 @@ constructor(
                         metadata,
                         effectiveAt,
                         effectiveDate,
-                        ledgerEntries.map { it.toUnmodifiable() },
+                        ledgerEntries.map { it.toImmutable() },
                         externalId,
                         ledgerableType,
                         ledgerableId,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -9560,7 +9559,7 @@ constructor(
                             availableBalanceAmount,
                             showResultingLedgerAccountBalances,
                             metadata,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -9620,7 +9619,7 @@ constructor(
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                         fun build(): AvailableBalanceAmount =
-                            AvailableBalanceAmount(additionalProperties.toUnmodifiable())
+                            AvailableBalanceAmount(additionalProperties.toImmutable())
                     }
 
                     override fun equals(other: Any?): Boolean {
@@ -9698,7 +9697,7 @@ constructor(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
-                        fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                        fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                     }
 
                     override fun equals(other: Any?): Boolean {
@@ -9777,7 +9776,7 @@ constructor(
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                         fun build(): PendingBalanceAmount =
-                            PendingBalanceAmount(additionalProperties.toUnmodifiable())
+                            PendingBalanceAmount(additionalProperties.toImmutable())
                     }
 
                     override fun equals(other: Any?): Boolean {
@@ -9857,7 +9856,7 @@ constructor(
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                         fun build(): PostedBalanceAmount =
-                            PostedBalanceAmount(additionalProperties.toUnmodifiable())
+                            PostedBalanceAmount(additionalProperties.toImmutable())
                     }
 
                     override fun equals(other: Any?): Boolean {
@@ -10040,7 +10039,7 @@ constructor(
                             this.additionalProperties.putAll(additionalProperties)
                         }
 
-                    fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -10481,7 +10480,7 @@ constructor(
                         metadata,
                         posted,
                         type,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -10538,7 +10537,7 @@ constructor(
                             this.additionalProperties.putAll(additionalProperties)
                         }
 
-                    fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -10876,7 +10875,7 @@ constructor(
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun build(): Id = Id(id, additionalProperties.toUnmodifiable())
+                fun build(): Id = Id(id, additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -12177,9 +12176,9 @@ constructor(
                         counterpartyId,
                         fallbackType,
                         receivingAccount,
-                        lineItems.map { it.toUnmodifiable() },
+                        lineItems.map { it.toImmutable() },
                         id,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -12302,7 +12301,7 @@ constructor(
                         Accounting(
                             accountId,
                             classId,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -12734,7 +12733,7 @@ constructor(
                             metadata,
                             description,
                             accountingCategoryId,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -12792,7 +12791,7 @@ constructor(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
-                        fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                        fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                     }
 
                     override fun equals(other: Any?): Boolean {
@@ -12889,7 +12888,7 @@ constructor(
                             this.additionalProperties.putAll(additionalProperties)
                         }
 
-                    fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -13345,15 +13344,15 @@ constructor(
                             partyType,
                             partyAddress,
                             name,
-                            accountDetails.map { it.toUnmodifiable() },
-                            routingDetails.map { it.toUnmodifiable() },
+                            accountDetails.map { it.toImmutable() },
+                            routingDetails.map { it.toImmutable() },
                             metadata,
                             partyName,
                             partyIdentifier,
                             ledgerAccount,
                             plaidProcessorToken,
-                            contactDetails.map { it.toUnmodifiable() },
-                            additionalProperties.toUnmodifiable(),
+                            contactDetails.map { it.toImmutable() },
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -13452,7 +13451,7 @@ constructor(
                             AccountDetail(
                                 accountNumber,
                                 accountNumberType,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -13686,7 +13685,7 @@ constructor(
                             ContactDetailCreateRequest(
                                 contactIdentifier,
                                 contactIdentifierType,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -14119,11 +14118,11 @@ constructor(
                                 ledgerId,
                                 currency,
                                 currencyExponent,
-                                ledgerAccountCategoryIds.map { it.toUnmodifiable() },
+                                ledgerAccountCategoryIds.map { it.toImmutable() },
                                 ledgerableId,
                                 ledgerableType,
                                 metadata,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -14254,7 +14253,7 @@ constructor(
                                 additionalProperties: Map<String, JsonValue>
                             ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
-                            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                         }
 
                         override fun equals(other: Any?): Boolean {
@@ -14353,7 +14352,7 @@ constructor(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
-                        fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                        fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                     }
 
                     override fun equals(other: Any?): Boolean {
@@ -14539,7 +14538,7 @@ constructor(
                                 region,
                                 postalCode,
                                 country,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -14738,7 +14737,7 @@ constructor(
                                 routingNumber,
                                 routingNumberType,
                                 paymentType,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -15861,10 +15860,10 @@ constructor(
                         remittanceInformation,
                         reconciliationGroups,
                         reconciliationFilters,
-                        reconciliationRuleVariables.map { it.toUnmodifiable() },
+                        reconciliationRuleVariables.map { it.toImmutable() },
                         status,
                         id,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -15979,7 +15978,7 @@ constructor(
                             this.additionalProperties.putAll(additionalProperties)
                         }
 
-                    fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -16172,7 +16171,7 @@ constructor(
                     TransactionUpdateRequestWithId(
                         metadata,
                         id,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -16229,7 +16228,7 @@ constructor(
                             this.additionalProperties.putAll(additionalProperties)
                         }
 
-                    fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -16540,11 +16539,11 @@ constructor(
                         status,
                         metadata,
                         effectiveAt,
-                        ledgerEntries.map { it.toUnmodifiable() },
+                        ledgerEntries.map { it.toImmutable() },
                         ledgerableType,
                         ledgerableId,
                         id,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -16943,7 +16942,7 @@ constructor(
                             availableBalanceAmount,
                             showResultingLedgerAccountBalances,
                             metadata,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -17003,7 +17002,7 @@ constructor(
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                         fun build(): AvailableBalanceAmount =
-                            AvailableBalanceAmount(additionalProperties.toUnmodifiable())
+                            AvailableBalanceAmount(additionalProperties.toImmutable())
                     }
 
                     override fun equals(other: Any?): Boolean {
@@ -17081,7 +17080,7 @@ constructor(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
-                        fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                        fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                     }
 
                     override fun equals(other: Any?): Boolean {
@@ -17160,7 +17159,7 @@ constructor(
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                         fun build(): PendingBalanceAmount =
-                            PendingBalanceAmount(additionalProperties.toUnmodifiable())
+                            PendingBalanceAmount(additionalProperties.toImmutable())
                     }
 
                     override fun equals(other: Any?): Boolean {
@@ -17240,7 +17239,7 @@ constructor(
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                         fun build(): PostedBalanceAmount =
-                            PostedBalanceAmount(additionalProperties.toUnmodifiable())
+                            PostedBalanceAmount(additionalProperties.toImmutable())
                     }
 
                     override fun equals(other: Any?): Boolean {
@@ -17423,7 +17422,7 @@ constructor(
                             this.additionalProperties.putAll(additionalProperties)
                         }
 
-                    fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -17572,7 +17571,7 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {

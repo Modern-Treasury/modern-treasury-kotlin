@@ -11,7 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.toUnmodifiable
+import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
 @JsonDeserialize(builder = PingResponse.Builder::class)
@@ -76,7 +76,7 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): PingResponse = PingResponse(ping, additionalProperties.toUnmodifiable())
+        fun build(): PingResponse = PingResponse(ping, additionalProperties.toImmutable())
     }
 
     override fun equals(other: Any?): Boolean {

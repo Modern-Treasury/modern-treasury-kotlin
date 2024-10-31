@@ -12,7 +12,7 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.toUnmodifiable
+import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
@@ -158,8 +158,8 @@ constructor(
                         "`balanceReportType` is required but was not set"
                     },
                     checkNotNull(balances) { "`balances` is required but was not set" }
-                        .toUnmodifiable(),
-                    additionalProperties.toUnmodifiable(),
+                        .toImmutable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -326,11 +326,10 @@ constructor(
                 checkNotNull(balanceReportType) {
                     "`balanceReportType` is required but was not set"
                 },
-                checkNotNull(balances) { "`balances` is required but was not set" }
-                    .toUnmodifiable(),
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
+                checkNotNull(balances) { "`balances` is required but was not set" }.toImmutable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -508,7 +507,7 @@ constructor(
                     checkNotNull(balanceType) { "`balanceType` is required but was not set" },
                     checkNotNull(vendorCode) { "`vendorCode` is required but was not set" },
                     vendorCodeType,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 

@@ -12,7 +12,7 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.toUnmodifiable
+import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
@@ -264,16 +264,16 @@ constructor(
                     businessName,
                     dateFormed,
                     dateOfBirth,
-                    doingBusinessAsNames?.toUnmodifiable(),
+                    doingBusinessAsNames?.toImmutable(),
                     email,
                     firstName,
                     lastName,
                     legalStructure,
                     metadata,
-                    phoneNumbers?.toUnmodifiable(),
+                    phoneNumbers?.toImmutable(),
                     riskRating,
                     website,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -477,18 +477,18 @@ constructor(
                 businessName,
                 dateFormed,
                 dateOfBirth,
-                if (doingBusinessAsNames.size == 0) null else doingBusinessAsNames.toUnmodifiable(),
+                if (doingBusinessAsNames.size == 0) null else doingBusinessAsNames.toImmutable(),
                 email,
                 firstName,
                 lastName,
                 legalStructure,
                 metadata,
-                if (phoneNumbers.size == 0) null else phoneNumbers.toUnmodifiable(),
+                if (phoneNumbers.size == 0) null else phoneNumbers.toImmutable(),
                 riskRating,
                 website,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -614,7 +614,7 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -686,8 +686,7 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): PhoneNumber =
-                PhoneNumber(phoneNumber, additionalProperties.toUnmodifiable())
+            fun build(): PhoneNumber = PhoneNumber(phoneNumber, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {

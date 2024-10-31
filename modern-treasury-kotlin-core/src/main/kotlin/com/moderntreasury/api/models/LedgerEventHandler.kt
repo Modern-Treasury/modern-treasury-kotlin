@@ -11,7 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.toUnmodifiable
+import com.moderntreasury.api.core.toImmutable
 import java.time.OffsetDateTime
 import java.util.Objects
 
@@ -310,7 +310,7 @@ private constructor(
                 ledgerTransactionTemplate,
                 conditions,
                 metadata,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -421,7 +421,7 @@ private constructor(
                     field,
                     operator,
                     value,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -598,8 +598,8 @@ private constructor(
                     description,
                     effectiveAt,
                     status,
-                    ledgerEntries.map { it.toUnmodifiable() },
-                    additionalProperties.toUnmodifiable(),
+                    ledgerEntries.map { it.toImmutable() },
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -718,7 +718,7 @@ private constructor(
                         amount,
                         direction,
                         ledgerAccountId,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -813,7 +813,7 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -885,7 +885,7 @@ private constructor(
             }
 
             fun build(): LedgerEventHandlerVariables =
-                LedgerEventHandlerVariables(additionalProperties.toUnmodifiable())
+                LedgerEventHandlerVariables(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {

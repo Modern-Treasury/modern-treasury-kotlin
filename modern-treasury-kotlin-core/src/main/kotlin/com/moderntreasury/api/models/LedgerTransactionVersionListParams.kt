@@ -4,7 +4,7 @@ package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.toUnmodifiable
+import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.models.*
 import java.util.Objects
 
@@ -43,7 +43,7 @@ constructor(
         this.perPage?.let { params.put("per_page", listOf(it.toString())) }
         this.version?.forEachQueryParam { key, values -> params.put("version[$key]", values) }
         params.putAll(additionalQueryParams)
-        return params.toUnmodifiable()
+        return params.toImmutable()
     }
 
     internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
@@ -178,8 +178,8 @@ constructor(
                 ledgerTransactionId,
                 perPage,
                 version,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
             )
     }
 
@@ -230,7 +230,7 @@ constructor(
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun build(): CreatedAt = CreatedAt(additionalProperties.toUnmodifiable())
+            fun build(): CreatedAt = CreatedAt(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -299,7 +299,7 @@ constructor(
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun build(): Version = Version(additionalProperties.toUnmodifiable())
+            fun build(): Version = Version(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {

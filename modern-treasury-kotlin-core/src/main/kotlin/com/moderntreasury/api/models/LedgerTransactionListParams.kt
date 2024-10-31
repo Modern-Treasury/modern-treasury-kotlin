@@ -8,7 +8,7 @@ import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.toUnmodifiable
+import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import com.moderntreasury.api.models.*
 import java.util.Objects
@@ -104,7 +104,7 @@ constructor(
         this.status?.let { params.put("status", listOf(it.toString())) }
         this.updatedAt?.forEachQueryParam { key, values -> params.put("updated_at[$key]", values) }
         params.putAll(additionalQueryParams)
-        return params.toUnmodifiable()
+        return params.toImmutable()
     }
 
     internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
@@ -314,7 +314,7 @@ constructor(
 
         fun build(): LedgerTransactionListParams =
             LedgerTransactionListParams(
-                if (id.size == 0) null else id.toUnmodifiable(),
+                if (id.size == 0) null else id.toImmutable(),
                 afterCursor,
                 effectiveAt,
                 effectiveDate,
@@ -332,8 +332,8 @@ constructor(
                 reversesLedgerTransactionId,
                 status,
                 updatedAt,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
             )
     }
 
@@ -384,7 +384,7 @@ constructor(
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun build(): EffectiveAt = EffectiveAt(additionalProperties.toUnmodifiable())
+            fun build(): EffectiveAt = EffectiveAt(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -453,7 +453,7 @@ constructor(
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun build(): EffectiveDate = EffectiveDate(additionalProperties.toUnmodifiable())
+            fun build(): EffectiveDate = EffectiveDate(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -603,7 +603,7 @@ constructor(
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -693,7 +693,7 @@ constructor(
                 OrderBy(
                     createdAt,
                     effectiveAt,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -879,7 +879,7 @@ constructor(
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun build(): PostedAt = PostedAt(additionalProperties.toUnmodifiable())
+            fun build(): PostedAt = PostedAt(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -1012,7 +1012,7 @@ constructor(
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun build(): UpdatedAt = UpdatedAt(additionalProperties.toUnmodifiable())
+            fun build(): UpdatedAt = UpdatedAt(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {

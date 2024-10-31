@@ -12,7 +12,7 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.toUnmodifiable
+import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
@@ -843,7 +843,7 @@ constructor(
                     foreignExchangeIndicator,
                     ledgerTransaction,
                     ledgerTransactionId,
-                    lineItems?.toUnmodifiable(),
+                    lineItems?.toImmutable(),
                     metadata,
                     nsfProtected,
                     originatingPartyName,
@@ -861,7 +861,7 @@ constructor(
                     ultimateOriginatingPartyName,
                     ultimateReceivingPartyIdentifier,
                     ultimateReceivingPartyName,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1318,7 +1318,7 @@ constructor(
                 foreignExchangeIndicator,
                 ledgerTransaction,
                 ledgerTransactionId,
-                if (lineItems.size == 0) null else lineItems.toUnmodifiable(),
+                if (lineItems.size == 0) null else lineItems.toImmutable(),
                 metadata,
                 nsfProtected,
                 originatingPartyName,
@@ -1336,9 +1336,9 @@ constructor(
                 ultimateOriginatingPartyName,
                 ultimateReceivingPartyIdentifier,
                 ultimateReceivingPartyName,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -1477,7 +1477,7 @@ constructor(
                 Accounting(
                     accountId,
                     classId,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1862,11 +1862,11 @@ constructor(
                     effectiveAt,
                     effectiveDate,
                     checkNotNull(ledgerEntries) { "`ledgerEntries` is required but was not set" }
-                        .toUnmodifiable(),
+                        .toImmutable(),
                     externalId,
                     ledgerableType,
                     ledgerableId,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -2094,7 +2094,7 @@ constructor(
                         availableBalanceAmount,
                         showResultingLedgerAccountBalances,
                         metadata,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2145,7 +2145,7 @@ constructor(
                         }
 
                     fun build(): AvailableBalanceAmount =
-                        AvailableBalanceAmount(additionalProperties.toUnmodifiable())
+                        AvailableBalanceAmount(additionalProperties.toImmutable())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -2214,7 +2214,7 @@ constructor(
                             this.additionalProperties.putAll(additionalProperties)
                         }
 
-                    fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -2284,7 +2284,7 @@ constructor(
                         }
 
                     fun build(): PendingBalanceAmount =
-                        PendingBalanceAmount(additionalProperties.toUnmodifiable())
+                        PendingBalanceAmount(additionalProperties.toImmutable())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -2355,7 +2355,7 @@ constructor(
                         }
 
                     fun build(): PostedBalanceAmount =
-                        PostedBalanceAmount(additionalProperties.toUnmodifiable())
+                        PostedBalanceAmount(additionalProperties.toImmutable())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -2527,7 +2527,7 @@ constructor(
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                fun build(): Metadata = Metadata(additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -2735,7 +2735,7 @@ constructor(
                     metadata,
                     description,
                     accountingCategoryId,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -2783,7 +2783,7 @@ constructor(
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                fun build(): Metadata = Metadata(additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -2868,7 +2868,7 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -3157,15 +3157,15 @@ constructor(
                     partyType,
                     partyAddress,
                     name,
-                    accountDetails?.toUnmodifiable(),
-                    routingDetails?.toUnmodifiable(),
+                    accountDetails?.toImmutable(),
+                    routingDetails?.toImmutable(),
                     metadata,
                     partyName,
                     partyIdentifier,
                     ledgerAccount,
                     plaidProcessorToken,
-                    contactDetails?.toUnmodifiable(),
-                    additionalProperties.toUnmodifiable(),
+                    contactDetails?.toImmutable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -3237,7 +3237,7 @@ constructor(
                             "`accountNumber` is required but was not set"
                         },
                         accountNumberType,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -3436,7 +3436,7 @@ constructor(
                     ContactDetailCreateRequest(
                         contactIdentifier,
                         contactIdentifierType,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -3721,11 +3721,11 @@ constructor(
                         checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
                         checkNotNull(currency) { "`currency` is required but was not set" },
                         currencyExponent,
-                        ledgerAccountCategoryIds?.toUnmodifiable(),
+                        ledgerAccountCategoryIds?.toImmutable(),
                         ledgerableId,
                         ledgerableType,
                         metadata,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -3846,7 +3846,7 @@ constructor(
                             this.additionalProperties.putAll(additionalProperties)
                         }
 
-                    fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -3934,7 +3934,7 @@ constructor(
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                fun build(): Metadata = Metadata(additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -4060,7 +4060,7 @@ constructor(
                         region,
                         postalCode,
                         country,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -4221,7 +4221,7 @@ constructor(
                             "`routingNumberType` is required but was not set"
                         },
                         paymentType,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 

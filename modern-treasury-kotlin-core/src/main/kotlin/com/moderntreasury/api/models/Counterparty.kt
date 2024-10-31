@@ -13,7 +13,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.toUnmodifiable
+import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -328,13 +328,13 @@ private constructor(
                 updatedAt,
                 discardedAt,
                 name,
-                accounts.map { it.toUnmodifiable() },
+                accounts.map { it.toImmutable() },
                 email,
                 legalEntityId,
                 metadata,
                 sendRemittanceAdvice,
                 verificationStatus,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -763,15 +763,15 @@ private constructor(
                     partyType,
                     partyAddress,
                     name,
-                    accountDetails.map { it.toUnmodifiable() },
-                    routingDetails.map { it.toUnmodifiable() },
+                    accountDetails.map { it.toImmutable() },
+                    routingDetails.map { it.toImmutable() },
                     metadata,
                     partyName,
-                    contactDetails.map { it.toUnmodifiable() },
+                    contactDetails.map { it.toImmutable() },
                     ledgerAccountId,
                     verificationStatus,
                     verificationSource,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -982,7 +982,7 @@ private constructor(
                         discardedAt,
                         contactIdentifier,
                         contactIdentifierType,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -1125,7 +1125,7 @@ private constructor(
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+                fun build(): Metadata = Metadata(additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1403,7 +1403,7 @@ private constructor(
                         region,
                         postalCode,
                         country,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -1687,7 +1687,7 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Metadata = Metadata(additionalProperties.toUnmodifiable())
+            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
