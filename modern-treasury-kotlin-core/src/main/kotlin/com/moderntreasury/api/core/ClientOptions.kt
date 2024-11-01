@@ -18,13 +18,13 @@ private constructor(
     val jsonMapper: JsonMapper,
     val clock: Clock,
     val baseUrl: String,
-    val apiKey: String,
-    val organizationId: String,
-    val webhookKey: String?,
     val headers: ListMultimap<String, String>,
     val queryParams: ListMultimap<String, String>,
     val responseValidation: Boolean,
     val maxRetries: Int,
+    val apiKey: String,
+    val organizationId: String,
+    val webhookKey: String?,
 ) {
 
     fun toBuilder() = Builder().from(this)
@@ -41,11 +41,11 @@ private constructor(
     class Builder {
 
         private var httpClient: HttpClient? = null
-        private var jsonMapper: JsonMapper? = null
+        private var jsonMapper: JsonMapper = jsonMapper()
         private var clock: Clock = Clock.systemUTC()
         private var baseUrl: String = PRODUCTION_URL
-        private var headers: MutableMap<String, MutableList<String>> = mutableMapOf()
-        private var queryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
+        private var headers: ListMultimap<String, String> = ArrayListMultimap.create()
+        private var queryParams: ListMultimap<String, String> = ArrayListMultimap.create()
         private var responseValidation: Boolean = false
         private var maxRetries: Int = 2
         private var apiKey: String? = null
@@ -57,14 +57,8 @@ private constructor(
             jsonMapper = clientOptions.jsonMapper
             clock = clientOptions.clock
             baseUrl = clientOptions.baseUrl
-            headers =
-                clientOptions.headers.asMap().mapValuesTo(mutableMapOf()) { (_, value) ->
-                    value.toMutableList()
-                }
-            queryParams =
-                clientOptions.queryParams.asMap().mapValuesTo(mutableMapOf()) { (_, value) ->
-                    value.toMutableList()
-                }
+            headers = ArrayListMultimap.create(clientOptions.headers)
+            queryParams = ArrayListMultimap.create(clientOptions.queryParams)
             responseValidation = clientOptions.responseValidation
             maxRetries = clientOptions.maxRetries
             apiKey = clientOptions.apiKey
@@ -76,47 +70,43 @@ private constructor(
 
         fun jsonMapper(jsonMapper: JsonMapper) = apply { this.jsonMapper = jsonMapper }
 
-        fun baseUrl(baseUrl: String) = apply { this.baseUrl = baseUrl }
-
         fun clock(clock: Clock) = apply { this.clock = clock }
+
+        fun baseUrl(baseUrl: String) = apply { this.baseUrl = baseUrl }
 
         fun headers(headers: Map<String, Iterable<String>>) = apply {
             this.headers.clear()
             putAllHeaders(headers)
         }
 
-        fun putHeader(name: String, value: String) = apply {
-            this.headers.getOrPut(name) { mutableListOf() }.add(value)
-        }
+        fun putHeader(name: String, value: String) = apply { headers.put(name, value) }
 
         fun putHeaders(name: String, values: Iterable<String>) = apply {
-            this.headers.getOrPut(name) { mutableListOf() }.addAll(values)
+            headers.putAll(name, values)
         }
 
         fun putAllHeaders(headers: Map<String, Iterable<String>>) = apply {
-            headers.forEach(this::putHeaders)
+            headers.forEach(::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply { this.headers.put(name, mutableListOf()) }
+        fun removeHeader(name: String) = apply { headers.removeAll(name) }
 
         fun queryParams(queryParams: Map<String, Iterable<String>>) = apply {
             this.queryParams.clear()
             putAllQueryParams(queryParams)
         }
 
-        fun putQueryParam(name: String, value: String) = apply {
-            this.queryParams.getOrPut(name) { mutableListOf() }.add(value)
-        }
+        fun putQueryParam(name: String, value: String) = apply { queryParams.put(name, value) }
 
         fun putQueryParams(name: String, values: Iterable<String>) = apply {
-            this.queryParams.getOrPut(name) { mutableListOf() }.addAll(values)
+            queryParams.putAll(name, values)
         }
 
         fun putAllQueryParams(queryParams: Map<String, Iterable<String>>) = apply {
-            queryParams.forEach(this::putQueryParams)
+            queryParams.forEach(::putQueryParams)
         }
 
-        fun removeQueryParam(name: String) = apply { this.queryParams.put(name, mutableListOf()) }
+        fun removeQueryParam(name: String) = apply { queryParams.removeAll(name) }
 
         fun responseValidation(responseValidation: Boolean) = apply {
             this.responseValidation = responseValidation
@@ -156,8 +146,8 @@ private constructor(
                     "Basic ${Base64.getEncoder().encodeToString("${organizationId}:${apiKey}".toByteArray())}"
                 )
             }
-            this.headers.forEach(headers::replaceValues)
-            this.queryParams.forEach(queryParams::replaceValues)
+            this.headers.asMap().forEach(headers::replaceValues)
+            this.queryParams.asMap().forEach(queryParams::replaceValues)
 
             return ClientOptions(
                 httpClient!!,
@@ -169,16 +159,16 @@ private constructor(
                         .idempotencyHeader("Idempotency-Key")
                         .build()
                 ),
-                jsonMapper ?: jsonMapper(),
+                jsonMapper,
                 clock,
                 baseUrl,
-                apiKey!!,
-                organizationId!!,
-                webhookKey,
                 headers.toImmutable(),
                 queryParams.toImmutable(),
                 responseValidation,
                 maxRetries,
+                apiKey!!,
+                organizationId!!,
+                webhookKey,
             )
         }
     }
