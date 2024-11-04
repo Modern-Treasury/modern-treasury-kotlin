@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.google.common.collect.ArrayListMultimap
+import com.google.common.collect.ListMultimap
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
@@ -57,8 +59,8 @@ constructor(
     private val ultimateOriginatingPartyName: String?,
     private val ultimateReceivingPartyIdentifier: String?,
     private val ultimateReceivingPartyName: String?,
-    private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
+    private val additionalQueryParams: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
@@ -176,9 +178,9 @@ constructor(
         )
     }
 
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
-
     internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+
+    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
     @JsonDeserialize(builder = PaymentOrderCreateBody.Builder::class)
     @NoAutoDetect
@@ -908,9 +910,9 @@ constructor(
             "PaymentOrderCreateBody{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, documents=$documents, effectiveDate=$effectiveDate, expiresAt=$expiresAt, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
-
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
+
+    fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -919,15 +921,15 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentOrderCreateParams && this.amount == other.amount && this.direction == other.direction && this.originatingAccountId == other.originatingAccountId && this.type == other.type && this.accounting == other.accounting && this.accountingCategoryId == other.accountingCategoryId && this.accountingLedgerClassId == other.accountingLedgerClassId && this.chargeBearer == other.chargeBearer && this.currency == other.currency && this.description == other.description && this.documents == other.documents && this.effectiveDate == other.effectiveDate && this.expiresAt == other.expiresAt && this.fallbackType == other.fallbackType && this.foreignExchangeContract == other.foreignExchangeContract && this.foreignExchangeIndicator == other.foreignExchangeIndicator && this.ledgerTransaction == other.ledgerTransaction && this.ledgerTransactionId == other.ledgerTransactionId && this.lineItems == other.lineItems && this.metadata == other.metadata && this.nsfProtected == other.nsfProtected && this.originatingPartyName == other.originatingPartyName && this.priority == other.priority && this.processAfter == other.processAfter && this.purpose == other.purpose && this.receivingAccount == other.receivingAccount && this.receivingAccountId == other.receivingAccountId && this.remittanceInformation == other.remittanceInformation && this.sendRemittanceAdvice == other.sendRemittanceAdvice && this.statementDescriptor == other.statementDescriptor && this.subtype == other.subtype && this.transactionMonitoringEnabled == other.transactionMonitoringEnabled && this.ultimateOriginatingPartyIdentifier == other.ultimateOriginatingPartyIdentifier && this.ultimateOriginatingPartyName == other.ultimateOriginatingPartyName && this.ultimateReceivingPartyIdentifier == other.ultimateReceivingPartyIdentifier && this.ultimateReceivingPartyName == other.ultimateReceivingPartyName && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is PaymentOrderCreateParams && this.amount == other.amount && this.direction == other.direction && this.originatingAccountId == other.originatingAccountId && this.type == other.type && this.accounting == other.accounting && this.accountingCategoryId == other.accountingCategoryId && this.accountingLedgerClassId == other.accountingLedgerClassId && this.chargeBearer == other.chargeBearer && this.currency == other.currency && this.description == other.description && this.documents == other.documents && this.effectiveDate == other.effectiveDate && this.expiresAt == other.expiresAt && this.fallbackType == other.fallbackType && this.foreignExchangeContract == other.foreignExchangeContract && this.foreignExchangeIndicator == other.foreignExchangeIndicator && this.ledgerTransaction == other.ledgerTransaction && this.ledgerTransactionId == other.ledgerTransactionId && this.lineItems == other.lineItems && this.metadata == other.metadata && this.nsfProtected == other.nsfProtected && this.originatingPartyName == other.originatingPartyName && this.priority == other.priority && this.processAfter == other.processAfter && this.purpose == other.purpose && this.receivingAccount == other.receivingAccount && this.receivingAccountId == other.receivingAccountId && this.remittanceInformation == other.remittanceInformation && this.sendRemittanceAdvice == other.sendRemittanceAdvice && this.statementDescriptor == other.statementDescriptor && this.subtype == other.subtype && this.transactionMonitoringEnabled == other.transactionMonitoringEnabled && this.ultimateOriginatingPartyIdentifier == other.ultimateOriginatingPartyIdentifier && this.ultimateOriginatingPartyName == other.ultimateOriginatingPartyName && this.ultimateReceivingPartyIdentifier == other.ultimateReceivingPartyIdentifier && this.ultimateReceivingPartyName == other.ultimateReceivingPartyName && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(amount, direction, originatingAccountId, type, accounting, accountingCategoryId, accountingLedgerClassId, chargeBearer, currency, description, documents, effectiveDate, expiresAt, fallbackType, foreignExchangeContract, foreignExchangeIndicator, ledgerTransaction, ledgerTransactionId, lineItems, metadata, nsfProtected, originatingPartyName, priority, processAfter, purpose, receivingAccount, receivingAccountId, remittanceInformation, sendRemittanceAdvice, statementDescriptor, subtype, transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier, ultimateReceivingPartyName, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
+        return /* spotless:off */ Objects.hash(amount, direction, originatingAccountId, type, accounting, accountingCategoryId, accountingLedgerClassId, chargeBearer, currency, description, documents, effectiveDate, expiresAt, fallbackType, foreignExchangeContract, foreignExchangeIndicator, ledgerTransaction, ledgerTransactionId, lineItems, metadata, nsfProtected, originatingPartyName, priority, processAfter, purpose, receivingAccount, receivingAccountId, remittanceInformation, sendRemittanceAdvice, statementDescriptor, subtype, transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier, ultimateReceivingPartyName, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
-        "PaymentOrderCreateParams{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, documents=$documents, effectiveDate=$effectiveDate, expiresAt=$expiresAt, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "PaymentOrderCreateParams{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, documents=$documents, effectiveDate=$effectiveDate, expiresAt=$expiresAt, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -975,8 +977,8 @@ constructor(
         private var ultimateOriginatingPartyName: String? = null
         private var ultimateReceivingPartyIdentifier: String? = null
         private var ultimateReceivingPartyName: String? = null
-        private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
-        private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
+        private var additionalHeaders: ListMultimap<String, String> = ArrayListMultimap.create()
+        private var additionalQueryParams: ListMultimap<String, String> = ArrayListMultimap.create()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(paymentOrderCreateParams: PaymentOrderCreateParams) = apply {
@@ -1020,8 +1022,8 @@ constructor(
             this.ultimateReceivingPartyIdentifier =
                 paymentOrderCreateParams.ultimateReceivingPartyIdentifier
             this.ultimateReceivingPartyName = paymentOrderCreateParams.ultimateReceivingPartyName
-            additionalQueryParams(paymentOrderCreateParams.additionalQueryParams)
             additionalHeaders(paymentOrderCreateParams.additionalHeaders)
+            additionalQueryParams(paymentOrderCreateParams.additionalQueryParams)
             additionalBodyProperties(paymentOrderCreateParams.additionalBodyProperties)
         }
 
@@ -1281,45 +1283,44 @@ constructor(
             this.ultimateReceivingPartyName = ultimateReceivingPartyName
         }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
-            this.additionalQueryParams.clear()
-            putAllQueryParams(additionalQueryParams)
-        }
-
-        fun putQueryParam(name: String, value: String) = apply {
-            this.additionalQueryParams.getOrPut(name) { mutableListOf() }.add(value)
-        }
-
-        fun putQueryParams(name: String, values: Iterable<String>) = apply {
-            this.additionalQueryParams.getOrPut(name) { mutableListOf() }.addAll(values)
-        }
-
-        fun putAllQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
-            additionalQueryParams.forEach(this::putQueryParams)
-        }
-
-        fun removeQueryParam(name: String) = apply {
-            this.additionalQueryParams.put(name, mutableListOf())
-        }
-
         fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
             this.additionalHeaders.clear()
-            putAllHeaders(additionalHeaders)
+            putAllAdditionalHeaders(additionalHeaders)
         }
 
-        fun putHeader(name: String, value: String) = apply {
-            this.additionalHeaders.getOrPut(name) { mutableListOf() }.add(value)
+        fun putAdditionalHeader(name: String, value: String) = apply {
+            additionalHeaders.put(name, value)
         }
 
-        fun putHeaders(name: String, values: Iterable<String>) = apply {
-            this.additionalHeaders.getOrPut(name) { mutableListOf() }.addAll(values)
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.putAll(name, values)
         }
 
-        fun putAllHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            additionalHeaders.forEach(this::putHeaders)
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            additionalHeaders.forEach(::putAdditionalHeaders)
         }
 
-        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
+        fun removeAdditionalHeader(name: String) = apply { additionalHeaders.removeAll(name) }
+
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
+
+        fun putAdditionalQueryParam(key: String, value: String) = apply {
+            additionalQueryParams.put(key, value)
+        }
+
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.putAll(key, values)
+        }
+
+        fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                additionalQueryParams.forEach(::putAdditionalQueryParams)
+            }
+
+        fun removeAdditionalQueryParam(key: String) = apply { additionalQueryParams.removeAll(key) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -1375,8 +1376,14 @@ constructor(
                 ultimateOriginatingPartyName,
                 ultimateReceivingPartyIdentifier,
                 ultimateReceivingPartyName,
-                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
-                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders
+                    .asMap()
+                    .mapValues { it.value.toList().toImmutable() }
+                    .toImmutable(),
+                additionalQueryParams
+                    .asMap()
+                    .mapValues { it.value.toList().toImmutable() }
+                    .toImmutable(),
                 additionalBodyProperties.toImmutable(),
             )
     }
