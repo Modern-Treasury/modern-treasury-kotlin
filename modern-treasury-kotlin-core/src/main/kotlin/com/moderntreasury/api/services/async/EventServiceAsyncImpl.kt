@@ -35,9 +35,9 @@ constructor(
             HttpRequest.builder()
                 .method(HttpMethod.GET)
                 .addPathSegments("api", "events", params.getPathParam(0))
-                .putAllQueryParams(clientOptions.queryParams.asMap())
+                .putAllQueryParams(clientOptions.queryParams)
                 .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers.asMap())
+                .putAllHeaders(clientOptions.headers)
                 .replaceAllHeaders(params.getHeaders())
                 .build()
         return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
@@ -63,9 +63,9 @@ constructor(
             HttpRequest.builder()
                 .method(HttpMethod.GET)
                 .addPathSegments("api", "events")
-                .putAllQueryParams(clientOptions.queryParams.asMap())
+                .putAllQueryParams(clientOptions.queryParams)
                 .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers.asMap())
+                .putAllHeaders(clientOptions.headers)
                 .replaceAllHeaders(params.getHeaders())
                 .build()
         return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
@@ -79,8 +79,8 @@ constructor(
                 .let {
                     EventListPageAsync.Response.Builder()
                         .items(it)
-                        .perPage(response.headers()["X-Per-Page"].getOrNull(0) ?: "")
-                        .afterCursor(response.headers()["X-After-Cursor"].getOrNull(0) ?: "")
+                        .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
+                        .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
                         .build()
                 }
                 .let { EventListPageAsync.of(this, params, it) }

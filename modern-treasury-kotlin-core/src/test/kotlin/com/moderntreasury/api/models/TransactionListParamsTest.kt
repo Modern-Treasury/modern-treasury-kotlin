@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
@@ -48,30 +49,30 @@ class TransactionListParamsTest {
                 .vendorId("vendor_id")
                 .virtualAccountId("virtual_account_id")
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("after_cursor"))
-        expected.put("as_of_date_end", listOf("2019-12-27"))
-        expected.put("as_of_date_start", listOf("2019-12-27"))
-        expected.put("counterparty_id", listOf("counterparty_id"))
-        expected.put("description", listOf("description"))
-        expected.put("direction", listOf("direction"))
-        expected.put("internal_account_id", listOf("internal_account_id"))
+        val expected = QueryParams.builder()
+        expected.put("after_cursor", "after_cursor")
+        expected.put("as_of_date_end", "2019-12-27")
+        expected.put("as_of_date_start", "2019-12-27")
+        expected.put("counterparty_id", "counterparty_id")
+        expected.put("description", "description")
+        expected.put("direction", "direction")
+        expected.put("internal_account_id", "internal_account_id")
         TransactionListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
-        expected.put("payment_type", listOf("payment_type"))
-        expected.put("per_page", listOf("123"))
-        expected.put("posted", listOf("true"))
-        expected.put("transactable_type", listOf("transactable_type"))
-        expected.put("vendor_id", listOf("vendor_id"))
-        expected.put("virtual_account_id", listOf("virtual_account_id"))
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        expected.put("payment_type", "payment_type")
+        expected.put("per_page", "123")
+        expected.put("posted", "true")
+        expected.put("transactable_type", "transactable_type")
+        expected.put("vendor_id", "vendor_id")
+        expected.put("virtual_account_id", "virtual_account_id")
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params = TransactionListParams.builder().build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 }
