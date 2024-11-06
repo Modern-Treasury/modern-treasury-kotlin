@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.models.*
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -36,24 +37,24 @@ class CounterpartyListParamsTest {
                 .name("name")
                 .perPage(123L)
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("after_cursor"))
-        expected.put("created_at_lower_bound", listOf("2019-12-27T18:11:19.117Z"))
-        expected.put("created_at_upper_bound", listOf("2019-12-27T18:11:19.117Z"))
-        expected.put("email", listOf("dev@stainlessapi.com"))
-        expected.put("legal_entity_id", listOf("legal_entity_id"))
+        val expected = QueryParams.builder()
+        expected.put("after_cursor", "after_cursor")
+        expected.put("created_at_lower_bound", "2019-12-27T18:11:19.117Z")
+        expected.put("created_at_upper_bound", "2019-12-27T18:11:19.117Z")
+        expected.put("email", "dev@stainlessapi.com")
+        expected.put("legal_entity_id", "legal_entity_id")
         CounterpartyListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
-        expected.put("name", listOf("name"))
-        expected.put("per_page", listOf("123"))
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        expected.put("name", "name")
+        expected.put("per_page", "123")
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params = CounterpartyListParams.builder().build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 }

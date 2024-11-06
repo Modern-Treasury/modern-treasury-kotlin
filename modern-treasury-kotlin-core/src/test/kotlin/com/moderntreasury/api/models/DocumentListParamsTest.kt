@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -27,21 +28,18 @@ class DocumentListParamsTest {
                 .documentableType(DocumentListParams.DocumentableType.CASES)
                 .perPage(123L)
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("after_cursor"))
-        expected.put("documentable_id", listOf("documentable_id"))
-        expected.put(
-            "documentable_type",
-            listOf(DocumentListParams.DocumentableType.CASES.toString())
-        )
-        expected.put("per_page", listOf("123"))
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        expected.put("after_cursor", "after_cursor")
+        expected.put("documentable_id", "documentable_id")
+        expected.put("documentable_type", DocumentListParams.DocumentableType.CASES.toString())
+        expected.put("per_page", "123")
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params = DocumentListParams.builder().build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 }

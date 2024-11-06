@@ -1,10 +1,10 @@
 package com.moderntreasury.api.errors
 
-import com.google.common.collect.ListMultimap
+import com.moderntreasury.api.core.http.Headers
 
 class InternalServerException(
     statusCode: Int,
-    headers: ListMultimap<String, String>,
+    headers: Headers,
     body: String,
     error: ModernTreasuryError,
 ) : ModernTreasuryServiceException(statusCode, headers, body, error)

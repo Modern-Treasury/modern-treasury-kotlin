@@ -37,9 +37,9 @@ constructor(
             HttpRequest.builder()
                 .method(HttpMethod.GET)
                 .addPathSegments("api", "ledger_entries", params.getPathParam(0))
-                .putAllQueryParams(clientOptions.queryParams.asMap())
+                .putAllQueryParams(clientOptions.queryParams)
                 .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers.asMap())
+                .putAllHeaders(clientOptions.headers)
                 .replaceAllHeaders(params.getHeaders())
                 .build()
         return clientOptions.httpClient.execute(request, requestOptions).let { response ->
@@ -65,9 +65,9 @@ constructor(
             HttpRequest.builder()
                 .method(HttpMethod.PATCH)
                 .addPathSegments("api", "ledger_entries", params.getPathParam(0))
-                .putAllQueryParams(clientOptions.queryParams.asMap())
+                .putAllQueryParams(clientOptions.queryParams)
                 .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers.asMap())
+                .putAllHeaders(clientOptions.headers)
                 .replaceAllHeaders(params.getHeaders())
                 .body(json(clientOptions.jsonMapper, params.getBody()))
                 .build()
@@ -94,9 +94,9 @@ constructor(
             HttpRequest.builder()
                 .method(HttpMethod.GET)
                 .addPathSegments("api", "ledger_entries")
-                .putAllQueryParams(clientOptions.queryParams.asMap())
+                .putAllQueryParams(clientOptions.queryParams)
                 .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers.asMap())
+                .putAllHeaders(clientOptions.headers)
                 .replaceAllHeaders(params.getHeaders())
                 .build()
         return clientOptions.httpClient.execute(request, requestOptions).let { response ->
@@ -110,8 +110,8 @@ constructor(
                 .let {
                     LedgerEntryListPage.Response.Builder()
                         .items(it)
-                        .perPage(response.headers()["X-Per-Page"].getOrNull(0) ?: "")
-                        .afterCursor(response.headers()["X-After-Cursor"].getOrNull(0) ?: "")
+                        .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
+                        .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
                         .build()
                 }
                 .let { LedgerEntryListPage.of(this, params, it) }
