@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.models.*
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -34,21 +35,21 @@ class EventListParamsTest {
                 .perPage(123L)
                 .resource("resource")
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("after_cursor"))
-        expected.put("entity_id", listOf("entity_id"))
-        expected.put("event_name", listOf("event_name"))
-        expected.put("event_time_end", listOf("2019-12-27T18:11:19.117Z"))
-        expected.put("event_time_start", listOf("2019-12-27T18:11:19.117Z"))
-        expected.put("per_page", listOf("123"))
-        expected.put("resource", listOf("resource"))
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        expected.put("after_cursor", "after_cursor")
+        expected.put("entity_id", "entity_id")
+        expected.put("event_name", "event_name")
+        expected.put("event_time_end", "2019-12-27T18:11:19.117Z")
+        expected.put("event_time_start", "2019-12-27T18:11:19.117Z")
+        expected.put("per_page", "123")
+        expected.put("resource", "resource")
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params = EventListParams.builder().build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 }

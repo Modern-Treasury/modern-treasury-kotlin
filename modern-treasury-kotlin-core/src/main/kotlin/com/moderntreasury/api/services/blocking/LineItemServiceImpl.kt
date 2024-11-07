@@ -43,9 +43,9 @@ constructor(
                     "line_items",
                     params.getPathParam(2)
                 )
-                .putAllQueryParams(clientOptions.queryParams.asMap())
+                .putAllQueryParams(clientOptions.queryParams)
                 .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers.asMap())
+                .putAllHeaders(clientOptions.headers)
                 .replaceAllHeaders(params.getHeaders())
                 .build()
         return clientOptions.httpClient.execute(request, requestOptions).let { response ->
@@ -74,9 +74,9 @@ constructor(
                     "line_items",
                     params.getPathParam(2)
                 )
-                .putAllQueryParams(clientOptions.queryParams.asMap())
+                .putAllQueryParams(clientOptions.queryParams)
                 .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers.asMap())
+                .putAllHeaders(clientOptions.headers)
                 .replaceAllHeaders(params.getHeaders())
                 .body(json(clientOptions.jsonMapper, params.getBody()))
                 .build()
@@ -108,9 +108,9 @@ constructor(
                     params.getPathParam(1),
                     "line_items"
                 )
-                .putAllQueryParams(clientOptions.queryParams.asMap())
+                .putAllQueryParams(clientOptions.queryParams)
                 .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers.asMap())
+                .putAllHeaders(clientOptions.headers)
                 .replaceAllHeaders(params.getHeaders())
                 .build()
         return clientOptions.httpClient.execute(request, requestOptions).let { response ->
@@ -124,8 +124,8 @@ constructor(
                 .let {
                     LineItemListPage.Response.Builder()
                         .items(it)
-                        .perPage(response.headers()["X-Per-Page"].getOrNull(0) ?: "")
-                        .afterCursor(response.headers()["X-After-Cursor"].getOrNull(0) ?: "")
+                        .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
+                        .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
                         .build()
                 }
                 .let { LineItemListPage.of(this, params, it) }

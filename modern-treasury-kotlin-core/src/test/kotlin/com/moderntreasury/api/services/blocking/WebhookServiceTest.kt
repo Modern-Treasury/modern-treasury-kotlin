@@ -2,9 +2,9 @@
 
 package com.moderntreasury.api.services.blocking
 
-import com.google.common.collect.ImmutableListMultimap
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -58,10 +58,12 @@ class WebhookServiceTest {
                     .webhooks()
                     .validateSignature(
                         "{\"foo\":\"bar\"}",
-                        ImmutableListMultimap.of(
-                            "X-Signature",
-                            "57e14f6f354543f0101fb06ea24df7731d90087b76651e3497345e22a3622940"
-                        ),
+                        Headers.builder()
+                            .put(
+                                "X-Signature",
+                                "57e14f6f354543f0101fb06ea24df7731d90087b76651e3497345e22a3622940"
+                            )
+                            .build(),
                         "foo"
                     )
             )
@@ -72,10 +74,12 @@ class WebhookServiceTest {
                     .webhooks()
                     .validateSignature(
                         "other",
-                        ImmutableListMultimap.of(
-                            "X-Signature",
-                            "57e14f6f354543f0101fb06ea24df7731d90087b76651e3497345e22a3622940"
-                        ),
+                        Headers.builder()
+                            .put(
+                                "X-Signature",
+                                "57e14f6f354543f0101fb06ea24df7731d90087b76651e3497345e22a3622940"
+                            )
+                            .build(),
                         "foo"
                     )
             )
@@ -86,7 +90,7 @@ class WebhookServiceTest {
                     .webhooks()
                     .validateSignature(
                         "{\"foo\":\"bar\"}",
-                        ImmutableListMultimap.of("X-Signature", "other"),
+                        Headers.builder().put("X-Signature", "other").build(),
                         "foo"
                     )
             )
@@ -97,10 +101,12 @@ class WebhookServiceTest {
                     .webhooks()
                     .validateSignature(
                         "{\"foo\":\"bar\"}",
-                        ImmutableListMultimap.of(
-                            "X-Signature",
-                            "57e14f6f354543f0101fb06ea24df7731d90087b76651e3497345e22a3622940"
-                        ),
+                        Headers.builder()
+                            .put(
+                                "X-Signature",
+                                "57e14f6f354543f0101fb06ea24df7731d90087b76651e3497345e22a3622940"
+                            )
+                            .build(),
                         "other"
                     )
             )

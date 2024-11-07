@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -23,13 +24,13 @@ class ValidationValidateRoutingNumberParamsTest {
                 .routingNumber("routing_number")
                 .routingNumberType(ValidationValidateRoutingNumberParams.RoutingNumberType.ABA)
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("routing_number", listOf("routing_number"))
+        val expected = QueryParams.builder()
+        expected.put("routing_number", "routing_number")
         expected.put(
             "routing_number_type",
-            listOf(ValidationValidateRoutingNumberParams.RoutingNumberType.ABA.toString())
+            ValidationValidateRoutingNumberParams.RoutingNumberType.ABA.toString()
         )
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
@@ -39,12 +40,12 @@ class ValidationValidateRoutingNumberParamsTest {
                 .routingNumber("routing_number")
                 .routingNumberType(ValidationValidateRoutingNumberParams.RoutingNumberType.ABA)
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("routing_number", listOf("routing_number"))
+        val expected = QueryParams.builder()
+        expected.put("routing_number", "routing_number")
         expected.put(
             "routing_number_type",
-            listOf(ValidationValidateRoutingNumberParams.RoutingNumberType.ABA.toString())
+            ValidationValidateRoutingNumberParams.RoutingNumberType.ABA.toString()
         )
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 }

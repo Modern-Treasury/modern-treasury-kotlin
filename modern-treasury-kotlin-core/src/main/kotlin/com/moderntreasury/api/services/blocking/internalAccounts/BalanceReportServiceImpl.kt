@@ -44,9 +44,9 @@ constructor(
                     params.getPathParam(0),
                     "balance_reports"
                 )
-                .putAllQueryParams(clientOptions.queryParams.asMap())
+                .putAllQueryParams(clientOptions.queryParams)
                 .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers.asMap())
+                .putAllHeaders(clientOptions.headers)
                 .replaceAllHeaders(params.getHeaders())
                 .body(json(clientOptions.jsonMapper, params.getBody()))
                 .build()
@@ -79,9 +79,9 @@ constructor(
                     "balance_reports",
                     params.getPathParam(1)
                 )
-                .putAllQueryParams(clientOptions.queryParams.asMap())
+                .putAllQueryParams(clientOptions.queryParams)
                 .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers.asMap())
+                .putAllHeaders(clientOptions.headers)
                 .replaceAllHeaders(params.getHeaders())
                 .build()
         return clientOptions.httpClient.execute(request, requestOptions).let { response ->
@@ -112,9 +112,9 @@ constructor(
                     params.getPathParam(0),
                     "balance_reports"
                 )
-                .putAllQueryParams(clientOptions.queryParams.asMap())
+                .putAllQueryParams(clientOptions.queryParams)
                 .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers.asMap())
+                .putAllHeaders(clientOptions.headers)
                 .replaceAllHeaders(params.getHeaders())
                 .build()
         return clientOptions.httpClient.execute(request, requestOptions).let { response ->
@@ -128,8 +128,8 @@ constructor(
                 .let {
                     BalanceReportListPage.Response.Builder()
                         .items(it)
-                        .perPage(response.headers()["X-Per-Page"].getOrNull(0) ?: "")
-                        .afterCursor(response.headers()["X-After-Cursor"].getOrNull(0) ?: "")
+                        .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
+                        .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
                         .build()
                 }
                 .let { BalanceReportListPage.of(this, params, it) }
@@ -150,9 +150,9 @@ constructor(
                     "balance_reports",
                     params.getPathParam(1)
                 )
-                .putAllQueryParams(clientOptions.queryParams.asMap())
+                .putAllQueryParams(clientOptions.queryParams)
                 .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers.asMap())
+                .putAllHeaders(clientOptions.headers)
                 .replaceAllHeaders(params.getHeaders())
                 .apply { params.getBody()?.also { body(json(clientOptions.jsonMapper, it)) } }
                 .build()

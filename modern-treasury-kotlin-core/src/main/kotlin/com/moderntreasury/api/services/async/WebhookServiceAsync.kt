@@ -4,15 +4,11 @@
 
 package com.moderntreasury.api.services.async
 
-import com.google.common.collect.ListMultimap
+import com.moderntreasury.api.core.http.Headers
 
 interface WebhookServiceAsync {
 
     suspend fun getSignature(value: String, key: String): String
 
-    suspend fun validateSignature(
-        payload: String,
-        headers: ListMultimap<String, String>,
-        key: String
-    ): Boolean
+    suspend fun validateSignature(payload: String, headers: Headers, key: String): Boolean
 }

@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -55,33 +56,33 @@ class PaymentOrderListParamsTest {
                 .transactionId("transaction_id")
                 .type(PaymentOrderListParams.Type.ACH)
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("after_cursor"))
-        expected.put("counterparty_id", listOf("counterparty_id"))
-        expected.put("created_at_end", listOf("2019-12-27"))
-        expected.put("created_at_start", listOf("2019-12-27"))
-        expected.put("direction", listOf(TransactionDirection.CREDIT.toString()))
-        expected.put("effective_date_end", listOf("2019-12-27"))
-        expected.put("effective_date_start", listOf("2019-12-27"))
+        val expected = QueryParams.builder()
+        expected.put("after_cursor", "after_cursor")
+        expected.put("counterparty_id", "counterparty_id")
+        expected.put("created_at_end", "2019-12-27")
+        expected.put("created_at_start", "2019-12-27")
+        expected.put("direction", TransactionDirection.CREDIT.toString())
+        expected.put("effective_date_end", "2019-12-27")
+        expected.put("effective_date_start", "2019-12-27")
         PaymentOrderListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
-        expected.put("originating_account_id", listOf("originating_account_id"))
-        expected.put("per_page", listOf("123"))
-        expected.put("priority", listOf(PaymentOrderListParams.Priority.HIGH.toString()))
-        expected.put("process_after_end", listOf("2019-12-27T18:11:19.117Z"))
-        expected.put("process_after_start", listOf("2019-12-27T18:11:19.117Z"))
-        expected.put("reference_number", listOf("reference_number"))
-        expected.put("status", listOf(PaymentOrderListParams.Status.APPROVED.toString()))
-        expected.put("transaction_id", listOf("transaction_id"))
-        expected.put("type", listOf(PaymentOrderListParams.Type.ACH.toString()))
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        expected.put("originating_account_id", "originating_account_id")
+        expected.put("per_page", "123")
+        expected.put("priority", PaymentOrderListParams.Priority.HIGH.toString())
+        expected.put("process_after_end", "2019-12-27T18:11:19.117Z")
+        expected.put("process_after_start", "2019-12-27T18:11:19.117Z")
+        expected.put("reference_number", "reference_number")
+        expected.put("status", PaymentOrderListParams.Status.APPROVED.toString())
+        expected.put("transaction_id", "transaction_id")
+        expected.put("type", PaymentOrderListParams.Type.ACH.toString())
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params = PaymentOrderListParams.builder().build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 }

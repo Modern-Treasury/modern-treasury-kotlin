@@ -2,11 +2,11 @@
 
 package com.moderntreasury.api.services.async
 
-import com.google.common.collect.ListMultimap
 import com.google.common.io.BaseEncoding
 import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.getRequiredHeader
 import com.moderntreasury.api.core.handlers.errorHandler
+import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.errors.ModernTreasuryError
 import javax.crypto.Mac
@@ -28,7 +28,7 @@ constructor(
 
     override suspend fun validateSignature(
         payload: String,
-        headers: ListMultimap<String, String>,
+        headers: Headers,
         key: String
     ): Boolean {
         val expectedSignature = headers.getRequiredHeader("X-Signature")
