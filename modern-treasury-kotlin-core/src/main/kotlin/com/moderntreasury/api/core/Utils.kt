@@ -2,8 +2,7 @@
 
 package com.moderntreasury.api.core
 
-import com.google.common.collect.ImmutableListMultimap
-import com.google.common.collect.ListMultimap
+import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Collections
 import java.util.SortedMap
@@ -21,20 +20,8 @@ internal fun <K : Comparable<K>, V> SortedMap<K, V>.toImmutable(): SortedMap<K, 
     if (isEmpty()) Collections.emptySortedMap()
     else Collections.unmodifiableSortedMap(toSortedMap(comparator()))
 
-internal fun <K, V> ListMultimap<K, V>.toImmutable(): ListMultimap<K, V> =
-    ImmutableListMultimap.copyOf(this)
-
-internal fun ListMultimap<String, String>.getRequiredHeader(header: String): String {
-    val value =
-        entries()
-            .stream()
-            .filter { entry -> entry.key.equals(header, ignoreCase = true) }
-            .map { entry -> entry.value }
-            .findFirst()
-    if (!value.isPresent) {
-        throw ModernTreasuryInvalidDataException("Could not find $header header")
-    }
-    return value.get()
-}
+internal fun Headers.getRequiredHeader(name: String): String =
+    values(name).firstOrNull()
+        ?: throw ModernTreasuryInvalidDataException("Could not find $name header")
 
 internal interface Enum

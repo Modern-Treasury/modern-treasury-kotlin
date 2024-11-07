@@ -3,7 +3,7 @@
 package com.moderntreasury.api.core.handlers
 
 import com.fasterxml.jackson.databind.json.JsonMapper
-import com.google.common.collect.ListMultimap
+import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.HttpResponse
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.errors.BadRequestException
@@ -116,7 +116,7 @@ private fun HttpResponse.buffered(): HttpResponse {
     return object : HttpResponse {
         override fun statusCode(): Int = this@buffered.statusCode()
 
-        override fun headers(): ListMultimap<String, String> = this@buffered.headers()
+        override fun headers(): Headers = this@buffered.headers()
 
         override fun body(): InputStream = ByteArrayInputStream(body)
 

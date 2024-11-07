@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.models.*
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -40,26 +41,26 @@ class ExpectedPaymentListParamsTest {
                 .status(ExpectedPaymentListParams.Status.ARCHIVED)
                 .type(ExpectedPaymentListParams.Type.ACH)
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("after_cursor"))
-        expected.put("counterparty_id", listOf("counterparty_id"))
-        expected.put("created_at_lower_bound", listOf("2019-12-27T18:11:19.117Z"))
-        expected.put("created_at_upper_bound", listOf("2019-12-27T18:11:19.117Z"))
-        expected.put("direction", listOf(TransactionDirection.CREDIT.toString()))
-        expected.put("internal_account_id", listOf("internal_account_id"))
+        val expected = QueryParams.builder()
+        expected.put("after_cursor", "after_cursor")
+        expected.put("counterparty_id", "counterparty_id")
+        expected.put("created_at_lower_bound", "2019-12-27T18:11:19.117Z")
+        expected.put("created_at_upper_bound", "2019-12-27T18:11:19.117Z")
+        expected.put("direction", TransactionDirection.CREDIT.toString())
+        expected.put("internal_account_id", "internal_account_id")
         ExpectedPaymentListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
-        expected.put("per_page", listOf("123"))
-        expected.put("status", listOf(ExpectedPaymentListParams.Status.ARCHIVED.toString()))
-        expected.put("type", listOf(ExpectedPaymentListParams.Type.ACH.toString()))
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        expected.put("per_page", "123")
+        expected.put("status", ExpectedPaymentListParams.Status.ARCHIVED.toString())
+        expected.put("type", ExpectedPaymentListParams.Type.ACH.toString())
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params = ExpectedPaymentListParams.builder().build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 }

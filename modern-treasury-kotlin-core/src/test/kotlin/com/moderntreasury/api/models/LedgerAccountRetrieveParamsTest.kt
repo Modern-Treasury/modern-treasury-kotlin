@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -41,7 +42,7 @@ class LedgerAccountRetrieveParamsTest {
                         .build()
                 )
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
+        val expected = QueryParams.builder()
         LedgerAccountRetrieveParams.Balances.builder()
             .asOfDate(LocalDate.parse("2019-12-27"))
             .asOfLockVersion(123L)
@@ -50,14 +51,14 @@ class LedgerAccountRetrieveParamsTest {
             .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("balances[$key]", values) }
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params = LedgerAccountRetrieveParams.builder().id("id").build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test

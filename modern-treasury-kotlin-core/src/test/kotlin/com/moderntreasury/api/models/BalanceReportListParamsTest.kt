@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
@@ -30,23 +31,23 @@ class BalanceReportListParamsTest {
                 .balanceReportType(BalanceReportListParams.BalanceReportType.INTRADAY)
                 .perPage(123L)
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("after_cursor"))
-        expected.put("as_of_date", listOf("2019-12-27"))
+        val expected = QueryParams.builder()
+        expected.put("after_cursor", "after_cursor")
+        expected.put("as_of_date", "2019-12-27")
         expected.put(
             "balance_report_type",
-            listOf(BalanceReportListParams.BalanceReportType.INTRADAY.toString())
+            BalanceReportListParams.BalanceReportType.INTRADAY.toString()
         )
-        expected.put("per_page", listOf("123"))
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        expected.put("per_page", "123")
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params =
             BalanceReportListParams.builder().internalAccountId("internal_account_id").build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test

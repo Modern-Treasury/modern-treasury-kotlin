@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -27,18 +28,18 @@ class ConnectionListParamsTest {
                 .perPage(123L)
                 .vendorCustomerId("vendor_customer_id")
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("after_cursor"))
-        expected.put("entity", listOf("entity"))
-        expected.put("per_page", listOf("123"))
-        expected.put("vendor_customer_id", listOf("vendor_customer_id"))
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        expected.put("after_cursor", "after_cursor")
+        expected.put("entity", "entity")
+        expected.put("per_page", "123")
+        expected.put("vendor_customer_id", "vendor_customer_id")
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params = ConnectionListParams.builder().build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 }

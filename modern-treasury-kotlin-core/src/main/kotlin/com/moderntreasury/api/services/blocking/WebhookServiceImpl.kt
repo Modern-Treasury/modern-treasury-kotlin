@@ -2,11 +2,11 @@
 
 package com.moderntreasury.api.services.blocking
 
-import com.google.common.collect.ListMultimap
 import com.google.common.io.BaseEncoding
 import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.getRequiredHeader
 import com.moderntreasury.api.core.handlers.errorHandler
+import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.errors.ModernTreasuryError
 import javax.crypto.Mac
@@ -26,11 +26,7 @@ constructor(
         return BaseEncoding.base16().lowerCase().encode(bytes)
     }
 
-    override fun validateSignature(
-        payload: String,
-        headers: ListMultimap<String, String>,
-        key: String
-    ): Boolean {
+    override fun validateSignature(payload: String, headers: Headers, key: String): Boolean {
         val expectedSignature = headers.getRequiredHeader("X-Signature")
         val signature = getSignature(payload, key)
         return signature == expectedSignature

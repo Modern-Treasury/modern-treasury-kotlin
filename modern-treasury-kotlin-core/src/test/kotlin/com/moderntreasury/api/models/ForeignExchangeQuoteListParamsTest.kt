@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -39,25 +40,25 @@ class ForeignExchangeQuoteListParamsTest {
                 .perPage(123L)
                 .targetCurrency("target_currency")
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("after_cursor"))
-        expected.put("base_currency", listOf("base_currency"))
-        expected.put("effective_at_end", listOf("2019-12-27"))
-        expected.put("effective_at_start", listOf("2019-12-27"))
-        expected.put("expires_at", listOf("2019-12-27T18:11:19.117Z"))
-        expected.put("internal_account_id", listOf("internal_account_id"))
+        val expected = QueryParams.builder()
+        expected.put("after_cursor", "after_cursor")
+        expected.put("base_currency", "base_currency")
+        expected.put("effective_at_end", "2019-12-27")
+        expected.put("effective_at_start", "2019-12-27")
+        expected.put("expires_at", "2019-12-27T18:11:19.117Z")
+        expected.put("internal_account_id", "internal_account_id")
         ForeignExchangeQuoteListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
-        expected.put("per_page", listOf("123"))
-        expected.put("target_currency", listOf("target_currency"))
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        expected.put("per_page", "123")
+        expected.put("target_currency", "target_currency")
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params = ForeignExchangeQuoteListParams.builder().build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 }

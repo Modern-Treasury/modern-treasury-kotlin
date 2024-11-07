@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -29,23 +30,23 @@ class LedgerEventHandlerListParamsTest {
                 .name("name")
                 .perPage(123L)
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("after_cursor", listOf("after_cursor"))
+        val expected = QueryParams.builder()
+        expected.put("after_cursor", "after_cursor")
         LedgerEventHandlerListParams.CreatedAt.builder().build().forEachQueryParam { key, values ->
             expected.put("created_at[$key]", values)
         }
         LedgerEventHandlerListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
-        expected.put("name", listOf("name"))
-        expected.put("per_page", listOf("123"))
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        expected.put("name", "name")
+        expected.put("per_page", "123")
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params = LedgerEventHandlerListParams.builder().build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 }

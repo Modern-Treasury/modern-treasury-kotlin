@@ -1,9 +1,9 @@
 package com.moderntreasury.api.errors
 
-import com.google.common.collect.ListMultimap
+import com.moderntreasury.api.core.http.Headers
 
 class UnauthorizedException(
-    headers: ListMultimap<String, String>,
+    headers: Headers,
     body: String,
     error: ModernTreasuryError,
 ) : ModernTreasuryServiceException(401, headers, body, error)

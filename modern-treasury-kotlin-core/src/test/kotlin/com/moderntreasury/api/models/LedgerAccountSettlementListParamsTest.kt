@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -39,35 +40,35 @@ class LedgerAccountSettlementListParamsTest {
                 .settlementEntryDirection("settlement_entry_direction")
                 .updatedAt(LedgerAccountSettlementListParams.UpdatedAt.builder().build())
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("id[]", listOf("string"))
-        expected.put("after_cursor", listOf("after_cursor"))
+        val expected = QueryParams.builder()
+        expected.put("id[]", "string")
+        expected.put("after_cursor", "after_cursor")
         LedgerAccountSettlementListParams.CreatedAt.builder().build().forEachQueryParam {
             key,
             values ->
             expected.put("created_at[$key]", values)
         }
-        expected.put("ledger_id", listOf("ledger_id"))
-        expected.put("ledger_transaction_id", listOf("ledger_transaction_id"))
+        expected.put("ledger_id", "ledger_id")
+        expected.put("ledger_transaction_id", "ledger_transaction_id")
         LedgerAccountSettlementListParams.Metadata.builder().build().forEachQueryParam { key, values
             ->
             expected.put("metadata[$key]", values)
         }
-        expected.put("per_page", listOf("123"))
-        expected.put("settled_ledger_account_id", listOf("settled_ledger_account_id"))
-        expected.put("settlement_entry_direction", listOf("settlement_entry_direction"))
+        expected.put("per_page", "123")
+        expected.put("settled_ledger_account_id", "settled_ledger_account_id")
+        expected.put("settlement_entry_direction", "settlement_entry_direction")
         LedgerAccountSettlementListParams.UpdatedAt.builder().build().forEachQueryParam {
             key,
             values ->
             expected.put("updated_at[$key]", values)
         }
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params = LedgerAccountSettlementListParams.builder().build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 }
