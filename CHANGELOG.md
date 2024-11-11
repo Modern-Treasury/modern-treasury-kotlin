@@ -1,5 +1,50 @@
 # Changelog
 
+## 3.0.0 (2024-11-11)
+
+Full Changelog: [v2.21.0...v3.0.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.21.0...v3.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** replace multimaps with custom types ([#251](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/251))
+* **client:** add/rename methods for headers/query params ([#249](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/249))
+* **client:** rename header and query params builder methods ([#248](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/248))
+
+### Features
+
+* **client:** add `Headers` class ([#245](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/245)) ([a4a5e53](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a4a5e533b8e4897d5b2138c97f3f0d452644efa2))
+* **client:** add `QueryParams` class ([#246](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/246)) ([d821eb3](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d821eb379b3b89b87e6405d281fca0245b339c1f))
+* **client:** add/rename methods for headers/query params ([#249](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/249)) ([f14ffd7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f14ffd7d369182b45a1cce3551afb55241f6d757))
+* **client:** additional builder setters for error class ([0ca24d9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0ca24d9b2178d798586a95c3650530942264a9fa))
+* **client:** clean up resource leaks when the resource becomes phantom reachable ([#238](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/238)) ([599cbc9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/599cbc9f4c1dabdc05684daa5f8b98756b503493))
+* **client:** more additional body param setters ([#253](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/253)) ([ad1ce51](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ad1ce5136d71a2177721daa4858f999aa842a7b2))
+* **client:** propagate headers/query params methods to client builders ([#247](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/247)) ([f3b37e9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f3b37e9e61a14c99c52241d1b86ca10047f6163b))
+* **client:** replace multimaps with custom types ([#251](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/251)) ([a1560b5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a1560b5aa73395de19d07a5ef21144006ff8f5a5))
+
+
+### Bug Fixes
+
+* **client:** ensure constructed objects are immutable ([#243](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/243)) ([c345686](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c3456867af88c9b40da40aacc8e3f074e12c2ab5))
+* **client:** error class `toBuilder` not copying fields ([#254](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/254)) ([0ca24d9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0ca24d9b2178d798586a95c3650530942264a9fa))
+* **client:** remove `@JvmStatic` from error ([#242](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/242)) ([004cc15](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/004cc15b96533b991b45c6880fcd5bbc9d6f6550))
+
+
+### Performance Improvements
+
+* **tests:** remove unused dependencies ([#255](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/255)) ([4ae0c4d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4ae0c4db02c0ae7d5f6507a922645516cde00ff2))
+
+
+### Styles
+
+* **internal:** make `getOrThrow` terse and consistent ([#240](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/240)) ([52f2cf9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/52f2cf9940eb5c401c9569d1446cf1e107aaa8ae))
+
+
+### Refactors
+
+* **client:** http request methods ([#250](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/250)) ([adf3f92](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/adf3f923bbb92204804b398148013ada56f9ab71))
+* **client:** rename header and query params builder methods ([#248](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/248)) ([3ea587f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3ea587f826130f2a5af82e97c35faf567dcb772c))
+* **internal:** polish `ClientOptions` ([#244](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/244)) ([381ce19](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/381ce1924724f0f835e27473d0e37d918eddd489))
+
 ## 2.21.0 (2024-10-25)
 
 Full Changelog: [v2.20.1...v2.21.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.20.1...v2.21.0)
