@@ -7,6 +7,7 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.CounterpartyListParams
 import java.time.LocalDate
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -157,7 +158,22 @@ class CounterpartyServiceTest {
                                         .build()
                                 )
                             )
+                            .bankSettings(
+                                BankSettings.builder()
+                                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .backupWithholdingPercentage(123L)
+                                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .enableBackupWithholding(true)
+                                    .liveMode(true)
+                                    .object_("object")
+                                    .privacyOptOut(true)
+                                    .regulationO(true)
+                                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .build()
+                            )
                             .businessName("business_name")
+                            .citizenshipCountry("citizenship_country")
                             .dateFormed(LocalDate.parse("2019-12-27"))
                             .dateOfBirth(LocalDate.parse("2019-12-27"))
                             .doingBusinessAsNames(listOf("string"))
@@ -226,7 +242,34 @@ class CounterpartyServiceTest {
                                                             .build()
                                                     )
                                                 )
+                                                .bankSettings(
+                                                    BankSettings.builder()
+                                                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                                        .backupWithholdingPercentage(123L)
+                                                        .createdAt(
+                                                            OffsetDateTime.parse(
+                                                                "2019-12-27T18:11:19.117Z"
+                                                            )
+                                                        )
+                                                        .discardedAt(
+                                                            OffsetDateTime.parse(
+                                                                "2019-12-27T18:11:19.117Z"
+                                                            )
+                                                        )
+                                                        .enableBackupWithholding(true)
+                                                        .liveMode(true)
+                                                        .object_("object")
+                                                        .privacyOptOut(true)
+                                                        .regulationO(true)
+                                                        .updatedAt(
+                                                            OffsetDateTime.parse(
+                                                                "2019-12-27T18:11:19.117Z"
+                                                            )
+                                                        )
+                                                        .build()
+                                                )
                                                 .businessName("business_name")
+                                                .citizenshipCountry("citizenship_country")
                                                 .dateFormed(LocalDate.parse("2019-12-27"))
                                                 .dateOfBirth(LocalDate.parse("2019-12-27"))
                                                 .doingBusinessAsNames(listOf("string"))
@@ -280,6 +323,7 @@ class CounterpartyServiceTest {
                                                         .builder()
                                                         .build()
                                                 )
+                                                .middleName("middle_name")
                                                 .phoneNumbers(
                                                     listOf(
                                                         CounterpartyCreateParams
@@ -292,6 +336,9 @@ class CounterpartyServiceTest {
                                                             .build()
                                                     )
                                                 )
+                                                .politicallyExposedPerson(true)
+                                                .preferredName("preferred_name")
+                                                .prefix("prefix")
                                                 .riskRating(
                                                     CounterpartyCreateParams
                                                         .LegalEntityCreateRequest
@@ -299,6 +346,60 @@ class CounterpartyServiceTest {
                                                         .ChildLegalEntityCreate
                                                         .RiskRating
                                                         .LOW
+                                                )
+                                                .suffix("suffix")
+                                                .wealthAndEmploymentDetails(
+                                                    WealthAndEmploymentDetails.builder()
+                                                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                                        .annualIncome(123L)
+                                                        .createdAt(
+                                                            OffsetDateTime.parse(
+                                                                "2019-12-27T18:11:19.117Z"
+                                                            )
+                                                        )
+                                                        .discardedAt(
+                                                            OffsetDateTime.parse(
+                                                                "2019-12-27T18:11:19.117Z"
+                                                            )
+                                                        )
+                                                        .employerCountry("employer_country")
+                                                        .employerName("employer_name")
+                                                        .employerState("employer_state")
+                                                        .employmentStatus(
+                                                            WealthAndEmploymentDetails
+                                                                .EmploymentStatus
+                                                                .EMPLOYED
+                                                        )
+                                                        .incomeCountry("income_country")
+                                                        .incomeSource(
+                                                            WealthAndEmploymentDetails.IncomeSource
+                                                                .FAMILY_SUPPORT
+                                                        )
+                                                        .incomeState("income_state")
+                                                        .industry(
+                                                            WealthAndEmploymentDetails.Industry
+                                                                .ACCOUNTING
+                                                        )
+                                                        .liveMode(true)
+                                                        .object_("object")
+                                                        .occupation(
+                                                            WealthAndEmploymentDetails.Occupation
+                                                                .CONSULTING
+                                                        )
+                                                        .sourceOfFunds(
+                                                            WealthAndEmploymentDetails.SourceOfFunds
+                                                                .ALIMONY
+                                                        )
+                                                        .updatedAt(
+                                                            OffsetDateTime.parse(
+                                                                "2019-12-27T18:11:19.117Z"
+                                                            )
+                                                        )
+                                                        .wealthSource(
+                                                            WealthAndEmploymentDetails.WealthSource
+                                                                .BUSINESS_SALE
+                                                        )
+                                                        .build()
                                                 )
                                                 .website("website")
                                                 .build()
@@ -317,6 +418,7 @@ class CounterpartyServiceTest {
                                 CounterpartyCreateParams.LegalEntityCreateRequest.Metadata.builder()
                                     .build()
                             )
+                            .middleName("middle_name")
                             .phoneNumbers(
                                 listOf(
                                     CounterpartyCreateParams.LegalEntityCreateRequest.PhoneNumber
@@ -325,8 +427,40 @@ class CounterpartyServiceTest {
                                         .build()
                                 )
                             )
+                            .politicallyExposedPerson(true)
+                            .preferredName("preferred_name")
+                            .prefix("prefix")
                             .riskRating(
                                 CounterpartyCreateParams.LegalEntityCreateRequest.RiskRating.LOW
+                            )
+                            .suffix("suffix")
+                            .wealthAndEmploymentDetails(
+                                WealthAndEmploymentDetails.builder()
+                                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .annualIncome(123L)
+                                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .employerCountry("employer_country")
+                                    .employerName("employer_name")
+                                    .employerState("employer_state")
+                                    .employmentStatus(
+                                        WealthAndEmploymentDetails.EmploymentStatus.EMPLOYED
+                                    )
+                                    .incomeCountry("income_country")
+                                    .incomeSource(
+                                        WealthAndEmploymentDetails.IncomeSource.FAMILY_SUPPORT
+                                    )
+                                    .incomeState("income_state")
+                                    .industry(WealthAndEmploymentDetails.Industry.ACCOUNTING)
+                                    .liveMode(true)
+                                    .object_("object")
+                                    .occupation(WealthAndEmploymentDetails.Occupation.CONSULTING)
+                                    .sourceOfFunds(WealthAndEmploymentDetails.SourceOfFunds.ALIMONY)
+                                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .wealthSource(
+                                        WealthAndEmploymentDetails.WealthSource.BUSINESS_SALE
+                                    )
+                                    .build()
                             )
                             .website("website")
                             .build()

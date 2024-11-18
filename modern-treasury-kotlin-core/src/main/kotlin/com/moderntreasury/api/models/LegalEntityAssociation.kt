@@ -300,8 +300,14 @@ private constructor(
         private val discardedAt: JsonField<OffsetDateTime>,
         private val legalEntityType: JsonField<LegalEntityType>,
         private val riskRating: JsonField<RiskRating>,
+        private val prefix: JsonField<String>,
         private val firstName: JsonField<String>,
+        private val middleName: JsonField<String>,
         private val lastName: JsonField<String>,
+        private val suffix: JsonField<String>,
+        private val preferredName: JsonField<String>,
+        private val citizenshipCountry: JsonField<String>,
+        private val politicallyExposedPerson: JsonField<Boolean>,
         private val dateOfBirth: JsonField<LocalDate>,
         private val dateFormed: JsonField<LocalDate>,
         private val businessName: JsonField<String>,
@@ -311,6 +317,8 @@ private constructor(
         private val email: JsonField<String>,
         private val website: JsonField<String>,
         private val metadata: JsonField<Metadata>,
+        private val bankSettings: JsonField<BankSettings>,
+        private val wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails>,
         private val addresses: JsonField<List<LegalEntityAddress>>,
         private val identifications: JsonField<List<Identification>>,
         private val additionalProperties: Map<String, JsonValue>,
@@ -340,11 +348,30 @@ private constructor(
         /** The risk rating of the legal entity. One of low, medium, high. */
         fun riskRating(): RiskRating? = riskRating.getNullable("risk_rating")
 
+        /** An individual's prefix. */
+        fun prefix(): String? = prefix.getNullable("prefix")
+
         /** An individual's first name. */
         fun firstName(): String? = firstName.getNullable("first_name")
 
+        /** An individual's middle name. */
+        fun middleName(): String? = middleName.getNullable("middle_name")
+
         /** An individual's last name. */
         fun lastName(): String? = lastName.getNullable("last_name")
+
+        /** An individual's suffix. */
+        fun suffix(): String? = suffix.getNullable("suffix")
+
+        /** An individual's preferred name. */
+        fun preferredName(): String? = preferredName.getNullable("preferred_name")
+
+        /** The country of citizenship for an individual. */
+        fun citizenshipCountry(): String? = citizenshipCountry.getNullable("citizenship_country")
+
+        /** Whether the individual is a politically exposed person. */
+        fun politicallyExposedPerson(): Boolean? =
+            politicallyExposedPerson.getNullable("politically_exposed_person")
 
         /** An individual's date of birth (YYYY-MM-DD). */
         fun dateOfBirth(): LocalDate? = dateOfBirth.getNullable("date_of_birth")
@@ -374,6 +401,11 @@ private constructor(
          */
         fun metadata(): Metadata = metadata.getRequired("metadata")
 
+        fun bankSettings(): BankSettings? = bankSettings.getNullable("bank_settings")
+
+        fun wealthAndEmploymentDetails(): WealthAndEmploymentDetails? =
+            wealthAndEmploymentDetails.getNullable("wealth_and_employment_details")
+
         /** A list of addresses for the entity. */
         fun addresses(): List<LegalEntityAddress> = addresses.getRequired("addresses")
 
@@ -402,11 +434,33 @@ private constructor(
         /** The risk rating of the legal entity. One of low, medium, high. */
         @JsonProperty("risk_rating") @ExcludeMissing fun _riskRating() = riskRating
 
+        /** An individual's prefix. */
+        @JsonProperty("prefix") @ExcludeMissing fun _prefix() = prefix
+
         /** An individual's first name. */
         @JsonProperty("first_name") @ExcludeMissing fun _firstName() = firstName
 
+        /** An individual's middle name. */
+        @JsonProperty("middle_name") @ExcludeMissing fun _middleName() = middleName
+
         /** An individual's last name. */
         @JsonProperty("last_name") @ExcludeMissing fun _lastName() = lastName
+
+        /** An individual's suffix. */
+        @JsonProperty("suffix") @ExcludeMissing fun _suffix() = suffix
+
+        /** An individual's preferred name. */
+        @JsonProperty("preferred_name") @ExcludeMissing fun _preferredName() = preferredName
+
+        /** The country of citizenship for an individual. */
+        @JsonProperty("citizenship_country")
+        @ExcludeMissing
+        fun _citizenshipCountry() = citizenshipCountry
+
+        /** Whether the individual is a politically exposed person. */
+        @JsonProperty("politically_exposed_person")
+        @ExcludeMissing
+        fun _politicallyExposedPerson() = politicallyExposedPerson
 
         /** An individual's date of birth (YYYY-MM-DD). */
         @JsonProperty("date_of_birth") @ExcludeMissing fun _dateOfBirth() = dateOfBirth
@@ -437,6 +491,12 @@ private constructor(
          */
         @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
 
+        @JsonProperty("bank_settings") @ExcludeMissing fun _bankSettings() = bankSettings
+
+        @JsonProperty("wealth_and_employment_details")
+        @ExcludeMissing
+        fun _wealthAndEmploymentDetails() = wealthAndEmploymentDetails
+
         /** A list of addresses for the entity. */
         @JsonProperty("addresses") @ExcludeMissing fun _addresses() = addresses
 
@@ -457,8 +517,14 @@ private constructor(
                 discardedAt()
                 legalEntityType()
                 riskRating()
+                prefix()
                 firstName()
+                middleName()
                 lastName()
+                suffix()
+                preferredName()
+                citizenshipCountry()
+                politicallyExposedPerson()
                 dateOfBirth()
                 dateFormed()
                 businessName()
@@ -468,6 +534,8 @@ private constructor(
                 email()
                 website()
                 metadata().validate()
+                bankSettings()?.validate()
+                wealthAndEmploymentDetails()?.validate()
                 addresses().forEach { it.validate() }
                 identifications().forEach { it.validate() }
                 validated = true
@@ -491,8 +559,14 @@ private constructor(
             private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var legalEntityType: JsonField<LegalEntityType> = JsonMissing.of()
             private var riskRating: JsonField<RiskRating> = JsonMissing.of()
+            private var prefix: JsonField<String> = JsonMissing.of()
             private var firstName: JsonField<String> = JsonMissing.of()
+            private var middleName: JsonField<String> = JsonMissing.of()
             private var lastName: JsonField<String> = JsonMissing.of()
+            private var suffix: JsonField<String> = JsonMissing.of()
+            private var preferredName: JsonField<String> = JsonMissing.of()
+            private var citizenshipCountry: JsonField<String> = JsonMissing.of()
+            private var politicallyExposedPerson: JsonField<Boolean> = JsonMissing.of()
             private var dateOfBirth: JsonField<LocalDate> = JsonMissing.of()
             private var dateFormed: JsonField<LocalDate> = JsonMissing.of()
             private var businessName: JsonField<String> = JsonMissing.of()
@@ -502,6 +576,9 @@ private constructor(
             private var email: JsonField<String> = JsonMissing.of()
             private var website: JsonField<String> = JsonMissing.of()
             private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var bankSettings: JsonField<BankSettings> = JsonMissing.of()
+            private var wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails> =
+                JsonMissing.of()
             private var addresses: JsonField<List<LegalEntityAddress>> = JsonMissing.of()
             private var identifications: JsonField<List<Identification>> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -515,8 +592,14 @@ private constructor(
                 this.discardedAt = childLegalEntity.discardedAt
                 this.legalEntityType = childLegalEntity.legalEntityType
                 this.riskRating = childLegalEntity.riskRating
+                this.prefix = childLegalEntity.prefix
                 this.firstName = childLegalEntity.firstName
+                this.middleName = childLegalEntity.middleName
                 this.lastName = childLegalEntity.lastName
+                this.suffix = childLegalEntity.suffix
+                this.preferredName = childLegalEntity.preferredName
+                this.citizenshipCountry = childLegalEntity.citizenshipCountry
+                this.politicallyExposedPerson = childLegalEntity.politicallyExposedPerson
                 this.dateOfBirth = childLegalEntity.dateOfBirth
                 this.dateFormed = childLegalEntity.dateFormed
                 this.businessName = childLegalEntity.businessName
@@ -526,6 +609,8 @@ private constructor(
                 this.email = childLegalEntity.email
                 this.website = childLegalEntity.website
                 this.metadata = childLegalEntity.metadata
+                this.bankSettings = childLegalEntity.bankSettings
+                this.wealthAndEmploymentDetails = childLegalEntity.wealthAndEmploymentDetails
                 this.addresses = childLegalEntity.addresses
                 this.identifications = childLegalEntity.identifications
                 additionalProperties(childLegalEntity.additionalProperties)
@@ -602,6 +687,14 @@ private constructor(
                 this.riskRating = riskRating
             }
 
+            /** An individual's prefix. */
+            fun prefix(prefix: String) = prefix(JsonField.of(prefix))
+
+            /** An individual's prefix. */
+            @JsonProperty("prefix")
+            @ExcludeMissing
+            fun prefix(prefix: JsonField<String>) = apply { this.prefix = prefix }
+
             /** An individual's first name. */
             fun firstName(firstName: String) = firstName(JsonField.of(firstName))
 
@@ -610,6 +703,14 @@ private constructor(
             @ExcludeMissing
             fun firstName(firstName: JsonField<String>) = apply { this.firstName = firstName }
 
+            /** An individual's middle name. */
+            fun middleName(middleName: String) = middleName(JsonField.of(middleName))
+
+            /** An individual's middle name. */
+            @JsonProperty("middle_name")
+            @ExcludeMissing
+            fun middleName(middleName: JsonField<String>) = apply { this.middleName = middleName }
+
             /** An individual's last name. */
             fun lastName(lastName: String) = lastName(JsonField.of(lastName))
 
@@ -617,6 +718,46 @@ private constructor(
             @JsonProperty("last_name")
             @ExcludeMissing
             fun lastName(lastName: JsonField<String>) = apply { this.lastName = lastName }
+
+            /** An individual's suffix. */
+            fun suffix(suffix: String) = suffix(JsonField.of(suffix))
+
+            /** An individual's suffix. */
+            @JsonProperty("suffix")
+            @ExcludeMissing
+            fun suffix(suffix: JsonField<String>) = apply { this.suffix = suffix }
+
+            /** An individual's preferred name. */
+            fun preferredName(preferredName: String) = preferredName(JsonField.of(preferredName))
+
+            /** An individual's preferred name. */
+            @JsonProperty("preferred_name")
+            @ExcludeMissing
+            fun preferredName(preferredName: JsonField<String>) = apply {
+                this.preferredName = preferredName
+            }
+
+            /** The country of citizenship for an individual. */
+            fun citizenshipCountry(citizenshipCountry: String) =
+                citizenshipCountry(JsonField.of(citizenshipCountry))
+
+            /** The country of citizenship for an individual. */
+            @JsonProperty("citizenship_country")
+            @ExcludeMissing
+            fun citizenshipCountry(citizenshipCountry: JsonField<String>) = apply {
+                this.citizenshipCountry = citizenshipCountry
+            }
+
+            /** Whether the individual is a politically exposed person. */
+            fun politicallyExposedPerson(politicallyExposedPerson: Boolean) =
+                politicallyExposedPerson(JsonField.of(politicallyExposedPerson))
+
+            /** Whether the individual is a politically exposed person. */
+            @JsonProperty("politically_exposed_person")
+            @ExcludeMissing
+            fun politicallyExposedPerson(politicallyExposedPerson: JsonField<Boolean>) = apply {
+                this.politicallyExposedPerson = politicallyExposedPerson
+            }
 
             /** An individual's date of birth (YYYY-MM-DD). */
             fun dateOfBirth(dateOfBirth: LocalDate) = dateOfBirth(JsonField.of(dateOfBirth))
@@ -707,6 +848,23 @@ private constructor(
             @ExcludeMissing
             fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
+            fun bankSettings(bankSettings: BankSettings) = bankSettings(JsonField.of(bankSettings))
+
+            @JsonProperty("bank_settings")
+            @ExcludeMissing
+            fun bankSettings(bankSettings: JsonField<BankSettings>) = apply {
+                this.bankSettings = bankSettings
+            }
+
+            fun wealthAndEmploymentDetails(wealthAndEmploymentDetails: WealthAndEmploymentDetails) =
+                wealthAndEmploymentDetails(JsonField.of(wealthAndEmploymentDetails))
+
+            @JsonProperty("wealth_and_employment_details")
+            @ExcludeMissing
+            fun wealthAndEmploymentDetails(
+                wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails>
+            ) = apply { this.wealthAndEmploymentDetails = wealthAndEmploymentDetails }
+
             /** A list of addresses for the entity. */
             fun addresses(addresses: List<LegalEntityAddress>) = addresses(JsonField.of(addresses))
 
@@ -752,8 +910,14 @@ private constructor(
                     discardedAt,
                     legalEntityType,
                     riskRating,
+                    prefix,
                     firstName,
+                    middleName,
                     lastName,
+                    suffix,
+                    preferredName,
+                    citizenshipCountry,
+                    politicallyExposedPerson,
                     dateOfBirth,
                     dateFormed,
                     businessName,
@@ -763,6 +927,8 @@ private constructor(
                     email,
                     website,
                     metadata,
+                    bankSettings,
+                    wealthAndEmploymentDetails,
                     addresses.map { it.toImmutable() },
                     identifications.map { it.toImmutable() },
                     additionalProperties.toImmutable(),
@@ -1949,20 +2115,20 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ChildLegalEntity && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.discardedAt == other.discardedAt && this.legalEntityType == other.legalEntityType && this.riskRating == other.riskRating && this.firstName == other.firstName && this.lastName == other.lastName && this.dateOfBirth == other.dateOfBirth && this.dateFormed == other.dateFormed && this.businessName == other.businessName && this.doingBusinessAsNames == other.doingBusinessAsNames && this.legalStructure == other.legalStructure && this.phoneNumbers == other.phoneNumbers && this.email == other.email && this.website == other.website && this.metadata == other.metadata && this.addresses == other.addresses && this.identifications == other.identifications && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ChildLegalEntity && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.discardedAt == other.discardedAt && this.legalEntityType == other.legalEntityType && this.riskRating == other.riskRating && this.prefix == other.prefix && this.firstName == other.firstName && this.middleName == other.middleName && this.lastName == other.lastName && this.suffix == other.suffix && this.preferredName == other.preferredName && this.citizenshipCountry == other.citizenshipCountry && this.politicallyExposedPerson == other.politicallyExposedPerson && this.dateOfBirth == other.dateOfBirth && this.dateFormed == other.dateFormed && this.businessName == other.businessName && this.doingBusinessAsNames == other.doingBusinessAsNames && this.legalStructure == other.legalStructure && this.phoneNumbers == other.phoneNumbers && this.email == other.email && this.website == other.website && this.metadata == other.metadata && this.bankSettings == other.bankSettings && this.wealthAndEmploymentDetails == other.wealthAndEmploymentDetails && this.addresses == other.addresses && this.identifications == other.identifications && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, legalEntityType, riskRating, firstName, lastName, dateOfBirth, dateFormed, businessName, doingBusinessAsNames, legalStructure, phoneNumbers, email, website, metadata, addresses, identifications, additionalProperties) /* spotless:on */
+                hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, legalEntityType, riskRating, prefix, firstName, middleName, lastName, suffix, preferredName, citizenshipCountry, politicallyExposedPerson, dateOfBirth, dateFormed, businessName, doingBusinessAsNames, legalStructure, phoneNumbers, email, website, metadata, bankSettings, wealthAndEmploymentDetails, addresses, identifications, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
 
         override fun toString() =
-            "ChildLegalEntity{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, legalEntityType=$legalEntityType, riskRating=$riskRating, firstName=$firstName, lastName=$lastName, dateOfBirth=$dateOfBirth, dateFormed=$dateFormed, businessName=$businessName, doingBusinessAsNames=$doingBusinessAsNames, legalStructure=$legalStructure, phoneNumbers=$phoneNumbers, email=$email, website=$website, metadata=$metadata, addresses=$addresses, identifications=$identifications, additionalProperties=$additionalProperties}"
+            "ChildLegalEntity{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, legalEntityType=$legalEntityType, riskRating=$riskRating, prefix=$prefix, firstName=$firstName, middleName=$middleName, lastName=$lastName, suffix=$suffix, preferredName=$preferredName, citizenshipCountry=$citizenshipCountry, politicallyExposedPerson=$politicallyExposedPerson, dateOfBirth=$dateOfBirth, dateFormed=$dateFormed, businessName=$businessName, doingBusinessAsNames=$doingBusinessAsNames, legalStructure=$legalStructure, phoneNumbers=$phoneNumbers, email=$email, website=$website, metadata=$metadata, bankSettings=$bankSettings, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, addresses=$addresses, identifications=$identifications, additionalProperties=$additionalProperties}"
     }
 
     class RelationshipType
