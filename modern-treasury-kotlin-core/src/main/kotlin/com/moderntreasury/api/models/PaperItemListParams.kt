@@ -52,12 +52,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaperItemListParams && this.afterCursor == other.afterCursor && this.depositDateEnd == other.depositDateEnd && this.depositDateStart == other.depositDateStart && this.lockboxNumber == other.lockboxNumber && this.perPage == other.perPage && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is PaperItemListParams && afterCursor == other.afterCursor && depositDateEnd == other.depositDateEnd && depositDateStart == other.depositDateStart && lockboxNumber == other.lockboxNumber && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(afterCursor, depositDateEnd, depositDateStart, lockboxNumber, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, depositDateEnd, depositDateStart, lockboxNumber, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "PaperItemListParams{afterCursor=$afterCursor, depositDateEnd=$depositDateEnd, depositDateStart=$depositDateStart, lockboxNumber=$lockboxNumber, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

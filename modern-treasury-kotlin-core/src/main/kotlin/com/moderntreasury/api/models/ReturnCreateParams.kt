@@ -204,17 +204,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ReturnCreateBody && this.returnableId == other.returnableId && this.returnableType == other.returnableType && this.additionalInformation == other.additionalInformation && this.code == other.code && this.dateOfDeath == other.dateOfDeath && this.reason == other.reason && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ReturnCreateBody && returnableId == other.returnableId && returnableType == other.returnableType && additionalInformation == other.additionalInformation && code == other.code && dateOfDeath == other.dateOfDeath && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(returnableId, returnableType, additionalInformation, code, dateOfDeath, reason, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(returnableId, returnableType, additionalInformation, code, dateOfDeath, reason, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "ReturnCreateBody{returnableId=$returnableId, returnableType=$returnableType, additionalInformation=$additionalInformation, code=$code, dateOfDeath=$dateOfDeath, reason=$reason, additionalProperties=$additionalProperties}"
@@ -231,12 +228,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ReturnCreateParams && this.returnableId == other.returnableId && this.returnableType == other.returnableType && this.additionalInformation == other.additionalInformation && this.code == other.code && this.dateOfDeath == other.dateOfDeath && this.reason == other.reason && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is ReturnCreateParams && returnableId == other.returnableId && returnableType == other.returnableType && additionalInformation == other.additionalInformation && code == other.code && dateOfDeath == other.dateOfDeath && reason == other.reason && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(returnableId, returnableType, additionalInformation, code, dateOfDeath, reason, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(returnableId, returnableType, additionalInformation, code, dateOfDeath, reason, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "ReturnCreateParams{returnableId=$returnableId, returnableType=$returnableType, additionalInformation=$additionalInformation, code=$code, dateOfDeath=$dateOfDeath, reason=$reason, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
@@ -453,7 +448,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ReturnableType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ReturnableType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -504,7 +499,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Code && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Code && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

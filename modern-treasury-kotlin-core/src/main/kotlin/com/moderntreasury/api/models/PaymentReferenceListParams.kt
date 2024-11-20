@@ -56,12 +56,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentReferenceListParams && this.afterCursor == other.afterCursor && this.perPage == other.perPage && this.referenceNumber == other.referenceNumber && this.referenceableId == other.referenceableId && this.referenceableType == other.referenceableType && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is PaymentReferenceListParams && afterCursor == other.afterCursor && perPage == other.perPage && referenceNumber == other.referenceNumber && referenceableId == other.referenceableId && referenceableType == other.referenceableType && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(afterCursor, perPage, referenceNumber, referenceableId, referenceableType, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, perPage, referenceNumber, referenceableId, referenceableType, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "PaymentReferenceListParams{afterCursor=$afterCursor, perPage=$perPage, referenceNumber=$referenceNumber, referenceableId=$referenceableId, referenceableType=$referenceableType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
@@ -242,7 +240,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ReferenceableType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ReferenceableType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

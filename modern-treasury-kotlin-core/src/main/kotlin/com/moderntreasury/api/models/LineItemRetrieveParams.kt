@@ -50,12 +50,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is LineItemRetrieveParams && this.itemizableType == other.itemizableType && this.itemizableId == other.itemizableId && this.id == other.id && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is LineItemRetrieveParams && itemizableType == other.itemizableType && itemizableId == other.itemizableId && id == other.id && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(itemizableType, itemizableId, id, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(itemizableType, itemizableId, id, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "LineItemRetrieveParams{itemizableType=$itemizableType, itemizableId=$itemizableId, id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
@@ -213,7 +211,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ItemizableType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ItemizableType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

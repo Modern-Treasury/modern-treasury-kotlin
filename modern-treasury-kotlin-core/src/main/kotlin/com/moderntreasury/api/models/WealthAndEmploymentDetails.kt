@@ -437,7 +437,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is EmploymentStatus && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is EmploymentStatus && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -512,7 +512,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is IncomeSource && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is IncomeSource && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -605,7 +605,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Industry && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Industry && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -848,7 +848,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Occupation && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Occupation && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -965,7 +965,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SourceOfFunds && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is SourceOfFunds && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1112,7 +1112,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is WealthSource && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is WealthSource && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1209,17 +1209,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is WealthAndEmploymentDetails && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.discardedAt == other.discardedAt && this.employmentStatus == other.employmentStatus && this.occupation == other.occupation && this.industry == other.industry && this.incomeSource == other.incomeSource && this.incomeState == other.incomeState && this.incomeCountry == other.incomeCountry && this.employerName == other.employerName && this.employerState == other.employerState && this.employerCountry == other.employerCountry && this.sourceOfFunds == other.sourceOfFunds && this.wealthSource == other.wealthSource && this.annualIncome == other.annualIncome && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is WealthAndEmploymentDetails && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && discardedAt == other.discardedAt && employmentStatus == other.employmentStatus && occupation == other.occupation && industry == other.industry && incomeSource == other.incomeSource && incomeState == other.incomeState && incomeCountry == other.incomeCountry && employerName == other.employerName && employerState == other.employerState && employerCountry == other.employerCountry && sourceOfFunds == other.sourceOfFunds && wealthSource == other.wealthSource && annualIncome == other.annualIncome && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, employmentStatus, occupation, industry, incomeSource, incomeState, incomeCountry, employerName, employerState, employerCountry, sourceOfFunds, wealthSource, annualIncome, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, employmentStatus, occupation, industry, incomeSource, incomeState, incomeCountry, employerName, employerState, employerCountry, sourceOfFunds, wealthSource, annualIncome, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "WealthAndEmploymentDetails{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, employmentStatus=$employmentStatus, occupation=$occupation, industry=$industry, incomeSource=$incomeSource, incomeState=$incomeState, incomeCountry=$incomeCountry, employerName=$employerName, employerState=$employerState, employerCountry=$employerCountry, sourceOfFunds=$sourceOfFunds, wealthSource=$wealthSource, annualIncome=$annualIncome, additionalProperties=$additionalProperties}"

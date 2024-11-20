@@ -199,17 +199,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExternalAccountVerifyBody && this.originatingAccountId == other.originatingAccountId && this.paymentType == other.paymentType && this.currency == other.currency && this.fallbackType == other.fallbackType && this.priority == other.priority && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ExternalAccountVerifyBody && originatingAccountId == other.originatingAccountId && paymentType == other.paymentType && currency == other.currency && fallbackType == other.fallbackType && priority == other.priority && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(originatingAccountId, paymentType, currency, fallbackType, priority, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(originatingAccountId, paymentType, currency, fallbackType, priority, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "ExternalAccountVerifyBody{originatingAccountId=$originatingAccountId, paymentType=$paymentType, currency=$currency, fallbackType=$fallbackType, priority=$priority, additionalProperties=$additionalProperties}"
@@ -226,12 +223,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExternalAccountVerifyParams && this.id == other.id && this.originatingAccountId == other.originatingAccountId && this.paymentType == other.paymentType && this.currency == other.currency && this.fallbackType == other.fallbackType && this.priority == other.priority && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is ExternalAccountVerifyParams && id == other.id && originatingAccountId == other.originatingAccountId && paymentType == other.paymentType && currency == other.currency && fallbackType == other.fallbackType && priority == other.priority && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(id, originatingAccountId, paymentType, currency, fallbackType, priority, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, originatingAccountId, paymentType, currency, fallbackType, priority, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "ExternalAccountVerifyParams{id=$id, originatingAccountId=$originatingAccountId, paymentType=$paymentType, currency=$currency, fallbackType=$fallbackType, priority=$priority, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
@@ -446,7 +441,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PaymentType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is PaymentType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -671,7 +666,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is FallbackType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is FallbackType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -722,7 +717,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Priority && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Priority && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
