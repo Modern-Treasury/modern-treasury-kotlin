@@ -773,17 +773,14 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is LedgerBalance && this.credits == other.credits && this.debits == other.debits && this.amount == other.amount && this.currency == other.currency && this.currencyExponent == other.currencyExponent && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is LedgerBalance && credits == other.credits && debits == other.debits && amount == other.amount && currency == other.currency && currencyExponent == other.currencyExponent && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(credits, debits, amount, currency, currencyExponent, additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(credits, debits, amount, currency, currencyExponent, additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() =
                 "LedgerBalance{credits=$credits, debits=$debits, amount=$amount, currency=$currency, currencyExponent=$currencyExponent, additionalProperties=$additionalProperties}"
@@ -794,17 +791,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerBalances && this.pendingBalance == other.pendingBalance && this.postedBalance == other.postedBalance && this.availableBalance == other.availableBalance && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerBalances && pendingBalance == other.pendingBalance && postedBalance == other.postedBalance && availableBalance == other.availableBalance && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(pendingBalance, postedBalance, availableBalance, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(pendingBalance, postedBalance, availableBalance, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "LedgerBalances{pendingBalance=$pendingBalance, postedBalance=$postedBalance, availableBalance=$availableBalance, additionalProperties=$additionalProperties}"
@@ -867,17 +861,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
@@ -887,17 +878,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccountStatementRetrieveResponse && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.ledgerId == other.ledgerId && this.description == other.description && this.ledgerAccountId == other.ledgerAccountId && this.ledgerAccountLockVersion == other.ledgerAccountLockVersion && this.ledgerAccountNormalBalance == other.ledgerAccountNormalBalance && this.effectiveAtLowerBound == other.effectiveAtLowerBound && this.effectiveAtUpperBound == other.effectiveAtUpperBound && this.startingBalance == other.startingBalance && this.endingBalance == other.endingBalance && this.metadata == other.metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is LedgerAccountStatementRetrieveResponse && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && ledgerId == other.ledgerId && description == other.description && ledgerAccountId == other.ledgerAccountId && ledgerAccountLockVersion == other.ledgerAccountLockVersion && ledgerAccountNormalBalance == other.ledgerAccountNormalBalance && effectiveAtLowerBound == other.effectiveAtLowerBound && effectiveAtUpperBound == other.effectiveAtUpperBound && startingBalance == other.startingBalance && endingBalance == other.endingBalance && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, ledgerId, description, ledgerAccountId, ledgerAccountLockVersion, ledgerAccountNormalBalance, effectiveAtLowerBound, effectiveAtUpperBound, startingBalance, endingBalance, metadata, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, ledgerId, description, ledgerAccountId, ledgerAccountLockVersion, ledgerAccountNormalBalance, effectiveAtLowerBound, effectiveAtUpperBound, startingBalance, endingBalance, metadata, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "LedgerAccountStatementRetrieveResponse{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, ledgerId=$ledgerId, description=$description, ledgerAccountId=$ledgerAccountId, ledgerAccountLockVersion=$ledgerAccountLockVersion, ledgerAccountNormalBalance=$ledgerAccountNormalBalance, effectiveAtLowerBound=$effectiveAtLowerBound, effectiveAtUpperBound=$effectiveAtUpperBound, startingBalance=$startingBalance, endingBalance=$endingBalance, metadata=$metadata, additionalProperties=$additionalProperties}"

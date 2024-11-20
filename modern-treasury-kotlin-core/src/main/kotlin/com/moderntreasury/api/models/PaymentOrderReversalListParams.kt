@@ -49,12 +49,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentOrderReversalListParams && this.paymentOrderId == other.paymentOrderId && this.afterCursor == other.afterCursor && this.perPage == other.perPage && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is PaymentOrderReversalListParams && paymentOrderId == other.paymentOrderId && afterCursor == other.afterCursor && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(paymentOrderId, afterCursor, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(paymentOrderId, afterCursor, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "PaymentOrderReversalListParams{paymentOrderId=$paymentOrderId, afterCursor=$afterCursor, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

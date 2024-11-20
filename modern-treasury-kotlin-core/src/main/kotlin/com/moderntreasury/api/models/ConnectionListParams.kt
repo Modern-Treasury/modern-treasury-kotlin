@@ -47,12 +47,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ConnectionListParams && this.afterCursor == other.afterCursor && this.entity == other.entity && this.perPage == other.perPage && this.vendorCustomerId == other.vendorCustomerId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is ConnectionListParams && afterCursor == other.afterCursor && entity == other.entity && perPage == other.perPage && vendorCustomerId == other.vendorCustomerId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(afterCursor, entity, perPage, vendorCustomerId, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, entity, perPage, vendorCustomerId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "ConnectionListParams{afterCursor=$afterCursor, entity=$entity, perPage=$perPage, vendorCustomerId=$vendorCustomerId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

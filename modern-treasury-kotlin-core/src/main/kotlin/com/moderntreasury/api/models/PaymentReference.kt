@@ -289,7 +289,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ReferenceNumberType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ReferenceNumberType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -802,7 +802,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ReferenceableType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ReferenceableType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -858,17 +858,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentReference && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.referenceableId == other.referenceableId && this.referenceableType == other.referenceableType && this.referenceNumber == other.referenceNumber && this.referenceNumberType == other.referenceNumberType && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is PaymentReference && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && referenceableId == other.referenceableId && referenceableType == other.referenceableType && referenceNumber == other.referenceNumber && referenceNumberType == other.referenceNumberType && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, referenceableId, referenceableType, referenceNumber, referenceNumberType, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, referenceableId, referenceableType, referenceNumber, referenceNumberType, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "PaymentReference{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, referenceableId=$referenceableId, referenceableType=$referenceableType, referenceNumber=$referenceNumber, referenceNumberType=$referenceNumberType, additionalProperties=$additionalProperties}"

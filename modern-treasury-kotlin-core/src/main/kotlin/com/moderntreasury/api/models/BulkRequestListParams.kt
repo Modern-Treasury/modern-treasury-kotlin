@@ -64,12 +64,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is BulkRequestListParams && this.actionType == other.actionType && this.afterCursor == other.afterCursor && this.metadata == other.metadata && this.perPage == other.perPage && this.resourceType == other.resourceType && this.status == other.status && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is BulkRequestListParams && actionType == other.actionType && afterCursor == other.afterCursor && metadata == other.metadata && perPage == other.perPage && resourceType == other.resourceType && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(actionType, afterCursor, metadata, perPage, resourceType, status, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(actionType, afterCursor, metadata, perPage, resourceType, status, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "BulkRequestListParams{actionType=$actionType, afterCursor=$afterCursor, metadata=$metadata, perPage=$perPage, resourceType=$resourceType, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
@@ -247,7 +245,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ActionType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ActionType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -351,17 +349,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
@@ -379,7 +374,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ResourceType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ResourceType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -448,7 +443,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

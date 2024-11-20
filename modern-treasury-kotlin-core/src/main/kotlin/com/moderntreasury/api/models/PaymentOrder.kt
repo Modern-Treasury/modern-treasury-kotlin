@@ -1658,17 +1658,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Accounting && this.accountId == other.accountId && this.classId == other.classId && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Accounting && accountId == other.accountId && classId == other.classId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(accountId, classId, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(accountId, classId, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Accounting{accountId=$accountId, classId=$classId, additionalProperties=$additionalProperties}"
@@ -1687,7 +1684,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ChargeBearer && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ChargeBearer && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1798,17 +1795,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ComplianceRuleMetadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ComplianceRuleMetadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "ComplianceRuleMetadata{additionalProperties=$additionalProperties}"
@@ -1827,7 +1821,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Direction && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Direction && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1884,7 +1878,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ForeignExchangeIndicator && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ForeignExchangeIndicator && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -2179,17 +2173,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ForeignExchangeRate && this.baseAmount == other.baseAmount && this.baseCurrency == other.baseCurrency && this.exponent == other.exponent && this.rateString == other.rateString && this.targetAmount == other.targetAmount && this.targetCurrency == other.targetCurrency && this.value == other.value && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ForeignExchangeRate && baseAmount == other.baseAmount && baseCurrency == other.baseCurrency && exponent == other.exponent && rateString == other.rateString && targetAmount == other.targetAmount && targetCurrency == other.targetCurrency && value == other.value && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(baseAmount, baseCurrency, exponent, rateString, targetAmount, targetCurrency, value, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(baseAmount, baseCurrency, exponent, rateString, targetAmount, targetCurrency, value, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "ForeignExchangeRate{baseAmount=$baseAmount, baseCurrency=$baseCurrency, exponent=$exponent, rateString=$rateString, targetAmount=$targetAmount, targetCurrency=$targetCurrency, value=$value, additionalProperties=$additionalProperties}"
@@ -2252,17 +2243,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
@@ -2280,7 +2268,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Priority && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Priority && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -2337,7 +2325,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ReceivingAccountType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ReceivingAccountType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -2591,7 +2579,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is ReferenceNumberType && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is ReferenceNumberType && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -3109,17 +3097,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PaymentReference && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.referenceNumber == other.referenceNumber && this.referenceNumberType == other.referenceNumberType && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PaymentReference && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && referenceNumber == other.referenceNumber && referenceNumberType == other.referenceNumberType && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, referenceNumber, referenceNumberType, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, referenceNumber, referenceNumberType, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "PaymentReference{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, referenceNumber=$referenceNumber, referenceNumberType=$referenceNumberType, additionalProperties=$additionalProperties}"
@@ -3138,7 +3123,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -3287,15 +3272,13 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is UltimateOriginatingAccount && this.virtualAccount == other.virtualAccount && this.internalAccount == other.internalAccount /* spotless:on */
+            return /* spotless:off */ other is UltimateOriginatingAccount && virtualAccount == other.virtualAccount && internalAccount == other.internalAccount /* spotless:on */
         }
 
-        override fun hashCode(): Int {
-            return /* spotless:off */ Objects.hash(virtualAccount, internalAccount) /* spotless:on */
-        }
+        override fun hashCode(): Int = /* spotless:off */ Objects.hash(virtualAccount, internalAccount) /* spotless:on */
 
-        override fun toString(): String {
-            return when {
+        override fun toString(): String =
+            when {
                 virtualAccount != null ->
                     "UltimateOriginatingAccount{virtualAccount=$virtualAccount}"
                 internalAccount != null ->
@@ -3303,7 +3286,6 @@ private constructor(
                 _json != null -> "UltimateOriginatingAccount{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid UltimateOriginatingAccount")
             }
-        }
 
         companion object {
 
@@ -3377,7 +3359,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is UltimateOriginatingAccountType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is UltimateOriginatingAccountType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -3429,17 +3411,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentOrder && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.type == other.type && this.subtype == other.subtype && this.amount == other.amount && this.direction == other.direction && this.priority == other.priority && this.originatingAccountId == other.originatingAccountId && this.receivingAccountId == other.receivingAccountId && this.accounting == other.accounting && this.accountingCategoryId == other.accountingCategoryId && this.accountingLedgerClassId == other.accountingLedgerClassId && this.currency == other.currency && this.effectiveDate == other.effectiveDate && this.description == other.description && this.statementDescriptor == other.statementDescriptor && this.remittanceInformation == other.remittanceInformation && this.processAfter == other.processAfter && this.purpose == other.purpose && this.metadata == other.metadata && this.chargeBearer == other.chargeBearer && this.foreignExchangeIndicator == other.foreignExchangeIndicator && this.foreignExchangeContract == other.foreignExchangeContract && this.nsfProtected == other.nsfProtected && this.originatingPartyName == other.originatingPartyName && this.ultimateOriginatingPartyName == other.ultimateOriginatingPartyName && this.ultimateOriginatingPartyIdentifier == other.ultimateOriginatingPartyIdentifier && this.ultimateReceivingPartyName == other.ultimateReceivingPartyName && this.ultimateReceivingPartyIdentifier == other.ultimateReceivingPartyIdentifier && this.sendRemittanceAdvice == other.sendRemittanceAdvice && this.expiresAt == other.expiresAt && this.status == other.status && this.receivingAccountType == other.receivingAccountType && this.ultimateOriginatingAccount == other.ultimateOriginatingAccount && this.ultimateOriginatingAccountId == other.ultimateOriginatingAccountId && this.ultimateOriginatingAccountType == other.ultimateOriginatingAccountType && this.counterpartyId == other.counterpartyId && this.transactionIds == other.transactionIds && this.ledgerTransactionId == other.ledgerTransactionId && this.currentReturn == other.currentReturn && this.transactionMonitoringEnabled == other.transactionMonitoringEnabled && this.complianceRuleMetadata == other.complianceRuleMetadata && this.referenceNumbers == other.referenceNumbers && this.vendorFailureReason == other.vendorFailureReason && this.decisionId == other.decisionId && this.foreignExchangeRate == other.foreignExchangeRate && this.vendorAttributes == other.vendorAttributes && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is PaymentOrder && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && type == other.type && subtype == other.subtype && amount == other.amount && direction == other.direction && priority == other.priority && originatingAccountId == other.originatingAccountId && receivingAccountId == other.receivingAccountId && accounting == other.accounting && accountingCategoryId == other.accountingCategoryId && accountingLedgerClassId == other.accountingLedgerClassId && currency == other.currency && effectiveDate == other.effectiveDate && description == other.description && statementDescriptor == other.statementDescriptor && remittanceInformation == other.remittanceInformation && processAfter == other.processAfter && purpose == other.purpose && metadata == other.metadata && chargeBearer == other.chargeBearer && foreignExchangeIndicator == other.foreignExchangeIndicator && foreignExchangeContract == other.foreignExchangeContract && nsfProtected == other.nsfProtected && originatingPartyName == other.originatingPartyName && ultimateOriginatingPartyName == other.ultimateOriginatingPartyName && ultimateOriginatingPartyIdentifier == other.ultimateOriginatingPartyIdentifier && ultimateReceivingPartyName == other.ultimateReceivingPartyName && ultimateReceivingPartyIdentifier == other.ultimateReceivingPartyIdentifier && sendRemittanceAdvice == other.sendRemittanceAdvice && expiresAt == other.expiresAt && status == other.status && receivingAccountType == other.receivingAccountType && ultimateOriginatingAccount == other.ultimateOriginatingAccount && ultimateOriginatingAccountId == other.ultimateOriginatingAccountId && ultimateOriginatingAccountType == other.ultimateOriginatingAccountType && counterpartyId == other.counterpartyId && transactionIds == other.transactionIds && ledgerTransactionId == other.ledgerTransactionId && currentReturn == other.currentReturn && transactionMonitoringEnabled == other.transactionMonitoringEnabled && complianceRuleMetadata == other.complianceRuleMetadata && referenceNumbers == other.referenceNumbers && vendorFailureReason == other.vendorFailureReason && decisionId == other.decisionId && foreignExchangeRate == other.foreignExchangeRate && vendorAttributes == other.vendorAttributes && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, type, subtype, amount, direction, priority, originatingAccountId, receivingAccountId, accounting, accountingCategoryId, accountingLedgerClassId, currency, effectiveDate, description, statementDescriptor, remittanceInformation, processAfter, purpose, metadata, chargeBearer, foreignExchangeIndicator, foreignExchangeContract, nsfProtected, originatingPartyName, ultimateOriginatingPartyName, ultimateOriginatingPartyIdentifier, ultimateReceivingPartyName, ultimateReceivingPartyIdentifier, sendRemittanceAdvice, expiresAt, status, receivingAccountType, ultimateOriginatingAccount, ultimateOriginatingAccountId, ultimateOriginatingAccountType, counterpartyId, transactionIds, ledgerTransactionId, currentReturn, transactionMonitoringEnabled, complianceRuleMetadata, referenceNumbers, vendorFailureReason, decisionId, foreignExchangeRate, vendorAttributes, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, type, subtype, amount, direction, priority, originatingAccountId, receivingAccountId, accounting, accountingCategoryId, accountingLedgerClassId, currency, effectiveDate, description, statementDescriptor, remittanceInformation, processAfter, purpose, metadata, chargeBearer, foreignExchangeIndicator, foreignExchangeContract, nsfProtected, originatingPartyName, ultimateOriginatingPartyName, ultimateOriginatingPartyIdentifier, ultimateReceivingPartyName, ultimateReceivingPartyIdentifier, sendRemittanceAdvice, expiresAt, status, receivingAccountType, ultimateOriginatingAccount, ultimateOriginatingAccountId, ultimateOriginatingAccountType, counterpartyId, transactionIds, ledgerTransactionId, currentReturn, transactionMonitoringEnabled, complianceRuleMetadata, referenceNumbers, vendorFailureReason, decisionId, foreignExchangeRate, vendorAttributes, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "PaymentOrder{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, type=$type, subtype=$subtype, amount=$amount, direction=$direction, priority=$priority, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, currency=$currency, effectiveDate=$effectiveDate, description=$description, statementDescriptor=$statementDescriptor, remittanceInformation=$remittanceInformation, processAfter=$processAfter, purpose=$purpose, metadata=$metadata, chargeBearer=$chargeBearer, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeContract=$foreignExchangeContract, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, sendRemittanceAdvice=$sendRemittanceAdvice, expiresAt=$expiresAt, status=$status, receivingAccountType=$receivingAccountType, ultimateOriginatingAccount=$ultimateOriginatingAccount, ultimateOriginatingAccountId=$ultimateOriginatingAccountId, ultimateOriginatingAccountType=$ultimateOriginatingAccountType, counterpartyId=$counterpartyId, transactionIds=$transactionIds, ledgerTransactionId=$ledgerTransactionId, currentReturn=$currentReturn, transactionMonitoringEnabled=$transactionMonitoringEnabled, complianceRuleMetadata=$complianceRuleMetadata, referenceNumbers=$referenceNumbers, vendorFailureReason=$vendorFailureReason, decisionId=$decisionId, foreignExchangeRate=$foreignExchangeRate, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"

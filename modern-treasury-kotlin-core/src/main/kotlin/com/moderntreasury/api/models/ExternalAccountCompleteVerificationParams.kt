@@ -105,17 +105,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExternalAccountCompleteVerificationBody && this.amounts == other.amounts && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ExternalAccountCompleteVerificationBody && amounts == other.amounts && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(amounts, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(amounts, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "ExternalAccountCompleteVerificationBody{amounts=$amounts, additionalProperties=$additionalProperties}"
@@ -132,12 +129,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExternalAccountCompleteVerificationParams && this.id == other.id && this.amounts == other.amounts && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is ExternalAccountCompleteVerificationParams && id == other.id && amounts == other.amounts && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(id, amounts, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, amounts, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "ExternalAccountCompleteVerificationParams{id=$id, amounts=$amounts, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"

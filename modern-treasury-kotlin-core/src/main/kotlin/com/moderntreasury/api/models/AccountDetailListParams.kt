@@ -53,12 +53,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountDetailListParams && this.accountsType == other.accountsType && this.accountId == other.accountId && this.afterCursor == other.afterCursor && this.perPage == other.perPage && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is AccountDetailListParams && accountsType == other.accountsType && accountId == other.accountId && afterCursor == other.afterCursor && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(accountsType, accountId, afterCursor, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountsType, accountId, afterCursor, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "AccountDetailListParams{accountsType=$accountsType, accountId=$accountId, afterCursor=$afterCursor, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

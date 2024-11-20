@@ -64,12 +64,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is BulkResultListParams && this.afterCursor == other.afterCursor && this.entityId == other.entityId && this.entityType == other.entityType && this.perPage == other.perPage && this.requestId == other.requestId && this.requestType == other.requestType && this.status == other.status && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is BulkResultListParams && afterCursor == other.afterCursor && entityId == other.entityId && entityType == other.entityType && perPage == other.perPage && requestId == other.requestId && requestType == other.requestType && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(afterCursor, entityId, entityType, perPage, requestId, requestType, status, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, entityId, entityType, perPage, requestId, requestType, status, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "BulkResultListParams{afterCursor=$afterCursor, entityId=$entityId, entityType=$entityType, perPage=$perPage, requestId=$requestId, requestType=$requestType, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
@@ -259,7 +257,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is EntityType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is EntityType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -334,7 +332,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RequestType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is RequestType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -385,7 +383,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

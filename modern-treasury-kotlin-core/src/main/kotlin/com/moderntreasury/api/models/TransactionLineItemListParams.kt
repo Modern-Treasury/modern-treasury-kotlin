@@ -58,12 +58,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is TransactionLineItemListParams && this.id == other.id && this.afterCursor == other.afterCursor && this.perPage == other.perPage && this.transactionId == other.transactionId && this.type == other.type && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is TransactionLineItemListParams && id == other.id && afterCursor == other.afterCursor && perPage == other.perPage && transactionId == other.transactionId && type == other.type && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(id, afterCursor, perPage, transactionId, type, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, afterCursor, perPage, transactionId, type, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "TransactionLineItemListParams{id=$id, afterCursor=$afterCursor, perPage=$perPage, transactionId=$transactionId, type=$type, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
@@ -264,17 +262,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Id && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Id && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Id{additionalProperties=$additionalProperties}"
     }
@@ -292,7 +287,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

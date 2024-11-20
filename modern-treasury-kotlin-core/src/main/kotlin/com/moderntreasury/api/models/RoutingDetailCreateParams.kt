@@ -165,17 +165,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RoutingDetailCreateBody && this.routingNumber == other.routingNumber && this.routingNumberType == other.routingNumberType && this.paymentType == other.paymentType && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is RoutingDetailCreateBody && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && paymentType == other.paymentType && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(routingNumber, routingNumberType, paymentType, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(routingNumber, routingNumberType, paymentType, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "RoutingDetailCreateBody{routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalProperties=$additionalProperties}"
@@ -192,12 +189,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is RoutingDetailCreateParams && this.accountsType == other.accountsType && this.accountId == other.accountId && this.routingNumber == other.routingNumber && this.routingNumberType == other.routingNumberType && this.paymentType == other.paymentType && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is RoutingDetailCreateParams && accountsType == other.accountsType && accountId == other.accountId && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && paymentType == other.paymentType && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(accountsType, accountId, routingNumber, routingNumberType, paymentType, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountsType, accountId, routingNumber, routingNumberType, paymentType, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "RoutingDetailCreateParams{accountsType=$accountsType, accountId=$accountId, routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
@@ -402,7 +397,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RoutingNumberType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is RoutingNumberType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -575,7 +570,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PaymentType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is PaymentType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -800,7 +795,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountsType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is AccountsType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

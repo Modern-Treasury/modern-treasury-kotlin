@@ -522,17 +522,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DocumentDetail && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.discardedAt == other.discardedAt && this.documentIdentifierType == other.documentIdentifierType && this.documentIdentifier == other.documentIdentifier && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is DocumentDetail && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && discardedAt == other.discardedAt && documentIdentifierType == other.documentIdentifierType && documentIdentifier == other.documentIdentifier && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, documentIdentifierType, documentIdentifier, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, documentIdentifierType, documentIdentifier, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "DocumentDetail{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, documentIdentifierType=$documentIdentifierType, documentIdentifier=$documentIdentifier, additionalProperties=$additionalProperties}"
@@ -551,7 +548,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DocumentableType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is DocumentableType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -773,17 +770,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is File && this.size == other.size && this.filename == other.filename && this.contentType == other.contentType && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is File && size == other.size && filename == other.filename && contentType == other.contentType && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(size, filename, contentType, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(size, filename, contentType, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "File{size=$size, filename=$filename, contentType=$contentType, additionalProperties=$additionalProperties}"
@@ -794,17 +788,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Document && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.discardedAt == other.discardedAt && this.documentType == other.documentType && this.source == other.source && this.documentableId == other.documentableId && this.documentableType == other.documentableType && this.documentDetails == other.documentDetails && this.file == other.file && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Document && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && discardedAt == other.discardedAt && documentType == other.documentType && source == other.source && documentableId == other.documentableId && documentableType == other.documentableType && documentDetails == other.documentDetails && file == other.file && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, documentType, source, documentableId, documentableType, documentDetails, file, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, documentType, source, documentableId, documentableType, documentDetails, file, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "Document{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, documentType=$documentType, source=$source, documentableId=$documentableId, documentableType=$documentableType, documentDetails=$documentDetails, file=$file, additionalProperties=$additionalProperties}"

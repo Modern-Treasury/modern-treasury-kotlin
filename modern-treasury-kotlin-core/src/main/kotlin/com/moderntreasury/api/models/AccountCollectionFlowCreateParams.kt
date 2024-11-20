@@ -137,17 +137,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountCollectionFlowCreateBody && this.counterpartyId == other.counterpartyId && this.paymentTypes == other.paymentTypes && this.receivingCountries == other.receivingCountries && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is AccountCollectionFlowCreateBody && counterpartyId == other.counterpartyId && paymentTypes == other.paymentTypes && receivingCountries == other.receivingCountries && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(counterpartyId, paymentTypes, receivingCountries, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(counterpartyId, paymentTypes, receivingCountries, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "AccountCollectionFlowCreateBody{counterpartyId=$counterpartyId, paymentTypes=$paymentTypes, receivingCountries=$receivingCountries, additionalProperties=$additionalProperties}"
@@ -164,12 +161,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountCollectionFlowCreateParams && this.counterpartyId == other.counterpartyId && this.paymentTypes == other.paymentTypes && this.receivingCountries == other.receivingCountries && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is AccountCollectionFlowCreateParams && counterpartyId == other.counterpartyId && paymentTypes == other.paymentTypes && receivingCountries == other.receivingCountries && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(counterpartyId, paymentTypes, receivingCountries, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(counterpartyId, paymentTypes, receivingCountries, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "AccountCollectionFlowCreateParams{counterpartyId=$counterpartyId, paymentTypes=$paymentTypes, receivingCountries=$receivingCountries, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
@@ -367,7 +362,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ReceivingCountry && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ReceivingCountry && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
