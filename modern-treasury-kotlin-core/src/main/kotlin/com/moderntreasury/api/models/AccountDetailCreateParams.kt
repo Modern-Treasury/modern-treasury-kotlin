@@ -140,17 +140,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountDetailCreateBody && this.accountNumber == other.accountNumber && this.accountNumberType == other.accountNumberType && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is AccountDetailCreateBody && accountNumber == other.accountNumber && accountNumberType == other.accountNumberType && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(accountNumber, accountNumberType, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(accountNumber, accountNumberType, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "AccountDetailCreateBody{accountNumber=$accountNumber, accountNumberType=$accountNumberType, additionalProperties=$additionalProperties}"
@@ -167,12 +164,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountDetailCreateParams && this.accountsType == other.accountsType && this.accountId == other.accountId && this.accountNumber == other.accountNumber && this.accountNumberType == other.accountNumberType && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is AccountDetailCreateParams && accountsType == other.accountsType && accountId == other.accountId && accountNumber == other.accountNumber && accountNumberType == other.accountNumberType && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(accountsType, accountId, accountNumber, accountNumberType, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountsType, accountId, accountNumber, accountNumberType, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "AccountDetailCreateParams{accountsType=$accountsType, accountId=$accountId, accountNumber=$accountNumber, accountNumberType=$accountNumberType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
@@ -365,7 +360,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountNumberType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is AccountNumberType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -471,7 +466,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountsType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is AccountsType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

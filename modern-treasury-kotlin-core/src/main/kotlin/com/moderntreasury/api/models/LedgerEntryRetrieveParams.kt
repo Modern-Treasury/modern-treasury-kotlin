@@ -45,12 +45,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerEntryRetrieveParams && this.id == other.id && this.showBalances == other.showBalances && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is LedgerEntryRetrieveParams && id == other.id && showBalances == other.showBalances && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(id, showBalances, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, showBalances, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "LedgerEntryRetrieveParams{id=$id, showBalances=$showBalances, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

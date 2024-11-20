@@ -344,7 +344,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Direction && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Direction && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -445,17 +445,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CustomIdentifiers && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CustomIdentifiers && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "CustomIdentifiers{additionalProperties=$additionalProperties}"
     }
@@ -473,7 +470,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -690,17 +687,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ReconciliationRule && this.amountUpperBound == other.amountUpperBound && this.amountLowerBound == other.amountLowerBound && this.direction == other.direction && this.internalAccountId == other.internalAccountId && this.type == other.type && this.currency == other.currency && this.dateUpperBound == other.dateUpperBound && this.dateLowerBound == other.dateLowerBound && this.counterpartyId == other.counterpartyId && this.customIdentifiers == other.customIdentifiers && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is ReconciliationRule && amountUpperBound == other.amountUpperBound && amountLowerBound == other.amountLowerBound && direction == other.direction && internalAccountId == other.internalAccountId && type == other.type && currency == other.currency && dateUpperBound == other.dateUpperBound && dateLowerBound == other.dateLowerBound && counterpartyId == other.counterpartyId && customIdentifiers == other.customIdentifiers && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(amountUpperBound, amountLowerBound, direction, internalAccountId, type, currency, dateUpperBound, dateLowerBound, counterpartyId, customIdentifiers, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(amountUpperBound, amountLowerBound, direction, internalAccountId, type, currency, dateUpperBound, dateLowerBound, counterpartyId, customIdentifiers, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "ReconciliationRule{amountUpperBound=$amountUpperBound, amountLowerBound=$amountLowerBound, direction=$direction, internalAccountId=$internalAccountId, type=$type, currency=$currency, dateUpperBound=$dateUpperBound, dateLowerBound=$dateLowerBound, counterpartyId=$counterpartyId, customIdentifiers=$customIdentifiers, additionalProperties=$additionalProperties}"

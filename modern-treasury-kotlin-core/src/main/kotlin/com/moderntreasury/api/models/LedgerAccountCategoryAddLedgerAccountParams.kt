@@ -50,12 +50,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccountCategoryAddLedgerAccountParams && this.id == other.id && this.ledgerAccountId == other.ledgerAccountId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is LedgerAccountCategoryAddLedgerAccountParams && id == other.id && ledgerAccountId == other.ledgerAccountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(id, ledgerAccountId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, ledgerAccountId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "LedgerAccountCategoryAddLedgerAccountParams{id=$id, ledgerAccountId=$ledgerAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"

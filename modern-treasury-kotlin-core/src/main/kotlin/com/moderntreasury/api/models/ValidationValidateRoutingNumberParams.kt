@@ -44,12 +44,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ValidationValidateRoutingNumberParams && this.routingNumber == other.routingNumber && this.routingNumberType == other.routingNumberType && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is ValidationValidateRoutingNumberParams && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(routingNumber, routingNumberType, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(routingNumber, routingNumberType, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "ValidationValidateRoutingNumberParams{routingNumber=$routingNumber, routingNumberType=$routingNumberType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
@@ -213,7 +211,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RoutingNumberType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is RoutingNumberType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

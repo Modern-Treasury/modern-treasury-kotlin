@@ -62,12 +62,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ReturnListParams && this.afterCursor == other.afterCursor && this.counterpartyId == other.counterpartyId && this.internalAccountId == other.internalAccountId && this.perPage == other.perPage && this.returnableId == other.returnableId && this.returnableType == other.returnableType && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is ReturnListParams && afterCursor == other.afterCursor && counterpartyId == other.counterpartyId && internalAccountId == other.internalAccountId && perPage == other.perPage && returnableId == other.returnableId && returnableType == other.returnableType && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(afterCursor, counterpartyId, internalAccountId, perPage, returnableId, returnableType, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, counterpartyId, internalAccountId, perPage, returnableId, returnableType, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "ReturnListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, internalAccountId=$internalAccountId, perPage=$perPage, returnableId=$returnableId, returnableType=$returnableType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
@@ -252,7 +250,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ReturnableType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ReturnableType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

@@ -81,15 +81,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExternalAccountVerifyResponse && this.externalAccount == other.externalAccount && this.externalAccountVerificationAttempt == other.externalAccountVerificationAttempt /* spotless:on */
+        return /* spotless:off */ other is ExternalAccountVerifyResponse && externalAccount == other.externalAccount && externalAccountVerificationAttempt == other.externalAccountVerificationAttempt /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(externalAccount, externalAccountVerificationAttempt) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(externalAccount, externalAccountVerificationAttempt) /* spotless:on */
 
-    override fun toString(): String {
-        return when {
+    override fun toString(): String =
+        when {
             externalAccount != null ->
                 "ExternalAccountVerifyResponse{externalAccount=$externalAccount}"
             externalAccountVerificationAttempt != null ->
@@ -97,7 +95,6 @@ private constructor(
             _json != null -> "ExternalAccountVerifyResponse{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid ExternalAccountVerifyResponse")
         }
-    }
 
     companion object {
 
@@ -455,7 +452,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is PaymentType && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is PaymentType && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -680,7 +677,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Priority && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is Priority && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -737,7 +734,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is Status && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -798,17 +795,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExternalAccountVerificationAttempt && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.externalAccountId == other.externalAccountId && this.originatingAccountId == other.originatingAccountId && this.paymentType == other.paymentType && this.priority == other.priority && this.status == other.status && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ExternalAccountVerificationAttempt && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && externalAccountId == other.externalAccountId && originatingAccountId == other.originatingAccountId && paymentType == other.paymentType && priority == other.priority && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, externalAccountId, originatingAccountId, paymentType, priority, status, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, externalAccountId, originatingAccountId, paymentType, priority, status, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "ExternalAccountVerificationAttempt{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, externalAccountId=$externalAccountId, originatingAccountId=$originatingAccountId, paymentType=$paymentType, priority=$priority, status=$status, additionalProperties=$additionalProperties}"

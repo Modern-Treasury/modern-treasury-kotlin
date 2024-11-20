@@ -109,17 +109,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DocumentCreateBody && this.documentableId == other.documentableId && this.documentableType == other.documentableType && this.file == other.file && this.documentType == other.documentType /* spotless:on */
+            return /* spotless:off */ other is DocumentCreateBody && documentableId == other.documentableId && documentableType == other.documentableType && file == other.file && documentType == other.documentType /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(documentableId, documentableType, file, documentType) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(documentableId, documentableType, file, documentType) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "DocumentCreateBody{documentableId=$documentableId, documentableType=$documentableType, file=$file, documentType=$documentType}"
@@ -134,12 +131,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is DocumentCreateParams && this.documentableId == other.documentableId && this.documentableType == other.documentableType && this.file == other.file && this.documentType == other.documentType && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is DocumentCreateParams && documentableId == other.documentableId && documentableType == other.documentableType && file == other.file && documentType == other.documentType && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(documentableId, documentableType, file, documentType, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(documentableId, documentableType, file, documentType, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "DocumentCreateParams{documentableId=$documentableId, documentableType=$documentableType, file=$file, documentType=$documentType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
@@ -326,7 +321,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DocumentableType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is DocumentableType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

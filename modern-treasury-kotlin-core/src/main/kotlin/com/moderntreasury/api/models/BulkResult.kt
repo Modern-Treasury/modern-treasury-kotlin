@@ -452,15 +452,13 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Entity && this.paymentOrder == other.paymentOrder && this.expectedPayment == other.expectedPayment && this.ledgerTransaction == other.ledgerTransaction && this.transaction == other.transaction && this.bulkError == other.bulkError /* spotless:on */
+            return /* spotless:off */ other is Entity && paymentOrder == other.paymentOrder && expectedPayment == other.expectedPayment && ledgerTransaction == other.ledgerTransaction && transaction == other.transaction && bulkError == other.bulkError /* spotless:on */
         }
 
-        override fun hashCode(): Int {
-            return /* spotless:off */ Objects.hash(paymentOrder, expectedPayment, ledgerTransaction, transaction, bulkError) /* spotless:on */
-        }
+        override fun hashCode(): Int = /* spotless:off */ Objects.hash(paymentOrder, expectedPayment, ledgerTransaction, transaction, bulkError) /* spotless:on */
 
-        override fun toString(): String {
-            return when {
+        override fun toString(): String =
+            when {
                 paymentOrder != null -> "Entity{paymentOrder=$paymentOrder}"
                 expectedPayment != null -> "Entity{expectedPayment=$expectedPayment}"
                 ledgerTransaction != null -> "Entity{ledgerTransaction=$ledgerTransaction}"
@@ -469,7 +467,6 @@ private constructor(
                 _json != null -> "Entity{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Entity")
             }
-        }
 
         companion object {
 
@@ -828,17 +825,14 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is RequestError && this.code == other.code && this.message == other.message && this.parameter == other.parameter && this.additionalProperties == other.additionalProperties /* spotless:on */
+                    return /* spotless:off */ other is RequestError && code == other.code && message == other.message && parameter == other.parameter && additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
-                private var hashCode: Int = 0
+                /* spotless:off */
+                private val hashCode: Int by lazy { Objects.hash(code, message, parameter, additionalProperties) }
+                /* spotless:on */
 
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode = /* spotless:off */ Objects.hash(code, message, parameter, additionalProperties) /* spotless:on */
-                    }
-                    return hashCode
-                }
+                override fun hashCode(): Int = hashCode
 
                 override fun toString() =
                     "RequestError{code=$code, message=$message, parameter=$parameter, additionalProperties=$additionalProperties}"
@@ -849,17 +843,14 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is BulkError && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.requestErrors == other.requestErrors && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is BulkError && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && requestErrors == other.requestErrors && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, requestErrors, additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, requestErrors, additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() =
                 "BulkError{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, requestErrors=$requestErrors, additionalProperties=$additionalProperties}"
@@ -879,7 +870,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is EntityType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is EntityType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1001,17 +992,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RequestParams && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is RequestParams && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "RequestParams{additionalProperties=$additionalProperties}"
     }
@@ -1029,7 +1017,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RequestType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is RequestType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1080,7 +1068,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1135,17 +1123,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is BulkResult && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.requestId == other.requestId && this.requestType == other.requestType && this.status == other.status && this.requestParams == other.requestParams && this.entityId == other.entityId && this.entityType == other.entityType && this.entity == other.entity && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is BulkResult && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && requestId == other.requestId && requestType == other.requestType && status == other.status && requestParams == other.requestParams && entityId == other.entityId && entityType == other.entityType && entity == other.entity && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, requestId, requestType, status, requestParams, entityId, entityType, entity, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, requestId, requestType, status, requestParams, entityId, entityType, entity, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "BulkResult{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, requestId=$requestId, requestType=$requestType, status=$status, requestParams=$requestParams, entityId=$entityId, entityType=$entityType, entity=$entity, additionalProperties=$additionalProperties}"
