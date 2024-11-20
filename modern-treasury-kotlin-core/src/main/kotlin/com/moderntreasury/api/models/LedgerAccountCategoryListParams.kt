@@ -81,12 +81,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccountCategoryListParams && this.id == other.id && this.afterCursor == other.afterCursor && this.balances == other.balances && this.currency == other.currency && this.ledgerAccountId == other.ledgerAccountId && this.ledgerId == other.ledgerId && this.metadata == other.metadata && this.name == other.name && this.parentLedgerAccountCategoryId == other.parentLedgerAccountCategoryId && this.perPage == other.perPage && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is LedgerAccountCategoryListParams && id == other.id && afterCursor == other.afterCursor && balances == other.balances && currency == other.currency && ledgerAccountId == other.ledgerAccountId && ledgerId == other.ledgerId && metadata == other.metadata && name == other.name && parentLedgerAccountCategoryId == other.parentLedgerAccountCategoryId && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(id, afterCursor, balances, currency, ledgerAccountId, ledgerId, metadata, name, parentLedgerAccountCategoryId, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, afterCursor, balances, currency, ledgerAccountId, ledgerId, metadata, name, parentLedgerAccountCategoryId, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "LedgerAccountCategoryListParams{id=$id, afterCursor=$afterCursor, balances=$balances, currency=$currency, ledgerAccountId=$ledgerAccountId, ledgerId=$ledgerId, metadata=$metadata, name=$name, parentLedgerAccountCategoryId=$parentLedgerAccountCategoryId, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
@@ -359,17 +357,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Balances && this.effectiveAt == other.effectiveAt && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Balances && effectiveAt == other.effectiveAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(effectiveAt, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(effectiveAt, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Balances{effectiveAt=$effectiveAt, additionalProperties=$additionalProperties}"
@@ -429,17 +424,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }

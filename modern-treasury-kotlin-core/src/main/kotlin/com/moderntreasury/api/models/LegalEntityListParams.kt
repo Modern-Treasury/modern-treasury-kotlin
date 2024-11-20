@@ -60,12 +60,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is LegalEntityListParams && this.afterCursor == other.afterCursor && this.legalEntityType == other.legalEntityType && this.metadata == other.metadata && this.perPage == other.perPage && this.showDeleted == other.showDeleted && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is LegalEntityListParams && afterCursor == other.afterCursor && legalEntityType == other.legalEntityType && metadata == other.metadata && perPage == other.perPage && showDeleted == other.showDeleted && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(afterCursor, legalEntityType, metadata, perPage, showDeleted, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, legalEntityType, metadata, perPage, showDeleted, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "LegalEntityListParams{afterCursor=$afterCursor, legalEntityType=$legalEntityType, metadata=$metadata, perPage=$perPage, showDeleted=$showDeleted, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
@@ -237,7 +235,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LegalEntityType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is LegalEntityType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -335,17 +333,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }

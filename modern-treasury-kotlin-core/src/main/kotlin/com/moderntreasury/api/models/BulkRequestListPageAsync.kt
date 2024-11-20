@@ -37,12 +37,10 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is BulkRequestListPageAsync && this.bulkRequestsService == other.bulkRequestsService && this.params == other.params && this.response == other.response /* spotless:on */
+        return /* spotless:off */ other is BulkRequestListPageAsync && bulkRequestsService == other.bulkRequestsService && params == other.params && response == other.response /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(bulkRequestsService, params, response) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(bulkRequestsService, params, response) /* spotless:on */
 
     override fun toString() =
         "BulkRequestListPageAsync{bulkRequestsService=$bulkRequestsService, params=$params, response=$response}"
@@ -117,15 +115,13 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Response && this.items == other.items && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Response && items == other.items && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        override fun hashCode(): Int {
-            return /* spotless:off */ Objects.hash(items, additionalProperties) /* spotless:on */
-        }
+        override fun hashCode(): Int = /* spotless:off */ Objects.hash(items, additionalProperties) /* spotless:on */
 
         override fun toString() =
-            "BulkRequestListPageAsync.Response{items=$items, additionalProperties=$additionalProperties}"
+            "Response{items=$items, additionalProperties=$additionalProperties}"
 
         companion object {
 

@@ -49,12 +49,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is InvoiceLineItemListParams && this.invoiceId == other.invoiceId && this.afterCursor == other.afterCursor && this.perPage == other.perPage && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is InvoiceLineItemListParams && invoiceId == other.invoiceId && afterCursor == other.afterCursor && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(invoiceId, afterCursor, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(invoiceId, afterCursor, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "InvoiceLineItemListParams{invoiceId=$invoiceId, afterCursor=$afterCursor, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

@@ -65,12 +65,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is BalanceReportListParams && this.internalAccountId == other.internalAccountId && this.afterCursor == other.afterCursor && this.asOfDate == other.asOfDate && this.balanceReportType == other.balanceReportType && this.perPage == other.perPage && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is BalanceReportListParams && internalAccountId == other.internalAccountId && afterCursor == other.afterCursor && asOfDate == other.asOfDate && balanceReportType == other.balanceReportType && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(internalAccountId, afterCursor, asOfDate, balanceReportType, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(internalAccountId, afterCursor, asOfDate, balanceReportType, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "BalanceReportListParams{internalAccountId=$internalAccountId, afterCursor=$afterCursor, asOfDate=$asOfDate, balanceReportType=$balanceReportType, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
@@ -247,7 +245,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is BalanceReportType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is BalanceReportType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

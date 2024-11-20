@@ -161,17 +161,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CounterpartyCollectAccountResponse && this.id == other.id && this.isResend == other.isResend && this.formLink == other.formLink && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is CounterpartyCollectAccountResponse && id == other.id && isResend == other.isResend && formLink == other.formLink && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(id, isResend, formLink, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(id, isResend, formLink, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "CounterpartyCollectAccountResponse{id=$id, isResend=$isResend, formLink=$formLink, additionalProperties=$additionalProperties}"

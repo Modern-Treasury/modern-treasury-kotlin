@@ -57,12 +57,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountCollectionFlowListParams && this.afterCursor == other.afterCursor && this.clientToken == other.clientToken && this.counterpartyId == other.counterpartyId && this.externalAccountId == other.externalAccountId && this.perPage == other.perPage && this.status == other.status && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is AccountCollectionFlowListParams && afterCursor == other.afterCursor && clientToken == other.clientToken && counterpartyId == other.counterpartyId && externalAccountId == other.externalAccountId && perPage == other.perPage && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(afterCursor, clientToken, counterpartyId, externalAccountId, perPage, status, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, clientToken, counterpartyId, externalAccountId, perPage, status, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "AccountCollectionFlowListParams{afterCursor=$afterCursor, clientToken=$clientToken, counterpartyId=$counterpartyId, externalAccountId=$externalAccountId, perPage=$perPage, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

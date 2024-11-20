@@ -240,17 +240,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerTransactionCreateReversalBody && this.description == other.description && this.effectiveAt == other.effectiveAt && this.externalId == other.externalId && this.ledgerableId == other.ledgerableId && this.ledgerableType == other.ledgerableType && this.metadata == other.metadata && this.status == other.status && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerTransactionCreateReversalBody && description == other.description && effectiveAt == other.effectiveAt && externalId == other.externalId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(description, effectiveAt, externalId, ledgerableId, ledgerableType, metadata, status, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(description, effectiveAt, externalId, ledgerableId, ledgerableType, metadata, status, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "LedgerTransactionCreateReversalBody{description=$description, effectiveAt=$effectiveAt, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
@@ -267,12 +264,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerTransactionCreateReversalParams && this.id == other.id && this.description == other.description && this.effectiveAt == other.effectiveAt && this.externalId == other.externalId && this.ledgerableId == other.ledgerableId && this.ledgerableType == other.ledgerableType && this.metadata == other.metadata && this.status == other.status && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is LedgerTransactionCreateReversalParams && id == other.id && description == other.description && effectiveAt == other.effectiveAt && externalId == other.externalId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(id, description, effectiveAt, externalId, ledgerableId, ledgerableType, metadata, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, description, effectiveAt, externalId, ledgerableId, ledgerableType, metadata, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "LedgerTransactionCreateReversalParams{id=$id, description=$description, effectiveAt=$effectiveAt, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
@@ -505,7 +500,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerableType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is LedgerableType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -625,17 +620,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
@@ -653,7 +645,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

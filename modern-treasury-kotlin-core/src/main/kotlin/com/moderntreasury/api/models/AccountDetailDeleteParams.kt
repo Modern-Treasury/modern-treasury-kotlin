@@ -58,12 +58,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountDetailDeleteParams && this.accountsType == other.accountsType && this.accountId == other.accountId && this.id == other.id && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is AccountDetailDeleteParams && accountsType == other.accountsType && accountId == other.accountId && id == other.id && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(accountsType, accountId, id, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountsType, accountId, id, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "AccountDetailDeleteParams{accountsType=$accountsType, accountId=$accountId, id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
@@ -244,7 +242,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountsType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is AccountsType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

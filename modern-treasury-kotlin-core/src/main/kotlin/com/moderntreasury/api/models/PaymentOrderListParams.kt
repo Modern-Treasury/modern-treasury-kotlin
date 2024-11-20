@@ -125,12 +125,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentOrderListParams && this.afterCursor == other.afterCursor && this.counterpartyId == other.counterpartyId && this.createdAtEnd == other.createdAtEnd && this.createdAtStart == other.createdAtStart && this.direction == other.direction && this.effectiveDateEnd == other.effectiveDateEnd && this.effectiveDateStart == other.effectiveDateStart && this.metadata == other.metadata && this.originatingAccountId == other.originatingAccountId && this.perPage == other.perPage && this.priority == other.priority && this.processAfterEnd == other.processAfterEnd && this.processAfterStart == other.processAfterStart && this.referenceNumber == other.referenceNumber && this.status == other.status && this.transactionId == other.transactionId && this.type == other.type && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is PaymentOrderListParams && afterCursor == other.afterCursor && counterpartyId == other.counterpartyId && createdAtEnd == other.createdAtEnd && createdAtStart == other.createdAtStart && direction == other.direction && effectiveDateEnd == other.effectiveDateEnd && effectiveDateStart == other.effectiveDateStart && metadata == other.metadata && originatingAccountId == other.originatingAccountId && perPage == other.perPage && priority == other.priority && processAfterEnd == other.processAfterEnd && processAfterStart == other.processAfterStart && referenceNumber == other.referenceNumber && status == other.status && transactionId == other.transactionId && type == other.type && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(afterCursor, counterpartyId, createdAtEnd, createdAtStart, direction, effectiveDateEnd, effectiveDateStart, metadata, originatingAccountId, perPage, priority, processAfterEnd, processAfterStart, referenceNumber, status, transactionId, type, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, counterpartyId, createdAtEnd, createdAtStart, direction, effectiveDateEnd, effectiveDateStart, metadata, originatingAccountId, perPage, priority, processAfterEnd, processAfterStart, referenceNumber, status, transactionId, type, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "PaymentOrderListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, createdAtEnd=$createdAtEnd, createdAtStart=$createdAtStart, direction=$direction, effectiveDateEnd=$effectiveDateEnd, effectiveDateStart=$effectiveDateStart, metadata=$metadata, originatingAccountId=$originatingAccountId, perPage=$perPage, priority=$priority, processAfterEnd=$processAfterEnd, processAfterStart=$processAfterStart, referenceNumber=$referenceNumber, status=$status, transactionId=$transactionId, type=$type, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
@@ -428,17 +426,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
@@ -456,7 +451,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Priority && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Priority && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -513,7 +508,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -624,7 +619,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

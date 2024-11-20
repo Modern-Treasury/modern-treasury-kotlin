@@ -445,7 +445,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -500,17 +500,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaperItem && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.transactionLineItemId == other.transactionLineItemId && this.transactionId == other.transactionId && this.status == other.status && this.lockboxNumber == other.lockboxNumber && this.depositDate == other.depositDate && this.amount == other.amount && this.currency == other.currency && this.accountNumber == other.accountNumber && this.accountNumberSafe == other.accountNumberSafe && this.routingNumber == other.routingNumber && this.checkNumber == other.checkNumber && this.remitterName == other.remitterName && this.memoField == other.memoField && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is PaperItem && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && transactionLineItemId == other.transactionLineItemId && transactionId == other.transactionId && status == other.status && lockboxNumber == other.lockboxNumber && depositDate == other.depositDate && amount == other.amount && currency == other.currency && accountNumber == other.accountNumber && accountNumberSafe == other.accountNumberSafe && routingNumber == other.routingNumber && checkNumber == other.checkNumber && remitterName == other.remitterName && memoField == other.memoField && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, transactionLineItemId, transactionId, status, lockboxNumber, depositDate, amount, currency, accountNumber, accountNumberSafe, routingNumber, checkNumber, remitterName, memoField, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, transactionLineItemId, transactionId, status, lockboxNumber, depositDate, amount, currency, accountNumber, accountNumberSafe, routingNumber, checkNumber, remitterName, memoField, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "PaperItem{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, transactionLineItemId=$transactionLineItemId, transactionId=$transactionId, status=$status, lockboxNumber=$lockboxNumber, depositDate=$depositDate, amount=$amount, currency=$currency, accountNumber=$accountNumber, accountNumberSafe=$accountNumberSafe, routingNumber=$routingNumber, checkNumber=$checkNumber, remitterName=$remitterName, memoField=$memoField, additionalProperties=$additionalProperties}"
