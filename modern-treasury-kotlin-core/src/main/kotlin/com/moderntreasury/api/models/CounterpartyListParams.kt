@@ -42,6 +42,10 @@ constructor(
 
     fun perPage(): Long? = perPage
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -70,23 +74,6 @@ constructor(
         return queryParams.build()
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CounterpartyListParams && afterCursor == other.afterCursor && createdAtLowerBound == other.createdAtLowerBound && createdAtUpperBound == other.createdAtUpperBound && email == other.email && legalEntityId == other.legalEntityId && metadata == other.metadata && name == other.name && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, createdAtLowerBound, createdAtUpperBound, email, legalEntityId, metadata, name, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "CounterpartyListParams{afterCursor=$afterCursor, createdAtLowerBound=$createdAtLowerBound, createdAtUpperBound=$createdAtUpperBound, email=$email, legalEntityId=$legalEntityId, metadata=$metadata, name=$name, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -109,16 +96,16 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(counterpartyListParams: CounterpartyListParams) = apply {
-            this.afterCursor = counterpartyListParams.afterCursor
-            this.createdAtLowerBound = counterpartyListParams.createdAtLowerBound
-            this.createdAtUpperBound = counterpartyListParams.createdAtUpperBound
-            this.email = counterpartyListParams.email
-            this.legalEntityId = counterpartyListParams.legalEntityId
-            this.metadata = counterpartyListParams.metadata
-            this.name = counterpartyListParams.name
-            this.perPage = counterpartyListParams.perPage
-            additionalHeaders(counterpartyListParams.additionalHeaders)
-            additionalQueryParams(counterpartyListParams.additionalQueryParams)
+            afterCursor = counterpartyListParams.afterCursor
+            createdAtLowerBound = counterpartyListParams.createdAtLowerBound
+            createdAtUpperBound = counterpartyListParams.createdAtUpperBound
+            email = counterpartyListParams.email
+            legalEntityId = counterpartyListParams.legalEntityId
+            metadata = counterpartyListParams.metadata
+            name = counterpartyListParams.name
+            perPage = counterpartyListParams.perPage
+            additionalHeaders = counterpartyListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = counterpartyListParams.additionalQueryParams.toBuilder()
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
@@ -328,4 +315,17 @@ constructor(
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CounterpartyListParams && afterCursor == other.afterCursor && createdAtLowerBound == other.createdAtLowerBound && createdAtUpperBound == other.createdAtUpperBound && email == other.email && legalEntityId == other.legalEntityId && metadata == other.metadata && name == other.name && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, createdAtLowerBound, createdAtUpperBound, email, legalEntityId, metadata, name, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "CounterpartyListParams{afterCursor=$afterCursor, createdAtLowerBound=$createdAtLowerBound, createdAtUpperBound=$createdAtUpperBound, email=$email, legalEntityId=$legalEntityId, metadata=$metadata, name=$name, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

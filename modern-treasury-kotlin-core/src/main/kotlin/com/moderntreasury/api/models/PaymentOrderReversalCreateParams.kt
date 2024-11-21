@@ -40,6 +40,12 @@ constructor(
 
     fun metadata(): Metadata? = metadata
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): PaymentOrderReversalCreateBody {
         return PaymentOrderReversalCreateBody(
             reason,
@@ -180,25 +186,6 @@ constructor(
             "PaymentOrderReversalCreateBody{reason=$reason, ledgerTransaction=$ledgerTransaction, metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is PaymentOrderReversalCreateParams && paymentOrderId == other.paymentOrderId && reason == other.reason && ledgerTransaction == other.ledgerTransaction && metadata == other.metadata && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(paymentOrderId, reason, ledgerTransaction, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "PaymentOrderReversalCreateParams{paymentOrderId=$paymentOrderId, reason=$reason, ledgerTransaction=$ledgerTransaction, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -219,13 +206,15 @@ constructor(
 
         internal fun from(paymentOrderReversalCreateParams: PaymentOrderReversalCreateParams) =
             apply {
-                this.paymentOrderId = paymentOrderReversalCreateParams.paymentOrderId
-                this.reason = paymentOrderReversalCreateParams.reason
-                this.ledgerTransaction = paymentOrderReversalCreateParams.ledgerTransaction
-                this.metadata = paymentOrderReversalCreateParams.metadata
-                additionalHeaders(paymentOrderReversalCreateParams.additionalHeaders)
-                additionalQueryParams(paymentOrderReversalCreateParams.additionalQueryParams)
-                additionalBodyProperties(paymentOrderReversalCreateParams.additionalBodyProperties)
+                paymentOrderId = paymentOrderReversalCreateParams.paymentOrderId
+                reason = paymentOrderReversalCreateParams.reason
+                ledgerTransaction = paymentOrderReversalCreateParams.ledgerTransaction
+                metadata = paymentOrderReversalCreateParams.metadata
+                additionalHeaders = paymentOrderReversalCreateParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    paymentOrderReversalCreateParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    paymentOrderReversalCreateParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The id of the payment order being reversed. */
@@ -1455,4 +1444,17 @@ constructor(
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is PaymentOrderReversalCreateParams && paymentOrderId == other.paymentOrderId && reason == other.reason && ledgerTransaction == other.ledgerTransaction && metadata == other.metadata && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(paymentOrderId, reason, ledgerTransaction, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "PaymentOrderReversalCreateParams{paymentOrderId=$paymentOrderId, reason=$reason, ledgerTransaction=$ledgerTransaction, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

@@ -65,6 +65,12 @@ constructor(
 
     fun routingDetails(): List<RoutingDetail>? = routingDetails
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): ExternalAccountCreateBody {
         return ExternalAccountCreateBody(
             counterpartyId,
@@ -334,25 +340,6 @@ constructor(
             "ExternalAccountCreateBody{counterpartyId=$counterpartyId, accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ExternalAccountCreateParams && counterpartyId == other.counterpartyId && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && ledgerAccount == other.ledgerAccount && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyIdentifier == other.partyIdentifier && partyName == other.partyName && partyType == other.partyType && plaidProcessorToken == other.plaidProcessorToken && routingDetails == other.routingDetails && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(counterpartyId, accountDetails, accountType, contactDetails, ledgerAccount, metadata, name, partyAddress, partyIdentifier, partyName, partyType, plaidProcessorToken, routingDetails, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "ExternalAccountCreateParams{counterpartyId=$counterpartyId, accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -381,22 +368,26 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(externalAccountCreateParams: ExternalAccountCreateParams) = apply {
-            this.counterpartyId = externalAccountCreateParams.counterpartyId
-            this.accountDetails(externalAccountCreateParams.accountDetails ?: listOf())
-            this.accountType = externalAccountCreateParams.accountType
-            this.contactDetails(externalAccountCreateParams.contactDetails ?: listOf())
-            this.ledgerAccount = externalAccountCreateParams.ledgerAccount
-            this.metadata = externalAccountCreateParams.metadata
-            this.name = externalAccountCreateParams.name
-            this.partyAddress = externalAccountCreateParams.partyAddress
-            this.partyIdentifier = externalAccountCreateParams.partyIdentifier
-            this.partyName = externalAccountCreateParams.partyName
-            this.partyType = externalAccountCreateParams.partyType
-            this.plaidProcessorToken = externalAccountCreateParams.plaidProcessorToken
-            this.routingDetails(externalAccountCreateParams.routingDetails ?: listOf())
-            additionalHeaders(externalAccountCreateParams.additionalHeaders)
-            additionalQueryParams(externalAccountCreateParams.additionalQueryParams)
-            additionalBodyProperties(externalAccountCreateParams.additionalBodyProperties)
+            counterpartyId = externalAccountCreateParams.counterpartyId
+            accountDetails =
+                externalAccountCreateParams.accountDetails?.toMutableList() ?: mutableListOf()
+            accountType = externalAccountCreateParams.accountType
+            contactDetails =
+                externalAccountCreateParams.contactDetails?.toMutableList() ?: mutableListOf()
+            ledgerAccount = externalAccountCreateParams.ledgerAccount
+            metadata = externalAccountCreateParams.metadata
+            name = externalAccountCreateParams.name
+            partyAddress = externalAccountCreateParams.partyAddress
+            partyIdentifier = externalAccountCreateParams.partyIdentifier
+            partyName = externalAccountCreateParams.partyName
+            partyType = externalAccountCreateParams.partyType
+            plaidProcessorToken = externalAccountCreateParams.plaidProcessorToken
+            routingDetails =
+                externalAccountCreateParams.routingDetails?.toMutableList() ?: mutableListOf()
+            additionalHeaders = externalAccountCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = externalAccountCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                externalAccountCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
@@ -597,9 +588,9 @@ constructor(
         fun build(): ExternalAccountCreateParams =
             ExternalAccountCreateParams(
                 counterpartyId,
-                if (accountDetails.size == 0) null else accountDetails.toImmutable(),
+                accountDetails.toImmutable().ifEmpty { null },
                 accountType,
-                if (contactDetails.size == 0) null else contactDetails.toImmutable(),
+                contactDetails.toImmutable().ifEmpty { null },
                 ledgerAccount,
                 metadata,
                 name,
@@ -608,7 +599,7 @@ constructor(
                 partyName,
                 partyType,
                 plaidProcessorToken,
-                if (routingDetails.size == 0) null else routingDetails.toImmutable(),
+                routingDetails.toImmutable().ifEmpty { null },
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -2042,4 +2033,17 @@ constructor(
         override fun toString() =
             "RoutingDetail{routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ExternalAccountCreateParams && counterpartyId == other.counterpartyId && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && ledgerAccount == other.ledgerAccount && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyIdentifier == other.partyIdentifier && partyName == other.partyName && partyType == other.partyType && plaidProcessorToken == other.plaidProcessorToken && routingDetails == other.routingDetails && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(counterpartyId, accountDetails, accountType, contactDetails, ledgerAccount, metadata, name, partyAddress, partyIdentifier, partyName, partyType, plaidProcessorToken, routingDetails, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "ExternalAccountCreateParams{counterpartyId=$counterpartyId, accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

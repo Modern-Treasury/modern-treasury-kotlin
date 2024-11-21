@@ -34,6 +34,12 @@ constructor(
 
     fun name(): String? = name
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): LedgerUpdateBody {
         return LedgerUpdateBody(
             description,
@@ -155,25 +161,6 @@ constructor(
             "LedgerUpdateBody{description=$description, metadata=$metadata, name=$name, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerUpdateParams && id == other.id && description == other.description && metadata == other.metadata && name == other.name && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, description, metadata, name, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "LedgerUpdateParams{id=$id, description=$description, metadata=$metadata, name=$name, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -193,13 +180,13 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerUpdateParams: LedgerUpdateParams) = apply {
-            this.id = ledgerUpdateParams.id
-            this.description = ledgerUpdateParams.description
-            this.metadata = ledgerUpdateParams.metadata
-            this.name = ledgerUpdateParams.name
-            additionalHeaders(ledgerUpdateParams.additionalHeaders)
-            additionalQueryParams(ledgerUpdateParams.additionalQueryParams)
-            additionalBodyProperties(ledgerUpdateParams.additionalBodyProperties)
+            id = ledgerUpdateParams.id
+            description = ledgerUpdateParams.description
+            metadata = ledgerUpdateParams.metadata
+            name = ledgerUpdateParams.name
+            additionalHeaders = ledgerUpdateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = ledgerUpdateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties = ledgerUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String) = apply { this.id = id }
@@ -407,4 +394,17 @@ constructor(
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerUpdateParams && id == other.id && description == other.description && metadata == other.metadata && name == other.name && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, description, metadata, name, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "LedgerUpdateParams{id=$id, description=$description, metadata=$metadata, name=$name, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

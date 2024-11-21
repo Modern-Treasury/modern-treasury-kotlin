@@ -46,6 +46,12 @@ constructor(
 
     fun unitAmountDecimal(): String? = unitAmountDecimal
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): InvoiceLineItemCreateBody {
         return InvoiceLineItemCreateBody(
             name,
@@ -243,25 +249,6 @@ constructor(
             "InvoiceLineItemCreateBody{name=$name, unitAmount=$unitAmount, description=$description, direction=$direction, metadata=$metadata, quantity=$quantity, unitAmountDecimal=$unitAmountDecimal, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InvoiceLineItemCreateParams && invoiceId == other.invoiceId && name == other.name && unitAmount == other.unitAmount && description == other.description && direction == other.direction && metadata == other.metadata && quantity == other.quantity && unitAmountDecimal == other.unitAmountDecimal && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(invoiceId, name, unitAmount, description, direction, metadata, quantity, unitAmountDecimal, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "InvoiceLineItemCreateParams{invoiceId=$invoiceId, name=$name, unitAmount=$unitAmount, description=$description, direction=$direction, metadata=$metadata, quantity=$quantity, unitAmountDecimal=$unitAmountDecimal, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -285,17 +272,18 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(invoiceLineItemCreateParams: InvoiceLineItemCreateParams) = apply {
-            this.invoiceId = invoiceLineItemCreateParams.invoiceId
-            this.name = invoiceLineItemCreateParams.name
-            this.unitAmount = invoiceLineItemCreateParams.unitAmount
-            this.description = invoiceLineItemCreateParams.description
-            this.direction = invoiceLineItemCreateParams.direction
-            this.metadata = invoiceLineItemCreateParams.metadata
-            this.quantity = invoiceLineItemCreateParams.quantity
-            this.unitAmountDecimal = invoiceLineItemCreateParams.unitAmountDecimal
-            additionalHeaders(invoiceLineItemCreateParams.additionalHeaders)
-            additionalQueryParams(invoiceLineItemCreateParams.additionalQueryParams)
-            additionalBodyProperties(invoiceLineItemCreateParams.additionalBodyProperties)
+            invoiceId = invoiceLineItemCreateParams.invoiceId
+            name = invoiceLineItemCreateParams.name
+            unitAmount = invoiceLineItemCreateParams.unitAmount
+            description = invoiceLineItemCreateParams.description
+            direction = invoiceLineItemCreateParams.direction
+            metadata = invoiceLineItemCreateParams.metadata
+            quantity = invoiceLineItemCreateParams.quantity
+            unitAmountDecimal = invoiceLineItemCreateParams.unitAmountDecimal
+            additionalHeaders = invoiceLineItemCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = invoiceLineItemCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                invoiceLineItemCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun invoiceId(invoiceId: String) = apply { this.invoiceId = invoiceId }
@@ -534,4 +522,17 @@ constructor(
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InvoiceLineItemCreateParams && invoiceId == other.invoiceId && name == other.name && unitAmount == other.unitAmount && description == other.description && direction == other.direction && metadata == other.metadata && quantity == other.quantity && unitAmountDecimal == other.unitAmountDecimal && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(invoiceId, name, unitAmount, description, direction, metadata, quantity, unitAmountDecimal, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "InvoiceLineItemCreateParams{invoiceId=$invoiceId, name=$name, unitAmount=$unitAmount, description=$description, direction=$direction, metadata=$metadata, quantity=$quantity, unitAmountDecimal=$unitAmountDecimal, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

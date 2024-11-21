@@ -36,6 +36,10 @@ constructor(
 
     fun showDeleted(): String? = showDeleted
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -50,23 +54,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LegalEntityListParams && afterCursor == other.afterCursor && legalEntityType == other.legalEntityType && metadata == other.metadata && perPage == other.perPage && showDeleted == other.showDeleted && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, legalEntityType, metadata, perPage, showDeleted, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "LegalEntityListParams{afterCursor=$afterCursor, legalEntityType=$legalEntityType, metadata=$metadata, perPage=$perPage, showDeleted=$showDeleted, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -87,13 +74,13 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(legalEntityListParams: LegalEntityListParams) = apply {
-            this.afterCursor = legalEntityListParams.afterCursor
-            this.legalEntityType = legalEntityListParams.legalEntityType
-            this.metadata = legalEntityListParams.metadata
-            this.perPage = legalEntityListParams.perPage
-            this.showDeleted = legalEntityListParams.showDeleted
-            additionalHeaders(legalEntityListParams.additionalHeaders)
-            additionalQueryParams(legalEntityListParams.additionalQueryParams)
+            afterCursor = legalEntityListParams.afterCursor
+            legalEntityType = legalEntityListParams.legalEntityType
+            metadata = legalEntityListParams.metadata
+            perPage = legalEntityListParams.perPage
+            showDeleted = legalEntityListParams.showDeleted
+            additionalHeaders = legalEntityListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = legalEntityListParams.additionalQueryParams.toBuilder()
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
@@ -344,4 +331,17 @@ constructor(
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LegalEntityListParams && afterCursor == other.afterCursor && legalEntityType == other.legalEntityType && metadata == other.metadata && perPage == other.perPage && showDeleted == other.showDeleted && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, legalEntityType, metadata, perPage, showDeleted, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "LegalEntityListParams{afterCursor=$afterCursor, legalEntityType=$legalEntityType, metadata=$metadata, perPage=$perPage, showDeleted=$showDeleted, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

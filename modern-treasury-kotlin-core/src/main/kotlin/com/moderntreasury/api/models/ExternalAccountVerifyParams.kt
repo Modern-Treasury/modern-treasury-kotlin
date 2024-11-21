@@ -44,6 +44,12 @@ constructor(
 
     fun priority(): Priority? = priority
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): ExternalAccountVerifyBody {
         return ExternalAccountVerifyBody(
             originatingAccountId,
@@ -212,25 +218,6 @@ constructor(
             "ExternalAccountVerifyBody{originatingAccountId=$originatingAccountId, paymentType=$paymentType, currency=$currency, fallbackType=$fallbackType, priority=$priority, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ExternalAccountVerifyParams && id == other.id && originatingAccountId == other.originatingAccountId && paymentType == other.paymentType && currency == other.currency && fallbackType == other.fallbackType && priority == other.priority && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, originatingAccountId, paymentType, currency, fallbackType, priority, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "ExternalAccountVerifyParams{id=$id, originatingAccountId=$originatingAccountId, paymentType=$paymentType, currency=$currency, fallbackType=$fallbackType, priority=$priority, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -252,15 +239,16 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(externalAccountVerifyParams: ExternalAccountVerifyParams) = apply {
-            this.id = externalAccountVerifyParams.id
-            this.originatingAccountId = externalAccountVerifyParams.originatingAccountId
-            this.paymentType = externalAccountVerifyParams.paymentType
-            this.currency = externalAccountVerifyParams.currency
-            this.fallbackType = externalAccountVerifyParams.fallbackType
-            this.priority = externalAccountVerifyParams.priority
-            additionalHeaders(externalAccountVerifyParams.additionalHeaders)
-            additionalQueryParams(externalAccountVerifyParams.additionalQueryParams)
-            additionalBodyProperties(externalAccountVerifyParams.additionalBodyProperties)
+            id = externalAccountVerifyParams.id
+            originatingAccountId = externalAccountVerifyParams.originatingAccountId
+            paymentType = externalAccountVerifyParams.paymentType
+            currency = externalAccountVerifyParams.currency
+            fallbackType = externalAccountVerifyParams.fallbackType
+            priority = externalAccountVerifyParams.priority
+            additionalHeaders = externalAccountVerifyParams.additionalHeaders.toBuilder()
+            additionalQueryParams = externalAccountVerifyParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                externalAccountVerifyParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String) = apply { this.id = id }
@@ -760,4 +748,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ExternalAccountVerifyParams && id == other.id && originatingAccountId == other.originatingAccountId && paymentType == other.paymentType && currency == other.currency && fallbackType == other.fallbackType && priority == other.priority && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, originatingAccountId, paymentType, currency, fallbackType, priority, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "ExternalAccountVerifyParams{id=$id, originatingAccountId=$originatingAccountId, paymentType=$paymentType, currency=$currency, fallbackType=$fallbackType, priority=$priority, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

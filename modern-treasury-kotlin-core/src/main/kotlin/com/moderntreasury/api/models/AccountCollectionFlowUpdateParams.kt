@@ -32,6 +32,12 @@ constructor(
 
     fun status(): Status = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): AccountCollectionFlowUpdateBody {
         return AccountCollectionFlowUpdateBody(status, additionalBodyProperties)
     }
@@ -128,25 +134,6 @@ constructor(
             "AccountCollectionFlowUpdateBody{status=$status, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AccountCollectionFlowUpdateParams && id == other.id && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "AccountCollectionFlowUpdateParams{id=$id, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -165,11 +152,13 @@ constructor(
 
         internal fun from(accountCollectionFlowUpdateParams: AccountCollectionFlowUpdateParams) =
             apply {
-                this.id = accountCollectionFlowUpdateParams.id
-                this.status = accountCollectionFlowUpdateParams.status
-                additionalHeaders(accountCollectionFlowUpdateParams.additionalHeaders)
-                additionalQueryParams(accountCollectionFlowUpdateParams.additionalQueryParams)
-                additionalBodyProperties(accountCollectionFlowUpdateParams.additionalBodyProperties)
+                id = accountCollectionFlowUpdateParams.id
+                status = accountCollectionFlowUpdateParams.status
+                additionalHeaders = accountCollectionFlowUpdateParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    accountCollectionFlowUpdateParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    accountCollectionFlowUpdateParams.additionalBodyProperties.toMutableMap()
             }
 
         fun id(id: String) = apply { this.id = id }
@@ -360,4 +349,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AccountCollectionFlowUpdateParams && id == other.id && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "AccountCollectionFlowUpdateParams{id=$id, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

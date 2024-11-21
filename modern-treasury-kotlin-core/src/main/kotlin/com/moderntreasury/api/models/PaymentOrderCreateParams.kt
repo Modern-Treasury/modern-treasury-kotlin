@@ -136,6 +136,12 @@ constructor(
 
     fun ultimateReceivingPartyName(): String? = ultimateReceivingPartyName
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): PaymentOrderCreateBody {
         return PaymentOrderCreateBody(
             amount,
@@ -907,25 +913,6 @@ constructor(
             "PaymentOrderCreateBody{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, documents=$documents, effectiveDate=$effectiveDate, expiresAt=$expiresAt, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is PaymentOrderCreateParams && amount == other.amount && direction == other.direction && originatingAccountId == other.originatingAccountId && type == other.type && accounting == other.accounting && accountingCategoryId == other.accountingCategoryId && accountingLedgerClassId == other.accountingLedgerClassId && chargeBearer == other.chargeBearer && currency == other.currency && description == other.description && documents == other.documents && effectiveDate == other.effectiveDate && expiresAt == other.expiresAt && fallbackType == other.fallbackType && foreignExchangeContract == other.foreignExchangeContract && foreignExchangeIndicator == other.foreignExchangeIndicator && ledgerTransaction == other.ledgerTransaction && ledgerTransactionId == other.ledgerTransactionId && lineItems == other.lineItems && metadata == other.metadata && nsfProtected == other.nsfProtected && originatingPartyName == other.originatingPartyName && priority == other.priority && processAfter == other.processAfter && purpose == other.purpose && receivingAccount == other.receivingAccount && receivingAccountId == other.receivingAccountId && remittanceInformation == other.remittanceInformation && sendRemittanceAdvice == other.sendRemittanceAdvice && statementDescriptor == other.statementDescriptor && subtype == other.subtype && transactionMonitoringEnabled == other.transactionMonitoringEnabled && ultimateOriginatingPartyIdentifier == other.ultimateOriginatingPartyIdentifier && ultimateOriginatingPartyName == other.ultimateOriginatingPartyName && ultimateReceivingPartyIdentifier == other.ultimateReceivingPartyIdentifier && ultimateReceivingPartyName == other.ultimateReceivingPartyName && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, direction, originatingAccountId, type, accounting, accountingCategoryId, accountingLedgerClassId, chargeBearer, currency, description, documents, effectiveDate, expiresAt, fallbackType, foreignExchangeContract, foreignExchangeIndicator, ledgerTransaction, ledgerTransactionId, lineItems, metadata, nsfProtected, originatingPartyName, priority, processAfter, purpose, receivingAccount, receivingAccountId, remittanceInformation, sendRemittanceAdvice, statementDescriptor, subtype, transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier, ultimateReceivingPartyName, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "PaymentOrderCreateParams{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, documents=$documents, effectiveDate=$effectiveDate, expiresAt=$expiresAt, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -977,49 +964,48 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(paymentOrderCreateParams: PaymentOrderCreateParams) = apply {
-            this.amount = paymentOrderCreateParams.amount
-            this.direction = paymentOrderCreateParams.direction
-            this.originatingAccountId = paymentOrderCreateParams.originatingAccountId
-            this.type = paymentOrderCreateParams.type
-            this.accounting = paymentOrderCreateParams.accounting
-            this.accountingCategoryId = paymentOrderCreateParams.accountingCategoryId
-            this.accountingLedgerClassId = paymentOrderCreateParams.accountingLedgerClassId
-            this.chargeBearer = paymentOrderCreateParams.chargeBearer
-            this.currency = paymentOrderCreateParams.currency
-            this.description = paymentOrderCreateParams.description
-            this.documents(paymentOrderCreateParams.documents ?: listOf())
-            this.effectiveDate = paymentOrderCreateParams.effectiveDate
-            this.expiresAt = paymentOrderCreateParams.expiresAt
-            this.fallbackType = paymentOrderCreateParams.fallbackType
-            this.foreignExchangeContract = paymentOrderCreateParams.foreignExchangeContract
-            this.foreignExchangeIndicator = paymentOrderCreateParams.foreignExchangeIndicator
-            this.ledgerTransaction = paymentOrderCreateParams.ledgerTransaction
-            this.ledgerTransactionId = paymentOrderCreateParams.ledgerTransactionId
-            this.lineItems(paymentOrderCreateParams.lineItems ?: listOf())
-            this.metadata = paymentOrderCreateParams.metadata
-            this.nsfProtected = paymentOrderCreateParams.nsfProtected
-            this.originatingPartyName = paymentOrderCreateParams.originatingPartyName
-            this.priority = paymentOrderCreateParams.priority
-            this.processAfter = paymentOrderCreateParams.processAfter
-            this.purpose = paymentOrderCreateParams.purpose
-            this.receivingAccount = paymentOrderCreateParams.receivingAccount
-            this.receivingAccountId = paymentOrderCreateParams.receivingAccountId
-            this.remittanceInformation = paymentOrderCreateParams.remittanceInformation
-            this.sendRemittanceAdvice = paymentOrderCreateParams.sendRemittanceAdvice
-            this.statementDescriptor = paymentOrderCreateParams.statementDescriptor
-            this.subtype = paymentOrderCreateParams.subtype
-            this.transactionMonitoringEnabled =
-                paymentOrderCreateParams.transactionMonitoringEnabled
-            this.ultimateOriginatingPartyIdentifier =
+            amount = paymentOrderCreateParams.amount
+            direction = paymentOrderCreateParams.direction
+            originatingAccountId = paymentOrderCreateParams.originatingAccountId
+            type = paymentOrderCreateParams.type
+            accounting = paymentOrderCreateParams.accounting
+            accountingCategoryId = paymentOrderCreateParams.accountingCategoryId
+            accountingLedgerClassId = paymentOrderCreateParams.accountingLedgerClassId
+            chargeBearer = paymentOrderCreateParams.chargeBearer
+            currency = paymentOrderCreateParams.currency
+            description = paymentOrderCreateParams.description
+            documents = paymentOrderCreateParams.documents?.toMutableList() ?: mutableListOf()
+            effectiveDate = paymentOrderCreateParams.effectiveDate
+            expiresAt = paymentOrderCreateParams.expiresAt
+            fallbackType = paymentOrderCreateParams.fallbackType
+            foreignExchangeContract = paymentOrderCreateParams.foreignExchangeContract
+            foreignExchangeIndicator = paymentOrderCreateParams.foreignExchangeIndicator
+            ledgerTransaction = paymentOrderCreateParams.ledgerTransaction
+            ledgerTransactionId = paymentOrderCreateParams.ledgerTransactionId
+            lineItems = paymentOrderCreateParams.lineItems?.toMutableList() ?: mutableListOf()
+            metadata = paymentOrderCreateParams.metadata
+            nsfProtected = paymentOrderCreateParams.nsfProtected
+            originatingPartyName = paymentOrderCreateParams.originatingPartyName
+            priority = paymentOrderCreateParams.priority
+            processAfter = paymentOrderCreateParams.processAfter
+            purpose = paymentOrderCreateParams.purpose
+            receivingAccount = paymentOrderCreateParams.receivingAccount
+            receivingAccountId = paymentOrderCreateParams.receivingAccountId
+            remittanceInformation = paymentOrderCreateParams.remittanceInformation
+            sendRemittanceAdvice = paymentOrderCreateParams.sendRemittanceAdvice
+            statementDescriptor = paymentOrderCreateParams.statementDescriptor
+            subtype = paymentOrderCreateParams.subtype
+            transactionMonitoringEnabled = paymentOrderCreateParams.transactionMonitoringEnabled
+            ultimateOriginatingPartyIdentifier =
                 paymentOrderCreateParams.ultimateOriginatingPartyIdentifier
-            this.ultimateOriginatingPartyName =
-                paymentOrderCreateParams.ultimateOriginatingPartyName
-            this.ultimateReceivingPartyIdentifier =
+            ultimateOriginatingPartyName = paymentOrderCreateParams.ultimateOriginatingPartyName
+            ultimateReceivingPartyIdentifier =
                 paymentOrderCreateParams.ultimateReceivingPartyIdentifier
-            this.ultimateReceivingPartyName = paymentOrderCreateParams.ultimateReceivingPartyName
-            additionalHeaders(paymentOrderCreateParams.additionalHeaders)
-            additionalQueryParams(paymentOrderCreateParams.additionalQueryParams)
-            additionalBodyProperties(paymentOrderCreateParams.additionalBodyProperties)
+            ultimateReceivingPartyName = paymentOrderCreateParams.ultimateReceivingPartyName
+            additionalHeaders = paymentOrderCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = paymentOrderCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                paymentOrderCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /**
@@ -1412,7 +1398,7 @@ constructor(
                 chargeBearer,
                 currency,
                 description,
-                if (documents.size == 0) null else documents.toImmutable(),
+                documents.toImmutable().ifEmpty { null },
                 effectiveDate,
                 expiresAt,
                 fallbackType,
@@ -1420,7 +1406,7 @@ constructor(
                 foreignExchangeIndicator,
                 ledgerTransaction,
                 ledgerTransactionId,
-                if (lineItems.size == 0) null else lineItems.toImmutable(),
+                lineItems.toImmutable().ifEmpty { null },
                 metadata,
                 nsfProtected,
                 originatingPartyName,
@@ -4941,4 +4927,17 @@ constructor(
         override fun toString() =
             "ReceivingAccount{accountType=$accountType, partyType=$partyType, partyAddress=$partyAddress, name=$name, accountDetails=$accountDetails, routingDetails=$routingDetails, metadata=$metadata, partyName=$partyName, partyIdentifier=$partyIdentifier, ledgerAccount=$ledgerAccount, plaidProcessorToken=$plaidProcessorToken, contactDetails=$contactDetails, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is PaymentOrderCreateParams && amount == other.amount && direction == other.direction && originatingAccountId == other.originatingAccountId && type == other.type && accounting == other.accounting && accountingCategoryId == other.accountingCategoryId && accountingLedgerClassId == other.accountingLedgerClassId && chargeBearer == other.chargeBearer && currency == other.currency && description == other.description && documents == other.documents && effectiveDate == other.effectiveDate && expiresAt == other.expiresAt && fallbackType == other.fallbackType && foreignExchangeContract == other.foreignExchangeContract && foreignExchangeIndicator == other.foreignExchangeIndicator && ledgerTransaction == other.ledgerTransaction && ledgerTransactionId == other.ledgerTransactionId && lineItems == other.lineItems && metadata == other.metadata && nsfProtected == other.nsfProtected && originatingPartyName == other.originatingPartyName && priority == other.priority && processAfter == other.processAfter && purpose == other.purpose && receivingAccount == other.receivingAccount && receivingAccountId == other.receivingAccountId && remittanceInformation == other.remittanceInformation && sendRemittanceAdvice == other.sendRemittanceAdvice && statementDescriptor == other.statementDescriptor && subtype == other.subtype && transactionMonitoringEnabled == other.transactionMonitoringEnabled && ultimateOriginatingPartyIdentifier == other.ultimateOriginatingPartyIdentifier && ultimateOriginatingPartyName == other.ultimateOriginatingPartyName && ultimateReceivingPartyIdentifier == other.ultimateReceivingPartyIdentifier && ultimateReceivingPartyName == other.ultimateReceivingPartyName && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, direction, originatingAccountId, type, accounting, accountingCategoryId, accountingLedgerClassId, chargeBearer, currency, description, documents, effectiveDate, expiresAt, fallbackType, foreignExchangeContract, foreignExchangeIndicator, ledgerTransaction, ledgerTransactionId, lineItems, metadata, nsfProtected, originatingPartyName, priority, processAfter, purpose, receivingAccount, receivingAccountId, remittanceInformation, sendRemittanceAdvice, statementDescriptor, subtype, transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier, ultimateReceivingPartyName, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "PaymentOrderCreateParams{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, documents=$documents, effectiveDate=$effectiveDate, expiresAt=$expiresAt, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

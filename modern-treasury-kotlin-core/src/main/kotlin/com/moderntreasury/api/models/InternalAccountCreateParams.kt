@@ -53,6 +53,12 @@ constructor(
 
     fun vendorAttributes(): VendorAttributes? = vendorAttributes
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): InternalAccountCreateBody {
         return InternalAccountCreateBody(
             connectionId,
@@ -249,25 +255,6 @@ constructor(
             "InternalAccountCreateBody{connectionId=$connectionId, currency=$currency, name=$name, partyName=$partyName, counterpartyId=$counterpartyId, legalEntityId=$legalEntityId, parentAccountId=$parentAccountId, partyAddress=$partyAddress, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InternalAccountCreateParams && connectionId == other.connectionId && currency == other.currency && name == other.name && partyName == other.partyName && counterpartyId == other.counterpartyId && legalEntityId == other.legalEntityId && parentAccountId == other.parentAccountId && partyAddress == other.partyAddress && vendorAttributes == other.vendorAttributes && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(connectionId, currency, name, partyName, counterpartyId, legalEntityId, parentAccountId, partyAddress, vendorAttributes, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "InternalAccountCreateParams{connectionId=$connectionId, currency=$currency, name=$name, partyName=$partyName, counterpartyId=$counterpartyId, legalEntityId=$legalEntityId, parentAccountId=$parentAccountId, partyAddress=$partyAddress, vendorAttributes=$vendorAttributes, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -292,18 +279,19 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(internalAccountCreateParams: InternalAccountCreateParams) = apply {
-            this.connectionId = internalAccountCreateParams.connectionId
-            this.currency = internalAccountCreateParams.currency
-            this.name = internalAccountCreateParams.name
-            this.partyName = internalAccountCreateParams.partyName
-            this.counterpartyId = internalAccountCreateParams.counterpartyId
-            this.legalEntityId = internalAccountCreateParams.legalEntityId
-            this.parentAccountId = internalAccountCreateParams.parentAccountId
-            this.partyAddress = internalAccountCreateParams.partyAddress
-            this.vendorAttributes = internalAccountCreateParams.vendorAttributes
-            additionalHeaders(internalAccountCreateParams.additionalHeaders)
-            additionalQueryParams(internalAccountCreateParams.additionalQueryParams)
-            additionalBodyProperties(internalAccountCreateParams.additionalBodyProperties)
+            connectionId = internalAccountCreateParams.connectionId
+            currency = internalAccountCreateParams.currency
+            name = internalAccountCreateParams.name
+            partyName = internalAccountCreateParams.partyName
+            counterpartyId = internalAccountCreateParams.counterpartyId
+            legalEntityId = internalAccountCreateParams.legalEntityId
+            parentAccountId = internalAccountCreateParams.parentAccountId
+            partyAddress = internalAccountCreateParams.partyAddress
+            vendorAttributes = internalAccountCreateParams.vendorAttributes
+            additionalHeaders = internalAccountCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = internalAccountCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                internalAccountCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the financial institution the account belongs to. */
@@ -720,4 +708,17 @@ constructor(
 
         override fun toString() = "VendorAttributes{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InternalAccountCreateParams && connectionId == other.connectionId && currency == other.currency && name == other.name && partyName == other.partyName && counterpartyId == other.counterpartyId && legalEntityId == other.legalEntityId && parentAccountId == other.parentAccountId && partyAddress == other.partyAddress && vendorAttributes == other.vendorAttributes && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(connectionId, currency, name, partyName, counterpartyId, legalEntityId, parentAccountId, partyAddress, vendorAttributes, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "InternalAccountCreateParams{connectionId=$connectionId, currency=$currency, name=$name, partyName=$partyName, counterpartyId=$counterpartyId, legalEntityId=$legalEntityId, parentAccountId=$parentAccountId, partyAddress=$partyAddress, vendorAttributes=$vendorAttributes, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

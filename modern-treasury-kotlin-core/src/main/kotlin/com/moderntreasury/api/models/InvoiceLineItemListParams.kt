@@ -23,6 +23,10 @@ constructor(
 
     fun perPage(): Long? = perPage
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -39,23 +43,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InvoiceLineItemListParams && invoiceId == other.invoiceId && afterCursor == other.afterCursor && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(invoiceId, afterCursor, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "InvoiceLineItemListParams{invoiceId=$invoiceId, afterCursor=$afterCursor, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -74,11 +61,11 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(invoiceLineItemListParams: InvoiceLineItemListParams) = apply {
-            this.invoiceId = invoiceLineItemListParams.invoiceId
-            this.afterCursor = invoiceLineItemListParams.afterCursor
-            this.perPage = invoiceLineItemListParams.perPage
-            additionalHeaders(invoiceLineItemListParams.additionalHeaders)
-            additionalQueryParams(invoiceLineItemListParams.additionalQueryParams)
+            invoiceId = invoiceLineItemListParams.invoiceId
+            afterCursor = invoiceLineItemListParams.afterCursor
+            perPage = invoiceLineItemListParams.perPage
+            additionalHeaders = invoiceLineItemListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = invoiceLineItemListParams.additionalQueryParams.toBuilder()
         }
 
         fun invoiceId(invoiceId: String) = apply { this.invoiceId = invoiceId }
@@ -194,4 +181,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InvoiceLineItemListParams && invoiceId == other.invoiceId && afterCursor == other.afterCursor && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(invoiceId, afterCursor, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "InvoiceLineItemListParams{invoiceId=$invoiceId, afterCursor=$afterCursor, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
