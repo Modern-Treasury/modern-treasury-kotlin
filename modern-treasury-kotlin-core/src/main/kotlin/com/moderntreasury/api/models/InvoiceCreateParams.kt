@@ -103,6 +103,12 @@ constructor(
 
     fun virtualAccountId(): String? = virtualAccountId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): InvoiceCreateBody {
         return InvoiceCreateBody(
             counterpartyId,
@@ -626,25 +632,6 @@ constructor(
             "InvoiceCreateBody{counterpartyId=$counterpartyId, dueDate=$dueDate, originatingAccountId=$originatingAccountId, autoAdvance=$autoAdvance, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, metadata=$metadata, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InvoiceCreateParams && counterpartyId == other.counterpartyId && dueDate == other.dueDate && originatingAccountId == other.originatingAccountId && autoAdvance == other.autoAdvance && contactDetails == other.contactDetails && counterpartyBillingAddress == other.counterpartyBillingAddress && counterpartyShippingAddress == other.counterpartyShippingAddress && currency == other.currency && description == other.description && fallbackPaymentMethod == other.fallbackPaymentMethod && ingestLedgerEntries == other.ingestLedgerEntries && invoiceLineItems == other.invoiceLineItems && invoicerAddress == other.invoicerAddress && ledgerAccountSettlementId == other.ledgerAccountSettlementId && metadata == other.metadata && notificationEmailAddresses == other.notificationEmailAddresses && notificationsEnabled == other.notificationsEnabled && paymentEffectiveDate == other.paymentEffectiveDate && paymentMethod == other.paymentMethod && paymentType == other.paymentType && receivingAccountId == other.receivingAccountId && recipientEmail == other.recipientEmail && recipientName == other.recipientName && remindAfterOverdueDays == other.remindAfterOverdueDays && virtualAccountId == other.virtualAccountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(counterpartyId, dueDate, originatingAccountId, autoAdvance, contactDetails, counterpartyBillingAddress, counterpartyShippingAddress, currency, description, fallbackPaymentMethod, ingestLedgerEntries, invoiceLineItems, invoicerAddress, ledgerAccountSettlementId, metadata, notificationEmailAddresses, notificationsEnabled, paymentEffectiveDate, paymentMethod, paymentType, receivingAccountId, recipientEmail, recipientName, remindAfterOverdueDays, virtualAccountId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "InvoiceCreateParams{counterpartyId=$counterpartyId, dueDate=$dueDate, originatingAccountId=$originatingAccountId, autoAdvance=$autoAdvance, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, metadata=$metadata, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, virtualAccountId=$virtualAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -685,36 +672,37 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(invoiceCreateParams: InvoiceCreateParams) = apply {
-            this.counterpartyId = invoiceCreateParams.counterpartyId
-            this.dueDate = invoiceCreateParams.dueDate
-            this.originatingAccountId = invoiceCreateParams.originatingAccountId
-            this.autoAdvance = invoiceCreateParams.autoAdvance
-            this.contactDetails(invoiceCreateParams.contactDetails ?: listOf())
-            this.counterpartyBillingAddress = invoiceCreateParams.counterpartyBillingAddress
-            this.counterpartyShippingAddress = invoiceCreateParams.counterpartyShippingAddress
-            this.currency = invoiceCreateParams.currency
-            this.description = invoiceCreateParams.description
-            this.fallbackPaymentMethod = invoiceCreateParams.fallbackPaymentMethod
-            this.ingestLedgerEntries = invoiceCreateParams.ingestLedgerEntries
-            this.invoiceLineItems(invoiceCreateParams.invoiceLineItems ?: listOf())
-            this.invoicerAddress = invoiceCreateParams.invoicerAddress
-            this.ledgerAccountSettlementId = invoiceCreateParams.ledgerAccountSettlementId
-            this.metadata = invoiceCreateParams.metadata
-            this.notificationEmailAddresses(
-                invoiceCreateParams.notificationEmailAddresses ?: listOf()
-            )
-            this.notificationsEnabled = invoiceCreateParams.notificationsEnabled
-            this.paymentEffectiveDate = invoiceCreateParams.paymentEffectiveDate
-            this.paymentMethod = invoiceCreateParams.paymentMethod
-            this.paymentType = invoiceCreateParams.paymentType
-            this.receivingAccountId = invoiceCreateParams.receivingAccountId
-            this.recipientEmail = invoiceCreateParams.recipientEmail
-            this.recipientName = invoiceCreateParams.recipientName
-            this.remindAfterOverdueDays(invoiceCreateParams.remindAfterOverdueDays ?: listOf())
-            this.virtualAccountId = invoiceCreateParams.virtualAccountId
-            additionalHeaders(invoiceCreateParams.additionalHeaders)
-            additionalQueryParams(invoiceCreateParams.additionalQueryParams)
-            additionalBodyProperties(invoiceCreateParams.additionalBodyProperties)
+            counterpartyId = invoiceCreateParams.counterpartyId
+            dueDate = invoiceCreateParams.dueDate
+            originatingAccountId = invoiceCreateParams.originatingAccountId
+            autoAdvance = invoiceCreateParams.autoAdvance
+            contactDetails = invoiceCreateParams.contactDetails?.toMutableList() ?: mutableListOf()
+            counterpartyBillingAddress = invoiceCreateParams.counterpartyBillingAddress
+            counterpartyShippingAddress = invoiceCreateParams.counterpartyShippingAddress
+            currency = invoiceCreateParams.currency
+            description = invoiceCreateParams.description
+            fallbackPaymentMethod = invoiceCreateParams.fallbackPaymentMethod
+            ingestLedgerEntries = invoiceCreateParams.ingestLedgerEntries
+            invoiceLineItems =
+                invoiceCreateParams.invoiceLineItems?.toMutableList() ?: mutableListOf()
+            invoicerAddress = invoiceCreateParams.invoicerAddress
+            ledgerAccountSettlementId = invoiceCreateParams.ledgerAccountSettlementId
+            metadata = invoiceCreateParams.metadata
+            notificationEmailAddresses =
+                invoiceCreateParams.notificationEmailAddresses?.toMutableList() ?: mutableListOf()
+            notificationsEnabled = invoiceCreateParams.notificationsEnabled
+            paymentEffectiveDate = invoiceCreateParams.paymentEffectiveDate
+            paymentMethod = invoiceCreateParams.paymentMethod
+            paymentType = invoiceCreateParams.paymentType
+            receivingAccountId = invoiceCreateParams.receivingAccountId
+            recipientEmail = invoiceCreateParams.recipientEmail
+            recipientName = invoiceCreateParams.recipientName
+            remindAfterOverdueDays =
+                invoiceCreateParams.remindAfterOverdueDays?.toMutableList() ?: mutableListOf()
+            virtualAccountId = invoiceCreateParams.virtualAccountId
+            additionalHeaders = invoiceCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = invoiceCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties = invoiceCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The ID of the counterparty receiving the invoice. */
@@ -1035,19 +1023,18 @@ constructor(
                     "`originatingAccountId` is required but was not set"
                 },
                 autoAdvance,
-                if (contactDetails.size == 0) null else contactDetails.toImmutable(),
+                contactDetails.toImmutable().ifEmpty { null },
                 counterpartyBillingAddress,
                 counterpartyShippingAddress,
                 currency,
                 description,
                 fallbackPaymentMethod,
                 ingestLedgerEntries,
-                if (invoiceLineItems.size == 0) null else invoiceLineItems.toImmutable(),
+                invoiceLineItems.toImmutable().ifEmpty { null },
                 invoicerAddress,
                 ledgerAccountSettlementId,
                 metadata,
-                if (notificationEmailAddresses.size == 0) null
-                else notificationEmailAddresses.toImmutable(),
+                notificationEmailAddresses.toImmutable().ifEmpty { null },
                 notificationsEnabled,
                 paymentEffectiveDate,
                 paymentMethod,
@@ -1055,8 +1042,7 @@ constructor(
                 receivingAccountId,
                 recipientEmail,
                 recipientName,
-                if (remindAfterOverdueDays.size == 0) null
-                else remindAfterOverdueDays.toImmutable(),
+                remindAfterOverdueDays.toImmutable().ifEmpty { null },
                 virtualAccountId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -2010,4 +1996,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InvoiceCreateParams && counterpartyId == other.counterpartyId && dueDate == other.dueDate && originatingAccountId == other.originatingAccountId && autoAdvance == other.autoAdvance && contactDetails == other.contactDetails && counterpartyBillingAddress == other.counterpartyBillingAddress && counterpartyShippingAddress == other.counterpartyShippingAddress && currency == other.currency && description == other.description && fallbackPaymentMethod == other.fallbackPaymentMethod && ingestLedgerEntries == other.ingestLedgerEntries && invoiceLineItems == other.invoiceLineItems && invoicerAddress == other.invoicerAddress && ledgerAccountSettlementId == other.ledgerAccountSettlementId && metadata == other.metadata && notificationEmailAddresses == other.notificationEmailAddresses && notificationsEnabled == other.notificationsEnabled && paymentEffectiveDate == other.paymentEffectiveDate && paymentMethod == other.paymentMethod && paymentType == other.paymentType && receivingAccountId == other.receivingAccountId && recipientEmail == other.recipientEmail && recipientName == other.recipientName && remindAfterOverdueDays == other.remindAfterOverdueDays && virtualAccountId == other.virtualAccountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(counterpartyId, dueDate, originatingAccountId, autoAdvance, contactDetails, counterpartyBillingAddress, counterpartyShippingAddress, currency, description, fallbackPaymentMethod, ingestLedgerEntries, invoiceLineItems, invoicerAddress, ledgerAccountSettlementId, metadata, notificationEmailAddresses, notificationsEnabled, paymentEffectiveDate, paymentMethod, paymentType, receivingAccountId, recipientEmail, recipientName, remindAfterOverdueDays, virtualAccountId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "InvoiceCreateParams{counterpartyId=$counterpartyId, dueDate=$dueDate, originatingAccountId=$originatingAccountId, autoAdvance=$autoAdvance, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyShippingAddress=$counterpartyShippingAddress, currency=$currency, description=$description, fallbackPaymentMethod=$fallbackPaymentMethod, ingestLedgerEntries=$ingestLedgerEntries, invoiceLineItems=$invoiceLineItems, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, metadata=$metadata, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentType=$paymentType, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, virtualAccountId=$virtualAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

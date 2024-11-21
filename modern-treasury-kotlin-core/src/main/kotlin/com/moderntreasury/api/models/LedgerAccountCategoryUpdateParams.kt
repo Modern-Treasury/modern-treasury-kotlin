@@ -34,6 +34,12 @@ constructor(
 
     fun name(): String? = name
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): LedgerAccountCategoryUpdateBody {
         return LedgerAccountCategoryUpdateBody(
             description,
@@ -156,25 +162,6 @@ constructor(
             "LedgerAccountCategoryUpdateBody{description=$description, metadata=$metadata, name=$name, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerAccountCategoryUpdateParams && id == other.id && description == other.description && metadata == other.metadata && name == other.name && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, description, metadata, name, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "LedgerAccountCategoryUpdateParams{id=$id, description=$description, metadata=$metadata, name=$name, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -195,13 +182,15 @@ constructor(
 
         internal fun from(ledgerAccountCategoryUpdateParams: LedgerAccountCategoryUpdateParams) =
             apply {
-                this.id = ledgerAccountCategoryUpdateParams.id
-                this.description = ledgerAccountCategoryUpdateParams.description
-                this.metadata = ledgerAccountCategoryUpdateParams.metadata
-                this.name = ledgerAccountCategoryUpdateParams.name
-                additionalHeaders(ledgerAccountCategoryUpdateParams.additionalHeaders)
-                additionalQueryParams(ledgerAccountCategoryUpdateParams.additionalQueryParams)
-                additionalBodyProperties(ledgerAccountCategoryUpdateParams.additionalBodyProperties)
+                id = ledgerAccountCategoryUpdateParams.id
+                description = ledgerAccountCategoryUpdateParams.description
+                metadata = ledgerAccountCategoryUpdateParams.metadata
+                name = ledgerAccountCategoryUpdateParams.name
+                additionalHeaders = ledgerAccountCategoryUpdateParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    ledgerAccountCategoryUpdateParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    ledgerAccountCategoryUpdateParams.additionalBodyProperties.toMutableMap()
             }
 
         fun id(id: String) = apply { this.id = id }
@@ -409,4 +398,17 @@ constructor(
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerAccountCategoryUpdateParams && id == other.id && description == other.description && metadata == other.metadata && name == other.name && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, description, metadata, name, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "LedgerAccountCategoryUpdateParams{id=$id, description=$description, metadata=$metadata, name=$name, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

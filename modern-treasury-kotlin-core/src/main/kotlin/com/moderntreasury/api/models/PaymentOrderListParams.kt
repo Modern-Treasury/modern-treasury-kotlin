@@ -75,6 +75,10 @@ constructor(
 
     fun type(): Type? = type
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -116,23 +120,6 @@ constructor(
         return queryParams.build()
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is PaymentOrderListParams && afterCursor == other.afterCursor && counterpartyId == other.counterpartyId && createdAtEnd == other.createdAtEnd && createdAtStart == other.createdAtStart && direction == other.direction && effectiveDateEnd == other.effectiveDateEnd && effectiveDateStart == other.effectiveDateStart && metadata == other.metadata && originatingAccountId == other.originatingAccountId && perPage == other.perPage && priority == other.priority && processAfterEnd == other.processAfterEnd && processAfterStart == other.processAfterStart && referenceNumber == other.referenceNumber && status == other.status && transactionId == other.transactionId && type == other.type && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, counterpartyId, createdAtEnd, createdAtStart, direction, effectiveDateEnd, effectiveDateStart, metadata, originatingAccountId, perPage, priority, processAfterEnd, processAfterStart, referenceNumber, status, transactionId, type, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "PaymentOrderListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, createdAtEnd=$createdAtEnd, createdAtStart=$createdAtStart, direction=$direction, effectiveDateEnd=$effectiveDateEnd, effectiveDateStart=$effectiveDateStart, metadata=$metadata, originatingAccountId=$originatingAccountId, perPage=$perPage, priority=$priority, processAfterEnd=$processAfterEnd, processAfterStart=$processAfterStart, referenceNumber=$referenceNumber, status=$status, transactionId=$transactionId, type=$type, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -164,25 +151,25 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(paymentOrderListParams: PaymentOrderListParams) = apply {
-            this.afterCursor = paymentOrderListParams.afterCursor
-            this.counterpartyId = paymentOrderListParams.counterpartyId
-            this.createdAtEnd = paymentOrderListParams.createdAtEnd
-            this.createdAtStart = paymentOrderListParams.createdAtStart
-            this.direction = paymentOrderListParams.direction
-            this.effectiveDateEnd = paymentOrderListParams.effectiveDateEnd
-            this.effectiveDateStart = paymentOrderListParams.effectiveDateStart
-            this.metadata = paymentOrderListParams.metadata
-            this.originatingAccountId = paymentOrderListParams.originatingAccountId
-            this.perPage = paymentOrderListParams.perPage
-            this.priority = paymentOrderListParams.priority
-            this.processAfterEnd = paymentOrderListParams.processAfterEnd
-            this.processAfterStart = paymentOrderListParams.processAfterStart
-            this.referenceNumber = paymentOrderListParams.referenceNumber
-            this.status = paymentOrderListParams.status
-            this.transactionId = paymentOrderListParams.transactionId
-            this.type = paymentOrderListParams.type
-            additionalHeaders(paymentOrderListParams.additionalHeaders)
-            additionalQueryParams(paymentOrderListParams.additionalQueryParams)
+            afterCursor = paymentOrderListParams.afterCursor
+            counterpartyId = paymentOrderListParams.counterpartyId
+            createdAtEnd = paymentOrderListParams.createdAtEnd
+            createdAtStart = paymentOrderListParams.createdAtStart
+            direction = paymentOrderListParams.direction
+            effectiveDateEnd = paymentOrderListParams.effectiveDateEnd
+            effectiveDateStart = paymentOrderListParams.effectiveDateStart
+            metadata = paymentOrderListParams.metadata
+            originatingAccountId = paymentOrderListParams.originatingAccountId
+            perPage = paymentOrderListParams.perPage
+            priority = paymentOrderListParams.priority
+            processAfterEnd = paymentOrderListParams.processAfterEnd
+            processAfterStart = paymentOrderListParams.processAfterStart
+            referenceNumber = paymentOrderListParams.referenceNumber
+            status = paymentOrderListParams.status
+            transactionId = paymentOrderListParams.transactionId
+            type = paymentOrderListParams.type
+            additionalHeaders = paymentOrderListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = paymentOrderListParams.additionalQueryParams.toBuilder()
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
@@ -830,4 +817,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is PaymentOrderListParams && afterCursor == other.afterCursor && counterpartyId == other.counterpartyId && createdAtEnd == other.createdAtEnd && createdAtStart == other.createdAtStart && direction == other.direction && effectiveDateEnd == other.effectiveDateEnd && effectiveDateStart == other.effectiveDateStart && metadata == other.metadata && originatingAccountId == other.originatingAccountId && perPage == other.perPage && priority == other.priority && processAfterEnd == other.processAfterEnd && processAfterStart == other.processAfterStart && referenceNumber == other.referenceNumber && status == other.status && transactionId == other.transactionId && type == other.type && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, counterpartyId, createdAtEnd, createdAtStart, direction, effectiveDateEnd, effectiveDateStart, metadata, originatingAccountId, perPage, priority, processAfterEnd, processAfterStart, referenceNumber, status, transactionId, type, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "PaymentOrderListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, createdAtEnd=$createdAtEnd, createdAtStart=$createdAtStart, direction=$direction, effectiveDateEnd=$effectiveDateEnd, effectiveDateStart=$effectiveDateStart, metadata=$metadata, originatingAccountId=$originatingAccountId, perPage=$perPage, priority=$priority, processAfterEnd=$processAfterEnd, processAfterStart=$processAfterStart, referenceNumber=$referenceNumber, status=$status, transactionId=$transactionId, type=$type, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

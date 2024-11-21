@@ -48,6 +48,10 @@ constructor(
 
     fun perPage(): Long? = perPage
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -71,23 +75,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerAccountCategoryListParams && id == other.id && afterCursor == other.afterCursor && balances == other.balances && currency == other.currency && ledgerAccountId == other.ledgerAccountId && ledgerId == other.ledgerId && metadata == other.metadata && name == other.name && parentLedgerAccountCategoryId == other.parentLedgerAccountCategoryId && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, afterCursor, balances, currency, ledgerAccountId, ledgerId, metadata, name, parentLedgerAccountCategoryId, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "LedgerAccountCategoryListParams{id=$id, afterCursor=$afterCursor, balances=$balances, currency=$currency, ledgerAccountId=$ledgerAccountId, ledgerId=$ledgerId, metadata=$metadata, name=$name, parentLedgerAccountCategoryId=$parentLedgerAccountCategoryId, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -114,19 +101,20 @@ constructor(
 
         internal fun from(ledgerAccountCategoryListParams: LedgerAccountCategoryListParams) =
             apply {
-                this.id(ledgerAccountCategoryListParams.id ?: listOf())
-                this.afterCursor = ledgerAccountCategoryListParams.afterCursor
-                this.balances = ledgerAccountCategoryListParams.balances
-                this.currency = ledgerAccountCategoryListParams.currency
-                this.ledgerAccountId = ledgerAccountCategoryListParams.ledgerAccountId
-                this.ledgerId = ledgerAccountCategoryListParams.ledgerId
-                this.metadata = ledgerAccountCategoryListParams.metadata
-                this.name = ledgerAccountCategoryListParams.name
-                this.parentLedgerAccountCategoryId =
+                id = ledgerAccountCategoryListParams.id?.toMutableList() ?: mutableListOf()
+                afterCursor = ledgerAccountCategoryListParams.afterCursor
+                balances = ledgerAccountCategoryListParams.balances
+                currency = ledgerAccountCategoryListParams.currency
+                ledgerAccountId = ledgerAccountCategoryListParams.ledgerAccountId
+                ledgerId = ledgerAccountCategoryListParams.ledgerId
+                metadata = ledgerAccountCategoryListParams.metadata
+                name = ledgerAccountCategoryListParams.name
+                parentLedgerAccountCategoryId =
                     ledgerAccountCategoryListParams.parentLedgerAccountCategoryId
-                this.perPage = ledgerAccountCategoryListParams.perPage
-                additionalHeaders(ledgerAccountCategoryListParams.additionalHeaders)
-                additionalQueryParams(ledgerAccountCategoryListParams.additionalQueryParams)
+                perPage = ledgerAccountCategoryListParams.perPage
+                additionalHeaders = ledgerAccountCategoryListParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    ledgerAccountCategoryListParams.additionalQueryParams.toBuilder()
             }
 
         /**
@@ -277,7 +265,7 @@ constructor(
 
         fun build(): LedgerAccountCategoryListParams =
             LedgerAccountCategoryListParams(
-                if (id.size == 0) null else id.toImmutable(),
+                id.toImmutable().ifEmpty { null },
                 afterCursor,
                 balances,
                 currency,
@@ -435,4 +423,17 @@ constructor(
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerAccountCategoryListParams && id == other.id && afterCursor == other.afterCursor && balances == other.balances && currency == other.currency && ledgerAccountId == other.ledgerAccountId && ledgerId == other.ledgerId && metadata == other.metadata && name == other.name && parentLedgerAccountCategoryId == other.parentLedgerAccountCategoryId && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, afterCursor, balances, currency, ledgerAccountId, ledgerId, metadata, name, parentLedgerAccountCategoryId, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "LedgerAccountCategoryListParams{id=$id, afterCursor=$afterCursor, balances=$balances, currency=$currency, ledgerAccountId=$ledgerAccountId, ledgerId=$ledgerId, metadata=$metadata, name=$name, parentLedgerAccountCategoryId=$parentLedgerAccountCategoryId, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

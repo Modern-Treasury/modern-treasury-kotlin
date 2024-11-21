@@ -51,6 +51,12 @@ constructor(
 
     fun status(): Status? = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): LedgerTransactionCreateReversalBody {
         return LedgerTransactionCreateReversalBody(
             description,
@@ -253,25 +259,6 @@ constructor(
             "LedgerTransactionCreateReversalBody{description=$description, effectiveAt=$effectiveAt, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerTransactionCreateReversalParams && id == other.id && description == other.description && effectiveAt == other.effectiveAt && externalId == other.externalId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, description, effectiveAt, externalId, ledgerableId, ledgerableType, metadata, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "LedgerTransactionCreateReversalParams{id=$id, description=$description, effectiveAt=$effectiveAt, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -297,17 +284,19 @@ constructor(
         internal fun from(
             ledgerTransactionCreateReversalParams: LedgerTransactionCreateReversalParams
         ) = apply {
-            this.id = ledgerTransactionCreateReversalParams.id
-            this.description = ledgerTransactionCreateReversalParams.description
-            this.effectiveAt = ledgerTransactionCreateReversalParams.effectiveAt
-            this.externalId = ledgerTransactionCreateReversalParams.externalId
-            this.ledgerableId = ledgerTransactionCreateReversalParams.ledgerableId
-            this.ledgerableType = ledgerTransactionCreateReversalParams.ledgerableType
-            this.metadata = ledgerTransactionCreateReversalParams.metadata
-            this.status = ledgerTransactionCreateReversalParams.status
-            additionalHeaders(ledgerTransactionCreateReversalParams.additionalHeaders)
-            additionalQueryParams(ledgerTransactionCreateReversalParams.additionalQueryParams)
-            additionalBodyProperties(ledgerTransactionCreateReversalParams.additionalBodyProperties)
+            id = ledgerTransactionCreateReversalParams.id
+            description = ledgerTransactionCreateReversalParams.description
+            effectiveAt = ledgerTransactionCreateReversalParams.effectiveAt
+            externalId = ledgerTransactionCreateReversalParams.externalId
+            ledgerableId = ledgerTransactionCreateReversalParams.ledgerableId
+            ledgerableType = ledgerTransactionCreateReversalParams.ledgerableType
+            metadata = ledgerTransactionCreateReversalParams.metadata
+            status = ledgerTransactionCreateReversalParams.status
+            additionalHeaders = ledgerTransactionCreateReversalParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                ledgerTransactionCreateReversalParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                ledgerTransactionCreateReversalParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String) = apply { this.id = id }
@@ -694,4 +683,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerTransactionCreateReversalParams && id == other.id && description == other.description && effectiveAt == other.effectiveAt && externalId == other.externalId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, description, effectiveAt, externalId, ledgerableId, ledgerableType, metadata, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "LedgerTransactionCreateReversalParams{id=$id, description=$description, effectiveAt=$effectiveAt, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

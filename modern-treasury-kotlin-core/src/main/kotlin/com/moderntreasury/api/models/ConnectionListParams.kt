@@ -26,6 +26,10 @@ constructor(
 
     fun vendorCustomerId(): String? = vendorCustomerId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -37,23 +41,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ConnectionListParams && afterCursor == other.afterCursor && entity == other.entity && perPage == other.perPage && vendorCustomerId == other.vendorCustomerId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, entity, perPage, vendorCustomerId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "ConnectionListParams{afterCursor=$afterCursor, entity=$entity, perPage=$perPage, vendorCustomerId=$vendorCustomerId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -73,12 +60,12 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(connectionListParams: ConnectionListParams) = apply {
-            this.afterCursor = connectionListParams.afterCursor
-            this.entity = connectionListParams.entity
-            this.perPage = connectionListParams.perPage
-            this.vendorCustomerId = connectionListParams.vendorCustomerId
-            additionalHeaders(connectionListParams.additionalHeaders)
-            additionalQueryParams(connectionListParams.additionalQueryParams)
+            afterCursor = connectionListParams.afterCursor
+            entity = connectionListParams.entity
+            perPage = connectionListParams.perPage
+            vendorCustomerId = connectionListParams.vendorCustomerId
+            additionalHeaders = connectionListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = connectionListParams.additionalQueryParams.toBuilder()
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
@@ -201,4 +188,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ConnectionListParams && afterCursor == other.afterCursor && entity == other.entity && perPage == other.perPage && vendorCustomerId == other.vendorCustomerId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, entity, perPage, vendorCustomerId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "ConnectionListParams{afterCursor=$afterCursor, entity=$entity, perPage=$perPage, vendorCustomerId=$vendorCustomerId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

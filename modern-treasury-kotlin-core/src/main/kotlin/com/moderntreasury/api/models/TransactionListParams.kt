@@ -59,6 +59,10 @@ constructor(
 
     fun virtualAccountId(): String? = virtualAccountId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -84,23 +88,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is TransactionListParams && afterCursor == other.afterCursor && asOfDateEnd == other.asOfDateEnd && asOfDateStart == other.asOfDateStart && counterpartyId == other.counterpartyId && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && metadata == other.metadata && paymentType == other.paymentType && perPage == other.perPage && posted == other.posted && transactableType == other.transactableType && vendorId == other.vendorId && virtualAccountId == other.virtualAccountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, asOfDateEnd, asOfDateStart, counterpartyId, description, direction, internalAccountId, metadata, paymentType, perPage, posted, transactableType, vendorId, virtualAccountId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "TransactionListParams{afterCursor=$afterCursor, asOfDateEnd=$asOfDateEnd, asOfDateStart=$asOfDateStart, counterpartyId=$counterpartyId, description=$description, direction=$direction, internalAccountId=$internalAccountId, metadata=$metadata, paymentType=$paymentType, perPage=$perPage, posted=$posted, transactableType=$transactableType, vendorId=$vendorId, virtualAccountId=$virtualAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -130,22 +117,22 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(transactionListParams: TransactionListParams) = apply {
-            this.afterCursor = transactionListParams.afterCursor
-            this.asOfDateEnd = transactionListParams.asOfDateEnd
-            this.asOfDateStart = transactionListParams.asOfDateStart
-            this.counterpartyId = transactionListParams.counterpartyId
-            this.description = transactionListParams.description
-            this.direction = transactionListParams.direction
-            this.internalAccountId = transactionListParams.internalAccountId
-            this.metadata = transactionListParams.metadata
-            this.paymentType = transactionListParams.paymentType
-            this.perPage = transactionListParams.perPage
-            this.posted = transactionListParams.posted
-            this.transactableType = transactionListParams.transactableType
-            this.vendorId = transactionListParams.vendorId
-            this.virtualAccountId = transactionListParams.virtualAccountId
-            additionalHeaders(transactionListParams.additionalHeaders)
-            additionalQueryParams(transactionListParams.additionalQueryParams)
+            afterCursor = transactionListParams.afterCursor
+            asOfDateEnd = transactionListParams.asOfDateEnd
+            asOfDateStart = transactionListParams.asOfDateStart
+            counterpartyId = transactionListParams.counterpartyId
+            description = transactionListParams.description
+            direction = transactionListParams.direction
+            internalAccountId = transactionListParams.internalAccountId
+            metadata = transactionListParams.metadata
+            paymentType = transactionListParams.paymentType
+            perPage = transactionListParams.perPage
+            posted = transactionListParams.posted
+            transactableType = transactionListParams.transactableType
+            vendorId = transactionListParams.vendorId
+            virtualAccountId = transactionListParams.virtualAccountId
+            additionalHeaders = transactionListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = transactionListParams.additionalQueryParams.toBuilder()
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
@@ -387,4 +374,17 @@ constructor(
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is TransactionListParams && afterCursor == other.afterCursor && asOfDateEnd == other.asOfDateEnd && asOfDateStart == other.asOfDateStart && counterpartyId == other.counterpartyId && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && metadata == other.metadata && paymentType == other.paymentType && perPage == other.perPage && posted == other.posted && transactableType == other.transactableType && vendorId == other.vendorId && virtualAccountId == other.virtualAccountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, asOfDateEnd, asOfDateStart, counterpartyId, description, direction, internalAccountId, metadata, paymentType, perPage, posted, transactableType, vendorId, virtualAccountId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "TransactionListParams{afterCursor=$afterCursor, asOfDateEnd=$asOfDateEnd, asOfDateStart=$asOfDateStart, counterpartyId=$counterpartyId, description=$description, direction=$direction, internalAccountId=$internalAccountId, metadata=$metadata, paymentType=$paymentType, perPage=$perPage, posted=$posted, transactableType=$transactableType, vendorId=$vendorId, virtualAccountId=$virtualAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

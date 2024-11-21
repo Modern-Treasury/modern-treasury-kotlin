@@ -50,6 +50,12 @@ constructor(
 
     fun partyType(): PartyType? = partyType
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): ExternalAccountUpdateBody {
         return ExternalAccountUpdateBody(
             accountType,
@@ -228,25 +234,6 @@ constructor(
             "ExternalAccountUpdateBody{accountType=$accountType, counterpartyId=$counterpartyId, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyName=$partyName, partyType=$partyType, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ExternalAccountUpdateParams && id == other.id && accountType == other.accountType && counterpartyId == other.counterpartyId && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyName == other.partyName && partyType == other.partyType && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, accountType, counterpartyId, metadata, name, partyAddress, partyName, partyType, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "ExternalAccountUpdateParams{id=$id, accountType=$accountType, counterpartyId=$counterpartyId, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyName=$partyName, partyType=$partyType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -270,17 +257,18 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(externalAccountUpdateParams: ExternalAccountUpdateParams) = apply {
-            this.id = externalAccountUpdateParams.id
-            this.accountType = externalAccountUpdateParams.accountType
-            this.counterpartyId = externalAccountUpdateParams.counterpartyId
-            this.metadata = externalAccountUpdateParams.metadata
-            this.name = externalAccountUpdateParams.name
-            this.partyAddress = externalAccountUpdateParams.partyAddress
-            this.partyName = externalAccountUpdateParams.partyName
-            this.partyType = externalAccountUpdateParams.partyType
-            additionalHeaders(externalAccountUpdateParams.additionalHeaders)
-            additionalQueryParams(externalAccountUpdateParams.additionalQueryParams)
-            additionalBodyProperties(externalAccountUpdateParams.additionalBodyProperties)
+            id = externalAccountUpdateParams.id
+            accountType = externalAccountUpdateParams.accountType
+            counterpartyId = externalAccountUpdateParams.counterpartyId
+            metadata = externalAccountUpdateParams.metadata
+            name = externalAccountUpdateParams.name
+            partyAddress = externalAccountUpdateParams.partyAddress
+            partyName = externalAccountUpdateParams.partyName
+            partyType = externalAccountUpdateParams.partyType
+            additionalHeaders = externalAccountUpdateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = externalAccountUpdateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                externalAccountUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String) = apply { this.id = id }
@@ -688,4 +676,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ExternalAccountUpdateParams && id == other.id && accountType == other.accountType && counterpartyId == other.counterpartyId && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyName == other.partyName && partyType == other.partyType && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, accountType, counterpartyId, metadata, name, partyAddress, partyName, partyType, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "ExternalAccountUpdateParams{id=$id, accountType=$accountType, counterpartyId=$counterpartyId, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyName=$partyName, partyType=$partyType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

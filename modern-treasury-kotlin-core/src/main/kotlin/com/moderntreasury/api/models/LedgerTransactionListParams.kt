@@ -75,6 +75,10 @@ constructor(
 
     fun updatedAt(): UpdatedAt? = updatedAt
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -117,23 +121,6 @@ constructor(
         return queryParams.build()
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerTransactionListParams && id == other.id && afterCursor == other.afterCursor && effectiveAt == other.effectiveAt && effectiveDate == other.effectiveDate && externalId == other.externalId && ledgerAccountCategoryId == other.ledgerAccountCategoryId && ledgerAccountId == other.ledgerAccountId && ledgerAccountSettlementId == other.ledgerAccountSettlementId && ledgerId == other.ledgerId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && orderBy == other.orderBy && perPage == other.perPage && postedAt == other.postedAt && reversesLedgerTransactionId == other.reversesLedgerTransactionId && status == other.status && updatedAt == other.updatedAt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, afterCursor, effectiveAt, effectiveDate, externalId, ledgerAccountCategoryId, ledgerAccountId, ledgerAccountSettlementId, ledgerId, ledgerableId, ledgerableType, metadata, orderBy, perPage, postedAt, reversesLedgerTransactionId, status, updatedAt, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "LedgerTransactionListParams{id=$id, afterCursor=$afterCursor, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, ledgerAccountSettlementId=$ledgerAccountSettlementId, ledgerId=$ledgerId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, orderBy=$orderBy, perPage=$perPage, postedAt=$postedAt, reversesLedgerTransactionId=$reversesLedgerTransactionId, status=$status, updatedAt=$updatedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -166,27 +153,26 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(ledgerTransactionListParams: LedgerTransactionListParams) = apply {
-            this.id(ledgerTransactionListParams.id ?: listOf())
-            this.afterCursor = ledgerTransactionListParams.afterCursor
-            this.effectiveAt = ledgerTransactionListParams.effectiveAt
-            this.effectiveDate = ledgerTransactionListParams.effectiveDate
-            this.externalId = ledgerTransactionListParams.externalId
-            this.ledgerAccountCategoryId = ledgerTransactionListParams.ledgerAccountCategoryId
-            this.ledgerAccountId = ledgerTransactionListParams.ledgerAccountId
-            this.ledgerAccountSettlementId = ledgerTransactionListParams.ledgerAccountSettlementId
-            this.ledgerId = ledgerTransactionListParams.ledgerId
-            this.ledgerableId = ledgerTransactionListParams.ledgerableId
-            this.ledgerableType = ledgerTransactionListParams.ledgerableType
-            this.metadata = ledgerTransactionListParams.metadata
-            this.orderBy = ledgerTransactionListParams.orderBy
-            this.perPage = ledgerTransactionListParams.perPage
-            this.postedAt = ledgerTransactionListParams.postedAt
-            this.reversesLedgerTransactionId =
-                ledgerTransactionListParams.reversesLedgerTransactionId
-            this.status = ledgerTransactionListParams.status
-            this.updatedAt = ledgerTransactionListParams.updatedAt
-            additionalHeaders(ledgerTransactionListParams.additionalHeaders)
-            additionalQueryParams(ledgerTransactionListParams.additionalQueryParams)
+            id = ledgerTransactionListParams.id?.toMutableList() ?: mutableListOf()
+            afterCursor = ledgerTransactionListParams.afterCursor
+            effectiveAt = ledgerTransactionListParams.effectiveAt
+            effectiveDate = ledgerTransactionListParams.effectiveDate
+            externalId = ledgerTransactionListParams.externalId
+            ledgerAccountCategoryId = ledgerTransactionListParams.ledgerAccountCategoryId
+            ledgerAccountId = ledgerTransactionListParams.ledgerAccountId
+            ledgerAccountSettlementId = ledgerTransactionListParams.ledgerAccountSettlementId
+            ledgerId = ledgerTransactionListParams.ledgerId
+            ledgerableId = ledgerTransactionListParams.ledgerableId
+            ledgerableType = ledgerTransactionListParams.ledgerableType
+            metadata = ledgerTransactionListParams.metadata
+            orderBy = ledgerTransactionListParams.orderBy
+            perPage = ledgerTransactionListParams.perPage
+            postedAt = ledgerTransactionListParams.postedAt
+            reversesLedgerTransactionId = ledgerTransactionListParams.reversesLedgerTransactionId
+            status = ledgerTransactionListParams.status
+            updatedAt = ledgerTransactionListParams.updatedAt
+            additionalHeaders = ledgerTransactionListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = ledgerTransactionListParams.additionalQueryParams.toBuilder()
         }
 
         /**
@@ -378,7 +364,7 @@ constructor(
 
         fun build(): LedgerTransactionListParams =
             LedgerTransactionListParams(
-                if (id.size == 0) null else id.toImmutable(),
+                id.toImmutable().ifEmpty { null },
                 afterCursor,
                 effectiveAt,
                 effectiveDate,
@@ -1080,4 +1066,17 @@ constructor(
 
         override fun toString() = "UpdatedAt{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerTransactionListParams && id == other.id && afterCursor == other.afterCursor && effectiveAt == other.effectiveAt && effectiveDate == other.effectiveDate && externalId == other.externalId && ledgerAccountCategoryId == other.ledgerAccountCategoryId && ledgerAccountId == other.ledgerAccountId && ledgerAccountSettlementId == other.ledgerAccountSettlementId && ledgerId == other.ledgerId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && orderBy == other.orderBy && perPage == other.perPage && postedAt == other.postedAt && reversesLedgerTransactionId == other.reversesLedgerTransactionId && status == other.status && updatedAt == other.updatedAt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, afterCursor, effectiveAt, effectiveDate, externalId, ledgerAccountCategoryId, ledgerAccountId, ledgerAccountSettlementId, ledgerId, ledgerableId, ledgerableType, metadata, orderBy, perPage, postedAt, reversesLedgerTransactionId, status, updatedAt, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "LedgerTransactionListParams{id=$id, afterCursor=$afterCursor, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, ledgerAccountSettlementId=$ledgerAccountSettlementId, ledgerId=$ledgerId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, orderBy=$orderBy, perPage=$perPage, postedAt=$postedAt, reversesLedgerTransactionId=$reversesLedgerTransactionId, status=$status, updatedAt=$updatedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

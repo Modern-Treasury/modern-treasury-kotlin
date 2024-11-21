@@ -56,6 +56,12 @@ constructor(
 
     fun routingDetails(): List<RoutingDetailCreateRequest>? = routingDetails
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): VirtualAccountCreateBody {
         return VirtualAccountCreateBody(
             internalAccountId,
@@ -297,25 +303,6 @@ constructor(
             "VirtualAccountCreateBody{internalAccountId=$internalAccountId, name=$name, accountDetails=$accountDetails, counterpartyId=$counterpartyId, creditLedgerAccountId=$creditLedgerAccountId, debitLedgerAccountId=$debitLedgerAccountId, description=$description, ledgerAccount=$ledgerAccount, metadata=$metadata, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is VirtualAccountCreateParams && internalAccountId == other.internalAccountId && name == other.name && accountDetails == other.accountDetails && counterpartyId == other.counterpartyId && creditLedgerAccountId == other.creditLedgerAccountId && debitLedgerAccountId == other.debitLedgerAccountId && description == other.description && ledgerAccount == other.ledgerAccount && metadata == other.metadata && routingDetails == other.routingDetails && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(internalAccountId, name, accountDetails, counterpartyId, creditLedgerAccountId, debitLedgerAccountId, description, ledgerAccount, metadata, routingDetails, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "VirtualAccountCreateParams{internalAccountId=$internalAccountId, name=$name, accountDetails=$accountDetails, counterpartyId=$counterpartyId, creditLedgerAccountId=$creditLedgerAccountId, debitLedgerAccountId=$debitLedgerAccountId, description=$description, ledgerAccount=$ledgerAccount, metadata=$metadata, routingDetails=$routingDetails, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -341,19 +328,22 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(virtualAccountCreateParams: VirtualAccountCreateParams) = apply {
-            this.internalAccountId = virtualAccountCreateParams.internalAccountId
-            this.name = virtualAccountCreateParams.name
-            this.accountDetails(virtualAccountCreateParams.accountDetails ?: listOf())
-            this.counterpartyId = virtualAccountCreateParams.counterpartyId
-            this.creditLedgerAccountId = virtualAccountCreateParams.creditLedgerAccountId
-            this.debitLedgerAccountId = virtualAccountCreateParams.debitLedgerAccountId
-            this.description = virtualAccountCreateParams.description
-            this.ledgerAccount = virtualAccountCreateParams.ledgerAccount
-            this.metadata = virtualAccountCreateParams.metadata
-            this.routingDetails(virtualAccountCreateParams.routingDetails ?: listOf())
-            additionalHeaders(virtualAccountCreateParams.additionalHeaders)
-            additionalQueryParams(virtualAccountCreateParams.additionalQueryParams)
-            additionalBodyProperties(virtualAccountCreateParams.additionalBodyProperties)
+            internalAccountId = virtualAccountCreateParams.internalAccountId
+            name = virtualAccountCreateParams.name
+            accountDetails =
+                virtualAccountCreateParams.accountDetails?.toMutableList() ?: mutableListOf()
+            counterpartyId = virtualAccountCreateParams.counterpartyId
+            creditLedgerAccountId = virtualAccountCreateParams.creditLedgerAccountId
+            debitLedgerAccountId = virtualAccountCreateParams.debitLedgerAccountId
+            description = virtualAccountCreateParams.description
+            ledgerAccount = virtualAccountCreateParams.ledgerAccount
+            metadata = virtualAccountCreateParams.metadata
+            routingDetails =
+                virtualAccountCreateParams.routingDetails?.toMutableList() ?: mutableListOf()
+            additionalHeaders = virtualAccountCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = virtualAccountCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                virtualAccountCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The ID of the internal account that this virtual account is associated with. */
@@ -549,14 +539,14 @@ constructor(
                     "`internalAccountId` is required but was not set"
                 },
                 checkNotNull(name) { "`name` is required but was not set" },
-                if (accountDetails.size == 0) null else accountDetails.toImmutable(),
+                accountDetails.toImmutable().ifEmpty { null },
                 counterpartyId,
                 creditLedgerAccountId,
                 debitLedgerAccountId,
                 description,
                 ledgerAccount,
                 metadata,
-                if (routingDetails.size == 0) null else routingDetails.toImmutable(),
+                routingDetails.toImmutable().ifEmpty { null },
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -1685,4 +1675,17 @@ constructor(
         override fun toString() =
             "RoutingDetailCreateRequest{routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is VirtualAccountCreateParams && internalAccountId == other.internalAccountId && name == other.name && accountDetails == other.accountDetails && counterpartyId == other.counterpartyId && creditLedgerAccountId == other.creditLedgerAccountId && debitLedgerAccountId == other.debitLedgerAccountId && description == other.description && ledgerAccount == other.ledgerAccount && metadata == other.metadata && routingDetails == other.routingDetails && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(internalAccountId, name, accountDetails, counterpartyId, creditLedgerAccountId, debitLedgerAccountId, description, ledgerAccount, metadata, routingDetails, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "VirtualAccountCreateParams{internalAccountId=$internalAccountId, name=$name, accountDetails=$accountDetails, counterpartyId=$counterpartyId, creditLedgerAccountId=$creditLedgerAccountId, debitLedgerAccountId=$debitLedgerAccountId, description=$description, ledgerAccount=$ledgerAccount, metadata=$metadata, routingDetails=$routingDetails, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

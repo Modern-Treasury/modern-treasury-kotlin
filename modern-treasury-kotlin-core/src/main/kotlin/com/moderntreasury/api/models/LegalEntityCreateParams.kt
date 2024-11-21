@@ -100,6 +100,12 @@ constructor(
 
     fun website(): String? = website
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): LegalEntityCreateBody {
         return LegalEntityCreateBody(
             legalEntityType,
@@ -488,25 +494,6 @@ constructor(
             "LegalEntityCreateBody{legalEntityType=$legalEntityType, addresses=$addresses, bankSettings=$bankSettings, businessName=$businessName, citizenshipCountry=$citizenshipCountry, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, identifications=$identifications, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalStructure=$legalStructure, metadata=$metadata, middleName=$middleName, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, riskRating=$riskRating, suffix=$suffix, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LegalEntityCreateParams && legalEntityType == other.legalEntityType && addresses == other.addresses && bankSettings == other.bankSettings && businessName == other.businessName && citizenshipCountry == other.citizenshipCountry && dateFormed == other.dateFormed && dateOfBirth == other.dateOfBirth && doingBusinessAsNames == other.doingBusinessAsNames && email == other.email && firstName == other.firstName && identifications == other.identifications && lastName == other.lastName && legalEntityAssociations == other.legalEntityAssociations && legalStructure == other.legalStructure && metadata == other.metadata && middleName == other.middleName && phoneNumbers == other.phoneNumbers && politicallyExposedPerson == other.politicallyExposedPerson && preferredName == other.preferredName && prefix == other.prefix && riskRating == other.riskRating && suffix == other.suffix && wealthAndEmploymentDetails == other.wealthAndEmploymentDetails && website == other.website && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(legalEntityType, addresses, bankSettings, businessName, citizenshipCountry, dateFormed, dateOfBirth, doingBusinessAsNames, email, firstName, identifications, lastName, legalEntityAssociations, legalStructure, metadata, middleName, phoneNumbers, politicallyExposedPerson, preferredName, prefix, riskRating, suffix, wealthAndEmploymentDetails, website, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "LegalEntityCreateParams{legalEntityType=$legalEntityType, addresses=$addresses, bankSettings=$bankSettings, businessName=$businessName, citizenshipCountry=$citizenshipCountry, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, identifications=$identifications, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalStructure=$legalStructure, metadata=$metadata, middleName=$middleName, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, riskRating=$riskRating, suffix=$suffix, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -548,35 +535,37 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(legalEntityCreateParams: LegalEntityCreateParams) = apply {
-            this.legalEntityType = legalEntityCreateParams.legalEntityType
-            this.addresses(legalEntityCreateParams.addresses ?: listOf())
-            this.bankSettings = legalEntityCreateParams.bankSettings
-            this.businessName = legalEntityCreateParams.businessName
-            this.citizenshipCountry = legalEntityCreateParams.citizenshipCountry
-            this.dateFormed = legalEntityCreateParams.dateFormed
-            this.dateOfBirth = legalEntityCreateParams.dateOfBirth
-            this.doingBusinessAsNames(legalEntityCreateParams.doingBusinessAsNames ?: listOf())
-            this.email = legalEntityCreateParams.email
-            this.firstName = legalEntityCreateParams.firstName
-            this.identifications(legalEntityCreateParams.identifications ?: listOf())
-            this.lastName = legalEntityCreateParams.lastName
-            this.legalEntityAssociations(
-                legalEntityCreateParams.legalEntityAssociations ?: listOf()
-            )
-            this.legalStructure = legalEntityCreateParams.legalStructure
-            this.metadata = legalEntityCreateParams.metadata
-            this.middleName = legalEntityCreateParams.middleName
-            this.phoneNumbers(legalEntityCreateParams.phoneNumbers ?: listOf())
-            this.politicallyExposedPerson = legalEntityCreateParams.politicallyExposedPerson
-            this.preferredName = legalEntityCreateParams.preferredName
-            this.prefix = legalEntityCreateParams.prefix
-            this.riskRating = legalEntityCreateParams.riskRating
-            this.suffix = legalEntityCreateParams.suffix
-            this.wealthAndEmploymentDetails = legalEntityCreateParams.wealthAndEmploymentDetails
-            this.website = legalEntityCreateParams.website
-            additionalHeaders(legalEntityCreateParams.additionalHeaders)
-            additionalQueryParams(legalEntityCreateParams.additionalQueryParams)
-            additionalBodyProperties(legalEntityCreateParams.additionalBodyProperties)
+            legalEntityType = legalEntityCreateParams.legalEntityType
+            addresses = legalEntityCreateParams.addresses?.toMutableList() ?: mutableListOf()
+            bankSettings = legalEntityCreateParams.bankSettings
+            businessName = legalEntityCreateParams.businessName
+            citizenshipCountry = legalEntityCreateParams.citizenshipCountry
+            dateFormed = legalEntityCreateParams.dateFormed
+            dateOfBirth = legalEntityCreateParams.dateOfBirth
+            doingBusinessAsNames =
+                legalEntityCreateParams.doingBusinessAsNames?.toMutableList() ?: mutableListOf()
+            email = legalEntityCreateParams.email
+            firstName = legalEntityCreateParams.firstName
+            identifications =
+                legalEntityCreateParams.identifications?.toMutableList() ?: mutableListOf()
+            lastName = legalEntityCreateParams.lastName
+            legalEntityAssociations =
+                legalEntityCreateParams.legalEntityAssociations?.toMutableList() ?: mutableListOf()
+            legalStructure = legalEntityCreateParams.legalStructure
+            metadata = legalEntityCreateParams.metadata
+            middleName = legalEntityCreateParams.middleName
+            phoneNumbers = legalEntityCreateParams.phoneNumbers?.toMutableList() ?: mutableListOf()
+            politicallyExposedPerson = legalEntityCreateParams.politicallyExposedPerson
+            preferredName = legalEntityCreateParams.preferredName
+            prefix = legalEntityCreateParams.prefix
+            riskRating = legalEntityCreateParams.riskRating
+            suffix = legalEntityCreateParams.suffix
+            wealthAndEmploymentDetails = legalEntityCreateParams.wealthAndEmploymentDetails
+            website = legalEntityCreateParams.website
+            additionalHeaders = legalEntityCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = legalEntityCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                legalEntityCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The type of legal entity. */
@@ -821,23 +810,22 @@ constructor(
         fun build(): LegalEntityCreateParams =
             LegalEntityCreateParams(
                 checkNotNull(legalEntityType) { "`legalEntityType` is required but was not set" },
-                if (addresses.size == 0) null else addresses.toImmutable(),
+                addresses.toImmutable().ifEmpty { null },
                 bankSettings,
                 businessName,
                 citizenshipCountry,
                 dateFormed,
                 dateOfBirth,
-                if (doingBusinessAsNames.size == 0) null else doingBusinessAsNames.toImmutable(),
+                doingBusinessAsNames.toImmutable().ifEmpty { null },
                 email,
                 firstName,
-                if (identifications.size == 0) null else identifications.toImmutable(),
+                identifications.toImmutable().ifEmpty { null },
                 lastName,
-                if (legalEntityAssociations.size == 0) null
-                else legalEntityAssociations.toImmutable(),
+                legalEntityAssociations.toImmutable().ifEmpty { null },
                 legalStructure,
                 metadata,
                 middleName,
-                if (phoneNumbers.size == 0) null else phoneNumbers.toImmutable(),
+                phoneNumbers.toImmutable().ifEmpty { null },
                 politicallyExposedPerson,
                 preferredName,
                 prefix,
@@ -3042,4 +3030,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LegalEntityCreateParams && legalEntityType == other.legalEntityType && addresses == other.addresses && bankSettings == other.bankSettings && businessName == other.businessName && citizenshipCountry == other.citizenshipCountry && dateFormed == other.dateFormed && dateOfBirth == other.dateOfBirth && doingBusinessAsNames == other.doingBusinessAsNames && email == other.email && firstName == other.firstName && identifications == other.identifications && lastName == other.lastName && legalEntityAssociations == other.legalEntityAssociations && legalStructure == other.legalStructure && metadata == other.metadata && middleName == other.middleName && phoneNumbers == other.phoneNumbers && politicallyExposedPerson == other.politicallyExposedPerson && preferredName == other.preferredName && prefix == other.prefix && riskRating == other.riskRating && suffix == other.suffix && wealthAndEmploymentDetails == other.wealthAndEmploymentDetails && website == other.website && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(legalEntityType, addresses, bankSettings, businessName, citizenshipCountry, dateFormed, dateOfBirth, doingBusinessAsNames, email, firstName, identifications, lastName, legalEntityAssociations, legalStructure, metadata, middleName, phoneNumbers, politicallyExposedPerson, preferredName, prefix, riskRating, suffix, wealthAndEmploymentDetails, website, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "LegalEntityCreateParams{legalEntityType=$legalEntityType, addresses=$addresses, bankSettings=$bankSettings, businessName=$businessName, citizenshipCountry=$citizenshipCountry, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, identifications=$identifications, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalStructure=$legalStructure, metadata=$metadata, middleName=$middleName, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, riskRating=$riskRating, suffix=$suffix, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

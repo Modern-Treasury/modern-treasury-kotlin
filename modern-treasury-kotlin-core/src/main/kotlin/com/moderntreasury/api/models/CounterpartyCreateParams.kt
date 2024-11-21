@@ -60,6 +60,12 @@ constructor(
 
     fun verificationStatus(): VerificationStatus? = verificationStatus
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): CounterpartyCreateBody {
         return CounterpartyCreateBody(
             name,
@@ -287,25 +293,6 @@ constructor(
             "CounterpartyCreateBody{name=$name, accounting=$accounting, accounts=$accounts, email=$email, ledgerType=$ledgerType, legalEntity=$legalEntity, legalEntityId=$legalEntityId, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CounterpartyCreateParams && name == other.name && accounting == other.accounting && accounts == other.accounts && email == other.email && ledgerType == other.ledgerType && legalEntity == other.legalEntity && legalEntityId == other.legalEntityId && metadata == other.metadata && sendRemittanceAdvice == other.sendRemittanceAdvice && taxpayerIdentifier == other.taxpayerIdentifier && verificationStatus == other.verificationStatus && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(name, accounting, accounts, email, ledgerType, legalEntity, legalEntityId, metadata, sendRemittanceAdvice, taxpayerIdentifier, verificationStatus, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "CounterpartyCreateParams{name=$name, accounting=$accounting, accounts=$accounts, email=$email, ledgerType=$ledgerType, legalEntity=$legalEntity, legalEntityId=$legalEntityId, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -332,20 +319,21 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(counterpartyCreateParams: CounterpartyCreateParams) = apply {
-            this.name = counterpartyCreateParams.name
-            this.accounting = counterpartyCreateParams.accounting
-            this.accounts(counterpartyCreateParams.accounts ?: listOf())
-            this.email = counterpartyCreateParams.email
-            this.ledgerType = counterpartyCreateParams.ledgerType
-            this.legalEntity = counterpartyCreateParams.legalEntity
-            this.legalEntityId = counterpartyCreateParams.legalEntityId
-            this.metadata = counterpartyCreateParams.metadata
-            this.sendRemittanceAdvice = counterpartyCreateParams.sendRemittanceAdvice
-            this.taxpayerIdentifier = counterpartyCreateParams.taxpayerIdentifier
-            this.verificationStatus = counterpartyCreateParams.verificationStatus
-            additionalHeaders(counterpartyCreateParams.additionalHeaders)
-            additionalQueryParams(counterpartyCreateParams.additionalQueryParams)
-            additionalBodyProperties(counterpartyCreateParams.additionalBodyProperties)
+            name = counterpartyCreateParams.name
+            accounting = counterpartyCreateParams.accounting
+            accounts = counterpartyCreateParams.accounts?.toMutableList() ?: mutableListOf()
+            email = counterpartyCreateParams.email
+            ledgerType = counterpartyCreateParams.ledgerType
+            legalEntity = counterpartyCreateParams.legalEntity
+            legalEntityId = counterpartyCreateParams.legalEntityId
+            metadata = counterpartyCreateParams.metadata
+            sendRemittanceAdvice = counterpartyCreateParams.sendRemittanceAdvice
+            taxpayerIdentifier = counterpartyCreateParams.taxpayerIdentifier
+            verificationStatus = counterpartyCreateParams.verificationStatus
+            additionalHeaders = counterpartyCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = counterpartyCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                counterpartyCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** A human friendly name for this counterparty. */
@@ -525,7 +513,7 @@ constructor(
             CounterpartyCreateParams(
                 name,
                 accounting,
-                if (accounts.size == 0) null else accounts.toImmutable(),
+                accounts.toImmutable().ifEmpty { null },
                 email,
                 ledgerType,
                 legalEntity,
@@ -5153,4 +5141,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CounterpartyCreateParams && name == other.name && accounting == other.accounting && accounts == other.accounts && email == other.email && ledgerType == other.ledgerType && legalEntity == other.legalEntity && legalEntityId == other.legalEntityId && metadata == other.metadata && sendRemittanceAdvice == other.sendRemittanceAdvice && taxpayerIdentifier == other.taxpayerIdentifier && verificationStatus == other.verificationStatus && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(name, accounting, accounts, email, ledgerType, legalEntity, legalEntityId, metadata, sendRemittanceAdvice, taxpayerIdentifier, verificationStatus, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "CounterpartyCreateParams{name=$name, accounting=$accounting, accounts=$accounts, email=$email, ledgerType=$ledgerType, legalEntity=$legalEntity, legalEntityId=$legalEntityId, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

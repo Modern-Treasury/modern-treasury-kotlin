@@ -55,6 +55,12 @@ constructor(
 
     fun status(): Status? = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): LedgerTransactionCreateBody {
         return LedgerTransactionCreateBody(
             ledgerEntries,
@@ -280,25 +286,6 @@ constructor(
             "LedgerTransactionCreateBody{ledgerEntries=$ledgerEntries, description=$description, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerTransactionCreateParams && ledgerEntries == other.ledgerEntries && description == other.description && effectiveAt == other.effectiveAt && effectiveDate == other.effectiveDate && externalId == other.externalId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(ledgerEntries, description, effectiveAt, effectiveDate, externalId, ledgerableId, ledgerableType, metadata, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "LedgerTransactionCreateParams{ledgerEntries=$ledgerEntries, description=$description, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -323,18 +310,19 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerTransactionCreateParams: LedgerTransactionCreateParams) = apply {
-            this.ledgerEntries(ledgerTransactionCreateParams.ledgerEntries)
-            this.description = ledgerTransactionCreateParams.description
-            this.effectiveAt = ledgerTransactionCreateParams.effectiveAt
-            this.effectiveDate = ledgerTransactionCreateParams.effectiveDate
-            this.externalId = ledgerTransactionCreateParams.externalId
-            this.ledgerableId = ledgerTransactionCreateParams.ledgerableId
-            this.ledgerableType = ledgerTransactionCreateParams.ledgerableType
-            this.metadata = ledgerTransactionCreateParams.metadata
-            this.status = ledgerTransactionCreateParams.status
-            additionalHeaders(ledgerTransactionCreateParams.additionalHeaders)
-            additionalQueryParams(ledgerTransactionCreateParams.additionalQueryParams)
-            additionalBodyProperties(ledgerTransactionCreateParams.additionalBodyProperties)
+            ledgerEntries = ledgerTransactionCreateParams.ledgerEntries.toMutableList()
+            description = ledgerTransactionCreateParams.description
+            effectiveAt = ledgerTransactionCreateParams.effectiveAt
+            effectiveDate = ledgerTransactionCreateParams.effectiveDate
+            externalId = ledgerTransactionCreateParams.externalId
+            ledgerableId = ledgerTransactionCreateParams.ledgerableId
+            ledgerableType = ledgerTransactionCreateParams.ledgerableType
+            metadata = ledgerTransactionCreateParams.metadata
+            status = ledgerTransactionCreateParams.status
+            additionalHeaders = ledgerTransactionCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = ledgerTransactionCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                ledgerTransactionCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** An array of ledger entry objects. */
@@ -513,8 +501,7 @@ constructor(
 
         fun build(): LedgerTransactionCreateParams =
             LedgerTransactionCreateParams(
-                checkNotNull(ledgerEntries) { "`ledgerEntries` is required but was not set" }
-                    .toImmutable(),
+                ledgerEntries.toImmutable(),
                 description,
                 effectiveAt,
                 effectiveDate,
@@ -1241,4 +1228,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerTransactionCreateParams && ledgerEntries == other.ledgerEntries && description == other.description && effectiveAt == other.effectiveAt && effectiveDate == other.effectiveDate && externalId == other.externalId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(ledgerEntries, description, effectiveAt, effectiveDate, externalId, ledgerableId, ledgerableType, metadata, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "LedgerTransactionCreateParams{ledgerEntries=$ledgerEntries, description=$description, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

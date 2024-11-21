@@ -42,6 +42,12 @@ constructor(
 
     fun balances(): List<BalanceCreateRequest> = balances
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): BalanceReportCreateBody {
         return BalanceReportCreateBody(
             asOfDate,
@@ -183,25 +189,6 @@ constructor(
             "BalanceReportCreateBody{asOfDate=$asOfDate, asOfTime=$asOfTime, balanceReportType=$balanceReportType, balances=$balances, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is BalanceReportCreateParams && internalAccountId == other.internalAccountId && asOfDate == other.asOfDate && asOfTime == other.asOfTime && balanceReportType == other.balanceReportType && balances == other.balances && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(internalAccountId, asOfDate, asOfTime, balanceReportType, balances, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "BalanceReportCreateParams{internalAccountId=$internalAccountId, asOfDate=$asOfDate, asOfTime=$asOfTime, balanceReportType=$balanceReportType, balances=$balances, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -222,14 +209,15 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(balanceReportCreateParams: BalanceReportCreateParams) = apply {
-            this.internalAccountId = balanceReportCreateParams.internalAccountId
-            this.asOfDate = balanceReportCreateParams.asOfDate
-            this.asOfTime = balanceReportCreateParams.asOfTime
-            this.balanceReportType = balanceReportCreateParams.balanceReportType
-            this.balances(balanceReportCreateParams.balances)
-            additionalHeaders(balanceReportCreateParams.additionalHeaders)
-            additionalQueryParams(balanceReportCreateParams.additionalQueryParams)
-            additionalBodyProperties(balanceReportCreateParams.additionalBodyProperties)
+            internalAccountId = balanceReportCreateParams.internalAccountId
+            asOfDate = balanceReportCreateParams.asOfDate
+            asOfTime = balanceReportCreateParams.asOfTime
+            balanceReportType = balanceReportCreateParams.balanceReportType
+            balances = balanceReportCreateParams.balances.toMutableList()
+            additionalHeaders = balanceReportCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = balanceReportCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                balanceReportCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun internalAccountId(internalAccountId: String) = apply {
@@ -389,7 +377,7 @@ constructor(
                 checkNotNull(balanceReportType) {
                     "`balanceReportType` is required but was not set"
                 },
-                checkNotNull(balances) { "`balances` is required but was not set" }.toImmutable(),
+                balances.toImmutable(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -685,4 +673,17 @@ constructor(
         override fun toString() =
             "BalanceCreateRequest{amount=$amount, balanceType=$balanceType, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is BalanceReportCreateParams && internalAccountId == other.internalAccountId && asOfDate == other.asOfDate && asOfTime == other.asOfTime && balanceReportType == other.balanceReportType && balances == other.balances && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(internalAccountId, asOfDate, asOfTime, balanceReportType, balances, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "BalanceReportCreateParams{internalAccountId=$internalAccountId, asOfDate=$asOfDate, asOfTime=$asOfTime, balanceReportType=$balanceReportType, balances=$balances, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

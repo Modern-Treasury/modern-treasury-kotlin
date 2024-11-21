@@ -31,6 +31,12 @@ constructor(
 
     fun metadata(): Metadata? = metadata
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): LedgerAccountBalanceMonitorUpdateBody {
         return LedgerAccountBalanceMonitorUpdateBody(
             description,
@@ -143,25 +149,6 @@ constructor(
             "LedgerAccountBalanceMonitorUpdateBody{description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerAccountBalanceMonitorUpdateParams && id == other.id && description == other.description && metadata == other.metadata && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, description, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "LedgerAccountBalanceMonitorUpdateParams{id=$id, description=$description, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -182,14 +169,15 @@ constructor(
         internal fun from(
             ledgerAccountBalanceMonitorUpdateParams: LedgerAccountBalanceMonitorUpdateParams
         ) = apply {
-            this.id = ledgerAccountBalanceMonitorUpdateParams.id
-            this.description = ledgerAccountBalanceMonitorUpdateParams.description
-            this.metadata = ledgerAccountBalanceMonitorUpdateParams.metadata
-            additionalHeaders(ledgerAccountBalanceMonitorUpdateParams.additionalHeaders)
-            additionalQueryParams(ledgerAccountBalanceMonitorUpdateParams.additionalQueryParams)
-            additionalBodyProperties(
-                ledgerAccountBalanceMonitorUpdateParams.additionalBodyProperties
-            )
+            id = ledgerAccountBalanceMonitorUpdateParams.id
+            description = ledgerAccountBalanceMonitorUpdateParams.description
+            metadata = ledgerAccountBalanceMonitorUpdateParams.metadata
+            additionalHeaders =
+                ledgerAccountBalanceMonitorUpdateParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                ledgerAccountBalanceMonitorUpdateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                ledgerAccountBalanceMonitorUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String) = apply { this.id = id }
@@ -393,4 +381,17 @@ constructor(
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerAccountBalanceMonitorUpdateParams && id == other.id && description == other.description && metadata == other.metadata && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, description, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "LedgerAccountBalanceMonitorUpdateParams{id=$id, description=$description, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }
