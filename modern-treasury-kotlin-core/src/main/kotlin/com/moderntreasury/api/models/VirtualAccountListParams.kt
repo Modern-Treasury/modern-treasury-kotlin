@@ -31,6 +31,10 @@ constructor(
 
     fun perPage(): Long? = perPage
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -47,23 +51,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is VirtualAccountListParams && afterCursor == other.afterCursor && counterpartyId == other.counterpartyId && internalAccountId == other.internalAccountId && metadata == other.metadata && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, counterpartyId, internalAccountId, metadata, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "VirtualAccountListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, internalAccountId=$internalAccountId, metadata=$metadata, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -84,13 +71,13 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(virtualAccountListParams: VirtualAccountListParams) = apply {
-            this.afterCursor = virtualAccountListParams.afterCursor
-            this.counterpartyId = virtualAccountListParams.counterpartyId
-            this.internalAccountId = virtualAccountListParams.internalAccountId
-            this.metadata = virtualAccountListParams.metadata
-            this.perPage = virtualAccountListParams.perPage
-            additionalHeaders(virtualAccountListParams.additionalHeaders)
-            additionalQueryParams(virtualAccountListParams.additionalQueryParams)
+            afterCursor = virtualAccountListParams.afterCursor
+            counterpartyId = virtualAccountListParams.counterpartyId
+            internalAccountId = virtualAccountListParams.internalAccountId
+            metadata = virtualAccountListParams.metadata
+            perPage = virtualAccountListParams.perPage
+            additionalHeaders = virtualAccountListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = virtualAccountListParams.additionalQueryParams.toBuilder()
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
@@ -284,4 +271,17 @@ constructor(
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is VirtualAccountListParams && afterCursor == other.afterCursor && counterpartyId == other.counterpartyId && internalAccountId == other.internalAccountId && metadata == other.metadata && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, counterpartyId, internalAccountId, metadata, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "VirtualAccountListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, internalAccountId=$internalAccountId, metadata=$metadata, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

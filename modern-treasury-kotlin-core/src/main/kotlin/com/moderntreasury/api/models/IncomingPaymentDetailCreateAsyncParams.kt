@@ -51,6 +51,12 @@ constructor(
 
     fun virtualAccountId(): String? = virtualAccountId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): IncomingPaymentDetailCreateAsyncBody {
         return IncomingPaymentDetailCreateAsyncBody(
             amount,
@@ -229,25 +235,6 @@ constructor(
             "IncomingPaymentDetailCreateAsyncBody{amount=$amount, asOfDate=$asOfDate, currency=$currency, description=$description, direction=$direction, internalAccountId=$internalAccountId, type=$type, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is IncomingPaymentDetailCreateAsyncParams && amount == other.amount && asOfDate == other.asOfDate && currency == other.currency && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && type == other.type && virtualAccountId == other.virtualAccountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, asOfDate, currency, description, direction, internalAccountId, type, virtualAccountId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "IncomingPaymentDetailCreateAsyncParams{amount=$amount, asOfDate=$asOfDate, currency=$currency, description=$description, direction=$direction, internalAccountId=$internalAccountId, type=$type, virtualAccountId=$virtualAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -273,19 +260,19 @@ constructor(
         internal fun from(
             incomingPaymentDetailCreateAsyncParams: IncomingPaymentDetailCreateAsyncParams
         ) = apply {
-            this.amount = incomingPaymentDetailCreateAsyncParams.amount
-            this.asOfDate = incomingPaymentDetailCreateAsyncParams.asOfDate
-            this.currency = incomingPaymentDetailCreateAsyncParams.currency
-            this.description = incomingPaymentDetailCreateAsyncParams.description
-            this.direction = incomingPaymentDetailCreateAsyncParams.direction
-            this.internalAccountId = incomingPaymentDetailCreateAsyncParams.internalAccountId
-            this.type = incomingPaymentDetailCreateAsyncParams.type
-            this.virtualAccountId = incomingPaymentDetailCreateAsyncParams.virtualAccountId
-            additionalHeaders(incomingPaymentDetailCreateAsyncParams.additionalHeaders)
-            additionalQueryParams(incomingPaymentDetailCreateAsyncParams.additionalQueryParams)
-            additionalBodyProperties(
-                incomingPaymentDetailCreateAsyncParams.additionalBodyProperties
-            )
+            amount = incomingPaymentDetailCreateAsyncParams.amount
+            asOfDate = incomingPaymentDetailCreateAsyncParams.asOfDate
+            currency = incomingPaymentDetailCreateAsyncParams.currency
+            description = incomingPaymentDetailCreateAsyncParams.description
+            direction = incomingPaymentDetailCreateAsyncParams.direction
+            internalAccountId = incomingPaymentDetailCreateAsyncParams.internalAccountId
+            type = incomingPaymentDetailCreateAsyncParams.type
+            virtualAccountId = incomingPaymentDetailCreateAsyncParams.virtualAccountId
+            additionalHeaders = incomingPaymentDetailCreateAsyncParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                incomingPaymentDetailCreateAsyncParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                incomingPaymentDetailCreateAsyncParams.additionalBodyProperties.toMutableMap()
         }
 
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
@@ -607,4 +594,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is IncomingPaymentDetailCreateAsyncParams && amount == other.amount && asOfDate == other.asOfDate && currency == other.currency && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && type == other.type && virtualAccountId == other.virtualAccountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, asOfDate, currency, description, direction, internalAccountId, type, virtualAccountId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "IncomingPaymentDetailCreateAsyncParams{amount=$amount, asOfDate=$asOfDate, currency=$currency, description=$description, direction=$direction, internalAccountId=$internalAccountId, type=$type, virtualAccountId=$virtualAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

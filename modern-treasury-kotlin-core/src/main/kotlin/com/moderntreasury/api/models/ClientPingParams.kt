@@ -14,26 +14,13 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
-    internal fun getHeaders(): Headers = additionalHeaders
-
-    internal fun getQueryParams(): QueryParams = additionalQueryParams
-
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+    internal fun getHeaders(): Headers = additionalHeaders
 
-        return /* spotless:off */ other is ClientPingParams && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "ClientPingParams{additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+    internal fun getQueryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)
 
@@ -49,8 +36,8 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(clientPingParams: ClientPingParams) = apply {
-            additionalHeaders(clientPingParams.additionalHeaders)
-            additionalQueryParams(clientPingParams.additionalQueryParams)
+            additionalHeaders = clientPingParams.additionalHeaders.toBuilder()
+            additionalQueryParams = clientPingParams.additionalQueryParams.toBuilder()
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -154,4 +141,17 @@ constructor(
         fun build(): ClientPingParams =
             ClientPingParams(additionalHeaders.build(), additionalQueryParams.build())
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ClientPingParams && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "ClientPingParams{additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

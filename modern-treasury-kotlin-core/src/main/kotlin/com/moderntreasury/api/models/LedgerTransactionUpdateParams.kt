@@ -51,6 +51,12 @@ constructor(
 
     fun status(): Status? = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): LedgerTransactionUpdateBody {
         return LedgerTransactionUpdateBody(
             description,
@@ -245,25 +251,6 @@ constructor(
             "LedgerTransactionUpdateBody{description=$description, effectiveAt=$effectiveAt, ledgerEntries=$ledgerEntries, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerTransactionUpdateParams && id == other.id && description == other.description && effectiveAt == other.effectiveAt && ledgerEntries == other.ledgerEntries && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, description, effectiveAt, ledgerEntries, ledgerableId, ledgerableType, metadata, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "LedgerTransactionUpdateParams{id=$id, description=$description, effectiveAt=$effectiveAt, ledgerEntries=$ledgerEntries, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -287,17 +274,19 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerTransactionUpdateParams: LedgerTransactionUpdateParams) = apply {
-            this.id = ledgerTransactionUpdateParams.id
-            this.description = ledgerTransactionUpdateParams.description
-            this.effectiveAt = ledgerTransactionUpdateParams.effectiveAt
-            this.ledgerEntries(ledgerTransactionUpdateParams.ledgerEntries ?: listOf())
-            this.ledgerableId = ledgerTransactionUpdateParams.ledgerableId
-            this.ledgerableType = ledgerTransactionUpdateParams.ledgerableType
-            this.metadata = ledgerTransactionUpdateParams.metadata
-            this.status = ledgerTransactionUpdateParams.status
-            additionalHeaders(ledgerTransactionUpdateParams.additionalHeaders)
-            additionalQueryParams(ledgerTransactionUpdateParams.additionalQueryParams)
-            additionalBodyProperties(ledgerTransactionUpdateParams.additionalBodyProperties)
+            id = ledgerTransactionUpdateParams.id
+            description = ledgerTransactionUpdateParams.description
+            effectiveAt = ledgerTransactionUpdateParams.effectiveAt
+            ledgerEntries =
+                ledgerTransactionUpdateParams.ledgerEntries?.toMutableList() ?: mutableListOf()
+            ledgerableId = ledgerTransactionUpdateParams.ledgerableId
+            ledgerableType = ledgerTransactionUpdateParams.ledgerableType
+            metadata = ledgerTransactionUpdateParams.metadata
+            status = ledgerTransactionUpdateParams.status
+            additionalHeaders = ledgerTransactionUpdateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = ledgerTransactionUpdateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                ledgerTransactionUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String) = apply { this.id = id }
@@ -470,7 +459,7 @@ constructor(
                 checkNotNull(id) { "`id` is required but was not set" },
                 description,
                 effectiveAt,
-                if (ledgerEntries.size == 0) null else ledgerEntries.toImmutable(),
+                ledgerEntries.toImmutable().ifEmpty { null },
                 ledgerableId,
                 ledgerableType,
                 metadata,
@@ -1193,4 +1182,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerTransactionUpdateParams && id == other.id && description == other.description && effectiveAt == other.effectiveAt && ledgerEntries == other.ledgerEntries && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, description, effectiveAt, ledgerEntries, ledgerableId, ledgerableType, metadata, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "LedgerTransactionUpdateParams{id=$id, description=$description, effectiveAt=$effectiveAt, ledgerEntries=$ledgerEntries, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

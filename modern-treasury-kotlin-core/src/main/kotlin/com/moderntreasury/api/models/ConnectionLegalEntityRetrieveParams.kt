@@ -17,6 +17,10 @@ constructor(
 
     fun id(): String = id
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ConnectionLegalEntityRetrieveParams && id == other.id && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "ConnectionLegalEntityRetrieveParams{id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -62,9 +49,10 @@ constructor(
         internal fun from(
             connectionLegalEntityRetrieveParams: ConnectionLegalEntityRetrieveParams
         ) = apply {
-            this.id = connectionLegalEntityRetrieveParams.id
-            additionalHeaders(connectionLegalEntityRetrieveParams.additionalHeaders)
-            additionalQueryParams(connectionLegalEntityRetrieveParams.additionalQueryParams)
+            id = connectionLegalEntityRetrieveParams.id
+            additionalHeaders = connectionLegalEntityRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                connectionLegalEntityRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         fun id(id: String) = apply { this.id = id }
@@ -174,4 +162,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ConnectionLegalEntityRetrieveParams && id == other.id && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "ConnectionLegalEntityRetrieveParams{id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

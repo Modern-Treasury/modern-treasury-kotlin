@@ -28,6 +28,12 @@ constructor(
 
     fun amounts(): List<Long>? = amounts
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): ExternalAccountCompleteVerificationBody {
         return ExternalAccountCompleteVerificationBody(amounts, additionalBodyProperties)
     }
@@ -118,25 +124,6 @@ constructor(
             "ExternalAccountCompleteVerificationBody{amounts=$amounts, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ExternalAccountCompleteVerificationParams && id == other.id && amounts == other.amounts && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, amounts, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "ExternalAccountCompleteVerificationParams{id=$id, amounts=$amounts, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -156,13 +143,16 @@ constructor(
         internal fun from(
             externalAccountCompleteVerificationParams: ExternalAccountCompleteVerificationParams
         ) = apply {
-            this.id = externalAccountCompleteVerificationParams.id
-            this.amounts(externalAccountCompleteVerificationParams.amounts ?: listOf())
-            additionalHeaders(externalAccountCompleteVerificationParams.additionalHeaders)
-            additionalQueryParams(externalAccountCompleteVerificationParams.additionalQueryParams)
-            additionalBodyProperties(
-                externalAccountCompleteVerificationParams.additionalBodyProperties
-            )
+            id = externalAccountCompleteVerificationParams.id
+            amounts =
+                externalAccountCompleteVerificationParams.amounts?.toMutableList()
+                    ?: mutableListOf()
+            additionalHeaders =
+                externalAccountCompleteVerificationParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                externalAccountCompleteVerificationParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                externalAccountCompleteVerificationParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String) = apply { this.id = id }
@@ -297,10 +287,23 @@ constructor(
         fun build(): ExternalAccountCompleteVerificationParams =
             ExternalAccountCompleteVerificationParams(
                 checkNotNull(id) { "`id` is required but was not set" },
-                if (amounts.size == 0) null else amounts.toImmutable(),
+                amounts.toImmutable().ifEmpty { null },
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ExternalAccountCompleteVerificationParams && id == other.id && amounts == other.amounts && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, amounts, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "ExternalAccountCompleteVerificationParams{id=$id, amounts=$amounts, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

@@ -32,6 +32,10 @@ constructor(
 
     fun status(): String? = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -47,23 +51,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AccountCollectionFlowListParams && afterCursor == other.afterCursor && clientToken == other.clientToken && counterpartyId == other.counterpartyId && externalAccountId == other.externalAccountId && perPage == other.perPage && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, clientToken, counterpartyId, externalAccountId, perPage, status, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "AccountCollectionFlowListParams{afterCursor=$afterCursor, clientToken=$clientToken, counterpartyId=$counterpartyId, externalAccountId=$externalAccountId, perPage=$perPage, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -86,14 +73,15 @@ constructor(
 
         internal fun from(accountCollectionFlowListParams: AccountCollectionFlowListParams) =
             apply {
-                this.afterCursor = accountCollectionFlowListParams.afterCursor
-                this.clientToken = accountCollectionFlowListParams.clientToken
-                this.counterpartyId = accountCollectionFlowListParams.counterpartyId
-                this.externalAccountId = accountCollectionFlowListParams.externalAccountId
-                this.perPage = accountCollectionFlowListParams.perPage
-                this.status = accountCollectionFlowListParams.status
-                additionalHeaders(accountCollectionFlowListParams.additionalHeaders)
-                additionalQueryParams(accountCollectionFlowListParams.additionalQueryParams)
+                afterCursor = accountCollectionFlowListParams.afterCursor
+                clientToken = accountCollectionFlowListParams.clientToken
+                counterpartyId = accountCollectionFlowListParams.counterpartyId
+                externalAccountId = accountCollectionFlowListParams.externalAccountId
+                perPage = accountCollectionFlowListParams.perPage
+                status = accountCollectionFlowListParams.status
+                additionalHeaders = accountCollectionFlowListParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    accountCollectionFlowListParams.additionalQueryParams.toBuilder()
             }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
@@ -220,4 +208,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AccountCollectionFlowListParams && afterCursor == other.afterCursor && clientToken == other.clientToken && counterpartyId == other.counterpartyId && externalAccountId == other.externalAccountId && perPage == other.perPage && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, clientToken, counterpartyId, externalAccountId, perPage, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "AccountCollectionFlowListParams{afterCursor=$afterCursor, clientToken=$clientToken, counterpartyId=$counterpartyId, externalAccountId=$externalAccountId, perPage=$perPage, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

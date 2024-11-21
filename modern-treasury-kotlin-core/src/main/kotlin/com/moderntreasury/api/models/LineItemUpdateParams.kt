@@ -38,6 +38,12 @@ constructor(
 
     fun metadata(): Metadata? = metadata
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): LineItemUpdateBody {
         return LineItemUpdateBody(metadata, additionalBodyProperties)
     }
@@ -132,25 +138,6 @@ constructor(
             "LineItemUpdateBody{metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LineItemUpdateParams && itemizableType == other.itemizableType && itemizableId == other.itemizableId && id == other.id && metadata == other.metadata && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(itemizableType, itemizableId, id, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "LineItemUpdateParams{itemizableType=$itemizableType, itemizableId=$itemizableId, id=$id, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -170,13 +157,13 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(lineItemUpdateParams: LineItemUpdateParams) = apply {
-            this.itemizableType = lineItemUpdateParams.itemizableType
-            this.itemizableId = lineItemUpdateParams.itemizableId
-            this.id = lineItemUpdateParams.id
-            this.metadata = lineItemUpdateParams.metadata
-            additionalHeaders(lineItemUpdateParams.additionalHeaders)
-            additionalQueryParams(lineItemUpdateParams.additionalQueryParams)
-            additionalBodyProperties(lineItemUpdateParams.additionalBodyProperties)
+            itemizableType = lineItemUpdateParams.itemizableType
+            itemizableId = lineItemUpdateParams.itemizableId
+            id = lineItemUpdateParams.id
+            metadata = lineItemUpdateParams.metadata
+            additionalHeaders = lineItemUpdateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = lineItemUpdateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties = lineItemUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun itemizableType(itemizableType: ItemizableType) = apply {
@@ -441,4 +428,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LineItemUpdateParams && itemizableType == other.itemizableType && itemizableId == other.itemizableId && id == other.id && metadata == other.metadata && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(itemizableType, itemizableId, id, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "LineItemUpdateParams{itemizableType=$itemizableType, itemizableId=$itemizableId, id=$id, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

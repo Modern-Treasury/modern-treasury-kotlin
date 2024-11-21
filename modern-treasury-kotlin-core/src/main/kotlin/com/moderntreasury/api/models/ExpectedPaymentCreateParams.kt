@@ -85,6 +85,12 @@ constructor(
 
     fun type(): ExpectedPaymentType? = type
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): ExpectedPaymentCreateBody {
         return ExpectedPaymentCreateBody(
             amountLowerBound,
@@ -482,25 +488,6 @@ constructor(
             "ExpectedPaymentCreateBody{amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, direction=$direction, internalAccountId=$internalAccountId, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, type=$type, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ExpectedPaymentCreateParams && amountLowerBound == other.amountLowerBound && amountUpperBound == other.amountUpperBound && counterpartyId == other.counterpartyId && currency == other.currency && dateLowerBound == other.dateLowerBound && dateUpperBound == other.dateUpperBound && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && ledgerTransaction == other.ledgerTransaction && ledgerTransactionId == other.ledgerTransactionId && lineItems == other.lineItems && metadata == other.metadata && reconciliationFilters == other.reconciliationFilters && reconciliationGroups == other.reconciliationGroups && reconciliationRuleVariables == other.reconciliationRuleVariables && remittanceInformation == other.remittanceInformation && statementDescriptor == other.statementDescriptor && type == other.type && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amountLowerBound, amountUpperBound, counterpartyId, currency, dateLowerBound, dateUpperBound, description, direction, internalAccountId, ledgerTransaction, ledgerTransactionId, lineItems, metadata, reconciliationFilters, reconciliationGroups, reconciliationRuleVariables, remittanceInformation, statementDescriptor, type, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "ExpectedPaymentCreateParams{amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, direction=$direction, internalAccountId=$internalAccountId, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, type=$type, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -535,30 +522,31 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(expectedPaymentCreateParams: ExpectedPaymentCreateParams) = apply {
-            this.amountLowerBound = expectedPaymentCreateParams.amountLowerBound
-            this.amountUpperBound = expectedPaymentCreateParams.amountUpperBound
-            this.counterpartyId = expectedPaymentCreateParams.counterpartyId
-            this.currency = expectedPaymentCreateParams.currency
-            this.dateLowerBound = expectedPaymentCreateParams.dateLowerBound
-            this.dateUpperBound = expectedPaymentCreateParams.dateUpperBound
-            this.description = expectedPaymentCreateParams.description
-            this.direction = expectedPaymentCreateParams.direction
-            this.internalAccountId = expectedPaymentCreateParams.internalAccountId
-            this.ledgerTransaction = expectedPaymentCreateParams.ledgerTransaction
-            this.ledgerTransactionId = expectedPaymentCreateParams.ledgerTransactionId
-            this.lineItems(expectedPaymentCreateParams.lineItems ?: listOf())
-            this.metadata = expectedPaymentCreateParams.metadata
-            this.reconciliationFilters = expectedPaymentCreateParams.reconciliationFilters
-            this.reconciliationGroups = expectedPaymentCreateParams.reconciliationGroups
-            this.reconciliationRuleVariables(
-                expectedPaymentCreateParams.reconciliationRuleVariables ?: listOf()
-            )
-            this.remittanceInformation = expectedPaymentCreateParams.remittanceInformation
-            this.statementDescriptor = expectedPaymentCreateParams.statementDescriptor
-            this.type = expectedPaymentCreateParams.type
-            additionalHeaders(expectedPaymentCreateParams.additionalHeaders)
-            additionalQueryParams(expectedPaymentCreateParams.additionalQueryParams)
-            additionalBodyProperties(expectedPaymentCreateParams.additionalBodyProperties)
+            amountLowerBound = expectedPaymentCreateParams.amountLowerBound
+            amountUpperBound = expectedPaymentCreateParams.amountUpperBound
+            counterpartyId = expectedPaymentCreateParams.counterpartyId
+            currency = expectedPaymentCreateParams.currency
+            dateLowerBound = expectedPaymentCreateParams.dateLowerBound
+            dateUpperBound = expectedPaymentCreateParams.dateUpperBound
+            description = expectedPaymentCreateParams.description
+            direction = expectedPaymentCreateParams.direction
+            internalAccountId = expectedPaymentCreateParams.internalAccountId
+            ledgerTransaction = expectedPaymentCreateParams.ledgerTransaction
+            ledgerTransactionId = expectedPaymentCreateParams.ledgerTransactionId
+            lineItems = expectedPaymentCreateParams.lineItems?.toMutableList() ?: mutableListOf()
+            metadata = expectedPaymentCreateParams.metadata
+            reconciliationFilters = expectedPaymentCreateParams.reconciliationFilters
+            reconciliationGroups = expectedPaymentCreateParams.reconciliationGroups
+            reconciliationRuleVariables =
+                expectedPaymentCreateParams.reconciliationRuleVariables?.toMutableList()
+                    ?: mutableListOf()
+            remittanceInformation = expectedPaymentCreateParams.remittanceInformation
+            statementDescriptor = expectedPaymentCreateParams.statementDescriptor
+            type = expectedPaymentCreateParams.type
+            additionalHeaders = expectedPaymentCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = expectedPaymentCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                expectedPaymentCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /**
@@ -816,12 +804,11 @@ constructor(
                 internalAccountId,
                 ledgerTransaction,
                 ledgerTransactionId,
-                if (lineItems.size == 0) null else lineItems.toImmutable(),
+                lineItems.toImmutable().ifEmpty { null },
                 metadata,
                 reconciliationFilters,
                 reconciliationGroups,
-                if (reconciliationRuleVariables.size == 0) null
-                else reconciliationRuleVariables.toImmutable(),
+                reconciliationRuleVariables.toImmutable().ifEmpty { null },
                 remittanceInformation,
                 statementDescriptor,
                 type,
@@ -2072,4 +2059,17 @@ constructor(
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ExpectedPaymentCreateParams && amountLowerBound == other.amountLowerBound && amountUpperBound == other.amountUpperBound && counterpartyId == other.counterpartyId && currency == other.currency && dateLowerBound == other.dateLowerBound && dateUpperBound == other.dateUpperBound && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && ledgerTransaction == other.ledgerTransaction && ledgerTransactionId == other.ledgerTransactionId && lineItems == other.lineItems && metadata == other.metadata && reconciliationFilters == other.reconciliationFilters && reconciliationGroups == other.reconciliationGroups && reconciliationRuleVariables == other.reconciliationRuleVariables && remittanceInformation == other.remittanceInformation && statementDescriptor == other.statementDescriptor && type == other.type && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amountLowerBound, amountUpperBound, counterpartyId, currency, dateLowerBound, dateUpperBound, description, direction, internalAccountId, ledgerTransaction, ledgerTransactionId, lineItems, metadata, reconciliationFilters, reconciliationGroups, reconciliationRuleVariables, remittanceInformation, statementDescriptor, type, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "ExpectedPaymentCreateParams{amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, direction=$direction, internalAccountId=$internalAccountId, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, type=$type, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

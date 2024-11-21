@@ -45,6 +45,12 @@ constructor(
 
     fun title(): String? = title
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): LegalEntityAssociationCreateBody {
         return LegalEntityAssociationCreateBody(
             parentLegalEntityId,
@@ -208,25 +214,6 @@ constructor(
             "LegalEntityAssociationCreateBody{parentLegalEntityId=$parentLegalEntityId, relationshipTypes=$relationshipTypes, childLegalEntity=$childLegalEntity, childLegalEntityId=$childLegalEntityId, ownershipPercentage=$ownershipPercentage, title=$title, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LegalEntityAssociationCreateParams && parentLegalEntityId == other.parentLegalEntityId && relationshipTypes == other.relationshipTypes && childLegalEntity == other.childLegalEntity && childLegalEntityId == other.childLegalEntityId && ownershipPercentage == other.ownershipPercentage && title == other.title && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(parentLegalEntityId, relationshipTypes, childLegalEntity, childLegalEntityId, ownershipPercentage, title, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "LegalEntityAssociationCreateParams{parentLegalEntityId=$parentLegalEntityId, relationshipTypes=$relationshipTypes, childLegalEntity=$childLegalEntity, childLegalEntityId=$childLegalEntityId, ownershipPercentage=$ownershipPercentage, title=$title, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -249,17 +236,18 @@ constructor(
 
         internal fun from(legalEntityAssociationCreateParams: LegalEntityAssociationCreateParams) =
             apply {
-                this.parentLegalEntityId = legalEntityAssociationCreateParams.parentLegalEntityId
-                this.relationshipTypes(legalEntityAssociationCreateParams.relationshipTypes)
-                this.childLegalEntity = legalEntityAssociationCreateParams.childLegalEntity
-                this.childLegalEntityId = legalEntityAssociationCreateParams.childLegalEntityId
-                this.ownershipPercentage = legalEntityAssociationCreateParams.ownershipPercentage
-                this.title = legalEntityAssociationCreateParams.title
-                additionalHeaders(legalEntityAssociationCreateParams.additionalHeaders)
-                additionalQueryParams(legalEntityAssociationCreateParams.additionalQueryParams)
-                additionalBodyProperties(
-                    legalEntityAssociationCreateParams.additionalBodyProperties
-                )
+                parentLegalEntityId = legalEntityAssociationCreateParams.parentLegalEntityId
+                relationshipTypes =
+                    legalEntityAssociationCreateParams.relationshipTypes.toMutableList()
+                childLegalEntity = legalEntityAssociationCreateParams.childLegalEntity
+                childLegalEntityId = legalEntityAssociationCreateParams.childLegalEntityId
+                ownershipPercentage = legalEntityAssociationCreateParams.ownershipPercentage
+                title = legalEntityAssociationCreateParams.title
+                additionalHeaders = legalEntityAssociationCreateParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    legalEntityAssociationCreateParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    legalEntityAssociationCreateParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The ID of the parent legal entity. This must be a business or joint legal entity. */
@@ -419,10 +407,7 @@ constructor(
                 checkNotNull(parentLegalEntityId) {
                     "`parentLegalEntityId` is required but was not set"
                 },
-                checkNotNull(relationshipTypes) {
-                        "`relationshipTypes` is required but was not set"
-                    }
-                    .toImmutable(),
+                relationshipTypes.toImmutable(),
                 childLegalEntity,
                 childLegalEntityId,
                 ownershipPercentage,
@@ -1653,4 +1638,17 @@ constructor(
         override fun toString() =
             "ChildLegalEntityCreate{legalEntityType=$legalEntityType, riskRating=$riskRating, prefix=$prefix, firstName=$firstName, middleName=$middleName, lastName=$lastName, suffix=$suffix, preferredName=$preferredName, citizenshipCountry=$citizenshipCountry, politicallyExposedPerson=$politicallyExposedPerson, dateOfBirth=$dateOfBirth, dateFormed=$dateFormed, businessName=$businessName, doingBusinessAsNames=$doingBusinessAsNames, legalStructure=$legalStructure, phoneNumbers=$phoneNumbers, email=$email, website=$website, metadata=$metadata, bankSettings=$bankSettings, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, addresses=$addresses, identifications=$identifications, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LegalEntityAssociationCreateParams && parentLegalEntityId == other.parentLegalEntityId && relationshipTypes == other.relationshipTypes && childLegalEntity == other.childLegalEntity && childLegalEntityId == other.childLegalEntityId && ownershipPercentage == other.ownershipPercentage && title == other.title && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(parentLegalEntityId, relationshipTypes, childLegalEntity, childLegalEntityId, ownershipPercentage, title, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "LegalEntityAssociationCreateParams{parentLegalEntityId=$parentLegalEntityId, relationshipTypes=$relationshipTypes, childLegalEntity=$childLegalEntity, childLegalEntityId=$childLegalEntityId, ownershipPercentage=$ownershipPercentage, title=$title, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

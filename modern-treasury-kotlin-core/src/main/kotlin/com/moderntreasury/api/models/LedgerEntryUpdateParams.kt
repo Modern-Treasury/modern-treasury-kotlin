@@ -28,6 +28,12 @@ constructor(
 
     fun metadata(): Metadata? = metadata
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): LedgerEntryUpdateBody {
         return LedgerEntryUpdateBody(metadata, additionalBodyProperties)
     }
@@ -120,25 +126,6 @@ constructor(
             "LedgerEntryUpdateBody{metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerEntryUpdateParams && id == other.id && metadata == other.metadata && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "LedgerEntryUpdateParams{id=$id, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -156,11 +143,12 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerEntryUpdateParams: LedgerEntryUpdateParams) = apply {
-            this.id = ledgerEntryUpdateParams.id
-            this.metadata = ledgerEntryUpdateParams.metadata
-            additionalHeaders(ledgerEntryUpdateParams.additionalHeaders)
-            additionalQueryParams(ledgerEntryUpdateParams.additionalQueryParams)
-            additionalBodyProperties(ledgerEntryUpdateParams.additionalBodyProperties)
+            id = ledgerEntryUpdateParams.id
+            metadata = ledgerEntryUpdateParams.metadata
+            additionalHeaders = ledgerEntryUpdateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = ledgerEntryUpdateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                ledgerEntryUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String) = apply { this.id = id }
@@ -360,4 +348,17 @@ constructor(
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerEntryUpdateParams && id == other.id && metadata == other.metadata && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "LedgerEntryUpdateParams{id=$id, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

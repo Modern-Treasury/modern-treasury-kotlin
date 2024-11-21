@@ -30,6 +30,10 @@ constructor(
 
     fun perPage(): Long? = perPage
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -42,23 +46,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is PaperItemListParams && afterCursor == other.afterCursor && depositDateEnd == other.depositDateEnd && depositDateStart == other.depositDateStart && lockboxNumber == other.lockboxNumber && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, depositDateEnd, depositDateStart, lockboxNumber, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "PaperItemListParams{afterCursor=$afterCursor, depositDateEnd=$depositDateEnd, depositDateStart=$depositDateStart, lockboxNumber=$lockboxNumber, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -79,13 +66,13 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(paperItemListParams: PaperItemListParams) = apply {
-            this.afterCursor = paperItemListParams.afterCursor
-            this.depositDateEnd = paperItemListParams.depositDateEnd
-            this.depositDateStart = paperItemListParams.depositDateStart
-            this.lockboxNumber = paperItemListParams.lockboxNumber
-            this.perPage = paperItemListParams.perPage
-            additionalHeaders(paperItemListParams.additionalHeaders)
-            additionalQueryParams(paperItemListParams.additionalQueryParams)
+            afterCursor = paperItemListParams.afterCursor
+            depositDateEnd = paperItemListParams.depositDateEnd
+            depositDateStart = paperItemListParams.depositDateStart
+            lockboxNumber = paperItemListParams.lockboxNumber
+            perPage = paperItemListParams.perPage
+            additionalHeaders = paperItemListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = paperItemListParams.additionalQueryParams.toBuilder()
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
@@ -217,4 +204,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is PaperItemListParams && afterCursor == other.afterCursor && depositDateEnd == other.depositDateEnd && depositDateStart == other.depositDateStart && lockboxNumber == other.lockboxNumber && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, depositDateEnd, depositDateStart, lockboxNumber, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "PaperItemListParams{afterCursor=$afterCursor, depositDateEnd=$depositDateEnd, depositDateStart=$depositDateStart, lockboxNumber=$lockboxNumber, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
