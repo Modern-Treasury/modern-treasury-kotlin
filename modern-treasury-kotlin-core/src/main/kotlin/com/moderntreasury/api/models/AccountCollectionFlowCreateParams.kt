@@ -35,6 +35,12 @@ constructor(
 
     fun receivingCountries(): List<ReceivingCountry>? = receivingCountries
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): AccountCollectionFlowCreateBody {
         return AccountCollectionFlowCreateBody(
             counterpartyId,
@@ -150,25 +156,6 @@ constructor(
             "AccountCollectionFlowCreateBody{counterpartyId=$counterpartyId, paymentTypes=$paymentTypes, receivingCountries=$receivingCountries, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AccountCollectionFlowCreateParams && counterpartyId == other.counterpartyId && paymentTypes == other.paymentTypes && receivingCountries == other.receivingCountries && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(counterpartyId, paymentTypes, receivingCountries, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "AccountCollectionFlowCreateParams{counterpartyId=$counterpartyId, paymentTypes=$paymentTypes, receivingCountries=$receivingCountries, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -188,14 +175,16 @@ constructor(
 
         internal fun from(accountCollectionFlowCreateParams: AccountCollectionFlowCreateParams) =
             apply {
-                this.counterpartyId = accountCollectionFlowCreateParams.counterpartyId
-                this.paymentTypes(accountCollectionFlowCreateParams.paymentTypes)
-                this.receivingCountries(
-                    accountCollectionFlowCreateParams.receivingCountries ?: listOf()
-                )
-                additionalHeaders(accountCollectionFlowCreateParams.additionalHeaders)
-                additionalQueryParams(accountCollectionFlowCreateParams.additionalQueryParams)
-                additionalBodyProperties(accountCollectionFlowCreateParams.additionalBodyProperties)
+                counterpartyId = accountCollectionFlowCreateParams.counterpartyId
+                paymentTypes = accountCollectionFlowCreateParams.paymentTypes.toMutableList()
+                receivingCountries =
+                    accountCollectionFlowCreateParams.receivingCountries?.toMutableList()
+                        ?: mutableListOf()
+                additionalHeaders = accountCollectionFlowCreateParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    accountCollectionFlowCreateParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    accountCollectionFlowCreateParams.additionalBodyProperties.toMutableMap()
             }
 
         /** Required. */
@@ -340,9 +329,8 @@ constructor(
         fun build(): AccountCollectionFlowCreateParams =
             AccountCollectionFlowCreateParams(
                 checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
-                checkNotNull(paymentTypes) { "`paymentTypes` is required but was not set" }
-                    .toImmutable(),
-                if (receivingCountries.size == 0) null else receivingCountries.toImmutable(),
+                paymentTypes.toImmutable(),
+                receivingCountries.toImmutable().ifEmpty { null },
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -501,4 +489,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AccountCollectionFlowCreateParams && counterpartyId == other.counterpartyId && paymentTypes == other.paymentTypes && receivingCountries == other.receivingCountries && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(counterpartyId, paymentTypes, receivingCountries, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "AccountCollectionFlowCreateParams{counterpartyId=$counterpartyId, paymentTypes=$paymentTypes, receivingCountries=$receivingCountries, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

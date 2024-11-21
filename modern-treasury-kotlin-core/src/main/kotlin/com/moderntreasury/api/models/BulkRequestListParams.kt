@@ -39,6 +39,10 @@ constructor(
 
     fun status(): Status? = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -54,23 +58,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is BulkRequestListParams && actionType == other.actionType && afterCursor == other.afterCursor && metadata == other.metadata && perPage == other.perPage && resourceType == other.resourceType && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(actionType, afterCursor, metadata, perPage, resourceType, status, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "BulkRequestListParams{actionType=$actionType, afterCursor=$afterCursor, metadata=$metadata, perPage=$perPage, resourceType=$resourceType, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -92,14 +79,14 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(bulkRequestListParams: BulkRequestListParams) = apply {
-            this.actionType = bulkRequestListParams.actionType
-            this.afterCursor = bulkRequestListParams.afterCursor
-            this.metadata = bulkRequestListParams.metadata
-            this.perPage = bulkRequestListParams.perPage
-            this.resourceType = bulkRequestListParams.resourceType
-            this.status = bulkRequestListParams.status
-            additionalHeaders(bulkRequestListParams.additionalHeaders)
-            additionalQueryParams(bulkRequestListParams.additionalQueryParams)
+            actionType = bulkRequestListParams.actionType
+            afterCursor = bulkRequestListParams.afterCursor
+            metadata = bulkRequestListParams.metadata
+            perPage = bulkRequestListParams.perPage
+            resourceType = bulkRequestListParams.resourceType
+            status = bulkRequestListParams.status
+            additionalHeaders = bulkRequestListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = bulkRequestListParams.additionalQueryParams.toBuilder()
         }
 
         /** One of create, or update. */
@@ -492,4 +479,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is BulkRequestListParams && actionType == other.actionType && afterCursor == other.afterCursor && metadata == other.metadata && perPage == other.perPage && resourceType == other.resourceType && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(actionType, afterCursor, metadata, perPage, resourceType, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "BulkRequestListParams{actionType=$actionType, afterCursor=$afterCursor, metadata=$metadata, perPage=$perPage, resourceType=$resourceType, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

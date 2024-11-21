@@ -81,6 +81,10 @@ constructor(
 
     fun updatedAt(): UpdatedAt? = updatedAt
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -129,23 +133,6 @@ constructor(
         return queryParams.build()
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerEntryListParams && id == other.id && afterCursor == other.afterCursor && asOfLockVersion == other.asOfLockVersion && direction == other.direction && effectiveAt == other.effectiveAt && effectiveDate == other.effectiveDate && ledgerAccountCategoryId == other.ledgerAccountCategoryId && ledgerAccountId == other.ledgerAccountId && ledgerAccountLockVersion == other.ledgerAccountLockVersion && ledgerAccountPayoutId == other.ledgerAccountPayoutId && ledgerAccountSettlementId == other.ledgerAccountSettlementId && ledgerAccountStatementId == other.ledgerAccountStatementId && ledgerTransactionId == other.ledgerTransactionId && metadata == other.metadata && orderBy == other.orderBy && perPage == other.perPage && showBalances == other.showBalances && showDeleted == other.showDeleted && status == other.status && updatedAt == other.updatedAt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, afterCursor, asOfLockVersion, direction, effectiveAt, effectiveDate, ledgerAccountCategoryId, ledgerAccountId, ledgerAccountLockVersion, ledgerAccountPayoutId, ledgerAccountSettlementId, ledgerAccountStatementId, ledgerTransactionId, metadata, orderBy, perPage, showBalances, showDeleted, status, updatedAt, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "LedgerEntryListParams{id=$id, afterCursor=$afterCursor, asOfLockVersion=$asOfLockVersion, direction=$direction, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, ledgerAccountLockVersion=$ledgerAccountLockVersion, ledgerAccountPayoutId=$ledgerAccountPayoutId, ledgerAccountSettlementId=$ledgerAccountSettlementId, ledgerAccountStatementId=$ledgerAccountStatementId, ledgerTransactionId=$ledgerTransactionId, metadata=$metadata, orderBy=$orderBy, perPage=$perPage, showBalances=$showBalances, showDeleted=$showDeleted, status=$status, updatedAt=$updatedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -180,28 +167,28 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(ledgerEntryListParams: LedgerEntryListParams) = apply {
-            this.id(ledgerEntryListParams.id ?: listOf())
-            this.afterCursor = ledgerEntryListParams.afterCursor
-            this.asOfLockVersion = ledgerEntryListParams.asOfLockVersion
-            this.direction = ledgerEntryListParams.direction
-            this.effectiveAt = ledgerEntryListParams.effectiveAt
-            this.effectiveDate = ledgerEntryListParams.effectiveDate
-            this.ledgerAccountCategoryId = ledgerEntryListParams.ledgerAccountCategoryId
-            this.ledgerAccountId = ledgerEntryListParams.ledgerAccountId
-            this.ledgerAccountLockVersion = ledgerEntryListParams.ledgerAccountLockVersion
-            this.ledgerAccountPayoutId = ledgerEntryListParams.ledgerAccountPayoutId
-            this.ledgerAccountSettlementId = ledgerEntryListParams.ledgerAccountSettlementId
-            this.ledgerAccountStatementId = ledgerEntryListParams.ledgerAccountStatementId
-            this.ledgerTransactionId = ledgerEntryListParams.ledgerTransactionId
-            this.metadata = ledgerEntryListParams.metadata
-            this.orderBy = ledgerEntryListParams.orderBy
-            this.perPage = ledgerEntryListParams.perPage
-            this.showBalances = ledgerEntryListParams.showBalances
-            this.showDeleted = ledgerEntryListParams.showDeleted
-            this.status = ledgerEntryListParams.status
-            this.updatedAt = ledgerEntryListParams.updatedAt
-            additionalHeaders(ledgerEntryListParams.additionalHeaders)
-            additionalQueryParams(ledgerEntryListParams.additionalQueryParams)
+            id = ledgerEntryListParams.id?.toMutableList() ?: mutableListOf()
+            afterCursor = ledgerEntryListParams.afterCursor
+            asOfLockVersion = ledgerEntryListParams.asOfLockVersion
+            direction = ledgerEntryListParams.direction
+            effectiveAt = ledgerEntryListParams.effectiveAt
+            effectiveDate = ledgerEntryListParams.effectiveDate
+            ledgerAccountCategoryId = ledgerEntryListParams.ledgerAccountCategoryId
+            ledgerAccountId = ledgerEntryListParams.ledgerAccountId
+            ledgerAccountLockVersion = ledgerEntryListParams.ledgerAccountLockVersion
+            ledgerAccountPayoutId = ledgerEntryListParams.ledgerAccountPayoutId
+            ledgerAccountSettlementId = ledgerEntryListParams.ledgerAccountSettlementId
+            ledgerAccountStatementId = ledgerEntryListParams.ledgerAccountStatementId
+            ledgerTransactionId = ledgerEntryListParams.ledgerTransactionId
+            metadata = ledgerEntryListParams.metadata
+            orderBy = ledgerEntryListParams.orderBy
+            perPage = ledgerEntryListParams.perPage
+            showBalances = ledgerEntryListParams.showBalances
+            showDeleted = ledgerEntryListParams.showDeleted
+            status = ledgerEntryListParams.status
+            updatedAt = ledgerEntryListParams.updatedAt
+            additionalHeaders = ledgerEntryListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = ledgerEntryListParams.additionalQueryParams.toBuilder()
         }
 
         /**
@@ -424,7 +411,7 @@ constructor(
 
         fun build(): LedgerEntryListParams =
             LedgerEntryListParams(
-                if (id.size == 0) null else id.toImmutable(),
+                id.toImmutable().ifEmpty { null },
                 afterCursor,
                 asOfLockVersion,
                 direction,
@@ -1048,4 +1035,17 @@ constructor(
 
         override fun toString() = "UpdatedAt{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerEntryListParams && id == other.id && afterCursor == other.afterCursor && asOfLockVersion == other.asOfLockVersion && direction == other.direction && effectiveAt == other.effectiveAt && effectiveDate == other.effectiveDate && ledgerAccountCategoryId == other.ledgerAccountCategoryId && ledgerAccountId == other.ledgerAccountId && ledgerAccountLockVersion == other.ledgerAccountLockVersion && ledgerAccountPayoutId == other.ledgerAccountPayoutId && ledgerAccountSettlementId == other.ledgerAccountSettlementId && ledgerAccountStatementId == other.ledgerAccountStatementId && ledgerTransactionId == other.ledgerTransactionId && metadata == other.metadata && orderBy == other.orderBy && perPage == other.perPage && showBalances == other.showBalances && showDeleted == other.showDeleted && status == other.status && updatedAt == other.updatedAt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, afterCursor, asOfLockVersion, direction, effectiveAt, effectiveDate, ledgerAccountCategoryId, ledgerAccountId, ledgerAccountLockVersion, ledgerAccountPayoutId, ledgerAccountSettlementId, ledgerAccountStatementId, ledgerTransactionId, metadata, orderBy, perPage, showBalances, showDeleted, status, updatedAt, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "LedgerEntryListParams{id=$id, afterCursor=$afterCursor, asOfLockVersion=$asOfLockVersion, direction=$direction, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, ledgerAccountLockVersion=$ledgerAccountLockVersion, ledgerAccountPayoutId=$ledgerAccountPayoutId, ledgerAccountSettlementId=$ledgerAccountSettlementId, ledgerAccountStatementId=$ledgerAccountStatementId, ledgerTransactionId=$ledgerTransactionId, metadata=$metadata, orderBy=$orderBy, perPage=$perPage, showBalances=$showBalances, showDeleted=$showDeleted, status=$status, updatedAt=$updatedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

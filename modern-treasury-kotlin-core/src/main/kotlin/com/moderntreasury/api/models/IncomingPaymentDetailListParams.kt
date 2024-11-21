@@ -49,6 +49,10 @@ constructor(
 
     fun virtualAccountId(): String? = virtualAccountId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -67,23 +71,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is IncomingPaymentDetailListParams && afterCursor == other.afterCursor && asOfDateEnd == other.asOfDateEnd && asOfDateStart == other.asOfDateStart && direction == other.direction && metadata == other.metadata && perPage == other.perPage && status == other.status && type == other.type && virtualAccountId == other.virtualAccountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, asOfDateEnd, asOfDateStart, direction, metadata, perPage, status, type, virtualAccountId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "IncomingPaymentDetailListParams{afterCursor=$afterCursor, asOfDateEnd=$asOfDateEnd, asOfDateStart=$asOfDateStart, direction=$direction, metadata=$metadata, perPage=$perPage, status=$status, type=$type, virtualAccountId=$virtualAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -109,17 +96,18 @@ constructor(
 
         internal fun from(incomingPaymentDetailListParams: IncomingPaymentDetailListParams) =
             apply {
-                this.afterCursor = incomingPaymentDetailListParams.afterCursor
-                this.asOfDateEnd = incomingPaymentDetailListParams.asOfDateEnd
-                this.asOfDateStart = incomingPaymentDetailListParams.asOfDateStart
-                this.direction = incomingPaymentDetailListParams.direction
-                this.metadata = incomingPaymentDetailListParams.metadata
-                this.perPage = incomingPaymentDetailListParams.perPage
-                this.status = incomingPaymentDetailListParams.status
-                this.type = incomingPaymentDetailListParams.type
-                this.virtualAccountId = incomingPaymentDetailListParams.virtualAccountId
-                additionalHeaders(incomingPaymentDetailListParams.additionalHeaders)
-                additionalQueryParams(incomingPaymentDetailListParams.additionalQueryParams)
+                afterCursor = incomingPaymentDetailListParams.afterCursor
+                asOfDateEnd = incomingPaymentDetailListParams.asOfDateEnd
+                asOfDateStart = incomingPaymentDetailListParams.asOfDateStart
+                direction = incomingPaymentDetailListParams.direction
+                metadata = incomingPaymentDetailListParams.metadata
+                perPage = incomingPaymentDetailListParams.perPage
+                status = incomingPaymentDetailListParams.status
+                type = incomingPaymentDetailListParams.type
+                virtualAccountId = incomingPaymentDetailListParams.virtualAccountId
+                additionalHeaders = incomingPaymentDetailListParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    incomingPaymentDetailListParams.additionalQueryParams.toBuilder()
             }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
@@ -504,4 +492,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is IncomingPaymentDetailListParams && afterCursor == other.afterCursor && asOfDateEnd == other.asOfDateEnd && asOfDateStart == other.asOfDateStart && direction == other.direction && metadata == other.metadata && perPage == other.perPage && status == other.status && type == other.type && virtualAccountId == other.virtualAccountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, asOfDateEnd, asOfDateStart, direction, metadata, perPage, status, type, virtualAccountId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "IncomingPaymentDetailListParams{afterCursor=$afterCursor, asOfDateEnd=$asOfDateEnd, asOfDateStart=$asOfDateStart, direction=$direction, metadata=$metadata, perPage=$perPage, status=$status, type=$type, virtualAccountId=$virtualAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

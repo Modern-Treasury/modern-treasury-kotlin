@@ -31,6 +31,12 @@ constructor(
 
     fun transactionId(): String = transactionId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): TransactionLineItemCreateBody {
         return TransactionLineItemCreateBody(
             amount,
@@ -151,25 +157,6 @@ constructor(
             "TransactionLineItemCreateBody{amount=$amount, expectedPaymentId=$expectedPaymentId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is TransactionLineItemCreateParams && amount == other.amount && expectedPaymentId == other.expectedPaymentId && transactionId == other.transactionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, expectedPaymentId, transactionId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "TransactionLineItemCreateParams{amount=$amount, expectedPaymentId=$expectedPaymentId, transactionId=$transactionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -189,12 +176,14 @@ constructor(
 
         internal fun from(transactionLineItemCreateParams: TransactionLineItemCreateParams) =
             apply {
-                this.amount = transactionLineItemCreateParams.amount
-                this.expectedPaymentId = transactionLineItemCreateParams.expectedPaymentId
-                this.transactionId = transactionLineItemCreateParams.transactionId
-                additionalHeaders(transactionLineItemCreateParams.additionalHeaders)
-                additionalQueryParams(transactionLineItemCreateParams.additionalQueryParams)
-                additionalBodyProperties(transactionLineItemCreateParams.additionalBodyProperties)
+                amount = transactionLineItemCreateParams.amount
+                expectedPaymentId = transactionLineItemCreateParams.expectedPaymentId
+                transactionId = transactionLineItemCreateParams.transactionId
+                additionalHeaders = transactionLineItemCreateParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    transactionLineItemCreateParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    transactionLineItemCreateParams.additionalBodyProperties.toMutableMap()
             }
 
         /**
@@ -343,4 +332,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is TransactionLineItemCreateParams && amount == other.amount && expectedPaymentId == other.expectedPaymentId && transactionId == other.transactionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, expectedPaymentId, transactionId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "TransactionLineItemCreateParams{amount=$amount, expectedPaymentId=$expectedPaymentId, transactionId=$transactionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

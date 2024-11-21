@@ -50,6 +50,12 @@ constructor(
 
     fun metadata(): Metadata? = metadata
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): BulkRequestCreateBody {
         return BulkRequestCreateBody(
             actionType,
@@ -186,25 +192,6 @@ constructor(
             "BulkRequestCreateBody{actionType=$actionType, resourceType=$resourceType, resources=$resources, metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is BulkRequestCreateParams && actionType == other.actionType && resourceType == other.resourceType && resources == other.resources && metadata == other.metadata && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(actionType, resourceType, resources, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "BulkRequestCreateParams{actionType=$actionType, resourceType=$resourceType, resources=$resources, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -224,13 +211,14 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(bulkRequestCreateParams: BulkRequestCreateParams) = apply {
-            this.actionType = bulkRequestCreateParams.actionType
-            this.resourceType = bulkRequestCreateParams.resourceType
-            this.resources(bulkRequestCreateParams.resources)
-            this.metadata = bulkRequestCreateParams.metadata
-            additionalHeaders(bulkRequestCreateParams.additionalHeaders)
-            additionalQueryParams(bulkRequestCreateParams.additionalQueryParams)
-            additionalBodyProperties(bulkRequestCreateParams.additionalBodyProperties)
+            actionType = bulkRequestCreateParams.actionType
+            resourceType = bulkRequestCreateParams.resourceType
+            resources = bulkRequestCreateParams.resources.toMutableList()
+            metadata = bulkRequestCreateParams.metadata
+            additionalHeaders = bulkRequestCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = bulkRequestCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                bulkRequestCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** One of create, or update. */
@@ -383,7 +371,7 @@ constructor(
             BulkRequestCreateParams(
                 checkNotNull(actionType) { "`actionType` is required but was not set" },
                 checkNotNull(resourceType) { "`resourceType` is required but was not set" },
-                checkNotNull(resources) { "`resources` is required but was not set" }.toImmutable(),
+                resources.toImmutable(),
                 metadata,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -17455,4 +17443,17 @@ constructor(
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is BulkRequestCreateParams && actionType == other.actionType && resourceType == other.resourceType && resources == other.resources && metadata == other.metadata && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(actionType, resourceType, resources, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "BulkRequestCreateParams{actionType=$actionType, resourceType=$resourceType, resources=$resources, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

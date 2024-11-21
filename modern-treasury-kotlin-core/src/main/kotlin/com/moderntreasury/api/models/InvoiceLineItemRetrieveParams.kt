@@ -20,6 +20,10 @@ constructor(
 
     fun id(): String = id
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -31,23 +35,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InvoiceLineItemRetrieveParams && invoiceId == other.invoiceId && id == other.id && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(invoiceId, id, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "InvoiceLineItemRetrieveParams{invoiceId=$invoiceId, id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -65,10 +52,10 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(invoiceLineItemRetrieveParams: InvoiceLineItemRetrieveParams) = apply {
-            this.invoiceId = invoiceLineItemRetrieveParams.invoiceId
-            this.id = invoiceLineItemRetrieveParams.id
-            additionalHeaders(invoiceLineItemRetrieveParams.additionalHeaders)
-            additionalQueryParams(invoiceLineItemRetrieveParams.additionalQueryParams)
+            invoiceId = invoiceLineItemRetrieveParams.invoiceId
+            id = invoiceLineItemRetrieveParams.id
+            additionalHeaders = invoiceLineItemRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams = invoiceLineItemRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         fun invoiceId(invoiceId: String) = apply { this.invoiceId = invoiceId }
@@ -181,4 +168,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InvoiceLineItemRetrieveParams && invoiceId == other.invoiceId && id == other.id && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(invoiceId, id, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "InvoiceLineItemRetrieveParams{invoiceId=$invoiceId, id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

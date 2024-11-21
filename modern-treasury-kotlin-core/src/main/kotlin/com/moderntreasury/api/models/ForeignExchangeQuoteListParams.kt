@@ -46,6 +46,10 @@ constructor(
 
     fun targetCurrency(): String? = targetCurrency
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -68,23 +72,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ForeignExchangeQuoteListParams && afterCursor == other.afterCursor && baseCurrency == other.baseCurrency && effectiveAtEnd == other.effectiveAtEnd && effectiveAtStart == other.effectiveAtStart && expiresAt == other.expiresAt && internalAccountId == other.internalAccountId && metadata == other.metadata && perPage == other.perPage && targetCurrency == other.targetCurrency && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, baseCurrency, effectiveAtEnd, effectiveAtStart, expiresAt, internalAccountId, metadata, perPage, targetCurrency, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "ForeignExchangeQuoteListParams{afterCursor=$afterCursor, baseCurrency=$baseCurrency, effectiveAtEnd=$effectiveAtEnd, effectiveAtStart=$effectiveAtStart, expiresAt=$expiresAt, internalAccountId=$internalAccountId, metadata=$metadata, perPage=$perPage, targetCurrency=$targetCurrency, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -109,17 +96,17 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(foreignExchangeQuoteListParams: ForeignExchangeQuoteListParams) = apply {
-            this.afterCursor = foreignExchangeQuoteListParams.afterCursor
-            this.baseCurrency = foreignExchangeQuoteListParams.baseCurrency
-            this.effectiveAtEnd = foreignExchangeQuoteListParams.effectiveAtEnd
-            this.effectiveAtStart = foreignExchangeQuoteListParams.effectiveAtStart
-            this.expiresAt = foreignExchangeQuoteListParams.expiresAt
-            this.internalAccountId = foreignExchangeQuoteListParams.internalAccountId
-            this.metadata = foreignExchangeQuoteListParams.metadata
-            this.perPage = foreignExchangeQuoteListParams.perPage
-            this.targetCurrency = foreignExchangeQuoteListParams.targetCurrency
-            additionalHeaders(foreignExchangeQuoteListParams.additionalHeaders)
-            additionalQueryParams(foreignExchangeQuoteListParams.additionalQueryParams)
+            afterCursor = foreignExchangeQuoteListParams.afterCursor
+            baseCurrency = foreignExchangeQuoteListParams.baseCurrency
+            effectiveAtEnd = foreignExchangeQuoteListParams.effectiveAtEnd
+            effectiveAtStart = foreignExchangeQuoteListParams.effectiveAtStart
+            expiresAt = foreignExchangeQuoteListParams.expiresAt
+            internalAccountId = foreignExchangeQuoteListParams.internalAccountId
+            metadata = foreignExchangeQuoteListParams.metadata
+            perPage = foreignExchangeQuoteListParams.perPage
+            targetCurrency = foreignExchangeQuoteListParams.targetCurrency
+            additionalHeaders = foreignExchangeQuoteListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = foreignExchangeQuoteListParams.additionalQueryParams.toBuilder()
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
@@ -335,4 +322,17 @@ constructor(
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ForeignExchangeQuoteListParams && afterCursor == other.afterCursor && baseCurrency == other.baseCurrency && effectiveAtEnd == other.effectiveAtEnd && effectiveAtStart == other.effectiveAtStart && expiresAt == other.expiresAt && internalAccountId == other.internalAccountId && metadata == other.metadata && perPage == other.perPage && targetCurrency == other.targetCurrency && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, baseCurrency, effectiveAtEnd, effectiveAtStart, expiresAt, internalAccountId, metadata, perPage, targetCurrency, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "ForeignExchangeQuoteListParams{afterCursor=$afterCursor, baseCurrency=$baseCurrency, effectiveAtEnd=$effectiveAtEnd, effectiveAtStart=$effectiveAtStart, expiresAt=$expiresAt, internalAccountId=$internalAccountId, metadata=$metadata, perPage=$perPage, targetCurrency=$targetCurrency, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -38,6 +38,12 @@ constructor(
 
     fun accountNumberType(): AccountNumberType? = accountNumberType
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): AccountDetailCreateBody {
         return AccountDetailCreateBody(
             accountNumber,
@@ -153,25 +159,6 @@ constructor(
             "AccountDetailCreateBody{accountNumber=$accountNumber, accountNumberType=$accountNumberType, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AccountDetailCreateParams && accountsType == other.accountsType && accountId == other.accountId && accountNumber == other.accountNumber && accountNumberType == other.accountNumberType && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountsType, accountId, accountNumber, accountNumberType, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "AccountDetailCreateParams{accountsType=$accountsType, accountId=$accountId, accountNumber=$accountNumber, accountNumberType=$accountNumberType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -191,13 +178,14 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(accountDetailCreateParams: AccountDetailCreateParams) = apply {
-            this.accountsType = accountDetailCreateParams.accountsType
-            this.accountId = accountDetailCreateParams.accountId
-            this.accountNumber = accountDetailCreateParams.accountNumber
-            this.accountNumberType = accountDetailCreateParams.accountNumberType
-            additionalHeaders(accountDetailCreateParams.additionalHeaders)
-            additionalQueryParams(accountDetailCreateParams.additionalQueryParams)
-            additionalBodyProperties(accountDetailCreateParams.additionalBodyProperties)
+            accountsType = accountDetailCreateParams.accountsType
+            accountId = accountDetailCreateParams.accountId
+            accountNumber = accountDetailCreateParams.accountNumber
+            accountNumberType = accountDetailCreateParams.accountNumberType
+            additionalHeaders = accountDetailCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = accountDetailCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                accountDetailCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun accountsType(accountsType: AccountsType) = apply { this.accountsType = accountsType }
@@ -503,4 +491,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AccountDetailCreateParams && accountsType == other.accountsType && accountId == other.accountId && accountNumber == other.accountNumber && accountNumberType == other.accountNumberType && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountsType, accountId, accountNumber, accountNumberType, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "AccountDetailCreateParams{accountsType=$accountsType, accountId=$accountId, accountNumber=$accountNumber, accountNumberType=$accountNumberType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

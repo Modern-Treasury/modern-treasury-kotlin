@@ -55,6 +55,10 @@ constructor(
 
     fun status(): Status? = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -79,23 +83,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InvoiceListParams && afterCursor == other.afterCursor && counterpartyId == other.counterpartyId && dueDateEnd == other.dueDateEnd && dueDateStart == other.dueDateStart && expectedPaymentId == other.expectedPaymentId && metadata == other.metadata && number == other.number && originatingAccountId == other.originatingAccountId && paymentOrderId == other.paymentOrderId && perPage == other.perPage && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, counterpartyId, dueDateEnd, dueDateStart, expectedPaymentId, metadata, number, originatingAccountId, paymentOrderId, perPage, status, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "InvoiceListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, dueDateEnd=$dueDateEnd, dueDateStart=$dueDateStart, expectedPaymentId=$expectedPaymentId, metadata=$metadata, number=$number, originatingAccountId=$originatingAccountId, paymentOrderId=$paymentOrderId, perPage=$perPage, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -122,19 +109,19 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(invoiceListParams: InvoiceListParams) = apply {
-            this.afterCursor = invoiceListParams.afterCursor
-            this.counterpartyId = invoiceListParams.counterpartyId
-            this.dueDateEnd = invoiceListParams.dueDateEnd
-            this.dueDateStart = invoiceListParams.dueDateStart
-            this.expectedPaymentId = invoiceListParams.expectedPaymentId
-            this.metadata = invoiceListParams.metadata
-            this.number = invoiceListParams.number
-            this.originatingAccountId = invoiceListParams.originatingAccountId
-            this.paymentOrderId = invoiceListParams.paymentOrderId
-            this.perPage = invoiceListParams.perPage
-            this.status = invoiceListParams.status
-            additionalHeaders(invoiceListParams.additionalHeaders)
-            additionalQueryParams(invoiceListParams.additionalQueryParams)
+            afterCursor = invoiceListParams.afterCursor
+            counterpartyId = invoiceListParams.counterpartyId
+            dueDateEnd = invoiceListParams.dueDateEnd
+            dueDateStart = invoiceListParams.dueDateStart
+            expectedPaymentId = invoiceListParams.expectedPaymentId
+            metadata = invoiceListParams.metadata
+            number = invoiceListParams.number
+            originatingAccountId = invoiceListParams.originatingAccountId
+            paymentOrderId = invoiceListParams.paymentOrderId
+            perPage = invoiceListParams.perPage
+            status = invoiceListParams.status
+            additionalHeaders = invoiceListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = invoiceListParams.additionalQueryParams.toBuilder()
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
@@ -432,4 +419,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InvoiceListParams && afterCursor == other.afterCursor && counterpartyId == other.counterpartyId && dueDateEnd == other.dueDateEnd && dueDateStart == other.dueDateStart && expectedPaymentId == other.expectedPaymentId && metadata == other.metadata && number == other.number && originatingAccountId == other.originatingAccountId && paymentOrderId == other.paymentOrderId && perPage == other.perPage && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, counterpartyId, dueDateEnd, dueDateStart, expectedPaymentId, metadata, number, originatingAccountId, paymentOrderId, perPage, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "InvoiceListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, dueDateEnd=$dueDateEnd, dueDateStart=$dueDateStart, expectedPaymentId=$expectedPaymentId, metadata=$metadata, number=$number, originatingAccountId=$originatingAccountId, paymentOrderId=$paymentOrderId, perPage=$perPage, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -25,6 +25,10 @@ constructor(
 
     fun balances(): Balances? = balances
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -42,23 +46,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerAccountCategoryRetrieveParams && id == other.id && balances == other.balances && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, balances, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "LedgerAccountCategoryRetrieveParams{id=$id, balances=$balances, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -78,10 +65,11 @@ constructor(
         internal fun from(
             ledgerAccountCategoryRetrieveParams: LedgerAccountCategoryRetrieveParams
         ) = apply {
-            this.id = ledgerAccountCategoryRetrieveParams.id
-            this.balances = ledgerAccountCategoryRetrieveParams.balances
-            additionalHeaders(ledgerAccountCategoryRetrieveParams.additionalHeaders)
-            additionalQueryParams(ledgerAccountCategoryRetrieveParams.additionalQueryParams)
+            id = ledgerAccountCategoryRetrieveParams.id
+            balances = ledgerAccountCategoryRetrieveParams.balances
+            additionalHeaders = ledgerAccountCategoryRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                ledgerAccountCategoryRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         fun id(id: String) = apply { this.id = id }
@@ -290,4 +278,17 @@ constructor(
         override fun toString() =
             "Balances{asOfDate=$asOfDate, effectiveAt=$effectiveAt, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerAccountCategoryRetrieveParams && id == other.id && balances == other.balances && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, balances, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "LedgerAccountCategoryRetrieveParams{id=$id, balances=$balances, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
