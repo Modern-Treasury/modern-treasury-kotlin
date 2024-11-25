@@ -30,7 +30,7 @@ class LedgerAccountServiceTest {
                     .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .name("name")
                     .normalBalance(TransactionDirection.CREDIT)
-                    .currencyExponent(123L)
+                    .currencyExponent(0L)
                     .description("description")
                     .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -58,7 +58,7 @@ class LedgerAccountServiceTest {
                     .balances(
                         LedgerAccountRetrieveParams.Balances.builder()
                             .asOfDate(LocalDate.parse("2019-12-27"))
-                            .asOfLockVersion(123L)
+                            .asOfLockVersion(0L)
                             .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .effectiveAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

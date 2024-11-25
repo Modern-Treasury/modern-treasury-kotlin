@@ -26,7 +26,7 @@ class PaymentOrderServiceTest {
         val paymentOrder =
             paymentOrderService.create(
                 PaymentOrderCreateParams.builder()
-                    .amount(123L)
+                    .amount(0L)
                     .direction(PaymentOrderCreateParams.Direction.CREDIT)
                     .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .type(PaymentOrderType.ACH)
@@ -68,7 +68,7 @@ class PaymentOrderServiceTest {
                                     PaymentOrderCreateParams.LedgerTransactionCreateRequest
                                         .LedgerEntryCreateRequest
                                         .builder()
-                                        .amount(123L)
+                                        .amount(0L)
                                         .direction(TransactionDirection.CREDIT)
                                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .availableBalanceAmount(
@@ -78,7 +78,7 @@ class PaymentOrderServiceTest {
                                                 .builder()
                                                 .build()
                                         )
-                                        .lockVersion(123L)
+                                        .lockVersion(0L)
                                         .metadata(
                                             PaymentOrderCreateParams.LedgerTransactionCreateRequest
                                                 .LedgerEntryCreateRequest
@@ -129,7 +129,7 @@ class PaymentOrderServiceTest {
                     .lineItems(
                         listOf(
                             PaymentOrderCreateParams.LineItemRequest.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .accountingCategoryId("accounting_category_id")
                                 .description("description")
                                 .metadata(
@@ -183,7 +183,7 @@ class PaymentOrderServiceTest {
                                     .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .name("name")
                                     .normalBalance(TransactionDirection.CREDIT)
-                                    .currencyExponent(123L)
+                                    .currencyExponent(0L)
                                     .description("description")
                                     .ledgerAccountCategoryIds(
                                         listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -294,7 +294,7 @@ class PaymentOrderServiceTest {
                     )
                     .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .amount(123L)
+                    .amount(0L)
                     .chargeBearer(PaymentOrderUpdateParams.ChargeBearer.SHARED)
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .currency(Currency.AED)
@@ -310,7 +310,7 @@ class PaymentOrderServiceTest {
                     .lineItems(
                         listOf(
                             PaymentOrderUpdateParams.LineItemRequest.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .accountingCategoryId("accounting_category_id")
                                 .description("description")
                                 .metadata(
@@ -365,7 +365,7 @@ class PaymentOrderServiceTest {
                                     .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .name("name")
                                     .normalBalance(TransactionDirection.CREDIT)
-                                    .currencyExponent(123L)
+                                    .currencyExponent(0L)
                                     .description("description")
                                     .ledgerAccountCategoryIds(
                                         listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -467,7 +467,7 @@ class PaymentOrderServiceTest {
         val asyncResponse =
             paymentOrderService.createAsync(
                 PaymentOrderCreateAsyncParams.builder()
-                    .amount(123L)
+                    .amount(0L)
                     .direction(PaymentOrderCreateAsyncParams.Direction.CREDIT)
                     .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .type(PaymentOrderType.ACH)
@@ -496,7 +496,7 @@ class PaymentOrderServiceTest {
                                     PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest
                                         .LedgerEntryCreateRequest
                                         .builder()
-                                        .amount(123L)
+                                        .amount(0L)
                                         .direction(TransactionDirection.CREDIT)
                                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .availableBalanceAmount(
@@ -507,7 +507,7 @@ class PaymentOrderServiceTest {
                                                 .builder()
                                                 .build()
                                         )
-                                        .lockVersion(123L)
+                                        .lockVersion(0L)
                                         .metadata(
                                             PaymentOrderCreateAsyncParams
                                                 .LedgerTransactionCreateRequest
@@ -562,7 +562,7 @@ class PaymentOrderServiceTest {
                     .lineItems(
                         listOf(
                             PaymentOrderCreateAsyncParams.LineItemRequest.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .accountingCategoryId("accounting_category_id")
                                 .description("description")
                                 .metadata(
@@ -618,7 +618,7 @@ class PaymentOrderServiceTest {
                                     .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .name("name")
                                     .normalBalance(TransactionDirection.CREDIT)
-                                    .currencyExponent(123L)
+                                    .currencyExponent(0L)
                                     .description("description")
                                     .ledgerAccountCategoryIds(
                                         listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

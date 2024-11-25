@@ -13,7 +13,7 @@ class WealthAndEmploymentDetailsTest {
         val wealthAndEmploymentDetails =
             WealthAndEmploymentDetails.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .annualIncome(123L)
+                .annualIncome(0L)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .employerCountry("employer_country")
@@ -34,7 +34,7 @@ class WealthAndEmploymentDetailsTest {
         assertThat(wealthAndEmploymentDetails).isNotNull
         assertThat(wealthAndEmploymentDetails.id())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(wealthAndEmploymentDetails.annualIncome()).isEqualTo(123L)
+        assertThat(wealthAndEmploymentDetails.annualIncome()).isEqualTo(0L)
         assertThat(wealthAndEmploymentDetails.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(wealthAndEmploymentDetails.discardedAt())

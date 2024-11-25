@@ -16,7 +16,7 @@ class AccountCollectionFlowListParamsTest {
             .clientToken("client_token")
             .counterpartyId("counterparty_id")
             .externalAccountId("external_account_id")
-            .perPage(123L)
+            .perPage(0L)
             .status("status")
             .build()
     }
@@ -29,7 +29,7 @@ class AccountCollectionFlowListParamsTest {
                 .clientToken("client_token")
                 .counterpartyId("counterparty_id")
                 .externalAccountId("external_account_id")
-                .perPage(123L)
+                .perPage(0L)
                 .status("status")
                 .build()
         val expected = QueryParams.builder()
@@ -37,7 +37,7 @@ class AccountCollectionFlowListParamsTest {
         expected.put("client_token", "client_token")
         expected.put("counterparty_id", "counterparty_id")
         expected.put("external_account_id", "external_account_id")
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         expected.put("status", "status")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
