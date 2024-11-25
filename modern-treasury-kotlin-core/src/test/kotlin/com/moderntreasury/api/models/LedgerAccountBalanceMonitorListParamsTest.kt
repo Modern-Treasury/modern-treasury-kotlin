@@ -16,7 +16,7 @@ class LedgerAccountBalanceMonitorListParamsTest {
             .afterCursor("after_cursor")
             .ledgerAccountId("ledger_account_id")
             .metadata(LedgerAccountBalanceMonitorListParams.Metadata.builder().build())
-            .perPage(123L)
+            .perPage(0L)
             .build()
     }
 
@@ -28,7 +28,7 @@ class LedgerAccountBalanceMonitorListParamsTest {
                 .afterCursor("after_cursor")
                 .ledgerAccountId("ledger_account_id")
                 .metadata(LedgerAccountBalanceMonitorListParams.Metadata.builder().build())
-                .perPage(123L)
+                .perPage(0L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("id[]", "string")
@@ -39,7 +39,7 @@ class LedgerAccountBalanceMonitorListParamsTest {
             values ->
             expected.put("metadata[$key]", values)
         }
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 

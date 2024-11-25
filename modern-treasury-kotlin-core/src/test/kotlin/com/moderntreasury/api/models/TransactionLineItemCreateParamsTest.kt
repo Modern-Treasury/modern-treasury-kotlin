@@ -11,7 +11,7 @@ class TransactionLineItemCreateParamsTest {
     @Test
     fun createTransactionLineItemCreateParams() {
         TransactionLineItemCreateParams.builder()
-            .amount(123L)
+            .amount(0L)
             .expectedPaymentId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .build()
@@ -21,13 +21,13 @@ class TransactionLineItemCreateParamsTest {
     fun getBody() {
         val params =
             TransactionLineItemCreateParams.builder()
-                .amount(123L)
+                .amount(0L)
                 .expectedPaymentId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.expectedPaymentId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.transactionId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
     }
@@ -36,13 +36,13 @@ class TransactionLineItemCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             TransactionLineItemCreateParams.builder()
-                .amount(123L)
+                .amount(0L)
                 .expectedPaymentId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.expectedPaymentId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.transactionId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
     }

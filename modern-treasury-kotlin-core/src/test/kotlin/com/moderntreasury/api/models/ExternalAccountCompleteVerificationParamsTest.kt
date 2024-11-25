@@ -10,19 +10,16 @@ class ExternalAccountCompleteVerificationParamsTest {
 
     @Test
     fun createExternalAccountCompleteVerificationParams() {
-        ExternalAccountCompleteVerificationParams.builder().id("id").amounts(listOf(123L)).build()
+        ExternalAccountCompleteVerificationParams.builder().id("id").amounts(listOf(0L)).build()
     }
 
     @Test
     fun getBody() {
         val params =
-            ExternalAccountCompleteVerificationParams.builder()
-                .id("id")
-                .amounts(listOf(123L))
-                .build()
+            ExternalAccountCompleteVerificationParams.builder().id("id").amounts(listOf(0L)).build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amounts()).isEqualTo(listOf(123L))
+        assertThat(body.amounts()).isEqualTo(listOf(0L))
     }
 
     @Test

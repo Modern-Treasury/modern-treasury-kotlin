@@ -18,7 +18,7 @@ class LedgerAccountSettlementListParamsTest {
             .ledgerId("ledger_id")
             .ledgerTransactionId("ledger_transaction_id")
             .metadata(LedgerAccountSettlementListParams.Metadata.builder().build())
-            .perPage(123L)
+            .perPage(0L)
             .settledLedgerAccountId("settled_ledger_account_id")
             .settlementEntryDirection("settlement_entry_direction")
             .updatedAt(LedgerAccountSettlementListParams.UpdatedAt.builder().build())
@@ -35,7 +35,7 @@ class LedgerAccountSettlementListParamsTest {
                 .ledgerId("ledger_id")
                 .ledgerTransactionId("ledger_transaction_id")
                 .metadata(LedgerAccountSettlementListParams.Metadata.builder().build())
-                .perPage(123L)
+                .perPage(0L)
                 .settledLedgerAccountId("settled_ledger_account_id")
                 .settlementEntryDirection("settlement_entry_direction")
                 .updatedAt(LedgerAccountSettlementListParams.UpdatedAt.builder().build())
@@ -54,7 +54,7 @@ class LedgerAccountSettlementListParamsTest {
             ->
             expected.put("metadata[$key]", values)
         }
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         expected.put("settled_ledger_account_id", "settled_ledger_account_id")
         expected.put("settlement_entry_direction", "settlement_entry_direction")
         LedgerAccountSettlementListParams.UpdatedAt.builder().build().forEachQueryParam {

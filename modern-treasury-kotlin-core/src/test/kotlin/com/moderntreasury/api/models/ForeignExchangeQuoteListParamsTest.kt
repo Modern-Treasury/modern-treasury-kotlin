@@ -21,7 +21,7 @@ class ForeignExchangeQuoteListParamsTest {
             .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .internalAccountId("internal_account_id")
             .metadata(ForeignExchangeQuoteListParams.Metadata.builder().build())
-            .perPage(123L)
+            .perPage(0L)
             .targetCurrency("target_currency")
             .build()
     }
@@ -37,7 +37,7 @@ class ForeignExchangeQuoteListParamsTest {
                 .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .internalAccountId("internal_account_id")
                 .metadata(ForeignExchangeQuoteListParams.Metadata.builder().build())
-                .perPage(123L)
+                .perPage(0L)
                 .targetCurrency("target_currency")
                 .build()
         val expected = QueryParams.builder()
@@ -50,7 +50,7 @@ class ForeignExchangeQuoteListParamsTest {
         ForeignExchangeQuoteListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         expected.put("target_currency", "target_currency")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }

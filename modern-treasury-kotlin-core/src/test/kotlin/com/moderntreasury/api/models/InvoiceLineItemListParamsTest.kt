@@ -14,7 +14,7 @@ class InvoiceLineItemListParamsTest {
         InvoiceLineItemListParams.builder()
             .invoiceId("invoice_id")
             .afterCursor("after_cursor")
-            .perPage(123L)
+            .perPage(0L)
             .build()
     }
 
@@ -24,11 +24,11 @@ class InvoiceLineItemListParamsTest {
             InvoiceLineItemListParams.builder()
                 .invoiceId("invoice_id")
                 .afterCursor("after_cursor")
-                .perPage(123L)
+                .perPage(0L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("after_cursor", "after_cursor")
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 

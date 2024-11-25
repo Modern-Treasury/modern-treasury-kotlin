@@ -15,7 +15,7 @@ class DocumentListParamsTest {
             .afterCursor("after_cursor")
             .documentableId("documentable_id")
             .documentableType(DocumentListParams.DocumentableType.CASES)
-            .perPage(123L)
+            .perPage(0L)
             .build()
     }
 
@@ -26,13 +26,13 @@ class DocumentListParamsTest {
                 .afterCursor("after_cursor")
                 .documentableId("documentable_id")
                 .documentableType(DocumentListParams.DocumentableType.CASES)
-                .perPage(123L)
+                .perPage(0L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("after_cursor", "after_cursor")
         expected.put("documentable_id", "documentable_id")
         expected.put("documentable_type", DocumentListParams.DocumentableType.CASES.toString())
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
