@@ -29,7 +29,7 @@ class LedgerAccountBalanceMonitorServiceTest {
                             .builder()
                             .field("field")
                             .operator("operator")
-                            .value(123L)
+                            .value(0L)
                             .build()
                     )
                     .ledgerAccountId("ledger_account_id")

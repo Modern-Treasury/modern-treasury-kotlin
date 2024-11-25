@@ -21,7 +21,7 @@ class BalanceReportTest {
                     listOf(
                         BalanceReport.Balance.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .amount(123L)
+                            .amount(0L)
                             .asOfDate(LocalDate.parse("2019-12-27"))
                             .asOfTime("as_of_time")
                             .balanceType(BalanceReport.Balance.BalanceType.CLOSING_AVAILABLE)
@@ -52,7 +52,7 @@ class BalanceReportTest {
             .containsExactly(
                 BalanceReport.Balance.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .amount(123L)
+                    .amount(0L)
                     .asOfDate(LocalDate.parse("2019-12-27"))
                     .asOfTime("as_of_time")
                     .balanceType(BalanceReport.Balance.BalanceType.CLOSING_AVAILABLE)

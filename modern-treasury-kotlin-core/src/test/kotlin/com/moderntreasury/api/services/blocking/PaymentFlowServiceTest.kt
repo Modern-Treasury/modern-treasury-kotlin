@@ -25,7 +25,7 @@ class PaymentFlowServiceTest {
         val paymentFlow =
             paymentFlowService.create(
                 PaymentFlowCreateParams.builder()
-                    .amount(123L)
+                    .amount(0L)
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .currency("currency")
                     .direction(PaymentFlowCreateParams.Direction.CREDIT)

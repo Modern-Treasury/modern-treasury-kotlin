@@ -14,10 +14,10 @@ class ForeignExchangeQuoteCreateParamsTest {
         ForeignExchangeQuoteCreateParams.builder()
             .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .targetCurrency(Currency.AED)
-            .baseAmount(123L)
+            .baseAmount(0L)
             .baseCurrency(Currency.AED)
             .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .targetAmount(123L)
+            .targetAmount(0L)
             .build()
     }
 
@@ -27,19 +27,19 @@ class ForeignExchangeQuoteCreateParamsTest {
             ForeignExchangeQuoteCreateParams.builder()
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .targetCurrency(Currency.AED)
-                .baseAmount(123L)
+                .baseAmount(0L)
                 .baseCurrency(Currency.AED)
                 .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .targetAmount(123L)
+                .targetAmount(0L)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.targetCurrency()).isEqualTo(Currency.AED)
-        assertThat(body.baseAmount()).isEqualTo(123L)
+        assertThat(body.baseAmount()).isEqualTo(0L)
         assertThat(body.baseCurrency()).isEqualTo(Currency.AED)
         assertThat(body.effectiveAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(body.targetAmount()).isEqualTo(123L)
+        assertThat(body.targetAmount()).isEqualTo(0L)
     }
 
     @Test

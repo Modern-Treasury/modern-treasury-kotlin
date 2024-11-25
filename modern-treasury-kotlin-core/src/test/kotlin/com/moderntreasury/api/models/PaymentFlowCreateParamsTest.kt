@@ -12,7 +12,7 @@ class PaymentFlowCreateParamsTest {
     @Test
     fun createPaymentFlowCreateParams() {
         PaymentFlowCreateParams.builder()
-            .amount(123L)
+            .amount(0L)
             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .currency("currency")
             .direction(PaymentFlowCreateParams.Direction.CREDIT)
@@ -25,7 +25,7 @@ class PaymentFlowCreateParamsTest {
     fun getBody() {
         val params =
             PaymentFlowCreateParams.builder()
-                .amount(123L)
+                .amount(0L)
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .currency("currency")
                 .direction(PaymentFlowCreateParams.Direction.CREDIT)
@@ -34,7 +34,7 @@ class PaymentFlowCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.currency()).isEqualTo("currency")
         assertThat(body.direction()).isEqualTo(PaymentFlowCreateParams.Direction.CREDIT)
@@ -46,7 +46,7 @@ class PaymentFlowCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             PaymentFlowCreateParams.builder()
-                .amount(123L)
+                .amount(0L)
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .currency("currency")
                 .direction(PaymentFlowCreateParams.Direction.CREDIT)
@@ -54,7 +54,7 @@ class PaymentFlowCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.currency()).isEqualTo("currency")
         assertThat(body.direction()).isEqualTo(PaymentFlowCreateParams.Direction.CREDIT)

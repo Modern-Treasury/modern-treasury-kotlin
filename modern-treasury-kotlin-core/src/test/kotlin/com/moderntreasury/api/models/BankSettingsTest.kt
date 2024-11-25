@@ -13,7 +13,7 @@ class BankSettingsTest {
         val bankSettings =
             BankSettings.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .backupWithholdingPercentage(123L)
+                .backupWithholdingPercentage(0L)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .enableBackupWithholding(true)
@@ -25,7 +25,7 @@ class BankSettingsTest {
                 .build()
         assertThat(bankSettings).isNotNull
         assertThat(bankSettings.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(bankSettings.backupWithholdingPercentage()).isEqualTo(123L)
+        assertThat(bankSettings.backupWithholdingPercentage()).isEqualTo(0L)
         assertThat(bankSettings.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(bankSettings.discardedAt())

@@ -74,7 +74,7 @@ class InvoiceServiceTest {
                         listOf(
                             InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
                                 .name("name")
-                                .unitAmount(123L)
+                                .unitAmount(0L)
                                 .description("description")
                                 .direction("direction")
                                 .metadata(
@@ -82,7 +82,7 @@ class InvoiceServiceTest {
                                         .builder()
                                         .build()
                                 )
-                                .quantity(123L)
+                                .quantity(0L)
                                 .unitAmountDecimal("unit_amount_decimal")
                                 .build()
                         )
@@ -107,7 +107,7 @@ class InvoiceServiceTest {
                     .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .recipientEmail("recipient_email")
                     .recipientName("recipient_name")
-                    .remindAfterOverdueDays(listOf(123L))
+                    .remindAfterOverdueDays(listOf(0L))
                     .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
             )
@@ -188,7 +188,7 @@ class InvoiceServiceTest {
                         listOf(
                             InvoiceUpdateParams.InvoiceLineItemCreateRequest.builder()
                                 .name("name")
-                                .unitAmount(123L)
+                                .unitAmount(0L)
                                 .description("description")
                                 .direction("direction")
                                 .metadata(
@@ -196,7 +196,7 @@ class InvoiceServiceTest {
                                         .builder()
                                         .build()
                                 )
-                                .quantity(123L)
+                                .quantity(0L)
                                 .unitAmountDecimal("unit_amount_decimal")
                                 .build()
                         )
@@ -222,7 +222,7 @@ class InvoiceServiceTest {
                     .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .recipientEmail("recipient_email")
                     .recipientName("recipient_name")
-                    .remindAfterOverdueDays(listOf(123L))
+                    .remindAfterOverdueDays(listOf(0L))
                     .status("status")
                     .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()

@@ -61,14 +61,14 @@ class InvoiceCreateParamsTest {
                 listOf(
                     InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
                         .name("name")
-                        .unitAmount(123L)
+                        .unitAmount(0L)
                         .description("description")
                         .direction("direction")
                         .metadata(
                             InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
                                 .build()
                         )
-                        .quantity(123L)
+                        .quantity(0L)
                         .unitAmountDecimal("unit_amount_decimal")
                         .build()
                 )
@@ -93,7 +93,7 @@ class InvoiceCreateParamsTest {
             .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .recipientEmail("recipient_email")
             .recipientName("recipient_name")
-            .remindAfterOverdueDays(listOf(123L))
+            .remindAfterOverdueDays(listOf(0L))
             .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .build()
     }
@@ -150,14 +150,14 @@ class InvoiceCreateParamsTest {
                     listOf(
                         InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
                             .name("name")
-                            .unitAmount(123L)
+                            .unitAmount(0L)
                             .description("description")
                             .direction("direction")
                             .metadata(
                                 InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
                                     .build()
                             )
-                            .quantity(123L)
+                            .quantity(0L)
                             .unitAmountDecimal("unit_amount_decimal")
                             .build()
                     )
@@ -182,7 +182,7 @@ class InvoiceCreateParamsTest {
                 .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .recipientEmail("recipient_email")
                 .recipientName("recipient_name")
-                .remindAfterOverdueDays(listOf(123L))
+                .remindAfterOverdueDays(listOf(0L))
                 .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
         val body = params.getBody()
@@ -239,14 +239,14 @@ class InvoiceCreateParamsTest {
                 listOf(
                     InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
                         .name("name")
-                        .unitAmount(123L)
+                        .unitAmount(0L)
                         .description("description")
                         .direction("direction")
                         .metadata(
                             InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
                                 .build()
                         )
-                        .quantity(123L)
+                        .quantity(0L)
                         .unitAmountDecimal("unit_amount_decimal")
                         .build()
                 )
@@ -273,7 +273,7 @@ class InvoiceCreateParamsTest {
         assertThat(body.receivingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.recipientEmail()).isEqualTo("recipient_email")
         assertThat(body.recipientName()).isEqualTo("recipient_name")
-        assertThat(body.remindAfterOverdueDays()).isEqualTo(listOf(123L))
+        assertThat(body.remindAfterOverdueDays()).isEqualTo(listOf(0L))
         assertThat(body.virtualAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
     }
 

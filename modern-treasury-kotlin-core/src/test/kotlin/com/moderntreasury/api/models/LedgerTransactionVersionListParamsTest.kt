@@ -16,7 +16,7 @@ class LedgerTransactionVersionListParamsTest {
             .createdAt(LedgerTransactionVersionListParams.CreatedAt.builder().build())
             .ledgerAccountStatementId("ledger_account_statement_id")
             .ledgerTransactionId("ledger_transaction_id")
-            .perPage(123L)
+            .perPage(0L)
             .version(LedgerTransactionVersionListParams.Version.builder().build())
             .build()
     }
@@ -29,7 +29,7 @@ class LedgerTransactionVersionListParamsTest {
                 .createdAt(LedgerTransactionVersionListParams.CreatedAt.builder().build())
                 .ledgerAccountStatementId("ledger_account_statement_id")
                 .ledgerTransactionId("ledger_transaction_id")
-                .perPage(123L)
+                .perPage(0L)
                 .version(LedgerTransactionVersionListParams.Version.builder().build())
                 .build()
         val expected = QueryParams.builder()
@@ -41,7 +41,7 @@ class LedgerTransactionVersionListParamsTest {
         }
         expected.put("ledger_account_statement_id", "ledger_account_statement_id")
         expected.put("ledger_transaction_id", "ledger_transaction_id")
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         LedgerTransactionVersionListParams.Version.builder().build().forEachQueryParam { key, values
             ->
             expected.put("version[$key]", values)

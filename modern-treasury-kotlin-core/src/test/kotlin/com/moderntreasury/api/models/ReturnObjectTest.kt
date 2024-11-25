@@ -14,14 +14,14 @@ class ReturnObjectTest {
         val returnObject =
             ReturnObject.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .amount(123L)
+                .amount(0L)
                 .code(ReturnObject.Code._901)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(Currency.AED)
                 .currentReturn(
                     ReturnObject.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .amount(123L)
+                        .amount(0L)
                         .code(ReturnObject.Code._901)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .currency(Currency.AED)
@@ -94,7 +94,7 @@ class ReturnObjectTest {
                 .build()
         assertThat(returnObject).isNotNull
         assertThat(returnObject.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(returnObject.amount()).isEqualTo(123L)
+        assertThat(returnObject.amount()).isEqualTo(0L)
         assertThat(returnObject.code()).isEqualTo(ReturnObject.Code._901)
         assertThat(returnObject.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -103,7 +103,7 @@ class ReturnObjectTest {
             .isEqualTo(
                 ReturnObject.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .amount(123L)
+                    .amount(0L)
                     .code(ReturnObject.Code._901)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .currency(Currency.AED)

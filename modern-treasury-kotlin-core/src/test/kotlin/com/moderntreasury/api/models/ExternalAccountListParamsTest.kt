@@ -16,7 +16,7 @@ class ExternalAccountListParamsTest {
             .counterpartyId("counterparty_id")
             .metadata(ExternalAccountListParams.Metadata.builder().build())
             .partyName("party_name")
-            .perPage(123L)
+            .perPage(0L)
             .build()
     }
 
@@ -28,7 +28,7 @@ class ExternalAccountListParamsTest {
                 .counterpartyId("counterparty_id")
                 .metadata(ExternalAccountListParams.Metadata.builder().build())
                 .partyName("party_name")
-                .perPage(123L)
+                .perPage(0L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("after_cursor", "after_cursor")
@@ -37,7 +37,7 @@ class ExternalAccountListParamsTest {
             expected.put("metadata[$key]", values)
         }
         expected.put("party_name", "party_name")
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
