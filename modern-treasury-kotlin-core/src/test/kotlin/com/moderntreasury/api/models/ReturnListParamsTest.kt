@@ -15,7 +15,7 @@ class ReturnListParamsTest {
             .afterCursor("after_cursor")
             .counterpartyId("counterparty_id")
             .internalAccountId("internal_account_id")
-            .perPage(123L)
+            .perPage(0L)
             .returnableId("returnable_id")
             .returnableType(ReturnListParams.ReturnableType.INCOMING_PAYMENT_DETAIL)
             .build()
@@ -28,7 +28,7 @@ class ReturnListParamsTest {
                 .afterCursor("after_cursor")
                 .counterpartyId("counterparty_id")
                 .internalAccountId("internal_account_id")
-                .perPage(123L)
+                .perPage(0L)
                 .returnableId("returnable_id")
                 .returnableType(ReturnListParams.ReturnableType.INCOMING_PAYMENT_DETAIL)
                 .build()
@@ -36,7 +36,7 @@ class ReturnListParamsTest {
         expected.put("after_cursor", "after_cursor")
         expected.put("counterparty_id", "counterparty_id")
         expected.put("internal_account_id", "internal_account_id")
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         expected.put("returnable_id", "returnable_id")
         expected.put(
             "returnable_type",

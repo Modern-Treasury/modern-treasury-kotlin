@@ -32,7 +32,7 @@ class BalanceReportServiceTest {
                     .balances(
                         listOf(
                             BalanceReportCreateParams.BalanceCreateRequest.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .balanceType(
                                     BalanceReportCreateParams.BalanceCreateRequest.BalanceType
                                         .CLOSING_AVAILABLE

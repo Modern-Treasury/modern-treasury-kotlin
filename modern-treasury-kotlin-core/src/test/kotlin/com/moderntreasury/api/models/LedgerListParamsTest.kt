@@ -15,7 +15,7 @@ class LedgerListParamsTest {
             .id(listOf("string"))
             .afterCursor("after_cursor")
             .metadata(LedgerListParams.Metadata.builder().build())
-            .perPage(123L)
+            .perPage(0L)
             .updatedAt(LedgerListParams.UpdatedAt.builder().build())
             .build()
     }
@@ -27,7 +27,7 @@ class LedgerListParamsTest {
                 .id(listOf("string"))
                 .afterCursor("after_cursor")
                 .metadata(LedgerListParams.Metadata.builder().build())
-                .perPage(123L)
+                .perPage(0L)
                 .updatedAt(LedgerListParams.UpdatedAt.builder().build())
                 .build()
         val expected = QueryParams.builder()
@@ -36,7 +36,7 @@ class LedgerListParamsTest {
         LedgerListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         LedgerListParams.UpdatedAt.builder().build().forEachQueryParam { key, values ->
             expected.put("updated_at[$key]", values)
         }

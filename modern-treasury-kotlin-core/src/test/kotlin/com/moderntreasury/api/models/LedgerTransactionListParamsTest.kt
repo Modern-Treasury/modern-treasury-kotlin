@@ -30,7 +30,7 @@ class LedgerTransactionListParamsTest {
                     .effectiveAt(LedgerTransactionListParams.OrderBy.EffectiveAt.ASC)
                     .build()
             )
-            .perPage(123L)
+            .perPage(0L)
             .postedAt(LedgerTransactionListParams.PostedAt.builder().build())
             .reversesLedgerTransactionId("reverses_ledger_transaction_id")
             .status(LedgerTransactionListParams.Status.PENDING)
@@ -60,7 +60,7 @@ class LedgerTransactionListParamsTest {
                         .effectiveAt(LedgerTransactionListParams.OrderBy.EffectiveAt.ASC)
                         .build()
                 )
-                .perPage(123L)
+                .perPage(0L)
                 .postedAt(LedgerTransactionListParams.PostedAt.builder().build())
                 .reversesLedgerTransactionId("reverses_ledger_transaction_id")
                 .status(LedgerTransactionListParams.Status.PENDING)
@@ -94,7 +94,7 @@ class LedgerTransactionListParamsTest {
             .effectiveAt(LedgerTransactionListParams.OrderBy.EffectiveAt.ASC)
             .build()
             .forEachQueryParam { key, values -> expected.put("order_by[$key]", values) }
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         LedgerTransactionListParams.PostedAt.builder().build().forEachQueryParam { key, values ->
             expected.put("posted_at[$key]", values)
         }

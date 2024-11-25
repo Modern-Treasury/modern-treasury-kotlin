@@ -44,7 +44,7 @@ class LegalEntityAssociationCreateParamsTest {
                     .bankSettings(
                         BankSettings.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .backupWithholdingPercentage(123L)
+                            .backupWithholdingPercentage(0L)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .enableBackupWithholding(true)
@@ -110,7 +110,7 @@ class LegalEntityAssociationCreateParamsTest {
                     .wealthAndEmploymentDetails(
                         WealthAndEmploymentDetails.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .annualIncome(123L)
+                            .annualIncome(0L)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .employerCountry("employer_country")
@@ -133,7 +133,7 @@ class LegalEntityAssociationCreateParamsTest {
                     .build()
             )
             .childLegalEntityId("child_legal_entity_id")
-            .ownershipPercentage(123L)
+            .ownershipPercentage(0L)
             .title("title")
             .build()
     }
@@ -174,7 +174,7 @@ class LegalEntityAssociationCreateParamsTest {
                         .bankSettings(
                             BankSettings.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .backupWithholdingPercentage(123L)
+                                .backupWithholdingPercentage(0L)
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .enableBackupWithholding(true)
@@ -243,7 +243,7 @@ class LegalEntityAssociationCreateParamsTest {
                         .wealthAndEmploymentDetails(
                             WealthAndEmploymentDetails.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .annualIncome(123L)
+                                .annualIncome(0L)
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .employerCountry("employer_country")
@@ -270,7 +270,7 @@ class LegalEntityAssociationCreateParamsTest {
                         .build()
                 )
                 .childLegalEntityId("child_legal_entity_id")
-                .ownershipPercentage(123L)
+                .ownershipPercentage(0L)
                 .title("title")
                 .build()
         val body = params.getBody()
@@ -306,7 +306,7 @@ class LegalEntityAssociationCreateParamsTest {
                     .bankSettings(
                         BankSettings.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .backupWithholdingPercentage(123L)
+                            .backupWithholdingPercentage(0L)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .enableBackupWithholding(true)
@@ -372,7 +372,7 @@ class LegalEntityAssociationCreateParamsTest {
                     .wealthAndEmploymentDetails(
                         WealthAndEmploymentDetails.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .annualIncome(123L)
+                            .annualIncome(0L)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .employerCountry("employer_country")
@@ -395,7 +395,7 @@ class LegalEntityAssociationCreateParamsTest {
                     .build()
             )
         assertThat(body.childLegalEntityId()).isEqualTo("child_legal_entity_id")
-        assertThat(body.ownershipPercentage()).isEqualTo(123L)
+        assertThat(body.ownershipPercentage()).isEqualTo(0L)
         assertThat(body.title()).isEqualTo("title")
     }
 

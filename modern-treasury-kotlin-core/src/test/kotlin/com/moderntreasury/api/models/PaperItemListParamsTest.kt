@@ -17,7 +17,7 @@ class PaperItemListParamsTest {
             .depositDateEnd(LocalDate.parse("2019-12-27"))
             .depositDateStart(LocalDate.parse("2019-12-27"))
             .lockboxNumber("lockbox_number")
-            .perPage(123L)
+            .perPage(0L)
             .build()
     }
 
@@ -29,14 +29,14 @@ class PaperItemListParamsTest {
                 .depositDateEnd(LocalDate.parse("2019-12-27"))
                 .depositDateStart(LocalDate.parse("2019-12-27"))
                 .lockboxNumber("lockbox_number")
-                .perPage(123L)
+                .perPage(0L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("after_cursor", "after_cursor")
         expected.put("deposit_date_end", "2019-12-27")
         expected.put("deposit_date_start", "2019-12-27")
         expected.put("lockbox_number", "lockbox_number")
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 

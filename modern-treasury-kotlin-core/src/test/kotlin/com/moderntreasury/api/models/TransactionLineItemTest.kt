@@ -13,7 +13,7 @@ class TransactionLineItemTest {
         val transactionLineItem =
             TransactionLineItem.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .amount(123L)
+                .amount(0L)
                 .counterpartyId("counterparty_id")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .description("description")
@@ -30,7 +30,7 @@ class TransactionLineItemTest {
                 .build()
         assertThat(transactionLineItem).isNotNull
         assertThat(transactionLineItem.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(transactionLineItem.amount()).isEqualTo(123L)
+        assertThat(transactionLineItem.amount()).isEqualTo(0L)
         assertThat(transactionLineItem.counterpartyId()).isEqualTo("counterparty_id")
         assertThat(transactionLineItem.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

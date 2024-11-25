@@ -38,7 +38,7 @@ class LegalEntityTest {
                 .bankSettings(
                     BankSettings.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .backupWithholdingPercentage(123L)
+                        .backupWithholdingPercentage(0L)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .enableBackupWithholding(true)
@@ -117,7 +117,7 @@ class LegalEntityTest {
                                     .bankSettings(
                                         BankSettings.builder()
                                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                            .backupWithholdingPercentage(123L)
+                                            .backupWithholdingPercentage(0L)
                                             .createdAt(
                                                 OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                             )
@@ -204,7 +204,7 @@ class LegalEntityTest {
                                     .wealthAndEmploymentDetails(
                                         WealthAndEmploymentDetails.builder()
                                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                            .annualIncome(123L)
+                                            .annualIncome(0L)
                                             .createdAt(
                                                 OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                             )
@@ -250,7 +250,7 @@ class LegalEntityTest {
                             .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .liveMode(true)
                             .object_("object")
-                            .ownershipPercentage(123L)
+                            .ownershipPercentage(0L)
                             .parentLegalEntityId("parent_legal_entity_id")
                             .relationshipTypes(
                                 listOf(LegalEntityAssociation.RelationshipType.BENEFICIAL_OWNER)
@@ -278,7 +278,7 @@ class LegalEntityTest {
                 .wealthAndEmploymentDetails(
                     WealthAndEmploymentDetails.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .annualIncome(123L)
+                        .annualIncome(0L)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .employerCountry("employer_country")
@@ -323,7 +323,7 @@ class LegalEntityTest {
             .isEqualTo(
                 BankSettings.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .backupWithholdingPercentage(123L)
+                    .backupWithholdingPercentage(0L)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .enableBackupWithholding(true)
@@ -398,7 +398,7 @@ class LegalEntityTest {
                             .bankSettings(
                                 BankSettings.builder()
                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .backupWithholdingPercentage(123L)
+                                    .backupWithholdingPercentage(0L)
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .enableBackupWithholding(true)
@@ -467,7 +467,7 @@ class LegalEntityTest {
                             .wealthAndEmploymentDetails(
                                 WealthAndEmploymentDetails.builder()
                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .annualIncome(123L)
+                                    .annualIncome(0L)
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .employerCountry("employer_country")
@@ -499,7 +499,7 @@ class LegalEntityTest {
                     .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .liveMode(true)
                     .object_("object")
-                    .ownershipPercentage(123L)
+                    .ownershipPercentage(0L)
                     .parentLegalEntityId("parent_legal_entity_id")
                     .relationshipTypes(
                         listOf(LegalEntityAssociation.RelationshipType.BENEFICIAL_OWNER)
@@ -527,7 +527,7 @@ class LegalEntityTest {
             .isEqualTo(
                 WealthAndEmploymentDetails.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .annualIncome(123L)
+                    .annualIncome(0L)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .employerCountry("employer_country")
