@@ -61,6 +61,10 @@ constructor(
 
     fun updatedAt(): UpdatedAt? = updatedAt
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -99,25 +103,6 @@ constructor(
         return queryParams.build()
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerAccountListParams && this.id == other.id && this.afterCursor == other.afterCursor && this.availableBalanceAmount == other.availableBalanceAmount && this.balances == other.balances && this.createdAt == other.createdAt && this.currency == other.currency && this.ledgerAccountCategoryId == other.ledgerAccountCategoryId && this.ledgerId == other.ledgerId && this.metadata == other.metadata && this.name == other.name && this.pendingBalanceAmount == other.pendingBalanceAmount && this.perPage == other.perPage && this.postedBalanceAmount == other.postedBalanceAmount && this.updatedAt == other.updatedAt && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(id, afterCursor, availableBalanceAmount, balances, createdAt, currency, ledgerAccountCategoryId, ledgerId, metadata, name, pendingBalanceAmount, perPage, postedBalanceAmount, updatedAt, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
-
-    override fun toString() =
-        "LedgerAccountListParams{id=$id, afterCursor=$afterCursor, availableBalanceAmount=$availableBalanceAmount, balances=$balances, createdAt=$createdAt, currency=$currency, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerId=$ledgerId, metadata=$metadata, name=$name, pendingBalanceAmount=$pendingBalanceAmount, perPage=$perPage, postedBalanceAmount=$postedBalanceAmount, updatedAt=$updatedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -146,22 +131,22 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(ledgerAccountListParams: LedgerAccountListParams) = apply {
-            this.id(ledgerAccountListParams.id ?: listOf())
-            this.afterCursor = ledgerAccountListParams.afterCursor
-            this.availableBalanceAmount = ledgerAccountListParams.availableBalanceAmount
-            this.balances = ledgerAccountListParams.balances
-            this.createdAt = ledgerAccountListParams.createdAt
-            this.currency = ledgerAccountListParams.currency
-            this.ledgerAccountCategoryId = ledgerAccountListParams.ledgerAccountCategoryId
-            this.ledgerId = ledgerAccountListParams.ledgerId
-            this.metadata = ledgerAccountListParams.metadata
-            this.name(ledgerAccountListParams.name ?: listOf())
-            this.pendingBalanceAmount = ledgerAccountListParams.pendingBalanceAmount
-            this.perPage = ledgerAccountListParams.perPage
-            this.postedBalanceAmount = ledgerAccountListParams.postedBalanceAmount
-            this.updatedAt = ledgerAccountListParams.updatedAt
-            additionalHeaders(ledgerAccountListParams.additionalHeaders)
-            additionalQueryParams(ledgerAccountListParams.additionalQueryParams)
+            id = ledgerAccountListParams.id?.toMutableList() ?: mutableListOf()
+            afterCursor = ledgerAccountListParams.afterCursor
+            availableBalanceAmount = ledgerAccountListParams.availableBalanceAmount
+            balances = ledgerAccountListParams.balances
+            createdAt = ledgerAccountListParams.createdAt
+            currency = ledgerAccountListParams.currency
+            ledgerAccountCategoryId = ledgerAccountListParams.ledgerAccountCategoryId
+            ledgerId = ledgerAccountListParams.ledgerId
+            metadata = ledgerAccountListParams.metadata
+            name = ledgerAccountListParams.name?.toMutableList() ?: mutableListOf()
+            pendingBalanceAmount = ledgerAccountListParams.pendingBalanceAmount
+            perPage = ledgerAccountListParams.perPage
+            postedBalanceAmount = ledgerAccountListParams.postedBalanceAmount
+            updatedAt = ledgerAccountListParams.updatedAt
+            additionalHeaders = ledgerAccountListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = ledgerAccountListParams.additionalQueryParams.toBuilder()
         }
 
         /**
@@ -358,7 +343,7 @@ constructor(
 
         fun build(): LedgerAccountListParams =
             LedgerAccountListParams(
-                if (id.size == 0) null else id.toImmutable(),
+                id.toImmutable().ifEmpty { null },
                 afterCursor,
                 availableBalanceAmount,
                 balances,
@@ -367,7 +352,7 @@ constructor(
                 ledgerAccountCategoryId,
                 ledgerId,
                 metadata,
-                if (name.size == 0) null else name.toImmutable(),
+                name.toImmutable().ifEmpty { null },
                 pendingBalanceAmount,
                 perPage,
                 postedBalanceAmount,
@@ -488,17 +473,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AvailableBalanceAmount && this.gt == other.gt && this.lt == other.lt && this.gte == other.gte && this.lte == other.lte && this.eq == other.eq && this.notEq == other.notEq && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is AvailableBalanceAmount && gt == other.gt && lt == other.lt && gte == other.gte && lte == other.lte && eq == other.eq && notEq == other.notEq && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(gt, lt, gte, lte, eq, notEq, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(gt, lt, gte, lte, eq, notEq, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "AvailableBalanceAmount{gt=$gt, lt=$lt, gte=$gte, lte=$lte, eq=$eq, notEq=$notEq, additionalProperties=$additionalProperties}"
@@ -615,17 +597,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Balances && this.asOfDate == other.asOfDate && this.effectiveAt == other.effectiveAt && this.effectiveAtLowerBound == other.effectiveAtLowerBound && this.effectiveAtUpperBound == other.effectiveAtUpperBound && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Balances && asOfDate == other.asOfDate && effectiveAt == other.effectiveAt && effectiveAtLowerBound == other.effectiveAtLowerBound && effectiveAtUpperBound == other.effectiveAtUpperBound && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(asOfDate, effectiveAt, effectiveAtLowerBound, effectiveAtUpperBound, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(asOfDate, effectiveAt, effectiveAtLowerBound, effectiveAtUpperBound, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Balances{asOfDate=$asOfDate, effectiveAt=$effectiveAt, effectiveAtLowerBound=$effectiveAtLowerBound, effectiveAtUpperBound=$effectiveAtUpperBound, additionalProperties=$additionalProperties}"
@@ -686,17 +665,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CreatedAt && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CreatedAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "CreatedAt{additionalProperties=$additionalProperties}"
     }
@@ -755,17 +731,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
@@ -881,17 +854,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PendingBalanceAmount && this.gt == other.gt && this.lt == other.lt && this.gte == other.gte && this.lte == other.lte && this.eq == other.eq && this.notEq == other.notEq && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PendingBalanceAmount && gt == other.gt && lt == other.lt && gte == other.gte && lte == other.lte && eq == other.eq && notEq == other.notEq && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(gt, lt, gte, lte, eq, notEq, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(gt, lt, gte, lte, eq, notEq, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "PendingBalanceAmount{gt=$gt, lt=$lt, gte=$gte, lte=$lte, eq=$eq, notEq=$notEq, additionalProperties=$additionalProperties}"
@@ -1008,17 +978,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PostedBalanceAmount && this.gt == other.gt && this.lt == other.lt && this.gte == other.gte && this.lte == other.lte && this.eq == other.eq && this.notEq == other.notEq && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PostedBalanceAmount && gt == other.gt && lt == other.lt && gte == other.gte && lte == other.lte && eq == other.eq && notEq == other.notEq && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(gt, lt, gte, lte, eq, notEq, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(gt, lt, gte, lte, eq, notEq, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "PostedBalanceAmount{gt=$gt, lt=$lt, gte=$gte, lte=$lte, eq=$eq, notEq=$notEq, additionalProperties=$additionalProperties}"
@@ -1079,18 +1046,28 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is UpdatedAt && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is UpdatedAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "UpdatedAt{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerAccountListParams && id == other.id && afterCursor == other.afterCursor && availableBalanceAmount == other.availableBalanceAmount && balances == other.balances && createdAt == other.createdAt && currency == other.currency && ledgerAccountCategoryId == other.ledgerAccountCategoryId && ledgerId == other.ledgerId && metadata == other.metadata && name == other.name && pendingBalanceAmount == other.pendingBalanceAmount && perPage == other.perPage && postedBalanceAmount == other.postedBalanceAmount && updatedAt == other.updatedAt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, afterCursor, availableBalanceAmount, balances, createdAt, currency, ledgerAccountCategoryId, ledgerId, metadata, name, pendingBalanceAmount, perPage, postedBalanceAmount, updatedAt, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "LedgerAccountListParams{id=$id, afterCursor=$afterCursor, availableBalanceAmount=$availableBalanceAmount, balances=$balances, createdAt=$createdAt, currency=$currency, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerId=$ledgerId, metadata=$metadata, name=$name, pendingBalanceAmount=$pendingBalanceAmount, perPage=$perPage, postedBalanceAmount=$postedBalanceAmount, updatedAt=$updatedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

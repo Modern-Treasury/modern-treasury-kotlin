@@ -37,12 +37,10 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExpectedPaymentListPageAsync && this.expectedPaymentsService == other.expectedPaymentsService && this.params == other.params && this.response == other.response /* spotless:on */
+        return /* spotless:off */ other is ExpectedPaymentListPageAsync && expectedPaymentsService == other.expectedPaymentsService && params == other.params && response == other.response /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(expectedPaymentsService, params, response) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(expectedPaymentsService, params, response) /* spotless:on */
 
     override fun toString() =
         "ExpectedPaymentListPageAsync{expectedPaymentsService=$expectedPaymentsService, params=$params, response=$response}"
@@ -117,15 +115,13 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Response && this.items == other.items && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Response && items == other.items && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        override fun hashCode(): Int {
-            return /* spotless:off */ Objects.hash(items, additionalProperties) /* spotless:on */
-        }
+        override fun hashCode(): Int = /* spotless:off */ Objects.hash(items, additionalProperties) /* spotless:on */
 
         override fun toString() =
-            "ExpectedPaymentListPageAsync.Response{items=$items, additionalProperties=$additionalProperties}"
+            "Response{items=$items, additionalProperties=$additionalProperties}"
 
         companion object {
 

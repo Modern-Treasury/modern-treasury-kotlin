@@ -12,7 +12,7 @@ class IncomingPaymentDetailCreateAsyncParamsTest {
     @Test
     fun createIncomingPaymentDetailCreateAsyncParams() {
         IncomingPaymentDetailCreateAsyncParams.builder()
-            .amount(123L)
+            .amount(0L)
             .asOfDate(LocalDate.parse("2019-12-27"))
             .currency(Currency.AED)
             .description("description")
@@ -27,7 +27,7 @@ class IncomingPaymentDetailCreateAsyncParamsTest {
     fun getBody() {
         val params =
             IncomingPaymentDetailCreateAsyncParams.builder()
-                .amount(123L)
+                .amount(0L)
                 .asOfDate(LocalDate.parse("2019-12-27"))
                 .currency(Currency.AED)
                 .description("description")
@@ -38,7 +38,7 @@ class IncomingPaymentDetailCreateAsyncParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.currency()).isEqualTo(Currency.AED)
         assertThat(body.description()).isEqualTo("description")

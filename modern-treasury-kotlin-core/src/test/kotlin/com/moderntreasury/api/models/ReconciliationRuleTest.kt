@@ -12,8 +12,8 @@ class ReconciliationRuleTest {
     fun createReconciliationRule() {
         val reconciliationRule =
             ReconciliationRule.builder()
-                .amountLowerBound(123L)
-                .amountUpperBound(123L)
+                .amountLowerBound(0L)
+                .amountUpperBound(0L)
                 .direction(ReconciliationRule.Direction.CREDIT)
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -24,8 +24,8 @@ class ReconciliationRuleTest {
                 .type(ReconciliationRule.Type.ACH)
                 .build()
         assertThat(reconciliationRule).isNotNull
-        assertThat(reconciliationRule.amountLowerBound()).isEqualTo(123L)
-        assertThat(reconciliationRule.amountUpperBound()).isEqualTo(123L)
+        assertThat(reconciliationRule.amountLowerBound()).isEqualTo(0L)
+        assertThat(reconciliationRule.amountUpperBound()).isEqualTo(0L)
         assertThat(reconciliationRule.direction()).isEqualTo(ReconciliationRule.Direction.CREDIT)
         assertThat(reconciliationRule.internalAccountId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

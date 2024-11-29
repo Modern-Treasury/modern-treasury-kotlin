@@ -458,7 +458,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is TransactableType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is TransactableType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -539,7 +539,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -588,17 +588,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is TransactionLineItem && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.discardedAt == other.discardedAt && this.type == other.type && this.transactableType == other.transactableType && this.transactableId == other.transactableId && this.amount == other.amount && this.description == other.description && this.counterpartyId == other.counterpartyId && this.expectedPaymentId == other.expectedPaymentId && this.transactionId == other.transactionId && this.reconcilable == other.reconcilable && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is TransactionLineItem && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && discardedAt == other.discardedAt && type == other.type && transactableType == other.transactableType && transactableId == other.transactableId && amount == other.amount && description == other.description && counterpartyId == other.counterpartyId && expectedPaymentId == other.expectedPaymentId && transactionId == other.transactionId && reconcilable == other.reconcilable && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, type, transactableType, transactableId, amount, description, counterpartyId, expectedPaymentId, transactionId, reconcilable, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, type, transactableType, transactableId, amount, description, counterpartyId, expectedPaymentId, transactionId, reconcilable, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "TransactionLineItem{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, type=$type, transactableType=$transactableType, transactableId=$transactableId, amount=$amount, description=$description, counterpartyId=$counterpartyId, expectedPaymentId=$expectedPaymentId, transactionId=$transactionId, reconcilable=$reconcilable, additionalProperties=$additionalProperties}"

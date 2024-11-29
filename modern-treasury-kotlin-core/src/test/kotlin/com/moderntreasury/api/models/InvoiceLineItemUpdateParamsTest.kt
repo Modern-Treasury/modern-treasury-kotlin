@@ -17,8 +17,8 @@ class InvoiceLineItemUpdateParamsTest {
             .direction("direction")
             .metadata(InvoiceLineItemUpdateParams.Metadata.builder().build())
             .name("name")
-            .quantity(123L)
-            .unitAmount(123L)
+            .quantity(0L)
+            .unitAmount(0L)
             .unitAmountDecimal("unit_amount_decimal")
             .build()
     }
@@ -33,8 +33,8 @@ class InvoiceLineItemUpdateParamsTest {
                 .direction("direction")
                 .metadata(InvoiceLineItemUpdateParams.Metadata.builder().build())
                 .name("name")
-                .quantity(123L)
-                .unitAmount(123L)
+                .quantity(0L)
+                .unitAmount(0L)
                 .unitAmountDecimal("unit_amount_decimal")
                 .build()
         val body = params.getBody()
@@ -44,8 +44,8 @@ class InvoiceLineItemUpdateParamsTest {
         assertThat(body.metadata())
             .isEqualTo(InvoiceLineItemUpdateParams.Metadata.builder().build())
         assertThat(body.name()).isEqualTo("name")
-        assertThat(body.quantity()).isEqualTo(123L)
-        assertThat(body.unitAmount()).isEqualTo(123L)
+        assertThat(body.quantity()).isEqualTo(0L)
+        assertThat(body.unitAmount()).isEqualTo(0L)
         assertThat(body.unitAmountDecimal()).isEqualTo("unit_amount_decimal")
     }
 

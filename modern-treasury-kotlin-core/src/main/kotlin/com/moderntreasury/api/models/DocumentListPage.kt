@@ -35,12 +35,10 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is DocumentListPage && this.documentsService == other.documentsService && this.params == other.params && this.response == other.response /* spotless:on */
+        return /* spotless:off */ other is DocumentListPage && documentsService == other.documentsService && params == other.params && response == other.response /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(documentsService, params, response) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(documentsService, params, response) /* spotless:on */
 
     override fun toString() =
         "DocumentListPage{documentsService=$documentsService, params=$params, response=$response}"
@@ -111,15 +109,13 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Response && this.items == other.items && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Response && items == other.items && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        override fun hashCode(): Int {
-            return /* spotless:off */ Objects.hash(items, additionalProperties) /* spotless:on */
-        }
+        override fun hashCode(): Int = /* spotless:off */ Objects.hash(items, additionalProperties) /* spotless:on */
 
         override fun toString() =
-            "DocumentListPage.Response{items=$items, additionalProperties=$additionalProperties}"
+            "Response{items=$items, additionalProperties=$additionalProperties}"
 
         companion object {
 

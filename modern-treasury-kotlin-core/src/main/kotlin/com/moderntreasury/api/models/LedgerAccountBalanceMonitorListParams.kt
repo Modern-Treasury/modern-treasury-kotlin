@@ -31,6 +31,10 @@ constructor(
 
     fun perPage(): Long? = perPage
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -45,25 +49,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerAccountBalanceMonitorListParams && this.id == other.id && this.afterCursor == other.afterCursor && this.ledgerAccountId == other.ledgerAccountId && this.metadata == other.metadata && this.perPage == other.perPage && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(id, afterCursor, ledgerAccountId, metadata, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
-
-    override fun toString() =
-        "LedgerAccountBalanceMonitorListParams{id=$id, afterCursor=$afterCursor, ledgerAccountId=$ledgerAccountId, metadata=$metadata, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -86,13 +71,14 @@ constructor(
         internal fun from(
             ledgerAccountBalanceMonitorListParams: LedgerAccountBalanceMonitorListParams
         ) = apply {
-            this.id(ledgerAccountBalanceMonitorListParams.id ?: listOf())
-            this.afterCursor = ledgerAccountBalanceMonitorListParams.afterCursor
-            this.ledgerAccountId = ledgerAccountBalanceMonitorListParams.ledgerAccountId
-            this.metadata = ledgerAccountBalanceMonitorListParams.metadata
-            this.perPage = ledgerAccountBalanceMonitorListParams.perPage
-            additionalHeaders(ledgerAccountBalanceMonitorListParams.additionalHeaders)
-            additionalQueryParams(ledgerAccountBalanceMonitorListParams.additionalQueryParams)
+            id = ledgerAccountBalanceMonitorListParams.id?.toMutableList() ?: mutableListOf()
+            afterCursor = ledgerAccountBalanceMonitorListParams.afterCursor
+            ledgerAccountId = ledgerAccountBalanceMonitorListParams.ledgerAccountId
+            metadata = ledgerAccountBalanceMonitorListParams.metadata
+            perPage = ledgerAccountBalanceMonitorListParams.perPage
+            additionalHeaders = ledgerAccountBalanceMonitorListParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                ledgerAccountBalanceMonitorListParams.additionalQueryParams.toBuilder()
         }
 
         /**
@@ -225,7 +211,7 @@ constructor(
 
         fun build(): LedgerAccountBalanceMonitorListParams =
             LedgerAccountBalanceMonitorListParams(
-                if (id.size == 0) null else id.toImmutable(),
+                id.toImmutable().ifEmpty { null },
                 afterCursor,
                 ledgerAccountId,
                 metadata,
@@ -289,18 +275,28 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerAccountBalanceMonitorListParams && id == other.id && afterCursor == other.afterCursor && ledgerAccountId == other.ledgerAccountId && metadata == other.metadata && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, afterCursor, ledgerAccountId, metadata, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "LedgerAccountBalanceMonitorListParams{id=$id, afterCursor=$afterCursor, ledgerAccountId=$ledgerAccountId, metadata=$metadata, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

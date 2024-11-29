@@ -51,6 +51,12 @@ constructor(
 
     fun status(): Status? = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): LedgerAccountSettlementCreateBody {
         return LedgerAccountSettlementCreateBody(
             contraLedgerAccountId,
@@ -273,42 +279,18 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerAccountSettlementCreateBody && this.contraLedgerAccountId == other.contraLedgerAccountId && this.settledLedgerAccountId == other.settledLedgerAccountId && this.allowEitherDirection == other.allowEitherDirection && this.description == other.description && this.effectiveAtUpperBound == other.effectiveAtUpperBound && this.metadata == other.metadata && this.skipSettlementLedgerTransaction == other.skipSettlementLedgerTransaction && this.status == other.status && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerAccountSettlementCreateBody && contraLedgerAccountId == other.contraLedgerAccountId && settledLedgerAccountId == other.settledLedgerAccountId && allowEitherDirection == other.allowEitherDirection && description == other.description && effectiveAtUpperBound == other.effectiveAtUpperBound && metadata == other.metadata && skipSettlementLedgerTransaction == other.skipSettlementLedgerTransaction && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(contraLedgerAccountId, settledLedgerAccountId, allowEitherDirection, description, effectiveAtUpperBound, metadata, skipSettlementLedgerTransaction, status, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(contraLedgerAccountId, settledLedgerAccountId, allowEitherDirection, description, effectiveAtUpperBound, metadata, skipSettlementLedgerTransaction, status, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "LedgerAccountSettlementCreateBody{contraLedgerAccountId=$contraLedgerAccountId, settledLedgerAccountId=$settledLedgerAccountId, allowEitherDirection=$allowEitherDirection, description=$description, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, skipSettlementLedgerTransaction=$skipSettlementLedgerTransaction, status=$status, additionalProperties=$additionalProperties}"
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerAccountSettlementCreateParams && this.contraLedgerAccountId == other.contraLedgerAccountId && this.settledLedgerAccountId == other.settledLedgerAccountId && this.allowEitherDirection == other.allowEitherDirection && this.description == other.description && this.effectiveAtUpperBound == other.effectiveAtUpperBound && this.metadata == other.metadata && this.skipSettlementLedgerTransaction == other.skipSettlementLedgerTransaction && this.status == other.status && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(contraLedgerAccountId, settledLedgerAccountId, allowEitherDirection, description, effectiveAtUpperBound, metadata, skipSettlementLedgerTransaction, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
-
-    override fun toString() =
-        "LedgerAccountSettlementCreateParams{contraLedgerAccountId=$contraLedgerAccountId, settledLedgerAccountId=$settledLedgerAccountId, allowEitherDirection=$allowEitherDirection, description=$description, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, skipSettlementLedgerTransaction=$skipSettlementLedgerTransaction, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -335,18 +317,20 @@ constructor(
         internal fun from(
             ledgerAccountSettlementCreateParams: LedgerAccountSettlementCreateParams
         ) = apply {
-            this.contraLedgerAccountId = ledgerAccountSettlementCreateParams.contraLedgerAccountId
-            this.settledLedgerAccountId = ledgerAccountSettlementCreateParams.settledLedgerAccountId
-            this.allowEitherDirection = ledgerAccountSettlementCreateParams.allowEitherDirection
-            this.description = ledgerAccountSettlementCreateParams.description
-            this.effectiveAtUpperBound = ledgerAccountSettlementCreateParams.effectiveAtUpperBound
-            this.metadata = ledgerAccountSettlementCreateParams.metadata
-            this.skipSettlementLedgerTransaction =
+            contraLedgerAccountId = ledgerAccountSettlementCreateParams.contraLedgerAccountId
+            settledLedgerAccountId = ledgerAccountSettlementCreateParams.settledLedgerAccountId
+            allowEitherDirection = ledgerAccountSettlementCreateParams.allowEitherDirection
+            description = ledgerAccountSettlementCreateParams.description
+            effectiveAtUpperBound = ledgerAccountSettlementCreateParams.effectiveAtUpperBound
+            metadata = ledgerAccountSettlementCreateParams.metadata
+            skipSettlementLedgerTransaction =
                 ledgerAccountSettlementCreateParams.skipSettlementLedgerTransaction
-            this.status = ledgerAccountSettlementCreateParams.status
-            additionalHeaders(ledgerAccountSettlementCreateParams.additionalHeaders)
-            additionalQueryParams(ledgerAccountSettlementCreateParams.additionalQueryParams)
-            additionalBodyProperties(ledgerAccountSettlementCreateParams.additionalBodyProperties)
+            status = ledgerAccountSettlementCreateParams.status
+            additionalHeaders = ledgerAccountSettlementCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                ledgerAccountSettlementCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                ledgerAccountSettlementCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /**
@@ -593,17 +577,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
@@ -621,7 +602,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -664,4 +645,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerAccountSettlementCreateParams && contraLedgerAccountId == other.contraLedgerAccountId && settledLedgerAccountId == other.settledLedgerAccountId && allowEitherDirection == other.allowEitherDirection && description == other.description && effectiveAtUpperBound == other.effectiveAtUpperBound && metadata == other.metadata && skipSettlementLedgerTransaction == other.skipSettlementLedgerTransaction && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(contraLedgerAccountId, settledLedgerAccountId, allowEitherDirection, description, effectiveAtUpperBound, metadata, skipSettlementLedgerTransaction, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "LedgerAccountSettlementCreateParams{contraLedgerAccountId=$contraLedgerAccountId, settledLedgerAccountId=$settledLedgerAccountId, allowEitherDirection=$allowEitherDirection, description=$description, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, skipSettlementLedgerTransaction=$skipSettlementLedgerTransaction, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

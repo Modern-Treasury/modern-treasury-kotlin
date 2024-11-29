@@ -35,12 +35,10 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InternalAccountListPage && this.internalAccountsService == other.internalAccountsService && this.params == other.params && this.response == other.response /* spotless:on */
+        return /* spotless:off */ other is InternalAccountListPage && internalAccountsService == other.internalAccountsService && params == other.params && response == other.response /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(internalAccountsService, params, response) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(internalAccountsService, params, response) /* spotless:on */
 
     override fun toString() =
         "InternalAccountListPage{internalAccountsService=$internalAccountsService, params=$params, response=$response}"
@@ -115,15 +113,13 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Response && this.items == other.items && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Response && items == other.items && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        override fun hashCode(): Int {
-            return /* spotless:off */ Objects.hash(items, additionalProperties) /* spotless:on */
-        }
+        override fun hashCode(): Int = /* spotless:off */ Objects.hash(items, additionalProperties) /* spotless:on */
 
         override fun toString() =
-            "InternalAccountListPage.Response{items=$items, additionalProperties=$additionalProperties}"
+            "Response{items=$items, additionalProperties=$additionalProperties}"
 
         companion object {
 

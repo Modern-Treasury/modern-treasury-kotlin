@@ -40,6 +40,10 @@ constructor(
 
     fun status(): Status? = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -54,25 +58,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is BulkResultListParams && this.afterCursor == other.afterCursor && this.entityId == other.entityId && this.entityType == other.entityType && this.perPage == other.perPage && this.requestId == other.requestId && this.requestType == other.requestType && this.status == other.status && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(afterCursor, entityId, entityType, perPage, requestId, requestType, status, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
-
-    override fun toString() =
-        "BulkResultListParams{afterCursor=$afterCursor, entityId=$entityId, entityType=$entityType, perPage=$perPage, requestId=$requestId, requestType=$requestType, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -95,15 +80,15 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(bulkResultListParams: BulkResultListParams) = apply {
-            this.afterCursor = bulkResultListParams.afterCursor
-            this.entityId = bulkResultListParams.entityId
-            this.entityType = bulkResultListParams.entityType
-            this.perPage = bulkResultListParams.perPage
-            this.requestId = bulkResultListParams.requestId
-            this.requestType = bulkResultListParams.requestType
-            this.status = bulkResultListParams.status
-            additionalHeaders(bulkResultListParams.additionalHeaders)
-            additionalQueryParams(bulkResultListParams.additionalQueryParams)
+            afterCursor = bulkResultListParams.afterCursor
+            entityId = bulkResultListParams.entityId
+            entityType = bulkResultListParams.entityType
+            perPage = bulkResultListParams.perPage
+            requestId = bulkResultListParams.requestId
+            requestType = bulkResultListParams.requestType
+            status = bulkResultListParams.status
+            additionalHeaders = bulkResultListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = bulkResultListParams.additionalQueryParams.toBuilder()
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
@@ -259,7 +244,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is EntityType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is EntityType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -334,7 +319,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RequestType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is RequestType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -385,7 +370,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -434,4 +419,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is BulkResultListParams && afterCursor == other.afterCursor && entityId == other.entityId && entityType == other.entityType && perPage == other.perPage && requestId == other.requestId && requestType == other.requestType && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, entityId, entityType, perPage, requestId, requestType, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "BulkResultListParams{afterCursor=$afterCursor, entityId=$entityId, entityType=$entityType, perPage=$perPage, requestId=$requestId, requestType=$requestType, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -43,6 +43,12 @@ constructor(
 
     fun taxpayerIdentifier(): String? = taxpayerIdentifier
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): CounterpartyUpdateBody {
         return CounterpartyUpdateBody(
             email,
@@ -198,42 +204,18 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CounterpartyUpdateBody && this.email == other.email && this.legalEntityId == other.legalEntityId && this.metadata == other.metadata && this.name == other.name && this.sendRemittanceAdvice == other.sendRemittanceAdvice && this.taxpayerIdentifier == other.taxpayerIdentifier && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CounterpartyUpdateBody && email == other.email && legalEntityId == other.legalEntityId && metadata == other.metadata && name == other.name && sendRemittanceAdvice == other.sendRemittanceAdvice && taxpayerIdentifier == other.taxpayerIdentifier && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(email, legalEntityId, metadata, name, sendRemittanceAdvice, taxpayerIdentifier, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(email, legalEntityId, metadata, name, sendRemittanceAdvice, taxpayerIdentifier, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "CounterpartyUpdateBody{email=$email, legalEntityId=$legalEntityId, metadata=$metadata, name=$name, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, additionalProperties=$additionalProperties}"
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CounterpartyUpdateParams && this.id == other.id && this.email == other.email && this.legalEntityId == other.legalEntityId && this.metadata == other.metadata && this.name == other.name && this.sendRemittanceAdvice == other.sendRemittanceAdvice && this.taxpayerIdentifier == other.taxpayerIdentifier && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(id, email, legalEntityId, metadata, name, sendRemittanceAdvice, taxpayerIdentifier, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
-
-    override fun toString() =
-        "CounterpartyUpdateParams{id=$id, email=$email, legalEntityId=$legalEntityId, metadata=$metadata, name=$name, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -257,16 +239,17 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(counterpartyUpdateParams: CounterpartyUpdateParams) = apply {
-            this.id = counterpartyUpdateParams.id
-            this.email = counterpartyUpdateParams.email
-            this.legalEntityId = counterpartyUpdateParams.legalEntityId
-            this.metadata = counterpartyUpdateParams.metadata
-            this.name = counterpartyUpdateParams.name
-            this.sendRemittanceAdvice = counterpartyUpdateParams.sendRemittanceAdvice
-            this.taxpayerIdentifier = counterpartyUpdateParams.taxpayerIdentifier
-            additionalHeaders(counterpartyUpdateParams.additionalHeaders)
-            additionalQueryParams(counterpartyUpdateParams.additionalQueryParams)
-            additionalBodyProperties(counterpartyUpdateParams.additionalBodyProperties)
+            id = counterpartyUpdateParams.id
+            email = counterpartyUpdateParams.email
+            legalEntityId = counterpartyUpdateParams.legalEntityId
+            metadata = counterpartyUpdateParams.metadata
+            name = counterpartyUpdateParams.name
+            sendRemittanceAdvice = counterpartyUpdateParams.sendRemittanceAdvice
+            taxpayerIdentifier = counterpartyUpdateParams.taxpayerIdentifier
+            additionalHeaders = counterpartyUpdateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = counterpartyUpdateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                counterpartyUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String) = apply { this.id = id }
@@ -486,18 +469,28 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CounterpartyUpdateParams && id == other.id && email == other.email && legalEntityId == other.legalEntityId && metadata == other.metadata && name == other.name && sendRemittanceAdvice == other.sendRemittanceAdvice && taxpayerIdentifier == other.taxpayerIdentifier && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, email, legalEntityId, metadata, name, sendRemittanceAdvice, taxpayerIdentifier, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "CounterpartyUpdateParams{id=$id, email=$email, legalEntityId=$legalEntityId, metadata=$metadata, name=$name, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

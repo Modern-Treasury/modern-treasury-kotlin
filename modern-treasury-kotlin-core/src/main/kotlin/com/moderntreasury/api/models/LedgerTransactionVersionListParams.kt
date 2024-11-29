@@ -34,6 +34,10 @@ constructor(
 
     fun version(): Version? = version
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -53,25 +57,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerTransactionVersionListParams && this.afterCursor == other.afterCursor && this.createdAt == other.createdAt && this.ledgerAccountStatementId == other.ledgerAccountStatementId && this.ledgerTransactionId == other.ledgerTransactionId && this.perPage == other.perPage && this.version == other.version && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(afterCursor, createdAt, ledgerAccountStatementId, ledgerTransactionId, perPage, version, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
-
-    override fun toString() =
-        "LedgerTransactionVersionListParams{afterCursor=$afterCursor, createdAt=$createdAt, ledgerAccountStatementId=$ledgerAccountStatementId, ledgerTransactionId=$ledgerTransactionId, perPage=$perPage, version=$version, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -94,15 +79,16 @@ constructor(
 
         internal fun from(ledgerTransactionVersionListParams: LedgerTransactionVersionListParams) =
             apply {
-                this.afterCursor = ledgerTransactionVersionListParams.afterCursor
-                this.createdAt = ledgerTransactionVersionListParams.createdAt
-                this.ledgerAccountStatementId =
+                afterCursor = ledgerTransactionVersionListParams.afterCursor
+                createdAt = ledgerTransactionVersionListParams.createdAt
+                ledgerAccountStatementId =
                     ledgerTransactionVersionListParams.ledgerAccountStatementId
-                this.ledgerTransactionId = ledgerTransactionVersionListParams.ledgerTransactionId
-                this.perPage = ledgerTransactionVersionListParams.perPage
-                this.version = ledgerTransactionVersionListParams.version
-                additionalHeaders(ledgerTransactionVersionListParams.additionalHeaders)
-                additionalQueryParams(ledgerTransactionVersionListParams.additionalQueryParams)
+                ledgerTransactionId = ledgerTransactionVersionListParams.ledgerTransactionId
+                perPage = ledgerTransactionVersionListParams.perPage
+                version = ledgerTransactionVersionListParams.version
+                additionalHeaders = ledgerTransactionVersionListParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    ledgerTransactionVersionListParams.additionalQueryParams.toBuilder()
             }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
@@ -302,17 +288,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CreatedAt && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CreatedAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "CreatedAt{additionalProperties=$additionalProperties}"
     }
@@ -371,18 +354,28 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Version && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Version && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Version{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerTransactionVersionListParams && afterCursor == other.afterCursor && createdAt == other.createdAt && ledgerAccountStatementId == other.ledgerAccountStatementId && ledgerTransactionId == other.ledgerTransactionId && perPage == other.perPage && version == other.version && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, createdAt, ledgerAccountStatementId, ledgerTransactionId, perPage, version, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "LedgerTransactionVersionListParams{afterCursor=$afterCursor, createdAt=$createdAt, ledgerAccountStatementId=$ledgerAccountStatementId, ledgerTransactionId=$ledgerTransactionId, perPage=$perPage, version=$version, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

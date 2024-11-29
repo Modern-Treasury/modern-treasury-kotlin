@@ -16,7 +16,7 @@ class LedgerEventHandlerListParamsTest {
             .createdAt(LedgerEventHandlerListParams.CreatedAt.builder().build())
             .metadata(LedgerEventHandlerListParams.Metadata.builder().build())
             .name("name")
-            .perPage(123L)
+            .perPage(0L)
             .build()
     }
 
@@ -28,7 +28,7 @@ class LedgerEventHandlerListParamsTest {
                 .createdAt(LedgerEventHandlerListParams.CreatedAt.builder().build())
                 .metadata(LedgerEventHandlerListParams.Metadata.builder().build())
                 .name("name")
-                .perPage(123L)
+                .perPage(0L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("after_cursor", "after_cursor")
@@ -39,7 +39,7 @@ class LedgerEventHandlerListParamsTest {
             expected.put("metadata[$key]", values)
         }
         expected.put("name", "name")
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 

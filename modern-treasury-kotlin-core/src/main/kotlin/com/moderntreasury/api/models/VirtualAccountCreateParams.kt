@@ -56,6 +56,12 @@ constructor(
 
     fun routingDetails(): List<RoutingDetailCreateRequest>? = routingDetails
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): VirtualAccountCreateBody {
         return VirtualAccountCreateBody(
             internalAccountId,
@@ -284,42 +290,18 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is VirtualAccountCreateBody && this.internalAccountId == other.internalAccountId && this.name == other.name && this.accountDetails == other.accountDetails && this.counterpartyId == other.counterpartyId && this.creditLedgerAccountId == other.creditLedgerAccountId && this.debitLedgerAccountId == other.debitLedgerAccountId && this.description == other.description && this.ledgerAccount == other.ledgerAccount && this.metadata == other.metadata && this.routingDetails == other.routingDetails && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is VirtualAccountCreateBody && internalAccountId == other.internalAccountId && name == other.name && accountDetails == other.accountDetails && counterpartyId == other.counterpartyId && creditLedgerAccountId == other.creditLedgerAccountId && debitLedgerAccountId == other.debitLedgerAccountId && description == other.description && ledgerAccount == other.ledgerAccount && metadata == other.metadata && routingDetails == other.routingDetails && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(internalAccountId, name, accountDetails, counterpartyId, creditLedgerAccountId, debitLedgerAccountId, description, ledgerAccount, metadata, routingDetails, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(internalAccountId, name, accountDetails, counterpartyId, creditLedgerAccountId, debitLedgerAccountId, description, ledgerAccount, metadata, routingDetails, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "VirtualAccountCreateBody{internalAccountId=$internalAccountId, name=$name, accountDetails=$accountDetails, counterpartyId=$counterpartyId, creditLedgerAccountId=$creditLedgerAccountId, debitLedgerAccountId=$debitLedgerAccountId, description=$description, ledgerAccount=$ledgerAccount, metadata=$metadata, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is VirtualAccountCreateParams && this.internalAccountId == other.internalAccountId && this.name == other.name && this.accountDetails == other.accountDetails && this.counterpartyId == other.counterpartyId && this.creditLedgerAccountId == other.creditLedgerAccountId && this.debitLedgerAccountId == other.debitLedgerAccountId && this.description == other.description && this.ledgerAccount == other.ledgerAccount && this.metadata == other.metadata && this.routingDetails == other.routingDetails && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(internalAccountId, name, accountDetails, counterpartyId, creditLedgerAccountId, debitLedgerAccountId, description, ledgerAccount, metadata, routingDetails, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
-
-    override fun toString() =
-        "VirtualAccountCreateParams{internalAccountId=$internalAccountId, name=$name, accountDetails=$accountDetails, counterpartyId=$counterpartyId, creditLedgerAccountId=$creditLedgerAccountId, debitLedgerAccountId=$debitLedgerAccountId, description=$description, ledgerAccount=$ledgerAccount, metadata=$metadata, routingDetails=$routingDetails, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -346,19 +328,22 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(virtualAccountCreateParams: VirtualAccountCreateParams) = apply {
-            this.internalAccountId = virtualAccountCreateParams.internalAccountId
-            this.name = virtualAccountCreateParams.name
-            this.accountDetails(virtualAccountCreateParams.accountDetails ?: listOf())
-            this.counterpartyId = virtualAccountCreateParams.counterpartyId
-            this.creditLedgerAccountId = virtualAccountCreateParams.creditLedgerAccountId
-            this.debitLedgerAccountId = virtualAccountCreateParams.debitLedgerAccountId
-            this.description = virtualAccountCreateParams.description
-            this.ledgerAccount = virtualAccountCreateParams.ledgerAccount
-            this.metadata = virtualAccountCreateParams.metadata
-            this.routingDetails(virtualAccountCreateParams.routingDetails ?: listOf())
-            additionalHeaders(virtualAccountCreateParams.additionalHeaders)
-            additionalQueryParams(virtualAccountCreateParams.additionalQueryParams)
-            additionalBodyProperties(virtualAccountCreateParams.additionalBodyProperties)
+            internalAccountId = virtualAccountCreateParams.internalAccountId
+            name = virtualAccountCreateParams.name
+            accountDetails =
+                virtualAccountCreateParams.accountDetails?.toMutableList() ?: mutableListOf()
+            counterpartyId = virtualAccountCreateParams.counterpartyId
+            creditLedgerAccountId = virtualAccountCreateParams.creditLedgerAccountId
+            debitLedgerAccountId = virtualAccountCreateParams.debitLedgerAccountId
+            description = virtualAccountCreateParams.description
+            ledgerAccount = virtualAccountCreateParams.ledgerAccount
+            metadata = virtualAccountCreateParams.metadata
+            routingDetails =
+                virtualAccountCreateParams.routingDetails?.toMutableList() ?: mutableListOf()
+            additionalHeaders = virtualAccountCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = virtualAccountCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                virtualAccountCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The ID of the internal account that this virtual account is associated with. */
@@ -554,14 +539,14 @@ constructor(
                     "`internalAccountId` is required but was not set"
                 },
                 checkNotNull(name) { "`name` is required but was not set" },
-                if (accountDetails.size == 0) null else accountDetails.toImmutable(),
+                accountDetails.toImmutable().ifEmpty { null },
                 counterpartyId,
                 creditLedgerAccountId,
                 debitLedgerAccountId,
                 description,
                 ledgerAccount,
                 metadata,
-                if (routingDetails.size == 0) null else routingDetails.toImmutable(),
+                routingDetails.toImmutable().ifEmpty { null },
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -658,7 +643,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is AccountNumberType && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is AccountNumberType && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -758,17 +743,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountDetailCreateRequest && this.accountNumber == other.accountNumber && this.accountNumberType == other.accountNumberType && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is AccountDetailCreateRequest && accountNumber == other.accountNumber && accountNumberType == other.accountNumberType && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(accountNumber, accountNumberType, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(accountNumber, accountNumberType, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "AccountDetailCreateRequest{accountNumber=$accountNumber, accountNumberType=$accountNumberType, additionalProperties=$additionalProperties}"
@@ -978,7 +960,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is LedgerableType && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is LedgerableType && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1087,17 +1069,14 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
         }
@@ -1107,17 +1086,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerAccountCreateRequest && this.name == other.name && this.description == other.description && this.normalBalance == other.normalBalance && this.ledgerId == other.ledgerId && this.currency == other.currency && this.currencyExponent == other.currencyExponent && this.ledgerAccountCategoryIds == other.ledgerAccountCategoryIds && this.ledgerableId == other.ledgerableId && this.ledgerableType == other.ledgerableType && this.metadata == other.metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerAccountCreateRequest && name == other.name && description == other.description && normalBalance == other.normalBalance && ledgerId == other.ledgerId && currency == other.currency && currencyExponent == other.currencyExponent && ledgerAccountCategoryIds == other.ledgerAccountCategoryIds && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(name, description, normalBalance, ledgerId, currency, currencyExponent, ledgerAccountCategoryIds, ledgerableId, ledgerableType, metadata, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(name, description, normalBalance, ledgerId, currency, currencyExponent, ledgerAccountCategoryIds, ledgerableId, ledgerableType, metadata, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "LedgerAccountCreateRequest{name=$name, description=$description, normalBalance=$normalBalance, ledgerId=$ledgerId, currency=$currency, currencyExponent=$currencyExponent, ledgerAccountCategoryIds=$ledgerAccountCategoryIds, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalProperties=$additionalProperties}"
@@ -1172,17 +1148,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
@@ -1298,7 +1271,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is RoutingNumberType && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is RoutingNumberType && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1473,7 +1446,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is PaymentType && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is PaymentType && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1690,19 +1663,29 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RoutingDetailCreateRequest && this.routingNumber == other.routingNumber && this.routingNumberType == other.routingNumberType && this.paymentType == other.paymentType && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is RoutingDetailCreateRequest && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && paymentType == other.paymentType && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(routingNumber, routingNumberType, paymentType, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(routingNumber, routingNumberType, paymentType, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "RoutingDetailCreateRequest{routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is VirtualAccountCreateParams && internalAccountId == other.internalAccountId && name == other.name && accountDetails == other.accountDetails && counterpartyId == other.counterpartyId && creditLedgerAccountId == other.creditLedgerAccountId && debitLedgerAccountId == other.debitLedgerAccountId && description == other.description && ledgerAccount == other.ledgerAccount && metadata == other.metadata && routingDetails == other.routingDetails && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(internalAccountId, name, accountDetails, counterpartyId, creditLedgerAccountId, debitLedgerAccountId, description, ledgerAccount, metadata, routingDetails, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "VirtualAccountCreateParams{internalAccountId=$internalAccountId, name=$name, accountDetails=$accountDetails, counterpartyId=$counterpartyId, creditLedgerAccountId=$creditLedgerAccountId, debitLedgerAccountId=$debitLedgerAccountId, description=$description, ledgerAccount=$ledgerAccount, metadata=$metadata, routingDetails=$routingDetails, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

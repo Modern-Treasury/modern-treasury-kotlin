@@ -41,6 +41,12 @@ constructor(
 
     fun paymentType(): PaymentType? = paymentType
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): RoutingDetailCreateBody {
         return RoutingDetailCreateBody(
             routingNumber,
@@ -165,42 +171,18 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RoutingDetailCreateBody && this.routingNumber == other.routingNumber && this.routingNumberType == other.routingNumberType && this.paymentType == other.paymentType && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is RoutingDetailCreateBody && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && paymentType == other.paymentType && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(routingNumber, routingNumberType, paymentType, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(routingNumber, routingNumberType, paymentType, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "RoutingDetailCreateBody{routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalProperties=$additionalProperties}"
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is RoutingDetailCreateParams && this.accountsType == other.accountsType && this.accountId == other.accountId && this.routingNumber == other.routingNumber && this.routingNumberType == other.routingNumberType && this.paymentType == other.paymentType && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(accountsType, accountId, routingNumber, routingNumberType, paymentType, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
-
-    override fun toString() =
-        "RoutingDetailCreateParams{accountsType=$accountsType, accountId=$accountId, routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -222,14 +204,15 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(routingDetailCreateParams: RoutingDetailCreateParams) = apply {
-            this.accountsType = routingDetailCreateParams.accountsType
-            this.accountId = routingDetailCreateParams.accountId
-            this.routingNumber = routingDetailCreateParams.routingNumber
-            this.routingNumberType = routingDetailCreateParams.routingNumberType
-            this.paymentType = routingDetailCreateParams.paymentType
-            additionalHeaders(routingDetailCreateParams.additionalHeaders)
-            additionalQueryParams(routingDetailCreateParams.additionalQueryParams)
-            additionalBodyProperties(routingDetailCreateParams.additionalBodyProperties)
+            accountsType = routingDetailCreateParams.accountsType
+            accountId = routingDetailCreateParams.accountId
+            routingNumber = routingDetailCreateParams.routingNumber
+            routingNumberType = routingDetailCreateParams.routingNumberType
+            paymentType = routingDetailCreateParams.paymentType
+            additionalHeaders = routingDetailCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = routingDetailCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                routingDetailCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun accountsType(accountsType: AccountsType) = apply { this.accountsType = accountsType }
@@ -402,7 +385,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RoutingNumberType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is RoutingNumberType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -575,7 +558,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PaymentType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is PaymentType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -800,7 +783,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountsType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is AccountsType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -837,4 +820,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is RoutingDetailCreateParams && accountsType == other.accountsType && accountId == other.accountId && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && paymentType == other.paymentType && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountsType, accountId, routingNumber, routingNumberType, paymentType, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "RoutingDetailCreateParams{accountsType=$accountsType, accountId=$accountId, routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

@@ -24,7 +24,7 @@ class LineItemServiceTest {
         val transactionLineItem =
             lineItemService.create(
                 TransactionLineItemCreateParams.builder()
-                    .amount(123L)
+                    .amount(0L)
                     .expectedPaymentId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()

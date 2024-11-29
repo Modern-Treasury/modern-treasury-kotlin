@@ -35,12 +35,10 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is VirtualAccountListPage && this.virtualAccountsService == other.virtualAccountsService && this.params == other.params && this.response == other.response /* spotless:on */
+        return /* spotless:off */ other is VirtualAccountListPage && virtualAccountsService == other.virtualAccountsService && params == other.params && response == other.response /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(virtualAccountsService, params, response) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(virtualAccountsService, params, response) /* spotless:on */
 
     override fun toString() =
         "VirtualAccountListPage{virtualAccountsService=$virtualAccountsService, params=$params, response=$response}"
@@ -115,15 +113,13 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Response && this.items == other.items && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Response && items == other.items && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        override fun hashCode(): Int {
-            return /* spotless:off */ Objects.hash(items, additionalProperties) /* spotless:on */
-        }
+        override fun hashCode(): Int = /* spotless:off */ Objects.hash(items, additionalProperties) /* spotless:on */
 
         override fun toString() =
-            "VirtualAccountListPage.Response{items=$items, additionalProperties=$additionalProperties}"
+            "Response{items=$items, additionalProperties=$additionalProperties}"
 
         companion object {
 

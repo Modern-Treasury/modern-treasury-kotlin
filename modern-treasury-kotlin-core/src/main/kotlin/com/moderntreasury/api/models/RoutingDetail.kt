@@ -565,17 +565,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Address && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.line1 == other.line1 && this.line2 == other.line2 && this.locality == other.locality && this.region == other.region && this.postalCode == other.postalCode && this.country == other.country && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Address && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && line1 == other.line1 && line2 == other.line2 && locality == other.locality && region == other.region && postalCode == other.postalCode && country == other.country && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, line1, line2, locality, region, postalCode, country, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, line1, line2, locality, region, postalCode, country, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Address{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
@@ -594,7 +591,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PaymentType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is PaymentType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -819,7 +816,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RoutingNumberType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is RoutingNumberType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -984,17 +981,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is RoutingDetail && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.discardedAt == other.discardedAt && this.routingNumber == other.routingNumber && this.routingNumberType == other.routingNumberType && this.paymentType == other.paymentType && this.bankName == other.bankName && this.bankAddress == other.bankAddress && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is RoutingDetail && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && discardedAt == other.discardedAt && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && paymentType == other.paymentType && bankName == other.bankName && bankAddress == other.bankAddress && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, routingNumber, routingNumberType, paymentType, bankName, bankAddress, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, routingNumber, routingNumberType, paymentType, bankName, bankAddress, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "RoutingDetail{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, bankName=$bankName, bankAddress=$bankAddress, additionalProperties=$additionalProperties}"

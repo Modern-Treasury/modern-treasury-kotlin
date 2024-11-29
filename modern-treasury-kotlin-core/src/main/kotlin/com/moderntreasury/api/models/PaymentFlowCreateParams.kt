@@ -45,6 +45,12 @@ constructor(
 
     fun dueDate(): LocalDate? = dueDate
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): PaymentFlowCreateBody {
         return PaymentFlowCreateBody(
             amount,
@@ -210,42 +216,18 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PaymentFlowCreateBody && this.amount == other.amount && this.counterpartyId == other.counterpartyId && this.currency == other.currency && this.direction == other.direction && this.originatingAccountId == other.originatingAccountId && this.dueDate == other.dueDate && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PaymentFlowCreateBody && amount == other.amount && counterpartyId == other.counterpartyId && currency == other.currency && direction == other.direction && originatingAccountId == other.originatingAccountId && dueDate == other.dueDate && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(amount, counterpartyId, currency, direction, originatingAccountId, dueDate, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(amount, counterpartyId, currency, direction, originatingAccountId, dueDate, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "PaymentFlowCreateBody{amount=$amount, counterpartyId=$counterpartyId, currency=$currency, direction=$direction, originatingAccountId=$originatingAccountId, dueDate=$dueDate, additionalProperties=$additionalProperties}"
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is PaymentFlowCreateParams && this.amount == other.amount && this.counterpartyId == other.counterpartyId && this.currency == other.currency && this.direction == other.direction && this.originatingAccountId == other.originatingAccountId && this.dueDate == other.dueDate && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(amount, counterpartyId, currency, direction, originatingAccountId, dueDate, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
-
-    override fun toString() =
-        "PaymentFlowCreateParams{amount=$amount, counterpartyId=$counterpartyId, currency=$currency, direction=$direction, originatingAccountId=$originatingAccountId, dueDate=$dueDate, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -268,15 +250,16 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(paymentFlowCreateParams: PaymentFlowCreateParams) = apply {
-            this.amount = paymentFlowCreateParams.amount
-            this.counterpartyId = paymentFlowCreateParams.counterpartyId
-            this.currency = paymentFlowCreateParams.currency
-            this.direction = paymentFlowCreateParams.direction
-            this.originatingAccountId = paymentFlowCreateParams.originatingAccountId
-            this.dueDate = paymentFlowCreateParams.dueDate
-            additionalHeaders(paymentFlowCreateParams.additionalHeaders)
-            additionalQueryParams(paymentFlowCreateParams.additionalQueryParams)
-            additionalBodyProperties(paymentFlowCreateParams.additionalBodyProperties)
+            amount = paymentFlowCreateParams.amount
+            counterpartyId = paymentFlowCreateParams.counterpartyId
+            currency = paymentFlowCreateParams.currency
+            direction = paymentFlowCreateParams.direction
+            originatingAccountId = paymentFlowCreateParams.originatingAccountId
+            dueDate = paymentFlowCreateParams.dueDate
+            additionalHeaders = paymentFlowCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = paymentFlowCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                paymentFlowCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /**
@@ -461,7 +444,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Direction && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Direction && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -504,4 +487,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is PaymentFlowCreateParams && amount == other.amount && counterpartyId == other.counterpartyId && currency == other.currency && direction == other.direction && originatingAccountId == other.originatingAccountId && dueDate == other.dueDate && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, counterpartyId, currency, direction, originatingAccountId, dueDate, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "PaymentFlowCreateParams{amount=$amount, counterpartyId=$counterpartyId, currency=$currency, direction=$direction, originatingAccountId=$originatingAccountId, dueDate=$dueDate, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

@@ -13,7 +13,7 @@ class PaymentOrderCreateAsyncParamsTest {
     @Test
     fun createPaymentOrderCreateAsyncParams() {
         PaymentOrderCreateAsyncParams.builder()
-            .amount(123L)
+            .amount(0L)
             .direction(PaymentOrderCreateAsyncParams.Direction.CREDIT)
             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .type(PaymentOrderType.ACH)
@@ -42,7 +42,7 @@ class PaymentOrderCreateAsyncParamsTest {
                             PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest
                                 .LedgerEntryCreateRequest
                                 .builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .direction(TransactionDirection.CREDIT)
                                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .availableBalanceAmount(
@@ -52,7 +52,7 @@ class PaymentOrderCreateAsyncParamsTest {
                                         .builder()
                                         .build()
                                 )
-                                .lockVersion(123L)
+                                .lockVersion(0L)
                                 .metadata(
                                     PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest
                                         .LedgerEntryCreateRequest
@@ -101,7 +101,7 @@ class PaymentOrderCreateAsyncParamsTest {
             .lineItems(
                 listOf(
                     PaymentOrderCreateAsyncParams.LineItemRequest.builder()
-                        .amount(123L)
+                        .amount(0L)
                         .accountingCategoryId("accounting_category_id")
                         .description("description")
                         .metadata(
@@ -153,7 +153,7 @@ class PaymentOrderCreateAsyncParamsTest {
                             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .name("name")
                             .normalBalance(TransactionDirection.CREDIT)
-                            .currencyExponent(123L)
+                            .currencyExponent(0L)
                             .description("description")
                             .ledgerAccountCategoryIds(
                                 listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -228,7 +228,7 @@ class PaymentOrderCreateAsyncParamsTest {
     fun getBody() {
         val params =
             PaymentOrderCreateAsyncParams.builder()
-                .amount(123L)
+                .amount(0L)
                 .direction(PaymentOrderCreateAsyncParams.Direction.CREDIT)
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .type(PaymentOrderType.ACH)
@@ -257,7 +257,7 @@ class PaymentOrderCreateAsyncParamsTest {
                                 PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest
                                     .LedgerEntryCreateRequest
                                     .builder()
-                                    .amount(123L)
+                                    .amount(0L)
                                     .direction(TransactionDirection.CREDIT)
                                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .availableBalanceAmount(
@@ -267,7 +267,7 @@ class PaymentOrderCreateAsyncParamsTest {
                                             .builder()
                                             .build()
                                     )
-                                    .lockVersion(123L)
+                                    .lockVersion(0L)
                                     .metadata(
                                         PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest
                                             .LedgerEntryCreateRequest
@@ -318,7 +318,7 @@ class PaymentOrderCreateAsyncParamsTest {
                 .lineItems(
                     listOf(
                         PaymentOrderCreateAsyncParams.LineItemRequest.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .accountingCategoryId("accounting_category_id")
                             .description("description")
                             .metadata(
@@ -373,7 +373,7 @@ class PaymentOrderCreateAsyncParamsTest {
                                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .name("name")
                                 .normalBalance(TransactionDirection.CREDIT)
-                                .currencyExponent(123L)
+                                .currencyExponent(0L)
                                 .description("description")
                                 .ledgerAccountCategoryIds(
                                     listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -448,7 +448,7 @@ class PaymentOrderCreateAsyncParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.direction()).isEqualTo(PaymentOrderCreateAsyncParams.Direction.CREDIT)
         assertThat(body.originatingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.type()).isEqualTo(PaymentOrderType.ACH)
@@ -478,7 +478,7 @@ class PaymentOrderCreateAsyncParamsTest {
                             PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest
                                 .LedgerEntryCreateRequest
                                 .builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .direction(TransactionDirection.CREDIT)
                                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .availableBalanceAmount(
@@ -488,7 +488,7 @@ class PaymentOrderCreateAsyncParamsTest {
                                         .builder()
                                         .build()
                                 )
-                                .lockVersion(123L)
+                                .lockVersion(0L)
                                 .metadata(
                                     PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest
                                         .LedgerEntryCreateRequest
@@ -538,7 +538,7 @@ class PaymentOrderCreateAsyncParamsTest {
             .isEqualTo(
                 listOf(
                     PaymentOrderCreateAsyncParams.LineItemRequest.builder()
-                        .amount(123L)
+                        .amount(0L)
                         .accountingCategoryId("accounting_category_id")
                         .description("description")
                         .metadata(
@@ -592,7 +592,7 @@ class PaymentOrderCreateAsyncParamsTest {
                             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .name("name")
                             .normalBalance(TransactionDirection.CREDIT)
-                            .currencyExponent(123L)
+                            .currencyExponent(0L)
                             .description("description")
                             .ledgerAccountCategoryIds(
                                 listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -668,14 +668,14 @@ class PaymentOrderCreateAsyncParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             PaymentOrderCreateAsyncParams.builder()
-                .amount(123L)
+                .amount(0L)
                 .direction(PaymentOrderCreateAsyncParams.Direction.CREDIT)
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .type(PaymentOrderType.ACH)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.direction()).isEqualTo(PaymentOrderCreateAsyncParams.Direction.CREDIT)
         assertThat(body.originatingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.type()).isEqualTo(PaymentOrderType.ACH)

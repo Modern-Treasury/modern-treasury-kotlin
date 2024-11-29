@@ -293,7 +293,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is BalanceReportType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is BalanceReportType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -364,6 +364,9 @@ private constructor(
         private val balanceType: JsonField<BalanceType>,
         private val vendorCode: JsonField<String>,
         private val vendorCodeType: JsonField<String>,
+        private val asOfDate: JsonField<LocalDate>,
+        private val asOfTime: JsonField<String>,
+        private val valueDate: JsonField<LocalDate>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -406,6 +409,15 @@ private constructor(
          */
         fun vendorCodeType(): String? = vendorCodeType.getNullable("vendor_code_type")
 
+        /** The date on which the balance became true for the account. */
+        fun asOfDate(): LocalDate? = asOfDate.getNullable("as_of_date")
+
+        /** The time on which the balance became true for the account. */
+        fun asOfTime(): String? = asOfTime.getNullable("as_of_time")
+
+        /** The date on which the balance becomes available. */
+        fun valueDate(): LocalDate? = valueDate.getNullable("value_date")
+
         @JsonProperty("id") @ExcludeMissing fun _id() = id
 
         @JsonProperty("object") @ExcludeMissing fun _object_() = object_
@@ -443,6 +455,15 @@ private constructor(
          */
         @JsonProperty("vendor_code_type") @ExcludeMissing fun _vendorCodeType() = vendorCodeType
 
+        /** The date on which the balance became true for the account. */
+        @JsonProperty("as_of_date") @ExcludeMissing fun _asOfDate() = asOfDate
+
+        /** The time on which the balance became true for the account. */
+        @JsonProperty("as_of_time") @ExcludeMissing fun _asOfTime() = asOfTime
+
+        /** The date on which the balance becomes available. */
+        @JsonProperty("value_date") @ExcludeMissing fun _valueDate() = valueDate
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -459,6 +480,9 @@ private constructor(
                 balanceType()
                 vendorCode()
                 vendorCodeType()
+                asOfDate()
+                asOfTime()
+                valueDate()
                 validated = true
             }
         }
@@ -482,6 +506,9 @@ private constructor(
             private var balanceType: JsonField<BalanceType> = JsonMissing.of()
             private var vendorCode: JsonField<String> = JsonMissing.of()
             private var vendorCodeType: JsonField<String> = JsonMissing.of()
+            private var asOfDate: JsonField<LocalDate> = JsonMissing.of()
+            private var asOfTime: JsonField<String> = JsonMissing.of()
+            private var valueDate: JsonField<LocalDate> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(balance: Balance) = apply {
@@ -495,6 +522,9 @@ private constructor(
                 this.balanceType = balance.balanceType
                 this.vendorCode = balance.vendorCode
                 this.vendorCodeType = balance.vendorCodeType
+                this.asOfDate = balance.asOfDate
+                this.asOfTime = balance.asOfTime
+                this.valueDate = balance.valueDate
                 additionalProperties(balance.additionalProperties)
             }
 
@@ -603,6 +633,30 @@ private constructor(
                 this.vendorCodeType = vendorCodeType
             }
 
+            /** The date on which the balance became true for the account. */
+            fun asOfDate(asOfDate: LocalDate) = asOfDate(JsonField.of(asOfDate))
+
+            /** The date on which the balance became true for the account. */
+            @JsonProperty("as_of_date")
+            @ExcludeMissing
+            fun asOfDate(asOfDate: JsonField<LocalDate>) = apply { this.asOfDate = asOfDate }
+
+            /** The time on which the balance became true for the account. */
+            fun asOfTime(asOfTime: String) = asOfTime(JsonField.of(asOfTime))
+
+            /** The time on which the balance became true for the account. */
+            @JsonProperty("as_of_time")
+            @ExcludeMissing
+            fun asOfTime(asOfTime: JsonField<String>) = apply { this.asOfTime = asOfTime }
+
+            /** The date on which the balance becomes available. */
+            fun valueDate(valueDate: LocalDate) = valueDate(JsonField.of(valueDate))
+
+            /** The date on which the balance becomes available. */
+            @JsonProperty("value_date")
+            @ExcludeMissing
+            fun valueDate(valueDate: JsonField<LocalDate>) = apply { this.valueDate = valueDate }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -629,6 +683,9 @@ private constructor(
                     balanceType,
                     vendorCode,
                     vendorCodeType,
+                    asOfDate,
+                    asOfTime,
+                    valueDate,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -646,7 +703,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is BalanceType && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is BalanceType && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -732,20 +789,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Balance && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.amount == other.amount && this.currency == other.currency && this.balanceType == other.balanceType && this.vendorCode == other.vendorCode && this.vendorCodeType == other.vendorCodeType && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Balance && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && amount == other.amount && currency == other.currency && balanceType == other.balanceType && vendorCode == other.vendorCode && vendorCodeType == other.vendorCodeType && asOfDate == other.asOfDate && asOfTime == other.asOfTime && valueDate == other.valueDate && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, amount, currency, balanceType, vendorCode, vendorCodeType, asOfDate, asOfTime, valueDate, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, amount, currency, balanceType, vendorCode, vendorCodeType, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Balance{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, amount=$amount, currency=$currency, balanceType=$balanceType, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, additionalProperties=$additionalProperties}"
+            "Balance{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, amount=$amount, currency=$currency, balanceType=$balanceType, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, asOfDate=$asOfDate, asOfTime=$asOfTime, valueDate=$valueDate, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -753,17 +807,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is BalanceReport && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.balanceReportType == other.balanceReportType && this.asOfDate == other.asOfDate && this.asOfTime == other.asOfTime && this.balances == other.balances && this.internalAccountId == other.internalAccountId && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is BalanceReport && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && balanceReportType == other.balanceReportType && asOfDate == other.asOfDate && asOfTime == other.asOfTime && balances == other.balances && internalAccountId == other.internalAccountId && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, balanceReportType, asOfDate, asOfTime, balances, internalAccountId, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, balanceReportType, asOfDate, asOfTime, balances, internalAccountId, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "BalanceReport{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, balanceReportType=$balanceReportType, asOfDate=$asOfDate, asOfTime=$asOfTime, balances=$balances, internalAccountId=$internalAccountId, additionalProperties=$additionalProperties}"

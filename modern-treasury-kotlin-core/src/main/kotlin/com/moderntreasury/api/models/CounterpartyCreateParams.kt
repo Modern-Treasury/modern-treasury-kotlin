@@ -60,6 +60,12 @@ constructor(
 
     fun verificationStatus(): VerificationStatus? = verificationStatus
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): CounterpartyCreateBody {
         return CounterpartyCreateBody(
             name,
@@ -274,42 +280,18 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CounterpartyCreateBody && this.name == other.name && this.accounting == other.accounting && this.accounts == other.accounts && this.email == other.email && this.ledgerType == other.ledgerType && this.legalEntity == other.legalEntity && this.legalEntityId == other.legalEntityId && this.metadata == other.metadata && this.sendRemittanceAdvice == other.sendRemittanceAdvice && this.taxpayerIdentifier == other.taxpayerIdentifier && this.verificationStatus == other.verificationStatus && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CounterpartyCreateBody && name == other.name && accounting == other.accounting && accounts == other.accounts && email == other.email && ledgerType == other.ledgerType && legalEntity == other.legalEntity && legalEntityId == other.legalEntityId && metadata == other.metadata && sendRemittanceAdvice == other.sendRemittanceAdvice && taxpayerIdentifier == other.taxpayerIdentifier && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(name, accounting, accounts, email, ledgerType, legalEntity, legalEntityId, metadata, sendRemittanceAdvice, taxpayerIdentifier, verificationStatus, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(name, accounting, accounts, email, ledgerType, legalEntity, legalEntityId, metadata, sendRemittanceAdvice, taxpayerIdentifier, verificationStatus, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "CounterpartyCreateBody{name=$name, accounting=$accounting, accounts=$accounts, email=$email, ledgerType=$ledgerType, legalEntity=$legalEntity, legalEntityId=$legalEntityId, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CounterpartyCreateParams && this.name == other.name && this.accounting == other.accounting && this.accounts == other.accounts && this.email == other.email && this.ledgerType == other.ledgerType && this.legalEntity == other.legalEntity && this.legalEntityId == other.legalEntityId && this.metadata == other.metadata && this.sendRemittanceAdvice == other.sendRemittanceAdvice && this.taxpayerIdentifier == other.taxpayerIdentifier && this.verificationStatus == other.verificationStatus && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(name, accounting, accounts, email, ledgerType, legalEntity, legalEntityId, metadata, sendRemittanceAdvice, taxpayerIdentifier, verificationStatus, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
-
-    override fun toString() =
-        "CounterpartyCreateParams{name=$name, accounting=$accounting, accounts=$accounts, email=$email, ledgerType=$ledgerType, legalEntity=$legalEntity, legalEntityId=$legalEntityId, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -337,20 +319,21 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(counterpartyCreateParams: CounterpartyCreateParams) = apply {
-            this.name = counterpartyCreateParams.name
-            this.accounting = counterpartyCreateParams.accounting
-            this.accounts(counterpartyCreateParams.accounts ?: listOf())
-            this.email = counterpartyCreateParams.email
-            this.ledgerType = counterpartyCreateParams.ledgerType
-            this.legalEntity = counterpartyCreateParams.legalEntity
-            this.legalEntityId = counterpartyCreateParams.legalEntityId
-            this.metadata = counterpartyCreateParams.metadata
-            this.sendRemittanceAdvice = counterpartyCreateParams.sendRemittanceAdvice
-            this.taxpayerIdentifier = counterpartyCreateParams.taxpayerIdentifier
-            this.verificationStatus = counterpartyCreateParams.verificationStatus
-            additionalHeaders(counterpartyCreateParams.additionalHeaders)
-            additionalQueryParams(counterpartyCreateParams.additionalQueryParams)
-            additionalBodyProperties(counterpartyCreateParams.additionalBodyProperties)
+            name = counterpartyCreateParams.name
+            accounting = counterpartyCreateParams.accounting
+            accounts = counterpartyCreateParams.accounts?.toMutableList() ?: mutableListOf()
+            email = counterpartyCreateParams.email
+            ledgerType = counterpartyCreateParams.ledgerType
+            legalEntity = counterpartyCreateParams.legalEntity
+            legalEntityId = counterpartyCreateParams.legalEntityId
+            metadata = counterpartyCreateParams.metadata
+            sendRemittanceAdvice = counterpartyCreateParams.sendRemittanceAdvice
+            taxpayerIdentifier = counterpartyCreateParams.taxpayerIdentifier
+            verificationStatus = counterpartyCreateParams.verificationStatus
+            additionalHeaders = counterpartyCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = counterpartyCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                counterpartyCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** A human friendly name for this counterparty. */
@@ -530,7 +513,7 @@ constructor(
             CounterpartyCreateParams(
                 name,
                 accounting,
-                if (accounts.size == 0) null else accounts.toImmutable(),
+                accounts.toImmutable().ifEmpty { null },
                 email,
                 ledgerType,
                 legalEntity,
@@ -616,7 +599,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is Type && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -665,17 +648,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Accounting && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Accounting && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(type, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(type, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Accounting{type=$type, additionalProperties=$additionalProperties}"
@@ -983,7 +963,7 @@ constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is AccountNumberType && this.value == other.value /* spotless:on */
+                    return /* spotless:off */ other is AccountNumberType && value == other.value /* spotless:on */
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -1083,17 +1063,14 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is AccountDetail && this.accountNumber == other.accountNumber && this.accountNumberType == other.accountNumberType && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is AccountDetail && accountNumber == other.accountNumber && accountNumberType == other.accountNumberType && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(accountNumber, accountNumberType, additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(accountNumber, accountNumberType, additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() =
                 "AccountDetail{accountNumber=$accountNumber, accountNumberType=$accountNumberType, additionalProperties=$additionalProperties}"
@@ -1182,7 +1159,7 @@ constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is ContactIdentifierType && this.value == other.value /* spotless:on */
+                    return /* spotless:off */ other is ContactIdentifierType && value == other.value /* spotless:on */
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -1240,17 +1217,14 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is ContactDetailCreateRequest && this.contactIdentifier == other.contactIdentifier && this.contactIdentifierType == other.contactIdentifierType && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is ContactDetailCreateRequest && contactIdentifier == other.contactIdentifier && contactIdentifierType == other.contactIdentifierType && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(contactIdentifier, contactIdentifierType, additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(contactIdentifier, contactIdentifierType, additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() =
                 "ContactDetailCreateRequest{contactIdentifier=$contactIdentifier, contactIdentifierType=$contactIdentifierType, additionalProperties=$additionalProperties}"
@@ -1471,7 +1445,7 @@ constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is LedgerableType && this.value == other.value /* spotless:on */
+                    return /* spotless:off */ other is LedgerableType && value == other.value /* spotless:on */
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -1583,17 +1557,14 @@ constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+                    return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
-                private var hashCode: Int = 0
+                /* spotless:off */
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+                /* spotless:on */
 
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-                    }
-                    return hashCode
-                }
+                override fun hashCode(): Int = hashCode
 
                 override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
             }
@@ -1603,17 +1574,14 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is LedgerAccountCreateRequest && this.name == other.name && this.description == other.description && this.normalBalance == other.normalBalance && this.ledgerId == other.ledgerId && this.currency == other.currency && this.currencyExponent == other.currencyExponent && this.ledgerAccountCategoryIds == other.ledgerAccountCategoryIds && this.ledgerableId == other.ledgerableId && this.ledgerableType == other.ledgerableType && this.metadata == other.metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is LedgerAccountCreateRequest && name == other.name && description == other.description && normalBalance == other.normalBalance && ledgerId == other.ledgerId && currency == other.currency && currencyExponent == other.currencyExponent && ledgerAccountCategoryIds == other.ledgerAccountCategoryIds && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(name, description, normalBalance, ledgerId, currency, currencyExponent, ledgerAccountCategoryIds, ledgerableId, ledgerableType, metadata, additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(name, description, normalBalance, ledgerId, currency, currencyExponent, ledgerAccountCategoryIds, ledgerableId, ledgerableType, metadata, additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() =
                 "LedgerAccountCreateRequest{name=$name, description=$description, normalBalance=$normalBalance, ledgerId=$ledgerId, currency=$currency, currencyExponent=$currencyExponent, ledgerAccountCategoryIds=$ledgerAccountCategoryIds, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalProperties=$additionalProperties}"
@@ -1671,17 +1639,14 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
         }
@@ -1798,17 +1763,14 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is AddressRequest && this.line1 == other.line1 && this.line2 == other.line2 && this.locality == other.locality && this.region == other.region && this.postalCode == other.postalCode && this.country == other.country && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is AddressRequest && line1 == other.line1 && line2 == other.line2 && locality == other.locality && region == other.region && postalCode == other.postalCode && country == other.country && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(line1, line2, locality, region, postalCode, country, additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(line1, line2, locality, region, postalCode, country, additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() =
                 "AddressRequest{line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
@@ -1827,7 +1789,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is PartyType && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is PartyType && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1967,7 +1929,7 @@ constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is RoutingNumberType && this.value == other.value /* spotless:on */
+                    return /* spotless:off */ other is RoutingNumberType && value == other.value /* spotless:on */
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -2142,7 +2104,7 @@ constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is PaymentType && this.value == other.value /* spotless:on */
+                    return /* spotless:off */ other is PaymentType && value == other.value /* spotless:on */
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -2360,17 +2322,14 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is RoutingDetail && this.routingNumber == other.routingNumber && this.routingNumberType == other.routingNumberType && this.paymentType == other.paymentType && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is RoutingDetail && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && paymentType == other.paymentType && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(routingNumber, routingNumberType, paymentType, additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(routingNumber, routingNumberType, paymentType, additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() =
                 "RoutingDetail{routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalProperties=$additionalProperties}"
@@ -2381,17 +2340,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Account && this.accountType == other.accountType && this.partyType == other.partyType && this.partyAddress == other.partyAddress && this.name == other.name && this.accountDetails == other.accountDetails && this.routingDetails == other.routingDetails && this.metadata == other.metadata && this.partyName == other.partyName && this.partyIdentifier == other.partyIdentifier && this.ledgerAccount == other.ledgerAccount && this.plaidProcessorToken == other.plaidProcessorToken && this.contactDetails == other.contactDetails && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Account && accountType == other.accountType && partyType == other.partyType && partyAddress == other.partyAddress && name == other.name && accountDetails == other.accountDetails && routingDetails == other.routingDetails && metadata == other.metadata && partyName == other.partyName && partyIdentifier == other.partyIdentifier && ledgerAccount == other.ledgerAccount && plaidProcessorToken == other.plaidProcessorToken && contactDetails == other.contactDetails && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(accountType, partyType, partyAddress, name, accountDetails, routingDetails, metadata, partyName, partyIdentifier, ledgerAccount, plaidProcessorToken, contactDetails, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(accountType, partyType, partyAddress, name, accountDetails, routingDetails, metadata, partyName, partyIdentifier, ledgerAccount, plaidProcessorToken, contactDetails, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Account{accountType=$accountType, partyType=$partyType, partyAddress=$partyAddress, name=$name, accountDetails=$accountDetails, routingDetails=$routingDetails, metadata=$metadata, partyName=$partyName, partyIdentifier=$partyIdentifier, ledgerAccount=$ledgerAccount, plaidProcessorToken=$plaidProcessorToken, contactDetails=$contactDetails, additionalProperties=$additionalProperties}"
@@ -2410,7 +2366,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is LedgerType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -2460,8 +2416,14 @@ constructor(
     private constructor(
         private val legalEntityType: LegalEntityType?,
         private val riskRating: RiskRating?,
+        private val prefix: String?,
         private val firstName: String?,
+        private val middleName: String?,
         private val lastName: String?,
+        private val suffix: String?,
+        private val preferredName: String?,
+        private val citizenshipCountry: String?,
+        private val politicallyExposedPerson: Boolean?,
         private val dateOfBirth: LocalDate?,
         private val dateFormed: LocalDate?,
         private val businessName: String?,
@@ -2471,6 +2433,8 @@ constructor(
         private val email: String?,
         private val website: String?,
         private val metadata: Metadata?,
+        private val bankSettings: BankSettings?,
+        private val wealthAndEmploymentDetails: WealthAndEmploymentDetails?,
         private val addresses: List<LegalEntityAddressCreateRequest>?,
         private val identifications: List<IdentificationCreateRequest>?,
         private val legalEntityAssociations: List<LegalEntityAssociationInlineCreateRequest>?,
@@ -2483,11 +2447,30 @@ constructor(
         /** The risk rating of the legal entity. One of low, medium, high. */
         @JsonProperty("risk_rating") fun riskRating(): RiskRating? = riskRating
 
+        /** An individual's prefix. */
+        @JsonProperty("prefix") fun prefix(): String? = prefix
+
         /** An individual's first name. */
         @JsonProperty("first_name") fun firstName(): String? = firstName
 
+        /** An individual's middle name. */
+        @JsonProperty("middle_name") fun middleName(): String? = middleName
+
         /** An individual's last name. */
         @JsonProperty("last_name") fun lastName(): String? = lastName
+
+        /** An individual's suffix. */
+        @JsonProperty("suffix") fun suffix(): String? = suffix
+
+        /** An individual's preferred name. */
+        @JsonProperty("preferred_name") fun preferredName(): String? = preferredName
+
+        /** The country of citizenship for an individual. */
+        @JsonProperty("citizenship_country") fun citizenshipCountry(): String? = citizenshipCountry
+
+        /** Whether the individual is a politically exposed person. */
+        @JsonProperty("politically_exposed_person")
+        fun politicallyExposedPerson(): Boolean? = politicallyExposedPerson
 
         /** An individual's date of birth (YYYY-MM-DD). */
         @JsonProperty("date_of_birth") fun dateOfBirth(): LocalDate? = dateOfBirth
@@ -2517,6 +2500,11 @@ constructor(
          */
         @JsonProperty("metadata") fun metadata(): Metadata? = metadata
 
+        @JsonProperty("bank_settings") fun bankSettings(): BankSettings? = bankSettings
+
+        @JsonProperty("wealth_and_employment_details")
+        fun wealthAndEmploymentDetails(): WealthAndEmploymentDetails? = wealthAndEmploymentDetails
+
         /** A list of addresses for the entity. */
         @JsonProperty("addresses")
         fun addresses(): List<LegalEntityAddressCreateRequest>? = addresses
@@ -2545,8 +2533,14 @@ constructor(
 
             private var legalEntityType: LegalEntityType? = null
             private var riskRating: RiskRating? = null
+            private var prefix: String? = null
             private var firstName: String? = null
+            private var middleName: String? = null
             private var lastName: String? = null
+            private var suffix: String? = null
+            private var preferredName: String? = null
+            private var citizenshipCountry: String? = null
+            private var politicallyExposedPerson: Boolean? = null
             private var dateOfBirth: LocalDate? = null
             private var dateFormed: LocalDate? = null
             private var businessName: String? = null
@@ -2556,6 +2550,8 @@ constructor(
             private var email: String? = null
             private var website: String? = null
             private var metadata: Metadata? = null
+            private var bankSettings: BankSettings? = null
+            private var wealthAndEmploymentDetails: WealthAndEmploymentDetails? = null
             private var addresses: List<LegalEntityAddressCreateRequest>? = null
             private var identifications: List<IdentificationCreateRequest>? = null
             private var legalEntityAssociations: List<LegalEntityAssociationInlineCreateRequest>? =
@@ -2565,8 +2561,14 @@ constructor(
             internal fun from(legalEntityCreateRequest: LegalEntityCreateRequest) = apply {
                 this.legalEntityType = legalEntityCreateRequest.legalEntityType
                 this.riskRating = legalEntityCreateRequest.riskRating
+                this.prefix = legalEntityCreateRequest.prefix
                 this.firstName = legalEntityCreateRequest.firstName
+                this.middleName = legalEntityCreateRequest.middleName
                 this.lastName = legalEntityCreateRequest.lastName
+                this.suffix = legalEntityCreateRequest.suffix
+                this.preferredName = legalEntityCreateRequest.preferredName
+                this.citizenshipCountry = legalEntityCreateRequest.citizenshipCountry
+                this.politicallyExposedPerson = legalEntityCreateRequest.politicallyExposedPerson
                 this.dateOfBirth = legalEntityCreateRequest.dateOfBirth
                 this.dateFormed = legalEntityCreateRequest.dateFormed
                 this.businessName = legalEntityCreateRequest.businessName
@@ -2576,6 +2578,9 @@ constructor(
                 this.email = legalEntityCreateRequest.email
                 this.website = legalEntityCreateRequest.website
                 this.metadata = legalEntityCreateRequest.metadata
+                this.bankSettings = legalEntityCreateRequest.bankSettings
+                this.wealthAndEmploymentDetails =
+                    legalEntityCreateRequest.wealthAndEmploymentDetails
                 this.addresses = legalEntityCreateRequest.addresses
                 this.identifications = legalEntityCreateRequest.identifications
                 this.legalEntityAssociations = legalEntityCreateRequest.legalEntityAssociations
@@ -2592,13 +2597,39 @@ constructor(
             @JsonProperty("risk_rating")
             fun riskRating(riskRating: RiskRating) = apply { this.riskRating = riskRating }
 
+            /** An individual's prefix. */
+            @JsonProperty("prefix") fun prefix(prefix: String) = apply { this.prefix = prefix }
+
             /** An individual's first name. */
             @JsonProperty("first_name")
             fun firstName(firstName: String) = apply { this.firstName = firstName }
 
+            /** An individual's middle name. */
+            @JsonProperty("middle_name")
+            fun middleName(middleName: String) = apply { this.middleName = middleName }
+
             /** An individual's last name. */
             @JsonProperty("last_name")
             fun lastName(lastName: String) = apply { this.lastName = lastName }
+
+            /** An individual's suffix. */
+            @JsonProperty("suffix") fun suffix(suffix: String) = apply { this.suffix = suffix }
+
+            /** An individual's preferred name. */
+            @JsonProperty("preferred_name")
+            fun preferredName(preferredName: String) = apply { this.preferredName = preferredName }
+
+            /** The country of citizenship for an individual. */
+            @JsonProperty("citizenship_country")
+            fun citizenshipCountry(citizenshipCountry: String) = apply {
+                this.citizenshipCountry = citizenshipCountry
+            }
+
+            /** Whether the individual is a politically exposed person. */
+            @JsonProperty("politically_exposed_person")
+            fun politicallyExposedPerson(politicallyExposedPerson: Boolean) = apply {
+                this.politicallyExposedPerson = politicallyExposedPerson
+            }
 
             /** An individual's date of birth (YYYY-MM-DD). */
             @JsonProperty("date_of_birth")
@@ -2641,6 +2672,17 @@ constructor(
             @JsonProperty("metadata")
             fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
+            @JsonProperty("bank_settings")
+            fun bankSettings(bankSettings: BankSettings) = apply {
+                this.bankSettings = bankSettings
+            }
+
+            @JsonProperty("wealth_and_employment_details")
+            fun wealthAndEmploymentDetails(wealthAndEmploymentDetails: WealthAndEmploymentDetails) =
+                apply {
+                    this.wealthAndEmploymentDetails = wealthAndEmploymentDetails
+                }
+
             /** A list of addresses for the entity. */
             @JsonProperty("addresses")
             fun addresses(addresses: List<LegalEntityAddressCreateRequest>) = apply {
@@ -2679,8 +2721,14 @@ constructor(
                         "`legalEntityType` is required but was not set"
                     },
                     riskRating,
+                    prefix,
                     firstName,
+                    middleName,
                     lastName,
+                    suffix,
+                    preferredName,
+                    citizenshipCountry,
+                    politicallyExposedPerson,
                     dateOfBirth,
                     dateFormed,
                     businessName,
@@ -2690,6 +2738,8 @@ constructor(
                     email,
                     website,
                     metadata,
+                    bankSettings,
+                    wealthAndEmploymentDetails,
                     addresses?.toImmutable(),
                     identifications?.toImmutable(),
                     legalEntityAssociations?.toImmutable(),
@@ -2710,7 +2760,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is LegalEntityType && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is LegalEntityType && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -2889,7 +2939,7 @@ constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is AddressType && this.value == other.value /* spotless:on */
+                    return /* spotless:off */ other is AddressType && value == other.value /* spotless:on */
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -2957,17 +3007,14 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is LegalEntityAddressCreateRequest && this.addressTypes == other.addressTypes && this.line1 == other.line1 && this.line2 == other.line2 && this.locality == other.locality && this.region == other.region && this.postalCode == other.postalCode && this.country == other.country && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is LegalEntityAddressCreateRequest && addressTypes == other.addressTypes && line1 == other.line1 && line2 == other.line2 && locality == other.locality && region == other.region && postalCode == other.postalCode && country == other.country && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(addressTypes, line1, line2, locality, region, postalCode, country, additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(addressTypes, line1, line2, locality, region, postalCode, country, additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() =
                 "LegalEntityAddressCreateRequest{addressTypes=$addressTypes, line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
@@ -3070,7 +3117,7 @@ constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is IdType && this.value == other.value /* spotless:on */
+                    return /* spotless:off */ other is IdType && value == other.value /* spotless:on */
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -3233,17 +3280,14 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is IdentificationCreateRequest && this.idNumber == other.idNumber && this.idType == other.idType && this.issuingCountry == other.issuingCountry && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is IdentificationCreateRequest && idNumber == other.idNumber && idType == other.idType && issuingCountry == other.issuingCountry && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(idNumber, idType, issuingCountry, additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(idNumber, idType, issuingCountry, additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() =
                 "IdentificationCreateRequest{idNumber=$idNumber, idType=$idType, issuingCountry=$issuingCountry, additionalProperties=$additionalProperties}"
@@ -3385,7 +3429,7 @@ constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is RelationshipType && this.value == other.value /* spotless:on */
+                    return /* spotless:off */ other is RelationshipType && value == other.value /* spotless:on */
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -3439,8 +3483,14 @@ constructor(
             private constructor(
                 private val legalEntityType: LegalEntityType?,
                 private val riskRating: RiskRating?,
+                private val prefix: String?,
                 private val firstName: String?,
+                private val middleName: String?,
                 private val lastName: String?,
+                private val suffix: String?,
+                private val preferredName: String?,
+                private val citizenshipCountry: String?,
+                private val politicallyExposedPerson: Boolean?,
                 private val dateOfBirth: LocalDate?,
                 private val dateFormed: LocalDate?,
                 private val businessName: String?,
@@ -3450,6 +3500,8 @@ constructor(
                 private val email: String?,
                 private val website: String?,
                 private val metadata: Metadata?,
+                private val bankSettings: BankSettings?,
+                private val wealthAndEmploymentDetails: WealthAndEmploymentDetails?,
                 private val addresses: List<LegalEntityAddressCreateRequest>?,
                 private val identifications: List<IdentificationCreateRequest>?,
                 private val additionalProperties: Map<String, JsonValue>,
@@ -3462,11 +3514,31 @@ constructor(
                 /** The risk rating of the legal entity. One of low, medium, high. */
                 @JsonProperty("risk_rating") fun riskRating(): RiskRating? = riskRating
 
+                /** An individual's prefix. */
+                @JsonProperty("prefix") fun prefix(): String? = prefix
+
                 /** An individual's first name. */
                 @JsonProperty("first_name") fun firstName(): String? = firstName
 
+                /** An individual's middle name. */
+                @JsonProperty("middle_name") fun middleName(): String? = middleName
+
                 /** An individual's last name. */
                 @JsonProperty("last_name") fun lastName(): String? = lastName
+
+                /** An individual's suffix. */
+                @JsonProperty("suffix") fun suffix(): String? = suffix
+
+                /** An individual's preferred name. */
+                @JsonProperty("preferred_name") fun preferredName(): String? = preferredName
+
+                /** The country of citizenship for an individual. */
+                @JsonProperty("citizenship_country")
+                fun citizenshipCountry(): String? = citizenshipCountry
+
+                /** Whether the individual is a politically exposed person. */
+                @JsonProperty("politically_exposed_person")
+                fun politicallyExposedPerson(): Boolean? = politicallyExposedPerson
 
                 /** An individual's date of birth (YYYY-MM-DD). */
                 @JsonProperty("date_of_birth") fun dateOfBirth(): LocalDate? = dateOfBirth
@@ -3498,6 +3570,12 @@ constructor(
                  */
                 @JsonProperty("metadata") fun metadata(): Metadata? = metadata
 
+                @JsonProperty("bank_settings") fun bankSettings(): BankSettings? = bankSettings
+
+                @JsonProperty("wealth_and_employment_details")
+                fun wealthAndEmploymentDetails(): WealthAndEmploymentDetails? =
+                    wealthAndEmploymentDetails
+
                 /** A list of addresses for the entity. */
                 @JsonProperty("addresses")
                 fun addresses(): List<LegalEntityAddressCreateRequest>? = addresses
@@ -3521,8 +3599,14 @@ constructor(
 
                     private var legalEntityType: LegalEntityType? = null
                     private var riskRating: RiskRating? = null
+                    private var prefix: String? = null
                     private var firstName: String? = null
+                    private var middleName: String? = null
                     private var lastName: String? = null
+                    private var suffix: String? = null
+                    private var preferredName: String? = null
+                    private var citizenshipCountry: String? = null
+                    private var politicallyExposedPerson: Boolean? = null
                     private var dateOfBirth: LocalDate? = null
                     private var dateFormed: LocalDate? = null
                     private var businessName: String? = null
@@ -3532,6 +3616,8 @@ constructor(
                     private var email: String? = null
                     private var website: String? = null
                     private var metadata: Metadata? = null
+                    private var bankSettings: BankSettings? = null
+                    private var wealthAndEmploymentDetails: WealthAndEmploymentDetails? = null
                     private var addresses: List<LegalEntityAddressCreateRequest>? = null
                     private var identifications: List<IdentificationCreateRequest>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -3539,8 +3625,15 @@ constructor(
                     internal fun from(childLegalEntityCreate: ChildLegalEntityCreate) = apply {
                         this.legalEntityType = childLegalEntityCreate.legalEntityType
                         this.riskRating = childLegalEntityCreate.riskRating
+                        this.prefix = childLegalEntityCreate.prefix
                         this.firstName = childLegalEntityCreate.firstName
+                        this.middleName = childLegalEntityCreate.middleName
                         this.lastName = childLegalEntityCreate.lastName
+                        this.suffix = childLegalEntityCreate.suffix
+                        this.preferredName = childLegalEntityCreate.preferredName
+                        this.citizenshipCountry = childLegalEntityCreate.citizenshipCountry
+                        this.politicallyExposedPerson =
+                            childLegalEntityCreate.politicallyExposedPerson
                         this.dateOfBirth = childLegalEntityCreate.dateOfBirth
                         this.dateFormed = childLegalEntityCreate.dateFormed
                         this.businessName = childLegalEntityCreate.businessName
@@ -3550,6 +3643,9 @@ constructor(
                         this.email = childLegalEntityCreate.email
                         this.website = childLegalEntityCreate.website
                         this.metadata = childLegalEntityCreate.metadata
+                        this.bankSettings = childLegalEntityCreate.bankSettings
+                        this.wealthAndEmploymentDetails =
+                            childLegalEntityCreate.wealthAndEmploymentDetails
                         this.addresses = childLegalEntityCreate.addresses
                         this.identifications = childLegalEntityCreate.identifications
                         additionalProperties(childLegalEntityCreate.additionalProperties)
@@ -3565,13 +3661,43 @@ constructor(
                     @JsonProperty("risk_rating")
                     fun riskRating(riskRating: RiskRating) = apply { this.riskRating = riskRating }
 
+                    /** An individual's prefix. */
+                    @JsonProperty("prefix")
+                    fun prefix(prefix: String) = apply { this.prefix = prefix }
+
                     /** An individual's first name. */
                     @JsonProperty("first_name")
                     fun firstName(firstName: String) = apply { this.firstName = firstName }
 
+                    /** An individual's middle name. */
+                    @JsonProperty("middle_name")
+                    fun middleName(middleName: String) = apply { this.middleName = middleName }
+
                     /** An individual's last name. */
                     @JsonProperty("last_name")
                     fun lastName(lastName: String) = apply { this.lastName = lastName }
+
+                    /** An individual's suffix. */
+                    @JsonProperty("suffix")
+                    fun suffix(suffix: String) = apply { this.suffix = suffix }
+
+                    /** An individual's preferred name. */
+                    @JsonProperty("preferred_name")
+                    fun preferredName(preferredName: String) = apply {
+                        this.preferredName = preferredName
+                    }
+
+                    /** The country of citizenship for an individual. */
+                    @JsonProperty("citizenship_country")
+                    fun citizenshipCountry(citizenshipCountry: String) = apply {
+                        this.citizenshipCountry = citizenshipCountry
+                    }
+
+                    /** Whether the individual is a politically exposed person. */
+                    @JsonProperty("politically_exposed_person")
+                    fun politicallyExposedPerson(politicallyExposedPerson: Boolean) = apply {
+                        this.politicallyExposedPerson = politicallyExposedPerson
+                    }
 
                     /** An individual's date of birth (YYYY-MM-DD). */
                     @JsonProperty("date_of_birth")
@@ -3619,6 +3745,16 @@ constructor(
                     @JsonProperty("metadata")
                     fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
+                    @JsonProperty("bank_settings")
+                    fun bankSettings(bankSettings: BankSettings) = apply {
+                        this.bankSettings = bankSettings
+                    }
+
+                    @JsonProperty("wealth_and_employment_details")
+                    fun wealthAndEmploymentDetails(
+                        wealthAndEmploymentDetails: WealthAndEmploymentDetails
+                    ) = apply { this.wealthAndEmploymentDetails = wealthAndEmploymentDetails }
+
                     /** A list of addresses for the entity. */
                     @JsonProperty("addresses")
                     fun addresses(addresses: List<LegalEntityAddressCreateRequest>) = apply {
@@ -3651,8 +3787,14 @@ constructor(
                         ChildLegalEntityCreate(
                             legalEntityType,
                             riskRating,
+                            prefix,
                             firstName,
+                            middleName,
                             lastName,
+                            suffix,
+                            preferredName,
+                            citizenshipCountry,
+                            politicallyExposedPerson,
                             dateOfBirth,
                             dateFormed,
                             businessName,
@@ -3662,6 +3804,8 @@ constructor(
                             email,
                             website,
                             metadata,
+                            bankSettings,
+                            wealthAndEmploymentDetails,
                             addresses?.toImmutable(),
                             identifications?.toImmutable(),
                             additionalProperties.toImmutable(),
@@ -3810,7 +3954,7 @@ constructor(
                                 return true
                             }
 
-                            return /* spotless:off */ other is AddressType && this.value == other.value /* spotless:on */
+                            return /* spotless:off */ other is AddressType && value == other.value /* spotless:on */
                         }
 
                         override fun hashCode() = value.hashCode()
@@ -3880,17 +4024,14 @@ constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is LegalEntityAddressCreateRequest && this.addressTypes == other.addressTypes && this.line1 == other.line1 && this.line2 == other.line2 && this.locality == other.locality && this.region == other.region && this.postalCode == other.postalCode && this.country == other.country && this.additionalProperties == other.additionalProperties /* spotless:on */
+                        return /* spotless:off */ other is LegalEntityAddressCreateRequest && addressTypes == other.addressTypes && line1 == other.line1 && line2 == other.line2 && locality == other.locality && region == other.region && postalCode == other.postalCode && country == other.country && additionalProperties == other.additionalProperties /* spotless:on */
                     }
 
-                    private var hashCode: Int = 0
+                    /* spotless:off */
+                    private val hashCode: Int by lazy { Objects.hash(addressTypes, line1, line2, locality, region, postalCode, country, additionalProperties) }
+                    /* spotless:on */
 
-                    override fun hashCode(): Int {
-                        if (hashCode == 0) {
-                            hashCode = /* spotless:off */ Objects.hash(addressTypes, line1, line2, locality, region, postalCode, country, additionalProperties) /* spotless:on */
-                        }
-                        return hashCode
-                    }
+                    override fun hashCode(): Int = hashCode
 
                     override fun toString() =
                         "LegalEntityAddressCreateRequest{addressTypes=$addressTypes, line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
@@ -4001,7 +4142,7 @@ constructor(
                                 return true
                             }
 
-                            return /* spotless:off */ other is IdType && this.value == other.value /* spotless:on */
+                            return /* spotless:off */ other is IdType && value == other.value /* spotless:on */
                         }
 
                         override fun hashCode() = value.hashCode()
@@ -4167,17 +4308,14 @@ constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is IdentificationCreateRequest && this.idNumber == other.idNumber && this.idType == other.idType && this.issuingCountry == other.issuingCountry && this.additionalProperties == other.additionalProperties /* spotless:on */
+                        return /* spotless:off */ other is IdentificationCreateRequest && idNumber == other.idNumber && idType == other.idType && issuingCountry == other.issuingCountry && additionalProperties == other.additionalProperties /* spotless:on */
                     }
 
-                    private var hashCode: Int = 0
+                    /* spotless:off */
+                    private val hashCode: Int by lazy { Objects.hash(idNumber, idType, issuingCountry, additionalProperties) }
+                    /* spotless:on */
 
-                    override fun hashCode(): Int {
-                        if (hashCode == 0) {
-                            hashCode = /* spotless:off */ Objects.hash(idNumber, idType, issuingCountry, additionalProperties) /* spotless:on */
-                        }
-                        return hashCode
-                    }
+                    override fun hashCode(): Int = hashCode
 
                     override fun toString() =
                         "IdentificationCreateRequest{idNumber=$idNumber, idType=$idType, issuingCountry=$issuingCountry, additionalProperties=$additionalProperties}"
@@ -4197,7 +4335,7 @@ constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is LegalEntityType && this.value == other.value /* spotless:on */
+                        return /* spotless:off */ other is LegalEntityType && value == other.value /* spotless:on */
                     }
 
                     override fun hashCode() = value.hashCode()
@@ -4258,7 +4396,7 @@ constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is LegalStructure && this.value == other.value /* spotless:on */
+                        return /* spotless:off */ other is LegalStructure && value == other.value /* spotless:on */
                     }
 
                     override fun hashCode() = value.hashCode()
@@ -4384,17 +4522,14 @@ constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+                        return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
                     }
 
-                    private var hashCode: Int = 0
+                    /* spotless:off */
+                    private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+                    /* spotless:on */
 
-                    override fun hashCode(): Int {
-                        if (hashCode == 0) {
-                            hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-                        }
-                        return hashCode
-                    }
+                    override fun hashCode(): Int = hashCode
 
                     override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
                 }
@@ -4461,17 +4596,14 @@ constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is PhoneNumber && this.phoneNumber == other.phoneNumber && this.additionalProperties == other.additionalProperties /* spotless:on */
+                        return /* spotless:off */ other is PhoneNumber && phoneNumber == other.phoneNumber && additionalProperties == other.additionalProperties /* spotless:on */
                     }
 
-                    private var hashCode: Int = 0
+                    /* spotless:off */
+                    private val hashCode: Int by lazy { Objects.hash(phoneNumber, additionalProperties) }
+                    /* spotless:on */
 
-                    override fun hashCode(): Int {
-                        if (hashCode == 0) {
-                            hashCode = /* spotless:off */ Objects.hash(phoneNumber, additionalProperties) /* spotless:on */
-                        }
-                        return hashCode
-                    }
+                    override fun hashCode(): Int = hashCode
 
                     override fun toString() =
                         "PhoneNumber{phoneNumber=$phoneNumber, additionalProperties=$additionalProperties}"
@@ -4491,7 +4623,7 @@ constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is RiskRating && this.value == other.value /* spotless:on */
+                        return /* spotless:off */ other is RiskRating && value == other.value /* spotless:on */
                     }
 
                     override fun hashCode() = value.hashCode()
@@ -4549,20 +4681,17 @@ constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is ChildLegalEntityCreate && this.legalEntityType == other.legalEntityType && this.riskRating == other.riskRating && this.firstName == other.firstName && this.lastName == other.lastName && this.dateOfBirth == other.dateOfBirth && this.dateFormed == other.dateFormed && this.businessName == other.businessName && this.doingBusinessAsNames == other.doingBusinessAsNames && this.legalStructure == other.legalStructure && this.phoneNumbers == other.phoneNumbers && this.email == other.email && this.website == other.website && this.metadata == other.metadata && this.addresses == other.addresses && this.identifications == other.identifications && this.additionalProperties == other.additionalProperties /* spotless:on */
+                    return /* spotless:off */ other is ChildLegalEntityCreate && legalEntityType == other.legalEntityType && riskRating == other.riskRating && prefix == other.prefix && firstName == other.firstName && middleName == other.middleName && lastName == other.lastName && suffix == other.suffix && preferredName == other.preferredName && citizenshipCountry == other.citizenshipCountry && politicallyExposedPerson == other.politicallyExposedPerson && dateOfBirth == other.dateOfBirth && dateFormed == other.dateFormed && businessName == other.businessName && doingBusinessAsNames == other.doingBusinessAsNames && legalStructure == other.legalStructure && phoneNumbers == other.phoneNumbers && email == other.email && website == other.website && metadata == other.metadata && bankSettings == other.bankSettings && wealthAndEmploymentDetails == other.wealthAndEmploymentDetails && addresses == other.addresses && identifications == other.identifications && additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
-                private var hashCode: Int = 0
+                /* spotless:off */
+                private val hashCode: Int by lazy { Objects.hash(legalEntityType, riskRating, prefix, firstName, middleName, lastName, suffix, preferredName, citizenshipCountry, politicallyExposedPerson, dateOfBirth, dateFormed, businessName, doingBusinessAsNames, legalStructure, phoneNumbers, email, website, metadata, bankSettings, wealthAndEmploymentDetails, addresses, identifications, additionalProperties) }
+                /* spotless:on */
 
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode = /* spotless:off */ Objects.hash(legalEntityType, riskRating, firstName, lastName, dateOfBirth, dateFormed, businessName, doingBusinessAsNames, legalStructure, phoneNumbers, email, website, metadata, addresses, identifications, additionalProperties) /* spotless:on */
-                    }
-                    return hashCode
-                }
+                override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "ChildLegalEntityCreate{legalEntityType=$legalEntityType, riskRating=$riskRating, firstName=$firstName, lastName=$lastName, dateOfBirth=$dateOfBirth, dateFormed=$dateFormed, businessName=$businessName, doingBusinessAsNames=$doingBusinessAsNames, legalStructure=$legalStructure, phoneNumbers=$phoneNumbers, email=$email, website=$website, metadata=$metadata, addresses=$addresses, identifications=$identifications, additionalProperties=$additionalProperties}"
+                    "ChildLegalEntityCreate{legalEntityType=$legalEntityType, riskRating=$riskRating, prefix=$prefix, firstName=$firstName, middleName=$middleName, lastName=$lastName, suffix=$suffix, preferredName=$preferredName, citizenshipCountry=$citizenshipCountry, politicallyExposedPerson=$politicallyExposedPerson, dateOfBirth=$dateOfBirth, dateFormed=$dateFormed, businessName=$businessName, doingBusinessAsNames=$doingBusinessAsNames, legalStructure=$legalStructure, phoneNumbers=$phoneNumbers, email=$email, website=$website, metadata=$metadata, bankSettings=$bankSettings, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, addresses=$addresses, identifications=$identifications, additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {
@@ -4570,17 +4699,14 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is LegalEntityAssociationInlineCreateRequest && this.relationshipTypes == other.relationshipTypes && this.title == other.title && this.ownershipPercentage == other.ownershipPercentage && this.childLegalEntity == other.childLegalEntity && this.childLegalEntityId == other.childLegalEntityId && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is LegalEntityAssociationInlineCreateRequest && relationshipTypes == other.relationshipTypes && title == other.title && ownershipPercentage == other.ownershipPercentage && childLegalEntity == other.childLegalEntity && childLegalEntityId == other.childLegalEntityId && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(relationshipTypes, title, ownershipPercentage, childLegalEntity, childLegalEntityId, additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(relationshipTypes, title, ownershipPercentage, childLegalEntity, childLegalEntityId, additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() =
                 "LegalEntityAssociationInlineCreateRequest{relationshipTypes=$relationshipTypes, title=$title, ownershipPercentage=$ownershipPercentage, childLegalEntity=$childLegalEntity, childLegalEntityId=$childLegalEntityId, additionalProperties=$additionalProperties}"
@@ -4599,7 +4725,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is LegalStructure && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is LegalStructure && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -4720,17 +4846,14 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
         }
@@ -4794,17 +4917,14 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is PhoneNumber && this.phoneNumber == other.phoneNumber && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is PhoneNumber && phoneNumber == other.phoneNumber && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(phoneNumber, additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(phoneNumber, additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() =
                 "PhoneNumber{phoneNumber=$phoneNumber, additionalProperties=$additionalProperties}"
@@ -4823,7 +4943,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is RiskRating && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is RiskRating && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -4878,20 +4998,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LegalEntityCreateRequest && this.legalEntityType == other.legalEntityType && this.riskRating == other.riskRating && this.firstName == other.firstName && this.lastName == other.lastName && this.dateOfBirth == other.dateOfBirth && this.dateFormed == other.dateFormed && this.businessName == other.businessName && this.doingBusinessAsNames == other.doingBusinessAsNames && this.legalStructure == other.legalStructure && this.phoneNumbers == other.phoneNumbers && this.email == other.email && this.website == other.website && this.metadata == other.metadata && this.addresses == other.addresses && this.identifications == other.identifications && this.legalEntityAssociations == other.legalEntityAssociations && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LegalEntityCreateRequest && legalEntityType == other.legalEntityType && riskRating == other.riskRating && prefix == other.prefix && firstName == other.firstName && middleName == other.middleName && lastName == other.lastName && suffix == other.suffix && preferredName == other.preferredName && citizenshipCountry == other.citizenshipCountry && politicallyExposedPerson == other.politicallyExposedPerson && dateOfBirth == other.dateOfBirth && dateFormed == other.dateFormed && businessName == other.businessName && doingBusinessAsNames == other.doingBusinessAsNames && legalStructure == other.legalStructure && phoneNumbers == other.phoneNumbers && email == other.email && website == other.website && metadata == other.metadata && bankSettings == other.bankSettings && wealthAndEmploymentDetails == other.wealthAndEmploymentDetails && addresses == other.addresses && identifications == other.identifications && legalEntityAssociations == other.legalEntityAssociations && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(legalEntityType, riskRating, prefix, firstName, middleName, lastName, suffix, preferredName, citizenshipCountry, politicallyExposedPerson, dateOfBirth, dateFormed, businessName, doingBusinessAsNames, legalStructure, phoneNumbers, email, website, metadata, bankSettings, wealthAndEmploymentDetails, addresses, identifications, legalEntityAssociations, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(legalEntityType, riskRating, firstName, lastName, dateOfBirth, dateFormed, businessName, doingBusinessAsNames, legalStructure, phoneNumbers, email, website, metadata, addresses, identifications, legalEntityAssociations, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LegalEntityCreateRequest{legalEntityType=$legalEntityType, riskRating=$riskRating, firstName=$firstName, lastName=$lastName, dateOfBirth=$dateOfBirth, dateFormed=$dateFormed, businessName=$businessName, doingBusinessAsNames=$doingBusinessAsNames, legalStructure=$legalStructure, phoneNumbers=$phoneNumbers, email=$email, website=$website, metadata=$metadata, addresses=$addresses, identifications=$identifications, legalEntityAssociations=$legalEntityAssociations, additionalProperties=$additionalProperties}"
+            "LegalEntityCreateRequest{legalEntityType=$legalEntityType, riskRating=$riskRating, prefix=$prefix, firstName=$firstName, middleName=$middleName, lastName=$lastName, suffix=$suffix, preferredName=$preferredName, citizenshipCountry=$citizenshipCountry, politicallyExposedPerson=$politicallyExposedPerson, dateOfBirth=$dateOfBirth, dateFormed=$dateFormed, businessName=$businessName, doingBusinessAsNames=$doingBusinessAsNames, legalStructure=$legalStructure, phoneNumbers=$phoneNumbers, email=$email, website=$website, metadata=$metadata, bankSettings=$bankSettings, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, addresses=$addresses, identifications=$identifications, legalEntityAssociations=$legalEntityAssociations, additionalProperties=$additionalProperties}"
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
@@ -4943,17 +5060,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
@@ -4971,7 +5085,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is VerificationStatus && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is VerificationStatus && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -5027,4 +5141,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CounterpartyCreateParams && name == other.name && accounting == other.accounting && accounts == other.accounts && email == other.email && ledgerType == other.ledgerType && legalEntity == other.legalEntity && legalEntityId == other.legalEntityId && metadata == other.metadata && sendRemittanceAdvice == other.sendRemittanceAdvice && taxpayerIdentifier == other.taxpayerIdentifier && verificationStatus == other.verificationStatus && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(name, accounting, accounts, email, ledgerType, legalEntity, legalEntityId, metadata, sendRemittanceAdvice, taxpayerIdentifier, verificationStatus, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "CounterpartyCreateParams{name=$name, accounting=$accounting, accounts=$accounts, email=$email, ledgerType=$ledgerType, legalEntity=$legalEntity, legalEntityId=$legalEntityId, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

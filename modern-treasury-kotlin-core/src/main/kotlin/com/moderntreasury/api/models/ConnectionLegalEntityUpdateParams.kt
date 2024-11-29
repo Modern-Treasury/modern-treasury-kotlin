@@ -32,6 +32,12 @@ constructor(
 
     fun status(): Status? = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): ConnectionLegalEntityUpdateBody {
         return ConnectionLegalEntityUpdateBody(status, additionalBodyProperties)
     }
@@ -106,42 +112,18 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ConnectionLegalEntityUpdateBody && this.status == other.status && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ConnectionLegalEntityUpdateBody && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(status, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(status, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "ConnectionLegalEntityUpdateBody{status=$status, additionalProperties=$additionalProperties}"
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ConnectionLegalEntityUpdateParams && this.id == other.id && this.status == other.status && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(id, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
-
-    override fun toString() =
-        "ConnectionLegalEntityUpdateParams{id=$id, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -161,11 +143,13 @@ constructor(
 
         internal fun from(connectionLegalEntityUpdateParams: ConnectionLegalEntityUpdateParams) =
             apply {
-                this.id = connectionLegalEntityUpdateParams.id
-                this.status = connectionLegalEntityUpdateParams.status
-                additionalHeaders(connectionLegalEntityUpdateParams.additionalHeaders)
-                additionalQueryParams(connectionLegalEntityUpdateParams.additionalQueryParams)
-                additionalBodyProperties(connectionLegalEntityUpdateParams.additionalBodyProperties)
+                id = connectionLegalEntityUpdateParams.id
+                status = connectionLegalEntityUpdateParams.status
+                additionalHeaders = connectionLegalEntityUpdateParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    connectionLegalEntityUpdateParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    connectionLegalEntityUpdateParams.additionalBodyProperties.toMutableMap()
             }
 
         fun id(id: String) = apply { this.id = id }
@@ -316,7 +300,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -353,4 +337,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ConnectionLegalEntityUpdateParams && id == other.id && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "ConnectionLegalEntityUpdateParams{id=$id, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

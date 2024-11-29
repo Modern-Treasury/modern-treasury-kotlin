@@ -15,8 +15,8 @@ class ExpectedPaymentTest {
         val expectedPayment =
             ExpectedPayment.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .amountLowerBound(123L)
-                .amountUpperBound(123L)
+                .amountLowerBound(0L)
+                .amountUpperBound(0L)
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(Currency.AED)
@@ -35,8 +35,8 @@ class ExpectedPaymentTest {
                 .reconciliationRuleVariables(
                     listOf(
                         ReconciliationRule.builder()
-                            .amountLowerBound(123L)
-                            .amountUpperBound(123L)
+                            .amountLowerBound(0L)
+                            .amountUpperBound(0L)
                             .direction(ReconciliationRule.Direction.CREDIT)
                             .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -60,8 +60,8 @@ class ExpectedPaymentTest {
                 .build()
         assertThat(expectedPayment).isNotNull
         assertThat(expectedPayment.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(expectedPayment.amountLowerBound()).isEqualTo(123L)
-        assertThat(expectedPayment.amountUpperBound()).isEqualTo(123L)
+        assertThat(expectedPayment.amountLowerBound()).isEqualTo(0L)
+        assertThat(expectedPayment.amountUpperBound()).isEqualTo(0L)
         assertThat(expectedPayment.counterpartyId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(expectedPayment.createdAt())
@@ -85,8 +85,8 @@ class ExpectedPaymentTest {
         assertThat(expectedPayment.reconciliationRuleVariables())
             .containsExactly(
                 ReconciliationRule.builder()
-                    .amountLowerBound(123L)
-                    .amountUpperBound(123L)
+                    .amountLowerBound(0L)
+                    .amountUpperBound(0L)
                     .direction(ReconciliationRule.Direction.CREDIT)
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

@@ -18,7 +18,7 @@ class IncomingPaymentDetailListParamsTest {
             .asOfDateStart(LocalDate.parse("2019-12-27"))
             .direction(TransactionDirection.CREDIT)
             .metadata(IncomingPaymentDetailListParams.Metadata.builder().build())
-            .perPage(123L)
+            .perPage(0L)
             .status(IncomingPaymentDetailListParams.Status.COMPLETED)
             .type(IncomingPaymentDetailListParams.Type.ACH)
             .virtualAccountId("virtual_account_id")
@@ -34,7 +34,7 @@ class IncomingPaymentDetailListParamsTest {
                 .asOfDateStart(LocalDate.parse("2019-12-27"))
                 .direction(TransactionDirection.CREDIT)
                 .metadata(IncomingPaymentDetailListParams.Metadata.builder().build())
-                .perPage(123L)
+                .perPage(0L)
                 .status(IncomingPaymentDetailListParams.Status.COMPLETED)
                 .type(IncomingPaymentDetailListParams.Type.ACH)
                 .virtualAccountId("virtual_account_id")
@@ -48,7 +48,7 @@ class IncomingPaymentDetailListParamsTest {
             ->
             expected.put("metadata[$key]", values)
         }
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         expected.put("status", IncomingPaymentDetailListParams.Status.COMPLETED.toString())
         expected.put("type", IncomingPaymentDetailListParams.Type.ACH.toString())
         expected.put("virtual_account_id", "virtual_account_id")

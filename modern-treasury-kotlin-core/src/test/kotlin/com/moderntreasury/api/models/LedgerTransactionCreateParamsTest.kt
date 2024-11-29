@@ -16,7 +16,7 @@ class LedgerTransactionCreateParamsTest {
             .ledgerEntries(
                 listOf(
                     LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
-                        .amount(123L)
+                        .amount(0L)
                         .direction(TransactionDirection.CREDIT)
                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .availableBalanceAmount(
@@ -25,7 +25,7 @@ class LedgerTransactionCreateParamsTest {
                                 .builder()
                                 .build()
                         )
-                        .lockVersion(123L)
+                        .lockVersion(0L)
                         .metadata(
                             LedgerTransactionCreateParams.LedgerEntryCreateRequest.Metadata
                                 .builder()
@@ -65,7 +65,7 @@ class LedgerTransactionCreateParamsTest {
                 .ledgerEntries(
                     listOf(
                         LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .direction(TransactionDirection.CREDIT)
                             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .availableBalanceAmount(
@@ -74,7 +74,7 @@ class LedgerTransactionCreateParamsTest {
                                     .builder()
                                     .build()
                             )
-                            .lockVersion(123L)
+                            .lockVersion(0L)
                             .metadata(
                                 LedgerTransactionCreateParams.LedgerEntryCreateRequest.Metadata
                                     .builder()
@@ -111,7 +111,7 @@ class LedgerTransactionCreateParamsTest {
             .isEqualTo(
                 listOf(
                     LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
-                        .amount(123L)
+                        .amount(0L)
                         .direction(TransactionDirection.CREDIT)
                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .availableBalanceAmount(
@@ -120,7 +120,7 @@ class LedgerTransactionCreateParamsTest {
                                 .builder()
                                 .build()
                         )
-                        .lockVersion(123L)
+                        .lockVersion(0L)
                         .metadata(
                             LedgerTransactionCreateParams.LedgerEntryCreateRequest.Metadata
                                 .builder()
@@ -161,7 +161,7 @@ class LedgerTransactionCreateParamsTest {
                 .ledgerEntries(
                     listOf(
                         LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .direction(TransactionDirection.CREDIT)
                             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .build()
@@ -174,7 +174,7 @@ class LedgerTransactionCreateParamsTest {
             .isEqualTo(
                 listOf(
                     LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
-                        .amount(123L)
+                        .amount(0L)
                         .direction(TransactionDirection.CREDIT)
                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()

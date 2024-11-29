@@ -22,7 +22,7 @@ class InvoiceListParamsTest {
             .number("number")
             .originatingAccountId("originating_account_id")
             .paymentOrderId("payment_order_id")
-            .perPage(123L)
+            .perPage(0L)
             .status(InvoiceListParams.Status.DRAFT)
             .build()
     }
@@ -40,7 +40,7 @@ class InvoiceListParamsTest {
                 .number("number")
                 .originatingAccountId("originating_account_id")
                 .paymentOrderId("payment_order_id")
-                .perPage(123L)
+                .perPage(0L)
                 .status(InvoiceListParams.Status.DRAFT)
                 .build()
         val expected = QueryParams.builder()
@@ -55,7 +55,7 @@ class InvoiceListParamsTest {
         expected.put("number", "number")
         expected.put("originating_account_id", "originating_account_id")
         expected.put("payment_order_id", "payment_order_id")
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         expected.put("status", InvoiceListParams.Status.DRAFT.toString())
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }

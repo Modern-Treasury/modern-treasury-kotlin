@@ -26,7 +26,7 @@ class LedgerAccountCategoryListParamsTest {
             .metadata(LedgerAccountCategoryListParams.Metadata.builder().build())
             .name("name")
             .parentLedgerAccountCategoryId("parent_ledger_account_category_id")
-            .perPage(123L)
+            .perPage(0L)
             .build()
     }
 
@@ -47,7 +47,7 @@ class LedgerAccountCategoryListParamsTest {
                 .metadata(LedgerAccountCategoryListParams.Metadata.builder().build())
                 .name("name")
                 .parentLedgerAccountCategoryId("parent_ledger_account_category_id")
-                .perPage(123L)
+                .perPage(0L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("id[]", "string")
@@ -65,7 +65,7 @@ class LedgerAccountCategoryListParamsTest {
         }
         expected.put("name", "name")
         expected.put("parent_ledger_account_category_id", "parent_ledger_account_category_id")
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 

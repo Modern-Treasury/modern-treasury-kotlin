@@ -34,6 +34,12 @@ constructor(
 
     fun metadata(): Metadata? = metadata
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): LedgerAccountBalanceMonitorCreateBody {
         return LedgerAccountBalanceMonitorCreateBody(
             alertCondition,
@@ -157,42 +163,18 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerAccountBalanceMonitorCreateBody && this.alertCondition == other.alertCondition && this.ledgerAccountId == other.ledgerAccountId && this.description == other.description && this.metadata == other.metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerAccountBalanceMonitorCreateBody && alertCondition == other.alertCondition && ledgerAccountId == other.ledgerAccountId && description == other.description && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(alertCondition, ledgerAccountId, description, metadata, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(alertCondition, ledgerAccountId, description, metadata, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "LedgerAccountBalanceMonitorCreateBody{alertCondition=$alertCondition, ledgerAccountId=$ledgerAccountId, description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerAccountBalanceMonitorCreateParams && this.alertCondition == other.alertCondition && this.ledgerAccountId == other.ledgerAccountId && this.description == other.description && this.metadata == other.metadata && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(alertCondition, ledgerAccountId, description, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
-
-    override fun toString() =
-        "LedgerAccountBalanceMonitorCreateParams{alertCondition=$alertCondition, ledgerAccountId=$ledgerAccountId, description=$description, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -215,15 +197,16 @@ constructor(
         internal fun from(
             ledgerAccountBalanceMonitorCreateParams: LedgerAccountBalanceMonitorCreateParams
         ) = apply {
-            this.alertCondition = ledgerAccountBalanceMonitorCreateParams.alertCondition
-            this.ledgerAccountId = ledgerAccountBalanceMonitorCreateParams.ledgerAccountId
-            this.description = ledgerAccountBalanceMonitorCreateParams.description
-            this.metadata = ledgerAccountBalanceMonitorCreateParams.metadata
-            additionalHeaders(ledgerAccountBalanceMonitorCreateParams.additionalHeaders)
-            additionalQueryParams(ledgerAccountBalanceMonitorCreateParams.additionalQueryParams)
-            additionalBodyProperties(
-                ledgerAccountBalanceMonitorCreateParams.additionalBodyProperties
-            )
+            alertCondition = ledgerAccountBalanceMonitorCreateParams.alertCondition
+            ledgerAccountId = ledgerAccountBalanceMonitorCreateParams.ledgerAccountId
+            description = ledgerAccountBalanceMonitorCreateParams.description
+            metadata = ledgerAccountBalanceMonitorCreateParams.metadata
+            additionalHeaders =
+                ledgerAccountBalanceMonitorCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                ledgerAccountBalanceMonitorCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                ledgerAccountBalanceMonitorCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** Describes the condition that must be satisfied for the monitor to be triggered. */
@@ -477,17 +460,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AlertConditionCreateRequest && this.field == other.field && this.operator == other.operator && this.value == other.value && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is AlertConditionCreateRequest && field == other.field && operator == other.operator && value == other.value && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(field, operator, value, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(field, operator, value, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "AlertConditionCreateRequest{field=$field, operator=$operator, value=$value, additionalProperties=$additionalProperties}"
@@ -542,18 +522,28 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerAccountBalanceMonitorCreateParams && alertCondition == other.alertCondition && ledgerAccountId == other.ledgerAccountId && description == other.description && metadata == other.metadata && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(alertCondition, ledgerAccountId, description, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "LedgerAccountBalanceMonitorCreateParams{alertCondition=$alertCondition, ledgerAccountId=$ledgerAccountId, description=$description, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

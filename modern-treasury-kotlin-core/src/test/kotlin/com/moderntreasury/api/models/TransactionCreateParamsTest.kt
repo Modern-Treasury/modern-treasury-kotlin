@@ -12,7 +12,7 @@ class TransactionCreateParamsTest {
     @Test
     fun createTransactionCreateParams() {
         TransactionCreateParams.builder()
-            .amount(123L)
+            .amount(0L)
             .asOfDate(LocalDate.parse("2019-12-27"))
             .direction("direction")
             .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -29,7 +29,7 @@ class TransactionCreateParamsTest {
     fun getBody() {
         val params =
             TransactionCreateParams.builder()
-                .amount(123L)
+                .amount(0L)
                 .asOfDate(LocalDate.parse("2019-12-27"))
                 .direction("direction")
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -42,7 +42,7 @@ class TransactionCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.direction()).isEqualTo("direction")
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -58,13 +58,13 @@ class TransactionCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             TransactionCreateParams.builder()
-                .amount(123L)
+                .amount(0L)
                 .direction("direction")
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.direction()).isEqualTo("direction")
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
     }

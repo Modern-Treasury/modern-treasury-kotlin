@@ -13,7 +13,7 @@ class PaymentReferenceListParamsTest {
     fun createPaymentReferenceListParams() {
         PaymentReferenceListParams.builder()
             .afterCursor("after_cursor")
-            .perPage(123L)
+            .perPage(0L)
             .referenceNumber("reference_number")
             .referenceableId("referenceable_id")
             .referenceableType(PaymentReferenceListParams.ReferenceableType.PAYMENT_ORDER)
@@ -25,14 +25,14 @@ class PaymentReferenceListParamsTest {
         val params =
             PaymentReferenceListParams.builder()
                 .afterCursor("after_cursor")
-                .perPage(123L)
+                .perPage(0L)
                 .referenceNumber("reference_number")
                 .referenceableId("referenceable_id")
                 .referenceableType(PaymentReferenceListParams.ReferenceableType.PAYMENT_ORDER)
                 .build()
         val expected = QueryParams.builder()
         expected.put("after_cursor", "after_cursor")
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         expected.put("reference_number", "reference_number")
         expected.put("referenceable_id", "referenceable_id")
         expected.put(

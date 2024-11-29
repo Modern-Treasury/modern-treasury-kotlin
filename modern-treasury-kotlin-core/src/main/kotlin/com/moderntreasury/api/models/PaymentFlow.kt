@@ -611,7 +611,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Direction && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Direction && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -668,7 +668,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExistingExternalAccountsFilter && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ExistingExternalAccountsFilter && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -722,7 +722,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExternalAccountCollection && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ExternalAccountCollection && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -782,7 +782,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -843,17 +843,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentFlow && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.clientToken == other.clientToken && this.status == other.status && this.amount == other.amount && this.currency == other.currency && this.direction == other.direction && this.counterpartyId == other.counterpartyId && this.receivingAccountId == other.receivingAccountId && this.originatingAccountId == other.originatingAccountId && this.paymentOrderId == other.paymentOrderId && this.effectiveDateSelectionEnabled == other.effectiveDateSelectionEnabled && this.dueDate == other.dueDate && this.selectedEffectiveDate == other.selectedEffectiveDate && this.externalAccountCollection == other.externalAccountCollection && this.existingExternalAccountsFilter == other.existingExternalAccountsFilter && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is PaymentFlow && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && clientToken == other.clientToken && status == other.status && amount == other.amount && currency == other.currency && direction == other.direction && counterpartyId == other.counterpartyId && receivingAccountId == other.receivingAccountId && originatingAccountId == other.originatingAccountId && paymentOrderId == other.paymentOrderId && effectiveDateSelectionEnabled == other.effectiveDateSelectionEnabled && dueDate == other.dueDate && selectedEffectiveDate == other.selectedEffectiveDate && externalAccountCollection == other.externalAccountCollection && existingExternalAccountsFilter == other.existingExternalAccountsFilter && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, clientToken, status, amount, currency, direction, counterpartyId, receivingAccountId, originatingAccountId, paymentOrderId, effectiveDateSelectionEnabled, dueDate, selectedEffectiveDate, externalAccountCollection, existingExternalAccountsFilter, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, clientToken, status, amount, currency, direction, counterpartyId, receivingAccountId, originatingAccountId, paymentOrderId, effectiveDateSelectionEnabled, dueDate, selectedEffectiveDate, externalAccountCollection, existingExternalAccountsFilter, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "PaymentFlow{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, clientToken=$clientToken, status=$status, amount=$amount, currency=$currency, direction=$direction, counterpartyId=$counterpartyId, receivingAccountId=$receivingAccountId, originatingAccountId=$originatingAccountId, paymentOrderId=$paymentOrderId, effectiveDateSelectionEnabled=$effectiveDateSelectionEnabled, dueDate=$dueDate, selectedEffectiveDate=$selectedEffectiveDate, externalAccountCollection=$externalAccountCollection, existingExternalAccountsFilter=$existingExternalAccountsFilter, additionalProperties=$additionalProperties}"

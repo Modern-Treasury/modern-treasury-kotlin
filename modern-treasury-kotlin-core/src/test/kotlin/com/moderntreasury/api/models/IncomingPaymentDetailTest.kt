@@ -14,7 +14,7 @@ class IncomingPaymentDetailTest {
         val incomingPaymentDetail =
             IncomingPaymentDetail.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .amount(123L)
+                .amount(0L)
                 .asOfDate(LocalDate.parse("2019-12-27"))
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(Currency.AED)
@@ -112,7 +112,7 @@ class IncomingPaymentDetailTest {
                 .build()
         assertThat(incomingPaymentDetail).isNotNull
         assertThat(incomingPaymentDetail.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(incomingPaymentDetail.amount()).isEqualTo(123L)
+        assertThat(incomingPaymentDetail.amount()).isEqualTo(0L)
         assertThat(incomingPaymentDetail.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(incomingPaymentDetail.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

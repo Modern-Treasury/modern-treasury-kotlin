@@ -47,7 +47,7 @@ interface LineItemServiceAsync {
                 return true
             }
 
-            return /* spotless:off */ other is ItemizableType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ItemizableType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

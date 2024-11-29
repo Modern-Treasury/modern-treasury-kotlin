@@ -56,6 +56,12 @@ constructor(
 
     fun metadata(): Metadata? = metadata
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): LedgerAccountCreateBody {
         return LedgerAccountCreateBody(
             currency,
@@ -268,42 +274,18 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerAccountCreateBody && this.currency == other.currency && this.ledgerId == other.ledgerId && this.name == other.name && this.normalBalance == other.normalBalance && this.currencyExponent == other.currencyExponent && this.description == other.description && this.ledgerAccountCategoryIds == other.ledgerAccountCategoryIds && this.ledgerableId == other.ledgerableId && this.ledgerableType == other.ledgerableType && this.metadata == other.metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerAccountCreateBody && currency == other.currency && ledgerId == other.ledgerId && name == other.name && normalBalance == other.normalBalance && currencyExponent == other.currencyExponent && description == other.description && ledgerAccountCategoryIds == other.ledgerAccountCategoryIds && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(currency, ledgerId, name, normalBalance, currencyExponent, description, ledgerAccountCategoryIds, ledgerableId, ledgerableType, metadata, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(currency, ledgerId, name, normalBalance, currencyExponent, description, ledgerAccountCategoryIds, ledgerableId, ledgerableType, metadata, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "LedgerAccountCreateBody{currency=$currency, ledgerId=$ledgerId, name=$name, normalBalance=$normalBalance, currencyExponent=$currencyExponent, description=$description, ledgerAccountCategoryIds=$ledgerAccountCategoryIds, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalProperties=$additionalProperties}"
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerAccountCreateParams && this.currency == other.currency && this.ledgerId == other.ledgerId && this.name == other.name && this.normalBalance == other.normalBalance && this.currencyExponent == other.currencyExponent && this.description == other.description && this.ledgerAccountCategoryIds == other.ledgerAccountCategoryIds && this.ledgerableId == other.ledgerableId && this.ledgerableType == other.ledgerableType && this.metadata == other.metadata && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(currency, ledgerId, name, normalBalance, currencyExponent, description, ledgerAccountCategoryIds, ledgerableId, ledgerableType, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
-
-    override fun toString() =
-        "LedgerAccountCreateParams{currency=$currency, ledgerId=$ledgerId, name=$name, normalBalance=$normalBalance, currencyExponent=$currencyExponent, description=$description, ledgerAccountCategoryIds=$ledgerAccountCategoryIds, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -330,21 +312,22 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerAccountCreateParams: LedgerAccountCreateParams) = apply {
-            this.currency = ledgerAccountCreateParams.currency
-            this.ledgerId = ledgerAccountCreateParams.ledgerId
-            this.name = ledgerAccountCreateParams.name
-            this.normalBalance = ledgerAccountCreateParams.normalBalance
-            this.currencyExponent = ledgerAccountCreateParams.currencyExponent
-            this.description = ledgerAccountCreateParams.description
-            this.ledgerAccountCategoryIds(
-                ledgerAccountCreateParams.ledgerAccountCategoryIds ?: listOf()
-            )
-            this.ledgerableId = ledgerAccountCreateParams.ledgerableId
-            this.ledgerableType = ledgerAccountCreateParams.ledgerableType
-            this.metadata = ledgerAccountCreateParams.metadata
-            additionalHeaders(ledgerAccountCreateParams.additionalHeaders)
-            additionalQueryParams(ledgerAccountCreateParams.additionalQueryParams)
-            additionalBodyProperties(ledgerAccountCreateParams.additionalBodyProperties)
+            currency = ledgerAccountCreateParams.currency
+            ledgerId = ledgerAccountCreateParams.ledgerId
+            name = ledgerAccountCreateParams.name
+            normalBalance = ledgerAccountCreateParams.normalBalance
+            currencyExponent = ledgerAccountCreateParams.currencyExponent
+            description = ledgerAccountCreateParams.description
+            ledgerAccountCategoryIds =
+                ledgerAccountCreateParams.ledgerAccountCategoryIds?.toMutableList()
+                    ?: mutableListOf()
+            ledgerableId = ledgerAccountCreateParams.ledgerableId
+            ledgerableType = ledgerAccountCreateParams.ledgerableType
+            metadata = ledgerAccountCreateParams.metadata
+            additionalHeaders = ledgerAccountCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = ledgerAccountCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                ledgerAccountCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The currency of the ledger account. */
@@ -531,8 +514,7 @@ constructor(
                 checkNotNull(normalBalance) { "`normalBalance` is required but was not set" },
                 currencyExponent,
                 description,
-                if (ledgerAccountCategoryIds.size == 0) null
-                else ledgerAccountCategoryIds.toImmutable(),
+                ledgerAccountCategoryIds.toImmutable().ifEmpty { null },
                 ledgerableId,
                 ledgerableType,
                 metadata,
@@ -555,7 +537,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerableType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is LedgerableType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -660,18 +642,28 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerAccountCreateParams && currency == other.currency && ledgerId == other.ledgerId && name == other.name && normalBalance == other.normalBalance && currencyExponent == other.currencyExponent && description == other.description && ledgerAccountCategoryIds == other.ledgerAccountCategoryIds && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(currency, ledgerId, name, normalBalance, currencyExponent, description, ledgerAccountCategoryIds, ledgerableId, ledgerableType, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "LedgerAccountCreateParams{currency=$currency, ledgerId=$ledgerId, name=$name, normalBalance=$normalBalance, currencyExponent=$currencyExponent, description=$description, ledgerAccountCategoryIds=$ledgerAccountCategoryIds, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

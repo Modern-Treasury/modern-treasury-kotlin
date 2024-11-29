@@ -23,13 +23,13 @@ class LedgerTransactionVersionTest {
                     listOf(
                         LedgerTransactionVersion.LedgerEntryOfTransactionVersion.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .amount(123L)
+                            .amount(0L)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .direction(TransactionDirection.CREDIT)
                             .ledgerAccountCurrency("ledger_account_currency")
-                            .ledgerAccountCurrencyExponent(123L)
+                            .ledgerAccountCurrencyExponent(0L)
                             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .ledgerAccountLockVersion(123L)
+                            .ledgerAccountLockVersion(0L)
                             .ledgerTransactionId("ledger_transaction_id")
                             .liveMode(true)
                             .metadata(
@@ -47,11 +47,11 @@ class LedgerTransactionVersionTest {
                                             .LedgerBalances
                                             .LedgerBalance
                                             .builder()
-                                            .amount(123L)
-                                            .credits(123L)
+                                            .amount(0L)
+                                            .credits(0L)
                                             .currency("currency")
-                                            .currencyExponent(123L)
-                                            .debits(123L)
+                                            .currencyExponent(0L)
+                                            .debits(0L)
                                             .build()
                                     )
                                     .pendingBalance(
@@ -59,11 +59,11 @@ class LedgerTransactionVersionTest {
                                             .LedgerBalances
                                             .LedgerBalance
                                             .builder()
-                                            .amount(123L)
-                                            .credits(123L)
+                                            .amount(0L)
+                                            .credits(0L)
                                             .currency("currency")
-                                            .currencyExponent(123L)
-                                            .debits(123L)
+                                            .currencyExponent(0L)
+                                            .debits(0L)
                                             .build()
                                     )
                                     .postedBalance(
@@ -71,11 +71,11 @@ class LedgerTransactionVersionTest {
                                             .LedgerBalances
                                             .LedgerBalance
                                             .builder()
-                                            .amount(123L)
-                                            .credits(123L)
+                                            .amount(0L)
+                                            .credits(0L)
                                             .currency("currency")
-                                            .currencyExponent(123L)
-                                            .debits(123L)
+                                            .currencyExponent(0L)
+                                            .debits(0L)
                                             .build()
                                     )
                                     .build()
@@ -98,7 +98,7 @@ class LedgerTransactionVersionTest {
                 .reversedByLedgerTransactionId("reversed_by_ledger_transaction_id")
                 .reversesLedgerTransactionId("reverses_ledger_transaction_id")
                 .status(LedgerTransactionVersion.Status.ARCHIVED)
-                .version(123L)
+                .version(0L)
                 .build()
         assertThat(ledgerTransactionVersion).isNotNull
         assertThat(ledgerTransactionVersion.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -114,13 +114,13 @@ class LedgerTransactionVersionTest {
             .containsExactly(
                 LedgerTransactionVersion.LedgerEntryOfTransactionVersion.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .amount(123L)
+                    .amount(0L)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .direction(TransactionDirection.CREDIT)
                     .ledgerAccountCurrency("ledger_account_currency")
-                    .ledgerAccountCurrencyExponent(123L)
+                    .ledgerAccountCurrencyExponent(0L)
                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .ledgerAccountLockVersion(123L)
+                    .ledgerAccountLockVersion(0L)
                     .ledgerTransactionId("ledger_transaction_id")
                     .liveMode(true)
                     .metadata(
@@ -136,11 +136,11 @@ class LedgerTransactionVersionTest {
                                     .LedgerBalances
                                     .LedgerBalance
                                     .builder()
-                                    .amount(123L)
-                                    .credits(123L)
+                                    .amount(0L)
+                                    .credits(0L)
                                     .currency("currency")
-                                    .currencyExponent(123L)
-                                    .debits(123L)
+                                    .currencyExponent(0L)
+                                    .debits(0L)
                                     .build()
                             )
                             .pendingBalance(
@@ -148,11 +148,11 @@ class LedgerTransactionVersionTest {
                                     .LedgerBalances
                                     .LedgerBalance
                                     .builder()
-                                    .amount(123L)
-                                    .credits(123L)
+                                    .amount(0L)
+                                    .credits(0L)
                                     .currency("currency")
-                                    .currencyExponent(123L)
-                                    .debits(123L)
+                                    .currencyExponent(0L)
+                                    .debits(0L)
                                     .build()
                             )
                             .postedBalance(
@@ -160,11 +160,11 @@ class LedgerTransactionVersionTest {
                                     .LedgerBalances
                                     .LedgerBalance
                                     .builder()
-                                    .amount(123L)
-                                    .credits(123L)
+                                    .amount(0L)
+                                    .credits(0L)
                                     .currency("currency")
-                                    .currencyExponent(123L)
-                                    .debits(123L)
+                                    .currencyExponent(0L)
+                                    .debits(0L)
                                     .build()
                             )
                             .build()
@@ -194,6 +194,6 @@ class LedgerTransactionVersionTest {
             .isEqualTo("reverses_ledger_transaction_id")
         assertThat(ledgerTransactionVersion.status())
             .isEqualTo(LedgerTransactionVersion.Status.ARCHIVED)
-        assertThat(ledgerTransactionVersion.version()).isEqualTo(123L)
+        assertThat(ledgerTransactionVersion.version()).isEqualTo(0L)
     }
 }

@@ -34,6 +34,10 @@ constructor(
 
     fun referenceableType(): ReferenceableType? = referenceableType
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -46,25 +50,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is PaymentReferenceListParams && this.afterCursor == other.afterCursor && this.perPage == other.perPage && this.referenceNumber == other.referenceNumber && this.referenceableId == other.referenceableId && this.referenceableType == other.referenceableType && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(afterCursor, perPage, referenceNumber, referenceableId, referenceableType, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
-
-    override fun toString() =
-        "PaymentReferenceListParams{afterCursor=$afterCursor, perPage=$perPage, referenceNumber=$referenceNumber, referenceableId=$referenceableId, referenceableType=$referenceableType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -85,13 +70,13 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(paymentReferenceListParams: PaymentReferenceListParams) = apply {
-            this.afterCursor = paymentReferenceListParams.afterCursor
-            this.perPage = paymentReferenceListParams.perPage
-            this.referenceNumber = paymentReferenceListParams.referenceNumber
-            this.referenceableId = paymentReferenceListParams.referenceableId
-            this.referenceableType = paymentReferenceListParams.referenceableType
-            additionalHeaders(paymentReferenceListParams.additionalHeaders)
-            additionalQueryParams(paymentReferenceListParams.additionalQueryParams)
+            afterCursor = paymentReferenceListParams.afterCursor
+            perPage = paymentReferenceListParams.perPage
+            referenceNumber = paymentReferenceListParams.referenceNumber
+            referenceableId = paymentReferenceListParams.referenceableId
+            referenceableType = paymentReferenceListParams.referenceableType
+            additionalHeaders = paymentReferenceListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = paymentReferenceListParams.additionalQueryParams.toBuilder()
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
@@ -242,7 +227,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ReferenceableType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ReferenceableType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -292,4 +277,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is PaymentReferenceListParams && afterCursor == other.afterCursor && perPage == other.perPage && referenceNumber == other.referenceNumber && referenceableId == other.referenceableId && referenceableType == other.referenceableType && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, perPage, referenceNumber, referenceableId, referenceableType, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "PaymentReferenceListParams{afterCursor=$afterCursor, perPage=$perPage, referenceNumber=$referenceNumber, referenceableId=$referenceableId, referenceableType=$referenceableType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

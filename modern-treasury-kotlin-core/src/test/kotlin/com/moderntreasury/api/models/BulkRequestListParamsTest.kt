@@ -15,7 +15,7 @@ class BulkRequestListParamsTest {
             .actionType(BulkRequestListParams.ActionType.CREATE)
             .afterCursor("after_cursor")
             .metadata(BulkRequestListParams.Metadata.builder().build())
-            .perPage(123L)
+            .perPage(0L)
             .resourceType(BulkRequestListParams.ResourceType.PAYMENT_ORDER)
             .status(BulkRequestListParams.Status.PENDING)
             .build()
@@ -28,7 +28,7 @@ class BulkRequestListParamsTest {
                 .actionType(BulkRequestListParams.ActionType.CREATE)
                 .afterCursor("after_cursor")
                 .metadata(BulkRequestListParams.Metadata.builder().build())
-                .perPage(123L)
+                .perPage(0L)
                 .resourceType(BulkRequestListParams.ResourceType.PAYMENT_ORDER)
                 .status(BulkRequestListParams.Status.PENDING)
                 .build()
@@ -38,7 +38,7 @@ class BulkRequestListParamsTest {
         BulkRequestListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         expected.put("resource_type", BulkRequestListParams.ResourceType.PAYMENT_ORDER.toString())
         expected.put("status", BulkRequestListParams.Status.PENDING.toString())
         assertThat(params.getQueryParams()).isEqualTo(expected.build())

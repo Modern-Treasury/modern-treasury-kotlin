@@ -310,17 +310,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Data && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Data && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Data{additionalProperties=$additionalProperties}"
     }
@@ -330,17 +327,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Event && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.resource == other.resource && this.eventName == other.eventName && this.eventTime == other.eventTime && this.data == other.data && this.entityId == other.entityId && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Event && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && resource == other.resource && eventName == other.eventName && eventTime == other.eventTime && data == other.data && entityId == other.entityId && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, resource, eventName, eventTime, data, entityId, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, resource, eventName, eventTime, data, entityId, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "Event{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, resource=$resource, eventName=$eventName, eventTime=$eventTime, data=$data, entityId=$entityId, additionalProperties=$additionalProperties}"

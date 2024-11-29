@@ -15,8 +15,8 @@ class InvoiceTest {
         val invoice =
             Invoice.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .amountPaid(123L)
-                .amountRemaining(123L)
+                .amountPaid(0L)
+                .amountRemaining(0L)
                 .contactDetails(
                     listOf(
                         Invoice.ContactDetail.builder()
@@ -62,8 +62,8 @@ class InvoiceTest {
                     listOf(
                         ExpectedPayment.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .amountLowerBound(123L)
-                            .amountUpperBound(123L)
+                            .amountLowerBound(0L)
+                            .amountUpperBound(0L)
                             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .currency(Currency.AED)
@@ -82,8 +82,8 @@ class InvoiceTest {
                             .reconciliationRuleVariables(
                                 listOf(
                                     ReconciliationRule.builder()
-                                        .amountLowerBound(123L)
-                                        .amountUpperBound(123L)
+                                        .amountLowerBound(0L)
+                                        .amountUpperBound(0L)
                                         .direction(ReconciliationRule.Direction.CREDIT)
                                         .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -141,7 +141,7 @@ class InvoiceTest {
                             )
                             .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .amount(123L)
+                            .amount(0L)
                             .chargeBearer(PaymentOrder.ChargeBearer.SHARED)
                             .complianceRuleMetadata(
                                 PaymentOrder.ComplianceRuleMetadata.builder().build()
@@ -152,72 +152,10 @@ class InvoiceTest {
                             .currentReturn(
                                 ReturnObject.builder()
                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .amount(123L)
+                                    .amount(0L)
                                     .code(ReturnObject.Code._901)
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .currency(Currency.AED)
-                                    .currentReturn(
-                                        ReturnObject.builder()
-                                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                            .amount(123L)
-                                            .code(ReturnObject.Code._901)
-                                            .createdAt(
-                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                            )
-                                            .currency(Currency.AED)
-                                            .dateOfDeath(LocalDate.parse("2019-12-27"))
-                                            .failureReason("failure_reason")
-                                            .internalAccountId(
-                                                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
-                                            )
-                                            .ledgerTransactionId(
-                                                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
-                                            )
-                                            .liveMode(true)
-                                            .object_("object")
-                                            .reason("reason")
-                                            .referenceNumbers(
-                                                listOf(
-                                                    ReturnObject.PaymentReference.builder()
-                                                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                                        .createdAt(
-                                                            OffsetDateTime.parse(
-                                                                "2019-12-27T18:11:19.117Z"
-                                                            )
-                                                        )
-                                                        .liveMode(true)
-                                                        .object_("object")
-                                                        .referenceNumber("reference_number")
-                                                        .referenceNumberType(
-                                                            ReturnObject.PaymentReference
-                                                                .ReferenceNumberType
-                                                                .ACH_ORIGINAL_TRACE_NUMBER
-                                                        )
-                                                        .updatedAt(
-                                                            OffsetDateTime.parse(
-                                                                "2019-12-27T18:11:19.117Z"
-                                                            )
-                                                        )
-                                                        .build()
-                                                )
-                                            )
-                                            .returnableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                            .returnableType(
-                                                ReturnObject.ReturnableType.INCOMING_PAYMENT_DETAIL
-                                            )
-                                            .role(ReturnObject.Role.ORIGINATING)
-                                            .status(ReturnObject.Status.COMPLETED)
-                                            .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                            .transactionLineItemId(
-                                                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
-                                            )
-                                            .type(ReturnObject.Type.ACH)
-                                            .updatedAt(
-                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                            )
-                                            .additionalInformation("additional_information")
-                                            .build()
-                                    )
                                     .dateOfDeath(LocalDate.parse("2019-12-27"))
                                     .failureReason("failure_reason")
                                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -270,13 +208,13 @@ class InvoiceTest {
                             )
                             .foreignExchangeRate(
                                 PaymentOrder.ForeignExchangeRate.builder()
-                                    .baseAmount(123L)
+                                    .baseAmount(0L)
                                     .baseCurrency(Currency.AED)
-                                    .exponent(123L)
+                                    .exponent(0L)
                                     .rateString("rate_string")
-                                    .targetAmount(123L)
+                                    .targetAmount(0L)
                                     .targetCurrency(Currency.AED)
-                                    .value(123L)
+                                    .value(0L)
                                     .build()
                             )
                             .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -448,17 +386,17 @@ class InvoiceTest {
                 .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .recipientEmail("recipient_email")
                 .recipientName("recipient_name")
-                .remindAfterOverdueDays(listOf(123L))
+                .remindAfterOverdueDays(listOf(0L))
                 .status(Invoice.Status.DRAFT)
-                .totalAmount(123L)
+                .totalAmount(0L)
                 .transactionLineItemIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
         assertThat(invoice).isNotNull
         assertThat(invoice.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(invoice.amountPaid()).isEqualTo(123L)
-        assertThat(invoice.amountRemaining()).isEqualTo(123L)
+        assertThat(invoice.amountPaid()).isEqualTo(0L)
+        assertThat(invoice.amountRemaining()).isEqualTo(0L)
         assertThat(invoice.contactDetails())
             .containsExactly(
                 Invoice.ContactDetail.builder()
@@ -503,8 +441,8 @@ class InvoiceTest {
             .containsExactly(
                 ExpectedPayment.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .amountLowerBound(123L)
-                    .amountUpperBound(123L)
+                    .amountLowerBound(0L)
+                    .amountUpperBound(0L)
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .currency(Currency.AED)
@@ -523,8 +461,8 @@ class InvoiceTest {
                     .reconciliationRuleVariables(
                         listOf(
                             ReconciliationRule.builder()
-                                .amountLowerBound(123L)
-                                .amountUpperBound(123L)
+                                .amountLowerBound(0L)
+                                .amountUpperBound(0L)
                                 .direction(ReconciliationRule.Direction.CREDIT)
                                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -583,7 +521,7 @@ class InvoiceTest {
                     )
                     .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .amount(123L)
+                    .amount(0L)
                     .chargeBearer(PaymentOrder.ChargeBearer.SHARED)
                     .complianceRuleMetadata(PaymentOrder.ComplianceRuleMetadata.builder().build())
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -592,58 +530,10 @@ class InvoiceTest {
                     .currentReturn(
                         ReturnObject.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .amount(123L)
+                            .amount(0L)
                             .code(ReturnObject.Code._901)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .currency(Currency.AED)
-                            .currentReturn(
-                                ReturnObject.builder()
-                                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .amount(123L)
-                                    .code(ReturnObject.Code._901)
-                                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .currency(Currency.AED)
-                                    .dateOfDeath(LocalDate.parse("2019-12-27"))
-                                    .failureReason("failure_reason")
-                                    .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .liveMode(true)
-                                    .object_("object")
-                                    .reason("reason")
-                                    .referenceNumbers(
-                                        listOf(
-                                            ReturnObject.PaymentReference.builder()
-                                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                                .createdAt(
-                                                    OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                                )
-                                                .liveMode(true)
-                                                .object_("object")
-                                                .referenceNumber("reference_number")
-                                                .referenceNumberType(
-                                                    ReturnObject.PaymentReference
-                                                        .ReferenceNumberType
-                                                        .ACH_ORIGINAL_TRACE_NUMBER
-                                                )
-                                                .updatedAt(
-                                                    OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                                )
-                                                .build()
-                                        )
-                                    )
-                                    .returnableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .returnableType(
-                                        ReturnObject.ReturnableType.INCOMING_PAYMENT_DETAIL
-                                    )
-                                    .role(ReturnObject.Role.ORIGINATING)
-                                    .status(ReturnObject.Status.COMPLETED)
-                                    .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .transactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .type(ReturnObject.Type.ACH)
-                                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .additionalInformation("additional_information")
-                                    .build()
-                            )
                             .dateOfDeath(LocalDate.parse("2019-12-27"))
                             .failureReason("failure_reason")
                             .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -689,13 +579,13 @@ class InvoiceTest {
                     )
                     .foreignExchangeRate(
                         PaymentOrder.ForeignExchangeRate.builder()
-                            .baseAmount(123L)
+                            .baseAmount(0L)
                             .baseCurrency(Currency.AED)
-                            .exponent(123L)
+                            .exponent(0L)
                             .rateString("rate_string")
-                            .targetAmount(123L)
+                            .targetAmount(0L)
                             .targetCurrency(Currency.AED)
-                            .value(123L)
+                            .value(0L)
                             .build()
                     )
                     .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -840,9 +730,9 @@ class InvoiceTest {
         assertThat(invoice.receivingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(invoice.recipientEmail()).isEqualTo("recipient_email")
         assertThat(invoice.recipientName()).isEqualTo("recipient_name")
-        assertThat(invoice.remindAfterOverdueDays()).containsExactly(123L)
+        assertThat(invoice.remindAfterOverdueDays()).containsExactly(0L)
         assertThat(invoice.status()).isEqualTo(Invoice.Status.DRAFT)
-        assertThat(invoice.totalAmount()).isEqualTo(123L)
+        assertThat(invoice.totalAmount()).isEqualTo(0L)
         assertThat(invoice.transactionLineItemIds())
             .containsExactly("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(invoice.updatedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

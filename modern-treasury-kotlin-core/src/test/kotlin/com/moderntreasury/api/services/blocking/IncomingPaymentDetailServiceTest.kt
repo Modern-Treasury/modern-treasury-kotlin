@@ -77,7 +77,7 @@ class IncomingPaymentDetailServiceTest {
         val asyncResponse =
             incomingPaymentDetailService.createAsync(
                 IncomingPaymentDetailCreateAsyncParams.builder()
-                    .amount(123L)
+                    .amount(0L)
                     .asOfDate(LocalDate.parse("2019-12-27"))
                     .currency(Currency.AED)
                     .description("description")

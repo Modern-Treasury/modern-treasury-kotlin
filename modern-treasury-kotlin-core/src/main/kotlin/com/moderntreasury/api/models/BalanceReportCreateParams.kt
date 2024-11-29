@@ -42,6 +42,12 @@ constructor(
 
     fun balances(): List<BalanceCreateRequest> = balances
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): BalanceReportCreateBody {
         return BalanceReportCreateBody(
             asOfDate,
@@ -170,42 +176,18 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is BalanceReportCreateBody && this.asOfDate == other.asOfDate && this.asOfTime == other.asOfTime && this.balanceReportType == other.balanceReportType && this.balances == other.balances && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is BalanceReportCreateBody && asOfDate == other.asOfDate && asOfTime == other.asOfTime && balanceReportType == other.balanceReportType && balances == other.balances && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(asOfDate, asOfTime, balanceReportType, balances, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(asOfDate, asOfTime, balanceReportType, balances, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "BalanceReportCreateBody{asOfDate=$asOfDate, asOfTime=$asOfTime, balanceReportType=$balanceReportType, balances=$balances, additionalProperties=$additionalProperties}"
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is BalanceReportCreateParams && this.internalAccountId == other.internalAccountId && this.asOfDate == other.asOfDate && this.asOfTime == other.asOfTime && this.balanceReportType == other.balanceReportType && this.balances == other.balances && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(internalAccountId, asOfDate, asOfTime, balanceReportType, balances, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
-
-    override fun toString() =
-        "BalanceReportCreateParams{internalAccountId=$internalAccountId, asOfDate=$asOfDate, asOfTime=$asOfTime, balanceReportType=$balanceReportType, balances=$balances, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -227,14 +209,15 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(balanceReportCreateParams: BalanceReportCreateParams) = apply {
-            this.internalAccountId = balanceReportCreateParams.internalAccountId
-            this.asOfDate = balanceReportCreateParams.asOfDate
-            this.asOfTime = balanceReportCreateParams.asOfTime
-            this.balanceReportType = balanceReportCreateParams.balanceReportType
-            this.balances(balanceReportCreateParams.balances)
-            additionalHeaders(balanceReportCreateParams.additionalHeaders)
-            additionalQueryParams(balanceReportCreateParams.additionalQueryParams)
-            additionalBodyProperties(balanceReportCreateParams.additionalBodyProperties)
+            internalAccountId = balanceReportCreateParams.internalAccountId
+            asOfDate = balanceReportCreateParams.asOfDate
+            asOfTime = balanceReportCreateParams.asOfTime
+            balanceReportType = balanceReportCreateParams.balanceReportType
+            balances = balanceReportCreateParams.balances.toMutableList()
+            additionalHeaders = balanceReportCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = balanceReportCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                balanceReportCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun internalAccountId(internalAccountId: String) = apply {
@@ -394,7 +377,7 @@ constructor(
                 checkNotNull(balanceReportType) {
                     "`balanceReportType` is required but was not set"
                 },
-                checkNotNull(balances) { "`balances` is required but was not set" }.toImmutable(),
+                balances.toImmutable(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -414,7 +397,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is BalanceReportType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is BalanceReportType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -592,7 +575,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is BalanceType && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is BalanceType && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -678,19 +661,29 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is BalanceCreateRequest && this.amount == other.amount && this.balanceType == other.balanceType && this.vendorCode == other.vendorCode && this.vendorCodeType == other.vendorCodeType && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is BalanceCreateRequest && amount == other.amount && balanceType == other.balanceType && vendorCode == other.vendorCode && vendorCodeType == other.vendorCodeType && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(amount, balanceType, vendorCode, vendorCodeType, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(amount, balanceType, vendorCode, vendorCodeType, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "BalanceCreateRequest{amount=$amount, balanceType=$balanceType, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is BalanceReportCreateParams && internalAccountId == other.internalAccountId && asOfDate == other.asOfDate && asOfTime == other.asOfTime && balanceReportType == other.balanceReportType && balances == other.balances && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(internalAccountId, asOfDate, asOfTime, balanceReportType, balances, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "BalanceReportCreateParams{internalAccountId=$internalAccountId, asOfDate=$asOfDate, asOfTime=$asOfTime, balanceReportType=$balanceReportType, balances=$balances, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

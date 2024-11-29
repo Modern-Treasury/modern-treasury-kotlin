@@ -27,8 +27,8 @@ class ExpectedPaymentServiceTest {
         val expectedPayment =
             expectedPaymentService.create(
                 ExpectedPaymentCreateParams.builder()
-                    .amountLowerBound(123L)
-                    .amountUpperBound(123L)
+                    .amountLowerBound(0L)
+                    .amountUpperBound(0L)
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .currency(Currency.AED)
                     .dateLowerBound(LocalDate.parse("2019-12-27"))
@@ -43,7 +43,7 @@ class ExpectedPaymentServiceTest {
                                     ExpectedPaymentCreateParams.LedgerTransactionCreateRequest
                                         .LedgerEntryCreateRequest
                                         .builder()
-                                        .amount(123L)
+                                        .amount(0L)
                                         .direction(TransactionDirection.CREDIT)
                                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .availableBalanceAmount(
@@ -54,7 +54,7 @@ class ExpectedPaymentServiceTest {
                                                 .builder()
                                                 .build()
                                         )
-                                        .lockVersion(123L)
+                                        .lockVersion(0L)
                                         .metadata(
                                             ExpectedPaymentCreateParams
                                                 .LedgerTransactionCreateRequest
@@ -108,7 +108,7 @@ class ExpectedPaymentServiceTest {
                     .lineItems(
                         listOf(
                             ExpectedPaymentCreateParams.LineItemRequest.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .accountingCategoryId("accounting_category_id")
                                 .description("description")
                                 .metadata(
@@ -124,8 +124,8 @@ class ExpectedPaymentServiceTest {
                     .reconciliationRuleVariables(
                         listOf(
                             ReconciliationRule.builder()
-                                .amountLowerBound(123L)
-                                .amountUpperBound(123L)
+                                .amountLowerBound(0L)
+                                .amountUpperBound(0L)
                                 .direction(ReconciliationRule.Direction.CREDIT)
                                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -178,8 +178,8 @@ class ExpectedPaymentServiceTest {
             expectedPaymentService.update(
                 ExpectedPaymentUpdateParams.builder()
                     .id("id")
-                    .amountLowerBound(123L)
-                    .amountUpperBound(123L)
+                    .amountLowerBound(0L)
+                    .amountUpperBound(0L)
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .currency(Currency.AED)
                     .dateLowerBound(LocalDate.parse("2019-12-27"))
@@ -193,8 +193,8 @@ class ExpectedPaymentServiceTest {
                     .reconciliationRuleVariables(
                         listOf(
                             ReconciliationRule.builder()
-                                .amountLowerBound(123L)
-                                .amountUpperBound(123L)
+                                .amountLowerBound(0L)
+                                .amountUpperBound(0L)
                                 .direction(ReconciliationRule.Direction.CREDIT)
                                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

@@ -534,17 +534,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
@@ -562,7 +559,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -574,6 +571,8 @@ private constructor(
             val ARCHIVED = Status(JsonField.of("archived"))
 
             val ARCHIVING = Status(JsonField.of("archiving"))
+
+            val DRAFTING = Status(JsonField.of("drafting"))
 
             val PENDING = Status(JsonField.of("pending"))
 
@@ -587,6 +586,7 @@ private constructor(
         enum class Known {
             ARCHIVED,
             ARCHIVING,
+            DRAFTING,
             PENDING,
             POSTED,
             PROCESSING,
@@ -595,6 +595,7 @@ private constructor(
         enum class Value {
             ARCHIVED,
             ARCHIVING,
+            DRAFTING,
             PENDING,
             POSTED,
             PROCESSING,
@@ -605,6 +606,7 @@ private constructor(
             when (this) {
                 ARCHIVED -> Value.ARCHIVED
                 ARCHIVING -> Value.ARCHIVING
+                DRAFTING -> Value.DRAFTING
                 PENDING -> Value.PENDING
                 POSTED -> Value.POSTED
                 PROCESSING -> Value.PROCESSING
@@ -615,6 +617,7 @@ private constructor(
             when (this) {
                 ARCHIVED -> Known.ARCHIVED
                 ARCHIVING -> Known.ARCHIVING
+                DRAFTING -> Known.DRAFTING
                 PENDING -> Known.PENDING
                 POSTED -> Known.POSTED
                 PROCESSING -> Known.PROCESSING
@@ -629,17 +632,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccountSettlement && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.ledgerId == other.ledgerId && this.description == other.description && this.status == other.status && this.settledLedgerAccountId == other.settledLedgerAccountId && this.contraLedgerAccountId == other.contraLedgerAccountId && this.effectiveAtUpperBound == other.effectiveAtUpperBound && this.ledgerTransactionId == other.ledgerTransactionId && this.amount == other.amount && this.settlementEntryDirection == other.settlementEntryDirection && this.currency == other.currency && this.currencyExponent == other.currencyExponent && this.metadata == other.metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is LedgerAccountSettlement && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && ledgerId == other.ledgerId && description == other.description && status == other.status && settledLedgerAccountId == other.settledLedgerAccountId && contraLedgerAccountId == other.contraLedgerAccountId && effectiveAtUpperBound == other.effectiveAtUpperBound && ledgerTransactionId == other.ledgerTransactionId && amount == other.amount && settlementEntryDirection == other.settlementEntryDirection && currency == other.currency && currencyExponent == other.currencyExponent && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, ledgerId, description, status, settledLedgerAccountId, contraLedgerAccountId, effectiveAtUpperBound, ledgerTransactionId, amount, settlementEntryDirection, currency, currencyExponent, metadata, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, ledgerId, description, status, settledLedgerAccountId, contraLedgerAccountId, effectiveAtUpperBound, ledgerTransactionId, amount, settlementEntryDirection, currency, currencyExponent, metadata, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "LedgerAccountSettlement{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, ledgerId=$ledgerId, description=$description, status=$status, settledLedgerAccountId=$settledLedgerAccountId, contraLedgerAccountId=$contraLedgerAccountId, effectiveAtUpperBound=$effectiveAtUpperBound, ledgerTransactionId=$ledgerTransactionId, amount=$amount, settlementEntryDirection=$settlementEntryDirection, currency=$currency, currencyExponent=$currencyExponent, metadata=$metadata, additionalProperties=$additionalProperties}"

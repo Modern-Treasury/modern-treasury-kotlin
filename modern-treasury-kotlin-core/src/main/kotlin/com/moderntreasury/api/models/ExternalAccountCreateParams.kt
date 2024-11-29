@@ -65,6 +65,12 @@ constructor(
 
     fun routingDetails(): List<RoutingDetail>? = routingDetails
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): ExternalAccountCreateBody {
         return ExternalAccountCreateBody(
             counterpartyId,
@@ -321,42 +327,18 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExternalAccountCreateBody && this.counterpartyId == other.counterpartyId && this.accountDetails == other.accountDetails && this.accountType == other.accountType && this.contactDetails == other.contactDetails && this.ledgerAccount == other.ledgerAccount && this.metadata == other.metadata && this.name == other.name && this.partyAddress == other.partyAddress && this.partyIdentifier == other.partyIdentifier && this.partyName == other.partyName && this.partyType == other.partyType && this.plaidProcessorToken == other.plaidProcessorToken && this.routingDetails == other.routingDetails && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ExternalAccountCreateBody && counterpartyId == other.counterpartyId && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && ledgerAccount == other.ledgerAccount && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyIdentifier == other.partyIdentifier && partyName == other.partyName && partyType == other.partyType && plaidProcessorToken == other.plaidProcessorToken && routingDetails == other.routingDetails && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(counterpartyId, accountDetails, accountType, contactDetails, ledgerAccount, metadata, name, partyAddress, partyIdentifier, partyName, partyType, plaidProcessorToken, routingDetails, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(counterpartyId, accountDetails, accountType, contactDetails, ledgerAccount, metadata, name, partyAddress, partyIdentifier, partyName, partyType, plaidProcessorToken, routingDetails, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "ExternalAccountCreateBody{counterpartyId=$counterpartyId, accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ExternalAccountCreateParams && this.counterpartyId == other.counterpartyId && this.accountDetails == other.accountDetails && this.accountType == other.accountType && this.contactDetails == other.contactDetails && this.ledgerAccount == other.ledgerAccount && this.metadata == other.metadata && this.name == other.name && this.partyAddress == other.partyAddress && this.partyIdentifier == other.partyIdentifier && this.partyName == other.partyName && this.partyType == other.partyType && this.plaidProcessorToken == other.plaidProcessorToken && this.routingDetails == other.routingDetails && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(counterpartyId, accountDetails, accountType, contactDetails, ledgerAccount, metadata, name, partyAddress, partyIdentifier, partyName, partyType, plaidProcessorToken, routingDetails, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
-
-    override fun toString() =
-        "ExternalAccountCreateParams{counterpartyId=$counterpartyId, accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -386,22 +368,26 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(externalAccountCreateParams: ExternalAccountCreateParams) = apply {
-            this.counterpartyId = externalAccountCreateParams.counterpartyId
-            this.accountDetails(externalAccountCreateParams.accountDetails ?: listOf())
-            this.accountType = externalAccountCreateParams.accountType
-            this.contactDetails(externalAccountCreateParams.contactDetails ?: listOf())
-            this.ledgerAccount = externalAccountCreateParams.ledgerAccount
-            this.metadata = externalAccountCreateParams.metadata
-            this.name = externalAccountCreateParams.name
-            this.partyAddress = externalAccountCreateParams.partyAddress
-            this.partyIdentifier = externalAccountCreateParams.partyIdentifier
-            this.partyName = externalAccountCreateParams.partyName
-            this.partyType = externalAccountCreateParams.partyType
-            this.plaidProcessorToken = externalAccountCreateParams.plaidProcessorToken
-            this.routingDetails(externalAccountCreateParams.routingDetails ?: listOf())
-            additionalHeaders(externalAccountCreateParams.additionalHeaders)
-            additionalQueryParams(externalAccountCreateParams.additionalQueryParams)
-            additionalBodyProperties(externalAccountCreateParams.additionalBodyProperties)
+            counterpartyId = externalAccountCreateParams.counterpartyId
+            accountDetails =
+                externalAccountCreateParams.accountDetails?.toMutableList() ?: mutableListOf()
+            accountType = externalAccountCreateParams.accountType
+            contactDetails =
+                externalAccountCreateParams.contactDetails?.toMutableList() ?: mutableListOf()
+            ledgerAccount = externalAccountCreateParams.ledgerAccount
+            metadata = externalAccountCreateParams.metadata
+            name = externalAccountCreateParams.name
+            partyAddress = externalAccountCreateParams.partyAddress
+            partyIdentifier = externalAccountCreateParams.partyIdentifier
+            partyName = externalAccountCreateParams.partyName
+            partyType = externalAccountCreateParams.partyType
+            plaidProcessorToken = externalAccountCreateParams.plaidProcessorToken
+            routingDetails =
+                externalAccountCreateParams.routingDetails?.toMutableList() ?: mutableListOf()
+            additionalHeaders = externalAccountCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = externalAccountCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                externalAccountCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
@@ -602,9 +588,9 @@ constructor(
         fun build(): ExternalAccountCreateParams =
             ExternalAccountCreateParams(
                 counterpartyId,
-                if (accountDetails.size == 0) null else accountDetails.toImmutable(),
+                accountDetails.toImmutable().ifEmpty { null },
                 accountType,
-                if (contactDetails.size == 0) null else contactDetails.toImmutable(),
+                contactDetails.toImmutable().ifEmpty { null },
                 ledgerAccount,
                 metadata,
                 name,
@@ -613,7 +599,7 @@ constructor(
                 partyName,
                 partyType,
                 plaidProcessorToken,
-                if (routingDetails.size == 0) null else routingDetails.toImmutable(),
+                routingDetails.toImmutable().ifEmpty { null },
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -700,7 +686,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is AccountNumberType && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is AccountNumberType && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -800,17 +786,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountDetail && this.accountNumber == other.accountNumber && this.accountNumberType == other.accountNumberType && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is AccountDetail && accountNumber == other.accountNumber && accountNumberType == other.accountNumberType && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(accountNumber, accountNumberType, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(accountNumber, accountNumberType, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "AccountDetail{accountNumber=$accountNumber, accountNumberType=$accountNumberType, additionalProperties=$additionalProperties}"
@@ -898,7 +881,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is ContactIdentifierType && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is ContactIdentifierType && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -956,17 +939,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ContactDetailCreateRequest && this.contactIdentifier == other.contactIdentifier && this.contactIdentifierType == other.contactIdentifierType && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ContactDetailCreateRequest && contactIdentifier == other.contactIdentifier && contactIdentifierType == other.contactIdentifierType && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(contactIdentifier, contactIdentifierType, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(contactIdentifier, contactIdentifierType, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "ContactDetailCreateRequest{contactIdentifier=$contactIdentifier, contactIdentifierType=$contactIdentifierType, additionalProperties=$additionalProperties}"
@@ -1178,7 +1158,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is LedgerableType && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is LedgerableType && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1287,17 +1267,14 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
         }
@@ -1307,17 +1284,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerAccountCreateRequest && this.name == other.name && this.description == other.description && this.normalBalance == other.normalBalance && this.ledgerId == other.ledgerId && this.currency == other.currency && this.currencyExponent == other.currencyExponent && this.ledgerAccountCategoryIds == other.ledgerAccountCategoryIds && this.ledgerableId == other.ledgerableId && this.ledgerableType == other.ledgerableType && this.metadata == other.metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerAccountCreateRequest && name == other.name && description == other.description && normalBalance == other.normalBalance && ledgerId == other.ledgerId && currency == other.currency && currencyExponent == other.currencyExponent && ledgerAccountCategoryIds == other.ledgerAccountCategoryIds && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(name, description, normalBalance, ledgerId, currency, currencyExponent, ledgerAccountCategoryIds, ledgerableId, ledgerableType, metadata, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(name, description, normalBalance, ledgerId, currency, currencyExponent, ledgerAccountCategoryIds, ledgerableId, ledgerableType, metadata, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "LedgerAccountCreateRequest{name=$name, description=$description, normalBalance=$normalBalance, ledgerId=$ledgerId, currency=$currency, currencyExponent=$currencyExponent, ledgerAccountCategoryIds=$ledgerAccountCategoryIds, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalProperties=$additionalProperties}"
@@ -1372,17 +1346,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
@@ -1497,17 +1468,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AddressRequest && this.line1 == other.line1 && this.line2 == other.line2 && this.locality == other.locality && this.region == other.region && this.postalCode == other.postalCode && this.country == other.country && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is AddressRequest && line1 == other.line1 && line2 == other.line2 && locality == other.locality && region == other.region && postalCode == other.postalCode && country == other.country && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(line1, line2, locality, region, postalCode, country, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(line1, line2, locality, region, postalCode, country, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "AddressRequest{line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
@@ -1526,7 +1494,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PartyType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is PartyType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1661,7 +1629,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is RoutingNumberType && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is RoutingNumberType && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1836,7 +1804,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is PaymentType && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is PaymentType && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -2053,19 +2021,29 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RoutingDetail && this.routingNumber == other.routingNumber && this.routingNumberType == other.routingNumberType && this.paymentType == other.paymentType && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is RoutingDetail && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && paymentType == other.paymentType && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(routingNumber, routingNumberType, paymentType, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(routingNumber, routingNumberType, paymentType, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "RoutingDetail{routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ExternalAccountCreateParams && counterpartyId == other.counterpartyId && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && ledgerAccount == other.ledgerAccount && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyIdentifier == other.partyIdentifier && partyName == other.partyName && partyType == other.partyType && plaidProcessorToken == other.plaidProcessorToken && routingDetails == other.routingDetails && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(counterpartyId, accountDetails, accountType, contactDetails, ledgerAccount, metadata, name, partyAddress, partyIdentifier, partyName, partyType, plaidProcessorToken, routingDetails, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "ExternalAccountCreateParams{counterpartyId=$counterpartyId, accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

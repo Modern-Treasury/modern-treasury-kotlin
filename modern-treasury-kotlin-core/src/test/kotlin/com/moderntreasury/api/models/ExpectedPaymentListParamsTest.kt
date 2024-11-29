@@ -20,7 +20,7 @@ class ExpectedPaymentListParamsTest {
             .direction(TransactionDirection.CREDIT)
             .internalAccountId("internal_account_id")
             .metadata(ExpectedPaymentListParams.Metadata.builder().build())
-            .perPage(123L)
+            .perPage(0L)
             .status(ExpectedPaymentListParams.Status.ARCHIVED)
             .type(ExpectedPaymentListParams.Type.ACH)
             .build()
@@ -37,7 +37,7 @@ class ExpectedPaymentListParamsTest {
                 .direction(TransactionDirection.CREDIT)
                 .internalAccountId("internal_account_id")
                 .metadata(ExpectedPaymentListParams.Metadata.builder().build())
-                .perPage(123L)
+                .perPage(0L)
                 .status(ExpectedPaymentListParams.Status.ARCHIVED)
                 .type(ExpectedPaymentListParams.Type.ACH)
                 .build()
@@ -51,7 +51,7 @@ class ExpectedPaymentListParamsTest {
         ExpectedPaymentListParams.Metadata.builder().build().forEachQueryParam { key, values ->
             expected.put("metadata[$key]", values)
         }
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         expected.put("status", ExpectedPaymentListParams.Status.ARCHIVED.toString())
         expected.put("type", ExpectedPaymentListParams.Type.ACH.toString())
         assertThat(params.getQueryParams()).isEqualTo(expected.build())

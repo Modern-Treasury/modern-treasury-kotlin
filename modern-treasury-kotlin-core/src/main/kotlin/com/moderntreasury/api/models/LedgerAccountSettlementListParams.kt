@@ -46,6 +46,10 @@ constructor(
 
     fun updatedAt(): UpdatedAt? = updatedAt
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -76,25 +80,6 @@ constructor(
         return queryParams.build()
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerAccountSettlementListParams && this.id == other.id && this.afterCursor == other.afterCursor && this.createdAt == other.createdAt && this.ledgerId == other.ledgerId && this.ledgerTransactionId == other.ledgerTransactionId && this.metadata == other.metadata && this.perPage == other.perPage && this.settledLedgerAccountId == other.settledLedgerAccountId && this.settlementEntryDirection == other.settlementEntryDirection && this.updatedAt == other.updatedAt && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(id, afterCursor, createdAt, ledgerId, ledgerTransactionId, metadata, perPage, settledLedgerAccountId, settlementEntryDirection, updatedAt, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
-
-    override fun toString() =
-        "LedgerAccountSettlementListParams{id=$id, afterCursor=$afterCursor, createdAt=$createdAt, ledgerId=$ledgerId, ledgerTransactionId=$ledgerTransactionId, metadata=$metadata, perPage=$perPage, settledLedgerAccountId=$settledLedgerAccountId, settlementEntryDirection=$settlementEntryDirection, updatedAt=$updatedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -120,20 +105,20 @@ constructor(
 
         internal fun from(ledgerAccountSettlementListParams: LedgerAccountSettlementListParams) =
             apply {
-                this.id(ledgerAccountSettlementListParams.id ?: listOf())
-                this.afterCursor = ledgerAccountSettlementListParams.afterCursor
-                this.createdAt = ledgerAccountSettlementListParams.createdAt
-                this.ledgerId = ledgerAccountSettlementListParams.ledgerId
-                this.ledgerTransactionId = ledgerAccountSettlementListParams.ledgerTransactionId
-                this.metadata = ledgerAccountSettlementListParams.metadata
-                this.perPage = ledgerAccountSettlementListParams.perPage
-                this.settledLedgerAccountId =
-                    ledgerAccountSettlementListParams.settledLedgerAccountId
-                this.settlementEntryDirection =
+                id = ledgerAccountSettlementListParams.id?.toMutableList() ?: mutableListOf()
+                afterCursor = ledgerAccountSettlementListParams.afterCursor
+                createdAt = ledgerAccountSettlementListParams.createdAt
+                ledgerId = ledgerAccountSettlementListParams.ledgerId
+                ledgerTransactionId = ledgerAccountSettlementListParams.ledgerTransactionId
+                metadata = ledgerAccountSettlementListParams.metadata
+                perPage = ledgerAccountSettlementListParams.perPage
+                settledLedgerAccountId = ledgerAccountSettlementListParams.settledLedgerAccountId
+                settlementEntryDirection =
                     ledgerAccountSettlementListParams.settlementEntryDirection
-                this.updatedAt = ledgerAccountSettlementListParams.updatedAt
-                additionalHeaders(ledgerAccountSettlementListParams.additionalHeaders)
-                additionalQueryParams(ledgerAccountSettlementListParams.additionalQueryParams)
+                updatedAt = ledgerAccountSettlementListParams.updatedAt
+                additionalHeaders = ledgerAccountSettlementListParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    ledgerAccountSettlementListParams.additionalQueryParams.toBuilder()
             }
 
         /**
@@ -289,7 +274,7 @@ constructor(
 
         fun build(): LedgerAccountSettlementListParams =
             LedgerAccountSettlementListParams(
-                if (id.size == 0) null else id.toImmutable(),
+                id.toImmutable().ifEmpty { null },
                 afterCursor,
                 createdAt,
                 ledgerId,
@@ -359,17 +344,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CreatedAt && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CreatedAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "CreatedAt{additionalProperties=$additionalProperties}"
     }
@@ -428,17 +410,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
@@ -498,18 +477,28 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is UpdatedAt && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is UpdatedAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "UpdatedAt{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerAccountSettlementListParams && id == other.id && afterCursor == other.afterCursor && createdAt == other.createdAt && ledgerId == other.ledgerId && ledgerTransactionId == other.ledgerTransactionId && metadata == other.metadata && perPage == other.perPage && settledLedgerAccountId == other.settledLedgerAccountId && settlementEntryDirection == other.settlementEntryDirection && updatedAt == other.updatedAt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, afterCursor, createdAt, ledgerId, ledgerTransactionId, metadata, perPage, settledLedgerAccountId, settlementEntryDirection, updatedAt, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "LedgerAccountSettlementListParams{id=$id, afterCursor=$afterCursor, createdAt=$createdAt, ledgerId=$ledgerId, ledgerTransactionId=$ledgerTransactionId, metadata=$metadata, perPage=$perPage, settledLedgerAccountId=$settledLedgerAccountId, settlementEntryDirection=$settlementEntryDirection, updatedAt=$updatedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

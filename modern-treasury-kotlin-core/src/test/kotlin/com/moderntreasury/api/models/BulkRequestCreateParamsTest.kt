@@ -19,7 +19,7 @@ class BulkRequestCreateParamsTest {
                 listOf(
                     BulkRequestCreateParams.Resource.ofPaymentOrderAsyncCreateRequest(
                         BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .direction(
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .Direction
@@ -68,7 +68,7 @@ class BulkRequestCreateParamsTest {
                                                 .LedgerTransactionCreateRequest
                                                 .LedgerEntryCreateRequest
                                                 .builder()
-                                                .amount(123L)
+                                                .amount(0L)
                                                 .direction(TransactionDirection.CREDIT)
                                                 .ledgerAccountId(
                                                     "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
@@ -82,7 +82,7 @@ class BulkRequestCreateParamsTest {
                                                         .builder()
                                                         .build()
                                                 )
-                                                .lockVersion(123L)
+                                                .lockVersion(0L)
                                                 .metadata(
                                                     BulkRequestCreateParams.Resource
                                                         .PaymentOrderAsyncCreateRequest
@@ -149,7 +149,7 @@ class BulkRequestCreateParamsTest {
                                     BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .LineItemRequest
                                         .builder()
-                                        .amount(123L)
+                                        .amount(0L)
                                         .accountingCategoryId("accounting_category_id")
                                         .description("description")
                                         .metadata(
@@ -231,7 +231,7 @@ class BulkRequestCreateParamsTest {
                                             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                             .name("name")
                                             .normalBalance(TransactionDirection.CREDIT)
-                                            .currencyExponent(123L)
+                                            .currencyExponent(0L)
                                             .description("description")
                                             .ledgerAccountCategoryIds(
                                                 listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -349,7 +349,7 @@ class BulkRequestCreateParamsTest {
                         BulkRequestCreateParams.Resource.ofPaymentOrderAsyncCreateRequest(
                             BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                 .builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .direction(
                                     BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .Direction
@@ -398,7 +398,7 @@ class BulkRequestCreateParamsTest {
                                                     .LedgerTransactionCreateRequest
                                                     .LedgerEntryCreateRequest
                                                     .builder()
-                                                    .amount(123L)
+                                                    .amount(0L)
                                                     .direction(TransactionDirection.CREDIT)
                                                     .ledgerAccountId(
                                                         "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
@@ -412,7 +412,7 @@ class BulkRequestCreateParamsTest {
                                                             .builder()
                                                             .build()
                                                     )
-                                                    .lockVersion(123L)
+                                                    .lockVersion(0L)
                                                     .metadata(
                                                         BulkRequestCreateParams.Resource
                                                             .PaymentOrderAsyncCreateRequest
@@ -482,7 +482,7 @@ class BulkRequestCreateParamsTest {
                                             .PaymentOrderAsyncCreateRequest
                                             .LineItemRequest
                                             .builder()
-                                            .amount(123L)
+                                            .amount(0L)
                                             .accountingCategoryId("accounting_category_id")
                                             .description("description")
                                             .metadata(
@@ -564,7 +564,7 @@ class BulkRequestCreateParamsTest {
                                                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                                 .name("name")
                                                 .normalBalance(TransactionDirection.CREDIT)
-                                                .currencyExponent(123L)
+                                                .currencyExponent(0L)
                                                 .description("description")
                                                 .ledgerAccountCategoryIds(
                                                     listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -683,7 +683,7 @@ class BulkRequestCreateParamsTest {
                 listOf(
                     BulkRequestCreateParams.Resource.ofPaymentOrderAsyncCreateRequest(
                         BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .direction(
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .Direction
@@ -732,7 +732,7 @@ class BulkRequestCreateParamsTest {
                                                 .LedgerTransactionCreateRequest
                                                 .LedgerEntryCreateRequest
                                                 .builder()
-                                                .amount(123L)
+                                                .amount(0L)
                                                 .direction(TransactionDirection.CREDIT)
                                                 .ledgerAccountId(
                                                     "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
@@ -746,7 +746,7 @@ class BulkRequestCreateParamsTest {
                                                         .builder()
                                                         .build()
                                                 )
-                                                .lockVersion(123L)
+                                                .lockVersion(0L)
                                                 .metadata(
                                                     BulkRequestCreateParams.Resource
                                                         .PaymentOrderAsyncCreateRequest
@@ -813,7 +813,7 @@ class BulkRequestCreateParamsTest {
                                     BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .LineItemRequest
                                         .builder()
-                                        .amount(123L)
+                                        .amount(0L)
                                         .accountingCategoryId("accounting_category_id")
                                         .description("description")
                                         .metadata(
@@ -895,7 +895,7 @@ class BulkRequestCreateParamsTest {
                                             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                             .name("name")
                                             .normalBalance(TransactionDirection.CREDIT)
-                                            .currencyExponent(123L)
+                                            .currencyExponent(0L)
                                             .description("description")
                                             .ledgerAccountCategoryIds(
                                                 listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -1012,7 +1012,7 @@ class BulkRequestCreateParamsTest {
                         BulkRequestCreateParams.Resource.ofPaymentOrderAsyncCreateRequest(
                             BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                 .builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .direction(
                                     BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .Direction
@@ -1035,7 +1035,7 @@ class BulkRequestCreateParamsTest {
                 listOf(
                     BulkRequestCreateParams.Resource.ofPaymentOrderAsyncCreateRequest(
                         BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .direction(
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .Direction

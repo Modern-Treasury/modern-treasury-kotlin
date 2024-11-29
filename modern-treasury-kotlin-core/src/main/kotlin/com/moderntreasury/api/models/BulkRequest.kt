@@ -340,7 +340,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ActionType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ActionType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -447,17 +447,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
@@ -475,7 +472,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ResourceType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ResourceType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -544,7 +541,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -599,17 +596,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is BulkRequest && this.id == other.id && this.object_ == other.object_ && this.liveMode == other.liveMode && this.createdAt == other.createdAt && this.updatedAt == other.updatedAt && this.actionType == other.actionType && this.resourceType == other.resourceType && this.status == other.status && this.totalResourceCount == other.totalResourceCount && this.successResultCount == other.successResultCount && this.failedResultCount == other.failedResultCount && this.metadata == other.metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is BulkRequest && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && actionType == other.actionType && resourceType == other.resourceType && status == other.status && totalResourceCount == other.totalResourceCount && successResultCount == other.successResultCount && failedResultCount == other.failedResultCount && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, actionType, resourceType, status, totalResourceCount, successResultCount, failedResultCount, metadata, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(id, object_, liveMode, createdAt, updatedAt, actionType, resourceType, status, totalResourceCount, successResultCount, failedResultCount, metadata, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "BulkRequest{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, actionType=$actionType, resourceType=$resourceType, status=$status, totalResourceCount=$totalResourceCount, successResultCount=$successResultCount, failedResultCount=$failedResultCount, metadata=$metadata, additionalProperties=$additionalProperties}"

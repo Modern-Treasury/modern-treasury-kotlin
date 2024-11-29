@@ -35,7 +35,7 @@ class ReversalServiceTest {
                                     PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
                                         .LedgerEntryCreateRequest
                                         .builder()
-                                        .amount(123L)
+                                        .amount(0L)
                                         .direction(TransactionDirection.CREDIT)
                                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .availableBalanceAmount(
@@ -46,7 +46,7 @@ class ReversalServiceTest {
                                                 .builder()
                                                 .build()
                                         )
-                                        .lockVersion(123L)
+                                        .lockVersion(0L)
                                         .metadata(
                                             PaymentOrderReversalCreateParams
                                                 .LedgerTransactionCreateRequest

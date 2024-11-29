@@ -45,6 +45,10 @@ constructor(
 
     fun perPage(): Long? = perPage
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -62,25 +66,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InternalAccountListParams && this.afterCursor == other.afterCursor && this.counterpartyId == other.counterpartyId && this.currency == other.currency && this.legalEntityId == other.legalEntityId && this.metadata == other.metadata && this.paymentDirection == other.paymentDirection && this.paymentType == other.paymentType && this.perPage == other.perPage && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(afterCursor, counterpartyId, currency, legalEntityId, metadata, paymentDirection, paymentType, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
-
-    override fun toString() =
-        "InternalAccountListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, currency=$currency, legalEntityId=$legalEntityId, metadata=$metadata, paymentDirection=$paymentDirection, paymentType=$paymentType, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -104,16 +89,16 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(internalAccountListParams: InternalAccountListParams) = apply {
-            this.afterCursor = internalAccountListParams.afterCursor
-            this.counterpartyId = internalAccountListParams.counterpartyId
-            this.currency = internalAccountListParams.currency
-            this.legalEntityId = internalAccountListParams.legalEntityId
-            this.metadata = internalAccountListParams.metadata
-            this.paymentDirection = internalAccountListParams.paymentDirection
-            this.paymentType = internalAccountListParams.paymentType
-            this.perPage = internalAccountListParams.perPage
-            additionalHeaders(internalAccountListParams.additionalHeaders)
-            additionalQueryParams(internalAccountListParams.additionalQueryParams)
+            afterCursor = internalAccountListParams.afterCursor
+            counterpartyId = internalAccountListParams.counterpartyId
+            currency = internalAccountListParams.currency
+            legalEntityId = internalAccountListParams.legalEntityId
+            metadata = internalAccountListParams.metadata
+            paymentDirection = internalAccountListParams.paymentDirection
+            paymentType = internalAccountListParams.paymentType
+            perPage = internalAccountListParams.perPage
+            additionalHeaders = internalAccountListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = internalAccountListParams.additionalQueryParams.toBuilder()
         }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
@@ -310,17 +295,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
@@ -338,7 +320,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PaymentType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is PaymentType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -549,4 +531,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InternalAccountListParams && afterCursor == other.afterCursor && counterpartyId == other.counterpartyId && currency == other.currency && legalEntityId == other.legalEntityId && metadata == other.metadata && paymentDirection == other.paymentDirection && paymentType == other.paymentType && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, counterpartyId, currency, legalEntityId, metadata, paymentDirection, paymentType, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "InternalAccountListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, currency=$currency, legalEntityId=$legalEntityId, metadata=$metadata, paymentDirection=$paymentDirection, paymentType=$paymentType, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

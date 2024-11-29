@@ -41,6 +41,12 @@ constructor(
 
     fun sendEmail(): Boolean? = sendEmail
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): CounterpartyCollectAccountBody {
         return CounterpartyCollectAccountBody(
             direction,
@@ -196,42 +202,18 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CounterpartyCollectAccountBody && this.direction == other.direction && this.customRedirect == other.customRedirect && this.fields == other.fields && this.sendEmail == other.sendEmail && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CounterpartyCollectAccountBody && direction == other.direction && customRedirect == other.customRedirect && fields == other.fields && sendEmail == other.sendEmail && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(direction, customRedirect, fields, sendEmail, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(direction, customRedirect, fields, sendEmail, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "CounterpartyCollectAccountBody{direction=$direction, customRedirect=$customRedirect, fields=$fields, sendEmail=$sendEmail, additionalProperties=$additionalProperties}"
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CounterpartyCollectAccountParams && this.id == other.id && this.direction == other.direction && this.customRedirect == other.customRedirect && this.fields == other.fields && this.sendEmail == other.sendEmail && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(id, direction, customRedirect, fields, sendEmail, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
-
-    override fun toString() =
-        "CounterpartyCollectAccountParams{id=$id, direction=$direction, customRedirect=$customRedirect, fields=$fields, sendEmail=$sendEmail, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -254,14 +236,16 @@ constructor(
 
         internal fun from(counterpartyCollectAccountParams: CounterpartyCollectAccountParams) =
             apply {
-                this.id = counterpartyCollectAccountParams.id
-                this.direction = counterpartyCollectAccountParams.direction
-                this.customRedirect = counterpartyCollectAccountParams.customRedirect
-                this.fields(counterpartyCollectAccountParams.fields ?: listOf())
-                this.sendEmail = counterpartyCollectAccountParams.sendEmail
-                additionalHeaders(counterpartyCollectAccountParams.additionalHeaders)
-                additionalQueryParams(counterpartyCollectAccountParams.additionalQueryParams)
-                additionalBodyProperties(counterpartyCollectAccountParams.additionalBodyProperties)
+                id = counterpartyCollectAccountParams.id
+                direction = counterpartyCollectAccountParams.direction
+                customRedirect = counterpartyCollectAccountParams.customRedirect
+                fields = counterpartyCollectAccountParams.fields?.toMutableList() ?: mutableListOf()
+                sendEmail = counterpartyCollectAccountParams.sendEmail
+                additionalHeaders = counterpartyCollectAccountParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    counterpartyCollectAccountParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    counterpartyCollectAccountParams.additionalBodyProperties.toMutableMap()
             }
 
         fun id(id: String) = apply { this.id = id }
@@ -433,7 +417,7 @@ constructor(
                 checkNotNull(id) { "`id` is required but was not set" },
                 checkNotNull(direction) { "`direction` is required but was not set" },
                 customRedirect,
-                if (fields.size == 0) null else fields.toImmutable(),
+                fields.toImmutable().ifEmpty { null },
                 sendEmail,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -454,7 +438,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Field && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Field && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -659,4 +643,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CounterpartyCollectAccountParams && id == other.id && direction == other.direction && customRedirect == other.customRedirect && fields == other.fields && sendEmail == other.sendEmail && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, direction, customRedirect, fields, sendEmail, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "CounterpartyCollectAccountParams{id=$id, direction=$direction, customRedirect=$customRedirect, fields=$fields, sendEmail=$sendEmail, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

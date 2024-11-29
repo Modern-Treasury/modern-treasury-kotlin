@@ -35,12 +35,10 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccountSettlementListPage && this.ledgerAccountSettlementsService == other.ledgerAccountSettlementsService && this.params == other.params && this.response == other.response /* spotless:on */
+        return /* spotless:off */ other is LedgerAccountSettlementListPage && ledgerAccountSettlementsService == other.ledgerAccountSettlementsService && params == other.params && response == other.response /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(ledgerAccountSettlementsService, params, response) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(ledgerAccountSettlementsService, params, response) /* spotless:on */
 
     override fun toString() =
         "LedgerAccountSettlementListPage{ledgerAccountSettlementsService=$ledgerAccountSettlementsService, params=$params, response=$response}"
@@ -118,15 +116,13 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Response && this.items == other.items && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Response && items == other.items && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        override fun hashCode(): Int {
-            return /* spotless:off */ Objects.hash(items, additionalProperties) /* spotless:on */
-        }
+        override fun hashCode(): Int = /* spotless:off */ Objects.hash(items, additionalProperties) /* spotless:on */
 
         override fun toString() =
-            "LedgerAccountSettlementListPage.Response{items=$items, additionalProperties=$additionalProperties}"
+            "Response{items=$items, additionalProperties=$additionalProperties}"
 
         companion object {
 

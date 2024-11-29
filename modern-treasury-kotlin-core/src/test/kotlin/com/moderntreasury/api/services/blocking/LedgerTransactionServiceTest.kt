@@ -29,7 +29,7 @@ class LedgerTransactionServiceTest {
                     .ledgerEntries(
                         listOf(
                             LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .direction(TransactionDirection.CREDIT)
                                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .availableBalanceAmount(
@@ -38,7 +38,7 @@ class LedgerTransactionServiceTest {
                                         .builder()
                                         .build()
                                 )
-                                .lockVersion(123L)
+                                .lockVersion(0L)
                                 .metadata(
                                     LedgerTransactionCreateParams.LedgerEntryCreateRequest.Metadata
                                         .builder()
@@ -109,7 +109,7 @@ class LedgerTransactionServiceTest {
                     .ledgerEntries(
                         listOf(
                             LedgerTransactionUpdateParams.LedgerEntryCreateRequest.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .direction(TransactionDirection.CREDIT)
                                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .availableBalanceAmount(
@@ -118,7 +118,7 @@ class LedgerTransactionServiceTest {
                                         .builder()
                                         .build()
                                 )
-                                .lockVersion(123L)
+                                .lockVersion(0L)
                                 .metadata(
                                     LedgerTransactionUpdateParams.LedgerEntryCreateRequest.Metadata
                                         .builder()

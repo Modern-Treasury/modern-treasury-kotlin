@@ -51,6 +51,12 @@ constructor(
 
     fun virtualAccountId(): String? = virtualAccountId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): IncomingPaymentDetailCreateAsyncBody {
         return IncomingPaymentDetailCreateAsyncBody(
             amount,
@@ -216,42 +222,18 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is IncomingPaymentDetailCreateAsyncBody && this.amount == other.amount && this.asOfDate == other.asOfDate && this.currency == other.currency && this.description == other.description && this.direction == other.direction && this.internalAccountId == other.internalAccountId && this.type == other.type && this.virtualAccountId == other.virtualAccountId && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is IncomingPaymentDetailCreateAsyncBody && amount == other.amount && asOfDate == other.asOfDate && currency == other.currency && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && type == other.type && virtualAccountId == other.virtualAccountId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(amount, asOfDate, currency, description, direction, internalAccountId, type, virtualAccountId, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(amount, asOfDate, currency, description, direction, internalAccountId, type, virtualAccountId, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "IncomingPaymentDetailCreateAsyncBody{amount=$amount, asOfDate=$asOfDate, currency=$currency, description=$description, direction=$direction, internalAccountId=$internalAccountId, type=$type, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is IncomingPaymentDetailCreateAsyncParams && this.amount == other.amount && this.asOfDate == other.asOfDate && this.currency == other.currency && this.description == other.description && this.direction == other.direction && this.internalAccountId == other.internalAccountId && this.type == other.type && this.virtualAccountId == other.virtualAccountId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(amount, asOfDate, currency, description, direction, internalAccountId, type, virtualAccountId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
-
-    override fun toString() =
-        "IncomingPaymentDetailCreateAsyncParams{amount=$amount, asOfDate=$asOfDate, currency=$currency, description=$description, direction=$direction, internalAccountId=$internalAccountId, type=$type, virtualAccountId=$virtualAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -278,19 +260,19 @@ constructor(
         internal fun from(
             incomingPaymentDetailCreateAsyncParams: IncomingPaymentDetailCreateAsyncParams
         ) = apply {
-            this.amount = incomingPaymentDetailCreateAsyncParams.amount
-            this.asOfDate = incomingPaymentDetailCreateAsyncParams.asOfDate
-            this.currency = incomingPaymentDetailCreateAsyncParams.currency
-            this.description = incomingPaymentDetailCreateAsyncParams.description
-            this.direction = incomingPaymentDetailCreateAsyncParams.direction
-            this.internalAccountId = incomingPaymentDetailCreateAsyncParams.internalAccountId
-            this.type = incomingPaymentDetailCreateAsyncParams.type
-            this.virtualAccountId = incomingPaymentDetailCreateAsyncParams.virtualAccountId
-            additionalHeaders(incomingPaymentDetailCreateAsyncParams.additionalHeaders)
-            additionalQueryParams(incomingPaymentDetailCreateAsyncParams.additionalQueryParams)
-            additionalBodyProperties(
-                incomingPaymentDetailCreateAsyncParams.additionalBodyProperties
-            )
+            amount = incomingPaymentDetailCreateAsyncParams.amount
+            asOfDate = incomingPaymentDetailCreateAsyncParams.asOfDate
+            currency = incomingPaymentDetailCreateAsyncParams.currency
+            description = incomingPaymentDetailCreateAsyncParams.description
+            direction = incomingPaymentDetailCreateAsyncParams.direction
+            internalAccountId = incomingPaymentDetailCreateAsyncParams.internalAccountId
+            type = incomingPaymentDetailCreateAsyncParams.type
+            virtualAccountId = incomingPaymentDetailCreateAsyncParams.virtualAccountId
+            additionalHeaders = incomingPaymentDetailCreateAsyncParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                incomingPaymentDetailCreateAsyncParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                incomingPaymentDetailCreateAsyncParams.additionalBodyProperties.toMutableMap()
         }
 
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
@@ -470,7 +452,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Direction && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Direction && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -527,7 +509,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -612,4 +594,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is IncomingPaymentDetailCreateAsyncParams && amount == other.amount && asOfDate == other.asOfDate && currency == other.currency && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && type == other.type && virtualAccountId == other.virtualAccountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, asOfDate, currency, description, direction, internalAccountId, type, virtualAccountId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "IncomingPaymentDetailCreateAsyncParams{amount=$amount, asOfDate=$asOfDate, currency=$currency, description=$description, direction=$direction, internalAccountId=$internalAccountId, type=$type, virtualAccountId=$virtualAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

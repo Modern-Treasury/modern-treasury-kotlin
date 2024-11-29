@@ -13,11 +13,11 @@ class InvoiceLineItemCreateParamsTest {
         InvoiceLineItemCreateParams.builder()
             .invoiceId("invoice_id")
             .name("name")
-            .unitAmount(123L)
+            .unitAmount(0L)
             .description("description")
             .direction("direction")
             .metadata(InvoiceLineItemCreateParams.Metadata.builder().build())
-            .quantity(123L)
+            .quantity(0L)
             .unitAmountDecimal("unit_amount_decimal")
             .build()
     }
@@ -28,22 +28,22 @@ class InvoiceLineItemCreateParamsTest {
             InvoiceLineItemCreateParams.builder()
                 .invoiceId("invoice_id")
                 .name("name")
-                .unitAmount(123L)
+                .unitAmount(0L)
                 .description("description")
                 .direction("direction")
                 .metadata(InvoiceLineItemCreateParams.Metadata.builder().build())
-                .quantity(123L)
+                .quantity(0L)
                 .unitAmountDecimal("unit_amount_decimal")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("name")
-        assertThat(body.unitAmount()).isEqualTo(123L)
+        assertThat(body.unitAmount()).isEqualTo(0L)
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.direction()).isEqualTo("direction")
         assertThat(body.metadata())
             .isEqualTo(InvoiceLineItemCreateParams.Metadata.builder().build())
-        assertThat(body.quantity()).isEqualTo(123L)
+        assertThat(body.quantity()).isEqualTo(0L)
         assertThat(body.unitAmountDecimal()).isEqualTo("unit_amount_decimal")
     }
 
@@ -53,12 +53,12 @@ class InvoiceLineItemCreateParamsTest {
             InvoiceLineItemCreateParams.builder()
                 .invoiceId("invoice_id")
                 .name("name")
-                .unitAmount(123L)
+                .unitAmount(0L)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("name")
-        assertThat(body.unitAmount()).isEqualTo(123L)
+        assertThat(body.unitAmount()).isEqualTo(0L)
     }
 
     @Test
@@ -67,7 +67,7 @@ class InvoiceLineItemCreateParamsTest {
             InvoiceLineItemCreateParams.builder()
                 .invoiceId("invoice_id")
                 .name("name")
-                .unitAmount(123L)
+                .unitAmount(0L)
                 .build()
         assertThat(params).isNotNull
         // path param "invoiceId"

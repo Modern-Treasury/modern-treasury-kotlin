@@ -22,7 +22,7 @@ class PaymentOrderUpdateParamsTest {
             )
             .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .amount(123L)
+            .amount(0L)
             .chargeBearer(PaymentOrderUpdateParams.ChargeBearer.SHARED)
             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .currency(Currency.AED)
@@ -38,7 +38,7 @@ class PaymentOrderUpdateParamsTest {
             .lineItems(
                 listOf(
                     PaymentOrderUpdateParams.LineItemRequest.builder()
-                        .amount(123L)
+                        .amount(0L)
                         .accountingCategoryId("accounting_category_id")
                         .description("description")
                         .metadata(
@@ -90,7 +90,7 @@ class PaymentOrderUpdateParamsTest {
                             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .name("name")
                             .normalBalance(TransactionDirection.CREDIT)
-                            .currencyExponent(123L)
+                            .currencyExponent(0L)
                             .description("description")
                             .ledgerAccountCategoryIds(
                                 listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -171,7 +171,7 @@ class PaymentOrderUpdateParamsTest {
                 )
                 .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .amount(123L)
+                .amount(0L)
                 .chargeBearer(PaymentOrderUpdateParams.ChargeBearer.SHARED)
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .currency(Currency.AED)
@@ -187,7 +187,7 @@ class PaymentOrderUpdateParamsTest {
                 .lineItems(
                     listOf(
                         PaymentOrderUpdateParams.LineItemRequest.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .accountingCategoryId("accounting_category_id")
                             .description("description")
                             .metadata(
@@ -239,7 +239,7 @@ class PaymentOrderUpdateParamsTest {
                                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .name("name")
                                 .normalBalance(TransactionDirection.CREDIT)
-                                .currencyExponent(123L)
+                                .currencyExponent(0L)
                                 .description("description")
                                 .ledgerAccountCategoryIds(
                                     listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -320,7 +320,7 @@ class PaymentOrderUpdateParamsTest {
             )
         assertThat(body.accountingCategoryId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.accountingLedgerClassId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.chargeBearer()).isEqualTo(PaymentOrderUpdateParams.ChargeBearer.SHARED)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.currency()).isEqualTo(Currency.AED)
@@ -336,7 +336,7 @@ class PaymentOrderUpdateParamsTest {
             .isEqualTo(
                 listOf(
                     PaymentOrderUpdateParams.LineItemRequest.builder()
-                        .amount(123L)
+                        .amount(0L)
                         .accountingCategoryId("accounting_category_id")
                         .description("description")
                         .metadata(
@@ -389,7 +389,7 @@ class PaymentOrderUpdateParamsTest {
                             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .name("name")
                             .normalBalance(TransactionDirection.CREDIT)
-                            .currencyExponent(123L)
+                            .currencyExponent(0L)
                             .description("description")
                             .ledgerAccountCategoryIds(
                                 listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

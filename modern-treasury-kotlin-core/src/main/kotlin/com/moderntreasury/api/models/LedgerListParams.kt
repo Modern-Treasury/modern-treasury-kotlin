@@ -31,6 +31,10 @@ constructor(
 
     fun updatedAt(): UpdatedAt? = updatedAt
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -47,25 +51,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerListParams && this.id == other.id && this.afterCursor == other.afterCursor && this.metadata == other.metadata && this.perPage == other.perPage && this.updatedAt == other.updatedAt && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(id, afterCursor, metadata, perPage, updatedAt, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
-
-    override fun toString() =
-        "LedgerListParams{id=$id, afterCursor=$afterCursor, metadata=$metadata, perPage=$perPage, updatedAt=$updatedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -86,13 +71,13 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(ledgerListParams: LedgerListParams) = apply {
-            this.id(ledgerListParams.id ?: listOf())
-            this.afterCursor = ledgerListParams.afterCursor
-            this.metadata = ledgerListParams.metadata
-            this.perPage = ledgerListParams.perPage
-            this.updatedAt = ledgerListParams.updatedAt
-            additionalHeaders(ledgerListParams.additionalHeaders)
-            additionalQueryParams(ledgerListParams.additionalQueryParams)
+            id = ledgerListParams.id?.toMutableList() ?: mutableListOf()
+            afterCursor = ledgerListParams.afterCursor
+            metadata = ledgerListParams.metadata
+            perPage = ledgerListParams.perPage
+            updatedAt = ledgerListParams.updatedAt
+            additionalHeaders = ledgerListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = ledgerListParams.additionalQueryParams.toBuilder()
         }
 
         /**
@@ -227,7 +212,7 @@ constructor(
 
         fun build(): LedgerListParams =
             LedgerListParams(
-                if (id.size == 0) null else id.toImmutable(),
+                id.toImmutable().ifEmpty { null },
                 afterCursor,
                 metadata,
                 perPage,
@@ -291,17 +276,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
@@ -361,18 +343,28 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is UpdatedAt && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is UpdatedAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "UpdatedAt{additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerListParams && id == other.id && afterCursor == other.afterCursor && metadata == other.metadata && perPage == other.perPage && updatedAt == other.updatedAt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, afterCursor, metadata, perPage, updatedAt, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "LedgerListParams{id=$id, afterCursor=$afterCursor, metadata=$metadata, perPage=$perPage, updatedAt=$updatedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

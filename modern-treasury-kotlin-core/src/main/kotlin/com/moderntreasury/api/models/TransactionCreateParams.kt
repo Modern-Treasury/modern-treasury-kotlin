@@ -57,6 +57,12 @@ constructor(
 
     fun vendorDescription(): String? = vendorDescription
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): TransactionCreateBody {
         return TransactionCreateBody(
             amount,
@@ -278,42 +284,18 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is TransactionCreateBody && this.amount == other.amount && this.asOfDate == other.asOfDate && this.direction == other.direction && this.internalAccountId == other.internalAccountId && this.vendorCode == other.vendorCode && this.vendorCodeType == other.vendorCodeType && this.metadata == other.metadata && this.posted == other.posted && this.type == other.type && this.vendorDescription == other.vendorDescription && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is TransactionCreateBody && amount == other.amount && asOfDate == other.asOfDate && direction == other.direction && internalAccountId == other.internalAccountId && vendorCode == other.vendorCode && vendorCodeType == other.vendorCodeType && metadata == other.metadata && posted == other.posted && type == other.type && vendorDescription == other.vendorDescription && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(amount, asOfDate, direction, internalAccountId, vendorCode, vendorCodeType, metadata, posted, type, vendorDescription, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(amount, asOfDate, direction, internalAccountId, vendorCode, vendorCodeType, metadata, posted, type, vendorDescription, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "TransactionCreateBody{amount=$amount, asOfDate=$asOfDate, direction=$direction, internalAccountId=$internalAccountId, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, metadata=$metadata, posted=$posted, type=$type, vendorDescription=$vendorDescription, additionalProperties=$additionalProperties}"
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is TransactionCreateParams && this.amount == other.amount && this.asOfDate == other.asOfDate && this.direction == other.direction && this.internalAccountId == other.internalAccountId && this.vendorCode == other.vendorCode && this.vendorCodeType == other.vendorCodeType && this.metadata == other.metadata && this.posted == other.posted && this.type == other.type && this.vendorDescription == other.vendorDescription && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(amount, asOfDate, direction, internalAccountId, vendorCode, vendorCodeType, metadata, posted, type, vendorDescription, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
-
-    override fun toString() =
-        "TransactionCreateParams{amount=$amount, asOfDate=$asOfDate, direction=$direction, internalAccountId=$internalAccountId, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, metadata=$metadata, posted=$posted, type=$type, vendorDescription=$vendorDescription, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -340,19 +322,20 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(transactionCreateParams: TransactionCreateParams) = apply {
-            this.amount = transactionCreateParams.amount
-            this.asOfDate = transactionCreateParams.asOfDate
-            this.direction = transactionCreateParams.direction
-            this.internalAccountId = transactionCreateParams.internalAccountId
-            this.vendorCode = transactionCreateParams.vendorCode
-            this.vendorCodeType = transactionCreateParams.vendorCodeType
-            this.metadata = transactionCreateParams.metadata
-            this.posted = transactionCreateParams.posted
-            this.type = transactionCreateParams.type
-            this.vendorDescription = transactionCreateParams.vendorDescription
-            additionalHeaders(transactionCreateParams.additionalHeaders)
-            additionalQueryParams(transactionCreateParams.additionalQueryParams)
-            additionalBodyProperties(transactionCreateParams.additionalBodyProperties)
+            amount = transactionCreateParams.amount
+            asOfDate = transactionCreateParams.asOfDate
+            direction = transactionCreateParams.direction
+            internalAccountId = transactionCreateParams.internalAccountId
+            vendorCode = transactionCreateParams.vendorCode
+            vendorCodeType = transactionCreateParams.vendorCodeType
+            metadata = transactionCreateParams.metadata
+            posted = transactionCreateParams.posted
+            type = transactionCreateParams.type
+            vendorDescription = transactionCreateParams.vendorDescription
+            additionalHeaders = transactionCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = transactionCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                transactionCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
@@ -594,17 +577,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
@@ -622,7 +602,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -839,4 +819,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is TransactionCreateParams && amount == other.amount && asOfDate == other.asOfDate && direction == other.direction && internalAccountId == other.internalAccountId && vendorCode == other.vendorCode && vendorCodeType == other.vendorCodeType && metadata == other.metadata && posted == other.posted && type == other.type && vendorDescription == other.vendorDescription && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, asOfDate, direction, internalAccountId, vendorCode, vendorCodeType, metadata, posted, type, vendorDescription, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "TransactionCreateParams{amount=$amount, asOfDate=$asOfDate, direction=$direction, internalAccountId=$internalAccountId, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, metadata=$metadata, posted=$posted, type=$type, vendorDescription=$vendorDescription, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

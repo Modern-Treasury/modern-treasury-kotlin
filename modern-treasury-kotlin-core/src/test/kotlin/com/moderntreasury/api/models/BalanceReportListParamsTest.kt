@@ -17,7 +17,7 @@ class BalanceReportListParamsTest {
             .afterCursor("after_cursor")
             .asOfDate(LocalDate.parse("2019-12-27"))
             .balanceReportType(BalanceReportListParams.BalanceReportType.INTRADAY)
-            .perPage(123L)
+            .perPage(0L)
             .build()
     }
 
@@ -29,7 +29,7 @@ class BalanceReportListParamsTest {
                 .afterCursor("after_cursor")
                 .asOfDate(LocalDate.parse("2019-12-27"))
                 .balanceReportType(BalanceReportListParams.BalanceReportType.INTRADAY)
-                .perPage(123L)
+                .perPage(0L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("after_cursor", "after_cursor")
@@ -38,7 +38,7 @@ class BalanceReportListParamsTest {
             "balance_report_type",
             BalanceReportListParams.BalanceReportType.INTRADAY.toString()
         )
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 

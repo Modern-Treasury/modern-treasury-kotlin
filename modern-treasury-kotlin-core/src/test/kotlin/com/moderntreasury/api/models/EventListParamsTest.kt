@@ -18,7 +18,7 @@ class EventListParamsTest {
             .eventName("event_name")
             .eventTimeEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .eventTimeStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .perPage(123L)
+            .perPage(0L)
             .resource("resource")
             .build()
     }
@@ -32,7 +32,7 @@ class EventListParamsTest {
                 .eventName("event_name")
                 .eventTimeEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .eventTimeStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .perPage(123L)
+                .perPage(0L)
                 .resource("resource")
                 .build()
         val expected = QueryParams.builder()
@@ -41,7 +41,7 @@ class EventListParamsTest {
         expected.put("event_name", "event_name")
         expected.put("event_time_end", "2019-12-27T18:11:19.117Z")
         expected.put("event_time_start", "2019-12-27T18:11:19.117Z")
-        expected.put("per_page", "123")
+        expected.put("per_page", "0")
         expected.put("resource", "resource")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
