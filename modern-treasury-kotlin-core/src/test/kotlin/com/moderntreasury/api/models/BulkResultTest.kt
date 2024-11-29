@@ -43,68 +43,6 @@ class BulkResultTest {
                                     .code(ReturnObject.Code._901)
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .currency(Currency.AED)
-                                    .currentReturn(
-                                        ReturnObject.builder()
-                                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                            .amount(0L)
-                                            .code(ReturnObject.Code._901)
-                                            .createdAt(
-                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                            )
-                                            .currency(Currency.AED)
-                                            .dateOfDeath(LocalDate.parse("2019-12-27"))
-                                            .failureReason("failure_reason")
-                                            .internalAccountId(
-                                                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
-                                            )
-                                            .ledgerTransactionId(
-                                                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
-                                            )
-                                            .liveMode(true)
-                                            .object_("object")
-                                            .reason("reason")
-                                            .referenceNumbers(
-                                                listOf(
-                                                    ReturnObject.PaymentReference.builder()
-                                                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                                        .createdAt(
-                                                            OffsetDateTime.parse(
-                                                                "2019-12-27T18:11:19.117Z"
-                                                            )
-                                                        )
-                                                        .liveMode(true)
-                                                        .object_("object")
-                                                        .referenceNumber("reference_number")
-                                                        .referenceNumberType(
-                                                            ReturnObject.PaymentReference
-                                                                .ReferenceNumberType
-                                                                .ACH_ORIGINAL_TRACE_NUMBER
-                                                        )
-                                                        .updatedAt(
-                                                            OffsetDateTime.parse(
-                                                                "2019-12-27T18:11:19.117Z"
-                                                            )
-                                                        )
-                                                        .build()
-                                                )
-                                            )
-                                            .returnableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                            .returnableType(
-                                                ReturnObject.ReturnableType.INCOMING_PAYMENT_DETAIL
-                                            )
-                                            .role(ReturnObject.Role.ORIGINATING)
-                                            .status(ReturnObject.Status.COMPLETED)
-                                            .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                            .transactionLineItemId(
-                                                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
-                                            )
-                                            .type(ReturnObject.Type.ACH)
-                                            .updatedAt(
-                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                            )
-                                            .additionalInformation("additional_information")
-                                            .build()
-                                    )
                                     .dateOfDeath(LocalDate.parse("2019-12-27"))
                                     .failureReason("failure_reason")
                                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -372,60 +310,6 @@ class BulkResultTest {
                                 .code(ReturnObject.Code._901)
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .currency(Currency.AED)
-                                .currentReturn(
-                                    ReturnObject.builder()
-                                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                        .amount(0L)
-                                        .code(ReturnObject.Code._901)
-                                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .currency(Currency.AED)
-                                        .dateOfDeath(LocalDate.parse("2019-12-27"))
-                                        .failureReason("failure_reason")
-                                        .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                        .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                        .liveMode(true)
-                                        .object_("object")
-                                        .reason("reason")
-                                        .referenceNumbers(
-                                            listOf(
-                                                ReturnObject.PaymentReference.builder()
-                                                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                                    .createdAt(
-                                                        OffsetDateTime.parse(
-                                                            "2019-12-27T18:11:19.117Z"
-                                                        )
-                                                    )
-                                                    .liveMode(true)
-                                                    .object_("object")
-                                                    .referenceNumber("reference_number")
-                                                    .referenceNumberType(
-                                                        ReturnObject.PaymentReference
-                                                            .ReferenceNumberType
-                                                            .ACH_ORIGINAL_TRACE_NUMBER
-                                                    )
-                                                    .updatedAt(
-                                                        OffsetDateTime.parse(
-                                                            "2019-12-27T18:11:19.117Z"
-                                                        )
-                                                    )
-                                                    .build()
-                                            )
-                                        )
-                                        .returnableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                        .returnableType(
-                                            ReturnObject.ReturnableType.INCOMING_PAYMENT_DETAIL
-                                        )
-                                        .role(ReturnObject.Role.ORIGINATING)
-                                        .status(ReturnObject.Status.COMPLETED)
-                                        .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                        .transactionLineItemId(
-                                            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
-                                        )
-                                        .type(ReturnObject.Type.ACH)
-                                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .additionalInformation("additional_information")
-                                        .build()
-                                )
                                 .dateOfDeath(LocalDate.parse("2019-12-27"))
                                 .failureReason("failure_reason")
                                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
