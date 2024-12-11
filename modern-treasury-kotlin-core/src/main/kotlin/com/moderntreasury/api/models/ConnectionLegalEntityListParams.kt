@@ -223,13 +223,13 @@ constructor(
 
         companion object {
 
-            val COMPLETED = Status(JsonField.of("completed"))
+            val COMPLETED = of("completed")
 
-            val DENIED = Status(JsonField.of("denied"))
+            val DENIED = of("denied")
 
-            val FAILED = Status(JsonField.of("failed"))
+            val FAILED = of("failed")
 
-            val PROCESSING = Status(JsonField.of("processing"))
+            val PROCESSING = of("processing")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

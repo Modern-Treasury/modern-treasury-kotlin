@@ -796,9 +796,9 @@ constructor(
 
             companion object {
 
-                val ASC = CreatedAt(JsonField.of("asc"))
+                val ASC = of("asc")
 
-                val DESC = CreatedAt(JsonField.of("desc"))
+                val DESC = of("desc")
 
                 fun of(value: String) = CreatedAt(JsonField.of(value))
             }
@@ -853,9 +853,9 @@ constructor(
 
             companion object {
 
-                val ASC = EffectiveAt(JsonField.of("asc"))
+                val ASC = of("asc")
 
-                val DESC = EffectiveAt(JsonField.of("desc"))
+                val DESC = of("desc")
 
                 fun of(value: String) = EffectiveAt(JsonField.of(value))
             }
@@ -928,11 +928,11 @@ constructor(
 
         companion object {
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val POSTED = Status(JsonField.of("posted"))
+            val POSTED = of("posted")
 
-            val ARCHIVED = Status(JsonField.of("archived"))
+            val ARCHIVED = of("archived")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

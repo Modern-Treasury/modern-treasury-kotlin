@@ -231,9 +231,9 @@ constructor(
 
         companion object {
 
-            val BUSINESS = LegalEntityType(JsonField.of("business"))
+            val BUSINESS = of("business")
 
-            val INDIVIDUAL = LegalEntityType(JsonField.of("individual"))
+            val INDIVIDUAL = of("individual")
 
             fun of(value: String) = LegalEntityType(JsonField.of(value))
         }

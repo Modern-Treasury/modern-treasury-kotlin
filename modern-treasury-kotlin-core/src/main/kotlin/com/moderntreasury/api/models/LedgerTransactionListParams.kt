@@ -542,17 +542,17 @@ constructor(
 
         companion object {
 
-            val EXPECTED_PAYMENT = LedgerableType(JsonField.of("expected_payment"))
+            val EXPECTED_PAYMENT = of("expected_payment")
 
-            val INCOMING_PAYMENT_DETAIL = LedgerableType(JsonField.of("incoming_payment_detail"))
+            val INCOMING_PAYMENT_DETAIL = of("incoming_payment_detail")
 
-            val PAPER_ITEM = LedgerableType(JsonField.of("paper_item"))
+            val PAPER_ITEM = of("paper_item")
 
-            val PAYMENT_ORDER = LedgerableType(JsonField.of("payment_order"))
+            val PAYMENT_ORDER = of("payment_order")
 
-            val RETURN = LedgerableType(JsonField.of("return"))
+            val RETURN = of("return")
 
-            val REVERSAL = LedgerableType(JsonField.of("reversal"))
+            val REVERSAL = of("reversal")
 
             fun of(value: String) = LedgerableType(JsonField.of(value))
         }
@@ -760,9 +760,9 @@ constructor(
 
             companion object {
 
-                val ASC = CreatedAt(JsonField.of("asc"))
+                val ASC = of("asc")
 
-                val DESC = CreatedAt(JsonField.of("desc"))
+                val DESC = of("desc")
 
                 fun of(value: String) = CreatedAt(JsonField.of(value))
             }
@@ -817,9 +817,9 @@ constructor(
 
             companion object {
 
-                val ASC = EffectiveAt(JsonField.of("asc"))
+                val ASC = of("asc")
 
-                val DESC = EffectiveAt(JsonField.of("desc"))
+                val DESC = of("desc")
 
                 fun of(value: String) = EffectiveAt(JsonField.of(value))
             }
@@ -959,11 +959,11 @@ constructor(
 
         companion object {
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val POSTED = Status(JsonField.of("posted"))
+            val POSTED = of("posted")
 
-            val ARCHIVED = Status(JsonField.of("archived"))
+            val ARCHIVED = of("archived")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

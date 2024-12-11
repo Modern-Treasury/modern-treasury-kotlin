@@ -208,52 +208,45 @@ constructor(
 
         companion object {
 
-            val ABA = RoutingNumberType(JsonField.of("aba"))
+            val ABA = of("aba")
 
-            val AU_BSB = RoutingNumberType(JsonField.of("au_bsb"))
+            val AU_BSB = of("au_bsb")
 
-            val BR_CODIGO = RoutingNumberType(JsonField.of("br_codigo"))
+            val BR_CODIGO = of("br_codigo")
 
-            val CA_CPA = RoutingNumberType(JsonField.of("ca_cpa"))
+            val CA_CPA = of("ca_cpa")
 
-            val CHIPS = RoutingNumberType(JsonField.of("chips"))
+            val CHIPS = of("chips")
 
-            val CNAPS = RoutingNumberType(JsonField.of("cnaps"))
+            val CNAPS = of("cnaps")
 
-            val DK_INTERBANK_CLEARING_CODE =
-                RoutingNumberType(JsonField.of("dk_interbank_clearing_code"))
+            val DK_INTERBANK_CLEARING_CODE = of("dk_interbank_clearing_code")
 
-            val GB_SORT_CODE = RoutingNumberType(JsonField.of("gb_sort_code"))
+            val GB_SORT_CODE = of("gb_sort_code")
 
-            val HK_INTERBANK_CLEARING_CODE =
-                RoutingNumberType(JsonField.of("hk_interbank_clearing_code"))
+            val HK_INTERBANK_CLEARING_CODE = of("hk_interbank_clearing_code")
 
-            val HU_INTERBANK_CLEARING_CODE =
-                RoutingNumberType(JsonField.of("hu_interbank_clearing_code"))
+            val HU_INTERBANK_CLEARING_CODE = of("hu_interbank_clearing_code")
 
-            val ID_SKNBI_CODE = RoutingNumberType(JsonField.of("id_sknbi_code"))
+            val ID_SKNBI_CODE = of("id_sknbi_code")
 
-            val IN_IFSC = RoutingNumberType(JsonField.of("in_ifsc"))
+            val IN_IFSC = of("in_ifsc")
 
-            val JP_ZENGIN_CODE = RoutingNumberType(JsonField.of("jp_zengin_code"))
+            val JP_ZENGIN_CODE = of("jp_zengin_code")
 
-            val MX_BANK_IDENTIFIER = RoutingNumberType(JsonField.of("mx_bank_identifier"))
+            val MX_BANK_IDENTIFIER = of("mx_bank_identifier")
 
-            val MY_BRANCH_CODE = RoutingNumberType(JsonField.of("my_branch_code"))
+            val MY_BRANCH_CODE = of("my_branch_code")
 
-            val NZ_NATIONAL_CLEARING_CODE =
-                RoutingNumberType(JsonField.of("nz_national_clearing_code"))
+            val NZ_NATIONAL_CLEARING_CODE = of("nz_national_clearing_code")
 
-            val PL_NATIONAL_CLEARING_CODE =
-                RoutingNumberType(JsonField.of("pl_national_clearing_code"))
+            val PL_NATIONAL_CLEARING_CODE = of("pl_national_clearing_code")
 
-            val SE_BANKGIRO_CLEARING_CODE =
-                RoutingNumberType(JsonField.of("se_bankgiro_clearing_code"))
+            val SE_BANKGIRO_CLEARING_CODE = of("se_bankgiro_clearing_code")
 
-            val SWIFT = RoutingNumberType(JsonField.of("swift"))
+            val SWIFT = of("swift")
 
-            val ZA_NATIONAL_CLEARING_CODE =
-                RoutingNumberType(JsonField.of("za_national_clearing_code"))
+            val ZA_NATIONAL_CLEARING_CODE = of("za_national_clearing_code")
 
             fun of(value: String) = RoutingNumberType(JsonField.of(value))
         }

@@ -620,9 +620,9 @@ private constructor(
 
         companion object {
 
-            val CREDIT = Direction(JsonField.of("credit"))
+            val CREDIT = of("credit")
 
-            val DEBIT = Direction(JsonField.of("debit"))
+            val DEBIT = of("debit")
 
             fun of(value: String) = Direction(JsonField.of(value))
         }
@@ -677,7 +677,7 @@ private constructor(
 
         companion object {
 
-            val VERIFIED = ExistingExternalAccountsFilter(JsonField.of("verified"))
+            val VERIFIED = of("verified")
 
             fun of(value: String) = ExistingExternalAccountsFilter(JsonField.of(value))
         }
@@ -731,9 +731,9 @@ private constructor(
 
         companion object {
 
-            val DISABLED = ExternalAccountCollection(JsonField.of("disabled"))
+            val DISABLED = of("disabled")
 
-            val ENABLED = ExternalAccountCollection(JsonField.of("enabled"))
+            val ENABLED = of("enabled")
 
             fun of(value: String) = ExternalAccountCollection(JsonField.of(value))
         }
@@ -791,13 +791,13 @@ private constructor(
 
         companion object {
 
-            val CANCELLED = Status(JsonField.of("cancelled"))
+            val CANCELLED = of("cancelled")
 
-            val COMPLETED = Status(JsonField.of("completed"))
+            val COMPLETED = of("completed")
 
-            val EXPIRED = Status(JsonField.of("expired"))
+            val EXPIRED = of("expired")
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

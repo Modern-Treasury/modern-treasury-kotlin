@@ -879,15 +879,15 @@ private constructor(
 
         companion object {
 
-            val PAYMENT_ORDER = EntityType(JsonField.of("payment_order"))
+            val PAYMENT_ORDER = of("payment_order")
 
-            val LEDGER_TRANSACTION = EntityType(JsonField.of("ledger_transaction"))
+            val LEDGER_TRANSACTION = of("ledger_transaction")
 
-            val TRANSACTION = EntityType(JsonField.of("transaction"))
+            val TRANSACTION = of("transaction")
 
-            val EXPECTED_PAYMENT = EntityType(JsonField.of("expected_payment"))
+            val EXPECTED_PAYMENT = of("expected_payment")
 
-            val BULK_ERROR = EntityType(JsonField.of("bulk_error"))
+            val BULK_ERROR = of("bulk_error")
 
             fun of(value: String) = EntityType(JsonField.of(value))
         }
@@ -1026,7 +1026,7 @@ private constructor(
 
         companion object {
 
-            val BULK_REQUEST = RequestType(JsonField.of("bulk_request"))
+            val BULK_REQUEST = of("bulk_request")
 
             fun of(value: String) = RequestType(JsonField.of(value))
         }
@@ -1077,11 +1077,11 @@ private constructor(
 
         companion object {
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val SUCCESSFUL = Status(JsonField.of("successful"))
+            val SUCCESSFUL = of("successful")
 
-            val FAILED = Status(JsonField.of("failed"))
+            val FAILED = of("failed")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

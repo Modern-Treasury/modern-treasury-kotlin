@@ -317,30 +317,29 @@ constructor(
 
         companion object {
 
-            val CASES = DocumentableType(JsonField.of("cases"))
+            val CASES = of("cases")
 
-            val COUNTERPARTIES = DocumentableType(JsonField.of("counterparties"))
+            val COUNTERPARTIES = of("counterparties")
 
-            val EXPECTED_PAYMENTS = DocumentableType(JsonField.of("expected_payments"))
+            val EXPECTED_PAYMENTS = of("expected_payments")
 
-            val EXTERNAL_ACCOUNTS = DocumentableType(JsonField.of("external_accounts"))
+            val EXTERNAL_ACCOUNTS = of("external_accounts")
 
-            val INCOMING_PAYMENT_DETAILS =
-                DocumentableType(JsonField.of("incoming_payment_details"))
+            val INCOMING_PAYMENT_DETAILS = of("incoming_payment_details")
 
-            val INTERNAL_ACCOUNTS = DocumentableType(JsonField.of("internal_accounts"))
+            val INTERNAL_ACCOUNTS = of("internal_accounts")
 
-            val ORGANIZATIONS = DocumentableType(JsonField.of("organizations"))
+            val ORGANIZATIONS = of("organizations")
 
-            val PAPER_ITEMS = DocumentableType(JsonField.of("paper_items"))
+            val PAPER_ITEMS = of("paper_items")
 
-            val PAYMENT_ORDERS = DocumentableType(JsonField.of("payment_orders"))
+            val PAYMENT_ORDERS = of("payment_orders")
 
-            val TRANSACTIONS = DocumentableType(JsonField.of("transactions"))
+            val TRANSACTIONS = of("transactions")
 
-            val DECISIONS = DocumentableType(JsonField.of("decisions"))
+            val DECISIONS = of("decisions")
 
-            val CONNECTIONS = DocumentableType(JsonField.of("connections"))
+            val CONNECTIONS = of("connections")
 
             fun of(value: String) = DocumentableType(JsonField.of(value))
         }

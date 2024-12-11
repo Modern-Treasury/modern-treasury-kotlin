@@ -447,63 +447,63 @@ constructor(
 
         companion object {
 
-            val NAME = Field(JsonField.of("name"))
+            val NAME = of("name")
 
-            val NAME_ON_ACCOUNT = Field(JsonField.of("nameOnAccount"))
+            val NAME_ON_ACCOUNT = of("nameOnAccount")
 
-            val TAXPAYER_IDENTIFIER = Field(JsonField.of("taxpayerIdentifier"))
+            val TAXPAYER_IDENTIFIER = of("taxpayerIdentifier")
 
-            val ACCOUNT_TYPE = Field(JsonField.of("accountType"))
+            val ACCOUNT_TYPE = of("accountType")
 
-            val ACCOUNT_NUMBER = Field(JsonField.of("accountNumber"))
+            val ACCOUNT_NUMBER = of("accountNumber")
 
-            val IBAN_NUMBER = Field(JsonField.of("ibanNumber"))
+            val IBAN_NUMBER = of("ibanNumber")
 
-            val CLABE_NUMBER = Field(JsonField.of("clabeNumber"))
+            val CLABE_NUMBER = of("clabeNumber")
 
-            val WALLET_ADDRESS = Field(JsonField.of("walletAddress"))
+            val WALLET_ADDRESS = of("walletAddress")
 
-            val PAN_NUMBER = Field(JsonField.of("panNumber"))
+            val PAN_NUMBER = of("panNumber")
 
-            val ROUTING_NUMBER = Field(JsonField.of("routingNumber"))
+            val ROUTING_NUMBER = of("routingNumber")
 
-            val ABA_WIRE_ROUTING_NUMBER = Field(JsonField.of("abaWireRoutingNumber"))
+            val ABA_WIRE_ROUTING_NUMBER = of("abaWireRoutingNumber")
 
-            val SWIFT_CODE = Field(JsonField.of("swiftCode"))
+            val SWIFT_CODE = of("swiftCode")
 
-            val AU_BSB = Field(JsonField.of("auBsb"))
+            val AU_BSB = of("auBsb")
 
-            val CA_CPA = Field(JsonField.of("caCpa"))
+            val CA_CPA = of("caCpa")
 
-            val CNAPS = Field(JsonField.of("cnaps"))
+            val CNAPS = of("cnaps")
 
-            val GB_SORT_CODE = Field(JsonField.of("gbSortCode"))
+            val GB_SORT_CODE = of("gbSortCode")
 
-            val IN_IFSC = Field(JsonField.of("inIfsc"))
+            val IN_IFSC = of("inIfsc")
 
-            val MY_BRANCH_CODE = Field(JsonField.of("myBranchCode"))
+            val MY_BRANCH_CODE = of("myBranchCode")
 
-            val BR_CODIGO = Field(JsonField.of("brCodigo"))
+            val BR_CODIGO = of("brCodigo")
 
-            val ROUTING_NUMBER_TYPE = Field(JsonField.of("routingNumberType"))
+            val ROUTING_NUMBER_TYPE = of("routingNumberType")
 
-            val ADDRESS = Field(JsonField.of("address"))
+            val ADDRESS = of("address")
 
-            val JP_ZENGIN_CODE = Field(JsonField.of("jpZenginCode"))
+            val JP_ZENGIN_CODE = of("jpZenginCode")
 
-            val SE_BANKGIRO_CLEARING_CODE = Field(JsonField.of("seBankgiroClearingCode"))
+            val SE_BANKGIRO_CLEARING_CODE = of("seBankgiroClearingCode")
 
-            val NZ_NATIONAL_CLEARING_CODE = Field(JsonField.of("nzNationalClearingCode"))
+            val NZ_NATIONAL_CLEARING_CODE = of("nzNationalClearingCode")
 
-            val HK_INTERBANK_CLEARING_CODE = Field(JsonField.of("hkInterbankClearingCode"))
+            val HK_INTERBANK_CLEARING_CODE = of("hkInterbankClearingCode")
 
-            val HU_INTERBANK_CLEARING_CODE = Field(JsonField.of("huInterbankClearingCode"))
+            val HU_INTERBANK_CLEARING_CODE = of("huInterbankClearingCode")
 
-            val DK_INTERBANK_CLEARING_CODE = Field(JsonField.of("dkInterbankClearingCode"))
+            val DK_INTERBANK_CLEARING_CODE = of("dkInterbankClearingCode")
 
-            val ID_SKNBI_CODE = Field(JsonField.of("idSknbiCode"))
+            val ID_SKNBI_CODE = of("idSknbiCode")
 
-            val ZA_NATIONAL_CLEARING_CODE = Field(JsonField.of("za_national_clearing_code"))
+            val ZA_NATIONAL_CLEARING_CODE = of("za_national_clearing_code")
 
             fun of(value: String) = Field(JsonField.of(value))
         }

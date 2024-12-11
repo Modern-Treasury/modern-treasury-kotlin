@@ -401,11 +401,11 @@ constructor(
 
         companion object {
 
-            val CREATE = ActionType(JsonField.of("create"))
+            val CREATE = of("create")
 
-            val UPDATE = ActionType(JsonField.of("update"))
+            val UPDATE = of("update")
 
-            val DELETE = ActionType(JsonField.of("delete"))
+            val DELETE = of("delete")
 
             fun of(value: String) = ActionType(JsonField.of(value))
         }
@@ -464,13 +464,13 @@ constructor(
 
         companion object {
 
-            val PAYMENT_ORDER = ResourceType(JsonField.of("payment_order"))
+            val PAYMENT_ORDER = of("payment_order")
 
-            val LEDGER_TRANSACTION = ResourceType(JsonField.of("ledger_transaction"))
+            val LEDGER_TRANSACTION = of("ledger_transaction")
 
-            val TRANSACTION = ResourceType(JsonField.of("transaction"))
+            val TRANSACTION = of("transaction")
 
-            val EXPECTED_PAYMENT = ResourceType(JsonField.of("expected_payment"))
+            val EXPECTED_PAYMENT = of("expected_payment")
 
             fun of(value: String) = ResourceType(JsonField.of(value))
         }
@@ -2163,9 +2163,9 @@ constructor(
 
                 companion object {
 
-                    val CREDIT = Direction(JsonField.of("credit"))
+                    val CREDIT = of("credit")
 
-                    val DEBIT = Direction(JsonField.of("debit"))
+                    val DEBIT = of("debit")
 
                     fun of(value: String) = Direction(JsonField.of(value))
                 }
@@ -2362,11 +2362,11 @@ constructor(
 
                 companion object {
 
-                    val SHARED = ChargeBearer(JsonField.of("shared"))
+                    val SHARED = of("shared")
 
-                    val SENDER = ChargeBearer(JsonField.of("sender"))
+                    val SENDER = of("sender")
 
-                    val RECEIVER = ChargeBearer(JsonField.of("receiver"))
+                    val RECEIVER = of("receiver")
 
                     fun of(value: String) = ChargeBearer(JsonField.of(value))
                 }
@@ -2426,7 +2426,7 @@ constructor(
 
                 companion object {
 
-                    val ACH = FallbackType(JsonField.of("ach"))
+                    val ACH = of("ach")
 
                     fun of(value: String) = FallbackType(JsonField.of(value))
                 }
@@ -2478,11 +2478,9 @@ constructor(
 
                 companion object {
 
-                    val FIXED_TO_VARIABLE =
-                        ForeignExchangeIndicator(JsonField.of("fixed_to_variable"))
+                    val FIXED_TO_VARIABLE = of("fixed_to_variable")
 
-                    val VARIABLE_TO_FIXED =
-                        ForeignExchangeIndicator(JsonField.of("variable_to_fixed"))
+                    val VARIABLE_TO_FIXED = of("variable_to_fixed")
 
                     fun of(value: String) = ForeignExchangeIndicator(JsonField.of(value))
                 }
@@ -3617,18 +3615,17 @@ constructor(
 
                     companion object {
 
-                        val EXPECTED_PAYMENT = LedgerableType(JsonField.of("expected_payment"))
+                        val EXPECTED_PAYMENT = of("expected_payment")
 
-                        val INCOMING_PAYMENT_DETAIL =
-                            LedgerableType(JsonField.of("incoming_payment_detail"))
+                        val INCOMING_PAYMENT_DETAIL = of("incoming_payment_detail")
 
-                        val PAPER_ITEM = LedgerableType(JsonField.of("paper_item"))
+                        val PAPER_ITEM = of("paper_item")
 
-                        val PAYMENT_ORDER = LedgerableType(JsonField.of("payment_order"))
+                        val PAYMENT_ORDER = of("payment_order")
 
-                        val RETURN = LedgerableType(JsonField.of("return"))
+                        val RETURN = of("return")
 
-                        val REVERSAL = LedgerableType(JsonField.of("reversal"))
+                        val REVERSAL = of("reversal")
 
                         fun of(value: String) = LedgerableType(JsonField.of(value))
                     }
@@ -3777,11 +3774,11 @@ constructor(
 
                     companion object {
 
-                        val ARCHIVED = Status(JsonField.of("archived"))
+                        val ARCHIVED = of("archived")
 
-                        val PENDING = Status(JsonField.of("pending"))
+                        val PENDING = of("pending")
 
-                        val POSTED = Status(JsonField.of("posted"))
+                        val POSTED = of("posted")
 
                         fun of(value: String) = Status(JsonField.of(value))
                     }
@@ -4199,9 +4196,9 @@ constructor(
 
                 companion object {
 
-                    val HIGH = Priority(JsonField.of("high"))
+                    val HIGH = of("high")
 
-                    val NORMAL = Priority(JsonField.of("normal"))
+                    val NORMAL = of("normal")
 
                     fun of(value: String) = Priority(JsonField.of(value))
                 }
@@ -4744,25 +4741,25 @@ constructor(
 
                         companion object {
 
-                            val AU_NUMBER = AccountNumberType(JsonField.of("au_number"))
+                            val AU_NUMBER = of("au_number")
 
-                            val CLABE = AccountNumberType(JsonField.of("clabe"))
+                            val CLABE = of("clabe")
 
-                            val HK_NUMBER = AccountNumberType(JsonField.of("hk_number"))
+                            val HK_NUMBER = of("hk_number")
 
-                            val IBAN = AccountNumberType(JsonField.of("iban"))
+                            val IBAN = of("iban")
 
-                            val ID_NUMBER = AccountNumberType(JsonField.of("id_number"))
+                            val ID_NUMBER = of("id_number")
 
-                            val NZ_NUMBER = AccountNumberType(JsonField.of("nz_number"))
+                            val NZ_NUMBER = of("nz_number")
 
-                            val OTHER = AccountNumberType(JsonField.of("other"))
+                            val OTHER = of("other")
 
-                            val PAN = AccountNumberType(JsonField.of("pan"))
+                            val PAN = of("pan")
 
-                            val SG_NUMBER = AccountNumberType(JsonField.of("sg_number"))
+                            val SG_NUMBER = of("sg_number")
 
-                            val WALLET_ADDRESS = AccountNumberType(JsonField.of("wallet_address"))
+                            val WALLET_ADDRESS = of("wallet_address")
 
                             fun of(value: String) = AccountNumberType(JsonField.of(value))
                         }
@@ -4975,11 +4972,11 @@ constructor(
 
                         companion object {
 
-                            val EMAIL = ContactIdentifierType(JsonField.of("email"))
+                            val EMAIL = of("email")
 
-                            val PHONE_NUMBER = ContactIdentifierType(JsonField.of("phone_number"))
+                            val PHONE_NUMBER = of("phone_number")
 
-                            val WEBSITE = ContactIdentifierType(JsonField.of("website"))
+                            val WEBSITE = of("website")
 
                             fun of(value: String) = ContactIdentifierType(JsonField.of(value))
                         }
@@ -5409,13 +5406,13 @@ constructor(
 
                         companion object {
 
-                            val COUNTERPARTY = LedgerableType(JsonField.of("counterparty"))
+                            val COUNTERPARTY = of("counterparty")
 
-                            val EXTERNAL_ACCOUNT = LedgerableType(JsonField.of("external_account"))
+                            val EXTERNAL_ACCOUNT = of("external_account")
 
-                            val INTERNAL_ACCOUNT = LedgerableType(JsonField.of("internal_account"))
+                            val INTERNAL_ACCOUNT = of("internal_account")
 
-                            val VIRTUAL_ACCOUNT = LedgerableType(JsonField.of("virtual_account"))
+                            val VIRTUAL_ACCOUNT = of("virtual_account")
 
                             fun of(value: String) = LedgerableType(JsonField.of(value))
                         }
@@ -5834,9 +5831,9 @@ constructor(
 
                     companion object {
 
-                        val BUSINESS = PartyType(JsonField.of("business"))
+                        val BUSINESS = of("business")
 
-                        val INDIVIDUAL = PartyType(JsonField.of("individual"))
+                        val INDIVIDUAL = of("individual")
 
                         fun of(value: String) = PartyType(JsonField.of(value))
                     }
@@ -6012,53 +6009,45 @@ constructor(
 
                         companion object {
 
-                            val ABA = RoutingNumberType(JsonField.of("aba"))
+                            val ABA = of("aba")
 
-                            val AU_BSB = RoutingNumberType(JsonField.of("au_bsb"))
+                            val AU_BSB = of("au_bsb")
 
-                            val BR_CODIGO = RoutingNumberType(JsonField.of("br_codigo"))
+                            val BR_CODIGO = of("br_codigo")
 
-                            val CA_CPA = RoutingNumberType(JsonField.of("ca_cpa"))
+                            val CA_CPA = of("ca_cpa")
 
-                            val CHIPS = RoutingNumberType(JsonField.of("chips"))
+                            val CHIPS = of("chips")
 
-                            val CNAPS = RoutingNumberType(JsonField.of("cnaps"))
+                            val CNAPS = of("cnaps")
 
-                            val DK_INTERBANK_CLEARING_CODE =
-                                RoutingNumberType(JsonField.of("dk_interbank_clearing_code"))
+                            val DK_INTERBANK_CLEARING_CODE = of("dk_interbank_clearing_code")
 
-                            val GB_SORT_CODE = RoutingNumberType(JsonField.of("gb_sort_code"))
+                            val GB_SORT_CODE = of("gb_sort_code")
 
-                            val HK_INTERBANK_CLEARING_CODE =
-                                RoutingNumberType(JsonField.of("hk_interbank_clearing_code"))
+                            val HK_INTERBANK_CLEARING_CODE = of("hk_interbank_clearing_code")
 
-                            val HU_INTERBANK_CLEARING_CODE =
-                                RoutingNumberType(JsonField.of("hu_interbank_clearing_code"))
+                            val HU_INTERBANK_CLEARING_CODE = of("hu_interbank_clearing_code")
 
-                            val ID_SKNBI_CODE = RoutingNumberType(JsonField.of("id_sknbi_code"))
+                            val ID_SKNBI_CODE = of("id_sknbi_code")
 
-                            val IN_IFSC = RoutingNumberType(JsonField.of("in_ifsc"))
+                            val IN_IFSC = of("in_ifsc")
 
-                            val JP_ZENGIN_CODE = RoutingNumberType(JsonField.of("jp_zengin_code"))
+                            val JP_ZENGIN_CODE = of("jp_zengin_code")
 
-                            val MY_BRANCH_CODE = RoutingNumberType(JsonField.of("my_branch_code"))
+                            val MY_BRANCH_CODE = of("my_branch_code")
 
-                            val MX_BANK_IDENTIFIER =
-                                RoutingNumberType(JsonField.of("mx_bank_identifier"))
+                            val MX_BANK_IDENTIFIER = of("mx_bank_identifier")
 
-                            val NZ_NATIONAL_CLEARING_CODE =
-                                RoutingNumberType(JsonField.of("nz_national_clearing_code"))
+                            val NZ_NATIONAL_CLEARING_CODE = of("nz_national_clearing_code")
 
-                            val PL_NATIONAL_CLEARING_CODE =
-                                RoutingNumberType(JsonField.of("pl_national_clearing_code"))
+                            val PL_NATIONAL_CLEARING_CODE = of("pl_national_clearing_code")
 
-                            val SE_BANKGIRO_CLEARING_CODE =
-                                RoutingNumberType(JsonField.of("se_bankgiro_clearing_code"))
+                            val SE_BANKGIRO_CLEARING_CODE = of("se_bankgiro_clearing_code")
 
-                            val SWIFT = RoutingNumberType(JsonField.of("swift"))
+                            val SWIFT = of("swift")
 
-                            val ZA_NATIONAL_CLEARING_CODE =
-                                RoutingNumberType(JsonField.of("za_national_clearing_code"))
+                            val ZA_NATIONAL_CLEARING_CODE = of("za_national_clearing_code")
 
                             fun of(value: String) = RoutingNumberType(JsonField.of(value))
                         }
@@ -6189,65 +6178,65 @@ constructor(
 
                         companion object {
 
-                            val ACH = PaymentType(JsonField.of("ach"))
+                            val ACH = of("ach")
 
-                            val AU_BECS = PaymentType(JsonField.of("au_becs"))
+                            val AU_BECS = of("au_becs")
 
-                            val BACS = PaymentType(JsonField.of("bacs"))
+                            val BACS = of("bacs")
 
-                            val BOOK = PaymentType(JsonField.of("book"))
+                            val BOOK = of("book")
 
-                            val CARD = PaymentType(JsonField.of("card"))
+                            val CARD = of("card")
 
-                            val CHATS = PaymentType(JsonField.of("chats"))
+                            val CHATS = of("chats")
 
-                            val CHECK = PaymentType(JsonField.of("check"))
+                            val CHECK = of("check")
 
-                            val CROSS_BORDER = PaymentType(JsonField.of("cross_border"))
+                            val CROSS_BORDER = of("cross_border")
 
-                            val DK_NETS = PaymentType(JsonField.of("dk_nets"))
+                            val DK_NETS = of("dk_nets")
 
-                            val EFT = PaymentType(JsonField.of("eft"))
+                            val EFT = of("eft")
 
-                            val HU_ICS = PaymentType(JsonField.of("hu_ics"))
+                            val HU_ICS = of("hu_ics")
 
-                            val INTERAC = PaymentType(JsonField.of("interac"))
+                            val INTERAC = of("interac")
 
-                            val MASAV = PaymentType(JsonField.of("masav"))
+                            val MASAV = of("masav")
 
-                            val MX_CCEN = PaymentType(JsonField.of("mx_ccen"))
+                            val MX_CCEN = of("mx_ccen")
 
-                            val NEFT = PaymentType(JsonField.of("neft"))
+                            val NEFT = of("neft")
 
-                            val NICS = PaymentType(JsonField.of("nics"))
+                            val NICS = of("nics")
 
-                            val NZ_BECS = PaymentType(JsonField.of("nz_becs"))
+                            val NZ_BECS = of("nz_becs")
 
-                            val PL_ELIXIR = PaymentType(JsonField.of("pl_elixir"))
+                            val PL_ELIXIR = of("pl_elixir")
 
-                            val PROVXCHANGE = PaymentType(JsonField.of("provxchange"))
+                            val PROVXCHANGE = of("provxchange")
 
-                            val RO_SENT = PaymentType(JsonField.of("ro_sent"))
+                            val RO_SENT = of("ro_sent")
 
-                            val RTP = PaymentType(JsonField.of("rtp"))
+                            val RTP = of("rtp")
 
-                            val SE_BANKGIROT = PaymentType(JsonField.of("se_bankgirot"))
+                            val SE_BANKGIROT = of("se_bankgirot")
 
-                            val SEN = PaymentType(JsonField.of("sen"))
+                            val SEN = of("sen")
 
-                            val SEPA = PaymentType(JsonField.of("sepa"))
+                            val SEPA = of("sepa")
 
-                            val SG_GIRO = PaymentType(JsonField.of("sg_giro"))
+                            val SG_GIRO = of("sg_giro")
 
-                            val SIC = PaymentType(JsonField.of("sic"))
+                            val SIC = of("sic")
 
-                            val SIGNET = PaymentType(JsonField.of("signet"))
+                            val SIGNET = of("signet")
 
-                            val SKNBI = PaymentType(JsonField.of("sknbi"))
+                            val SKNBI = of("sknbi")
 
-                            val WIRE = PaymentType(JsonField.of("wire"))
+                            val WIRE = of("wire")
 
-                            val ZENGIN = PaymentType(JsonField.of("zengin"))
+                            val ZENGIN = of("zengin")
 
                             fun of(value: String) = PaymentType(JsonField.of(value))
                         }
@@ -7079,9 +7068,9 @@ constructor(
 
                 companion object {
 
-                    val CREDIT = Direction(JsonField.of("credit"))
+                    val CREDIT = of("credit")
 
-                    val DEBIT = Direction(JsonField.of("debit"))
+                    val DEBIT = of("debit")
 
                     fun of(value: String) = Direction(JsonField.of(value))
                 }
@@ -8215,18 +8204,17 @@ constructor(
 
                     companion object {
 
-                        val EXPECTED_PAYMENT = LedgerableType(JsonField.of("expected_payment"))
+                        val EXPECTED_PAYMENT = of("expected_payment")
 
-                        val INCOMING_PAYMENT_DETAIL =
-                            LedgerableType(JsonField.of("incoming_payment_detail"))
+                        val INCOMING_PAYMENT_DETAIL = of("incoming_payment_detail")
 
-                        val PAPER_ITEM = LedgerableType(JsonField.of("paper_item"))
+                        val PAPER_ITEM = of("paper_item")
 
-                        val PAYMENT_ORDER = LedgerableType(JsonField.of("payment_order"))
+                        val PAYMENT_ORDER = of("payment_order")
 
-                        val RETURN = LedgerableType(JsonField.of("return"))
+                        val RETURN = of("return")
 
-                        val REVERSAL = LedgerableType(JsonField.of("reversal"))
+                        val REVERSAL = of("reversal")
 
                         fun of(value: String) = LedgerableType(JsonField.of(value))
                     }
@@ -8375,11 +8363,11 @@ constructor(
 
                     companion object {
 
-                        val ARCHIVED = Status(JsonField.of("archived"))
+                        val ARCHIVED = of("archived")
 
-                        val PENDING = Status(JsonField.of("pending"))
+                        val PENDING = of("pending")
 
-                        val POSTED = Status(JsonField.of("posted"))
+                        val POSTED = of("posted")
 
                         fun of(value: String) = Status(JsonField.of(value))
                     }
@@ -9863,18 +9851,17 @@ constructor(
 
                 companion object {
 
-                    val EXPECTED_PAYMENT = LedgerableType(JsonField.of("expected_payment"))
+                    val EXPECTED_PAYMENT = of("expected_payment")
 
-                    val INCOMING_PAYMENT_DETAIL =
-                        LedgerableType(JsonField.of("incoming_payment_detail"))
+                    val INCOMING_PAYMENT_DETAIL = of("incoming_payment_detail")
 
-                    val PAPER_ITEM = LedgerableType(JsonField.of("paper_item"))
+                    val PAPER_ITEM = of("paper_item")
 
-                    val PAYMENT_ORDER = LedgerableType(JsonField.of("payment_order"))
+                    val PAYMENT_ORDER = of("payment_order")
 
-                    val RETURN = LedgerableType(JsonField.of("return"))
+                    val RETURN = of("return")
 
-                    val REVERSAL = LedgerableType(JsonField.of("reversal"))
+                    val REVERSAL = of("reversal")
 
                     fun of(value: String) = LedgerableType(JsonField.of(value))
                 }
@@ -10021,11 +10008,11 @@ constructor(
 
                 companion object {
 
-                    val ARCHIVED = Status(JsonField.of("archived"))
+                    val ARCHIVED = of("archived")
 
-                    val PENDING = Status(JsonField.of("pending"))
+                    val PENDING = of("pending")
 
-                    val POSTED = Status(JsonField.of("posted"))
+                    val POSTED = of("posted")
 
                     fun of(value: String) = Status(JsonField.of(value))
                 }
@@ -10513,67 +10500,67 @@ constructor(
 
                 companion object {
 
-                    val ACH = Type(JsonField.of("ach"))
+                    val ACH = of("ach")
 
-                    val AU_BECS = Type(JsonField.of("au_becs"))
+                    val AU_BECS = of("au_becs")
 
-                    val BACS = Type(JsonField.of("bacs"))
+                    val BACS = of("bacs")
 
-                    val BOOK = Type(JsonField.of("book"))
+                    val BOOK = of("book")
 
-                    val CARD = Type(JsonField.of("card"))
+                    val CARD = of("card")
 
-                    val CHATS = Type(JsonField.of("chats"))
+                    val CHATS = of("chats")
 
-                    val CHECK = Type(JsonField.of("check"))
+                    val CHECK = of("check")
 
-                    val CROSS_BORDER = Type(JsonField.of("cross_border"))
+                    val CROSS_BORDER = of("cross_border")
 
-                    val DK_NETS = Type(JsonField.of("dk_nets"))
+                    val DK_NETS = of("dk_nets")
 
-                    val EFT = Type(JsonField.of("eft"))
+                    val EFT = of("eft")
 
-                    val HU_ICS = Type(JsonField.of("hu_ics"))
+                    val HU_ICS = of("hu_ics")
 
-                    val INTERAC = Type(JsonField.of("interac"))
+                    val INTERAC = of("interac")
 
-                    val MASAV = Type(JsonField.of("masav"))
+                    val MASAV = of("masav")
 
-                    val MX_CCEN = Type(JsonField.of("mx_ccen"))
+                    val MX_CCEN = of("mx_ccen")
 
-                    val NEFT = Type(JsonField.of("neft"))
+                    val NEFT = of("neft")
 
-                    val NICS = Type(JsonField.of("nics"))
+                    val NICS = of("nics")
 
-                    val NZ_BECS = Type(JsonField.of("nz_becs"))
+                    val NZ_BECS = of("nz_becs")
 
-                    val PL_ELIXIR = Type(JsonField.of("pl_elixir"))
+                    val PL_ELIXIR = of("pl_elixir")
 
-                    val PROVXCHANGE = Type(JsonField.of("provxchange"))
+                    val PROVXCHANGE = of("provxchange")
 
-                    val RO_SENT = Type(JsonField.of("ro_sent"))
+                    val RO_SENT = of("ro_sent")
 
-                    val RTP = Type(JsonField.of("rtp"))
+                    val RTP = of("rtp")
 
-                    val SE_BANKGIROT = Type(JsonField.of("se_bankgirot"))
+                    val SE_BANKGIROT = of("se_bankgirot")
 
-                    val SEN = Type(JsonField.of("sen"))
+                    val SEN = of("sen")
 
-                    val SEPA = Type(JsonField.of("sepa"))
+                    val SEPA = of("sepa")
 
-                    val SG_GIRO = Type(JsonField.of("sg_giro"))
+                    val SG_GIRO = of("sg_giro")
 
-                    val SIC = Type(JsonField.of("sic"))
+                    val SIC = of("sic")
 
-                    val SIGNET = Type(JsonField.of("signet"))
+                    val SIGNET = of("signet")
 
-                    val SKNBI = Type(JsonField.of("sknbi"))
+                    val SKNBI = of("sknbi")
 
-                    val WIRE = Type(JsonField.of("wire"))
+                    val WIRE = of("wire")
 
-                    val ZENGIN = Type(JsonField.of("zengin"))
+                    val ZENGIN = of("zengin")
 
-                    val OTHER = Type(JsonField.of("other"))
+                    val OTHER = of("other")
 
                     fun of(value: String) = Type(JsonField.of(value))
                 }
@@ -12270,11 +12257,11 @@ constructor(
 
                 companion object {
 
-                    val SHARED = ChargeBearer(JsonField.of("shared"))
+                    val SHARED = of("shared")
 
-                    val SENDER = ChargeBearer(JsonField.of("sender"))
+                    val SENDER = of("sender")
 
-                    val RECEIVER = ChargeBearer(JsonField.of("receiver"))
+                    val RECEIVER = of("receiver")
 
                     fun of(value: String) = ChargeBearer(JsonField.of(value))
                 }
@@ -12334,9 +12321,9 @@ constructor(
 
                 companion object {
 
-                    val CREDIT = Direction(JsonField.of("credit"))
+                    val CREDIT = of("credit")
 
-                    val DEBIT = Direction(JsonField.of("debit"))
+                    val DEBIT = of("debit")
 
                     fun of(value: String) = Direction(JsonField.of(value))
                 }
@@ -12392,7 +12379,7 @@ constructor(
 
                 companion object {
 
-                    val ACH = FallbackType(JsonField.of("ach"))
+                    val ACH = of("ach")
 
                     fun of(value: String) = FallbackType(JsonField.of(value))
                 }
@@ -12444,11 +12431,9 @@ constructor(
 
                 companion object {
 
-                    val FIXED_TO_VARIABLE =
-                        ForeignExchangeIndicator(JsonField.of("fixed_to_variable"))
+                    val FIXED_TO_VARIABLE = of("fixed_to_variable")
 
-                    val VARIABLE_TO_FIXED =
-                        ForeignExchangeIndicator(JsonField.of("variable_to_fixed"))
+                    val VARIABLE_TO_FIXED = of("variable_to_fixed")
 
                     fun of(value: String) = ForeignExchangeIndicator(JsonField.of(value))
                 }
@@ -12846,9 +12831,9 @@ constructor(
 
                 companion object {
 
-                    val HIGH = Priority(JsonField.of("high"))
+                    val HIGH = of("high")
 
-                    val NORMAL = Priority(JsonField.of("normal"))
+                    val NORMAL = of("normal")
 
                     fun of(value: String) = Priority(JsonField.of(value))
                 }
@@ -13391,25 +13376,25 @@ constructor(
 
                         companion object {
 
-                            val AU_NUMBER = AccountNumberType(JsonField.of("au_number"))
+                            val AU_NUMBER = of("au_number")
 
-                            val CLABE = AccountNumberType(JsonField.of("clabe"))
+                            val CLABE = of("clabe")
 
-                            val HK_NUMBER = AccountNumberType(JsonField.of("hk_number"))
+                            val HK_NUMBER = of("hk_number")
 
-                            val IBAN = AccountNumberType(JsonField.of("iban"))
+                            val IBAN = of("iban")
 
-                            val ID_NUMBER = AccountNumberType(JsonField.of("id_number"))
+                            val ID_NUMBER = of("id_number")
 
-                            val NZ_NUMBER = AccountNumberType(JsonField.of("nz_number"))
+                            val NZ_NUMBER = of("nz_number")
 
-                            val OTHER = AccountNumberType(JsonField.of("other"))
+                            val OTHER = of("other")
 
-                            val PAN = AccountNumberType(JsonField.of("pan"))
+                            val PAN = of("pan")
 
-                            val SG_NUMBER = AccountNumberType(JsonField.of("sg_number"))
+                            val SG_NUMBER = of("sg_number")
 
-                            val WALLET_ADDRESS = AccountNumberType(JsonField.of("wallet_address"))
+                            val WALLET_ADDRESS = of("wallet_address")
 
                             fun of(value: String) = AccountNumberType(JsonField.of(value))
                         }
@@ -13622,11 +13607,11 @@ constructor(
 
                         companion object {
 
-                            val EMAIL = ContactIdentifierType(JsonField.of("email"))
+                            val EMAIL = of("email")
 
-                            val PHONE_NUMBER = ContactIdentifierType(JsonField.of("phone_number"))
+                            val PHONE_NUMBER = of("phone_number")
 
-                            val WEBSITE = ContactIdentifierType(JsonField.of("website"))
+                            val WEBSITE = of("website")
 
                             fun of(value: String) = ContactIdentifierType(JsonField.of(value))
                         }
@@ -14056,13 +14041,13 @@ constructor(
 
                         companion object {
 
-                            val COUNTERPARTY = LedgerableType(JsonField.of("counterparty"))
+                            val COUNTERPARTY = of("counterparty")
 
-                            val EXTERNAL_ACCOUNT = LedgerableType(JsonField.of("external_account"))
+                            val EXTERNAL_ACCOUNT = of("external_account")
 
-                            val INTERNAL_ACCOUNT = LedgerableType(JsonField.of("internal_account"))
+                            val INTERNAL_ACCOUNT = of("internal_account")
 
-                            val VIRTUAL_ACCOUNT = LedgerableType(JsonField.of("virtual_account"))
+                            val VIRTUAL_ACCOUNT = of("virtual_account")
 
                             fun of(value: String) = LedgerableType(JsonField.of(value))
                         }
@@ -14481,9 +14466,9 @@ constructor(
 
                     companion object {
 
-                        val BUSINESS = PartyType(JsonField.of("business"))
+                        val BUSINESS = of("business")
 
-                        val INDIVIDUAL = PartyType(JsonField.of("individual"))
+                        val INDIVIDUAL = of("individual")
 
                         fun of(value: String) = PartyType(JsonField.of(value))
                     }
@@ -14659,53 +14644,45 @@ constructor(
 
                         companion object {
 
-                            val ABA = RoutingNumberType(JsonField.of("aba"))
+                            val ABA = of("aba")
 
-                            val AU_BSB = RoutingNumberType(JsonField.of("au_bsb"))
+                            val AU_BSB = of("au_bsb")
 
-                            val BR_CODIGO = RoutingNumberType(JsonField.of("br_codigo"))
+                            val BR_CODIGO = of("br_codigo")
 
-                            val CA_CPA = RoutingNumberType(JsonField.of("ca_cpa"))
+                            val CA_CPA = of("ca_cpa")
 
-                            val CHIPS = RoutingNumberType(JsonField.of("chips"))
+                            val CHIPS = of("chips")
 
-                            val CNAPS = RoutingNumberType(JsonField.of("cnaps"))
+                            val CNAPS = of("cnaps")
 
-                            val DK_INTERBANK_CLEARING_CODE =
-                                RoutingNumberType(JsonField.of("dk_interbank_clearing_code"))
+                            val DK_INTERBANK_CLEARING_CODE = of("dk_interbank_clearing_code")
 
-                            val GB_SORT_CODE = RoutingNumberType(JsonField.of("gb_sort_code"))
+                            val GB_SORT_CODE = of("gb_sort_code")
 
-                            val HK_INTERBANK_CLEARING_CODE =
-                                RoutingNumberType(JsonField.of("hk_interbank_clearing_code"))
+                            val HK_INTERBANK_CLEARING_CODE = of("hk_interbank_clearing_code")
 
-                            val HU_INTERBANK_CLEARING_CODE =
-                                RoutingNumberType(JsonField.of("hu_interbank_clearing_code"))
+                            val HU_INTERBANK_CLEARING_CODE = of("hu_interbank_clearing_code")
 
-                            val ID_SKNBI_CODE = RoutingNumberType(JsonField.of("id_sknbi_code"))
+                            val ID_SKNBI_CODE = of("id_sknbi_code")
 
-                            val IN_IFSC = RoutingNumberType(JsonField.of("in_ifsc"))
+                            val IN_IFSC = of("in_ifsc")
 
-                            val JP_ZENGIN_CODE = RoutingNumberType(JsonField.of("jp_zengin_code"))
+                            val JP_ZENGIN_CODE = of("jp_zengin_code")
 
-                            val MY_BRANCH_CODE = RoutingNumberType(JsonField.of("my_branch_code"))
+                            val MY_BRANCH_CODE = of("my_branch_code")
 
-                            val MX_BANK_IDENTIFIER =
-                                RoutingNumberType(JsonField.of("mx_bank_identifier"))
+                            val MX_BANK_IDENTIFIER = of("mx_bank_identifier")
 
-                            val NZ_NATIONAL_CLEARING_CODE =
-                                RoutingNumberType(JsonField.of("nz_national_clearing_code"))
+                            val NZ_NATIONAL_CLEARING_CODE = of("nz_national_clearing_code")
 
-                            val PL_NATIONAL_CLEARING_CODE =
-                                RoutingNumberType(JsonField.of("pl_national_clearing_code"))
+                            val PL_NATIONAL_CLEARING_CODE = of("pl_national_clearing_code")
 
-                            val SE_BANKGIRO_CLEARING_CODE =
-                                RoutingNumberType(JsonField.of("se_bankgiro_clearing_code"))
+                            val SE_BANKGIRO_CLEARING_CODE = of("se_bankgiro_clearing_code")
 
-                            val SWIFT = RoutingNumberType(JsonField.of("swift"))
+                            val SWIFT = of("swift")
 
-                            val ZA_NATIONAL_CLEARING_CODE =
-                                RoutingNumberType(JsonField.of("za_national_clearing_code"))
+                            val ZA_NATIONAL_CLEARING_CODE = of("za_national_clearing_code")
 
                             fun of(value: String) = RoutingNumberType(JsonField.of(value))
                         }
@@ -14836,65 +14813,65 @@ constructor(
 
                         companion object {
 
-                            val ACH = PaymentType(JsonField.of("ach"))
+                            val ACH = of("ach")
 
-                            val AU_BECS = PaymentType(JsonField.of("au_becs"))
+                            val AU_BECS = of("au_becs")
 
-                            val BACS = PaymentType(JsonField.of("bacs"))
+                            val BACS = of("bacs")
 
-                            val BOOK = PaymentType(JsonField.of("book"))
+                            val BOOK = of("book")
 
-                            val CARD = PaymentType(JsonField.of("card"))
+                            val CARD = of("card")
 
-                            val CHATS = PaymentType(JsonField.of("chats"))
+                            val CHATS = of("chats")
 
-                            val CHECK = PaymentType(JsonField.of("check"))
+                            val CHECK = of("check")
 
-                            val CROSS_BORDER = PaymentType(JsonField.of("cross_border"))
+                            val CROSS_BORDER = of("cross_border")
 
-                            val DK_NETS = PaymentType(JsonField.of("dk_nets"))
+                            val DK_NETS = of("dk_nets")
 
-                            val EFT = PaymentType(JsonField.of("eft"))
+                            val EFT = of("eft")
 
-                            val HU_ICS = PaymentType(JsonField.of("hu_ics"))
+                            val HU_ICS = of("hu_ics")
 
-                            val INTERAC = PaymentType(JsonField.of("interac"))
+                            val INTERAC = of("interac")
 
-                            val MASAV = PaymentType(JsonField.of("masav"))
+                            val MASAV = of("masav")
 
-                            val MX_CCEN = PaymentType(JsonField.of("mx_ccen"))
+                            val MX_CCEN = of("mx_ccen")
 
-                            val NEFT = PaymentType(JsonField.of("neft"))
+                            val NEFT = of("neft")
 
-                            val NICS = PaymentType(JsonField.of("nics"))
+                            val NICS = of("nics")
 
-                            val NZ_BECS = PaymentType(JsonField.of("nz_becs"))
+                            val NZ_BECS = of("nz_becs")
 
-                            val PL_ELIXIR = PaymentType(JsonField.of("pl_elixir"))
+                            val PL_ELIXIR = of("pl_elixir")
 
-                            val PROVXCHANGE = PaymentType(JsonField.of("provxchange"))
+                            val PROVXCHANGE = of("provxchange")
 
-                            val RO_SENT = PaymentType(JsonField.of("ro_sent"))
+                            val RO_SENT = of("ro_sent")
 
-                            val RTP = PaymentType(JsonField.of("rtp"))
+                            val RTP = of("rtp")
 
-                            val SE_BANKGIROT = PaymentType(JsonField.of("se_bankgirot"))
+                            val SE_BANKGIROT = of("se_bankgirot")
 
-                            val SEN = PaymentType(JsonField.of("sen"))
+                            val SEN = of("sen")
 
-                            val SEPA = PaymentType(JsonField.of("sepa"))
+                            val SEPA = of("sepa")
 
-                            val SG_GIRO = PaymentType(JsonField.of("sg_giro"))
+                            val SG_GIRO = of("sg_giro")
 
-                            val SIC = PaymentType(JsonField.of("sic"))
+                            val SIC = of("sic")
 
-                            val SIGNET = PaymentType(JsonField.of("signet"))
+                            val SIGNET = of("signet")
 
-                            val SKNBI = PaymentType(JsonField.of("sknbi"))
+                            val SKNBI = of("sknbi")
 
-                            val WIRE = PaymentType(JsonField.of("wire"))
+                            val WIRE = of("wire")
 
-                            val ZENGIN = PaymentType(JsonField.of("zengin"))
+                            val ZENGIN = of("zengin")
 
                             fun of(value: String) = PaymentType(JsonField.of(value))
                         }
@@ -15100,27 +15077,27 @@ constructor(
 
                 companion object {
 
-                    val APPROVED = Status(JsonField.of("approved"))
+                    val APPROVED = of("approved")
 
-                    val CANCELLED = Status(JsonField.of("cancelled"))
+                    val CANCELLED = of("cancelled")
 
-                    val COMPLETED = Status(JsonField.of("completed"))
+                    val COMPLETED = of("completed")
 
-                    val DENIED = Status(JsonField.of("denied"))
+                    val DENIED = of("denied")
 
-                    val FAILED = Status(JsonField.of("failed"))
+                    val FAILED = of("failed")
 
-                    val NEEDS_APPROVAL = Status(JsonField.of("needs_approval"))
+                    val NEEDS_APPROVAL = of("needs_approval")
 
-                    val PENDING = Status(JsonField.of("pending"))
+                    val PENDING = of("pending")
 
-                    val PROCESSING = Status(JsonField.of("processing"))
+                    val PROCESSING = of("processing")
 
-                    val RETURNED = Status(JsonField.of("returned"))
+                    val RETURNED = of("returned")
 
-                    val REVERSED = Status(JsonField.of("reversed"))
+                    val REVERSED = of("reversed")
 
-                    val SENT = Status(JsonField.of("sent"))
+                    val SENT = of("sent")
 
                     fun of(value: String) = Status(JsonField.of(value))
                 }
@@ -15775,9 +15752,9 @@ constructor(
 
                 companion object {
 
-                    val CREDIT = Direction(JsonField.of("credit"))
+                    val CREDIT = of("credit")
 
-                    val DEBIT = Direction(JsonField.of("debit"))
+                    val DEBIT = of("debit")
 
                     fun of(value: String) = Direction(JsonField.of(value))
                 }
@@ -15906,7 +15883,7 @@ constructor(
 
                 companion object {
 
-                    val RECONCILED = Status(JsonField.of("reconciled"))
+                    val RECONCILED = of("reconciled")
 
                     fun of(value: String) = Status(JsonField.of(value))
                 }
@@ -17165,18 +17142,17 @@ constructor(
 
                 companion object {
 
-                    val EXPECTED_PAYMENT = LedgerableType(JsonField.of("expected_payment"))
+                    val EXPECTED_PAYMENT = of("expected_payment")
 
-                    val INCOMING_PAYMENT_DETAIL =
-                        LedgerableType(JsonField.of("incoming_payment_detail"))
+                    val INCOMING_PAYMENT_DETAIL = of("incoming_payment_detail")
 
-                    val PAPER_ITEM = LedgerableType(JsonField.of("paper_item"))
+                    val PAPER_ITEM = of("paper_item")
 
-                    val PAYMENT_ORDER = LedgerableType(JsonField.of("payment_order"))
+                    val PAYMENT_ORDER = of("payment_order")
 
-                    val RETURN = LedgerableType(JsonField.of("return"))
+                    val RETURN = of("return")
 
-                    val REVERSAL = LedgerableType(JsonField.of("reversal"))
+                    val REVERSAL = of("reversal")
 
                     fun of(value: String) = LedgerableType(JsonField.of(value))
                 }
@@ -17323,11 +17299,11 @@ constructor(
 
                 companion object {
 
-                    val ARCHIVED = Status(JsonField.of("archived"))
+                    val ARCHIVED = of("archived")
 
-                    val PENDING = Status(JsonField.of("pending"))
+                    val PENDING = of("pending")
 
-                    val POSTED = Status(JsonField.of("posted"))
+                    val POSTED = of("posted")
 
                     fun of(value: String) = Status(JsonField.of(value))
                 }

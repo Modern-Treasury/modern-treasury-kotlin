@@ -546,13 +546,13 @@ constructor(
 
         companion object {
 
-            val COUNTERPARTY = LedgerableType(JsonField.of("counterparty"))
+            val COUNTERPARTY = of("counterparty")
 
-            val EXTERNAL_ACCOUNT = LedgerableType(JsonField.of("external_account"))
+            val EXTERNAL_ACCOUNT = of("external_account")
 
-            val INTERNAL_ACCOUNT = LedgerableType(JsonField.of("internal_account"))
+            val INTERNAL_ACCOUNT = of("internal_account")
 
-            val VIRTUAL_ACCOUNT = LedgerableType(JsonField.of("virtual_account"))
+            val VIRTUAL_ACCOUNT = of("virtual_account")
 
             fun of(value: String) = LedgerableType(JsonField.of(value))
         }
