@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -12,7 +13,11 @@ class IncomingPaymentDetailUpdateParamsTest {
     fun createIncomingPaymentDetailUpdateParams() {
         IncomingPaymentDetailUpdateParams.builder()
             .id("id")
-            .metadata(IncomingPaymentDetailUpdateParams.Metadata.builder().build())
+            .metadata(
+                IncomingPaymentDetailUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
             .build()
     }
 
@@ -21,12 +26,20 @@ class IncomingPaymentDetailUpdateParamsTest {
         val params =
             IncomingPaymentDetailUpdateParams.builder()
                 .id("id")
-                .metadata(IncomingPaymentDetailUpdateParams.Metadata.builder().build())
+                .metadata(
+                    IncomingPaymentDetailUpdateParams.Metadata.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.metadata())
-            .isEqualTo(IncomingPaymentDetailUpdateParams.Metadata.builder().build())
+            .isEqualTo(
+                IncomingPaymentDetailUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
     }
 
     @Test

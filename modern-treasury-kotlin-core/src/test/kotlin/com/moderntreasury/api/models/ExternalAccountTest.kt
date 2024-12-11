@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -50,7 +51,13 @@ class ExternalAccountTest {
                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
-                .metadata(ExternalAccount.Metadata.builder().build())
+                .metadata(
+                    ExternalAccount.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .object_("object")
                 .partyAddress(
@@ -146,7 +153,14 @@ class ExternalAccountTest {
         assertThat(externalAccount.ledgerAccountId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(externalAccount.liveMode()).isEqualTo(true)
-        assertThat(externalAccount.metadata()).isEqualTo(ExternalAccount.Metadata.builder().build())
+        assertThat(externalAccount.metadata())
+            .isEqualTo(
+                ExternalAccount.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(externalAccount.name()).isEqualTo("name")
         assertThat(externalAccount.object_()).isEqualTo("object")
         assertThat(externalAccount.partyAddress())

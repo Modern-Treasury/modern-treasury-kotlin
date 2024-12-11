@@ -21,7 +21,11 @@ class PaymentOrderListParamsTest {
             .direction(TransactionDirection.CREDIT)
             .effectiveDateEnd(LocalDate.parse("2019-12-27"))
             .effectiveDateStart(LocalDate.parse("2019-12-27"))
-            .metadata(PaymentOrderListParams.Metadata.builder().build())
+            .metadata(
+                PaymentOrderListParams.Metadata.builder()
+                    .putAdditionalProperty("foo", listOf("string"))
+                    .build()
+            )
             .originatingAccountId("originating_account_id")
             .perPage(0L)
             .priority(PaymentOrderListParams.Priority.HIGH)
@@ -45,7 +49,11 @@ class PaymentOrderListParamsTest {
                 .direction(TransactionDirection.CREDIT)
                 .effectiveDateEnd(LocalDate.parse("2019-12-27"))
                 .effectiveDateStart(LocalDate.parse("2019-12-27"))
-                .metadata(PaymentOrderListParams.Metadata.builder().build())
+                .metadata(
+                    PaymentOrderListParams.Metadata.builder()
+                        .putAdditionalProperty("foo", listOf("string"))
+                        .build()
+                )
                 .originatingAccountId("originating_account_id")
                 .perPage(0L)
                 .priority(PaymentOrderListParams.Priority.HIGH)
@@ -64,9 +72,10 @@ class PaymentOrderListParamsTest {
         expected.put("direction", TransactionDirection.CREDIT.toString())
         expected.put("effective_date_end", "2019-12-27")
         expected.put("effective_date_start", "2019-12-27")
-        PaymentOrderListParams.Metadata.builder().build().forEachQueryParam { key, values ->
-            expected.put("metadata[$key]", values)
-        }
+        PaymentOrderListParams.Metadata.builder()
+            .putAdditionalProperty("foo", listOf("string"))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("originating_account_id", "originating_account_id")
         expected.put("per_page", "0")
         expected.put("priority", PaymentOrderListParams.Priority.HIGH.toString())

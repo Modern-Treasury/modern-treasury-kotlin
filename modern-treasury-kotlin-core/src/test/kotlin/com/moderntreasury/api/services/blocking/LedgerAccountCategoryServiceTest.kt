@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.LedgerAccountCategoryListParams
 import java.time.LocalDate
@@ -33,7 +34,13 @@ class LedgerAccountCategoryServiceTest {
                     .currencyExponent(0L)
                     .description("description")
                     .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
-                    .metadata(LedgerAccountCategoryCreateParams.Metadata.builder().build())
+                    .metadata(
+                        LedgerAccountCategoryCreateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .build()
             )
         println(ledgerAccountCategory)
@@ -79,7 +86,13 @@ class LedgerAccountCategoryServiceTest {
                 LedgerAccountCategoryUpdateParams.builder()
                     .id("id")
                     .description("description")
-                    .metadata(LedgerAccountCategoryUpdateParams.Metadata.builder().build())
+                    .metadata(
+                        LedgerAccountCategoryUpdateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .name("name")
                     .build()
             )

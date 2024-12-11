@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -54,7 +55,13 @@ class LedgerAccountTest {
                 .ledgerableType(LedgerAccount.LedgerableType.COUNTERPARTY)
                 .liveMode(true)
                 .lockVersion(0L)
-                .metadata(LedgerAccount.Metadata.builder().build())
+                .metadata(
+                    LedgerAccount.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .normalBalance(TransactionDirection.CREDIT)
                 .object_("object")
@@ -107,7 +114,14 @@ class LedgerAccountTest {
             .isEqualTo(LedgerAccount.LedgerableType.COUNTERPARTY)
         assertThat(ledgerAccount.liveMode()).isEqualTo(true)
         assertThat(ledgerAccount.lockVersion()).isEqualTo(0L)
-        assertThat(ledgerAccount.metadata()).isEqualTo(LedgerAccount.Metadata.builder().build())
+        assertThat(ledgerAccount.metadata())
+            .isEqualTo(
+                LedgerAccount.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(ledgerAccount.name()).isEqualTo("name")
         assertThat(ledgerAccount.normalBalance()).isEqualTo(TransactionDirection.CREDIT)
         assertThat(ledgerAccount.object_()).isEqualTo("object")

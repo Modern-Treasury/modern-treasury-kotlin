@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -66,6 +67,9 @@ class InvoiceCreateParamsTest {
                         .direction("direction")
                         .metadata(
                             InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .quantity(0L)
@@ -84,7 +88,13 @@ class InvoiceCreateParamsTest {
                     .build()
             )
             .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .metadata(InvoiceCreateParams.Metadata.builder().build())
+            .metadata(
+                InvoiceCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .notificationEmailAddresses(listOf("string"))
             .notificationsEnabled(true)
             .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
@@ -155,6 +165,9 @@ class InvoiceCreateParamsTest {
                             .direction("direction")
                             .metadata(
                                 InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
                             .quantity(0L)
@@ -173,7 +186,13 @@ class InvoiceCreateParamsTest {
                         .build()
                 )
                 .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .metadata(InvoiceCreateParams.Metadata.builder().build())
+                .metadata(
+                    InvoiceCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .notificationEmailAddresses(listOf("string"))
                 .notificationsEnabled(true)
                 .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
@@ -244,6 +263,9 @@ class InvoiceCreateParamsTest {
                         .direction("direction")
                         .metadata(
                             InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .quantity(0L)
@@ -264,7 +286,14 @@ class InvoiceCreateParamsTest {
             )
         assertThat(body.ledgerAccountSettlementId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.metadata()).isEqualTo(InvoiceCreateParams.Metadata.builder().build())
+        assertThat(body.metadata())
+            .isEqualTo(
+                InvoiceCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(body.notificationEmailAddresses()).isEqualTo(listOf("string"))
         assertThat(body.notificationsEnabled()).isEqualTo(true)
         assertThat(body.paymentEffectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))

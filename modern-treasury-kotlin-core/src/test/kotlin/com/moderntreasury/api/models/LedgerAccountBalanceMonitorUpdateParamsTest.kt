@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -13,7 +14,13 @@ class LedgerAccountBalanceMonitorUpdateParamsTest {
         LedgerAccountBalanceMonitorUpdateParams.builder()
             .id("id")
             .description("description")
-            .metadata(LedgerAccountBalanceMonitorUpdateParams.Metadata.builder().build())
+            .metadata(
+                LedgerAccountBalanceMonitorUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .build()
     }
 
@@ -23,13 +30,25 @@ class LedgerAccountBalanceMonitorUpdateParamsTest {
             LedgerAccountBalanceMonitorUpdateParams.builder()
                 .id("id")
                 .description("description")
-                .metadata(LedgerAccountBalanceMonitorUpdateParams.Metadata.builder().build())
+                .metadata(
+                    LedgerAccountBalanceMonitorUpdateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.metadata())
-            .isEqualTo(LedgerAccountBalanceMonitorUpdateParams.Metadata.builder().build())
+            .isEqualTo(
+                LedgerAccountBalanceMonitorUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
     }
 
     @Test

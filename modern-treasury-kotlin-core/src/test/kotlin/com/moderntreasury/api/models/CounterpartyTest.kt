@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -60,7 +61,13 @@ class CounterpartyTest {
                             .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .liveMode(true)
-                            .metadata(Counterparty.Account.Metadata.builder().build())
+                            .metadata(
+                                Counterparty.Account.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
                             .name("name")
                             .object_("object")
                             .partyAddress(
@@ -130,7 +137,13 @@ class CounterpartyTest {
                 .email("dev@stainlessapi.com")
                 .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
-                .metadata(Counterparty.Metadata.builder().build())
+                .metadata(
+                    Counterparty.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .object_("object")
                 .sendRemittanceAdvice(true)
@@ -179,7 +192,13 @@ class CounterpartyTest {
                     .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .liveMode(true)
-                    .metadata(Counterparty.Account.Metadata.builder().build())
+                    .metadata(
+                        Counterparty.Account.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .name("name")
                     .object_("object")
                     .partyAddress(
@@ -244,7 +263,14 @@ class CounterpartyTest {
         assertThat(counterparty.email()).isEqualTo("dev@stainlessapi.com")
         assertThat(counterparty.legalEntityId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(counterparty.liveMode()).isEqualTo(true)
-        assertThat(counterparty.metadata()).isEqualTo(Counterparty.Metadata.builder().build())
+        assertThat(counterparty.metadata())
+            .isEqualTo(
+                Counterparty.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(counterparty.name()).isEqualTo("name")
         assertThat(counterparty.object_()).isEqualTo("object")
         assertThat(counterparty.sendRemittanceAdvice()).isEqualTo(true)

@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -51,11 +52,20 @@ class ExternalAccountCreateParamsTest {
                     )
                     .metadata(
                         ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
                     .build()
             )
-            .metadata(ExternalAccountCreateParams.Metadata.builder().build())
+            .metadata(
+                ExternalAccountCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .name("name")
             .partyAddress(
                 ExternalAccountCreateParams.AddressRequest.builder()
@@ -131,11 +141,20 @@ class ExternalAccountCreateParamsTest {
                         .metadata(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
                                 .builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .build()
                 )
-                .metadata(ExternalAccountCreateParams.Metadata.builder().build())
+                .metadata(
+                    ExternalAccountCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
@@ -208,12 +227,21 @@ class ExternalAccountCreateParamsTest {
                     )
                     .metadata(
                         ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
                     .build()
             )
         assertThat(body.metadata())
-            .isEqualTo(ExternalAccountCreateParams.Metadata.builder().build())
+            .isEqualTo(
+                ExternalAccountCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.partyAddress())
             .isEqualTo(

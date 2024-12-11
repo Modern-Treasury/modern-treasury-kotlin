@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -18,12 +19,22 @@ class IncomingPaymentDetailTest {
                 .asOfDate(LocalDate.parse("2019-12-27"))
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(Currency.AED)
-                .data(IncomingPaymentDetail.Data.builder().build())
+                .data(
+                    IncomingPaymentDetail.Data.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .direction(TransactionDirection.CREDIT)
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
-                .metadata(IncomingPaymentDetail.Metadata.builder().build())
+                .metadata(
+                    IncomingPaymentDetail.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .object_("object")
                 .originatingAccountNumberSafe("originating_account_number_safe")
                 .originatingAccountNumberType(
@@ -66,7 +77,13 @@ class IncomingPaymentDetailTest {
                         .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .liveMode(true)
-                        .metadata(VirtualAccount.Metadata.builder().build())
+                        .metadata(
+                            VirtualAccount.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
                         .name("name")
                         .object_("object")
                         .routingDetails(
@@ -118,7 +135,11 @@ class IncomingPaymentDetailTest {
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(incomingPaymentDetail.currency()).isEqualTo(Currency.AED)
         assertThat(incomingPaymentDetail.data())
-            .isEqualTo(IncomingPaymentDetail.Data.builder().build())
+            .isEqualTo(
+                IncomingPaymentDetail.Data.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
         assertThat(incomingPaymentDetail.direction()).isEqualTo(TransactionDirection.CREDIT)
         assertThat(incomingPaymentDetail.internalAccountId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -126,7 +147,13 @@ class IncomingPaymentDetailTest {
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(incomingPaymentDetail.liveMode()).isEqualTo(true)
         assertThat(incomingPaymentDetail.metadata())
-            .isEqualTo(IncomingPaymentDetail.Metadata.builder().build())
+            .isEqualTo(
+                IncomingPaymentDetail.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(incomingPaymentDetail.object_()).isEqualTo("object")
         assertThat(incomingPaymentDetail.originatingAccountNumberSafe())
             .isEqualTo("originating_account_number_safe")
@@ -174,7 +201,13 @@ class IncomingPaymentDetailTest {
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .liveMode(true)
-                    .metadata(VirtualAccount.Metadata.builder().build())
+                    .metadata(
+                        VirtualAccount.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .name("name")
                     .object_("object")
                     .routingDetails(

@@ -93,6 +93,7 @@ class BalanceReportCreateParamsTest {
                                     .CLOSING_AVAILABLE
                             )
                             .vendorCode("vendor_code")
+                            .vendorCodeType("vendor_code_type")
                             .build()
                     )
                 )
@@ -113,6 +114,7 @@ class BalanceReportCreateParamsTest {
                                 .CLOSING_AVAILABLE
                         )
                         .vendorCode("vendor_code")
+                        .vendorCodeType("vendor_code_type")
                         .build()
                 )
             )
@@ -135,6 +137,7 @@ class BalanceReportCreateParamsTest {
                                     .CLOSING_AVAILABLE
                             )
                             .vendorCode("vendor_code")
+                            .vendorCodeType("vendor_code_type")
                             .build()
                     )
                 )

@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -12,7 +13,13 @@ class LedgerEntryUpdateParamsTest {
     fun createLedgerEntryUpdateParams() {
         LedgerEntryUpdateParams.builder()
             .id("id")
-            .metadata(LedgerEntryUpdateParams.Metadata.builder().build())
+            .metadata(
+                LedgerEntryUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .build()
     }
 
@@ -21,11 +28,24 @@ class LedgerEntryUpdateParamsTest {
         val params =
             LedgerEntryUpdateParams.builder()
                 .id("id")
-                .metadata(LedgerEntryUpdateParams.Metadata.builder().build())
+                .metadata(
+                    LedgerEntryUpdateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.metadata()).isEqualTo(LedgerEntryUpdateParams.Metadata.builder().build())
+        assertThat(body.metadata())
+            .isEqualTo(
+                LedgerEntryUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
     }
 
     @Test

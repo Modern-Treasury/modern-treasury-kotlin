@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -13,7 +14,13 @@ class LedgerAccountSettlementUpdateParamsTest {
         LedgerAccountSettlementUpdateParams.builder()
             .id("id")
             .description("description")
-            .metadata(LedgerAccountSettlementUpdateParams.Metadata.builder().build())
+            .metadata(
+                LedgerAccountSettlementUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .status(LedgerAccountSettlementUpdateParams.Status.POSTED)
             .build()
     }
@@ -24,14 +31,26 @@ class LedgerAccountSettlementUpdateParamsTest {
             LedgerAccountSettlementUpdateParams.builder()
                 .id("id")
                 .description("description")
-                .metadata(LedgerAccountSettlementUpdateParams.Metadata.builder().build())
+                .metadata(
+                    LedgerAccountSettlementUpdateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .status(LedgerAccountSettlementUpdateParams.Status.POSTED)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.metadata())
-            .isEqualTo(LedgerAccountSettlementUpdateParams.Metadata.builder().build())
+            .isEqualTo(
+                LedgerAccountSettlementUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(body.status()).isEqualTo(LedgerAccountSettlementUpdateParams.Status.POSTED)
     }
 

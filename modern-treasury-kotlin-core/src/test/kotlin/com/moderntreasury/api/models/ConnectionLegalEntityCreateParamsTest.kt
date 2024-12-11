@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -190,6 +191,15 @@ class ConnectionLegalEntityCreateParamsTest {
                                                 .ChildLegalEntityCreate
                                                 .Metadata
                                                 .builder()
+                                                .putAdditionalProperty(
+                                                    "key",
+                                                    JsonValue.from("value")
+                                                )
+                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                                .putAdditionalProperty(
+                                                    "modern",
+                                                    JsonValue.from("treasury")
+                                                )
                                                 .build()
                                         )
                                         .middleName("middle_name")
@@ -274,7 +284,11 @@ class ConnectionLegalEntityCreateParamsTest {
                         ConnectionLegalEntityCreateParams.LegalEntity.LegalStructure.CORPORATION
                     )
                     .metadata(
-                        ConnectionLegalEntityCreateParams.LegalEntity.Metadata.builder().build()
+                        ConnectionLegalEntityCreateParams.LegalEntity.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
                     )
                     .middleName("middle_name")
                     .phoneNumbers(
@@ -505,6 +519,18 @@ class ConnectionLegalEntityCreateParamsTest {
                                                     .ChildLegalEntityCreate
                                                     .Metadata
                                                     .builder()
+                                                    .putAdditionalProperty(
+                                                        "key",
+                                                        JsonValue.from("value")
+                                                    )
+                                                    .putAdditionalProperty(
+                                                        "foo",
+                                                        JsonValue.from("bar")
+                                                    )
+                                                    .putAdditionalProperty(
+                                                        "modern",
+                                                        JsonValue.from("treasury")
+                                                    )
                                                     .build()
                                             )
                                             .middleName("middle_name")
@@ -598,7 +624,11 @@ class ConnectionLegalEntityCreateParamsTest {
                             ConnectionLegalEntityCreateParams.LegalEntity.LegalStructure.CORPORATION
                         )
                         .metadata(
-                            ConnectionLegalEntityCreateParams.LegalEntity.Metadata.builder().build()
+                            ConnectionLegalEntityCreateParams.LegalEntity.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
                         )
                         .middleName("middle_name")
                         .phoneNumbers(
@@ -824,6 +854,15 @@ class ConnectionLegalEntityCreateParamsTest {
                                                 .ChildLegalEntityCreate
                                                 .Metadata
                                                 .builder()
+                                                .putAdditionalProperty(
+                                                    "key",
+                                                    JsonValue.from("value")
+                                                )
+                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                                .putAdditionalProperty(
+                                                    "modern",
+                                                    JsonValue.from("treasury")
+                                                )
                                                 .build()
                                         )
                                         .middleName("middle_name")
@@ -908,7 +947,11 @@ class ConnectionLegalEntityCreateParamsTest {
                         ConnectionLegalEntityCreateParams.LegalEntity.LegalStructure.CORPORATION
                     )
                     .metadata(
-                        ConnectionLegalEntityCreateParams.LegalEntity.Metadata.builder().build()
+                        ConnectionLegalEntityCreateParams.LegalEntity.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
                     )
                     .middleName("middle_name")
                     .phoneNumbers(

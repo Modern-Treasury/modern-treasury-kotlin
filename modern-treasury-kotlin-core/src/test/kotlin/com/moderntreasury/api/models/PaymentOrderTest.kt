@@ -2,7 +2,7 @@
 
 package com.moderntreasury.api.models
 
-import com.moderntreasury.api.core.JsonNull
+import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -25,7 +25,11 @@ class PaymentOrderTest {
                 .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .amount(0L)
                 .chargeBearer(PaymentOrder.ChargeBearer.SHARED)
-                .complianceRuleMetadata(PaymentOrder.ComplianceRuleMetadata.builder().build())
+                .complianceRuleMetadata(
+                    PaymentOrder.ComplianceRuleMetadata.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(Currency.AED)
@@ -90,7 +94,13 @@ class PaymentOrderTest {
                 )
                 .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
-                .metadata(PaymentOrder.Metadata.builder().build())
+                .metadata(
+                    PaymentOrder.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .nsfProtected(true)
                 .object_("object")
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -156,7 +166,13 @@ class PaymentOrderTest {
                             .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .liveMode(true)
-                            .metadata(VirtualAccount.Metadata.builder().build())
+                            .metadata(
+                                VirtualAccount.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
                             .name("name")
                             .object_("object")
                             .routingDetails(
@@ -209,7 +225,7 @@ class PaymentOrderTest {
                 .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                 .ultimateReceivingPartyName("ultimate_receiving_party_name")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .vendorAttributes(JsonNull.of())
+                .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
                 .vendorFailureReason("vendor_failure_reason")
                 .build()
         assertThat(paymentOrder).isNotNull
@@ -228,7 +244,11 @@ class PaymentOrderTest {
         assertThat(paymentOrder.amount()).isEqualTo(0L)
         assertThat(paymentOrder.chargeBearer()).isEqualTo(PaymentOrder.ChargeBearer.SHARED)
         assertThat(paymentOrder.complianceRuleMetadata())
-            .isEqualTo(PaymentOrder.ComplianceRuleMetadata.builder().build())
+            .isEqualTo(
+                PaymentOrder.ComplianceRuleMetadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
         assertThat(paymentOrder.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(paymentOrder.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -299,7 +319,14 @@ class PaymentOrderTest {
         assertThat(paymentOrder.ledgerTransactionId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(paymentOrder.liveMode()).isEqualTo(true)
-        assertThat(paymentOrder.metadata()).isEqualTo(PaymentOrder.Metadata.builder().build())
+        assertThat(paymentOrder.metadata())
+            .isEqualTo(
+                PaymentOrder.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(paymentOrder.nsfProtected()).isEqualTo(true)
         assertThat(paymentOrder.object_()).isEqualTo("object")
         assertThat(paymentOrder.originatingAccountId())
@@ -365,7 +392,13 @@ class PaymentOrderTest {
                         .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .liveMode(true)
-                        .metadata(VirtualAccount.Metadata.builder().build())
+                        .metadata(
+                            VirtualAccount.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
                         .name("name")
                         .object_("object")
                         .routingDetails(
@@ -421,7 +454,7 @@ class PaymentOrderTest {
             .isEqualTo("ultimate_receiving_party_name")
         assertThat(paymentOrder.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(paymentOrder._vendorAttributes()).isEqualTo(JsonNull.of())
+        assertThat(paymentOrder._vendorAttributes()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(paymentOrder.vendorFailureReason()).isEqualTo("vendor_failure_reason")
     }
 }

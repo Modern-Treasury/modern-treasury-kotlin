@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.TransactionListParams
 import java.time.LocalDate
@@ -31,7 +32,13 @@ class TransactionServiceTest {
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .vendorCode("vendor_code")
                     .vendorCodeType("vendor_code_type")
-                    .metadata(TransactionCreateParams.Metadata.builder().build())
+                    .metadata(
+                        TransactionCreateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .posted(true)
                     .type(TransactionCreateParams.Type.ACH)
                     .vendorDescription("vendor_description")
@@ -69,7 +76,11 @@ class TransactionServiceTest {
             transactionService.update(
                 TransactionUpdateParams.builder()
                     .id("id")
-                    .metadata(TransactionUpdateParams.Metadata.builder().build())
+                    .metadata(
+                        TransactionUpdateParams.Metadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
                     .build()
             )
         println(transaction)

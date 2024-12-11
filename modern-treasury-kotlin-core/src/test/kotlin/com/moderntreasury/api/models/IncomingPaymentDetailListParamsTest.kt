@@ -17,7 +17,11 @@ class IncomingPaymentDetailListParamsTest {
             .asOfDateEnd(LocalDate.parse("2019-12-27"))
             .asOfDateStart(LocalDate.parse("2019-12-27"))
             .direction(TransactionDirection.CREDIT)
-            .metadata(IncomingPaymentDetailListParams.Metadata.builder().build())
+            .metadata(
+                IncomingPaymentDetailListParams.Metadata.builder()
+                    .putAdditionalProperty("foo", listOf("string"))
+                    .build()
+            )
             .perPage(0L)
             .status(IncomingPaymentDetailListParams.Status.COMPLETED)
             .type(IncomingPaymentDetailListParams.Type.ACH)
@@ -33,7 +37,11 @@ class IncomingPaymentDetailListParamsTest {
                 .asOfDateEnd(LocalDate.parse("2019-12-27"))
                 .asOfDateStart(LocalDate.parse("2019-12-27"))
                 .direction(TransactionDirection.CREDIT)
-                .metadata(IncomingPaymentDetailListParams.Metadata.builder().build())
+                .metadata(
+                    IncomingPaymentDetailListParams.Metadata.builder()
+                        .putAdditionalProperty("foo", listOf("string"))
+                        .build()
+                )
                 .perPage(0L)
                 .status(IncomingPaymentDetailListParams.Status.COMPLETED)
                 .type(IncomingPaymentDetailListParams.Type.ACH)
@@ -44,10 +52,10 @@ class IncomingPaymentDetailListParamsTest {
         expected.put("as_of_date_end", "2019-12-27")
         expected.put("as_of_date_start", "2019-12-27")
         expected.put("direction", TransactionDirection.CREDIT.toString())
-        IncomingPaymentDetailListParams.Metadata.builder().build().forEachQueryParam { key, values
-            ->
-            expected.put("metadata[$key]", values)
-        }
+        IncomingPaymentDetailListParams.Metadata.builder()
+            .putAdditionalProperty("foo", listOf("string"))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("per_page", "0")
         expected.put("status", IncomingPaymentDetailListParams.Status.COMPLETED.toString())
         expected.put("type", IncomingPaymentDetailListParams.Type.ACH.toString())

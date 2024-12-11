@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -16,7 +17,13 @@ class LedgerAccountStatementCreateParamsTest {
             .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .description("description")
-            .metadata(LedgerAccountStatementCreateParams.Metadata.builder().build())
+            .metadata(
+                LedgerAccountStatementCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .build()
     }
 
@@ -28,7 +35,13 @@ class LedgerAccountStatementCreateParamsTest {
                 .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .description("description")
-                .metadata(LedgerAccountStatementCreateParams.Metadata.builder().build())
+                .metadata(
+                    LedgerAccountStatementCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -39,7 +52,13 @@ class LedgerAccountStatementCreateParamsTest {
         assertThat(body.ledgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.metadata())
-            .isEqualTo(LedgerAccountStatementCreateParams.Metadata.builder().build())
+            .isEqualTo(
+                LedgerAccountStatementCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
     }
 
     @Test
