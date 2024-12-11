@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -30,6 +31,7 @@ class PaymentOrderReversalCreateParamsTest {
                                         .LedgerEntryCreateRequest
                                         .AvailableBalanceAmount
                                         .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .lockVersion(0L)
@@ -38,6 +40,9 @@ class PaymentOrderReversalCreateParamsTest {
                                         .LedgerEntryCreateRequest
                                         .Metadata
                                         .builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
                                 .pendingBalanceAmount(
@@ -45,6 +50,7 @@ class PaymentOrderReversalCreateParamsTest {
                                         .LedgerEntryCreateRequest
                                         .PendingBalanceAmount
                                         .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .postedBalanceAmount(
@@ -52,6 +58,7 @@ class PaymentOrderReversalCreateParamsTest {
                                         .LedgerEntryCreateRequest
                                         .PostedBalanceAmount
                                         .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .showResultingLedgerAccountBalances(true)
@@ -71,6 +78,9 @@ class PaymentOrderReversalCreateParamsTest {
                     .metadata(
                         PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.Metadata
                             .builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
                     .status(
@@ -79,7 +89,13 @@ class PaymentOrderReversalCreateParamsTest {
                     )
                     .build()
             )
-            .metadata(PaymentOrderReversalCreateParams.Metadata.builder().build())
+            .metadata(
+                PaymentOrderReversalCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .build()
     }
 
@@ -105,6 +121,7 @@ class PaymentOrderReversalCreateParamsTest {
                                             .LedgerEntryCreateRequest
                                             .AvailableBalanceAmount
                                             .builder()
+                                            .putAdditionalProperty("foo", JsonValue.from(0))
                                             .build()
                                     )
                                     .lockVersion(0L)
@@ -114,6 +131,12 @@ class PaymentOrderReversalCreateParamsTest {
                                             .LedgerEntryCreateRequest
                                             .Metadata
                                             .builder()
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
+                                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty(
+                                                "modern",
+                                                JsonValue.from("treasury")
+                                            )
                                             .build()
                                     )
                                     .pendingBalanceAmount(
@@ -122,6 +145,7 @@ class PaymentOrderReversalCreateParamsTest {
                                             .LedgerEntryCreateRequest
                                             .PendingBalanceAmount
                                             .builder()
+                                            .putAdditionalProperty("foo", JsonValue.from(0))
                                             .build()
                                     )
                                     .postedBalanceAmount(
@@ -130,6 +154,7 @@ class PaymentOrderReversalCreateParamsTest {
                                             .LedgerEntryCreateRequest
                                             .PostedBalanceAmount
                                             .builder()
+                                            .putAdditionalProperty("foo", JsonValue.from(0))
                                             .build()
                                     )
                                     .showResultingLedgerAccountBalances(true)
@@ -149,6 +174,9 @@ class PaymentOrderReversalCreateParamsTest {
                         .metadata(
                             PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.Metadata
                                 .builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .status(
@@ -157,7 +185,13 @@ class PaymentOrderReversalCreateParamsTest {
                         )
                         .build()
                 )
-                .metadata(PaymentOrderReversalCreateParams.Metadata.builder().build())
+                .metadata(
+                    PaymentOrderReversalCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -178,6 +212,7 @@ class PaymentOrderReversalCreateParamsTest {
                                         .LedgerEntryCreateRequest
                                         .AvailableBalanceAmount
                                         .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .lockVersion(0L)
@@ -186,6 +221,9 @@ class PaymentOrderReversalCreateParamsTest {
                                         .LedgerEntryCreateRequest
                                         .Metadata
                                         .builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
                                 .pendingBalanceAmount(
@@ -193,6 +231,7 @@ class PaymentOrderReversalCreateParamsTest {
                                         .LedgerEntryCreateRequest
                                         .PendingBalanceAmount
                                         .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .postedBalanceAmount(
@@ -200,6 +239,7 @@ class PaymentOrderReversalCreateParamsTest {
                                         .LedgerEntryCreateRequest
                                         .PostedBalanceAmount
                                         .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .showResultingLedgerAccountBalances(true)
@@ -219,6 +259,9 @@ class PaymentOrderReversalCreateParamsTest {
                     .metadata(
                         PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.Metadata
                             .builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
                     .status(
@@ -228,7 +271,13 @@ class PaymentOrderReversalCreateParamsTest {
                     .build()
             )
         assertThat(body.metadata())
-            .isEqualTo(PaymentOrderReversalCreateParams.Metadata.builder().build())
+            .isEqualTo(
+                PaymentOrderReversalCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
     }
 
     @Test

@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -18,7 +19,13 @@ class InvoiceLineItemTest {
                 .description("description")
                 .direction("direction")
                 .liveMode(true)
-                .metadata(InvoiceLineItem.Metadata.builder().build())
+                .metadata(
+                    InvoiceLineItem.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .object_("object")
                 .quantity(0L)
@@ -34,7 +41,14 @@ class InvoiceLineItemTest {
         assertThat(invoiceLineItem.description()).isEqualTo("description")
         assertThat(invoiceLineItem.direction()).isEqualTo("direction")
         assertThat(invoiceLineItem.liveMode()).isEqualTo(true)
-        assertThat(invoiceLineItem.metadata()).isEqualTo(InvoiceLineItem.Metadata.builder().build())
+        assertThat(invoiceLineItem.metadata())
+            .isEqualTo(
+                InvoiceLineItem.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(invoiceLineItem.name()).isEqualTo("name")
         assertThat(invoiceLineItem.object_()).isEqualTo("object")
         assertThat(invoiceLineItem.quantity()).isEqualTo(0L)

@@ -14,7 +14,11 @@ class ExternalAccountListParamsTest {
         ExternalAccountListParams.builder()
             .afterCursor("after_cursor")
             .counterpartyId("counterparty_id")
-            .metadata(ExternalAccountListParams.Metadata.builder().build())
+            .metadata(
+                ExternalAccountListParams.Metadata.builder()
+                    .putAdditionalProperty("foo", listOf("string"))
+                    .build()
+            )
             .partyName("party_name")
             .perPage(0L)
             .build()
@@ -26,16 +30,21 @@ class ExternalAccountListParamsTest {
             ExternalAccountListParams.builder()
                 .afterCursor("after_cursor")
                 .counterpartyId("counterparty_id")
-                .metadata(ExternalAccountListParams.Metadata.builder().build())
+                .metadata(
+                    ExternalAccountListParams.Metadata.builder()
+                        .putAdditionalProperty("foo", listOf("string"))
+                        .build()
+                )
                 .partyName("party_name")
                 .perPage(0L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("after_cursor", "after_cursor")
         expected.put("counterparty_id", "counterparty_id")
-        ExternalAccountListParams.Metadata.builder().build().forEachQueryParam { key, values ->
-            expected.put("metadata[$key]", values)
-        }
+        ExternalAccountListParams.Metadata.builder()
+            .putAdditionalProperty("foo", listOf("string"))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("party_name", "party_name")
         expected.put("per_page", "0")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())

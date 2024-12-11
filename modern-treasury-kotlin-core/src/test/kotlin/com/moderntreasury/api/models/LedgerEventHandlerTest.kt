@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,9 +16,9 @@ class LedgerEventHandlerTest {
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .conditions(
                     LedgerEventHandler.LedgerEventHandlerConditions.builder()
-                        .field("field")
-                        .operator("operator")
-                        .value("value")
+                        .field("ledgerable_event.name")
+                        .operator("equals")
+                        .value("credit_card_swipe")
                         .build()
                 )
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -43,20 +44,43 @@ class LedgerEventHandlerTest {
                         .build()
                 )
                 .liveMode(true)
-                .metadata(LedgerEventHandler.Metadata.builder().build())
+                .metadata(
+                    LedgerEventHandler.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("My Event Handler")
                 .object_("object")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .variables(LedgerEventHandler.LedgerEventHandlerVariables.builder().build())
+                .variables(
+                    LedgerEventHandler.LedgerEventHandlerVariables.builder()
+                        .putAdditionalProperty(
+                            "credit_account",
+                            JsonValue.from(
+                                mapOf(
+                                    "query" to
+                                        mapOf(
+                                            "field" to "name",
+                                            "operator" to "equals",
+                                            "value" to "my_credit_account",
+                                        ),
+                                    "type" to "ledger_account"
+                                )
+                            )
+                        )
+                        .build()
+                )
                 .build()
         assertThat(ledgerEventHandler).isNotNull
         assertThat(ledgerEventHandler.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(ledgerEventHandler.conditions())
             .isEqualTo(
                 LedgerEventHandler.LedgerEventHandlerConditions.builder()
-                    .field("field")
-                    .operator("operator")
-                    .value("value")
+                    .field("ledgerable_event.name")
+                    .operator("equals")
+                    .value("credit_card_swipe")
                     .build()
             )
         assertThat(ledgerEventHandler.createdAt())
@@ -86,12 +110,35 @@ class LedgerEventHandlerTest {
             )
         assertThat(ledgerEventHandler.liveMode()).isEqualTo(true)
         assertThat(ledgerEventHandler.metadata())
-            .isEqualTo(LedgerEventHandler.Metadata.builder().build())
+            .isEqualTo(
+                LedgerEventHandler.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(ledgerEventHandler.name()).isEqualTo("My Event Handler")
         assertThat(ledgerEventHandler.object_()).isEqualTo("object")
         assertThat(ledgerEventHandler.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(ledgerEventHandler.variables())
-            .isEqualTo(LedgerEventHandler.LedgerEventHandlerVariables.builder().build())
+            .isEqualTo(
+                LedgerEventHandler.LedgerEventHandlerVariables.builder()
+                    .putAdditionalProperty(
+                        "credit_account",
+                        JsonValue.from(
+                            mapOf(
+                                "query" to
+                                    mapOf(
+                                        "field" to "name",
+                                        "operator" to "equals",
+                                        "value" to "my_credit_account",
+                                    ),
+                                "type" to "ledger_account"
+                            )
+                        )
+                    )
+                    .build()
+            )
     }
 }

@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.LedgerListParams
 import org.junit.jupiter.api.Test
@@ -26,7 +27,13 @@ class LedgerServiceTest {
                 LedgerCreateParams.builder()
                     .name("name")
                     .description("description")
-                    .metadata(LedgerCreateParams.Metadata.builder().build())
+                    .metadata(
+                        LedgerCreateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .build()
             )
         println(ledger)
@@ -61,7 +68,13 @@ class LedgerServiceTest {
                 LedgerUpdateParams.builder()
                     .id("id")
                     .description("description")
-                    .metadata(LedgerUpdateParams.Metadata.builder().build())
+                    .metadata(
+                        LedgerUpdateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .name("name")
                     .build()
             )

@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -30,7 +31,13 @@ class ForeignExchangeQuoteTest {
                 )
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
-                .metadata(ForeignExchangeQuote.Metadata.builder().build())
+                .metadata(
+                    ForeignExchangeQuote.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .object_("object")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .vendorId("vendor_id")
@@ -61,7 +68,13 @@ class ForeignExchangeQuoteTest {
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(foreignExchangeQuote.liveMode()).isEqualTo(true)
         assertThat(foreignExchangeQuote.metadata())
-            .isEqualTo(ForeignExchangeQuote.Metadata.builder().build())
+            .isEqualTo(
+                ForeignExchangeQuote.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(foreignExchangeQuote.object_()).isEqualTo("object")
         assertThat(foreignExchangeQuote.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

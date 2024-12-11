@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.InternalAccountListParams
 import org.junit.jupiter.api.Test
@@ -42,7 +43,11 @@ class InternalAccountServiceTest {
                             .build()
                     )
                     .vendorAttributes(
-                        InternalAccountCreateParams.VendorAttributes.builder().build()
+                        InternalAccountCreateParams.VendorAttributes.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
                     )
                     .build()
             )
@@ -82,7 +87,11 @@ class InternalAccountServiceTest {
                     .id("id")
                     .counterpartyId("counterparty_id")
                     .ledgerAccountId("ledger_account_id")
-                    .metadata(InternalAccountUpdateParams.Metadata.builder().build())
+                    .metadata(
+                        InternalAccountUpdateParams.Metadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
                     .name("name")
                     .parentAccountId("parent_account_id")
                     .build()

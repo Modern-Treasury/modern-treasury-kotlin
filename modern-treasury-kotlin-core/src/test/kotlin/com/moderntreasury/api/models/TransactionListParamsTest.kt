@@ -20,7 +20,11 @@ class TransactionListParamsTest {
             .description("description")
             .direction("direction")
             .internalAccountId("internal_account_id")
-            .metadata(TransactionListParams.Metadata.builder().build())
+            .metadata(
+                TransactionListParams.Metadata.builder()
+                    .putAdditionalProperty("foo", listOf("string"))
+                    .build()
+            )
             .paymentType("payment_type")
             .perPage(0L)
             .posted(true)
@@ -41,7 +45,11 @@ class TransactionListParamsTest {
                 .description("description")
                 .direction("direction")
                 .internalAccountId("internal_account_id")
-                .metadata(TransactionListParams.Metadata.builder().build())
+                .metadata(
+                    TransactionListParams.Metadata.builder()
+                        .putAdditionalProperty("foo", listOf("string"))
+                        .build()
+                )
                 .paymentType("payment_type")
                 .perPage(0L)
                 .posted(true)
@@ -57,9 +65,10 @@ class TransactionListParamsTest {
         expected.put("description", "description")
         expected.put("direction", "direction")
         expected.put("internal_account_id", "internal_account_id")
-        TransactionListParams.Metadata.builder().build().forEachQueryParam { key, values ->
-            expected.put("metadata[$key]", values)
-        }
+        TransactionListParams.Metadata.builder()
+            .putAdditionalProperty("foo", listOf("string"))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("payment_type", "payment_type")
         expected.put("per_page", "0")
         expected.put("posted", "true")

@@ -18,7 +18,11 @@ class InvoiceListParamsTest {
             .dueDateEnd(LocalDate.parse("2019-12-27"))
             .dueDateStart(LocalDate.parse("2019-12-27"))
             .expectedPaymentId("expected_payment_id")
-            .metadata(InvoiceListParams.Metadata.builder().build())
+            .metadata(
+                InvoiceListParams.Metadata.builder()
+                    .putAdditionalProperty("foo", listOf("string"))
+                    .build()
+            )
             .number("number")
             .originatingAccountId("originating_account_id")
             .paymentOrderId("payment_order_id")
@@ -36,7 +40,11 @@ class InvoiceListParamsTest {
                 .dueDateEnd(LocalDate.parse("2019-12-27"))
                 .dueDateStart(LocalDate.parse("2019-12-27"))
                 .expectedPaymentId("expected_payment_id")
-                .metadata(InvoiceListParams.Metadata.builder().build())
+                .metadata(
+                    InvoiceListParams.Metadata.builder()
+                        .putAdditionalProperty("foo", listOf("string"))
+                        .build()
+                )
                 .number("number")
                 .originatingAccountId("originating_account_id")
                 .paymentOrderId("payment_order_id")
@@ -49,9 +57,10 @@ class InvoiceListParamsTest {
         expected.put("due_date_end", "2019-12-27")
         expected.put("due_date_start", "2019-12-27")
         expected.put("expected_payment_id", "expected_payment_id")
-        InvoiceListParams.Metadata.builder().build().forEachQueryParam { key, values ->
-            expected.put("metadata[$key]", values)
-        }
+        InvoiceListParams.Metadata.builder()
+            .putAdditionalProperty("foo", listOf("string"))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("number", "number")
         expected.put("originating_account_id", "originating_account_id")
         expected.put("payment_order_id", "payment_order_id")

@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -65,6 +66,9 @@ class InvoiceUpdateParamsTest {
                         .direction("direction")
                         .metadata(
                             InvoiceUpdateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .quantity(0L)
@@ -83,7 +87,13 @@ class InvoiceUpdateParamsTest {
                     .build()
             )
             .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .metadata(InvoiceUpdateParams.Metadata.builder().build())
+            .metadata(
+                InvoiceUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .notificationEmailAddresses(listOf("string"))
             .notificationsEnabled(true)
             .originatingAccountId("originating_account_id")
@@ -155,6 +165,9 @@ class InvoiceUpdateParamsTest {
                             .direction("direction")
                             .metadata(
                                 InvoiceUpdateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
                             .quantity(0L)
@@ -173,7 +186,13 @@ class InvoiceUpdateParamsTest {
                         .build()
                 )
                 .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .metadata(InvoiceUpdateParams.Metadata.builder().build())
+                .metadata(
+                    InvoiceUpdateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .notificationEmailAddresses(listOf("string"))
                 .notificationsEnabled(true)
                 .originatingAccountId("originating_account_id")
@@ -244,6 +263,9 @@ class InvoiceUpdateParamsTest {
                         .direction("direction")
                         .metadata(
                             InvoiceUpdateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .quantity(0L)
@@ -264,7 +286,14 @@ class InvoiceUpdateParamsTest {
             )
         assertThat(body.ledgerAccountSettlementId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.metadata()).isEqualTo(InvoiceUpdateParams.Metadata.builder().build())
+        assertThat(body.metadata())
+            .isEqualTo(
+                InvoiceUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(body.notificationEmailAddresses()).isEqualTo(listOf("string"))
         assertThat(body.notificationsEnabled()).isEqualTo(true)
         assertThat(body.originatingAccountId()).isEqualTo("originating_account_id")

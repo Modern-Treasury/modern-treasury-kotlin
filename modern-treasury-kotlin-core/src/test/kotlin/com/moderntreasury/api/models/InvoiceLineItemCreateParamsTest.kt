@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -16,7 +17,13 @@ class InvoiceLineItemCreateParamsTest {
             .unitAmount(0L)
             .description("description")
             .direction("direction")
-            .metadata(InvoiceLineItemCreateParams.Metadata.builder().build())
+            .metadata(
+                InvoiceLineItemCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .quantity(0L)
             .unitAmountDecimal("unit_amount_decimal")
             .build()
@@ -31,7 +38,13 @@ class InvoiceLineItemCreateParamsTest {
                 .unitAmount(0L)
                 .description("description")
                 .direction("direction")
-                .metadata(InvoiceLineItemCreateParams.Metadata.builder().build())
+                .metadata(
+                    InvoiceLineItemCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .quantity(0L)
                 .unitAmountDecimal("unit_amount_decimal")
                 .build()
@@ -42,7 +55,13 @@ class InvoiceLineItemCreateParamsTest {
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.direction()).isEqualTo("direction")
         assertThat(body.metadata())
-            .isEqualTo(InvoiceLineItemCreateParams.Metadata.builder().build())
+            .isEqualTo(
+                InvoiceLineItemCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(body.quantity()).isEqualTo(0L)
         assertThat(body.unitAmountDecimal()).isEqualTo("unit_amount_decimal")
     }

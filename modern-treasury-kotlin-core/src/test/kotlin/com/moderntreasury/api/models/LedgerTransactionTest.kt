@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -33,7 +34,13 @@ class LedgerTransactionTest {
                             .ledgerAccountLockVersion(0L)
                             .ledgerTransactionId("ledger_transaction_id")
                             .liveMode(true)
-                            .metadata(LedgerEntry.Metadata.builder().build())
+                            .metadata(
+                                LedgerEntry.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
                             .object_("object")
                             .resultingLedgerAccountBalances(
                                 LedgerEntry.LedgerBalances.builder()
@@ -75,7 +82,13 @@ class LedgerTransactionTest {
                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerableType(LedgerTransaction.LedgerableType.EXPECTED_PAYMENT)
                 .liveMode(true)
-                .metadata(LedgerTransaction.Metadata.builder().build())
+                .metadata(
+                    LedgerTransaction.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .object_("object")
                 .postedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .reversedByLedgerTransactionId("reversed_by_ledger_transaction_id")
@@ -106,7 +119,13 @@ class LedgerTransactionTest {
                     .ledgerAccountLockVersion(0L)
                     .ledgerTransactionId("ledger_transaction_id")
                     .liveMode(true)
-                    .metadata(LedgerEntry.Metadata.builder().build())
+                    .metadata(
+                        LedgerEntry.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .object_("object")
                     .resultingLedgerAccountBalances(
                         LedgerEntry.LedgerBalances.builder()
@@ -150,7 +169,13 @@ class LedgerTransactionTest {
             .isEqualTo(LedgerTransaction.LedgerableType.EXPECTED_PAYMENT)
         assertThat(ledgerTransaction.liveMode()).isEqualTo(true)
         assertThat(ledgerTransaction.metadata())
-            .isEqualTo(LedgerTransaction.Metadata.builder().build())
+            .isEqualTo(
+                LedgerTransaction.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(ledgerTransaction.object_()).isEqualTo("object")
         assertThat(ledgerTransaction.postedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

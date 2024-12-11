@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -37,7 +38,13 @@ class VirtualAccountTest {
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
-                .metadata(VirtualAccount.Metadata.builder().build())
+                .metadata(
+                    VirtualAccount.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .object_("object")
                 .routingDetails(
@@ -105,7 +112,14 @@ class VirtualAccountTest {
         assertThat(virtualAccount.ledgerAccountId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(virtualAccount.liveMode()).isEqualTo(true)
-        assertThat(virtualAccount.metadata()).isEqualTo(VirtualAccount.Metadata.builder().build())
+        assertThat(virtualAccount.metadata())
+            .isEqualTo(
+                VirtualAccount.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(virtualAccount.name()).isEqualTo("name")
         assertThat(virtualAccount.object_()).isEqualTo("object")
         assertThat(virtualAccount.routingDetails())

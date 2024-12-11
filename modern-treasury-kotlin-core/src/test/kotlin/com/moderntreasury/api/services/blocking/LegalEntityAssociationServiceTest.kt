@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -106,6 +107,9 @@ class LegalEntityAssociationServiceTest {
                             .metadata(
                                 LegalEntityAssociationCreateParams.ChildLegalEntityCreate.Metadata
                                     .builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
                             .middleName("middle_name")

@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.ExternalAccountListParams
 import org.junit.jupiter.api.Test
@@ -69,11 +70,20 @@ class ExternalAccountServiceTest {
                             .metadata(
                                 ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
                                     .builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
                             .build()
                     )
-                    .metadata(ExternalAccountCreateParams.Metadata.builder().build())
+                    .metadata(
+                        ExternalAccountCreateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .name("name")
                     .partyAddress(
                         ExternalAccountCreateParams.AddressRequest.builder()
@@ -140,7 +150,11 @@ class ExternalAccountServiceTest {
                     .id("id")
                     .accountType(ExternalAccountType.CASH)
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .metadata(ExternalAccountUpdateParams.Metadata.builder().build())
+                    .metadata(
+                        ExternalAccountUpdateParams.Metadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
                     .name("name")
                     .partyAddress(
                         ExternalAccountUpdateParams.AddressRequest.builder()
@@ -199,7 +213,7 @@ class ExternalAccountServiceTest {
             externalAccountService.completeVerification(
                 ExternalAccountCompleteVerificationParams.builder()
                     .id("id")
-                    .amounts(listOf(0L))
+                    .amounts(listOf(2L, 4L))
                     .build()
             )
         println(externalAccount)

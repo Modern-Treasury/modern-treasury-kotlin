@@ -2,7 +2,7 @@
 
 package com.moderntreasury.api.models
 
-import com.moderntreasury.api.core.JsonNull
+import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -27,10 +27,16 @@ class ExpectedPaymentTest {
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
-                .metadata(ExpectedPayment.Metadata.builder().build())
+                .metadata(
+                    ExpectedPayment.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .object_("object")
-                .reconciliationFilters(JsonNull.of())
-                .reconciliationGroups(JsonNull.of())
+                .reconciliationFilters(JsonValue.from(mapOf<String, Any>()))
+                .reconciliationGroups(JsonValue.from(mapOf<String, Any>()))
                 .reconciliationMethod(ExpectedPayment.ReconciliationMethod.AUTOMATIC)
                 .reconciliationRuleVariables(
                     listOf(
@@ -42,7 +48,9 @@ class ExpectedPaymentTest {
                             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .currency(Currency.AED)
                             .customIdentifiers(
-                                ReconciliationRule.CustomIdentifiers.builder().build()
+                                ReconciliationRule.CustomIdentifiers.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .build()
                             )
                             .dateLowerBound(LocalDate.parse("2019-12-27"))
                             .dateUpperBound(LocalDate.parse("2019-12-27"))
@@ -76,10 +84,19 @@ class ExpectedPaymentTest {
         assertThat(expectedPayment.ledgerTransactionId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(expectedPayment.liveMode()).isEqualTo(true)
-        assertThat(expectedPayment.metadata()).isEqualTo(ExpectedPayment.Metadata.builder().build())
+        assertThat(expectedPayment.metadata())
+            .isEqualTo(
+                ExpectedPayment.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(expectedPayment.object_()).isEqualTo("object")
-        assertThat(expectedPayment._reconciliationFilters()).isEqualTo(JsonNull.of())
-        assertThat(expectedPayment._reconciliationGroups()).isEqualTo(JsonNull.of())
+        assertThat(expectedPayment._reconciliationFilters())
+            .isEqualTo(JsonValue.from(mapOf<String, Any>()))
+        assertThat(expectedPayment._reconciliationGroups())
+            .isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(expectedPayment.reconciliationMethod())
             .isEqualTo(ExpectedPayment.ReconciliationMethod.AUTOMATIC)
         assertThat(expectedPayment.reconciliationRuleVariables())
@@ -91,7 +108,11 @@ class ExpectedPaymentTest {
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .currency(Currency.AED)
-                    .customIdentifiers(ReconciliationRule.CustomIdentifiers.builder().build())
+                    .customIdentifiers(
+                        ReconciliationRule.CustomIdentifiers.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
                     .dateLowerBound(LocalDate.parse("2019-12-27"))
                     .dateUpperBound(LocalDate.parse("2019-12-27"))
                     .type(ReconciliationRule.Type.ACH)

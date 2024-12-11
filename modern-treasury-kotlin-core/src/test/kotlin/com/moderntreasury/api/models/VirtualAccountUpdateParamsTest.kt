@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -14,7 +15,11 @@ class VirtualAccountUpdateParamsTest {
             .id("id")
             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .metadata(VirtualAccountUpdateParams.Metadata.builder().build())
+            .metadata(
+                VirtualAccountUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
             .name("name")
             .build()
     }
@@ -26,14 +31,23 @@ class VirtualAccountUpdateParamsTest {
                 .id("id")
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .metadata(VirtualAccountUpdateParams.Metadata.builder().build())
+                .metadata(
+                    VirtualAccountUpdateParams.Metadata.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
                 .name("name")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.ledgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.metadata()).isEqualTo(VirtualAccountUpdateParams.Metadata.builder().build())
+        assertThat(body.metadata())
+            .isEqualTo(
+                VirtualAccountUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
         assertThat(body.name()).isEqualTo("name")
     }
 

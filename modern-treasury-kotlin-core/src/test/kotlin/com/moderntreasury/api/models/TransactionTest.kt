@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -20,7 +21,13 @@ class TransactionTest {
                 .asOfTimezone("as_of_timezone")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(Currency.AED)
-                .customIdentifiers(Transaction.CustomIdentifiers.builder().build())
+                .customIdentifiers(
+                    Transaction.CustomIdentifiers.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .direction("direction")
                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .foreignExchangeRate(
@@ -36,7 +43,13 @@ class TransactionTest {
                 )
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
-                .metadata(Transaction.Metadata.builder().build())
+                .metadata(
+                    Transaction.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .object_("object")
                 .posted(true)
                 .reconciled(true)
@@ -46,7 +59,11 @@ class TransactionTest {
                 .vendorCodeType(Transaction.VendorCodeType.BAI2)
                 .vendorCustomerId("vendor_customer_id")
                 .vendorId("vendor_id")
-                .details(Transaction.Details.builder().build())
+                .details(
+                    Transaction.Details.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
                 .vendorDescription("vendor_description")
                 .build()
         assertThat(transaction).isNotNull
@@ -59,7 +76,13 @@ class TransactionTest {
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(transaction.currency()).isEqualTo(Currency.AED)
         assertThat(transaction.customIdentifiers())
-            .isEqualTo(Transaction.CustomIdentifiers.builder().build())
+            .isEqualTo(
+                Transaction.CustomIdentifiers.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(transaction.direction()).isEqualTo("direction")
         assertThat(transaction.discardedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -78,7 +101,14 @@ class TransactionTest {
         assertThat(transaction.internalAccountId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(transaction.liveMode()).isEqualTo(true)
-        assertThat(transaction.metadata()).isEqualTo(Transaction.Metadata.builder().build())
+        assertThat(transaction.metadata())
+            .isEqualTo(
+                Transaction.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(transaction.object_()).isEqualTo("object")
         assertThat(transaction.posted()).isEqualTo(true)
         assertThat(transaction.reconciled()).isEqualTo(true)
@@ -89,7 +119,12 @@ class TransactionTest {
         assertThat(transaction.vendorCodeType()).isEqualTo(Transaction.VendorCodeType.BAI2)
         assertThat(transaction.vendorCustomerId()).isEqualTo("vendor_customer_id")
         assertThat(transaction.vendorId()).isEqualTo("vendor_id")
-        assertThat(transaction.details()).isEqualTo(Transaction.Details.builder().build())
+        assertThat(transaction.details())
+            .isEqualTo(
+                Transaction.Details.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
         assertThat(transaction.vendorDescription()).isEqualTo("vendor_description")
     }
 }

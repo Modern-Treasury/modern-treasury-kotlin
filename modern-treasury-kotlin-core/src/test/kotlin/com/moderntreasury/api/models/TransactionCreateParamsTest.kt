@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
@@ -18,7 +19,13 @@ class TransactionCreateParamsTest {
             .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .vendorCode("vendor_code")
             .vendorCodeType("vendor_code_type")
-            .metadata(TransactionCreateParams.Metadata.builder().build())
+            .metadata(
+                TransactionCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .posted(true)
             .type(TransactionCreateParams.Type.ACH)
             .vendorDescription("vendor_description")
@@ -35,7 +42,13 @@ class TransactionCreateParamsTest {
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .vendorCode("vendor_code")
                 .vendorCodeType("vendor_code_type")
-                .metadata(TransactionCreateParams.Metadata.builder().build())
+                .metadata(
+                    TransactionCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .posted(true)
                 .type(TransactionCreateParams.Type.ACH)
                 .vendorDescription("vendor_description")
@@ -48,7 +61,14 @@ class TransactionCreateParamsTest {
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.vendorCode()).isEqualTo("vendor_code")
         assertThat(body.vendorCodeType()).isEqualTo("vendor_code_type")
-        assertThat(body.metadata()).isEqualTo(TransactionCreateParams.Metadata.builder().build())
+        assertThat(body.metadata())
+            .isEqualTo(
+                TransactionCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(body.posted()).isEqualTo(true)
         assertThat(body.type()).isEqualTo(TransactionCreateParams.Type.ACH)
         assertThat(body.vendorDescription()).isEqualTo("vendor_description")

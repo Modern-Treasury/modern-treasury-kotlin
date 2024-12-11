@@ -19,7 +19,11 @@ class ExpectedPaymentListParamsTest {
             .createdAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .direction(TransactionDirection.CREDIT)
             .internalAccountId("internal_account_id")
-            .metadata(ExpectedPaymentListParams.Metadata.builder().build())
+            .metadata(
+                ExpectedPaymentListParams.Metadata.builder()
+                    .putAdditionalProperty("foo", listOf("string"))
+                    .build()
+            )
             .perPage(0L)
             .status(ExpectedPaymentListParams.Status.ARCHIVED)
             .type(ExpectedPaymentListParams.Type.ACH)
@@ -36,7 +40,11 @@ class ExpectedPaymentListParamsTest {
                 .createdAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .direction(TransactionDirection.CREDIT)
                 .internalAccountId("internal_account_id")
-                .metadata(ExpectedPaymentListParams.Metadata.builder().build())
+                .metadata(
+                    ExpectedPaymentListParams.Metadata.builder()
+                        .putAdditionalProperty("foo", listOf("string"))
+                        .build()
+                )
                 .perPage(0L)
                 .status(ExpectedPaymentListParams.Status.ARCHIVED)
                 .type(ExpectedPaymentListParams.Type.ACH)
@@ -48,9 +56,10 @@ class ExpectedPaymentListParamsTest {
         expected.put("created_at_upper_bound", "2019-12-27T18:11:19.117Z")
         expected.put("direction", TransactionDirection.CREDIT.toString())
         expected.put("internal_account_id", "internal_account_id")
-        ExpectedPaymentListParams.Metadata.builder().build().forEachQueryParam { key, values ->
-            expected.put("metadata[$key]", values)
-        }
+        ExpectedPaymentListParams.Metadata.builder()
+            .putAdditionalProperty("foo", listOf("string"))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("per_page", "0")
         expected.put("status", ExpectedPaymentListParams.Status.ARCHIVED.toString())
         expected.put("type", ExpectedPaymentListParams.Type.ACH.toString())

@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -14,7 +15,11 @@ class ExternalAccountUpdateParamsTest {
             .id("id")
             .accountType(ExternalAccountType.CASH)
             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .metadata(ExternalAccountUpdateParams.Metadata.builder().build())
+            .metadata(
+                ExternalAccountUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
             .name("name")
             .partyAddress(
                 ExternalAccountUpdateParams.AddressRequest.builder()
@@ -38,7 +43,11 @@ class ExternalAccountUpdateParamsTest {
                 .id("id")
                 .accountType(ExternalAccountType.CASH)
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .metadata(ExternalAccountUpdateParams.Metadata.builder().build())
+                .metadata(
+                    ExternalAccountUpdateParams.Metadata.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
                 .name("name")
                 .partyAddress(
                     ExternalAccountUpdateParams.AddressRequest.builder()
@@ -58,7 +67,11 @@ class ExternalAccountUpdateParamsTest {
         assertThat(body.accountType()).isEqualTo(ExternalAccountType.CASH)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.metadata())
-            .isEqualTo(ExternalAccountUpdateParams.Metadata.builder().build())
+            .isEqualTo(
+                ExternalAccountUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.partyAddress())
             .isEqualTo(

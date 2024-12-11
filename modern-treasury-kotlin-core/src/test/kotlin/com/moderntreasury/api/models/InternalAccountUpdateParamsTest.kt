@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -14,7 +15,11 @@ class InternalAccountUpdateParamsTest {
             .id("id")
             .counterpartyId("counterparty_id")
             .ledgerAccountId("ledger_account_id")
-            .metadata(InternalAccountUpdateParams.Metadata.builder().build())
+            .metadata(
+                InternalAccountUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
             .name("name")
             .parentAccountId("parent_account_id")
             .build()
@@ -27,7 +32,11 @@ class InternalAccountUpdateParamsTest {
                 .id("id")
                 .counterpartyId("counterparty_id")
                 .ledgerAccountId("ledger_account_id")
-                .metadata(InternalAccountUpdateParams.Metadata.builder().build())
+                .metadata(
+                    InternalAccountUpdateParams.Metadata.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
                 .name("name")
                 .parentAccountId("parent_account_id")
                 .build()
@@ -36,7 +45,11 @@ class InternalAccountUpdateParamsTest {
         assertThat(body.counterpartyId()).isEqualTo("counterparty_id")
         assertThat(body.ledgerAccountId()).isEqualTo("ledger_account_id")
         assertThat(body.metadata())
-            .isEqualTo(InternalAccountUpdateParams.Metadata.builder().build())
+            .isEqualTo(
+                InternalAccountUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.parentAccountId()).isEqualTo("parent_account_id")
     }

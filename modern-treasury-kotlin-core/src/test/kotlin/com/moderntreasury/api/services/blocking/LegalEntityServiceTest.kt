@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.LegalEntityListParams
 import java.time.LocalDate
@@ -191,6 +192,15 @@ class LegalEntityServiceTest {
                                                 .ChildLegalEntityCreate
                                                 .Metadata
                                                 .builder()
+                                                .putAdditionalProperty(
+                                                    "key",
+                                                    JsonValue.from("value")
+                                                )
+                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                                .putAdditionalProperty(
+                                                    "modern",
+                                                    JsonValue.from("treasury")
+                                                )
                                                 .build()
                                         )
                                         .middleName("middle_name")
@@ -269,7 +279,13 @@ class LegalEntityServiceTest {
                         )
                     )
                     .legalStructure(LegalEntityCreateParams.LegalStructure.CORPORATION)
-                    .metadata(LegalEntityCreateParams.Metadata.builder().build())
+                    .metadata(
+                        LegalEntityCreateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .middleName("middle_name")
                     .phoneNumbers(
                         listOf(
@@ -394,7 +410,13 @@ class LegalEntityServiceTest {
                     )
                     .lastName("last_name")
                     .legalStructure(LegalEntityUpdateParams.LegalStructure.CORPORATION)
-                    .metadata(LegalEntityUpdateParams.Metadata.builder().build())
+                    .metadata(
+                        LegalEntityUpdateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .middleName("middle_name")
                     .phoneNumbers(
                         listOf(

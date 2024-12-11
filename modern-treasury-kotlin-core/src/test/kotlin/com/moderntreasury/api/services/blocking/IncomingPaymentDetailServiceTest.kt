@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.IncomingPaymentDetailListParams
 import java.time.LocalDate
@@ -43,7 +44,11 @@ class IncomingPaymentDetailServiceTest {
             incomingPaymentDetailService.update(
                 IncomingPaymentDetailUpdateParams.builder()
                     .id("id")
-                    .metadata(IncomingPaymentDetailUpdateParams.Metadata.builder().build())
+                    .metadata(
+                        IncomingPaymentDetailUpdateParams.Metadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
                     .build()
             )
         println(incomingPaymentDetail)

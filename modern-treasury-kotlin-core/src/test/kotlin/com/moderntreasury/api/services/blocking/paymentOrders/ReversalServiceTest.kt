@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking.paymentOrders
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.PaymentOrderReversalListParams
 import java.time.LocalDate
@@ -44,6 +45,7 @@ class ReversalServiceTest {
                                                 .LedgerEntryCreateRequest
                                                 .AvailableBalanceAmount
                                                 .builder()
+                                                .putAdditionalProperty("foo", JsonValue.from(0))
                                                 .build()
                                         )
                                         .lockVersion(0L)
@@ -53,6 +55,15 @@ class ReversalServiceTest {
                                                 .LedgerEntryCreateRequest
                                                 .Metadata
                                                 .builder()
+                                                .putAdditionalProperty(
+                                                    "key",
+                                                    JsonValue.from("value")
+                                                )
+                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                                .putAdditionalProperty(
+                                                    "modern",
+                                                    JsonValue.from("treasury")
+                                                )
                                                 .build()
                                         )
                                         .pendingBalanceAmount(
@@ -61,6 +72,7 @@ class ReversalServiceTest {
                                                 .LedgerEntryCreateRequest
                                                 .PendingBalanceAmount
                                                 .builder()
+                                                .putAdditionalProperty("foo", JsonValue.from(0))
                                                 .build()
                                         )
                                         .postedBalanceAmount(
@@ -69,6 +81,7 @@ class ReversalServiceTest {
                                                 .LedgerEntryCreateRequest
                                                 .PostedBalanceAmount
                                                 .builder()
+                                                .putAdditionalProperty("foo", JsonValue.from(0))
                                                 .build()
                                         )
                                         .showResultingLedgerAccountBalances(true)
@@ -89,6 +102,9 @@ class ReversalServiceTest {
                                 PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
                                     .Metadata
                                     .builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
                             .status(
@@ -98,7 +114,13 @@ class ReversalServiceTest {
                             )
                             .build()
                     )
-                    .metadata(PaymentOrderReversalCreateParams.Metadata.builder().build())
+                    .metadata(
+                        PaymentOrderReversalCreateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .build()
             )
         println(reversal)

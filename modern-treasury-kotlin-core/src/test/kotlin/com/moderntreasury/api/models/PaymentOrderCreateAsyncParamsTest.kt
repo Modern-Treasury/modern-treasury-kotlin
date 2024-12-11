@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -50,6 +51,7 @@ class PaymentOrderCreateAsyncParamsTest {
                                         .LedgerEntryCreateRequest
                                         .AvailableBalanceAmount
                                         .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .lockVersion(0L)
@@ -58,6 +60,9 @@ class PaymentOrderCreateAsyncParamsTest {
                                         .LedgerEntryCreateRequest
                                         .Metadata
                                         .builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
                                 .pendingBalanceAmount(
@@ -65,6 +70,7 @@ class PaymentOrderCreateAsyncParamsTest {
                                         .LedgerEntryCreateRequest
                                         .PendingBalanceAmount
                                         .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .postedBalanceAmount(
@@ -72,6 +78,7 @@ class PaymentOrderCreateAsyncParamsTest {
                                         .LedgerEntryCreateRequest
                                         .PostedBalanceAmount
                                         .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .showResultingLedgerAccountBalances(true)
@@ -90,6 +97,9 @@ class PaymentOrderCreateAsyncParamsTest {
                     .metadata(
                         PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest.Metadata
                             .builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
                     .status(
@@ -105,12 +115,22 @@ class PaymentOrderCreateAsyncParamsTest {
                         .accountingCategoryId("accounting_category_id")
                         .description("description")
                         .metadata(
-                            PaymentOrderCreateAsyncParams.LineItemRequest.Metadata.builder().build()
+                            PaymentOrderCreateAsyncParams.LineItemRequest.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
                         )
                         .build()
                 )
             )
-            .metadata(PaymentOrderCreateAsyncParams.Metadata.builder().build())
+            .metadata(
+                PaymentOrderCreateAsyncParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .nsfProtected(true)
             .originatingPartyName("originating_party_name")
             .priority(PaymentOrderCreateAsyncParams.Priority.HIGH)
@@ -170,12 +190,19 @@ class PaymentOrderCreateAsyncParamsTest {
                                     .LedgerAccountCreateRequest
                                     .Metadata
                                     .builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
                             .build()
                     )
                     .metadata(
-                        PaymentOrderCreateAsyncParams.ReceivingAccount.Metadata.builder().build()
+                        PaymentOrderCreateAsyncParams.ReceivingAccount.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
                     )
                     .name("name")
                     .partyAddress(
@@ -265,6 +292,7 @@ class PaymentOrderCreateAsyncParamsTest {
                                             .LedgerEntryCreateRequest
                                             .AvailableBalanceAmount
                                             .builder()
+                                            .putAdditionalProperty("foo", JsonValue.from(0))
                                             .build()
                                     )
                                     .lockVersion(0L)
@@ -273,6 +301,12 @@ class PaymentOrderCreateAsyncParamsTest {
                                             .LedgerEntryCreateRequest
                                             .Metadata
                                             .builder()
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
+                                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty(
+                                                "modern",
+                                                JsonValue.from("treasury")
+                                            )
                                             .build()
                                     )
                                     .pendingBalanceAmount(
@@ -280,6 +314,7 @@ class PaymentOrderCreateAsyncParamsTest {
                                             .LedgerEntryCreateRequest
                                             .PendingBalanceAmount
                                             .builder()
+                                            .putAdditionalProperty("foo", JsonValue.from(0))
                                             .build()
                                     )
                                     .postedBalanceAmount(
@@ -287,6 +322,7 @@ class PaymentOrderCreateAsyncParamsTest {
                                             .LedgerEntryCreateRequest
                                             .PostedBalanceAmount
                                             .builder()
+                                            .putAdditionalProperty("foo", JsonValue.from(0))
                                             .build()
                                     )
                                     .showResultingLedgerAccountBalances(true)
@@ -306,6 +342,9 @@ class PaymentOrderCreateAsyncParamsTest {
                         .metadata(
                             PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest.Metadata
                                 .builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .status(
@@ -323,12 +362,21 @@ class PaymentOrderCreateAsyncParamsTest {
                             .description("description")
                             .metadata(
                                 PaymentOrderCreateAsyncParams.LineItemRequest.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
                             .build()
                     )
                 )
-                .metadata(PaymentOrderCreateAsyncParams.Metadata.builder().build())
+                .metadata(
+                    PaymentOrderCreateAsyncParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .nsfProtected(true)
                 .originatingPartyName("originating_party_name")
                 .priority(PaymentOrderCreateAsyncParams.Priority.HIGH)
@@ -390,12 +438,18 @@ class PaymentOrderCreateAsyncParamsTest {
                                         .LedgerAccountCreateRequest
                                         .Metadata
                                         .builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
                                 .build()
                         )
                         .metadata(
                             PaymentOrderCreateAsyncParams.ReceivingAccount.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .name("name")
@@ -486,6 +540,7 @@ class PaymentOrderCreateAsyncParamsTest {
                                         .LedgerEntryCreateRequest
                                         .AvailableBalanceAmount
                                         .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .lockVersion(0L)
@@ -494,6 +549,9 @@ class PaymentOrderCreateAsyncParamsTest {
                                         .LedgerEntryCreateRequest
                                         .Metadata
                                         .builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
                                 .pendingBalanceAmount(
@@ -501,6 +559,7 @@ class PaymentOrderCreateAsyncParamsTest {
                                         .LedgerEntryCreateRequest
                                         .PendingBalanceAmount
                                         .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .postedBalanceAmount(
@@ -508,6 +567,7 @@ class PaymentOrderCreateAsyncParamsTest {
                                         .LedgerEntryCreateRequest
                                         .PostedBalanceAmount
                                         .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .showResultingLedgerAccountBalances(true)
@@ -526,6 +586,9 @@ class PaymentOrderCreateAsyncParamsTest {
                     .metadata(
                         PaymentOrderCreateAsyncParams.LedgerTransactionCreateRequest.Metadata
                             .builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
                     .status(
@@ -542,13 +605,23 @@ class PaymentOrderCreateAsyncParamsTest {
                         .accountingCategoryId("accounting_category_id")
                         .description("description")
                         .metadata(
-                            PaymentOrderCreateAsyncParams.LineItemRequest.Metadata.builder().build()
+                            PaymentOrderCreateAsyncParams.LineItemRequest.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
                         )
                         .build()
                 )
             )
         assertThat(body.metadata())
-            .isEqualTo(PaymentOrderCreateAsyncParams.Metadata.builder().build())
+            .isEqualTo(
+                PaymentOrderCreateAsyncParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(body.nsfProtected()).isEqualTo(true)
         assertThat(body.originatingPartyName()).isEqualTo("originating_party_name")
         assertThat(body.priority()).isEqualTo(PaymentOrderCreateAsyncParams.Priority.HIGH)
@@ -609,12 +682,19 @@ class PaymentOrderCreateAsyncParamsTest {
                                     .LedgerAccountCreateRequest
                                     .Metadata
                                     .builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
                             .build()
                     )
                     .metadata(
-                        PaymentOrderCreateAsyncParams.ReceivingAccount.Metadata.builder().build()
+                        PaymentOrderCreateAsyncParams.ReceivingAccount.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
                     )
                     .name("name")
                     .partyAddress(

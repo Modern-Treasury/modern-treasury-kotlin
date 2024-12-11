@@ -14,7 +14,11 @@ class LegalEntityListParamsTest {
         LegalEntityListParams.builder()
             .afterCursor("after_cursor")
             .legalEntityType(LegalEntityListParams.LegalEntityType.BUSINESS)
-            .metadata(LegalEntityListParams.Metadata.builder().build())
+            .metadata(
+                LegalEntityListParams.Metadata.builder()
+                    .putAdditionalProperty("foo", listOf("string"))
+                    .build()
+            )
             .perPage(0L)
             .showDeleted("show_deleted")
             .build()
@@ -26,16 +30,21 @@ class LegalEntityListParamsTest {
             LegalEntityListParams.builder()
                 .afterCursor("after_cursor")
                 .legalEntityType(LegalEntityListParams.LegalEntityType.BUSINESS)
-                .metadata(LegalEntityListParams.Metadata.builder().build())
+                .metadata(
+                    LegalEntityListParams.Metadata.builder()
+                        .putAdditionalProperty("foo", listOf("string"))
+                        .build()
+                )
                 .perPage(0L)
                 .showDeleted("show_deleted")
                 .build()
         val expected = QueryParams.builder()
         expected.put("after_cursor", "after_cursor")
         expected.put("legal_entity_type", LegalEntityListParams.LegalEntityType.BUSINESS.toString())
-        LegalEntityListParams.Metadata.builder().build().forEachQueryParam { key, values ->
-            expected.put("metadata[$key]", values)
-        }
+        LegalEntityListParams.Metadata.builder()
+            .putAdditionalProperty("foo", listOf("string"))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("per_page", "0")
         expected.put("show_deleted", "show_deleted")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
