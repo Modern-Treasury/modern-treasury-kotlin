@@ -689,11 +689,11 @@ private constructor(
 
             companion object {
 
-                val EMAIL = ContactIdentifierType(JsonField.of("email"))
+                val EMAIL = of("email")
 
-                val PHONE_NUMBER = ContactIdentifierType(JsonField.of("phone_number"))
+                val PHONE_NUMBER = of("phone_number")
 
-                val WEBSITE = ContactIdentifierType(JsonField.of("website"))
+                val WEBSITE = of("website")
 
                 fun of(value: String) = ContactIdentifierType(JsonField.of(value))
             }
@@ -1116,9 +1116,9 @@ private constructor(
 
         companion object {
 
-            val BUSINESS = PartyType(JsonField.of("business"))
+            val BUSINESS = of("business")
 
-            val INDIVIDUAL = PartyType(JsonField.of("individual"))
+            val INDIVIDUAL = of("individual")
 
             fun of(value: String) = PartyType(JsonField.of(value))
         }
@@ -1173,11 +1173,11 @@ private constructor(
 
         companion object {
 
-            val ACH_PRENOTE = VerificationSource(JsonField.of("ach_prenote"))
+            val ACH_PRENOTE = of("ach_prenote")
 
-            val MICRODEPOSITS = VerificationSource(JsonField.of("microdeposits"))
+            val MICRODEPOSITS = of("microdeposits")
 
-            val PLAID = VerificationSource(JsonField.of("plaid"))
+            val PLAID = of("plaid")
 
             fun of(value: String) = VerificationSource(JsonField.of(value))
         }
@@ -1237,11 +1237,11 @@ private constructor(
 
         companion object {
 
-            val PENDING_VERIFICATION = VerificationStatus(JsonField.of("pending_verification"))
+            val PENDING_VERIFICATION = of("pending_verification")
 
-            val UNVERIFIED = VerificationStatus(JsonField.of("unverified"))
+            val UNVERIFIED = of("unverified")
 
-            val VERIFIED = VerificationStatus(JsonField.of("verified"))
+            val VERIFIED = of("verified")
 
             fun of(value: String) = VerificationStatus(JsonField.of(value))
         }

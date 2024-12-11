@@ -798,25 +798,25 @@ private constructor(
 
         companion object {
 
-            val AU_NUMBER = OriginatingAccountNumberType(JsonField.of("au_number"))
+            val AU_NUMBER = of("au_number")
 
-            val CLABE = OriginatingAccountNumberType(JsonField.of("clabe"))
+            val CLABE = of("clabe")
 
-            val HK_NUMBER = OriginatingAccountNumberType(JsonField.of("hk_number"))
+            val HK_NUMBER = of("hk_number")
 
-            val IBAN = OriginatingAccountNumberType(JsonField.of("iban"))
+            val IBAN = of("iban")
 
-            val ID_NUMBER = OriginatingAccountNumberType(JsonField.of("id_number"))
+            val ID_NUMBER = of("id_number")
 
-            val NZ_NUMBER = OriginatingAccountNumberType(JsonField.of("nz_number"))
+            val NZ_NUMBER = of("nz_number")
 
-            val OTHER = OriginatingAccountNumberType(JsonField.of("other"))
+            val OTHER = of("other")
 
-            val PAN = OriginatingAccountNumberType(JsonField.of("pan"))
+            val PAN = of("pan")
 
-            val SG_NUMBER = OriginatingAccountNumberType(JsonField.of("sg_number"))
+            val SG_NUMBER = of("sg_number")
 
-            val WALLET_ADDRESS = OriginatingAccountNumberType(JsonField.of("wallet_address"))
+            val WALLET_ADDRESS = of("wallet_address")
 
             fun of(value: String) = OriginatingAccountNumberType(JsonField.of(value))
         }
@@ -906,53 +906,45 @@ private constructor(
 
         companion object {
 
-            val ABA = OriginatingRoutingNumberType(JsonField.of("aba"))
+            val ABA = of("aba")
 
-            val AU_BSB = OriginatingRoutingNumberType(JsonField.of("au_bsb"))
+            val AU_BSB = of("au_bsb")
 
-            val BR_CODIGO = OriginatingRoutingNumberType(JsonField.of("br_codigo"))
+            val BR_CODIGO = of("br_codigo")
 
-            val CA_CPA = OriginatingRoutingNumberType(JsonField.of("ca_cpa"))
+            val CA_CPA = of("ca_cpa")
 
-            val CHIPS = OriginatingRoutingNumberType(JsonField.of("chips"))
+            val CHIPS = of("chips")
 
-            val CNAPS = OriginatingRoutingNumberType(JsonField.of("cnaps"))
+            val CNAPS = of("cnaps")
 
-            val DK_INTERBANK_CLEARING_CODE =
-                OriginatingRoutingNumberType(JsonField.of("dk_interbank_clearing_code"))
+            val DK_INTERBANK_CLEARING_CODE = of("dk_interbank_clearing_code")
 
-            val GB_SORT_CODE = OriginatingRoutingNumberType(JsonField.of("gb_sort_code"))
+            val GB_SORT_CODE = of("gb_sort_code")
 
-            val HK_INTERBANK_CLEARING_CODE =
-                OriginatingRoutingNumberType(JsonField.of("hk_interbank_clearing_code"))
+            val HK_INTERBANK_CLEARING_CODE = of("hk_interbank_clearing_code")
 
-            val HU_INTERBANK_CLEARING_CODE =
-                OriginatingRoutingNumberType(JsonField.of("hu_interbank_clearing_code"))
+            val HU_INTERBANK_CLEARING_CODE = of("hu_interbank_clearing_code")
 
-            val ID_SKNBI_CODE = OriginatingRoutingNumberType(JsonField.of("id_sknbi_code"))
+            val ID_SKNBI_CODE = of("id_sknbi_code")
 
-            val IN_IFSC = OriginatingRoutingNumberType(JsonField.of("in_ifsc"))
+            val IN_IFSC = of("in_ifsc")
 
-            val JP_ZENGIN_CODE = OriginatingRoutingNumberType(JsonField.of("jp_zengin_code"))
+            val JP_ZENGIN_CODE = of("jp_zengin_code")
 
-            val MX_BANK_IDENTIFIER =
-                OriginatingRoutingNumberType(JsonField.of("mx_bank_identifier"))
+            val MX_BANK_IDENTIFIER = of("mx_bank_identifier")
 
-            val MY_BRANCH_CODE = OriginatingRoutingNumberType(JsonField.of("my_branch_code"))
+            val MY_BRANCH_CODE = of("my_branch_code")
 
-            val NZ_NATIONAL_CLEARING_CODE =
-                OriginatingRoutingNumberType(JsonField.of("nz_national_clearing_code"))
+            val NZ_NATIONAL_CLEARING_CODE = of("nz_national_clearing_code")
 
-            val PL_NATIONAL_CLEARING_CODE =
-                OriginatingRoutingNumberType(JsonField.of("pl_national_clearing_code"))
+            val PL_NATIONAL_CLEARING_CODE = of("pl_national_clearing_code")
 
-            val SE_BANKGIRO_CLEARING_CODE =
-                OriginatingRoutingNumberType(JsonField.of("se_bankgiro_clearing_code"))
+            val SE_BANKGIRO_CLEARING_CODE = of("se_bankgiro_clearing_code")
 
-            val SWIFT = OriginatingRoutingNumberType(JsonField.of("swift"))
+            val SWIFT = of("swift")
 
-            val ZA_NATIONAL_CLEARING_CODE =
-                OriginatingRoutingNumberType(JsonField.of("za_national_clearing_code"))
+            val ZA_NATIONAL_CLEARING_CODE = of("za_national_clearing_code")
 
             fun of(value: String) = OriginatingRoutingNumberType(JsonField.of(value))
         }
@@ -1082,11 +1074,11 @@ private constructor(
 
         companion object {
 
-            val COMPLETED = Status(JsonField.of("completed"))
+            val COMPLETED = of("completed")
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val RETURNED = Status(JsonField.of("returned"))
+            val RETURNED = of("returned")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -1145,23 +1137,23 @@ private constructor(
 
         companion object {
 
-            val ACH = Type(JsonField.of("ach"))
+            val ACH = of("ach")
 
-            val BOOK = Type(JsonField.of("book"))
+            val BOOK = of("book")
 
-            val CHECK = Type(JsonField.of("check"))
+            val CHECK = of("check")
 
-            val EFT = Type(JsonField.of("eft"))
+            val EFT = of("eft")
 
-            val INTERAC = Type(JsonField.of("interac"))
+            val INTERAC = of("interac")
 
-            val RTP = Type(JsonField.of("rtp"))
+            val RTP = of("rtp")
 
-            val SEPA = Type(JsonField.of("sepa"))
+            val SEPA = of("sepa")
 
-            val SIGNET = Type(JsonField.of("signet"))
+            val SIGNET = of("signet")
 
-            val WIRE = Type(JsonField.of("wire"))
+            val WIRE = of("wire")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

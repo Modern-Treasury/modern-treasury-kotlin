@@ -283,9 +283,9 @@ constructor(
 
         companion object {
 
-            val ORIGINATING = Type(JsonField.of("originating"))
+            val ORIGINATING = of("originating")
 
-            val RECEIVING = Type(JsonField.of("receiving"))
+            val RECEIVING = of("receiving")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

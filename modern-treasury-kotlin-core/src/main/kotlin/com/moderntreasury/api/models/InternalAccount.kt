@@ -485,21 +485,21 @@ private constructor(
 
         companion object {
 
-            val CASH = AccountType(JsonField.of("cash"))
+            val CASH = of("cash")
 
-            val CHECKING = AccountType(JsonField.of("checking"))
+            val CHECKING = of("checking")
 
-            val GENERAL_LEDGER = AccountType(JsonField.of("general_ledger"))
+            val GENERAL_LEDGER = of("general_ledger")
 
-            val LOAN = AccountType(JsonField.of("loan"))
+            val LOAN = of("loan")
 
-            val NON_RESIDENT = AccountType(JsonField.of("non_resident"))
+            val NON_RESIDENT = of("non_resident")
 
-            val OTHER = AccountType(JsonField.of("other"))
+            val OTHER = of("other")
 
-            val OVERDRAFT = AccountType(JsonField.of("overdraft"))
+            val OVERDRAFT = of("overdraft")
 
-            val SAVINGS = AccountType(JsonField.of("savings"))
+            val SAVINGS = of("savings")
 
             fun of(value: String) = AccountType(JsonField.of(value))
         }
@@ -921,9 +921,9 @@ private constructor(
 
         companion object {
 
-            val BUSINESS = PartyType(JsonField.of("business"))
+            val BUSINESS = of("business")
 
-            val INDIVIDUAL = PartyType(JsonField.of("individual"))
+            val INDIVIDUAL = of("individual")
 
             fun of(value: String) = PartyType(JsonField.of(value))
         }

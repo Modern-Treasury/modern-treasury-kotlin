@@ -361,17 +361,17 @@ constructor(
 
         companion object {
 
-            val DRAFT = Status(JsonField.of("draft"))
+            val DRAFT = of("draft")
 
-            val PAID = Status(JsonField.of("paid"))
+            val PAID = of("paid")
 
-            val PARTIALLY_PAID = Status(JsonField.of("partially_paid"))
+            val PARTIALLY_PAID = of("partially_paid")
 
-            val PAYMENT_PENDING = Status(JsonField.of("payment_pending"))
+            val PAYMENT_PENDING = of("payment_pending")
 
-            val UNPAID = Status(JsonField.of("unpaid"))
+            val UNPAID = of("unpaid")
 
-            val VOIDED = Status(JsonField.of("voided"))
+            val VOIDED = of("voided")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

@@ -1238,11 +1238,11 @@ private constructor(
 
             companion object {
 
-                val EMAIL = ContactIdentifierType(JsonField.of("email"))
+                val EMAIL = of("email")
 
-                val PHONE_NUMBER = ContactIdentifierType(JsonField.of("phone_number"))
+                val PHONE_NUMBER = of("phone_number")
 
-                val WEBSITE = ContactIdentifierType(JsonField.of("website"))
+                val WEBSITE = of("website")
 
                 fun of(value: String) = ContactIdentifierType(JsonField.of(value))
             }
@@ -1928,11 +1928,11 @@ private constructor(
 
         companion object {
 
-            val UI = PaymentMethod(JsonField.of("ui"))
+            val UI = of("ui")
 
-            val MANUAL = PaymentMethod(JsonField.of("manual"))
+            val MANUAL = of("manual")
 
-            val AUTOMATIC = PaymentMethod(JsonField.of("automatic"))
+            val AUTOMATIC = of("automatic")
 
             fun of(value: String) = PaymentMethod(JsonField.of(value))
         }
@@ -1991,9 +1991,9 @@ private constructor(
 
         companion object {
 
-            val EFT = PaymentType(JsonField.of("eft"))
+            val EFT = of("eft")
 
-            val ACH = PaymentType(JsonField.of("ach"))
+            val ACH = of("ach")
 
             fun of(value: String) = PaymentType(JsonField.of(value))
         }
@@ -2048,17 +2048,17 @@ private constructor(
 
         companion object {
 
-            val DRAFT = Status(JsonField.of("draft"))
+            val DRAFT = of("draft")
 
-            val PAID = Status(JsonField.of("paid"))
+            val PAID = of("paid")
 
-            val PARTIALLY_PAID = Status(JsonField.of("partially_paid"))
+            val PARTIALLY_PAID = of("partially_paid")
 
-            val PAYMENT_PENDING = Status(JsonField.of("payment_pending"))
+            val PAYMENT_PENDING = of("payment_pending")
 
-            val UNPAID = Status(JsonField.of("unpaid"))
+            val UNPAID = of("unpaid")
 
-            val VOIDED = Status(JsonField.of("voided"))
+            val VOIDED = of("voided")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

@@ -454,11 +454,11 @@ private constructor(
 
         companion object {
 
-            val COMPLETED = Status(JsonField.of("completed"))
+            val COMPLETED = of("completed")
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val RETURNED = Status(JsonField.of("returned"))
+            val RETURNED = of("returned")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

@@ -635,111 +635,111 @@ private constructor(
 
         companion object {
 
-            val _901 = Code(JsonField.of("901"))
+            val _901 = of("901")
 
-            val _902 = Code(JsonField.of("902"))
+            val _902 = of("902")
 
-            val _903 = Code(JsonField.of("903"))
+            val _903 = of("903")
 
-            val _904 = Code(JsonField.of("904"))
+            val _904 = of("904")
 
-            val _905 = Code(JsonField.of("905"))
+            val _905 = of("905")
 
-            val _907 = Code(JsonField.of("907"))
+            val _907 = of("907")
 
-            val _908 = Code(JsonField.of("908"))
+            val _908 = of("908")
 
-            val _909 = Code(JsonField.of("909"))
+            val _909 = of("909")
 
-            val _910 = Code(JsonField.of("910"))
+            val _910 = of("910")
 
-            val _911 = Code(JsonField.of("911"))
+            val _911 = of("911")
 
-            val _912 = Code(JsonField.of("912"))
+            val _912 = of("912")
 
-            val _914 = Code(JsonField.of("914"))
+            val _914 = of("914")
 
-            val C01 = Code(JsonField.of("C01"))
+            val C01 = of("C01")
 
-            val C02 = Code(JsonField.of("C02"))
+            val C02 = of("C02")
 
-            val C03 = Code(JsonField.of("C03"))
+            val C03 = of("C03")
 
-            val C05 = Code(JsonField.of("C05"))
+            val C05 = of("C05")
 
-            val C06 = Code(JsonField.of("C06"))
+            val C06 = of("C06")
 
-            val C07 = Code(JsonField.of("C07"))
+            val C07 = of("C07")
 
-            val C08 = Code(JsonField.of("C08"))
+            val C08 = of("C08")
 
-            val C09 = Code(JsonField.of("C09"))
+            val C09 = of("C09")
 
-            val C13 = Code(JsonField.of("C13"))
+            val C13 = of("C13")
 
-            val C14 = Code(JsonField.of("C14"))
+            val C14 = of("C14")
 
-            val R01 = Code(JsonField.of("R01"))
+            val R01 = of("R01")
 
-            val R02 = Code(JsonField.of("R02"))
+            val R02 = of("R02")
 
-            val R03 = Code(JsonField.of("R03"))
+            val R03 = of("R03")
 
-            val R04 = Code(JsonField.of("R04"))
+            val R04 = of("R04")
 
-            val R05 = Code(JsonField.of("R05"))
+            val R05 = of("R05")
 
-            val R06 = Code(JsonField.of("R06"))
+            val R06 = of("R06")
 
-            val R07 = Code(JsonField.of("R07"))
+            val R07 = of("R07")
 
-            val R08 = Code(JsonField.of("R08"))
+            val R08 = of("R08")
 
-            val R09 = Code(JsonField.of("R09"))
+            val R09 = of("R09")
 
-            val R10 = Code(JsonField.of("R10"))
+            val R10 = of("R10")
 
-            val R11 = Code(JsonField.of("R11"))
+            val R11 = of("R11")
 
-            val R12 = Code(JsonField.of("R12"))
+            val R12 = of("R12")
 
-            val R14 = Code(JsonField.of("R14"))
+            val R14 = of("R14")
 
-            val R15 = Code(JsonField.of("R15"))
+            val R15 = of("R15")
 
-            val R16 = Code(JsonField.of("R16"))
+            val R16 = of("R16")
 
-            val R17 = Code(JsonField.of("R17"))
+            val R17 = of("R17")
 
-            val R20 = Code(JsonField.of("R20"))
+            val R20 = of("R20")
 
-            val R21 = Code(JsonField.of("R21"))
+            val R21 = of("R21")
 
-            val R22 = Code(JsonField.of("R22"))
+            val R22 = of("R22")
 
-            val R23 = Code(JsonField.of("R23"))
+            val R23 = of("R23")
 
-            val R24 = Code(JsonField.of("R24"))
+            val R24 = of("R24")
 
-            val R29 = Code(JsonField.of("R29"))
+            val R29 = of("R29")
 
-            val R31 = Code(JsonField.of("R31"))
+            val R31 = of("R31")
 
-            val R33 = Code(JsonField.of("R33"))
+            val R33 = of("R33")
 
-            val R37 = Code(JsonField.of("R37"))
+            val R37 = of("R37")
 
-            val R38 = Code(JsonField.of("R38"))
+            val R38 = of("R38")
 
-            val R39 = Code(JsonField.of("R39"))
+            val R39 = of("R39")
 
-            val R51 = Code(JsonField.of("R51"))
+            val R51 = of("R51")
 
-            val R52 = Code(JsonField.of("R52"))
+            val R52 = of("R52")
 
-            val R53 = Code(JsonField.of("R53"))
+            val R53 = of("R53")
 
-            val CURRENCYCLOUD = Code(JsonField.of("currencycloud"))
+            val CURRENCYCLOUD = of("currencycloud")
 
             fun of(value: String) = Code(JsonField.of(value))
         }
@@ -1194,191 +1194,151 @@ private constructor(
 
             companion object {
 
-                val ACH_ORIGINAL_TRACE_NUMBER =
-                    ReferenceNumberType(JsonField.of("ach_original_trace_number"))
+                val ACH_ORIGINAL_TRACE_NUMBER = of("ach_original_trace_number")
 
-                val ACH_TRACE_NUMBER = ReferenceNumberType(JsonField.of("ach_trace_number"))
+                val ACH_TRACE_NUMBER = of("ach_trace_number")
 
-                val BANKPROV_PAYMENT_ACTIVITY_DATE =
-                    ReferenceNumberType(JsonField.of("bankprov_payment_activity_date"))
+                val BANKPROV_PAYMENT_ACTIVITY_DATE = of("bankprov_payment_activity_date")
 
-                val BANKPROV_PAYMENT_ID = ReferenceNumberType(JsonField.of("bankprov_payment_id"))
+                val BANKPROV_PAYMENT_ID = of("bankprov_payment_id")
 
-                val BNK_DEV_PRENOTIFICATION_ID =
-                    ReferenceNumberType(JsonField.of("bnk_dev_prenotification_id"))
+                val BNK_DEV_PRENOTIFICATION_ID = of("bnk_dev_prenotification_id")
 
-                val BNK_DEV_TRANSFER_ID = ReferenceNumberType(JsonField.of("bnk_dev_transfer_id"))
+                val BNK_DEV_TRANSFER_ID = of("bnk_dev_transfer_id")
 
-                val BOFA_END_TO_END_ID = ReferenceNumberType(JsonField.of("bofa_end_to_end_id"))
+                val BOFA_END_TO_END_ID = of("bofa_end_to_end_id")
 
-                val BOFA_TRANSACTION_ID = ReferenceNumberType(JsonField.of("bofa_transaction_id"))
+                val BOFA_TRANSACTION_ID = of("bofa_transaction_id")
 
-                val CHECK_NUMBER = ReferenceNumberType(JsonField.of("check_number"))
+                val CHECK_NUMBER = of("check_number")
 
-                val CITIBANK_REFERENCE_NUMBER =
-                    ReferenceNumberType(JsonField.of("citibank_reference_number"))
+                val CITIBANK_REFERENCE_NUMBER = of("citibank_reference_number")
 
                 val CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER =
-                    ReferenceNumberType(
-                        JsonField.of("citibank_worldlink_clearing_system_reference_number")
-                    )
+                    of("citibank_worldlink_clearing_system_reference_number")
 
-                val COLUMN_FX_QUOTE_ID = ReferenceNumberType(JsonField.of("column_fx_quote_id"))
+                val COLUMN_FX_QUOTE_ID = of("column_fx_quote_id")
 
-                val COLUMN_REVERSAL_PAIR_TRANSFER_ID =
-                    ReferenceNumberType(JsonField.of("column_reversal_pair_transfer_id"))
+                val COLUMN_REVERSAL_PAIR_TRANSFER_ID = of("column_reversal_pair_transfer_id")
 
-                val COLUMN_TRANSFER_ID = ReferenceNumberType(JsonField.of("column_transfer_id"))
+                val COLUMN_TRANSFER_ID = of("column_transfer_id")
 
-                val CROSS_RIVER_PAYMENT_ID =
-                    ReferenceNumberType(JsonField.of("cross_river_payment_id"))
+                val CROSS_RIVER_PAYMENT_ID = of("cross_river_payment_id")
 
-                val CROSS_RIVER_SERVICE_MESSAGE =
-                    ReferenceNumberType(JsonField.of("cross_river_service_message"))
+                val CROSS_RIVER_SERVICE_MESSAGE = of("cross_river_service_message")
 
-                val CROSS_RIVER_TRANSACTION_ID =
-                    ReferenceNumberType(JsonField.of("cross_river_transaction_id"))
+                val CROSS_RIVER_TRANSACTION_ID = of("cross_river_transaction_id")
 
-                val CURRENCYCLOUD_CONVERSION_ID =
-                    ReferenceNumberType(JsonField.of("currencycloud_conversion_id"))
+                val CURRENCYCLOUD_CONVERSION_ID = of("currencycloud_conversion_id")
 
-                val CURRENCYCLOUD_PAYMENT_ID =
-                    ReferenceNumberType(JsonField.of("currencycloud_payment_id"))
+                val CURRENCYCLOUD_PAYMENT_ID = of("currencycloud_payment_id")
 
-                val DC_BANK_TRANSACTION_ID =
-                    ReferenceNumberType(JsonField.of("dc_bank_transaction_id"))
+                val DC_BANK_TRANSACTION_ID = of("dc_bank_transaction_id")
 
-                val DWOLLA_TRANSACTION_ID =
-                    ReferenceNumberType(JsonField.of("dwolla_transaction_id"))
+                val DWOLLA_TRANSACTION_ID = of("dwolla_transaction_id")
 
-                val EFT_TRACE_NUMBER = ReferenceNumberType(JsonField.of("eft_trace_number"))
+                val EFT_TRACE_NUMBER = of("eft_trace_number")
 
-                val EVOLVE_TRANSACTION_ID =
-                    ReferenceNumberType(JsonField.of("evolve_transaction_id"))
+                val EVOLVE_TRANSACTION_ID = of("evolve_transaction_id")
 
-                val FEDWIRE_IMAD = ReferenceNumberType(JsonField.of("fedwire_imad"))
+                val FEDWIRE_IMAD = of("fedwire_imad")
 
-                val FEDWIRE_OMAD = ReferenceNumberType(JsonField.of("fedwire_omad"))
+                val FEDWIRE_OMAD = of("fedwire_omad")
 
-                val FIRST_REPUBLIC_INTERNAL_ID =
-                    ReferenceNumberType(JsonField.of("first_republic_internal_id"))
+                val FIRST_REPUBLIC_INTERNAL_ID = of("first_republic_internal_id")
 
-                val GOLDMAN_SACHS_COLLECTION_REQUEST_ID =
-                    ReferenceNumberType(JsonField.of("goldman_sachs_collection_request_id"))
+                val GOLDMAN_SACHS_COLLECTION_REQUEST_ID = of("goldman_sachs_collection_request_id")
 
-                val GOLDMAN_SACHS_END_TO_END_ID =
-                    ReferenceNumberType(JsonField.of("goldman_sachs_end_to_end_id"))
+                val GOLDMAN_SACHS_END_TO_END_ID = of("goldman_sachs_end_to_end_id")
 
-                val GOLDMAN_SACHS_PAYMENT_REQUEST_ID =
-                    ReferenceNumberType(JsonField.of("goldman_sachs_payment_request_id"))
+                val GOLDMAN_SACHS_PAYMENT_REQUEST_ID = of("goldman_sachs_payment_request_id")
 
-                val GOLDMAN_SACHS_REQUEST_ID =
-                    ReferenceNumberType(JsonField.of("goldman_sachs_request_id"))
+                val GOLDMAN_SACHS_REQUEST_ID = of("goldman_sachs_request_id")
 
-                val GOLDMAN_SACHS_UNIQUE_PAYMENT_ID =
-                    ReferenceNumberType(JsonField.of("goldman_sachs_unique_payment_id"))
+                val GOLDMAN_SACHS_UNIQUE_PAYMENT_ID = of("goldman_sachs_unique_payment_id")
 
-                val INTERAC_MESSAGE_ID = ReferenceNumberType(JsonField.of("interac_message_id"))
+                val INTERAC_MESSAGE_ID = of("interac_message_id")
 
-                val JPMC_CCN = ReferenceNumberType(JsonField.of("jpmc_ccn"))
+                val JPMC_CCN = of("jpmc_ccn")
 
-                val JPMC_CLEARING_SYSTEM_REFERENCE =
-                    ReferenceNumberType(JsonField.of("jpmc_clearing_system_reference"))
+                val JPMC_CLEARING_SYSTEM_REFERENCE = of("jpmc_clearing_system_reference")
 
-                val JPMC_CUSTOMER_REFERENCE_ID =
-                    ReferenceNumberType(JsonField.of("jpmc_customer_reference_id"))
+                val JPMC_CUSTOMER_REFERENCE_ID = of("jpmc_customer_reference_id")
 
-                val JPMC_END_TO_END_ID = ReferenceNumberType(JsonField.of("jpmc_end_to_end_id"))
+                val JPMC_END_TO_END_ID = of("jpmc_end_to_end_id")
 
-                val JPMC_FIRM_ROOT_ID = ReferenceNumberType(JsonField.of("jpmc_firm_root_id"))
+                val JPMC_FIRM_ROOT_ID = of("jpmc_firm_root_id")
 
-                val JPMC_FX_TRN_ID = ReferenceNumberType(JsonField.of("jpmc_fx_trn_id"))
+                val JPMC_FX_TRN_ID = of("jpmc_fx_trn_id")
 
-                val JPMC_P3_ID = ReferenceNumberType(JsonField.of("jpmc_p3_id"))
+                val JPMC_P3_ID = of("jpmc_p3_id")
 
-                val JPMC_PAYMENT_BATCH_ID =
-                    ReferenceNumberType(JsonField.of("jpmc_payment_batch_id"))
+                val JPMC_PAYMENT_BATCH_ID = of("jpmc_payment_batch_id")
 
-                val JPMC_PAYMENT_INFORMATION_ID =
-                    ReferenceNumberType(JsonField.of("jpmc_payment_information_id"))
+                val JPMC_PAYMENT_INFORMATION_ID = of("jpmc_payment_information_id")
 
-                val JPMC_PAYMENT_RETURNED_DATETIME =
-                    ReferenceNumberType(JsonField.of("jpmc_payment_returned_datetime"))
+                val JPMC_PAYMENT_RETURNED_DATETIME = of("jpmc_payment_returned_datetime")
 
-                val LOB_CHECK_ID = ReferenceNumberType(JsonField.of("lob_check_id"))
+                val LOB_CHECK_ID = of("lob_check_id")
 
-                val OTHER = ReferenceNumberType(JsonField.of("other"))
+                val OTHER = of("other")
 
-                val PARTIAL_SWIFT_MIR = ReferenceNumberType(JsonField.of("partial_swift_mir"))
+                val PARTIAL_SWIFT_MIR = of("partial_swift_mir")
 
-                val PNC_CLEARING_REFERENCE =
-                    ReferenceNumberType(JsonField.of("pnc_clearing_reference"))
+                val PNC_CLEARING_REFERENCE = of("pnc_clearing_reference")
 
-                val PNC_INSTRUCTION_ID = ReferenceNumberType(JsonField.of("pnc_instruction_id"))
+                val PNC_INSTRUCTION_ID = of("pnc_instruction_id")
 
-                val PNC_MULTIPAYMENT_ID = ReferenceNumberType(JsonField.of("pnc_multipayment_id"))
+                val PNC_MULTIPAYMENT_ID = of("pnc_multipayment_id")
 
-                val PNC_PAYMENT_TRACE_ID = ReferenceNumberType(JsonField.of("pnc_payment_trace_id"))
+                val PNC_PAYMENT_TRACE_ID = of("pnc_payment_trace_id")
 
-                val PNC_TRANSACTION_REFERENCE_NUMBER =
-                    ReferenceNumberType(JsonField.of("pnc_transaction_reference_number"))
+                val PNC_TRANSACTION_REFERENCE_NUMBER = of("pnc_transaction_reference_number")
 
-                val RSPEC_VENDOR_PAYMENT_ID =
-                    ReferenceNumberType(JsonField.of("rspec_vendor_payment_id"))
+                val RSPEC_VENDOR_PAYMENT_ID = of("rspec_vendor_payment_id")
 
-                val RTP_INSTRUCTION_ID = ReferenceNumberType(JsonField.of("rtp_instruction_id"))
+                val RTP_INSTRUCTION_ID = of("rtp_instruction_id")
 
-                val SIGNET_API_REFERENCE_ID =
-                    ReferenceNumberType(JsonField.of("signet_api_reference_id"))
+                val SIGNET_API_REFERENCE_ID = of("signet_api_reference_id")
 
-                val SIGNET_CONFIRMATION_ID =
-                    ReferenceNumberType(JsonField.of("signet_confirmation_id"))
+                val SIGNET_CONFIRMATION_ID = of("signet_confirmation_id")
 
-                val SIGNET_REQUEST_ID = ReferenceNumberType(JsonField.of("signet_request_id"))
+                val SIGNET_REQUEST_ID = of("signet_request_id")
 
-                val SILVERGATE_PAYMENT_ID =
-                    ReferenceNumberType(JsonField.of("silvergate_payment_id"))
+                val SILVERGATE_PAYMENT_ID = of("silvergate_payment_id")
 
-                val SVB_END_TO_END_ID = ReferenceNumberType(JsonField.of("svb_end_to_end_id"))
+                val SVB_END_TO_END_ID = of("svb_end_to_end_id")
 
-                val SVB_PAYMENT_ID = ReferenceNumberType(JsonField.of("svb_payment_id"))
+                val SVB_PAYMENT_ID = of("svb_payment_id")
 
                 val SVB_TRANSACTION_CLEARED_FOR_SANCTIONS_REVIEW =
-                    ReferenceNumberType(
-                        JsonField.of("svb_transaction_cleared_for_sanctions_review")
-                    )
+                    of("svb_transaction_cleared_for_sanctions_review")
 
                 val SVB_TRANSACTION_HELD_FOR_SANCTIONS_REVIEW =
-                    ReferenceNumberType(JsonField.of("svb_transaction_held_for_sanctions_review"))
+                    of("svb_transaction_held_for_sanctions_review")
 
-                val SWIFT_MIR = ReferenceNumberType(JsonField.of("swift_mir"))
+                val SWIFT_MIR = of("swift_mir")
 
-                val SWIFT_UETR = ReferenceNumberType(JsonField.of("swift_uetr"))
+                val SWIFT_UETR = of("swift_uetr")
 
-                val UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER =
-                    ReferenceNumberType(JsonField.of("umb_product_partner_account_number"))
+                val UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER = of("umb_product_partner_account_number")
 
                 val USBANK_PAYMENT_APPLICATION_REFERENCE_ID =
-                    ReferenceNumberType(JsonField.of("usbank_payment_application_reference_id"))
+                    of("usbank_payment_application_reference_id")
 
-                val USBANK_PAYMENT_ID = ReferenceNumberType(JsonField.of("usbank_payment_id"))
+                val USBANK_PAYMENT_ID = of("usbank_payment_id")
 
-                val USBANK_PENDING_RTP_PAYMENT_ID =
-                    ReferenceNumberType(JsonField.of("usbank_pending_rtp_payment_id"))
+                val USBANK_PENDING_RTP_PAYMENT_ID = of("usbank_pending_rtp_payment_id")
 
-                val USBANK_POSTED_RTP_PAYMENT_ID =
-                    ReferenceNumberType(JsonField.of("usbank_posted_rtp_payment_id"))
+                val USBANK_POSTED_RTP_PAYMENT_ID = of("usbank_posted_rtp_payment_id")
 
-                val WELLS_FARGO_END_TO_END_ID =
-                    ReferenceNumberType(JsonField.of("wells_fargo_end_to_end_id"))
+                val WELLS_FARGO_END_TO_END_ID = of("wells_fargo_end_to_end_id")
 
-                val WELLS_FARGO_PAYMENT_ID =
-                    ReferenceNumberType(JsonField.of("wells_fargo_payment_id"))
+                val WELLS_FARGO_PAYMENT_ID = of("wells_fargo_payment_id")
 
-                val WELLS_FARGO_TRACE_NUMBER =
-                    ReferenceNumberType(JsonField.of("wells_fargo_trace_number"))
+                val WELLS_FARGO_TRACE_NUMBER = of("wells_fargo_trace_number")
 
-                val WELLS_FARGO_UETR = ReferenceNumberType(JsonField.of("wells_fargo_uetr"))
+                val WELLS_FARGO_UETR = of("wells_fargo_uetr")
 
                 fun of(value: String) = ReferenceNumberType(JsonField.of(value))
             }
@@ -1738,15 +1698,15 @@ private constructor(
 
         companion object {
 
-            val INCOMING_PAYMENT_DETAIL = ReturnableType(JsonField.of("incoming_payment_detail"))
+            val INCOMING_PAYMENT_DETAIL = of("incoming_payment_detail")
 
-            val PAPER_ITEM = ReturnableType(JsonField.of("paper_item"))
+            val PAPER_ITEM = of("paper_item")
 
-            val PAYMENT_ORDER = ReturnableType(JsonField.of("payment_order"))
+            val PAYMENT_ORDER = of("payment_order")
 
-            val RETURN = ReturnableType(JsonField.of("return"))
+            val RETURN = of("return")
 
-            val REVERSAL = ReturnableType(JsonField.of("reversal"))
+            val REVERSAL = of("reversal")
 
             fun of(value: String) = ReturnableType(JsonField.of(value))
         }
@@ -1813,9 +1773,9 @@ private constructor(
 
         companion object {
 
-            val ORIGINATING = Role(JsonField.of("originating"))
+            val ORIGINATING = of("originating")
 
-            val RECEIVING = Role(JsonField.of("receiving"))
+            val RECEIVING = of("receiving")
 
             fun of(value: String) = Role(JsonField.of(value))
         }
@@ -1870,17 +1830,17 @@ private constructor(
 
         companion object {
 
-            val COMPLETED = Status(JsonField.of("completed"))
+            val COMPLETED = of("completed")
 
-            val FAILED = Status(JsonField.of("failed"))
+            val FAILED = of("failed")
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val PROCESSING = Status(JsonField.of("processing"))
+            val PROCESSING = of("processing")
 
-            val RETURNED = Status(JsonField.of("returned"))
+            val RETURNED = of("returned")
 
-            val SENT = Status(JsonField.of("sent"))
+            val SENT = of("sent")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -1951,31 +1911,31 @@ private constructor(
 
         companion object {
 
-            val ACH = Type(JsonField.of("ach"))
+            val ACH = of("ach")
 
-            val ACH_NOC = Type(JsonField.of("ach_noc"))
+            val ACH_NOC = of("ach_noc")
 
-            val AU_BECS = Type(JsonField.of("au_becs"))
+            val AU_BECS = of("au_becs")
 
-            val BACS = Type(JsonField.of("bacs"))
+            val BACS = of("bacs")
 
-            val BOOK = Type(JsonField.of("book"))
+            val BOOK = of("book")
 
-            val CHECK = Type(JsonField.of("check"))
+            val CHECK = of("check")
 
-            val CROSS_BORDER = Type(JsonField.of("cross_border"))
+            val CROSS_BORDER = of("cross_border")
 
-            val EFT = Type(JsonField.of("eft"))
+            val EFT = of("eft")
 
-            val INTERAC = Type(JsonField.of("interac"))
+            val INTERAC = of("interac")
 
-            val MANUAL = Type(JsonField.of("manual"))
+            val MANUAL = of("manual")
 
-            val PAPER_ITEM = Type(JsonField.of("paper_item"))
+            val PAPER_ITEM = of("paper_item")
 
-            val SEPA = Type(JsonField.of("sepa"))
+            val SEPA = of("sepa")
 
-            val WIRE = Type(JsonField.of("wire"))
+            val WIRE = of("wire")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

@@ -349,11 +349,11 @@ private constructor(
 
         companion object {
 
-            val CREATE = ActionType(JsonField.of("create"))
+            val CREATE = of("create")
 
-            val UPDATE = ActionType(JsonField.of("update"))
+            val UPDATE = of("update")
 
-            val DELETE = ActionType(JsonField.of("delete"))
+            val DELETE = of("delete")
 
             fun of(value: String) = ActionType(JsonField.of(value))
         }
@@ -481,13 +481,13 @@ private constructor(
 
         companion object {
 
-            val PAYMENT_ORDER = ResourceType(JsonField.of("payment_order"))
+            val PAYMENT_ORDER = of("payment_order")
 
-            val LEDGER_TRANSACTION = ResourceType(JsonField.of("ledger_transaction"))
+            val LEDGER_TRANSACTION = of("ledger_transaction")
 
-            val TRANSACTION = ResourceType(JsonField.of("transaction"))
+            val TRANSACTION = of("transaction")
 
-            val EXPECTED_PAYMENT = ResourceType(JsonField.of("expected_payment"))
+            val EXPECTED_PAYMENT = of("expected_payment")
 
             fun of(value: String) = ResourceType(JsonField.of(value))
         }
@@ -550,11 +550,11 @@ private constructor(
 
         companion object {
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val PROCESSING = Status(JsonField.of("processing"))
+            val PROCESSING = of("processing")
 
-            val COMPLETED = Status(JsonField.of("completed"))
+            val COMPLETED = of("completed")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

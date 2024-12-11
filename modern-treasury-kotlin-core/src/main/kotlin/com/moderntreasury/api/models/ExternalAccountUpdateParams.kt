@@ -642,9 +642,9 @@ constructor(
 
         companion object {
 
-            val BUSINESS = PartyType(JsonField.of("business"))
+            val BUSINESS = of("business")
 
-            val INDIVIDUAL = PartyType(JsonField.of("individual"))
+            val INDIVIDUAL = of("individual")
 
             fun of(value: String) = PartyType(JsonField.of(value))
         }

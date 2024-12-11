@@ -30,63 +30,63 @@ private constructor(
 
     companion object {
 
-        val BACS_NEW_INSTRUCTION = PaymentOrderSubtype(JsonField.of("0C"))
+        val BACS_NEW_INSTRUCTION = of("0C")
 
-        val BACS_CANCELLATION_INSTRUCTION = PaymentOrderSubtype(JsonField.of("0N"))
+        val BACS_CANCELLATION_INSTRUCTION = of("0N")
 
-        val BACS_CONVERSION_INSTRUCTION = PaymentOrderSubtype(JsonField.of("0S"))
+        val BACS_CONVERSION_INSTRUCTION = of("0S")
 
-        val CCD = PaymentOrderSubtype(JsonField.of("CCD"))
+        val CCD = of("CCD")
 
-        val CIE = PaymentOrderSubtype(JsonField.of("CIE"))
+        val CIE = of("CIE")
 
-        val CTX = PaymentOrderSubtype(JsonField.of("CTX"))
+        val CTX = of("CTX")
 
-        val IAT = PaymentOrderSubtype(JsonField.of("IAT"))
+        val IAT = of("IAT")
 
-        val PPD = PaymentOrderSubtype(JsonField.of("PPD"))
+        val PPD = of("PPD")
 
-        val TEL = PaymentOrderSubtype(JsonField.of("TEL"))
+        val TEL = of("TEL")
 
-        val WEB = PaymentOrderSubtype(JsonField.of("WEB"))
+        val WEB = of("WEB")
 
-        val AU_BECS = PaymentOrderSubtype(JsonField.of("au_becs"))
+        val AU_BECS = of("au_becs")
 
-        val BACS = PaymentOrderSubtype(JsonField.of("bacs"))
+        val BACS = of("bacs")
 
-        val CHATS = PaymentOrderSubtype(JsonField.of("chats"))
+        val CHATS = of("chats")
 
-        val DK_NETS = PaymentOrderSubtype(JsonField.of("dk_nets"))
+        val DK_NETS = of("dk_nets")
 
-        val EFT = PaymentOrderSubtype(JsonField.of("eft"))
+        val EFT = of("eft")
 
-        val HU_ICS = PaymentOrderSubtype(JsonField.of("hu_ics"))
+        val HU_ICS = of("hu_ics")
 
-        val MASAV = PaymentOrderSubtype(JsonField.of("masav"))
+        val MASAV = of("masav")
 
-        val MX_CCEN = PaymentOrderSubtype(JsonField.of("mx_ccen"))
+        val MX_CCEN = of("mx_ccen")
 
-        val NEFT = PaymentOrderSubtype(JsonField.of("neft"))
+        val NEFT = of("neft")
 
-        val NICS = PaymentOrderSubtype(JsonField.of("nics"))
+        val NICS = of("nics")
 
-        val NZ_BECS = PaymentOrderSubtype(JsonField.of("nz_becs"))
+        val NZ_BECS = of("nz_becs")
 
-        val PL_ELIXIR = PaymentOrderSubtype(JsonField.of("pl_elixir"))
+        val PL_ELIXIR = of("pl_elixir")
 
-        val RO_SENT = PaymentOrderSubtype(JsonField.of("ro_sent"))
+        val RO_SENT = of("ro_sent")
 
-        val SE_BANKGIROT = PaymentOrderSubtype(JsonField.of("se_bankgirot"))
+        val SE_BANKGIROT = of("se_bankgirot")
 
-        val SEPA = PaymentOrderSubtype(JsonField.of("sepa"))
+        val SEPA = of("sepa")
 
-        val SG_GIRO = PaymentOrderSubtype(JsonField.of("sg_giro"))
+        val SG_GIRO = of("sg_giro")
 
-        val SIC = PaymentOrderSubtype(JsonField.of("sic"))
+        val SIC = of("sic")
 
-        val SKNBI = PaymentOrderSubtype(JsonField.of("sknbi"))
+        val SKNBI = of("sknbi")
 
-        val ZENGIN = PaymentOrderSubtype(JsonField.of("zengin"))
+        val ZENGIN = of("zengin")
 
         fun of(value: String) = PaymentOrderSubtype(JsonField.of(value))
     }

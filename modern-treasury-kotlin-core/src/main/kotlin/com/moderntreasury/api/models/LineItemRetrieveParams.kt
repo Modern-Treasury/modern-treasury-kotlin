@@ -207,9 +207,9 @@ constructor(
 
         companion object {
 
-            val EXPECTED_PAYMENTS = ItemizableType(JsonField.of("expected_payments"))
+            val EXPECTED_PAYMENTS = of("expected_payments")
 
-            val PAYMENT_ORDERS = ItemizableType(JsonField.of("payment_orders"))
+            val PAYMENT_ORDERS = of("payment_orders")
 
             fun of(value: String) = ItemizableType(JsonField.of(value))
         }

@@ -63,7 +63,7 @@ interface RoutingDetailServiceAsync {
 
         companion object {
 
-            val EXTERNAL_ACCOUNTS = AccountsType(JsonField.of("external_accounts"))
+            val EXTERNAL_ACCOUNTS = of("external_accounts")
 
             fun of(value: String) = AccountsType(JsonField.of(value))
         }

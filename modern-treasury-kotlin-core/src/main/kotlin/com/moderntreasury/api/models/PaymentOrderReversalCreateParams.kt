@@ -394,15 +394,15 @@ constructor(
 
         companion object {
 
-            val DUPLICATE = Reason(JsonField.of("duplicate"))
+            val DUPLICATE = of("duplicate")
 
-            val INCORRECT_AMOUNT = Reason(JsonField.of("incorrect_amount"))
+            val INCORRECT_AMOUNT = of("incorrect_amount")
 
-            val INCORRECT_RECEIVING_ACCOUNT = Reason(JsonField.of("incorrect_receiving_account"))
+            val INCORRECT_RECEIVING_ACCOUNT = of("incorrect_receiving_account")
 
-            val DATE_EARLIER_THAN_INTENDED = Reason(JsonField.of("date_earlier_than_intended"))
+            val DATE_EARLIER_THAN_INTENDED = of("date_earlier_than_intended")
 
-            val DATE_LATER_THAN_INTENDED = Reason(JsonField.of("date_later_than_intended"))
+            val DATE_LATER_THAN_INTENDED = of("date_later_than_intended")
 
             fun of(value: String) = Reason(JsonField.of(value))
         }
@@ -1178,18 +1178,17 @@ constructor(
 
             companion object {
 
-                val EXPECTED_PAYMENT = LedgerableType(JsonField.of("expected_payment"))
+                val EXPECTED_PAYMENT = of("expected_payment")
 
-                val INCOMING_PAYMENT_DETAIL =
-                    LedgerableType(JsonField.of("incoming_payment_detail"))
+                val INCOMING_PAYMENT_DETAIL = of("incoming_payment_detail")
 
-                val PAPER_ITEM = LedgerableType(JsonField.of("paper_item"))
+                val PAPER_ITEM = of("paper_item")
 
-                val PAYMENT_ORDER = LedgerableType(JsonField.of("payment_order"))
+                val PAYMENT_ORDER = of("payment_order")
 
-                val RETURN = LedgerableType(JsonField.of("return"))
+                val RETURN = of("return")
 
-                val REVERSAL = LedgerableType(JsonField.of("reversal"))
+                val REVERSAL = of("reversal")
 
                 fun of(value: String) = LedgerableType(JsonField.of(value))
             }
@@ -1325,11 +1324,11 @@ constructor(
 
             companion object {
 
-                val ARCHIVED = Status(JsonField.of("archived"))
+                val ARCHIVED = of("archived")
 
-                val PENDING = Status(JsonField.of("pending"))
+                val PENDING = of("pending")
 
-                val POSTED = Status(JsonField.of("posted"))
+                val POSTED = of("posted")
 
                 fun of(value: String) = Status(JsonField.of(value))
             }

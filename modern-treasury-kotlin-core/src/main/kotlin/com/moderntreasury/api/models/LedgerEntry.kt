@@ -910,11 +910,11 @@ private constructor(
 
         companion object {
 
-            val ARCHIVED = Status(JsonField.of("archived"))
+            val ARCHIVED = of("archived")
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val POSTED = Status(JsonField.of("posted"))
+            val POSTED = of("posted")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

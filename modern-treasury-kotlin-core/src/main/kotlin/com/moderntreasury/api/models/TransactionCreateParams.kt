@@ -611,67 +611,67 @@ constructor(
 
         companion object {
 
-            val ACH = Type(JsonField.of("ach"))
+            val ACH = of("ach")
 
-            val AU_BECS = Type(JsonField.of("au_becs"))
+            val AU_BECS = of("au_becs")
 
-            val BACS = Type(JsonField.of("bacs"))
+            val BACS = of("bacs")
 
-            val BOOK = Type(JsonField.of("book"))
+            val BOOK = of("book")
 
-            val CARD = Type(JsonField.of("card"))
+            val CARD = of("card")
 
-            val CHATS = Type(JsonField.of("chats"))
+            val CHATS = of("chats")
 
-            val CHECK = Type(JsonField.of("check"))
+            val CHECK = of("check")
 
-            val CROSS_BORDER = Type(JsonField.of("cross_border"))
+            val CROSS_BORDER = of("cross_border")
 
-            val DK_NETS = Type(JsonField.of("dk_nets"))
+            val DK_NETS = of("dk_nets")
 
-            val EFT = Type(JsonField.of("eft"))
+            val EFT = of("eft")
 
-            val HU_ICS = Type(JsonField.of("hu_ics"))
+            val HU_ICS = of("hu_ics")
 
-            val INTERAC = Type(JsonField.of("interac"))
+            val INTERAC = of("interac")
 
-            val MASAV = Type(JsonField.of("masav"))
+            val MASAV = of("masav")
 
-            val MX_CCEN = Type(JsonField.of("mx_ccen"))
+            val MX_CCEN = of("mx_ccen")
 
-            val NEFT = Type(JsonField.of("neft"))
+            val NEFT = of("neft")
 
-            val NICS = Type(JsonField.of("nics"))
+            val NICS = of("nics")
 
-            val NZ_BECS = Type(JsonField.of("nz_becs"))
+            val NZ_BECS = of("nz_becs")
 
-            val PL_ELIXIR = Type(JsonField.of("pl_elixir"))
+            val PL_ELIXIR = of("pl_elixir")
 
-            val PROVXCHANGE = Type(JsonField.of("provxchange"))
+            val PROVXCHANGE = of("provxchange")
 
-            val RO_SENT = Type(JsonField.of("ro_sent"))
+            val RO_SENT = of("ro_sent")
 
-            val RTP = Type(JsonField.of("rtp"))
+            val RTP = of("rtp")
 
-            val SE_BANKGIROT = Type(JsonField.of("se_bankgirot"))
+            val SE_BANKGIROT = of("se_bankgirot")
 
-            val SEN = Type(JsonField.of("sen"))
+            val SEN = of("sen")
 
-            val SEPA = Type(JsonField.of("sepa"))
+            val SEPA = of("sepa")
 
-            val SG_GIRO = Type(JsonField.of("sg_giro"))
+            val SG_GIRO = of("sg_giro")
 
-            val SIC = Type(JsonField.of("sic"))
+            val SIC = of("sic")
 
-            val SIGNET = Type(JsonField.of("signet"))
+            val SIGNET = of("signet")
 
-            val SKNBI = Type(JsonField.of("sknbi"))
+            val SKNBI = of("sknbi")
 
-            val WIRE = Type(JsonField.of("wire"))
+            val WIRE = of("wire")
 
-            val ZENGIN = Type(JsonField.of("zengin"))
+            val ZENGIN = of("zengin")
 
-            val OTHER = Type(JsonField.of("other"))
+            val OTHER = of("other")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

@@ -729,9 +729,9 @@ private constructor(
 
         companion object {
 
-            val CREDIT = Direction(JsonField.of("credit"))
+            val CREDIT = of("credit")
 
-            val DEBIT = Direction(JsonField.of("debit"))
+            val DEBIT = of("debit")
 
             fun of(value: String) = Direction(JsonField.of(value))
         }
@@ -855,9 +855,9 @@ private constructor(
 
         companion object {
 
-            val AUTOMATIC = ReconciliationMethod(JsonField.of("automatic"))
+            val AUTOMATIC = of("automatic")
 
-            val MANUAL = ReconciliationMethod(JsonField.of("manual"))
+            val MANUAL = of("manual")
 
             fun of(value: String) = ReconciliationMethod(JsonField.of(value))
         }
@@ -913,13 +913,13 @@ private constructor(
 
         companion object {
 
-            val ARCHIVED = Status(JsonField.of("archived"))
+            val ARCHIVED = of("archived")
 
-            val PARTIALLY_RECONCILED = Status(JsonField.of("partially_reconciled"))
+            val PARTIALLY_RECONCILED = of("partially_reconciled")
 
-            val RECONCILED = Status(JsonField.of("reconciled"))
+            val RECONCILED = of("reconciled")
 
-            val UNRECONCILED = Status(JsonField.of("unreconciled"))
+            val UNRECONCILED = of("unreconciled")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

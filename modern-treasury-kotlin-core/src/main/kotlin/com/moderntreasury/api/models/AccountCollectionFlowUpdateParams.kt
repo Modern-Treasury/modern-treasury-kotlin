@@ -321,7 +321,7 @@ constructor(
 
         companion object {
 
-            val CANCELLED = Status(JsonField.of("cancelled"))
+            val CANCELLED = of("cancelled")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

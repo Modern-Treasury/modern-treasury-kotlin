@@ -30,21 +30,21 @@ private constructor(
 
     companion object {
 
-        val CASH = ExternalAccountType(JsonField.of("cash"))
+        val CASH = of("cash")
 
-        val CHECKING = ExternalAccountType(JsonField.of("checking"))
+        val CHECKING = of("checking")
 
-        val GENERAL_LEDGER = ExternalAccountType(JsonField.of("general_ledger"))
+        val GENERAL_LEDGER = of("general_ledger")
 
-        val LOAN = ExternalAccountType(JsonField.of("loan"))
+        val LOAN = of("loan")
 
-        val NON_RESIDENT = ExternalAccountType(JsonField.of("non_resident"))
+        val NON_RESIDENT = of("non_resident")
 
-        val OTHER = ExternalAccountType(JsonField.of("other"))
+        val OTHER = of("other")
 
-        val OVERDRAFT = ExternalAccountType(JsonField.of("overdraft"))
+        val OVERDRAFT = of("overdraft")
 
-        val SAVINGS = ExternalAccountType(JsonField.of("savings"))
+        val SAVINGS = of("savings")
 
         fun of(value: String) = ExternalAccountType(JsonField.of(value))
     }
