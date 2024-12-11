@@ -461,9 +461,9 @@ constructor(
 
         companion object {
 
-            val CREDIT = Direction(JsonField.of("credit"))
+            val CREDIT = of("credit")
 
-            val DEBIT = Direction(JsonField.of("debit"))
+            val DEBIT = of("debit")
 
             fun of(value: String) = Direction(JsonField.of(value))
         }
@@ -518,23 +518,23 @@ constructor(
 
         companion object {
 
-            val ACH = Type(JsonField.of("ach"))
+            val ACH = of("ach")
 
-            val BOOK = Type(JsonField.of("book"))
+            val BOOK = of("book")
 
-            val CHECK = Type(JsonField.of("check"))
+            val CHECK = of("check")
 
-            val EFT = Type(JsonField.of("eft"))
+            val EFT = of("eft")
 
-            val INTERAC = Type(JsonField.of("interac"))
+            val INTERAC = of("interac")
 
-            val RTP = Type(JsonField.of("rtp"))
+            val RTP = of("rtp")
 
-            val SEPA = Type(JsonField.of("sepa"))
+            val SEPA = of("sepa")
 
-            val SIGNET = Type(JsonField.of("signet"))
+            val SIGNET = of("signet")
 
-            val WIRE = Type(JsonField.of("wire"))
+            val WIRE = of("wire")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

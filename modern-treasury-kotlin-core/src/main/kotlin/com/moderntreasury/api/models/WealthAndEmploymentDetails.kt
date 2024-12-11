@@ -446,15 +446,15 @@ private constructor(
 
         companion object {
 
-            val EMPLOYED = EmploymentStatus(JsonField.of("employed"))
+            val EMPLOYED = of("employed")
 
-            val RETIRED = EmploymentStatus(JsonField.of("retired"))
+            val RETIRED = of("retired")
 
-            val SELF_EMPLOYED = EmploymentStatus(JsonField.of("self_employed"))
+            val SELF_EMPLOYED = of("self_employed")
 
-            val STUDENT = EmploymentStatus(JsonField.of("student"))
+            val STUDENT = of("student")
 
-            val UNEMPLOYED = EmploymentStatus(JsonField.of("unemployed"))
+            val UNEMPLOYED = of("unemployed")
 
             fun of(value: String) = EmploymentStatus(JsonField.of(value))
         }
@@ -521,21 +521,21 @@ private constructor(
 
         companion object {
 
-            val FAMILY_SUPPORT = IncomeSource(JsonField.of("family_support"))
+            val FAMILY_SUPPORT = of("family_support")
 
-            val GOVERNMENT_BENEFITS = IncomeSource(JsonField.of("government_benefits"))
+            val GOVERNMENT_BENEFITS = of("government_benefits")
 
-            val INHERITANCE = IncomeSource(JsonField.of("inheritance"))
+            val INHERITANCE = of("inheritance")
 
-            val INVESTMENTS = IncomeSource(JsonField.of("investments"))
+            val INVESTMENTS = of("investments")
 
-            val RENTAL_INCOME = IncomeSource(JsonField.of("rental_income"))
+            val RENTAL_INCOME = of("rental_income")
 
-            val RETIREMENT = IncomeSource(JsonField.of("retirement"))
+            val RETIREMENT = of("retirement")
 
-            val SALARY = IncomeSource(JsonField.of("salary"))
+            val SALARY = of("salary")
 
-            val SELF_EMPLOYED = IncomeSource(JsonField.of("self_employed"))
+            val SELF_EMPLOYED = of("self_employed")
 
             fun of(value: String) = IncomeSource(JsonField.of(value))
         }
@@ -614,71 +614,71 @@ private constructor(
 
         companion object {
 
-            val ACCOUNTING = Industry(JsonField.of("accounting"))
+            val ACCOUNTING = of("accounting")
 
-            val AGRICULTURE = Industry(JsonField.of("agriculture"))
+            val AGRICULTURE = of("agriculture")
 
-            val AUTOMOTIVE = Industry(JsonField.of("automotive"))
+            val AUTOMOTIVE = of("automotive")
 
-            val CHEMICAL_MANUFACTURING = Industry(JsonField.of("chemical_manufacturing"))
+            val CHEMICAL_MANUFACTURING = of("chemical_manufacturing")
 
-            val CONSTRUCTION = Industry(JsonField.of("construction"))
+            val CONSTRUCTION = of("construction")
 
-            val EDUCATIONAL_MEDICAL = Industry(JsonField.of("educational_medical"))
+            val EDUCATIONAL_MEDICAL = of("educational_medical")
 
-            val FOOD_SERVICE = Industry(JsonField.of("food_service"))
+            val FOOD_SERVICE = of("food_service")
 
-            val FINANCE = Industry(JsonField.of("finance"))
+            val FINANCE = of("finance")
 
-            val GASOLINE = Industry(JsonField.of("gasoline"))
+            val GASOLINE = of("gasoline")
 
-            val HEALTH_STORES = Industry(JsonField.of("health_stores"))
+            val HEALTH_STORES = of("health_stores")
 
-            val LAUNDRY = Industry(JsonField.of("laundry"))
+            val LAUNDRY = of("laundry")
 
-            val MAINTENANCE = Industry(JsonField.of("maintenance"))
+            val MAINTENANCE = of("maintenance")
 
-            val MANUFACTURING = Industry(JsonField.of("manufacturing"))
+            val MANUFACTURING = of("manufacturing")
 
-            val MERCHANT_WHOLESALE = Industry(JsonField.of("merchant_wholesale"))
+            val MERCHANT_WHOLESALE = of("merchant_wholesale")
 
-            val MINING = Industry(JsonField.of("mining"))
+            val MINING = of("mining")
 
-            val PERFORMING_ARTS = Industry(JsonField.of("performing_arts"))
+            val PERFORMING_ARTS = of("performing_arts")
 
-            val PROFESSIONAL_NON_LEGAL = Industry(JsonField.of("professional_non_legal"))
+            val PROFESSIONAL_NON_LEGAL = of("professional_non_legal")
 
-            val PUBLIC_ADMINISTRATION = Industry(JsonField.of("public_administration"))
+            val PUBLIC_ADMINISTRATION = of("public_administration")
 
-            val PUBLISHING = Industry(JsonField.of("publishing"))
+            val PUBLISHING = of("publishing")
 
-            val REAL_ESTATE = Industry(JsonField.of("real_estate"))
+            val REAL_ESTATE = of("real_estate")
 
-            val RECREATION_GAMBLING = Industry(JsonField.of("recreation_gambling"))
+            val RECREATION_GAMBLING = of("recreation_gambling")
 
-            val RELIGIOUS_CHARITY = Industry(JsonField.of("religious_charity"))
+            val RELIGIOUS_CHARITY = of("religious_charity")
 
-            val RENTAL_SERVICES = Industry(JsonField.of("rental_services"))
+            val RENTAL_SERVICES = of("rental_services")
 
-            val RETAIL_CLOTHING = Industry(JsonField.of("retail_clothing"))
+            val RETAIL_CLOTHING = of("retail_clothing")
 
-            val RETAIL_ELECTRONICS = Industry(JsonField.of("retail_electronics"))
+            val RETAIL_ELECTRONICS = of("retail_electronics")
 
-            val RETAIL_FOOD = Industry(JsonField.of("retail_food"))
+            val RETAIL_FOOD = of("retail_food")
 
-            val RETAIL_FURNISHING = Industry(JsonField.of("retail_furnishing"))
+            val RETAIL_FURNISHING = of("retail_furnishing")
 
-            val RETAIL_HOME = Industry(JsonField.of("retail_home"))
+            val RETAIL_HOME = of("retail_home")
 
-            val RETAIL_NON_STORE = Industry(JsonField.of("retail_non_store"))
+            val RETAIL_NON_STORE = of("retail_non_store")
 
-            val RETAIL_SPORTING = Industry(JsonField.of("retail_sporting"))
+            val RETAIL_SPORTING = of("retail_sporting")
 
-            val TRANSPORTATION = Industry(JsonField.of("transportation"))
+            val TRANSPORTATION = of("transportation")
 
-            val TRAVEL = Industry(JsonField.of("travel"))
+            val TRAVEL = of("travel")
 
-            val UTILITIES = Industry(JsonField.of("utilities"))
+            val UTILITIES = of("utilities")
 
             fun of(value: String) = Industry(JsonField.of(value))
         }
@@ -857,29 +857,29 @@ private constructor(
 
         companion object {
 
-            val CONSULTING = Occupation(JsonField.of("consulting"))
+            val CONSULTING = of("consulting")
 
-            val EXECUTIVE = Occupation(JsonField.of("executive"))
+            val EXECUTIVE = of("executive")
 
-            val FINANCE_ACCOUNTING = Occupation(JsonField.of("finance_accounting"))
+            val FINANCE_ACCOUNTING = of("finance_accounting")
 
-            val FOOD_SERVICES = Occupation(JsonField.of("food_services"))
+            val FOOD_SERVICES = of("food_services")
 
-            val GOVERNMENT = Occupation(JsonField.of("government"))
+            val GOVERNMENT = of("government")
 
-            val HEALTHCARE = Occupation(JsonField.of("healthcare"))
+            val HEALTHCARE = of("healthcare")
 
-            val LEGAL_SERVICES = Occupation(JsonField.of("legal_services"))
+            val LEGAL_SERVICES = of("legal_services")
 
-            val MANUFACTURING = Occupation(JsonField.of("manufacturing"))
+            val MANUFACTURING = of("manufacturing")
 
-            val OTHER = Occupation(JsonField.of("other"))
+            val OTHER = of("other")
 
-            val SALES = Occupation(JsonField.of("sales"))
+            val SALES = of("sales")
 
-            val SCIENCE_ENGINEERING = Occupation(JsonField.of("science_engineering"))
+            val SCIENCE_ENGINEERING = of("science_engineering")
 
-            val TECHNOLOGY = Occupation(JsonField.of("technology"))
+            val TECHNOLOGY = of("technology")
 
             fun of(value: String) = Occupation(JsonField.of(value))
         }
@@ -974,39 +974,39 @@ private constructor(
 
         companion object {
 
-            val ALIMONY = SourceOfFunds(JsonField.of("alimony"))
+            val ALIMONY = of("alimony")
 
-            val ANNUITY = SourceOfFunds(JsonField.of("annuity"))
+            val ANNUITY = of("annuity")
 
-            val BUSINESS_OWNER = SourceOfFunds(JsonField.of("business_owner"))
+            val BUSINESS_OWNER = of("business_owner")
 
-            val GENERAL_EMPLOYEE = SourceOfFunds(JsonField.of("general_employee"))
+            val GENERAL_EMPLOYEE = of("general_employee")
 
-            val GOVERNMENT_BENEFITS = SourceOfFunds(JsonField.of("government_benefits"))
+            val GOVERNMENT_BENEFITS = of("government_benefits")
 
-            val HOMEMAKER = SourceOfFunds(JsonField.of("homemaker"))
+            val HOMEMAKER = of("homemaker")
 
-            val INHERITANCE_GIFT = SourceOfFunds(JsonField.of("inheritance_gift"))
+            val INHERITANCE_GIFT = of("inheritance_gift")
 
-            val INVESTMENT = SourceOfFunds(JsonField.of("investment"))
+            val INVESTMENT = of("investment")
 
-            val LEGAL_SETTLEMENT = SourceOfFunds(JsonField.of("legal_settlement"))
+            val LEGAL_SETTLEMENT = of("legal_settlement")
 
-            val LOTTERY = SourceOfFunds(JsonField.of("lottery"))
+            val LOTTERY = of("lottery")
 
-            val REAL_ESTATE = SourceOfFunds(JsonField.of("real_estate"))
+            val REAL_ESTATE = of("real_estate")
 
-            val RETIRED = SourceOfFunds(JsonField.of("retired"))
+            val RETIRED = of("retired")
 
-            val RETIREMENT = SourceOfFunds(JsonField.of("retirement"))
+            val RETIREMENT = of("retirement")
 
-            val SALARY = SourceOfFunds(JsonField.of("salary"))
+            val SALARY = of("salary")
 
-            val SELF_EMPLOYED = SourceOfFunds(JsonField.of("self_employed"))
+            val SELF_EMPLOYED = of("self_employed")
 
-            val SENIOR_EXECUTIVE = SourceOfFunds(JsonField.of("senior_executive"))
+            val SENIOR_EXECUTIVE = of("senior_executive")
 
-            val TRUST_INCOME = SourceOfFunds(JsonField.of("trust_income"))
+            val TRUST_INCOME = of("trust_income")
 
             fun of(value: String) = SourceOfFunds(JsonField.of(value))
         }
@@ -1121,25 +1121,25 @@ private constructor(
 
         companion object {
 
-            val BUSINESS_SALE = WealthSource(JsonField.of("business_sale"))
+            val BUSINESS_SALE = of("business_sale")
 
-            val FAMILY_SUPPORT = WealthSource(JsonField.of("family_support"))
+            val FAMILY_SUPPORT = of("family_support")
 
-            val GOVERNMENT_BENEFITS = WealthSource(JsonField.of("government_benefits"))
+            val GOVERNMENT_BENEFITS = of("government_benefits")
 
-            val INHERITANCE = WealthSource(JsonField.of("inheritance"))
+            val INHERITANCE = of("inheritance")
 
-            val INVESTMENTS = WealthSource(JsonField.of("investments"))
+            val INVESTMENTS = of("investments")
 
-            val OTHER = WealthSource(JsonField.of("other"))
+            val OTHER = of("other")
 
-            val RENTAL_INCOME = WealthSource(JsonField.of("rental_income"))
+            val RENTAL_INCOME = of("rental_income")
 
-            val RETIREMENT = WealthSource(JsonField.of("retirement"))
+            val RETIREMENT = of("retirement")
 
-            val SALARY = WealthSource(JsonField.of("salary"))
+            val SALARY = of("salary")
 
-            val SELF_EMPLOYED = WealthSource(JsonField.of("self_employed"))
+            val SELF_EMPLOYED = of("self_employed")
 
             fun of(value: String) = WealthSource(JsonField.of(value))
         }

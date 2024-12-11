@@ -568,17 +568,17 @@ private constructor(
 
         companion object {
 
-            val ARCHIVED = Status(JsonField.of("archived"))
+            val ARCHIVED = of("archived")
 
-            val ARCHIVING = Status(JsonField.of("archiving"))
+            val ARCHIVING = of("archiving")
 
-            val DRAFTING = Status(JsonField.of("drafting"))
+            val DRAFTING = of("drafting")
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val POSTED = Status(JsonField.of("posted"))
+            val POSTED = of("posted")
 
-            val PROCESSING = Status(JsonField.of("processing"))
+            val PROCESSING = of("processing")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

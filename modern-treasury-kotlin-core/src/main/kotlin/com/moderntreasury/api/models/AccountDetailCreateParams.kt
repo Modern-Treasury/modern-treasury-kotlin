@@ -357,25 +357,25 @@ constructor(
 
         companion object {
 
-            val AU_NUMBER = AccountNumberType(JsonField.of("au_number"))
+            val AU_NUMBER = of("au_number")
 
-            val CLABE = AccountNumberType(JsonField.of("clabe"))
+            val CLABE = of("clabe")
 
-            val HK_NUMBER = AccountNumberType(JsonField.of("hk_number"))
+            val HK_NUMBER = of("hk_number")
 
-            val IBAN = AccountNumberType(JsonField.of("iban"))
+            val IBAN = of("iban")
 
-            val ID_NUMBER = AccountNumberType(JsonField.of("id_number"))
+            val ID_NUMBER = of("id_number")
 
-            val NZ_NUMBER = AccountNumberType(JsonField.of("nz_number"))
+            val NZ_NUMBER = of("nz_number")
 
-            val OTHER = AccountNumberType(JsonField.of("other"))
+            val OTHER = of("other")
 
-            val PAN = AccountNumberType(JsonField.of("pan"))
+            val PAN = of("pan")
 
-            val SG_NUMBER = AccountNumberType(JsonField.of("sg_number"))
+            val SG_NUMBER = of("sg_number")
 
-            val WALLET_ADDRESS = AccountNumberType(JsonField.of("wallet_address"))
+            val WALLET_ADDRESS = of("wallet_address")
 
             fun of(value: String) = AccountNumberType(JsonField.of(value))
         }
@@ -463,7 +463,7 @@ constructor(
 
         companion object {
 
-            val EXTERNAL_ACCOUNTS = AccountsType(JsonField.of("external_accounts"))
+            val EXTERNAL_ACCOUNTS = of("external_accounts")
 
             fun of(value: String) = AccountsType(JsonField.of(value))
         }

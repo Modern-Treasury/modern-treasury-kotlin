@@ -30,65 +30,65 @@ private constructor(
 
     companion object {
 
-        val ACH = ExpectedPaymentType(JsonField.of("ach"))
+        val ACH = of("ach")
 
-        val AU_BECS = ExpectedPaymentType(JsonField.of("au_becs"))
+        val AU_BECS = of("au_becs")
 
-        val BACS = ExpectedPaymentType(JsonField.of("bacs"))
+        val BACS = of("bacs")
 
-        val BOOK = ExpectedPaymentType(JsonField.of("book"))
+        val BOOK = of("book")
 
-        val CARD = ExpectedPaymentType(JsonField.of("card"))
+        val CARD = of("card")
 
-        val CHATS = ExpectedPaymentType(JsonField.of("chats"))
+        val CHATS = of("chats")
 
-        val CHECK = ExpectedPaymentType(JsonField.of("check"))
+        val CHECK = of("check")
 
-        val CROSS_BORDER = ExpectedPaymentType(JsonField.of("cross_border"))
+        val CROSS_BORDER = of("cross_border")
 
-        val DK_NETS = ExpectedPaymentType(JsonField.of("dk_nets"))
+        val DK_NETS = of("dk_nets")
 
-        val EFT = ExpectedPaymentType(JsonField.of("eft"))
+        val EFT = of("eft")
 
-        val HU_ICS = ExpectedPaymentType(JsonField.of("hu_ics"))
+        val HU_ICS = of("hu_ics")
 
-        val INTERAC = ExpectedPaymentType(JsonField.of("interac"))
+        val INTERAC = of("interac")
 
-        val MASAV = ExpectedPaymentType(JsonField.of("masav"))
+        val MASAV = of("masav")
 
-        val MX_CCEN = ExpectedPaymentType(JsonField.of("mx_ccen"))
+        val MX_CCEN = of("mx_ccen")
 
-        val NEFT = ExpectedPaymentType(JsonField.of("neft"))
+        val NEFT = of("neft")
 
-        val NICS = ExpectedPaymentType(JsonField.of("nics"))
+        val NICS = of("nics")
 
-        val NZ_BECS = ExpectedPaymentType(JsonField.of("nz_becs"))
+        val NZ_BECS = of("nz_becs")
 
-        val PL_ELIXIR = ExpectedPaymentType(JsonField.of("pl_elixir"))
+        val PL_ELIXIR = of("pl_elixir")
 
-        val PROVXCHANGE = ExpectedPaymentType(JsonField.of("provxchange"))
+        val PROVXCHANGE = of("provxchange")
 
-        val RO_SENT = ExpectedPaymentType(JsonField.of("ro_sent"))
+        val RO_SENT = of("ro_sent")
 
-        val RTP = ExpectedPaymentType(JsonField.of("rtp"))
+        val RTP = of("rtp")
 
-        val SE_BANKGIROT = ExpectedPaymentType(JsonField.of("se_bankgirot"))
+        val SE_BANKGIROT = of("se_bankgirot")
 
-        val SEN = ExpectedPaymentType(JsonField.of("sen"))
+        val SEN = of("sen")
 
-        val SEPA = ExpectedPaymentType(JsonField.of("sepa"))
+        val SEPA = of("sepa")
 
-        val SG_GIRO = ExpectedPaymentType(JsonField.of("sg_giro"))
+        val SG_GIRO = of("sg_giro")
 
-        val SIC = ExpectedPaymentType(JsonField.of("sic"))
+        val SIC = of("sic")
 
-        val SIGNET = ExpectedPaymentType(JsonField.of("signet"))
+        val SIGNET = of("signet")
 
-        val SKNBI = ExpectedPaymentType(JsonField.of("sknbi"))
+        val SKNBI = of("sknbi")
 
-        val WIRE = ExpectedPaymentType(JsonField.of("wire"))
+        val WIRE = of("wire")
 
-        val ZENGIN = ExpectedPaymentType(JsonField.of("zengin"))
+        val ZENGIN = of("zengin")
 
         fun of(value: String) = ExpectedPaymentType(JsonField.of(value))
     }

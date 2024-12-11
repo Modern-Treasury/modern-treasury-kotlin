@@ -30,383 +30,383 @@ private constructor(
 
     companion object {
 
-        val AED = Currency(JsonField.of("AED"))
+        val AED = of("AED")
 
-        val AFN = Currency(JsonField.of("AFN"))
+        val AFN = of("AFN")
 
-        val ALL = Currency(JsonField.of("ALL"))
+        val ALL = of("ALL")
 
-        val AMD = Currency(JsonField.of("AMD"))
+        val AMD = of("AMD")
 
-        val ANG = Currency(JsonField.of("ANG"))
+        val ANG = of("ANG")
 
-        val AOA = Currency(JsonField.of("AOA"))
+        val AOA = of("AOA")
 
-        val ARS = Currency(JsonField.of("ARS"))
+        val ARS = of("ARS")
 
-        val AUD = Currency(JsonField.of("AUD"))
+        val AUD = of("AUD")
 
-        val AWG = Currency(JsonField.of("AWG"))
+        val AWG = of("AWG")
 
-        val AZN = Currency(JsonField.of("AZN"))
+        val AZN = of("AZN")
 
-        val BAM = Currency(JsonField.of("BAM"))
+        val BAM = of("BAM")
 
-        val BBD = Currency(JsonField.of("BBD"))
+        val BBD = of("BBD")
 
-        val BCH = Currency(JsonField.of("BCH"))
+        val BCH = of("BCH")
 
-        val BDT = Currency(JsonField.of("BDT"))
+        val BDT = of("BDT")
 
-        val BGN = Currency(JsonField.of("BGN"))
+        val BGN = of("BGN")
 
-        val BHD = Currency(JsonField.of("BHD"))
+        val BHD = of("BHD")
 
-        val BIF = Currency(JsonField.of("BIF"))
+        val BIF = of("BIF")
 
-        val BMD = Currency(JsonField.of("BMD"))
+        val BMD = of("BMD")
 
-        val BND = Currency(JsonField.of("BND"))
+        val BND = of("BND")
 
-        val BOB = Currency(JsonField.of("BOB"))
+        val BOB = of("BOB")
 
-        val BRL = Currency(JsonField.of("BRL"))
+        val BRL = of("BRL")
 
-        val BSD = Currency(JsonField.of("BSD"))
+        val BSD = of("BSD")
 
-        val BTC = Currency(JsonField.of("BTC"))
+        val BTC = of("BTC")
 
-        val BTN = Currency(JsonField.of("BTN"))
+        val BTN = of("BTN")
 
-        val BWP = Currency(JsonField.of("BWP"))
+        val BWP = of("BWP")
 
-        val BYN = Currency(JsonField.of("BYN"))
+        val BYN = of("BYN")
 
-        val BYR = Currency(JsonField.of("BYR"))
+        val BYR = of("BYR")
 
-        val BZD = Currency(JsonField.of("BZD"))
+        val BZD = of("BZD")
 
-        val CAD = Currency(JsonField.of("CAD"))
+        val CAD = of("CAD")
 
-        val CDF = Currency(JsonField.of("CDF"))
+        val CDF = of("CDF")
 
-        val CHF = Currency(JsonField.of("CHF"))
+        val CHF = of("CHF")
 
-        val CLF = Currency(JsonField.of("CLF"))
+        val CLF = of("CLF")
 
-        val CLP = Currency(JsonField.of("CLP"))
+        val CLP = of("CLP")
 
-        val CNH = Currency(JsonField.of("CNH"))
+        val CNH = of("CNH")
 
-        val CNY = Currency(JsonField.of("CNY"))
+        val CNY = of("CNY")
 
-        val COP = Currency(JsonField.of("COP"))
+        val COP = of("COP")
 
-        val CRC = Currency(JsonField.of("CRC"))
+        val CRC = of("CRC")
 
-        val CUC = Currency(JsonField.of("CUC"))
+        val CUC = of("CUC")
 
-        val CUP = Currency(JsonField.of("CUP"))
+        val CUP = of("CUP")
 
-        val CVE = Currency(JsonField.of("CVE"))
+        val CVE = of("CVE")
 
-        val CZK = Currency(JsonField.of("CZK"))
+        val CZK = of("CZK")
 
-        val DJF = Currency(JsonField.of("DJF"))
+        val DJF = of("DJF")
 
-        val DKK = Currency(JsonField.of("DKK"))
+        val DKK = of("DKK")
 
-        val DOP = Currency(JsonField.of("DOP"))
+        val DOP = of("DOP")
 
-        val DZD = Currency(JsonField.of("DZD"))
+        val DZD = of("DZD")
 
-        val EEK = Currency(JsonField.of("EEK"))
+        val EEK = of("EEK")
 
-        val EGP = Currency(JsonField.of("EGP"))
+        val EGP = of("EGP")
 
-        val ERN = Currency(JsonField.of("ERN"))
+        val ERN = of("ERN")
 
-        val ETB = Currency(JsonField.of("ETB"))
+        val ETB = of("ETB")
 
-        val EUR = Currency(JsonField.of("EUR"))
+        val EUR = of("EUR")
 
-        val FJD = Currency(JsonField.of("FJD"))
+        val FJD = of("FJD")
 
-        val FKP = Currency(JsonField.of("FKP"))
+        val FKP = of("FKP")
 
-        val GBP = Currency(JsonField.of("GBP"))
+        val GBP = of("GBP")
 
-        val GBX = Currency(JsonField.of("GBX"))
+        val GBX = of("GBX")
 
-        val GEL = Currency(JsonField.of("GEL"))
+        val GEL = of("GEL")
 
-        val GGP = Currency(JsonField.of("GGP"))
+        val GGP = of("GGP")
 
-        val GHS = Currency(JsonField.of("GHS"))
+        val GHS = of("GHS")
 
-        val GIP = Currency(JsonField.of("GIP"))
+        val GIP = of("GIP")
 
-        val GMD = Currency(JsonField.of("GMD"))
+        val GMD = of("GMD")
 
-        val GNF = Currency(JsonField.of("GNF"))
+        val GNF = of("GNF")
 
-        val GTQ = Currency(JsonField.of("GTQ"))
+        val GTQ = of("GTQ")
 
-        val GYD = Currency(JsonField.of("GYD"))
+        val GYD = of("GYD")
 
-        val HKD = Currency(JsonField.of("HKD"))
+        val HKD = of("HKD")
 
-        val HNL = Currency(JsonField.of("HNL"))
+        val HNL = of("HNL")
 
-        val HRK = Currency(JsonField.of("HRK"))
+        val HRK = of("HRK")
 
-        val HTG = Currency(JsonField.of("HTG"))
+        val HTG = of("HTG")
 
-        val HUF = Currency(JsonField.of("HUF"))
+        val HUF = of("HUF")
 
-        val IDR = Currency(JsonField.of("IDR"))
+        val IDR = of("IDR")
 
-        val ILS = Currency(JsonField.of("ILS"))
+        val ILS = of("ILS")
 
-        val IMP = Currency(JsonField.of("IMP"))
+        val IMP = of("IMP")
 
-        val INR = Currency(JsonField.of("INR"))
+        val INR = of("INR")
 
-        val IQD = Currency(JsonField.of("IQD"))
+        val IQD = of("IQD")
 
-        val IRR = Currency(JsonField.of("IRR"))
+        val IRR = of("IRR")
 
-        val ISK = Currency(JsonField.of("ISK"))
+        val ISK = of("ISK")
 
-        val JEP = Currency(JsonField.of("JEP"))
+        val JEP = of("JEP")
 
-        val JMD = Currency(JsonField.of("JMD"))
+        val JMD = of("JMD")
 
-        val JOD = Currency(JsonField.of("JOD"))
+        val JOD = of("JOD")
 
-        val JPY = Currency(JsonField.of("JPY"))
+        val JPY = of("JPY")
 
-        val KES = Currency(JsonField.of("KES"))
+        val KES = of("KES")
 
-        val KGS = Currency(JsonField.of("KGS"))
+        val KGS = of("KGS")
 
-        val KHR = Currency(JsonField.of("KHR"))
+        val KHR = of("KHR")
 
-        val KMF = Currency(JsonField.of("KMF"))
+        val KMF = of("KMF")
 
-        val KPW = Currency(JsonField.of("KPW"))
+        val KPW = of("KPW")
 
-        val KRW = Currency(JsonField.of("KRW"))
+        val KRW = of("KRW")
 
-        val KWD = Currency(JsonField.of("KWD"))
+        val KWD = of("KWD")
 
-        val KYD = Currency(JsonField.of("KYD"))
+        val KYD = of("KYD")
 
-        val KZT = Currency(JsonField.of("KZT"))
+        val KZT = of("KZT")
 
-        val LAK = Currency(JsonField.of("LAK"))
+        val LAK = of("LAK")
 
-        val LBP = Currency(JsonField.of("LBP"))
+        val LBP = of("LBP")
 
-        val LKR = Currency(JsonField.of("LKR"))
+        val LKR = of("LKR")
 
-        val LRD = Currency(JsonField.of("LRD"))
+        val LRD = of("LRD")
 
-        val LSL = Currency(JsonField.of("LSL"))
+        val LSL = of("LSL")
 
-        val LTL = Currency(JsonField.of("LTL"))
+        val LTL = of("LTL")
 
-        val LVL = Currency(JsonField.of("LVL"))
+        val LVL = of("LVL")
 
-        val LYD = Currency(JsonField.of("LYD"))
+        val LYD = of("LYD")
 
-        val MAD = Currency(JsonField.of("MAD"))
+        val MAD = of("MAD")
 
-        val MDL = Currency(JsonField.of("MDL"))
+        val MDL = of("MDL")
 
-        val MGA = Currency(JsonField.of("MGA"))
+        val MGA = of("MGA")
 
-        val MKD = Currency(JsonField.of("MKD"))
+        val MKD = of("MKD")
 
-        val MMK = Currency(JsonField.of("MMK"))
+        val MMK = of("MMK")
 
-        val MNT = Currency(JsonField.of("MNT"))
+        val MNT = of("MNT")
 
-        val MOP = Currency(JsonField.of("MOP"))
+        val MOP = of("MOP")
 
-        val MRO = Currency(JsonField.of("MRO"))
+        val MRO = of("MRO")
 
-        val MRU = Currency(JsonField.of("MRU"))
+        val MRU = of("MRU")
 
-        val MTL = Currency(JsonField.of("MTL"))
+        val MTL = of("MTL")
 
-        val MUR = Currency(JsonField.of("MUR"))
+        val MUR = of("MUR")
 
-        val MVR = Currency(JsonField.of("MVR"))
+        val MVR = of("MVR")
 
-        val MWK = Currency(JsonField.of("MWK"))
+        val MWK = of("MWK")
 
-        val MXN = Currency(JsonField.of("MXN"))
+        val MXN = of("MXN")
 
-        val MYR = Currency(JsonField.of("MYR"))
+        val MYR = of("MYR")
 
-        val MZN = Currency(JsonField.of("MZN"))
+        val MZN = of("MZN")
 
-        val NAD = Currency(JsonField.of("NAD"))
+        val NAD = of("NAD")
 
-        val NGN = Currency(JsonField.of("NGN"))
+        val NGN = of("NGN")
 
-        val NIO = Currency(JsonField.of("NIO"))
+        val NIO = of("NIO")
 
-        val NOK = Currency(JsonField.of("NOK"))
+        val NOK = of("NOK")
 
-        val NPR = Currency(JsonField.of("NPR"))
+        val NPR = of("NPR")
 
-        val NZD = Currency(JsonField.of("NZD"))
+        val NZD = of("NZD")
 
-        val OMR = Currency(JsonField.of("OMR"))
+        val OMR = of("OMR")
 
-        val PAB = Currency(JsonField.of("PAB"))
+        val PAB = of("PAB")
 
-        val PEN = Currency(JsonField.of("PEN"))
+        val PEN = of("PEN")
 
-        val PGK = Currency(JsonField.of("PGK"))
+        val PGK = of("PGK")
 
-        val PHP = Currency(JsonField.of("PHP"))
+        val PHP = of("PHP")
 
-        val PKR = Currency(JsonField.of("PKR"))
+        val PKR = of("PKR")
 
-        val PLN = Currency(JsonField.of("PLN"))
+        val PLN = of("PLN")
 
-        val PYG = Currency(JsonField.of("PYG"))
+        val PYG = of("PYG")
 
-        val QAR = Currency(JsonField.of("QAR"))
+        val QAR = of("QAR")
 
-        val RON = Currency(JsonField.of("RON"))
+        val RON = of("RON")
 
-        val RSD = Currency(JsonField.of("RSD"))
+        val RSD = of("RSD")
 
-        val RUB = Currency(JsonField.of("RUB"))
+        val RUB = of("RUB")
 
-        val RWF = Currency(JsonField.of("RWF"))
+        val RWF = of("RWF")
 
-        val SAR = Currency(JsonField.of("SAR"))
+        val SAR = of("SAR")
 
-        val SBD = Currency(JsonField.of("SBD"))
+        val SBD = of("SBD")
 
-        val SCR = Currency(JsonField.of("SCR"))
+        val SCR = of("SCR")
 
-        val SDG = Currency(JsonField.of("SDG"))
+        val SDG = of("SDG")
 
-        val SEK = Currency(JsonField.of("SEK"))
+        val SEK = of("SEK")
 
-        val SGD = Currency(JsonField.of("SGD"))
+        val SGD = of("SGD")
 
-        val SHP = Currency(JsonField.of("SHP"))
+        val SHP = of("SHP")
 
-        val SKK = Currency(JsonField.of("SKK"))
+        val SKK = of("SKK")
 
-        val SLL = Currency(JsonField.of("SLL"))
+        val SLL = of("SLL")
 
-        val SOS = Currency(JsonField.of("SOS"))
+        val SOS = of("SOS")
 
-        val SRD = Currency(JsonField.of("SRD"))
+        val SRD = of("SRD")
 
-        val SSP = Currency(JsonField.of("SSP"))
+        val SSP = of("SSP")
 
-        val STD = Currency(JsonField.of("STD"))
+        val STD = of("STD")
 
-        val SVC = Currency(JsonField.of("SVC"))
+        val SVC = of("SVC")
 
-        val SYP = Currency(JsonField.of("SYP"))
+        val SYP = of("SYP")
 
-        val SZL = Currency(JsonField.of("SZL"))
+        val SZL = of("SZL")
 
-        val THB = Currency(JsonField.of("THB"))
+        val THB = of("THB")
 
-        val TJS = Currency(JsonField.of("TJS"))
+        val TJS = of("TJS")
 
-        val TMM = Currency(JsonField.of("TMM"))
+        val TMM = of("TMM")
 
-        val TMT = Currency(JsonField.of("TMT"))
+        val TMT = of("TMT")
 
-        val TND = Currency(JsonField.of("TND"))
+        val TND = of("TND")
 
-        val TOP = Currency(JsonField.of("TOP"))
+        val TOP = of("TOP")
 
-        val TRY = Currency(JsonField.of("TRY"))
+        val TRY = of("TRY")
 
-        val TTD = Currency(JsonField.of("TTD"))
+        val TTD = of("TTD")
 
-        val TWD = Currency(JsonField.of("TWD"))
+        val TWD = of("TWD")
 
-        val TZS = Currency(JsonField.of("TZS"))
+        val TZS = of("TZS")
 
-        val UAH = Currency(JsonField.of("UAH"))
+        val UAH = of("UAH")
 
-        val UGX = Currency(JsonField.of("UGX"))
+        val UGX = of("UGX")
 
-        val USD = Currency(JsonField.of("USD"))
+        val USD = of("USD")
 
-        val UYU = Currency(JsonField.of("UYU"))
+        val UYU = of("UYU")
 
-        val UZS = Currency(JsonField.of("UZS"))
+        val UZS = of("UZS")
 
-        val VEF = Currency(JsonField.of("VEF"))
+        val VEF = of("VEF")
 
-        val VES = Currency(JsonField.of("VES"))
+        val VES = of("VES")
 
-        val VND = Currency(JsonField.of("VND"))
+        val VND = of("VND")
 
-        val VUV = Currency(JsonField.of("VUV"))
+        val VUV = of("VUV")
 
-        val WST = Currency(JsonField.of("WST"))
+        val WST = of("WST")
 
-        val XAF = Currency(JsonField.of("XAF"))
+        val XAF = of("XAF")
 
-        val XAG = Currency(JsonField.of("XAG"))
+        val XAG = of("XAG")
 
-        val XAU = Currency(JsonField.of("XAU"))
+        val XAU = of("XAU")
 
-        val XBA = Currency(JsonField.of("XBA"))
+        val XBA = of("XBA")
 
-        val XBB = Currency(JsonField.of("XBB"))
+        val XBB = of("XBB")
 
-        val XBC = Currency(JsonField.of("XBC"))
+        val XBC = of("XBC")
 
-        val XBD = Currency(JsonField.of("XBD"))
+        val XBD = of("XBD")
 
-        val XCD = Currency(JsonField.of("XCD"))
+        val XCD = of("XCD")
 
-        val XDR = Currency(JsonField.of("XDR"))
+        val XDR = of("XDR")
 
-        val XFU = Currency(JsonField.of("XFU"))
+        val XFU = of("XFU")
 
-        val XOF = Currency(JsonField.of("XOF"))
+        val XOF = of("XOF")
 
-        val XPD = Currency(JsonField.of("XPD"))
+        val XPD = of("XPD")
 
-        val XPF = Currency(JsonField.of("XPF"))
+        val XPF = of("XPF")
 
-        val XPT = Currency(JsonField.of("XPT"))
+        val XPT = of("XPT")
 
-        val XTS = Currency(JsonField.of("XTS"))
+        val XTS = of("XTS")
 
-        val YER = Currency(JsonField.of("YER"))
+        val YER = of("YER")
 
-        val ZAR = Currency(JsonField.of("ZAR"))
+        val ZAR = of("ZAR")
 
-        val ZMK = Currency(JsonField.of("ZMK"))
+        val ZMK = of("ZMK")
 
-        val ZMW = Currency(JsonField.of("ZMW"))
+        val ZMW = of("ZMW")
 
-        val ZWD = Currency(JsonField.of("ZWD"))
+        val ZWD = of("ZWD")
 
-        val ZWL = Currency(JsonField.of("ZWL"))
+        val ZWL = of("ZWL")
 
-        val ZWN = Currency(JsonField.of("ZWN"))
+        val ZWN = of("ZWN")
 
-        val ZWR = Currency(JsonField.of("ZWR"))
+        val ZWR = of("ZWR")
 
         fun of(value: String) = Currency(JsonField.of(value))
     }
