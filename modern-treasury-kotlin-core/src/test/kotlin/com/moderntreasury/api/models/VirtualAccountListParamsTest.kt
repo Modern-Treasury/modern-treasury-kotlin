@@ -15,7 +15,11 @@ class VirtualAccountListParamsTest {
             .afterCursor("after_cursor")
             .counterpartyId("counterparty_id")
             .internalAccountId("internal_account_id")
-            .metadata(VirtualAccountListParams.Metadata.builder().build())
+            .metadata(
+                VirtualAccountListParams.Metadata.builder()
+                    .putAdditionalProperty("foo", listOf("string"))
+                    .build()
+            )
             .perPage(0L)
             .build()
     }
@@ -27,16 +31,21 @@ class VirtualAccountListParamsTest {
                 .afterCursor("after_cursor")
                 .counterpartyId("counterparty_id")
                 .internalAccountId("internal_account_id")
-                .metadata(VirtualAccountListParams.Metadata.builder().build())
+                .metadata(
+                    VirtualAccountListParams.Metadata.builder()
+                        .putAdditionalProperty("foo", listOf("string"))
+                        .build()
+                )
                 .perPage(0L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("after_cursor", "after_cursor")
         expected.put("counterparty_id", "counterparty_id")
         expected.put("internal_account_id", "internal_account_id")
-        VirtualAccountListParams.Metadata.builder().build().forEachQueryParam { key, values ->
-            expected.put("metadata[$key]", values)
-        }
+        VirtualAccountListParams.Metadata.builder()
+            .putAdditionalProperty("foo", listOf("string"))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("per_page", "0")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }

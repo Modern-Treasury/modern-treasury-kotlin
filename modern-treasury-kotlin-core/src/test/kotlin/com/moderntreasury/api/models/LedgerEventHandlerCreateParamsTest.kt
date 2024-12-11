@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -33,15 +34,38 @@ class LedgerEventHandlerCreateParamsTest {
             .name("name")
             .conditions(
                 LedgerEventHandlerCreateParams.LedgerEventHandlerConditions.builder()
-                    .field("field")
-                    .operator("operator")
-                    .value("value")
+                    .field("ledgerable_event.name")
+                    .operator("equals")
+                    .value("credit_card_swipe")
                     .build()
             )
             .description("description")
             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .metadata(LedgerEventHandlerCreateParams.Metadata.builder().build())
-            .variables(LedgerEventHandlerCreateParams.LedgerEventHandlerVariables.builder().build())
+            .metadata(
+                LedgerEventHandlerCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
+            .variables(
+                LedgerEventHandlerCreateParams.LedgerEventHandlerVariables.builder()
+                    .putAdditionalProperty(
+                        "credit_account",
+                        JsonValue.from(
+                            mapOf(
+                                "query" to
+                                    mapOf(
+                                        "field" to "name",
+                                        "operator" to "equals",
+                                        "value" to "my_credit_account",
+                                    ),
+                                "type" to "ledger_account"
+                            )
+                        )
+                    )
+                    .build()
+            )
             .build()
     }
 
@@ -72,16 +96,37 @@ class LedgerEventHandlerCreateParamsTest {
                 .name("name")
                 .conditions(
                     LedgerEventHandlerCreateParams.LedgerEventHandlerConditions.builder()
-                        .field("field")
-                        .operator("operator")
-                        .value("value")
+                        .field("ledgerable_event.name")
+                        .operator("equals")
+                        .value("credit_card_swipe")
                         .build()
                 )
                 .description("description")
                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .metadata(LedgerEventHandlerCreateParams.Metadata.builder().build())
+                .metadata(
+                    LedgerEventHandlerCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .variables(
-                    LedgerEventHandlerCreateParams.LedgerEventHandlerVariables.builder().build()
+                    LedgerEventHandlerCreateParams.LedgerEventHandlerVariables.builder()
+                        .putAdditionalProperty(
+                            "credit_account",
+                            JsonValue.from(
+                                mapOf(
+                                    "query" to
+                                        mapOf(
+                                            "field" to "name",
+                                            "operator" to "equals",
+                                            "value" to "my_credit_account",
+                                        ),
+                                    "type" to "ledger_account"
+                                )
+                            )
+                        )
+                        .build()
                 )
                 .build()
         val body = params.getBody()
@@ -110,17 +155,40 @@ class LedgerEventHandlerCreateParamsTest {
         assertThat(body.conditions())
             .isEqualTo(
                 LedgerEventHandlerCreateParams.LedgerEventHandlerConditions.builder()
-                    .field("field")
-                    .operator("operator")
-                    .value("value")
+                    .field("ledgerable_event.name")
+                    .operator("equals")
+                    .value("credit_card_swipe")
                     .build()
             )
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.ledgerId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.metadata())
-            .isEqualTo(LedgerEventHandlerCreateParams.Metadata.builder().build())
+            .isEqualTo(
+                LedgerEventHandlerCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(body.variables())
-            .isEqualTo(LedgerEventHandlerCreateParams.LedgerEventHandlerVariables.builder().build())
+            .isEqualTo(
+                LedgerEventHandlerCreateParams.LedgerEventHandlerVariables.builder()
+                    .putAdditionalProperty(
+                        "credit_account",
+                        JsonValue.from(
+                            mapOf(
+                                "query" to
+                                    mapOf(
+                                        "field" to "name",
+                                        "operator" to "equals",
+                                        "value" to "my_credit_account",
+                                    ),
+                                "type" to "ledger_account"
+                            )
+                        )
+                    )
+                    .build()
+            )
     }
 
     @Test
@@ -130,6 +198,8 @@ class LedgerEventHandlerCreateParamsTest {
                 .ledgerTransactionTemplate(
                     LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate
                         .builder()
+                        .description("My Ledger Transaction Template Description")
+                        .effectiveAt("{{ledgerable_event.custom_data.effective_at}}")
                         .ledgerEntries(
                             listOf(
                                 LedgerEventHandlerCreateParams
@@ -142,6 +212,7 @@ class LedgerEventHandlerCreateParamsTest {
                                     .build()
                             )
                         )
+                        .status("posted")
                         .build()
                 )
                 .name("name")
@@ -151,6 +222,8 @@ class LedgerEventHandlerCreateParamsTest {
         assertThat(body.ledgerTransactionTemplate())
             .isEqualTo(
                 LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate.builder()
+                    .description("My Ledger Transaction Template Description")
+                    .effectiveAt("{{ledgerable_event.custom_data.effective_at}}")
                     .ledgerEntries(
                         listOf(
                             LedgerEventHandlerCreateParams
@@ -163,6 +236,7 @@ class LedgerEventHandlerCreateParamsTest {
                                 .build()
                         )
                     )
+                    .status("posted")
                     .build()
             )
         assertThat(body.name()).isEqualTo("name")

@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -167,6 +168,9 @@ class LegalEntityCreateParamsTest {
                                         .ChildLegalEntityCreate
                                         .Metadata
                                         .builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
                                 .middleName("middle_name")
@@ -236,7 +240,13 @@ class LegalEntityCreateParamsTest {
                 )
             )
             .legalStructure(LegalEntityCreateParams.LegalStructure.CORPORATION)
-            .metadata(LegalEntityCreateParams.Metadata.builder().build())
+            .metadata(
+                LegalEntityCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .middleName("middle_name")
             .phoneNumbers(
                 listOf(
@@ -442,6 +452,12 @@ class LegalEntityCreateParamsTest {
                                             .ChildLegalEntityCreate
                                             .Metadata
                                             .builder()
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
+                                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty(
+                                                "modern",
+                                                JsonValue.from("treasury")
+                                            )
                                             .build()
                                     )
                                     .middleName("middle_name")
@@ -519,7 +535,13 @@ class LegalEntityCreateParamsTest {
                     )
                 )
                 .legalStructure(LegalEntityCreateParams.LegalStructure.CORPORATION)
-                .metadata(LegalEntityCreateParams.Metadata.builder().build())
+                .metadata(
+                    LegalEntityCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .middleName("middle_name")
                 .phoneNumbers(
                     listOf(
@@ -718,6 +740,9 @@ class LegalEntityCreateParamsTest {
                                         .ChildLegalEntityCreate
                                         .Metadata
                                         .builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
                                 .middleName("middle_name")
@@ -788,7 +813,14 @@ class LegalEntityCreateParamsTest {
             )
         assertThat(body.legalStructure())
             .isEqualTo(LegalEntityCreateParams.LegalStructure.CORPORATION)
-        assertThat(body.metadata()).isEqualTo(LegalEntityCreateParams.Metadata.builder().build())
+        assertThat(body.metadata())
+            .isEqualTo(
+                LegalEntityCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(body.middleName()).isEqualTo("middle_name")
         assertThat(body.phoneNumbers())
             .isEqualTo(

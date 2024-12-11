@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.LineItemListParams
 import org.junit.jupiter.api.Disabled
@@ -49,7 +50,13 @@ class LineItemServiceTest {
                     .itemizableType(LineItemUpdateParams.ItemizableType.EXPECTED_PAYMENTS)
                     .itemizableId("itemizable_id")
                     .id("id")
-                    .metadata(LineItemUpdateParams.Metadata.builder().build())
+                    .metadata(
+                        LineItemUpdateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .build()
             )
         println(lineItem)

@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -14,7 +15,11 @@ class CounterpartyUpdateParamsTest {
             .id("id")
             .email("dev@stainlessapi.com")
             .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .metadata(CounterpartyUpdateParams.Metadata.builder().build())
+            .metadata(
+                CounterpartyUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
             .name("name")
             .sendRemittanceAdvice(true)
             .taxpayerIdentifier("taxpayer_identifier")
@@ -28,7 +33,11 @@ class CounterpartyUpdateParamsTest {
                 .id("id")
                 .email("dev@stainlessapi.com")
                 .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .metadata(CounterpartyUpdateParams.Metadata.builder().build())
+                .metadata(
+                    CounterpartyUpdateParams.Metadata.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
                 .name("name")
                 .sendRemittanceAdvice(true)
                 .taxpayerIdentifier("taxpayer_identifier")
@@ -37,7 +46,12 @@ class CounterpartyUpdateParamsTest {
         assertThat(body).isNotNull
         assertThat(body.email()).isEqualTo("dev@stainlessapi.com")
         assertThat(body.legalEntityId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.metadata()).isEqualTo(CounterpartyUpdateParams.Metadata.builder().build())
+        assertThat(body.metadata())
+            .isEqualTo(
+                CounterpartyUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.sendRemittanceAdvice()).isEqualTo(true)
         assertThat(body.taxpayerIdentifier()).isEqualTo("taxpayer_identifier")

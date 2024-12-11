@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -13,7 +14,13 @@ class LedgerAccountCategoryUpdateParamsTest {
         LedgerAccountCategoryUpdateParams.builder()
             .id("id")
             .description("description")
-            .metadata(LedgerAccountCategoryUpdateParams.Metadata.builder().build())
+            .metadata(
+                LedgerAccountCategoryUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .name("name")
             .build()
     }
@@ -24,14 +31,26 @@ class LedgerAccountCategoryUpdateParamsTest {
             LedgerAccountCategoryUpdateParams.builder()
                 .id("id")
                 .description("description")
-                .metadata(LedgerAccountCategoryUpdateParams.Metadata.builder().build())
+                .metadata(
+                    LedgerAccountCategoryUpdateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.metadata())
-            .isEqualTo(LedgerAccountCategoryUpdateParams.Metadata.builder().build())
+            .isEqualTo(
+                LedgerAccountCategoryUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(body.name()).isEqualTo("name")
     }
 

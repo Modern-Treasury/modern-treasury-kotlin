@@ -15,7 +15,11 @@ class LedgerAccountBalanceMonitorListParamsTest {
             .id(listOf("string"))
             .afterCursor("after_cursor")
             .ledgerAccountId("ledger_account_id")
-            .metadata(LedgerAccountBalanceMonitorListParams.Metadata.builder().build())
+            .metadata(
+                LedgerAccountBalanceMonitorListParams.Metadata.builder()
+                    .putAdditionalProperty("foo", listOf("string"))
+                    .build()
+            )
             .perPage(0L)
             .build()
     }
@@ -27,18 +31,21 @@ class LedgerAccountBalanceMonitorListParamsTest {
                 .id(listOf("string"))
                 .afterCursor("after_cursor")
                 .ledgerAccountId("ledger_account_id")
-                .metadata(LedgerAccountBalanceMonitorListParams.Metadata.builder().build())
+                .metadata(
+                    LedgerAccountBalanceMonitorListParams.Metadata.builder()
+                        .putAdditionalProperty("foo", listOf("string"))
+                        .build()
+                )
                 .perPage(0L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("id[]", "string")
         expected.put("after_cursor", "after_cursor")
         expected.put("ledger_account_id", "ledger_account_id")
-        LedgerAccountBalanceMonitorListParams.Metadata.builder().build().forEachQueryParam {
-            key,
-            values ->
-            expected.put("metadata[$key]", values)
-        }
+        LedgerAccountBalanceMonitorListParams.Metadata.builder()
+            .putAdditionalProperty("foo", listOf("string"))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("per_page", "0")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }

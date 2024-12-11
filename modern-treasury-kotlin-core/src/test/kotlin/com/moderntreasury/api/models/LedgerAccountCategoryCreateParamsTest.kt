@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -18,7 +19,13 @@ class LedgerAccountCategoryCreateParamsTest {
             .currencyExponent(0L)
             .description("description")
             .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
-            .metadata(LedgerAccountCategoryCreateParams.Metadata.builder().build())
+            .metadata(
+                LedgerAccountCategoryCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .build()
     }
 
@@ -33,7 +40,13 @@ class LedgerAccountCategoryCreateParamsTest {
                 .currencyExponent(0L)
                 .description("description")
                 .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
-                .metadata(LedgerAccountCategoryCreateParams.Metadata.builder().build())
+                .metadata(
+                    LedgerAccountCategoryCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -46,7 +59,13 @@ class LedgerAccountCategoryCreateParamsTest {
         assertThat(body.ledgerAccountCategoryIds())
             .isEqualTo(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
         assertThat(body.metadata())
-            .isEqualTo(LedgerAccountCategoryCreateParams.Metadata.builder().build())
+            .isEqualTo(
+                LedgerAccountCategoryCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
     }
 
     @Test

@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking.invoices
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.InvoiceLineItemListParams
 import org.junit.jupiter.api.Test
@@ -29,7 +30,13 @@ class LineItemServiceTest {
                     .unitAmount(0L)
                     .description("description")
                     .direction("direction")
-                    .metadata(InvoiceLineItemCreateParams.Metadata.builder().build())
+                    .metadata(
+                        InvoiceLineItemCreateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .quantity(0L)
                     .unitAmountDecimal("unit_amount_decimal")
                     .build()
@@ -71,7 +78,13 @@ class LineItemServiceTest {
                     .id("id")
                     .description("description")
                     .direction("direction")
-                    .metadata(InvoiceLineItemUpdateParams.Metadata.builder().build())
+                    .metadata(
+                        InvoiceLineItemUpdateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .name("name")
                     .quantity(0L)
                     .unitAmount(0L)

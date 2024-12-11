@@ -20,7 +20,11 @@ class ForeignExchangeQuoteListParamsTest {
             .effectiveAtStart(LocalDate.parse("2019-12-27"))
             .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .internalAccountId("internal_account_id")
-            .metadata(ForeignExchangeQuoteListParams.Metadata.builder().build())
+            .metadata(
+                ForeignExchangeQuoteListParams.Metadata.builder()
+                    .putAdditionalProperty("foo", listOf("string"))
+                    .build()
+            )
             .perPage(0L)
             .targetCurrency("target_currency")
             .build()
@@ -36,7 +40,11 @@ class ForeignExchangeQuoteListParamsTest {
                 .effectiveAtStart(LocalDate.parse("2019-12-27"))
                 .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .internalAccountId("internal_account_id")
-                .metadata(ForeignExchangeQuoteListParams.Metadata.builder().build())
+                .metadata(
+                    ForeignExchangeQuoteListParams.Metadata.builder()
+                        .putAdditionalProperty("foo", listOf("string"))
+                        .build()
+                )
                 .perPage(0L)
                 .targetCurrency("target_currency")
                 .build()
@@ -47,9 +55,10 @@ class ForeignExchangeQuoteListParamsTest {
         expected.put("effective_at_start", "2019-12-27")
         expected.put("expires_at", "2019-12-27T18:11:19.117Z")
         expected.put("internal_account_id", "internal_account_id")
-        ForeignExchangeQuoteListParams.Metadata.builder().build().forEachQueryParam { key, values ->
-            expected.put("metadata[$key]", values)
-        }
+        ForeignExchangeQuoteListParams.Metadata.builder()
+            .putAdditionalProperty("foo", listOf("string"))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("per_page", "0")
         expected.put("target_currency", "target_currency")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())

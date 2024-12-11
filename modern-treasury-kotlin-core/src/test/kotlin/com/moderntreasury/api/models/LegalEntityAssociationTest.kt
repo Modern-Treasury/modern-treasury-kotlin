@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -93,7 +94,11 @@ class LegalEntityAssociationTest {
                         )
                         .liveMode(true)
                         .metadata(
-                            LegalEntityAssociation.ChildLegalEntity.Metadata.builder().build()
+                            LegalEntityAssociation.ChildLegalEntity.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
                         )
                         .middleName("middle_name")
                         .object_("object")
@@ -228,7 +233,13 @@ class LegalEntityAssociationTest {
                         LegalEntityAssociation.ChildLegalEntity.LegalStructure.CORPORATION
                     )
                     .liveMode(true)
-                    .metadata(LegalEntityAssociation.ChildLegalEntity.Metadata.builder().build())
+                    .metadata(
+                        LegalEntityAssociation.ChildLegalEntity.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .middleName("middle_name")
                     .object_("object")
                     .phoneNumbers(

@@ -2,7 +2,7 @@
 
 package com.moderntreasury.api.models
 
-import com.moderntreasury.api.core.JsonNull
+import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -31,7 +31,9 @@ class BulkResultTest {
                             .amount(0L)
                             .chargeBearer(PaymentOrder.ChargeBearer.SHARED)
                             .complianceRuleMetadata(
-                                PaymentOrder.ComplianceRuleMetadata.builder().build()
+                                PaymentOrder.ComplianceRuleMetadata.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
                             )
                             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -106,7 +108,13 @@ class BulkResultTest {
                             )
                             .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .liveMode(true)
-                            .metadata(PaymentOrder.Metadata.builder().build())
+                            .metadata(
+                                PaymentOrder.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
                             .nsfProtected(true)
                             .object_("object")
                             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -190,7 +198,19 @@ class BulkResultTest {
                                         .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .liveMode(true)
-                                        .metadata(VirtualAccount.Metadata.builder().build())
+                                        .metadata(
+                                            VirtualAccount.Metadata.builder()
+                                                .putAdditionalProperty(
+                                                    "key",
+                                                    JsonValue.from("value")
+                                                )
+                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                                .putAdditionalProperty(
+                                                    "modern",
+                                                    JsonValue.from("treasury")
+                                                )
+                                                .build()
+                                        )
                                         .name("name")
                                         .object_("object")
                                         .routingDetails(
@@ -263,7 +283,7 @@ class BulkResultTest {
                             .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                             .ultimateReceivingPartyName("ultimate_receiving_party_name")
                             .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .vendorAttributes(JsonNull.of())
+                            .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
                             .vendorFailureReason("vendor_failure_reason")
                             .build()
                     )
@@ -273,7 +293,11 @@ class BulkResultTest {
                 .liveMode(true)
                 .object_("object")
                 .requestId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .requestParams(BulkResult.RequestParams.builder().build())
+                .requestParams(
+                    BulkResult.RequestParams.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
                 .requestType(BulkResult.RequestType.BULK_REQUEST)
                 .status(BulkResult.Status.PENDING)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -298,7 +322,9 @@ class BulkResultTest {
                         .amount(0L)
                         .chargeBearer(PaymentOrder.ChargeBearer.SHARED)
                         .complianceRuleMetadata(
-                            PaymentOrder.ComplianceRuleMetadata.builder().build()
+                            PaymentOrder.ComplianceRuleMetadata.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
                         )
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -370,7 +396,13 @@ class BulkResultTest {
                         )
                         .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .liveMode(true)
-                        .metadata(PaymentOrder.Metadata.builder().build())
+                        .metadata(
+                            PaymentOrder.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
                         .nsfProtected(true)
                         .object_("object")
                         .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -440,7 +472,16 @@ class BulkResultTest {
                                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .liveMode(true)
-                                    .metadata(VirtualAccount.Metadata.builder().build())
+                                    .metadata(
+                                        VirtualAccount.Metadata.builder()
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
+                                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty(
+                                                "modern",
+                                                JsonValue.from("treasury")
+                                            )
+                                            .build()
+                                    )
                                     .name("name")
                                     .object_("object")
                                     .routingDetails(
@@ -503,7 +544,7 @@ class BulkResultTest {
                         .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                         .ultimateReceivingPartyName("ultimate_receiving_party_name")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .vendorAttributes(JsonNull.of())
+                        .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
                         .vendorFailureReason("vendor_failure_reason")
                         .build()
                 )
@@ -513,7 +554,12 @@ class BulkResultTest {
         assertThat(bulkResult.liveMode()).isEqualTo(true)
         assertThat(bulkResult.object_()).isEqualTo("object")
         assertThat(bulkResult.requestId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(bulkResult.requestParams()).isEqualTo(BulkResult.RequestParams.builder().build())
+        assertThat(bulkResult.requestParams())
+            .isEqualTo(
+                BulkResult.RequestParams.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
         assertThat(bulkResult.requestType()).isEqualTo(BulkResult.RequestType.BULK_REQUEST)
         assertThat(bulkResult.status()).isEqualTo(BulkResult.Status.PENDING)
         assertThat(bulkResult.updatedAt())

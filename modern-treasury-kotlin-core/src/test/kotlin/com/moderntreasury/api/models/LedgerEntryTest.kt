@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -23,7 +24,13 @@ class LedgerEntryTest {
                 .ledgerAccountLockVersion(0L)
                 .ledgerTransactionId("ledger_transaction_id")
                 .liveMode(true)
-                .metadata(LedgerEntry.Metadata.builder().build())
+                .metadata(
+                    LedgerEntry.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .object_("object")
                 .resultingLedgerAccountBalances(
                     LedgerEntry.LedgerBalances.builder()
@@ -73,7 +80,14 @@ class LedgerEntryTest {
         assertThat(ledgerEntry.ledgerAccountLockVersion()).isEqualTo(0L)
         assertThat(ledgerEntry.ledgerTransactionId()).isEqualTo("ledger_transaction_id")
         assertThat(ledgerEntry.liveMode()).isEqualTo(true)
-        assertThat(ledgerEntry.metadata()).isEqualTo(LedgerEntry.Metadata.builder().build())
+        assertThat(ledgerEntry.metadata())
+            .isEqualTo(
+                LedgerEntry.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(ledgerEntry.object_()).isEqualTo("object")
         assertThat(ledgerEntry.resultingLedgerAccountBalances())
             .isEqualTo(

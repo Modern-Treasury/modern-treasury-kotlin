@@ -23,7 +23,11 @@ class LedgerAccountCategoryListParamsTest {
             .currency("currency")
             .ledgerAccountId("ledger_account_id")
             .ledgerId("ledger_id")
-            .metadata(LedgerAccountCategoryListParams.Metadata.builder().build())
+            .metadata(
+                LedgerAccountCategoryListParams.Metadata.builder()
+                    .putAdditionalProperty("foo", listOf("string"))
+                    .build()
+            )
             .name("name")
             .parentLedgerAccountCategoryId("parent_ledger_account_category_id")
             .perPage(0L)
@@ -44,7 +48,11 @@ class LedgerAccountCategoryListParamsTest {
                 .currency("currency")
                 .ledgerAccountId("ledger_account_id")
                 .ledgerId("ledger_id")
-                .metadata(LedgerAccountCategoryListParams.Metadata.builder().build())
+                .metadata(
+                    LedgerAccountCategoryListParams.Metadata.builder()
+                        .putAdditionalProperty("foo", listOf("string"))
+                        .build()
+                )
                 .name("name")
                 .parentLedgerAccountCategoryId("parent_ledger_account_category_id")
                 .perPage(0L)
@@ -59,10 +67,10 @@ class LedgerAccountCategoryListParamsTest {
         expected.put("currency", "currency")
         expected.put("ledger_account_id", "ledger_account_id")
         expected.put("ledger_id", "ledger_id")
-        LedgerAccountCategoryListParams.Metadata.builder().build().forEachQueryParam { key, values
-            ->
-            expected.put("metadata[$key]", values)
-        }
+        LedgerAccountCategoryListParams.Metadata.builder()
+            .putAdditionalProperty("foo", listOf("string"))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("name", "name")
         expected.put("parent_ledger_account_category_id", "parent_ledger_account_category_id")
         expected.put("per_page", "0")

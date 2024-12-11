@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.ConnectionLegalEntityListParams
 import java.time.LocalDate
@@ -211,6 +212,18 @@ class ConnectionLegalEntityServiceTest {
                                                         .ChildLegalEntityCreate
                                                         .Metadata
                                                         .builder()
+                                                        .putAdditionalProperty(
+                                                            "key",
+                                                            JsonValue.from("value")
+                                                        )
+                                                        .putAdditionalProperty(
+                                                            "foo",
+                                                            JsonValue.from("bar")
+                                                        )
+                                                        .putAdditionalProperty(
+                                                            "modern",
+                                                            JsonValue.from("treasury")
+                                                        )
                                                         .build()
                                                 )
                                                 .middleName("middle_name")
@@ -309,6 +322,9 @@ class ConnectionLegalEntityServiceTest {
                             )
                             .metadata(
                                 ConnectionLegalEntityCreateParams.LegalEntity.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
                             .middleName("middle_name")
