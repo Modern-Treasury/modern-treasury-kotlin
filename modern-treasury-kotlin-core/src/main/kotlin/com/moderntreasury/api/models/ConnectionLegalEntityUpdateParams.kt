@@ -309,7 +309,7 @@ constructor(
 
         companion object {
 
-            val PROCESSING = Status(JsonField.of("processing"))
+            val PROCESSING = of("processing")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

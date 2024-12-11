@@ -358,15 +358,15 @@ private constructor(
 
         companion object {
 
-            val DUPLICATE = Reason(JsonField.of("duplicate"))
+            val DUPLICATE = of("duplicate")
 
-            val INCORRECT_AMOUNT = Reason(JsonField.of("incorrect_amount"))
+            val INCORRECT_AMOUNT = of("incorrect_amount")
 
-            val INCORRECT_RECEIVING_ACCOUNT = Reason(JsonField.of("incorrect_receiving_account"))
+            val INCORRECT_RECEIVING_ACCOUNT = of("incorrect_receiving_account")
 
-            val DATE_EARLIER_THAN_INTENDED = Reason(JsonField.of("date_earlier_than_intended"))
+            val DATE_EARLIER_THAN_INTENDED = of("date_earlier_than_intended")
 
-            val DATE_LATER_THAN_INTENDED = Reason(JsonField.of("date_later_than_intended"))
+            val DATE_LATER_THAN_INTENDED = of("date_later_than_intended")
 
             fun of(value: String) = Reason(JsonField.of(value))
         }
@@ -433,17 +433,17 @@ private constructor(
 
         companion object {
 
-            val COMPLETED = Status(JsonField.of("completed"))
+            val COMPLETED = of("completed")
 
-            val FAILED = Status(JsonField.of("failed"))
+            val FAILED = of("failed")
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val PROCESSING = Status(JsonField.of("processing"))
+            val PROCESSING = of("processing")
 
-            val RETURNED = Status(JsonField.of("returned"))
+            val RETURNED = of("returned")
 
-            val SENT = Status(JsonField.of("sent"))
+            val SENT = of("sent")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

@@ -1205,11 +1205,11 @@ constructor(
 
             companion object {
 
-                val EMAIL = ContactIdentifierType(JsonField.of("email"))
+                val EMAIL = of("email")
 
-                val PHONE_NUMBER = ContactIdentifierType(JsonField.of("phone_number"))
+                val PHONE_NUMBER = of("phone_number")
 
-                val WEBSITE = ContactIdentifierType(JsonField.of("website"))
+                val WEBSITE = of("website")
 
                 fun of(value: String) = ContactIdentifierType(JsonField.of(value))
             }
@@ -1956,11 +1956,11 @@ constructor(
 
         companion object {
 
-            val UI = PaymentMethod(JsonField.of("ui"))
+            val UI = of("ui")
 
-            val MANUAL = PaymentMethod(JsonField.of("manual"))
+            val MANUAL = of("manual")
 
-            val AUTOMATIC = PaymentMethod(JsonField.of("automatic"))
+            val AUTOMATIC = of("automatic")
 
             fun of(value: String) = PaymentMethod(JsonField.of(value))
         }

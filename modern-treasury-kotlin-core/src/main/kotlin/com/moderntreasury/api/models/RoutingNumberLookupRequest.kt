@@ -451,23 +451,21 @@ private constructor(
 
         companion object {
 
-            val ABA = RoutingNumberType(JsonField.of("aba"))
+            val ABA = of("aba")
 
-            val AU_BSB = RoutingNumberType(JsonField.of("au_bsb"))
+            val AU_BSB = of("au_bsb")
 
-            val CA_CPA = RoutingNumberType(JsonField.of("ca_cpa"))
+            val CA_CPA = of("ca_cpa")
 
-            val GB_SORT_CODE = RoutingNumberType(JsonField.of("gb_sort_code"))
+            val GB_SORT_CODE = of("gb_sort_code")
 
-            val IN_IFSC = RoutingNumberType(JsonField.of("in_ifsc"))
+            val IN_IFSC = of("in_ifsc")
 
-            val NZ_NATIONAL_CLEARING_CODE =
-                RoutingNumberType(JsonField.of("nz_national_clearing_code"))
+            val NZ_NATIONAL_CLEARING_CODE = of("nz_national_clearing_code")
 
-            val SE_BANKGIRO_CLEARING_CODE =
-                RoutingNumberType(JsonField.of("se_bankgiro_clearing_code"))
+            val SE_BANKGIRO_CLEARING_CODE = of("se_bankgiro_clearing_code")
 
-            val SWIFT = RoutingNumberType(JsonField.of("swift"))
+            val SWIFT = of("swift")
 
             fun of(value: String) = RoutingNumberType(JsonField.of(value))
         }
@@ -620,65 +618,65 @@ private constructor(
 
         companion object {
 
-            val ACH = SupportedPaymentType(JsonField.of("ach"))
+            val ACH = of("ach")
 
-            val AU_BECS = SupportedPaymentType(JsonField.of("au_becs"))
+            val AU_BECS = of("au_becs")
 
-            val BACS = SupportedPaymentType(JsonField.of("bacs"))
+            val BACS = of("bacs")
 
-            val BOOK = SupportedPaymentType(JsonField.of("book"))
+            val BOOK = of("book")
 
-            val CARD = SupportedPaymentType(JsonField.of("card"))
+            val CARD = of("card")
 
-            val CHATS = SupportedPaymentType(JsonField.of("chats"))
+            val CHATS = of("chats")
 
-            val CHECK = SupportedPaymentType(JsonField.of("check"))
+            val CHECK = of("check")
 
-            val CROSS_BORDER = SupportedPaymentType(JsonField.of("cross_border"))
+            val CROSS_BORDER = of("cross_border")
 
-            val DK_NETS = SupportedPaymentType(JsonField.of("dk_nets"))
+            val DK_NETS = of("dk_nets")
 
-            val EFT = SupportedPaymentType(JsonField.of("eft"))
+            val EFT = of("eft")
 
-            val HU_ICS = SupportedPaymentType(JsonField.of("hu_ics"))
+            val HU_ICS = of("hu_ics")
 
-            val INTERAC = SupportedPaymentType(JsonField.of("interac"))
+            val INTERAC = of("interac")
 
-            val MASAV = SupportedPaymentType(JsonField.of("masav"))
+            val MASAV = of("masav")
 
-            val MX_CCEN = SupportedPaymentType(JsonField.of("mx_ccen"))
+            val MX_CCEN = of("mx_ccen")
 
-            val NEFT = SupportedPaymentType(JsonField.of("neft"))
+            val NEFT = of("neft")
 
-            val NICS = SupportedPaymentType(JsonField.of("nics"))
+            val NICS = of("nics")
 
-            val NZ_BECS = SupportedPaymentType(JsonField.of("nz_becs"))
+            val NZ_BECS = of("nz_becs")
 
-            val PL_ELIXIR = SupportedPaymentType(JsonField.of("pl_elixir"))
+            val PL_ELIXIR = of("pl_elixir")
 
-            val PROVXCHANGE = SupportedPaymentType(JsonField.of("provxchange"))
+            val PROVXCHANGE = of("provxchange")
 
-            val RO_SENT = SupportedPaymentType(JsonField.of("ro_sent"))
+            val RO_SENT = of("ro_sent")
 
-            val RTP = SupportedPaymentType(JsonField.of("rtp"))
+            val RTP = of("rtp")
 
-            val SE_BANKGIROT = SupportedPaymentType(JsonField.of("se_bankgirot"))
+            val SE_BANKGIROT = of("se_bankgirot")
 
-            val SEN = SupportedPaymentType(JsonField.of("sen"))
+            val SEN = of("sen")
 
-            val SEPA = SupportedPaymentType(JsonField.of("sepa"))
+            val SEPA = of("sepa")
 
-            val SG_GIRO = SupportedPaymentType(JsonField.of("sg_giro"))
+            val SG_GIRO = of("sg_giro")
 
-            val SIC = SupportedPaymentType(JsonField.of("sic"))
+            val SIC = of("sic")
 
-            val SIGNET = SupportedPaymentType(JsonField.of("signet"))
+            val SIGNET = of("signet")
 
-            val SKNBI = SupportedPaymentType(JsonField.of("sknbi"))
+            val SKNBI = of("sknbi")
 
-            val WIRE = SupportedPaymentType(JsonField.of("wire"))
+            val WIRE = of("wire")
 
-            val ZENGIN = SupportedPaymentType(JsonField.of("zengin"))
+            val ZENGIN = of("zengin")
 
             fun of(value: String) = SupportedPaymentType(JsonField.of(value))
         }

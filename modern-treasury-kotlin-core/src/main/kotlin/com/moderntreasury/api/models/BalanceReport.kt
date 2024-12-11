@@ -302,13 +302,13 @@ private constructor(
 
         companion object {
 
-            val INTRADAY = BalanceReportType(JsonField.of("intraday"))
+            val INTRADAY = of("intraday")
 
-            val OTHER = BalanceReportType(JsonField.of("other"))
+            val OTHER = of("other")
 
-            val PREVIOUS_DAY = BalanceReportType(JsonField.of("previous_day"))
+            val PREVIOUS_DAY = of("previous_day")
 
-            val REAL_TIME = BalanceReportType(JsonField.of("real_time"))
+            val REAL_TIME = of("real_time")
 
             fun of(value: String) = BalanceReportType(JsonField.of(value))
         }
@@ -712,22 +712,21 @@ private constructor(
 
             companion object {
 
-                val CLOSING_AVAILABLE = BalanceType(JsonField.of("closing_available"))
+                val CLOSING_AVAILABLE = of("closing_available")
 
-                val CLOSING_LEDGER = BalanceType(JsonField.of("closing_ledger"))
+                val CLOSING_LEDGER = of("closing_ledger")
 
-                val CURRENT_AVAILABLE = BalanceType(JsonField.of("current_available"))
+                val CURRENT_AVAILABLE = of("current_available")
 
-                val CURRENT_LEDGER = BalanceType(JsonField.of("current_ledger"))
+                val CURRENT_LEDGER = of("current_ledger")
 
-                val OPENING_AVAILABLE = BalanceType(JsonField.of("opening_available"))
+                val OPENING_AVAILABLE = of("opening_available")
 
-                val OPENING_AVAILABLE_NEXT_BUSINESS_DAY =
-                    BalanceType(JsonField.of("opening_available_next_business_day"))
+                val OPENING_AVAILABLE_NEXT_BUSINESS_DAY = of("opening_available_next_business_day")
 
-                val OPENING_LEDGER = BalanceType(JsonField.of("opening_ledger"))
+                val OPENING_LEDGER = of("opening_ledger")
 
-                val OTHER = BalanceType(JsonField.of("other"))
+                val OTHER = of("other")
 
                 fun of(value: String) = BalanceType(JsonField.of(value))
             }

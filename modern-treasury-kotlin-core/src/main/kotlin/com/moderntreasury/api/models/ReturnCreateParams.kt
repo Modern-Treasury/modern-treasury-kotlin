@@ -444,7 +444,7 @@ constructor(
 
         companion object {
 
-            val INCOMING_PAYMENT_DETAIL = ReturnableType(JsonField.of("incoming_payment_detail"))
+            val INCOMING_PAYMENT_DETAIL = of("incoming_payment_detail")
 
             fun of(value: String) = ReturnableType(JsonField.of(value))
         }
@@ -495,111 +495,111 @@ constructor(
 
         companion object {
 
-            val _901 = Code(JsonField.of("901"))
+            val _901 = of("901")
 
-            val _902 = Code(JsonField.of("902"))
+            val _902 = of("902")
 
-            val _903 = Code(JsonField.of("903"))
+            val _903 = of("903")
 
-            val _904 = Code(JsonField.of("904"))
+            val _904 = of("904")
 
-            val _905 = Code(JsonField.of("905"))
+            val _905 = of("905")
 
-            val _907 = Code(JsonField.of("907"))
+            val _907 = of("907")
 
-            val _908 = Code(JsonField.of("908"))
+            val _908 = of("908")
 
-            val _909 = Code(JsonField.of("909"))
+            val _909 = of("909")
 
-            val _910 = Code(JsonField.of("910"))
+            val _910 = of("910")
 
-            val _911 = Code(JsonField.of("911"))
+            val _911 = of("911")
 
-            val _912 = Code(JsonField.of("912"))
+            val _912 = of("912")
 
-            val _914 = Code(JsonField.of("914"))
+            val _914 = of("914")
 
-            val C01 = Code(JsonField.of("C01"))
+            val C01 = of("C01")
 
-            val C02 = Code(JsonField.of("C02"))
+            val C02 = of("C02")
 
-            val C03 = Code(JsonField.of("C03"))
+            val C03 = of("C03")
 
-            val C05 = Code(JsonField.of("C05"))
+            val C05 = of("C05")
 
-            val C06 = Code(JsonField.of("C06"))
+            val C06 = of("C06")
 
-            val C07 = Code(JsonField.of("C07"))
+            val C07 = of("C07")
 
-            val C08 = Code(JsonField.of("C08"))
+            val C08 = of("C08")
 
-            val C09 = Code(JsonField.of("C09"))
+            val C09 = of("C09")
 
-            val C13 = Code(JsonField.of("C13"))
+            val C13 = of("C13")
 
-            val C14 = Code(JsonField.of("C14"))
+            val C14 = of("C14")
 
-            val R01 = Code(JsonField.of("R01"))
+            val R01 = of("R01")
 
-            val R02 = Code(JsonField.of("R02"))
+            val R02 = of("R02")
 
-            val R03 = Code(JsonField.of("R03"))
+            val R03 = of("R03")
 
-            val R04 = Code(JsonField.of("R04"))
+            val R04 = of("R04")
 
-            val R05 = Code(JsonField.of("R05"))
+            val R05 = of("R05")
 
-            val R06 = Code(JsonField.of("R06"))
+            val R06 = of("R06")
 
-            val R07 = Code(JsonField.of("R07"))
+            val R07 = of("R07")
 
-            val R08 = Code(JsonField.of("R08"))
+            val R08 = of("R08")
 
-            val R09 = Code(JsonField.of("R09"))
+            val R09 = of("R09")
 
-            val R10 = Code(JsonField.of("R10"))
+            val R10 = of("R10")
 
-            val R11 = Code(JsonField.of("R11"))
+            val R11 = of("R11")
 
-            val R12 = Code(JsonField.of("R12"))
+            val R12 = of("R12")
 
-            val R14 = Code(JsonField.of("R14"))
+            val R14 = of("R14")
 
-            val R15 = Code(JsonField.of("R15"))
+            val R15 = of("R15")
 
-            val R16 = Code(JsonField.of("R16"))
+            val R16 = of("R16")
 
-            val R17 = Code(JsonField.of("R17"))
+            val R17 = of("R17")
 
-            val R20 = Code(JsonField.of("R20"))
+            val R20 = of("R20")
 
-            val R21 = Code(JsonField.of("R21"))
+            val R21 = of("R21")
 
-            val R22 = Code(JsonField.of("R22"))
+            val R22 = of("R22")
 
-            val R23 = Code(JsonField.of("R23"))
+            val R23 = of("R23")
 
-            val R24 = Code(JsonField.of("R24"))
+            val R24 = of("R24")
 
-            val R29 = Code(JsonField.of("R29"))
+            val R29 = of("R29")
 
-            val R31 = Code(JsonField.of("R31"))
+            val R31 = of("R31")
 
-            val R33 = Code(JsonField.of("R33"))
+            val R33 = of("R33")
 
-            val R37 = Code(JsonField.of("R37"))
+            val R37 = of("R37")
 
-            val R38 = Code(JsonField.of("R38"))
+            val R38 = of("R38")
 
-            val R39 = Code(JsonField.of("R39"))
+            val R39 = of("R39")
 
-            val R51 = Code(JsonField.of("R51"))
+            val R51 = of("R51")
 
-            val R52 = Code(JsonField.of("R52"))
+            val R52 = of("R52")
 
-            val R53 = Code(JsonField.of("R53"))
+            val R53 = of("R53")
 
-            val CURRENCYCLOUD = Code(JsonField.of("currencycloud"))
+            val CURRENCYCLOUD = of("currencycloud")
 
             fun of(value: String) = Code(JsonField.of(value))
         }

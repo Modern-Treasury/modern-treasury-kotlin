@@ -30,9 +30,9 @@ private constructor(
 
     companion object {
 
-        val CREDIT = TransactionDirection(JsonField.of("credit"))
+        val CREDIT = of("credit")
 
-        val DEBIT = TransactionDirection(JsonField.of("debit"))
+        val DEBIT = of("debit")
 
         fun of(value: String) = TransactionDirection(JsonField.of(value))
     }

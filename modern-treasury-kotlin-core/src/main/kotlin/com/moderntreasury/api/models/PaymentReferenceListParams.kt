@@ -236,11 +236,11 @@ constructor(
 
         companion object {
 
-            val PAYMENT_ORDER = ReferenceableType(JsonField.of("payment_order"))
+            val PAYMENT_ORDER = of("payment_order")
 
-            val RETURN = ReferenceableType(JsonField.of("return"))
+            val RETURN = of("return")
 
-            val REVERSAL = ReferenceableType(JsonField.of("reversal"))
+            val REVERSAL = of("reversal")
 
             fun of(value: String) = ReferenceableType(JsonField.of(value))
         }

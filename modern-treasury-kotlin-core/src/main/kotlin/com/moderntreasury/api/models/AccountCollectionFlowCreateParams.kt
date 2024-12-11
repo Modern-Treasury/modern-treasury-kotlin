@@ -359,41 +359,41 @@ constructor(
 
         companion object {
 
-            val USA = ReceivingCountry(JsonField.of("USA"))
+            val USA = of("USA")
 
-            val AUS = ReceivingCountry(JsonField.of("AUS"))
+            val AUS = of("AUS")
 
-            val BEL = ReceivingCountry(JsonField.of("BEL"))
+            val BEL = of("BEL")
 
-            val CAN = ReceivingCountry(JsonField.of("CAN"))
+            val CAN = of("CAN")
 
-            val CHL = ReceivingCountry(JsonField.of("CHL"))
+            val CHL = of("CHL")
 
-            val CHN = ReceivingCountry(JsonField.of("CHN"))
+            val CHN = of("CHN")
 
-            val COL = ReceivingCountry(JsonField.of("COL"))
+            val COL = of("COL")
 
-            val FRA = ReceivingCountry(JsonField.of("FRA"))
+            val FRA = of("FRA")
 
-            val DEU = ReceivingCountry(JsonField.of("DEU"))
+            val DEU = of("DEU")
 
-            val HKG = ReceivingCountry(JsonField.of("HKG"))
+            val HKG = of("HKG")
 
-            val IND = ReceivingCountry(JsonField.of("IND"))
+            val IND = of("IND")
 
-            val IRL = ReceivingCountry(JsonField.of("IRL"))
+            val IRL = of("IRL")
 
-            val ITA = ReceivingCountry(JsonField.of("ITA"))
+            val ITA = of("ITA")
 
-            val MEX = ReceivingCountry(JsonField.of("MEX"))
+            val MEX = of("MEX")
 
-            val NLD = ReceivingCountry(JsonField.of("NLD"))
+            val NLD = of("NLD")
 
-            val PER = ReceivingCountry(JsonField.of("PER"))
+            val PER = of("PER")
 
-            val ESP = ReceivingCountry(JsonField.of("ESP"))
+            val ESP = of("ESP")
 
-            val GBR = ReceivingCountry(JsonField.of("GBR"))
+            val GBR = of("GBR")
 
             fun of(value: String) = ReceivingCountry(JsonField.of(value))
         }

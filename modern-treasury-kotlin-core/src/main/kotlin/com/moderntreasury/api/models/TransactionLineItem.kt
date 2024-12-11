@@ -467,17 +467,17 @@ private constructor(
 
         companion object {
 
-            val INCOMING_PAYMENT_DETAIL = TransactableType(JsonField.of("incoming_payment_detail"))
+            val INCOMING_PAYMENT_DETAIL = of("incoming_payment_detail")
 
-            val PAPER_ITEM = TransactableType(JsonField.of("paper_item"))
+            val PAPER_ITEM = of("paper_item")
 
-            val PAYMENT_ORDER = TransactableType(JsonField.of("payment_order"))
+            val PAYMENT_ORDER = of("payment_order")
 
-            val PAYMENT_ORDER_ATTEMPT = TransactableType(JsonField.of("payment_order_attempt"))
+            val PAYMENT_ORDER_ATTEMPT = of("payment_order_attempt")
 
-            val RETURN = TransactableType(JsonField.of("return"))
+            val RETURN = of("return")
 
-            val REVERSAL = TransactableType(JsonField.of("reversal"))
+            val REVERSAL = of("reversal")
 
             fun of(value: String) = TransactableType(JsonField.of(value))
         }
@@ -548,9 +548,9 @@ private constructor(
 
         companion object {
 
-            val ORIGINATING = Type(JsonField.of("originating"))
+            val ORIGINATING = of("originating")
 
-            val RECEIVING = Type(JsonField.of("receiving"))
+            val RECEIVING = of("receiving")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

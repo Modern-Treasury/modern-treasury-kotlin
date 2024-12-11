@@ -246,15 +246,15 @@ constructor(
 
         companion object {
 
-            val INCOMING_PAYMENT_DETAIL = ReturnableType(JsonField.of("incoming_payment_detail"))
+            val INCOMING_PAYMENT_DETAIL = of("incoming_payment_detail")
 
-            val PAPER_ITEM = ReturnableType(JsonField.of("paper_item"))
+            val PAPER_ITEM = of("paper_item")
 
-            val PAYMENT_ORDER = ReturnableType(JsonField.of("payment_order"))
+            val PAYMENT_ORDER = of("payment_order")
 
-            val RETURN = ReturnableType(JsonField.of("return"))
+            val RETURN = of("return")
 
-            val REVERSAL = ReturnableType(JsonField.of("reversal"))
+            val REVERSAL = of("reversal")
 
             fun of(value: String) = ReturnableType(JsonField.of(value))
         }

@@ -611,9 +611,9 @@ constructor(
 
         companion object {
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val POSTED = Status(JsonField.of("posted"))
+            val POSTED = of("posted")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

@@ -487,9 +487,9 @@ constructor(
 
         companion object {
 
-            val USD = Currency(JsonField.of("USD"))
+            val USD = of("USD")
 
-            val CAD = Currency(JsonField.of("CAD"))
+            val CAD = of("CAD")
 
             fun of(value: String) = Currency(JsonField.of(value))
         }
