@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,7 +16,13 @@ class InvoiceLineItemUpdateParamsTest {
             .id("id")
             .description("description")
             .direction("direction")
-            .metadata(InvoiceLineItemUpdateParams.Metadata.builder().build())
+            .metadata(
+                InvoiceLineItemUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .name("name")
             .quantity(0L)
             .unitAmount(0L)
@@ -31,7 +38,13 @@ class InvoiceLineItemUpdateParamsTest {
                 .id("id")
                 .description("description")
                 .direction("direction")
-                .metadata(InvoiceLineItemUpdateParams.Metadata.builder().build())
+                .metadata(
+                    InvoiceLineItemUpdateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .quantity(0L)
                 .unitAmount(0L)
@@ -42,7 +55,13 @@ class InvoiceLineItemUpdateParamsTest {
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.direction()).isEqualTo("direction")
         assertThat(body.metadata())
-            .isEqualTo(InvoiceLineItemUpdateParams.Metadata.builder().build())
+            .isEqualTo(
+                InvoiceLineItemUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.quantity()).isEqualTo(0L)
         assertThat(body.unitAmount()).isEqualTo(0L)

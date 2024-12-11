@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.InvoiceListParams
 import java.time.LocalDate
@@ -80,6 +81,9 @@ class InvoiceServiceTest {
                                 .metadata(
                                     InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata
                                         .builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
                                 .quantity(0L)
@@ -98,7 +102,13 @@ class InvoiceServiceTest {
                             .build()
                     )
                     .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .metadata(InvoiceCreateParams.Metadata.builder().build())
+                    .metadata(
+                        InvoiceCreateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .notificationEmailAddresses(listOf("string"))
                     .notificationsEnabled(true)
                     .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
@@ -194,6 +204,9 @@ class InvoiceServiceTest {
                                 .metadata(
                                     InvoiceUpdateParams.InvoiceLineItemCreateRequest.Metadata
                                         .builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
                                 .quantity(0L)
@@ -212,7 +225,13 @@ class InvoiceServiceTest {
                             .build()
                     )
                     .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .metadata(InvoiceUpdateParams.Metadata.builder().build())
+                    .metadata(
+                        InvoiceUpdateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .notificationEmailAddresses(listOf("string"))
                     .notificationsEnabled(true)
                     .originatingAccountId("originating_account_id")

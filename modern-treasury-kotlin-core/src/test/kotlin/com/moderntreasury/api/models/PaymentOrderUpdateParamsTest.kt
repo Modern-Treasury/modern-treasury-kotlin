@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -42,12 +43,22 @@ class PaymentOrderUpdateParamsTest {
                         .accountingCategoryId("accounting_category_id")
                         .description("description")
                         .metadata(
-                            PaymentOrderUpdateParams.LineItemRequest.Metadata.builder().build()
+                            PaymentOrderUpdateParams.LineItemRequest.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
                         )
                         .build()
                 )
             )
-            .metadata(PaymentOrderUpdateParams.Metadata.builder().build())
+            .metadata(
+                PaymentOrderUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .nsfProtected(true)
             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .originatingPartyName("originating_party_name")
@@ -105,11 +116,20 @@ class PaymentOrderUpdateParamsTest {
                                 PaymentOrderUpdateParams.ReceivingAccount.LedgerAccountCreateRequest
                                     .Metadata
                                     .builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
                             .build()
                     )
-                    .metadata(PaymentOrderUpdateParams.ReceivingAccount.Metadata.builder().build())
+                    .metadata(
+                        PaymentOrderUpdateParams.ReceivingAccount.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .name("name")
                     .partyAddress(
                         PaymentOrderUpdateParams.ReceivingAccount.AddressRequest.builder()
@@ -191,12 +211,22 @@ class PaymentOrderUpdateParamsTest {
                             .accountingCategoryId("accounting_category_id")
                             .description("description")
                             .metadata(
-                                PaymentOrderUpdateParams.LineItemRequest.Metadata.builder().build()
+                                PaymentOrderUpdateParams.LineItemRequest.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
                             )
                             .build()
                     )
                 )
-                .metadata(PaymentOrderUpdateParams.Metadata.builder().build())
+                .metadata(
+                    PaymentOrderUpdateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .nsfProtected(true)
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .originatingPartyName("originating_party_name")
@@ -256,12 +286,19 @@ class PaymentOrderUpdateParamsTest {
                                         .LedgerAccountCreateRequest
                                         .Metadata
                                         .builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
                                 .build()
                         )
                         .metadata(
-                            PaymentOrderUpdateParams.ReceivingAccount.Metadata.builder().build()
+                            PaymentOrderUpdateParams.ReceivingAccount.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
                         )
                         .name("name")
                         .partyAddress(
@@ -340,12 +377,23 @@ class PaymentOrderUpdateParamsTest {
                         .accountingCategoryId("accounting_category_id")
                         .description("description")
                         .metadata(
-                            PaymentOrderUpdateParams.LineItemRequest.Metadata.builder().build()
+                            PaymentOrderUpdateParams.LineItemRequest.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
                         )
                         .build()
                 )
             )
-        assertThat(body.metadata()).isEqualTo(PaymentOrderUpdateParams.Metadata.builder().build())
+        assertThat(body.metadata())
+            .isEqualTo(
+                PaymentOrderUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(body.nsfProtected()).isEqualTo(true)
         assertThat(body.originatingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.originatingPartyName()).isEqualTo("originating_party_name")
@@ -404,11 +452,20 @@ class PaymentOrderUpdateParamsTest {
                                 PaymentOrderUpdateParams.ReceivingAccount.LedgerAccountCreateRequest
                                     .Metadata
                                     .builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
                             .build()
                     )
-                    .metadata(PaymentOrderUpdateParams.ReceivingAccount.Metadata.builder().build())
+                    .metadata(
+                        PaymentOrderUpdateParams.ReceivingAccount.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .name("name")
                     .partyAddress(
                         PaymentOrderUpdateParams.ReceivingAccount.AddressRequest.builder()

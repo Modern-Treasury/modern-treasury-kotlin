@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.LedgerEventHandlerListParams
 import org.junit.jupiter.api.Test
@@ -47,16 +48,37 @@ class LedgerEventHandlerServiceTest {
                     .name("name")
                     .conditions(
                         LedgerEventHandlerCreateParams.LedgerEventHandlerConditions.builder()
-                            .field("field")
-                            .operator("operator")
-                            .value("value")
+                            .field("ledgerable_event.name")
+                            .operator("equals")
+                            .value("credit_card_swipe")
                             .build()
                     )
                     .description("description")
                     .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .metadata(LedgerEventHandlerCreateParams.Metadata.builder().build())
+                    .metadata(
+                        LedgerEventHandlerCreateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .variables(
-                        LedgerEventHandlerCreateParams.LedgerEventHandlerVariables.builder().build()
+                        LedgerEventHandlerCreateParams.LedgerEventHandlerVariables.builder()
+                            .putAdditionalProperty(
+                                "credit_account",
+                                JsonValue.from(
+                                    mapOf(
+                                        "query" to
+                                            mapOf(
+                                                "field" to "name",
+                                                "operator" to "equals",
+                                                "value" to "my_credit_account",
+                                            ),
+                                        "type" to "ledger_account"
+                                    )
+                                )
+                            )
+                            .build()
                     )
                     .build()
             )

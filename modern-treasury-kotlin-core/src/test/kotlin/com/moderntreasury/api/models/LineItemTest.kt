@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -27,7 +28,13 @@ class LineItemTest {
                 .itemizableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .itemizableType(LineItem.ItemizableType.EXPECTED_PAYMENT)
                 .liveMode(true)
-                .metadata(LineItem.Metadata.builder().build())
+                .metadata(
+                    LineItem.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .object_("object")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
@@ -50,7 +57,14 @@ class LineItemTest {
         assertThat(lineItem.itemizableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(lineItem.itemizableType()).isEqualTo(LineItem.ItemizableType.EXPECTED_PAYMENT)
         assertThat(lineItem.liveMode()).isEqualTo(true)
-        assertThat(lineItem.metadata()).isEqualTo(LineItem.Metadata.builder().build())
+        assertThat(lineItem.metadata())
+            .isEqualTo(
+                LineItem.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(lineItem.object_()).isEqualTo("object")
         assertThat(lineItem.updatedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }

@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.VirtualAccountListParams
 import org.junit.jupiter.api.Test
@@ -61,11 +62,18 @@ class VirtualAccountServiceTest {
                             .metadata(
                                 VirtualAccountCreateParams.LedgerAccountCreateRequest.Metadata
                                     .builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
                             .build()
                     )
-                    .metadata(VirtualAccountCreateParams.Metadata.builder().build())
+                    .metadata(
+                        VirtualAccountCreateParams.Metadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
                     .routingDetails(
                         listOf(
                             VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
@@ -119,7 +127,11 @@ class VirtualAccountServiceTest {
                     .id("id")
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .metadata(VirtualAccountUpdateParams.Metadata.builder().build())
+                    .metadata(
+                        VirtualAccountUpdateParams.Metadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
                     .name("name")
                     .build()
             )

@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.BulkRequestListParams
 import java.time.LocalDate
@@ -102,6 +103,10 @@ class BulkRequestServiceTest {
                                                                 .LedgerEntryCreateRequest
                                                                 .AvailableBalanceAmount
                                                                 .builder()
+                                                                .putAdditionalProperty(
+                                                                    "foo",
+                                                                    JsonValue.from(0)
+                                                                )
                                                                 .build()
                                                         )
                                                         .lockVersion(0L)
@@ -112,6 +117,18 @@ class BulkRequestServiceTest {
                                                                 .LedgerEntryCreateRequest
                                                                 .Metadata
                                                                 .builder()
+                                                                .putAdditionalProperty(
+                                                                    "key",
+                                                                    JsonValue.from("value")
+                                                                )
+                                                                .putAdditionalProperty(
+                                                                    "foo",
+                                                                    JsonValue.from("bar")
+                                                                )
+                                                                .putAdditionalProperty(
+                                                                    "modern",
+                                                                    JsonValue.from("treasury")
+                                                                )
                                                                 .build()
                                                         )
                                                         .pendingBalanceAmount(
@@ -121,6 +138,10 @@ class BulkRequestServiceTest {
                                                                 .LedgerEntryCreateRequest
                                                                 .PendingBalanceAmount
                                                                 .builder()
+                                                                .putAdditionalProperty(
+                                                                    "foo",
+                                                                    JsonValue.from(0)
+                                                                )
                                                                 .build()
                                                         )
                                                         .postedBalanceAmount(
@@ -130,6 +151,10 @@ class BulkRequestServiceTest {
                                                                 .LedgerEntryCreateRequest
                                                                 .PostedBalanceAmount
                                                                 .builder()
+                                                                .putAdditionalProperty(
+                                                                    "foo",
+                                                                    JsonValue.from(0)
+                                                                )
                                                                 .build()
                                                         )
                                                         .showResultingLedgerAccountBalances(true)
@@ -156,6 +181,18 @@ class BulkRequestServiceTest {
                                                     .LedgerTransactionCreateRequest
                                                     .Metadata
                                                     .builder()
+                                                    .putAdditionalProperty(
+                                                        "key",
+                                                        JsonValue.from("value")
+                                                    )
+                                                    .putAdditionalProperty(
+                                                        "foo",
+                                                        JsonValue.from("bar")
+                                                    )
+                                                    .putAdditionalProperty(
+                                                        "modern",
+                                                        JsonValue.from("treasury")
+                                                    )
                                                     .build()
                                             )
                                             .status(
@@ -183,6 +220,18 @@ class BulkRequestServiceTest {
                                                         .LineItemRequest
                                                         .Metadata
                                                         .builder()
+                                                        .putAdditionalProperty(
+                                                            "key",
+                                                            JsonValue.from("value")
+                                                        )
+                                                        .putAdditionalProperty(
+                                                            "foo",
+                                                            JsonValue.from("bar")
+                                                        )
+                                                        .putAdditionalProperty(
+                                                            "modern",
+                                                            JsonValue.from("treasury")
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -193,6 +242,12 @@ class BulkRequestServiceTest {
                                             .PaymentOrderAsyncCreateRequest
                                             .Metadata
                                             .builder()
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
+                                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty(
+                                                "modern",
+                                                JsonValue.from("treasury")
+                                            )
                                             .build()
                                     )
                                     .nsfProtected(true)
@@ -286,6 +341,18 @@ class BulkRequestServiceTest {
                                                             .LedgerAccountCreateRequest
                                                             .Metadata
                                                             .builder()
+                                                            .putAdditionalProperty(
+                                                                "key",
+                                                                JsonValue.from("value")
+                                                            )
+                                                            .putAdditionalProperty(
+                                                                "foo",
+                                                                JsonValue.from("bar")
+                                                            )
+                                                            .putAdditionalProperty(
+                                                                "modern",
+                                                                JsonValue.from("treasury")
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -296,6 +363,18 @@ class BulkRequestServiceTest {
                                                     .ReceivingAccount
                                                     .Metadata
                                                     .builder()
+                                                    .putAdditionalProperty(
+                                                        "key",
+                                                        JsonValue.from("value")
+                                                    )
+                                                    .putAdditionalProperty(
+                                                        "foo",
+                                                        JsonValue.from("bar")
+                                                    )
+                                                    .putAdditionalProperty(
+                                                        "modern",
+                                                        JsonValue.from("treasury")
+                                                    )
                                                     .build()
                                             )
                                             .name("name")
@@ -370,7 +449,13 @@ class BulkRequestServiceTest {
                             )
                         )
                     )
-                    .metadata(BulkRequestCreateParams.Metadata.builder().build())
+                    .metadata(
+                        BulkRequestCreateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .build()
             )
         println(bulkRequest)

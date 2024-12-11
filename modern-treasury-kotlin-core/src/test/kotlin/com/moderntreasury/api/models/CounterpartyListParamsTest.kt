@@ -18,7 +18,11 @@ class CounterpartyListParamsTest {
             .createdAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .email("dev@stainlessapi.com")
             .legalEntityId("legal_entity_id")
-            .metadata(CounterpartyListParams.Metadata.builder().build())
+            .metadata(
+                CounterpartyListParams.Metadata.builder()
+                    .putAdditionalProperty("foo", listOf("string"))
+                    .build()
+            )
             .name("name")
             .perPage(0L)
             .build()
@@ -33,7 +37,11 @@ class CounterpartyListParamsTest {
                 .createdAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .email("dev@stainlessapi.com")
                 .legalEntityId("legal_entity_id")
-                .metadata(CounterpartyListParams.Metadata.builder().build())
+                .metadata(
+                    CounterpartyListParams.Metadata.builder()
+                        .putAdditionalProperty("foo", listOf("string"))
+                        .build()
+                )
                 .name("name")
                 .perPage(0L)
                 .build()
@@ -43,9 +51,10 @@ class CounterpartyListParamsTest {
         expected.put("created_at_upper_bound", "2019-12-27T18:11:19.117Z")
         expected.put("email", "dev@stainlessapi.com")
         expected.put("legal_entity_id", "legal_entity_id")
-        CounterpartyListParams.Metadata.builder().build().forEachQueryParam { key, values ->
-            expected.put("metadata[$key]", values)
-        }
+        CounterpartyListParams.Metadata.builder()
+            .putAdditionalProperty("foo", listOf("string"))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("name", "name")
         expected.put("per_page", "0")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())

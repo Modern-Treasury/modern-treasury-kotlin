@@ -2,7 +2,7 @@
 
 package com.moderntreasury.api.models
 
-import com.moderntreasury.api.core.JsonNull
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -13,9 +13,15 @@ class LedgerableEventCreateParamsTest {
     fun createLedgerableEventCreateParams() {
         LedgerableEventCreateParams.builder()
             .name("name")
-            .customData(JsonNull.of())
+            .customData(JsonValue.from(mapOf<String, Any>()))
             .description("description")
-            .metadata(LedgerableEventCreateParams.Metadata.builder().build())
+            .metadata(
+                LedgerableEventCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .build()
     }
 
@@ -24,17 +30,29 @@ class LedgerableEventCreateParamsTest {
         val params =
             LedgerableEventCreateParams.builder()
                 .name("name")
-                .customData(JsonNull.of())
+                .customData(JsonValue.from(mapOf<String, Any>()))
                 .description("description")
-                .metadata(LedgerableEventCreateParams.Metadata.builder().build())
+                .metadata(
+                    LedgerableEventCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("name")
-        assertThat(body.customData()).isEqualTo(JsonNull.of())
+        assertThat(body.customData()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.metadata())
-            .isEqualTo(LedgerableEventCreateParams.Metadata.builder().build())
+            .isEqualTo(
+                LedgerableEventCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
     }
 
     @Test

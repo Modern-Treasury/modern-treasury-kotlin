@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -64,7 +65,13 @@ class LegalEntityUpdateParamsTest {
             )
             .lastName("last_name")
             .legalStructure(LegalEntityUpdateParams.LegalStructure.CORPORATION)
-            .metadata(LegalEntityUpdateParams.Metadata.builder().build())
+            .metadata(
+                LegalEntityUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .middleName("middle_name")
             .phoneNumbers(
                 listOf(
@@ -162,7 +169,13 @@ class LegalEntityUpdateParamsTest {
                 )
                 .lastName("last_name")
                 .legalStructure(LegalEntityUpdateParams.LegalStructure.CORPORATION)
-                .metadata(LegalEntityUpdateParams.Metadata.builder().build())
+                .metadata(
+                    LegalEntityUpdateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .middleName("middle_name")
                 .phoneNumbers(
                     listOf(
@@ -256,7 +269,14 @@ class LegalEntityUpdateParamsTest {
         assertThat(body.lastName()).isEqualTo("last_name")
         assertThat(body.legalStructure())
             .isEqualTo(LegalEntityUpdateParams.LegalStructure.CORPORATION)
-        assertThat(body.metadata()).isEqualTo(LegalEntityUpdateParams.Metadata.builder().build())
+        assertThat(body.metadata())
+            .isEqualTo(
+                LegalEntityUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(body.middleName()).isEqualTo("middle_name")
         assertThat(body.phoneNumbers())
             .isEqualTo(

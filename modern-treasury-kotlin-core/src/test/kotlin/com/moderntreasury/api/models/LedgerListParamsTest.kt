@@ -14,9 +14,17 @@ class LedgerListParamsTest {
         LedgerListParams.builder()
             .id(listOf("string"))
             .afterCursor("after_cursor")
-            .metadata(LedgerListParams.Metadata.builder().build())
+            .metadata(
+                LedgerListParams.Metadata.builder()
+                    .putAdditionalProperty("foo", listOf("string"))
+                    .build()
+            )
             .perPage(0L)
-            .updatedAt(LedgerListParams.UpdatedAt.builder().build())
+            .updatedAt(
+                LedgerListParams.UpdatedAt.builder()
+                    .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
             .build()
     }
 
@@ -26,20 +34,30 @@ class LedgerListParamsTest {
             LedgerListParams.builder()
                 .id(listOf("string"))
                 .afterCursor("after_cursor")
-                .metadata(LedgerListParams.Metadata.builder().build())
+                .metadata(
+                    LedgerListParams.Metadata.builder()
+                        .putAdditionalProperty("foo", listOf("string"))
+                        .build()
+                )
                 .perPage(0L)
-                .updatedAt(LedgerListParams.UpdatedAt.builder().build())
+                .updatedAt(
+                    LedgerListParams.UpdatedAt.builder()
+                        .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                        .build()
+                )
                 .build()
         val expected = QueryParams.builder()
         expected.put("id[]", "string")
         expected.put("after_cursor", "after_cursor")
-        LedgerListParams.Metadata.builder().build().forEachQueryParam { key, values ->
-            expected.put("metadata[$key]", values)
-        }
+        LedgerListParams.Metadata.builder()
+            .putAdditionalProperty("foo", listOf("string"))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("per_page", "0")
-        LedgerListParams.UpdatedAt.builder().build().forEachQueryParam { key, values ->
-            expected.put("updated_at[$key]", values)
-        }
+        LedgerListParams.UpdatedAt.builder()
+            .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("updated_at[$key]", values) }
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 

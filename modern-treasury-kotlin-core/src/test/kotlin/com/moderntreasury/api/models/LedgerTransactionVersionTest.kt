@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -35,6 +36,9 @@ class LedgerTransactionVersionTest {
                             .metadata(
                                 LedgerTransactionVersion.LedgerEntryOfTransactionVersion.Metadata
                                     .builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
                             .object_("object")
@@ -92,7 +96,13 @@ class LedgerTransactionVersionTest {
                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerableType(LedgerTransactionVersion.LedgerableType.EXPECTED_PAYMENT)
                 .liveMode(true)
-                .metadata(LedgerTransactionVersion.Metadata.builder().build())
+                .metadata(
+                    LedgerTransactionVersion.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .object_("object")
                 .postedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .reversedByLedgerTransactionId("reversed_by_ledger_transaction_id")
@@ -125,6 +135,9 @@ class LedgerTransactionVersionTest {
                     .liveMode(true)
                     .metadata(
                         LedgerTransactionVersion.LedgerEntryOfTransactionVersion.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
                     .object_("object")
@@ -184,7 +197,13 @@ class LedgerTransactionVersionTest {
             .isEqualTo(LedgerTransactionVersion.LedgerableType.EXPECTED_PAYMENT)
         assertThat(ledgerTransactionVersion.liveMode()).isEqualTo(true)
         assertThat(ledgerTransactionVersion.metadata())
-            .isEqualTo(LedgerTransactionVersion.Metadata.builder().build())
+            .isEqualTo(
+                LedgerTransactionVersion.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(ledgerTransactionVersion.object_()).isEqualTo("object")
         assertThat(ledgerTransactionVersion.postedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

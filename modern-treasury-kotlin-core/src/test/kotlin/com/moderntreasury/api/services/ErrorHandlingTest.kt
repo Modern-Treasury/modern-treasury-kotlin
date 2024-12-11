@@ -15,6 +15,7 @@ import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.moderntreasury.api.client.ModernTreasuryClient
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonString
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.jsonMapper
 import com.moderntreasury.api.errors.BadRequestException
@@ -102,11 +103,20 @@ class ErrorHandlingTest {
                         .metadata(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
                                 .builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .build()
                 )
-                .metadata(ExternalAccountCreateParams.Metadata.builder().build())
+                .metadata(
+                    ExternalAccountCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
@@ -175,7 +185,13 @@ class ErrorHandlingTest {
                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
-                .metadata(ExternalAccount.Metadata.builder().build())
+                .metadata(
+                    ExternalAccount.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .object_("object")
                 .partyAddress(
@@ -282,11 +298,20 @@ class ErrorHandlingTest {
                         .metadata(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
                                 .builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .build()
                 )
-                .metadata(ExternalAccountCreateParams.Metadata.builder().build())
+                .metadata(
+                    ExternalAccountCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
@@ -378,11 +403,20 @@ class ErrorHandlingTest {
                         .metadata(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
                                 .builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .build()
                 )
-                .metadata(ExternalAccountCreateParams.Metadata.builder().build())
+                .metadata(
+                    ExternalAccountCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
@@ -474,11 +508,20 @@ class ErrorHandlingTest {
                         .metadata(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
                                 .builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .build()
                 )
-                .metadata(ExternalAccountCreateParams.Metadata.builder().build())
+                .metadata(
+                    ExternalAccountCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
@@ -570,11 +613,20 @@ class ErrorHandlingTest {
                         .metadata(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
                                 .builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .build()
                 )
-                .metadata(ExternalAccountCreateParams.Metadata.builder().build())
+                .metadata(
+                    ExternalAccountCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
@@ -666,11 +718,20 @@ class ErrorHandlingTest {
                         .metadata(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
                                 .builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .build()
                 )
-                .metadata(ExternalAccountCreateParams.Metadata.builder().build())
+                .metadata(
+                    ExternalAccountCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
@@ -762,11 +823,20 @@ class ErrorHandlingTest {
                         .metadata(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
                                 .builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .build()
                 )
-                .metadata(ExternalAccountCreateParams.Metadata.builder().build())
+                .metadata(
+                    ExternalAccountCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
@@ -858,11 +928,20 @@ class ErrorHandlingTest {
                         .metadata(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
                                 .builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .build()
                 )
-                .metadata(ExternalAccountCreateParams.Metadata.builder().build())
+                .metadata(
+                    ExternalAccountCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
@@ -954,11 +1033,20 @@ class ErrorHandlingTest {
                         .metadata(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
                                 .builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .build()
                 )
-                .metadata(ExternalAccountCreateParams.Metadata.builder().build())
+                .metadata(
+                    ExternalAccountCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
@@ -1051,11 +1139,20 @@ class ErrorHandlingTest {
                         .metadata(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
                                 .builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .build()
                 )
-                .metadata(ExternalAccountCreateParams.Metadata.builder().build())
+                .metadata(
+                    ExternalAccountCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()
@@ -1140,11 +1237,20 @@ class ErrorHandlingTest {
                         .metadata(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
                                 .builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .build()
                 )
-                .metadata(ExternalAccountCreateParams.Metadata.builder().build())
+                .metadata(
+                    ExternalAccountCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .name("name")
                 .partyAddress(
                     ExternalAccountCreateParams.AddressRequest.builder()

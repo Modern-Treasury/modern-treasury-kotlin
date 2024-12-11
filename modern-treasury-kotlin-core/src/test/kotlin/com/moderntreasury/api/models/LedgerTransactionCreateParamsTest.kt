@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -23,24 +24,30 @@ class LedgerTransactionCreateParamsTest {
                             LedgerTransactionCreateParams.LedgerEntryCreateRequest
                                 .AvailableBalanceAmount
                                 .builder()
+                                .putAdditionalProperty("foo", JsonValue.from(0))
                                 .build()
                         )
                         .lockVersion(0L)
                         .metadata(
                             LedgerTransactionCreateParams.LedgerEntryCreateRequest.Metadata
                                 .builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .pendingBalanceAmount(
                             LedgerTransactionCreateParams.LedgerEntryCreateRequest
                                 .PendingBalanceAmount
                                 .builder()
+                                .putAdditionalProperty("foo", JsonValue.from(0))
                                 .build()
                         )
                         .postedBalanceAmount(
                             LedgerTransactionCreateParams.LedgerEntryCreateRequest
                                 .PostedBalanceAmount
                                 .builder()
+                                .putAdditionalProperty("foo", JsonValue.from(0))
                                 .build()
                         )
                         .showResultingLedgerAccountBalances(true)
@@ -53,7 +60,13 @@ class LedgerTransactionCreateParamsTest {
             .externalId("external_id")
             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .ledgerableType(LedgerTransactionCreateParams.LedgerableType.EXPECTED_PAYMENT)
-            .metadata(LedgerTransactionCreateParams.Metadata.builder().build())
+            .metadata(
+                LedgerTransactionCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .status(LedgerTransactionCreateParams.Status.ARCHIVED)
             .build()
     }
@@ -72,24 +85,30 @@ class LedgerTransactionCreateParamsTest {
                                 LedgerTransactionCreateParams.LedgerEntryCreateRequest
                                     .AvailableBalanceAmount
                                     .builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(0))
                                     .build()
                             )
                             .lockVersion(0L)
                             .metadata(
                                 LedgerTransactionCreateParams.LedgerEntryCreateRequest.Metadata
                                     .builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
                             .pendingBalanceAmount(
                                 LedgerTransactionCreateParams.LedgerEntryCreateRequest
                                     .PendingBalanceAmount
                                     .builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(0))
                                     .build()
                             )
                             .postedBalanceAmount(
                                 LedgerTransactionCreateParams.LedgerEntryCreateRequest
                                     .PostedBalanceAmount
                                     .builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(0))
                                     .build()
                             )
                             .showResultingLedgerAccountBalances(true)
@@ -102,7 +121,13 @@ class LedgerTransactionCreateParamsTest {
                 .externalId("external_id")
                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerableType(LedgerTransactionCreateParams.LedgerableType.EXPECTED_PAYMENT)
-                .metadata(LedgerTransactionCreateParams.Metadata.builder().build())
+                .metadata(
+                    LedgerTransactionCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .status(LedgerTransactionCreateParams.Status.ARCHIVED)
                 .build()
         val body = params.getBody()
@@ -118,24 +143,30 @@ class LedgerTransactionCreateParamsTest {
                             LedgerTransactionCreateParams.LedgerEntryCreateRequest
                                 .AvailableBalanceAmount
                                 .builder()
+                                .putAdditionalProperty("foo", JsonValue.from(0))
                                 .build()
                         )
                         .lockVersion(0L)
                         .metadata(
                             LedgerTransactionCreateParams.LedgerEntryCreateRequest.Metadata
                                 .builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .pendingBalanceAmount(
                             LedgerTransactionCreateParams.LedgerEntryCreateRequest
                                 .PendingBalanceAmount
                                 .builder()
+                                .putAdditionalProperty("foo", JsonValue.from(0))
                                 .build()
                         )
                         .postedBalanceAmount(
                             LedgerTransactionCreateParams.LedgerEntryCreateRequest
                                 .PostedBalanceAmount
                                 .builder()
+                                .putAdditionalProperty("foo", JsonValue.from(0))
                                 .build()
                         )
                         .showResultingLedgerAccountBalances(true)
@@ -150,7 +181,13 @@ class LedgerTransactionCreateParamsTest {
         assertThat(body.ledgerableType())
             .isEqualTo(LedgerTransactionCreateParams.LedgerableType.EXPECTED_PAYMENT)
         assertThat(body.metadata())
-            .isEqualTo(LedgerTransactionCreateParams.Metadata.builder().build())
+            .isEqualTo(
+                LedgerTransactionCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(body.status()).isEqualTo(LedgerTransactionCreateParams.Status.ARCHIVED)
     }
 

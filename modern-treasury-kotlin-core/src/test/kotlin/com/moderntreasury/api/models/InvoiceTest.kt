@@ -2,7 +2,7 @@
 
 package com.moderntreasury.api.models
 
-import com.moderntreasury.api.core.JsonNull
+import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -74,10 +74,16 @@ class InvoiceTest {
                             .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .liveMode(true)
-                            .metadata(ExpectedPayment.Metadata.builder().build())
+                            .metadata(
+                                ExpectedPayment.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
                             .object_("object")
-                            .reconciliationFilters(JsonNull.of())
-                            .reconciliationGroups(JsonNull.of())
+                            .reconciliationFilters(JsonValue.from(mapOf<String, Any>()))
+                            .reconciliationGroups(JsonValue.from(mapOf<String, Any>()))
                             .reconciliationMethod(ExpectedPayment.ReconciliationMethod.AUTOMATIC)
                             .reconciliationRuleVariables(
                                 listOf(
@@ -89,7 +95,12 @@ class InvoiceTest {
                                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .currency(Currency.AED)
                                         .customIdentifiers(
-                                            ReconciliationRule.CustomIdentifiers.builder().build()
+                                            ReconciliationRule.CustomIdentifiers.builder()
+                                                .putAdditionalProperty(
+                                                    "foo",
+                                                    JsonValue.from("string")
+                                                )
+                                                .build()
                                         )
                                         .dateLowerBound(LocalDate.parse("2019-12-27"))
                                         .dateUpperBound(LocalDate.parse("2019-12-27"))
@@ -121,7 +132,13 @@ class InvoiceTest {
                 )
                 .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
-                .metadata(Invoice.Metadata.builder().build())
+                .metadata(
+                    Invoice.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .notificationEmailAddresses(listOf("string"))
                 .notificationsEnabled(true)
                 .number("number")
@@ -144,7 +161,9 @@ class InvoiceTest {
                             .amount(0L)
                             .chargeBearer(PaymentOrder.ChargeBearer.SHARED)
                             .complianceRuleMetadata(
-                                PaymentOrder.ComplianceRuleMetadata.builder().build()
+                                PaymentOrder.ComplianceRuleMetadata.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
                             )
                             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -219,7 +238,13 @@ class InvoiceTest {
                             )
                             .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .liveMode(true)
-                            .metadata(PaymentOrder.Metadata.builder().build())
+                            .metadata(
+                                PaymentOrder.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
                             .nsfProtected(true)
                             .object_("object")
                             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -303,7 +328,19 @@ class InvoiceTest {
                                         .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .liveMode(true)
-                                        .metadata(VirtualAccount.Metadata.builder().build())
+                                        .metadata(
+                                            VirtualAccount.Metadata.builder()
+                                                .putAdditionalProperty(
+                                                    "key",
+                                                    JsonValue.from("value")
+                                                )
+                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                                .putAdditionalProperty(
+                                                    "modern",
+                                                    JsonValue.from("treasury")
+                                                )
+                                                .build()
+                                        )
                                         .name("name")
                                         .object_("object")
                                         .routingDetails(
@@ -376,7 +413,7 @@ class InvoiceTest {
                             .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                             .ultimateReceivingPartyName("ultimate_receiving_party_name")
                             .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .vendorAttributes(JsonNull.of())
+                            .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
                             .vendorFailureReason("vendor_failure_reason")
                             .build()
                     )
@@ -453,10 +490,16 @@ class InvoiceTest {
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .liveMode(true)
-                    .metadata(ExpectedPayment.Metadata.builder().build())
+                    .metadata(
+                        ExpectedPayment.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .object_("object")
-                    .reconciliationFilters(JsonNull.of())
-                    .reconciliationGroups(JsonNull.of())
+                    .reconciliationFilters(JsonValue.from(mapOf<String, Any>()))
+                    .reconciliationGroups(JsonValue.from(mapOf<String, Any>()))
                     .reconciliationMethod(ExpectedPayment.ReconciliationMethod.AUTOMATIC)
                     .reconciliationRuleVariables(
                         listOf(
@@ -468,7 +511,9 @@ class InvoiceTest {
                                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .currency(Currency.AED)
                                 .customIdentifiers(
-                                    ReconciliationRule.CustomIdentifiers.builder().build()
+                                    ReconciliationRule.CustomIdentifiers.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
                                 )
                                 .dateLowerBound(LocalDate.parse("2019-12-27"))
                                 .dateUpperBound(LocalDate.parse("2019-12-27"))
@@ -501,7 +546,14 @@ class InvoiceTest {
         assertThat(invoice.ledgerAccountSettlementId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(invoice.liveMode()).isEqualTo(true)
-        assertThat(invoice.metadata()).isEqualTo(Invoice.Metadata.builder().build())
+        assertThat(invoice.metadata())
+            .isEqualTo(
+                Invoice.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(invoice.notificationEmailAddresses()).containsExactly("string")
         assertThat(invoice.notificationsEnabled()).isEqualTo(true)
         assertThat(invoice.number()).isEqualTo("number")
@@ -523,7 +575,11 @@ class InvoiceTest {
                     .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .amount(0L)
                     .chargeBearer(PaymentOrder.ChargeBearer.SHARED)
-                    .complianceRuleMetadata(PaymentOrder.ComplianceRuleMetadata.builder().build())
+                    .complianceRuleMetadata(
+                        PaymentOrder.ComplianceRuleMetadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .currency(Currency.AED)
@@ -590,7 +646,13 @@ class InvoiceTest {
                     )
                     .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .liveMode(true)
-                    .metadata(PaymentOrder.Metadata.builder().build())
+                    .metadata(
+                        PaymentOrder.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .nsfProtected(true)
                     .object_("object")
                     .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -660,7 +722,13 @@ class InvoiceTest {
                                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .liveMode(true)
-                                .metadata(VirtualAccount.Metadata.builder().build())
+                                .metadata(
+                                    VirtualAccount.Metadata.builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                        .build()
+                                )
                                 .name("name")
                                 .object_("object")
                                 .routingDetails(
@@ -721,7 +789,7 @@ class InvoiceTest {
                     .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                     .ultimateReceivingPartyName("ultimate_receiving_party_name")
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .vendorAttributes(JsonNull.of())
+                    .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
                     .vendorFailureReason("vendor_failure_reason")
                     .build()
             )

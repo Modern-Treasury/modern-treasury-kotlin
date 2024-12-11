@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -44,11 +45,18 @@ class VirtualAccountCreateParamsTest {
                     )
                     .metadata(
                         VirtualAccountCreateParams.LedgerAccountCreateRequest.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
                     .build()
             )
-            .metadata(VirtualAccountCreateParams.Metadata.builder().build())
+            .metadata(
+                VirtualAccountCreateParams.Metadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
             .routingDetails(
                 listOf(
                     VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
@@ -104,11 +112,18 @@ class VirtualAccountCreateParamsTest {
                         )
                         .metadata(
                             VirtualAccountCreateParams.LedgerAccountCreateRequest.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .build()
                 )
-                .metadata(VirtualAccountCreateParams.Metadata.builder().build())
+                .metadata(
+                    VirtualAccountCreateParams.Metadata.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
                 .routingDetails(
                     listOf(
                         VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
@@ -163,11 +178,19 @@ class VirtualAccountCreateParamsTest {
                     )
                     .metadata(
                         VirtualAccountCreateParams.LedgerAccountCreateRequest.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
                     .build()
             )
-        assertThat(body.metadata()).isEqualTo(VirtualAccountCreateParams.Metadata.builder().build())
+        assertThat(body.metadata())
+            .isEqualTo(
+                VirtualAccountCreateParams.Metadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
         assertThat(body.routingDetails())
             .isEqualTo(
                 listOf(

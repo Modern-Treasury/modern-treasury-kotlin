@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -181,6 +182,12 @@ class LegalEntityTest {
                                     .liveMode(true)
                                     .metadata(
                                         LegalEntityAssociation.ChildLegalEntity.Metadata.builder()
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
+                                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty(
+                                                "modern",
+                                                JsonValue.from("treasury")
+                                            )
                                             .build()
                                     )
                                     .middleName("middle_name")
@@ -263,7 +270,13 @@ class LegalEntityTest {
                 .legalEntityType(LegalEntity.LegalEntityType.BUSINESS)
                 .legalStructure(LegalEntity.LegalStructure.CORPORATION)
                 .liveMode(true)
-                .metadata(LegalEntity.Metadata.builder().build())
+                .metadata(
+                    LegalEntity.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .middleName("middle_name")
                 .object_("object")
                 .phoneNumbers(
@@ -447,7 +460,11 @@ class LegalEntityTest {
                             )
                             .liveMode(true)
                             .metadata(
-                                LegalEntityAssociation.ChildLegalEntity.Metadata.builder().build()
+                                LegalEntityAssociation.ChildLegalEntity.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
                             )
                             .middleName("middle_name")
                             .object_("object")
@@ -511,7 +528,14 @@ class LegalEntityTest {
         assertThat(legalEntity.legalEntityType()).isEqualTo(LegalEntity.LegalEntityType.BUSINESS)
         assertThat(legalEntity.legalStructure()).isEqualTo(LegalEntity.LegalStructure.CORPORATION)
         assertThat(legalEntity.liveMode()).isEqualTo(true)
-        assertThat(legalEntity.metadata()).isEqualTo(LegalEntity.Metadata.builder().build())
+        assertThat(legalEntity.metadata())
+            .isEqualTo(
+                LegalEntity.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(legalEntity.middleName()).isEqualTo("middle_name")
         assertThat(legalEntity.object_()).isEqualTo("object")
         assertThat(legalEntity.phoneNumbers())

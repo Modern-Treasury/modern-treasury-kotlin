@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitorListParams
 import org.junit.jupiter.api.Test
@@ -34,7 +35,13 @@ class LedgerAccountBalanceMonitorServiceTest {
                     )
                     .ledgerAccountId("ledger_account_id")
                     .description("description")
-                    .metadata(LedgerAccountBalanceMonitorCreateParams.Metadata.builder().build())
+                    .metadata(
+                        LedgerAccountBalanceMonitorCreateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .build()
             )
         println(ledgerAccountBalanceMonitor)
@@ -72,7 +79,13 @@ class LedgerAccountBalanceMonitorServiceTest {
                 LedgerAccountBalanceMonitorUpdateParams.builder()
                     .id("id")
                     .description("description")
-                    .metadata(LedgerAccountBalanceMonitorUpdateParams.Metadata.builder().build())
+                    .metadata(
+                        LedgerAccountBalanceMonitorUpdateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .build()
             )
         println(ledgerAccountBalanceMonitor)

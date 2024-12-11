@@ -2,7 +2,7 @@
 
 package com.moderntreasury.api.models
 
-import com.moderntreasury.api.core.JsonNull
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
@@ -23,9 +23,15 @@ class ExpectedPaymentUpdateParamsTest {
             .description("description")
             .direction(ExpectedPaymentUpdateParams.Direction.CREDIT)
             .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .metadata(ExpectedPaymentUpdateParams.Metadata.builder().build())
-            .reconciliationFilters(JsonNull.of())
-            .reconciliationGroups(JsonNull.of())
+            .metadata(
+                ExpectedPaymentUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
+            .reconciliationFilters(JsonValue.from(mapOf<String, Any>()))
+            .reconciliationGroups(JsonValue.from(mapOf<String, Any>()))
             .reconciliationRuleVariables(
                 listOf(
                     ReconciliationRule.builder()
@@ -35,7 +41,11 @@ class ExpectedPaymentUpdateParamsTest {
                         .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .currency(Currency.AED)
-                        .customIdentifiers(ReconciliationRule.CustomIdentifiers.builder().build())
+                        .customIdentifiers(
+                            ReconciliationRule.CustomIdentifiers.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
                         .dateLowerBound(LocalDate.parse("2019-12-27"))
                         .dateUpperBound(LocalDate.parse("2019-12-27"))
                         .type(ReconciliationRule.Type.ACH)
@@ -63,9 +73,15 @@ class ExpectedPaymentUpdateParamsTest {
                 .description("description")
                 .direction(ExpectedPaymentUpdateParams.Direction.CREDIT)
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .metadata(ExpectedPaymentUpdateParams.Metadata.builder().build())
-                .reconciliationFilters(JsonNull.of())
-                .reconciliationGroups(JsonNull.of())
+                .metadata(
+                    ExpectedPaymentUpdateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
+                .reconciliationFilters(JsonValue.from(mapOf<String, Any>()))
+                .reconciliationGroups(JsonValue.from(mapOf<String, Any>()))
                 .reconciliationRuleVariables(
                     listOf(
                         ReconciliationRule.builder()
@@ -76,7 +92,9 @@ class ExpectedPaymentUpdateParamsTest {
                             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .currency(Currency.AED)
                             .customIdentifiers(
-                                ReconciliationRule.CustomIdentifiers.builder().build()
+                                ReconciliationRule.CustomIdentifiers.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .build()
                             )
                             .dateLowerBound(LocalDate.parse("2019-12-27"))
                             .dateUpperBound(LocalDate.parse("2019-12-27"))
@@ -101,9 +119,15 @@ class ExpectedPaymentUpdateParamsTest {
         assertThat(body.direction()).isEqualTo(ExpectedPaymentUpdateParams.Direction.CREDIT)
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.metadata())
-            .isEqualTo(ExpectedPaymentUpdateParams.Metadata.builder().build())
-        assertThat(body.reconciliationFilters()).isEqualTo(JsonNull.of())
-        assertThat(body.reconciliationGroups()).isEqualTo(JsonNull.of())
+            .isEqualTo(
+                ExpectedPaymentUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
+        assertThat(body.reconciliationFilters()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
+        assertThat(body.reconciliationGroups()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(body.reconciliationRuleVariables())
             .isEqualTo(
                 listOf(
@@ -114,7 +138,11 @@ class ExpectedPaymentUpdateParamsTest {
                         .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .currency(Currency.AED)
-                        .customIdentifiers(ReconciliationRule.CustomIdentifiers.builder().build())
+                        .customIdentifiers(
+                            ReconciliationRule.CustomIdentifiers.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
                         .dateLowerBound(LocalDate.parse("2019-12-27"))
                         .dateUpperBound(LocalDate.parse("2019-12-27"))
                         .type(ReconciliationRule.Type.ACH)

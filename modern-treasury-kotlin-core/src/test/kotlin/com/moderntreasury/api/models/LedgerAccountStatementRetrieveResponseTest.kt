@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -56,7 +57,13 @@ class LedgerAccountStatementRetrieveResponseTest {
                 .ledgerAccountNormalBalance(TransactionDirection.CREDIT)
                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
-                .metadata(LedgerAccountStatementRetrieveResponse.Metadata.builder().build())
+                .metadata(
+                    LedgerAccountStatementRetrieveResponse.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .object_("object")
                 .startingBalance(
                     LedgerAccountStatementRetrieveResponse.LedgerBalances.builder()
@@ -148,7 +155,13 @@ class LedgerAccountStatementRetrieveResponseTest {
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(ledgerAccountStatementRetrieveResponse.liveMode()).isEqualTo(true)
         assertThat(ledgerAccountStatementRetrieveResponse.metadata())
-            .isEqualTo(LedgerAccountStatementRetrieveResponse.Metadata.builder().build())
+            .isEqualTo(
+                LedgerAccountStatementRetrieveResponse.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(ledgerAccountStatementRetrieveResponse.object_()).isEqualTo("object")
         assertThat(ledgerAccountStatementRetrieveResponse.startingBalance())
             .isEqualTo(

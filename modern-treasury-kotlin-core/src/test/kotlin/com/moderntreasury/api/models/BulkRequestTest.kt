@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -17,7 +18,13 @@ class BulkRequestTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .failedResultCount(0L)
                 .liveMode(true)
-                .metadata(BulkRequest.Metadata.builder().build())
+                .metadata(
+                    BulkRequest.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .object_("object")
                 .resourceType(BulkRequest.ResourceType.PAYMENT_ORDER)
                 .status(BulkRequest.Status.PENDING)
@@ -32,7 +39,14 @@ class BulkRequestTest {
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(bulkRequest.failedResultCount()).isEqualTo(0L)
         assertThat(bulkRequest.liveMode()).isEqualTo(true)
-        assertThat(bulkRequest.metadata()).isEqualTo(BulkRequest.Metadata.builder().build())
+        assertThat(bulkRequest.metadata())
+            .isEqualTo(
+                BulkRequest.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(bulkRequest.object_()).isEqualTo("object")
         assertThat(bulkRequest.resourceType()).isEqualTo(BulkRequest.ResourceType.PAYMENT_ORDER)
         assertThat(bulkRequest.status()).isEqualTo(BulkRequest.Status.PENDING)

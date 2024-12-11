@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.CounterpartyListParams
 import java.time.LocalDate
@@ -86,12 +87,25 @@ class CounterpartyServiceTest {
                                                 .LedgerAccountCreateRequest
                                                 .Metadata
                                                 .builder()
+                                                .putAdditionalProperty(
+                                                    "key",
+                                                    JsonValue.from("value")
+                                                )
+                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                                .putAdditionalProperty(
+                                                    "modern",
+                                                    JsonValue.from("treasury")
+                                                )
                                                 .build()
                                         )
                                         .build()
                                 )
                                 .metadata(
-                                    CounterpartyCreateParams.Account.Metadata.builder().build()
+                                    CounterpartyCreateParams.Account.Metadata.builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                        .build()
                                 )
                                 .name("name")
                                 .partyAddress(
@@ -321,6 +335,18 @@ class CounterpartyServiceTest {
                                                         .ChildLegalEntityCreate
                                                         .Metadata
                                                         .builder()
+                                                        .putAdditionalProperty(
+                                                            "key",
+                                                            JsonValue.from("value")
+                                                        )
+                                                        .putAdditionalProperty(
+                                                            "foo",
+                                                            JsonValue.from("bar")
+                                                        )
+                                                        .putAdditionalProperty(
+                                                            "modern",
+                                                            JsonValue.from("treasury")
+                                                        )
                                                         .build()
                                                 )
                                                 .middleName("middle_name")
@@ -416,6 +442,9 @@ class CounterpartyServiceTest {
                             )
                             .metadata(
                                 CounterpartyCreateParams.LegalEntityCreateRequest.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
                             .middleName("middle_name")
@@ -466,7 +495,13 @@ class CounterpartyServiceTest {
                             .build()
                     )
                     .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .metadata(CounterpartyCreateParams.Metadata.builder().build())
+                    .metadata(
+                        CounterpartyCreateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .sendRemittanceAdvice(true)
                     .taxpayerIdentifier("taxpayer_identifier")
                     .verificationStatus(CounterpartyCreateParams.VerificationStatus.DENIED)
@@ -506,7 +541,11 @@ class CounterpartyServiceTest {
                     .id("id")
                     .email("dev@stainlessapi.com")
                     .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .metadata(CounterpartyUpdateParams.Metadata.builder().build())
+                    .metadata(
+                        CounterpartyUpdateParams.Metadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
                     .name("name")
                     .sendRemittanceAdvice(true)
                     .taxpayerIdentifier("taxpayer_identifier")

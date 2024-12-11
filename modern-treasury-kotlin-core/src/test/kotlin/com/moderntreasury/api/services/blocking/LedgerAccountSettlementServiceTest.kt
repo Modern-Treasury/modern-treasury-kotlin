@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import com.moderntreasury.api.models.LedgerAccountSettlementListParams
 import java.time.OffsetDateTime
@@ -30,7 +31,13 @@ class LedgerAccountSettlementServiceTest {
                     .allowEitherDirection(true)
                     .description("description")
                     .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .metadata(LedgerAccountSettlementCreateParams.Metadata.builder().build())
+                    .metadata(
+                        LedgerAccountSettlementCreateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .skipSettlementLedgerTransaction(true)
                     .status(LedgerAccountSettlementCreateParams.Status.PENDING)
                     .build()
@@ -70,7 +77,13 @@ class LedgerAccountSettlementServiceTest {
                 LedgerAccountSettlementUpdateParams.builder()
                     .id("id")
                     .description("description")
-                    .metadata(LedgerAccountSettlementUpdateParams.Metadata.builder().build())
+                    .metadata(
+                        LedgerAccountSettlementUpdateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .status(LedgerAccountSettlementUpdateParams.Status.POSTED)
                     .build()
             )

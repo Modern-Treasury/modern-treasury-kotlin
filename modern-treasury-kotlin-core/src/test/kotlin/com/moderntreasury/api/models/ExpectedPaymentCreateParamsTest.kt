@@ -2,7 +2,7 @@
 
 package com.moderntreasury.api.models
 
-import com.moderntreasury.api.core.JsonNull
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -38,6 +38,7 @@ class ExpectedPaymentCreateParamsTest {
                                         .LedgerEntryCreateRequest
                                         .AvailableBalanceAmount
                                         .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .lockVersion(0L)
@@ -46,6 +47,9 @@ class ExpectedPaymentCreateParamsTest {
                                         .LedgerEntryCreateRequest
                                         .Metadata
                                         .builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
                                 .pendingBalanceAmount(
@@ -53,6 +57,7 @@ class ExpectedPaymentCreateParamsTest {
                                         .LedgerEntryCreateRequest
                                         .PendingBalanceAmount
                                         .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .postedBalanceAmount(
@@ -60,6 +65,7 @@ class ExpectedPaymentCreateParamsTest {
                                         .LedgerEntryCreateRequest
                                         .PostedBalanceAmount
                                         .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .showResultingLedgerAccountBalances(true)
@@ -78,6 +84,9 @@ class ExpectedPaymentCreateParamsTest {
                     .metadata(
                         ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.Metadata
                             .builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
                     .status(
@@ -93,14 +102,24 @@ class ExpectedPaymentCreateParamsTest {
                         .accountingCategoryId("accounting_category_id")
                         .description("description")
                         .metadata(
-                            ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder().build()
+                            ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
                         )
                         .build()
                 )
             )
-            .metadata(ExpectedPaymentCreateParams.Metadata.builder().build())
-            .reconciliationFilters(JsonNull.of())
-            .reconciliationGroups(JsonNull.of())
+            .metadata(
+                ExpectedPaymentCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
+            .reconciliationFilters(JsonValue.from(mapOf<String, Any>()))
+            .reconciliationGroups(JsonValue.from(mapOf<String, Any>()))
             .reconciliationRuleVariables(
                 listOf(
                     ReconciliationRule.builder()
@@ -110,7 +129,11 @@ class ExpectedPaymentCreateParamsTest {
                         .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .currency(Currency.AED)
-                        .customIdentifiers(ReconciliationRule.CustomIdentifiers.builder().build())
+                        .customIdentifiers(
+                            ReconciliationRule.CustomIdentifiers.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
                         .dateLowerBound(LocalDate.parse("2019-12-27"))
                         .dateUpperBound(LocalDate.parse("2019-12-27"))
                         .type(ReconciliationRule.Type.ACH)
@@ -151,6 +174,7 @@ class ExpectedPaymentCreateParamsTest {
                                             .LedgerEntryCreateRequest
                                             .AvailableBalanceAmount
                                             .builder()
+                                            .putAdditionalProperty("foo", JsonValue.from(0))
                                             .build()
                                     )
                                     .lockVersion(0L)
@@ -159,6 +183,12 @@ class ExpectedPaymentCreateParamsTest {
                                             .LedgerEntryCreateRequest
                                             .Metadata
                                             .builder()
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
+                                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty(
+                                                "modern",
+                                                JsonValue.from("treasury")
+                                            )
                                             .build()
                                     )
                                     .pendingBalanceAmount(
@@ -166,6 +196,7 @@ class ExpectedPaymentCreateParamsTest {
                                             .LedgerEntryCreateRequest
                                             .PendingBalanceAmount
                                             .builder()
+                                            .putAdditionalProperty("foo", JsonValue.from(0))
                                             .build()
                                     )
                                     .postedBalanceAmount(
@@ -173,6 +204,7 @@ class ExpectedPaymentCreateParamsTest {
                                             .LedgerEntryCreateRequest
                                             .PostedBalanceAmount
                                             .builder()
+                                            .putAdditionalProperty("foo", JsonValue.from(0))
                                             .build()
                                     )
                                     .showResultingLedgerAccountBalances(true)
@@ -192,6 +224,9 @@ class ExpectedPaymentCreateParamsTest {
                         .metadata(
                             ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.Metadata
                                 .builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .status(
@@ -209,14 +244,23 @@ class ExpectedPaymentCreateParamsTest {
                             .description("description")
                             .metadata(
                                 ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
                             .build()
                     )
                 )
-                .metadata(ExpectedPaymentCreateParams.Metadata.builder().build())
-                .reconciliationFilters(JsonNull.of())
-                .reconciliationGroups(JsonNull.of())
+                .metadata(
+                    ExpectedPaymentCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
+                .reconciliationFilters(JsonValue.from(mapOf<String, Any>()))
+                .reconciliationGroups(JsonValue.from(mapOf<String, Any>()))
                 .reconciliationRuleVariables(
                     listOf(
                         ReconciliationRule.builder()
@@ -227,7 +271,9 @@ class ExpectedPaymentCreateParamsTest {
                             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .currency(Currency.AED)
                             .customIdentifiers(
-                                ReconciliationRule.CustomIdentifiers.builder().build()
+                                ReconciliationRule.CustomIdentifiers.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .build()
                             )
                             .dateLowerBound(LocalDate.parse("2019-12-27"))
                             .dateUpperBound(LocalDate.parse("2019-12-27"))
@@ -266,6 +312,7 @@ class ExpectedPaymentCreateParamsTest {
                                         .LedgerEntryCreateRequest
                                         .AvailableBalanceAmount
                                         .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .lockVersion(0L)
@@ -274,6 +321,9 @@ class ExpectedPaymentCreateParamsTest {
                                         .LedgerEntryCreateRequest
                                         .Metadata
                                         .builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
                                 .pendingBalanceAmount(
@@ -281,6 +331,7 @@ class ExpectedPaymentCreateParamsTest {
                                         .LedgerEntryCreateRequest
                                         .PendingBalanceAmount
                                         .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .postedBalanceAmount(
@@ -288,6 +339,7 @@ class ExpectedPaymentCreateParamsTest {
                                         .LedgerEntryCreateRequest
                                         .PostedBalanceAmount
                                         .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .showResultingLedgerAccountBalances(true)
@@ -306,6 +358,9 @@ class ExpectedPaymentCreateParamsTest {
                     .metadata(
                         ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.Metadata
                             .builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
                     .status(
@@ -322,15 +377,25 @@ class ExpectedPaymentCreateParamsTest {
                         .accountingCategoryId("accounting_category_id")
                         .description("description")
                         .metadata(
-                            ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder().build()
+                            ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
                         )
                         .build()
                 )
             )
         assertThat(body.metadata())
-            .isEqualTo(ExpectedPaymentCreateParams.Metadata.builder().build())
-        assertThat(body.reconciliationFilters()).isEqualTo(JsonNull.of())
-        assertThat(body.reconciliationGroups()).isEqualTo(JsonNull.of())
+            .isEqualTo(
+                ExpectedPaymentCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
+        assertThat(body.reconciliationFilters()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
+        assertThat(body.reconciliationGroups()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(body.reconciliationRuleVariables())
             .isEqualTo(
                 listOf(
@@ -341,7 +406,11 @@ class ExpectedPaymentCreateParamsTest {
                         .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .currency(Currency.AED)
-                        .customIdentifiers(ReconciliationRule.CustomIdentifiers.builder().build())
+                        .customIdentifiers(
+                            ReconciliationRule.CustomIdentifiers.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
                         .dateLowerBound(LocalDate.parse("2019-12-27"))
                         .dateUpperBound(LocalDate.parse("2019-12-27"))
                         .type(ReconciliationRule.Type.ACH)

@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -69,11 +70,20 @@ class CounterpartyCreateParamsTest {
                                     CounterpartyCreateParams.Account.LedgerAccountCreateRequest
                                         .Metadata
                                         .builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
                                 .build()
                         )
-                        .metadata(CounterpartyCreateParams.Account.Metadata.builder().build())
+                        .metadata(
+                            CounterpartyCreateParams.Account.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
                         .name("name")
                         .partyAddress(
                             CounterpartyCreateParams.Account.AddressRequest.builder()
@@ -289,6 +299,15 @@ class CounterpartyCreateParamsTest {
                                                 .ChildLegalEntityCreate
                                                 .Metadata
                                                 .builder()
+                                                .putAdditionalProperty(
+                                                    "key",
+                                                    JsonValue.from("value")
+                                                )
+                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                                .putAdditionalProperty(
+                                                    "modern",
+                                                    JsonValue.from("treasury")
+                                                )
                                                 .build()
                                         )
                                         .middleName("middle_name")
@@ -370,7 +389,11 @@ class CounterpartyCreateParamsTest {
                         CounterpartyCreateParams.LegalEntityCreateRequest.LegalStructure.CORPORATION
                     )
                     .metadata(
-                        CounterpartyCreateParams.LegalEntityCreateRequest.Metadata.builder().build()
+                        CounterpartyCreateParams.LegalEntityCreateRequest.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
                     )
                     .middleName("middle_name")
                     .phoneNumbers(
@@ -411,7 +434,13 @@ class CounterpartyCreateParamsTest {
                     .build()
             )
             .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .metadata(CounterpartyCreateParams.Metadata.builder().build())
+            .metadata(
+                CounterpartyCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .sendRemittanceAdvice(true)
             .taxpayerIdentifier("taxpayer_identifier")
             .verificationStatus(CounterpartyCreateParams.VerificationStatus.DENIED)
@@ -480,11 +509,23 @@ class CounterpartyCreateParamsTest {
                                         CounterpartyCreateParams.Account.LedgerAccountCreateRequest
                                             .Metadata
                                             .builder()
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
+                                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty(
+                                                "modern",
+                                                JsonValue.from("treasury")
+                                            )
                                             .build()
                                     )
                                     .build()
                             )
-                            .metadata(CounterpartyCreateParams.Account.Metadata.builder().build())
+                            .metadata(
+                                CounterpartyCreateParams.Account.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
                             .name("name")
                             .partyAddress(
                                 CounterpartyCreateParams.Account.AddressRequest.builder()
@@ -710,6 +751,18 @@ class CounterpartyCreateParamsTest {
                                                     .ChildLegalEntityCreate
                                                     .Metadata
                                                     .builder()
+                                                    .putAdditionalProperty(
+                                                        "key",
+                                                        JsonValue.from("value")
+                                                    )
+                                                    .putAdditionalProperty(
+                                                        "foo",
+                                                        JsonValue.from("bar")
+                                                    )
+                                                    .putAdditionalProperty(
+                                                        "modern",
+                                                        JsonValue.from("treasury")
+                                                    )
                                                     .build()
                                             )
                                             .middleName("middle_name")
@@ -803,6 +856,9 @@ class CounterpartyCreateParamsTest {
                         )
                         .metadata(
                             CounterpartyCreateParams.LegalEntityCreateRequest.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .middleName("middle_name")
@@ -851,7 +907,13 @@ class CounterpartyCreateParamsTest {
                         .build()
                 )
                 .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .metadata(CounterpartyCreateParams.Metadata.builder().build())
+                .metadata(
+                    CounterpartyCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .sendRemittanceAdvice(true)
                 .taxpayerIdentifier("taxpayer_identifier")
                 .verificationStatus(CounterpartyCreateParams.VerificationStatus.DENIED)
@@ -916,11 +978,20 @@ class CounterpartyCreateParamsTest {
                                     CounterpartyCreateParams.Account.LedgerAccountCreateRequest
                                         .Metadata
                                         .builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
                                 .build()
                         )
-                        .metadata(CounterpartyCreateParams.Account.Metadata.builder().build())
+                        .metadata(
+                            CounterpartyCreateParams.Account.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
                         .name("name")
                         .partyAddress(
                             CounterpartyCreateParams.Account.AddressRequest.builder()
@@ -1137,6 +1208,15 @@ class CounterpartyCreateParamsTest {
                                                 .ChildLegalEntityCreate
                                                 .Metadata
                                                 .builder()
+                                                .putAdditionalProperty(
+                                                    "key",
+                                                    JsonValue.from("value")
+                                                )
+                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                                .putAdditionalProperty(
+                                                    "modern",
+                                                    JsonValue.from("treasury")
+                                                )
                                                 .build()
                                         )
                                         .middleName("middle_name")
@@ -1218,7 +1298,11 @@ class CounterpartyCreateParamsTest {
                         CounterpartyCreateParams.LegalEntityCreateRequest.LegalStructure.CORPORATION
                     )
                     .metadata(
-                        CounterpartyCreateParams.LegalEntityCreateRequest.Metadata.builder().build()
+                        CounterpartyCreateParams.LegalEntityCreateRequest.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
                     )
                     .middleName("middle_name")
                     .phoneNumbers(
@@ -1259,7 +1343,14 @@ class CounterpartyCreateParamsTest {
                     .build()
             )
         assertThat(body.legalEntityId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.metadata()).isEqualTo(CounterpartyCreateParams.Metadata.builder().build())
+        assertThat(body.metadata())
+            .isEqualTo(
+                CounterpartyCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
         assertThat(body.sendRemittanceAdvice()).isEqualTo(true)
         assertThat(body.taxpayerIdentifier()).isEqualTo("taxpayer_identifier")
         assertThat(body.verificationStatus())

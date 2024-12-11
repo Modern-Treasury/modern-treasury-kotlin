@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -20,7 +21,13 @@ class LedgerAccountCreateParamsTest {
             .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .ledgerableType(LedgerAccountCreateParams.LedgerableType.COUNTERPARTY)
-            .metadata(LedgerAccountCreateParams.Metadata.builder().build())
+            .metadata(
+                LedgerAccountCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
             .build()
     }
 
@@ -37,7 +44,13 @@ class LedgerAccountCreateParamsTest {
                 .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerableType(LedgerAccountCreateParams.LedgerableType.COUNTERPARTY)
-                .metadata(LedgerAccountCreateParams.Metadata.builder().build())
+                .metadata(
+                    LedgerAccountCreateParams.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -52,7 +65,14 @@ class LedgerAccountCreateParamsTest {
         assertThat(body.ledgerableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.ledgerableType())
             .isEqualTo(LedgerAccountCreateParams.LedgerableType.COUNTERPARTY)
-        assertThat(body.metadata()).isEqualTo(LedgerAccountCreateParams.Metadata.builder().build())
+        assertThat(body.metadata())
+            .isEqualTo(
+                LedgerAccountCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
     }
 
     @Test

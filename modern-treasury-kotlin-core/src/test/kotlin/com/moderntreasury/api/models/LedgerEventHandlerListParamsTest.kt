@@ -13,8 +13,16 @@ class LedgerEventHandlerListParamsTest {
     fun createLedgerEventHandlerListParams() {
         LedgerEventHandlerListParams.builder()
             .afterCursor("after_cursor")
-            .createdAt(LedgerEventHandlerListParams.CreatedAt.builder().build())
-            .metadata(LedgerEventHandlerListParams.Metadata.builder().build())
+            .createdAt(
+                LedgerEventHandlerListParams.CreatedAt.builder()
+                    .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+            .metadata(
+                LedgerEventHandlerListParams.Metadata.builder()
+                    .putAdditionalProperty("foo", listOf("string"))
+                    .build()
+            )
             .name("name")
             .perPage(0L)
             .build()
@@ -25,19 +33,29 @@ class LedgerEventHandlerListParamsTest {
         val params =
             LedgerEventHandlerListParams.builder()
                 .afterCursor("after_cursor")
-                .createdAt(LedgerEventHandlerListParams.CreatedAt.builder().build())
-                .metadata(LedgerEventHandlerListParams.Metadata.builder().build())
+                .createdAt(
+                    LedgerEventHandlerListParams.CreatedAt.builder()
+                        .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                        .build()
+                )
+                .metadata(
+                    LedgerEventHandlerListParams.Metadata.builder()
+                        .putAdditionalProperty("foo", listOf("string"))
+                        .build()
+                )
                 .name("name")
                 .perPage(0L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("after_cursor", "after_cursor")
-        LedgerEventHandlerListParams.CreatedAt.builder().build().forEachQueryParam { key, values ->
-            expected.put("created_at[$key]", values)
-        }
-        LedgerEventHandlerListParams.Metadata.builder().build().forEachQueryParam { key, values ->
-            expected.put("metadata[$key]", values)
-        }
+        LedgerEventHandlerListParams.CreatedAt.builder()
+            .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("created_at[$key]", values) }
+        LedgerEventHandlerListParams.Metadata.builder()
+            .putAdditionalProperty("foo", listOf("string"))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("name", "name")
         expected.put("per_page", "0")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())

@@ -4,7 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
-import com.moderntreasury.api.core.JsonNull
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -25,9 +25,15 @@ class LedgerableEventServiceTest {
             ledgerableEventService.create(
                 LedgerableEventCreateParams.builder()
                     .name("name")
-                    .customData(JsonNull.of())
+                    .customData(JsonValue.from(mapOf<String, Any>()))
                     .description("description")
-                    .metadata(LedgerableEventCreateParams.Metadata.builder().build())
+                    .metadata(
+                        LedgerableEventCreateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
                     .build()
             )
         println(ledgerableEvent)
