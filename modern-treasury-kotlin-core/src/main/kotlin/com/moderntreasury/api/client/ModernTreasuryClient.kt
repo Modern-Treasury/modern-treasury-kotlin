@@ -5,7 +5,43 @@ package com.moderntreasury.api.client
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.models.ClientPingParams
 import com.moderntreasury.api.models.PingResponse
-import com.moderntreasury.api.services.blocking.*
+import com.moderntreasury.api.services.blocking.AccountCollectionFlowService
+import com.moderntreasury.api.services.blocking.AccountDetailService
+import com.moderntreasury.api.services.blocking.BulkRequestService
+import com.moderntreasury.api.services.blocking.BulkResultService
+import com.moderntreasury.api.services.blocking.ConnectionLegalEntityService
+import com.moderntreasury.api.services.blocking.ConnectionService
+import com.moderntreasury.api.services.blocking.CounterpartyService
+import com.moderntreasury.api.services.blocking.DocumentService
+import com.moderntreasury.api.services.blocking.EventService
+import com.moderntreasury.api.services.blocking.ExpectedPaymentService
+import com.moderntreasury.api.services.blocking.ExternalAccountService
+import com.moderntreasury.api.services.blocking.ForeignExchangeQuoteService
+import com.moderntreasury.api.services.blocking.IncomingPaymentDetailService
+import com.moderntreasury.api.services.blocking.InternalAccountService
+import com.moderntreasury.api.services.blocking.InvoiceService
+import com.moderntreasury.api.services.blocking.LedgerAccountBalanceMonitorService
+import com.moderntreasury.api.services.blocking.LedgerAccountCategoryService
+import com.moderntreasury.api.services.blocking.LedgerAccountService
+import com.moderntreasury.api.services.blocking.LedgerAccountSettlementService
+import com.moderntreasury.api.services.blocking.LedgerAccountStatementService
+import com.moderntreasury.api.services.blocking.LedgerEntryService
+import com.moderntreasury.api.services.blocking.LedgerEventHandlerService
+import com.moderntreasury.api.services.blocking.LedgerService
+import com.moderntreasury.api.services.blocking.LedgerTransactionService
+import com.moderntreasury.api.services.blocking.LedgerableEventService
+import com.moderntreasury.api.services.blocking.LegalEntityAssociationService
+import com.moderntreasury.api.services.blocking.LegalEntityService
+import com.moderntreasury.api.services.blocking.LineItemService
+import com.moderntreasury.api.services.blocking.PaperItemService
+import com.moderntreasury.api.services.blocking.PaymentFlowService
+import com.moderntreasury.api.services.blocking.PaymentOrderService
+import com.moderntreasury.api.services.blocking.PaymentReferenceService
+import com.moderntreasury.api.services.blocking.ReturnService
+import com.moderntreasury.api.services.blocking.RoutingDetailService
+import com.moderntreasury.api.services.blocking.TransactionService
+import com.moderntreasury.api.services.blocking.ValidationService
+import com.moderntreasury.api.services.blocking.VirtualAccountService
 
 interface ModernTreasuryClient {
 
