@@ -5,7 +5,6 @@ package com.moderntreasury.api.models
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
-import com.moderntreasury.api.models.*
 import java.util.Objects
 
 class BulkResultRetrieveParams

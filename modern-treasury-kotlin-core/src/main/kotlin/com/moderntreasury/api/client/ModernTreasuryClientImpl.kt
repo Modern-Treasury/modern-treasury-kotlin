@@ -12,7 +12,8 @@ import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.errors.ModernTreasuryError
-import com.moderntreasury.api.models.*
+import com.moderntreasury.api.models.ClientPingParams
+import com.moderntreasury.api.models.PingResponse
 import com.moderntreasury.api.services.blocking.*
 
 class ModernTreasuryClientImpl

@@ -2,7 +2,6 @@
 
 package com.moderntreasury.api.models
 
-import com.moderntreasury.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
