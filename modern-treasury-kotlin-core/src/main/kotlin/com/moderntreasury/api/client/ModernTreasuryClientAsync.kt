@@ -5,7 +5,43 @@ package com.moderntreasury.api.client
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.models.ClientPingParams
 import com.moderntreasury.api.models.PingResponse
-import com.moderntreasury.api.services.async.*
+import com.moderntreasury.api.services.async.AccountCollectionFlowServiceAsync
+import com.moderntreasury.api.services.async.AccountDetailServiceAsync
+import com.moderntreasury.api.services.async.BulkRequestServiceAsync
+import com.moderntreasury.api.services.async.BulkResultServiceAsync
+import com.moderntreasury.api.services.async.ConnectionLegalEntityServiceAsync
+import com.moderntreasury.api.services.async.ConnectionServiceAsync
+import com.moderntreasury.api.services.async.CounterpartyServiceAsync
+import com.moderntreasury.api.services.async.DocumentServiceAsync
+import com.moderntreasury.api.services.async.EventServiceAsync
+import com.moderntreasury.api.services.async.ExpectedPaymentServiceAsync
+import com.moderntreasury.api.services.async.ExternalAccountServiceAsync
+import com.moderntreasury.api.services.async.ForeignExchangeQuoteServiceAsync
+import com.moderntreasury.api.services.async.IncomingPaymentDetailServiceAsync
+import com.moderntreasury.api.services.async.InternalAccountServiceAsync
+import com.moderntreasury.api.services.async.InvoiceServiceAsync
+import com.moderntreasury.api.services.async.LedgerAccountBalanceMonitorServiceAsync
+import com.moderntreasury.api.services.async.LedgerAccountCategoryServiceAsync
+import com.moderntreasury.api.services.async.LedgerAccountServiceAsync
+import com.moderntreasury.api.services.async.LedgerAccountSettlementServiceAsync
+import com.moderntreasury.api.services.async.LedgerAccountStatementServiceAsync
+import com.moderntreasury.api.services.async.LedgerEntryServiceAsync
+import com.moderntreasury.api.services.async.LedgerEventHandlerServiceAsync
+import com.moderntreasury.api.services.async.LedgerServiceAsync
+import com.moderntreasury.api.services.async.LedgerTransactionServiceAsync
+import com.moderntreasury.api.services.async.LedgerableEventServiceAsync
+import com.moderntreasury.api.services.async.LegalEntityAssociationServiceAsync
+import com.moderntreasury.api.services.async.LegalEntityServiceAsync
+import com.moderntreasury.api.services.async.LineItemServiceAsync
+import com.moderntreasury.api.services.async.PaperItemServiceAsync
+import com.moderntreasury.api.services.async.PaymentFlowServiceAsync
+import com.moderntreasury.api.services.async.PaymentOrderServiceAsync
+import com.moderntreasury.api.services.async.PaymentReferenceServiceAsync
+import com.moderntreasury.api.services.async.ReturnServiceAsync
+import com.moderntreasury.api.services.async.RoutingDetailServiceAsync
+import com.moderntreasury.api.services.async.TransactionServiceAsync
+import com.moderntreasury.api.services.async.ValidationServiceAsync
+import com.moderntreasury.api.services.async.VirtualAccountServiceAsync
 
 interface ModernTreasuryClientAsync {
 
