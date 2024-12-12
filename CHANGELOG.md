@@ -1,5 +1,43 @@
 # Changelog
 
+## 3.1.0 (2024-12-12)
+
+Full Changelog: [v3.0.0...v3.1.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v3.0.0...v3.1.0)
+
+### Features
+
+* **client:** add logging when debug env is set ([#263](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/263)) ([0a35699](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0a356997b231e57403fd595c9fd26c9652b3e6f9))
+* derive gpg release key's id via gpg itself ([#266](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/266)) ([1b9031e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/1b9031e3777c69b6a9dce8201c9e91f2f876bcd0))
+
+
+### Chores
+
+* **api:** additional fields for requests to get BalanceReports and create LegalEntities ([#256](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/256)) ([0d986bd](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0d986bdc4ec804364eed15e4fc8c6e83f694415d))
+* **deps:** bump jackson to 2.18.1 ([#259](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/259)) ([27203d2](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/27203d298c206cfc067190fbf2838fe02cda4fe0))
+* **internal:** remove unused and expand used wildcard imports ([8b79f8e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8b79f8ef68939e30d6fae16a8a639d99ee9530d4))
+* **internal:** remove unused and expand used wildcard imports ([#274](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/274)) ([70be887](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/70be887601a43284d64a396444181cb3b87ad648))
+* **internal:** remove unused imports ([#271](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/271)) ([4b09ab6](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4b09ab68d7a07dc5d01fe1724994af060e49c509))
+* **internal:** update example values ([#265](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/265)) ([153803f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/153803fcf95812d005419867689d7035fa180f27))
+* minor refactors ([#267](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/267)) ([c505c66](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c505c66be58666f9bd300b7f45c587053d8095a8))
+* sync openapi spec ([#264](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/264)) ([a49b265](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a49b265309cbe130725799f8f6ceeb2e1c767c92))
+* **test:** remove unused imports ([#272](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/272)) ([c4b7c9d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c4b7c9d0725ca840a41e45dfa46a775a2f99f6d5))
+* **test:** use `JsonValue` instead of `JsonString` ([#273](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/273)) ([1633837](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/163383752d77e58d610cde32d0b6e55c3cda0548))
+* update example values in tests and docs ([#268](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/268)) ([8cd8077](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8cd8077a268ea46d469fb15ba703b15b26154311))
+
+
+### Styles
+
+* **internal:** make enum value definitions less verbose ([#269](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/269)) ([b9cd7ac](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b9cd7acf7de12ce7dfbf50fdcbd0bca2ad6768a0))
+* **internal:** move enum identity methods to bottom of class ([#270](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/270)) ([7d49191](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7d491912f38889b7c75e67bfdb3dc1c68c62bdc7))
+* **internal:** move identity methods to bottom of error class ([#261](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/261)) ([17ec4bb](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/17ec4bba8113c0ee10525e9f227d3f1af7ec3387))
+* **internal:** reduce verbosity of identity methods ([#260](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/260)) ([4dd3b2f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4dd3b2f8e17f429121bb7794350a77c2b74bab23))
+* **internal:** reorder some params methods and improve consistency of implementations ([#262](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/262)) ([ba4298e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ba4298e35d85e2175c14998b6c9bbafd0e041ddf))
+
+
+### Refactors
+
+* **internal:** split `closeWhenPhantomReachable` function ([#258](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/258)) ([d51d886](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d51d886b7eeab4e77b92cdd6f833236a445b2d3b))
+
 ## 3.0.0 (2024-11-11)
 
 Full Changelog: [v2.21.0...v3.0.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v2.21.0...v3.0.0)
