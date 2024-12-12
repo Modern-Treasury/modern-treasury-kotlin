@@ -12,7 +12,6 @@ import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.moderntreasury.api.client.ModernTreasuryClient
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
-import com.moderntreasury.api.core.JsonString
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.jsonMapper
@@ -40,7 +39,7 @@ class ErrorHandlingTest {
     private val JSON_MAPPER: JsonMapper = jsonMapper()
 
     private val MODERN_TREASURY_ERROR: ModernTreasuryError =
-        ModernTreasuryError.builder().putAdditionalProperty("key", JsonString.of("value")).build()
+        ModernTreasuryError.builder().putAdditionalProperty("key", JsonValue.from("value")).build()
 
     private lateinit var client: ModernTreasuryClient
 
