@@ -15,7 +15,6 @@ import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.moderntreasury.api.client.ModernTreasuryClient
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
-import com.moderntreasury.api.core.JsonString
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.jsonMapper
 import com.moderntreasury.api.models.*
@@ -54,7 +53,7 @@ class ServiceParamsTest {
 
         val additionalBodyProperties = mutableMapOf<String, JsonValue>()
 
-        additionalBodyProperties.put("testBodyProperty", JsonString.of("ghi890"))
+        additionalBodyProperties.put("testBodyProperty", JsonValue.from("ghi890"))
 
         val params =
             CounterpartyCreateParams.builder()
