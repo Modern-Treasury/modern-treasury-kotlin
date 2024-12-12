@@ -17,7 +17,14 @@ import com.moderntreasury.api.client.ModernTreasuryClient
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.jsonMapper
-import com.moderntreasury.api.models.*
+import com.moderntreasury.api.models.AccountDetail
+import com.moderntreasury.api.models.BankSettings
+import com.moderntreasury.api.models.Counterparty
+import com.moderntreasury.api.models.CounterpartyCreateParams
+import com.moderntreasury.api.models.ExternalAccountType
+import com.moderntreasury.api.models.RoutingDetail
+import com.moderntreasury.api.models.TransactionDirection
+import com.moderntreasury.api.models.WealthAndEmploymentDetails
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.BeforeEach

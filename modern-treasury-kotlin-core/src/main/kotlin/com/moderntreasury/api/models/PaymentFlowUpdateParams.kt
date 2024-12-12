@@ -16,7 +16,6 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
-import com.moderntreasury.api.models.*
 import java.util.Objects
 
 class PaymentFlowUpdateParams

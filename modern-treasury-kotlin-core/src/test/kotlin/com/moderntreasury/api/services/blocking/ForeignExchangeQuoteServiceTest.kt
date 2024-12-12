@@ -4,8 +4,10 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
-import com.moderntreasury.api.models.*
+import com.moderntreasury.api.models.Currency
+import com.moderntreasury.api.models.ForeignExchangeQuoteCreateParams
 import com.moderntreasury.api.models.ForeignExchangeQuoteListParams
+import com.moderntreasury.api.models.ForeignExchangeQuoteRetrieveParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith

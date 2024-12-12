@@ -3,7 +3,8 @@
 package com.moderntreasury.api.client
 
 import com.moderntreasury.api.core.RequestOptions
-import com.moderntreasury.api.models.*
+import com.moderntreasury.api.models.ClientPingParams
+import com.moderntreasury.api.models.PingResponse
 import com.moderntreasury.api.services.async.*
 
 interface ModernTreasuryClientAsync {
