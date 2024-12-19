@@ -42,7 +42,7 @@ Use `ModernTreasuryOkHttpClient.builder()` to configure the client. At a minimum
 import com.moderntreasury.api.client.ModernTreasuryClient
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 
-val client = ModernTreasuryOkHttpClient.builder()
+val client: ModernTreasuryClient = ModernTreasuryOkHttpClient.builder()
     .apiKey("My API Key")
     .organizationId("my-organization-ID")
     .build()
@@ -54,10 +54,10 @@ Alternately, set the environment with `MODERN_TREASURY_API_KEY`, `MODERN_TREASUR
 import com.moderntreasury.api.client.ModernTreasuryClient
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 
-val client = ModernTreasuryOkHttpClient.fromEnv()
+val client: ModernTreasuryClient = ModernTreasuryOkHttpClient.fromEnv()
 
 // Note: you can also call fromEnv() from the client builder, for example if you need to set additional properties
-val client = ModernTreasuryOkHttpClient.builder()
+val client: ModernTreasuryClient = ModernTreasuryOkHttpClient.builder()
     .fromEnv()
     // ... set properties on the builder
     .build()
@@ -81,10 +81,10 @@ To create a new counterparty, first use the `CounterpartyCreateParams` builder t
 import com.moderntreasury.api.models.Counterparty
 import com.moderntreasury.api.models.CounterpartyCreateParams
 
-val params = CounterpartyCreateParams.builder()
+val params: CounterpartyCreateParams = CounterpartyCreateParams.builder()
     .name("my first counterparty")
     .build()
-val counterparty = client.counterparties().create(params)
+val counterparty: Counterparty = client.counterparties().create(params)
 ```
 
 ### Example: listing resources
@@ -95,7 +95,7 @@ The Modern Treasury API provides a `list` method to get a paginated list of coun
 import com.moderntreasury.api.models.Counterparty
 import com.moderntreasury.api.models.CounterpartyListPage
 
-val page = client.counterparties().list()
+val page: CounterpartyListPage = client.counterparties().list()
 for (counterparty: Counterparty in page.items()) {
     print(counterparty)
 }
@@ -108,7 +108,7 @@ import com.moderntreasury.api.models.CounterpartyListPage
 import com.moderntreasury.api.models.CounterpartyListParams
 import java.time.OffsetDateTime
 
-val params = CounterpartyListParams.builder()
+val params: CounterpartyListParams = CounterpartyListParams.builder()
     .afterCursor("after_cursor")
     .createdAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     .createdAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -120,16 +120,16 @@ val params = CounterpartyListParams.builder()
     .name("name")
     .perPage(0L)
     .build()
-val page1 = client.counterparties().list(params)
+val page1: CounterpartyListPage = client.counterparties().list(params)
 
 // Using the `from` method of the builder you can reuse previous params values:
-val page2 = client.counterparties().list(CounterpartyListParams.builder()
+val page2: CounterpartyListPage = client.counterparties().list(CounterpartyListParams.builder()
     .from(params)
     .afterCursor("abc123...")
     .build())
 
 // Or easily get params for the next page by using the helper `getNextPageParams`:
-val page3 = client.counterparties().list(params.getNextPageParams(page2))
+val page3: CounterpartyListPage = client.counterparties().list(params.getNextPageParams(page2))
 ```
 
 See [Pagination](#pagination) below for more information on transparently working with lists of objects without worrying about fetching each page.
@@ -150,7 +150,7 @@ Sometimes, the API may support other properties that are not yet supported in th
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.CounterpartyCreateParams
 
-val params = CounterpartyCreateParams.builder()
+val params: CounterpartyCreateParams = CounterpartyCreateParams.builder()
     // ... normal properties
     .putAdditionalProperty("secret_param", JsonValue.from("4242"))
     .build()
@@ -165,7 +165,7 @@ When receiving a response, the Modern Treasury Kotlin SDK will deserialize it in
 ```kotlin
 import com.moderntreasury.api.models.Counterparty
 
-val counterparty = client.counterparties().create().validate()
+val counterparty: Counterparty = client.counterparties().create().validate()
 ```
 
 ### Response properties as JSON
@@ -176,7 +176,7 @@ In rare cases, you may want to access the underlying JSON value for a response p
 import com.moderntreasury.api.core.JsonField
 import java.util.Optional
 
-val field = responseObj._field
+val field: JsonField = responseObj._field
 
 if (field.isMissing()) {
   // Value was not specified in the JSON response
@@ -188,7 +188,7 @@ if (field.isMissing()) {
 
   // If the value given by the API did not match the shape that the SDK expects
   // you can deserialise into a custom type
-  val myObj = responseObj._field.asUnknown()?.convert(MyClass.class)
+  val myObj: MyClass = responseObj._field.asUnknown()?.convert(MyClass.class)
 }
 ```
 
@@ -199,7 +199,7 @@ Sometimes, the server response may include additional properties that are not ye
 ```kotlin
 import com.moderntreasury.api.core.JsonValue
 
-val secret = asyncResponse._additionalProperties().get("secret_field")
+val secret: JsonValue = asyncResponse._additionalProperties().get("secret_field")
 ```
 
 ---
@@ -286,7 +286,7 @@ Requests that experience certain errors are automatically retried 2 times by def
 import com.moderntreasury.api.client.ModernTreasuryClient
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 
-val client = ModernTreasuryOkHttpClient.builder()
+val client: ModernTreasuryClient = ModernTreasuryOkHttpClient.builder()
     .fromEnv()
     .maxRetries(4)
     .build()
@@ -301,7 +301,7 @@ import com.moderntreasury.api.client.ModernTreasuryClient
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import java.time.Duration
 
-val client = ModernTreasuryOkHttpClient.builder()
+val client: ModernTreasuryClient = ModernTreasuryOkHttpClient.builder()
     .fromEnv()
     .timeout(Duration.ofSeconds(30))
     .build()
@@ -317,7 +317,7 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import java.net.InetSocketAddress
 import java.net.Proxy
 
-val client = ModernTreasuryOkHttpClient.builder()
+val client: ModernTreasuryClient = ModernTreasuryOkHttpClient.builder()
     .fromEnv()
     .proxy(Proxy(Proxy.Type.HTTP, InetSocketAddress("example.com", 8080)))
     .build()
