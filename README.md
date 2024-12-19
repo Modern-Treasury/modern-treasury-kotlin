@@ -100,6 +100,33 @@ for (counterparty: Counterparty in page.items()) {
 }
 ```
 
+Use the `CounterpartyListParams` builder to set parameters:
+
+```kotlin
+CounterpartyListParams params = CounterpartyListParams.builder()
+    .afterCursor("after_cursor")
+    .createdAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+    .createdAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+    .email("dev@stainlessapi.com")
+    .legalEntityId("legal_entity_id")
+    .metadata(CounterpartyListParams.Metadata.builder()
+        .putAdditionalProperty("foo", listOf("string"))
+        .build())
+    .name("name")
+    .perPage(0L)
+    .build();
+val page1 = client.counterparties().list(params)
+
+// Using the `from` method of the builder you can reuse previous params values:
+val page2 = client.counterparties().list(CounterpartyListParams.builder()
+    .from(params)
+    .afterCursor("abc123...")
+    .build())
+
+// Or easily get params for the next page by using the helper `getNextPageParams`:
+val page3 = client.counterparties().list(params.getNextPageParams(page2))
+```
+
 See [Pagination](#pagination) below for more information on transparently working with lists of objects without worrying about fetching each page.
 
 ---
