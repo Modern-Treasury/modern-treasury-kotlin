@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.1.1 (2024-12-19)
+
+Full Changelog: [v3.1.0...v3.1.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v3.1.0...v3.1.1)
+
+### Chores
+
+* **docs:** add example project ([#281](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/281)) ([cd4f196](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/cd4f1965d0fab989c12bc78ca489f2cf1c1e407d))
+* **docs:** fix unused import ([#282](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/282)) ([5aaf526](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5aaf526ab0ae4d9e22612c995680e3439517d948))
+* **docs:** update readme ([#280](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/280)) ([95e1838](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/95e18386d49a47bb3e78cf96570392513a7e7887))
+* **internal:** remove unused and expand used wildcard imports ([#275](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/275)) ([6f1c269](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/6f1c2693fc378d0a3184b6d0640871daa8fb05ce))
+* update parameter examples in tests and docs ([#279](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/279)) ([e394ff2](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e394ff2faa72bad63be5cffc8bf0899aa60c0b84))
+
 ## 3.1.0 (2024-12-12)
 
 Full Changelog: [v3.0.0...v3.1.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v3.0.0...v3.1.0)
