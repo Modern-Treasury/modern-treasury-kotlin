@@ -13,7 +13,7 @@ class TransactionLineItemListParamsTest {
         TransactionLineItemListParams.builder()
             .id(
                 TransactionLineItemListParams.Id.builder()
-                    .putAdditionalProperty("foo", listOf("string"))
+                    .putAdditionalProperty("foo", "string")
                     .build()
             )
             .afterCursor("after_cursor")
@@ -29,7 +29,7 @@ class TransactionLineItemListParamsTest {
             TransactionLineItemListParams.builder()
                 .id(
                     TransactionLineItemListParams.Id.builder()
-                        .putAdditionalProperty("foo", listOf("string"))
+                        .putAdditionalProperty("foo", "string")
                         .build()
                 )
                 .afterCursor("after_cursor")
@@ -39,7 +39,7 @@ class TransactionLineItemListParamsTest {
                 .build()
         val expected = QueryParams.builder()
         TransactionLineItemListParams.Id.builder()
-            .putAdditionalProperty("foo", listOf("string"))
+            .putAdditionalProperty("foo", "string")
             .build()
             .forEachQueryParam { key, values -> expected.put("id[$key]", values) }
         expected.put("after_cursor", "after_cursor")

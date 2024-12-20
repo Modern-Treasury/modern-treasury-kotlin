@@ -35,7 +35,7 @@ class LedgerAccountListParamsTest {
             )
             .createdAt(
                 LedgerAccountListParams.CreatedAt.builder()
-                    .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                    .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
                     .build()
             )
             .currency("currency")
@@ -43,7 +43,7 @@ class LedgerAccountListParamsTest {
             .ledgerId("ledger_id")
             .metadata(
                 LedgerAccountListParams.Metadata.builder()
-                    .putAdditionalProperty("foo", listOf("string"))
+                    .putAdditionalProperty("foo", "string")
                     .build()
             )
             .name(listOf("string"))
@@ -70,7 +70,7 @@ class LedgerAccountListParamsTest {
             )
             .updatedAt(
                 LedgerAccountListParams.UpdatedAt.builder()
-                    .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                    .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
                     .build()
             )
             .build()
@@ -102,7 +102,7 @@ class LedgerAccountListParamsTest {
                 )
                 .createdAt(
                     LedgerAccountListParams.CreatedAt.builder()
-                        .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                        .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
                         .build()
                 )
                 .currency("currency")
@@ -110,7 +110,7 @@ class LedgerAccountListParamsTest {
                 .ledgerId("ledger_id")
                 .metadata(
                     LedgerAccountListParams.Metadata.builder()
-                        .putAdditionalProperty("foo", listOf("string"))
+                        .putAdditionalProperty("foo", "string")
                         .build()
                 )
                 .name(listOf("string"))
@@ -137,7 +137,7 @@ class LedgerAccountListParamsTest {
                 )
                 .updatedAt(
                     LedgerAccountListParams.UpdatedAt.builder()
-                        .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                        .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
                         .build()
                 )
                 .build()
@@ -163,14 +163,14 @@ class LedgerAccountListParamsTest {
             .build()
             .forEachQueryParam { key, values -> expected.put("balances[$key]", values) }
         LedgerAccountListParams.CreatedAt.builder()
-            .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+            .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at[$key]", values) }
         expected.put("currency", "currency")
         expected.put("ledger_account_category_id", "ledger_account_category_id")
         expected.put("ledger_id", "ledger_id")
         LedgerAccountListParams.Metadata.builder()
-            .putAdditionalProperty("foo", listOf("string"))
+            .putAdditionalProperty("foo", "string")
             .build()
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("name[]", "string")
@@ -198,7 +198,7 @@ class LedgerAccountListParamsTest {
                 expected.put("posted_balance_amount[$key]", values)
             }
         LedgerAccountListParams.UpdatedAt.builder()
-            .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+            .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
             .build()
             .forEachQueryParam { key, values -> expected.put("updated_at[$key]", values) }
         assertThat(params.getQueryParams()).isEqualTo(expected.build())

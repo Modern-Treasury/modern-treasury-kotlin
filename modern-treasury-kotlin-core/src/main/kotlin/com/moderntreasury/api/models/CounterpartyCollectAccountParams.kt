@@ -71,7 +71,7 @@ constructor(
     @NoAutoDetect
     class CounterpartyCollectAccountBody
     internal constructor(
-        private val direction: TransactionDirection?,
+        private val direction: TransactionDirection,
         private val customRedirect: String?,
         private val fields: List<Field>?,
         private val sendEmail: Boolean?,
@@ -83,7 +83,7 @@ constructor(
          * when you need to charge a counterparty. This field helps us send a more tailored email to
          * your counterparties."
          */
-        @JsonProperty("direction") fun direction(): TransactionDirection? = direction
+        @JsonProperty("direction") fun direction(): TransactionDirection = direction
 
         /**
          * The URL you want your customer to visit upon filling out the form. By default, they will
@@ -129,11 +129,12 @@ constructor(
 
             internal fun from(counterpartyCollectAccountBody: CounterpartyCollectAccountBody) =
                 apply {
-                    this.direction = counterpartyCollectAccountBody.direction
-                    this.customRedirect = counterpartyCollectAccountBody.customRedirect
-                    this.fields = counterpartyCollectAccountBody.fields
-                    this.sendEmail = counterpartyCollectAccountBody.sendEmail
-                    additionalProperties(counterpartyCollectAccountBody.additionalProperties)
+                    direction = counterpartyCollectAccountBody.direction
+                    customRedirect = counterpartyCollectAccountBody.customRedirect
+                    fields = counterpartyCollectAccountBody.fields?.toMutableList()
+                    sendEmail = counterpartyCollectAccountBody.sendEmail
+                    additionalProperties =
+                        counterpartyCollectAccountBody.additionalProperties.toMutableMap()
                 }
 
             /**
@@ -150,7 +151,7 @@ constructor(
              * set.
              */
             @JsonProperty("custom_redirect")
-            fun customRedirect(customRedirect: String) = apply {
+            fun customRedirect(customRedirect: String?) = apply {
                 this.customRedirect = customRedirect
             }
 
@@ -161,7 +162,8 @@ constructor(
              * The full list of options is
              * [\"name\", \"nameOnAccount\", \"taxpayerIdentifier\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\", \"ibanNumber\", \"swiftCode\"].
              */
-            @JsonProperty("fields") fun fields(fields: List<Field>) = apply { this.fields = fields }
+            @JsonProperty("fields")
+            fun fields(fields: List<Field>?) = apply { this.fields = fields }
 
             /**
              * By default, Modern Treasury will send an email to your counterparty that includes a
@@ -170,20 +172,26 @@ constructor(
              * include the link to the secure Modern Treasury form.
              */
             @JsonProperty("send_email")
-            fun sendEmail(sendEmail: Boolean) = apply { this.sendEmail = sendEmail }
+            fun sendEmail(sendEmail: Boolean?) = apply { this.sendEmail = sendEmail }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): CounterpartyCollectAccountBody =

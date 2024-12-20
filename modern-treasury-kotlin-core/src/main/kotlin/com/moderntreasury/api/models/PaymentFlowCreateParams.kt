@@ -70,11 +70,11 @@ constructor(
     @NoAutoDetect
     class PaymentFlowCreateBody
     internal constructor(
-        private val amount: Long?,
-        private val counterpartyId: String?,
-        private val currency: String?,
-        private val direction: Direction?,
-        private val originatingAccountId: String?,
+        private val amount: Long,
+        private val counterpartyId: String,
+        private val currency: String,
+        private val direction: Direction,
+        private val originatingAccountId: String,
         private val dueDate: LocalDate?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -83,26 +83,26 @@ constructor(
          * Required. Value in specified currency's smallest unit. e.g. $10 would be represented
          * as 1000. Can be any integer up to 36 digits.
          */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /**
          * Required. The ID of a counterparty associated with the payment. As part of the payment
          * workflow an external account will be associated with this model.
          */
-        @JsonProperty("counterparty_id") fun counterpartyId(): String? = counterpartyId
+        @JsonProperty("counterparty_id") fun counterpartyId(): String = counterpartyId
 
         /** Required. The currency of the payment. */
-        @JsonProperty("currency") fun currency(): String? = currency
+        @JsonProperty("currency") fun currency(): String = currency
 
         /**
          * Required. Describes the direction money is flowing in the transaction. Can only be
          * `debit`. A `debit` pulls money from someone else's account to your own.
          */
-        @JsonProperty("direction") fun direction(): Direction? = direction
+        @JsonProperty("direction") fun direction(): Direction = direction
 
         /** Required. The ID of one of your organization's internal accounts. */
         @JsonProperty("originating_account_id")
-        fun originatingAccountId(): String? = originatingAccountId
+        fun originatingAccountId(): String = originatingAccountId
 
         /**
          * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`. When
@@ -133,13 +133,13 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(paymentFlowCreateBody: PaymentFlowCreateBody) = apply {
-                this.amount = paymentFlowCreateBody.amount
-                this.counterpartyId = paymentFlowCreateBody.counterpartyId
-                this.currency = paymentFlowCreateBody.currency
-                this.direction = paymentFlowCreateBody.direction
-                this.originatingAccountId = paymentFlowCreateBody.originatingAccountId
-                this.dueDate = paymentFlowCreateBody.dueDate
-                additionalProperties(paymentFlowCreateBody.additionalProperties)
+                amount = paymentFlowCreateBody.amount
+                counterpartyId = paymentFlowCreateBody.counterpartyId
+                currency = paymentFlowCreateBody.currency
+                direction = paymentFlowCreateBody.direction
+                originatingAccountId = paymentFlowCreateBody.originatingAccountId
+                dueDate = paymentFlowCreateBody.dueDate
+                additionalProperties = paymentFlowCreateBody.additionalProperties.toMutableMap()
             }
 
             /**
@@ -180,20 +180,26 @@ constructor(
              * selecting a payment `effective_date`.
              */
             @JsonProperty("due_date")
-            fun dueDate(dueDate: LocalDate) = apply { this.dueDate = dueDate }
+            fun dueDate(dueDate: LocalDate?) = apply { this.dueDate = dueDate }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): PaymentFlowCreateBody =

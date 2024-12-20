@@ -139,67 +139,74 @@ constructor(
             internal fun from(
                 incomingPaymentDetailCreateAsyncBody: IncomingPaymentDetailCreateAsyncBody
             ) = apply {
-                this.amount = incomingPaymentDetailCreateAsyncBody.amount
-                this.asOfDate = incomingPaymentDetailCreateAsyncBody.asOfDate
-                this.currency = incomingPaymentDetailCreateAsyncBody.currency
-                this.description = incomingPaymentDetailCreateAsyncBody.description
-                this.direction = incomingPaymentDetailCreateAsyncBody.direction
-                this.internalAccountId = incomingPaymentDetailCreateAsyncBody.internalAccountId
-                this.type = incomingPaymentDetailCreateAsyncBody.type
-                this.virtualAccountId = incomingPaymentDetailCreateAsyncBody.virtualAccountId
-                additionalProperties(incomingPaymentDetailCreateAsyncBody.additionalProperties)
+                amount = incomingPaymentDetailCreateAsyncBody.amount
+                asOfDate = incomingPaymentDetailCreateAsyncBody.asOfDate
+                currency = incomingPaymentDetailCreateAsyncBody.currency
+                description = incomingPaymentDetailCreateAsyncBody.description
+                direction = incomingPaymentDetailCreateAsyncBody.direction
+                internalAccountId = incomingPaymentDetailCreateAsyncBody.internalAccountId
+                type = incomingPaymentDetailCreateAsyncBody.type
+                virtualAccountId = incomingPaymentDetailCreateAsyncBody.virtualAccountId
+                additionalProperties =
+                    incomingPaymentDetailCreateAsyncBody.additionalProperties.toMutableMap()
             }
 
             /**
              * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
              */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            @JsonProperty("amount") fun amount(amount: Long?) = apply { this.amount = amount }
 
             /** Defaults to today. */
             @JsonProperty("as_of_date")
-            fun asOfDate(asOfDate: LocalDate) = apply { this.asOfDate = asOfDate }
+            fun asOfDate(asOfDate: LocalDate?) = apply { this.asOfDate = asOfDate }
 
             /** Defaults to the currency of the originating account. */
             @JsonProperty("currency")
-            fun currency(currency: Currency) = apply { this.currency = currency }
+            fun currency(currency: Currency?) = apply { this.currency = currency }
 
             /** Defaults to a random description. */
             @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /** One of `credit`, `debit`. */
             @JsonProperty("direction")
-            fun direction(direction: Direction) = apply { this.direction = direction }
+            fun direction(direction: Direction?) = apply { this.direction = direction }
 
             /** The ID of one of your internal accounts. */
             @JsonProperty("internal_account_id")
-            fun internalAccountId(internalAccountId: String) = apply {
+            fun internalAccountId(internalAccountId: String?) = apply {
                 this.internalAccountId = internalAccountId
             }
 
             /** One of `ach`, `wire`, `check`. */
-            @JsonProperty("type") fun type(type: Type) = apply { this.type = type }
+            @JsonProperty("type") fun type(type: Type?) = apply { this.type = type }
 
             /**
              * An optional parameter to associate the incoming payment detail to a virtual account.
              */
             @JsonProperty("virtual_account_id")
-            fun virtualAccountId(virtualAccountId: String) = apply {
+            fun virtualAccountId(virtualAccountId: String?) = apply {
                 this.virtualAccountId = virtualAccountId
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): IncomingPaymentDetailCreateAsyncBody =

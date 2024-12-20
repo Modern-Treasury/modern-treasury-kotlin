@@ -52,8 +52,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -274,6 +272,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): ExpectedPayment = apply {
         if (!validated) {
             id()
@@ -343,33 +343,33 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(expectedPayment: ExpectedPayment) = apply {
-            this.id = expectedPayment.id
-            this.object_ = expectedPayment.object_
-            this.liveMode = expectedPayment.liveMode
-            this.createdAt = expectedPayment.createdAt
-            this.updatedAt = expectedPayment.updatedAt
-            this.amountUpperBound = expectedPayment.amountUpperBound
-            this.amountLowerBound = expectedPayment.amountLowerBound
-            this.direction = expectedPayment.direction
-            this.internalAccountId = expectedPayment.internalAccountId
-            this.type = expectedPayment.type
-            this.currency = expectedPayment.currency
-            this.dateUpperBound = expectedPayment.dateUpperBound
-            this.dateLowerBound = expectedPayment.dateLowerBound
-            this.description = expectedPayment.description
-            this.statementDescriptor = expectedPayment.statementDescriptor
-            this.metadata = expectedPayment.metadata
-            this.counterpartyId = expectedPayment.counterpartyId
-            this.remittanceInformation = expectedPayment.remittanceInformation
-            this.reconciliationGroups = expectedPayment.reconciliationGroups
-            this.reconciliationFilters = expectedPayment.reconciliationFilters
-            this.reconciliationRuleVariables = expectedPayment.reconciliationRuleVariables
-            this.transactionId = expectedPayment.transactionId
-            this.transactionLineItemId = expectedPayment.transactionLineItemId
-            this.status = expectedPayment.status
-            this.reconciliationMethod = expectedPayment.reconciliationMethod
-            this.ledgerTransactionId = expectedPayment.ledgerTransactionId
-            additionalProperties(expectedPayment.additionalProperties)
+            id = expectedPayment.id
+            object_ = expectedPayment.object_
+            liveMode = expectedPayment.liveMode
+            createdAt = expectedPayment.createdAt
+            updatedAt = expectedPayment.updatedAt
+            amountUpperBound = expectedPayment.amountUpperBound
+            amountLowerBound = expectedPayment.amountLowerBound
+            direction = expectedPayment.direction
+            internalAccountId = expectedPayment.internalAccountId
+            type = expectedPayment.type
+            currency = expectedPayment.currency
+            dateUpperBound = expectedPayment.dateUpperBound
+            dateLowerBound = expectedPayment.dateLowerBound
+            description = expectedPayment.description
+            statementDescriptor = expectedPayment.statementDescriptor
+            metadata = expectedPayment.metadata
+            counterpartyId = expectedPayment.counterpartyId
+            remittanceInformation = expectedPayment.remittanceInformation
+            reconciliationGroups = expectedPayment.reconciliationGroups
+            reconciliationFilters = expectedPayment.reconciliationFilters
+            reconciliationRuleVariables = expectedPayment.reconciliationRuleVariables
+            transactionId = expectedPayment.transactionId
+            transactionLineItemId = expectedPayment.transactionLineItemId
+            status = expectedPayment.status
+            reconciliationMethod = expectedPayment.reconciliationMethod
+            ledgerTransactionId = expectedPayment.ledgerTransactionId
+            additionalProperties = expectedPayment.additionalProperties.toMutableMap()
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -663,16 +663,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): ExpectedPayment =
@@ -772,11 +778,11 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
             if (!validated) {
@@ -796,21 +802,27 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
+                additionalProperties = metadata.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())

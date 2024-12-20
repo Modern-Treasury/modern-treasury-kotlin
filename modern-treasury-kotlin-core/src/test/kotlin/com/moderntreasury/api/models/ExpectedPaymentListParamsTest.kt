@@ -20,7 +20,7 @@ class ExpectedPaymentListParamsTest {
             .internalAccountId("internal_account_id")
             .metadata(
                 ExpectedPaymentListParams.Metadata.builder()
-                    .putAdditionalProperty("foo", listOf("string"))
+                    .putAdditionalProperty("foo", "string")
                     .build()
             )
             .perPage(0L)
@@ -41,7 +41,7 @@ class ExpectedPaymentListParamsTest {
                 .internalAccountId("internal_account_id")
                 .metadata(
                     ExpectedPaymentListParams.Metadata.builder()
-                        .putAdditionalProperty("foo", listOf("string"))
+                        .putAdditionalProperty("foo", "string")
                         .build()
                 )
                 .perPage(0L)
@@ -56,7 +56,7 @@ class ExpectedPaymentListParamsTest {
         expected.put("direction", TransactionDirection.CREDIT.toString())
         expected.put("internal_account_id", "internal_account_id")
         ExpectedPaymentListParams.Metadata.builder()
-            .putAdditionalProperty("foo", listOf("string"))
+            .putAdditionalProperty("foo", "string")
             .build()
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("per_page", "0")

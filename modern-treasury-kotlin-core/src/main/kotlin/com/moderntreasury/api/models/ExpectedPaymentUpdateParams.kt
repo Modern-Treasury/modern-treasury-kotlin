@@ -255,25 +255,25 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(expectedPaymentUpdateBody: ExpectedPaymentUpdateBody) = apply {
-                this.amountLowerBound = expectedPaymentUpdateBody.amountLowerBound
-                this.amountUpperBound = expectedPaymentUpdateBody.amountUpperBound
-                this.counterpartyId = expectedPaymentUpdateBody.counterpartyId
-                this.currency = expectedPaymentUpdateBody.currency
-                this.dateLowerBound = expectedPaymentUpdateBody.dateLowerBound
-                this.dateUpperBound = expectedPaymentUpdateBody.dateUpperBound
-                this.description = expectedPaymentUpdateBody.description
-                this.direction = expectedPaymentUpdateBody.direction
-                this.internalAccountId = expectedPaymentUpdateBody.internalAccountId
-                this.metadata = expectedPaymentUpdateBody.metadata
-                this.reconciliationFilters = expectedPaymentUpdateBody.reconciliationFilters
-                this.reconciliationGroups = expectedPaymentUpdateBody.reconciliationGroups
-                this.reconciliationRuleVariables =
-                    expectedPaymentUpdateBody.reconciliationRuleVariables
-                this.remittanceInformation = expectedPaymentUpdateBody.remittanceInformation
-                this.statementDescriptor = expectedPaymentUpdateBody.statementDescriptor
-                this.status = expectedPaymentUpdateBody.status
-                this.type = expectedPaymentUpdateBody.type
-                additionalProperties(expectedPaymentUpdateBody.additionalProperties)
+                amountLowerBound = expectedPaymentUpdateBody.amountLowerBound
+                amountUpperBound = expectedPaymentUpdateBody.amountUpperBound
+                counterpartyId = expectedPaymentUpdateBody.counterpartyId
+                currency = expectedPaymentUpdateBody.currency
+                dateLowerBound = expectedPaymentUpdateBody.dateLowerBound
+                dateUpperBound = expectedPaymentUpdateBody.dateUpperBound
+                description = expectedPaymentUpdateBody.description
+                direction = expectedPaymentUpdateBody.direction
+                internalAccountId = expectedPaymentUpdateBody.internalAccountId
+                metadata = expectedPaymentUpdateBody.metadata
+                reconciliationFilters = expectedPaymentUpdateBody.reconciliationFilters
+                reconciliationGroups = expectedPaymentUpdateBody.reconciliationGroups
+                reconciliationRuleVariables =
+                    expectedPaymentUpdateBody.reconciliationRuleVariables?.toMutableList()
+                remittanceInformation = expectedPaymentUpdateBody.remittanceInformation
+                statementDescriptor = expectedPaymentUpdateBody.statementDescriptor
+                status = expectedPaymentUpdateBody.status
+                type = expectedPaymentUpdateBody.type
+                additionalProperties = expectedPaymentUpdateBody.additionalProperties.toMutableMap()
             }
 
             /**
@@ -281,7 +281,7 @@ constructor(
              * currency's smallest unit. e.g. $10 would be represented as 1000.
              */
             @JsonProperty("amount_lower_bound")
-            fun amountLowerBound(amountLowerBound: Long) = apply {
+            fun amountLowerBound(amountLowerBound: Long?) = apply {
                 this.amountLowerBound = amountLowerBound
             }
 
@@ -290,46 +290,46 @@ constructor(
              * currency's smallest unit. e.g. $10 would be represented as 1000.
              */
             @JsonProperty("amount_upper_bound")
-            fun amountUpperBound(amountUpperBound: Long) = apply {
+            fun amountUpperBound(amountUpperBound: Long?) = apply {
                 this.amountUpperBound = amountUpperBound
             }
 
             /** The ID of the counterparty you expect for this payment. */
             @JsonProperty("counterparty_id")
-            fun counterpartyId(counterpartyId: String) = apply {
+            fun counterpartyId(counterpartyId: String?) = apply {
                 this.counterpartyId = counterpartyId
             }
 
             /** Must conform to ISO 4217. Defaults to the currency of the internal account. */
             @JsonProperty("currency")
-            fun currency(currency: Currency) = apply { this.currency = currency }
+            fun currency(currency: Currency?) = apply { this.currency = currency }
 
             /** The earliest date the payment may come in. Format: yyyy-mm-dd */
             @JsonProperty("date_lower_bound")
-            fun dateLowerBound(dateLowerBound: LocalDate) = apply {
+            fun dateLowerBound(dateLowerBound: LocalDate?) = apply {
                 this.dateLowerBound = dateLowerBound
             }
 
             /** The latest date the payment may come in. Format: yyyy-mm-dd */
             @JsonProperty("date_upper_bound")
-            fun dateUpperBound(dateUpperBound: LocalDate) = apply {
+            fun dateUpperBound(dateUpperBound: LocalDate?) = apply {
                 this.dateUpperBound = dateUpperBound
             }
 
             /** An optional description for internal use. */
             @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /**
              * One of credit or debit. When you are receiving money, use credit. When you are being
              * charged, use debit.
              */
             @JsonProperty("direction")
-            fun direction(direction: Direction) = apply { this.direction = direction }
+            fun direction(direction: Direction?) = apply { this.direction = direction }
 
             /** The ID of the Internal Account for the expected payment. */
             @JsonProperty("internal_account_id")
-            fun internalAccountId(internalAccountId: String) = apply {
+            fun internalAccountId(internalAccountId: String?) = apply {
                 this.internalAccountId = internalAccountId
             }
 
@@ -338,26 +338,25 @@ constructor(
              * strings.
              */
             @JsonProperty("metadata")
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /** The reconciliation filters you have for this payment. */
             @JsonProperty("reconciliation_filters")
-            fun reconciliationFilters(reconciliationFilters: JsonValue) = apply {
+            fun reconciliationFilters(reconciliationFilters: JsonValue?) = apply {
                 this.reconciliationFilters = reconciliationFilters
             }
 
             /** The reconciliation groups you have for this payment. */
             @JsonProperty("reconciliation_groups")
-            fun reconciliationGroups(reconciliationGroups: JsonValue) = apply {
+            fun reconciliationGroups(reconciliationGroups: JsonValue?) = apply {
                 this.reconciliationGroups = reconciliationGroups
             }
 
             /** An array of reconciliation rule variables for this payment. */
             @JsonProperty("reconciliation_rule_variables")
-            fun reconciliationRuleVariables(reconciliationRuleVariables: List<ReconciliationRule>) =
-                apply {
-                    this.reconciliationRuleVariables = reconciliationRuleVariables
-                }
+            fun reconciliationRuleVariables(
+                reconciliationRuleVariables: List<ReconciliationRule>?
+            ) = apply { this.reconciliationRuleVariables = reconciliationRuleVariables }
 
             /**
              * For `ach`, this field will be passed through on an addenda record. For `wire`
@@ -365,7 +364,7 @@ constructor(
              * Information", also known as OBI or Fedwire tag 6000.
              */
             @JsonProperty("remittance_information")
-            fun remittanceInformation(remittanceInformation: String) = apply {
+            fun remittanceInformation(remittanceInformation: String?) = apply {
                 this.remittanceInformation = remittanceInformation
             }
 
@@ -375,33 +374,39 @@ constructor(
              * the OBI field on the wire. For check payments, this will be the memo field.
              */
             @JsonProperty("statement_descriptor")
-            fun statementDescriptor(statementDescriptor: String) = apply {
+            fun statementDescriptor(statementDescriptor: String?) = apply {
                 this.statementDescriptor = statementDescriptor
             }
 
             /**
              * The Expected Payment's status can be updated from partially_reconciled to reconciled.
              */
-            @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
+            @JsonProperty("status") fun status(status: Status?) = apply { this.status = status }
 
             /**
              * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa,
              * signet, wire.
              */
-            @JsonProperty("type") fun type(type: ExpectedPaymentType) = apply { this.type = type }
+            @JsonProperty("type") fun type(type: ExpectedPaymentType?) = apply { this.type = type }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): ExpectedPaymentUpdateBody =
@@ -833,21 +838,27 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
+                additionalProperties = metadata.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())

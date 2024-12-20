@@ -45,8 +45,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     fun id(): String? = id.getNullable("id")
 
     fun object_(): String? = object_.getNullable("object")
@@ -241,6 +239,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): PaymentFlow = apply {
         if (!validated) {
             id()
@@ -299,26 +299,26 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(paymentFlow: PaymentFlow) = apply {
-            this.id = paymentFlow.id
-            this.object_ = paymentFlow.object_
-            this.liveMode = paymentFlow.liveMode
-            this.createdAt = paymentFlow.createdAt
-            this.updatedAt = paymentFlow.updatedAt
-            this.clientToken = paymentFlow.clientToken
-            this.status = paymentFlow.status
-            this.amount = paymentFlow.amount
-            this.currency = paymentFlow.currency
-            this.direction = paymentFlow.direction
-            this.counterpartyId = paymentFlow.counterpartyId
-            this.receivingAccountId = paymentFlow.receivingAccountId
-            this.originatingAccountId = paymentFlow.originatingAccountId
-            this.paymentOrderId = paymentFlow.paymentOrderId
-            this.effectiveDateSelectionEnabled = paymentFlow.effectiveDateSelectionEnabled
-            this.dueDate = paymentFlow.dueDate
-            this.selectedEffectiveDate = paymentFlow.selectedEffectiveDate
-            this.externalAccountCollection = paymentFlow.externalAccountCollection
-            this.existingExternalAccountsFilter = paymentFlow.existingExternalAccountsFilter
-            additionalProperties(paymentFlow.additionalProperties)
+            id = paymentFlow.id
+            object_ = paymentFlow.object_
+            liveMode = paymentFlow.liveMode
+            createdAt = paymentFlow.createdAt
+            updatedAt = paymentFlow.updatedAt
+            clientToken = paymentFlow.clientToken
+            status = paymentFlow.status
+            amount = paymentFlow.amount
+            currency = paymentFlow.currency
+            direction = paymentFlow.direction
+            counterpartyId = paymentFlow.counterpartyId
+            receivingAccountId = paymentFlow.receivingAccountId
+            originatingAccountId = paymentFlow.originatingAccountId
+            paymentOrderId = paymentFlow.paymentOrderId
+            effectiveDateSelectionEnabled = paymentFlow.effectiveDateSelectionEnabled
+            dueDate = paymentFlow.dueDate
+            selectedEffectiveDate = paymentFlow.selectedEffectiveDate
+            externalAccountCollection = paymentFlow.externalAccountCollection
+            existingExternalAccountsFilter = paymentFlow.existingExternalAccountsFilter
+            additionalProperties = paymentFlow.additionalProperties.toMutableMap()
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -561,16 +561,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): PaymentFlow =

@@ -34,8 +34,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -124,6 +122,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): ForeignExchangeQuote = apply {
         if (!validated) {
             id()
@@ -166,19 +166,19 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(foreignExchangeQuote: ForeignExchangeQuote) = apply {
-            this.id = foreignExchangeQuote.id
-            this.object_ = foreignExchangeQuote.object_
-            this.liveMode = foreignExchangeQuote.liveMode
-            this.createdAt = foreignExchangeQuote.createdAt
-            this.updatedAt = foreignExchangeQuote.updatedAt
-            this.effectiveAt = foreignExchangeQuote.effectiveAt
-            this.expiresAt = foreignExchangeQuote.expiresAt
-            this.foreignExchangeIndicator = foreignExchangeQuote.foreignExchangeIndicator
-            this.foreignExchangeRate = foreignExchangeQuote.foreignExchangeRate
-            this.internalAccountId = foreignExchangeQuote.internalAccountId
-            this.metadata = foreignExchangeQuote.metadata
-            this.vendorId = foreignExchangeQuote.vendorId
-            additionalProperties(foreignExchangeQuote.additionalProperties)
+            id = foreignExchangeQuote.id
+            object_ = foreignExchangeQuote.object_
+            liveMode = foreignExchangeQuote.liveMode
+            createdAt = foreignExchangeQuote.createdAt
+            updatedAt = foreignExchangeQuote.updatedAt
+            effectiveAt = foreignExchangeQuote.effectiveAt
+            expiresAt = foreignExchangeQuote.expiresAt
+            foreignExchangeIndicator = foreignExchangeQuote.foreignExchangeIndicator
+            foreignExchangeRate = foreignExchangeQuote.foreignExchangeRate
+            internalAccountId = foreignExchangeQuote.internalAccountId
+            metadata = foreignExchangeQuote.metadata
+            vendorId = foreignExchangeQuote.vendorId
+            additionalProperties = foreignExchangeQuote.additionalProperties.toMutableMap()
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -296,16 +296,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): ForeignExchangeQuote =
@@ -340,8 +346,6 @@ private constructor(
         private val value: JsonField<Long>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
-
-        private var validated: Boolean = false
 
         /**
          * Amount in the lowest denomination of the `base_currency` to convert, often called the
@@ -413,6 +417,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): ForeignExchangeRate = apply {
             if (!validated) {
                 baseAmount()
@@ -445,14 +451,14 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(foreignExchangeRate: ForeignExchangeRate) = apply {
-                this.baseAmount = foreignExchangeRate.baseAmount
-                this.baseCurrency = foreignExchangeRate.baseCurrency
-                this.exponent = foreignExchangeRate.exponent
-                this.rateString = foreignExchangeRate.rateString
-                this.targetAmount = foreignExchangeRate.targetAmount
-                this.targetCurrency = foreignExchangeRate.targetCurrency
-                this.value = foreignExchangeRate.value
-                additionalProperties(foreignExchangeRate.additionalProperties)
+                baseAmount = foreignExchangeRate.baseAmount
+                baseCurrency = foreignExchangeRate.baseCurrency
+                exponent = foreignExchangeRate.exponent
+                rateString = foreignExchangeRate.rateString
+                targetAmount = foreignExchangeRate.targetAmount
+                targetCurrency = foreignExchangeRate.targetCurrency
+                value = foreignExchangeRate.value
+                additionalProperties = foreignExchangeRate.additionalProperties.toMutableMap()
             }
 
             /**
@@ -544,16 +550,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): ForeignExchangeRate =
@@ -595,11 +607,11 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
             if (!validated) {
@@ -619,21 +631,27 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
+                additionalProperties = metadata.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())

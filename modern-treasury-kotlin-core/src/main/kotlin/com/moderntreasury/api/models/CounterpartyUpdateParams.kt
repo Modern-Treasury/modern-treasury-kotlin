@@ -131,59 +131,65 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(counterpartyUpdateBody: CounterpartyUpdateBody) = apply {
-                this.email = counterpartyUpdateBody.email
-                this.legalEntityId = counterpartyUpdateBody.legalEntityId
-                this.metadata = counterpartyUpdateBody.metadata
-                this.name = counterpartyUpdateBody.name
-                this.sendRemittanceAdvice = counterpartyUpdateBody.sendRemittanceAdvice
-                this.taxpayerIdentifier = counterpartyUpdateBody.taxpayerIdentifier
-                additionalProperties(counterpartyUpdateBody.additionalProperties)
+                email = counterpartyUpdateBody.email
+                legalEntityId = counterpartyUpdateBody.legalEntityId
+                metadata = counterpartyUpdateBody.metadata
+                name = counterpartyUpdateBody.name
+                sendRemittanceAdvice = counterpartyUpdateBody.sendRemittanceAdvice
+                taxpayerIdentifier = counterpartyUpdateBody.taxpayerIdentifier
+                additionalProperties = counterpartyUpdateBody.additionalProperties.toMutableMap()
             }
 
             /** A new email for the counterparty. */
-            @JsonProperty("email") fun email(email: String) = apply { this.email = email }
+            @JsonProperty("email") fun email(email: String?) = apply { this.email = email }
 
             /** The id of the legal entity. */
             @JsonProperty("legal_entity_id")
-            fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
+            fun legalEntityId(legalEntityId: String?) = apply { this.legalEntityId = legalEntityId }
 
             /**
              * Additional data in the form of key-value pairs. Pairs can be removed by passing an
              * empty string or `null` as the value.
              */
             @JsonProperty("metadata")
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /** A new name for the counterparty. Will only update if passed. */
-            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+            @JsonProperty("name") fun name(name: String?) = apply { this.name = name }
 
             /**
              * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
              * associated payment order is sent to the bank.
              */
             @JsonProperty("send_remittance_advice")
-            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) = apply {
+            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean?) = apply {
                 this.sendRemittanceAdvice = sendRemittanceAdvice
             }
 
             /** Either a valid SSN or EIN. */
             @JsonProperty("taxpayer_identifier")
-            fun taxpayerIdentifier(taxpayerIdentifier: String) = apply {
+            fun taxpayerIdentifier(taxpayerIdentifier: String?) = apply {
                 this.taxpayerIdentifier = taxpayerIdentifier
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): CounterpartyUpdateBody =
@@ -443,21 +449,27 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
+                additionalProperties = metadata.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())

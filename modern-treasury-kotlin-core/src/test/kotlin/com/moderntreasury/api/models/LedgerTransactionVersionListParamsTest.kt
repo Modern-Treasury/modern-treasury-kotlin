@@ -14,7 +14,7 @@ class LedgerTransactionVersionListParamsTest {
             .afterCursor("after_cursor")
             .createdAt(
                 LedgerTransactionVersionListParams.CreatedAt.builder()
-                    .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                    .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
                     .build()
             )
             .ledgerAccountStatementId("ledger_account_statement_id")
@@ -22,7 +22,7 @@ class LedgerTransactionVersionListParamsTest {
             .perPage(0L)
             .version(
                 LedgerTransactionVersionListParams.Version.builder()
-                    .putAdditionalProperty("foo", listOf("0"))
+                    .putAdditionalProperty("foo", "0")
                     .build()
             )
             .build()
@@ -35,7 +35,7 @@ class LedgerTransactionVersionListParamsTest {
                 .afterCursor("after_cursor")
                 .createdAt(
                     LedgerTransactionVersionListParams.CreatedAt.builder()
-                        .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                        .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
                         .build()
                 )
                 .ledgerAccountStatementId("ledger_account_statement_id")
@@ -43,21 +43,21 @@ class LedgerTransactionVersionListParamsTest {
                 .perPage(0L)
                 .version(
                     LedgerTransactionVersionListParams.Version.builder()
-                        .putAdditionalProperty("foo", listOf("0"))
+                        .putAdditionalProperty("foo", "0")
                         .build()
                 )
                 .build()
         val expected = QueryParams.builder()
         expected.put("after_cursor", "after_cursor")
         LedgerTransactionVersionListParams.CreatedAt.builder()
-            .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+            .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at[$key]", values) }
         expected.put("ledger_account_statement_id", "ledger_account_statement_id")
         expected.put("ledger_transaction_id", "ledger_transaction_id")
         expected.put("per_page", "0")
         LedgerTransactionVersionListParams.Version.builder()
-            .putAdditionalProperty("foo", listOf("0"))
+            .putAdditionalProperty("foo", "0")
             .build()
             .forEachQueryParam { key, values -> expected.put("version[$key]", values) }
         assertThat(params.getQueryParams()).isEqualTo(expected.build())

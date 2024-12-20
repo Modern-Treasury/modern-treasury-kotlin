@@ -71,14 +71,14 @@ constructor(
     @NoAutoDetect
     class RoutingDetailCreateBody
     internal constructor(
-        private val routingNumber: String?,
-        private val routingNumberType: RoutingNumberType?,
+        private val routingNumber: String,
+        private val routingNumberType: RoutingNumberType,
         private val paymentType: PaymentType?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The routing number of the bank. */
-        @JsonProperty("routing_number") fun routingNumber(): String? = routingNumber
+        @JsonProperty("routing_number") fun routingNumber(): String = routingNumber
 
         /**
          * The type of routing number. See
@@ -86,7 +86,7 @@ constructor(
          * details.
          */
         @JsonProperty("routing_number_type")
-        fun routingNumberType(): RoutingNumberType? = routingNumberType
+        fun routingNumberType(): RoutingNumberType = routingNumberType
 
         /**
          * If the routing detail is to be used for a specific payment type this field will be
@@ -113,10 +113,10 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(routingDetailCreateBody: RoutingDetailCreateBody) = apply {
-                this.routingNumber = routingDetailCreateBody.routingNumber
-                this.routingNumberType = routingDetailCreateBody.routingNumberType
-                this.paymentType = routingDetailCreateBody.paymentType
-                additionalProperties(routingDetailCreateBody.additionalProperties)
+                routingNumber = routingDetailCreateBody.routingNumber
+                routingNumberType = routingDetailCreateBody.routingNumberType
+                paymentType = routingDetailCreateBody.paymentType
+                additionalProperties = routingDetailCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The routing number of the bank. */
@@ -138,20 +138,26 @@ constructor(
              * populated, otherwise null.
              */
             @JsonProperty("payment_type")
-            fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
+            fun paymentType(paymentType: PaymentType?) = apply { this.paymentType = paymentType }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): RoutingDetailCreateBody =

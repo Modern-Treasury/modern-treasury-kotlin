@@ -36,8 +36,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -117,6 +115,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): RoutingDetail = apply {
         if (!validated) {
             id()
@@ -157,18 +157,18 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(routingDetail: RoutingDetail) = apply {
-            this.id = routingDetail.id
-            this.object_ = routingDetail.object_
-            this.liveMode = routingDetail.liveMode
-            this.createdAt = routingDetail.createdAt
-            this.updatedAt = routingDetail.updatedAt
-            this.discardedAt = routingDetail.discardedAt
-            this.routingNumber = routingDetail.routingNumber
-            this.routingNumberType = routingDetail.routingNumberType
-            this.paymentType = routingDetail.paymentType
-            this.bankName = routingDetail.bankName
-            this.bankAddress = routingDetail.bankAddress
-            additionalProperties(routingDetail.additionalProperties)
+            id = routingDetail.id
+            object_ = routingDetail.object_
+            liveMode = routingDetail.liveMode
+            createdAt = routingDetail.createdAt
+            updatedAt = routingDetail.updatedAt
+            discardedAt = routingDetail.discardedAt
+            routingNumber = routingDetail.routingNumber
+            routingNumberType = routingDetail.routingNumberType
+            paymentType = routingDetail.paymentType
+            bankName = routingDetail.bankName
+            bankAddress = routingDetail.bankAddress
+            additionalProperties = routingDetail.additionalProperties.toMutableMap()
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -276,16 +276,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): RoutingDetail =
@@ -322,8 +328,6 @@ private constructor(
         private val country: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
-
-        private var validated: Boolean = false
 
         fun id(): String = id.getRequired("id")
 
@@ -389,6 +393,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): Address = apply {
             if (!validated) {
                 id()
@@ -429,18 +435,18 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(address: Address) = apply {
-                this.id = address.id
-                this.object_ = address.object_
-                this.liveMode = address.liveMode
-                this.createdAt = address.createdAt
-                this.updatedAt = address.updatedAt
-                this.line1 = address.line1
-                this.line2 = address.line2
-                this.locality = address.locality
-                this.region = address.region
-                this.postalCode = address.postalCode
-                this.country = address.country
-                additionalProperties(address.additionalProperties)
+                id = address.id
+                object_ = address.object_
+                liveMode = address.liveMode
+                createdAt = address.createdAt
+                updatedAt = address.updatedAt
+                line1 = address.line1
+                line2 = address.line2
+                locality = address.locality
+                region = address.region
+                postalCode = address.postalCode
+                country = address.country
+                additionalProperties = address.additionalProperties.toMutableMap()
             }
 
             fun id(id: String) = id(JsonField.of(id))
@@ -531,16 +537,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Address =

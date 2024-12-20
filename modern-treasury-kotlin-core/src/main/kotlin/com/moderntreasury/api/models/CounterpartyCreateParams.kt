@@ -172,89 +172,95 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(counterpartyCreateBody: CounterpartyCreateBody) = apply {
-                this.name = counterpartyCreateBody.name
-                this.accounting = counterpartyCreateBody.accounting
-                this.accounts = counterpartyCreateBody.accounts
-                this.email = counterpartyCreateBody.email
-                this.ledgerType = counterpartyCreateBody.ledgerType
-                this.legalEntity = counterpartyCreateBody.legalEntity
-                this.legalEntityId = counterpartyCreateBody.legalEntityId
-                this.metadata = counterpartyCreateBody.metadata
-                this.sendRemittanceAdvice = counterpartyCreateBody.sendRemittanceAdvice
-                this.taxpayerIdentifier = counterpartyCreateBody.taxpayerIdentifier
-                this.verificationStatus = counterpartyCreateBody.verificationStatus
-                additionalProperties(counterpartyCreateBody.additionalProperties)
+                name = counterpartyCreateBody.name
+                accounting = counterpartyCreateBody.accounting
+                accounts = counterpartyCreateBody.accounts?.toMutableList()
+                email = counterpartyCreateBody.email
+                ledgerType = counterpartyCreateBody.ledgerType
+                legalEntity = counterpartyCreateBody.legalEntity
+                legalEntityId = counterpartyCreateBody.legalEntityId
+                metadata = counterpartyCreateBody.metadata
+                sendRemittanceAdvice = counterpartyCreateBody.sendRemittanceAdvice
+                taxpayerIdentifier = counterpartyCreateBody.taxpayerIdentifier
+                verificationStatus = counterpartyCreateBody.verificationStatus
+                additionalProperties = counterpartyCreateBody.additionalProperties.toMutableMap()
             }
 
             /** A human friendly name for this counterparty. */
-            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+            @JsonProperty("name") fun name(name: String?) = apply { this.name = name }
 
             @JsonProperty("accounting")
-            fun accounting(accounting: Accounting) = apply { this.accounting = accounting }
+            fun accounting(accounting: Accounting?) = apply { this.accounting = accounting }
 
             /** The accounts for this counterparty. */
             @JsonProperty("accounts")
-            fun accounts(accounts: List<Account>) = apply { this.accounts = accounts }
+            fun accounts(accounts: List<Account>?) = apply { this.accounts = accounts }
 
             /** The counterparty's email. */
-            @JsonProperty("email") fun email(email: String) = apply { this.email = email }
+            @JsonProperty("email") fun email(email: String?) = apply { this.email = email }
 
             /**
              * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
              * `vendor`.
              */
             @JsonProperty("ledger_type")
-            fun ledgerType(ledgerType: LedgerType) = apply { this.ledgerType = ledgerType }
+            fun ledgerType(ledgerType: LedgerType?) = apply { this.ledgerType = ledgerType }
 
             @JsonProperty("legal_entity")
-            fun legalEntity(legalEntity: LegalEntityCreateRequest) = apply {
+            fun legalEntity(legalEntity: LegalEntityCreateRequest?) = apply {
                 this.legalEntity = legalEntity
             }
 
             /** The id of the legal entity. */
             @JsonProperty("legal_entity_id")
-            fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
+            fun legalEntityId(legalEntityId: String?) = apply { this.legalEntityId = legalEntityId }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
             @JsonProperty("metadata")
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /**
              * Send an email to the counterparty whenever an associated payment order is sent to the
              * bank.
              */
             @JsonProperty("send_remittance_advice")
-            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) = apply {
+            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean?) = apply {
                 this.sendRemittanceAdvice = sendRemittanceAdvice
             }
 
             /** Either a valid SSN or EIN. */
             @JsonProperty("taxpayer_identifier")
-            fun taxpayerIdentifier(taxpayerIdentifier: String) = apply {
+            fun taxpayerIdentifier(taxpayerIdentifier: String?) = apply {
                 this.taxpayerIdentifier = taxpayerIdentifier
             }
 
             /** The verification status of the counterparty. */
             @JsonProperty("verification_status")
-            fun verificationStatus(verificationStatus: VerificationStatus) = apply {
+            fun verificationStatus(verificationStatus: VerificationStatus?) = apply {
                 this.verificationStatus = verificationStatus
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): CounterpartyCreateBody =
@@ -558,28 +564,34 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(accounting: Accounting) = apply {
-                this.type = accounting.type
-                additionalProperties(accounting.additionalProperties)
+                type = accounting.type
+                additionalProperties = accounting.additionalProperties.toMutableMap()
             }
 
             /**
              * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
              * `vendor`.
              */
-            @JsonProperty("type") fun type(type: Type) = apply { this.type = type }
+            @JsonProperty("type") fun type(type: Type?) = apply { this.type = type }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Accounting = Accounting(type, additionalProperties.toImmutable())
@@ -756,34 +768,34 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(account: Account) = apply {
-                this.accountType = account.accountType
-                this.partyType = account.partyType
-                this.partyAddress = account.partyAddress
-                this.name = account.name
-                this.accountDetails = account.accountDetails
-                this.routingDetails = account.routingDetails
-                this.metadata = account.metadata
-                this.partyName = account.partyName
-                this.partyIdentifier = account.partyIdentifier
-                this.ledgerAccount = account.ledgerAccount
-                this.plaidProcessorToken = account.plaidProcessorToken
-                this.contactDetails = account.contactDetails
-                additionalProperties(account.additionalProperties)
+                accountType = account.accountType
+                partyType = account.partyType
+                partyAddress = account.partyAddress
+                name = account.name
+                accountDetails = account.accountDetails?.toMutableList()
+                routingDetails = account.routingDetails?.toMutableList()
+                metadata = account.metadata
+                partyName = account.partyName
+                partyIdentifier = account.partyIdentifier
+                ledgerAccount = account.ledgerAccount
+                plaidProcessorToken = account.plaidProcessorToken
+                contactDetails = account.contactDetails?.toMutableList()
+                additionalProperties = account.additionalProperties.toMutableMap()
             }
 
             /** Can be `checking`, `savings` or `other`. */
             @JsonProperty("account_type")
-            fun accountType(accountType: ExternalAccountType) = apply {
+            fun accountType(accountType: ExternalAccountType?) = apply {
                 this.accountType = accountType
             }
 
             /** Either `individual` or `business`. */
             @JsonProperty("party_type")
-            fun partyType(partyType: PartyType) = apply { this.partyType = partyType }
+            fun partyType(partyType: PartyType?) = apply { this.partyType = partyType }
 
             /** Required if receiving wire payments. */
             @JsonProperty("party_address")
-            fun partyAddress(partyAddress: AddressRequest) = apply {
+            fun partyAddress(partyAddress: AddressRequest?) = apply {
                 this.partyAddress = partyAddress
             }
 
@@ -791,15 +803,15 @@ constructor(
              * A nickname for the external account. This is only for internal usage and won't affect
              * any payments
              */
-            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+            @JsonProperty("name") fun name(name: String?) = apply { this.name = name }
 
             @JsonProperty("account_details")
-            fun accountDetails(accountDetails: List<AccountDetail>) = apply {
+            fun accountDetails(accountDetails: List<AccountDetail>?) = apply {
                 this.accountDetails = accountDetails
             }
 
             @JsonProperty("routing_details")
-            fun routingDetails(routingDetails: List<RoutingDetail>) = apply {
+            fun routingDetails(routingDetails: List<RoutingDetail>?) = apply {
                 this.routingDetails = routingDetails
             }
 
@@ -808,14 +820,14 @@ constructor(
              * strings.
              */
             @JsonProperty("metadata")
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /** If this value isn't provided, it will be inherited from the counterparty's name. */
             @JsonProperty("party_name")
-            fun partyName(partyName: String) = apply { this.partyName = partyName }
+            fun partyName(partyName: String?) = apply { this.partyName = partyName }
 
             @JsonProperty("party_identifier")
-            fun partyIdentifier(partyIdentifier: String) = apply {
+            fun partyIdentifier(partyIdentifier: String?) = apply {
                 this.partyIdentifier = partyIdentifier
             }
 
@@ -827,7 +839,7 @@ constructor(
              * more details.
              */
             @JsonProperty("ledger_account")
-            fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest) = apply {
+            fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest?) = apply {
                 this.ledgerAccount = ledgerAccount
             }
 
@@ -836,27 +848,33 @@ constructor(
              * can pass the processor token in this field.
              */
             @JsonProperty("plaid_processor_token")
-            fun plaidProcessorToken(plaidProcessorToken: String) = apply {
+            fun plaidProcessorToken(plaidProcessorToken: String?) = apply {
                 this.plaidProcessorToken = plaidProcessorToken
             }
 
             @JsonProperty("contact_details")
-            fun contactDetails(contactDetails: List<ContactDetailCreateRequest>) = apply {
+            fun contactDetails(contactDetails: List<ContactDetailCreateRequest>?) = apply {
                 this.contactDetails = contactDetails
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Account =
@@ -881,12 +899,12 @@ constructor(
         @NoAutoDetect
         class AccountDetail
         private constructor(
-            private val accountNumber: String?,
+            private val accountNumber: String,
             private val accountNumberType: AccountNumberType?,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
-            @JsonProperty("account_number") fun accountNumber(): String? = accountNumber
+            @JsonProperty("account_number") fun accountNumber(): String = accountNumber
 
             @JsonProperty("account_number_type")
             fun accountNumberType(): AccountNumberType? = accountNumberType
@@ -909,9 +927,9 @@ constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(accountDetail: AccountDetail) = apply {
-                    this.accountNumber = accountDetail.accountNumber
-                    this.accountNumberType = accountDetail.accountNumberType
-                    additionalProperties(accountDetail.additionalProperties)
+                    accountNumber = accountDetail.accountNumber
+                    accountNumberType = accountDetail.accountNumberType
+                    additionalProperties = accountDetail.additionalProperties.toMutableMap()
                 }
 
                 @JsonProperty("account_number")
@@ -920,24 +938,32 @@ constructor(
                 }
 
                 @JsonProperty("account_number_type")
-                fun accountNumberType(accountNumberType: AccountNumberType) = apply {
+                fun accountNumberType(accountNumberType: AccountNumberType?) = apply {
                     this.accountNumberType = accountNumberType
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): AccountDetail =
                     AccountDetail(
@@ -1107,35 +1133,44 @@ constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(contactDetailCreateRequest: ContactDetailCreateRequest) = apply {
-                    this.contactIdentifier = contactDetailCreateRequest.contactIdentifier
-                    this.contactIdentifierType = contactDetailCreateRequest.contactIdentifierType
-                    additionalProperties(contactDetailCreateRequest.additionalProperties)
+                    contactIdentifier = contactDetailCreateRequest.contactIdentifier
+                    contactIdentifierType = contactDetailCreateRequest.contactIdentifierType
+                    additionalProperties =
+                        contactDetailCreateRequest.additionalProperties.toMutableMap()
                 }
 
                 @JsonProperty("contact_identifier")
-                fun contactIdentifier(contactIdentifier: String) = apply {
+                fun contactIdentifier(contactIdentifier: String?) = apply {
                     this.contactIdentifier = contactIdentifier
                 }
 
                 @JsonProperty("contact_identifier_type")
-                fun contactIdentifierType(contactIdentifierType: ContactIdentifierType) = apply {
+                fun contactIdentifierType(contactIdentifierType: ContactIdentifierType?) = apply {
                     this.contactIdentifierType = contactIdentifierType
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): ContactDetailCreateRequest =
                     ContactDetailCreateRequest(
@@ -1240,11 +1275,11 @@ constructor(
         @NoAutoDetect
         class LedgerAccountCreateRequest
         private constructor(
-            private val name: String?,
+            private val name: String,
             private val description: String?,
-            private val normalBalance: TransactionDirection?,
-            private val ledgerId: String?,
-            private val currency: String?,
+            private val normalBalance: TransactionDirection,
+            private val ledgerId: String,
+            private val currency: String,
             private val currencyExponent: Long?,
             private val ledgerAccountCategoryIds: List<String>?,
             private val ledgerableId: String?,
@@ -1254,20 +1289,20 @@ constructor(
         ) {
 
             /** The name of the ledger account. */
-            @JsonProperty("name") fun name(): String? = name
+            @JsonProperty("name") fun name(): String = name
 
             /** The description of the ledger account. */
             @JsonProperty("description") fun description(): String? = description
 
             /** The normal balance of the ledger account. */
             @JsonProperty("normal_balance")
-            fun normalBalance(): TransactionDirection? = normalBalance
+            fun normalBalance(): TransactionDirection = normalBalance
 
             /** The id of the ledger that this account belongs to. */
-            @JsonProperty("ledger_id") fun ledgerId(): String? = ledgerId
+            @JsonProperty("ledger_id") fun ledgerId(): String = ledgerId
 
             /** The currency of the ledger account. */
-            @JsonProperty("currency") fun currency(): String? = currency
+            @JsonProperty("currency") fun currency(): String = currency
 
             /** The currency exponent of the ledger account. */
             @JsonProperty("currency_exponent") fun currencyExponent(): Long? = currencyExponent
@@ -1324,18 +1359,19 @@ constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(ledgerAccountCreateRequest: LedgerAccountCreateRequest) = apply {
-                    this.name = ledgerAccountCreateRequest.name
-                    this.description = ledgerAccountCreateRequest.description
-                    this.normalBalance = ledgerAccountCreateRequest.normalBalance
-                    this.ledgerId = ledgerAccountCreateRequest.ledgerId
-                    this.currency = ledgerAccountCreateRequest.currency
-                    this.currencyExponent = ledgerAccountCreateRequest.currencyExponent
-                    this.ledgerAccountCategoryIds =
-                        ledgerAccountCreateRequest.ledgerAccountCategoryIds
-                    this.ledgerableId = ledgerAccountCreateRequest.ledgerableId
-                    this.ledgerableType = ledgerAccountCreateRequest.ledgerableType
-                    this.metadata = ledgerAccountCreateRequest.metadata
-                    additionalProperties(ledgerAccountCreateRequest.additionalProperties)
+                    name = ledgerAccountCreateRequest.name
+                    description = ledgerAccountCreateRequest.description
+                    normalBalance = ledgerAccountCreateRequest.normalBalance
+                    ledgerId = ledgerAccountCreateRequest.ledgerId
+                    currency = ledgerAccountCreateRequest.currency
+                    currencyExponent = ledgerAccountCreateRequest.currencyExponent
+                    ledgerAccountCategoryIds =
+                        ledgerAccountCreateRequest.ledgerAccountCategoryIds?.toMutableList()
+                    ledgerableId = ledgerAccountCreateRequest.ledgerableId
+                    ledgerableType = ledgerAccountCreateRequest.ledgerableType
+                    metadata = ledgerAccountCreateRequest.metadata
+                    additionalProperties =
+                        ledgerAccountCreateRequest.additionalProperties.toMutableMap()
                 }
 
                 /** The name of the ledger account. */
@@ -1343,7 +1379,7 @@ constructor(
 
                 /** The description of the ledger account. */
                 @JsonProperty("description")
-                fun description(description: String) = apply { this.description = description }
+                fun description(description: String?) = apply { this.description = description }
 
                 /** The normal balance of the ledger account. */
                 @JsonProperty("normal_balance")
@@ -1361,7 +1397,7 @@ constructor(
 
                 /** The currency exponent of the ledger account. */
                 @JsonProperty("currency_exponent")
-                fun currencyExponent(currencyExponent: Long) = apply {
+                fun currencyExponent(currencyExponent: Long?) = apply {
                     this.currencyExponent = currencyExponent
                 }
 
@@ -1370,7 +1406,7 @@ constructor(
                  * child of.
                  */
                 @JsonProperty("ledger_account_category_ids")
-                fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>) = apply {
+                fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>?) = apply {
                     this.ledgerAccountCategoryIds = ledgerAccountCategoryIds
                 }
 
@@ -1379,7 +1415,7 @@ constructor(
                  * populated here, otherwise null.
                  */
                 @JsonProperty("ledgerable_id")
-                fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
+                fun ledgerableId(ledgerableId: String?) = apply { this.ledgerableId = ledgerableId }
 
                 /**
                  * If the ledger account links to another object in Modern Treasury, the type will
@@ -1387,7 +1423,7 @@ constructor(
                  * external_account.
                  */
                 @JsonProperty("ledgerable_type")
-                fun ledgerableType(ledgerableType: LedgerableType) = apply {
+                fun ledgerableType(ledgerableType: LedgerableType?) = apply {
                     this.ledgerableType = ledgerableType
                 }
 
@@ -1396,22 +1432,30 @@ constructor(
                  * strings.
                  */
                 @JsonProperty("metadata")
-                fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+                fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): LedgerAccountCreateRequest =
                     LedgerAccountCreateRequest(
@@ -1530,23 +1574,31 @@ constructor(
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(metadata: Metadata) = apply {
-                        additionalProperties(metadata.additionalProperties)
+                        additionalProperties = metadata.additionalProperties.toMutableMap()
                     }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        this.additionalProperties.putAll(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     @JsonAnySetter
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        this.additionalProperties.put(key, value)
+                        additionalProperties.put(key, value)
                     }
 
                     fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
 
                     fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                 }
@@ -1612,23 +1664,31 @@ constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(metadata: Metadata) = apply {
-                    additionalProperties(metadata.additionalProperties)
+                    additionalProperties = metadata.additionalProperties.toMutableMap()
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): Metadata = Metadata(additionalProperties.toImmutable())
             }
@@ -1702,48 +1762,56 @@ constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(addressRequest: AddressRequest) = apply {
-                    this.line1 = addressRequest.line1
-                    this.line2 = addressRequest.line2
-                    this.locality = addressRequest.locality
-                    this.region = addressRequest.region
-                    this.postalCode = addressRequest.postalCode
-                    this.country = addressRequest.country
-                    additionalProperties(addressRequest.additionalProperties)
+                    line1 = addressRequest.line1
+                    line2 = addressRequest.line2
+                    locality = addressRequest.locality
+                    region = addressRequest.region
+                    postalCode = addressRequest.postalCode
+                    country = addressRequest.country
+                    additionalProperties = addressRequest.additionalProperties.toMutableMap()
                 }
 
-                @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
+                @JsonProperty("line1") fun line1(line1: String?) = apply { this.line1 = line1 }
 
-                @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
+                @JsonProperty("line2") fun line2(line2: String?) = apply { this.line2 = line2 }
 
                 /** Locality or City. */
                 @JsonProperty("locality")
-                fun locality(locality: String) = apply { this.locality = locality }
+                fun locality(locality: String?) = apply { this.locality = locality }
 
                 /** Region or State. */
-                @JsonProperty("region") fun region(region: String) = apply { this.region = region }
+                @JsonProperty("region") fun region(region: String?) = apply { this.region = region }
 
                 /** The postal code of the address. */
                 @JsonProperty("postal_code")
-                fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
+                fun postalCode(postalCode: String?) = apply { this.postalCode = postalCode }
 
                 /** Country code conforms to [ISO 3166-1 alpha-2] */
                 @JsonProperty("country")
-                fun country(country: String) = apply { this.country = country }
+                fun country(country: String?) = apply { this.country = country }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): AddressRequest =
                     AddressRequest(
@@ -1836,16 +1904,16 @@ constructor(
         @NoAutoDetect
         class RoutingDetail
         private constructor(
-            private val routingNumber: String?,
-            private val routingNumberType: RoutingNumberType?,
+            private val routingNumber: String,
+            private val routingNumberType: RoutingNumberType,
             private val paymentType: PaymentType?,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
-            @JsonProperty("routing_number") fun routingNumber(): String? = routingNumber
+            @JsonProperty("routing_number") fun routingNumber(): String = routingNumber
 
             @JsonProperty("routing_number_type")
-            fun routingNumberType(): RoutingNumberType? = routingNumberType
+            fun routingNumberType(): RoutingNumberType = routingNumberType
 
             @JsonProperty("payment_type") fun paymentType(): PaymentType? = paymentType
 
@@ -1868,10 +1936,10 @@ constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(routingDetail: RoutingDetail) = apply {
-                    this.routingNumber = routingDetail.routingNumber
-                    this.routingNumberType = routingDetail.routingNumberType
-                    this.paymentType = routingDetail.paymentType
-                    additionalProperties(routingDetail.additionalProperties)
+                    routingNumber = routingDetail.routingNumber
+                    routingNumberType = routingDetail.routingNumberType
+                    paymentType = routingDetail.paymentType
+                    additionalProperties = routingDetail.additionalProperties.toMutableMap()
                 }
 
                 @JsonProperty("routing_number")
@@ -1885,22 +1953,32 @@ constructor(
                 }
 
                 @JsonProperty("payment_type")
-                fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
+                fun paymentType(paymentType: PaymentType?) = apply {
+                    this.paymentType = paymentType
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): RoutingDetail =
                     RoutingDetail(
@@ -2406,7 +2484,7 @@ constructor(
     @NoAutoDetect
     class LegalEntityCreateRequest
     private constructor(
-        private val legalEntityType: LegalEntityType?,
+        private val legalEntityType: LegalEntityType,
         private val riskRating: RiskRating?,
         private val prefix: String?,
         private val firstName: String?,
@@ -2434,7 +2512,7 @@ constructor(
     ) {
 
         /** The type of legal entity. */
-        @JsonProperty("legal_entity_type") fun legalEntityType(): LegalEntityType? = legalEntityType
+        @JsonProperty("legal_entity_type") fun legalEntityType(): LegalEntityType = legalEntityType
 
         /** The risk rating of the legal entity. One of low, medium, high. */
         @JsonProperty("risk_rating") fun riskRating(): RiskRating? = riskRating
@@ -2551,32 +2629,33 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(legalEntityCreateRequest: LegalEntityCreateRequest) = apply {
-                this.legalEntityType = legalEntityCreateRequest.legalEntityType
-                this.riskRating = legalEntityCreateRequest.riskRating
-                this.prefix = legalEntityCreateRequest.prefix
-                this.firstName = legalEntityCreateRequest.firstName
-                this.middleName = legalEntityCreateRequest.middleName
-                this.lastName = legalEntityCreateRequest.lastName
-                this.suffix = legalEntityCreateRequest.suffix
-                this.preferredName = legalEntityCreateRequest.preferredName
-                this.citizenshipCountry = legalEntityCreateRequest.citizenshipCountry
-                this.politicallyExposedPerson = legalEntityCreateRequest.politicallyExposedPerson
-                this.dateOfBirth = legalEntityCreateRequest.dateOfBirth
-                this.dateFormed = legalEntityCreateRequest.dateFormed
-                this.businessName = legalEntityCreateRequest.businessName
-                this.doingBusinessAsNames = legalEntityCreateRequest.doingBusinessAsNames
-                this.legalStructure = legalEntityCreateRequest.legalStructure
-                this.phoneNumbers = legalEntityCreateRequest.phoneNumbers
-                this.email = legalEntityCreateRequest.email
-                this.website = legalEntityCreateRequest.website
-                this.metadata = legalEntityCreateRequest.metadata
-                this.bankSettings = legalEntityCreateRequest.bankSettings
-                this.wealthAndEmploymentDetails =
-                    legalEntityCreateRequest.wealthAndEmploymentDetails
-                this.addresses = legalEntityCreateRequest.addresses
-                this.identifications = legalEntityCreateRequest.identifications
-                this.legalEntityAssociations = legalEntityCreateRequest.legalEntityAssociations
-                additionalProperties(legalEntityCreateRequest.additionalProperties)
+                legalEntityType = legalEntityCreateRequest.legalEntityType
+                riskRating = legalEntityCreateRequest.riskRating
+                prefix = legalEntityCreateRequest.prefix
+                firstName = legalEntityCreateRequest.firstName
+                middleName = legalEntityCreateRequest.middleName
+                lastName = legalEntityCreateRequest.lastName
+                suffix = legalEntityCreateRequest.suffix
+                preferredName = legalEntityCreateRequest.preferredName
+                citizenshipCountry = legalEntityCreateRequest.citizenshipCountry
+                politicallyExposedPerson = legalEntityCreateRequest.politicallyExposedPerson
+                dateOfBirth = legalEntityCreateRequest.dateOfBirth
+                dateFormed = legalEntityCreateRequest.dateFormed
+                businessName = legalEntityCreateRequest.businessName
+                doingBusinessAsNames =
+                    legalEntityCreateRequest.doingBusinessAsNames?.toMutableList()
+                legalStructure = legalEntityCreateRequest.legalStructure
+                phoneNumbers = legalEntityCreateRequest.phoneNumbers?.toMutableList()
+                email = legalEntityCreateRequest.email
+                website = legalEntityCreateRequest.website
+                metadata = legalEntityCreateRequest.metadata
+                bankSettings = legalEntityCreateRequest.bankSettings
+                wealthAndEmploymentDetails = legalEntityCreateRequest.wealthAndEmploymentDetails
+                addresses = legalEntityCreateRequest.addresses?.toMutableList()
+                identifications = legalEntityCreateRequest.identifications?.toMutableList()
+                legalEntityAssociations =
+                    legalEntityCreateRequest.legalEntityAssociations?.toMutableList()
+                additionalProperties = legalEntityCreateRequest.additionalProperties.toMutableMap()
             }
 
             /** The type of legal entity. */
@@ -2587,124 +2666,130 @@ constructor(
 
             /** The risk rating of the legal entity. One of low, medium, high. */
             @JsonProperty("risk_rating")
-            fun riskRating(riskRating: RiskRating) = apply { this.riskRating = riskRating }
+            fun riskRating(riskRating: RiskRating?) = apply { this.riskRating = riskRating }
 
             /** An individual's prefix. */
-            @JsonProperty("prefix") fun prefix(prefix: String) = apply { this.prefix = prefix }
+            @JsonProperty("prefix") fun prefix(prefix: String?) = apply { this.prefix = prefix }
 
             /** An individual's first name. */
             @JsonProperty("first_name")
-            fun firstName(firstName: String) = apply { this.firstName = firstName }
+            fun firstName(firstName: String?) = apply { this.firstName = firstName }
 
             /** An individual's middle name. */
             @JsonProperty("middle_name")
-            fun middleName(middleName: String) = apply { this.middleName = middleName }
+            fun middleName(middleName: String?) = apply { this.middleName = middleName }
 
             /** An individual's last name. */
             @JsonProperty("last_name")
-            fun lastName(lastName: String) = apply { this.lastName = lastName }
+            fun lastName(lastName: String?) = apply { this.lastName = lastName }
 
             /** An individual's suffix. */
-            @JsonProperty("suffix") fun suffix(suffix: String) = apply { this.suffix = suffix }
+            @JsonProperty("suffix") fun suffix(suffix: String?) = apply { this.suffix = suffix }
 
             /** An individual's preferred name. */
             @JsonProperty("preferred_name")
-            fun preferredName(preferredName: String) = apply { this.preferredName = preferredName }
+            fun preferredName(preferredName: String?) = apply { this.preferredName = preferredName }
 
             /** The country of citizenship for an individual. */
             @JsonProperty("citizenship_country")
-            fun citizenshipCountry(citizenshipCountry: String) = apply {
+            fun citizenshipCountry(citizenshipCountry: String?) = apply {
                 this.citizenshipCountry = citizenshipCountry
             }
 
             /** Whether the individual is a politically exposed person. */
             @JsonProperty("politically_exposed_person")
-            fun politicallyExposedPerson(politicallyExposedPerson: Boolean) = apply {
+            fun politicallyExposedPerson(politicallyExposedPerson: Boolean?) = apply {
                 this.politicallyExposedPerson = politicallyExposedPerson
             }
 
             /** An individual's date of birth (YYYY-MM-DD). */
             @JsonProperty("date_of_birth")
-            fun dateOfBirth(dateOfBirth: LocalDate) = apply { this.dateOfBirth = dateOfBirth }
+            fun dateOfBirth(dateOfBirth: LocalDate?) = apply { this.dateOfBirth = dateOfBirth }
 
             /** A business's formation date (YYYY-MM-DD). */
             @JsonProperty("date_formed")
-            fun dateFormed(dateFormed: LocalDate) = apply { this.dateFormed = dateFormed }
+            fun dateFormed(dateFormed: LocalDate?) = apply { this.dateFormed = dateFormed }
 
             /** The business's legal business name. */
             @JsonProperty("business_name")
-            fun businessName(businessName: String) = apply { this.businessName = businessName }
+            fun businessName(businessName: String?) = apply { this.businessName = businessName }
 
             @JsonProperty("doing_business_as_names")
-            fun doingBusinessAsNames(doingBusinessAsNames: List<String>) = apply {
+            fun doingBusinessAsNames(doingBusinessAsNames: List<String>?) = apply {
                 this.doingBusinessAsNames = doingBusinessAsNames
             }
 
             /** The business's legal structure. */
             @JsonProperty("legal_structure")
-            fun legalStructure(legalStructure: LegalStructure) = apply {
+            fun legalStructure(legalStructure: LegalStructure?) = apply {
                 this.legalStructure = legalStructure
             }
 
             @JsonProperty("phone_numbers")
-            fun phoneNumbers(phoneNumbers: List<PhoneNumber>) = apply {
+            fun phoneNumbers(phoneNumbers: List<PhoneNumber>?) = apply {
                 this.phoneNumbers = phoneNumbers
             }
 
             /** The entity's primary email. */
-            @JsonProperty("email") fun email(email: String) = apply { this.email = email }
+            @JsonProperty("email") fun email(email: String?) = apply { this.email = email }
 
             /** The entity's primary website URL. */
-            @JsonProperty("website") fun website(website: String) = apply { this.website = website }
+            @JsonProperty("website")
+            fun website(website: String?) = apply { this.website = website }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
             @JsonProperty("metadata")
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             @JsonProperty("bank_settings")
-            fun bankSettings(bankSettings: BankSettings) = apply {
+            fun bankSettings(bankSettings: BankSettings?) = apply {
                 this.bankSettings = bankSettings
             }
 
             @JsonProperty("wealth_and_employment_details")
-            fun wealthAndEmploymentDetails(wealthAndEmploymentDetails: WealthAndEmploymentDetails) =
-                apply {
-                    this.wealthAndEmploymentDetails = wealthAndEmploymentDetails
-                }
+            fun wealthAndEmploymentDetails(
+                wealthAndEmploymentDetails: WealthAndEmploymentDetails?
+            ) = apply { this.wealthAndEmploymentDetails = wealthAndEmploymentDetails }
 
             /** A list of addresses for the entity. */
             @JsonProperty("addresses")
-            fun addresses(addresses: List<LegalEntityAddressCreateRequest>) = apply {
+            fun addresses(addresses: List<LegalEntityAddressCreateRequest>?) = apply {
                 this.addresses = addresses
             }
 
             /** A list of identifications for the legal entity. */
             @JsonProperty("identifications")
-            fun identifications(identifications: List<IdentificationCreateRequest>) = apply {
+            fun identifications(identifications: List<IdentificationCreateRequest>?) = apply {
                 this.identifications = identifications
             }
 
             /** The legal entity associations and its child legal entities. */
             @JsonProperty("legal_entity_associations")
             fun legalEntityAssociations(
-                legalEntityAssociations: List<LegalEntityAssociationInlineCreateRequest>
+                legalEntityAssociations: List<LegalEntityAssociationInlineCreateRequest>?
             ) = apply { this.legalEntityAssociations = legalEntityAssociations }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): LegalEntityCreateRequest =
@@ -2855,55 +2940,64 @@ constructor(
                 internal fun from(
                     legalEntityAddressCreateRequest: LegalEntityAddressCreateRequest
                 ) = apply {
-                    this.addressTypes = legalEntityAddressCreateRequest.addressTypes
-                    this.line1 = legalEntityAddressCreateRequest.line1
-                    this.line2 = legalEntityAddressCreateRequest.line2
-                    this.locality = legalEntityAddressCreateRequest.locality
-                    this.region = legalEntityAddressCreateRequest.region
-                    this.postalCode = legalEntityAddressCreateRequest.postalCode
-                    this.country = legalEntityAddressCreateRequest.country
-                    additionalProperties(legalEntityAddressCreateRequest.additionalProperties)
+                    addressTypes = legalEntityAddressCreateRequest.addressTypes?.toMutableList()
+                    line1 = legalEntityAddressCreateRequest.line1
+                    line2 = legalEntityAddressCreateRequest.line2
+                    locality = legalEntityAddressCreateRequest.locality
+                    region = legalEntityAddressCreateRequest.region
+                    postalCode = legalEntityAddressCreateRequest.postalCode
+                    country = legalEntityAddressCreateRequest.country
+                    additionalProperties =
+                        legalEntityAddressCreateRequest.additionalProperties.toMutableMap()
                 }
 
                 /** The types of this address. */
                 @JsonProperty("address_types")
-                fun addressTypes(addressTypes: List<AddressType>) = apply {
+                fun addressTypes(addressTypes: List<AddressType>?) = apply {
                     this.addressTypes = addressTypes
                 }
 
-                @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
+                @JsonProperty("line1") fun line1(line1: String?) = apply { this.line1 = line1 }
 
-                @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
+                @JsonProperty("line2") fun line2(line2: String?) = apply { this.line2 = line2 }
 
                 /** Locality or City. */
                 @JsonProperty("locality")
-                fun locality(locality: String) = apply { this.locality = locality }
+                fun locality(locality: String?) = apply { this.locality = locality }
 
                 /** Region or State. */
-                @JsonProperty("region") fun region(region: String) = apply { this.region = region }
+                @JsonProperty("region") fun region(region: String?) = apply { this.region = region }
 
                 /** The postal code of the address. */
                 @JsonProperty("postal_code")
-                fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
+                fun postalCode(postalCode: String?) = apply { this.postalCode = postalCode }
 
                 /** Country code conforms to [ISO 3166-1 alpha-2] */
                 @JsonProperty("country")
-                fun country(country: String) = apply { this.country = country }
+                fun country(country: String?) = apply { this.country = country }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): LegalEntityAddressCreateRequest =
                     LegalEntityAddressCreateRequest(
@@ -3016,17 +3110,17 @@ constructor(
         @NoAutoDetect
         class IdentificationCreateRequest
         private constructor(
-            private val idNumber: String?,
-            private val idType: IdType?,
+            private val idNumber: String,
+            private val idType: IdType,
             private val issuingCountry: String?,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
             /** The ID number of identification document. */
-            @JsonProperty("id_number") fun idNumber(): String? = idNumber
+            @JsonProperty("id_number") fun idNumber(): String = idNumber
 
             /** The type of ID number. */
-            @JsonProperty("id_type") fun idType(): IdType? = idType
+            @JsonProperty("id_type") fun idType(): IdType = idType
 
             /** The ISO 3166-1 alpha-2 country code of the country that issued the identification */
             @JsonProperty("issuing_country") fun issuingCountry(): String? = issuingCountry
@@ -3051,10 +3145,11 @@ constructor(
 
                 internal fun from(identificationCreateRequest: IdentificationCreateRequest) =
                     apply {
-                        this.idNumber = identificationCreateRequest.idNumber
-                        this.idType = identificationCreateRequest.idType
-                        this.issuingCountry = identificationCreateRequest.issuingCountry
-                        additionalProperties(identificationCreateRequest.additionalProperties)
+                        idNumber = identificationCreateRequest.idNumber
+                        idType = identificationCreateRequest.idType
+                        issuingCountry = identificationCreateRequest.issuingCountry
+                        additionalProperties =
+                            identificationCreateRequest.additionalProperties.toMutableMap()
                     }
 
                 /** The ID number of identification document. */
@@ -3068,24 +3163,32 @@ constructor(
                  * The ISO 3166-1 alpha-2 country code of the country that issued the identification
                  */
                 @JsonProperty("issuing_country")
-                fun issuingCountry(issuingCountry: String) = apply {
+                fun issuingCountry(issuingCountry: String?) = apply {
                     this.issuingCountry = issuingCountry
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): IdentificationCreateRequest =
                     IdentificationCreateRequest(
@@ -3289,7 +3392,7 @@ constructor(
         @NoAutoDetect
         class LegalEntityAssociationInlineCreateRequest
         private constructor(
-            private val relationshipTypes: List<RelationshipType>?,
+            private val relationshipTypes: List<RelationshipType>,
             private val title: String?,
             private val ownershipPercentage: Long?,
             private val childLegalEntity: ChildLegalEntityCreate?,
@@ -3298,7 +3401,7 @@ constructor(
         ) {
 
             @JsonProperty("relationship_types")
-            fun relationshipTypes(): List<RelationshipType>? = relationshipTypes
+            fun relationshipTypes(): List<RelationshipType> = relationshipTypes
 
             /** The job title of the child entity at the parent entity. */
             @JsonProperty("title") fun title(): String? = title
@@ -3339,18 +3442,17 @@ constructor(
                     legalEntityAssociationInlineCreateRequest:
                         LegalEntityAssociationInlineCreateRequest
                 ) = apply {
-                    this.relationshipTypes =
-                        legalEntityAssociationInlineCreateRequest.relationshipTypes
-                    this.title = legalEntityAssociationInlineCreateRequest.title
-                    this.ownershipPercentage =
+                    relationshipTypes =
+                        legalEntityAssociationInlineCreateRequest.relationshipTypes.toMutableList()
+                    title = legalEntityAssociationInlineCreateRequest.title
+                    ownershipPercentage =
                         legalEntityAssociationInlineCreateRequest.ownershipPercentage
-                    this.childLegalEntity =
-                        legalEntityAssociationInlineCreateRequest.childLegalEntity
-                    this.childLegalEntityId =
+                    childLegalEntity = legalEntityAssociationInlineCreateRequest.childLegalEntity
+                    childLegalEntityId =
                         legalEntityAssociationInlineCreateRequest.childLegalEntityId
-                    additionalProperties(
+                    additionalProperties =
                         legalEntityAssociationInlineCreateRequest.additionalProperties
-                    )
+                            .toMutableMap()
                 }
 
                 @JsonProperty("relationship_types")
@@ -3359,40 +3461,48 @@ constructor(
                 }
 
                 /** The job title of the child entity at the parent entity. */
-                @JsonProperty("title") fun title(title: String) = apply { this.title = title }
+                @JsonProperty("title") fun title(title: String?) = apply { this.title = title }
 
                 /** The child entity's ownership percentage iff they are a beneficial owner. */
                 @JsonProperty("ownership_percentage")
-                fun ownershipPercentage(ownershipPercentage: Long) = apply {
+                fun ownershipPercentage(ownershipPercentage: Long?) = apply {
                     this.ownershipPercentage = ownershipPercentage
                 }
 
                 /** The child legal entity. */
                 @JsonProperty("child_legal_entity")
-                fun childLegalEntity(childLegalEntity: ChildLegalEntityCreate) = apply {
+                fun childLegalEntity(childLegalEntity: ChildLegalEntityCreate?) = apply {
                     this.childLegalEntity = childLegalEntity
                 }
 
                 /** The ID of the child legal entity. */
                 @JsonProperty("child_legal_entity_id")
-                fun childLegalEntityId(childLegalEntityId: String) = apply {
+                fun childLegalEntityId(childLegalEntityId: String?) = apply {
                     this.childLegalEntityId = childLegalEntityId
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): LegalEntityAssociationInlineCreateRequest =
                     LegalEntityAssociationInlineCreateRequest(
@@ -3615,165 +3725,174 @@ constructor(
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(childLegalEntityCreate: ChildLegalEntityCreate) = apply {
-                        this.legalEntityType = childLegalEntityCreate.legalEntityType
-                        this.riskRating = childLegalEntityCreate.riskRating
-                        this.prefix = childLegalEntityCreate.prefix
-                        this.firstName = childLegalEntityCreate.firstName
-                        this.middleName = childLegalEntityCreate.middleName
-                        this.lastName = childLegalEntityCreate.lastName
-                        this.suffix = childLegalEntityCreate.suffix
-                        this.preferredName = childLegalEntityCreate.preferredName
-                        this.citizenshipCountry = childLegalEntityCreate.citizenshipCountry
-                        this.politicallyExposedPerson =
-                            childLegalEntityCreate.politicallyExposedPerson
-                        this.dateOfBirth = childLegalEntityCreate.dateOfBirth
-                        this.dateFormed = childLegalEntityCreate.dateFormed
-                        this.businessName = childLegalEntityCreate.businessName
-                        this.doingBusinessAsNames = childLegalEntityCreate.doingBusinessAsNames
-                        this.legalStructure = childLegalEntityCreate.legalStructure
-                        this.phoneNumbers = childLegalEntityCreate.phoneNumbers
-                        this.email = childLegalEntityCreate.email
-                        this.website = childLegalEntityCreate.website
-                        this.metadata = childLegalEntityCreate.metadata
-                        this.bankSettings = childLegalEntityCreate.bankSettings
-                        this.wealthAndEmploymentDetails =
+                        legalEntityType = childLegalEntityCreate.legalEntityType
+                        riskRating = childLegalEntityCreate.riskRating
+                        prefix = childLegalEntityCreate.prefix
+                        firstName = childLegalEntityCreate.firstName
+                        middleName = childLegalEntityCreate.middleName
+                        lastName = childLegalEntityCreate.lastName
+                        suffix = childLegalEntityCreate.suffix
+                        preferredName = childLegalEntityCreate.preferredName
+                        citizenshipCountry = childLegalEntityCreate.citizenshipCountry
+                        politicallyExposedPerson = childLegalEntityCreate.politicallyExposedPerson
+                        dateOfBirth = childLegalEntityCreate.dateOfBirth
+                        dateFormed = childLegalEntityCreate.dateFormed
+                        businessName = childLegalEntityCreate.businessName
+                        doingBusinessAsNames =
+                            childLegalEntityCreate.doingBusinessAsNames?.toMutableList()
+                        legalStructure = childLegalEntityCreate.legalStructure
+                        phoneNumbers = childLegalEntityCreate.phoneNumbers?.toMutableList()
+                        email = childLegalEntityCreate.email
+                        website = childLegalEntityCreate.website
+                        metadata = childLegalEntityCreate.metadata
+                        bankSettings = childLegalEntityCreate.bankSettings
+                        wealthAndEmploymentDetails =
                             childLegalEntityCreate.wealthAndEmploymentDetails
-                        this.addresses = childLegalEntityCreate.addresses
-                        this.identifications = childLegalEntityCreate.identifications
-                        additionalProperties(childLegalEntityCreate.additionalProperties)
+                        addresses = childLegalEntityCreate.addresses?.toMutableList()
+                        identifications = childLegalEntityCreate.identifications?.toMutableList()
+                        additionalProperties =
+                            childLegalEntityCreate.additionalProperties.toMutableMap()
                     }
 
                     /** The type of legal entity. */
                     @JsonProperty("legal_entity_type")
-                    fun legalEntityType(legalEntityType: LegalEntityType) = apply {
+                    fun legalEntityType(legalEntityType: LegalEntityType?) = apply {
                         this.legalEntityType = legalEntityType
                     }
 
                     /** The risk rating of the legal entity. One of low, medium, high. */
                     @JsonProperty("risk_rating")
-                    fun riskRating(riskRating: RiskRating) = apply { this.riskRating = riskRating }
+                    fun riskRating(riskRating: RiskRating?) = apply { this.riskRating = riskRating }
 
                     /** An individual's prefix. */
                     @JsonProperty("prefix")
-                    fun prefix(prefix: String) = apply { this.prefix = prefix }
+                    fun prefix(prefix: String?) = apply { this.prefix = prefix }
 
                     /** An individual's first name. */
                     @JsonProperty("first_name")
-                    fun firstName(firstName: String) = apply { this.firstName = firstName }
+                    fun firstName(firstName: String?) = apply { this.firstName = firstName }
 
                     /** An individual's middle name. */
                     @JsonProperty("middle_name")
-                    fun middleName(middleName: String) = apply { this.middleName = middleName }
+                    fun middleName(middleName: String?) = apply { this.middleName = middleName }
 
                     /** An individual's last name. */
                     @JsonProperty("last_name")
-                    fun lastName(lastName: String) = apply { this.lastName = lastName }
+                    fun lastName(lastName: String?) = apply { this.lastName = lastName }
 
                     /** An individual's suffix. */
                     @JsonProperty("suffix")
-                    fun suffix(suffix: String) = apply { this.suffix = suffix }
+                    fun suffix(suffix: String?) = apply { this.suffix = suffix }
 
                     /** An individual's preferred name. */
                     @JsonProperty("preferred_name")
-                    fun preferredName(preferredName: String) = apply {
+                    fun preferredName(preferredName: String?) = apply {
                         this.preferredName = preferredName
                     }
 
                     /** The country of citizenship for an individual. */
                     @JsonProperty("citizenship_country")
-                    fun citizenshipCountry(citizenshipCountry: String) = apply {
+                    fun citizenshipCountry(citizenshipCountry: String?) = apply {
                         this.citizenshipCountry = citizenshipCountry
                     }
 
                     /** Whether the individual is a politically exposed person. */
                     @JsonProperty("politically_exposed_person")
-                    fun politicallyExposedPerson(politicallyExposedPerson: Boolean) = apply {
+                    fun politicallyExposedPerson(politicallyExposedPerson: Boolean?) = apply {
                         this.politicallyExposedPerson = politicallyExposedPerson
                     }
 
                     /** An individual's date of birth (YYYY-MM-DD). */
                     @JsonProperty("date_of_birth")
-                    fun dateOfBirth(dateOfBirth: LocalDate) = apply {
+                    fun dateOfBirth(dateOfBirth: LocalDate?) = apply {
                         this.dateOfBirth = dateOfBirth
                     }
 
                     /** A business's formation date (YYYY-MM-DD). */
                     @JsonProperty("date_formed")
-                    fun dateFormed(dateFormed: LocalDate) = apply { this.dateFormed = dateFormed }
+                    fun dateFormed(dateFormed: LocalDate?) = apply { this.dateFormed = dateFormed }
 
                     /** The business's legal business name. */
                     @JsonProperty("business_name")
-                    fun businessName(businessName: String) = apply {
+                    fun businessName(businessName: String?) = apply {
                         this.businessName = businessName
                     }
 
                     @JsonProperty("doing_business_as_names")
-                    fun doingBusinessAsNames(doingBusinessAsNames: List<String>) = apply {
+                    fun doingBusinessAsNames(doingBusinessAsNames: List<String>?) = apply {
                         this.doingBusinessAsNames = doingBusinessAsNames
                     }
 
                     /** The business's legal structure. */
                     @JsonProperty("legal_structure")
-                    fun legalStructure(legalStructure: LegalStructure) = apply {
+                    fun legalStructure(legalStructure: LegalStructure?) = apply {
                         this.legalStructure = legalStructure
                     }
 
                     @JsonProperty("phone_numbers")
-                    fun phoneNumbers(phoneNumbers: List<PhoneNumber>) = apply {
+                    fun phoneNumbers(phoneNumbers: List<PhoneNumber>?) = apply {
                         this.phoneNumbers = phoneNumbers
                     }
 
                     /** The entity's primary email. */
-                    @JsonProperty("email") fun email(email: String) = apply { this.email = email }
+                    @JsonProperty("email") fun email(email: String?) = apply { this.email = email }
 
                     /** The entity's primary website URL. */
                     @JsonProperty("website")
-                    fun website(website: String) = apply { this.website = website }
+                    fun website(website: String?) = apply { this.website = website }
 
                     /**
                      * Additional data represented as key-value pairs. Both the key and value must
                      * be strings.
                      */
                     @JsonProperty("metadata")
-                    fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+                    fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
                     @JsonProperty("bank_settings")
-                    fun bankSettings(bankSettings: BankSettings) = apply {
+                    fun bankSettings(bankSettings: BankSettings?) = apply {
                         this.bankSettings = bankSettings
                     }
 
                     @JsonProperty("wealth_and_employment_details")
                     fun wealthAndEmploymentDetails(
-                        wealthAndEmploymentDetails: WealthAndEmploymentDetails
+                        wealthAndEmploymentDetails: WealthAndEmploymentDetails?
                     ) = apply { this.wealthAndEmploymentDetails = wealthAndEmploymentDetails }
 
                     /** A list of addresses for the entity. */
                     @JsonProperty("addresses")
-                    fun addresses(addresses: List<LegalEntityAddressCreateRequest>) = apply {
+                    fun addresses(addresses: List<LegalEntityAddressCreateRequest>?) = apply {
                         this.addresses = addresses
                     }
 
                     /** A list of identifications for the legal entity. */
                     @JsonProperty("identifications")
-                    fun identifications(identifications: List<IdentificationCreateRequest>) =
+                    fun identifications(identifications: List<IdentificationCreateRequest>?) =
                         apply {
                             this.identifications = identifications
                         }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        this.additionalProperties.putAll(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     @JsonAnySetter
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        this.additionalProperties.put(key, value)
+                        additionalProperties.put(key, value)
                     }
 
                     fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
 
                     fun build(): ChildLegalEntityCreate =
                         ChildLegalEntityCreate(
@@ -3864,60 +3983,68 @@ constructor(
                         internal fun from(
                             legalEntityAddressCreateRequest: LegalEntityAddressCreateRequest
                         ) = apply {
-                            this.addressTypes = legalEntityAddressCreateRequest.addressTypes
-                            this.line1 = legalEntityAddressCreateRequest.line1
-                            this.line2 = legalEntityAddressCreateRequest.line2
-                            this.locality = legalEntityAddressCreateRequest.locality
-                            this.region = legalEntityAddressCreateRequest.region
-                            this.postalCode = legalEntityAddressCreateRequest.postalCode
-                            this.country = legalEntityAddressCreateRequest.country
-                            additionalProperties(
-                                legalEntityAddressCreateRequest.additionalProperties
-                            )
+                            addressTypes =
+                                legalEntityAddressCreateRequest.addressTypes?.toMutableList()
+                            line1 = legalEntityAddressCreateRequest.line1
+                            line2 = legalEntityAddressCreateRequest.line2
+                            locality = legalEntityAddressCreateRequest.locality
+                            region = legalEntityAddressCreateRequest.region
+                            postalCode = legalEntityAddressCreateRequest.postalCode
+                            country = legalEntityAddressCreateRequest.country
+                            additionalProperties =
+                                legalEntityAddressCreateRequest.additionalProperties.toMutableMap()
                         }
 
                         /** The types of this address. */
                         @JsonProperty("address_types")
-                        fun addressTypes(addressTypes: List<AddressType>) = apply {
+                        fun addressTypes(addressTypes: List<AddressType>?) = apply {
                             this.addressTypes = addressTypes
                         }
 
                         @JsonProperty("line1")
-                        fun line1(line1: String) = apply { this.line1 = line1 }
+                        fun line1(line1: String?) = apply { this.line1 = line1 }
 
                         @JsonProperty("line2")
-                        fun line2(line2: String) = apply { this.line2 = line2 }
+                        fun line2(line2: String?) = apply { this.line2 = line2 }
 
                         /** Locality or City. */
                         @JsonProperty("locality")
-                        fun locality(locality: String) = apply { this.locality = locality }
+                        fun locality(locality: String?) = apply { this.locality = locality }
 
                         /** Region or State. */
                         @JsonProperty("region")
-                        fun region(region: String) = apply { this.region = region }
+                        fun region(region: String?) = apply { this.region = region }
 
                         /** The postal code of the address. */
                         @JsonProperty("postal_code")
-                        fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
+                        fun postalCode(postalCode: String?) = apply { this.postalCode = postalCode }
 
                         /** Country code conforms to [ISO 3166-1 alpha-2] */
                         @JsonProperty("country")
-                        fun country(country: String) = apply { this.country = country }
+                        fun country(country: String?) = apply { this.country = country }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
-                                this.additionalProperties.putAll(additionalProperties)
+                                putAllAdditionalProperties(additionalProperties)
                             }
 
                         @JsonAnySetter
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            this.additionalProperties.put(key, value)
+                            additionalProperties.put(key, value)
                         }
 
                         fun putAllAdditionalProperties(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
 
                         fun build(): LegalEntityAddressCreateRequest =
                             LegalEntityAddressCreateRequest(
@@ -4033,17 +4160,17 @@ constructor(
                 @NoAutoDetect
                 class IdentificationCreateRequest
                 private constructor(
-                    private val idNumber: String?,
-                    private val idType: IdType?,
+                    private val idNumber: String,
+                    private val idType: IdType,
                     private val issuingCountry: String?,
                     private val additionalProperties: Map<String, JsonValue>,
                 ) {
 
                     /** The ID number of identification document. */
-                    @JsonProperty("id_number") fun idNumber(): String? = idNumber
+                    @JsonProperty("id_number") fun idNumber(): String = idNumber
 
                     /** The type of ID number. */
-                    @JsonProperty("id_type") fun idType(): IdType? = idType
+                    @JsonProperty("id_type") fun idType(): IdType = idType
 
                     /**
                      * The ISO 3166-1 alpha-2 country code of the country that issued the
@@ -4073,10 +4200,11 @@ constructor(
                         internal fun from(
                             identificationCreateRequest: IdentificationCreateRequest
                         ) = apply {
-                            this.idNumber = identificationCreateRequest.idNumber
-                            this.idType = identificationCreateRequest.idType
-                            this.issuingCountry = identificationCreateRequest.issuingCountry
-                            additionalProperties(identificationCreateRequest.additionalProperties)
+                            idNumber = identificationCreateRequest.idNumber
+                            idType = identificationCreateRequest.idType
+                            issuingCountry = identificationCreateRequest.issuingCountry
+                            additionalProperties =
+                                identificationCreateRequest.additionalProperties.toMutableMap()
                         }
 
                         /** The ID number of identification document. */
@@ -4092,24 +4220,32 @@ constructor(
                          * identification
                          */
                         @JsonProperty("issuing_country")
-                        fun issuingCountry(issuingCountry: String) = apply {
+                        fun issuingCountry(issuingCountry: String?) = apply {
                             this.issuingCountry = issuingCountry
                         }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
-                                this.additionalProperties.putAll(additionalProperties)
+                                putAllAdditionalProperties(additionalProperties)
                             }
 
                         @JsonAnySetter
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            this.additionalProperties.put(key, value)
+                            additionalProperties.put(key, value)
                         }
 
                         fun putAllAdditionalProperties(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
 
                         fun build(): IdentificationCreateRequest =
                             IdentificationCreateRequest(
@@ -4487,23 +4623,31 @@ constructor(
                             mutableMapOf()
 
                         internal fun from(metadata: Metadata) = apply {
-                            additionalProperties(metadata.additionalProperties)
+                            additionalProperties = metadata.additionalProperties.toMutableMap()
                         }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
-                                this.additionalProperties.putAll(additionalProperties)
+                                putAllAdditionalProperties(additionalProperties)
                             }
 
                         @JsonAnySetter
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            this.additionalProperties.put(key, value)
+                            additionalProperties.put(key, value)
                         }
 
                         fun putAllAdditionalProperties(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
 
                         fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                     }
@@ -4555,28 +4699,36 @@ constructor(
 
                         internal fun from(phoneNumber: PhoneNumber) = apply {
                             this.phoneNumber = phoneNumber.phoneNumber
-                            additionalProperties(phoneNumber.additionalProperties)
+                            additionalProperties = phoneNumber.additionalProperties.toMutableMap()
                         }
 
                         @JsonProperty("phone_number")
-                        fun phoneNumber(phoneNumber: String) = apply {
+                        fun phoneNumber(phoneNumber: String?) = apply {
                             this.phoneNumber = phoneNumber
                         }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
-                                this.additionalProperties.putAll(additionalProperties)
+                                putAllAdditionalProperties(additionalProperties)
                             }
 
                         @JsonAnySetter
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            this.additionalProperties.put(key, value)
+                            additionalProperties.put(key, value)
                         }
 
                         fun putAllAdditionalProperties(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
 
                         fun build(): PhoneNumber =
                             PhoneNumber(phoneNumber, additionalProperties.toImmutable())
@@ -4811,23 +4963,31 @@ constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(metadata: Metadata) = apply {
-                    additionalProperties(metadata.additionalProperties)
+                    additionalProperties = metadata.additionalProperties.toMutableMap()
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): Metadata = Metadata(additionalProperties.toImmutable())
             }
@@ -4878,26 +5038,34 @@ constructor(
 
                 internal fun from(phoneNumber: PhoneNumber) = apply {
                     this.phoneNumber = phoneNumber.phoneNumber
-                    additionalProperties(phoneNumber.additionalProperties)
+                    additionalProperties = phoneNumber.additionalProperties.toMutableMap()
                 }
 
                 @JsonProperty("phone_number")
-                fun phoneNumber(phoneNumber: String) = apply { this.phoneNumber = phoneNumber }
+                fun phoneNumber(phoneNumber: String?) = apply { this.phoneNumber = phoneNumber }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): PhoneNumber =
                     PhoneNumber(phoneNumber, additionalProperties.toImmutable())
@@ -5026,21 +5194,27 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
+                additionalProperties = metadata.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())

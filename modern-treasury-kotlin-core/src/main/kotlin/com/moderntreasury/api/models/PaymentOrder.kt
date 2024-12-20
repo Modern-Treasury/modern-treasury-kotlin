@@ -85,8 +85,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -618,6 +616,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): PaymentOrder = apply {
         if (!validated) {
             id()
@@ -737,58 +737,57 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(paymentOrder: PaymentOrder) = apply {
-            this.id = paymentOrder.id
-            this.object_ = paymentOrder.object_
-            this.liveMode = paymentOrder.liveMode
-            this.createdAt = paymentOrder.createdAt
-            this.updatedAt = paymentOrder.updatedAt
-            this.type = paymentOrder.type
-            this.subtype = paymentOrder.subtype
-            this.amount = paymentOrder.amount
-            this.direction = paymentOrder.direction
-            this.priority = paymentOrder.priority
-            this.originatingAccountId = paymentOrder.originatingAccountId
-            this.receivingAccountId = paymentOrder.receivingAccountId
-            this.accounting = paymentOrder.accounting
-            this.accountingCategoryId = paymentOrder.accountingCategoryId
-            this.accountingLedgerClassId = paymentOrder.accountingLedgerClassId
-            this.currency = paymentOrder.currency
-            this.effectiveDate = paymentOrder.effectiveDate
-            this.description = paymentOrder.description
-            this.statementDescriptor = paymentOrder.statementDescriptor
-            this.remittanceInformation = paymentOrder.remittanceInformation
-            this.processAfter = paymentOrder.processAfter
-            this.purpose = paymentOrder.purpose
-            this.metadata = paymentOrder.metadata
-            this.chargeBearer = paymentOrder.chargeBearer
-            this.foreignExchangeIndicator = paymentOrder.foreignExchangeIndicator
-            this.foreignExchangeContract = paymentOrder.foreignExchangeContract
-            this.nsfProtected = paymentOrder.nsfProtected
-            this.originatingPartyName = paymentOrder.originatingPartyName
-            this.ultimateOriginatingPartyName = paymentOrder.ultimateOriginatingPartyName
-            this.ultimateOriginatingPartyIdentifier =
-                paymentOrder.ultimateOriginatingPartyIdentifier
-            this.ultimateReceivingPartyName = paymentOrder.ultimateReceivingPartyName
-            this.ultimateReceivingPartyIdentifier = paymentOrder.ultimateReceivingPartyIdentifier
-            this.sendRemittanceAdvice = paymentOrder.sendRemittanceAdvice
-            this.expiresAt = paymentOrder.expiresAt
-            this.status = paymentOrder.status
-            this.receivingAccountType = paymentOrder.receivingAccountType
-            this.ultimateOriginatingAccount = paymentOrder.ultimateOriginatingAccount
-            this.ultimateOriginatingAccountId = paymentOrder.ultimateOriginatingAccountId
-            this.ultimateOriginatingAccountType = paymentOrder.ultimateOriginatingAccountType
-            this.counterpartyId = paymentOrder.counterpartyId
-            this.transactionIds = paymentOrder.transactionIds
-            this.ledgerTransactionId = paymentOrder.ledgerTransactionId
-            this.currentReturn = paymentOrder.currentReturn
-            this.transactionMonitoringEnabled = paymentOrder.transactionMonitoringEnabled
-            this.complianceRuleMetadata = paymentOrder.complianceRuleMetadata
-            this.referenceNumbers = paymentOrder.referenceNumbers
-            this.vendorFailureReason = paymentOrder.vendorFailureReason
-            this.decisionId = paymentOrder.decisionId
-            this.foreignExchangeRate = paymentOrder.foreignExchangeRate
-            this.vendorAttributes = paymentOrder.vendorAttributes
-            additionalProperties(paymentOrder.additionalProperties)
+            id = paymentOrder.id
+            object_ = paymentOrder.object_
+            liveMode = paymentOrder.liveMode
+            createdAt = paymentOrder.createdAt
+            updatedAt = paymentOrder.updatedAt
+            type = paymentOrder.type
+            subtype = paymentOrder.subtype
+            amount = paymentOrder.amount
+            direction = paymentOrder.direction
+            priority = paymentOrder.priority
+            originatingAccountId = paymentOrder.originatingAccountId
+            receivingAccountId = paymentOrder.receivingAccountId
+            accounting = paymentOrder.accounting
+            accountingCategoryId = paymentOrder.accountingCategoryId
+            accountingLedgerClassId = paymentOrder.accountingLedgerClassId
+            currency = paymentOrder.currency
+            effectiveDate = paymentOrder.effectiveDate
+            description = paymentOrder.description
+            statementDescriptor = paymentOrder.statementDescriptor
+            remittanceInformation = paymentOrder.remittanceInformation
+            processAfter = paymentOrder.processAfter
+            purpose = paymentOrder.purpose
+            metadata = paymentOrder.metadata
+            chargeBearer = paymentOrder.chargeBearer
+            foreignExchangeIndicator = paymentOrder.foreignExchangeIndicator
+            foreignExchangeContract = paymentOrder.foreignExchangeContract
+            nsfProtected = paymentOrder.nsfProtected
+            originatingPartyName = paymentOrder.originatingPartyName
+            ultimateOriginatingPartyName = paymentOrder.ultimateOriginatingPartyName
+            ultimateOriginatingPartyIdentifier = paymentOrder.ultimateOriginatingPartyIdentifier
+            ultimateReceivingPartyName = paymentOrder.ultimateReceivingPartyName
+            ultimateReceivingPartyIdentifier = paymentOrder.ultimateReceivingPartyIdentifier
+            sendRemittanceAdvice = paymentOrder.sendRemittanceAdvice
+            expiresAt = paymentOrder.expiresAt
+            status = paymentOrder.status
+            receivingAccountType = paymentOrder.receivingAccountType
+            ultimateOriginatingAccount = paymentOrder.ultimateOriginatingAccount
+            ultimateOriginatingAccountId = paymentOrder.ultimateOriginatingAccountId
+            ultimateOriginatingAccountType = paymentOrder.ultimateOriginatingAccountType
+            counterpartyId = paymentOrder.counterpartyId
+            transactionIds = paymentOrder.transactionIds
+            ledgerTransactionId = paymentOrder.ledgerTransactionId
+            currentReturn = paymentOrder.currentReturn
+            transactionMonitoringEnabled = paymentOrder.transactionMonitoringEnabled
+            complianceRuleMetadata = paymentOrder.complianceRuleMetadata
+            referenceNumbers = paymentOrder.referenceNumbers
+            vendorFailureReason = paymentOrder.vendorFailureReason
+            decisionId = paymentOrder.decisionId
+            foreignExchangeRate = paymentOrder.foreignExchangeRate
+            vendorAttributes = paymentOrder.vendorAttributes
+            additionalProperties = paymentOrder.additionalProperties.toMutableMap()
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -1465,16 +1464,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): PaymentOrder =
@@ -1542,8 +1547,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /**
          * The ID of one of your accounting categories. Note that these will only be accessible if
          * your accounting system has been connected.
@@ -1574,6 +1577,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): Accounting = apply {
             if (!validated) {
                 accountId()
@@ -1596,9 +1601,9 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(accounting: Accounting) = apply {
-                this.accountId = accounting.accountId
-                this.classId = accounting.classId
-                additionalProperties(accounting.additionalProperties)
+                accountId = accounting.accountId
+                classId = accounting.classId
+                additionalProperties = accounting.additionalProperties.toMutableMap()
             }
 
             /**
@@ -1633,16 +1638,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Accounting =
@@ -1745,11 +1756,11 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): ComplianceRuleMetadata = apply {
             if (!validated) {
@@ -1769,21 +1780,27 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(complianceRuleMetadata: ComplianceRuleMetadata) = apply {
-                additionalProperties(complianceRuleMetadata.additionalProperties)
+                additionalProperties = complianceRuleMetadata.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): ComplianceRuleMetadata =
@@ -1940,8 +1957,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /**
          * Amount in the lowest denomination of the `base_currency` to convert, often called the
          * "sell" amount.
@@ -2012,6 +2027,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): ForeignExchangeRate = apply {
             if (!validated) {
                 baseAmount()
@@ -2044,14 +2061,14 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(foreignExchangeRate: ForeignExchangeRate) = apply {
-                this.baseAmount = foreignExchangeRate.baseAmount
-                this.baseCurrency = foreignExchangeRate.baseCurrency
-                this.exponent = foreignExchangeRate.exponent
-                this.rateString = foreignExchangeRate.rateString
-                this.targetAmount = foreignExchangeRate.targetAmount
-                this.targetCurrency = foreignExchangeRate.targetCurrency
-                this.value = foreignExchangeRate.value
-                additionalProperties(foreignExchangeRate.additionalProperties)
+                baseAmount = foreignExchangeRate.baseAmount
+                baseCurrency = foreignExchangeRate.baseCurrency
+                exponent = foreignExchangeRate.exponent
+                rateString = foreignExchangeRate.rateString
+                targetAmount = foreignExchangeRate.targetAmount
+                targetCurrency = foreignExchangeRate.targetCurrency
+                value = foreignExchangeRate.value
+                additionalProperties = foreignExchangeRate.additionalProperties.toMutableMap()
             }
 
             /**
@@ -2143,16 +2160,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): ForeignExchangeRate =
@@ -2194,11 +2217,11 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
             if (!validated) {
@@ -2218,21 +2241,27 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
+                additionalProperties = metadata.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())
@@ -2384,8 +2413,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         fun id(): String = id.getRequired("id")
 
         fun object_(): String = object_.getRequired("object")
@@ -2433,6 +2460,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): PaymentReference = apply {
             if (!validated) {
                 id()
@@ -2465,14 +2494,14 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(paymentReference: PaymentReference) = apply {
-                this.id = paymentReference.id
-                this.object_ = paymentReference.object_
-                this.liveMode = paymentReference.liveMode
-                this.createdAt = paymentReference.createdAt
-                this.updatedAt = paymentReference.updatedAt
-                this.referenceNumber = paymentReference.referenceNumber
-                this.referenceNumberType = paymentReference.referenceNumberType
-                additionalProperties(paymentReference.additionalProperties)
+                id = paymentReference.id
+                object_ = paymentReference.object_
+                liveMode = paymentReference.liveMode
+                createdAt = paymentReference.createdAt
+                updatedAt = paymentReference.updatedAt
+                referenceNumber = paymentReference.referenceNumber
+                referenceNumberType = paymentReference.referenceNumberType
+                additionalProperties = paymentReference.additionalProperties.toMutableMap()
             }
 
             fun id(id: String) = id(JsonField.of(id))
@@ -2541,16 +2570,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): PaymentReference =

@@ -56,7 +56,7 @@ constructor(
     @NoAutoDetect
     class PaymentFlowUpdateBody
     internal constructor(
-        private val status: Status?,
+        private val status: Status,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -64,7 +64,7 @@ constructor(
          * Required. The updated status of the payment flow. Can only be used to mark a flow as
          * `cancelled`.
          */
-        @JsonProperty("status") fun status(): Status? = status
+        @JsonProperty("status") fun status(): Status = status
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -83,8 +83,8 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(paymentFlowUpdateBody: PaymentFlowUpdateBody) = apply {
-                this.status = paymentFlowUpdateBody.status
-                additionalProperties(paymentFlowUpdateBody.additionalProperties)
+                status = paymentFlowUpdateBody.status
+                additionalProperties = paymentFlowUpdateBody.additionalProperties.toMutableMap()
             }
 
             /**
@@ -95,16 +95,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): PaymentFlowUpdateBody =
