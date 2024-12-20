@@ -43,8 +43,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -153,6 +151,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): WealthAndEmploymentDetails = apply {
         if (!validated) {
             id()
@@ -207,25 +207,25 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(wealthAndEmploymentDetails: WealthAndEmploymentDetails) = apply {
-            this.id = wealthAndEmploymentDetails.id
-            this.object_ = wealthAndEmploymentDetails.object_
-            this.liveMode = wealthAndEmploymentDetails.liveMode
-            this.createdAt = wealthAndEmploymentDetails.createdAt
-            this.updatedAt = wealthAndEmploymentDetails.updatedAt
-            this.discardedAt = wealthAndEmploymentDetails.discardedAt
-            this.employmentStatus = wealthAndEmploymentDetails.employmentStatus
-            this.occupation = wealthAndEmploymentDetails.occupation
-            this.industry = wealthAndEmploymentDetails.industry
-            this.incomeSource = wealthAndEmploymentDetails.incomeSource
-            this.incomeState = wealthAndEmploymentDetails.incomeState
-            this.incomeCountry = wealthAndEmploymentDetails.incomeCountry
-            this.employerName = wealthAndEmploymentDetails.employerName
-            this.employerState = wealthAndEmploymentDetails.employerState
-            this.employerCountry = wealthAndEmploymentDetails.employerCountry
-            this.sourceOfFunds = wealthAndEmploymentDetails.sourceOfFunds
-            this.wealthSource = wealthAndEmploymentDetails.wealthSource
-            this.annualIncome = wealthAndEmploymentDetails.annualIncome
-            additionalProperties(wealthAndEmploymentDetails.additionalProperties)
+            id = wealthAndEmploymentDetails.id
+            object_ = wealthAndEmploymentDetails.object_
+            liveMode = wealthAndEmploymentDetails.liveMode
+            createdAt = wealthAndEmploymentDetails.createdAt
+            updatedAt = wealthAndEmploymentDetails.updatedAt
+            discardedAt = wealthAndEmploymentDetails.discardedAt
+            employmentStatus = wealthAndEmploymentDetails.employmentStatus
+            occupation = wealthAndEmploymentDetails.occupation
+            industry = wealthAndEmploymentDetails.industry
+            incomeSource = wealthAndEmploymentDetails.incomeSource
+            incomeState = wealthAndEmploymentDetails.incomeState
+            incomeCountry = wealthAndEmploymentDetails.incomeCountry
+            employerName = wealthAndEmploymentDetails.employerName
+            employerState = wealthAndEmploymentDetails.employerState
+            employerCountry = wealthAndEmploymentDetails.employerCountry
+            sourceOfFunds = wealthAndEmploymentDetails.sourceOfFunds
+            wealthSource = wealthAndEmploymentDetails.wealthSource
+            annualIncome = wealthAndEmploymentDetails.annualIncome
+            additionalProperties = wealthAndEmploymentDetails.additionalProperties.toMutableMap()
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -388,16 +388,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): WealthAndEmploymentDetails =

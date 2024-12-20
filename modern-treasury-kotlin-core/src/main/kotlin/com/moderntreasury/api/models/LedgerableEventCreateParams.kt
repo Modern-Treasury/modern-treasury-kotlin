@@ -57,7 +57,7 @@ constructor(
     @NoAutoDetect
     class LedgerableEventCreateBody
     internal constructor(
-        private val name: String?,
+        private val name: String,
         private val customData: JsonValue?,
         private val description: String?,
         private val metadata: Metadata?,
@@ -65,7 +65,7 @@ constructor(
     ) {
 
         /** Name of the ledgerable event. */
-        @JsonProperty("name") fun name(): String? = name
+        @JsonProperty("name") fun name(): String = name
 
         /** Additionally data to be used by the Ledger Event Handler. */
         @JsonProperty("custom_data") fun customData(): JsonValue? = customData
@@ -98,11 +98,11 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerableEventCreateBody: LedgerableEventCreateBody) = apply {
-                this.name = ledgerableEventCreateBody.name
-                this.customData = ledgerableEventCreateBody.customData
-                this.description = ledgerableEventCreateBody.description
-                this.metadata = ledgerableEventCreateBody.metadata
-                additionalProperties(ledgerableEventCreateBody.additionalProperties)
+                name = ledgerableEventCreateBody.name
+                customData = ledgerableEventCreateBody.customData
+                description = ledgerableEventCreateBody.description
+                metadata = ledgerableEventCreateBody.metadata
+                additionalProperties = ledgerableEventCreateBody.additionalProperties.toMutableMap()
             }
 
             /** Name of the ledgerable event. */
@@ -110,31 +110,37 @@ constructor(
 
             /** Additionally data to be used by the Ledger Event Handler. */
             @JsonProperty("custom_data")
-            fun customData(customData: JsonValue) = apply { this.customData = customData }
+            fun customData(customData: JsonValue?) = apply { this.customData = customData }
 
             /** Description of the ledgerable event. */
             @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
             @JsonProperty("metadata")
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): LedgerableEventCreateBody =
@@ -364,21 +370,27 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
+                additionalProperties = metadata.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())

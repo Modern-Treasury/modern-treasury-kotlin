@@ -24,8 +24,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The id of the existing counterparty. */
     fun id(): String = id.getRequired("id")
 
@@ -64,6 +62,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): CounterpartyCollectAccountResponse = apply {
         if (!validated) {
             id()
@@ -89,10 +89,11 @@ private constructor(
 
         internal fun from(counterpartyCollectAccountResponse: CounterpartyCollectAccountResponse) =
             apply {
-                this.id = counterpartyCollectAccountResponse.id
-                this.isResend = counterpartyCollectAccountResponse.isResend
-                this.formLink = counterpartyCollectAccountResponse.formLink
-                additionalProperties(counterpartyCollectAccountResponse.additionalProperties)
+                id = counterpartyCollectAccountResponse.id
+                isResend = counterpartyCollectAccountResponse.isResend
+                formLink = counterpartyCollectAccountResponse.formLink
+                additionalProperties =
+                    counterpartyCollectAccountResponse.additionalProperties.toMutableMap()
             }
 
         /** The id of the existing counterparty. */
@@ -135,16 +136,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): CounterpartyCollectAccountResponse =

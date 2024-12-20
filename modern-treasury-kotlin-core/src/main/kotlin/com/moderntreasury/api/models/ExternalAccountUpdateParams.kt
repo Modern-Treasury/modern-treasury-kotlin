@@ -141,24 +141,24 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(externalAccountUpdateBody: ExternalAccountUpdateBody) = apply {
-                this.accountType = externalAccountUpdateBody.accountType
-                this.counterpartyId = externalAccountUpdateBody.counterpartyId
-                this.metadata = externalAccountUpdateBody.metadata
-                this.name = externalAccountUpdateBody.name
-                this.partyAddress = externalAccountUpdateBody.partyAddress
-                this.partyName = externalAccountUpdateBody.partyName
-                this.partyType = externalAccountUpdateBody.partyType
-                additionalProperties(externalAccountUpdateBody.additionalProperties)
+                accountType = externalAccountUpdateBody.accountType
+                counterpartyId = externalAccountUpdateBody.counterpartyId
+                metadata = externalAccountUpdateBody.metadata
+                name = externalAccountUpdateBody.name
+                partyAddress = externalAccountUpdateBody.partyAddress
+                partyName = externalAccountUpdateBody.partyName
+                partyType = externalAccountUpdateBody.partyType
+                additionalProperties = externalAccountUpdateBody.additionalProperties.toMutableMap()
             }
 
             /** Can be `checking`, `savings` or `other`. */
             @JsonProperty("account_type")
-            fun accountType(accountType: ExternalAccountType) = apply {
+            fun accountType(accountType: ExternalAccountType?) = apply {
                 this.accountType = accountType
             }
 
             @JsonProperty("counterparty_id")
-            fun counterpartyId(counterpartyId: String) = apply {
+            fun counterpartyId(counterpartyId: String?) = apply {
                 this.counterpartyId = counterpartyId
             }
 
@@ -167,39 +167,45 @@ constructor(
              * empty string or `null` as the value.
              */
             @JsonProperty("metadata")
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /**
              * A nickname for the external account. This is only for internal usage and won't affect
              * any payments
              */
-            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+            @JsonProperty("name") fun name(name: String?) = apply { this.name = name }
 
             @JsonProperty("party_address")
-            fun partyAddress(partyAddress: AddressRequest) = apply {
+            fun partyAddress(partyAddress: AddressRequest?) = apply {
                 this.partyAddress = partyAddress
             }
 
             /** If this value isn't provided, it will be inherited from the counterparty's name. */
             @JsonProperty("party_name")
-            fun partyName(partyName: String) = apply { this.partyName = partyName }
+            fun partyName(partyName: String?) = apply { this.partyName = partyName }
 
             /** Either `individual` or `business`. */
             @JsonProperty("party_type")
-            fun partyType(partyType: PartyType) = apply { this.partyType = partyType }
+            fun partyType(partyType: PartyType?) = apply { this.partyType = partyType }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): ExternalAccountUpdateBody =
@@ -460,21 +466,27 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
+                additionalProperties = metadata.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())
@@ -548,45 +560,52 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(addressRequest: AddressRequest) = apply {
-                this.line1 = addressRequest.line1
-                this.line2 = addressRequest.line2
-                this.locality = addressRequest.locality
-                this.region = addressRequest.region
-                this.postalCode = addressRequest.postalCode
-                this.country = addressRequest.country
-                additionalProperties(addressRequest.additionalProperties)
+                line1 = addressRequest.line1
+                line2 = addressRequest.line2
+                locality = addressRequest.locality
+                region = addressRequest.region
+                postalCode = addressRequest.postalCode
+                country = addressRequest.country
+                additionalProperties = addressRequest.additionalProperties.toMutableMap()
             }
 
-            @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
+            @JsonProperty("line1") fun line1(line1: String?) = apply { this.line1 = line1 }
 
-            @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
+            @JsonProperty("line2") fun line2(line2: String?) = apply { this.line2 = line2 }
 
             /** Locality or City. */
             @JsonProperty("locality")
-            fun locality(locality: String) = apply { this.locality = locality }
+            fun locality(locality: String?) = apply { this.locality = locality }
 
             /** Region or State. */
-            @JsonProperty("region") fun region(region: String) = apply { this.region = region }
+            @JsonProperty("region") fun region(region: String?) = apply { this.region = region }
 
             /** The postal code of the address. */
             @JsonProperty("postal_code")
-            fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
+            fun postalCode(postalCode: String?) = apply { this.postalCode = postalCode }
 
             /** Country code conforms to [ISO 3166-1 alpha-2] */
-            @JsonProperty("country") fun country(country: String) = apply { this.country = country }
+            @JsonProperty("country")
+            fun country(country: String?) = apply { this.country = country }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): AddressRequest =

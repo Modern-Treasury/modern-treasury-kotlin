@@ -15,7 +15,7 @@ class LegalEntityListParamsTest {
             .legalEntityType(LegalEntityListParams.LegalEntityType.BUSINESS)
             .metadata(
                 LegalEntityListParams.Metadata.builder()
-                    .putAdditionalProperty("foo", listOf("string"))
+                    .putAdditionalProperty("foo", "string")
                     .build()
             )
             .perPage(0L)
@@ -31,7 +31,7 @@ class LegalEntityListParamsTest {
                 .legalEntityType(LegalEntityListParams.LegalEntityType.BUSINESS)
                 .metadata(
                     LegalEntityListParams.Metadata.builder()
-                        .putAdditionalProperty("foo", listOf("string"))
+                        .putAdditionalProperty("foo", "string")
                         .build()
                 )
                 .perPage(0L)
@@ -41,7 +41,7 @@ class LegalEntityListParamsTest {
         expected.put("after_cursor", "after_cursor")
         expected.put("legal_entity_type", LegalEntityListParams.LegalEntityType.BUSINESS.toString())
         LegalEntityListParams.Metadata.builder()
-            .putAdditionalProperty("foo", listOf("string"))
+            .putAdditionalProperty("foo", "string")
             .build()
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("per_page", "0")

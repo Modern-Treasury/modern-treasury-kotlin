@@ -49,8 +49,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -236,6 +234,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): ReturnObject = apply {
         if (!validated) {
             id()
@@ -300,30 +300,30 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(returnObject: ReturnObject) = apply {
-            this.id = returnObject.id
-            this.object_ = returnObject.object_
-            this.liveMode = returnObject.liveMode
-            this.createdAt = returnObject.createdAt
-            this.updatedAt = returnObject.updatedAt
-            this.returnableId = returnObject.returnableId
-            this.returnableType = returnObject.returnableType
-            this.code = returnObject.code
-            this.reason = returnObject.reason
-            this.dateOfDeath = returnObject.dateOfDeath
-            this.additionalInformation = returnObject.additionalInformation
-            this.status = returnObject.status
-            this.transactionLineItemId = returnObject.transactionLineItemId
-            this.transactionId = returnObject.transactionId
-            this.internalAccountId = returnObject.internalAccountId
-            this.type = returnObject.type
-            this.amount = returnObject.amount
-            this.currency = returnObject.currency
-            this.failureReason = returnObject.failureReason
-            this.role = returnObject.role
-            this.currentReturn = returnObject.currentReturn
-            this.referenceNumbers = returnObject.referenceNumbers
-            this.ledgerTransactionId = returnObject.ledgerTransactionId
-            additionalProperties(returnObject.additionalProperties)
+            id = returnObject.id
+            object_ = returnObject.object_
+            liveMode = returnObject.liveMode
+            createdAt = returnObject.createdAt
+            updatedAt = returnObject.updatedAt
+            returnableId = returnObject.returnableId
+            returnableType = returnObject.returnableType
+            code = returnObject.code
+            reason = returnObject.reason
+            dateOfDeath = returnObject.dateOfDeath
+            additionalInformation = returnObject.additionalInformation
+            status = returnObject.status
+            transactionLineItemId = returnObject.transactionLineItemId
+            transactionId = returnObject.transactionId
+            internalAccountId = returnObject.internalAccountId
+            type = returnObject.type
+            amount = returnObject.amount
+            currency = returnObject.currency
+            failureReason = returnObject.failureReason
+            role = returnObject.role
+            currentReturn = returnObject.currentReturn
+            referenceNumbers = returnObject.referenceNumbers
+            ledgerTransactionId = returnObject.ledgerTransactionId
+            additionalProperties = returnObject.additionalProperties.toMutableMap()
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -572,16 +572,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): ReturnObject =
@@ -990,8 +996,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         fun id(): String = id.getRequired("id")
 
         fun object_(): String = object_.getRequired("object")
@@ -1039,6 +1043,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): PaymentReference = apply {
             if (!validated) {
                 id()
@@ -1071,14 +1077,14 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(paymentReference: PaymentReference) = apply {
-                this.id = paymentReference.id
-                this.object_ = paymentReference.object_
-                this.liveMode = paymentReference.liveMode
-                this.createdAt = paymentReference.createdAt
-                this.updatedAt = paymentReference.updatedAt
-                this.referenceNumber = paymentReference.referenceNumber
-                this.referenceNumberType = paymentReference.referenceNumberType
-                additionalProperties(paymentReference.additionalProperties)
+                id = paymentReference.id
+                object_ = paymentReference.object_
+                liveMode = paymentReference.liveMode
+                createdAt = paymentReference.createdAt
+                updatedAt = paymentReference.updatedAt
+                referenceNumber = paymentReference.referenceNumber
+                referenceNumberType = paymentReference.referenceNumberType
+                additionalProperties = paymentReference.additionalProperties.toMutableMap()
             }
 
             fun id(id: String) = id(JsonField.of(id))
@@ -1147,16 +1153,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): PaymentReference =

@@ -19,7 +19,7 @@ class CounterpartyListParamsTest {
             .legalEntityId("legal_entity_id")
             .metadata(
                 CounterpartyListParams.Metadata.builder()
-                    .putAdditionalProperty("foo", listOf("string"))
+                    .putAdditionalProperty("foo", "string")
                     .build()
             )
             .name("name")
@@ -38,7 +38,7 @@ class CounterpartyListParamsTest {
                 .legalEntityId("legal_entity_id")
                 .metadata(
                     CounterpartyListParams.Metadata.builder()
-                        .putAdditionalProperty("foo", listOf("string"))
+                        .putAdditionalProperty("foo", "string")
                         .build()
                 )
                 .name("name")
@@ -51,7 +51,7 @@ class CounterpartyListParamsTest {
         expected.put("email", "dev@stainlessapi.com")
         expected.put("legal_entity_id", "legal_entity_id")
         CounterpartyListParams.Metadata.builder()
-            .putAdditionalProperty("foo", listOf("string"))
+            .putAdditionalProperty("foo", "string")
             .build()
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("name", "name")

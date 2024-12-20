@@ -21,7 +21,7 @@ class TransactionListParamsTest {
             .internalAccountId("internal_account_id")
             .metadata(
                 TransactionListParams.Metadata.builder()
-                    .putAdditionalProperty("foo", listOf("string"))
+                    .putAdditionalProperty("foo", "string")
                     .build()
             )
             .paymentType("payment_type")
@@ -46,7 +46,7 @@ class TransactionListParamsTest {
                 .internalAccountId("internal_account_id")
                 .metadata(
                     TransactionListParams.Metadata.builder()
-                        .putAdditionalProperty("foo", listOf("string"))
+                        .putAdditionalProperty("foo", "string")
                         .build()
                 )
                 .paymentType("payment_type")
@@ -65,7 +65,7 @@ class TransactionListParamsTest {
         expected.put("direction", "direction")
         expected.put("internal_account_id", "internal_account_id")
         TransactionListParams.Metadata.builder()
-            .putAdditionalProperty("foo", listOf("string"))
+            .putAdditionalProperty("foo", "string")
             .build()
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("payment_type", "payment_type")
