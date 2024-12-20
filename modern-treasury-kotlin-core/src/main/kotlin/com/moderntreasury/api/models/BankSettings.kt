@@ -4,32 +4,51 @@ package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.time.OffsetDateTime
 import java.util.Objects
 
-@JsonDeserialize(builder = BankSettings.Builder::class)
 @NoAutoDetect
 class BankSettings
+@JsonCreator
 private constructor(
-    private val id: JsonField<String>,
-    private val object_: JsonField<String>,
-    private val liveMode: JsonField<Boolean>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val updatedAt: JsonField<OffsetDateTime>,
-    private val discardedAt: JsonField<OffsetDateTime>,
-    private val enableBackupWithholding: JsonField<Boolean>,
-    private val backupWithholdingPercentage: JsonField<Long>,
-    private val privacyOptOut: JsonField<Boolean>,
-    private val regulationO: JsonField<Boolean>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("discarded_at")
+    @ExcludeMissing
+    private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("enable_backup_withholding")
+    @ExcludeMissing
+    private val enableBackupWithholding: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("backup_withholding_percentage")
+    @ExcludeMissing
+    private val backupWithholdingPercentage: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("privacy_opt_out")
+    @ExcludeMissing
+    private val privacyOptOut: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("regulation_o")
+    @ExcludeMissing
+    private val regulationO: JsonField<Boolean> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
@@ -169,12 +188,10 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
-        @JsonProperty("object")
-        @ExcludeMissing
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /**
@@ -187,26 +204,18 @@ private constructor(
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
          */
-        @JsonProperty("live_mode")
-        @ExcludeMissing
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
-        @JsonProperty("updated_at")
-        @ExcludeMissing
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
 
-        @JsonProperty("discarded_at")
-        @ExcludeMissing
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
         }
@@ -222,8 +231,6 @@ private constructor(
          * Whether backup withholding is enabled. See more here -
          * https://www.irs.gov/businesses/small-businesses-self-employed/backup-withholding.
          */
-        @JsonProperty("enable_backup_withholding")
-        @ExcludeMissing
         fun enableBackupWithholding(enableBackupWithholding: JsonField<Boolean>) = apply {
             this.enableBackupWithholding = enableBackupWithholding
         }
@@ -233,8 +240,6 @@ private constructor(
             backupWithholdingPercentage(JsonField.of(backupWithholdingPercentage))
 
         /** The percentage of backup withholding to apply to the legal entity. */
-        @JsonProperty("backup_withholding_percentage")
-        @ExcludeMissing
         fun backupWithholdingPercentage(backupWithholdingPercentage: JsonField<Long>) = apply {
             this.backupWithholdingPercentage = backupWithholdingPercentage
         }
@@ -243,8 +248,6 @@ private constructor(
         fun privacyOptOut(privacyOptOut: Boolean) = privacyOptOut(JsonField.of(privacyOptOut))
 
         /** Cross River Bank specific setting to opt out of privacy policy. */
-        @JsonProperty("privacy_opt_out")
-        @ExcludeMissing
         fun privacyOptOut(privacyOptOut: JsonField<Boolean>) = apply {
             this.privacyOptOut = privacyOptOut
         }
@@ -263,8 +266,6 @@ private constructor(
          * holding company of which the member bank is a subsidiary; and any other subsidiary of
          * that bank holding company.
          */
-        @JsonProperty("regulation_o")
-        @ExcludeMissing
         fun regulationO(regulationO: JsonField<Boolean>) = apply { this.regulationO = regulationO }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -272,7 +273,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }

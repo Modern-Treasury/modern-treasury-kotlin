@@ -6,49 +6,93 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 
-@JsonDeserialize(builder = IncomingPaymentDetail.Builder::class)
 @NoAutoDetect
 class IncomingPaymentDetail
+@JsonCreator
 private constructor(
-    private val id: JsonField<String>,
-    private val object_: JsonField<String>,
-    private val liveMode: JsonField<Boolean>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val updatedAt: JsonField<OffsetDateTime>,
-    private val internalAccountId: JsonField<String>,
-    private val virtualAccountId: JsonField<String>,
-    private val virtualAccount: JsonField<VirtualAccount>,
-    private val transactionLineItemId: JsonField<String>,
-    private val transactionId: JsonField<String>,
-    private val ledgerTransactionId: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val data: JsonField<Data>,
-    private val amount: JsonField<Long>,
-    private val currency: JsonField<Currency>,
-    private val direction: JsonField<TransactionDirection>,
-    private val status: JsonField<Status>,
-    private val metadata: JsonField<Metadata>,
-    private val asOfDate: JsonField<LocalDate>,
-    private val vendorId: JsonField<String>,
-    private val originatingRoutingNumber: JsonField<String>,
-    private val originatingRoutingNumberType: JsonField<OriginatingRoutingNumberType>,
-    private val originatingAccountNumber: JsonField<String>,
-    private val originatingAccountNumberSafe: JsonField<String>,
-    private val originatingAccountNumberType: JsonField<OriginatingAccountNumberType>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("internal_account_id")
+    @ExcludeMissing
+    private val internalAccountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("virtual_account_id")
+    @ExcludeMissing
+    private val virtualAccountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("virtual_account")
+    @ExcludeMissing
+    private val virtualAccount: JsonField<VirtualAccount> = JsonMissing.of(),
+    @JsonProperty("transaction_line_item_id")
+    @ExcludeMissing
+    private val transactionLineItemId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("transaction_id")
+    @ExcludeMissing
+    private val transactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("ledger_transaction_id")
+    @ExcludeMissing
+    private val ledgerTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonProperty("data") @ExcludeMissing private val data: JsonField<Data> = JsonMissing.of(),
+    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("currency")
+    @ExcludeMissing
+    private val currency: JsonField<Currency> = JsonMissing.of(),
+    @JsonProperty("direction")
+    @ExcludeMissing
+    private val direction: JsonField<TransactionDirection> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("metadata")
+    @ExcludeMissing
+    private val metadata: JsonField<Metadata> = JsonMissing.of(),
+    @JsonProperty("as_of_date")
+    @ExcludeMissing
+    private val asOfDate: JsonField<LocalDate> = JsonMissing.of(),
+    @JsonProperty("vendor_id")
+    @ExcludeMissing
+    private val vendorId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originating_routing_number")
+    @ExcludeMissing
+    private val originatingRoutingNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originating_routing_number_type")
+    @ExcludeMissing
+    private val originatingRoutingNumberType: JsonField<OriginatingRoutingNumberType> =
+        JsonMissing.of(),
+    @JsonProperty("originating_account_number")
+    @ExcludeMissing
+    private val originatingAccountNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originating_account_number_safe")
+    @ExcludeMissing
+    private val originatingAccountNumberSafe: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originating_account_number_type")
+    @ExcludeMissing
+    private val originatingAccountNumberType: JsonField<OriginatingAccountNumberType> =
+        JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
@@ -339,12 +383,10 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
-        @JsonProperty("object")
-        @ExcludeMissing
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /**
@@ -357,20 +399,14 @@ private constructor(
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
          */
-        @JsonProperty("live_mode")
-        @ExcludeMissing
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
-        @JsonProperty("updated_at")
-        @ExcludeMissing
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         /**
@@ -382,8 +418,6 @@ private constructor(
         /**
          * The ID of the Internal Account for the incoming payment detail. This is always present.
          */
-        @JsonProperty("internal_account_id")
-        @ExcludeMissing
         fun internalAccountId(internalAccountId: JsonField<String>) = apply {
             this.internalAccountId = internalAccountId
         }
@@ -397,8 +431,6 @@ private constructor(
         /**
          * If the incoming payment detail is in a virtual account, the ID of the Virtual Account.
          */
-        @JsonProperty("virtual_account_id")
-        @ExcludeMissing
         fun virtualAccountId(virtualAccountId: JsonField<String>) = apply {
             this.virtualAccountId = virtualAccountId
         }
@@ -414,8 +446,6 @@ private constructor(
          * If the incoming payment detail is in a virtual account, the serialized virtual account
          * object.
          */
-        @JsonProperty("virtual_account")
-        @ExcludeMissing
         fun virtualAccount(virtualAccount: JsonField<VirtualAccount>) = apply {
             this.virtualAccount = virtualAccount
         }
@@ -425,8 +455,6 @@ private constructor(
             transactionLineItemId(JsonField.of(transactionLineItemId))
 
         /** The ID of the reconciled Transaction Line Item or `null`. */
-        @JsonProperty("transaction_line_item_id")
-        @ExcludeMissing
         fun transactionLineItemId(transactionLineItemId: JsonField<String>) = apply {
             this.transactionLineItemId = transactionLineItemId
         }
@@ -435,8 +463,6 @@ private constructor(
         fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
         /** The ID of the reconciled Transaction or `null`. */
-        @JsonProperty("transaction_id")
-        @ExcludeMissing
         fun transactionId(transactionId: JsonField<String>) = apply {
             this.transactionId = transactionId
         }
@@ -446,8 +472,6 @@ private constructor(
             ledgerTransactionId(JsonField.of(ledgerTransactionId))
 
         /** The ID of the ledger transaction linked to the incoming payment detail or `null`. */
-        @JsonProperty("ledger_transaction_id")
-        @ExcludeMissing
         fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
             this.ledgerTransactionId = ledgerTransactionId
         }
@@ -456,40 +480,30 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /** One of: `ach`, `book`, `check`, `eft`, `interac`, `rtp`, `sepa`, `signet`, or `wire`. */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         /** The raw data from the payment pre-notification file that we get from the bank. */
         fun data(data: Data) = data(JsonField.of(data))
 
         /** The raw data from the payment pre-notification file that we get from the bank. */
-        @JsonProperty("data")
-        @ExcludeMissing
         fun data(data: JsonField<Data>) = apply { this.data = data }
 
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-        @JsonProperty("amount")
-        @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /** The currency of the incoming payment detail. */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
         /** The currency of the incoming payment detail. */
-        @JsonProperty("currency")
-        @ExcludeMissing
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** One of `credit` or `debit`. */
         fun direction(direction: TransactionDirection) = direction(JsonField.of(direction))
 
         /** One of `credit` or `debit`. */
-        @JsonProperty("direction")
-        @ExcludeMissing
         fun direction(direction: JsonField<TransactionDirection>) = apply {
             this.direction = direction
         }
@@ -504,8 +518,6 @@ private constructor(
          * The current status of the incoming payment order. One of `pending`, `completed`, or
          * `returned`.
          */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -516,24 +528,18 @@ private constructor(
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @JsonProperty("metadata")
-        @ExcludeMissing
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         /** The date on which the corresponding transaction will occur. */
         fun asOfDate(asOfDate: LocalDate) = asOfDate(JsonField.of(asOfDate))
 
         /** The date on which the corresponding transaction will occur. */
-        @JsonProperty("as_of_date")
-        @ExcludeMissing
         fun asOfDate(asOfDate: JsonField<LocalDate>) = apply { this.asOfDate = asOfDate }
 
         /** The identifier of the vendor bank. */
         fun vendorId(vendorId: String) = vendorId(JsonField.of(vendorId))
 
         /** The identifier of the vendor bank. */
-        @JsonProperty("vendor_id")
-        @ExcludeMissing
         fun vendorId(vendorId: JsonField<String>) = apply { this.vendorId = vendorId }
 
         /** The routing number of the originating account for the incoming payment detail. */
@@ -541,8 +547,6 @@ private constructor(
             originatingRoutingNumber(JsonField.of(originatingRoutingNumber))
 
         /** The routing number of the originating account for the incoming payment detail. */
-        @JsonProperty("originating_routing_number")
-        @ExcludeMissing
         fun originatingRoutingNumber(originatingRoutingNumber: JsonField<String>) = apply {
             this.originatingRoutingNumber = originatingRoutingNumber
         }
@@ -553,8 +557,6 @@ private constructor(
         ) = originatingRoutingNumberType(JsonField.of(originatingRoutingNumberType))
 
         /** The type of the originating routing number for the incoming payment detail. */
-        @JsonProperty("originating_routing_number_type")
-        @ExcludeMissing
         fun originatingRoutingNumberType(
             originatingRoutingNumberType: JsonField<OriginatingRoutingNumberType>
         ) = apply { this.originatingRoutingNumberType = originatingRoutingNumberType }
@@ -564,8 +566,6 @@ private constructor(
             originatingAccountNumber(JsonField.of(originatingAccountNumber))
 
         /** The account number of the originating account for the incoming payment detail. */
-        @JsonProperty("originating_account_number")
-        @ExcludeMissing
         fun originatingAccountNumber(originatingAccountNumber: JsonField<String>) = apply {
             this.originatingAccountNumber = originatingAccountNumber
         }
@@ -575,8 +575,6 @@ private constructor(
             originatingAccountNumberSafe(JsonField.of(originatingAccountNumberSafe))
 
         /** The last 4 digits of the originating account_number for the incoming payment detail. */
-        @JsonProperty("originating_account_number_safe")
-        @ExcludeMissing
         fun originatingAccountNumberSafe(originatingAccountNumberSafe: JsonField<String>) = apply {
             this.originatingAccountNumberSafe = originatingAccountNumberSafe
         }
@@ -587,8 +585,6 @@ private constructor(
         ) = originatingAccountNumberType(JsonField.of(originatingAccountNumberType))
 
         /** The type of the originating account number for the incoming payment detail. */
-        @JsonProperty("originating_account_number_type")
-        @ExcludeMissing
         fun originatingAccountNumberType(
             originatingAccountNumberType: JsonField<OriginatingAccountNumberType>
         ) = apply { this.originatingAccountNumberType = originatingAccountNumberType }
@@ -598,7 +594,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }
@@ -645,11 +640,12 @@ private constructor(
     }
 
     /** The raw data from the payment pre-notification file that we get from the bank. */
-    @JsonDeserialize(builder = Data.Builder::class)
     @NoAutoDetect
     class Data
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonAnyGetter
@@ -684,7 +680,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -720,11 +715,12 @@ private constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonDeserialize(builder = Metadata.Builder::class)
     @NoAutoDetect
     class Metadata
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonAnyGetter
@@ -759,7 +755,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

@@ -4,13 +4,14 @@ package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
@@ -48,12 +49,13 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = ExternalAccountCompleteVerificationBody.Builder::class)
     @NoAutoDetect
     class ExternalAccountCompleteVerificationBody
+    @JsonCreator
     internal constructor(
-        private val amounts: List<Long>?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("amounts") private val amounts: List<Long>?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonProperty("amounts") fun amounts(): List<Long>? = amounts
@@ -82,7 +84,6 @@ constructor(
                     externalAccountCompleteVerificationBody.additionalProperties.toMutableMap()
             }
 
-            @JsonProperty("amounts")
             fun amounts(amounts: List<Long>?) = apply { this.amounts = amounts }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -90,7 +91,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

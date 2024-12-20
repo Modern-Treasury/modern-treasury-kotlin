@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
@@ -14,6 +13,7 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
@@ -66,17 +66,18 @@ constructor(
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = ReturnCreateBody.Builder::class)
     @NoAutoDetect
     class ReturnCreateBody
+    @JsonCreator
     internal constructor(
-        private val returnableId: String?,
-        private val returnableType: ReturnableType,
-        private val additionalInformation: String?,
-        private val code: Code?,
-        private val dateOfDeath: LocalDate?,
-        private val reason: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("returnable_id") private val returnableId: String?,
+        @JsonProperty("returnable_type") private val returnableType: ReturnableType,
+        @JsonProperty("additional_information") private val additionalInformation: String?,
+        @JsonProperty("code") private val code: Code?,
+        @JsonProperty("date_of_death") private val dateOfDeath: LocalDate?,
+        @JsonProperty("reason") private val reason: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The ID of the object being returned or `null`. */
@@ -141,14 +142,12 @@ constructor(
             }
 
             /** The ID of the object being returned or `null`. */
-            @JsonProperty("returnable_id")
             fun returnableId(returnableId: String?) = apply { this.returnableId = returnableId }
 
             /**
              * The type of object being returned. Currently, this may only be
              * incoming_payment_detail.
              */
-            @JsonProperty("returnable_type")
             fun returnableType(returnableType: ReturnableType) = apply {
                 this.returnableType = returnableType
             }
@@ -157,33 +156,30 @@ constructor(
              * Some returns may include additional information from the bank. In these cases, this
              * string will be present.
              */
-            @JsonProperty("additional_information")
             fun additionalInformation(additionalInformation: String?) = apply {
                 this.additionalInformation = additionalInformation
             }
 
             /** The return code. For ACH returns, this is the required ACH return code. */
-            @JsonProperty("code") fun code(code: Code?) = apply { this.code = code }
+            fun code(code: Code?) = apply { this.code = code }
 
             /**
              * If the return code is `R14` or `R15` this is the date the deceased counterparty
              * passed away.
              */
-            @JsonProperty("date_of_death")
             fun dateOfDeath(dateOfDeath: LocalDate?) = apply { this.dateOfDeath = dateOfDeath }
 
             /**
              * An optional description of the reason for the return. This is for internal usage and
              * will not be transmitted to the bank.”
              */
-            @JsonProperty("reason") fun reason(reason: String?) = apply { this.reason = reason }
+            fun reason(reason: String?) = apply { this.reason = reason }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

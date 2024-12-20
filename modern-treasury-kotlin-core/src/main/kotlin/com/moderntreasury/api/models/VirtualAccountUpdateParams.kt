@@ -4,13 +4,14 @@ package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
@@ -63,15 +64,16 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = VirtualAccountUpdateBody.Builder::class)
     @NoAutoDetect
     class VirtualAccountUpdateBody
+    @JsonCreator
     internal constructor(
-        private val counterpartyId: String?,
-        private val ledgerAccountId: String?,
-        private val metadata: Metadata?,
-        private val name: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("counterparty_id") private val counterpartyId: String?,
+        @JsonProperty("ledger_account_id") private val ledgerAccountId: String?,
+        @JsonProperty("metadata") private val metadata: Metadata?,
+        @JsonProperty("name") private val name: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonProperty("counterparty_id") fun counterpartyId(): String? = counterpartyId
@@ -110,28 +112,24 @@ constructor(
                 additionalProperties = virtualAccountUpdateBody.additionalProperties.toMutableMap()
             }
 
-            @JsonProperty("counterparty_id")
             fun counterpartyId(counterpartyId: String?) = apply {
                 this.counterpartyId = counterpartyId
             }
 
             /** The ledger account that you'd like to link to the virtual account. */
-            @JsonProperty("ledger_account_id")
             fun ledgerAccountId(ledgerAccountId: String?) = apply {
                 this.ledgerAccountId = ledgerAccountId
             }
 
-            @JsonProperty("metadata")
             fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
-            @JsonProperty("name") fun name(name: String?) = apply { this.name = name }
+            fun name(name: String?) = apply { this.name = name }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -351,11 +349,12 @@ constructor(
             )
     }
 
-    @JsonDeserialize(builder = Metadata.Builder::class)
     @NoAutoDetect
     class Metadata
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonAnyGetter
@@ -382,7 +381,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
