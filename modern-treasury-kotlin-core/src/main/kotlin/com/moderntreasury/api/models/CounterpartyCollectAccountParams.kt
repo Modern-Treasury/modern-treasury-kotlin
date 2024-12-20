@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
@@ -14,6 +13,7 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
@@ -67,15 +67,16 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = CounterpartyCollectAccountBody.Builder::class)
     @NoAutoDetect
     class CounterpartyCollectAccountBody
+    @JsonCreator
     internal constructor(
-        private val direction: TransactionDirection,
-        private val customRedirect: String?,
-        private val fields: List<Field>?,
-        private val sendEmail: Boolean?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("direction") private val direction: TransactionDirection,
+        @JsonProperty("custom_redirect") private val customRedirect: String?,
+        @JsonProperty("fields") private val fields: List<Field>?,
+        @JsonProperty("send_email") private val sendEmail: Boolean?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -142,7 +143,6 @@ constructor(
              * `debit` when you need to charge a counterparty. This field helps us send a more
              * tailored email to your counterparties."
              */
-            @JsonProperty("direction")
             fun direction(direction: TransactionDirection) = apply { this.direction = direction }
 
             /**
@@ -150,7 +150,6 @@ constructor(
              * will be sent to a Modern Treasury landing page. This must be a valid HTTPS URL if
              * set.
              */
-            @JsonProperty("custom_redirect")
             fun customRedirect(customRedirect: String?) = apply {
                 this.customRedirect = customRedirect
             }
@@ -162,7 +161,6 @@ constructor(
              * The full list of options is
              * [\"name\", \"nameOnAccount\", \"taxpayerIdentifier\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\", \"ibanNumber\", \"swiftCode\"].
              */
-            @JsonProperty("fields")
             fun fields(fields: List<Field>?) = apply { this.fields = fields }
 
             /**
@@ -171,7 +169,6 @@ constructor(
              * counterparty the link, you can set this parameter to `false`. The JSON body will
              * include the link to the secure Modern Treasury form.
              */
-            @JsonProperty("send_email")
             fun sendEmail(sendEmail: Boolean?) = apply { this.sendEmail = sendEmail }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -179,7 +176,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

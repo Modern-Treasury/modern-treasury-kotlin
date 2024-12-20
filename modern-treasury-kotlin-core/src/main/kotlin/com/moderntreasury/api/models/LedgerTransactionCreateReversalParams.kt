@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
@@ -14,6 +13,7 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
@@ -80,18 +80,19 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = LedgerTransactionCreateReversalBody.Builder::class)
     @NoAutoDetect
     class LedgerTransactionCreateReversalBody
+    @JsonCreator
     internal constructor(
-        private val description: String?,
-        private val effectiveAt: OffsetDateTime?,
-        private val externalId: String?,
-        private val ledgerableId: String?,
-        private val ledgerableType: LedgerableType?,
-        private val metadata: Metadata?,
-        private val status: Status?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("description") private val description: String?,
+        @JsonProperty("effective_at") private val effectiveAt: OffsetDateTime?,
+        @JsonProperty("external_id") private val externalId: String?,
+        @JsonProperty("ledgerable_id") private val ledgerableId: String?,
+        @JsonProperty("ledgerable_type") private val ledgerableType: LedgerableType?,
+        @JsonProperty("metadata") private val metadata: Metadata?,
+        @JsonProperty("status") private val status: Status?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -171,7 +172,6 @@ constructor(
              * An optional free-form description for the reversal ledger transaction. Maximum of
              * 1000 characters allowed.
              */
-            @JsonProperty("description")
             fun description(description: String?) = apply { this.description = description }
 
             /**
@@ -179,25 +179,21 @@ constructor(
              * reporting purposes. It defaults to the `effective_at` of the original ledger
              * transaction if not provided.
              */
-            @JsonProperty("effective_at")
             fun effectiveAt(effectiveAt: OffsetDateTime?) = apply { this.effectiveAt = effectiveAt }
 
             /** Must be unique within the ledger. */
-            @JsonProperty("external_id")
             fun externalId(externalId: String?) = apply { this.externalId = externalId }
 
             /**
              * Specify this if you'd like to link the reversal ledger transaction to a Payment
              * object like Return or Reversal.
              */
-            @JsonProperty("ledgerable_id")
             fun ledgerableId(ledgerableId: String?) = apply { this.ledgerableId = ledgerableId }
 
             /**
              * Specify this if you'd like to link the reversal ledger transaction to a Payment
              * object like Return or Reversal.
              */
-            @JsonProperty("ledgerable_type")
             fun ledgerableType(ledgerableType: LedgerableType?) = apply {
                 this.ledgerableType = ledgerableType
             }
@@ -206,20 +202,18 @@ constructor(
              * Additional data to be added to the reversal ledger transaction as key-value pairs.
              * Both the key and value must be strings.
              */
-            @JsonProperty("metadata")
             fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /**
              * Status of the reversal ledger transaction. It defaults to `posted` if not provided.
              */
-            @JsonProperty("status") fun status(status: Status?) = apply { this.status = status }
+            fun status(status: Status?) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -567,11 +561,12 @@ constructor(
      * Additional data to be added to the reversal ledger transaction as key-value pairs. Both the
      * key and value must be strings.
      */
-    @JsonDeserialize(builder = Metadata.Builder::class)
     @NoAutoDetect
     class Metadata
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonAnyGetter
@@ -598,7 +593,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

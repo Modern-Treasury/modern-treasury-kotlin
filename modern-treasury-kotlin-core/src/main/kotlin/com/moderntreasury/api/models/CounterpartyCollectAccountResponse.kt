@@ -4,24 +4,29 @@ package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
-@JsonDeserialize(builder = CounterpartyCollectAccountResponse.Builder::class)
 @NoAutoDetect
 class CounterpartyCollectAccountResponse
+@JsonCreator
 private constructor(
-    private val id: JsonField<String>,
-    private val isResend: JsonField<Boolean>,
-    private val formLink: JsonField<String>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("is_resend")
+    @ExcludeMissing
+    private val isResend: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("form_link")
+    @ExcludeMissing
+    private val formLink: JsonField<String> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** The id of the existing counterparty. */
@@ -100,7 +105,7 @@ private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The id of the existing counterparty. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * This field will be `true` if an email requesting account details has already been sent to
@@ -112,8 +117,6 @@ private constructor(
          * This field will be `true` if an email requesting account details has already been sent to
          * this counterparty.
          */
-        @JsonProperty("is_resend")
-        @ExcludeMissing
         fun isResend(isResend: JsonField<Boolean>) = apply { this.isResend = isResend }
 
         /**
@@ -130,8 +133,6 @@ private constructor(
          * `send_email` is passed as `false` in the body then Modern Treasury will not send the
          * email and you can send it to the counterparty directly.
          */
-        @JsonProperty("form_link")
-        @ExcludeMissing
         fun formLink(formLink: JsonField<String>) = apply { this.formLink = formLink }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -139,7 +140,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }

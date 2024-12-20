@@ -6,34 +6,54 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 
-@JsonDeserialize(builder = AccountCollectionFlow.Builder::class)
 @NoAutoDetect
 class AccountCollectionFlow
+@JsonCreator
 private constructor(
-    private val id: JsonField<String>,
-    private val object_: JsonField<String>,
-    private val liveMode: JsonField<Boolean>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val updatedAt: JsonField<OffsetDateTime>,
-    private val clientToken: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val counterpartyId: JsonField<String>,
-    private val externalAccountId: JsonField<String>,
-    private val paymentTypes: JsonField<List<PaymentType>>,
-    private val receivingCountries: JsonField<List<ReceivingCountry>>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("client_token")
+    @ExcludeMissing
+    private val clientToken: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("counterparty_id")
+    @ExcludeMissing
+    private val counterpartyId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("external_account_id")
+    @ExcludeMissing
+    private val externalAccountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("payment_types")
+    @ExcludeMissing
+    private val paymentTypes: JsonField<List<PaymentType>> = JsonMissing.of(),
+    @JsonProperty("receiving_countries")
+    @ExcludeMissing
+    private val receivingCountries: JsonField<List<ReceivingCountry>> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String? = id.getNullable("id")
@@ -181,12 +201,10 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
-        @JsonProperty("object")
-        @ExcludeMissing
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /**
@@ -199,20 +217,14 @@ private constructor(
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
          */
-        @JsonProperty("live_mode")
-        @ExcludeMissing
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
-        @JsonProperty("updated_at")
-        @ExcludeMissing
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         /**
@@ -225,8 +237,6 @@ private constructor(
          * The client token of the account collection flow. This token can be used to embed account
          * collection in your client-side application.
          */
-        @JsonProperty("client_token")
-        @ExcludeMissing
         fun clientToken(clientToken: JsonField<String>) = apply { this.clientToken = clientToken }
 
         /**
@@ -239,8 +249,6 @@ private constructor(
          * The current status of the account collection flow. One of `pending`, `completed`,
          * `expired`, or `cancelled`.
          */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -253,8 +261,6 @@ private constructor(
          * The ID of a counterparty. An external account created with this flow will be associated
          * with this counterparty.
          */
-        @JsonProperty("counterparty_id")
-        @ExcludeMissing
         fun counterpartyId(counterpartyId: JsonField<String>) = apply {
             this.counterpartyId = counterpartyId
         }
@@ -264,16 +270,12 @@ private constructor(
             externalAccountId(JsonField.of(externalAccountId))
 
         /** If present, the ID of the external account created using this flow. */
-        @JsonProperty("external_account_id")
-        @ExcludeMissing
         fun externalAccountId(externalAccountId: JsonField<String>) = apply {
             this.externalAccountId = externalAccountId
         }
 
         fun paymentTypes(paymentTypes: List<PaymentType>) = paymentTypes(JsonField.of(paymentTypes))
 
-        @JsonProperty("payment_types")
-        @ExcludeMissing
         fun paymentTypes(paymentTypes: JsonField<List<PaymentType>>) = apply {
             this.paymentTypes = paymentTypes
         }
@@ -281,8 +283,6 @@ private constructor(
         fun receivingCountries(receivingCountries: List<ReceivingCountry>) =
             receivingCountries(JsonField.of(receivingCountries))
 
-        @JsonProperty("receiving_countries")
-        @ExcludeMissing
         fun receivingCountries(receivingCountries: JsonField<List<ReceivingCountry>>) = apply {
             this.receivingCountries = receivingCountries
         }
@@ -292,7 +292,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }

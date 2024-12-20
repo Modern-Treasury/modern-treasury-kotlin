@@ -4,34 +4,57 @@ package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.time.OffsetDateTime
 import java.util.Objects
 
-@JsonDeserialize(builder = ForeignExchangeQuote.Builder::class)
 @NoAutoDetect
 class ForeignExchangeQuote
+@JsonCreator
 private constructor(
-    private val id: JsonField<String>,
-    private val object_: JsonField<String>,
-    private val liveMode: JsonField<Boolean>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val updatedAt: JsonField<OffsetDateTime>,
-    private val effectiveAt: JsonField<OffsetDateTime>,
-    private val expiresAt: JsonField<OffsetDateTime>,
-    private val foreignExchangeIndicator: JsonField<String>,
-    private val foreignExchangeRate: JsonField<ForeignExchangeRate>,
-    private val internalAccountId: JsonField<String>,
-    private val metadata: JsonField<Metadata>,
-    private val vendorId: JsonField<String>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("effective_at")
+    @ExcludeMissing
+    private val effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("expires_at")
+    @ExcludeMissing
+    private val expiresAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("foreign_exchange_indicator")
+    @ExcludeMissing
+    private val foreignExchangeIndicator: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("foreign_exchange_rate")
+    @ExcludeMissing
+    private val foreignExchangeRate: JsonField<ForeignExchangeRate> = JsonMissing.of(),
+    @JsonProperty("internal_account_id")
+    @ExcludeMissing
+    private val internalAccountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("metadata")
+    @ExcludeMissing
+    private val metadata: JsonField<Metadata> = JsonMissing.of(),
+    @JsonProperty("vendor_id")
+    @ExcludeMissing
+    private val vendorId: JsonField<String> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
@@ -183,12 +206,10 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
-        @JsonProperty("object")
-        @ExcludeMissing
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /**
@@ -201,28 +222,20 @@ private constructor(
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
          */
-        @JsonProperty("live_mode")
-        @ExcludeMissing
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
-        @JsonProperty("updated_at")
-        @ExcludeMissing
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         /** The timestamp until when the quoted rate is valid. */
         fun effectiveAt(effectiveAt: OffsetDateTime) = effectiveAt(JsonField.of(effectiveAt))
 
         /** The timestamp until when the quoted rate is valid. */
-        @JsonProperty("effective_at")
-        @ExcludeMissing
         fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
             this.effectiveAt = effectiveAt
         }
@@ -231,8 +244,6 @@ private constructor(
         fun expiresAt(expiresAt: OffsetDateTime) = expiresAt(JsonField.of(expiresAt))
 
         /** The timestamp until which the quote must be booked by. */
-        @JsonProperty("expires_at")
-        @ExcludeMissing
         fun expiresAt(expiresAt: JsonField<OffsetDateTime>) = apply { this.expiresAt = expiresAt }
 
         /**
@@ -246,8 +257,6 @@ private constructor(
          * Either `fixed_to_variable` if the `base_amount` was specified, or `variable_to_fixed` if
          * the `target_amount` was specified when requesting the quote.
          */
-        @JsonProperty("foreign_exchange_indicator")
-        @ExcludeMissing
         fun foreignExchangeIndicator(foreignExchangeIndicator: JsonField<String>) = apply {
             this.foreignExchangeIndicator = foreignExchangeIndicator
         }
@@ -257,8 +266,6 @@ private constructor(
             foreignExchangeRate(JsonField.of(foreignExchangeRate))
 
         /** The serialized rate information represented by this quote. */
-        @JsonProperty("foreign_exchange_rate")
-        @ExcludeMissing
         fun foreignExchangeRate(foreignExchangeRate: JsonField<ForeignExchangeRate>) = apply {
             this.foreignExchangeRate = foreignExchangeRate
         }
@@ -268,8 +275,6 @@ private constructor(
             internalAccountId(JsonField.of(internalAccountId))
 
         /** The ID for the `InternalAccount` this quote is associated with. */
-        @JsonProperty("internal_account_id")
-        @ExcludeMissing
         fun internalAccountId(internalAccountId: JsonField<String>) = apply {
             this.internalAccountId = internalAccountId
         }
@@ -282,16 +287,12 @@ private constructor(
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @JsonProperty("metadata")
-        @ExcludeMissing
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         /** This vendor assigned ID for this quote. */
         fun vendorId(vendorId: String) = vendorId(JsonField.of(vendorId))
 
         /** This vendor assigned ID for this quote. */
-        @JsonProperty("vendor_id")
-        @ExcludeMissing
         fun vendorId(vendorId: JsonField<String>) = apply { this.vendorId = vendorId }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -299,7 +300,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }
@@ -333,18 +333,33 @@ private constructor(
     }
 
     /** The serialized rate information represented by this quote. */
-    @JsonDeserialize(builder = ForeignExchangeRate.Builder::class)
     @NoAutoDetect
     class ForeignExchangeRate
+    @JsonCreator
     private constructor(
-        private val baseAmount: JsonField<Long>,
-        private val baseCurrency: JsonField<Currency>,
-        private val exponent: JsonField<Long>,
-        private val rateString: JsonField<String>,
-        private val targetAmount: JsonField<Long>,
-        private val targetCurrency: JsonField<Currency>,
-        private val value: JsonField<Long>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("base_amount")
+        @ExcludeMissing
+        private val baseAmount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("base_currency")
+        @ExcludeMissing
+        private val baseCurrency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("exponent")
+        @ExcludeMissing
+        private val exponent: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("rate_string")
+        @ExcludeMissing
+        private val rateString: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("target_amount")
+        @ExcludeMissing
+        private val targetAmount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("target_currency")
+        @ExcludeMissing
+        private val targetCurrency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("value")
+        @ExcludeMissing
+        private val value: JsonField<Long> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -471,16 +486,12 @@ private constructor(
              * Amount in the lowest denomination of the `base_currency` to convert, often called the
              * "sell" amount.
              */
-            @JsonProperty("base_amount")
-            @ExcludeMissing
             fun baseAmount(baseAmount: JsonField<Long>) = apply { this.baseAmount = baseAmount }
 
             /** Currency to convert, often called the "sell" currency. */
             fun baseCurrency(baseCurrency: Currency) = baseCurrency(JsonField.of(baseCurrency))
 
             /** Currency to convert, often called the "sell" currency. */
-            @JsonProperty("base_currency")
-            @ExcludeMissing
             fun baseCurrency(baseCurrency: JsonField<Currency>) = apply {
                 this.baseCurrency = baseCurrency
             }
@@ -495,16 +506,12 @@ private constructor(
              * The exponent component of the rate. The decimal is calculated as `value` / (10 ^
              * `exponent`).
              */
-            @JsonProperty("exponent")
-            @ExcludeMissing
             fun exponent(exponent: JsonField<Long>) = apply { this.exponent = exponent }
 
             /** A string representation of the rate. */
             fun rateString(rateString: String) = rateString(JsonField.of(rateString))
 
             /** A string representation of the rate. */
-            @JsonProperty("rate_string")
-            @ExcludeMissing
             fun rateString(rateString: JsonField<String>) = apply { this.rateString = rateString }
 
             /**
@@ -517,8 +524,6 @@ private constructor(
              * Amount in the lowest denomination of the `target_currency`, often called the "buy"
              * amount.
              */
-            @JsonProperty("target_amount")
-            @ExcludeMissing
             fun targetAmount(targetAmount: JsonField<Long>) = apply {
                 this.targetAmount = targetAmount
             }
@@ -528,8 +533,6 @@ private constructor(
                 targetCurrency(JsonField.of(targetCurrency))
 
             /** Currency to convert the `base_currency` to, often called the "buy" currency. */
-            @JsonProperty("target_currency")
-            @ExcludeMissing
             fun targetCurrency(targetCurrency: JsonField<Currency>) = apply {
                 this.targetCurrency = targetCurrency
             }
@@ -544,8 +547,6 @@ private constructor(
              * The whole number component of the rate. The decimal is calculated as `value` / (10 ^
              * `exponent`).
              */
-            @JsonProperty("value")
-            @ExcludeMissing
             fun value(value: JsonField<Long>) = apply { this.value = value }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -553,7 +554,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -600,11 +600,12 @@ private constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonDeserialize(builder = Metadata.Builder::class)
     @NoAutoDetect
     class Metadata
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonAnyGetter
@@ -639,7 +640,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
