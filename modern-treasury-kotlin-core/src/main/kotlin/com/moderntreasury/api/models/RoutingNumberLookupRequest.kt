@@ -6,28 +6,40 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
-@JsonDeserialize(builder = RoutingNumberLookupRequest.Builder::class)
 @NoAutoDetect
 class RoutingNumberLookupRequest
+@JsonCreator
 private constructor(
-    private val routingNumber: JsonField<String>,
-    private val routingNumberType: JsonField<RoutingNumberType>,
-    private val supportedPaymentTypes: JsonField<List<SupportedPaymentType>>,
-    private val bankName: JsonField<String>,
-    private val bankAddress: JsonField<AddressRequest>,
-    private val sanctions: JsonField<Sanctions>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("routing_number")
+    @ExcludeMissing
+    private val routingNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("routing_number_type")
+    @ExcludeMissing
+    private val routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of(),
+    @JsonProperty("supported_payment_types")
+    @ExcludeMissing
+    private val supportedPaymentTypes: JsonField<List<SupportedPaymentType>> = JsonMissing.of(),
+    @JsonProperty("bank_name")
+    @ExcludeMissing
+    private val bankName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("bank_address")
+    @ExcludeMissing
+    private val bankAddress: JsonField<AddressRequest> = JsonMissing.of(),
+    @JsonProperty("sanctions")
+    @ExcludeMissing
+    private val sanctions: JsonField<Sanctions> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** The routing number of the bank. */
@@ -145,8 +157,6 @@ private constructor(
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
         /** The routing number of the bank. */
-        @JsonProperty("routing_number")
-        @ExcludeMissing
         fun routingNumber(routingNumber: JsonField<String>) = apply {
             this.routingNumber = routingNumber
         }
@@ -166,8 +176,6 @@ private constructor(
          * details. In sandbox mode we currently only support `aba` and `swift` with routing numbers
          * '123456789' and 'GRINUST0XXX' respectively.
          */
-        @JsonProperty("routing_number_type")
-        @ExcludeMissing
         fun routingNumberType(routingNumberType: JsonField<RoutingNumberType>) = apply {
             this.routingNumberType = routingNumberType
         }
@@ -183,8 +191,6 @@ private constructor(
          * An array of payment types that are supported for this routing number. This can include
          * `ach`, `wire`, `rtp`, `sepa`, `bacs`, `au_becs` currently.
          */
-        @JsonProperty("supported_payment_types")
-        @ExcludeMissing
         fun supportedPaymentTypes(supportedPaymentTypes: JsonField<List<SupportedPaymentType>>) =
             apply {
                 this.supportedPaymentTypes = supportedPaymentTypes
@@ -194,16 +200,12 @@ private constructor(
         fun bankName(bankName: String) = bankName(JsonField.of(bankName))
 
         /** The name of the bank. */
-        @JsonProperty("bank_name")
-        @ExcludeMissing
         fun bankName(bankName: JsonField<String>) = apply { this.bankName = bankName }
 
         /** The address of the bank. */
         fun bankAddress(bankAddress: AddressRequest) = bankAddress(JsonField.of(bankAddress))
 
         /** The address of the bank. */
-        @JsonProperty("bank_address")
-        @ExcludeMissing
         fun bankAddress(bankAddress: JsonField<AddressRequest>) = apply {
             this.bankAddress = bankAddress
         }
@@ -220,8 +222,6 @@ private constructor(
          * value representing whether the bank is on that particular sanctions list. Currently, this
          * includes eu_con, uk_hmt, us_ofac, and un sanctions lists.
          */
-        @JsonProperty("sanctions")
-        @ExcludeMissing
         fun sanctions(sanctions: JsonField<Sanctions>) = apply { this.sanctions = sanctions }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -229,7 +229,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }
@@ -257,17 +256,30 @@ private constructor(
     }
 
     /** The address of the bank. */
-    @JsonDeserialize(builder = AddressRequest.Builder::class)
     @NoAutoDetect
     class AddressRequest
+    @JsonCreator
     private constructor(
-        private val line1: JsonField<String>,
-        private val line2: JsonField<String>,
-        private val locality: JsonField<String>,
-        private val region: JsonField<String>,
-        private val postalCode: JsonField<String>,
-        private val country: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("line1")
+        @ExcludeMissing
+        private val line1: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("line2")
+        @ExcludeMissing
+        private val line2: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("locality")
+        @ExcludeMissing
+        private val locality: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("region")
+        @ExcludeMissing
+        private val region: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("postal_code")
+        @ExcludeMissing
+        private val postalCode: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("country")
+        @ExcludeMissing
+        private val country: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         fun line1(): String? = line1.getNullable("line1")
@@ -349,46 +361,34 @@ private constructor(
 
             fun line1(line1: String) = line1(JsonField.of(line1))
 
-            @JsonProperty("line1")
-            @ExcludeMissing
             fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
             fun line2(line2: String) = line2(JsonField.of(line2))
 
-            @JsonProperty("line2")
-            @ExcludeMissing
             fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
             /** Locality or City. */
             fun locality(locality: String) = locality(JsonField.of(locality))
 
             /** Locality or City. */
-            @JsonProperty("locality")
-            @ExcludeMissing
             fun locality(locality: JsonField<String>) = apply { this.locality = locality }
 
             /** Region or State. */
             fun region(region: String) = region(JsonField.of(region))
 
             /** Region or State. */
-            @JsonProperty("region")
-            @ExcludeMissing
             fun region(region: JsonField<String>) = apply { this.region = region }
 
             /** The postal code of the address. */
             fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
             /** The postal code of the address. */
-            @JsonProperty("postal_code")
-            @ExcludeMissing
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
             /** Country code conforms to [ISO 3166-1 alpha-2] */
             fun country(country: String) = country(JsonField.of(country))
 
             /** Country code conforms to [ISO 3166-1 alpha-2] */
-            @JsonProperty("country")
-            @ExcludeMissing
             fun country(country: JsonField<String>) = apply { this.country = country }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -396,7 +396,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -540,11 +539,12 @@ private constructor(
      * value representing whether the bank is on that particular sanctions list. Currently, this
      * includes eu_con, uk_hmt, us_ofac, and un sanctions lists.
      */
-    @JsonDeserialize(builder = Sanctions.Builder::class)
     @NoAutoDetect
     class Sanctions
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonAnyGetter
@@ -579,7 +579,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

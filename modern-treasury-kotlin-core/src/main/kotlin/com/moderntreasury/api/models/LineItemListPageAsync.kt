@@ -4,13 +4,14 @@ package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.async.LineItemServiceAsync
 import java.util.Objects
@@ -77,14 +78,15 @@ private constructor(
             )
     }
 
-    @JsonDeserialize(builder = Response.Builder::class)
     @NoAutoDetect
     class Response
+    @JsonCreator
     constructor(
-        private val items: JsonField<List<LineItem>>,
+        @JsonProperty("items") private val items: JsonField<List<LineItem>> = JsonMissing.of(),
         private val perPage: String,
         private val afterCursor: String,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         private var validated: Boolean = false
@@ -144,14 +146,12 @@ private constructor(
 
             fun items(items: List<LineItem>) = items(JsonField.of(items))
 
-            @JsonProperty("items")
             fun items(items: JsonField<List<LineItem>>) = apply { this.items = items }
 
             fun perPage(perPage: String) = apply { this.perPage = perPage }
 
             fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 this.additionalProperties.put(key, value)
             }

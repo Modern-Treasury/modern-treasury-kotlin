@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
@@ -14,6 +13,7 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
@@ -74,19 +74,20 @@ constructor(
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = IncomingPaymentDetailCreateAsyncBody.Builder::class)
     @NoAutoDetect
     class IncomingPaymentDetailCreateAsyncBody
+    @JsonCreator
     internal constructor(
-        private val amount: Long?,
-        private val asOfDate: LocalDate?,
-        private val currency: Currency?,
-        private val description: String?,
-        private val direction: Direction?,
-        private val internalAccountId: String?,
-        private val type: Type?,
-        private val virtualAccountId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("amount") private val amount: Long?,
+        @JsonProperty("as_of_date") private val asOfDate: LocalDate?,
+        @JsonProperty("currency") private val currency: Currency?,
+        @JsonProperty("description") private val description: String?,
+        @JsonProperty("direction") private val direction: Direction?,
+        @JsonProperty("internal_account_id") private val internalAccountId: String?,
+        @JsonProperty("type") private val type: Type?,
+        @JsonProperty("virtual_account_id") private val virtualAccountId: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
@@ -154,37 +155,31 @@ constructor(
             /**
              * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
              */
-            @JsonProperty("amount") fun amount(amount: Long?) = apply { this.amount = amount }
+            fun amount(amount: Long?) = apply { this.amount = amount }
 
             /** Defaults to today. */
-            @JsonProperty("as_of_date")
             fun asOfDate(asOfDate: LocalDate?) = apply { this.asOfDate = asOfDate }
 
             /** Defaults to the currency of the originating account. */
-            @JsonProperty("currency")
             fun currency(currency: Currency?) = apply { this.currency = currency }
 
             /** Defaults to a random description. */
-            @JsonProperty("description")
             fun description(description: String?) = apply { this.description = description }
 
             /** One of `credit`, `debit`. */
-            @JsonProperty("direction")
             fun direction(direction: Direction?) = apply { this.direction = direction }
 
             /** The ID of one of your internal accounts. */
-            @JsonProperty("internal_account_id")
             fun internalAccountId(internalAccountId: String?) = apply {
                 this.internalAccountId = internalAccountId
             }
 
             /** One of `ach`, `wire`, `check`. */
-            @JsonProperty("type") fun type(type: Type?) = apply { this.type = type }
+            fun type(type: Type?) = apply { this.type = type }
 
             /**
              * An optional parameter to associate the incoming payment detail to a virtual account.
              */
-            @JsonProperty("virtual_account_id")
             fun virtualAccountId(virtualAccountId: String?) = apply {
                 this.virtualAccountId = virtualAccountId
             }
@@ -194,7 +189,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

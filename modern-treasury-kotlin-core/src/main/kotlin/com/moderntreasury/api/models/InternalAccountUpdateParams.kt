@@ -4,13 +4,14 @@ package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
@@ -67,16 +68,17 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = InternalAccountUpdateBody.Builder::class)
     @NoAutoDetect
     class InternalAccountUpdateBody
+    @JsonCreator
     internal constructor(
-        private val counterpartyId: String?,
-        private val ledgerAccountId: String?,
-        private val metadata: Metadata?,
-        private val name: String?,
-        private val parentAccountId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("counterparty_id") private val counterpartyId: String?,
+        @JsonProperty("ledger_account_id") private val ledgerAccountId: String?,
+        @JsonProperty("metadata") private val metadata: Metadata?,
+        @JsonProperty("name") private val name: String?,
+        @JsonProperty("parent_account_id") private val parentAccountId: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The Counterparty associated to this account. */
@@ -127,13 +129,11 @@ constructor(
             }
 
             /** The Counterparty associated to this account. */
-            @JsonProperty("counterparty_id")
             fun counterpartyId(counterpartyId: String?) = apply {
                 this.counterpartyId = counterpartyId
             }
 
             /** The Ledger Account associated to this account. */
-            @JsonProperty("ledger_account_id")
             fun ledgerAccountId(ledgerAccountId: String?) = apply {
                 this.ledgerAccountId = ledgerAccountId
             }
@@ -142,14 +142,12 @@ constructor(
              * Additional data in the form of key-value pairs. Pairs can be removed by passing an
              * empty string or `null` as the value.
              */
-            @JsonProperty("metadata")
             fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /** The nickname for the internal account. */
-            @JsonProperty("name") fun name(name: String?) = apply { this.name = name }
+            fun name(name: String?) = apply { this.name = name }
 
             /** The parent internal account for this account. */
-            @JsonProperty("parent_account_id")
             fun parentAccountId(parentAccountId: String?) = apply {
                 this.parentAccountId = parentAccountId
             }
@@ -159,7 +157,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -398,11 +395,12 @@ constructor(
      * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
      * string or `null` as the value.
      */
-    @JsonDeserialize(builder = Metadata.Builder::class)
     @NoAutoDetect
     class Metadata
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonAnyGetter
@@ -429,7 +427,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

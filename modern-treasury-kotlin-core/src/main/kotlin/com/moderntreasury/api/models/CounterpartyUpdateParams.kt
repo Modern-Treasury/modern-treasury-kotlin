@@ -4,13 +4,14 @@ package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
@@ -71,17 +72,18 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = CounterpartyUpdateBody.Builder::class)
     @NoAutoDetect
     class CounterpartyUpdateBody
+    @JsonCreator
     internal constructor(
-        private val email: String?,
-        private val legalEntityId: String?,
-        private val metadata: Metadata?,
-        private val name: String?,
-        private val sendRemittanceAdvice: Boolean?,
-        private val taxpayerIdentifier: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("email") private val email: String?,
+        @JsonProperty("legal_entity_id") private val legalEntityId: String?,
+        @JsonProperty("metadata") private val metadata: Metadata?,
+        @JsonProperty("name") private val name: String?,
+        @JsonProperty("send_remittance_advice") private val sendRemittanceAdvice: Boolean?,
+        @JsonProperty("taxpayer_identifier") private val taxpayerIdentifier: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** A new email for the counterparty. */
@@ -141,33 +143,29 @@ constructor(
             }
 
             /** A new email for the counterparty. */
-            @JsonProperty("email") fun email(email: String?) = apply { this.email = email }
+            fun email(email: String?) = apply { this.email = email }
 
             /** The id of the legal entity. */
-            @JsonProperty("legal_entity_id")
             fun legalEntityId(legalEntityId: String?) = apply { this.legalEntityId = legalEntityId }
 
             /**
              * Additional data in the form of key-value pairs. Pairs can be removed by passing an
              * empty string or `null` as the value.
              */
-            @JsonProperty("metadata")
             fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /** A new name for the counterparty. Will only update if passed. */
-            @JsonProperty("name") fun name(name: String?) = apply { this.name = name }
+            fun name(name: String?) = apply { this.name = name }
 
             /**
              * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
              * associated payment order is sent to the bank.
              */
-            @JsonProperty("send_remittance_advice")
             fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean?) = apply {
                 this.sendRemittanceAdvice = sendRemittanceAdvice
             }
 
             /** Either a valid SSN or EIN. */
-            @JsonProperty("taxpayer_identifier")
             fun taxpayerIdentifier(taxpayerIdentifier: String?) = apply {
                 this.taxpayerIdentifier = taxpayerIdentifier
             }
@@ -177,7 +175,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -426,11 +423,12 @@ constructor(
      * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
      * string or `null` as the value.
      */
-    @JsonDeserialize(builder = Metadata.Builder::class)
     @NoAutoDetect
     class Metadata
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonAnyGetter
@@ -457,7 +455,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

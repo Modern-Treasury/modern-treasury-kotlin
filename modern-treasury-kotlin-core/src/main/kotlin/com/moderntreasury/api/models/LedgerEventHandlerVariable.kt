@@ -4,23 +4,26 @@ package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
-@JsonDeserialize(builder = LedgerEventHandlerVariable.Builder::class)
 @NoAutoDetect
 class LedgerEventHandlerVariable
+@JsonCreator
 private constructor(
-    private val type: JsonField<String>,
-    private val query: JsonField<LedgerEventHandlerConditions>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("query")
+    @ExcludeMissing
+    private val query: JsonField<LedgerEventHandlerConditions> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** The type of object this variable is. Currently, only "ledger_account" is supported. */
@@ -70,14 +73,10 @@ private constructor(
         fun type(type: String) = type(JsonField.of(type))
 
         /** The type of object this variable is. Currently, only "ledger_account" is supported. */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<String>) = apply { this.type = type }
 
         fun query(query: LedgerEventHandlerConditions) = query(JsonField.of(query))
 
-        @JsonProperty("query")
-        @ExcludeMissing
         fun query(query: JsonField<LedgerEventHandlerConditions>) = apply { this.query = query }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -85,7 +84,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }
@@ -108,14 +106,21 @@ private constructor(
             )
     }
 
-    @JsonDeserialize(builder = LedgerEventHandlerConditions.Builder::class)
     @NoAutoDetect
     class LedgerEventHandlerConditions
+    @JsonCreator
     private constructor(
-        private val field: JsonField<String>,
-        private val operator: JsonField<String>,
-        private val value: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("field")
+        @ExcludeMissing
+        private val field: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("operator")
+        @ExcludeMissing
+        private val operator: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("value")
+        @ExcludeMissing
+        private val value: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The LHS of the conditional. */
@@ -177,24 +182,18 @@ private constructor(
             fun field(field: String) = field(JsonField.of(field))
 
             /** The LHS of the conditional. */
-            @JsonProperty("field")
-            @ExcludeMissing
             fun field(field: JsonField<String>) = apply { this.field = field }
 
             /** What the operator between the `field` and `value` is. */
             fun operator(operator: String) = operator(JsonField.of(operator))
 
             /** What the operator between the `field` and `value` is. */
-            @JsonProperty("operator")
-            @ExcludeMissing
             fun operator(operator: JsonField<String>) = apply { this.operator = operator }
 
             /** The RHS of the conditional. */
             fun value(value: String) = value(JsonField.of(value))
 
             /** The RHS of the conditional. */
-            @JsonProperty("value")
-            @ExcludeMissing
             fun value(value: JsonField<String>) = apply { this.value = value }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -202,7 +201,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
