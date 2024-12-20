@@ -6,36 +6,58 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 
-@JsonDeserialize(builder = LineItem.Builder::class)
 @NoAutoDetect
 class LineItem
+@JsonCreator
 private constructor(
-    private val id: JsonField<String>,
-    private val object_: JsonField<String>,
-    private val liveMode: JsonField<Boolean>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val updatedAt: JsonField<OffsetDateTime>,
-    private val itemizableId: JsonField<String>,
-    private val itemizableType: JsonField<ItemizableType>,
-    private val amount: JsonField<Long>,
-    private val description: JsonField<String>,
-    private val metadata: JsonField<Metadata>,
-    private val accounting: JsonField<Accounting>,
-    private val accountingCategoryId: JsonField<String>,
-    private val accountingLedgerClassId: JsonField<String>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("itemizable_id")
+    @ExcludeMissing
+    private val itemizableId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("itemizable_type")
+    @ExcludeMissing
+    private val itemizableType: JsonField<ItemizableType> = JsonMissing.of(),
+    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("description")
+    @ExcludeMissing
+    private val description: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("metadata")
+    @ExcludeMissing
+    private val metadata: JsonField<Metadata> = JsonMissing.of(),
+    @JsonProperty("accounting")
+    @ExcludeMissing
+    private val accounting: JsonField<Accounting> = JsonMissing.of(),
+    @JsonProperty("accounting_category_id")
+    @ExcludeMissing
+    private val accountingCategoryId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("accounting_ledger_class_id")
+    @ExcludeMissing
+    private val accountingLedgerClassId: JsonField<String> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
@@ -199,12 +221,10 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
-        @JsonProperty("object")
-        @ExcludeMissing
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /**
@@ -217,28 +237,20 @@ private constructor(
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
          */
-        @JsonProperty("live_mode")
-        @ExcludeMissing
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
-        @JsonProperty("updated_at")
-        @ExcludeMissing
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         /** The ID of the payment order or expected payment. */
         fun itemizableId(itemizableId: String) = itemizableId(JsonField.of(itemizableId))
 
         /** The ID of the payment order or expected payment. */
-        @JsonProperty("itemizable_id")
-        @ExcludeMissing
         fun itemizableId(itemizableId: JsonField<String>) = apply {
             this.itemizableId = itemizableId
         }
@@ -248,8 +260,6 @@ private constructor(
             itemizableType(JsonField.of(itemizableType))
 
         /** One of `payment_orders` or `expected_payments`. */
-        @JsonProperty("itemizable_type")
-        @ExcludeMissing
         fun itemizableType(itemizableType: JsonField<ItemizableType>) = apply {
             this.itemizableType = itemizableType
         }
@@ -258,16 +268,12 @@ private constructor(
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-        @JsonProperty("amount")
-        @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /** A free-form description of the line item. */
         fun description(description: String) = description(JsonField.of(description))
 
         /** A free-form description of the line item. */
-        @JsonProperty("description")
-        @ExcludeMissing
         fun description(description: JsonField<String>) = apply { this.description = description }
 
         /**
@@ -278,14 +284,10 @@ private constructor(
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @JsonProperty("metadata")
-        @ExcludeMissing
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         fun accounting(accounting: Accounting) = accounting(JsonField.of(accounting))
 
-        @JsonProperty("accounting")
-        @ExcludeMissing
         fun accounting(accounting: JsonField<Accounting>) = apply { this.accounting = accounting }
 
         /**
@@ -299,8 +301,6 @@ private constructor(
          * The ID of one of your accounting categories. Note that these will only be accessible if
          * your accounting system has been connected.
          */
-        @JsonProperty("accounting_category_id")
-        @ExcludeMissing
         fun accountingCategoryId(accountingCategoryId: JsonField<String>) = apply {
             this.accountingCategoryId = accountingCategoryId
         }
@@ -318,8 +318,6 @@ private constructor(
          * segments of your business independent of client or project. Note that these will only be
          * accessible if your accounting system has been connected.
          */
-        @JsonProperty("accounting_ledger_class_id")
-        @ExcludeMissing
         fun accountingLedgerClassId(accountingLedgerClassId: JsonField<String>) = apply {
             this.accountingLedgerClassId = accountingLedgerClassId
         }
@@ -329,7 +327,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }
@@ -363,13 +360,18 @@ private constructor(
             )
     }
 
-    @JsonDeserialize(builder = Accounting.Builder::class)
     @NoAutoDetect
     class Accounting
+    @JsonCreator
     private constructor(
-        private val accountId: JsonField<String>,
-        private val classId: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_id")
+        @ExcludeMissing
+        private val accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("class_id")
+        @ExcludeMissing
+        private val classId: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -441,8 +443,6 @@ private constructor(
              * The ID of one of your accounting categories. Note that these will only be accessible
              * if your accounting system has been connected.
              */
-            @JsonProperty("account_id")
-            @ExcludeMissing
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /**
@@ -457,8 +457,6 @@ private constructor(
              * segments of your business independent of client or project. Note that these will only
              * be accessible if your accounting system has been connected.
              */
-            @JsonProperty("class_id")
-            @ExcludeMissing
             fun classId(classId: JsonField<String>) = apply { this.classId = classId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -466,7 +464,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -565,11 +562,12 @@ private constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonDeserialize(builder = Metadata.Builder::class)
     @NoAutoDetect
     class Metadata
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonAnyGetter
@@ -604,7 +602,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

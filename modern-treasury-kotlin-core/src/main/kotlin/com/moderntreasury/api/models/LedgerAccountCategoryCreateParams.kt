@@ -4,13 +4,14 @@ package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
@@ -69,19 +70,21 @@ constructor(
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = LedgerAccountCategoryCreateBody.Builder::class)
     @NoAutoDetect
     class LedgerAccountCategoryCreateBody
+    @JsonCreator
     internal constructor(
-        private val currency: String,
-        private val ledgerId: String,
-        private val name: String,
-        private val normalBalance: TransactionDirection,
-        private val currencyExponent: Long?,
-        private val description: String?,
+        @JsonProperty("currency") private val currency: String,
+        @JsonProperty("ledger_id") private val ledgerId: String,
+        @JsonProperty("name") private val name: String,
+        @JsonProperty("normal_balance") private val normalBalance: TransactionDirection,
+        @JsonProperty("currency_exponent") private val currencyExponent: Long?,
+        @JsonProperty("description") private val description: String?,
+        @JsonProperty("ledger_account_category_ids")
         private val ledgerAccountCategoryIds: List<String>?,
-        private val metadata: Metadata?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("metadata") private val metadata: Metadata?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The currency of the ledger account category. */
@@ -153,37 +156,31 @@ constructor(
                 }
 
             /** The currency of the ledger account category. */
-            @JsonProperty("currency")
             fun currency(currency: String) = apply { this.currency = currency }
 
             /** The id of the ledger that this account category belongs to. */
-            @JsonProperty("ledger_id")
             fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
 
             /** The name of the ledger account category. */
-            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+            fun name(name: String) = apply { this.name = name }
 
             /** The normal balance of the ledger account category. */
-            @JsonProperty("normal_balance")
             fun normalBalance(normalBalance: TransactionDirection) = apply {
                 this.normalBalance = normalBalance
             }
 
             /** The currency exponent of the ledger account category. */
-            @JsonProperty("currency_exponent")
             fun currencyExponent(currencyExponent: Long?) = apply {
                 this.currencyExponent = currencyExponent
             }
 
             /** The description of the ledger account category. */
-            @JsonProperty("description")
             fun description(description: String?) = apply { this.description = description }
 
             /**
              * The array of ledger account category ids that this ledger account category should be
              * a child of.
              */
-            @JsonProperty("ledger_account_category_ids")
             fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>?) = apply {
                 this.ledgerAccountCategoryIds = ledgerAccountCategoryIds
             }
@@ -192,7 +189,6 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            @JsonProperty("metadata")
             fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -200,7 +196,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -469,11 +464,12 @@ constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonDeserialize(builder = Metadata.Builder::class)
     @NoAutoDetect
     class Metadata
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonAnyGetter
@@ -500,7 +496,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

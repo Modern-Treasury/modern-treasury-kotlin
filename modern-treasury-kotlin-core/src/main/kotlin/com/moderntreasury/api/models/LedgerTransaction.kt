@@ -6,42 +6,76 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 
-@JsonDeserialize(builder = LedgerTransaction.Builder::class)
 @NoAutoDetect
 class LedgerTransaction
+@JsonCreator
 private constructor(
-    private val id: JsonField<String>,
-    private val object_: JsonField<String>,
-    private val liveMode: JsonField<Boolean>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val updatedAt: JsonField<OffsetDateTime>,
-    private val description: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val metadata: JsonField<Metadata>,
-    private val effectiveAt: JsonField<OffsetDateTime>,
-    private val effectiveDate: JsonField<LocalDate>,
-    private val ledgerEntries: JsonField<List<LedgerEntry>>,
-    private val postedAt: JsonField<OffsetDateTime>,
-    private val ledgerId: JsonField<String>,
-    private val ledgerableType: JsonField<LedgerableType>,
-    private val ledgerableId: JsonField<String>,
-    private val externalId: JsonField<String>,
-    private val reversesLedgerTransactionId: JsonField<String>,
-    private val reversedByLedgerTransactionId: JsonField<String>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("description")
+    @ExcludeMissing
+    private val description: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("metadata")
+    @ExcludeMissing
+    private val metadata: JsonField<Metadata> = JsonMissing.of(),
+    @JsonProperty("effective_at")
+    @ExcludeMissing
+    private val effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("effective_date")
+    @ExcludeMissing
+    private val effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
+    @JsonProperty("ledger_entries")
+    @ExcludeMissing
+    private val ledgerEntries: JsonField<List<LedgerEntry>> = JsonMissing.of(),
+    @JsonProperty("posted_at")
+    @ExcludeMissing
+    private val postedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("ledger_id")
+    @ExcludeMissing
+    private val ledgerId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("ledgerable_type")
+    @ExcludeMissing
+    private val ledgerableType: JsonField<LedgerableType> = JsonMissing.of(),
+    @JsonProperty("ledgerable_id")
+    @ExcludeMissing
+    private val ledgerableId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("external_id")
+    @ExcludeMissing
+    private val externalId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("reverses_ledger_transaction_id")
+    @ExcludeMissing
+    private val reversesLedgerTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("reversed_by_ledger_transaction_id")
+    @ExcludeMissing
+    private val reversedByLedgerTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
@@ -271,12 +305,10 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
-        @JsonProperty("object")
-        @ExcludeMissing
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /**
@@ -289,36 +321,26 @@ private constructor(
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
          */
-        @JsonProperty("live_mode")
-        @ExcludeMissing
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
-        @JsonProperty("updated_at")
-        @ExcludeMissing
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         /** An optional description for internal use. */
         fun description(description: String) = description(JsonField.of(description))
 
         /** An optional description for internal use. */
-        @JsonProperty("description")
-        @ExcludeMissing
         fun description(description: JsonField<String>) = apply { this.description = description }
 
         /** To post a ledger transaction at creation, use `posted`. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /** To post a ledger transaction at creation, use `posted`. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -329,8 +351,6 @@ private constructor(
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @JsonProperty("metadata")
-        @ExcludeMissing
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         /**
@@ -343,8 +363,6 @@ private constructor(
          * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
          * purposes.
          */
-        @JsonProperty("effective_at")
-        @ExcludeMissing
         fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
             this.effectiveAt = effectiveAt
         }
@@ -357,8 +375,6 @@ private constructor(
         /**
          * The date (YYYY-MM-DD) on which the ledger transaction happened for reporting purposes.
          */
-        @JsonProperty("effective_date")
-        @ExcludeMissing
         fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
             this.effectiveDate = effectiveDate
         }
@@ -368,8 +384,6 @@ private constructor(
             ledgerEntries(JsonField.of(ledgerEntries))
 
         /** An array of ledger entry objects. */
-        @JsonProperty("ledger_entries")
-        @ExcludeMissing
         fun ledgerEntries(ledgerEntries: JsonField<List<LedgerEntry>>) = apply {
             this.ledgerEntries = ledgerEntries
         }
@@ -384,16 +398,12 @@ private constructor(
          * The time on which the ledger transaction posted. This is null if the ledger transaction
          * is pending.
          */
-        @JsonProperty("posted_at")
-        @ExcludeMissing
         fun postedAt(postedAt: JsonField<OffsetDateTime>) = apply { this.postedAt = postedAt }
 
         /** The ID of the ledger this ledger transaction belongs to. */
         fun ledgerId(ledgerId: String) = ledgerId(JsonField.of(ledgerId))
 
         /** The ID of the ledger this ledger transaction belongs to. */
-        @JsonProperty("ledger_id")
-        @ExcludeMissing
         fun ledgerId(ledgerId: JsonField<String>) = apply { this.ledgerId = ledgerId }
 
         /**
@@ -409,8 +419,6 @@ private constructor(
          * type will be populated here, otherwise null. This can be one of payment_order,
          * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
          */
-        @JsonProperty("ledgerable_type")
-        @ExcludeMissing
         fun ledgerableType(ledgerableType: JsonField<LedgerableType>) = apply {
             this.ledgerableType = ledgerableType
         }
@@ -425,8 +433,6 @@ private constructor(
          * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
          * will be populated here, otherwise null.
          */
-        @JsonProperty("ledgerable_id")
-        @ExcludeMissing
         fun ledgerableId(ledgerableId: JsonField<String>) = apply {
             this.ledgerableId = ledgerableId
         }
@@ -441,8 +447,6 @@ private constructor(
          * A unique string to represent the ledger transaction. Only one pending or posted ledger
          * transaction may have this ID in the ledger.
          */
-        @JsonProperty("external_id")
-        @ExcludeMissing
         fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
 
         /** The ID of the original ledger transaction that this ledger transaction reverses. */
@@ -450,8 +454,6 @@ private constructor(
             reversesLedgerTransactionId(JsonField.of(reversesLedgerTransactionId))
 
         /** The ID of the original ledger transaction that this ledger transaction reverses. */
-        @JsonProperty("reverses_ledger_transaction_id")
-        @ExcludeMissing
         fun reversesLedgerTransactionId(reversesLedgerTransactionId: JsonField<String>) = apply {
             this.reversesLedgerTransactionId = reversesLedgerTransactionId
         }
@@ -461,8 +463,6 @@ private constructor(
             reversedByLedgerTransactionId(JsonField.of(reversedByLedgerTransactionId))
 
         /** The ID of the ledger transaction that reversed this ledger transaction. */
-        @JsonProperty("reversed_by_ledger_transaction_id")
-        @ExcludeMissing
         fun reversedByLedgerTransactionId(reversedByLedgerTransactionId: JsonField<String>) =
             apply {
                 this.reversedByLedgerTransactionId = reversedByLedgerTransactionId
@@ -473,7 +473,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }
@@ -594,11 +593,12 @@ private constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonDeserialize(builder = Metadata.Builder::class)
     @NoAutoDetect
     class Metadata
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonAnyGetter
@@ -633,7 +633,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

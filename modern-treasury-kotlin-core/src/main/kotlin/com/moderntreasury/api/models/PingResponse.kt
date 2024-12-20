@@ -4,22 +4,23 @@ package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
-@JsonDeserialize(builder = PingResponse.Builder::class)
 @NoAutoDetect
 class PingResponse
+@JsonCreator
 private constructor(
-    private val ping: JsonField<String>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("ping") @ExcludeMissing private val ping: JsonField<String> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun ping(): String = ping.getRequired("ping")
@@ -58,8 +59,6 @@ private constructor(
 
         fun ping(ping: String) = ping(JsonField.of(ping))
 
-        @JsonProperty("ping")
-        @ExcludeMissing
         fun ping(ping: JsonField<String>) = apply { this.ping = ping }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -67,7 +66,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }

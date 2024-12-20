@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
@@ -14,6 +13,7 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
@@ -67,14 +67,15 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = RoutingDetailCreateBody.Builder::class)
     @NoAutoDetect
     class RoutingDetailCreateBody
+    @JsonCreator
     internal constructor(
-        private val routingNumber: String,
-        private val routingNumberType: RoutingNumberType,
-        private val paymentType: PaymentType?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("routing_number") private val routingNumber: String,
+        @JsonProperty("routing_number_type") private val routingNumberType: RoutingNumberType,
+        @JsonProperty("payment_type") private val paymentType: PaymentType?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The routing number of the bank. */
@@ -120,7 +121,6 @@ constructor(
             }
 
             /** The routing number of the bank. */
-            @JsonProperty("routing_number")
             fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
 
             /**
@@ -128,7 +128,6 @@ constructor(
              * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
              * details.
              */
-            @JsonProperty("routing_number_type")
             fun routingNumberType(routingNumberType: RoutingNumberType) = apply {
                 this.routingNumberType = routingNumberType
             }
@@ -137,7 +136,6 @@ constructor(
              * If the routing detail is to be used for a specific payment type this field will be
              * populated, otherwise null.
              */
-            @JsonProperty("payment_type")
             fun paymentType(paymentType: PaymentType?) = apply { this.paymentType = paymentType }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -145,7 +143,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
@@ -14,6 +13,7 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
@@ -79,18 +79,19 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = ExternalAccountUpdateBody.Builder::class)
     @NoAutoDetect
     class ExternalAccountUpdateBody
+    @JsonCreator
     internal constructor(
-        private val accountType: ExternalAccountType?,
-        private val counterpartyId: String?,
-        private val metadata: Metadata?,
-        private val name: String?,
-        private val partyAddress: AddressRequest?,
-        private val partyName: String?,
-        private val partyType: PartyType?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_type") private val accountType: ExternalAccountType?,
+        @JsonProperty("counterparty_id") private val counterpartyId: String?,
+        @JsonProperty("metadata") private val metadata: Metadata?,
+        @JsonProperty("name") private val name: String?,
+        @JsonProperty("party_address") private val partyAddress: AddressRequest?,
+        @JsonProperty("party_name") private val partyName: String?,
+        @JsonProperty("party_type") private val partyType: PartyType?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Can be `checking`, `savings` or `other`. */
@@ -152,12 +153,10 @@ constructor(
             }
 
             /** Can be `checking`, `savings` or `other`. */
-            @JsonProperty("account_type")
             fun accountType(accountType: ExternalAccountType?) = apply {
                 this.accountType = accountType
             }
 
-            @JsonProperty("counterparty_id")
             fun counterpartyId(counterpartyId: String?) = apply {
                 this.counterpartyId = counterpartyId
             }
@@ -166,26 +165,22 @@ constructor(
              * Additional data in the form of key-value pairs. Pairs can be removed by passing an
              * empty string or `null` as the value.
              */
-            @JsonProperty("metadata")
             fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /**
              * A nickname for the external account. This is only for internal usage and won't affect
              * any payments
              */
-            @JsonProperty("name") fun name(name: String?) = apply { this.name = name }
+            fun name(name: String?) = apply { this.name = name }
 
-            @JsonProperty("party_address")
             fun partyAddress(partyAddress: AddressRequest?) = apply {
                 this.partyAddress = partyAddress
             }
 
             /** If this value isn't provided, it will be inherited from the counterparty's name. */
-            @JsonProperty("party_name")
             fun partyName(partyName: String?) = apply { this.partyName = partyName }
 
             /** Either `individual` or `business`. */
-            @JsonProperty("party_type")
             fun partyType(partyType: PartyType?) = apply { this.partyType = partyType }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -193,7 +188,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -443,11 +437,12 @@ constructor(
      * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
      * string or `null` as the value.
      */
-    @JsonDeserialize(builder = Metadata.Builder::class)
     @NoAutoDetect
     class Metadata
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonAnyGetter
@@ -474,7 +469,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -509,17 +503,18 @@ constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
-    @JsonDeserialize(builder = AddressRequest.Builder::class)
     @NoAutoDetect
     class AddressRequest
+    @JsonCreator
     private constructor(
-        private val line1: String?,
-        private val line2: String?,
-        private val locality: String?,
-        private val region: String?,
-        private val postalCode: String?,
-        private val country: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("line1") private val line1: String?,
+        @JsonProperty("line2") private val line2: String?,
+        @JsonProperty("locality") private val locality: String?,
+        @JsonProperty("region") private val region: String?,
+        @JsonProperty("postal_code") private val postalCode: String?,
+        @JsonProperty("country") private val country: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonProperty("line1") fun line1(): String? = line1
@@ -569,23 +564,20 @@ constructor(
                 additionalProperties = addressRequest.additionalProperties.toMutableMap()
             }
 
-            @JsonProperty("line1") fun line1(line1: String?) = apply { this.line1 = line1 }
+            fun line1(line1: String?) = apply { this.line1 = line1 }
 
-            @JsonProperty("line2") fun line2(line2: String?) = apply { this.line2 = line2 }
+            fun line2(line2: String?) = apply { this.line2 = line2 }
 
             /** Locality or City. */
-            @JsonProperty("locality")
             fun locality(locality: String?) = apply { this.locality = locality }
 
             /** Region or State. */
-            @JsonProperty("region") fun region(region: String?) = apply { this.region = region }
+            fun region(region: String?) = apply { this.region = region }
 
             /** The postal code of the address. */
-            @JsonProperty("postal_code")
             fun postalCode(postalCode: String?) = apply { this.postalCode = postalCode }
 
             /** Country code conforms to [ISO 3166-1 alpha-2] */
-            @JsonProperty("country")
             fun country(country: String?) = apply { this.country = country }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -593,7 +585,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

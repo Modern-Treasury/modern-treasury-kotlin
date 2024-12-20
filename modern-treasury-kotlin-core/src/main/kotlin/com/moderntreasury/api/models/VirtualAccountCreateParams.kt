@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
@@ -14,6 +13,7 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
@@ -81,21 +81,24 @@ constructor(
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = VirtualAccountCreateBody.Builder::class)
     @NoAutoDetect
     class VirtualAccountCreateBody
+    @JsonCreator
     internal constructor(
-        private val internalAccountId: String,
-        private val name: String,
+        @JsonProperty("internal_account_id") private val internalAccountId: String,
+        @JsonProperty("name") private val name: String,
+        @JsonProperty("account_details")
         private val accountDetails: List<AccountDetailCreateRequest>?,
-        private val counterpartyId: String?,
-        private val creditLedgerAccountId: String?,
-        private val debitLedgerAccountId: String?,
-        private val description: String?,
-        private val ledgerAccount: LedgerAccountCreateRequest?,
-        private val metadata: Metadata?,
+        @JsonProperty("counterparty_id") private val counterpartyId: String?,
+        @JsonProperty("credit_ledger_account_id") private val creditLedgerAccountId: String?,
+        @JsonProperty("debit_ledger_account_id") private val debitLedgerAccountId: String?,
+        @JsonProperty("description") private val description: String?,
+        @JsonProperty("ledger_account") private val ledgerAccount: LedgerAccountCreateRequest?,
+        @JsonProperty("metadata") private val metadata: Metadata?,
+        @JsonProperty("routing_details")
         private val routingDetails: List<RoutingDetailCreateRequest>?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The ID of the internal account that this virtual account is associated with. */
@@ -186,22 +189,19 @@ constructor(
             }
 
             /** The ID of the internal account that this virtual account is associated with. */
-            @JsonProperty("internal_account_id")
             fun internalAccountId(internalAccountId: String) = apply {
                 this.internalAccountId = internalAccountId
             }
 
             /** The name of the virtual account. */
-            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+            fun name(name: String) = apply { this.name = name }
 
             /** An array of account detail objects. */
-            @JsonProperty("account_details")
             fun accountDetails(accountDetails: List<AccountDetailCreateRequest>?) = apply {
                 this.accountDetails = accountDetails
             }
 
             /** The ID of the counterparty that the virtual account belongs to. */
-            @JsonProperty("counterparty_id")
             fun counterpartyId(counterpartyId: String?) = apply {
                 this.counterpartyId = counterpartyId
             }
@@ -211,7 +211,6 @@ constructor(
              * ledger account will be credited. Must be accompanied by a debit_ledger_account_id if
              * present.
              */
-            @JsonProperty("credit_ledger_account_id")
             fun creditLedgerAccountId(creditLedgerAccountId: String?) = apply {
                 this.creditLedgerAccountId = creditLedgerAccountId
             }
@@ -221,20 +220,17 @@ constructor(
              * ledger account will be debited. Must be accompanied by a credit_ledger_account_id if
              * present.
              */
-            @JsonProperty("debit_ledger_account_id")
             fun debitLedgerAccountId(debitLedgerAccountId: String?) = apply {
                 this.debitLedgerAccountId = debitLedgerAccountId
             }
 
             /** An optional description for internal use. */
-            @JsonProperty("description")
             fun description(description: String?) = apply { this.description = description }
 
             /**
              * Specifies a ledger account object that will be created with the virtual account. The
              * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
              */
-            @JsonProperty("ledger_account")
             fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest?) = apply {
                 this.ledgerAccount = ledgerAccount
             }
@@ -243,11 +239,9 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            @JsonProperty("metadata")
             fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /** An array of routing detail objects. */
-            @JsonProperty("routing_details")
             fun routingDetails(routingDetails: List<RoutingDetailCreateRequest>?) = apply {
                 this.routingDetails = routingDetails
             }
@@ -257,7 +251,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -558,13 +551,14 @@ constructor(
             )
     }
 
-    @JsonDeserialize(builder = AccountDetailCreateRequest.Builder::class)
     @NoAutoDetect
     class AccountDetailCreateRequest
+    @JsonCreator
     private constructor(
-        private val accountNumber: String,
-        private val accountNumberType: AccountNumberType?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_number") private val accountNumber: String,
+        @JsonProperty("account_number_type") private val accountNumberType: AccountNumberType?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The account number for the bank account. */
@@ -602,14 +596,12 @@ constructor(
             }
 
             /** The account number for the bank account. */
-            @JsonProperty("account_number")
             fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
 
             /**
              * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
              * number is in a generic format.
              */
-            @JsonProperty("account_number_type")
             fun accountNumberType(accountNumberType: AccountNumberType?) = apply {
                 this.accountNumberType = accountNumberType
             }
@@ -619,7 +611,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -772,21 +763,23 @@ constructor(
      * Specifies a ledger account object that will be created with the virtual account. The
      * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
      */
-    @JsonDeserialize(builder = LedgerAccountCreateRequest.Builder::class)
     @NoAutoDetect
     class LedgerAccountCreateRequest
+    @JsonCreator
     private constructor(
-        private val name: String,
-        private val description: String?,
-        private val normalBalance: TransactionDirection,
-        private val ledgerId: String,
-        private val currency: String,
-        private val currencyExponent: Long?,
+        @JsonProperty("name") private val name: String,
+        @JsonProperty("description") private val description: String?,
+        @JsonProperty("normal_balance") private val normalBalance: TransactionDirection,
+        @JsonProperty("ledger_id") private val ledgerId: String,
+        @JsonProperty("currency") private val currency: String,
+        @JsonProperty("currency_exponent") private val currencyExponent: Long?,
+        @JsonProperty("ledger_account_category_ids")
         private val ledgerAccountCategoryIds: List<String>?,
-        private val ledgerableId: String?,
-        private val ledgerableType: LedgerableType?,
-        private val metadata: Metadata?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("ledgerable_id") private val ledgerableId: String?,
+        @JsonProperty("ledgerable_type") private val ledgerableType: LedgerableType?,
+        @JsonProperty("metadata") private val metadata: Metadata?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The name of the ledger account. */
@@ -872,28 +865,23 @@ constructor(
             }
 
             /** The name of the ledger account. */
-            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+            fun name(name: String) = apply { this.name = name }
 
             /** The description of the ledger account. */
-            @JsonProperty("description")
             fun description(description: String?) = apply { this.description = description }
 
             /** The normal balance of the ledger account. */
-            @JsonProperty("normal_balance")
             fun normalBalance(normalBalance: TransactionDirection) = apply {
                 this.normalBalance = normalBalance
             }
 
             /** The id of the ledger that this account belongs to. */
-            @JsonProperty("ledger_id")
             fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
 
             /** The currency of the ledger account. */
-            @JsonProperty("currency")
             fun currency(currency: String) = apply { this.currency = currency }
 
             /** The currency exponent of the ledger account. */
-            @JsonProperty("currency_exponent")
             fun currencyExponent(currencyExponent: Long?) = apply {
                 this.currencyExponent = currencyExponent
             }
@@ -902,7 +890,6 @@ constructor(
              * The array of ledger account category ids that this ledger account should be a child
              * of.
              */
-            @JsonProperty("ledger_account_category_ids")
             fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>?) = apply {
                 this.ledgerAccountCategoryIds = ledgerAccountCategoryIds
             }
@@ -911,7 +898,6 @@ constructor(
              * If the ledger account links to another object in Modern Treasury, the id will be
              * populated here, otherwise null.
              */
-            @JsonProperty("ledgerable_id")
             fun ledgerableId(ledgerableId: String?) = apply { this.ledgerableId = ledgerableId }
 
             /**
@@ -919,7 +905,6 @@ constructor(
              * populated here, otherwise null. The value is one of internal_account or
              * external_account.
              */
-            @JsonProperty("ledgerable_type")
             fun ledgerableType(ledgerableType: LedgerableType?) = apply {
                 this.ledgerableType = ledgerableType
             }
@@ -928,7 +913,6 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            @JsonProperty("metadata")
             fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -936,7 +920,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -1040,11 +1023,12 @@ constructor(
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @JsonDeserialize(builder = Metadata.Builder::class)
         @NoAutoDetect
         class Metadata
+        @JsonCreator
         private constructor(
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             @JsonAnyGetter
@@ -1071,7 +1055,6 @@ constructor(
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
@@ -1128,11 +1111,12 @@ constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonDeserialize(builder = Metadata.Builder::class)
     @NoAutoDetect
     class Metadata
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonAnyGetter
@@ -1159,7 +1143,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -1194,14 +1177,15 @@ constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
-    @JsonDeserialize(builder = RoutingDetailCreateRequest.Builder::class)
     @NoAutoDetect
     class RoutingDetailCreateRequest
+    @JsonCreator
     private constructor(
-        private val routingNumber: String,
-        private val routingNumberType: RoutingNumberType,
-        private val paymentType: PaymentType?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("routing_number") private val routingNumber: String,
+        @JsonProperty("routing_number_type") private val routingNumberType: RoutingNumberType,
+        @JsonProperty("payment_type") private val paymentType: PaymentType?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The routing number of the bank. */
@@ -1248,7 +1232,6 @@ constructor(
             }
 
             /** The routing number of the bank. */
-            @JsonProperty("routing_number")
             fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
 
             /**
@@ -1256,7 +1239,6 @@ constructor(
              * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
              * details.
              */
-            @JsonProperty("routing_number_type")
             fun routingNumberType(routingNumberType: RoutingNumberType) = apply {
                 this.routingNumberType = routingNumberType
             }
@@ -1265,7 +1247,6 @@ constructor(
              * If the routing detail is to be used for a specific payment type this field will be
              * populated, otherwise null.
              */
-            @JsonProperty("payment_type")
             fun paymentType(paymentType: PaymentType?) = apply { this.paymentType = paymentType }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1273,7 +1254,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
@@ -14,6 +13,7 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
@@ -71,16 +71,17 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = ExternalAccountVerifyBody.Builder::class)
     @NoAutoDetect
     class ExternalAccountVerifyBody
+    @JsonCreator
     internal constructor(
-        private val originatingAccountId: String,
-        private val paymentType: PaymentType,
-        private val currency: Currency?,
-        private val fallbackType: FallbackType?,
-        private val priority: Priority?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("originating_account_id") private val originatingAccountId: String,
+        @JsonProperty("payment_type") private val paymentType: PaymentType,
+        @JsonProperty("currency") private val currency: Currency?,
+        @JsonProperty("fallback_type") private val fallbackType: FallbackType?,
+        @JsonProperty("priority") private val priority: Priority?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -142,17 +143,14 @@ constructor(
              * The ID of the internal account where the micro-deposits originate from. Both credit
              * and debit capabilities must be enabled.
              */
-            @JsonProperty("originating_account_id")
             fun originatingAccountId(originatingAccountId: String) = apply {
                 this.originatingAccountId = originatingAccountId
             }
 
             /** Can be `ach`, `eft`, or `rtp`. */
-            @JsonProperty("payment_type")
             fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
 
             /** Defaults to the currency of the originating account. */
-            @JsonProperty("currency")
             fun currency(currency: Currency?) = apply { this.currency = currency }
 
             /**
@@ -160,7 +158,6 @@ constructor(
              * account. Currently, this only supports falling back from RTP to ACH (payment_type=rtp
              * and fallback_type=ach)
              */
-            @JsonProperty("fallback_type")
             fun fallbackType(fallbackType: FallbackType?) = apply {
                 this.fallbackType = fallbackType
             }
@@ -169,7 +166,6 @@ constructor(
              * Either `normal` or `high`. For ACH payments, `high` represents a same-day ACH
              * transfer. This will apply to both `payment_type` and `fallback_type`.
              */
-            @JsonProperty("priority")
             fun priority(priority: Priority?) = apply { this.priority = priority }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -177,7 +173,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

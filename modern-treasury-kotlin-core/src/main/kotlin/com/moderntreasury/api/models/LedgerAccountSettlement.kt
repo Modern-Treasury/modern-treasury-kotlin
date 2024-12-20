@@ -6,40 +6,70 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 
-@JsonDeserialize(builder = LedgerAccountSettlement.Builder::class)
 @NoAutoDetect
 class LedgerAccountSettlement
+@JsonCreator
 private constructor(
-    private val id: JsonField<String>,
-    private val object_: JsonField<String>,
-    private val liveMode: JsonField<Boolean>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val updatedAt: JsonField<OffsetDateTime>,
-    private val ledgerId: JsonField<String>,
-    private val description: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val settledLedgerAccountId: JsonField<String>,
-    private val contraLedgerAccountId: JsonField<String>,
-    private val effectiveAtUpperBound: JsonField<OffsetDateTime>,
-    private val ledgerTransactionId: JsonField<String>,
-    private val amount: JsonField<Long>,
-    private val settlementEntryDirection: JsonField<String>,
-    private val currency: JsonField<String>,
-    private val currencyExponent: JsonField<Long>,
-    private val metadata: JsonField<Metadata>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("ledger_id")
+    @ExcludeMissing
+    private val ledgerId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("description")
+    @ExcludeMissing
+    private val description: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("settled_ledger_account_id")
+    @ExcludeMissing
+    private val settledLedgerAccountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("contra_ledger_account_id")
+    @ExcludeMissing
+    private val contraLedgerAccountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("effective_at_upper_bound")
+    @ExcludeMissing
+    private val effectiveAtUpperBound: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("ledger_transaction_id")
+    @ExcludeMissing
+    private val ledgerTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("settlement_entry_direction")
+    @ExcludeMissing
+    private val settlementEntryDirection: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("currency")
+    @ExcludeMissing
+    private val currency: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("currency_exponent")
+    @ExcludeMissing
+    private val currencyExponent: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("metadata")
+    @ExcludeMissing
+    private val metadata: JsonField<Metadata> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
@@ -262,12 +292,10 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
-        @JsonProperty("object")
-        @ExcludeMissing
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /**
@@ -280,36 +308,26 @@ private constructor(
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
          */
-        @JsonProperty("live_mode")
-        @ExcludeMissing
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
-        @JsonProperty("updated_at")
-        @ExcludeMissing
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         /** The id of the ledger that this ledger account settlement belongs to. */
         fun ledgerId(ledgerId: String) = ledgerId(JsonField.of(ledgerId))
 
         /** The id of the ledger that this ledger account settlement belongs to. */
-        @JsonProperty("ledger_id")
-        @ExcludeMissing
         fun ledgerId(ledgerId: JsonField<String>) = apply { this.ledgerId = ledgerId }
 
         /** The description of the ledger account settlement. */
         fun description(description: String) = description(JsonField.of(description))
 
         /** The description of the ledger account settlement. */
-        @JsonProperty("description")
-        @ExcludeMissing
         fun description(description: JsonField<String>) = apply { this.description = description }
 
         /**
@@ -322,8 +340,6 @@ private constructor(
          * The status of the ledger account settlement. One of `processing`, `pending`, `posted`,
          * `archiving` or `archived`.
          */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -337,8 +353,6 @@ private constructor(
          * The id of the settled ledger account whose ledger entries are queried against, and its
          * balance is reduced as a result.
          */
-        @JsonProperty("settled_ledger_account_id")
-        @ExcludeMissing
         fun settledLedgerAccountId(settledLedgerAccountId: JsonField<String>) = apply {
             this.settledLedgerAccountId = settledLedgerAccountId
         }
@@ -354,8 +368,6 @@ private constructor(
          * The id of the contra ledger account that sends to or receives funds from the settled
          * ledger account.
          */
-        @JsonProperty("contra_ledger_account_id")
-        @ExcludeMissing
         fun contraLedgerAccountId(contraLedgerAccountId: JsonField<String>) = apply {
             this.contraLedgerAccountId = contraLedgerAccountId
         }
@@ -373,8 +385,6 @@ private constructor(
          * included in the ledger account settlement. The default value is the created_at timestamp
          * of the ledger account settlement.
          */
-        @JsonProperty("effective_at_upper_bound")
-        @ExcludeMissing
         fun effectiveAtUpperBound(effectiveAtUpperBound: JsonField<OffsetDateTime>) = apply {
             this.effectiveAtUpperBound = effectiveAtUpperBound
         }
@@ -384,8 +394,6 @@ private constructor(
             ledgerTransactionId(JsonField.of(ledgerTransactionId))
 
         /** The id of the ledger transaction that this settlement is associated with. */
-        @JsonProperty("ledger_transaction_id")
-        @ExcludeMissing
         fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
             this.ledgerTransactionId = ledgerTransactionId
         }
@@ -394,8 +402,6 @@ private constructor(
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /** The amount of the ledger account settlement. */
-        @JsonProperty("amount")
-        @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /** The direction of the ledger entry with the settlement_ledger_account. */
@@ -403,8 +409,6 @@ private constructor(
             settlementEntryDirection(JsonField.of(settlementEntryDirection))
 
         /** The direction of the ledger entry with the settlement_ledger_account. */
-        @JsonProperty("settlement_entry_direction")
-        @ExcludeMissing
         fun settlementEntryDirection(settlementEntryDirection: JsonField<String>) = apply {
             this.settlementEntryDirection = settlementEntryDirection
         }
@@ -413,8 +417,6 @@ private constructor(
         fun currency(currency: String) = currency(JsonField.of(currency))
 
         /** The currency of the ledger account settlement. */
-        @JsonProperty("currency")
-        @ExcludeMissing
         fun currency(currency: JsonField<String>) = apply { this.currency = currency }
 
         /** The currency exponent of the ledger account settlement. */
@@ -422,8 +424,6 @@ private constructor(
             currencyExponent(JsonField.of(currencyExponent))
 
         /** The currency exponent of the ledger account settlement. */
-        @JsonProperty("currency_exponent")
-        @ExcludeMissing
         fun currencyExponent(currencyExponent: JsonField<Long>) = apply {
             this.currencyExponent = currencyExponent
         }
@@ -436,8 +436,6 @@ private constructor(
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @JsonProperty("metadata")
-        @ExcludeMissing
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -445,7 +443,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }
@@ -484,11 +481,12 @@ private constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonDeserialize(builder = Metadata.Builder::class)
     @NoAutoDetect
     class Metadata
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonAnyGetter
@@ -523,7 +521,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

@@ -4,13 +4,14 @@ package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
@@ -79,18 +80,19 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = InvoiceLineItemUpdateBody.Builder::class)
     @NoAutoDetect
     class InvoiceLineItemUpdateBody
+    @JsonCreator
     internal constructor(
-        private val description: String?,
-        private val direction: String?,
-        private val metadata: Metadata?,
-        private val name: String?,
-        private val quantity: Long?,
-        private val unitAmount: Long?,
-        private val unitAmountDecimal: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("description") private val description: String?,
+        @JsonProperty("direction") private val direction: String?,
+        @JsonProperty("metadata") private val metadata: Metadata?,
+        @JsonProperty("name") private val name: String?,
+        @JsonProperty("quantity") private val quantity: Long?,
+        @JsonProperty("unit_amount") private val unitAmount: Long?,
+        @JsonProperty("unit_amount_decimal") private val unitAmountDecimal: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** An optional free-form description of the line item. */
@@ -163,7 +165,6 @@ constructor(
             }
 
             /** An optional free-form description of the line item. */
-            @JsonProperty("description")
             fun description(description: String?) = apply { this.description = description }
 
             /**
@@ -171,38 +172,33 @@ constructor(
              * and increases the invoice's `total_amount` due. `credit` has the opposite intention
              * and effect.
              */
-            @JsonProperty("direction")
             fun direction(direction: String?) = apply { this.direction = direction }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            @JsonProperty("metadata")
             fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /** The name of the line item, typically a product or SKU name. */
-            @JsonProperty("name") fun name(name: String?) = apply { this.name = name }
+            fun name(name: String?) = apply { this.name = name }
 
             /**
              * The number of units of a product or service that this line item is for. Must be a
              * whole number. Defaults to 1 if not provided.
              */
-            @JsonProperty("quantity")
             fun quantity(quantity: Long?) = apply { this.quantity = quantity }
 
             /**
              * The cost per unit of the product or service that this line item is for, specified in
              * the invoice currency's smallest unit.
              */
-            @JsonProperty("unit_amount")
             fun unitAmount(unitAmount: Long?) = apply { this.unitAmount = unitAmount }
 
             /**
              * The cost per unit of the product or service that this line item is for, specified in
              * the invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
              */
-            @JsonProperty("unit_amount_decimal")
             fun unitAmountDecimal(unitAmountDecimal: String?) = apply {
                 this.unitAmountDecimal = unitAmountDecimal
             }
@@ -212,7 +208,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -477,11 +472,12 @@ constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonDeserialize(builder = Metadata.Builder::class)
     @NoAutoDetect
     class Metadata
+    @JsonCreator
     private constructor(
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonAnyGetter
@@ -508,7 +504,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
