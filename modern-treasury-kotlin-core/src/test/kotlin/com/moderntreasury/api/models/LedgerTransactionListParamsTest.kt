@@ -15,12 +15,12 @@ class LedgerTransactionListParamsTest {
             .afterCursor("after_cursor")
             .effectiveAt(
                 LedgerTransactionListParams.EffectiveAt.builder()
-                    .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                    .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
                     .build()
             )
             .effectiveDate(
                 LedgerTransactionListParams.EffectiveDate.builder()
-                    .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                    .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
                     .build()
             )
             .externalId("external_id")
@@ -32,7 +32,7 @@ class LedgerTransactionListParamsTest {
             .ledgerableType(LedgerTransactionListParams.LedgerableType.EXPECTED_PAYMENT)
             .metadata(
                 LedgerTransactionListParams.Metadata.builder()
-                    .putAdditionalProperty("foo", listOf("string"))
+                    .putAdditionalProperty("foo", "string")
                     .build()
             )
             .orderBy(
@@ -44,14 +44,14 @@ class LedgerTransactionListParamsTest {
             .perPage(0L)
             .postedAt(
                 LedgerTransactionListParams.PostedAt.builder()
-                    .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                    .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
                     .build()
             )
             .reversesLedgerTransactionId("reverses_ledger_transaction_id")
             .status(LedgerTransactionListParams.Status.PENDING)
             .updatedAt(
                 LedgerTransactionListParams.UpdatedAt.builder()
-                    .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                    .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
                     .build()
             )
             .build()
@@ -65,12 +65,12 @@ class LedgerTransactionListParamsTest {
                 .afterCursor("after_cursor")
                 .effectiveAt(
                     LedgerTransactionListParams.EffectiveAt.builder()
-                        .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                        .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
                         .build()
                 )
                 .effectiveDate(
                     LedgerTransactionListParams.EffectiveDate.builder()
-                        .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                        .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
                         .build()
                 )
                 .externalId("external_id")
@@ -82,7 +82,7 @@ class LedgerTransactionListParamsTest {
                 .ledgerableType(LedgerTransactionListParams.LedgerableType.EXPECTED_PAYMENT)
                 .metadata(
                     LedgerTransactionListParams.Metadata.builder()
-                        .putAdditionalProperty("foo", listOf("string"))
+                        .putAdditionalProperty("foo", "string")
                         .build()
                 )
                 .orderBy(
@@ -94,14 +94,14 @@ class LedgerTransactionListParamsTest {
                 .perPage(0L)
                 .postedAt(
                     LedgerTransactionListParams.PostedAt.builder()
-                        .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                        .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
                         .build()
                 )
                 .reversesLedgerTransactionId("reverses_ledger_transaction_id")
                 .status(LedgerTransactionListParams.Status.PENDING)
                 .updatedAt(
                     LedgerTransactionListParams.UpdatedAt.builder()
-                        .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                        .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
                         .build()
                 )
                 .build()
@@ -109,11 +109,11 @@ class LedgerTransactionListParamsTest {
         expected.put("id[]", "string")
         expected.put("after_cursor", "after_cursor")
         LedgerTransactionListParams.EffectiveAt.builder()
-            .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+            .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
             .build()
             .forEachQueryParam { key, values -> expected.put("effective_at[$key]", values) }
         LedgerTransactionListParams.EffectiveDate.builder()
-            .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+            .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
             .build()
             .forEachQueryParam { key, values -> expected.put("effective_date[$key]", values) }
         expected.put("external_id", "external_id")
@@ -127,7 +127,7 @@ class LedgerTransactionListParamsTest {
             LedgerTransactionListParams.LedgerableType.EXPECTED_PAYMENT.toString()
         )
         LedgerTransactionListParams.Metadata.builder()
-            .putAdditionalProperty("foo", listOf("string"))
+            .putAdditionalProperty("foo", "string")
             .build()
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         LedgerTransactionListParams.OrderBy.builder()
@@ -137,13 +137,13 @@ class LedgerTransactionListParamsTest {
             .forEachQueryParam { key, values -> expected.put("order_by[$key]", values) }
         expected.put("per_page", "0")
         LedgerTransactionListParams.PostedAt.builder()
-            .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+            .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
             .build()
             .forEachQueryParam { key, values -> expected.put("posted_at[$key]", values) }
         expected.put("reverses_ledger_transaction_id", "reverses_ledger_transaction_id")
         expected.put("status", LedgerTransactionListParams.Status.PENDING.toString())
         LedgerTransactionListParams.UpdatedAt.builder()
-            .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+            .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
             .build()
             .forEachQueryParam { key, values -> expected.put("updated_at[$key]", values) }
         assertThat(params.getQueryParams()).isEqualTo(expected.build())

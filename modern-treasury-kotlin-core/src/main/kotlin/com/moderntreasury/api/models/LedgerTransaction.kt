@@ -44,8 +44,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -194,6 +192,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): LedgerTransaction = apply {
         if (!validated) {
             id()
@@ -248,25 +248,25 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerTransaction: LedgerTransaction) = apply {
-            this.id = ledgerTransaction.id
-            this.object_ = ledgerTransaction.object_
-            this.liveMode = ledgerTransaction.liveMode
-            this.createdAt = ledgerTransaction.createdAt
-            this.updatedAt = ledgerTransaction.updatedAt
-            this.description = ledgerTransaction.description
-            this.status = ledgerTransaction.status
-            this.metadata = ledgerTransaction.metadata
-            this.effectiveAt = ledgerTransaction.effectiveAt
-            this.effectiveDate = ledgerTransaction.effectiveDate
-            this.ledgerEntries = ledgerTransaction.ledgerEntries
-            this.postedAt = ledgerTransaction.postedAt
-            this.ledgerId = ledgerTransaction.ledgerId
-            this.ledgerableType = ledgerTransaction.ledgerableType
-            this.ledgerableId = ledgerTransaction.ledgerableId
-            this.externalId = ledgerTransaction.externalId
-            this.reversesLedgerTransactionId = ledgerTransaction.reversesLedgerTransactionId
-            this.reversedByLedgerTransactionId = ledgerTransaction.reversedByLedgerTransactionId
-            additionalProperties(ledgerTransaction.additionalProperties)
+            id = ledgerTransaction.id
+            object_ = ledgerTransaction.object_
+            liveMode = ledgerTransaction.liveMode
+            createdAt = ledgerTransaction.createdAt
+            updatedAt = ledgerTransaction.updatedAt
+            description = ledgerTransaction.description
+            status = ledgerTransaction.status
+            metadata = ledgerTransaction.metadata
+            effectiveAt = ledgerTransaction.effectiveAt
+            effectiveDate = ledgerTransaction.effectiveDate
+            ledgerEntries = ledgerTransaction.ledgerEntries
+            postedAt = ledgerTransaction.postedAt
+            ledgerId = ledgerTransaction.ledgerId
+            ledgerableType = ledgerTransaction.ledgerableType
+            ledgerableId = ledgerTransaction.ledgerableId
+            externalId = ledgerTransaction.externalId
+            reversesLedgerTransactionId = ledgerTransaction.reversesLedgerTransactionId
+            reversedByLedgerTransactionId = ledgerTransaction.reversedByLedgerTransactionId
+            additionalProperties = ledgerTransaction.additionalProperties.toMutableMap()
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -470,16 +470,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): LedgerTransaction =
@@ -595,11 +601,11 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
             if (!validated) {
@@ -619,21 +625,27 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
+                additionalProperties = metadata.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())

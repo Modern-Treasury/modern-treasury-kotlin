@@ -18,7 +18,7 @@ class IncomingPaymentDetailListParamsTest {
             .direction(TransactionDirection.CREDIT)
             .metadata(
                 IncomingPaymentDetailListParams.Metadata.builder()
-                    .putAdditionalProperty("foo", listOf("string"))
+                    .putAdditionalProperty("foo", "string")
                     .build()
             )
             .perPage(0L)
@@ -38,7 +38,7 @@ class IncomingPaymentDetailListParamsTest {
                 .direction(TransactionDirection.CREDIT)
                 .metadata(
                     IncomingPaymentDetailListParams.Metadata.builder()
-                        .putAdditionalProperty("foo", listOf("string"))
+                        .putAdditionalProperty("foo", "string")
                         .build()
                 )
                 .perPage(0L)
@@ -52,7 +52,7 @@ class IncomingPaymentDetailListParamsTest {
         expected.put("as_of_date_start", "2019-12-27")
         expected.put("direction", TransactionDirection.CREDIT.toString())
         IncomingPaymentDetailListParams.Metadata.builder()
-            .putAdditionalProperty("foo", listOf("string"))
+            .putAdditionalProperty("foo", "string")
             .build()
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("per_page", "0")

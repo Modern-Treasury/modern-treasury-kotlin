@@ -42,8 +42,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -188,6 +186,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): LedgerAccountSettlement = apply {
         if (!validated) {
             id()
@@ -240,24 +240,24 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerAccountSettlement: LedgerAccountSettlement) = apply {
-            this.id = ledgerAccountSettlement.id
-            this.object_ = ledgerAccountSettlement.object_
-            this.liveMode = ledgerAccountSettlement.liveMode
-            this.createdAt = ledgerAccountSettlement.createdAt
-            this.updatedAt = ledgerAccountSettlement.updatedAt
-            this.ledgerId = ledgerAccountSettlement.ledgerId
-            this.description = ledgerAccountSettlement.description
-            this.status = ledgerAccountSettlement.status
-            this.settledLedgerAccountId = ledgerAccountSettlement.settledLedgerAccountId
-            this.contraLedgerAccountId = ledgerAccountSettlement.contraLedgerAccountId
-            this.effectiveAtUpperBound = ledgerAccountSettlement.effectiveAtUpperBound
-            this.ledgerTransactionId = ledgerAccountSettlement.ledgerTransactionId
-            this.amount = ledgerAccountSettlement.amount
-            this.settlementEntryDirection = ledgerAccountSettlement.settlementEntryDirection
-            this.currency = ledgerAccountSettlement.currency
-            this.currencyExponent = ledgerAccountSettlement.currencyExponent
-            this.metadata = ledgerAccountSettlement.metadata
-            additionalProperties(ledgerAccountSettlement.additionalProperties)
+            id = ledgerAccountSettlement.id
+            object_ = ledgerAccountSettlement.object_
+            liveMode = ledgerAccountSettlement.liveMode
+            createdAt = ledgerAccountSettlement.createdAt
+            updatedAt = ledgerAccountSettlement.updatedAt
+            ledgerId = ledgerAccountSettlement.ledgerId
+            description = ledgerAccountSettlement.description
+            status = ledgerAccountSettlement.status
+            settledLedgerAccountId = ledgerAccountSettlement.settledLedgerAccountId
+            contraLedgerAccountId = ledgerAccountSettlement.contraLedgerAccountId
+            effectiveAtUpperBound = ledgerAccountSettlement.effectiveAtUpperBound
+            ledgerTransactionId = ledgerAccountSettlement.ledgerTransactionId
+            amount = ledgerAccountSettlement.amount
+            settlementEntryDirection = ledgerAccountSettlement.settlementEntryDirection
+            currency = ledgerAccountSettlement.currency
+            currencyExponent = ledgerAccountSettlement.currencyExponent
+            metadata = ledgerAccountSettlement.metadata
+            additionalProperties = ledgerAccountSettlement.additionalProperties.toMutableMap()
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -442,16 +442,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): LedgerAccountSettlement =
@@ -485,11 +491,11 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
             if (!validated) {
@@ -509,21 +515,27 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
+                additionalProperties = metadata.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())

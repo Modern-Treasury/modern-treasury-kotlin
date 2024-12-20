@@ -24,7 +24,7 @@ class LedgerAccountCategoryListParamsTest {
             .ledgerId("ledger_id")
             .metadata(
                 LedgerAccountCategoryListParams.Metadata.builder()
-                    .putAdditionalProperty("foo", listOf("string"))
+                    .putAdditionalProperty("foo", "string")
                     .build()
             )
             .name("name")
@@ -49,7 +49,7 @@ class LedgerAccountCategoryListParamsTest {
                 .ledgerId("ledger_id")
                 .metadata(
                     LedgerAccountCategoryListParams.Metadata.builder()
-                        .putAdditionalProperty("foo", listOf("string"))
+                        .putAdditionalProperty("foo", "string")
                         .build()
                 )
                 .name("name")
@@ -67,7 +67,7 @@ class LedgerAccountCategoryListParamsTest {
         expected.put("ledger_account_id", "ledger_account_id")
         expected.put("ledger_id", "ledger_id")
         LedgerAccountCategoryListParams.Metadata.builder()
-            .putAdditionalProperty("foo", listOf("string"))
+            .putAdditionalProperty("foo", "string")
             .build()
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("name", "name")

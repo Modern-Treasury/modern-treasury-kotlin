@@ -156,14 +156,15 @@ constructor(
             internal fun from(
                 ledgerTransactionCreateReversalBody: LedgerTransactionCreateReversalBody
             ) = apply {
-                this.description = ledgerTransactionCreateReversalBody.description
-                this.effectiveAt = ledgerTransactionCreateReversalBody.effectiveAt
-                this.externalId = ledgerTransactionCreateReversalBody.externalId
-                this.ledgerableId = ledgerTransactionCreateReversalBody.ledgerableId
-                this.ledgerableType = ledgerTransactionCreateReversalBody.ledgerableType
-                this.metadata = ledgerTransactionCreateReversalBody.metadata
-                this.status = ledgerTransactionCreateReversalBody.status
-                additionalProperties(ledgerTransactionCreateReversalBody.additionalProperties)
+                description = ledgerTransactionCreateReversalBody.description
+                effectiveAt = ledgerTransactionCreateReversalBody.effectiveAt
+                externalId = ledgerTransactionCreateReversalBody.externalId
+                ledgerableId = ledgerTransactionCreateReversalBody.ledgerableId
+                ledgerableType = ledgerTransactionCreateReversalBody.ledgerableType
+                metadata = ledgerTransactionCreateReversalBody.metadata
+                status = ledgerTransactionCreateReversalBody.status
+                additionalProperties =
+                    ledgerTransactionCreateReversalBody.additionalProperties.toMutableMap()
             }
 
             /**
@@ -171,7 +172,7 @@ constructor(
              * 1000 characters allowed.
              */
             @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /**
              * The timestamp (ISO8601 format) at which the reversal ledger transaction happened for
@@ -179,25 +180,25 @@ constructor(
              * transaction if not provided.
              */
             @JsonProperty("effective_at")
-            fun effectiveAt(effectiveAt: OffsetDateTime) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: OffsetDateTime?) = apply { this.effectiveAt = effectiveAt }
 
             /** Must be unique within the ledger. */
             @JsonProperty("external_id")
-            fun externalId(externalId: String) = apply { this.externalId = externalId }
+            fun externalId(externalId: String?) = apply { this.externalId = externalId }
 
             /**
              * Specify this if you'd like to link the reversal ledger transaction to a Payment
              * object like Return or Reversal.
              */
             @JsonProperty("ledgerable_id")
-            fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
+            fun ledgerableId(ledgerableId: String?) = apply { this.ledgerableId = ledgerableId }
 
             /**
              * Specify this if you'd like to link the reversal ledger transaction to a Payment
              * object like Return or Reversal.
              */
             @JsonProperty("ledgerable_type")
-            fun ledgerableType(ledgerableType: LedgerableType) = apply {
+            fun ledgerableType(ledgerableType: LedgerableType?) = apply {
                 this.ledgerableType = ledgerableType
             }
 
@@ -206,25 +207,31 @@ constructor(
              * Both the key and value must be strings.
              */
             @JsonProperty("metadata")
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /**
              * Status of the reversal ledger transaction. It defaults to `posted` if not provided.
              */
-            @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
+            @JsonProperty("status") fun status(status: Status?) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): LedgerTransactionCreateReversalBody =
@@ -583,21 +590,27 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
+                additionalProperties = metadata.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())

@@ -3,7 +3,6 @@
 package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.ContentTypes
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
@@ -50,22 +49,20 @@ constructor(
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = DocumentCreateBody.Builder::class)
-    @NoAutoDetect
     class DocumentCreateBody
     internal constructor(
-        private val documentableId: String?,
-        private val documentableType: DocumentableType?,
-        private val file: ByteArray?,
+        private val documentableId: String,
+        private val documentableType: DocumentableType,
+        private val file: ByteArray,
         private val documentType: String?,
     ) {
 
         /** The unique identifier for the associated object. */
-        fun documentableId(): String? = documentableId
+        fun documentableId(): String = documentableId
 
-        fun documentableType(): DocumentableType? = documentableType
+        fun documentableType(): DocumentableType = documentableType
 
-        fun file(): ByteArray? = file
+        fun file(): ByteArray = file
 
         /** A category given to the document, can be `null`. */
         fun documentType(): String? = documentType
@@ -85,10 +82,10 @@ constructor(
             private var documentType: String? = null
 
             internal fun from(documentCreateBody: DocumentCreateBody) = apply {
-                this.documentableId = documentCreateBody.documentableId
-                this.documentableType = documentCreateBody.documentableType
-                this.file = documentCreateBody.file
-                this.documentType = documentCreateBody.documentType
+                documentableId = documentCreateBody.documentableId
+                documentableType = documentCreateBody.documentableType
+                file = documentCreateBody.file
+                documentType = documentCreateBody.documentType
             }
 
             /** The unique identifier for the associated object. */
@@ -103,7 +100,17 @@ constructor(
             fun file(file: ByteArray) = apply { this.file = file }
 
             /** A category given to the document, can be `null`. */
-            fun documentType(documentType: String) = apply { this.documentType = documentType }
+            fun documentType(documentType: String?) = apply { this.documentType = documentType }
+
+            fun build(): DocumentCreateBody =
+                DocumentCreateBody(
+                    checkNotNull(documentableId) { "`documentableId` is required but was not set" },
+                    checkNotNull(documentableType) {
+                        "`documentableType` is required but was not set"
+                    },
+                    checkNotNull(file) { "`file` is required but was not set" },
+                    documentType,
+                )
         }
 
         override fun equals(other: Any?): Boolean {

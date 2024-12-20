@@ -18,9 +18,7 @@ class InvoiceListParamsTest {
             .dueDateStart(LocalDate.parse("2019-12-27"))
             .expectedPaymentId("expected_payment_id")
             .metadata(
-                InvoiceListParams.Metadata.builder()
-                    .putAdditionalProperty("foo", listOf("string"))
-                    .build()
+                InvoiceListParams.Metadata.builder().putAdditionalProperty("foo", "string").build()
             )
             .number("number")
             .originatingAccountId("originating_account_id")
@@ -41,7 +39,7 @@ class InvoiceListParamsTest {
                 .expectedPaymentId("expected_payment_id")
                 .metadata(
                     InvoiceListParams.Metadata.builder()
-                        .putAdditionalProperty("foo", listOf("string"))
+                        .putAdditionalProperty("foo", "string")
                         .build()
                 )
                 .number("number")
@@ -57,7 +55,7 @@ class InvoiceListParamsTest {
         expected.put("due_date_start", "2019-12-27")
         expected.put("expected_payment_id", "expected_payment_id")
         InvoiceListParams.Metadata.builder()
-            .putAdditionalProperty("foo", listOf("string"))
+            .putAdditionalProperty("foo", "string")
             .build()
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("number", "number")

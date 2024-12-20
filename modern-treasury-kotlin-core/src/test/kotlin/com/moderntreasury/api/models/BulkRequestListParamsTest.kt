@@ -15,7 +15,7 @@ class BulkRequestListParamsTest {
             .afterCursor("after_cursor")
             .metadata(
                 BulkRequestListParams.Metadata.builder()
-                    .putAdditionalProperty("foo", listOf("string"))
+                    .putAdditionalProperty("foo", "string")
                     .build()
             )
             .perPage(0L)
@@ -32,7 +32,7 @@ class BulkRequestListParamsTest {
                 .afterCursor("after_cursor")
                 .metadata(
                     BulkRequestListParams.Metadata.builder()
-                        .putAdditionalProperty("foo", listOf("string"))
+                        .putAdditionalProperty("foo", "string")
                         .build()
                 )
                 .perPage(0L)
@@ -43,7 +43,7 @@ class BulkRequestListParamsTest {
         expected.put("action_type", BulkRequestListParams.ActionType.CREATE.toString())
         expected.put("after_cursor", "after_cursor")
         BulkRequestListParams.Metadata.builder()
-            .putAdditionalProperty("foo", listOf("string"))
+            .putAdditionalProperty("foo", "string")
             .build()
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("per_page", "0")

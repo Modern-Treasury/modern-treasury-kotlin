@@ -15,7 +15,7 @@ class ExternalAccountListParamsTest {
             .counterpartyId("counterparty_id")
             .metadata(
                 ExternalAccountListParams.Metadata.builder()
-                    .putAdditionalProperty("foo", listOf("string"))
+                    .putAdditionalProperty("foo", "string")
                     .build()
             )
             .partyName("party_name")
@@ -31,7 +31,7 @@ class ExternalAccountListParamsTest {
                 .counterpartyId("counterparty_id")
                 .metadata(
                     ExternalAccountListParams.Metadata.builder()
-                        .putAdditionalProperty("foo", listOf("string"))
+                        .putAdditionalProperty("foo", "string")
                         .build()
                 )
                 .partyName("party_name")
@@ -41,7 +41,7 @@ class ExternalAccountListParamsTest {
         expected.put("after_cursor", "after_cursor")
         expected.put("counterparty_id", "counterparty_id")
         ExternalAccountListParams.Metadata.builder()
-            .putAdditionalProperty("foo", listOf("string"))
+            .putAdditionalProperty("foo", "string")
             .build()
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("party_name", "party_name")
