@@ -22,7 +22,7 @@ class PaymentOrderListParamsTest {
             .effectiveDateStart(LocalDate.parse("2019-12-27"))
             .metadata(
                 PaymentOrderListParams.Metadata.builder()
-                    .putAdditionalProperty("foo", listOf("string"))
+                    .putAdditionalProperty("foo", "string")
                     .build()
             )
             .originatingAccountId("originating_account_id")
@@ -50,7 +50,7 @@ class PaymentOrderListParamsTest {
                 .effectiveDateStart(LocalDate.parse("2019-12-27"))
                 .metadata(
                     PaymentOrderListParams.Metadata.builder()
-                        .putAdditionalProperty("foo", listOf("string"))
+                        .putAdditionalProperty("foo", "string")
                         .build()
                 )
                 .originatingAccountId("originating_account_id")
@@ -72,7 +72,7 @@ class PaymentOrderListParamsTest {
         expected.put("effective_date_end", "2019-12-27")
         expected.put("effective_date_start", "2019-12-27")
         PaymentOrderListParams.Metadata.builder()
-            .putAdditionalProperty("foo", listOf("string"))
+            .putAdditionalProperty("foo", "string")
             .build()
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("originating_account_id", "originating_account_id")

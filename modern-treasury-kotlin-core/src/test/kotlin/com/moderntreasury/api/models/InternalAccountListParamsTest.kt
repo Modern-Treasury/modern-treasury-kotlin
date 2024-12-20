@@ -17,7 +17,7 @@ class InternalAccountListParamsTest {
             .legalEntityId("legal_entity_id")
             .metadata(
                 InternalAccountListParams.Metadata.builder()
-                    .putAdditionalProperty("foo", listOf("string"))
+                    .putAdditionalProperty("foo", "string")
                     .build()
             )
             .paymentDirection(TransactionDirection.CREDIT)
@@ -36,7 +36,7 @@ class InternalAccountListParamsTest {
                 .legalEntityId("legal_entity_id")
                 .metadata(
                     InternalAccountListParams.Metadata.builder()
-                        .putAdditionalProperty("foo", listOf("string"))
+                        .putAdditionalProperty("foo", "string")
                         .build()
                 )
                 .paymentDirection(TransactionDirection.CREDIT)
@@ -49,7 +49,7 @@ class InternalAccountListParamsTest {
         expected.put("currency", Currency.AED.toString())
         expected.put("legal_entity_id", "legal_entity_id")
         InternalAccountListParams.Metadata.builder()
-            .putAdditionalProperty("foo", listOf("string"))
+            .putAdditionalProperty("foo", "string")
             .build()
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("payment_direction", TransactionDirection.CREDIT.toString())

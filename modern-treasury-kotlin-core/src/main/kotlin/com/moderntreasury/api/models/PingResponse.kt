@@ -22,8 +22,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     fun ping(): String = ping.getRequired("ping")
 
     @JsonProperty("ping") @ExcludeMissing fun _ping() = ping
@@ -31,6 +29,8 @@ private constructor(
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+    private var validated: Boolean = false
 
     fun validate(): PingResponse = apply {
         if (!validated) {
@@ -52,8 +52,8 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(pingResponse: PingResponse) = apply {
-            this.ping = pingResponse.ping
-            additionalProperties(pingResponse.additionalProperties)
+            ping = pingResponse.ping
+            additionalProperties = pingResponse.additionalProperties.toMutableMap()
         }
 
         fun ping(ping: String) = ping(JsonField.of(ping))
@@ -64,16 +64,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): PingResponse = PingResponse(ping, additionalProperties.toImmutable())

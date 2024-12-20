@@ -16,7 +16,7 @@ class LedgerAccountBalanceMonitorListParamsTest {
             .ledgerAccountId("ledger_account_id")
             .metadata(
                 LedgerAccountBalanceMonitorListParams.Metadata.builder()
-                    .putAdditionalProperty("foo", listOf("string"))
+                    .putAdditionalProperty("foo", "string")
                     .build()
             )
             .perPage(0L)
@@ -32,7 +32,7 @@ class LedgerAccountBalanceMonitorListParamsTest {
                 .ledgerAccountId("ledger_account_id")
                 .metadata(
                     LedgerAccountBalanceMonitorListParams.Metadata.builder()
-                        .putAdditionalProperty("foo", listOf("string"))
+                        .putAdditionalProperty("foo", "string")
                         .build()
                 )
                 .perPage(0L)
@@ -42,7 +42,7 @@ class LedgerAccountBalanceMonitorListParamsTest {
         expected.put("after_cursor", "after_cursor")
         expected.put("ledger_account_id", "ledger_account_id")
         LedgerAccountBalanceMonitorListParams.Metadata.builder()
-            .putAdditionalProperty("foo", listOf("string"))
+            .putAdditionalProperty("foo", "string")
             .build()
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("per_page", "0")

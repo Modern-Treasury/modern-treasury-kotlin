@@ -21,7 +21,7 @@ class ForeignExchangeQuoteListParamsTest {
             .internalAccountId("internal_account_id")
             .metadata(
                 ForeignExchangeQuoteListParams.Metadata.builder()
-                    .putAdditionalProperty("foo", listOf("string"))
+                    .putAdditionalProperty("foo", "string")
                     .build()
             )
             .perPage(0L)
@@ -41,7 +41,7 @@ class ForeignExchangeQuoteListParamsTest {
                 .internalAccountId("internal_account_id")
                 .metadata(
                     ForeignExchangeQuoteListParams.Metadata.builder()
-                        .putAdditionalProperty("foo", listOf("string"))
+                        .putAdditionalProperty("foo", "string")
                         .build()
                 )
                 .perPage(0L)
@@ -55,7 +55,7 @@ class ForeignExchangeQuoteListParamsTest {
         expected.put("expires_at", "2019-12-27T18:11:19.117Z")
         expected.put("internal_account_id", "internal_account_id")
         ForeignExchangeQuoteListParams.Metadata.builder()
-            .putAdditionalProperty("foo", listOf("string"))
+            .putAdditionalProperty("foo", "string")
             .build()
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("per_page", "0")

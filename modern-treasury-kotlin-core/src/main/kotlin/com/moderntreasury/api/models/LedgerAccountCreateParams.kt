@@ -85,10 +85,10 @@ constructor(
     @NoAutoDetect
     class LedgerAccountCreateBody
     internal constructor(
-        private val currency: String?,
-        private val ledgerId: String?,
-        private val name: String?,
-        private val normalBalance: TransactionDirection?,
+        private val currency: String,
+        private val ledgerId: String,
+        private val name: String,
+        private val normalBalance: TransactionDirection,
         private val currencyExponent: Long?,
         private val description: String?,
         private val ledgerAccountCategoryIds: List<String>?,
@@ -99,16 +99,16 @@ constructor(
     ) {
 
         /** The currency of the ledger account. */
-        @JsonProperty("currency") fun currency(): String? = currency
+        @JsonProperty("currency") fun currency(): String = currency
 
         /** The id of the ledger that this account belongs to. */
-        @JsonProperty("ledger_id") fun ledgerId(): String? = ledgerId
+        @JsonProperty("ledger_id") fun ledgerId(): String = ledgerId
 
         /** The name of the ledger account. */
-        @JsonProperty("name") fun name(): String? = name
+        @JsonProperty("name") fun name(): String = name
 
         /** The normal balance of the ledger account. */
-        @JsonProperty("normal_balance") fun normalBalance(): TransactionDirection? = normalBalance
+        @JsonProperty("normal_balance") fun normalBalance(): TransactionDirection = normalBalance
 
         /** The currency exponent of the ledger account. */
         @JsonProperty("currency_exponent") fun currencyExponent(): Long? = currencyExponent
@@ -165,17 +165,18 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerAccountCreateBody: LedgerAccountCreateBody) = apply {
-                this.currency = ledgerAccountCreateBody.currency
-                this.ledgerId = ledgerAccountCreateBody.ledgerId
-                this.name = ledgerAccountCreateBody.name
-                this.normalBalance = ledgerAccountCreateBody.normalBalance
-                this.currencyExponent = ledgerAccountCreateBody.currencyExponent
-                this.description = ledgerAccountCreateBody.description
-                this.ledgerAccountCategoryIds = ledgerAccountCreateBody.ledgerAccountCategoryIds
-                this.ledgerableId = ledgerAccountCreateBody.ledgerableId
-                this.ledgerableType = ledgerAccountCreateBody.ledgerableType
-                this.metadata = ledgerAccountCreateBody.metadata
-                additionalProperties(ledgerAccountCreateBody.additionalProperties)
+                currency = ledgerAccountCreateBody.currency
+                ledgerId = ledgerAccountCreateBody.ledgerId
+                name = ledgerAccountCreateBody.name
+                normalBalance = ledgerAccountCreateBody.normalBalance
+                currencyExponent = ledgerAccountCreateBody.currencyExponent
+                description = ledgerAccountCreateBody.description
+                ledgerAccountCategoryIds =
+                    ledgerAccountCreateBody.ledgerAccountCategoryIds?.toMutableList()
+                ledgerableId = ledgerAccountCreateBody.ledgerableId
+                ledgerableType = ledgerAccountCreateBody.ledgerableType
+                metadata = ledgerAccountCreateBody.metadata
+                additionalProperties = ledgerAccountCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The currency of the ledger account. */
@@ -197,20 +198,20 @@ constructor(
 
             /** The currency exponent of the ledger account. */
             @JsonProperty("currency_exponent")
-            fun currencyExponent(currencyExponent: Long) = apply {
+            fun currencyExponent(currencyExponent: Long?) = apply {
                 this.currencyExponent = currencyExponent
             }
 
             /** The description of the ledger account. */
             @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /**
              * The array of ledger account category ids that this ledger account should be a child
              * of.
              */
             @JsonProperty("ledger_account_category_ids")
-            fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>) = apply {
+            fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>?) = apply {
                 this.ledgerAccountCategoryIds = ledgerAccountCategoryIds
             }
 
@@ -219,7 +220,7 @@ constructor(
              * populated here, otherwise null.
              */
             @JsonProperty("ledgerable_id")
-            fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
+            fun ledgerableId(ledgerableId: String?) = apply { this.ledgerableId = ledgerableId }
 
             /**
              * If the ledger account links to another object in Modern Treasury, the type will be
@@ -227,7 +228,7 @@ constructor(
              * external_account.
              */
             @JsonProperty("ledgerable_type")
-            fun ledgerableType(ledgerableType: LedgerableType) = apply {
+            fun ledgerableType(ledgerableType: LedgerableType?) = apply {
                 this.ledgerableType = ledgerableType
             }
 
@@ -236,20 +237,26 @@ constructor(
              * strings.
              */
             @JsonProperty("metadata")
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): LedgerAccountCreateBody =
@@ -616,21 +623,27 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(metadata: Metadata) = apply {
-                additionalProperties(metadata.additionalProperties)
+                additionalProperties = metadata.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())

@@ -5,6 +5,7 @@ package com.moderntreasury.api.errors
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.toImmutable
@@ -14,7 +15,7 @@ import java.util.Objects
 @NoAutoDetect
 class ModernTreasuryError
 private constructor(
-    @JsonAnyGetter val additionalProperties: Map<String, JsonValue>,
+    @JsonAnyGetter @ExcludeMissing val additionalProperties: Map<String, JsonValue>,
 ) {
 
     fun toBuilder() = Builder().from(this)

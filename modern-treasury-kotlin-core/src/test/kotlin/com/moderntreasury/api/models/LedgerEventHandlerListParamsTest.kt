@@ -14,12 +14,12 @@ class LedgerEventHandlerListParamsTest {
             .afterCursor("after_cursor")
             .createdAt(
                 LedgerEventHandlerListParams.CreatedAt.builder()
-                    .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                    .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
                     .build()
             )
             .metadata(
                 LedgerEventHandlerListParams.Metadata.builder()
-                    .putAdditionalProperty("foo", listOf("string"))
+                    .putAdditionalProperty("foo", "string")
                     .build()
             )
             .name("name")
@@ -34,12 +34,12 @@ class LedgerEventHandlerListParamsTest {
                 .afterCursor("after_cursor")
                 .createdAt(
                     LedgerEventHandlerListParams.CreatedAt.builder()
-                        .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+                        .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
                         .build()
                 )
                 .metadata(
                     LedgerEventHandlerListParams.Metadata.builder()
-                        .putAdditionalProperty("foo", listOf("string"))
+                        .putAdditionalProperty("foo", "string")
                         .build()
                 )
                 .name("name")
@@ -48,11 +48,11 @@ class LedgerEventHandlerListParamsTest {
         val expected = QueryParams.builder()
         expected.put("after_cursor", "after_cursor")
         LedgerEventHandlerListParams.CreatedAt.builder()
-            .putAdditionalProperty("foo", listOf("2019-12-27T18:11:19.117Z"))
+            .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at[$key]", values) }
         LedgerEventHandlerListParams.Metadata.builder()
-            .putAdditionalProperty("foo", listOf("string"))
+            .putAdditionalProperty("foo", "string")
             .build()
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("name", "name")
