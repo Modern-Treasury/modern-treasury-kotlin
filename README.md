@@ -19,7 +19,7 @@ The REST API documentation can be found on [docs.moderntreasury.com](https://do
 <!-- x-release-please-start-version -->
 
 ```kotlin
-implementation("com.moderntreasury:modern-treasury-kotlin:2.13.0")
+implementation("com.moderntreasury:modern-treasury-kotlin:3.1.0")
 ```
 
 #### Maven
@@ -28,7 +28,7 @@ implementation("com.moderntreasury:modern-treasury-kotlin:2.13.0")
 <dependency>
     <groupId>com.moderntreasury</groupId>
     <artifactId>modern-treasury-kotlin</artifactId>
-    <version>2.13.0</version>
+    <version>3.1.0</version>
 </dependency>
 ```
 
@@ -115,7 +115,7 @@ val params: CounterpartyListParams = CounterpartyListParams.builder()
     .email("dev@stainlessapi.com")
     .legalEntityId("legal_entity_id")
     .metadata(CounterpartyListParams.Metadata.builder()
-        .putAdditionalProperty("foo", "string")
+        .putAdditionalProperty("foo", listOf("string"))
         .build())
     .name("name")
     .perPage(0L)

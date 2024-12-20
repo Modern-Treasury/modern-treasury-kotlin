@@ -70,8 +70,8 @@ constructor(
     @NoAutoDetect
     class LedgerEventHandlerCreateBody
     internal constructor(
-        private val ledgerTransactionTemplate: LedgerEventHandlerLedgerTransactionTemplate,
-        private val name: String,
+        private val ledgerTransactionTemplate: LedgerEventHandlerLedgerTransactionTemplate?,
+        private val name: String?,
         private val conditions: LedgerEventHandlerConditions?,
         private val description: String?,
         private val ledgerId: String?,
@@ -81,11 +81,11 @@ constructor(
     ) {
 
         @JsonProperty("ledger_transaction_template")
-        fun ledgerTransactionTemplate(): LedgerEventHandlerLedgerTransactionTemplate =
+        fun ledgerTransactionTemplate(): LedgerEventHandlerLedgerTransactionTemplate? =
             ledgerTransactionTemplate
 
         /** Name of the ledger event handler. */
-        @JsonProperty("name") fun name(): String = name
+        @JsonProperty("name") fun name(): String? = name
 
         @JsonProperty("conditions") fun conditions(): LedgerEventHandlerConditions? = conditions
 
@@ -126,15 +126,15 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerEventHandlerCreateBody: LedgerEventHandlerCreateBody) = apply {
-                ledgerTransactionTemplate = ledgerEventHandlerCreateBody.ledgerTransactionTemplate
-                name = ledgerEventHandlerCreateBody.name
-                conditions = ledgerEventHandlerCreateBody.conditions
-                description = ledgerEventHandlerCreateBody.description
-                ledgerId = ledgerEventHandlerCreateBody.ledgerId
-                metadata = ledgerEventHandlerCreateBody.metadata
-                variables = ledgerEventHandlerCreateBody.variables
-                additionalProperties =
-                    ledgerEventHandlerCreateBody.additionalProperties.toMutableMap()
+                this.ledgerTransactionTemplate =
+                    ledgerEventHandlerCreateBody.ledgerTransactionTemplate
+                this.name = ledgerEventHandlerCreateBody.name
+                this.conditions = ledgerEventHandlerCreateBody.conditions
+                this.description = ledgerEventHandlerCreateBody.description
+                this.ledgerId = ledgerEventHandlerCreateBody.ledgerId
+                this.metadata = ledgerEventHandlerCreateBody.metadata
+                this.variables = ledgerEventHandlerCreateBody.variables
+                additionalProperties(ledgerEventHandlerCreateBody.additionalProperties)
             }
 
             @JsonProperty("ledger_transaction_template")
@@ -146,48 +146,42 @@ constructor(
             @JsonProperty("name") fun name(name: String) = apply { this.name = name }
 
             @JsonProperty("conditions")
-            fun conditions(conditions: LedgerEventHandlerConditions?) = apply {
+            fun conditions(conditions: LedgerEventHandlerConditions) = apply {
                 this.conditions = conditions
             }
 
             /** An optional description. */
             @JsonProperty("description")
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = apply { this.description = description }
 
             /** The id of the ledger that this account belongs to. */
             @JsonProperty("ledger_id")
-            fun ledgerId(ledgerId: String?) = apply { this.ledgerId = ledgerId }
+            fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
             @JsonProperty("metadata")
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             @JsonProperty("variables")
-            fun variables(variables: LedgerEventHandlerVariables?) = apply {
+            fun variables(variables: LedgerEventHandlerVariables) = apply {
                 this.variables = variables
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): LedgerEventHandlerCreateBody =
@@ -426,7 +420,7 @@ constructor(
         private val description: String?,
         private val effectiveAt: String?,
         private val status: String?,
-        private val ledgerEntries: List<LedgerEventHandlerLedgerEntries>,
+        private val ledgerEntries: List<LedgerEventHandlerLedgerEntries>?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -444,7 +438,7 @@ constructor(
 
         /** An array of ledger entry objects. */
         @JsonProperty("ledger_entries")
-        fun ledgerEntries(): List<LedgerEventHandlerLedgerEntries> = ledgerEntries
+        fun ledgerEntries(): List<LedgerEventHandlerLedgerEntries>? = ledgerEntries
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -469,28 +463,28 @@ constructor(
                 ledgerEventHandlerLedgerTransactionTemplate:
                     LedgerEventHandlerLedgerTransactionTemplate
             ) = apply {
-                description = ledgerEventHandlerLedgerTransactionTemplate.description
-                effectiveAt = ledgerEventHandlerLedgerTransactionTemplate.effectiveAt
-                status = ledgerEventHandlerLedgerTransactionTemplate.status
-                ledgerEntries =
-                    ledgerEventHandlerLedgerTransactionTemplate.ledgerEntries.toMutableList()
-                additionalProperties =
-                    ledgerEventHandlerLedgerTransactionTemplate.additionalProperties.toMutableMap()
+                this.description = ledgerEventHandlerLedgerTransactionTemplate.description
+                this.effectiveAt = ledgerEventHandlerLedgerTransactionTemplate.effectiveAt
+                this.status = ledgerEventHandlerLedgerTransactionTemplate.status
+                this.ledgerEntries = ledgerEventHandlerLedgerTransactionTemplate.ledgerEntries
+                additionalProperties(
+                    ledgerEventHandlerLedgerTransactionTemplate.additionalProperties
+                )
             }
 
             /** An optional description for internal use. */
             @JsonProperty("description")
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
              * purposes.
              */
             @JsonProperty("effective_at")
-            fun effectiveAt(effectiveAt: String?) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: String) = apply { this.effectiveAt = effectiveAt }
 
             /** To post a ledger transaction at creation, use `posted`. */
-            @JsonProperty("status") fun status(status: String?) = apply { this.status = status }
+            @JsonProperty("status") fun status(status: String) = apply { this.status = status }
 
             /** An array of ledger entry objects. */
             @JsonProperty("ledger_entries")
@@ -500,22 +494,16 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): LedgerEventHandlerLedgerTransactionTemplate =
@@ -533,20 +521,20 @@ constructor(
         @NoAutoDetect
         class LedgerEventHandlerLedgerEntries
         private constructor(
-            private val amount: String,
-            private val direction: String,
-            private val ledgerAccountId: String,
+            private val amount: String?,
+            private val direction: String?,
+            private val ledgerAccountId: String?,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
             /** The LHS of the conditional. */
-            @JsonProperty("amount") fun amount(): String = amount
+            @JsonProperty("amount") fun amount(): String? = amount
 
             /** What the operator between the `field` and `value` is. */
-            @JsonProperty("direction") fun direction(): String = direction
+            @JsonProperty("direction") fun direction(): String? = direction
 
             /** The RHS of the conditional. */
-            @JsonProperty("ledger_account_id") fun ledgerAccountId(): String = ledgerAccountId
+            @JsonProperty("ledger_account_id") fun ledgerAccountId(): String? = ledgerAccountId
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -569,11 +557,10 @@ constructor(
                 internal fun from(
                     ledgerEventHandlerLedgerEntries: LedgerEventHandlerLedgerEntries
                 ) = apply {
-                    amount = ledgerEventHandlerLedgerEntries.amount
-                    direction = ledgerEventHandlerLedgerEntries.direction
-                    ledgerAccountId = ledgerEventHandlerLedgerEntries.ledgerAccountId
-                    additionalProperties =
-                        ledgerEventHandlerLedgerEntries.additionalProperties.toMutableMap()
+                    this.amount = ledgerEventHandlerLedgerEntries.amount
+                    this.direction = ledgerEventHandlerLedgerEntries.direction
+                    this.ledgerAccountId = ledgerEventHandlerLedgerEntries.ledgerAccountId
+                    additionalProperties(ledgerEventHandlerLedgerEntries.additionalProperties)
                 }
 
                 /** The LHS of the conditional. */
@@ -591,26 +578,18 @@ constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
+                    this.additionalProperties.putAll(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
+                    this.additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
 
                 fun build(): LedgerEventHandlerLedgerEntries =
                     LedgerEventHandlerLedgerEntries(
@@ -663,20 +642,20 @@ constructor(
     @NoAutoDetect
     class LedgerEventHandlerConditions
     private constructor(
-        private val field: String,
-        private val operator: String,
-        private val value: String,
+        private val field: String?,
+        private val operator: String?,
+        private val value: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The LHS of the conditional. */
-        @JsonProperty("field") fun field(): String = field
+        @JsonProperty("field") fun field(): String? = field
 
         /** What the operator between the `field` and `value` is. */
-        @JsonProperty("operator") fun operator(): String = operator
+        @JsonProperty("operator") fun operator(): String? = operator
 
         /** The RHS of the conditional. */
-        @JsonProperty("value") fun value(): String = value
+        @JsonProperty("value") fun value(): String? = value
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -697,11 +676,10 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerEventHandlerConditions: LedgerEventHandlerConditions) = apply {
-                field = ledgerEventHandlerConditions.field
-                operator = ledgerEventHandlerConditions.operator
-                value = ledgerEventHandlerConditions.value
-                additionalProperties =
-                    ledgerEventHandlerConditions.additionalProperties.toMutableMap()
+                this.field = ledgerEventHandlerConditions.field
+                this.operator = ledgerEventHandlerConditions.operator
+                this.value = ledgerEventHandlerConditions.value
+                additionalProperties(ledgerEventHandlerConditions.additionalProperties)
             }
 
             /** The LHS of the conditional. */
@@ -716,22 +694,16 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): LedgerEventHandlerConditions =
@@ -785,27 +757,21 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(metadata: Metadata) = apply {
-                additionalProperties = metadata.additionalProperties.toMutableMap()
+                additionalProperties(metadata.additionalProperties)
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())
@@ -851,28 +817,21 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerEventHandlerVariables: LedgerEventHandlerVariables) = apply {
-                additionalProperties =
-                    ledgerEventHandlerVariables.additionalProperties.toMutableMap()
+                additionalProperties(ledgerEventHandlerVariables.additionalProperties)
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): LedgerEventHandlerVariables =

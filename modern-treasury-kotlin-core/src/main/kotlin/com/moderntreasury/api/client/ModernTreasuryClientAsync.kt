@@ -42,6 +42,7 @@ import com.moderntreasury.api.services.async.RoutingDetailServiceAsync
 import com.moderntreasury.api.services.async.TransactionServiceAsync
 import com.moderntreasury.api.services.async.ValidationServiceAsync
 import com.moderntreasury.api.services.async.VirtualAccountServiceAsync
+import com.moderntreasury.api.services.async.WebhookServiceAsync
 
 interface ModernTreasuryClientAsync {
 
@@ -104,6 +105,8 @@ interface ModernTreasuryClientAsync {
     fun validations(): ValidationServiceAsync
 
     fun paperItems(): PaperItemServiceAsync
+
+    fun webhooks(): WebhookServiceAsync
 
     fun virtualAccounts(): VirtualAccountServiceAsync
 

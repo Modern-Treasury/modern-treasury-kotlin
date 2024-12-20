@@ -81,32 +81,25 @@ constructor(
 
             internal fun from(connectionLegalEntityUpdateBody: ConnectionLegalEntityUpdateBody) =
                 apply {
-                    status = connectionLegalEntityUpdateBody.status
-                    additionalProperties =
-                        connectionLegalEntityUpdateBody.additionalProperties.toMutableMap()
+                    this.status = connectionLegalEntityUpdateBody.status
+                    additionalProperties(connectionLegalEntityUpdateBody.additionalProperties)
                 }
 
             /** The status of the connection legal entity. */
-            @JsonProperty("status") fun status(status: Status?) = apply { this.status = status }
+            @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): ConnectionLegalEntityUpdateBody =

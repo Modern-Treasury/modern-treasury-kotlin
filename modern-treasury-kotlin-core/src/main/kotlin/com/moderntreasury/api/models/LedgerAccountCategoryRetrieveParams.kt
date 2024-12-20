@@ -2,9 +2,11 @@
 
 package com.moderntreasury.api.models
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.toImmutable
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
@@ -190,25 +192,27 @@ constructor(
      * string would be `balances%5Beffective_at%5D=2000-12-31T12:00:00Z`. The balances as of a time
      * are inclusive of entries with that exact time.
      */
+    @JsonDeserialize(builder = Balances.Builder::class)
+    @NoAutoDetect
     class Balances
     private constructor(
         private val asOfDate: LocalDate?,
         private val effectiveAt: OffsetDateTime?,
-        private val additionalProperties: QueryParams,
+        private val additionalProperties: Map<String, List<String>>,
     ) {
 
         fun asOfDate(): LocalDate? = asOfDate
 
         fun effectiveAt(): OffsetDateTime? = effectiveAt
 
-        fun _additionalProperties(): QueryParams = additionalProperties
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
             this.asOfDate?.let { putParam("as_of_date", listOf(it.toString())) }
             this.effectiveAt?.let {
                 putParam("effective_at", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
             }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }
 
         fun toBuilder() = Builder().from(this)
@@ -222,72 +226,37 @@ constructor(
 
             private var asOfDate: LocalDate? = null
             private var effectiveAt: OffsetDateTime? = null
-            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
 
             internal fun from(balances: Balances) = apply {
-                asOfDate = balances.asOfDate
-                effectiveAt = balances.effectiveAt
-                additionalProperties = balances.additionalProperties.toBuilder()
+                this.asOfDate = balances.asOfDate
+                this.effectiveAt = balances.effectiveAt
+                additionalProperties(balances.additionalProperties)
             }
 
-            fun asOfDate(asOfDate: LocalDate?) = apply { this.asOfDate = asOfDate }
+            fun asOfDate(asOfDate: LocalDate) = apply { this.asOfDate = asOfDate }
 
-            fun effectiveAt(effectiveAt: OffsetDateTime?) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: OffsetDateTime) = apply { this.effectiveAt = effectiveAt }
 
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
                 apply {
                     this.additionalProperties.putAll(additionalProperties)
                 }
-
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
-
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
-
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
-
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
-
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
 
             fun build(): Balances =
                 Balances(
                     asOfDate,
                     effectiveAt,
-                    additionalProperties.build(),
+                    additionalProperties.toImmutable(),
                 )
         }
 

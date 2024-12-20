@@ -51,6 +51,8 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
+    private var validated: Boolean = false
+
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -237,8 +239,6 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    private var validated: Boolean = false
-
     fun validate(): IncomingPaymentDetail = apply {
         if (!validated) {
             id()
@@ -309,32 +309,32 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(incomingPaymentDetail: IncomingPaymentDetail) = apply {
-            id = incomingPaymentDetail.id
-            object_ = incomingPaymentDetail.object_
-            liveMode = incomingPaymentDetail.liveMode
-            createdAt = incomingPaymentDetail.createdAt
-            updatedAt = incomingPaymentDetail.updatedAt
-            internalAccountId = incomingPaymentDetail.internalAccountId
-            virtualAccountId = incomingPaymentDetail.virtualAccountId
-            virtualAccount = incomingPaymentDetail.virtualAccount
-            transactionLineItemId = incomingPaymentDetail.transactionLineItemId
-            transactionId = incomingPaymentDetail.transactionId
-            ledgerTransactionId = incomingPaymentDetail.ledgerTransactionId
-            type = incomingPaymentDetail.type
-            data = incomingPaymentDetail.data
-            amount = incomingPaymentDetail.amount
-            currency = incomingPaymentDetail.currency
-            direction = incomingPaymentDetail.direction
-            status = incomingPaymentDetail.status
-            metadata = incomingPaymentDetail.metadata
-            asOfDate = incomingPaymentDetail.asOfDate
-            vendorId = incomingPaymentDetail.vendorId
-            originatingRoutingNumber = incomingPaymentDetail.originatingRoutingNumber
-            originatingRoutingNumberType = incomingPaymentDetail.originatingRoutingNumberType
-            originatingAccountNumber = incomingPaymentDetail.originatingAccountNumber
-            originatingAccountNumberSafe = incomingPaymentDetail.originatingAccountNumberSafe
-            originatingAccountNumberType = incomingPaymentDetail.originatingAccountNumberType
-            additionalProperties = incomingPaymentDetail.additionalProperties.toMutableMap()
+            this.id = incomingPaymentDetail.id
+            this.object_ = incomingPaymentDetail.object_
+            this.liveMode = incomingPaymentDetail.liveMode
+            this.createdAt = incomingPaymentDetail.createdAt
+            this.updatedAt = incomingPaymentDetail.updatedAt
+            this.internalAccountId = incomingPaymentDetail.internalAccountId
+            this.virtualAccountId = incomingPaymentDetail.virtualAccountId
+            this.virtualAccount = incomingPaymentDetail.virtualAccount
+            this.transactionLineItemId = incomingPaymentDetail.transactionLineItemId
+            this.transactionId = incomingPaymentDetail.transactionId
+            this.ledgerTransactionId = incomingPaymentDetail.ledgerTransactionId
+            this.type = incomingPaymentDetail.type
+            this.data = incomingPaymentDetail.data
+            this.amount = incomingPaymentDetail.amount
+            this.currency = incomingPaymentDetail.currency
+            this.direction = incomingPaymentDetail.direction
+            this.status = incomingPaymentDetail.status
+            this.metadata = incomingPaymentDetail.metadata
+            this.asOfDate = incomingPaymentDetail.asOfDate
+            this.vendorId = incomingPaymentDetail.vendorId
+            this.originatingRoutingNumber = incomingPaymentDetail.originatingRoutingNumber
+            this.originatingRoutingNumberType = incomingPaymentDetail.originatingRoutingNumberType
+            this.originatingAccountNumber = incomingPaymentDetail.originatingAccountNumber
+            this.originatingAccountNumberSafe = incomingPaymentDetail.originatingAccountNumberSafe
+            this.originatingAccountNumberType = incomingPaymentDetail.originatingAccountNumberType
+            additionalProperties(incomingPaymentDetail.additionalProperties)
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -595,22 +595,16 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
+            this.additionalProperties.putAll(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
+            this.additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
-        }
-
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): IncomingPaymentDetail =
@@ -652,11 +646,11 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
+        private var validated: Boolean = false
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
 
         fun validate(): Data = apply {
             if (!validated) {
@@ -676,27 +670,21 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(data: Data) = apply {
-                additionalProperties = data.additionalProperties.toMutableMap()
+                additionalProperties(data.additionalProperties)
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Data = Data(additionalProperties.toImmutable())
@@ -727,11 +715,11 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
+        private var validated: Boolean = false
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
             if (!validated) {
@@ -751,27 +739,21 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(metadata: Metadata) = apply {
-                additionalProperties = metadata.additionalProperties.toMutableMap()
+                additionalProperties(metadata.additionalProperties)
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())

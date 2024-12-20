@@ -181,6 +181,8 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
+        private var validated: Boolean = false
+
         fun id(): String = id.getRequired("id")
 
         fun object_(): String = object_.getRequired("object")
@@ -254,8 +256,6 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        private var validated: Boolean = false
-
         fun validate(): ExternalAccountVerificationAttempt = apply {
             if (!validated) {
                 id()
@@ -296,18 +296,17 @@ private constructor(
             internal fun from(
                 externalAccountVerificationAttempt: ExternalAccountVerificationAttempt
             ) = apply {
-                id = externalAccountVerificationAttempt.id
-                object_ = externalAccountVerificationAttempt.object_
-                liveMode = externalAccountVerificationAttempt.liveMode
-                createdAt = externalAccountVerificationAttempt.createdAt
-                updatedAt = externalAccountVerificationAttempt.updatedAt
-                externalAccountId = externalAccountVerificationAttempt.externalAccountId
-                originatingAccountId = externalAccountVerificationAttempt.originatingAccountId
-                paymentType = externalAccountVerificationAttempt.paymentType
-                priority = externalAccountVerificationAttempt.priority
-                status = externalAccountVerificationAttempt.status
-                additionalProperties =
-                    externalAccountVerificationAttempt.additionalProperties.toMutableMap()
+                this.id = externalAccountVerificationAttempt.id
+                this.object_ = externalAccountVerificationAttempt.object_
+                this.liveMode = externalAccountVerificationAttempt.liveMode
+                this.createdAt = externalAccountVerificationAttempt.createdAt
+                this.updatedAt = externalAccountVerificationAttempt.updatedAt
+                this.externalAccountId = externalAccountVerificationAttempt.externalAccountId
+                this.originatingAccountId = externalAccountVerificationAttempt.originatingAccountId
+                this.paymentType = externalAccountVerificationAttempt.paymentType
+                this.priority = externalAccountVerificationAttempt.priority
+                this.status = externalAccountVerificationAttempt.status
+                additionalProperties(externalAccountVerificationAttempt.additionalProperties)
             }
 
             fun id(id: String) = id(JsonField.of(id))
@@ -412,22 +411,16 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): ExternalAccountVerificationAttempt =

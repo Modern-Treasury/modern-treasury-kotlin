@@ -36,6 +36,8 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
+    private var validated: Boolean = false
+
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -109,8 +111,6 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    private var validated: Boolean = false
-
     fun validate(): BalanceReport = apply {
         if (!validated) {
             id()
@@ -149,17 +149,17 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(balanceReport: BalanceReport) = apply {
-            id = balanceReport.id
-            object_ = balanceReport.object_
-            liveMode = balanceReport.liveMode
-            createdAt = balanceReport.createdAt
-            updatedAt = balanceReport.updatedAt
-            balanceReportType = balanceReport.balanceReportType
-            asOfDate = balanceReport.asOfDate
-            asOfTime = balanceReport.asOfTime
-            balances = balanceReport.balances
-            internalAccountId = balanceReport.internalAccountId
-            additionalProperties = balanceReport.additionalProperties.toMutableMap()
+            this.id = balanceReport.id
+            this.object_ = balanceReport.object_
+            this.liveMode = balanceReport.liveMode
+            this.createdAt = balanceReport.createdAt
+            this.updatedAt = balanceReport.updatedAt
+            this.balanceReportType = balanceReport.balanceReportType
+            this.asOfDate = balanceReport.asOfDate
+            this.asOfTime = balanceReport.asOfTime
+            this.balances = balanceReport.balances
+            this.internalAccountId = balanceReport.internalAccountId
+            additionalProperties(balanceReport.additionalProperties)
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -252,22 +252,16 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
+            this.additionalProperties.putAll(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
+            this.additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
-        }
-
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): BalanceReport =
@@ -376,6 +370,8 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
+        private var validated: Boolean = false
+
         fun id(): String = id.getRequired("id")
 
         fun object_(): String = object_.getRequired("object")
@@ -472,8 +468,6 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        private var validated: Boolean = false
-
         fun validate(): Balance = apply {
             if (!validated) {
                 id()
@@ -518,20 +512,20 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(balance: Balance) = apply {
-                id = balance.id
-                object_ = balance.object_
-                liveMode = balance.liveMode
-                createdAt = balance.createdAt
-                updatedAt = balance.updatedAt
-                amount = balance.amount
-                currency = balance.currency
-                balanceType = balance.balanceType
-                vendorCode = balance.vendorCode
-                vendorCodeType = balance.vendorCodeType
-                asOfDate = balance.asOfDate
-                asOfTime = balance.asOfTime
-                valueDate = balance.valueDate
-                additionalProperties = balance.additionalProperties.toMutableMap()
+                this.id = balance.id
+                this.object_ = balance.object_
+                this.liveMode = balance.liveMode
+                this.createdAt = balance.createdAt
+                this.updatedAt = balance.updatedAt
+                this.amount = balance.amount
+                this.currency = balance.currency
+                this.balanceType = balance.balanceType
+                this.vendorCode = balance.vendorCode
+                this.vendorCodeType = balance.vendorCodeType
+                this.asOfDate = balance.asOfDate
+                this.asOfTime = balance.asOfTime
+                this.valueDate = balance.valueDate
+                additionalProperties(balance.additionalProperties)
             }
 
             fun id(id: String) = id(JsonField.of(id))
@@ -665,22 +659,16 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Balance =

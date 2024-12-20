@@ -103,47 +103,41 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(virtualAccountUpdateBody: VirtualAccountUpdateBody) = apply {
-                counterpartyId = virtualAccountUpdateBody.counterpartyId
-                ledgerAccountId = virtualAccountUpdateBody.ledgerAccountId
-                metadata = virtualAccountUpdateBody.metadata
-                name = virtualAccountUpdateBody.name
-                additionalProperties = virtualAccountUpdateBody.additionalProperties.toMutableMap()
+                this.counterpartyId = virtualAccountUpdateBody.counterpartyId
+                this.ledgerAccountId = virtualAccountUpdateBody.ledgerAccountId
+                this.metadata = virtualAccountUpdateBody.metadata
+                this.name = virtualAccountUpdateBody.name
+                additionalProperties(virtualAccountUpdateBody.additionalProperties)
             }
 
             @JsonProperty("counterparty_id")
-            fun counterpartyId(counterpartyId: String?) = apply {
+            fun counterpartyId(counterpartyId: String) = apply {
                 this.counterpartyId = counterpartyId
             }
 
             /** The ledger account that you'd like to link to the virtual account. */
             @JsonProperty("ledger_account_id")
-            fun ledgerAccountId(ledgerAccountId: String?) = apply {
+            fun ledgerAccountId(ledgerAccountId: String) = apply {
                 this.ledgerAccountId = ledgerAccountId
             }
 
             @JsonProperty("metadata")
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
-            @JsonProperty("name") fun name(name: String?) = apply { this.name = name }
+            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): VirtualAccountUpdateBody =
@@ -374,27 +368,21 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(metadata: Metadata) = apply {
-                additionalProperties = metadata.additionalProperties.toMutableMap()
+                additionalProperties(metadata.additionalProperties)
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())

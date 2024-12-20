@@ -46,6 +46,8 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
+    private var validated: Boolean = false
+
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -150,8 +152,6 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    private var validated: Boolean = false
-
     fun validate(): BulkResult = apply {
         if (!validated) {
             id()
@@ -194,19 +194,19 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(bulkResult: BulkResult) = apply {
-            id = bulkResult.id
-            object_ = bulkResult.object_
-            liveMode = bulkResult.liveMode
-            createdAt = bulkResult.createdAt
-            updatedAt = bulkResult.updatedAt
-            requestId = bulkResult.requestId
-            requestType = bulkResult.requestType
-            status = bulkResult.status
-            requestParams = bulkResult.requestParams
-            entityId = bulkResult.entityId
-            entityType = bulkResult.entityType
-            entity = bulkResult.entity
-            additionalProperties = bulkResult.additionalProperties.toMutableMap()
+            this.id = bulkResult.id
+            this.object_ = bulkResult.object_
+            this.liveMode = bulkResult.liveMode
+            this.createdAt = bulkResult.createdAt
+            this.updatedAt = bulkResult.updatedAt
+            this.requestId = bulkResult.requestId
+            this.requestType = bulkResult.requestType
+            this.status = bulkResult.status
+            this.requestParams = bulkResult.requestParams
+            this.entityId = bulkResult.entityId
+            this.entityType = bulkResult.entityType
+            this.entity = bulkResult.entity
+            additionalProperties(bulkResult.additionalProperties)
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -339,22 +339,16 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
+            this.additionalProperties.putAll(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
+            this.additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
-        }
-
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): BulkResult =
@@ -569,6 +563,8 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
+            private var validated: Boolean = false
+
             fun id(): String = id.getRequired("id")
 
             fun object_(): String = object_.getRequired("object")
@@ -605,8 +601,6 @@ private constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-            private var validated: Boolean = false
-
             fun validate(): BulkError = apply {
                 if (!validated) {
                     id()
@@ -637,13 +631,13 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(bulkError: BulkError) = apply {
-                    id = bulkError.id
-                    object_ = bulkError.object_
-                    liveMode = bulkError.liveMode
-                    createdAt = bulkError.createdAt
-                    updatedAt = bulkError.updatedAt
-                    requestErrors = bulkError.requestErrors
-                    additionalProperties = bulkError.additionalProperties.toMutableMap()
+                    this.id = bulkError.id
+                    this.object_ = bulkError.object_
+                    this.liveMode = bulkError.liveMode
+                    this.createdAt = bulkError.createdAt
+                    this.updatedAt = bulkError.updatedAt
+                    this.requestErrors = bulkError.requestErrors
+                    additionalProperties(bulkError.additionalProperties)
                 }
 
                 fun id(id: String) = id(JsonField.of(id))
@@ -699,26 +693,18 @@ private constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
+                    this.additionalProperties.putAll(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
+                    this.additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
 
                 fun build(): BulkError =
                     BulkError(
@@ -742,6 +728,8 @@ private constructor(
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
+                private var validated: Boolean = false
+
                 fun code(): String? = code.getNullable("code")
 
                 fun message(): String? = message.getNullable("message")
@@ -757,8 +745,6 @@ private constructor(
                 @JsonAnyGetter
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                private var validated: Boolean = false
 
                 fun validate(): RequestError = apply {
                     if (!validated) {
@@ -784,10 +770,10 @@ private constructor(
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(requestError: RequestError) = apply {
-                        code = requestError.code
-                        message = requestError.message
-                        parameter = requestError.parameter
-                        additionalProperties = requestError.additionalProperties.toMutableMap()
+                        this.code = requestError.code
+                        this.message = requestError.message
+                        this.parameter = requestError.parameter
+                        additionalProperties(requestError.additionalProperties)
                     }
 
                     fun code(code: String) = code(JsonField.of(code))
@@ -812,26 +798,18 @@ private constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
+                        this.additionalProperties.putAll(additionalProperties)
                     }
 
                     @JsonAnySetter
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
+                        this.additionalProperties.put(key, value)
                     }
 
                     fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
 
                     fun build(): RequestError =
                         RequestError(
@@ -965,11 +943,11 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
+        private var validated: Boolean = false
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
 
         fun validate(): RequestParams = apply {
             if (!validated) {
@@ -989,27 +967,21 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(requestParams: RequestParams) = apply {
-                additionalProperties = requestParams.additionalProperties.toMutableMap()
+                additionalProperties(requestParams.additionalProperties)
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): RequestParams = RequestParams(additionalProperties.toImmutable())

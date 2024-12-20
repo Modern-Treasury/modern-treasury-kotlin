@@ -32,6 +32,8 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
+    private var validated: Boolean = false
+
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -114,8 +116,6 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    private var validated: Boolean = false
-
     fun validate(): BankSettings = apply {
         if (!validated) {
             id()
@@ -154,17 +154,17 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(bankSettings: BankSettings) = apply {
-            id = bankSettings.id
-            object_ = bankSettings.object_
-            liveMode = bankSettings.liveMode
-            createdAt = bankSettings.createdAt
-            updatedAt = bankSettings.updatedAt
-            discardedAt = bankSettings.discardedAt
-            enableBackupWithholding = bankSettings.enableBackupWithholding
-            backupWithholdingPercentage = bankSettings.backupWithholdingPercentage
-            privacyOptOut = bankSettings.privacyOptOut
-            regulationO = bankSettings.regulationO
-            additionalProperties = bankSettings.additionalProperties.toMutableMap()
+            this.id = bankSettings.id
+            this.object_ = bankSettings.object_
+            this.liveMode = bankSettings.liveMode
+            this.createdAt = bankSettings.createdAt
+            this.updatedAt = bankSettings.updatedAt
+            this.discardedAt = bankSettings.discardedAt
+            this.enableBackupWithholding = bankSettings.enableBackupWithholding
+            this.backupWithholdingPercentage = bankSettings.backupWithholdingPercentage
+            this.privacyOptOut = bankSettings.privacyOptOut
+            this.regulationO = bankSettings.regulationO
+            additionalProperties(bankSettings.additionalProperties)
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -269,22 +269,16 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
+            this.additionalProperties.putAll(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
+            this.additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
-        }
-
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): BankSettings =

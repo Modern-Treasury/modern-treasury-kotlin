@@ -33,6 +33,8 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
+    private var validated: Boolean = false
+
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -108,8 +110,6 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    private var validated: Boolean = false
-
     fun validate(): LedgerAccountBalanceMonitor = apply {
         if (!validated) {
             id()
@@ -151,19 +151,19 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerAccountBalanceMonitor: LedgerAccountBalanceMonitor) = apply {
-            id = ledgerAccountBalanceMonitor.id
-            object_ = ledgerAccountBalanceMonitor.object_
-            liveMode = ledgerAccountBalanceMonitor.liveMode
-            createdAt = ledgerAccountBalanceMonitor.createdAt
-            updatedAt = ledgerAccountBalanceMonitor.updatedAt
-            discardedAt = ledgerAccountBalanceMonitor.discardedAt
-            ledgerAccountId = ledgerAccountBalanceMonitor.ledgerAccountId
-            description = ledgerAccountBalanceMonitor.description
-            alertCondition = ledgerAccountBalanceMonitor.alertCondition
-            currentLedgerAccountBalanceState =
+            this.id = ledgerAccountBalanceMonitor.id
+            this.object_ = ledgerAccountBalanceMonitor.object_
+            this.liveMode = ledgerAccountBalanceMonitor.liveMode
+            this.createdAt = ledgerAccountBalanceMonitor.createdAt
+            this.updatedAt = ledgerAccountBalanceMonitor.updatedAt
+            this.discardedAt = ledgerAccountBalanceMonitor.discardedAt
+            this.ledgerAccountId = ledgerAccountBalanceMonitor.ledgerAccountId
+            this.description = ledgerAccountBalanceMonitor.description
+            this.alertCondition = ledgerAccountBalanceMonitor.alertCondition
+            this.currentLedgerAccountBalanceState =
                 ledgerAccountBalanceMonitor.currentLedgerAccountBalanceState
-            metadata = ledgerAccountBalanceMonitor.metadata
-            additionalProperties = ledgerAccountBalanceMonitor.additionalProperties.toMutableMap()
+            this.metadata = ledgerAccountBalanceMonitor.metadata
+            additionalProperties(ledgerAccountBalanceMonitor.additionalProperties)
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -272,22 +272,16 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
+            this.additionalProperties.putAll(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
+            this.additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
-        }
-
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): LedgerAccountBalanceMonitor =
@@ -317,6 +311,8 @@ private constructor(
         private val value: JsonField<Long>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
+
+        private var validated: Boolean = false
 
         /**
          * One of `available_balance_amount`, `pending_balance_amount`, `posted_balance_amount`,
@@ -358,8 +354,6 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        private var validated: Boolean = false
-
         fun validate(): AlertCondition = apply {
             if (!validated) {
                 field()
@@ -384,10 +378,10 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(alertCondition: AlertCondition) = apply {
-                field = alertCondition.field
-                operator = alertCondition.operator
-                value = alertCondition.value
-                additionalProperties = alertCondition.additionalProperties.toMutableMap()
+                this.field = alertCondition.field
+                this.operator = alertCondition.operator
+                this.value = alertCondition.value
+                additionalProperties(alertCondition.additionalProperties)
             }
 
             /**
@@ -434,22 +428,16 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): AlertCondition =
@@ -493,6 +481,8 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
+        private var validated: Boolean = false
+
         fun balances(): LedgerBalances = balances.getRequired("balances")
 
         /** The current lock version of the ledger account. */
@@ -522,8 +512,6 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        private var validated: Boolean = false
-
         fun validate(): CurrentLedgerAccountBalanceState = apply {
             if (!validated) {
                 balances().validate()
@@ -549,12 +537,11 @@ private constructor(
 
             internal fun from(currentLedgerAccountBalanceState: CurrentLedgerAccountBalanceState) =
                 apply {
-                    balances = currentLedgerAccountBalanceState.balances
-                    ledgerAccountLockVersion =
+                    this.balances = currentLedgerAccountBalanceState.balances
+                    this.ledgerAccountLockVersion =
                         currentLedgerAccountBalanceState.ledgerAccountLockVersion
-                    triggered = currentLedgerAccountBalanceState.triggered
-                    additionalProperties =
-                        currentLedgerAccountBalanceState.additionalProperties.toMutableMap()
+                    this.triggered = currentLedgerAccountBalanceState.triggered
+                    additionalProperties(currentLedgerAccountBalanceState.additionalProperties)
                 }
 
             fun balances(balances: LedgerBalances) = balances(JsonField.of(balances))
@@ -590,22 +577,16 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): CurrentLedgerAccountBalanceState =
@@ -626,6 +607,8 @@ private constructor(
             private val availableBalance: JsonField<LedgerBalance>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
+
+            private var validated: Boolean = false
 
             /** The pending_balance is the sum of all pending and posted entries. */
             fun pendingBalance(): LedgerBalance = pendingBalance.getRequired("pending_balance")
@@ -660,8 +643,6 @@ private constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-            private var validated: Boolean = false
-
             fun validate(): LedgerBalances = apply {
                 if (!validated) {
                     pendingBalance().validate()
@@ -686,10 +667,10 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(ledgerBalances: LedgerBalances) = apply {
-                    pendingBalance = ledgerBalances.pendingBalance
-                    postedBalance = ledgerBalances.postedBalance
-                    availableBalance = ledgerBalances.availableBalance
-                    additionalProperties = ledgerBalances.additionalProperties.toMutableMap()
+                    this.pendingBalance = ledgerBalances.pendingBalance
+                    this.postedBalance = ledgerBalances.postedBalance
+                    this.availableBalance = ledgerBalances.availableBalance
+                    additionalProperties(ledgerBalances.additionalProperties)
                 }
 
                 /** The pending_balance is the sum of all pending and posted entries. */
@@ -737,26 +718,18 @@ private constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
+                    this.additionalProperties.putAll(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
+                    this.additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
 
                 fun build(): LedgerBalances =
                     LedgerBalances(
@@ -783,6 +756,8 @@ private constructor(
                 private val currencyExponent: JsonField<Long>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
+
+                private var validated: Boolean = false
 
                 fun credits(): Long = credits.getRequired("credits")
 
@@ -814,8 +789,6 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                private var validated: Boolean = false
-
                 fun validate(): LedgerBalance = apply {
                     if (!validated) {
                         credits()
@@ -844,12 +817,12 @@ private constructor(
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(ledgerBalance: LedgerBalance) = apply {
-                        credits = ledgerBalance.credits
-                        debits = ledgerBalance.debits
-                        amount = ledgerBalance.amount
-                        currency = ledgerBalance.currency
-                        currencyExponent = ledgerBalance.currencyExponent
-                        additionalProperties = ledgerBalance.additionalProperties.toMutableMap()
+                        this.credits = ledgerBalance.credits
+                        this.debits = ledgerBalance.debits
+                        this.amount = ledgerBalance.amount
+                        this.currency = ledgerBalance.currency
+                        this.currencyExponent = ledgerBalance.currencyExponent
+                        additionalProperties(ledgerBalance.additionalProperties)
                     }
 
                     fun credits(credits: Long) = credits(JsonField.of(credits))
@@ -891,26 +864,18 @@ private constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
+                        this.additionalProperties.putAll(additionalProperties)
                     }
 
                     @JsonAnySetter
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
+                        this.additionalProperties.put(key, value)
                     }
 
                     fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
 
                     fun build(): LedgerBalance =
                         LedgerBalance(
@@ -985,11 +950,11 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
+        private var validated: Boolean = false
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
             if (!validated) {
@@ -1009,27 +974,21 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(metadata: Metadata) = apply {
-                additionalProperties = metadata.additionalProperties.toMutableMap()
+                additionalProperties(metadata.additionalProperties)
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())

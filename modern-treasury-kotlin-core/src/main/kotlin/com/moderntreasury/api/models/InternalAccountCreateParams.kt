@@ -81,10 +81,10 @@ constructor(
     @NoAutoDetect
     class InternalAccountCreateBody
     internal constructor(
-        private val connectionId: String,
-        private val currency: Currency,
-        private val name: String,
-        private val partyName: String,
+        private val connectionId: String?,
+        private val currency: Currency?,
+        private val name: String?,
+        private val partyName: String?,
         private val counterpartyId: String?,
         private val legalEntityId: String?,
         private val parentAccountId: String?,
@@ -94,16 +94,16 @@ constructor(
     ) {
 
         /** The identifier of the financial institution the account belongs to. */
-        @JsonProperty("connection_id") fun connectionId(): String = connectionId
+        @JsonProperty("connection_id") fun connectionId(): String? = connectionId
 
         /** Either "USD" or "CAD". Internal accounts created at Increase only supports "USD". */
-        @JsonProperty("currency") fun currency(): Currency = currency
+        @JsonProperty("currency") fun currency(): Currency? = currency
 
         /** The nickname of the account. */
-        @JsonProperty("name") fun name(): String = name
+        @JsonProperty("name") fun name(): String? = name
 
         /** The legal name of the entity which owns the account. */
-        @JsonProperty("party_name") fun partyName(): String = partyName
+        @JsonProperty("party_name") fun partyName(): String? = partyName
 
         /** The Counterparty associated to this account. */
         @JsonProperty("counterparty_id") fun counterpartyId(): String? = counterpartyId
@@ -149,16 +149,16 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(internalAccountCreateBody: InternalAccountCreateBody) = apply {
-                connectionId = internalAccountCreateBody.connectionId
-                currency = internalAccountCreateBody.currency
-                name = internalAccountCreateBody.name
-                partyName = internalAccountCreateBody.partyName
-                counterpartyId = internalAccountCreateBody.counterpartyId
-                legalEntityId = internalAccountCreateBody.legalEntityId
-                parentAccountId = internalAccountCreateBody.parentAccountId
-                partyAddress = internalAccountCreateBody.partyAddress
-                vendorAttributes = internalAccountCreateBody.vendorAttributes
-                additionalProperties = internalAccountCreateBody.additionalProperties.toMutableMap()
+                this.connectionId = internalAccountCreateBody.connectionId
+                this.currency = internalAccountCreateBody.currency
+                this.name = internalAccountCreateBody.name
+                this.partyName = internalAccountCreateBody.partyName
+                this.counterpartyId = internalAccountCreateBody.counterpartyId
+                this.legalEntityId = internalAccountCreateBody.legalEntityId
+                this.parentAccountId = internalAccountCreateBody.parentAccountId
+                this.partyAddress = internalAccountCreateBody.partyAddress
+                this.vendorAttributes = internalAccountCreateBody.vendorAttributes
+                additionalProperties(internalAccountCreateBody.additionalProperties)
             }
 
             /** The identifier of the financial institution the account belongs to. */
@@ -178,23 +178,23 @@ constructor(
 
             /** The Counterparty associated to this account. */
             @JsonProperty("counterparty_id")
-            fun counterpartyId(counterpartyId: String?) = apply {
+            fun counterpartyId(counterpartyId: String) = apply {
                 this.counterpartyId = counterpartyId
             }
 
             /** The LegalEntity associated to this account. */
             @JsonProperty("legal_entity_id")
-            fun legalEntityId(legalEntityId: String?) = apply { this.legalEntityId = legalEntityId }
+            fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
 
             /** The parent internal account of this new account. */
             @JsonProperty("parent_account_id")
-            fun parentAccountId(parentAccountId: String?) = apply {
+            fun parentAccountId(parentAccountId: String) = apply {
                 this.parentAccountId = parentAccountId
             }
 
             /** The address associated with the owner or null. */
             @JsonProperty("party_address")
-            fun partyAddress(partyAddress: PartyAddress?) = apply {
+            fun partyAddress(partyAddress: PartyAddress) = apply {
                 this.partyAddress = partyAddress
             }
 
@@ -203,28 +203,22 @@ constructor(
              * the vendor specified by the given connection.
              */
             @JsonProperty("vendor_attributes")
-            fun vendorAttributes(vendorAttributes: VendorAttributes?) = apply {
+            fun vendorAttributes(vendorAttributes: VendorAttributes) = apply {
                 this.vendorAttributes = vendorAttributes
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): InternalAccountCreateBody =
@@ -532,30 +526,30 @@ constructor(
     @NoAutoDetect
     class PartyAddress
     private constructor(
-        private val line1: String,
+        private val line1: String?,
         private val line2: String?,
-        private val locality: String,
-        private val region: String,
-        private val postalCode: String,
-        private val country: String,
+        private val locality: String?,
+        private val region: String?,
+        private val postalCode: String?,
+        private val country: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        @JsonProperty("line1") fun line1(): String = line1
+        @JsonProperty("line1") fun line1(): String? = line1
 
         @JsonProperty("line2") fun line2(): String? = line2
 
         /** Locality or City. */
-        @JsonProperty("locality") fun locality(): String = locality
+        @JsonProperty("locality") fun locality(): String? = locality
 
         /** Region or State. */
-        @JsonProperty("region") fun region(): String = region
+        @JsonProperty("region") fun region(): String? = region
 
         /** The postal code of the address. */
-        @JsonProperty("postal_code") fun postalCode(): String = postalCode
+        @JsonProperty("postal_code") fun postalCode(): String? = postalCode
 
         /** Country code conforms to [ISO 3166-1 alpha-2] */
-        @JsonProperty("country") fun country(): String = country
+        @JsonProperty("country") fun country(): String? = country
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -579,18 +573,18 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(partyAddress: PartyAddress) = apply {
-                line1 = partyAddress.line1
-                line2 = partyAddress.line2
-                locality = partyAddress.locality
-                region = partyAddress.region
-                postalCode = partyAddress.postalCode
-                country = partyAddress.country
-                additionalProperties = partyAddress.additionalProperties.toMutableMap()
+                this.line1 = partyAddress.line1
+                this.line2 = partyAddress.line2
+                this.locality = partyAddress.locality
+                this.region = partyAddress.region
+                this.postalCode = partyAddress.postalCode
+                this.country = partyAddress.country
+                additionalProperties(partyAddress.additionalProperties)
             }
 
             @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
 
-            @JsonProperty("line2") fun line2(line2: String?) = apply { this.line2 = line2 }
+            @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
 
             /** Locality or City. */
             @JsonProperty("locality")
@@ -608,22 +602,16 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): PartyAddress =
@@ -683,27 +671,21 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(vendorAttributes: VendorAttributes) = apply {
-                additionalProperties = vendorAttributes.additionalProperties.toMutableMap()
+                additionalProperties(vendorAttributes.additionalProperties)
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): VendorAttributes = VendorAttributes(additionalProperties.toImmutable())

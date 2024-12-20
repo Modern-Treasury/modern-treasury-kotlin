@@ -56,7 +56,7 @@ constructor(
     @NoAutoDetect
     class AccountCollectionFlowUpdateBody
     internal constructor(
-        private val status: Status,
+        private val status: Status?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -64,7 +64,7 @@ constructor(
          * Required. The updated status of the account collection flow. Can only be used to mark a
          * flow as `cancelled`.
          */
-        @JsonProperty("status") fun status(): Status = status
+        @JsonProperty("status") fun status(): Status? = status
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -84,9 +84,8 @@ constructor(
 
             internal fun from(accountCollectionFlowUpdateBody: AccountCollectionFlowUpdateBody) =
                 apply {
-                    status = accountCollectionFlowUpdateBody.status
-                    additionalProperties =
-                        accountCollectionFlowUpdateBody.additionalProperties.toMutableMap()
+                    this.status = accountCollectionFlowUpdateBody.status
+                    additionalProperties(accountCollectionFlowUpdateBody.additionalProperties)
                 }
 
             /**
@@ -97,22 +96,16 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): AccountCollectionFlowUpdateBody =

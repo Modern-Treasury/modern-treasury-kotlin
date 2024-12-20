@@ -38,6 +38,8 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
+    private var validated: Boolean = false
+
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -166,8 +168,6 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    private var validated: Boolean = false
-
     fun validate(): VirtualAccount = apply {
         if (!validated) {
             id()
@@ -218,23 +218,23 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(virtualAccount: VirtualAccount) = apply {
-            id = virtualAccount.id
-            object_ = virtualAccount.object_
-            liveMode = virtualAccount.liveMode
-            createdAt = virtualAccount.createdAt
-            updatedAt = virtualAccount.updatedAt
-            discardedAt = virtualAccount.discardedAt
-            name = virtualAccount.name
-            description = virtualAccount.description
-            counterpartyId = virtualAccount.counterpartyId
-            internalAccountId = virtualAccount.internalAccountId
-            accountDetails = virtualAccount.accountDetails
-            routingDetails = virtualAccount.routingDetails
-            debitLedgerAccountId = virtualAccount.debitLedgerAccountId
-            creditLedgerAccountId = virtualAccount.creditLedgerAccountId
-            ledgerAccountId = virtualAccount.ledgerAccountId
-            metadata = virtualAccount.metadata
-            additionalProperties = virtualAccount.additionalProperties.toMutableMap()
+            this.id = virtualAccount.id
+            this.object_ = virtualAccount.object_
+            this.liveMode = virtualAccount.liveMode
+            this.createdAt = virtualAccount.createdAt
+            this.updatedAt = virtualAccount.updatedAt
+            this.discardedAt = virtualAccount.discardedAt
+            this.name = virtualAccount.name
+            this.description = virtualAccount.description
+            this.counterpartyId = virtualAccount.counterpartyId
+            this.internalAccountId = virtualAccount.internalAccountId
+            this.accountDetails = virtualAccount.accountDetails
+            this.routingDetails = virtualAccount.routingDetails
+            this.debitLedgerAccountId = virtualAccount.debitLedgerAccountId
+            this.creditLedgerAccountId = virtualAccount.creditLedgerAccountId
+            this.ledgerAccountId = virtualAccount.ledgerAccountId
+            this.metadata = virtualAccount.metadata
+            additionalProperties(virtualAccount.additionalProperties)
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -415,22 +415,16 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
+            this.additionalProperties.putAll(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
+            this.additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
-        }
-
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): VirtualAccount =
@@ -463,11 +457,11 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
+        private var validated: Boolean = false
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
             if (!validated) {
@@ -487,27 +481,21 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(metadata: Metadata) = apply {
-                additionalProperties = metadata.additionalProperties.toMutableMap()
+                additionalProperties(metadata.additionalProperties)
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
+                this.additionalProperties.putAll(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
+                this.additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())

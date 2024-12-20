@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.NoAutoDetect
@@ -437,15 +438,17 @@ constructor(
      * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the transaction's
      * effective time. Format ISO8601
      */
+    @JsonDeserialize(builder = EffectiveAt.Builder::class)
+    @NoAutoDetect
     class EffectiveAt
     private constructor(
-        private val additionalProperties: QueryParams,
+        private val additionalProperties: Map<String, List<String>>,
     ) {
 
-        fun _additionalProperties(): QueryParams = additionalProperties
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }
 
         fun toBuilder() = Builder().from(this)
@@ -457,62 +460,27 @@ constructor(
 
         class Builder {
 
-            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
 
             internal fun from(effectiveAt: EffectiveAt) = apply {
-                additionalProperties = effectiveAt.additionalProperties.toBuilder()
+                additionalProperties(effectiveAt.additionalProperties)
             }
 
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
                 apply {
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
-
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
-
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
-
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
-
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
-
-            fun build(): EffectiveAt = EffectiveAt(additionalProperties.build())
+            fun build(): EffectiveAt = EffectiveAt(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -536,15 +504,17 @@ constructor(
      * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the transaction's
      * effective date. Format YYYY-MM-DD
      */
+    @JsonDeserialize(builder = EffectiveDate.Builder::class)
+    @NoAutoDetect
     class EffectiveDate
     private constructor(
-        private val additionalProperties: QueryParams,
+        private val additionalProperties: Map<String, List<String>>,
     ) {
 
-        fun _additionalProperties(): QueryParams = additionalProperties
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }
 
         fun toBuilder() = Builder().from(this)
@@ -556,62 +526,27 @@ constructor(
 
         class Builder {
 
-            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
 
             internal fun from(effectiveDate: EffectiveDate) = apply {
-                additionalProperties = effectiveDate.additionalProperties.toBuilder()
+                additionalProperties(effectiveDate.additionalProperties)
             }
 
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
                 apply {
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
-
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
-
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
-
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
-
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
-
-            fun build(): EffectiveDate = EffectiveDate(additionalProperties.build())
+            fun build(): EffectiveDate = EffectiveDate(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -636,15 +571,17 @@ constructor(
      * a ledger account. For example, for all entries created at or before before lock_version 1000
      * of a ledger account, use `ledger_account_lock_version%5Blte%5D=1000`.
      */
+    @JsonDeserialize(builder = LedgerAccountLockVersion.Builder::class)
+    @NoAutoDetect
     class LedgerAccountLockVersion
     private constructor(
-        private val additionalProperties: QueryParams,
+        private val additionalProperties: Map<String, List<String>>,
     ) {
 
-        fun _additionalProperties(): QueryParams = additionalProperties
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }
 
         fun toBuilder() = Builder().from(this)
@@ -656,63 +593,28 @@ constructor(
 
         class Builder {
 
-            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
 
             internal fun from(ledgerAccountLockVersion: LedgerAccountLockVersion) = apply {
-                additionalProperties = ledgerAccountLockVersion.additionalProperties.toBuilder()
+                additionalProperties(ledgerAccountLockVersion.additionalProperties)
             }
 
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
                 apply {
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
-
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
-
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
-
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
-
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
-
             fun build(): LedgerAccountLockVersion =
-                LedgerAccountLockVersion(additionalProperties.build())
+                LedgerAccountLockVersion(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -737,15 +639,17 @@ constructor(
      * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
      * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
      */
+    @JsonDeserialize(builder = Metadata.Builder::class)
+    @NoAutoDetect
     class Metadata
     private constructor(
-        private val additionalProperties: QueryParams,
+        private val additionalProperties: Map<String, List<String>>,
     ) {
 
-        fun _additionalProperties(): QueryParams = additionalProperties
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }
 
         fun toBuilder() = Builder().from(this)
@@ -757,62 +661,27 @@ constructor(
 
         class Builder {
 
-            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
 
             internal fun from(metadata: Metadata) = apply {
-                additionalProperties = metadata.additionalProperties.toBuilder()
+                additionalProperties(metadata.additionalProperties)
             }
 
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
                 apply {
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
-
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
-
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
-
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
-
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
-
-            fun build(): Metadata = Metadata(additionalProperties.build())
+            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -837,23 +706,25 @@ constructor(
      * `effective_at asc`, use `order_by%5Beffective_at%5D=asc`. Ordering by only one field at a
      * time is supported.
      */
+    @JsonDeserialize(builder = OrderBy.Builder::class)
+    @NoAutoDetect
     class OrderBy
     private constructor(
         private val createdAt: CreatedAt?,
         private val effectiveAt: EffectiveAt?,
-        private val additionalProperties: QueryParams,
+        private val additionalProperties: Map<String, List<String>>,
     ) {
 
         fun createdAt(): CreatedAt? = createdAt
 
         fun effectiveAt(): EffectiveAt? = effectiveAt
 
-        fun _additionalProperties(): QueryParams = additionalProperties
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
             this.createdAt?.let { putParam("created_at", listOf(it.toString())) }
             this.effectiveAt?.let { putParam("effective_at", listOf(it.toString())) }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }
 
         fun toBuilder() = Builder().from(this)
@@ -867,72 +738,37 @@ constructor(
 
             private var createdAt: CreatedAt? = null
             private var effectiveAt: EffectiveAt? = null
-            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
 
             internal fun from(orderBy: OrderBy) = apply {
-                createdAt = orderBy.createdAt
-                effectiveAt = orderBy.effectiveAt
-                additionalProperties = orderBy.additionalProperties.toBuilder()
+                this.createdAt = orderBy.createdAt
+                this.effectiveAt = orderBy.effectiveAt
+                additionalProperties(orderBy.additionalProperties)
             }
 
-            fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
+            fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
-            fun effectiveAt(effectiveAt: EffectiveAt?) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: EffectiveAt) = apply { this.effectiveAt = effectiveAt }
 
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
                 apply {
                     this.additionalProperties.putAll(additionalProperties)
                 }
-
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
-
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
-
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
-
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
-
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
 
             fun build(): OrderBy =
                 OrderBy(
                     createdAt,
                     effectiveAt,
-                    additionalProperties.build(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1136,15 +972,17 @@ constructor(
      * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
      * updated_at%5Bgt%5D=2000-01-01T12:00:00Z.
      */
+    @JsonDeserialize(builder = UpdatedAt.Builder::class)
+    @NoAutoDetect
     class UpdatedAt
     private constructor(
-        private val additionalProperties: QueryParams,
+        private val additionalProperties: Map<String, List<String>>,
     ) {
 
-        fun _additionalProperties(): QueryParams = additionalProperties
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1156,62 +994,27 @@ constructor(
 
         class Builder {
 
-            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
 
             internal fun from(updatedAt: UpdatedAt) = apply {
-                additionalProperties = updatedAt.additionalProperties.toBuilder()
+                additionalProperties(updatedAt.additionalProperties)
             }
 
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
                 this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
                 apply {
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
-
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
-
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
-
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
-
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
-
-            fun build(): UpdatedAt = UpdatedAt(additionalProperties.build())
+            fun build(): UpdatedAt = UpdatedAt(additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {

@@ -44,6 +44,8 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
+    private var validated: Boolean = false
+
     fun id(): String = id.getRequired("id")
 
     fun object_(): String = object_.getRequired("object")
@@ -159,8 +161,6 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    private var validated: Boolean = false
-
     fun validate(): PaperItem = apply {
         if (!validated) {
             id()
@@ -215,25 +215,25 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(paperItem: PaperItem) = apply {
-            id = paperItem.id
-            object_ = paperItem.object_
-            liveMode = paperItem.liveMode
-            createdAt = paperItem.createdAt
-            updatedAt = paperItem.updatedAt
-            transactionLineItemId = paperItem.transactionLineItemId
-            transactionId = paperItem.transactionId
-            status = paperItem.status
-            lockboxNumber = paperItem.lockboxNumber
-            depositDate = paperItem.depositDate
-            amount = paperItem.amount
-            currency = paperItem.currency
-            accountNumber = paperItem.accountNumber
-            accountNumberSafe = paperItem.accountNumberSafe
-            routingNumber = paperItem.routingNumber
-            checkNumber = paperItem.checkNumber
-            remitterName = paperItem.remitterName
-            memoField = paperItem.memoField
-            additionalProperties = paperItem.additionalProperties.toMutableMap()
+            this.id = paperItem.id
+            this.object_ = paperItem.object_
+            this.liveMode = paperItem.liveMode
+            this.createdAt = paperItem.createdAt
+            this.updatedAt = paperItem.updatedAt
+            this.transactionLineItemId = paperItem.transactionLineItemId
+            this.transactionId = paperItem.transactionId
+            this.status = paperItem.status
+            this.lockboxNumber = paperItem.lockboxNumber
+            this.depositDate = paperItem.depositDate
+            this.amount = paperItem.amount
+            this.currency = paperItem.currency
+            this.accountNumber = paperItem.accountNumber
+            this.accountNumberSafe = paperItem.accountNumberSafe
+            this.routingNumber = paperItem.routingNumber
+            this.checkNumber = paperItem.checkNumber
+            this.remitterName = paperItem.remitterName
+            this.memoField = paperItem.memoField
+            additionalProperties(paperItem.additionalProperties)
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -396,22 +396,16 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
+            this.additionalProperties.putAll(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
+            this.additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
-        }
-
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): PaperItem =

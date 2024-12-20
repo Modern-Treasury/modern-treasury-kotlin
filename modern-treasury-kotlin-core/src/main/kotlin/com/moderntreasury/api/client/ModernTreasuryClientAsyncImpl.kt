@@ -88,6 +88,8 @@ import com.moderntreasury.api.services.async.ValidationServiceAsync
 import com.moderntreasury.api.services.async.ValidationServiceAsyncImpl
 import com.moderntreasury.api.services.async.VirtualAccountServiceAsync
 import com.moderntreasury.api.services.async.VirtualAccountServiceAsyncImpl
+import com.moderntreasury.api.services.async.WebhookServiceAsync
+import com.moderntreasury.api.services.async.WebhookServiceAsyncImpl
 
 class ModernTreasuryClientAsyncImpl
 constructor(
@@ -223,6 +225,8 @@ constructor(
         PaperItemServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val webhooks: WebhookServiceAsync by lazy { WebhookServiceAsyncImpl(clientOptions) }
+
     private val virtualAccounts: VirtualAccountServiceAsync by lazy {
         VirtualAccountServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -319,6 +323,8 @@ constructor(
     override fun validations(): ValidationServiceAsync = validations
 
     override fun paperItems(): PaperItemServiceAsync = paperItems
+
+    override fun webhooks(): WebhookServiceAsync = webhooks
 
     override fun virtualAccounts(): VirtualAccountServiceAsync = virtualAccounts
 
