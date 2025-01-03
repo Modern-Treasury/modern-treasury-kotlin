@@ -30,28 +30,47 @@ constructor(
 
     fun afterCursor(): String? = afterCursor
 
+    /**
+     * Filters transactions with an `as_of_date` starting on or before the specified date
+     * (YYYY-MM-DD).
+     */
     fun asOfDateEnd(): LocalDate? = asOfDateEnd
 
+    /**
+     * Filters transactions with an `as_of_date` starting on or after the specified date
+     * (YYYY-MM-DD).
+     */
     fun asOfDateStart(): LocalDate? = asOfDateStart
 
     fun counterpartyId(): String? = counterpartyId
 
+    /** Filters for transactions including the queried string in the description. */
     fun description(): String? = description
 
     fun direction(): String? = direction
 
+    /** Specify `internal_account_id` if you wish to see transactions to/from a specific account. */
     fun internalAccountId(): String? = internalAccountId
 
+    /**
+     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
+     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+     */
     fun metadata(): Metadata? = metadata
 
     fun paymentType(): String? = paymentType
 
     fun perPage(): Long? = perPage
 
+    /** Either `true` or `false`. */
     fun posted(): Boolean? = posted
 
     fun transactableType(): String? = transactableType
 
+    /**
+     * Filters for transactions including the queried vendor id (an identifier given to transactions
+     * by the bank).
+     */
     fun vendorId(): String? = vendorId
 
     fun virtualAccountId(): String? = virtualAccountId

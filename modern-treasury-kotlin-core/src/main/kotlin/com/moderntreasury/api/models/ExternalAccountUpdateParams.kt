@@ -21,52 +21,45 @@ import java.util.Objects
 class ExternalAccountUpdateParams
 constructor(
     private val id: String,
-    private val accountType: ExternalAccountType?,
-    private val counterpartyId: String?,
-    private val metadata: Metadata?,
-    private val name: String?,
-    private val partyAddress: AddressRequest?,
-    private val partyName: String?,
-    private val partyType: PartyType?,
+    private val body: ExternalAccountUpdateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun id(): String = id
 
-    fun accountType(): ExternalAccountType? = accountType
+    /** Can be `checking`, `savings` or `other`. */
+    fun accountType(): ExternalAccountType? = body.accountType()
 
-    fun counterpartyId(): String? = counterpartyId
+    fun counterpartyId(): String? = body.counterpartyId()
 
-    fun metadata(): Metadata? = metadata
+    /**
+     * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
+     * string or `null` as the value.
+     */
+    fun metadata(): Metadata? = body.metadata()
 
-    fun name(): String? = name
+    /**
+     * A nickname for the external account. This is only for internal usage and won't affect any
+     * payments
+     */
+    fun name(): String? = body.name()
 
-    fun partyAddress(): AddressRequest? = partyAddress
+    fun partyAddress(): AddressRequest? = body.partyAddress()
 
-    fun partyName(): String? = partyName
+    /** If this value isn't provided, it will be inherited from the counterparty's name. */
+    fun partyName(): String? = body.partyName()
 
-    fun partyType(): PartyType? = partyType
+    /** Either `individual` or `business`. */
+    fun partyType(): PartyType? = body.partyType()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): ExternalAccountUpdateBody {
-        return ExternalAccountUpdateBody(
-            accountType,
-            counterpartyId,
-            metadata,
-            name,
-            partyAddress,
-            partyName,
-            partyType,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): ExternalAccountUpdateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -153,11 +146,11 @@ constructor(
             }
 
             /** Can be `checking`, `savings` or `other`. */
-            fun accountType(accountType: ExternalAccountType?) = apply {
+            fun accountType(accountType: ExternalAccountType) = apply {
                 this.accountType = accountType
             }
 
-            fun counterpartyId(counterpartyId: String?) = apply {
+            fun counterpartyId(counterpartyId: String) = apply {
                 this.counterpartyId = counterpartyId
             }
 
@@ -165,23 +158,23 @@ constructor(
              * Additional data in the form of key-value pairs. Pairs can be removed by passing an
              * empty string or `null` as the value.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             /**
              * A nickname for the external account. This is only for internal usage and won't affect
              * any payments
              */
-            fun name(name: String?) = apply { this.name = name }
+            fun name(name: String) = apply { this.name = name }
 
-            fun partyAddress(partyAddress: AddressRequest?) = apply {
+            fun partyAddress(partyAddress: AddressRequest) = apply {
                 this.partyAddress = partyAddress
             }
 
             /** If this value isn't provided, it will be inherited from the counterparty's name. */
-            fun partyName(partyName: String?) = apply { this.partyName = partyName }
+            fun partyName(partyName: String) = apply { this.partyName = partyName }
 
             /** Either `individual` or `business`. */
-            fun partyType(partyType: PartyType?) = apply { this.partyType = partyType }
+            fun partyType(partyType: PartyType) = apply { this.partyType = partyType }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -244,58 +237,43 @@ constructor(
     class Builder {
 
         private var id: String? = null
-        private var accountType: ExternalAccountType? = null
-        private var counterpartyId: String? = null
-        private var metadata: Metadata? = null
-        private var name: String? = null
-        private var partyAddress: AddressRequest? = null
-        private var partyName: String? = null
-        private var partyType: PartyType? = null
+        private var body: ExternalAccountUpdateBody.Builder = ExternalAccountUpdateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(externalAccountUpdateParams: ExternalAccountUpdateParams) = apply {
             id = externalAccountUpdateParams.id
-            accountType = externalAccountUpdateParams.accountType
-            counterpartyId = externalAccountUpdateParams.counterpartyId
-            metadata = externalAccountUpdateParams.metadata
-            name = externalAccountUpdateParams.name
-            partyAddress = externalAccountUpdateParams.partyAddress
-            partyName = externalAccountUpdateParams.partyName
-            partyType = externalAccountUpdateParams.partyType
+            body = externalAccountUpdateParams.body.toBuilder()
             additionalHeaders = externalAccountUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = externalAccountUpdateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                externalAccountUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String) = apply { this.id = id }
 
         /** Can be `checking`, `savings` or `other`. */
-        fun accountType(accountType: ExternalAccountType) = apply { this.accountType = accountType }
+        fun accountType(accountType: ExternalAccountType) = apply { body.accountType(accountType) }
 
-        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
+        fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
 
         /**
          * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
          * string or `null` as the value.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /**
          * A nickname for the external account. This is only for internal usage and won't affect any
          * payments
          */
-        fun name(name: String) = apply { this.name = name }
+        fun name(name: String) = apply { body.name(name) }
 
-        fun partyAddress(partyAddress: AddressRequest) = apply { this.partyAddress = partyAddress }
+        fun partyAddress(partyAddress: AddressRequest) = apply { body.partyAddress(partyAddress) }
 
         /** If this value isn't provided, it will be inherited from the counterparty's name. */
-        fun partyName(partyName: String) = apply { this.partyName = partyName }
+        fun partyName(partyName: String) = apply { body.partyName(partyName) }
 
         /** Either `individual` or `business`. */
-        fun partyType(partyType: PartyType) = apply { this.partyType = partyType }
+        fun partyType(partyType: PartyType) = apply { body.partyType(partyType) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -396,40 +374,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): ExternalAccountUpdateParams =
             ExternalAccountUpdateParams(
                 checkNotNull(id) { "`id` is required but was not set" },
-                accountType,
-                counterpartyId,
-                metadata,
-                name,
-                partyAddress,
-                partyName,
-                partyType,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -564,21 +532,21 @@ constructor(
                 additionalProperties = addressRequest.additionalProperties.toMutableMap()
             }
 
-            fun line1(line1: String?) = apply { this.line1 = line1 }
+            fun line1(line1: String) = apply { this.line1 = line1 }
 
-            fun line2(line2: String?) = apply { this.line2 = line2 }
+            fun line2(line2: String) = apply { this.line2 = line2 }
 
             /** Locality or City. */
-            fun locality(locality: String?) = apply { this.locality = locality }
+            fun locality(locality: String) = apply { this.locality = locality }
 
             /** Region or State. */
-            fun region(region: String?) = apply { this.region = region }
+            fun region(region: String) = apply { this.region = region }
 
             /** The postal code of the address. */
-            fun postalCode(postalCode: String?) = apply { this.postalCode = postalCode }
+            fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
             /** Country code conforms to [ISO 3166-1 alpha-2] */
-            fun country(country: String?) = apply { this.country = country }
+            fun country(country: String) = apply { this.country = country }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -691,11 +659,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExternalAccountUpdateParams && id == other.id && accountType == other.accountType && counterpartyId == other.counterpartyId && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyName == other.partyName && partyType == other.partyType && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is ExternalAccountUpdateParams && id == other.id && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, accountType, counterpartyId, metadata, name, partyAddress, partyName, partyType, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "ExternalAccountUpdateParams{id=$id, accountType=$accountType, counterpartyId=$counterpartyId, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyName=$partyName, partyType=$partyType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "ExternalAccountUpdateParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

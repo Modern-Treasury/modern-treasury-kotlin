@@ -26,16 +26,30 @@ constructor(
 
     fun afterCursor(): String? = afterCursor
 
+    /** Unique identifier for the result entity object. */
     fun entityId(): String? = entityId
 
+    /**
+     * The type of the request that created this result. bulk_request is the only supported
+     * `request_type`
+     */
     fun entityType(): EntityType? = entityType
 
     fun perPage(): Long? = perPage
 
+    /**
+     * Unique identifier for the request that created this bulk result. This is the ID of the bulk
+     * request when `request_type` is bulk_request
+     */
     fun requestId(): String? = requestId
 
+    /**
+     * The type of the request that created this result. bulk_request is the only supported
+     * `request_type`
+     */
     fun requestType(): RequestType? = requestType
 
+    /** One of successful or failed. */
     fun status(): Status? = status
 
     fun _additionalHeaders(): Headers = additionalHeaders

@@ -26,10 +26,19 @@ constructor(
 
     fun perPage(): Long? = perPage
 
+    /** The actual reference number assigned by the bank. */
     fun referenceNumber(): String? = referenceNumber
 
+    /**
+     * The id of the referenceable to search for. Must be accompanied by the referenceable_type or
+     * will return an error.
+     */
     fun referenceableId(): String? = referenceableId
 
+    /**
+     * One of the referenceable types. This must be accompanied by the id of the referenceable or
+     * will return an error.
+     */
     fun referenceableType(): ReferenceableType? = referenceableType
 
     fun _additionalHeaders(): Headers = additionalHeaders

@@ -31,22 +31,36 @@ constructor(
 
     fun afterCursor(): String? = afterCursor
 
+    /** Specify counterparty_id to see expected_payments for a specific account. */
     fun counterpartyId(): String? = counterpartyId
 
+    /** Used to return expected payments created after some datetime */
     fun createdAtLowerBound(): OffsetDateTime? = createdAtLowerBound
 
+    /** Used to return expected payments created before some datetime */
     fun createdAtUpperBound(): OffsetDateTime? = createdAtUpperBound
 
+    /** One of credit, debit */
     fun direction(): TransactionDirection? = direction
 
+    /** Specify internal_account_id to see expected_payments for a specific account. */
     fun internalAccountId(): String? = internalAccountId
 
+    /**
+     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
+     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+     */
     fun metadata(): Metadata? = metadata
 
     fun perPage(): Long? = perPage
 
+    /** One of unreconciled, reconciled, or archived. */
     fun status(): Status? = status
 
+    /**
+     * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp,sen, sepa, signet,
+     * wire
+     */
     fun type(): Type? = type
 
     fun _additionalHeaders(): Headers = additionalHeaders

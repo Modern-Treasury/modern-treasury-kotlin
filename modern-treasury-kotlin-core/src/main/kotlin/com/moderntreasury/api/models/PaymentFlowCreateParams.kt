@@ -21,46 +21,49 @@ import java.util.Objects
 
 class PaymentFlowCreateParams
 constructor(
-    private val amount: Long,
-    private val counterpartyId: String,
-    private val currency: String,
-    private val direction: Direction,
-    private val originatingAccountId: String,
-    private val dueDate: LocalDate?,
+    private val body: PaymentFlowCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun amount(): Long = amount
+    /**
+     * Required. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
+     * Can be any integer up to 36 digits.
+     */
+    fun amount(): Long = body.amount()
 
-    fun counterpartyId(): String = counterpartyId
+    /**
+     * Required. The ID of a counterparty associated with the payment. As part of the payment
+     * workflow an external account will be associated with this model.
+     */
+    fun counterpartyId(): String = body.counterpartyId()
 
-    fun currency(): String = currency
+    /** Required. The currency of the payment. */
+    fun currency(): String = body.currency()
 
-    fun direction(): Direction = direction
+    /**
+     * Required. Describes the direction money is flowing in the transaction. Can only be `debit`. A
+     * `debit` pulls money from someone else's account to your own.
+     */
+    fun direction(): Direction = body.direction()
 
-    fun originatingAccountId(): String = originatingAccountId
+    /** Required. The ID of one of your organization's internal accounts. */
+    fun originatingAccountId(): String = body.originatingAccountId()
 
-    fun dueDate(): LocalDate? = dueDate
+    /**
+     * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`. When set,
+     * the due date is shown to your end-user in the pre-built UI as they are selecting a payment
+     * `effective_date`.
+     */
+    fun dueDate(): LocalDate? = body.dueDate()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): PaymentFlowCreateBody {
-        return PaymentFlowCreateBody(
-            amount,
-            counterpartyId,
-            currency,
-            direction,
-            originatingAccountId,
-            dueDate,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): PaymentFlowCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -176,7 +179,7 @@ constructor(
              * When set, the due date is shown to your end-user in the pre-built UI as they are
              * selecting a payment `effective_date`.
              */
-            fun dueDate(dueDate: LocalDate?) = apply { this.dueDate = dueDate }
+            fun dueDate(dueDate: LocalDate) = apply { this.dueDate = dueDate }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -239,53 +242,40 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var amount: Long? = null
-        private var counterpartyId: String? = null
-        private var currency: String? = null
-        private var direction: Direction? = null
-        private var originatingAccountId: String? = null
-        private var dueDate: LocalDate? = null
+        private var body: PaymentFlowCreateBody.Builder = PaymentFlowCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(paymentFlowCreateParams: PaymentFlowCreateParams) = apply {
-            amount = paymentFlowCreateParams.amount
-            counterpartyId = paymentFlowCreateParams.counterpartyId
-            currency = paymentFlowCreateParams.currency
-            direction = paymentFlowCreateParams.direction
-            originatingAccountId = paymentFlowCreateParams.originatingAccountId
-            dueDate = paymentFlowCreateParams.dueDate
+            body = paymentFlowCreateParams.body.toBuilder()
             additionalHeaders = paymentFlowCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = paymentFlowCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                paymentFlowCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /**
          * Required. Value in specified currency's smallest unit. e.g. $10 would be represented
          * as 1000. Can be any integer up to 36 digits.
          */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /**
          * Required. The ID of a counterparty associated with the payment. As part of the payment
          * workflow an external account will be associated with this model.
          */
-        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
+        fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
 
         /** Required. The currency of the payment. */
-        fun currency(currency: String) = apply { this.currency = currency }
+        fun currency(currency: String) = apply { body.currency(currency) }
 
         /**
          * Required. Describes the direction money is flowing in the transaction. Can only be
          * `debit`. A `debit` pulls money from someone else's account to your own.
          */
-        fun direction(direction: Direction) = apply { this.direction = direction }
+        fun direction(direction: Direction) = apply { body.direction(direction) }
 
         /** Required. The ID of one of your organization's internal accounts. */
         fun originatingAccountId(originatingAccountId: String) = apply {
-            this.originatingAccountId = originatingAccountId
+            body.originatingAccountId(originatingAccountId)
         }
 
         /**
@@ -293,7 +283,7 @@ constructor(
          * set, the due date is shown to your end-user in the pre-built UI as they are selecting a
          * payment `effective_date`.
          */
-        fun dueDate(dueDate: LocalDate) = apply { this.dueDate = dueDate }
+        fun dueDate(dueDate: LocalDate) = apply { body.dueDate(dueDate) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -394,40 +384,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): PaymentFlowCreateParams =
             PaymentFlowCreateParams(
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(direction) { "`direction` is required but was not set" },
-                checkNotNull(originatingAccountId) {
-                    "`originatingAccountId` is required but was not set"
-                },
-                dueDate,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -493,11 +472,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentFlowCreateParams && amount == other.amount && counterpartyId == other.counterpartyId && currency == other.currency && direction == other.direction && originatingAccountId == other.originatingAccountId && dueDate == other.dueDate && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is PaymentFlowCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, counterpartyId, currency, direction, originatingAccountId, dueDate, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "PaymentFlowCreateParams{amount=$amount, counterpartyId=$counterpartyId, currency=$currency, direction=$direction, originatingAccountId=$originatingAccountId, dueDate=$dueDate, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "PaymentFlowCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

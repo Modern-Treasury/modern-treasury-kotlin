@@ -22,34 +22,31 @@ class AccountDetailCreateParams
 constructor(
     private val accountsType: AccountsType,
     private val accountId: String,
-    private val accountNumber: String,
-    private val accountNumberType: AccountNumberType?,
+    private val body: AccountDetailCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun accountsType(): AccountsType = accountsType
 
     fun accountId(): String = accountId
 
-    fun accountNumber(): String = accountNumber
+    /** The account number for the bank account. */
+    fun accountNumber(): String = body.accountNumber()
 
-    fun accountNumberType(): AccountNumberType? = accountNumberType
+    /**
+     * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account number
+     * is in a generic format.
+     */
+    fun accountNumberType(): AccountNumberType? = body.accountNumberType()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): AccountDetailCreateBody {
-        return AccountDetailCreateBody(
-            accountNumber,
-            accountNumberType,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): AccountDetailCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -113,7 +110,7 @@ constructor(
              * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
              * number is in a generic format.
              */
-            fun accountNumberType(accountNumberType: AccountNumberType?) = apply {
+            fun accountNumberType(accountNumberType: AccountNumberType) = apply {
                 this.accountNumberType = accountNumberType
             }
 
@@ -174,21 +171,16 @@ constructor(
 
         private var accountsType: AccountsType? = null
         private var accountId: String? = null
-        private var accountNumber: String? = null
-        private var accountNumberType: AccountNumberType? = null
+        private var body: AccountDetailCreateBody.Builder = AccountDetailCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(accountDetailCreateParams: AccountDetailCreateParams) = apply {
             accountsType = accountDetailCreateParams.accountsType
             accountId = accountDetailCreateParams.accountId
-            accountNumber = accountDetailCreateParams.accountNumber
-            accountNumberType = accountDetailCreateParams.accountNumberType
+            body = accountDetailCreateParams.body.toBuilder()
             additionalHeaders = accountDetailCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = accountDetailCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                accountDetailCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun accountsType(accountsType: AccountsType) = apply { this.accountsType = accountsType }
@@ -196,14 +188,14 @@ constructor(
         fun accountId(accountId: String) = apply { this.accountId = accountId }
 
         /** The account number for the bank account. */
-        fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+        fun accountNumber(accountNumber: String) = apply { body.accountNumber(accountNumber) }
 
         /**
          * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
          * number is in a generic format.
          */
         fun accountNumberType(accountNumberType: AccountNumberType) = apply {
-            this.accountNumberType = accountNumberType
+            body.accountNumberType(accountNumberType)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -305,36 +297,31 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): AccountDetailCreateParams =
             AccountDetailCreateParams(
                 checkNotNull(accountsType) { "`accountsType` is required but was not set" },
                 checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
-                accountNumberType,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -500,11 +487,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountDetailCreateParams && accountsType == other.accountsType && accountId == other.accountId && accountNumber == other.accountNumber && accountNumberType == other.accountNumberType && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is AccountDetailCreateParams && accountsType == other.accountsType && accountId == other.accountId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountsType, accountId, accountNumber, accountNumberType, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountsType, accountId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "AccountDetailCreateParams{accountsType=$accountsType, accountId=$accountId, accountNumber=$accountNumber, accountNumberType=$accountNumberType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "AccountDetailCreateParams{accountsType=$accountsType, accountId=$accountId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -23,16 +23,23 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** One of create, or update. */
     fun actionType(): ActionType? = actionType
 
     fun afterCursor(): String? = afterCursor
 
+    /**
+     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
+     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+     */
     fun metadata(): Metadata? = metadata
 
     fun perPage(): Long? = perPage
 
+    /** One of payment_order, expected_payment, or ledger_transaction. */
     fun resourceType(): ResourceType? = resourceType
 
+    /** One of pending, processing, or completed. */
     fun status(): Status? = status
 
     fun _additionalHeaders(): Headers = additionalHeaders

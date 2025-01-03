@@ -41,32 +41,49 @@ constructor(
 
     fun counterpartyId(): String? = counterpartyId
 
+    /** An inclusive upper bound for searching created_at */
     fun createdAtEnd(): LocalDate? = createdAtEnd
 
+    /** An inclusive lower bound for searching created_at */
     fun createdAtStart(): LocalDate? = createdAtStart
 
     fun direction(): TransactionDirection? = direction
 
+    /** An inclusive upper bound for searching effective_date */
     fun effectiveDateEnd(): LocalDate? = effectiveDateEnd
 
+    /** An inclusive lower bound for searching effective_date */
     fun effectiveDateStart(): LocalDate? = effectiveDateStart
 
+    /**
+     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
+     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+     */
     fun metadata(): Metadata? = metadata
 
     fun originatingAccountId(): String? = originatingAccountId
 
     fun perPage(): Long? = perPage
 
+    /**
+     * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH or EFT
+     * transfer, respectively. For check payments, `high` can mean an overnight check rather than
+     * standard mail.
+     */
     fun priority(): Priority? = priority
 
+    /** An inclusive upper bound for searching process_after */
     fun processAfterEnd(): OffsetDateTime? = processAfterEnd
 
+    /** An inclusive lower bound for searching process_after */
     fun processAfterStart(): OffsetDateTime? = processAfterStart
 
+    /** Query for records with the provided reference number */
     fun referenceNumber(): String? = referenceNumber
 
     fun status(): Status? = status
 
+    /** The ID of a transaction that the payment order has been reconciled to. */
     fun transactionId(): String? = transactionId
 
     fun type(): Type? = type

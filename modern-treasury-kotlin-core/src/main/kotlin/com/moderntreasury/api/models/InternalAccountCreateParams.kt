@@ -20,58 +20,48 @@ import java.util.Objects
 
 class InternalAccountCreateParams
 constructor(
-    private val connectionId: String,
-    private val currency: Currency,
-    private val name: String,
-    private val partyName: String,
-    private val counterpartyId: String?,
-    private val legalEntityId: String?,
-    private val parentAccountId: String?,
-    private val partyAddress: PartyAddress?,
-    private val vendorAttributes: VendorAttributes?,
+    private val body: InternalAccountCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun connectionId(): String = connectionId
+    /** The identifier of the financial institution the account belongs to. */
+    fun connectionId(): String = body.connectionId()
 
-    fun currency(): Currency = currency
+    /** Either "USD" or "CAD". Internal accounts created at Increase only supports "USD". */
+    fun currency(): Currency = body.currency()
 
-    fun name(): String = name
+    /** The nickname of the account. */
+    fun name(): String = body.name()
 
-    fun partyName(): String = partyName
+    /** The legal name of the entity which owns the account. */
+    fun partyName(): String = body.partyName()
 
-    fun counterpartyId(): String? = counterpartyId
+    /** The Counterparty associated to this account. */
+    fun counterpartyId(): String? = body.counterpartyId()
 
-    fun legalEntityId(): String? = legalEntityId
+    /** The LegalEntity associated to this account. */
+    fun legalEntityId(): String? = body.legalEntityId()
 
-    fun parentAccountId(): String? = parentAccountId
+    /** The parent internal account of this new account. */
+    fun parentAccountId(): String? = body.parentAccountId()
 
-    fun partyAddress(): PartyAddress? = partyAddress
+    /** The address associated with the owner or null. */
+    fun partyAddress(): PartyAddress? = body.partyAddress()
 
-    fun vendorAttributes(): VendorAttributes? = vendorAttributes
+    /**
+     * A hash of vendor specific attributes that will be used when creating the account at the
+     * vendor specified by the given connection.
+     */
+    fun vendorAttributes(): VendorAttributes? = body.vendorAttributes()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): InternalAccountCreateBody {
-        return InternalAccountCreateBody(
-            connectionId,
-            currency,
-            name,
-            partyName,
-            counterpartyId,
-            legalEntityId,
-            parentAccountId,
-            partyAddress,
-            vendorAttributes,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): InternalAccountCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -175,20 +165,20 @@ constructor(
             fun partyName(partyName: String) = apply { this.partyName = partyName }
 
             /** The Counterparty associated to this account. */
-            fun counterpartyId(counterpartyId: String?) = apply {
+            fun counterpartyId(counterpartyId: String) = apply {
                 this.counterpartyId = counterpartyId
             }
 
             /** The LegalEntity associated to this account. */
-            fun legalEntityId(legalEntityId: String?) = apply { this.legalEntityId = legalEntityId }
+            fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
 
             /** The parent internal account of this new account. */
-            fun parentAccountId(parentAccountId: String?) = apply {
+            fun parentAccountId(parentAccountId: String) = apply {
                 this.parentAccountId = parentAccountId
             }
 
             /** The address associated with the owner or null. */
-            fun partyAddress(partyAddress: PartyAddress?) = apply {
+            fun partyAddress(partyAddress: PartyAddress) = apply {
                 this.partyAddress = partyAddress
             }
 
@@ -196,7 +186,7 @@ constructor(
              * A hash of vendor specific attributes that will be used when creating the account at
              * the vendor specified by the given connection.
              */
-            fun vendorAttributes(vendorAttributes: VendorAttributes?) = apply {
+            fun vendorAttributes(vendorAttributes: VendorAttributes) = apply {
                 this.vendorAttributes = vendorAttributes
             }
 
@@ -262,67 +252,48 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var connectionId: String? = null
-        private var currency: Currency? = null
-        private var name: String? = null
-        private var partyName: String? = null
-        private var counterpartyId: String? = null
-        private var legalEntityId: String? = null
-        private var parentAccountId: String? = null
-        private var partyAddress: PartyAddress? = null
-        private var vendorAttributes: VendorAttributes? = null
+        private var body: InternalAccountCreateBody.Builder = InternalAccountCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(internalAccountCreateParams: InternalAccountCreateParams) = apply {
-            connectionId = internalAccountCreateParams.connectionId
-            currency = internalAccountCreateParams.currency
-            name = internalAccountCreateParams.name
-            partyName = internalAccountCreateParams.partyName
-            counterpartyId = internalAccountCreateParams.counterpartyId
-            legalEntityId = internalAccountCreateParams.legalEntityId
-            parentAccountId = internalAccountCreateParams.parentAccountId
-            partyAddress = internalAccountCreateParams.partyAddress
-            vendorAttributes = internalAccountCreateParams.vendorAttributes
+            body = internalAccountCreateParams.body.toBuilder()
             additionalHeaders = internalAccountCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = internalAccountCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                internalAccountCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the financial institution the account belongs to. */
-        fun connectionId(connectionId: String) = apply { this.connectionId = connectionId }
+        fun connectionId(connectionId: String) = apply { body.connectionId(connectionId) }
 
         /** Either "USD" or "CAD". Internal accounts created at Increase only supports "USD". */
-        fun currency(currency: Currency) = apply { this.currency = currency }
+        fun currency(currency: Currency) = apply { body.currency(currency) }
 
         /** The nickname of the account. */
-        fun name(name: String) = apply { this.name = name }
+        fun name(name: String) = apply { body.name(name) }
 
         /** The legal name of the entity which owns the account. */
-        fun partyName(partyName: String) = apply { this.partyName = partyName }
+        fun partyName(partyName: String) = apply { body.partyName(partyName) }
 
         /** The Counterparty associated to this account. */
-        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
+        fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
 
         /** The LegalEntity associated to this account. */
-        fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
+        fun legalEntityId(legalEntityId: String) = apply { body.legalEntityId(legalEntityId) }
 
         /** The parent internal account of this new account. */
         fun parentAccountId(parentAccountId: String) = apply {
-            this.parentAccountId = parentAccountId
+            body.parentAccountId(parentAccountId)
         }
 
         /** The address associated with the owner or null. */
-        fun partyAddress(partyAddress: PartyAddress) = apply { this.partyAddress = partyAddress }
+        fun partyAddress(partyAddress: PartyAddress) = apply { body.partyAddress(partyAddress) }
 
         /**
          * A hash of vendor specific attributes that will be used when creating the account at the
          * vendor specified by the given connection.
          */
         fun vendorAttributes(vendorAttributes: VendorAttributes) = apply {
-            this.vendorAttributes = vendorAttributes
+            body.vendorAttributes(vendorAttributes)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -424,41 +395,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): InternalAccountCreateParams =
             InternalAccountCreateParams(
-                checkNotNull(connectionId) { "`connectionId` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(name) { "`name` is required but was not set" },
-                checkNotNull(partyName) { "`partyName` is required but was not set" },
-                counterpartyId,
-                legalEntityId,
-                parentAccountId,
-                partyAddress,
-                vendorAttributes,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -583,7 +542,7 @@ constructor(
 
             fun line1(line1: String) = apply { this.line1 = line1 }
 
-            fun line2(line2: String?) = apply { this.line2 = line2 }
+            fun line2(line2: String) = apply { this.line2 = line2 }
 
             /** Locality or City. */
             fun locality(locality: String) = apply { this.locality = locality }
@@ -721,11 +680,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is InternalAccountCreateParams && connectionId == other.connectionId && currency == other.currency && name == other.name && partyName == other.partyName && counterpartyId == other.counterpartyId && legalEntityId == other.legalEntityId && parentAccountId == other.parentAccountId && partyAddress == other.partyAddress && vendorAttributes == other.vendorAttributes && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is InternalAccountCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(connectionId, currency, name, partyName, counterpartyId, legalEntityId, parentAccountId, partyAddress, vendorAttributes, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "InternalAccountCreateParams{connectionId=$connectionId, currency=$currency, name=$name, partyName=$partyName, counterpartyId=$counterpartyId, legalEntityId=$legalEntityId, parentAccountId=$parentAccountId, partyAddress=$partyAddress, vendorAttributes=$vendorAttributes, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "InternalAccountCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

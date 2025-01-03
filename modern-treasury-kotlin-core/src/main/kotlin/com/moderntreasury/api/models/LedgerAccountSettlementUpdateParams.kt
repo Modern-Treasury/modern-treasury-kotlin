@@ -21,36 +21,32 @@ import java.util.Objects
 class LedgerAccountSettlementUpdateParams
 constructor(
     private val id: String,
-    private val description: String?,
-    private val metadata: Metadata?,
-    private val status: Status?,
+    private val body: LedgerAccountSettlementUpdateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun id(): String = id
 
-    fun description(): String? = description
+    /** The description of the ledger account settlement. */
+    fun description(): String? = body.description()
 
-    fun metadata(): Metadata? = metadata
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun metadata(): Metadata? = body.metadata()
 
-    fun status(): Status? = status
+    /**
+     * To post a pending ledger account settlement, use `posted`. To archive a pending ledger
+     * transaction, use `archived`.
+     */
+    fun status(): Status? = body.status()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): LedgerAccountSettlementUpdateBody {
-        return LedgerAccountSettlementUpdateBody(
-            description,
-            metadata,
-            status,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): LedgerAccountSettlementUpdateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -117,19 +113,19 @@ constructor(
             }
 
             /** The description of the ledger account settlement. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             /**
              * To post a pending ledger account settlement, use `posted`. To archive a pending
              * ledger transaction, use `archived`.
              */
-            fun status(status: Status?) = apply { this.status = status }
+            fun status(status: Status) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -188,42 +184,36 @@ constructor(
     class Builder {
 
         private var id: String? = null
-        private var description: String? = null
-        private var metadata: Metadata? = null
-        private var status: Status? = null
+        private var body: LedgerAccountSettlementUpdateBody.Builder =
+            LedgerAccountSettlementUpdateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(
             ledgerAccountSettlementUpdateParams: LedgerAccountSettlementUpdateParams
         ) = apply {
             id = ledgerAccountSettlementUpdateParams.id
-            description = ledgerAccountSettlementUpdateParams.description
-            metadata = ledgerAccountSettlementUpdateParams.metadata
-            status = ledgerAccountSettlementUpdateParams.status
+            body = ledgerAccountSettlementUpdateParams.body.toBuilder()
             additionalHeaders = ledgerAccountSettlementUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 ledgerAccountSettlementUpdateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                ledgerAccountSettlementUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String) = apply { this.id = id }
 
         /** The description of the ledger account settlement. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /**
          * To post a pending ledger account settlement, use `posted`. To archive a pending ledger
          * transaction, use `archived`.
          */
-        fun status(status: Status) = apply { this.status = status }
+        fun status(status: Status) = apply { body.status(status) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -324,36 +314,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): LedgerAccountSettlementUpdateParams =
             LedgerAccountSettlementUpdateParams(
                 checkNotNull(id) { "`id` is required but was not set" },
-                description,
-                metadata,
-                status,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -486,11 +470,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccountSettlementUpdateParams && id == other.id && description == other.description && metadata == other.metadata && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is LedgerAccountSettlementUpdateParams && id == other.id && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, description, metadata, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "LedgerAccountSettlementUpdateParams{id=$id, description=$description, metadata=$metadata, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerAccountSettlementUpdateParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

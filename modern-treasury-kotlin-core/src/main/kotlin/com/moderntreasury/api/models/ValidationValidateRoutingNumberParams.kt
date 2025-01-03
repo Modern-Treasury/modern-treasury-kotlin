@@ -19,8 +19,15 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The routing number that is being validated. */
     fun routingNumber(): String = routingNumber
 
+    /**
+     * The type of routing number. See
+     * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more details. In
+     * sandbox mode we currently only support `aba` and `swift` with routing numbers '123456789' and
+     * 'GRINUST0XXX' respectively.
+     */
     fun routingNumberType(): RoutingNumberType = routingNumberType
 
     fun _additionalHeaders(): Headers = additionalHeaders

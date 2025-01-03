@@ -19,12 +19,21 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /**
+     * If you have specific IDs to retrieve in bulk, you can pass them as query parameters delimited
+     * with `id[]=`, for example `?id[]=123&id[]=abc`.
+     */
     fun id(): List<String>? = id
 
     fun afterCursor(): String? = afterCursor
 
+    /** Query the balance monitors for a single ledger account. */
     fun ledgerAccountId(): String? = ledgerAccountId
 
+    /**
+     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
+     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+     */
     fun metadata(): Metadata? = metadata
 
     fun perPage(): Long? = perPage
@@ -58,7 +67,7 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var id: MutableList<String> = mutableListOf()
+        private var id: MutableList<String>? = null
         private var afterCursor: String? = null
         private var ledgerAccountId: String? = null
         private var metadata: Metadata? = null
@@ -69,7 +78,7 @@ constructor(
         internal fun from(
             ledgerAccountBalanceMonitorListParams: LedgerAccountBalanceMonitorListParams
         ) = apply {
-            id = ledgerAccountBalanceMonitorListParams.id?.toMutableList() ?: mutableListOf()
+            id = ledgerAccountBalanceMonitorListParams.id?.toMutableList()
             afterCursor = ledgerAccountBalanceMonitorListParams.afterCursor
             ledgerAccountId = ledgerAccountBalanceMonitorListParams.ledgerAccountId
             metadata = ledgerAccountBalanceMonitorListParams.metadata
@@ -83,16 +92,13 @@ constructor(
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
          * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
          */
-        fun id(id: List<String>) = apply {
-            this.id.clear()
-            this.id.addAll(id)
-        }
+        fun id(id: List<String>) = apply { this.id = id.toMutableList() }
 
         /**
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
          * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
          */
-        fun addId(id: String) = apply { this.id.add(id) }
+        fun addId(id: String) = apply { this.id = (this.id ?: mutableListOf()).apply { add(id) } }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
@@ -209,7 +215,7 @@ constructor(
 
         fun build(): LedgerAccountBalanceMonitorListParams =
             LedgerAccountBalanceMonitorListParams(
-                id.toImmutable().ifEmpty { null },
+                id?.toImmutable(),
                 afterCursor,
                 ledgerAccountId,
                 metadata,
