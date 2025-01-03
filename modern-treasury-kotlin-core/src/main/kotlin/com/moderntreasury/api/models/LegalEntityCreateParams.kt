@@ -21,119 +21,88 @@ import java.util.Objects
 
 class LegalEntityCreateParams
 constructor(
-    private val legalEntityType: LegalEntityType,
-    private val addresses: List<LegalEntityAddressCreateRequest>?,
-    private val bankSettings: BankSettings?,
-    private val businessName: String?,
-    private val citizenshipCountry: String?,
-    private val dateFormed: LocalDate?,
-    private val dateOfBirth: LocalDate?,
-    private val doingBusinessAsNames: List<String>?,
-    private val email: String?,
-    private val firstName: String?,
-    private val identifications: List<IdentificationCreateRequest>?,
-    private val lastName: String?,
-    private val legalEntityAssociations: List<LegalEntityAssociationInlineCreateRequest>?,
-    private val legalStructure: LegalStructure?,
-    private val metadata: Metadata?,
-    private val middleName: String?,
-    private val phoneNumbers: List<PhoneNumber>?,
-    private val politicallyExposedPerson: Boolean?,
-    private val preferredName: String?,
-    private val prefix: String?,
-    private val riskRating: RiskRating?,
-    private val suffix: String?,
-    private val wealthAndEmploymentDetails: WealthAndEmploymentDetails?,
-    private val website: String?,
+    private val body: LegalEntityCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun legalEntityType(): LegalEntityType = legalEntityType
+    /** The type of legal entity. */
+    fun legalEntityType(): LegalEntityType = body.legalEntityType()
 
-    fun addresses(): List<LegalEntityAddressCreateRequest>? = addresses
+    /** A list of addresses for the entity. */
+    fun addresses(): List<LegalEntityAddressCreateRequest>? = body.addresses()
 
-    fun bankSettings(): BankSettings? = bankSettings
+    fun bankSettings(): BankSettings? = body.bankSettings()
 
-    fun businessName(): String? = businessName
+    /** The business's legal business name. */
+    fun businessName(): String? = body.businessName()
 
-    fun citizenshipCountry(): String? = citizenshipCountry
+    /** The country of citizenship for an individual. */
+    fun citizenshipCountry(): String? = body.citizenshipCountry()
 
-    fun dateFormed(): LocalDate? = dateFormed
+    /** A business's formation date (YYYY-MM-DD). */
+    fun dateFormed(): LocalDate? = body.dateFormed()
 
-    fun dateOfBirth(): LocalDate? = dateOfBirth
+    /** An individual's date of birth (YYYY-MM-DD). */
+    fun dateOfBirth(): LocalDate? = body.dateOfBirth()
 
-    fun doingBusinessAsNames(): List<String>? = doingBusinessAsNames
+    fun doingBusinessAsNames(): List<String>? = body.doingBusinessAsNames()
 
-    fun email(): String? = email
+    /** The entity's primary email. */
+    fun email(): String? = body.email()
 
-    fun firstName(): String? = firstName
+    /** An individual's first name. */
+    fun firstName(): String? = body.firstName()
 
-    fun identifications(): List<IdentificationCreateRequest>? = identifications
+    /** A list of identifications for the legal entity. */
+    fun identifications(): List<IdentificationCreateRequest>? = body.identifications()
 
-    fun lastName(): String? = lastName
+    /** An individual's last name. */
+    fun lastName(): String? = body.lastName()
 
+    /** The legal entity associations and its child legal entities. */
     fun legalEntityAssociations(): List<LegalEntityAssociationInlineCreateRequest>? =
-        legalEntityAssociations
+        body.legalEntityAssociations()
 
-    fun legalStructure(): LegalStructure? = legalStructure
+    /** The business's legal structure. */
+    fun legalStructure(): LegalStructure? = body.legalStructure()
 
-    fun metadata(): Metadata? = metadata
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun metadata(): Metadata? = body.metadata()
 
-    fun middleName(): String? = middleName
+    /** An individual's middle name. */
+    fun middleName(): String? = body.middleName()
 
-    fun phoneNumbers(): List<PhoneNumber>? = phoneNumbers
+    fun phoneNumbers(): List<PhoneNumber>? = body.phoneNumbers()
 
-    fun politicallyExposedPerson(): Boolean? = politicallyExposedPerson
+    /** Whether the individual is a politically exposed person. */
+    fun politicallyExposedPerson(): Boolean? = body.politicallyExposedPerson()
 
-    fun preferredName(): String? = preferredName
+    /** An individual's preferred name. */
+    fun preferredName(): String? = body.preferredName()
 
-    fun prefix(): String? = prefix
+    /** An individual's prefix. */
+    fun prefix(): String? = body.prefix()
 
-    fun riskRating(): RiskRating? = riskRating
+    /** The risk rating of the legal entity. One of low, medium, high. */
+    fun riskRating(): RiskRating? = body.riskRating()
 
-    fun suffix(): String? = suffix
+    /** An individual's suffix. */
+    fun suffix(): String? = body.suffix()
 
-    fun wealthAndEmploymentDetails(): WealthAndEmploymentDetails? = wealthAndEmploymentDetails
+    fun wealthAndEmploymentDetails(): WealthAndEmploymentDetails? =
+        body.wealthAndEmploymentDetails()
 
-    fun website(): String? = website
+    /** The entity's primary website URL. */
+    fun website(): String? = body.website()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): LegalEntityCreateBody {
-        return LegalEntityCreateBody(
-            legalEntityType,
-            addresses,
-            bankSettings,
-            businessName,
-            citizenshipCountry,
-            dateFormed,
-            dateOfBirth,
-            doingBusinessAsNames,
-            email,
-            firstName,
-            identifications,
-            lastName,
-            legalEntityAssociations,
-            legalStructure,
-            metadata,
-            middleName,
-            phoneNumbers,
-            politicallyExposedPerson,
-            preferredName,
-            prefix,
-            riskRating,
-            suffix,
-            wealthAndEmploymentDetails,
-            website,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): LegalEntityCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -265,23 +234,24 @@ constructor(
         class Builder {
 
             private var legalEntityType: LegalEntityType? = null
-            private var addresses: List<LegalEntityAddressCreateRequest>? = null
+            private var addresses: MutableList<LegalEntityAddressCreateRequest>? = null
             private var bankSettings: BankSettings? = null
             private var businessName: String? = null
             private var citizenshipCountry: String? = null
             private var dateFormed: LocalDate? = null
             private var dateOfBirth: LocalDate? = null
-            private var doingBusinessAsNames: List<String>? = null
+            private var doingBusinessAsNames: MutableList<String>? = null
             private var email: String? = null
             private var firstName: String? = null
-            private var identifications: List<IdentificationCreateRequest>? = null
+            private var identifications: MutableList<IdentificationCreateRequest>? = null
             private var lastName: String? = null
-            private var legalEntityAssociations: List<LegalEntityAssociationInlineCreateRequest>? =
+            private var legalEntityAssociations:
+                MutableList<LegalEntityAssociationInlineCreateRequest>? =
                 null
             private var legalStructure: LegalStructure? = null
             private var metadata: Metadata? = null
             private var middleName: String? = null
-            private var phoneNumbers: List<PhoneNumber>? = null
+            private var phoneNumbers: MutableList<PhoneNumber>? = null
             private var politicallyExposedPerson: Boolean? = null
             private var preferredName: String? = null
             private var prefix: String? = null
@@ -326,53 +296,78 @@ constructor(
             }
 
             /** A list of addresses for the entity. */
-            fun addresses(addresses: List<LegalEntityAddressCreateRequest>?) = apply {
-                this.addresses = addresses
+            fun addresses(addresses: List<LegalEntityAddressCreateRequest>) = apply {
+                this.addresses = addresses.toMutableList()
             }
 
-            fun bankSettings(bankSettings: BankSettings?) = apply {
+            /** A list of addresses for the entity. */
+            fun addAddress(address: LegalEntityAddressCreateRequest) = apply {
+                addresses = (addresses ?: mutableListOf()).apply { add(address) }
+            }
+
+            fun bankSettings(bankSettings: BankSettings) = apply {
                 this.bankSettings = bankSettings
             }
 
             /** The business's legal business name. */
-            fun businessName(businessName: String?) = apply { this.businessName = businessName }
+            fun businessName(businessName: String) = apply { this.businessName = businessName }
 
             /** The country of citizenship for an individual. */
-            fun citizenshipCountry(citizenshipCountry: String?) = apply {
+            fun citizenshipCountry(citizenshipCountry: String) = apply {
                 this.citizenshipCountry = citizenshipCountry
             }
 
             /** A business's formation date (YYYY-MM-DD). */
-            fun dateFormed(dateFormed: LocalDate?) = apply { this.dateFormed = dateFormed }
+            fun dateFormed(dateFormed: LocalDate) = apply { this.dateFormed = dateFormed }
 
             /** An individual's date of birth (YYYY-MM-DD). */
-            fun dateOfBirth(dateOfBirth: LocalDate?) = apply { this.dateOfBirth = dateOfBirth }
+            fun dateOfBirth(dateOfBirth: LocalDate) = apply { this.dateOfBirth = dateOfBirth }
 
-            fun doingBusinessAsNames(doingBusinessAsNames: List<String>?) = apply {
-                this.doingBusinessAsNames = doingBusinessAsNames
+            fun doingBusinessAsNames(doingBusinessAsNames: List<String>) = apply {
+                this.doingBusinessAsNames = doingBusinessAsNames.toMutableList()
+            }
+
+            fun addDoingBusinessAsName(doingBusinessAsName: String) = apply {
+                doingBusinessAsNames =
+                    (doingBusinessAsNames ?: mutableListOf()).apply { add(doingBusinessAsName) }
             }
 
             /** The entity's primary email. */
-            fun email(email: String?) = apply { this.email = email }
+            fun email(email: String) = apply { this.email = email }
 
             /** An individual's first name. */
-            fun firstName(firstName: String?) = apply { this.firstName = firstName }
+            fun firstName(firstName: String) = apply { this.firstName = firstName }
 
             /** A list of identifications for the legal entity. */
-            fun identifications(identifications: List<IdentificationCreateRequest>?) = apply {
-                this.identifications = identifications
+            fun identifications(identifications: List<IdentificationCreateRequest>) = apply {
+                this.identifications = identifications.toMutableList()
+            }
+
+            /** A list of identifications for the legal entity. */
+            fun addIdentification(identification: IdentificationCreateRequest) = apply {
+                identifications = (identifications ?: mutableListOf()).apply { add(identification) }
             }
 
             /** An individual's last name. */
-            fun lastName(lastName: String?) = apply { this.lastName = lastName }
+            fun lastName(lastName: String) = apply { this.lastName = lastName }
 
             /** The legal entity associations and its child legal entities. */
             fun legalEntityAssociations(
-                legalEntityAssociations: List<LegalEntityAssociationInlineCreateRequest>?
-            ) = apply { this.legalEntityAssociations = legalEntityAssociations }
+                legalEntityAssociations: List<LegalEntityAssociationInlineCreateRequest>
+            ) = apply { this.legalEntityAssociations = legalEntityAssociations.toMutableList() }
+
+            /** The legal entity associations and its child legal entities. */
+            fun addLegalEntityAssociation(
+                legalEntityAssociation: LegalEntityAssociationInlineCreateRequest
+            ) = apply {
+                legalEntityAssociations =
+                    (legalEntityAssociations ?: mutableListOf()).apply {
+                        add(legalEntityAssociation)
+                    }
+            }
 
             /** The business's legal structure. */
-            fun legalStructure(legalStructure: LegalStructure?) = apply {
+            fun legalStructure(legalStructure: LegalStructure) = apply {
                 this.legalStructure = legalStructure
             }
 
@@ -380,38 +375,43 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             /** An individual's middle name. */
-            fun middleName(middleName: String?) = apply { this.middleName = middleName }
+            fun middleName(middleName: String) = apply { this.middleName = middleName }
 
-            fun phoneNumbers(phoneNumbers: List<PhoneNumber>?) = apply {
-                this.phoneNumbers = phoneNumbers
+            fun phoneNumbers(phoneNumbers: List<PhoneNumber>) = apply {
+                this.phoneNumbers = phoneNumbers.toMutableList()
+            }
+
+            fun addPhoneNumber(phoneNumber: PhoneNumber) = apply {
+                phoneNumbers = (phoneNumbers ?: mutableListOf()).apply { add(phoneNumber) }
             }
 
             /** Whether the individual is a politically exposed person. */
-            fun politicallyExposedPerson(politicallyExposedPerson: Boolean?) = apply {
+            fun politicallyExposedPerson(politicallyExposedPerson: Boolean) = apply {
                 this.politicallyExposedPerson = politicallyExposedPerson
             }
 
             /** An individual's preferred name. */
-            fun preferredName(preferredName: String?) = apply { this.preferredName = preferredName }
+            fun preferredName(preferredName: String) = apply { this.preferredName = preferredName }
 
             /** An individual's prefix. */
-            fun prefix(prefix: String?) = apply { this.prefix = prefix }
+            fun prefix(prefix: String) = apply { this.prefix = prefix }
 
             /** The risk rating of the legal entity. One of low, medium, high. */
-            fun riskRating(riskRating: RiskRating?) = apply { this.riskRating = riskRating }
+            fun riskRating(riskRating: RiskRating) = apply { this.riskRating = riskRating }
 
             /** An individual's suffix. */
-            fun suffix(suffix: String?) = apply { this.suffix = suffix }
+            fun suffix(suffix: String) = apply { this.suffix = suffix }
 
-            fun wealthAndEmploymentDetails(
-                wealthAndEmploymentDetails: WealthAndEmploymentDetails?
-            ) = apply { this.wealthAndEmploymentDetails = wealthAndEmploymentDetails }
+            fun wealthAndEmploymentDetails(wealthAndEmploymentDetails: WealthAndEmploymentDetails) =
+                apply {
+                    this.wealthAndEmploymentDetails = wealthAndEmploymentDetails
+                }
 
             /** The entity's primary website URL. */
-            fun website(website: String?) = apply { this.website = website }
+            fun website(website: String) = apply { this.website = website }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -492,188 +492,127 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var legalEntityType: LegalEntityType? = null
-        private var addresses: MutableList<LegalEntityAddressCreateRequest> = mutableListOf()
-        private var bankSettings: BankSettings? = null
-        private var businessName: String? = null
-        private var citizenshipCountry: String? = null
-        private var dateFormed: LocalDate? = null
-        private var dateOfBirth: LocalDate? = null
-        private var doingBusinessAsNames: MutableList<String> = mutableListOf()
-        private var email: String? = null
-        private var firstName: String? = null
-        private var identifications: MutableList<IdentificationCreateRequest> = mutableListOf()
-        private var lastName: String? = null
-        private var legalEntityAssociations:
-            MutableList<LegalEntityAssociationInlineCreateRequest> =
-            mutableListOf()
-        private var legalStructure: LegalStructure? = null
-        private var metadata: Metadata? = null
-        private var middleName: String? = null
-        private var phoneNumbers: MutableList<PhoneNumber> = mutableListOf()
-        private var politicallyExposedPerson: Boolean? = null
-        private var preferredName: String? = null
-        private var prefix: String? = null
-        private var riskRating: RiskRating? = null
-        private var suffix: String? = null
-        private var wealthAndEmploymentDetails: WealthAndEmploymentDetails? = null
-        private var website: String? = null
+        private var body: LegalEntityCreateBody.Builder = LegalEntityCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(legalEntityCreateParams: LegalEntityCreateParams) = apply {
-            legalEntityType = legalEntityCreateParams.legalEntityType
-            addresses = legalEntityCreateParams.addresses?.toMutableList() ?: mutableListOf()
-            bankSettings = legalEntityCreateParams.bankSettings
-            businessName = legalEntityCreateParams.businessName
-            citizenshipCountry = legalEntityCreateParams.citizenshipCountry
-            dateFormed = legalEntityCreateParams.dateFormed
-            dateOfBirth = legalEntityCreateParams.dateOfBirth
-            doingBusinessAsNames =
-                legalEntityCreateParams.doingBusinessAsNames?.toMutableList() ?: mutableListOf()
-            email = legalEntityCreateParams.email
-            firstName = legalEntityCreateParams.firstName
-            identifications =
-                legalEntityCreateParams.identifications?.toMutableList() ?: mutableListOf()
-            lastName = legalEntityCreateParams.lastName
-            legalEntityAssociations =
-                legalEntityCreateParams.legalEntityAssociations?.toMutableList() ?: mutableListOf()
-            legalStructure = legalEntityCreateParams.legalStructure
-            metadata = legalEntityCreateParams.metadata
-            middleName = legalEntityCreateParams.middleName
-            phoneNumbers = legalEntityCreateParams.phoneNumbers?.toMutableList() ?: mutableListOf()
-            politicallyExposedPerson = legalEntityCreateParams.politicallyExposedPerson
-            preferredName = legalEntityCreateParams.preferredName
-            prefix = legalEntityCreateParams.prefix
-            riskRating = legalEntityCreateParams.riskRating
-            suffix = legalEntityCreateParams.suffix
-            wealthAndEmploymentDetails = legalEntityCreateParams.wealthAndEmploymentDetails
-            website = legalEntityCreateParams.website
+            body = legalEntityCreateParams.body.toBuilder()
             additionalHeaders = legalEntityCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = legalEntityCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                legalEntityCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The type of legal entity. */
         fun legalEntityType(legalEntityType: LegalEntityType) = apply {
-            this.legalEntityType = legalEntityType
+            body.legalEntityType(legalEntityType)
         }
 
         /** A list of addresses for the entity. */
         fun addresses(addresses: List<LegalEntityAddressCreateRequest>) = apply {
-            this.addresses.clear()
-            this.addresses.addAll(addresses)
+            body.addresses(addresses)
         }
 
         /** A list of addresses for the entity. */
         fun addAddress(address: LegalEntityAddressCreateRequest) = apply {
-            this.addresses.add(address)
+            body.addAddress(address)
         }
 
-        fun bankSettings(bankSettings: BankSettings) = apply { this.bankSettings = bankSettings }
+        fun bankSettings(bankSettings: BankSettings) = apply { body.bankSettings(bankSettings) }
 
         /** The business's legal business name. */
-        fun businessName(businessName: String) = apply { this.businessName = businessName }
+        fun businessName(businessName: String) = apply { body.businessName(businessName) }
 
         /** The country of citizenship for an individual. */
         fun citizenshipCountry(citizenshipCountry: String) = apply {
-            this.citizenshipCountry = citizenshipCountry
+            body.citizenshipCountry(citizenshipCountry)
         }
 
         /** A business's formation date (YYYY-MM-DD). */
-        fun dateFormed(dateFormed: LocalDate) = apply { this.dateFormed = dateFormed }
+        fun dateFormed(dateFormed: LocalDate) = apply { body.dateFormed(dateFormed) }
 
         /** An individual's date of birth (YYYY-MM-DD). */
-        fun dateOfBirth(dateOfBirth: LocalDate) = apply { this.dateOfBirth = dateOfBirth }
+        fun dateOfBirth(dateOfBirth: LocalDate) = apply { body.dateOfBirth(dateOfBirth) }
 
         fun doingBusinessAsNames(doingBusinessAsNames: List<String>) = apply {
-            this.doingBusinessAsNames.clear()
-            this.doingBusinessAsNames.addAll(doingBusinessAsNames)
+            body.doingBusinessAsNames(doingBusinessAsNames)
         }
 
         fun addDoingBusinessAsName(doingBusinessAsName: String) = apply {
-            this.doingBusinessAsNames.add(doingBusinessAsName)
+            body.addDoingBusinessAsName(doingBusinessAsName)
         }
 
         /** The entity's primary email. */
-        fun email(email: String) = apply { this.email = email }
+        fun email(email: String) = apply { body.email(email) }
 
         /** An individual's first name. */
-        fun firstName(firstName: String) = apply { this.firstName = firstName }
+        fun firstName(firstName: String) = apply { body.firstName(firstName) }
 
         /** A list of identifications for the legal entity. */
         fun identifications(identifications: List<IdentificationCreateRequest>) = apply {
-            this.identifications.clear()
-            this.identifications.addAll(identifications)
+            body.identifications(identifications)
         }
 
         /** A list of identifications for the legal entity. */
         fun addIdentification(identification: IdentificationCreateRequest) = apply {
-            this.identifications.add(identification)
+            body.addIdentification(identification)
         }
 
         /** An individual's last name. */
-        fun lastName(lastName: String) = apply { this.lastName = lastName }
+        fun lastName(lastName: String) = apply { body.lastName(lastName) }
 
         /** The legal entity associations and its child legal entities. */
         fun legalEntityAssociations(
             legalEntityAssociations: List<LegalEntityAssociationInlineCreateRequest>
-        ) = apply {
-            this.legalEntityAssociations.clear()
-            this.legalEntityAssociations.addAll(legalEntityAssociations)
-        }
+        ) = apply { body.legalEntityAssociations(legalEntityAssociations) }
 
         /** The legal entity associations and its child legal entities. */
         fun addLegalEntityAssociation(
             legalEntityAssociation: LegalEntityAssociationInlineCreateRequest
-        ) = apply { this.legalEntityAssociations.add(legalEntityAssociation) }
+        ) = apply { body.addLegalEntityAssociation(legalEntityAssociation) }
 
         /** The business's legal structure. */
         fun legalStructure(legalStructure: LegalStructure) = apply {
-            this.legalStructure = legalStructure
+            body.legalStructure(legalStructure)
         }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /** An individual's middle name. */
-        fun middleName(middleName: String) = apply { this.middleName = middleName }
+        fun middleName(middleName: String) = apply { body.middleName(middleName) }
 
         fun phoneNumbers(phoneNumbers: List<PhoneNumber>) = apply {
-            this.phoneNumbers.clear()
-            this.phoneNumbers.addAll(phoneNumbers)
+            body.phoneNumbers(phoneNumbers)
         }
 
-        fun addPhoneNumber(phoneNumber: PhoneNumber) = apply { this.phoneNumbers.add(phoneNumber) }
+        fun addPhoneNumber(phoneNumber: PhoneNumber) = apply { body.addPhoneNumber(phoneNumber) }
 
         /** Whether the individual is a politically exposed person. */
         fun politicallyExposedPerson(politicallyExposedPerson: Boolean) = apply {
-            this.politicallyExposedPerson = politicallyExposedPerson
+            body.politicallyExposedPerson(politicallyExposedPerson)
         }
 
         /** An individual's preferred name. */
-        fun preferredName(preferredName: String) = apply { this.preferredName = preferredName }
+        fun preferredName(preferredName: String) = apply { body.preferredName(preferredName) }
 
         /** An individual's prefix. */
-        fun prefix(prefix: String) = apply { this.prefix = prefix }
+        fun prefix(prefix: String) = apply { body.prefix(prefix) }
 
         /** The risk rating of the legal entity. One of low, medium, high. */
-        fun riskRating(riskRating: RiskRating) = apply { this.riskRating = riskRating }
+        fun riskRating(riskRating: RiskRating) = apply { body.riskRating(riskRating) }
 
         /** An individual's suffix. */
-        fun suffix(suffix: String) = apply { this.suffix = suffix }
+        fun suffix(suffix: String) = apply { body.suffix(suffix) }
 
         fun wealthAndEmploymentDetails(wealthAndEmploymentDetails: WealthAndEmploymentDetails) =
             apply {
-                this.wealthAndEmploymentDetails = wealthAndEmploymentDetails
+                body.wealthAndEmploymentDetails(wealthAndEmploymentDetails)
             }
 
         /** The entity's primary website URL. */
-        fun website(website: String) = apply { this.website = website }
+        fun website(website: String) = apply { body.website(website) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -774,56 +713,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): LegalEntityCreateParams =
             LegalEntityCreateParams(
-                checkNotNull(legalEntityType) { "`legalEntityType` is required but was not set" },
-                addresses.toImmutable().ifEmpty { null },
-                bankSettings,
-                businessName,
-                citizenshipCountry,
-                dateFormed,
-                dateOfBirth,
-                doingBusinessAsNames.toImmutable().ifEmpty { null },
-                email,
-                firstName,
-                identifications.toImmutable().ifEmpty { null },
-                lastName,
-                legalEntityAssociations.toImmutable().ifEmpty { null },
-                legalStructure,
-                metadata,
-                middleName,
-                phoneNumbers.toImmutable().ifEmpty { null },
-                politicallyExposedPerson,
-                preferredName,
-                prefix,
-                riskRating,
-                suffix,
-                wealthAndEmploymentDetails,
-                website,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -931,7 +843,7 @@ constructor(
 
         class Builder {
 
-            private var addressTypes: List<AddressType>? = null
+            private var addressTypes: MutableList<AddressType>? = null
             private var line1: String? = null
             private var line2: String? = null
             private var locality: String? = null
@@ -954,25 +866,30 @@ constructor(
                 }
 
             /** The types of this address. */
-            fun addressTypes(addressTypes: List<AddressType>?) = apply {
-                this.addressTypes = addressTypes
+            fun addressTypes(addressTypes: List<AddressType>) = apply {
+                this.addressTypes = addressTypes.toMutableList()
             }
 
-            fun line1(line1: String?) = apply { this.line1 = line1 }
+            /** The types of this address. */
+            fun addAddressType(addressType: AddressType) = apply {
+                addressTypes = (addressTypes ?: mutableListOf()).apply { add(addressType) }
+            }
 
-            fun line2(line2: String?) = apply { this.line2 = line2 }
+            fun line1(line1: String) = apply { this.line1 = line1 }
+
+            fun line2(line2: String) = apply { this.line2 = line2 }
 
             /** Locality or City. */
-            fun locality(locality: String?) = apply { this.locality = locality }
+            fun locality(locality: String) = apply { this.locality = locality }
 
             /** Region or State. */
-            fun region(region: String?) = apply { this.region = region }
+            fun region(region: String) = apply { this.region = region }
 
             /** The postal code of the address. */
-            fun postalCode(postalCode: String?) = apply { this.postalCode = postalCode }
+            fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
             /** Country code conforms to [ISO 3166-1 alpha-2] */
-            fun country(country: String?) = apply { this.country = country }
+            fun country(country: String) = apply { this.country = country }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1152,7 +1069,7 @@ constructor(
             fun idType(idType: IdType) = apply { this.idType = idType }
 
             /** The ISO 3166-1 alpha-2 country code of the country that issued the identification */
-            fun issuingCountry(issuingCountry: String?) = apply {
+            fun issuingCountry(issuingCountry: String) = apply {
                 this.issuingCountry = issuingCountry
             }
 
@@ -1416,7 +1333,7 @@ constructor(
 
         class Builder {
 
-            private var relationshipTypes: List<RelationshipType>? = null
+            private var relationshipTypes: MutableList<RelationshipType>? = null
             private var title: String? = null
             private var ownershipPercentage: Long? = null
             private var childLegalEntity: ChildLegalEntityCreate? = null
@@ -1437,24 +1354,29 @@ constructor(
             }
 
             fun relationshipTypes(relationshipTypes: List<RelationshipType>) = apply {
-                this.relationshipTypes = relationshipTypes
+                this.relationshipTypes = relationshipTypes.toMutableList()
+            }
+
+            fun addRelationshipType(relationshipType: RelationshipType) = apply {
+                relationshipTypes =
+                    (relationshipTypes ?: mutableListOf()).apply { add(relationshipType) }
             }
 
             /** The job title of the child entity at the parent entity. */
-            fun title(title: String?) = apply { this.title = title }
+            fun title(title: String) = apply { this.title = title }
 
             /** The child entity's ownership percentage iff they are a beneficial owner. */
-            fun ownershipPercentage(ownershipPercentage: Long?) = apply {
+            fun ownershipPercentage(ownershipPercentage: Long) = apply {
                 this.ownershipPercentage = ownershipPercentage
             }
 
             /** The child legal entity. */
-            fun childLegalEntity(childLegalEntity: ChildLegalEntityCreate?) = apply {
+            fun childLegalEntity(childLegalEntity: ChildLegalEntityCreate) = apply {
                 this.childLegalEntity = childLegalEntity
             }
 
             /** The ID of the child legal entity. */
-            fun childLegalEntityId(childLegalEntityId: String?) = apply {
+            fun childLegalEntityId(childLegalEntityId: String) = apply {
                 this.childLegalEntityId = childLegalEntityId
             }
 
@@ -1688,16 +1610,16 @@ constructor(
                 private var dateOfBirth: LocalDate? = null
                 private var dateFormed: LocalDate? = null
                 private var businessName: String? = null
-                private var doingBusinessAsNames: List<String>? = null
+                private var doingBusinessAsNames: MutableList<String>? = null
                 private var legalStructure: LegalStructure? = null
-                private var phoneNumbers: List<PhoneNumber>? = null
+                private var phoneNumbers: MutableList<PhoneNumber>? = null
                 private var email: String? = null
                 private var website: String? = null
                 private var metadata: Metadata? = null
                 private var bankSettings: BankSettings? = null
                 private var wealthAndEmploymentDetails: WealthAndEmploymentDetails? = null
-                private var addresses: List<LegalEntityAddressCreateRequest>? = null
-                private var identifications: List<IdentificationCreateRequest>? = null
+                private var addresses: MutableList<LegalEntityAddressCreateRequest>? = null
+                private var identifications: MutableList<IdentificationCreateRequest>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(childLegalEntityCreate: ChildLegalEntityCreate) = apply {
@@ -1730,93 +1652,113 @@ constructor(
                 }
 
                 /** The type of legal entity. */
-                fun legalEntityType(legalEntityType: LegalEntityType?) = apply {
+                fun legalEntityType(legalEntityType: LegalEntityType) = apply {
                     this.legalEntityType = legalEntityType
                 }
 
                 /** The risk rating of the legal entity. One of low, medium, high. */
-                fun riskRating(riskRating: RiskRating?) = apply { this.riskRating = riskRating }
+                fun riskRating(riskRating: RiskRating) = apply { this.riskRating = riskRating }
 
                 /** An individual's prefix. */
-                fun prefix(prefix: String?) = apply { this.prefix = prefix }
+                fun prefix(prefix: String) = apply { this.prefix = prefix }
 
                 /** An individual's first name. */
-                fun firstName(firstName: String?) = apply { this.firstName = firstName }
+                fun firstName(firstName: String) = apply { this.firstName = firstName }
 
                 /** An individual's middle name. */
-                fun middleName(middleName: String?) = apply { this.middleName = middleName }
+                fun middleName(middleName: String) = apply { this.middleName = middleName }
 
                 /** An individual's last name. */
-                fun lastName(lastName: String?) = apply { this.lastName = lastName }
+                fun lastName(lastName: String) = apply { this.lastName = lastName }
 
                 /** An individual's suffix. */
-                fun suffix(suffix: String?) = apply { this.suffix = suffix }
+                fun suffix(suffix: String) = apply { this.suffix = suffix }
 
                 /** An individual's preferred name. */
-                fun preferredName(preferredName: String?) = apply {
+                fun preferredName(preferredName: String) = apply {
                     this.preferredName = preferredName
                 }
 
                 /** The country of citizenship for an individual. */
-                fun citizenshipCountry(citizenshipCountry: String?) = apply {
+                fun citizenshipCountry(citizenshipCountry: String) = apply {
                     this.citizenshipCountry = citizenshipCountry
                 }
 
                 /** Whether the individual is a politically exposed person. */
-                fun politicallyExposedPerson(politicallyExposedPerson: Boolean?) = apply {
+                fun politicallyExposedPerson(politicallyExposedPerson: Boolean) = apply {
                     this.politicallyExposedPerson = politicallyExposedPerson
                 }
 
                 /** An individual's date of birth (YYYY-MM-DD). */
-                fun dateOfBirth(dateOfBirth: LocalDate?) = apply { this.dateOfBirth = dateOfBirth }
+                fun dateOfBirth(dateOfBirth: LocalDate) = apply { this.dateOfBirth = dateOfBirth }
 
                 /** A business's formation date (YYYY-MM-DD). */
-                fun dateFormed(dateFormed: LocalDate?) = apply { this.dateFormed = dateFormed }
+                fun dateFormed(dateFormed: LocalDate) = apply { this.dateFormed = dateFormed }
 
                 /** The business's legal business name. */
-                fun businessName(businessName: String?) = apply { this.businessName = businessName }
+                fun businessName(businessName: String) = apply { this.businessName = businessName }
 
-                fun doingBusinessAsNames(doingBusinessAsNames: List<String>?) = apply {
-                    this.doingBusinessAsNames = doingBusinessAsNames
+                fun doingBusinessAsNames(doingBusinessAsNames: List<String>) = apply {
+                    this.doingBusinessAsNames = doingBusinessAsNames.toMutableList()
+                }
+
+                fun addDoingBusinessAsName(doingBusinessAsName: String) = apply {
+                    doingBusinessAsNames =
+                        (doingBusinessAsNames ?: mutableListOf()).apply { add(doingBusinessAsName) }
                 }
 
                 /** The business's legal structure. */
-                fun legalStructure(legalStructure: LegalStructure?) = apply {
+                fun legalStructure(legalStructure: LegalStructure) = apply {
                     this.legalStructure = legalStructure
                 }
 
-                fun phoneNumbers(phoneNumbers: List<PhoneNumber>?) = apply {
-                    this.phoneNumbers = phoneNumbers
+                fun phoneNumbers(phoneNumbers: List<PhoneNumber>) = apply {
+                    this.phoneNumbers = phoneNumbers.toMutableList()
+                }
+
+                fun addPhoneNumber(phoneNumber: PhoneNumber) = apply {
+                    phoneNumbers = (phoneNumbers ?: mutableListOf()).apply { add(phoneNumber) }
                 }
 
                 /** The entity's primary email. */
-                fun email(email: String?) = apply { this.email = email }
+                fun email(email: String) = apply { this.email = email }
 
                 /** The entity's primary website URL. */
-                fun website(website: String?) = apply { this.website = website }
+                fun website(website: String) = apply { this.website = website }
 
                 /**
                  * Additional data represented as key-value pairs. Both the key and value must be
                  * strings.
                  */
-                fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+                fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
-                fun bankSettings(bankSettings: BankSettings?) = apply {
+                fun bankSettings(bankSettings: BankSettings) = apply {
                     this.bankSettings = bankSettings
                 }
 
                 fun wealthAndEmploymentDetails(
-                    wealthAndEmploymentDetails: WealthAndEmploymentDetails?
+                    wealthAndEmploymentDetails: WealthAndEmploymentDetails
                 ) = apply { this.wealthAndEmploymentDetails = wealthAndEmploymentDetails }
 
                 /** A list of addresses for the entity. */
-                fun addresses(addresses: List<LegalEntityAddressCreateRequest>?) = apply {
-                    this.addresses = addresses
+                fun addresses(addresses: List<LegalEntityAddressCreateRequest>) = apply {
+                    this.addresses = addresses.toMutableList()
+                }
+
+                /** A list of addresses for the entity. */
+                fun addAddress(address: LegalEntityAddressCreateRequest) = apply {
+                    addresses = (addresses ?: mutableListOf()).apply { add(address) }
                 }
 
                 /** A list of identifications for the legal entity. */
-                fun identifications(identifications: List<IdentificationCreateRequest>?) = apply {
-                    this.identifications = identifications
+                fun identifications(identifications: List<IdentificationCreateRequest>) = apply {
+                    this.identifications = identifications.toMutableList()
+                }
+
+                /** A list of identifications for the legal entity. */
+                fun addIdentification(identification: IdentificationCreateRequest) = apply {
+                    identifications =
+                        (identifications ?: mutableListOf()).apply { add(identification) }
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1917,7 +1859,7 @@ constructor(
 
                 class Builder {
 
-                    private var addressTypes: List<AddressType>? = null
+                    private var addressTypes: MutableList<AddressType>? = null
                     private var line1: String? = null
                     private var line2: String? = null
                     private var locality: String? = null
@@ -1941,25 +1883,30 @@ constructor(
                     }
 
                     /** The types of this address. */
-                    fun addressTypes(addressTypes: List<AddressType>?) = apply {
-                        this.addressTypes = addressTypes
+                    fun addressTypes(addressTypes: List<AddressType>) = apply {
+                        this.addressTypes = addressTypes.toMutableList()
                     }
 
-                    fun line1(line1: String?) = apply { this.line1 = line1 }
+                    /** The types of this address. */
+                    fun addAddressType(addressType: AddressType) = apply {
+                        addressTypes = (addressTypes ?: mutableListOf()).apply { add(addressType) }
+                    }
 
-                    fun line2(line2: String?) = apply { this.line2 = line2 }
+                    fun line1(line1: String) = apply { this.line1 = line1 }
+
+                    fun line2(line2: String) = apply { this.line2 = line2 }
 
                     /** Locality or City. */
-                    fun locality(locality: String?) = apply { this.locality = locality }
+                    fun locality(locality: String) = apply { this.locality = locality }
 
                     /** Region or State. */
-                    fun region(region: String?) = apply { this.region = region }
+                    fun region(region: String) = apply { this.region = region }
 
                     /** The postal code of the address. */
-                    fun postalCode(postalCode: String?) = apply { this.postalCode = postalCode }
+                    fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
                     /** Country code conforms to [ISO 3166-1 alpha-2] */
-                    fun country(country: String?) = apply { this.country = country }
+                    fun country(country: String) = apply { this.country = country }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -2152,7 +2099,7 @@ constructor(
                      * The ISO 3166-1 alpha-2 country code of the country that issued the
                      * identification
                      */
-                    fun issuingCountry(issuingCountry: String?) = apply {
+                    fun issuingCountry(issuingCountry: String) = apply {
                         this.issuingCountry = issuingCountry
                     }
 
@@ -2628,7 +2575,7 @@ constructor(
                         additionalProperties = phoneNumber.additionalProperties.toMutableMap()
                     }
 
-                    fun phoneNumber(phoneNumber: String?) = apply { this.phoneNumber = phoneNumber }
+                    fun phoneNumber(phoneNumber: String) = apply { this.phoneNumber = phoneNumber }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -2955,7 +2902,7 @@ constructor(
                 additionalProperties = phoneNumber.additionalProperties.toMutableMap()
             }
 
-            fun phoneNumber(phoneNumber: String?) = apply { this.phoneNumber = phoneNumber }
+            fun phoneNumber(phoneNumber: String) = apply { this.phoneNumber = phoneNumber }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -3065,11 +3012,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is LegalEntityCreateParams && legalEntityType == other.legalEntityType && addresses == other.addresses && bankSettings == other.bankSettings && businessName == other.businessName && citizenshipCountry == other.citizenshipCountry && dateFormed == other.dateFormed && dateOfBirth == other.dateOfBirth && doingBusinessAsNames == other.doingBusinessAsNames && email == other.email && firstName == other.firstName && identifications == other.identifications && lastName == other.lastName && legalEntityAssociations == other.legalEntityAssociations && legalStructure == other.legalStructure && metadata == other.metadata && middleName == other.middleName && phoneNumbers == other.phoneNumbers && politicallyExposedPerson == other.politicallyExposedPerson && preferredName == other.preferredName && prefix == other.prefix && riskRating == other.riskRating && suffix == other.suffix && wealthAndEmploymentDetails == other.wealthAndEmploymentDetails && website == other.website && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is LegalEntityCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(legalEntityType, addresses, bankSettings, businessName, citizenshipCountry, dateFormed, dateOfBirth, doingBusinessAsNames, email, firstName, identifications, lastName, legalEntityAssociations, legalStructure, metadata, middleName, phoneNumbers, politicallyExposedPerson, preferredName, prefix, riskRating, suffix, wealthAndEmploymentDetails, website, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "LegalEntityCreateParams{legalEntityType=$legalEntityType, addresses=$addresses, bankSettings=$bankSettings, businessName=$businessName, citizenshipCountry=$citizenshipCountry, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, identifications=$identifications, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalStructure=$legalStructure, metadata=$metadata, middleName=$middleName, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, riskRating=$riskRating, suffix=$suffix, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "LegalEntityCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -20,34 +20,25 @@ import java.util.Objects
 
 class AccountCollectionFlowCreateParams
 constructor(
-    private val counterpartyId: String,
-    private val paymentTypes: List<String>,
-    private val receivingCountries: List<ReceivingCountry>?,
+    private val body: AccountCollectionFlowCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun counterpartyId(): String = counterpartyId
+    /** Required. */
+    fun counterpartyId(): String = body.counterpartyId()
 
-    fun paymentTypes(): List<String> = paymentTypes
+    fun paymentTypes(): List<String> = body.paymentTypes()
 
-    fun receivingCountries(): List<ReceivingCountry>? = receivingCountries
+    fun receivingCountries(): List<ReceivingCountry>? = body.receivingCountries()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): AccountCollectionFlowCreateBody {
-        return AccountCollectionFlowCreateBody(
-            counterpartyId,
-            paymentTypes,
-            receivingCountries,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): AccountCollectionFlowCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -87,8 +78,8 @@ constructor(
         class Builder {
 
             private var counterpartyId: String? = null
-            private var paymentTypes: List<String>? = null
-            private var receivingCountries: List<ReceivingCountry>? = null
+            private var paymentTypes: MutableList<String>? = null
+            private var receivingCountries: MutableList<ReceivingCountry>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(accountCollectionFlowCreateBody: AccountCollectionFlowCreateBody) =
@@ -107,11 +98,20 @@ constructor(
             }
 
             fun paymentTypes(paymentTypes: List<String>) = apply {
-                this.paymentTypes = paymentTypes
+                this.paymentTypes = paymentTypes.toMutableList()
             }
 
-            fun receivingCountries(receivingCountries: List<ReceivingCountry>?) = apply {
-                this.receivingCountries = receivingCountries
+            fun addPaymentType(paymentType: String) = apply {
+                paymentTypes = (paymentTypes ?: mutableListOf()).apply { add(paymentType) }
+            }
+
+            fun receivingCountries(receivingCountries: List<ReceivingCountry>) = apply {
+                this.receivingCountries = receivingCountries.toMutableList()
+            }
+
+            fun addReceivingCountry(receivingCountry: ReceivingCountry) = apply {
+                receivingCountries =
+                    (receivingCountries ?: mutableListOf()).apply { add(receivingCountry) }
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -171,44 +171,32 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var counterpartyId: String? = null
-        private var paymentTypes: MutableList<String> = mutableListOf()
-        private var receivingCountries: MutableList<ReceivingCountry> = mutableListOf()
+        private var body: AccountCollectionFlowCreateBody.Builder =
+            AccountCollectionFlowCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(accountCollectionFlowCreateParams: AccountCollectionFlowCreateParams) =
             apply {
-                counterpartyId = accountCollectionFlowCreateParams.counterpartyId
-                paymentTypes = accountCollectionFlowCreateParams.paymentTypes.toMutableList()
-                receivingCountries =
-                    accountCollectionFlowCreateParams.receivingCountries?.toMutableList()
-                        ?: mutableListOf()
+                body = accountCollectionFlowCreateParams.body.toBuilder()
                 additionalHeaders = accountCollectionFlowCreateParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     accountCollectionFlowCreateParams.additionalQueryParams.toBuilder()
-                additionalBodyProperties =
-                    accountCollectionFlowCreateParams.additionalBodyProperties.toMutableMap()
             }
 
         /** Required. */
-        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
+        fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
 
-        fun paymentTypes(paymentTypes: List<String>) = apply {
-            this.paymentTypes.clear()
-            this.paymentTypes.addAll(paymentTypes)
-        }
+        fun paymentTypes(paymentTypes: List<String>) = apply { body.paymentTypes(paymentTypes) }
 
-        fun addPaymentType(paymentType: String) = apply { this.paymentTypes.add(paymentType) }
+        fun addPaymentType(paymentType: String) = apply { body.addPaymentType(paymentType) }
 
         fun receivingCountries(receivingCountries: List<ReceivingCountry>) = apply {
-            this.receivingCountries.clear()
-            this.receivingCountries.addAll(receivingCountries)
+            body.receivingCountries(receivingCountries)
         }
 
         fun addReceivingCountry(receivingCountry: ReceivingCountry) = apply {
-            this.receivingCountries.add(receivingCountry)
+            body.addReceivingCountry(receivingCountry)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -310,35 +298,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): AccountCollectionFlowCreateParams =
             AccountCollectionFlowCreateParams(
-                checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
-                paymentTypes.toImmutable(),
-                receivingCountries.toImmutable().ifEmpty { null },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -500,11 +482,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountCollectionFlowCreateParams && counterpartyId == other.counterpartyId && paymentTypes == other.paymentTypes && receivingCountries == other.receivingCountries && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is AccountCollectionFlowCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(counterpartyId, paymentTypes, receivingCountries, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "AccountCollectionFlowCreateParams{counterpartyId=$counterpartyId, paymentTypes=$paymentTypes, receivingCountries=$receivingCountries, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "AccountCollectionFlowCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

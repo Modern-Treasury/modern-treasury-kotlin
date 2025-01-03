@@ -21,62 +21,61 @@ import java.util.Objects
 
 class TransactionCreateParams
 constructor(
-    private val amount: Long,
-    private val asOfDate: LocalDate?,
-    private val direction: String,
-    private val internalAccountId: String,
-    private val vendorCode: String?,
-    private val vendorCodeType: String?,
-    private val metadata: Metadata?,
-    private val posted: Boolean?,
-    private val type: Type?,
-    private val vendorDescription: String?,
+    private val body: TransactionCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun amount(): Long = amount
+    /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+    fun amount(): Long = body.amount()
 
-    fun asOfDate(): LocalDate? = asOfDate
+    /** The date on which the transaction occurred. */
+    fun asOfDate(): LocalDate? = body.asOfDate()
 
-    fun direction(): String = direction
+    /** Either `credit` or `debit`. */
+    fun direction(): String = body.direction()
 
-    fun internalAccountId(): String = internalAccountId
+    /** The ID of the relevant Internal Account. */
+    fun internalAccountId(): String = body.internalAccountId()
 
-    fun vendorCode(): String? = vendorCode
+    /**
+     * When applicable, the bank-given code that determines the transaction's category. For most
+     * banks this is the BAI2/BTRS transaction code.
+     */
+    fun vendorCode(): String? = body.vendorCode()
 
-    fun vendorCodeType(): String? = vendorCodeType
+    /**
+     * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
+     * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`, `goldman_sachs`,
+     * `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, `us_bank`, or others.
+     */
+    fun vendorCodeType(): String? = body.vendorCodeType()
 
-    fun metadata(): Metadata? = metadata
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun metadata(): Metadata? = body.metadata()
 
-    fun posted(): Boolean? = posted
+    /** This field will be `true` if the transaction has posted to the account. */
+    fun posted(): Boolean? = body.posted()
 
-    fun type(): Type? = type
+    /**
+     * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`, `book`,
+     * or `sen`.
+     */
+    fun type(): Type? = body.type()
 
-    fun vendorDescription(): String? = vendorDescription
+    /**
+     * The transaction detail text that often appears in on your bank statement and in your banking
+     * portal.
+     */
+    fun vendorDescription(): String? = body.vendorDescription()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): TransactionCreateBody {
-        return TransactionCreateBody(
-            amount,
-            asOfDate,
-            direction,
-            internalAccountId,
-            vendorCode,
-            vendorCodeType,
-            metadata,
-            posted,
-            type,
-            vendorDescription,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): TransactionCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -191,7 +190,7 @@ constructor(
             fun amount(amount: Long) = apply { this.amount = amount }
 
             /** The date on which the transaction occurred. */
-            fun asOfDate(asOfDate: LocalDate?) = apply { this.asOfDate = asOfDate }
+            fun asOfDate(asOfDate: LocalDate) = apply { this.asOfDate = asOfDate }
 
             /** Either `credit` or `debit`. */
             fun direction(direction: String) = apply { this.direction = direction }
@@ -205,7 +204,7 @@ constructor(
              * When applicable, the bank-given code that determines the transaction's category. For
              * most banks this is the BAI2/BTRS transaction code.
              */
-            fun vendorCode(vendorCode: String?) = apply { this.vendorCode = vendorCode }
+            fun vendorCode(vendorCode: String) = apply { this.vendorCode = vendorCode }
 
             /**
              * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`,
@@ -213,7 +212,7 @@ constructor(
              * `evolve`, `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`,
              * `us_bank`, or others.
              */
-            fun vendorCodeType(vendorCodeType: String?) = apply {
+            fun vendorCodeType(vendorCodeType: String) = apply {
                 this.vendorCodeType = vendorCodeType
             }
 
@@ -221,22 +220,22 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             /** This field will be `true` if the transaction has posted to the account. */
-            fun posted(posted: Boolean?) = apply { this.posted = posted }
+            fun posted(posted: Boolean) = apply { this.posted = posted }
 
             /**
              * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
              * `book`, or `sen`.
              */
-            fun type(type: Type?) = apply { this.type = type }
+            fun type(type: Type) = apply { this.type = type }
 
             /**
              * The transaction detail text that often appears in on your bank statement and in your
              * banking portal.
              */
-            fun vendorDescription(vendorDescription: String?) = apply {
+            fun vendorDescription(vendorDescription: String) = apply {
                 this.vendorDescription = vendorDescription
             }
 
@@ -305,56 +304,35 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var amount: Long? = null
-        private var asOfDate: LocalDate? = null
-        private var direction: String? = null
-        private var internalAccountId: String? = null
-        private var vendorCode: String? = null
-        private var vendorCodeType: String? = null
-        private var metadata: Metadata? = null
-        private var posted: Boolean? = null
-        private var type: Type? = null
-        private var vendorDescription: String? = null
+        private var body: TransactionCreateBody.Builder = TransactionCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(transactionCreateParams: TransactionCreateParams) = apply {
-            amount = transactionCreateParams.amount
-            asOfDate = transactionCreateParams.asOfDate
-            direction = transactionCreateParams.direction
-            internalAccountId = transactionCreateParams.internalAccountId
-            vendorCode = transactionCreateParams.vendorCode
-            vendorCodeType = transactionCreateParams.vendorCodeType
-            metadata = transactionCreateParams.metadata
-            posted = transactionCreateParams.posted
-            type = transactionCreateParams.type
-            vendorDescription = transactionCreateParams.vendorDescription
+            body = transactionCreateParams.body.toBuilder()
             additionalHeaders = transactionCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = transactionCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                transactionCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** The date on which the transaction occurred. */
-        fun asOfDate(asOfDate: LocalDate) = apply { this.asOfDate = asOfDate }
+        fun asOfDate(asOfDate: LocalDate) = apply { body.asOfDate(asOfDate) }
 
         /** Either `credit` or `debit`. */
-        fun direction(direction: String) = apply { this.direction = direction }
+        fun direction(direction: String) = apply { body.direction(direction) }
 
         /** The ID of the relevant Internal Account. */
         fun internalAccountId(internalAccountId: String) = apply {
-            this.internalAccountId = internalAccountId
+            body.internalAccountId(internalAccountId)
         }
 
         /**
          * When applicable, the bank-given code that determines the transaction's category. For most
          * banks this is the BAI2/BTRS transaction code.
          */
-        fun vendorCode(vendorCode: String) = apply { this.vendorCode = vendorCode }
+        fun vendorCode(vendorCode: String) = apply { body.vendorCode(vendorCode) }
 
         /**
          * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
@@ -362,28 +340,28 @@ constructor(
          * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, `us_bank`, or
          * others.
          */
-        fun vendorCodeType(vendorCodeType: String) = apply { this.vendorCodeType = vendorCodeType }
+        fun vendorCodeType(vendorCodeType: String) = apply { body.vendorCodeType(vendorCodeType) }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /** This field will be `true` if the transaction has posted to the account. */
-        fun posted(posted: Boolean) = apply { this.posted = posted }
+        fun posted(posted: Boolean) = apply { body.posted(posted) }
 
         /**
          * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
          * `book`, or `sen`.
          */
-        fun type(type: Type) = apply { this.type = type }
+        fun type(type: Type) = apply { body.type(type) }
 
         /**
          * The transaction detail text that often appears in on your bank statement and in your
          * banking portal.
          */
         fun vendorDescription(vendorDescription: String) = apply {
-            this.vendorDescription = vendorDescription
+            body.vendorDescription(vendorDescription)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -485,44 +463,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): TransactionCreateParams =
             TransactionCreateParams(
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                asOfDate,
-                checkNotNull(direction) { "`direction` is required but was not set" },
-                checkNotNull(internalAccountId) {
-                    "`internalAccountId` is required but was not set"
-                },
-                vendorCode,
-                vendorCodeType,
-                metadata,
-                posted,
-                type,
-                vendorDescription,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -829,11 +792,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is TransactionCreateParams && amount == other.amount && asOfDate == other.asOfDate && direction == other.direction && internalAccountId == other.internalAccountId && vendorCode == other.vendorCode && vendorCodeType == other.vendorCodeType && metadata == other.metadata && posted == other.posted && type == other.type && vendorDescription == other.vendorDescription && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is TransactionCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, asOfDate, direction, internalAccountId, vendorCode, vendorCodeType, metadata, posted, type, vendorDescription, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "TransactionCreateParams{amount=$amount, asOfDate=$asOfDate, direction=$direction, internalAccountId=$internalAccountId, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, metadata=$metadata, posted=$posted, type=$type, vendorDescription=$vendorDescription, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "TransactionCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

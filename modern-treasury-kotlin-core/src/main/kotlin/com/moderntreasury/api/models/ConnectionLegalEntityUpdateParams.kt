@@ -21,25 +21,23 @@ import java.util.Objects
 class ConnectionLegalEntityUpdateParams
 constructor(
     private val id: String,
-    private val status: Status?,
+    private val body: ConnectionLegalEntityUpdateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun id(): String = id
 
-    fun status(): Status? = status
+    /** The status of the connection legal entity. */
+    fun status(): Status? = body.status()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): ConnectionLegalEntityUpdateBody {
-        return ConnectionLegalEntityUpdateBody(status, additionalBodyProperties)
-    }
+    internal fun getBody(): ConnectionLegalEntityUpdateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -88,7 +86,7 @@ constructor(
                 }
 
             /** The status of the connection legal entity. */
-            fun status(status: Status?) = apply { this.status = status }
+            fun status(status: Status) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -142,26 +140,24 @@ constructor(
     class Builder {
 
         private var id: String? = null
-        private var status: Status? = null
+        private var body: ConnectionLegalEntityUpdateBody.Builder =
+            ConnectionLegalEntityUpdateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(connectionLegalEntityUpdateParams: ConnectionLegalEntityUpdateParams) =
             apply {
                 id = connectionLegalEntityUpdateParams.id
-                status = connectionLegalEntityUpdateParams.status
+                body = connectionLegalEntityUpdateParams.body.toBuilder()
                 additionalHeaders = connectionLegalEntityUpdateParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     connectionLegalEntityUpdateParams.additionalQueryParams.toBuilder()
-                additionalBodyProperties =
-                    connectionLegalEntityUpdateParams.additionalBodyProperties.toMutableMap()
             }
 
         fun id(id: String) = apply { this.id = id }
 
         /** The status of the connection legal entity. */
-        fun status(status: Status) = apply { this.status = status }
+        fun status(status: Status) = apply { body.status(status) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -262,34 +258,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): ConnectionLegalEntityUpdateParams =
             ConnectionLegalEntityUpdateParams(
                 checkNotNull(id) { "`id` is required but was not set" },
-                status,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -349,11 +341,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ConnectionLegalEntityUpdateParams && id == other.id && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is ConnectionLegalEntityUpdateParams && id == other.id && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "ConnectionLegalEntityUpdateParams{id=$id, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "ConnectionLegalEntityUpdateParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

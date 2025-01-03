@@ -18,25 +18,22 @@ import java.util.Objects
 class ExternalAccountCompleteVerificationParams
 constructor(
     private val id: String,
-    private val amounts: List<Long>?,
+    private val body: ExternalAccountCompleteVerificationBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun id(): String = id
 
-    fun amounts(): List<Long>? = amounts
+    fun amounts(): List<Long>? = body.amounts()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): ExternalAccountCompleteVerificationBody {
-        return ExternalAccountCompleteVerificationBody(amounts, additionalBodyProperties)
-    }
+    internal fun getBody(): ExternalAccountCompleteVerificationBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -73,7 +70,7 @@ constructor(
 
         class Builder {
 
-            private var amounts: List<Long>? = null
+            private var amounts: MutableList<Long>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
@@ -84,7 +81,11 @@ constructor(
                     externalAccountCompleteVerificationBody.additionalProperties.toMutableMap()
             }
 
-            fun amounts(amounts: List<Long>?) = apply { this.amounts = amounts }
+            fun amounts(amounts: List<Long>) = apply { this.amounts = amounts.toMutableList() }
+
+            fun addAmount(amount: Long) = apply {
+                amounts = (amounts ?: mutableListOf()).apply { add(amount) }
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -141,34 +142,27 @@ constructor(
     class Builder {
 
         private var id: String? = null
-        private var amounts: MutableList<Long> = mutableListOf()
+        private var body: ExternalAccountCompleteVerificationBody.Builder =
+            ExternalAccountCompleteVerificationBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(
             externalAccountCompleteVerificationParams: ExternalAccountCompleteVerificationParams
         ) = apply {
             id = externalAccountCompleteVerificationParams.id
-            amounts =
-                externalAccountCompleteVerificationParams.amounts?.toMutableList()
-                    ?: mutableListOf()
+            body = externalAccountCompleteVerificationParams.body.toBuilder()
             additionalHeaders =
                 externalAccountCompleteVerificationParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 externalAccountCompleteVerificationParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                externalAccountCompleteVerificationParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String) = apply { this.id = id }
 
-        fun amounts(amounts: List<Long>) = apply {
-            this.amounts.clear()
-            this.amounts.addAll(amounts)
-        }
+        fun amounts(amounts: List<Long>) = apply { body.amounts(amounts) }
 
-        fun addAmount(amount: Long) = apply { this.amounts.add(amount) }
+        fun addAmount(amount: Long) = apply { body.addAmount(amount) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -269,34 +263,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): ExternalAccountCompleteVerificationParams =
             ExternalAccountCompleteVerificationParams(
                 checkNotNull(id) { "`id` is required but was not set" },
-                amounts.toImmutable().ifEmpty { null },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -305,11 +295,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExternalAccountCompleteVerificationParams && id == other.id && amounts == other.amounts && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is ExternalAccountCompleteVerificationParams && id == other.id && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, amounts, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "ExternalAccountCompleteVerificationParams{id=$id, amounts=$amounts, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "ExternalAccountCompleteVerificationParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

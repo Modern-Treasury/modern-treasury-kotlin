@@ -18,25 +18,26 @@ import java.util.Objects
 class TransactionUpdateParams
 constructor(
     private val id: String,
-    private val metadata: Metadata?,
+    private val body: TransactionUpdateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun id(): String = id
 
-    fun metadata(): Metadata? = metadata
+    /**
+     * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
+     * string or `null` as the value.
+     */
+    fun metadata(): Metadata? = body.metadata()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): TransactionUpdateBody {
-        return TransactionUpdateBody(metadata, additionalBodyProperties)
-    }
+    internal fun getBody(): TransactionUpdateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -89,7 +90,7 @@ constructor(
              * Additional data in the form of key-value pairs. Pairs can be removed by passing an
              * empty string or `null` as the value.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -143,18 +144,15 @@ constructor(
     class Builder {
 
         private var id: String? = null
-        private var metadata: Metadata? = null
+        private var body: TransactionUpdateBody.Builder = TransactionUpdateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(transactionUpdateParams: TransactionUpdateParams) = apply {
             id = transactionUpdateParams.id
-            metadata = transactionUpdateParams.metadata
+            body = transactionUpdateParams.body.toBuilder()
             additionalHeaders = transactionUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = transactionUpdateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                transactionUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String) = apply { this.id = id }
@@ -163,7 +161,7 @@ constructor(
          * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
          * string or `null` as the value.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -264,34 +262,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): TransactionUpdateParams =
             TransactionUpdateParams(
                 checkNotNull(id) { "`id` is required but was not set" },
-                metadata,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -370,11 +364,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is TransactionUpdateParams && id == other.id && metadata == other.metadata && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is TransactionUpdateParams && id == other.id && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "TransactionUpdateParams{id=$id, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "TransactionUpdateParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

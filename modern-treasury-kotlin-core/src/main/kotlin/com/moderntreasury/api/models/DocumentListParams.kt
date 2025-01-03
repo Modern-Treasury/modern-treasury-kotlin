@@ -23,8 +23,14 @@ constructor(
 
     fun afterCursor(): String? = afterCursor
 
+    /** The unique identifier for the associated object. */
     fun documentableId(): String? = documentableId
 
+    /**
+     * The type of the associated object. Currently can be one of `payment_order`, `transaction`,
+     * `paper_item`, `expected_payment`, `counterparty`, `organization`, `case`, `internal_account`,
+     * `decision`, or `external_account`.
+     */
     fun documentableType(): DocumentableType? = documentableType
 
     fun perPage(): Long? = perPage

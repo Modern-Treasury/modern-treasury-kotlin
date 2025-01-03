@@ -19,10 +19,12 @@ constructor(
 
     fun afterCursor(): String? = afterCursor
 
+    /** A string code representing the vendor (i.e. bank). */
     fun entity(): String? = entity
 
     fun perPage(): Long? = perPage
 
+    /** An identifier assigned by the vendor to your organization. */
     fun vendorCustomerId(): String? = vendorCustomerId
 
     fun _additionalHeaders(): Headers = additionalHeaders

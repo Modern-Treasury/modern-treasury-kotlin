@@ -29,20 +29,39 @@ constructor(
 
     fun afterCursor(): String? = afterCursor
 
+    /**
+     * Filters incoming payment details with an as_of_date starting on or before the specified date
+     * (YYYY-MM-DD).
+     */
     fun asOfDateEnd(): LocalDate? = asOfDateEnd
 
+    /**
+     * Filters incoming payment details with an as_of_date starting on or after the specified date
+     * (YYYY-MM-DD).
+     */
     fun asOfDateStart(): LocalDate? = asOfDateStart
 
+    /** One of `credit` or `debit`. */
     fun direction(): TransactionDirection? = direction
 
+    /**
+     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
+     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+     */
     fun metadata(): Metadata? = metadata
 
     fun perPage(): Long? = perPage
 
+    /**
+     * The current status of the incoming payment order. One of `pending`, `completed`, or
+     * `returned`.
+     */
     fun status(): Status? = status
 
+    /** One of: `ach`, `book`, `check`, `eft`, `interac`, `rtp`, `sepa`, `signet`, or `wire`. */
     fun type(): Type? = type
 
+    /** If the incoming payment detail is in a virtual account, the ID of the Virtual Account. */
     fun virtualAccountId(): String? = virtualAccountId
 
     fun _additionalHeaders(): Headers = additionalHeaders

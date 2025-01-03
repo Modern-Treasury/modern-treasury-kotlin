@@ -33,14 +33,21 @@ constructor(
 
     fun counterpartyId(): String? = counterpartyId
 
+    /** An inclusive upper bound for searching due_date */
     fun dueDateEnd(): LocalDate? = dueDateEnd
 
+    /** An inclusive lower bound for searching due_date */
     fun dueDateStart(): LocalDate? = dueDateStart
 
     fun expectedPaymentId(): String? = expectedPaymentId
 
+    /**
+     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
+     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+     */
     fun metadata(): Metadata? = metadata
 
+    /** A unique record number assigned to each invoice that is issued. */
     fun number(): String? = number
 
     fun originatingAccountId(): String? = originatingAccountId

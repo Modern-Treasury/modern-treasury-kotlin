@@ -18,48 +18,44 @@ import java.util.Objects
 class CounterpartyUpdateParams
 constructor(
     private val id: String,
-    private val email: String?,
-    private val legalEntityId: String?,
-    private val metadata: Metadata?,
-    private val name: String?,
-    private val sendRemittanceAdvice: Boolean?,
-    private val taxpayerIdentifier: String?,
+    private val body: CounterpartyUpdateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun id(): String = id
 
-    fun email(): String? = email
+    /** A new email for the counterparty. */
+    fun email(): String? = body.email()
 
-    fun legalEntityId(): String? = legalEntityId
+    /** The id of the legal entity. */
+    fun legalEntityId(): String? = body.legalEntityId()
 
-    fun metadata(): Metadata? = metadata
+    /**
+     * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
+     * string or `null` as the value.
+     */
+    fun metadata(): Metadata? = body.metadata()
 
-    fun name(): String? = name
+    /** A new name for the counterparty. Will only update if passed. */
+    fun name(): String? = body.name()
 
-    fun sendRemittanceAdvice(): Boolean? = sendRemittanceAdvice
+    /**
+     * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
+     * associated payment order is sent to the bank.
+     */
+    fun sendRemittanceAdvice(): Boolean? = body.sendRemittanceAdvice()
 
-    fun taxpayerIdentifier(): String? = taxpayerIdentifier
+    /** Either a valid SSN or EIN. */
+    fun taxpayerIdentifier(): String? = body.taxpayerIdentifier()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): CounterpartyUpdateBody {
-        return CounterpartyUpdateBody(
-            email,
-            legalEntityId,
-            metadata,
-            name,
-            sendRemittanceAdvice,
-            taxpayerIdentifier,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): CounterpartyUpdateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -143,30 +139,30 @@ constructor(
             }
 
             /** A new email for the counterparty. */
-            fun email(email: String?) = apply { this.email = email }
+            fun email(email: String) = apply { this.email = email }
 
             /** The id of the legal entity. */
-            fun legalEntityId(legalEntityId: String?) = apply { this.legalEntityId = legalEntityId }
+            fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
 
             /**
              * Additional data in the form of key-value pairs. Pairs can be removed by passing an
              * empty string or `null` as the value.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             /** A new name for the counterparty. Will only update if passed. */
-            fun name(name: String?) = apply { this.name = name }
+            fun name(name: String) = apply { this.name = name }
 
             /**
              * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
              * associated payment order is sent to the bank.
              */
-            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean?) = apply {
+            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) = apply {
                 this.sendRemittanceAdvice = sendRemittanceAdvice
             }
 
             /** Either a valid SSN or EIN. */
-            fun taxpayerIdentifier(taxpayerIdentifier: String?) = apply {
+            fun taxpayerIdentifier(taxpayerIdentifier: String) = apply {
                 this.taxpayerIdentifier = taxpayerIdentifier
             }
 
@@ -230,58 +226,45 @@ constructor(
     class Builder {
 
         private var id: String? = null
-        private var email: String? = null
-        private var legalEntityId: String? = null
-        private var metadata: Metadata? = null
-        private var name: String? = null
-        private var sendRemittanceAdvice: Boolean? = null
-        private var taxpayerIdentifier: String? = null
+        private var body: CounterpartyUpdateBody.Builder = CounterpartyUpdateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(counterpartyUpdateParams: CounterpartyUpdateParams) = apply {
             id = counterpartyUpdateParams.id
-            email = counterpartyUpdateParams.email
-            legalEntityId = counterpartyUpdateParams.legalEntityId
-            metadata = counterpartyUpdateParams.metadata
-            name = counterpartyUpdateParams.name
-            sendRemittanceAdvice = counterpartyUpdateParams.sendRemittanceAdvice
-            taxpayerIdentifier = counterpartyUpdateParams.taxpayerIdentifier
+            body = counterpartyUpdateParams.body.toBuilder()
             additionalHeaders = counterpartyUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = counterpartyUpdateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                counterpartyUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String) = apply { this.id = id }
 
         /** A new email for the counterparty. */
-        fun email(email: String) = apply { this.email = email }
+        fun email(email: String) = apply { body.email(email) }
 
         /** The id of the legal entity. */
-        fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
+        fun legalEntityId(legalEntityId: String) = apply { body.legalEntityId(legalEntityId) }
 
         /**
          * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
          * string or `null` as the value.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /** A new name for the counterparty. Will only update if passed. */
-        fun name(name: String) = apply { this.name = name }
+        fun name(name: String) = apply { body.name(name) }
 
         /**
          * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
          * associated payment order is sent to the bank.
          */
         fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) = apply {
-            this.sendRemittanceAdvice = sendRemittanceAdvice
+            body.sendRemittanceAdvice(sendRemittanceAdvice)
         }
 
         /** Either a valid SSN or EIN. */
         fun taxpayerIdentifier(taxpayerIdentifier: String) = apply {
-            this.taxpayerIdentifier = taxpayerIdentifier
+            body.taxpayerIdentifier(taxpayerIdentifier)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -383,39 +366,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): CounterpartyUpdateParams =
             CounterpartyUpdateParams(
                 checkNotNull(id) { "`id` is required but was not set" },
-                email,
-                legalEntityId,
-                metadata,
-                name,
-                sendRemittanceAdvice,
-                taxpayerIdentifier,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -494,11 +468,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is CounterpartyUpdateParams && id == other.id && email == other.email && legalEntityId == other.legalEntityId && metadata == other.metadata && name == other.name && sendRemittanceAdvice == other.sendRemittanceAdvice && taxpayerIdentifier == other.taxpayerIdentifier && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is CounterpartyUpdateParams && id == other.id && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, email, legalEntityId, metadata, name, sendRemittanceAdvice, taxpayerIdentifier, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "CounterpartyUpdateParams{id=$id, email=$email, legalEntityId=$legalEntityId, metadata=$metadata, name=$name, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "CounterpartyUpdateParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

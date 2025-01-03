@@ -18,25 +18,26 @@ import java.util.Objects
 class IncomingPaymentDetailUpdateParams
 constructor(
     private val id: String,
-    private val metadata: Metadata?,
+    private val body: IncomingPaymentDetailUpdateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun id(): String = id
 
-    fun metadata(): Metadata? = metadata
+    /**
+     * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
+     * string or `null` as the value.
+     */
+    fun metadata(): Metadata? = body.metadata()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): IncomingPaymentDetailUpdateBody {
-        return IncomingPaymentDetailUpdateBody(metadata, additionalBodyProperties)
-    }
+    internal fun getBody(): IncomingPaymentDetailUpdateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -91,7 +92,7 @@ constructor(
              * Additional data in the form of key-value pairs. Pairs can be removed by passing an
              * empty string or `null` as the value.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -145,20 +146,18 @@ constructor(
     class Builder {
 
         private var id: String? = null
-        private var metadata: Metadata? = null
+        private var body: IncomingPaymentDetailUpdateBody.Builder =
+            IncomingPaymentDetailUpdateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(incomingPaymentDetailUpdateParams: IncomingPaymentDetailUpdateParams) =
             apply {
                 id = incomingPaymentDetailUpdateParams.id
-                metadata = incomingPaymentDetailUpdateParams.metadata
+                body = incomingPaymentDetailUpdateParams.body.toBuilder()
                 additionalHeaders = incomingPaymentDetailUpdateParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     incomingPaymentDetailUpdateParams.additionalQueryParams.toBuilder()
-                additionalBodyProperties =
-                    incomingPaymentDetailUpdateParams.additionalBodyProperties.toMutableMap()
             }
 
         fun id(id: String) = apply { this.id = id }
@@ -167,7 +166,7 @@ constructor(
          * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
          * string or `null` as the value.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -268,34 +267,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): IncomingPaymentDetailUpdateParams =
             IncomingPaymentDetailUpdateParams(
                 checkNotNull(id) { "`id` is required but was not set" },
-                metadata,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -374,11 +369,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is IncomingPaymentDetailUpdateParams && id == other.id && metadata == other.metadata && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is IncomingPaymentDetailUpdateParams && id == other.id && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "IncomingPaymentDetailUpdateParams{id=$id, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "IncomingPaymentDetailUpdateParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -17,38 +17,30 @@ import java.util.Objects
 
 class LedgerableEventCreateParams
 constructor(
-    private val name: String,
-    private val customData: JsonValue?,
-    private val description: String?,
-    private val metadata: Metadata?,
+    private val body: LedgerableEventCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun name(): String = name
+    /** Name of the ledgerable event. */
+    fun name(): String = body.name()
 
-    fun customData(): JsonValue? = customData
+    /** Additionally data to be used by the Ledger Event Handler. */
+    fun customData(): JsonValue? = body.customData()
 
-    fun description(): String? = description
+    /** Description of the ledgerable event. */
+    fun description(): String? = body.description()
 
-    fun metadata(): Metadata? = metadata
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun metadata(): Metadata? = body.metadata()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): LedgerableEventCreateBody {
-        return LedgerableEventCreateBody(
-            name,
-            customData,
-            description,
-            metadata,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): LedgerableEventCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -111,16 +103,16 @@ constructor(
             fun name(name: String) = apply { this.name = name }
 
             /** Additionally data to be used by the Ledger Event Handler. */
-            fun customData(customData: JsonValue?) = apply { this.customData = customData }
+            fun customData(customData: JsonValue) = apply { this.customData = customData }
 
             /** Description of the ledgerable event. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -179,38 +171,29 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var name: String? = null
-        private var customData: JsonValue? = null
-        private var description: String? = null
-        private var metadata: Metadata? = null
+        private var body: LedgerableEventCreateBody.Builder = LedgerableEventCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerableEventCreateParams: LedgerableEventCreateParams) = apply {
-            name = ledgerableEventCreateParams.name
-            customData = ledgerableEventCreateParams.customData
-            description = ledgerableEventCreateParams.description
-            metadata = ledgerableEventCreateParams.metadata
+            body = ledgerableEventCreateParams.body.toBuilder()
             additionalHeaders = ledgerableEventCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = ledgerableEventCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                ledgerableEventCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** Name of the ledgerable event. */
-        fun name(name: String) = apply { this.name = name }
+        fun name(name: String) = apply { body.name(name) }
 
         /** Additionally data to be used by the Ledger Event Handler. */
-        fun customData(customData: JsonValue) = apply { this.customData = customData }
+        fun customData(customData: JsonValue) = apply { body.customData(customData) }
 
         /** Description of the ledgerable event. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -311,36 +294,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): LedgerableEventCreateParams =
             LedgerableEventCreateParams(
-                checkNotNull(name) { "`name` is required but was not set" },
-                customData,
-                description,
-                metadata,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -416,11 +392,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerableEventCreateParams && name == other.name && customData == other.customData && description == other.description && metadata == other.metadata && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is LedgerableEventCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(name, customData, description, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "LedgerableEventCreateParams{name=$name, customData=$customData, description=$description, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerableEventCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
