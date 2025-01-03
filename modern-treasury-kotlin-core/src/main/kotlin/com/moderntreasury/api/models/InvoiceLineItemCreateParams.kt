@@ -18,52 +18,53 @@ import java.util.Objects
 class InvoiceLineItemCreateParams
 constructor(
     private val invoiceId: String,
-    private val name: String,
-    private val unitAmount: Long,
-    private val description: String?,
-    private val direction: String?,
-    private val metadata: Metadata?,
-    private val quantity: Long?,
-    private val unitAmountDecimal: String?,
+    private val body: InvoiceLineItemCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun invoiceId(): String = invoiceId
 
-    fun name(): String = name
+    /** The name of the line item, typically a product or SKU name. */
+    fun name(): String = body.name()
 
-    fun unitAmount(): Long = unitAmount
+    /**
+     * The cost per unit of the product or service that this line item is for, specified in the
+     * invoice currency's smallest unit.
+     */
+    fun unitAmount(): Long = body.unitAmount()
 
-    fun description(): String? = description
+    /** An optional free-form description of the line item. */
+    fun description(): String? = body.description()
 
-    fun direction(): String? = direction
+    /**
+     * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
+     * increases the invoice's `total_amount` due. `credit` has the opposite intention and effect.
+     */
+    fun direction(): String? = body.direction()
 
-    fun metadata(): Metadata? = metadata
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun metadata(): Metadata? = body.metadata()
 
-    fun quantity(): Long? = quantity
+    /**
+     * The number of units of a product or service that this line item is for. Must be a whole
+     * number. Defaults to 1 if not provided.
+     */
+    fun quantity(): Long? = body.quantity()
 
-    fun unitAmountDecimal(): String? = unitAmountDecimal
+    /**
+     * The cost per unit of the product or service that this line item is for, specified in the
+     * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+     */
+    fun unitAmountDecimal(): String? = body.unitAmountDecimal()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): InvoiceLineItemCreateBody {
-        return InvoiceLineItemCreateBody(
-            name,
-            unitAmount,
-            description,
-            direction,
-            metadata,
-            quantity,
-            unitAmountDecimal,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): InvoiceLineItemCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -170,32 +171,32 @@ constructor(
             fun unitAmount(unitAmount: Long) = apply { this.unitAmount = unitAmount }
 
             /** An optional free-form description of the line item. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * Either `debit` or `credit`. `debit` indicates that a client owes the business money
              * and increases the invoice's `total_amount` due. `credit` has the opposite intention
              * and effect.
              */
-            fun direction(direction: String?) = apply { this.direction = direction }
+            fun direction(direction: String) = apply { this.direction = direction }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             /**
              * The number of units of a product or service that this line item is for. Must be a
              * whole number. Defaults to 1 if not provided.
              */
-            fun quantity(quantity: Long?) = apply { this.quantity = quantity }
+            fun quantity(quantity: Long) = apply { this.quantity = quantity }
 
             /**
              * The cost per unit of the product or service that this line item is for, specified in
              * the invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
              */
-            fun unitAmountDecimal(unitAmountDecimal: String?) = apply {
+            fun unitAmountDecimal(unitAmountDecimal: String) = apply {
                 this.unitAmountDecimal = unitAmountDecimal
             }
 
@@ -260,70 +261,55 @@ constructor(
     class Builder {
 
         private var invoiceId: String? = null
-        private var name: String? = null
-        private var unitAmount: Long? = null
-        private var description: String? = null
-        private var direction: String? = null
-        private var metadata: Metadata? = null
-        private var quantity: Long? = null
-        private var unitAmountDecimal: String? = null
+        private var body: InvoiceLineItemCreateBody.Builder = InvoiceLineItemCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(invoiceLineItemCreateParams: InvoiceLineItemCreateParams) = apply {
             invoiceId = invoiceLineItemCreateParams.invoiceId
-            name = invoiceLineItemCreateParams.name
-            unitAmount = invoiceLineItemCreateParams.unitAmount
-            description = invoiceLineItemCreateParams.description
-            direction = invoiceLineItemCreateParams.direction
-            metadata = invoiceLineItemCreateParams.metadata
-            quantity = invoiceLineItemCreateParams.quantity
-            unitAmountDecimal = invoiceLineItemCreateParams.unitAmountDecimal
+            body = invoiceLineItemCreateParams.body.toBuilder()
             additionalHeaders = invoiceLineItemCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = invoiceLineItemCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                invoiceLineItemCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun invoiceId(invoiceId: String) = apply { this.invoiceId = invoiceId }
 
         /** The name of the line item, typically a product or SKU name. */
-        fun name(name: String) = apply { this.name = name }
+        fun name(name: String) = apply { body.name(name) }
 
         /**
          * The cost per unit of the product or service that this line item is for, specified in the
          * invoice currency's smallest unit.
          */
-        fun unitAmount(unitAmount: Long) = apply { this.unitAmount = unitAmount }
+        fun unitAmount(unitAmount: Long) = apply { body.unitAmount(unitAmount) }
 
         /** An optional free-form description of the line item. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /**
          * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
          * increases the invoice's `total_amount` due. `credit` has the opposite intention and
          * effect.
          */
-        fun direction(direction: String) = apply { this.direction = direction }
+        fun direction(direction: String) = apply { body.direction(direction) }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /**
          * The number of units of a product or service that this line item is for. Must be a whole
          * number. Defaults to 1 if not provided.
          */
-        fun quantity(quantity: Long) = apply { this.quantity = quantity }
+        fun quantity(quantity: Long) = apply { body.quantity(quantity) }
 
         /**
          * The cost per unit of the product or service that this line item is for, specified in the
          * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
          */
         fun unitAmountDecimal(unitAmountDecimal: String) = apply {
-            this.unitAmountDecimal = unitAmountDecimal
+            body.unitAmountDecimal(unitAmountDecimal)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -425,40 +411,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): InvoiceLineItemCreateParams =
             InvoiceLineItemCreateParams(
                 checkNotNull(invoiceId) { "`invoiceId` is required but was not set" },
-                checkNotNull(name) { "`name` is required but was not set" },
-                checkNotNull(unitAmount) { "`unitAmount` is required but was not set" },
-                description,
-                direction,
-                metadata,
-                quantity,
-                unitAmountDecimal,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -534,11 +510,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is InvoiceLineItemCreateParams && invoiceId == other.invoiceId && name == other.name && unitAmount == other.unitAmount && description == other.description && direction == other.direction && metadata == other.metadata && quantity == other.quantity && unitAmountDecimal == other.unitAmountDecimal && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is InvoiceLineItemCreateParams && invoiceId == other.invoiceId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(invoiceId, name, unitAmount, description, direction, metadata, quantity, unitAmountDecimal, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(invoiceId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "InvoiceLineItemCreateParams{invoiceId=$invoiceId, name=$name, unitAmount=$unitAmount, description=$description, direction=$direction, metadata=$metadata, quantity=$quantity, unitAmountDecimal=$unitAmountDecimal, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "InvoiceLineItemCreateParams{invoiceId=$invoiceId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

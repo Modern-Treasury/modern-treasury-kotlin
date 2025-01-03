@@ -22,52 +22,57 @@ import java.util.Objects
 class LedgerTransactionCreateReversalParams
 constructor(
     private val id: String,
-    private val description: String?,
-    private val effectiveAt: OffsetDateTime?,
-    private val externalId: String?,
-    private val ledgerableId: String?,
-    private val ledgerableType: LedgerableType?,
-    private val metadata: Metadata?,
-    private val status: Status?,
+    private val body: LedgerTransactionCreateReversalBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun id(): String = id
 
-    fun description(): String? = description
+    /**
+     * An optional free-form description for the reversal ledger transaction. Maximum of 1000
+     * characters allowed.
+     */
+    fun description(): String? = body.description()
 
-    fun effectiveAt(): OffsetDateTime? = effectiveAt
+    /**
+     * The timestamp (ISO8601 format) at which the reversal ledger transaction happened for
+     * reporting purposes. It defaults to the `effective_at` of the original ledger transaction if
+     * not provided.
+     */
+    fun effectiveAt(): OffsetDateTime? = body.effectiveAt()
 
-    fun externalId(): String? = externalId
+    /** Must be unique within the ledger. */
+    fun externalId(): String? = body.externalId()
 
-    fun ledgerableId(): String? = ledgerableId
+    /**
+     * Specify this if you'd like to link the reversal ledger transaction to a Payment object like
+     * Return or Reversal.
+     */
+    fun ledgerableId(): String? = body.ledgerableId()
 
-    fun ledgerableType(): LedgerableType? = ledgerableType
+    /**
+     * Specify this if you'd like to link the reversal ledger transaction to a Payment object like
+     * Return or Reversal.
+     */
+    fun ledgerableType(): LedgerableType? = body.ledgerableType()
 
-    fun metadata(): Metadata? = metadata
+    /**
+     * Additional data to be added to the reversal ledger transaction as key-value pairs. Both the
+     * key and value must be strings.
+     */
+    fun metadata(): Metadata? = body.metadata()
 
-    fun status(): Status? = status
+    /** Status of the reversal ledger transaction. It defaults to `posted` if not provided. */
+    fun status(): Status? = body.status()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): LedgerTransactionCreateReversalBody {
-        return LedgerTransactionCreateReversalBody(
-            description,
-            effectiveAt,
-            externalId,
-            ledgerableId,
-            ledgerableType,
-            metadata,
-            status,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): LedgerTransactionCreateReversalBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -172,29 +177,29 @@ constructor(
              * An optional free-form description for the reversal ledger transaction. Maximum of
              * 1000 characters allowed.
              */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * The timestamp (ISO8601 format) at which the reversal ledger transaction happened for
              * reporting purposes. It defaults to the `effective_at` of the original ledger
              * transaction if not provided.
              */
-            fun effectiveAt(effectiveAt: OffsetDateTime?) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: OffsetDateTime) = apply { this.effectiveAt = effectiveAt }
 
             /** Must be unique within the ledger. */
-            fun externalId(externalId: String?) = apply { this.externalId = externalId }
+            fun externalId(externalId: String) = apply { this.externalId = externalId }
 
             /**
              * Specify this if you'd like to link the reversal ledger transaction to a Payment
              * object like Return or Reversal.
              */
-            fun ledgerableId(ledgerableId: String?) = apply { this.ledgerableId = ledgerableId }
+            fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
 
             /**
              * Specify this if you'd like to link the reversal ledger transaction to a Payment
              * object like Return or Reversal.
              */
-            fun ledgerableType(ledgerableType: LedgerableType?) = apply {
+            fun ledgerableType(ledgerableType: LedgerableType) = apply {
                 this.ledgerableType = ledgerableType
             }
 
@@ -202,12 +207,12 @@ constructor(
              * Additional data to be added to the reversal ledger transaction as key-value pairs.
              * Both the key and value must be strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             /**
              * Status of the reversal ledger transaction. It defaults to `posted` if not provided.
              */
-            fun status(status: Status?) = apply { this.status = status }
+            fun status(status: Status) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -270,33 +275,19 @@ constructor(
     class Builder {
 
         private var id: String? = null
-        private var description: String? = null
-        private var effectiveAt: OffsetDateTime? = null
-        private var externalId: String? = null
-        private var ledgerableId: String? = null
-        private var ledgerableType: LedgerableType? = null
-        private var metadata: Metadata? = null
-        private var status: Status? = null
+        private var body: LedgerTransactionCreateReversalBody.Builder =
+            LedgerTransactionCreateReversalBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(
             ledgerTransactionCreateReversalParams: LedgerTransactionCreateReversalParams
         ) = apply {
             id = ledgerTransactionCreateReversalParams.id
-            description = ledgerTransactionCreateReversalParams.description
-            effectiveAt = ledgerTransactionCreateReversalParams.effectiveAt
-            externalId = ledgerTransactionCreateReversalParams.externalId
-            ledgerableId = ledgerTransactionCreateReversalParams.ledgerableId
-            ledgerableType = ledgerTransactionCreateReversalParams.ledgerableType
-            metadata = ledgerTransactionCreateReversalParams.metadata
-            status = ledgerTransactionCreateReversalParams.status
+            body = ledgerTransactionCreateReversalParams.body.toBuilder()
             additionalHeaders = ledgerTransactionCreateReversalParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 ledgerTransactionCreateReversalParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                ledgerTransactionCreateReversalParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String) = apply { this.id = id }
@@ -305,40 +296,40 @@ constructor(
          * An optional free-form description for the reversal ledger transaction. Maximum of 1000
          * characters allowed.
          */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /**
          * The timestamp (ISO8601 format) at which the reversal ledger transaction happened for
          * reporting purposes. It defaults to the `effective_at` of the original ledger transaction
          * if not provided.
          */
-        fun effectiveAt(effectiveAt: OffsetDateTime) = apply { this.effectiveAt = effectiveAt }
+        fun effectiveAt(effectiveAt: OffsetDateTime) = apply { body.effectiveAt(effectiveAt) }
 
         /** Must be unique within the ledger. */
-        fun externalId(externalId: String) = apply { this.externalId = externalId }
+        fun externalId(externalId: String) = apply { body.externalId(externalId) }
 
         /**
          * Specify this if you'd like to link the reversal ledger transaction to a Payment object
          * like Return or Reversal.
          */
-        fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
+        fun ledgerableId(ledgerableId: String) = apply { body.ledgerableId(ledgerableId) }
 
         /**
          * Specify this if you'd like to link the reversal ledger transaction to a Payment object
          * like Return or Reversal.
          */
         fun ledgerableType(ledgerableType: LedgerableType) = apply {
-            this.ledgerableType = ledgerableType
+            body.ledgerableType(ledgerableType)
         }
 
         /**
          * Additional data to be added to the reversal ledger transaction as key-value pairs. Both
          * the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /** Status of the reversal ledger transaction. It defaults to `posted` if not provided. */
-        fun status(status: Status) = apply { this.status = status }
+        fun status(status: Status) = apply { body.status(status) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -439,40 +430,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): LedgerTransactionCreateReversalParams =
             LedgerTransactionCreateReversalParams(
                 checkNotNull(id) { "`id` is required but was not set" },
-                description,
-                effectiveAt,
-                externalId,
-                ledgerableId,
-                ledgerableType,
-                metadata,
-                status,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -695,11 +676,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerTransactionCreateReversalParams && id == other.id && description == other.description && effectiveAt == other.effectiveAt && externalId == other.externalId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is LedgerTransactionCreateReversalParams && id == other.id && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, description, effectiveAt, externalId, ledgerableId, ledgerableType, metadata, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "LedgerTransactionCreateReversalParams{id=$id, description=$description, effectiveAt=$effectiveAt, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerTransactionCreateReversalParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

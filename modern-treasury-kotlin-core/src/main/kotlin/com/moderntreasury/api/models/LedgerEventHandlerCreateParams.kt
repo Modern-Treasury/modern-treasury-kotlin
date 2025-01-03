@@ -17,51 +17,37 @@ import java.util.Objects
 
 class LedgerEventHandlerCreateParams
 constructor(
-    private val ledgerTransactionTemplate: LedgerEventHandlerLedgerTransactionTemplate,
-    private val name: String,
-    private val conditions: LedgerEventHandlerConditions?,
-    private val description: String?,
-    private val ledgerId: String?,
-    private val metadata: Metadata?,
-    private val variables: LedgerEventHandlerVariables?,
+    private val body: LedgerEventHandlerCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun ledgerTransactionTemplate(): LedgerEventHandlerLedgerTransactionTemplate =
-        ledgerTransactionTemplate
+        body.ledgerTransactionTemplate()
 
-    fun name(): String = name
+    /** Name of the ledger event handler. */
+    fun name(): String = body.name()
 
-    fun conditions(): LedgerEventHandlerConditions? = conditions
+    fun conditions(): LedgerEventHandlerConditions? = body.conditions()
 
-    fun description(): String? = description
+    /** An optional description. */
+    fun description(): String? = body.description()
 
-    fun ledgerId(): String? = ledgerId
+    /** The id of the ledger that this account belongs to. */
+    fun ledgerId(): String? = body.ledgerId()
 
-    fun metadata(): Metadata? = metadata
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun metadata(): Metadata? = body.metadata()
 
-    fun variables(): LedgerEventHandlerVariables? = variables
+    fun variables(): LedgerEventHandlerVariables? = body.variables()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): LedgerEventHandlerCreateBody {
-        return LedgerEventHandlerCreateBody(
-            ledgerTransactionTemplate,
-            name,
-            conditions,
-            description,
-            ledgerId,
-            metadata,
-            variables,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): LedgerEventHandlerCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -147,23 +133,23 @@ constructor(
             /** Name of the ledger event handler. */
             fun name(name: String) = apply { this.name = name }
 
-            fun conditions(conditions: LedgerEventHandlerConditions?) = apply {
+            fun conditions(conditions: LedgerEventHandlerConditions) = apply {
                 this.conditions = conditions
             }
 
             /** An optional description. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = apply { this.description = description }
 
             /** The id of the ledger that this account belongs to. */
-            fun ledgerId(ledgerId: String?) = apply { this.ledgerId = ledgerId }
+            fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
-            fun variables(variables: LedgerEventHandlerVariables?) = apply {
+            fun variables(variables: LedgerEventHandlerVariables) = apply {
                 this.variables = variables
             }
 
@@ -229,54 +215,40 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var ledgerTransactionTemplate: LedgerEventHandlerLedgerTransactionTemplate? = null
-        private var name: String? = null
-        private var conditions: LedgerEventHandlerConditions? = null
-        private var description: String? = null
-        private var ledgerId: String? = null
-        private var metadata: Metadata? = null
-        private var variables: LedgerEventHandlerVariables? = null
+        private var body: LedgerEventHandlerCreateBody.Builder =
+            LedgerEventHandlerCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerEventHandlerCreateParams: LedgerEventHandlerCreateParams) = apply {
-            ledgerTransactionTemplate = ledgerEventHandlerCreateParams.ledgerTransactionTemplate
-            name = ledgerEventHandlerCreateParams.name
-            conditions = ledgerEventHandlerCreateParams.conditions
-            description = ledgerEventHandlerCreateParams.description
-            ledgerId = ledgerEventHandlerCreateParams.ledgerId
-            metadata = ledgerEventHandlerCreateParams.metadata
-            variables = ledgerEventHandlerCreateParams.variables
+            body = ledgerEventHandlerCreateParams.body.toBuilder()
             additionalHeaders = ledgerEventHandlerCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = ledgerEventHandlerCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                ledgerEventHandlerCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun ledgerTransactionTemplate(
             ledgerTransactionTemplate: LedgerEventHandlerLedgerTransactionTemplate
-        ) = apply { this.ledgerTransactionTemplate = ledgerTransactionTemplate }
+        ) = apply { body.ledgerTransactionTemplate(ledgerTransactionTemplate) }
 
         /** Name of the ledger event handler. */
-        fun name(name: String) = apply { this.name = name }
+        fun name(name: String) = apply { body.name(name) }
 
         fun conditions(conditions: LedgerEventHandlerConditions) = apply {
-            this.conditions = conditions
+            body.conditions(conditions)
         }
 
         /** An optional description. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /** The id of the ledger that this account belongs to. */
-        fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
+        fun ledgerId(ledgerId: String) = apply { body.ledgerId(ledgerId) }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
-        fun variables(variables: LedgerEventHandlerVariables) = apply { this.variables = variables }
+        fun variables(variables: LedgerEventHandlerVariables) = apply { body.variables(variables) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -377,41 +349,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): LedgerEventHandlerCreateParams =
             LedgerEventHandlerCreateParams(
-                checkNotNull(ledgerTransactionTemplate) {
-                    "`ledgerTransactionTemplate` is required but was not set"
-                },
-                checkNotNull(name) { "`name` is required but was not set" },
-                conditions,
-                description,
-                ledgerId,
-                metadata,
-                variables,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -460,7 +420,7 @@ constructor(
             private var description: String? = null
             private var effectiveAt: String? = null
             private var status: String? = null
-            private var ledgerEntries: List<LedgerEventHandlerLedgerEntries>? = null
+            private var ledgerEntries: MutableList<LedgerEventHandlerLedgerEntries>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
@@ -477,20 +437,25 @@ constructor(
             }
 
             /** An optional description for internal use. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
              * purposes.
              */
-            fun effectiveAt(effectiveAt: String?) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: String) = apply { this.effectiveAt = effectiveAt }
 
             /** To post a ledger transaction at creation, use `posted`. */
-            fun status(status: String?) = apply { this.status = status }
+            fun status(status: String) = apply { this.status = status }
 
             /** An array of ledger entry objects. */
             fun ledgerEntries(ledgerEntries: List<LedgerEventHandlerLedgerEntries>) = apply {
-                this.ledgerEntries = ledgerEntries
+                this.ledgerEntries = ledgerEntries.toMutableList()
+            }
+
+            /** An array of ledger entry objects. */
+            fun addLedgerEntry(ledgerEntry: LedgerEventHandlerLedgerEntries) = apply {
+                ledgerEntries = (ledgerEntries ?: mutableListOf()).apply { add(ledgerEntry) }
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -893,11 +858,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerEventHandlerCreateParams && ledgerTransactionTemplate == other.ledgerTransactionTemplate && name == other.name && conditions == other.conditions && description == other.description && ledgerId == other.ledgerId && metadata == other.metadata && variables == other.variables && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is LedgerEventHandlerCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(ledgerTransactionTemplate, name, conditions, description, ledgerId, metadata, variables, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "LedgerEventHandlerCreateParams{ledgerTransactionTemplate=$ledgerTransactionTemplate, name=$name, conditions=$conditions, description=$description, ledgerId=$ledgerId, metadata=$metadata, variables=$variables, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerEventHandlerCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

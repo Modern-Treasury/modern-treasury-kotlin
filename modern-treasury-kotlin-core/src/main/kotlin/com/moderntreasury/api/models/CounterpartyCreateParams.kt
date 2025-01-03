@@ -21,66 +21,53 @@ import java.util.Objects
 
 class CounterpartyCreateParams
 constructor(
-    private val name: String?,
-    private val accounting: Accounting?,
-    private val accounts: List<Account>?,
-    private val email: String?,
-    private val ledgerType: LedgerType?,
-    private val legalEntity: LegalEntityCreateRequest?,
-    private val legalEntityId: String?,
-    private val metadata: Metadata?,
-    private val sendRemittanceAdvice: Boolean?,
-    private val taxpayerIdentifier: String?,
-    private val verificationStatus: VerificationStatus?,
+    private val body: CounterpartyCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun name(): String? = name
+    /** A human friendly name for this counterparty. */
+    fun name(): String? = body.name()
 
-    fun accounting(): Accounting? = accounting
+    fun accounting(): Accounting? = body.accounting()
 
-    fun accounts(): List<Account>? = accounts
+    /** The accounts for this counterparty. */
+    fun accounts(): List<Account>? = body.accounts()
 
-    fun email(): String? = email
+    /** The counterparty's email. */
+    fun email(): String? = body.email()
 
-    fun ledgerType(): LedgerType? = ledgerType
+    /**
+     * An optional type to auto-sync the counterparty to your ledger. Either `customer` or `vendor`.
+     */
+    fun ledgerType(): LedgerType? = body.ledgerType()
 
-    fun legalEntity(): LegalEntityCreateRequest? = legalEntity
+    fun legalEntity(): LegalEntityCreateRequest? = body.legalEntity()
 
-    fun legalEntityId(): String? = legalEntityId
+    /** The id of the legal entity. */
+    fun legalEntityId(): String? = body.legalEntityId()
 
-    fun metadata(): Metadata? = metadata
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun metadata(): Metadata? = body.metadata()
 
-    fun sendRemittanceAdvice(): Boolean? = sendRemittanceAdvice
+    /**
+     * Send an email to the counterparty whenever an associated payment order is sent to the bank.
+     */
+    fun sendRemittanceAdvice(): Boolean? = body.sendRemittanceAdvice()
 
-    fun taxpayerIdentifier(): String? = taxpayerIdentifier
+    /** Either a valid SSN or EIN. */
+    fun taxpayerIdentifier(): String? = body.taxpayerIdentifier()
 
-    fun verificationStatus(): VerificationStatus? = verificationStatus
+    /** The verification status of the counterparty. */
+    fun verificationStatus(): VerificationStatus? = body.verificationStatus()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): CounterpartyCreateBody {
-        return CounterpartyCreateBody(
-            name,
-            accounting,
-            accounts,
-            email,
-            ledgerType,
-            legalEntity,
-            legalEntityId,
-            metadata,
-            sendRemittanceAdvice,
-            taxpayerIdentifier,
-            verificationStatus,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): CounterpartyCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -161,7 +148,7 @@ constructor(
 
             private var name: String? = null
             private var accounting: Accounting? = null
-            private var accounts: List<Account>? = null
+            private var accounts: MutableList<Account>? = null
             private var email: String? = null
             private var ledgerType: LedgerType? = null
             private var legalEntity: LegalEntityCreateRequest? = null
@@ -188,50 +175,57 @@ constructor(
             }
 
             /** A human friendly name for this counterparty. */
-            fun name(name: String?) = apply { this.name = name }
+            fun name(name: String) = apply { this.name = name }
 
-            fun accounting(accounting: Accounting?) = apply { this.accounting = accounting }
+            fun accounting(accounting: Accounting) = apply { this.accounting = accounting }
 
             /** The accounts for this counterparty. */
-            fun accounts(accounts: List<Account>?) = apply { this.accounts = accounts }
+            fun accounts(accounts: List<Account>) = apply {
+                this.accounts = accounts.toMutableList()
+            }
+
+            /** The accounts for this counterparty. */
+            fun addAccount(account: Account) = apply {
+                accounts = (accounts ?: mutableListOf()).apply { add(account) }
+            }
 
             /** The counterparty's email. */
-            fun email(email: String?) = apply { this.email = email }
+            fun email(email: String) = apply { this.email = email }
 
             /**
              * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
              * `vendor`.
              */
-            fun ledgerType(ledgerType: LedgerType?) = apply { this.ledgerType = ledgerType }
+            fun ledgerType(ledgerType: LedgerType) = apply { this.ledgerType = ledgerType }
 
-            fun legalEntity(legalEntity: LegalEntityCreateRequest?) = apply {
+            fun legalEntity(legalEntity: LegalEntityCreateRequest) = apply {
                 this.legalEntity = legalEntity
             }
 
             /** The id of the legal entity. */
-            fun legalEntityId(legalEntityId: String?) = apply { this.legalEntityId = legalEntityId }
+            fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             /**
              * Send an email to the counterparty whenever an associated payment order is sent to the
              * bank.
              */
-            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean?) = apply {
+            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) = apply {
                 this.sendRemittanceAdvice = sendRemittanceAdvice
             }
 
             /** Either a valid SSN or EIN. */
-            fun taxpayerIdentifier(taxpayerIdentifier: String?) = apply {
+            fun taxpayerIdentifier(taxpayerIdentifier: String) = apply {
                 this.taxpayerIdentifier = taxpayerIdentifier
             }
 
             /** The verification status of the counterparty. */
-            fun verificationStatus(verificationStatus: VerificationStatus?) = apply {
+            fun verificationStatus(verificationStatus: VerificationStatus) = apply {
                 this.verificationStatus = verificationStatus
             }
 
@@ -299,90 +293,64 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var name: String? = null
-        private var accounting: Accounting? = null
-        private var accounts: MutableList<Account> = mutableListOf()
-        private var email: String? = null
-        private var ledgerType: LedgerType? = null
-        private var legalEntity: LegalEntityCreateRequest? = null
-        private var legalEntityId: String? = null
-        private var metadata: Metadata? = null
-        private var sendRemittanceAdvice: Boolean? = null
-        private var taxpayerIdentifier: String? = null
-        private var verificationStatus: VerificationStatus? = null
+        private var body: CounterpartyCreateBody.Builder = CounterpartyCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(counterpartyCreateParams: CounterpartyCreateParams) = apply {
-            name = counterpartyCreateParams.name
-            accounting = counterpartyCreateParams.accounting
-            accounts = counterpartyCreateParams.accounts?.toMutableList() ?: mutableListOf()
-            email = counterpartyCreateParams.email
-            ledgerType = counterpartyCreateParams.ledgerType
-            legalEntity = counterpartyCreateParams.legalEntity
-            legalEntityId = counterpartyCreateParams.legalEntityId
-            metadata = counterpartyCreateParams.metadata
-            sendRemittanceAdvice = counterpartyCreateParams.sendRemittanceAdvice
-            taxpayerIdentifier = counterpartyCreateParams.taxpayerIdentifier
-            verificationStatus = counterpartyCreateParams.verificationStatus
+            body = counterpartyCreateParams.body.toBuilder()
             additionalHeaders = counterpartyCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = counterpartyCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                counterpartyCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** A human friendly name for this counterparty. */
-        fun name(name: String) = apply { this.name = name }
+        fun name(name: String) = apply { body.name(name) }
 
-        fun accounting(accounting: Accounting) = apply { this.accounting = accounting }
-
-        /** The accounts for this counterparty. */
-        fun accounts(accounts: List<Account>) = apply {
-            this.accounts.clear()
-            this.accounts.addAll(accounts)
-        }
+        fun accounting(accounting: Accounting) = apply { body.accounting(accounting) }
 
         /** The accounts for this counterparty. */
-        fun addAccount(account: Account) = apply { this.accounts.add(account) }
+        fun accounts(accounts: List<Account>) = apply { body.accounts(accounts) }
+
+        /** The accounts for this counterparty. */
+        fun addAccount(account: Account) = apply { body.addAccount(account) }
 
         /** The counterparty's email. */
-        fun email(email: String) = apply { this.email = email }
+        fun email(email: String) = apply { body.email(email) }
 
         /**
          * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
          * `vendor`.
          */
-        fun ledgerType(ledgerType: LedgerType) = apply { this.ledgerType = ledgerType }
+        fun ledgerType(ledgerType: LedgerType) = apply { body.ledgerType(ledgerType) }
 
         fun legalEntity(legalEntity: LegalEntityCreateRequest) = apply {
-            this.legalEntity = legalEntity
+            body.legalEntity(legalEntity)
         }
 
         /** The id of the legal entity. */
-        fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
+        fun legalEntityId(legalEntityId: String) = apply { body.legalEntityId(legalEntityId) }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /**
          * Send an email to the counterparty whenever an associated payment order is sent to the
          * bank.
          */
         fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) = apply {
-            this.sendRemittanceAdvice = sendRemittanceAdvice
+            body.sendRemittanceAdvice(sendRemittanceAdvice)
         }
 
         /** Either a valid SSN or EIN. */
         fun taxpayerIdentifier(taxpayerIdentifier: String) = apply {
-            this.taxpayerIdentifier = taxpayerIdentifier
+            body.taxpayerIdentifier(taxpayerIdentifier)
         }
 
         /** The verification status of the counterparty. */
         fun verificationStatus(verificationStatus: VerificationStatus) = apply {
-            this.verificationStatus = verificationStatus
+            body.verificationStatus(verificationStatus)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -484,43 +452,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): CounterpartyCreateParams =
             CounterpartyCreateParams(
-                name,
-                accounting,
-                accounts.toImmutable().ifEmpty { null },
-                email,
-                ledgerType,
-                legalEntity,
-                legalEntityId,
-                metadata,
-                sendRemittanceAdvice,
-                taxpayerIdentifier,
-                verificationStatus,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -564,7 +518,7 @@ constructor(
              * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
              * `vendor`.
              */
-            fun type(type: Type?) = apply { this.type = type }
+            fun type(type: Type) = apply { this.type = type }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -750,14 +704,14 @@ constructor(
             private var partyType: PartyType? = null
             private var partyAddress: AddressRequest? = null
             private var name: String? = null
-            private var accountDetails: List<AccountDetail>? = null
-            private var routingDetails: List<RoutingDetail>? = null
+            private var accountDetails: MutableList<AccountDetail>? = null
+            private var routingDetails: MutableList<RoutingDetail>? = null
             private var metadata: Metadata? = null
             private var partyName: String? = null
             private var partyIdentifier: String? = null
             private var ledgerAccount: LedgerAccountCreateRequest? = null
             private var plaidProcessorToken: String? = null
-            private var contactDetails: List<ContactDetailCreateRequest>? = null
+            private var contactDetails: MutableList<ContactDetailCreateRequest>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(account: Account) = apply {
@@ -777,15 +731,15 @@ constructor(
             }
 
             /** Can be `checking`, `savings` or `other`. */
-            fun accountType(accountType: ExternalAccountType?) = apply {
+            fun accountType(accountType: ExternalAccountType) = apply {
                 this.accountType = accountType
             }
 
             /** Either `individual` or `business`. */
-            fun partyType(partyType: PartyType?) = apply { this.partyType = partyType }
+            fun partyType(partyType: PartyType) = apply { this.partyType = partyType }
 
             /** Required if receiving wire payments. */
-            fun partyAddress(partyAddress: AddressRequest?) = apply {
+            fun partyAddress(partyAddress: AddressRequest) = apply {
                 this.partyAddress = partyAddress
             }
 
@@ -793,26 +747,34 @@ constructor(
              * A nickname for the external account. This is only for internal usage and won't affect
              * any payments
              */
-            fun name(name: String?) = apply { this.name = name }
+            fun name(name: String) = apply { this.name = name }
 
-            fun accountDetails(accountDetails: List<AccountDetail>?) = apply {
-                this.accountDetails = accountDetails
+            fun accountDetails(accountDetails: List<AccountDetail>) = apply {
+                this.accountDetails = accountDetails.toMutableList()
             }
 
-            fun routingDetails(routingDetails: List<RoutingDetail>?) = apply {
-                this.routingDetails = routingDetails
+            fun addAccountDetail(accountDetail: AccountDetail) = apply {
+                accountDetails = (accountDetails ?: mutableListOf()).apply { add(accountDetail) }
+            }
+
+            fun routingDetails(routingDetails: List<RoutingDetail>) = apply {
+                this.routingDetails = routingDetails.toMutableList()
+            }
+
+            fun addRoutingDetail(routingDetail: RoutingDetail) = apply {
+                routingDetails = (routingDetails ?: mutableListOf()).apply { add(routingDetail) }
             }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             /** If this value isn't provided, it will be inherited from the counterparty's name. */
-            fun partyName(partyName: String?) = apply { this.partyName = partyName }
+            fun partyName(partyName: String) = apply { this.partyName = partyName }
 
-            fun partyIdentifier(partyIdentifier: String?) = apply {
+            fun partyIdentifier(partyIdentifier: String) = apply {
                 this.partyIdentifier = partyIdentifier
             }
 
@@ -823,7 +785,7 @@ constructor(
              * https://docs.moderntreasury.com/docs/linking-to-other-modern-treasury-objects for
              * more details.
              */
-            fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest?) = apply {
+            fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest) = apply {
                 this.ledgerAccount = ledgerAccount
             }
 
@@ -831,12 +793,16 @@ constructor(
              * If you've enabled the Modern Treasury + Plaid integration in your Plaid account, you
              * can pass the processor token in this field.
              */
-            fun plaidProcessorToken(plaidProcessorToken: String?) = apply {
+            fun plaidProcessorToken(plaidProcessorToken: String) = apply {
                 this.plaidProcessorToken = plaidProcessorToken
             }
 
-            fun contactDetails(contactDetails: List<ContactDetailCreateRequest>?) = apply {
-                this.contactDetails = contactDetails
+            fun contactDetails(contactDetails: List<ContactDetailCreateRequest>) = apply {
+                this.contactDetails = contactDetails.toMutableList()
+            }
+
+            fun addContactDetail(contactDetail: ContactDetailCreateRequest) = apply {
+                contactDetails = (contactDetails ?: mutableListOf()).apply { add(contactDetail) }
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -918,7 +884,7 @@ constructor(
                     this.accountNumber = accountNumber
                 }
 
-                fun accountNumberType(accountNumberType: AccountNumberType?) = apply {
+                fun accountNumberType(accountNumberType: AccountNumberType) = apply {
                     this.accountNumberType = accountNumberType
                 }
 
@@ -1120,11 +1086,11 @@ constructor(
                         contactDetailCreateRequest.additionalProperties.toMutableMap()
                 }
 
-                fun contactIdentifier(contactIdentifier: String?) = apply {
+                fun contactIdentifier(contactIdentifier: String) = apply {
                     this.contactIdentifier = contactIdentifier
                 }
 
-                fun contactIdentifierType(contactIdentifierType: ContactIdentifierType?) = apply {
+                fun contactIdentifierType(contactIdentifierType: ContactIdentifierType) = apply {
                     this.contactIdentifierType = contactIdentifierType
                 }
 
@@ -1332,7 +1298,7 @@ constructor(
                 private var ledgerId: String? = null
                 private var currency: String? = null
                 private var currencyExponent: Long? = null
-                private var ledgerAccountCategoryIds: List<String>? = null
+                private var ledgerAccountCategoryIds: MutableList<String>? = null
                 private var ledgerableId: String? = null
                 private var ledgerableType: LedgerableType? = null
                 private var metadata: Metadata? = null
@@ -1358,7 +1324,7 @@ constructor(
                 fun name(name: String) = apply { this.name = name }
 
                 /** The description of the ledger account. */
-                fun description(description: String?) = apply { this.description = description }
+                fun description(description: String) = apply { this.description = description }
 
                 /** The normal balance of the ledger account. */
                 fun normalBalance(normalBalance: TransactionDirection) = apply {
@@ -1372,7 +1338,7 @@ constructor(
                 fun currency(currency: String) = apply { this.currency = currency }
 
                 /** The currency exponent of the ledger account. */
-                fun currencyExponent(currencyExponent: Long?) = apply {
+                fun currencyExponent(currencyExponent: Long) = apply {
                     this.currencyExponent = currencyExponent
                 }
 
@@ -1380,22 +1346,33 @@ constructor(
                  * The array of ledger account category ids that this ledger account should be a
                  * child of.
                  */
-                fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>?) = apply {
-                    this.ledgerAccountCategoryIds = ledgerAccountCategoryIds
+                fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>) = apply {
+                    this.ledgerAccountCategoryIds = ledgerAccountCategoryIds.toMutableList()
+                }
+
+                /**
+                 * The array of ledger account category ids that this ledger account should be a
+                 * child of.
+                 */
+                fun addLedgerAccountCategoryId(ledgerAccountCategoryId: String) = apply {
+                    ledgerAccountCategoryIds =
+                        (ledgerAccountCategoryIds ?: mutableListOf()).apply {
+                            add(ledgerAccountCategoryId)
+                        }
                 }
 
                 /**
                  * If the ledger account links to another object in Modern Treasury, the id will be
                  * populated here, otherwise null.
                  */
-                fun ledgerableId(ledgerableId: String?) = apply { this.ledgerableId = ledgerableId }
+                fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
 
                 /**
                  * If the ledger account links to another object in Modern Treasury, the type will
                  * be populated here, otherwise null. The value is one of internal_account or
                  * external_account.
                  */
-                fun ledgerableType(ledgerableType: LedgerableType?) = apply {
+                fun ledgerableType(ledgerableType: LedgerableType) = apply {
                     this.ledgerableType = ledgerableType
                 }
 
@@ -1403,7 +1380,7 @@ constructor(
                  * Additional data represented as key-value pairs. Both the key and value must be
                  * strings.
                  */
-                fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+                fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1742,21 +1719,21 @@ constructor(
                     additionalProperties = addressRequest.additionalProperties.toMutableMap()
                 }
 
-                fun line1(line1: String?) = apply { this.line1 = line1 }
+                fun line1(line1: String) = apply { this.line1 = line1 }
 
-                fun line2(line2: String?) = apply { this.line2 = line2 }
+                fun line2(line2: String) = apply { this.line2 = line2 }
 
                 /** Locality or City. */
-                fun locality(locality: String?) = apply { this.locality = locality }
+                fun locality(locality: String) = apply { this.locality = locality }
 
                 /** Region or State. */
-                fun region(region: String?) = apply { this.region = region }
+                fun region(region: String) = apply { this.region = region }
 
                 /** The postal code of the address. */
-                fun postalCode(postalCode: String?) = apply { this.postalCode = postalCode }
+                fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
                 /** Country code conforms to [ISO 3166-1 alpha-2] */
-                fun country(country: String?) = apply { this.country = country }
+                fun country(country: String) = apply { this.country = country }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1918,9 +1895,7 @@ constructor(
                     this.routingNumberType = routingNumberType
                 }
 
-                fun paymentType(paymentType: PaymentType?) = apply {
-                    this.paymentType = paymentType
-                }
+                fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -2582,17 +2557,18 @@ constructor(
             private var dateOfBirth: LocalDate? = null
             private var dateFormed: LocalDate? = null
             private var businessName: String? = null
-            private var doingBusinessAsNames: List<String>? = null
+            private var doingBusinessAsNames: MutableList<String>? = null
             private var legalStructure: LegalStructure? = null
-            private var phoneNumbers: List<PhoneNumber>? = null
+            private var phoneNumbers: MutableList<PhoneNumber>? = null
             private var email: String? = null
             private var website: String? = null
             private var metadata: Metadata? = null
             private var bankSettings: BankSettings? = null
             private var wealthAndEmploymentDetails: WealthAndEmploymentDetails? = null
-            private var addresses: List<LegalEntityAddressCreateRequest>? = null
-            private var identifications: List<IdentificationCreateRequest>? = null
-            private var legalEntityAssociations: List<LegalEntityAssociationInlineCreateRequest>? =
+            private var addresses: MutableList<LegalEntityAddressCreateRequest>? = null
+            private var identifications: MutableList<IdentificationCreateRequest>? = null
+            private var legalEntityAssociations:
+                MutableList<LegalEntityAssociationInlineCreateRequest>? =
                 null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -2632,92 +2608,122 @@ constructor(
             }
 
             /** The risk rating of the legal entity. One of low, medium, high. */
-            fun riskRating(riskRating: RiskRating?) = apply { this.riskRating = riskRating }
+            fun riskRating(riskRating: RiskRating) = apply { this.riskRating = riskRating }
 
             /** An individual's prefix. */
-            fun prefix(prefix: String?) = apply { this.prefix = prefix }
+            fun prefix(prefix: String) = apply { this.prefix = prefix }
 
             /** An individual's first name. */
-            fun firstName(firstName: String?) = apply { this.firstName = firstName }
+            fun firstName(firstName: String) = apply { this.firstName = firstName }
 
             /** An individual's middle name. */
-            fun middleName(middleName: String?) = apply { this.middleName = middleName }
+            fun middleName(middleName: String) = apply { this.middleName = middleName }
 
             /** An individual's last name. */
-            fun lastName(lastName: String?) = apply { this.lastName = lastName }
+            fun lastName(lastName: String) = apply { this.lastName = lastName }
 
             /** An individual's suffix. */
-            fun suffix(suffix: String?) = apply { this.suffix = suffix }
+            fun suffix(suffix: String) = apply { this.suffix = suffix }
 
             /** An individual's preferred name. */
-            fun preferredName(preferredName: String?) = apply { this.preferredName = preferredName }
+            fun preferredName(preferredName: String) = apply { this.preferredName = preferredName }
 
             /** The country of citizenship for an individual. */
-            fun citizenshipCountry(citizenshipCountry: String?) = apply {
+            fun citizenshipCountry(citizenshipCountry: String) = apply {
                 this.citizenshipCountry = citizenshipCountry
             }
 
             /** Whether the individual is a politically exposed person. */
-            fun politicallyExposedPerson(politicallyExposedPerson: Boolean?) = apply {
+            fun politicallyExposedPerson(politicallyExposedPerson: Boolean) = apply {
                 this.politicallyExposedPerson = politicallyExposedPerson
             }
 
             /** An individual's date of birth (YYYY-MM-DD). */
-            fun dateOfBirth(dateOfBirth: LocalDate?) = apply { this.dateOfBirth = dateOfBirth }
+            fun dateOfBirth(dateOfBirth: LocalDate) = apply { this.dateOfBirth = dateOfBirth }
 
             /** A business's formation date (YYYY-MM-DD). */
-            fun dateFormed(dateFormed: LocalDate?) = apply { this.dateFormed = dateFormed }
+            fun dateFormed(dateFormed: LocalDate) = apply { this.dateFormed = dateFormed }
 
             /** The business's legal business name. */
-            fun businessName(businessName: String?) = apply { this.businessName = businessName }
+            fun businessName(businessName: String) = apply { this.businessName = businessName }
 
-            fun doingBusinessAsNames(doingBusinessAsNames: List<String>?) = apply {
-                this.doingBusinessAsNames = doingBusinessAsNames
+            fun doingBusinessAsNames(doingBusinessAsNames: List<String>) = apply {
+                this.doingBusinessAsNames = doingBusinessAsNames.toMutableList()
+            }
+
+            fun addDoingBusinessAsName(doingBusinessAsName: String) = apply {
+                doingBusinessAsNames =
+                    (doingBusinessAsNames ?: mutableListOf()).apply { add(doingBusinessAsName) }
             }
 
             /** The business's legal structure. */
-            fun legalStructure(legalStructure: LegalStructure?) = apply {
+            fun legalStructure(legalStructure: LegalStructure) = apply {
                 this.legalStructure = legalStructure
             }
 
-            fun phoneNumbers(phoneNumbers: List<PhoneNumber>?) = apply {
-                this.phoneNumbers = phoneNumbers
+            fun phoneNumbers(phoneNumbers: List<PhoneNumber>) = apply {
+                this.phoneNumbers = phoneNumbers.toMutableList()
+            }
+
+            fun addPhoneNumber(phoneNumber: PhoneNumber) = apply {
+                phoneNumbers = (phoneNumbers ?: mutableListOf()).apply { add(phoneNumber) }
             }
 
             /** The entity's primary email. */
-            fun email(email: String?) = apply { this.email = email }
+            fun email(email: String) = apply { this.email = email }
 
             /** The entity's primary website URL. */
-            fun website(website: String?) = apply { this.website = website }
+            fun website(website: String) = apply { this.website = website }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
-            fun bankSettings(bankSettings: BankSettings?) = apply {
+            fun bankSettings(bankSettings: BankSettings) = apply {
                 this.bankSettings = bankSettings
             }
 
-            fun wealthAndEmploymentDetails(
-                wealthAndEmploymentDetails: WealthAndEmploymentDetails?
-            ) = apply { this.wealthAndEmploymentDetails = wealthAndEmploymentDetails }
+            fun wealthAndEmploymentDetails(wealthAndEmploymentDetails: WealthAndEmploymentDetails) =
+                apply {
+                    this.wealthAndEmploymentDetails = wealthAndEmploymentDetails
+                }
 
             /** A list of addresses for the entity. */
-            fun addresses(addresses: List<LegalEntityAddressCreateRequest>?) = apply {
-                this.addresses = addresses
+            fun addresses(addresses: List<LegalEntityAddressCreateRequest>) = apply {
+                this.addresses = addresses.toMutableList()
+            }
+
+            /** A list of addresses for the entity. */
+            fun addAddress(address: LegalEntityAddressCreateRequest) = apply {
+                addresses = (addresses ?: mutableListOf()).apply { add(address) }
             }
 
             /** A list of identifications for the legal entity. */
-            fun identifications(identifications: List<IdentificationCreateRequest>?) = apply {
-                this.identifications = identifications
+            fun identifications(identifications: List<IdentificationCreateRequest>) = apply {
+                this.identifications = identifications.toMutableList()
+            }
+
+            /** A list of identifications for the legal entity. */
+            fun addIdentification(identification: IdentificationCreateRequest) = apply {
+                identifications = (identifications ?: mutableListOf()).apply { add(identification) }
             }
 
             /** The legal entity associations and its child legal entities. */
             fun legalEntityAssociations(
-                legalEntityAssociations: List<LegalEntityAssociationInlineCreateRequest>?
-            ) = apply { this.legalEntityAssociations = legalEntityAssociations }
+                legalEntityAssociations: List<LegalEntityAssociationInlineCreateRequest>
+            ) = apply { this.legalEntityAssociations = legalEntityAssociations.toMutableList() }
+
+            /** The legal entity associations and its child legal entities. */
+            fun addLegalEntityAssociation(
+                legalEntityAssociation: LegalEntityAssociationInlineCreateRequest
+            ) = apply {
+                legalEntityAssociations =
+                    (legalEntityAssociations ?: mutableListOf()).apply {
+                        add(legalEntityAssociation)
+                    }
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -2875,7 +2881,7 @@ constructor(
 
             class Builder {
 
-                private var addressTypes: List<AddressType>? = null
+                private var addressTypes: MutableList<AddressType>? = null
                 private var line1: String? = null
                 private var line2: String? = null
                 private var locality: String? = null
@@ -2899,25 +2905,30 @@ constructor(
                 }
 
                 /** The types of this address. */
-                fun addressTypes(addressTypes: List<AddressType>?) = apply {
-                    this.addressTypes = addressTypes
+                fun addressTypes(addressTypes: List<AddressType>) = apply {
+                    this.addressTypes = addressTypes.toMutableList()
                 }
 
-                fun line1(line1: String?) = apply { this.line1 = line1 }
+                /** The types of this address. */
+                fun addAddressType(addressType: AddressType) = apply {
+                    addressTypes = (addressTypes ?: mutableListOf()).apply { add(addressType) }
+                }
 
-                fun line2(line2: String?) = apply { this.line2 = line2 }
+                fun line1(line1: String) = apply { this.line1 = line1 }
+
+                fun line2(line2: String) = apply { this.line2 = line2 }
 
                 /** Locality or City. */
-                fun locality(locality: String?) = apply { this.locality = locality }
+                fun locality(locality: String) = apply { this.locality = locality }
 
                 /** Region or State. */
-                fun region(region: String?) = apply { this.region = region }
+                fun region(region: String) = apply { this.region = region }
 
                 /** The postal code of the address. */
-                fun postalCode(postalCode: String?) = apply { this.postalCode = postalCode }
+                fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
                 /** Country code conforms to [ISO 3166-1 alpha-2] */
-                fun country(country: String?) = apply { this.country = country }
+                fun country(country: String) = apply { this.country = country }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -3104,7 +3115,7 @@ constructor(
                 /**
                  * The ISO 3166-1 alpha-2 country code of the country that issued the identification
                  */
-                fun issuingCountry(issuingCountry: String?) = apply {
+                fun issuingCountry(issuingCountry: String) = apply {
                     this.issuingCountry = issuingCountry
                 }
 
@@ -3374,7 +3385,7 @@ constructor(
 
             class Builder {
 
-                private var relationshipTypes: List<RelationshipType>? = null
+                private var relationshipTypes: MutableList<RelationshipType>? = null
                 private var title: String? = null
                 private var ownershipPercentage: Long? = null
                 private var childLegalEntity: ChildLegalEntityCreate? = null
@@ -3399,24 +3410,29 @@ constructor(
                 }
 
                 fun relationshipTypes(relationshipTypes: List<RelationshipType>) = apply {
-                    this.relationshipTypes = relationshipTypes
+                    this.relationshipTypes = relationshipTypes.toMutableList()
+                }
+
+                fun addRelationshipType(relationshipType: RelationshipType) = apply {
+                    relationshipTypes =
+                        (relationshipTypes ?: mutableListOf()).apply { add(relationshipType) }
                 }
 
                 /** The job title of the child entity at the parent entity. */
-                fun title(title: String?) = apply { this.title = title }
+                fun title(title: String) = apply { this.title = title }
 
                 /** The child entity's ownership percentage iff they are a beneficial owner. */
-                fun ownershipPercentage(ownershipPercentage: Long?) = apply {
+                fun ownershipPercentage(ownershipPercentage: Long) = apply {
                     this.ownershipPercentage = ownershipPercentage
                 }
 
                 /** The child legal entity. */
-                fun childLegalEntity(childLegalEntity: ChildLegalEntityCreate?) = apply {
+                fun childLegalEntity(childLegalEntity: ChildLegalEntityCreate) = apply {
                     this.childLegalEntity = childLegalEntity
                 }
 
                 /** The ID of the child legal entity. */
-                fun childLegalEntityId(childLegalEntityId: String?) = apply {
+                fun childLegalEntityId(childLegalEntityId: String) = apply {
                     this.childLegalEntityId = childLegalEntityId
                 }
 
@@ -3656,16 +3672,16 @@ constructor(
                     private var dateOfBirth: LocalDate? = null
                     private var dateFormed: LocalDate? = null
                     private var businessName: String? = null
-                    private var doingBusinessAsNames: List<String>? = null
+                    private var doingBusinessAsNames: MutableList<String>? = null
                     private var legalStructure: LegalStructure? = null
-                    private var phoneNumbers: List<PhoneNumber>? = null
+                    private var phoneNumbers: MutableList<PhoneNumber>? = null
                     private var email: String? = null
                     private var website: String? = null
                     private var metadata: Metadata? = null
                     private var bankSettings: BankSettings? = null
                     private var wealthAndEmploymentDetails: WealthAndEmploymentDetails? = null
-                    private var addresses: List<LegalEntityAddressCreateRequest>? = null
-                    private var identifications: List<IdentificationCreateRequest>? = null
+                    private var addresses: MutableList<LegalEntityAddressCreateRequest>? = null
+                    private var identifications: MutableList<IdentificationCreateRequest>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(childLegalEntityCreate: ChildLegalEntityCreate) = apply {
@@ -3699,99 +3715,121 @@ constructor(
                     }
 
                     /** The type of legal entity. */
-                    fun legalEntityType(legalEntityType: LegalEntityType?) = apply {
+                    fun legalEntityType(legalEntityType: LegalEntityType) = apply {
                         this.legalEntityType = legalEntityType
                     }
 
                     /** The risk rating of the legal entity. One of low, medium, high. */
-                    fun riskRating(riskRating: RiskRating?) = apply { this.riskRating = riskRating }
+                    fun riskRating(riskRating: RiskRating) = apply { this.riskRating = riskRating }
 
                     /** An individual's prefix. */
-                    fun prefix(prefix: String?) = apply { this.prefix = prefix }
+                    fun prefix(prefix: String) = apply { this.prefix = prefix }
 
                     /** An individual's first name. */
-                    fun firstName(firstName: String?) = apply { this.firstName = firstName }
+                    fun firstName(firstName: String) = apply { this.firstName = firstName }
 
                     /** An individual's middle name. */
-                    fun middleName(middleName: String?) = apply { this.middleName = middleName }
+                    fun middleName(middleName: String) = apply { this.middleName = middleName }
 
                     /** An individual's last name. */
-                    fun lastName(lastName: String?) = apply { this.lastName = lastName }
+                    fun lastName(lastName: String) = apply { this.lastName = lastName }
 
                     /** An individual's suffix. */
-                    fun suffix(suffix: String?) = apply { this.suffix = suffix }
+                    fun suffix(suffix: String) = apply { this.suffix = suffix }
 
                     /** An individual's preferred name. */
-                    fun preferredName(preferredName: String?) = apply {
+                    fun preferredName(preferredName: String) = apply {
                         this.preferredName = preferredName
                     }
 
                     /** The country of citizenship for an individual. */
-                    fun citizenshipCountry(citizenshipCountry: String?) = apply {
+                    fun citizenshipCountry(citizenshipCountry: String) = apply {
                         this.citizenshipCountry = citizenshipCountry
                     }
 
                     /** Whether the individual is a politically exposed person. */
-                    fun politicallyExposedPerson(politicallyExposedPerson: Boolean?) = apply {
+                    fun politicallyExposedPerson(politicallyExposedPerson: Boolean) = apply {
                         this.politicallyExposedPerson = politicallyExposedPerson
                     }
 
                     /** An individual's date of birth (YYYY-MM-DD). */
-                    fun dateOfBirth(dateOfBirth: LocalDate?) = apply {
+                    fun dateOfBirth(dateOfBirth: LocalDate) = apply {
                         this.dateOfBirth = dateOfBirth
                     }
 
                     /** A business's formation date (YYYY-MM-DD). */
-                    fun dateFormed(dateFormed: LocalDate?) = apply { this.dateFormed = dateFormed }
+                    fun dateFormed(dateFormed: LocalDate) = apply { this.dateFormed = dateFormed }
 
                     /** The business's legal business name. */
-                    fun businessName(businessName: String?) = apply {
+                    fun businessName(businessName: String) = apply {
                         this.businessName = businessName
                     }
 
-                    fun doingBusinessAsNames(doingBusinessAsNames: List<String>?) = apply {
-                        this.doingBusinessAsNames = doingBusinessAsNames
+                    fun doingBusinessAsNames(doingBusinessAsNames: List<String>) = apply {
+                        this.doingBusinessAsNames = doingBusinessAsNames.toMutableList()
+                    }
+
+                    fun addDoingBusinessAsName(doingBusinessAsName: String) = apply {
+                        doingBusinessAsNames =
+                            (doingBusinessAsNames ?: mutableListOf()).apply {
+                                add(doingBusinessAsName)
+                            }
                     }
 
                     /** The business's legal structure. */
-                    fun legalStructure(legalStructure: LegalStructure?) = apply {
+                    fun legalStructure(legalStructure: LegalStructure) = apply {
                         this.legalStructure = legalStructure
                     }
 
-                    fun phoneNumbers(phoneNumbers: List<PhoneNumber>?) = apply {
-                        this.phoneNumbers = phoneNumbers
+                    fun phoneNumbers(phoneNumbers: List<PhoneNumber>) = apply {
+                        this.phoneNumbers = phoneNumbers.toMutableList()
+                    }
+
+                    fun addPhoneNumber(phoneNumber: PhoneNumber) = apply {
+                        phoneNumbers = (phoneNumbers ?: mutableListOf()).apply { add(phoneNumber) }
                     }
 
                     /** The entity's primary email. */
-                    fun email(email: String?) = apply { this.email = email }
+                    fun email(email: String) = apply { this.email = email }
 
                     /** The entity's primary website URL. */
-                    fun website(website: String?) = apply { this.website = website }
+                    fun website(website: String) = apply { this.website = website }
 
                     /**
                      * Additional data represented as key-value pairs. Both the key and value must
                      * be strings.
                      */
-                    fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+                    fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
-                    fun bankSettings(bankSettings: BankSettings?) = apply {
+                    fun bankSettings(bankSettings: BankSettings) = apply {
                         this.bankSettings = bankSettings
                     }
 
                     fun wealthAndEmploymentDetails(
-                        wealthAndEmploymentDetails: WealthAndEmploymentDetails?
+                        wealthAndEmploymentDetails: WealthAndEmploymentDetails
                     ) = apply { this.wealthAndEmploymentDetails = wealthAndEmploymentDetails }
 
                     /** A list of addresses for the entity. */
-                    fun addresses(addresses: List<LegalEntityAddressCreateRequest>?) = apply {
-                        this.addresses = addresses
+                    fun addresses(addresses: List<LegalEntityAddressCreateRequest>) = apply {
+                        this.addresses = addresses.toMutableList()
+                    }
+
+                    /** A list of addresses for the entity. */
+                    fun addAddress(address: LegalEntityAddressCreateRequest) = apply {
+                        addresses = (addresses ?: mutableListOf()).apply { add(address) }
                     }
 
                     /** A list of identifications for the legal entity. */
-                    fun identifications(identifications: List<IdentificationCreateRequest>?) =
+                    fun identifications(identifications: List<IdentificationCreateRequest>) =
                         apply {
-                            this.identifications = identifications
+                            this.identifications = identifications.toMutableList()
                         }
+
+                    /** A list of identifications for the legal entity. */
+                    fun addIdentification(identification: IdentificationCreateRequest) = apply {
+                        identifications =
+                            (identifications ?: mutableListOf()).apply { add(identification) }
+                    }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -3892,7 +3930,7 @@ constructor(
 
                     class Builder {
 
-                        private var addressTypes: List<AddressType>? = null
+                        private var addressTypes: MutableList<AddressType>? = null
                         private var line1: String? = null
                         private var line2: String? = null
                         private var locality: String? = null
@@ -3918,25 +3956,31 @@ constructor(
                         }
 
                         /** The types of this address. */
-                        fun addressTypes(addressTypes: List<AddressType>?) = apply {
-                            this.addressTypes = addressTypes
+                        fun addressTypes(addressTypes: List<AddressType>) = apply {
+                            this.addressTypes = addressTypes.toMutableList()
                         }
 
-                        fun line1(line1: String?) = apply { this.line1 = line1 }
+                        /** The types of this address. */
+                        fun addAddressType(addressType: AddressType) = apply {
+                            addressTypes =
+                                (addressTypes ?: mutableListOf()).apply { add(addressType) }
+                        }
 
-                        fun line2(line2: String?) = apply { this.line2 = line2 }
+                        fun line1(line1: String) = apply { this.line1 = line1 }
+
+                        fun line2(line2: String) = apply { this.line2 = line2 }
 
                         /** Locality or City. */
-                        fun locality(locality: String?) = apply { this.locality = locality }
+                        fun locality(locality: String) = apply { this.locality = locality }
 
                         /** Region or State. */
-                        fun region(region: String?) = apply { this.region = region }
+                        fun region(region: String) = apply { this.region = region }
 
                         /** The postal code of the address. */
-                        fun postalCode(postalCode: String?) = apply { this.postalCode = postalCode }
+                        fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
                         /** Country code conforms to [ISO 3166-1 alpha-2] */
-                        fun country(country: String?) = apply { this.country = country }
+                        fun country(country: String) = apply { this.country = country }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
@@ -4132,7 +4176,7 @@ constructor(
                          * The ISO 3166-1 alpha-2 country code of the country that issued the
                          * identification
                          */
-                        fun issuingCountry(issuingCountry: String?) = apply {
+                        fun issuingCountry(issuingCountry: String) = apply {
                             this.issuingCountry = issuingCountry
                         }
 
@@ -4614,7 +4658,7 @@ constructor(
                             additionalProperties = phoneNumber.additionalProperties.toMutableMap()
                         }
 
-                        fun phoneNumber(phoneNumber: String?) = apply {
+                        fun phoneNumber(phoneNumber: String) = apply {
                             this.phoneNumber = phoneNumber
                         }
 
@@ -4952,7 +4996,7 @@ constructor(
                     additionalProperties = phoneNumber.additionalProperties.toMutableMap()
                 }
 
-                fun phoneNumber(phoneNumber: String?) = apply { this.phoneNumber = phoneNumber }
+                fun phoneNumber(phoneNumber: String) = apply { this.phoneNumber = phoneNumber }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -5221,11 +5265,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is CounterpartyCreateParams && name == other.name && accounting == other.accounting && accounts == other.accounts && email == other.email && ledgerType == other.ledgerType && legalEntity == other.legalEntity && legalEntityId == other.legalEntityId && metadata == other.metadata && sendRemittanceAdvice == other.sendRemittanceAdvice && taxpayerIdentifier == other.taxpayerIdentifier && verificationStatus == other.verificationStatus && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is CounterpartyCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(name, accounting, accounts, email, ledgerType, legalEntity, legalEntityId, metadata, sendRemittanceAdvice, taxpayerIdentifier, verificationStatus, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "CounterpartyCreateParams{name=$name, accounting=$accounting, accounts=$accounts, email=$email, ledgerType=$ledgerType, legalEntity=$legalEntity, legalEntityId=$legalEntityId, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "CounterpartyCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

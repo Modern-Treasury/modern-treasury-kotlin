@@ -17,6 +17,10 @@ constructor(
 
     fun id(): String = id
 
+    /**
+     * If true, response will include the balances attached to the ledger entry. If there is no
+     * balance available, null will be returned instead.
+     */
     fun showBalances(): Boolean? = showBalances
 
     fun _additionalHeaders(): Headers = additionalHeaders

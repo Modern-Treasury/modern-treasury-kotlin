@@ -17,34 +17,30 @@ import java.util.Objects
 
 class TransactionLineItemCreateParams
 constructor(
-    private val amount: Long,
-    private val expectedPaymentId: String,
-    private val transactionId: String,
+    private val body: TransactionLineItemCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun amount(): Long = amount
+    /**
+     * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
+     * specified currency's smallest unit (taken from parent Transaction).
+     */
+    fun amount(): Long = body.amount()
 
-    fun expectedPaymentId(): String = expectedPaymentId
+    /** The ID of the reconciled Expected Payment, otherwise `null`. */
+    fun expectedPaymentId(): String = body.expectedPaymentId()
 
-    fun transactionId(): String = transactionId
+    /** The ID of the parent transaction. */
+    fun transactionId(): String = body.transactionId()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): TransactionLineItemCreateBody {
-        return TransactionLineItemCreateBody(
-            amount,
-            expectedPaymentId,
-            transactionId,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): TransactionLineItemCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -172,38 +168,32 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var amount: Long? = null
-        private var expectedPaymentId: String? = null
-        private var transactionId: String? = null
+        private var body: TransactionLineItemCreateBody.Builder =
+            TransactionLineItemCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(transactionLineItemCreateParams: TransactionLineItemCreateParams) =
             apply {
-                amount = transactionLineItemCreateParams.amount
-                expectedPaymentId = transactionLineItemCreateParams.expectedPaymentId
-                transactionId = transactionLineItemCreateParams.transactionId
+                body = transactionLineItemCreateParams.body.toBuilder()
                 additionalHeaders = transactionLineItemCreateParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     transactionLineItemCreateParams.additionalQueryParams.toBuilder()
-                additionalBodyProperties =
-                    transactionLineItemCreateParams.additionalBodyProperties.toMutableMap()
             }
 
         /**
          * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
          * specified currency's smallest unit (taken from parent Transaction).
          */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** The ID of the reconciled Expected Payment, otherwise `null`. */
         fun expectedPaymentId(expectedPaymentId: String) = apply {
-            this.expectedPaymentId = expectedPaymentId
+            body.expectedPaymentId(expectedPaymentId)
         }
 
         /** The ID of the parent transaction. */
-        fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
+        fun transactionId(transactionId: String) = apply { body.transactionId(transactionId) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -304,37 +294,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): TransactionLineItemCreateParams =
             TransactionLineItemCreateParams(
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(expectedPaymentId) {
-                    "`expectedPaymentId` is required but was not set"
-                },
-                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -343,11 +325,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is TransactionLineItemCreateParams && amount == other.amount && expectedPaymentId == other.expectedPaymentId && transactionId == other.transactionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is TransactionLineItemCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, expectedPaymentId, transactionId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "TransactionLineItemCreateParams{amount=$amount, expectedPaymentId=$expectedPaymentId, transactionId=$transactionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "TransactionLineItemCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

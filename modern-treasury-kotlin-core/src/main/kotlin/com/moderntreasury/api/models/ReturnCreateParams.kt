@@ -21,46 +21,44 @@ import java.util.Objects
 
 class ReturnCreateParams
 constructor(
-    private val returnableId: String?,
-    private val returnableType: ReturnableType,
-    private val additionalInformation: String?,
-    private val code: Code?,
-    private val dateOfDeath: LocalDate?,
-    private val reason: String?,
+    private val body: ReturnCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun returnableId(): String? = returnableId
+    /** The ID of the object being returned or `null`. */
+    fun returnableId(): String? = body.returnableId()
 
-    fun returnableType(): ReturnableType = returnableType
+    /** The type of object being returned. Currently, this may only be incoming_payment_detail. */
+    fun returnableType(): ReturnableType = body.returnableType()
 
-    fun additionalInformation(): String? = additionalInformation
+    /**
+     * Some returns may include additional information from the bank. In these cases, this string
+     * will be present.
+     */
+    fun additionalInformation(): String? = body.additionalInformation()
 
-    fun code(): Code? = code
+    /** The return code. For ACH returns, this is the required ACH return code. */
+    fun code(): Code? = body.code()
 
-    fun dateOfDeath(): LocalDate? = dateOfDeath
+    /**
+     * If the return code is `R14` or `R15` this is the date the deceased counterparty passed away.
+     */
+    fun dateOfDeath(): LocalDate? = body.dateOfDeath()
 
-    fun reason(): String? = reason
+    /**
+     * An optional description of the reason for the return. This is for internal usage and will not
+     * be transmitted to the bank.”
+     */
+    fun reason(): String? = body.reason()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): ReturnCreateBody {
-        return ReturnCreateBody(
-            returnableId,
-            returnableType,
-            additionalInformation,
-            code,
-            dateOfDeath,
-            reason,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): ReturnCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -142,7 +140,7 @@ constructor(
             }
 
             /** The ID of the object being returned or `null`. */
-            fun returnableId(returnableId: String?) = apply { this.returnableId = returnableId }
+            fun returnableId(returnableId: String) = apply { this.returnableId = returnableId }
 
             /**
              * The type of object being returned. Currently, this may only be
@@ -156,24 +154,24 @@ constructor(
              * Some returns may include additional information from the bank. In these cases, this
              * string will be present.
              */
-            fun additionalInformation(additionalInformation: String?) = apply {
+            fun additionalInformation(additionalInformation: String) = apply {
                 this.additionalInformation = additionalInformation
             }
 
             /** The return code. For ACH returns, this is the required ACH return code. */
-            fun code(code: Code?) = apply { this.code = code }
+            fun code(code: Code) = apply { this.code = code }
 
             /**
              * If the return code is `R14` or `R15` this is the date the deceased counterparty
              * passed away.
              */
-            fun dateOfDeath(dateOfDeath: LocalDate?) = apply { this.dateOfDeath = dateOfDeath }
+            fun dateOfDeath(dateOfDeath: LocalDate) = apply { this.dateOfDeath = dateOfDeath }
 
             /**
              * An optional description of the reason for the return. This is for internal usage and
              * will not be transmitted to the bank.”
              */
-            fun reason(reason: String?) = apply { this.reason = reason }
+            fun reason(reason: String) = apply { this.reason = reason }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -234,36 +232,24 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var returnableId: String? = null
-        private var returnableType: ReturnableType? = null
-        private var additionalInformation: String? = null
-        private var code: Code? = null
-        private var dateOfDeath: LocalDate? = null
-        private var reason: String? = null
+        private var body: ReturnCreateBody.Builder = ReturnCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(returnCreateParams: ReturnCreateParams) = apply {
-            returnableId = returnCreateParams.returnableId
-            returnableType = returnCreateParams.returnableType
-            additionalInformation = returnCreateParams.additionalInformation
-            code = returnCreateParams.code
-            dateOfDeath = returnCreateParams.dateOfDeath
-            reason = returnCreateParams.reason
+            body = returnCreateParams.body.toBuilder()
             additionalHeaders = returnCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = returnCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties = returnCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The ID of the object being returned or `null`. */
-        fun returnableId(returnableId: String) = apply { this.returnableId = returnableId }
+        fun returnableId(returnableId: String) = apply { body.returnableId(returnableId) }
 
         /**
          * The type of object being returned. Currently, this may only be incoming_payment_detail.
          */
         fun returnableType(returnableType: ReturnableType) = apply {
-            this.returnableType = returnableType
+            body.returnableType(returnableType)
         }
 
         /**
@@ -271,23 +257,23 @@ constructor(
          * string will be present.
          */
         fun additionalInformation(additionalInformation: String) = apply {
-            this.additionalInformation = additionalInformation
+            body.additionalInformation(additionalInformation)
         }
 
         /** The return code. For ACH returns, this is the required ACH return code. */
-        fun code(code: Code) = apply { this.code = code }
+        fun code(code: Code) = apply { body.code(code) }
 
         /**
          * If the return code is `R14` or `R15` this is the date the deceased counterparty passed
          * away.
          */
-        fun dateOfDeath(dateOfDeath: LocalDate) = apply { this.dateOfDeath = dateOfDeath }
+        fun dateOfDeath(dateOfDeath: LocalDate) = apply { body.dateOfDeath(dateOfDeath) }
 
         /**
          * An optional description of the reason for the return. This is for internal usage and will
          * not be transmitted to the bank.”
          */
-        fun reason(reason: String) = apply { this.reason = reason }
+        fun reason(reason: String) = apply { body.reason(reason) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -388,38 +374,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): ReturnCreateParams =
             ReturnCreateParams(
-                returnableId,
-                checkNotNull(returnableType) { "`returnableType` is required but was not set" },
-                additionalInformation,
-                code,
-                dateOfDeath,
-                reason,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -842,11 +819,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ReturnCreateParams && returnableId == other.returnableId && returnableType == other.returnableType && additionalInformation == other.additionalInformation && code == other.code && dateOfDeath == other.dateOfDeath && reason == other.reason && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is ReturnCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(returnableId, returnableType, additionalInformation, code, dateOfDeath, reason, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "ReturnCreateParams{returnableId=$returnableId, returnableType=$returnableType, additionalInformation=$additionalInformation, code=$code, dateOfDeath=$dateOfDeath, reason=$reason, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "ReturnCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

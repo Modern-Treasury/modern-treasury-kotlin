@@ -36,12 +36,25 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /**
+     * If you have specific IDs to retrieve in bulk, you can pass them as query parameters delimited
+     * with `id[]=`, for example `?id[]=123&id[]=abc`.
+     */
     fun id(): List<String>? = id
 
     fun afterCursor(): String? = afterCursor
 
+    /**
+     * Use "gt" (>), "gte" (>=), "lt" (<), "lte" (<=), or "eq" (=) to filter by effective at. For
+     * example, for all transactions after Jan 1 2000, use
+     * effective_at%5Bgt%5D=2000-01-01T00:00:00:00.000Z.
+     */
     fun effectiveAt(): EffectiveAt? = effectiveAt
 
+    /**
+     * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by effective date. For
+     * example, for all dates after Jan 1 2000, use effective_date%5Bgt%5D=2000-01-01.
+     */
     fun effectiveDate(): EffectiveDate? = effectiveDate
 
     fun externalId(): String? = externalId
@@ -58,18 +71,37 @@ constructor(
 
     fun ledgerableType(): LedgerableType? = ledgerableType
 
+    /**
+     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
+     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+     */
     fun metadata(): Metadata? = metadata
 
+    /**
+     * Order by `created_at` or `effective_at` in `asc` or `desc` order. For example, to order by
+     * `effective_at asc`, use `order_by%5Beffective_at%5D=asc`. Ordering by only one field at a
+     * time is supported.
+     */
     fun orderBy(): OrderBy? = orderBy
 
     fun perPage(): Long? = perPage
 
+    /**
+     * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
+     * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
+     * posted_at%5Bgt%5D=2000-01-01T12:00:00Z.
+     */
     fun postedAt(): PostedAt? = postedAt
 
     fun reversesLedgerTransactionId(): String? = reversesLedgerTransactionId
 
     fun status(): Status? = status
 
+    /**
+     * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
+     * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
+     * updated_at%5Bgt%5D=2000-01-01T12:00:00Z.
+     */
     fun updatedAt(): UpdatedAt? = updatedAt
 
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -128,7 +160,7 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var id: MutableList<String> = mutableListOf()
+        private var id: MutableList<String>? = null
         private var afterCursor: String? = null
         private var effectiveAt: EffectiveAt? = null
         private var effectiveDate: EffectiveDate? = null
@@ -150,7 +182,7 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(ledgerTransactionListParams: LedgerTransactionListParams) = apply {
-            id = ledgerTransactionListParams.id?.toMutableList() ?: mutableListOf()
+            id = ledgerTransactionListParams.id?.toMutableList()
             afterCursor = ledgerTransactionListParams.afterCursor
             effectiveAt = ledgerTransactionListParams.effectiveAt
             effectiveDate = ledgerTransactionListParams.effectiveDate
@@ -176,16 +208,13 @@ constructor(
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
          * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
          */
-        fun id(id: List<String>) = apply {
-            this.id.clear()
-            this.id.addAll(id)
-        }
+        fun id(id: List<String>) = apply { this.id = id.toMutableList() }
 
         /**
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
          * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
          */
-        fun addId(id: String) = apply { this.id.add(id) }
+        fun addId(id: String) = apply { this.id = (this.id ?: mutableListOf()).apply { add(id) } }
 
         fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
 
@@ -361,7 +390,7 @@ constructor(
 
         fun build(): LedgerTransactionListParams =
             LedgerTransactionListParams(
-                id.toImmutable().ifEmpty { null },
+                id?.toImmutable(),
                 afterCursor,
                 effectiveAt,
                 effectiveDate,
@@ -806,9 +835,9 @@ constructor(
                 additionalProperties = orderBy.additionalProperties.toBuilder()
             }
 
-            fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
+            fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
-            fun effectiveAt(effectiveAt: EffectiveAt?) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: EffectiveAt) = apply { this.effectiveAt = effectiveAt }
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()

@@ -28,8 +28,10 @@ constructor(
 
     fun eventName(): String? = eventName
 
+    /** An inclusive upper bound for when the event occurred */
     fun eventTimeEnd(): OffsetDateTime? = eventTimeEnd
 
+    /** An inclusive lower bound for when the event occurred */
     fun eventTimeStart(): OffsetDateTime? = eventTimeStart
 
     fun perPage(): Long? = perPage

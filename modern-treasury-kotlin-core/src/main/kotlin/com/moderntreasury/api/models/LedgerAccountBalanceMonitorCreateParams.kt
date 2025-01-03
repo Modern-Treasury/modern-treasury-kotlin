@@ -17,38 +17,30 @@ import java.util.Objects
 
 class LedgerAccountBalanceMonitorCreateParams
 constructor(
-    private val alertCondition: AlertConditionCreateRequest,
-    private val ledgerAccountId: String,
-    private val description: String?,
-    private val metadata: Metadata?,
+    private val body: LedgerAccountBalanceMonitorCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun alertCondition(): AlertConditionCreateRequest = alertCondition
+    /** Describes the condition that must be satisfied for the monitor to be triggered. */
+    fun alertCondition(): AlertConditionCreateRequest = body.alertCondition()
 
-    fun ledgerAccountId(): String = ledgerAccountId
+    /** The ledger account associated with this balance monitor. */
+    fun ledgerAccountId(): String = body.ledgerAccountId()
 
-    fun description(): String? = description
+    /** An optional, free-form description for internal use. */
+    fun description(): String? = body.description()
 
-    fun metadata(): Metadata? = metadata
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun metadata(): Metadata? = body.metadata()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): LedgerAccountBalanceMonitorCreateBody {
-        return LedgerAccountBalanceMonitorCreateBody(
-            alertCondition,
-            ledgerAccountId,
-            description,
-            metadata,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): LedgerAccountBalanceMonitorCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -122,13 +114,13 @@ constructor(
             }
 
             /** An optional, free-form description for internal use. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -189,46 +181,38 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var alertCondition: AlertConditionCreateRequest? = null
-        private var ledgerAccountId: String? = null
-        private var description: String? = null
-        private var metadata: Metadata? = null
+        private var body: LedgerAccountBalanceMonitorCreateBody.Builder =
+            LedgerAccountBalanceMonitorCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(
             ledgerAccountBalanceMonitorCreateParams: LedgerAccountBalanceMonitorCreateParams
         ) = apply {
-            alertCondition = ledgerAccountBalanceMonitorCreateParams.alertCondition
-            ledgerAccountId = ledgerAccountBalanceMonitorCreateParams.ledgerAccountId
-            description = ledgerAccountBalanceMonitorCreateParams.description
-            metadata = ledgerAccountBalanceMonitorCreateParams.metadata
+            body = ledgerAccountBalanceMonitorCreateParams.body.toBuilder()
             additionalHeaders =
                 ledgerAccountBalanceMonitorCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 ledgerAccountBalanceMonitorCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                ledgerAccountBalanceMonitorCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** Describes the condition that must be satisfied for the monitor to be triggered. */
         fun alertCondition(alertCondition: AlertConditionCreateRequest) = apply {
-            this.alertCondition = alertCondition
+            body.alertCondition(alertCondition)
         }
 
         /** The ledger account associated with this balance monitor. */
         fun ledgerAccountId(ledgerAccountId: String) = apply {
-            this.ledgerAccountId = ledgerAccountId
+            body.ledgerAccountId(ledgerAccountId)
         }
 
         /** An optional, free-form description for internal use. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -329,36 +313,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): LedgerAccountBalanceMonitorCreateParams =
             LedgerAccountBalanceMonitorCreateParams(
-                checkNotNull(alertCondition) { "`alertCondition` is required but was not set" },
-                checkNotNull(ledgerAccountId) { "`ledgerAccountId` is required but was not set" },
-                description,
-                metadata,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -554,11 +531,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccountBalanceMonitorCreateParams && alertCondition == other.alertCondition && ledgerAccountId == other.ledgerAccountId && description == other.description && metadata == other.metadata && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is LedgerAccountBalanceMonitorCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(alertCondition, ledgerAccountId, description, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "LedgerAccountBalanceMonitorCreateParams{alertCondition=$alertCondition, ledgerAccountId=$ledgerAccountId, description=$description, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerAccountBalanceMonitorCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

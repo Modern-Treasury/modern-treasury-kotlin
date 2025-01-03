@@ -21,10 +21,16 @@ constructor(
 
     fun afterCursor(): String? = afterCursor
 
+    /** Specify an inclusive end date (YYYY-MM-DD) when filtering by deposit_date */
     fun depositDateEnd(): LocalDate? = depositDateEnd
 
+    /** Specify an inclusive start date (YYYY-MM-DD) when filtering by deposit_date */
     fun depositDateStart(): LocalDate? = depositDateStart
 
+    /**
+     * Specify `lockbox_number` if you wish to see paper items that are associated with a specific
+     * lockbox number.
+     */
     fun lockboxNumber(): String? = lockboxNumber
 
     fun perPage(): Long? = perPage

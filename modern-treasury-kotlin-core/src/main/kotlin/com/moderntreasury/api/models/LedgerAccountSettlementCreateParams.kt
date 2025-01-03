@@ -21,54 +21,61 @@ import java.util.Objects
 
 class LedgerAccountSettlementCreateParams
 constructor(
-    private val contraLedgerAccountId: String,
-    private val settledLedgerAccountId: String,
-    private val allowEitherDirection: Boolean?,
-    private val description: String?,
-    private val effectiveAtUpperBound: OffsetDateTime?,
-    private val metadata: Metadata?,
-    private val skipSettlementLedgerTransaction: Boolean?,
-    private val status: Status?,
+    private val body: LedgerAccountSettlementCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun contraLedgerAccountId(): String = contraLedgerAccountId
+    /**
+     * The id of the contra ledger account that sends to or receives funds from the settled ledger
+     * account.
+     */
+    fun contraLedgerAccountId(): String = body.contraLedgerAccountId()
 
-    fun settledLedgerAccountId(): String = settledLedgerAccountId
+    /**
+     * The id of the settled ledger account whose ledger entries are queried against, and its
+     * balance is reduced as a result.
+     */
+    fun settledLedgerAccountId(): String = body.settledLedgerAccountId()
 
-    fun allowEitherDirection(): Boolean? = allowEitherDirection
+    /**
+     * If true, the settlement amount and settlement_entry_direction will bring the settlement
+     * ledger account's balance closer to zero, even if the balance is negative.
+     */
+    fun allowEitherDirection(): Boolean? = body.allowEitherDirection()
 
-    fun description(): String? = description
+    /** The description of the ledger account settlement. */
+    fun description(): String? = body.description()
 
-    fun effectiveAtUpperBound(): OffsetDateTime? = effectiveAtUpperBound
+    /**
+     * The exclusive upper bound of the effective_at timestamp of the ledger entries to be included
+     * in the ledger account settlement. The default value is the created_at timestamp of the ledger
+     * account settlement.
+     */
+    fun effectiveAtUpperBound(): OffsetDateTime? = body.effectiveAtUpperBound()
 
-    fun metadata(): Metadata? = metadata
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun metadata(): Metadata? = body.metadata()
 
-    fun skipSettlementLedgerTransaction(): Boolean? = skipSettlementLedgerTransaction
+    /**
+     * It is set to `false` by default. It should be set to `true` when migrating existing
+     * settlements.
+     */
+    fun skipSettlementLedgerTransaction(): Boolean? = body.skipSettlementLedgerTransaction()
 
-    fun status(): Status? = status
+    /**
+     * The status of the ledger account settlement. It is set to `pending` by default. To post a
+     * ledger account settlement at creation, use `posted`.
+     */
+    fun status(): Status? = body.status()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): LedgerAccountSettlementCreateBody {
-        return LedgerAccountSettlementCreateBody(
-            contraLedgerAccountId,
-            settledLedgerAccountId,
-            allowEitherDirection,
-            description,
-            effectiveAtUpperBound,
-            metadata,
-            skipSettlementLedgerTransaction,
-            status,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): LedgerAccountSettlementCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -201,19 +208,19 @@ constructor(
              * If true, the settlement amount and settlement_entry_direction will bring the
              * settlement ledger account's balance closer to zero, even if the balance is negative.
              */
-            fun allowEitherDirection(allowEitherDirection: Boolean?) = apply {
+            fun allowEitherDirection(allowEitherDirection: Boolean) = apply {
                 this.allowEitherDirection = allowEitherDirection
             }
 
             /** The description of the ledger account settlement. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * The exclusive upper bound of the effective_at timestamp of the ledger entries to be
              * included in the ledger account settlement. The default value is the created_at
              * timestamp of the ledger account settlement.
              */
-            fun effectiveAtUpperBound(effectiveAtUpperBound: OffsetDateTime?) = apply {
+            fun effectiveAtUpperBound(effectiveAtUpperBound: OffsetDateTime) = apply {
                 this.effectiveAtUpperBound = effectiveAtUpperBound
             }
 
@@ -221,13 +228,13 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             /**
              * It is set to `false` by default. It should be set to `true` when migrating existing
              * settlements.
              */
-            fun skipSettlementLedgerTransaction(skipSettlementLedgerTransaction: Boolean?) = apply {
+            fun skipSettlementLedgerTransaction(skipSettlementLedgerTransaction: Boolean) = apply {
                 this.skipSettlementLedgerTransaction = skipSettlementLedgerTransaction
             }
 
@@ -235,7 +242,7 @@ constructor(
              * The status of the ledger account settlement. It is set to `pending` by default. To
              * post a ledger account settlement at creation, use `posted`.
              */
-            fun status(status: Status?) = apply { this.status = status }
+            fun status(status: Status) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -302,35 +309,18 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var contraLedgerAccountId: String? = null
-        private var settledLedgerAccountId: String? = null
-        private var allowEitherDirection: Boolean? = null
-        private var description: String? = null
-        private var effectiveAtUpperBound: OffsetDateTime? = null
-        private var metadata: Metadata? = null
-        private var skipSettlementLedgerTransaction: Boolean? = null
-        private var status: Status? = null
+        private var body: LedgerAccountSettlementCreateBody.Builder =
+            LedgerAccountSettlementCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(
             ledgerAccountSettlementCreateParams: LedgerAccountSettlementCreateParams
         ) = apply {
-            contraLedgerAccountId = ledgerAccountSettlementCreateParams.contraLedgerAccountId
-            settledLedgerAccountId = ledgerAccountSettlementCreateParams.settledLedgerAccountId
-            allowEitherDirection = ledgerAccountSettlementCreateParams.allowEitherDirection
-            description = ledgerAccountSettlementCreateParams.description
-            effectiveAtUpperBound = ledgerAccountSettlementCreateParams.effectiveAtUpperBound
-            metadata = ledgerAccountSettlementCreateParams.metadata
-            skipSettlementLedgerTransaction =
-                ledgerAccountSettlementCreateParams.skipSettlementLedgerTransaction
-            status = ledgerAccountSettlementCreateParams.status
+            body = ledgerAccountSettlementCreateParams.body.toBuilder()
             additionalHeaders = ledgerAccountSettlementCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 ledgerAccountSettlementCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                ledgerAccountSettlementCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /**
@@ -338,7 +328,7 @@ constructor(
          * ledger account.
          */
         fun contraLedgerAccountId(contraLedgerAccountId: String) = apply {
-            this.contraLedgerAccountId = contraLedgerAccountId
+            body.contraLedgerAccountId(contraLedgerAccountId)
         }
 
         /**
@@ -346,7 +336,7 @@ constructor(
          * balance is reduced as a result.
          */
         fun settledLedgerAccountId(settledLedgerAccountId: String) = apply {
-            this.settledLedgerAccountId = settledLedgerAccountId
+            body.settledLedgerAccountId(settledLedgerAccountId)
         }
 
         /**
@@ -354,11 +344,11 @@ constructor(
          * ledger account's balance closer to zero, even if the balance is negative.
          */
         fun allowEitherDirection(allowEitherDirection: Boolean) = apply {
-            this.allowEitherDirection = allowEitherDirection
+            body.allowEitherDirection(allowEitherDirection)
         }
 
         /** The description of the ledger account settlement. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /**
          * The exclusive upper bound of the effective_at timestamp of the ledger entries to be
@@ -366,27 +356,27 @@ constructor(
          * of the ledger account settlement.
          */
         fun effectiveAtUpperBound(effectiveAtUpperBound: OffsetDateTime) = apply {
-            this.effectiveAtUpperBound = effectiveAtUpperBound
+            body.effectiveAtUpperBound(effectiveAtUpperBound)
         }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /**
          * It is set to `false` by default. It should be set to `true` when migrating existing
          * settlements.
          */
         fun skipSettlementLedgerTransaction(skipSettlementLedgerTransaction: Boolean) = apply {
-            this.skipSettlementLedgerTransaction = skipSettlementLedgerTransaction
+            body.skipSettlementLedgerTransaction(skipSettlementLedgerTransaction)
         }
 
         /**
          * The status of the ledger account settlement. It is set to `pending` by default. To post a
          * ledger account settlement at creation, use `posted`.
          */
-        fun status(status: Status) = apply { this.status = status }
+        fun status(status: Status) = apply { body.status(status) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -487,44 +477,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): LedgerAccountSettlementCreateParams =
             LedgerAccountSettlementCreateParams(
-                checkNotNull(contraLedgerAccountId) {
-                    "`contraLedgerAccountId` is required but was not set"
-                },
-                checkNotNull(settledLedgerAccountId) {
-                    "`settledLedgerAccountId` is required but was not set"
-                },
-                allowEitherDirection,
-                description,
-                effectiveAtUpperBound,
-                metadata,
-                skipSettlementLedgerTransaction,
-                status,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -657,11 +632,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccountSettlementCreateParams && contraLedgerAccountId == other.contraLedgerAccountId && settledLedgerAccountId == other.settledLedgerAccountId && allowEitherDirection == other.allowEitherDirection && description == other.description && effectiveAtUpperBound == other.effectiveAtUpperBound && metadata == other.metadata && skipSettlementLedgerTransaction == other.skipSettlementLedgerTransaction && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is LedgerAccountSettlementCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(contraLedgerAccountId, settledLedgerAccountId, allowEitherDirection, description, effectiveAtUpperBound, metadata, skipSettlementLedgerTransaction, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "LedgerAccountSettlementCreateParams{contraLedgerAccountId=$contraLedgerAccountId, settledLedgerAccountId=$settledLedgerAccountId, allowEitherDirection=$allowEitherDirection, description=$description, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, skipSettlementLedgerTransaction=$skipSettlementLedgerTransaction, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerAccountSettlementCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

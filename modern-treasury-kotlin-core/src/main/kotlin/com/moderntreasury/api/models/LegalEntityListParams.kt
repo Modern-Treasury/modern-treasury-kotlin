@@ -26,6 +26,10 @@ constructor(
 
     fun legalEntityType(): LegalEntityType? = legalEntityType
 
+    /**
+     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
+     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+     */
     fun metadata(): Metadata? = metadata
 
     fun perPage(): Long? = perPage
