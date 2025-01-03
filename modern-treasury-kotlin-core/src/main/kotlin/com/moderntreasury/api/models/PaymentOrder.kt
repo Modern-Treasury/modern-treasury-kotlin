@@ -3214,6 +3214,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * The account to which the originating of this payment should be attributed to. Can be a
+     * `virtual_account` or `internal_account`.
+     */
     @JsonDeserialize(using = UltimateOriginatingAccount.Deserializer::class)
     @JsonSerialize(using = UltimateOriginatingAccount.Serializer::class)
     class UltimateOriginatingAccount
