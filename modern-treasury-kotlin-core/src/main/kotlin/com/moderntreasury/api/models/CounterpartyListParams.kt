@@ -25,16 +25,25 @@ constructor(
 
     fun afterCursor(): String? = afterCursor
 
+    /** Used to return counterparties created after some datetime. */
     fun createdAtLowerBound(): OffsetDateTime? = createdAtLowerBound
 
+    /** Used to return counterparties created before some datetime. */
     fun createdAtUpperBound(): OffsetDateTime? = createdAtUpperBound
 
+    /** Performs a partial string match of the email field. This is also case insensitive. */
     fun email(): String? = email
 
+    /** Filters for counterparties with the given legal entity ID. */
     fun legalEntityId(): String? = legalEntityId
 
+    /**
+     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
+     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+     */
     fun metadata(): Metadata? = metadata
 
+    /** Performs a partial string match of the name field. This is also case insensitive. */
     fun name(): String? = name
 
     fun perPage(): Long? = perPage

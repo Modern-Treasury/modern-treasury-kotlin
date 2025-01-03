@@ -27,16 +27,25 @@ constructor(
 
     fun afterCursor(): String? = afterCursor
 
+    /** Only return internal accounts associated with this counterparty. */
     fun counterpartyId(): String? = counterpartyId
 
+    /** Only return internal accounts with this currency. */
     fun currency(): Currency? = currency
 
+    /** Only return internal accounts associated with this legal entity. */
     fun legalEntityId(): String? = legalEntityId
 
+    /**
+     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
+     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+     */
     fun metadata(): Metadata? = metadata
 
+    /** Only return internal accounts that can originate payments with this direction. */
     fun paymentDirection(): TransactionDirection? = paymentDirection
 
+    /** Only return internal accounts that can make this type of payment. */
     fun paymentType(): PaymentType? = paymentType
 
     fun perPage(): Long? = perPage

@@ -27,8 +27,13 @@ constructor(
 
     fun afterCursor(): String? = afterCursor
 
+    /** The date of the balance report in local time. */
     fun asOfDate(): LocalDate? = asOfDate
 
+    /**
+     * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
+     * `other`.
+     */
     fun balanceReportType(): BalanceReportType? = balanceReportType
 
     fun perPage(): Long? = perPage

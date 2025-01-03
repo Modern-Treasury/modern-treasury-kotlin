@@ -22,40 +22,35 @@ import java.util.Objects
 class BalanceReportCreateParams
 constructor(
     private val internalAccountId: String,
-    private val asOfDate: LocalDate,
-    private val asOfTime: String,
-    private val balanceReportType: BalanceReportType,
-    private val balances: List<BalanceCreateRequest>,
+    private val body: BalanceReportCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun internalAccountId(): String = internalAccountId
 
-    fun asOfDate(): LocalDate = asOfDate
+    /** The date of the balance report in local time. */
+    fun asOfDate(): LocalDate = body.asOfDate()
 
-    fun asOfTime(): String = asOfTime
+    /** The time (24-hour clock) of the balance report in local time. */
+    fun asOfTime(): String = body.asOfTime()
 
-    fun balanceReportType(): BalanceReportType = balanceReportType
+    /**
+     * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
+     * `other`.
+     */
+    fun balanceReportType(): BalanceReportType = body.balanceReportType()
 
-    fun balances(): List<BalanceCreateRequest> = balances
+    /** An array of `Balance` objects. */
+    fun balances(): List<BalanceCreateRequest> = body.balances()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): BalanceReportCreateBody {
-        return BalanceReportCreateBody(
-            asOfDate,
-            asOfTime,
-            balanceReportType,
-            balances,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): BalanceReportCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -112,7 +107,7 @@ constructor(
             private var asOfDate: LocalDate? = null
             private var asOfTime: String? = null
             private var balanceReportType: BalanceReportType? = null
-            private var balances: List<BalanceCreateRequest>? = null
+            private var balances: MutableList<BalanceCreateRequest>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(balanceReportCreateBody: BalanceReportCreateBody) = apply {
@@ -138,7 +133,14 @@ constructor(
             }
 
             /** An array of `Balance` objects. */
-            fun balances(balances: List<BalanceCreateRequest>) = apply { this.balances = balances }
+            fun balances(balances: List<BalanceCreateRequest>) = apply {
+                this.balances = balances.toMutableList()
+            }
+
+            /** An array of `Balance` objects. */
+            fun addBalance(balance: BalanceCreateRequest) = apply {
+                balances = (balances ?: mutableListOf()).apply { add(balance) }
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -201,24 +203,15 @@ constructor(
     class Builder {
 
         private var internalAccountId: String? = null
-        private var asOfDate: LocalDate? = null
-        private var asOfTime: String? = null
-        private var balanceReportType: BalanceReportType? = null
-        private var balances: MutableList<BalanceCreateRequest> = mutableListOf()
+        private var body: BalanceReportCreateBody.Builder = BalanceReportCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(balanceReportCreateParams: BalanceReportCreateParams) = apply {
             internalAccountId = balanceReportCreateParams.internalAccountId
-            asOfDate = balanceReportCreateParams.asOfDate
-            asOfTime = balanceReportCreateParams.asOfTime
-            balanceReportType = balanceReportCreateParams.balanceReportType
-            balances = balanceReportCreateParams.balances.toMutableList()
+            body = balanceReportCreateParams.body.toBuilder()
             additionalHeaders = balanceReportCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = balanceReportCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                balanceReportCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun internalAccountId(internalAccountId: String) = apply {
@@ -226,27 +219,24 @@ constructor(
         }
 
         /** The date of the balance report in local time. */
-        fun asOfDate(asOfDate: LocalDate) = apply { this.asOfDate = asOfDate }
+        fun asOfDate(asOfDate: LocalDate) = apply { body.asOfDate(asOfDate) }
 
         /** The time (24-hour clock) of the balance report in local time. */
-        fun asOfTime(asOfTime: String) = apply { this.asOfTime = asOfTime }
+        fun asOfTime(asOfTime: String) = apply { body.asOfTime(asOfTime) }
 
         /**
          * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
          * `other`.
          */
         fun balanceReportType(balanceReportType: BalanceReportType) = apply {
-            this.balanceReportType = balanceReportType
+            body.balanceReportType(balanceReportType)
         }
 
         /** An array of `Balance` objects. */
-        fun balances(balances: List<BalanceCreateRequest>) = apply {
-            this.balances.clear()
-            this.balances.addAll(balances)
-        }
+        fun balances(balances: List<BalanceCreateRequest>) = apply { body.balances(balances) }
 
         /** An array of `Balance` objects. */
-        fun addBalance(balance: BalanceCreateRequest) = apply { this.balances.add(balance) }
+        fun addBalance(balance: BalanceCreateRequest) = apply { body.addBalance(balance) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -347,25 +337,22 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): BalanceReportCreateParams =
@@ -373,15 +360,9 @@ constructor(
                 checkNotNull(internalAccountId) {
                     "`internalAccountId` is required but was not set"
                 },
-                checkNotNull(asOfDate) { "`asOfDate` is required but was not set" },
-                checkNotNull(asOfTime) { "`asOfTime` is required but was not set" },
-                checkNotNull(balanceReportType) {
-                    "`balanceReportType` is required but was not set"
-                },
-                balances.toImmutable(),
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -533,7 +514,7 @@ constructor(
              * `evolve`, `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`,
              * or `us_bank`.
              */
-            fun vendorCodeType(vendorCodeType: String?) = apply {
+            fun vendorCodeType(vendorCodeType: String) = apply {
                 this.vendorCodeType = vendorCodeType
             }
 
@@ -682,11 +663,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is BalanceReportCreateParams && internalAccountId == other.internalAccountId && asOfDate == other.asOfDate && asOfTime == other.asOfTime && balanceReportType == other.balanceReportType && balances == other.balances && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is BalanceReportCreateParams && internalAccountId == other.internalAccountId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(internalAccountId, asOfDate, asOfTime, balanceReportType, balances, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(internalAccountId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "BalanceReportCreateParams{internalAccountId=$internalAccountId, asOfDate=$asOfDate, asOfTime=$asOfTime, balanceReportType=$balanceReportType, balances=$balances, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "BalanceReportCreateParams{internalAccountId=$internalAccountId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

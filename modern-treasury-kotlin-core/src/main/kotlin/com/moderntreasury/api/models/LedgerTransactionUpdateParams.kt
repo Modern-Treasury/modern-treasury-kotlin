@@ -22,52 +22,51 @@ import java.util.Objects
 class LedgerTransactionUpdateParams
 constructor(
     private val id: String,
-    private val description: String?,
-    private val effectiveAt: OffsetDateTime?,
-    private val ledgerEntries: List<LedgerEntryCreateRequest>?,
-    private val ledgerableId: String?,
-    private val ledgerableType: LedgerableType?,
-    private val metadata: Metadata?,
-    private val status: Status?,
+    private val body: LedgerTransactionUpdateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun id(): String = id
 
-    fun description(): String? = description
+    /** An optional description for internal use. */
+    fun description(): String? = body.description()
 
-    fun effectiveAt(): OffsetDateTime? = effectiveAt
+    /**
+     * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
+     * purposes.
+     */
+    fun effectiveAt(): OffsetDateTime? = body.effectiveAt()
 
-    fun ledgerEntries(): List<LedgerEntryCreateRequest>? = ledgerEntries
+    /** An array of ledger entry objects. */
+    fun ledgerEntries(): List<LedgerEntryCreateRequest>? = body.ledgerEntries()
 
-    fun ledgerableId(): String? = ledgerableId
+    /**
+     * If the ledger transaction can be reconciled to another object in Modern Treasury, the id will
+     * be populated here, otherwise null.
+     */
+    fun ledgerableId(): String? = body.ledgerableId()
 
-    fun ledgerableType(): LedgerableType? = ledgerableType
+    /**
+     * If the ledger transaction can be reconciled to another object in Modern Treasury, the type
+     * will be populated here, otherwise null. This can be one of payment_order,
+     * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
+     */
+    fun ledgerableType(): LedgerableType? = body.ledgerableType()
 
-    fun metadata(): Metadata? = metadata
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun metadata(): Metadata? = body.metadata()
 
-    fun status(): Status? = status
+    /** To post a ledger transaction at creation, use `posted`. */
+    fun status(): Status? = body.status()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): LedgerTransactionUpdateBody {
-        return LedgerTransactionUpdateBody(
-            description,
-            effectiveAt,
-            ledgerEntries,
-            ledgerableId,
-            ledgerableType,
-            metadata,
-            status,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): LedgerTransactionUpdateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -144,7 +143,7 @@ constructor(
 
             private var description: String? = null
             private var effectiveAt: OffsetDateTime? = null
-            private var ledgerEntries: List<LedgerEntryCreateRequest>? = null
+            private var ledgerEntries: MutableList<LedgerEntryCreateRequest>? = null
             private var ledgerableId: String? = null
             private var ledgerableType: LedgerableType? = null
             private var metadata: Metadata? = null
@@ -164,31 +163,36 @@ constructor(
             }
 
             /** An optional description for internal use. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
              * purposes.
              */
-            fun effectiveAt(effectiveAt: OffsetDateTime?) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: OffsetDateTime) = apply { this.effectiveAt = effectiveAt }
 
             /** An array of ledger entry objects. */
-            fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>?) = apply {
-                this.ledgerEntries = ledgerEntries
+            fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>) = apply {
+                this.ledgerEntries = ledgerEntries.toMutableList()
+            }
+
+            /** An array of ledger entry objects. */
+            fun addLedgerEntry(ledgerEntry: LedgerEntryCreateRequest) = apply {
+                ledgerEntries = (ledgerEntries ?: mutableListOf()).apply { add(ledgerEntry) }
             }
 
             /**
              * If the ledger transaction can be reconciled to another object in Modern Treasury, the
              * id will be populated here, otherwise null.
              */
-            fun ledgerableId(ledgerableId: String?) = apply { this.ledgerableId = ledgerableId }
+            fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
 
             /**
              * If the ledger transaction can be reconciled to another object in Modern Treasury, the
              * type will be populated here, otherwise null. This can be one of payment_order,
              * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
              */
-            fun ledgerableType(ledgerableType: LedgerableType?) = apply {
+            fun ledgerableType(ledgerableType: LedgerableType) = apply {
                 this.ledgerableType = ledgerableType
             }
 
@@ -196,10 +200,10 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             /** To post a ledger transaction at creation, use `posted`. */
-            fun status(status: Status?) = apply { this.status = status }
+            fun status(status: Status) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -262,60 +266,44 @@ constructor(
     class Builder {
 
         private var id: String? = null
-        private var description: String? = null
-        private var effectiveAt: OffsetDateTime? = null
-        private var ledgerEntries: MutableList<LedgerEntryCreateRequest> = mutableListOf()
-        private var ledgerableId: String? = null
-        private var ledgerableType: LedgerableType? = null
-        private var metadata: Metadata? = null
-        private var status: Status? = null
+        private var body: LedgerTransactionUpdateBody.Builder =
+            LedgerTransactionUpdateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerTransactionUpdateParams: LedgerTransactionUpdateParams) = apply {
             id = ledgerTransactionUpdateParams.id
-            description = ledgerTransactionUpdateParams.description
-            effectiveAt = ledgerTransactionUpdateParams.effectiveAt
-            ledgerEntries =
-                ledgerTransactionUpdateParams.ledgerEntries?.toMutableList() ?: mutableListOf()
-            ledgerableId = ledgerTransactionUpdateParams.ledgerableId
-            ledgerableType = ledgerTransactionUpdateParams.ledgerableType
-            metadata = ledgerTransactionUpdateParams.metadata
-            status = ledgerTransactionUpdateParams.status
+            body = ledgerTransactionUpdateParams.body.toBuilder()
             additionalHeaders = ledgerTransactionUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = ledgerTransactionUpdateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                ledgerTransactionUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String) = apply { this.id = id }
 
         /** An optional description for internal use. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /**
          * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
          * purposes.
          */
-        fun effectiveAt(effectiveAt: OffsetDateTime) = apply { this.effectiveAt = effectiveAt }
+        fun effectiveAt(effectiveAt: OffsetDateTime) = apply { body.effectiveAt(effectiveAt) }
 
         /** An array of ledger entry objects. */
         fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>) = apply {
-            this.ledgerEntries.clear()
-            this.ledgerEntries.addAll(ledgerEntries)
+            body.ledgerEntries(ledgerEntries)
         }
 
         /** An array of ledger entry objects. */
         fun addLedgerEntry(ledgerEntry: LedgerEntryCreateRequest) = apply {
-            this.ledgerEntries.add(ledgerEntry)
+            body.addLedgerEntry(ledgerEntry)
         }
 
         /**
          * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
          * will be populated here, otherwise null.
          */
-        fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
+        fun ledgerableId(ledgerableId: String) = apply { body.ledgerableId(ledgerableId) }
 
         /**
          * If the ledger transaction can be reconciled to another object in Modern Treasury, the
@@ -323,16 +311,16 @@ constructor(
          * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
          */
         fun ledgerableType(ledgerableType: LedgerableType) = apply {
-            this.ledgerableType = ledgerableType
+            body.ledgerableType(ledgerableType)
         }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /** To post a ledger transaction at creation, use `posted`. */
-        fun status(status: Status) = apply { this.status = status }
+        fun status(status: Status) = apply { body.status(status) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -433,40 +421,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): LedgerTransactionUpdateParams =
             LedgerTransactionUpdateParams(
                 checkNotNull(id) { "`id` is required but was not set" },
-                description,
-                effectiveAt,
-                ledgerEntries.toImmutable().ifEmpty { null },
-                ledgerableId,
-                ledgerableType,
-                metadata,
-                status,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -614,14 +592,14 @@ constructor(
              * version. See our post about Designing the Ledgers API with Optimistic Locking for
              * more details.
              */
-            fun lockVersion(lockVersion: Long?) = apply { this.lockVersion = lockVersion }
+            fun lockVersion(lockVersion: Long) = apply { this.lockVersion = lockVersion }
 
             /**
              * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to lock on the account’s
              * pending balance. If any of these conditions would be false after the transaction is
              * created, the entire call will fail with error code 422.
              */
-            fun pendingBalanceAmount(pendingBalanceAmount: PendingBalanceAmount?) = apply {
+            fun pendingBalanceAmount(pendingBalanceAmount: PendingBalanceAmount) = apply {
                 this.pendingBalanceAmount = pendingBalanceAmount
             }
 
@@ -630,7 +608,7 @@ constructor(
              * posted balance. If any of these conditions would be false after the transaction is
              * created, the entire call will fail with error code 422.
              */
-            fun postedBalanceAmount(postedBalanceAmount: PostedBalanceAmount?) = apply {
+            fun postedBalanceAmount(postedBalanceAmount: PostedBalanceAmount) = apply {
                 this.postedBalanceAmount = postedBalanceAmount
             }
 
@@ -639,7 +617,7 @@ constructor(
              * available balance. If any of these conditions would be false after the transaction is
              * created, the entire call will fail with error code 422.
              */
-            fun availableBalanceAmount(availableBalanceAmount: AvailableBalanceAmount?) = apply {
+            fun availableBalanceAmount(availableBalanceAmount: AvailableBalanceAmount) = apply {
                 this.availableBalanceAmount = availableBalanceAmount
             }
 
@@ -647,7 +625,7 @@ constructor(
              * If true, response will include the balance of the associated ledger account for the
              * entry.
              */
-            fun showResultingLedgerAccountBalances(showResultingLedgerAccountBalances: Boolean?) =
+            fun showResultingLedgerAccountBalances(showResultingLedgerAccountBalances: Boolean) =
                 apply {
                     this.showResultingLedgerAccountBalances = showResultingLedgerAccountBalances
                 }
@@ -656,7 +634,7 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1229,11 +1207,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerTransactionUpdateParams && id == other.id && description == other.description && effectiveAt == other.effectiveAt && ledgerEntries == other.ledgerEntries && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is LedgerTransactionUpdateParams && id == other.id && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, description, effectiveAt, ledgerEntries, ledgerableId, ledgerableType, metadata, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "LedgerTransactionUpdateParams{id=$id, description=$description, effectiveAt=$effectiveAt, ledgerEntries=$ledgerEntries, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerTransactionUpdateParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

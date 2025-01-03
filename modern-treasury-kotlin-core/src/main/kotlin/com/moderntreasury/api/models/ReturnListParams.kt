@@ -25,14 +25,24 @@ constructor(
 
     fun afterCursor(): String? = afterCursor
 
+    /**
+     * Specify `counterparty_id` if you wish to see returns that occurred with a specific
+     * counterparty.
+     */
     fun counterpartyId(): String? = counterpartyId
 
+    /** Specify `internal_account_id` if you wish to see returns to/from a specific account. */
     fun internalAccountId(): String? = internalAccountId
 
     fun perPage(): Long? = perPage
 
+    /** The ID of a valid returnable. Must be accompanied by `returnable_type`. */
     fun returnableId(): String? = returnableId
 
+    /**
+     * One of `payment_order`, `paper_item`, `reversal`, or `incoming_payment_detail`. Must be
+     * accompanied by `returnable_id`.
+     */
     fun returnableType(): ReturnableType? = returnableType
 
     fun _additionalHeaders(): Headers = additionalHeaders

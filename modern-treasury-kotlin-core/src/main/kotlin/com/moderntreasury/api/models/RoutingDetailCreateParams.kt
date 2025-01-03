@@ -22,38 +22,37 @@ class RoutingDetailCreateParams
 constructor(
     private val accountsType: AccountsType,
     private val accountId: String,
-    private val routingNumber: String,
-    private val routingNumberType: RoutingNumberType,
-    private val paymentType: PaymentType?,
+    private val body: RoutingDetailCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun accountsType(): AccountsType = accountsType
 
     fun accountId(): String = accountId
 
-    fun routingNumber(): String = routingNumber
+    /** The routing number of the bank. */
+    fun routingNumber(): String = body.routingNumber()
 
-    fun routingNumberType(): RoutingNumberType = routingNumberType
+    /**
+     * The type of routing number. See
+     * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more details.
+     */
+    fun routingNumberType(): RoutingNumberType = body.routingNumberType()
 
-    fun paymentType(): PaymentType? = paymentType
+    /**
+     * If the routing detail is to be used for a specific payment type this field will be populated,
+     * otherwise null.
+     */
+    fun paymentType(): PaymentType? = body.paymentType()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): RoutingDetailCreateBody {
-        return RoutingDetailCreateBody(
-            routingNumber,
-            routingNumberType,
-            paymentType,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): RoutingDetailCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -136,7 +135,7 @@ constructor(
              * If the routing detail is to be used for a specific payment type this field will be
              * populated, otherwise null.
              */
-            fun paymentType(paymentType: PaymentType?) = apply { this.paymentType = paymentType }
+            fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -198,23 +197,16 @@ constructor(
 
         private var accountsType: AccountsType? = null
         private var accountId: String? = null
-        private var routingNumber: String? = null
-        private var routingNumberType: RoutingNumberType? = null
-        private var paymentType: PaymentType? = null
+        private var body: RoutingDetailCreateBody.Builder = RoutingDetailCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(routingDetailCreateParams: RoutingDetailCreateParams) = apply {
             accountsType = routingDetailCreateParams.accountsType
             accountId = routingDetailCreateParams.accountId
-            routingNumber = routingDetailCreateParams.routingNumber
-            routingNumberType = routingDetailCreateParams.routingNumberType
-            paymentType = routingDetailCreateParams.paymentType
+            body = routingDetailCreateParams.body.toBuilder()
             additionalHeaders = routingDetailCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = routingDetailCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                routingDetailCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun accountsType(accountsType: AccountsType) = apply { this.accountsType = accountsType }
@@ -222,7 +214,7 @@ constructor(
         fun accountId(accountId: String) = apply { this.accountId = accountId }
 
         /** The routing number of the bank. */
-        fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
+        fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
 
         /**
          * The type of routing number. See
@@ -230,14 +222,14 @@ constructor(
          * details.
          */
         fun routingNumberType(routingNumberType: RoutingNumberType) = apply {
-            this.routingNumberType = routingNumberType
+            body.routingNumberType(routingNumberType)
         }
 
         /**
          * If the routing detail is to be used for a specific payment type this field will be
          * populated, otherwise null.
          */
-        fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
+        fun paymentType(paymentType: PaymentType) = apply { body.paymentType(paymentType) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -338,39 +330,31 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): RoutingDetailCreateParams =
             RoutingDetailCreateParams(
                 checkNotNull(accountsType) { "`accountsType` is required but was not set" },
                 checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                checkNotNull(routingNumberType) {
-                    "`routingNumberType` is required but was not set"
-                },
-                paymentType,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -821,11 +805,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is RoutingDetailCreateParams && accountsType == other.accountsType && accountId == other.accountId && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && paymentType == other.paymentType && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is RoutingDetailCreateParams && accountsType == other.accountsType && accountId == other.accountId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountsType, accountId, routingNumber, routingNumberType, paymentType, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountsType, accountId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "RoutingDetailCreateParams{accountsType=$accountsType, accountId=$accountId, routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "RoutingDetailCreateParams{accountsType=$accountsType, accountId=$accountId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

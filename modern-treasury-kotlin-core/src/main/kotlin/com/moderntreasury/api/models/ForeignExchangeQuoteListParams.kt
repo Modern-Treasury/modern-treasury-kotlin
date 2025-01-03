@@ -27,20 +27,30 @@ constructor(
 
     fun afterCursor(): String? = afterCursor
 
+    /** Currency to convert, often called the "sell" currency. */
     fun baseCurrency(): String? = baseCurrency
 
+    /** An inclusive upper bound for searching effective_at */
     fun effectiveAtEnd(): LocalDate? = effectiveAtEnd
 
+    /** An inclusive lower bound for searching effective_at */
     fun effectiveAtStart(): LocalDate? = effectiveAtStart
 
+    /** The timestamp until which the quote must be booked by. */
     fun expiresAt(): OffsetDateTime? = expiresAt
 
+    /** The ID for the `InternalAccount` this quote is associated with. */
     fun internalAccountId(): String? = internalAccountId
 
+    /**
+     * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
+     * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
+     */
     fun metadata(): Metadata? = metadata
 
     fun perPage(): Long? = perPage
 
+    /** Currency to convert the `base_currency` to, often called the "buy" currency. */
     fun targetCurrency(): String? = targetCurrency
 
     fun _additionalHeaders(): Headers = additionalHeaders

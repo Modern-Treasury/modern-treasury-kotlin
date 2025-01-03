@@ -18,44 +18,38 @@ import java.util.Objects
 class InternalAccountUpdateParams
 constructor(
     private val id: String,
-    private val counterpartyId: String?,
-    private val ledgerAccountId: String?,
-    private val metadata: Metadata?,
-    private val name: String?,
-    private val parentAccountId: String?,
+    private val body: InternalAccountUpdateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun id(): String = id
 
-    fun counterpartyId(): String? = counterpartyId
+    /** The Counterparty associated to this account. */
+    fun counterpartyId(): String? = body.counterpartyId()
 
-    fun ledgerAccountId(): String? = ledgerAccountId
+    /** The Ledger Account associated to this account. */
+    fun ledgerAccountId(): String? = body.ledgerAccountId()
 
-    fun metadata(): Metadata? = metadata
+    /**
+     * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
+     * string or `null` as the value.
+     */
+    fun metadata(): Metadata? = body.metadata()
 
-    fun name(): String? = name
+    /** The nickname for the internal account. */
+    fun name(): String? = body.name()
 
-    fun parentAccountId(): String? = parentAccountId
+    /** The parent internal account for this account. */
+    fun parentAccountId(): String? = body.parentAccountId()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): InternalAccountUpdateBody {
-        return InternalAccountUpdateBody(
-            counterpartyId,
-            ledgerAccountId,
-            metadata,
-            name,
-            parentAccountId,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): InternalAccountUpdateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -129,12 +123,12 @@ constructor(
             }
 
             /** The Counterparty associated to this account. */
-            fun counterpartyId(counterpartyId: String?) = apply {
+            fun counterpartyId(counterpartyId: String) = apply {
                 this.counterpartyId = counterpartyId
             }
 
             /** The Ledger Account associated to this account. */
-            fun ledgerAccountId(ledgerAccountId: String?) = apply {
+            fun ledgerAccountId(ledgerAccountId: String) = apply {
                 this.ledgerAccountId = ledgerAccountId
             }
 
@@ -142,13 +136,13 @@ constructor(
              * Additional data in the form of key-value pairs. Pairs can be removed by passing an
              * empty string or `null` as the value.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             /** The nickname for the internal account. */
-            fun name(name: String?) = apply { this.name = name }
+            fun name(name: String) = apply { this.name = name }
 
             /** The parent internal account for this account. */
-            fun parentAccountId(parentAccountId: String?) = apply {
+            fun parentAccountId(parentAccountId: String) = apply {
                 this.parentAccountId = parentAccountId
             }
 
@@ -211,50 +205,39 @@ constructor(
     class Builder {
 
         private var id: String? = null
-        private var counterpartyId: String? = null
-        private var ledgerAccountId: String? = null
-        private var metadata: Metadata? = null
-        private var name: String? = null
-        private var parentAccountId: String? = null
+        private var body: InternalAccountUpdateBody.Builder = InternalAccountUpdateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(internalAccountUpdateParams: InternalAccountUpdateParams) = apply {
             id = internalAccountUpdateParams.id
-            counterpartyId = internalAccountUpdateParams.counterpartyId
-            ledgerAccountId = internalAccountUpdateParams.ledgerAccountId
-            metadata = internalAccountUpdateParams.metadata
-            name = internalAccountUpdateParams.name
-            parentAccountId = internalAccountUpdateParams.parentAccountId
+            body = internalAccountUpdateParams.body.toBuilder()
             additionalHeaders = internalAccountUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = internalAccountUpdateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                internalAccountUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String) = apply { this.id = id }
 
         /** The Counterparty associated to this account. */
-        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
+        fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
 
         /** The Ledger Account associated to this account. */
         fun ledgerAccountId(ledgerAccountId: String) = apply {
-            this.ledgerAccountId = ledgerAccountId
+            body.ledgerAccountId(ledgerAccountId)
         }
 
         /**
          * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
          * string or `null` as the value.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /** The nickname for the internal account. */
-        fun name(name: String) = apply { this.name = name }
+        fun name(name: String) = apply { body.name(name) }
 
         /** The parent internal account for this account. */
         fun parentAccountId(parentAccountId: String) = apply {
-            this.parentAccountId = parentAccountId
+            body.parentAccountId(parentAccountId)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -356,38 +339,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): InternalAccountUpdateParams =
             InternalAccountUpdateParams(
                 checkNotNull(id) { "`id` is required but was not set" },
-                counterpartyId,
-                ledgerAccountId,
-                metadata,
-                name,
-                parentAccountId,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -466,11 +441,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is InternalAccountUpdateParams && id == other.id && counterpartyId == other.counterpartyId && ledgerAccountId == other.ledgerAccountId && metadata == other.metadata && name == other.name && parentAccountId == other.parentAccountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is InternalAccountUpdateParams && id == other.id && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, counterpartyId, ledgerAccountId, metadata, name, parentAccountId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "InternalAccountUpdateParams{id=$id, counterpartyId=$counterpartyId, ledgerAccountId=$ledgerAccountId, metadata=$metadata, name=$name, parentAccountId=$parentAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "InternalAccountUpdateParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

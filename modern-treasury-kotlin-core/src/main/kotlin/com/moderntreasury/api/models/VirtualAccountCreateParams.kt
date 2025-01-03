@@ -20,62 +20,57 @@ import java.util.Objects
 
 class VirtualAccountCreateParams
 constructor(
-    private val internalAccountId: String,
-    private val name: String,
-    private val accountDetails: List<AccountDetailCreateRequest>?,
-    private val counterpartyId: String?,
-    private val creditLedgerAccountId: String?,
-    private val debitLedgerAccountId: String?,
-    private val description: String?,
-    private val ledgerAccount: LedgerAccountCreateRequest?,
-    private val metadata: Metadata?,
-    private val routingDetails: List<RoutingDetailCreateRequest>?,
+    private val body: VirtualAccountCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun internalAccountId(): String = internalAccountId
+    /** The ID of the internal account that this virtual account is associated with. */
+    fun internalAccountId(): String = body.internalAccountId()
 
-    fun name(): String = name
+    /** The name of the virtual account. */
+    fun name(): String = body.name()
 
-    fun accountDetails(): List<AccountDetailCreateRequest>? = accountDetails
+    /** An array of account detail objects. */
+    fun accountDetails(): List<AccountDetailCreateRequest>? = body.accountDetails()
 
-    fun counterpartyId(): String? = counterpartyId
+    /** The ID of the counterparty that the virtual account belongs to. */
+    fun counterpartyId(): String? = body.counterpartyId()
 
-    fun creditLedgerAccountId(): String? = creditLedgerAccountId
+    /**
+     * The ID of a credit normal ledger account. When money leaves the virtual account, this ledger
+     * account will be credited. Must be accompanied by a debit_ledger_account_id if present.
+     */
+    fun creditLedgerAccountId(): String? = body.creditLedgerAccountId()
 
-    fun debitLedgerAccountId(): String? = debitLedgerAccountId
+    /**
+     * The ID of a debit normal ledger account. When money enters the virtual account, this ledger
+     * account will be debited. Must be accompanied by a credit_ledger_account_id if present.
+     */
+    fun debitLedgerAccountId(): String? = body.debitLedgerAccountId()
 
-    fun description(): String? = description
+    /** An optional description for internal use. */
+    fun description(): String? = body.description()
 
-    fun ledgerAccount(): LedgerAccountCreateRequest? = ledgerAccount
+    /**
+     * Specifies a ledger account object that will be created with the virtual account. The
+     * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
+     */
+    fun ledgerAccount(): LedgerAccountCreateRequest? = body.ledgerAccount()
 
-    fun metadata(): Metadata? = metadata
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun metadata(): Metadata? = body.metadata()
 
-    fun routingDetails(): List<RoutingDetailCreateRequest>? = routingDetails
+    /** An array of routing detail objects. */
+    fun routingDetails(): List<RoutingDetailCreateRequest>? = body.routingDetails()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): VirtualAccountCreateBody {
-        return VirtualAccountCreateBody(
-            internalAccountId,
-            name,
-            accountDetails,
-            counterpartyId,
-            creditLedgerAccountId,
-            debitLedgerAccountId,
-            description,
-            ledgerAccount,
-            metadata,
-            routingDetails,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): VirtualAccountCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -164,14 +159,14 @@ constructor(
 
             private var internalAccountId: String? = null
             private var name: String? = null
-            private var accountDetails: List<AccountDetailCreateRequest>? = null
+            private var accountDetails: MutableList<AccountDetailCreateRequest>? = null
             private var counterpartyId: String? = null
             private var creditLedgerAccountId: String? = null
             private var debitLedgerAccountId: String? = null
             private var description: String? = null
             private var ledgerAccount: LedgerAccountCreateRequest? = null
             private var metadata: Metadata? = null
-            private var routingDetails: List<RoutingDetailCreateRequest>? = null
+            private var routingDetails: MutableList<RoutingDetailCreateRequest>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(virtualAccountCreateBody: VirtualAccountCreateBody) = apply {
@@ -197,12 +192,17 @@ constructor(
             fun name(name: String) = apply { this.name = name }
 
             /** An array of account detail objects. */
-            fun accountDetails(accountDetails: List<AccountDetailCreateRequest>?) = apply {
-                this.accountDetails = accountDetails
+            fun accountDetails(accountDetails: List<AccountDetailCreateRequest>) = apply {
+                this.accountDetails = accountDetails.toMutableList()
+            }
+
+            /** An array of account detail objects. */
+            fun addAccountDetail(accountDetail: AccountDetailCreateRequest) = apply {
+                accountDetails = (accountDetails ?: mutableListOf()).apply { add(accountDetail) }
             }
 
             /** The ID of the counterparty that the virtual account belongs to. */
-            fun counterpartyId(counterpartyId: String?) = apply {
+            fun counterpartyId(counterpartyId: String) = apply {
                 this.counterpartyId = counterpartyId
             }
 
@@ -211,7 +211,7 @@ constructor(
              * ledger account will be credited. Must be accompanied by a debit_ledger_account_id if
              * present.
              */
-            fun creditLedgerAccountId(creditLedgerAccountId: String?) = apply {
+            fun creditLedgerAccountId(creditLedgerAccountId: String) = apply {
                 this.creditLedgerAccountId = creditLedgerAccountId
             }
 
@@ -220,18 +220,18 @@ constructor(
              * ledger account will be debited. Must be accompanied by a credit_ledger_account_id if
              * present.
              */
-            fun debitLedgerAccountId(debitLedgerAccountId: String?) = apply {
+            fun debitLedgerAccountId(debitLedgerAccountId: String) = apply {
                 this.debitLedgerAccountId = debitLedgerAccountId
             }
 
             /** An optional description for internal use. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * Specifies a ledger account object that will be created with the virtual account. The
              * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
              */
-            fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest?) = apply {
+            fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest) = apply {
                 this.ledgerAccount = ledgerAccount
             }
 
@@ -239,11 +239,16 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             /** An array of routing detail objects. */
-            fun routingDetails(routingDetails: List<RoutingDetailCreateRequest>?) = apply {
-                this.routingDetails = routingDetails
+            fun routingDetails(routingDetails: List<RoutingDetailCreateRequest>) = apply {
+                this.routingDetails = routingDetails.toMutableList()
+            }
+
+            /** An array of routing detail objects. */
+            fun addRoutingDetail(routingDetail: RoutingDetailCreateRequest) = apply {
+                routingDetails = (routingDetails ?: mutableListOf()).apply { add(routingDetail) }
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -311,60 +316,36 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var internalAccountId: String? = null
-        private var name: String? = null
-        private var accountDetails: MutableList<AccountDetailCreateRequest> = mutableListOf()
-        private var counterpartyId: String? = null
-        private var creditLedgerAccountId: String? = null
-        private var debitLedgerAccountId: String? = null
-        private var description: String? = null
-        private var ledgerAccount: LedgerAccountCreateRequest? = null
-        private var metadata: Metadata? = null
-        private var routingDetails: MutableList<RoutingDetailCreateRequest> = mutableListOf()
+        private var body: VirtualAccountCreateBody.Builder = VirtualAccountCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(virtualAccountCreateParams: VirtualAccountCreateParams) = apply {
-            internalAccountId = virtualAccountCreateParams.internalAccountId
-            name = virtualAccountCreateParams.name
-            accountDetails =
-                virtualAccountCreateParams.accountDetails?.toMutableList() ?: mutableListOf()
-            counterpartyId = virtualAccountCreateParams.counterpartyId
-            creditLedgerAccountId = virtualAccountCreateParams.creditLedgerAccountId
-            debitLedgerAccountId = virtualAccountCreateParams.debitLedgerAccountId
-            description = virtualAccountCreateParams.description
-            ledgerAccount = virtualAccountCreateParams.ledgerAccount
-            metadata = virtualAccountCreateParams.metadata
-            routingDetails =
-                virtualAccountCreateParams.routingDetails?.toMutableList() ?: mutableListOf()
+            body = virtualAccountCreateParams.body.toBuilder()
             additionalHeaders = virtualAccountCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = virtualAccountCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                virtualAccountCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The ID of the internal account that this virtual account is associated with. */
         fun internalAccountId(internalAccountId: String) = apply {
-            this.internalAccountId = internalAccountId
+            body.internalAccountId(internalAccountId)
         }
 
         /** The name of the virtual account. */
-        fun name(name: String) = apply { this.name = name }
+        fun name(name: String) = apply { body.name(name) }
 
         /** An array of account detail objects. */
         fun accountDetails(accountDetails: List<AccountDetailCreateRequest>) = apply {
-            this.accountDetails.clear()
-            this.accountDetails.addAll(accountDetails)
+            body.accountDetails(accountDetails)
         }
 
         /** An array of account detail objects. */
         fun addAccountDetail(accountDetail: AccountDetailCreateRequest) = apply {
-            this.accountDetails.add(accountDetail)
+            body.addAccountDetail(accountDetail)
         }
 
         /** The ID of the counterparty that the virtual account belongs to. */
-        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
+        fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
 
         /**
          * The ID of a credit normal ledger account. When money leaves the virtual account, this
@@ -372,7 +353,7 @@ constructor(
          * present.
          */
         fun creditLedgerAccountId(creditLedgerAccountId: String) = apply {
-            this.creditLedgerAccountId = creditLedgerAccountId
+            body.creditLedgerAccountId(creditLedgerAccountId)
         }
 
         /**
@@ -381,34 +362,33 @@ constructor(
          * present.
          */
         fun debitLedgerAccountId(debitLedgerAccountId: String) = apply {
-            this.debitLedgerAccountId = debitLedgerAccountId
+            body.debitLedgerAccountId(debitLedgerAccountId)
         }
 
         /** An optional description for internal use. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /**
          * Specifies a ledger account object that will be created with the virtual account. The
          * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
          */
         fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest) = apply {
-            this.ledgerAccount = ledgerAccount
+            body.ledgerAccount(ledgerAccount)
         }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /** An array of routing detail objects. */
         fun routingDetails(routingDetails: List<RoutingDetailCreateRequest>) = apply {
-            this.routingDetails.clear()
-            this.routingDetails.addAll(routingDetails)
+            body.routingDetails(routingDetails)
         }
 
         /** An array of routing detail objects. */
         fun addRoutingDetail(routingDetail: RoutingDetailCreateRequest) = apply {
-            this.routingDetails.add(routingDetail)
+            body.addRoutingDetail(routingDetail)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -510,44 +490,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): VirtualAccountCreateParams =
             VirtualAccountCreateParams(
-                checkNotNull(internalAccountId) {
-                    "`internalAccountId` is required but was not set"
-                },
-                checkNotNull(name) { "`name` is required but was not set" },
-                accountDetails.toImmutable().ifEmpty { null },
-                counterpartyId,
-                creditLedgerAccountId,
-                debitLedgerAccountId,
-                description,
-                ledgerAccount,
-                metadata,
-                routingDetails.toImmutable().ifEmpty { null },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -602,7 +567,7 @@ constructor(
              * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
              * number is in a generic format.
              */
-            fun accountNumberType(accountNumberType: AccountNumberType?) = apply {
+            fun accountNumberType(accountNumberType: AccountNumberType) = apply {
                 this.accountNumberType = accountNumberType
             }
 
@@ -842,7 +807,7 @@ constructor(
             private var ledgerId: String? = null
             private var currency: String? = null
             private var currencyExponent: Long? = null
-            private var ledgerAccountCategoryIds: List<String>? = null
+            private var ledgerAccountCategoryIds: MutableList<String>? = null
             private var ledgerableId: String? = null
             private var ledgerableType: LedgerableType? = null
             private var metadata: Metadata? = null
@@ -868,7 +833,7 @@ constructor(
             fun name(name: String) = apply { this.name = name }
 
             /** The description of the ledger account. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = apply { this.description = description }
 
             /** The normal balance of the ledger account. */
             fun normalBalance(normalBalance: TransactionDirection) = apply {
@@ -882,7 +847,7 @@ constructor(
             fun currency(currency: String) = apply { this.currency = currency }
 
             /** The currency exponent of the ledger account. */
-            fun currencyExponent(currencyExponent: Long?) = apply {
+            fun currencyExponent(currencyExponent: Long) = apply {
                 this.currencyExponent = currencyExponent
             }
 
@@ -890,22 +855,33 @@ constructor(
              * The array of ledger account category ids that this ledger account should be a child
              * of.
              */
-            fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>?) = apply {
-                this.ledgerAccountCategoryIds = ledgerAccountCategoryIds
+            fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>) = apply {
+                this.ledgerAccountCategoryIds = ledgerAccountCategoryIds.toMutableList()
+            }
+
+            /**
+             * The array of ledger account category ids that this ledger account should be a child
+             * of.
+             */
+            fun addLedgerAccountCategoryId(ledgerAccountCategoryId: String) = apply {
+                ledgerAccountCategoryIds =
+                    (ledgerAccountCategoryIds ?: mutableListOf()).apply {
+                        add(ledgerAccountCategoryId)
+                    }
             }
 
             /**
              * If the ledger account links to another object in Modern Treasury, the id will be
              * populated here, otherwise null.
              */
-            fun ledgerableId(ledgerableId: String?) = apply { this.ledgerableId = ledgerableId }
+            fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
 
             /**
              * If the ledger account links to another object in Modern Treasury, the type will be
              * populated here, otherwise null. The value is one of internal_account or
              * external_account.
              */
-            fun ledgerableType(ledgerableType: LedgerableType?) = apply {
+            fun ledgerableType(ledgerableType: LedgerableType) = apply {
                 this.ledgerableType = ledgerableType
             }
 
@@ -913,7 +889,7 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1247,7 +1223,7 @@ constructor(
              * If the routing detail is to be used for a specific payment type this field will be
              * populated, otherwise null.
              */
-            fun paymentType(paymentType: PaymentType?) = apply { this.paymentType = paymentType }
+            fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1695,11 +1671,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is VirtualAccountCreateParams && internalAccountId == other.internalAccountId && name == other.name && accountDetails == other.accountDetails && counterpartyId == other.counterpartyId && creditLedgerAccountId == other.creditLedgerAccountId && debitLedgerAccountId == other.debitLedgerAccountId && description == other.description && ledgerAccount == other.ledgerAccount && metadata == other.metadata && routingDetails == other.routingDetails && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is VirtualAccountCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(internalAccountId, name, accountDetails, counterpartyId, creditLedgerAccountId, debitLedgerAccountId, description, ledgerAccount, metadata, routingDetails, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "VirtualAccountCreateParams{internalAccountId=$internalAccountId, name=$name, accountDetails=$accountDetails, counterpartyId=$counterpartyId, creditLedgerAccountId=$creditLedgerAccountId, debitLedgerAccountId=$debitLedgerAccountId, description=$description, ledgerAccount=$ledgerAccount, metadata=$metadata, routingDetails=$routingDetails, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "VirtualAccountCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

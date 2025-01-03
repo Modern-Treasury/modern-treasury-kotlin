@@ -18,42 +18,42 @@ import java.util.Objects
 
 class LedgerAccountStatementCreateParams
 constructor(
-    private val effectiveAtLowerBound: OffsetDateTime,
-    private val effectiveAtUpperBound: OffsetDateTime,
-    private val ledgerAccountId: String,
-    private val description: String?,
-    private val metadata: Metadata?,
+    private val body: LedgerAccountStatementCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun effectiveAtLowerBound(): OffsetDateTime = effectiveAtLowerBound
+    /**
+     * The inclusive lower bound of the effective_at timestamp of the ledger entries to be included
+     * in the ledger account statement.
+     */
+    fun effectiveAtLowerBound(): OffsetDateTime = body.effectiveAtLowerBound()
 
-    fun effectiveAtUpperBound(): OffsetDateTime = effectiveAtUpperBound
+    /**
+     * The exclusive upper bound of the effective_at timestamp of the ledger entries to be included
+     * in the ledger account statement.
+     */
+    fun effectiveAtUpperBound(): OffsetDateTime = body.effectiveAtUpperBound()
 
-    fun ledgerAccountId(): String = ledgerAccountId
+    /**
+     * The id of the ledger account whose ledger entries are queried against, and its balances are
+     * computed as a result.
+     */
+    fun ledgerAccountId(): String = body.ledgerAccountId()
 
-    fun description(): String? = description
+    /** The description of the ledger account statement. */
+    fun description(): String? = body.description()
 
-    fun metadata(): Metadata? = metadata
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun metadata(): Metadata? = body.metadata()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): LedgerAccountStatementCreateBody {
-        return LedgerAccountStatementCreateBody(
-            effectiveAtLowerBound,
-            effectiveAtUpperBound,
-            ledgerAccountId,
-            description,
-            metadata,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): LedgerAccountStatementCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -156,13 +156,13 @@ constructor(
             }
 
             /** The description of the ledger account statement. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -228,27 +228,17 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var effectiveAtLowerBound: OffsetDateTime? = null
-        private var effectiveAtUpperBound: OffsetDateTime? = null
-        private var ledgerAccountId: String? = null
-        private var description: String? = null
-        private var metadata: Metadata? = null
+        private var body: LedgerAccountStatementCreateBody.Builder =
+            LedgerAccountStatementCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerAccountStatementCreateParams: LedgerAccountStatementCreateParams) =
             apply {
-                effectiveAtLowerBound = ledgerAccountStatementCreateParams.effectiveAtLowerBound
-                effectiveAtUpperBound = ledgerAccountStatementCreateParams.effectiveAtUpperBound
-                ledgerAccountId = ledgerAccountStatementCreateParams.ledgerAccountId
-                description = ledgerAccountStatementCreateParams.description
-                metadata = ledgerAccountStatementCreateParams.metadata
+                body = ledgerAccountStatementCreateParams.body.toBuilder()
                 additionalHeaders = ledgerAccountStatementCreateParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     ledgerAccountStatementCreateParams.additionalQueryParams.toBuilder()
-                additionalBodyProperties =
-                    ledgerAccountStatementCreateParams.additionalBodyProperties.toMutableMap()
             }
 
         /**
@@ -256,7 +246,7 @@ constructor(
          * included in the ledger account statement.
          */
         fun effectiveAtLowerBound(effectiveAtLowerBound: OffsetDateTime) = apply {
-            this.effectiveAtLowerBound = effectiveAtLowerBound
+            body.effectiveAtLowerBound(effectiveAtLowerBound)
         }
 
         /**
@@ -264,7 +254,7 @@ constructor(
          * included in the ledger account statement.
          */
         fun effectiveAtUpperBound(effectiveAtUpperBound: OffsetDateTime) = apply {
-            this.effectiveAtUpperBound = effectiveAtUpperBound
+            body.effectiveAtUpperBound(effectiveAtUpperBound)
         }
 
         /**
@@ -272,16 +262,16 @@ constructor(
          * are computed as a result.
          */
         fun ledgerAccountId(ledgerAccountId: String) = apply {
-            this.ledgerAccountId = ledgerAccountId
+            body.ledgerAccountId(ledgerAccountId)
         }
 
         /** The description of the ledger account statement. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -382,41 +372,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): LedgerAccountStatementCreateParams =
             LedgerAccountStatementCreateParams(
-                checkNotNull(effectiveAtLowerBound) {
-                    "`effectiveAtLowerBound` is required but was not set"
-                },
-                checkNotNull(effectiveAtUpperBound) {
-                    "`effectiveAtUpperBound` is required but was not set"
-                },
-                checkNotNull(ledgerAccountId) { "`ledgerAccountId` is required but was not set" },
-                description,
-                metadata,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -492,11 +470,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccountStatementCreateParams && effectiveAtLowerBound == other.effectiveAtLowerBound && effectiveAtUpperBound == other.effectiveAtUpperBound && ledgerAccountId == other.ledgerAccountId && description == other.description && metadata == other.metadata && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is LedgerAccountStatementCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(effectiveAtLowerBound, effectiveAtUpperBound, ledgerAccountId, description, metadata, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "LedgerAccountStatementCreateParams{effectiveAtLowerBound=$effectiveAtLowerBound, effectiveAtUpperBound=$effectiveAtUpperBound, ledgerAccountId=$ledgerAccountId, description=$description, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "LedgerAccountStatementCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
