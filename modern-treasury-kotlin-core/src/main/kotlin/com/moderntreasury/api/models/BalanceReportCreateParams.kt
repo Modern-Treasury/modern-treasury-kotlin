@@ -514,7 +514,7 @@ constructor(
              * `evolve`, `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`,
              * or `us_bank`.
              */
-            fun vendorCodeType(vendorCodeType: String) = apply {
+            fun vendorCodeType(vendorCodeType: String?) = apply {
                 this.vendorCodeType = vendorCodeType
             }
 

@@ -95,25 +95,27 @@ constructor(
             additionalQueryParams = paymentFlowListParams.additionalQueryParams.toBuilder()
         }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
-        fun clientToken(clientToken: String) = apply { this.clientToken = clientToken }
+        fun clientToken(clientToken: String?) = apply { this.clientToken = clientToken }
 
-        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
+        fun counterpartyId(counterpartyId: String?) = apply { this.counterpartyId = counterpartyId }
 
-        fun originatingAccountId(originatingAccountId: String) = apply {
+        fun originatingAccountId(originatingAccountId: String?) = apply {
             this.originatingAccountId = originatingAccountId
         }
 
-        fun paymentOrderId(paymentOrderId: String) = apply { this.paymentOrderId = paymentOrderId }
+        fun paymentOrderId(paymentOrderId: String?) = apply { this.paymentOrderId = paymentOrderId }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
-        fun receivingAccountId(receivingAccountId: String) = apply {
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
+
+        fun receivingAccountId(receivingAccountId: String?) = apply {
             this.receivingAccountId = receivingAccountId
         }
 
-        fun status(status: String) = apply { this.status = status }
+        fun status(status: String?) = apply { this.status = status }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

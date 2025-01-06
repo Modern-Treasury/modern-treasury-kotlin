@@ -77,15 +77,17 @@ constructor(
             additionalQueryParams = transactionLineItemListParams.additionalQueryParams.toBuilder()
         }
 
-        fun id(id: Id) = apply { this.id = id }
+        fun id(id: Id?) = apply { this.id = id }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
-        fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
 
-        fun type(type: Type) = apply { this.type = type }
+        fun transactionId(transactionId: String?) = apply { this.transactionId = transactionId }
+
+        fun type(type: Type?) = apply { this.type = type }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

@@ -103,16 +103,16 @@ constructor(
             fun name(name: String) = apply { this.name = name }
 
             /** Additionally data to be used by the Ledger Event Handler. */
-            fun customData(customData: JsonValue) = apply { this.customData = customData }
+            fun customData(customData: JsonValue?) = apply { this.customData = customData }
 
             /** Description of the ledgerable event. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -185,15 +185,15 @@ constructor(
         fun name(name: String) = apply { body.name(name) }
 
         /** Additionally data to be used by the Ledger Event Handler. */
-        fun customData(customData: JsonValue) = apply { body.customData(customData) }
+        fun customData(customData: JsonValue?) = apply { body.customData(customData) }
 
         /** Description of the ledgerable event. */
-        fun description(description: String) = apply { body.description(description) }
+        fun description(description: String?) = apply { body.description(description) }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

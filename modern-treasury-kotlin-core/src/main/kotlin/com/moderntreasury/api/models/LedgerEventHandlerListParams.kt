@@ -86,24 +86,26 @@ constructor(
             additionalQueryParams = ledgerEventHandlerListParams.additionalQueryParams.toBuilder()
         }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
          * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
          * created_at%5Bgt%5D=2000-01-01T12:00:00Z.
          */
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
         /**
          * For example, if you want to query for records with metadata key `Type` and value `Loan`,
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
-        fun name(name: String) = apply { this.name = name }
+        fun name(name: String?) = apply { this.name = name }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
+
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

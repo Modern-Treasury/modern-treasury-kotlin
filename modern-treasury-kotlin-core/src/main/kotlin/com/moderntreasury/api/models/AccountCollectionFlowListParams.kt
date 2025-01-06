@@ -83,19 +83,21 @@ constructor(
                     accountCollectionFlowListParams.additionalQueryParams.toBuilder()
             }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
-        fun clientToken(clientToken: String) = apply { this.clientToken = clientToken }
+        fun clientToken(clientToken: String?) = apply { this.clientToken = clientToken }
 
-        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
+        fun counterpartyId(counterpartyId: String?) = apply { this.counterpartyId = counterpartyId }
 
-        fun externalAccountId(externalAccountId: String) = apply {
+        fun externalAccountId(externalAccountId: String?) = apply {
             this.externalAccountId = externalAccountId
         }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
-        fun status(status: String) = apply { this.status = status }
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
+
+        fun status(status: String?) = apply { this.status = status }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

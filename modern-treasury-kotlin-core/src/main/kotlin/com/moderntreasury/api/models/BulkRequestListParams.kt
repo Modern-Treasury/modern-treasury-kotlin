@@ -93,23 +93,25 @@ constructor(
         }
 
         /** One of create, or update. */
-        fun actionType(actionType: ActionType) = apply { this.actionType = actionType }
+        fun actionType(actionType: ActionType?) = apply { this.actionType = actionType }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
         /**
          * For example, if you want to query for records with metadata key `Type` and value `Loan`,
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
+
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /** One of payment_order, expected_payment, or ledger_transaction. */
-        fun resourceType(resourceType: ResourceType) = apply { this.resourceType = resourceType }
+        fun resourceType(resourceType: ResourceType?) = apply { this.resourceType = resourceType }
 
         /** One of pending, processing, or completed. */
-        fun status(status: Status) = apply { this.status = status }
+        fun status(status: Status?) = apply { this.status = status }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

@@ -134,7 +134,7 @@ constructor(
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
          * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
          */
-        fun id(id: List<String>) = apply { this.id = id.toMutableList() }
+        fun id(id: List<String>?) = apply { this.id = id?.toMutableList() }
 
         /**
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
@@ -142,38 +142,40 @@ constructor(
          */
         fun addId(id: String) = apply { this.id = (this.id ?: mutableListOf()).apply { add(id) } }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
         /**
          * For example, if you want the balances as of a particular time (ISO8601), the encoded
          * query string would be `balances%5Beffective_at%5D=2000-12-31T12:00:00Z`. The balances as
          * of a time are inclusive of entries with that exact time.
          */
-        fun balances(balances: Balances) = apply { this.balances = balances }
+        fun balances(balances: Balances?) = apply { this.balances = balances }
 
-        fun currency(currency: String) = apply { this.currency = currency }
+        fun currency(currency: String?) = apply { this.currency = currency }
 
         /** Query categories which contain a ledger account directly or through child categories. */
-        fun ledgerAccountId(ledgerAccountId: String) = apply {
+        fun ledgerAccountId(ledgerAccountId: String?) = apply {
             this.ledgerAccountId = ledgerAccountId
         }
 
-        fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
+        fun ledgerId(ledgerId: String?) = apply { this.ledgerId = ledgerId }
 
         /**
          * For example, if you want to query for records with metadata key `Type` and value `Loan`,
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
-        fun name(name: String) = apply { this.name = name }
+        fun name(name: String?) = apply { this.name = name }
 
         /** Query categories that are nested underneath a parent category */
-        fun parentLedgerAccountCategoryId(parentLedgerAccountCategoryId: String) = apply {
+        fun parentLedgerAccountCategoryId(parentLedgerAccountCategoryId: String?) = apply {
             this.parentLedgerAccountCategoryId = parentLedgerAccountCategoryId
         }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
+
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -329,7 +331,7 @@ constructor(
                 additionalProperties = balances.additionalProperties.toBuilder()
             }
 
-            fun effectiveAt(effectiveAt: OffsetDateTime) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: OffsetDateTime?) = apply { this.effectiveAt = effectiveAt }
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()

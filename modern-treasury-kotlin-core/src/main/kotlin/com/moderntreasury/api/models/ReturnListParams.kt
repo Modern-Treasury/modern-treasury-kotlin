@@ -95,29 +95,31 @@ constructor(
             additionalQueryParams = returnListParams.additionalQueryParams.toBuilder()
         }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
         /**
          * Specify `counterparty_id` if you wish to see returns that occurred with a specific
          * counterparty.
          */
-        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
+        fun counterpartyId(counterpartyId: String?) = apply { this.counterpartyId = counterpartyId }
 
         /** Specify `internal_account_id` if you wish to see returns to/from a specific account. */
-        fun internalAccountId(internalAccountId: String) = apply {
+        fun internalAccountId(internalAccountId: String?) = apply {
             this.internalAccountId = internalAccountId
         }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
+
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /** The ID of a valid returnable. Must be accompanied by `returnable_type`. */
-        fun returnableId(returnableId: String) = apply { this.returnableId = returnableId }
+        fun returnableId(returnableId: String?) = apply { this.returnableId = returnableId }
 
         /**
          * One of `payment_order`, `paper_item`, `reversal`, or `incoming_payment_detail`. Must be
          * accompanied by `returnable_id`.
          */
-        fun returnableType(returnableType: ReturnableType) = apply {
+        fun returnableType(returnableType: ReturnableType?) = apply {
             this.returnableType = returnableType
         }
 

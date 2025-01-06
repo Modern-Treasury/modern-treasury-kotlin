@@ -200,12 +200,12 @@ constructor(
                 additionalProperties = externalAccountCreateBody.additionalProperties.toMutableMap()
             }
 
-            fun counterpartyId(counterpartyId: String) = apply {
+            fun counterpartyId(counterpartyId: String?) = apply {
                 this.counterpartyId = counterpartyId
             }
 
-            fun accountDetails(accountDetails: List<AccountDetail>) = apply {
-                this.accountDetails = accountDetails.toMutableList()
+            fun accountDetails(accountDetails: List<AccountDetail>?) = apply {
+                this.accountDetails = accountDetails?.toMutableList()
             }
 
             fun addAccountDetail(accountDetail: AccountDetail) = apply {
@@ -213,12 +213,12 @@ constructor(
             }
 
             /** Can be `checking`, `savings` or `other`. */
-            fun accountType(accountType: ExternalAccountType) = apply {
+            fun accountType(accountType: ExternalAccountType?) = apply {
                 this.accountType = accountType
             }
 
-            fun contactDetails(contactDetails: List<ContactDetailCreateRequest>) = apply {
-                this.contactDetails = contactDetails.toMutableList()
+            fun contactDetails(contactDetails: List<ContactDetailCreateRequest>?) = apply {
+                this.contactDetails = contactDetails?.toMutableList()
             }
 
             fun addContactDetail(contactDetail: ContactDetailCreateRequest) = apply {
@@ -232,7 +232,7 @@ constructor(
              * https://docs.moderntreasury.com/docs/linking-to-other-modern-treasury-objects for
              * more details.
              */
-            fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest) = apply {
+            fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest?) = apply {
                 this.ledgerAccount = ledgerAccount
             }
 
@@ -240,39 +240,39 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /**
              * A nickname for the external account. This is only for internal usage and won't affect
              * any payments
              */
-            fun name(name: String) = apply { this.name = name }
+            fun name(name: String?) = apply { this.name = name }
 
             /** Required if receiving wire payments. */
-            fun partyAddress(partyAddress: AddressRequest) = apply {
+            fun partyAddress(partyAddress: AddressRequest?) = apply {
                 this.partyAddress = partyAddress
             }
 
-            fun partyIdentifier(partyIdentifier: String) = apply {
+            fun partyIdentifier(partyIdentifier: String?) = apply {
                 this.partyIdentifier = partyIdentifier
             }
 
             /** If this value isn't provided, it will be inherited from the counterparty's name. */
-            fun partyName(partyName: String) = apply { this.partyName = partyName }
+            fun partyName(partyName: String?) = apply { this.partyName = partyName }
 
             /** Either `individual` or `business`. */
-            fun partyType(partyType: PartyType) = apply { this.partyType = partyType }
+            fun partyType(partyType: PartyType?) = apply { this.partyType = partyType }
 
             /**
              * If you've enabled the Modern Treasury + Plaid integration in your Plaid account, you
              * can pass the processor token in this field.
              */
-            fun plaidProcessorToken(plaidProcessorToken: String) = apply {
+            fun plaidProcessorToken(plaidProcessorToken: String?) = apply {
                 this.plaidProcessorToken = plaidProcessorToken
             }
 
-            fun routingDetails(routingDetails: List<RoutingDetail>) = apply {
-                this.routingDetails = routingDetails.toMutableList()
+            fun routingDetails(routingDetails: List<RoutingDetail>?) = apply {
+                this.routingDetails = routingDetails?.toMutableList()
             }
 
             fun addRoutingDetail(routingDetail: RoutingDetail) = apply {
@@ -355,9 +355,9 @@ constructor(
             additionalQueryParams = externalAccountCreateParams.additionalQueryParams.toBuilder()
         }
 
-        fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
+        fun counterpartyId(counterpartyId: String?) = apply { body.counterpartyId(counterpartyId) }
 
-        fun accountDetails(accountDetails: List<AccountDetail>) = apply {
+        fun accountDetails(accountDetails: List<AccountDetail>?) = apply {
             body.accountDetails(accountDetails)
         }
 
@@ -366,9 +366,9 @@ constructor(
         }
 
         /** Can be `checking`, `savings` or `other`. */
-        fun accountType(accountType: ExternalAccountType) = apply { body.accountType(accountType) }
+        fun accountType(accountType: ExternalAccountType?) = apply { body.accountType(accountType) }
 
-        fun contactDetails(contactDetails: List<ContactDetailCreateRequest>) = apply {
+        fun contactDetails(contactDetails: List<ContactDetailCreateRequest>?) = apply {
             body.contactDetails(contactDetails)
         }
 
@@ -383,43 +383,43 @@ constructor(
          * https://docs.moderntreasury.com/docs/linking-to-other-modern-treasury-objects for more
          * details.
          */
-        fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest) = apply {
+        fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest?) = apply {
             body.ledgerAccount(ledgerAccount)
         }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
 
         /**
          * A nickname for the external account. This is only for internal usage and won't affect any
          * payments
          */
-        fun name(name: String) = apply { body.name(name) }
+        fun name(name: String?) = apply { body.name(name) }
 
         /** Required if receiving wire payments. */
-        fun partyAddress(partyAddress: AddressRequest) = apply { body.partyAddress(partyAddress) }
+        fun partyAddress(partyAddress: AddressRequest?) = apply { body.partyAddress(partyAddress) }
 
-        fun partyIdentifier(partyIdentifier: String) = apply {
+        fun partyIdentifier(partyIdentifier: String?) = apply {
             body.partyIdentifier(partyIdentifier)
         }
 
         /** If this value isn't provided, it will be inherited from the counterparty's name. */
-        fun partyName(partyName: String) = apply { body.partyName(partyName) }
+        fun partyName(partyName: String?) = apply { body.partyName(partyName) }
 
         /** Either `individual` or `business`. */
-        fun partyType(partyType: PartyType) = apply { body.partyType(partyType) }
+        fun partyType(partyType: PartyType?) = apply { body.partyType(partyType) }
 
         /**
          * If you've enabled the Modern Treasury + Plaid integration in your Plaid account, you can
          * pass the processor token in this field.
          */
-        fun plaidProcessorToken(plaidProcessorToken: String) = apply {
+        fun plaidProcessorToken(plaidProcessorToken: String?) = apply {
             body.plaidProcessorToken(plaidProcessorToken)
         }
 
-        fun routingDetails(routingDetails: List<RoutingDetail>) = apply {
+        fun routingDetails(routingDetails: List<RoutingDetail>?) = apply {
             body.routingDetails(routingDetails)
         }
 
@@ -592,7 +592,7 @@ constructor(
 
             fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
 
-            fun accountNumberType(accountNumberType: AccountNumberType) = apply {
+            fun accountNumberType(accountNumberType: AccountNumberType?) = apply {
                 this.accountNumberType = accountNumberType
             }
 
@@ -789,11 +789,11 @@ constructor(
                     contactDetailCreateRequest.additionalProperties.toMutableMap()
             }
 
-            fun contactIdentifier(contactIdentifier: String) = apply {
+            fun contactIdentifier(contactIdentifier: String?) = apply {
                 this.contactIdentifier = contactIdentifier
             }
 
-            fun contactIdentifierType(contactIdentifierType: ContactIdentifierType) = apply {
+            fun contactIdentifierType(contactIdentifierType: ContactIdentifierType?) = apply {
                 this.contactIdentifierType = contactIdentifierType
             }
 
@@ -1030,19 +1030,23 @@ constructor(
             }
 
             /** The currency exponent of the ledger account. */
-            fun currencyExponent(currencyExponent: Long) = apply {
+            fun currencyExponent(currencyExponent: Long?) = apply {
                 this.currencyExponent = currencyExponent
             }
 
+            /** The currency exponent of the ledger account. */
+            fun currencyExponent(currencyExponent: Long) =
+                currencyExponent(currencyExponent as Long?)
+
             /** The description of the ledger account. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /**
              * The array of ledger account category ids that this ledger account should be a child
              * of.
              */
-            fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>) = apply {
-                this.ledgerAccountCategoryIds = ledgerAccountCategoryIds.toMutableList()
+            fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>?) = apply {
+                this.ledgerAccountCategoryIds = ledgerAccountCategoryIds?.toMutableList()
             }
 
             /**
@@ -1060,14 +1064,14 @@ constructor(
              * If the ledger account links to another object in Modern Treasury, the id will be
              * populated here, otherwise null.
              */
-            fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
+            fun ledgerableId(ledgerableId: String?) = apply { this.ledgerableId = ledgerableId }
 
             /**
              * If the ledger account links to another object in Modern Treasury, the type will be
              * populated here, otherwise null. The value is one of internal_account or
              * external_account.
              */
-            fun ledgerableType(ledgerableType: LedgerableType) = apply {
+            fun ledgerableType(ledgerableType: LedgerableType?) = apply {
                 this.ledgerableType = ledgerableType
             }
 
@@ -1075,7 +1079,7 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1402,20 +1406,20 @@ constructor(
             }
 
             /** Country code conforms to [ISO 3166-1 alpha-2] */
-            fun country(country: String) = apply { this.country = country }
+            fun country(country: String?) = apply { this.country = country }
 
-            fun line1(line1: String) = apply { this.line1 = line1 }
+            fun line1(line1: String?) = apply { this.line1 = line1 }
 
-            fun line2(line2: String) = apply { this.line2 = line2 }
+            fun line2(line2: String?) = apply { this.line2 = line2 }
 
             /** Locality or City. */
-            fun locality(locality: String) = apply { this.locality = locality }
+            fun locality(locality: String?) = apply { this.locality = locality }
 
             /** The postal code of the address. */
-            fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
+            fun postalCode(postalCode: String?) = apply { this.postalCode = postalCode }
 
             /** Region or State. */
-            fun region(region: String) = apply { this.region = region }
+            fun region(region: String?) = apply { this.region = region }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1572,7 +1576,7 @@ constructor(
                 this.routingNumberType = routingNumberType
             }
 
-            fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
+            fun paymentType(paymentType: PaymentType?) = apply { this.paymentType = paymentType }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()

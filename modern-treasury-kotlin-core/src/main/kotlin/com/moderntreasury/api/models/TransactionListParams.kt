@@ -151,31 +151,31 @@ constructor(
             additionalQueryParams = transactionListParams.additionalQueryParams.toBuilder()
         }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
         /**
          * Filters transactions with an `as_of_date` starting on or before the specified date
          * (YYYY-MM-DD).
          */
-        fun asOfDateEnd(asOfDateEnd: LocalDate) = apply { this.asOfDateEnd = asOfDateEnd }
+        fun asOfDateEnd(asOfDateEnd: LocalDate?) = apply { this.asOfDateEnd = asOfDateEnd }
 
         /**
          * Filters transactions with an `as_of_date` starting on or after the specified date
          * (YYYY-MM-DD).
          */
-        fun asOfDateStart(asOfDateStart: LocalDate) = apply { this.asOfDateStart = asOfDateStart }
+        fun asOfDateStart(asOfDateStart: LocalDate?) = apply { this.asOfDateStart = asOfDateStart }
 
-        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
+        fun counterpartyId(counterpartyId: String?) = apply { this.counterpartyId = counterpartyId }
 
         /** Filters for transactions including the queried string in the description. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String?) = apply { this.description = description }
 
-        fun direction(direction: String) = apply { this.direction = direction }
+        fun direction(direction: String?) = apply { this.direction = direction }
 
         /**
          * Specify `internal_account_id` if you wish to see transactions to/from a specific account.
          */
-        fun internalAccountId(internalAccountId: String) = apply {
+        fun internalAccountId(internalAccountId: String?) = apply {
             this.internalAccountId = internalAccountId
         }
 
@@ -183,16 +183,21 @@ constructor(
          * For example, if you want to query for records with metadata key `Type` and value `Loan`,
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
-        fun paymentType(paymentType: String) = apply { this.paymentType = paymentType }
+        fun paymentType(paymentType: String?) = apply { this.paymentType = paymentType }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
+
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /** Either `true` or `false`. */
-        fun posted(posted: Boolean) = apply { this.posted = posted }
+        fun posted(posted: Boolean?) = apply { this.posted = posted }
 
-        fun transactableType(transactableType: String) = apply {
+        /** Either `true` or `false`. */
+        fun posted(posted: Boolean) = posted(posted as Boolean?)
+
+        fun transactableType(transactableType: String?) = apply {
             this.transactableType = transactableType
         }
 
@@ -200,9 +205,9 @@ constructor(
          * Filters for transactions including the queried vendor id (an identifier given to
          * transactions by the bank).
          */
-        fun vendorId(vendorId: String) = apply { this.vendorId = vendorId }
+        fun vendorId(vendorId: String?) = apply { this.vendorId = vendorId }
 
-        fun virtualAccountId(virtualAccountId: String) = apply {
+        fun virtualAccountId(virtualAccountId: String?) = apply {
             this.virtualAccountId = virtualAccountId
         }
 
