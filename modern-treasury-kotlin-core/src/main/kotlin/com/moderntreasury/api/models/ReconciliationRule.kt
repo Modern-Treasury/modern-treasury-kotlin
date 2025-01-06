@@ -22,48 +22,48 @@ import java.util.Objects
 class ReconciliationRule
 @JsonCreator
 private constructor(
-    @JsonProperty("amount_upper_bound")
-    @ExcludeMissing
-    private val amountUpperBound: JsonField<Long> = JsonMissing.of(),
     @JsonProperty("amount_lower_bound")
     @ExcludeMissing
     private val amountLowerBound: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("amount_upper_bound")
+    @ExcludeMissing
+    private val amountUpperBound: JsonField<Long> = JsonMissing.of(),
     @JsonProperty("direction")
     @ExcludeMissing
     private val direction: JsonField<Direction> = JsonMissing.of(),
     @JsonProperty("internal_account_id")
     @ExcludeMissing
     private val internalAccountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonProperty("currency")
-    @ExcludeMissing
-    private val currency: JsonField<Currency> = JsonMissing.of(),
-    @JsonProperty("date_upper_bound")
-    @ExcludeMissing
-    private val dateUpperBound: JsonField<LocalDate> = JsonMissing.of(),
-    @JsonProperty("date_lower_bound")
-    @ExcludeMissing
-    private val dateLowerBound: JsonField<LocalDate> = JsonMissing.of(),
     @JsonProperty("counterparty_id")
     @ExcludeMissing
     private val counterpartyId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("currency")
+    @ExcludeMissing
+    private val currency: JsonField<Currency> = JsonMissing.of(),
     @JsonProperty("custom_identifiers")
     @ExcludeMissing
     private val customIdentifiers: JsonField<CustomIdentifiers> = JsonMissing.of(),
+    @JsonProperty("date_lower_bound")
+    @ExcludeMissing
+    private val dateLowerBound: JsonField<LocalDate> = JsonMissing.of(),
+    @JsonProperty("date_upper_bound")
+    @ExcludeMissing
+    private val dateUpperBound: JsonField<LocalDate> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
-
-    /**
-     * The highest amount this expected payment may be equal to. Value in specified currency's
-     * smallest unit. e.g. $10 would be represented as 1000.
-     */
-    fun amountUpperBound(): Long = amountUpperBound.getRequired("amount_upper_bound")
 
     /**
      * The lowest amount this expected payment may be equal to. Value in specified currency's
      * smallest unit. e.g. $10 would be represented as 1000.
      */
     fun amountLowerBound(): Long = amountLowerBound.getRequired("amount_lower_bound")
+
+    /**
+     * The highest amount this expected payment may be equal to. Value in specified currency's
+     * smallest unit. e.g. $10 would be represented as 1000.
+     */
+    fun amountUpperBound(): Long = amountUpperBound.getRequired("amount_upper_bound")
 
     /**
      * One of credit or debit. When you are receiving money, use credit. When you are being charged,
@@ -74,39 +74,39 @@ private constructor(
     /** The ID of the Internal Account for the expected payment */
     fun internalAccountId(): String = internalAccountId.getRequired("internal_account_id")
 
+    /** The ID of the counterparty you expect for this payment */
+    fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
+
+    /** Must conform to ISO 4217. Defaults to the currency of the internal account */
+    fun currency(): Currency? = currency.getNullable("currency")
+
+    /** A hash of custom identifiers for this payment */
+    fun customIdentifiers(): CustomIdentifiers? =
+        customIdentifiers.getNullable("custom_identifiers")
+
+    /** The earliest date the payment may come in. Format is yyyy-mm-dd */
+    fun dateLowerBound(): LocalDate? = dateLowerBound.getNullable("date_lower_bound")
+
+    /** The latest date the payment may come in. Format is yyyy-mm-dd */
+    fun dateUpperBound(): LocalDate? = dateUpperBound.getNullable("date_upper_bound")
+
     /**
      * One of ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa, signet
      * wire
      */
     fun type(): Type? = type.getNullable("type")
 
-    /** Must conform to ISO 4217. Defaults to the currency of the internal account */
-    fun currency(): Currency? = currency.getNullable("currency")
-
-    /** The latest date the payment may come in. Format is yyyy-mm-dd */
-    fun dateUpperBound(): LocalDate? = dateUpperBound.getNullable("date_upper_bound")
-
-    /** The earliest date the payment may come in. Format is yyyy-mm-dd */
-    fun dateLowerBound(): LocalDate? = dateLowerBound.getNullable("date_lower_bound")
-
-    /** The ID of the counterparty you expect for this payment */
-    fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
-
-    /** A hash of custom identifiers for this payment */
-    fun customIdentifiers(): CustomIdentifiers? =
-        customIdentifiers.getNullable("custom_identifiers")
+    /**
+     * The lowest amount this expected payment may be equal to. Value in specified currency's
+     * smallest unit. e.g. $10 would be represented as 1000.
+     */
+    @JsonProperty("amount_lower_bound") @ExcludeMissing fun _amountLowerBound() = amountLowerBound
 
     /**
      * The highest amount this expected payment may be equal to. Value in specified currency's
      * smallest unit. e.g. $10 would be represented as 1000.
      */
     @JsonProperty("amount_upper_bound") @ExcludeMissing fun _amountUpperBound() = amountUpperBound
-
-    /**
-     * The lowest amount this expected payment may be equal to. Value in specified currency's
-     * smallest unit. e.g. $10 would be represented as 1000.
-     */
-    @JsonProperty("amount_lower_bound") @ExcludeMissing fun _amountLowerBound() = amountLowerBound
 
     /**
      * One of credit or debit. When you are receiving money, use credit. When you are being charged,
@@ -119,26 +119,26 @@ private constructor(
     @ExcludeMissing
     fun _internalAccountId() = internalAccountId
 
+    /** The ID of the counterparty you expect for this payment */
+    @JsonProperty("counterparty_id") @ExcludeMissing fun _counterpartyId() = counterpartyId
+
+    /** Must conform to ISO 4217. Defaults to the currency of the internal account */
+    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+    /** A hash of custom identifiers for this payment */
+    @JsonProperty("custom_identifiers") @ExcludeMissing fun _customIdentifiers() = customIdentifiers
+
+    /** The earliest date the payment may come in. Format is yyyy-mm-dd */
+    @JsonProperty("date_lower_bound") @ExcludeMissing fun _dateLowerBound() = dateLowerBound
+
+    /** The latest date the payment may come in. Format is yyyy-mm-dd */
+    @JsonProperty("date_upper_bound") @ExcludeMissing fun _dateUpperBound() = dateUpperBound
+
     /**
      * One of ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa, signet
      * wire
      */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
-
-    /** Must conform to ISO 4217. Defaults to the currency of the internal account */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-    /** The latest date the payment may come in. Format is yyyy-mm-dd */
-    @JsonProperty("date_upper_bound") @ExcludeMissing fun _dateUpperBound() = dateUpperBound
-
-    /** The earliest date the payment may come in. Format is yyyy-mm-dd */
-    @JsonProperty("date_lower_bound") @ExcludeMissing fun _dateLowerBound() = dateLowerBound
-
-    /** The ID of the counterparty you expect for this payment */
-    @JsonProperty("counterparty_id") @ExcludeMissing fun _counterpartyId() = counterpartyId
-
-    /** A hash of custom identifiers for this payment */
-    @JsonProperty("custom_identifiers") @ExcludeMissing fun _customIdentifiers() = customIdentifiers
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -148,16 +148,16 @@ private constructor(
 
     fun validate(): ReconciliationRule = apply {
         if (!validated) {
-            amountUpperBound()
             amountLowerBound()
+            amountUpperBound()
             direction()
             internalAccountId()
-            type()
-            currency()
-            dateUpperBound()
-            dateLowerBound()
             counterpartyId()
+            currency()
             customIdentifiers()?.validate()
+            dateLowerBound()
+            dateUpperBound()
+            type()
             validated = true
         }
     }
@@ -171,45 +171,30 @@ private constructor(
 
     class Builder {
 
-        private var amountUpperBound: JsonField<Long> = JsonMissing.of()
         private var amountLowerBound: JsonField<Long> = JsonMissing.of()
+        private var amountUpperBound: JsonField<Long> = JsonMissing.of()
         private var direction: JsonField<Direction> = JsonMissing.of()
         private var internalAccountId: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
-        private var dateUpperBound: JsonField<LocalDate> = JsonMissing.of()
-        private var dateLowerBound: JsonField<LocalDate> = JsonMissing.of()
         private var counterpartyId: JsonField<String> = JsonMissing.of()
+        private var currency: JsonField<Currency> = JsonMissing.of()
         private var customIdentifiers: JsonField<CustomIdentifiers> = JsonMissing.of()
+        private var dateLowerBound: JsonField<LocalDate> = JsonMissing.of()
+        private var dateUpperBound: JsonField<LocalDate> = JsonMissing.of()
+        private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(reconciliationRule: ReconciliationRule) = apply {
-            amountUpperBound = reconciliationRule.amountUpperBound
             amountLowerBound = reconciliationRule.amountLowerBound
+            amountUpperBound = reconciliationRule.amountUpperBound
             direction = reconciliationRule.direction
             internalAccountId = reconciliationRule.internalAccountId
-            type = reconciliationRule.type
-            currency = reconciliationRule.currency
-            dateUpperBound = reconciliationRule.dateUpperBound
-            dateLowerBound = reconciliationRule.dateLowerBound
             counterpartyId = reconciliationRule.counterpartyId
+            currency = reconciliationRule.currency
             customIdentifiers = reconciliationRule.customIdentifiers
+            dateLowerBound = reconciliationRule.dateLowerBound
+            dateUpperBound = reconciliationRule.dateUpperBound
+            type = reconciliationRule.type
             additionalProperties = reconciliationRule.additionalProperties.toMutableMap()
-        }
-
-        /**
-         * The highest amount this expected payment may be equal to. Value in specified currency's
-         * smallest unit. e.g. $10 would be represented as 1000.
-         */
-        fun amountUpperBound(amountUpperBound: Long) =
-            amountUpperBound(JsonField.of(amountUpperBound))
-
-        /**
-         * The highest amount this expected payment may be equal to. Value in specified currency's
-         * smallest unit. e.g. $10 would be represented as 1000.
-         */
-        fun amountUpperBound(amountUpperBound: JsonField<Long>) = apply {
-            this.amountUpperBound = amountUpperBound
         }
 
         /**
@@ -225,6 +210,21 @@ private constructor(
          */
         fun amountLowerBound(amountLowerBound: JsonField<Long>) = apply {
             this.amountLowerBound = amountLowerBound
+        }
+
+        /**
+         * The highest amount this expected payment may be equal to. Value in specified currency's
+         * smallest unit. e.g. $10 would be represented as 1000.
+         */
+        fun amountUpperBound(amountUpperBound: Long) =
+            amountUpperBound(JsonField.of(amountUpperBound))
+
+        /**
+         * The highest amount this expected payment may be equal to. Value in specified currency's
+         * smallest unit. e.g. $10 would be represented as 1000.
+         */
+        fun amountUpperBound(amountUpperBound: JsonField<Long>) = apply {
+            this.amountUpperBound = amountUpperBound
         }
 
         /**
@@ -248,6 +248,45 @@ private constructor(
             this.internalAccountId = internalAccountId
         }
 
+        /** The ID of the counterparty you expect for this payment */
+        fun counterpartyId(counterpartyId: String) = counterpartyId(JsonField.of(counterpartyId))
+
+        /** The ID of the counterparty you expect for this payment */
+        fun counterpartyId(counterpartyId: JsonField<String>) = apply {
+            this.counterpartyId = counterpartyId
+        }
+
+        /** Must conform to ISO 4217. Defaults to the currency of the internal account */
+        fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+        /** Must conform to ISO 4217. Defaults to the currency of the internal account */
+        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+        /** A hash of custom identifiers for this payment */
+        fun customIdentifiers(customIdentifiers: CustomIdentifiers) =
+            customIdentifiers(JsonField.of(customIdentifiers))
+
+        /** A hash of custom identifiers for this payment */
+        fun customIdentifiers(customIdentifiers: JsonField<CustomIdentifiers>) = apply {
+            this.customIdentifiers = customIdentifiers
+        }
+
+        /** The earliest date the payment may come in. Format is yyyy-mm-dd */
+        fun dateLowerBound(dateLowerBound: LocalDate) = dateLowerBound(JsonField.of(dateLowerBound))
+
+        /** The earliest date the payment may come in. Format is yyyy-mm-dd */
+        fun dateLowerBound(dateLowerBound: JsonField<LocalDate>) = apply {
+            this.dateLowerBound = dateLowerBound
+        }
+
+        /** The latest date the payment may come in. Format is yyyy-mm-dd */
+        fun dateUpperBound(dateUpperBound: LocalDate) = dateUpperBound(JsonField.of(dateUpperBound))
+
+        /** The latest date the payment may come in. Format is yyyy-mm-dd */
+        fun dateUpperBound(dateUpperBound: JsonField<LocalDate>) = apply {
+            this.dateUpperBound = dateUpperBound
+        }
+
         /**
          * One of ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa, signet
          * wire
@@ -259,45 +298,6 @@ private constructor(
          * wire
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
-
-        /** Must conform to ISO 4217. Defaults to the currency of the internal account */
-        fun currency(currency: Currency) = currency(JsonField.of(currency))
-
-        /** Must conform to ISO 4217. Defaults to the currency of the internal account */
-        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-        /** The latest date the payment may come in. Format is yyyy-mm-dd */
-        fun dateUpperBound(dateUpperBound: LocalDate) = dateUpperBound(JsonField.of(dateUpperBound))
-
-        /** The latest date the payment may come in. Format is yyyy-mm-dd */
-        fun dateUpperBound(dateUpperBound: JsonField<LocalDate>) = apply {
-            this.dateUpperBound = dateUpperBound
-        }
-
-        /** The earliest date the payment may come in. Format is yyyy-mm-dd */
-        fun dateLowerBound(dateLowerBound: LocalDate) = dateLowerBound(JsonField.of(dateLowerBound))
-
-        /** The earliest date the payment may come in. Format is yyyy-mm-dd */
-        fun dateLowerBound(dateLowerBound: JsonField<LocalDate>) = apply {
-            this.dateLowerBound = dateLowerBound
-        }
-
-        /** The ID of the counterparty you expect for this payment */
-        fun counterpartyId(counterpartyId: String) = counterpartyId(JsonField.of(counterpartyId))
-
-        /** The ID of the counterparty you expect for this payment */
-        fun counterpartyId(counterpartyId: JsonField<String>) = apply {
-            this.counterpartyId = counterpartyId
-        }
-
-        /** A hash of custom identifiers for this payment */
-        fun customIdentifiers(customIdentifiers: CustomIdentifiers) =
-            customIdentifiers(JsonField.of(customIdentifiers))
-
-        /** A hash of custom identifiers for this payment */
-        fun customIdentifiers(customIdentifiers: JsonField<CustomIdentifiers>) = apply {
-            this.customIdentifiers = customIdentifiers
-        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -320,16 +320,16 @@ private constructor(
 
         fun build(): ReconciliationRule =
             ReconciliationRule(
-                amountUpperBound,
                 amountLowerBound,
+                amountUpperBound,
                 direction,
                 internalAccountId,
-                type,
-                currency,
-                dateUpperBound,
-                dateLowerBound,
                 counterpartyId,
+                currency,
                 customIdentifiers,
+                dateLowerBound,
+                dateUpperBound,
+                type,
                 additionalProperties.toImmutable(),
             )
     }
@@ -696,15 +696,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ReconciliationRule && amountUpperBound == other.amountUpperBound && amountLowerBound == other.amountLowerBound && direction == other.direction && internalAccountId == other.internalAccountId && type == other.type && currency == other.currency && dateUpperBound == other.dateUpperBound && dateLowerBound == other.dateLowerBound && counterpartyId == other.counterpartyId && customIdentifiers == other.customIdentifiers && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is ReconciliationRule && amountLowerBound == other.amountLowerBound && amountUpperBound == other.amountUpperBound && direction == other.direction && internalAccountId == other.internalAccountId && counterpartyId == other.counterpartyId && currency == other.currency && customIdentifiers == other.customIdentifiers && dateLowerBound == other.dateLowerBound && dateUpperBound == other.dateUpperBound && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(amountUpperBound, amountLowerBound, direction, internalAccountId, type, currency, dateUpperBound, dateLowerBound, counterpartyId, customIdentifiers, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(amountLowerBound, amountUpperBound, direction, internalAccountId, counterpartyId, currency, customIdentifiers, dateLowerBound, dateUpperBound, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ReconciliationRule{amountUpperBound=$amountUpperBound, amountLowerBound=$amountLowerBound, direction=$direction, internalAccountId=$internalAccountId, type=$type, currency=$currency, dateUpperBound=$dateUpperBound, dateLowerBound=$dateLowerBound, counterpartyId=$counterpartyId, customIdentifiers=$customIdentifiers, additionalProperties=$additionalProperties}"
+        "ReconciliationRule{amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, direction=$direction, internalAccountId=$internalAccountId, counterpartyId=$counterpartyId, currency=$currency, customIdentifiers=$customIdentifiers, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, type=$type, additionalProperties=$additionalProperties}"
 }

@@ -21,27 +21,27 @@ class Connection
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
     @JsonProperty("created_at")
     @ExcludeMissing
     private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("discarded_at")
     @ExcludeMissing
     private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("vendor_id")
+    @JsonProperty("live_mode")
     @ExcludeMissing
-    private val vendorId: JsonField<String> = JsonMissing.of(),
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("vendor_customer_id")
     @ExcludeMissing
     private val vendorCustomerId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("vendor_id")
+    @ExcludeMissing
+    private val vendorId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("vendor_name")
     @ExcludeMissing
     private val vendorName: JsonField<String> = JsonMissing.of(),
@@ -50,7 +50,9 @@ private constructor(
 
     fun id(): String = id.getRequired("id")
 
-    fun object_(): String = object_.getRequired("object")
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
@@ -58,24 +60,24 @@ private constructor(
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+    fun object_(): String = object_.getRequired("object")
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
+    /** An identifier given to this connection by the bank. */
+    fun vendorCustomerId(): String? = vendorCustomerId.getNullable("vendor_customer_id")
 
     /** Unique identifier for the bank or vendor. */
     fun vendorId(): String = vendorId.getRequired("vendor_id")
-
-    /** An identifier given to this connection by the bank. */
-    fun vendorCustomerId(): String? = vendorCustomerId.getNullable("vendor_customer_id")
 
     /** A human-friendly name for the bank or vendor. */
     fun vendorName(): String = vendorName.getRequired("vendor_name")
 
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
@@ -83,17 +85,15 @@ private constructor(
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
     @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
-    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+    /** An identifier given to this connection by the bank. */
+    @JsonProperty("vendor_customer_id") @ExcludeMissing fun _vendorCustomerId() = vendorCustomerId
 
     /** Unique identifier for the bank or vendor. */
     @JsonProperty("vendor_id") @ExcludeMissing fun _vendorId() = vendorId
-
-    /** An identifier given to this connection by the bank. */
-    @JsonProperty("vendor_customer_id") @ExcludeMissing fun _vendorCustomerId() = vendorCustomerId
 
     /** A human-friendly name for the bank or vendor. */
     @JsonProperty("vendor_name") @ExcludeMissing fun _vendorName() = vendorName
@@ -107,13 +107,13 @@ private constructor(
     fun validate(): Connection = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
             createdAt()
-            updatedAt()
             discardedAt()
-            vendorId()
+            liveMode()
+            object_()
+            updatedAt()
             vendorCustomerId()
+            vendorId()
             vendorName()
             validated = true
         }
@@ -129,25 +129,25 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var vendorId: JsonField<String> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var vendorCustomerId: JsonField<String> = JsonMissing.of()
+        private var vendorId: JsonField<String> = JsonMissing.of()
         private var vendorName: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(connection: Connection) = apply {
             id = connection.id
-            object_ = connection.object_
-            liveMode = connection.liveMode
             createdAt = connection.createdAt
-            updatedAt = connection.updatedAt
             discardedAt = connection.discardedAt
-            vendorId = connection.vendorId
+            liveMode = connection.liveMode
+            object_ = connection.object_
+            updatedAt = connection.updatedAt
             vendorCustomerId = connection.vendorCustomerId
+            vendorId = connection.vendorId
             vendorName = connection.vendorName
             additionalProperties = connection.additionalProperties.toMutableMap()
         }
@@ -156,9 +156,15 @@ private constructor(
 
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun object_(object_: String) = object_(JsonField.of(object_))
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+
+        fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
+            this.discardedAt = discardedAt
+        }
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -172,25 +178,13 @@ private constructor(
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+        fun object_(object_: String) = object_(JsonField.of(object_))
 
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
-
-        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
-
-        fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
-            this.discardedAt = discardedAt
-        }
-
-        /** Unique identifier for the bank or vendor. */
-        fun vendorId(vendorId: String) = vendorId(JsonField.of(vendorId))
-
-        /** Unique identifier for the bank or vendor. */
-        fun vendorId(vendorId: JsonField<String>) = apply { this.vendorId = vendorId }
 
         /** An identifier given to this connection by the bank. */
         fun vendorCustomerId(vendorCustomerId: String) =
@@ -200,6 +194,12 @@ private constructor(
         fun vendorCustomerId(vendorCustomerId: JsonField<String>) = apply {
             this.vendorCustomerId = vendorCustomerId
         }
+
+        /** Unique identifier for the bank or vendor. */
+        fun vendorId(vendorId: String) = vendorId(JsonField.of(vendorId))
+
+        /** Unique identifier for the bank or vendor. */
+        fun vendorId(vendorId: JsonField<String>) = apply { this.vendorId = vendorId }
 
         /** A human-friendly name for the bank or vendor. */
         fun vendorName(vendorName: String) = vendorName(JsonField.of(vendorName))
@@ -229,13 +229,13 @@ private constructor(
         fun build(): Connection =
             Connection(
                 id,
-                object_,
-                liveMode,
                 createdAt,
-                updatedAt,
                 discardedAt,
-                vendorId,
+                liveMode,
+                object_,
+                updatedAt,
                 vendorCustomerId,
+                vendorId,
                 vendorName,
                 additionalProperties.toImmutable(),
             )
@@ -246,15 +246,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Connection && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && discardedAt == other.discardedAt && vendorId == other.vendorId && vendorCustomerId == other.vendorCustomerId && vendorName == other.vendorName && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Connection && id == other.id && createdAt == other.createdAt && discardedAt == other.discardedAt && liveMode == other.liveMode && object_ == other.object_ && updatedAt == other.updatedAt && vendorCustomerId == other.vendorCustomerId && vendorId == other.vendorId && vendorName == other.vendorName && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, vendorId, vendorCustomerId, vendorName, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, createdAt, discardedAt, liveMode, object_, updatedAt, vendorCustomerId, vendorId, vendorName, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Connection{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, vendorId=$vendorId, vendorCustomerId=$vendorCustomerId, vendorName=$vendorName, additionalProperties=$additionalProperties}"
+        "Connection{id=$id, createdAt=$createdAt, discardedAt=$discardedAt, liveMode=$liveMode, object_=$object_, updatedAt=$updatedAt, vendorCustomerId=$vendorCustomerId, vendorId=$vendorId, vendorName=$vendorName, additionalProperties=$additionalProperties}"
 }

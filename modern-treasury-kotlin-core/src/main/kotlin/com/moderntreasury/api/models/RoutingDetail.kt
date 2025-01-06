@@ -23,42 +23,49 @@ class RoutingDetail
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
+    @JsonProperty("bank_address")
     @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
+    private val bankAddress: JsonField<Address> = JsonMissing.of(),
+    @JsonProperty("bank_name")
     @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    private val bankName: JsonField<String> = JsonMissing.of(),
     @JsonProperty("created_at")
     @ExcludeMissing
     private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("discarded_at")
     @ExcludeMissing
     private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("payment_type")
+    @ExcludeMissing
+    private val paymentType: JsonField<PaymentType> = JsonMissing.of(),
     @JsonProperty("routing_number")
     @ExcludeMissing
     private val routingNumber: JsonField<String> = JsonMissing.of(),
     @JsonProperty("routing_number_type")
     @ExcludeMissing
     private val routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of(),
-    @JsonProperty("payment_type")
+    @JsonProperty("updated_at")
     @ExcludeMissing
-    private val paymentType: JsonField<PaymentType> = JsonMissing.of(),
-    @JsonProperty("bank_name")
-    @ExcludeMissing
-    private val bankName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("bank_address")
-    @ExcludeMissing
-    private val bankAddress: JsonField<Address> = JsonMissing.of(),
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
 
-    fun object_(): String = object_.getRequired("object")
+    fun bankAddress(): Address? = bankAddress.getNullable("bank_address")
+
+    /** The name of the bank. */
+    fun bankName(): String = bankName.getRequired("bank_name")
+
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
@@ -66,11 +73,13 @@ private constructor(
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+    fun object_(): String = object_.getRequired("object")
 
-    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
-
-    fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
+    /**
+     * If the routing detail is to be used for a specific payment type this field will be populated,
+     * otherwise null.
+     */
+    fun paymentType(): PaymentType? = paymentType.getNullable("payment_type")
 
     /** The routing number of the bank. */
     fun routingNumber(): String = routingNumber.getRequired("routing_number")
@@ -82,20 +91,18 @@ private constructor(
     fun routingNumberType(): RoutingNumberType =
         routingNumberType.getRequired("routing_number_type")
 
-    /**
-     * If the routing detail is to be used for a specific payment type this field will be populated,
-     * otherwise null.
-     */
-    fun paymentType(): PaymentType? = paymentType.getNullable("payment_type")
-
-    /** The name of the bank. */
-    fun bankName(): String = bankName.getRequired("bank_name")
-
-    fun bankAddress(): Address? = bankAddress.getNullable("bank_address")
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("bank_address") @ExcludeMissing fun _bankAddress() = bankAddress
+
+    /** The name of the bank. */
+    @JsonProperty("bank_name") @ExcludeMissing fun _bankName() = bankName
+
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
@@ -103,11 +110,13 @@ private constructor(
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
-    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+    /**
+     * If the routing detail is to be used for a specific payment type this field will be populated,
+     * otherwise null.
+     */
+    @JsonProperty("payment_type") @ExcludeMissing fun _paymentType() = paymentType
 
     /** The routing number of the bank. */
     @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
@@ -120,16 +129,7 @@ private constructor(
     @ExcludeMissing
     fun _routingNumberType() = routingNumberType
 
-    /**
-     * If the routing detail is to be used for a specific payment type this field will be populated,
-     * otherwise null.
-     */
-    @JsonProperty("payment_type") @ExcludeMissing fun _paymentType() = paymentType
-
-    /** The name of the bank. */
-    @JsonProperty("bank_name") @ExcludeMissing fun _bankName() = bankName
-
-    @JsonProperty("bank_address") @ExcludeMissing fun _bankAddress() = bankAddress
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -140,16 +140,16 @@ private constructor(
     fun validate(): RoutingDetail = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
+            bankAddress()?.validate()
+            bankName()
             createdAt()
-            updatedAt()
             discardedAt()
+            liveMode()
+            object_()
+            paymentType()
             routingNumber()
             routingNumberType()
-            paymentType()
-            bankName()
-            bankAddress()?.validate()
+            updatedAt()
             validated = true
         }
     }
@@ -164,30 +164,30 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var bankAddress: JsonField<Address> = JsonMissing.of()
+        private var bankName: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
+        private var paymentType: JsonField<PaymentType> = JsonMissing.of()
         private var routingNumber: JsonField<String> = JsonMissing.of()
         private var routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of()
-        private var paymentType: JsonField<PaymentType> = JsonMissing.of()
-        private var bankName: JsonField<String> = JsonMissing.of()
-        private var bankAddress: JsonField<Address> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(routingDetail: RoutingDetail) = apply {
             id = routingDetail.id
-            object_ = routingDetail.object_
-            liveMode = routingDetail.liveMode
+            bankAddress = routingDetail.bankAddress
+            bankName = routingDetail.bankName
             createdAt = routingDetail.createdAt
-            updatedAt = routingDetail.updatedAt
             discardedAt = routingDetail.discardedAt
+            liveMode = routingDetail.liveMode
+            object_ = routingDetail.object_
+            paymentType = routingDetail.paymentType
             routingNumber = routingDetail.routingNumber
             routingNumberType = routingDetail.routingNumberType
-            paymentType = routingDetail.paymentType
-            bankName = routingDetail.bankName
-            bankAddress = routingDetail.bankAddress
+            updatedAt = routingDetail.updatedAt
             additionalProperties = routingDetail.additionalProperties.toMutableMap()
         }
 
@@ -195,9 +195,25 @@ private constructor(
 
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun object_(object_: String) = object_(JsonField.of(object_))
+        fun bankAddress(bankAddress: Address) = bankAddress(JsonField.of(bankAddress))
 
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        fun bankAddress(bankAddress: JsonField<Address>) = apply { this.bankAddress = bankAddress }
+
+        /** The name of the bank. */
+        fun bankName(bankName: String) = bankName(JsonField.of(bankName))
+
+        /** The name of the bank. */
+        fun bankName(bankName: JsonField<String>) = apply { this.bankName = bankName }
+
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+
+        fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
+            this.discardedAt = discardedAt
+        }
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -211,18 +227,22 @@ private constructor(
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+        fun object_(object_: String) = object_(JsonField.of(object_))
 
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+        /**
+         * If the routing detail is to be used for a specific payment type this field will be
+         * populated, otherwise null.
+         */
+        fun paymentType(paymentType: PaymentType) = paymentType(JsonField.of(paymentType))
 
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
-
-        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
-
-        fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
-            this.discardedAt = discardedAt
+        /**
+         * If the routing detail is to be used for a specific payment type this field will be
+         * populated, otherwise null.
+         */
+        fun paymentType(paymentType: JsonField<PaymentType>) = apply {
+            this.paymentType = paymentType
         }
 
         /** The routing number of the bank. */
@@ -250,29 +270,9 @@ private constructor(
             this.routingNumberType = routingNumberType
         }
 
-        /**
-         * If the routing detail is to be used for a specific payment type this field will be
-         * populated, otherwise null.
-         */
-        fun paymentType(paymentType: PaymentType) = paymentType(JsonField.of(paymentType))
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
-        /**
-         * If the routing detail is to be used for a specific payment type this field will be
-         * populated, otherwise null.
-         */
-        fun paymentType(paymentType: JsonField<PaymentType>) = apply {
-            this.paymentType = paymentType
-        }
-
-        /** The name of the bank. */
-        fun bankName(bankName: String) = bankName(JsonField.of(bankName))
-
-        /** The name of the bank. */
-        fun bankName(bankName: JsonField<String>) = apply { this.bankName = bankName }
-
-        fun bankAddress(bankAddress: Address) = bankAddress(JsonField.of(bankAddress))
-
-        fun bankAddress(bankAddress: JsonField<Address>) = apply { this.bankAddress = bankAddress }
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -296,16 +296,16 @@ private constructor(
         fun build(): RoutingDetail =
             RoutingDetail(
                 id,
-                object_,
-                liveMode,
+                bankAddress,
+                bankName,
                 createdAt,
-                updatedAt,
                 discardedAt,
+                liveMode,
+                object_,
+                paymentType,
                 routingNumber,
                 routingNumberType,
-                paymentType,
-                bankName,
-                bankAddress,
+                updatedAt,
                 additionalProperties.toImmutable(),
             )
     }
@@ -315,43 +315,50 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("object")
+        @JsonProperty("country")
         @ExcludeMissing
-        private val object_: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("live_mode")
-        @ExcludeMissing
-        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+        private val country: JsonField<String> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
         private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("line1")
         @ExcludeMissing
         private val line1: JsonField<String> = JsonMissing.of(),
         @JsonProperty("line2")
         @ExcludeMissing
         private val line2: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("live_mode")
+        @ExcludeMissing
+        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("locality")
         @ExcludeMissing
         private val locality: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("region")
+        @JsonProperty("object")
         @ExcludeMissing
-        private val region: JsonField<String> = JsonMissing.of(),
+        private val object_: JsonField<String> = JsonMissing.of(),
         @JsonProperty("postal_code")
         @ExcludeMissing
         private val postalCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("country")
+        @JsonProperty("region")
         @ExcludeMissing
-        private val country: JsonField<String> = JsonMissing.of(),
+        private val region: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         fun id(): String = id.getRequired("id")
 
-        fun object_(): String = object_.getRequired("object")
+        /** Country code conforms to [ISO 3166-1 alpha-2] */
+        fun country(): String? = country.getNullable("country")
+
+        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+        fun line1(): String? = line1.getNullable("line1")
+
+        fun line2(): String? = line2.getNullable("line2")
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -359,29 +366,29 @@ private constructor(
          */
         fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-        fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
-
-        fun line1(): String? = line1.getNullable("line1")
-
-        fun line2(): String? = line2.getNullable("line2")
-
         /** Locality or City. */
         fun locality(): String? = locality.getNullable("locality")
 
-        /** Region or State. */
-        fun region(): String? = region.getNullable("region")
+        fun object_(): String = object_.getRequired("object")
 
         /** The postal code of the address. */
         fun postalCode(): String? = postalCode.getNullable("postal_code")
 
-        /** Country code conforms to [ISO 3166-1 alpha-2] */
-        fun country(): String? = country.getNullable("country")
+        /** Region or State. */
+        fun region(): String? = region.getNullable("region")
+
+        fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
         @JsonProperty("id") @ExcludeMissing fun _id() = id
 
-        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+        /** Country code conforms to [ISO 3166-1 alpha-2] */
+        @JsonProperty("country") @ExcludeMissing fun _country() = country
+
+        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+        @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+
+        @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -389,25 +396,18 @@ private constructor(
          */
         @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
 
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
-        @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
-
-        @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
-
         /** Locality or City. */
         @JsonProperty("locality") @ExcludeMissing fun _locality() = locality
 
-        /** Region or State. */
-        @JsonProperty("region") @ExcludeMissing fun _region() = region
+        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
         /** The postal code of the address. */
         @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
 
-        /** Country code conforms to [ISO 3166-1 alpha-2] */
-        @JsonProperty("country") @ExcludeMissing fun _country() = country
+        /** Region or State. */
+        @JsonProperty("region") @ExcludeMissing fun _region() = region
+
+        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -418,16 +418,16 @@ private constructor(
         fun validate(): Address = apply {
             if (!validated) {
                 id()
-                object_()
-                liveMode()
+                country()
                 createdAt()
-                updatedAt()
                 line1()
                 line2()
+                liveMode()
                 locality()
-                region()
+                object_()
                 postalCode()
-                country()
+                region()
+                updatedAt()
                 validated = true
             }
         }
@@ -442,30 +442,30 @@ private constructor(
         class Builder {
 
             private var id: JsonField<String> = JsonMissing.of()
-            private var object_: JsonField<String> = JsonMissing.of()
-            private var liveMode: JsonField<Boolean> = JsonMissing.of()
+            private var country: JsonField<String> = JsonMissing.of()
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var line1: JsonField<String> = JsonMissing.of()
             private var line2: JsonField<String> = JsonMissing.of()
+            private var liveMode: JsonField<Boolean> = JsonMissing.of()
             private var locality: JsonField<String> = JsonMissing.of()
-            private var region: JsonField<String> = JsonMissing.of()
+            private var object_: JsonField<String> = JsonMissing.of()
             private var postalCode: JsonField<String> = JsonMissing.of()
-            private var country: JsonField<String> = JsonMissing.of()
+            private var region: JsonField<String> = JsonMissing.of()
+            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(address: Address) = apply {
                 id = address.id
-                object_ = address.object_
-                liveMode = address.liveMode
+                country = address.country
                 createdAt = address.createdAt
-                updatedAt = address.updatedAt
                 line1 = address.line1
                 line2 = address.line2
+                liveMode = address.liveMode
                 locality = address.locality
-                region = address.region
+                object_ = address.object_
                 postalCode = address.postalCode
-                country = address.country
+                region = address.region
+                updatedAt = address.updatedAt
                 additionalProperties = address.additionalProperties.toMutableMap()
             }
 
@@ -473,9 +473,25 @@ private constructor(
 
             fun id(id: JsonField<String>) = apply { this.id = id }
 
-            fun object_(object_: String) = object_(JsonField.of(object_))
+            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            fun country(country: String) = country(JsonField.of(country))
 
-            fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            fun country(country: JsonField<String>) = apply { this.country = country }
+
+            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                this.createdAt = createdAt
+            }
+
+            fun line1(line1: String) = line1(JsonField.of(line1))
+
+            fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+
+            fun line2(line2: String) = line2(JsonField.of(line2))
+
+            fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
             /**
              * This field will be true if this object exists in the live environment or false if it
@@ -489,37 +505,15 @@ private constructor(
              */
             fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
-            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-                this.createdAt = createdAt
-            }
-
-            fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-            fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
-                this.updatedAt = updatedAt
-            }
-
-            fun line1(line1: String) = line1(JsonField.of(line1))
-
-            fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
-
-            fun line2(line2: String) = line2(JsonField.of(line2))
-
-            fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
-
             /** Locality or City. */
             fun locality(locality: String) = locality(JsonField.of(locality))
 
             /** Locality or City. */
             fun locality(locality: JsonField<String>) = apply { this.locality = locality }
 
-            /** Region or State. */
-            fun region(region: String) = region(JsonField.of(region))
+            fun object_(object_: String) = object_(JsonField.of(object_))
 
-            /** Region or State. */
-            fun region(region: JsonField<String>) = apply { this.region = region }
+            fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
             /** The postal code of the address. */
             fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
@@ -527,11 +521,17 @@ private constructor(
             /** The postal code of the address. */
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
-            /** Country code conforms to [ISO 3166-1 alpha-2] */
-            fun country(country: String) = country(JsonField.of(country))
+            /** Region or State. */
+            fun region(region: String) = region(JsonField.of(region))
 
-            /** Country code conforms to [ISO 3166-1 alpha-2] */
-            fun country(country: JsonField<String>) = apply { this.country = country }
+            /** Region or State. */
+            fun region(region: JsonField<String>) = apply { this.region = region }
+
+            fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+            fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
+                this.updatedAt = updatedAt
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -555,16 +555,16 @@ private constructor(
             fun build(): Address =
                 Address(
                     id,
-                    object_,
-                    liveMode,
+                    country,
                     createdAt,
-                    updatedAt,
                     line1,
                     line2,
+                    liveMode,
                     locality,
-                    region,
+                    object_,
                     postalCode,
-                    country,
+                    region,
+                    updatedAt,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -574,17 +574,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Address && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && line1 == other.line1 && line2 == other.line2 && locality == other.locality && region == other.region && postalCode == other.postalCode && country == other.country && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Address && id == other.id && country == other.country && createdAt == other.createdAt && line1 == other.line1 && line2 == other.line2 && liveMode == other.liveMode && locality == other.locality && object_ == other.object_ && postalCode == other.postalCode && region == other.region && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, line1, line2, locality, region, postalCode, country, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(id, country, createdAt, line1, line2, liveMode, locality, object_, postalCode, region, updatedAt, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Address{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
+            "Address{id=$id, country=$country, createdAt=$createdAt, line1=$line1, line2=$line2, liveMode=$liveMode, locality=$locality, object_=$object_, postalCode=$postalCode, region=$region, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
     }
 
     class PaymentType
@@ -983,15 +983,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is RoutingDetail && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && discardedAt == other.discardedAt && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && paymentType == other.paymentType && bankName == other.bankName && bankAddress == other.bankAddress && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is RoutingDetail && id == other.id && bankAddress == other.bankAddress && bankName == other.bankName && createdAt == other.createdAt && discardedAt == other.discardedAt && liveMode == other.liveMode && object_ == other.object_ && paymentType == other.paymentType && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, routingNumber, routingNumberType, paymentType, bankName, bankAddress, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, bankAddress, bankName, createdAt, discardedAt, liveMode, object_, paymentType, routingNumber, routingNumberType, updatedAt, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "RoutingDetail{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, bankName=$bankName, bankAddress=$bankAddress, additionalProperties=$additionalProperties}"
+        "RoutingDetail{id=$id, bankAddress=$bankAddress, bankName=$bankName, createdAt=$createdAt, discardedAt=$discardedAt, liveMode=$liveMode, object_=$object_, paymentType=$paymentType, routingNumber=$routingNumber, routingNumberType=$routingNumberType, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

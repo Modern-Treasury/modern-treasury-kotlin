@@ -20,23 +20,17 @@ class CounterpartyCollectAccountResponse
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("is_resend")
-    @ExcludeMissing
-    private val isResend: JsonField<Boolean> = JsonMissing.of(),
     @JsonProperty("form_link")
     @ExcludeMissing
     private val formLink: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("is_resend")
+    @ExcludeMissing
+    private val isResend: JsonField<Boolean> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** The id of the existing counterparty. */
     fun id(): String = id.getRequired("id")
-
-    /**
-     * This field will be `true` if an email requesting account details has already been sent to
-     * this counterparty.
-     */
-    fun isResend(): Boolean = isResend.getRequired("is_resend")
 
     /**
      * This is the link to the secure Modern Treasury form. By default, Modern Treasury will send an
@@ -46,14 +40,14 @@ private constructor(
      */
     fun formLink(): String = formLink.getRequired("form_link")
 
-    /** The id of the existing counterparty. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
     /**
      * This field will be `true` if an email requesting account details has already been sent to
      * this counterparty.
      */
-    @JsonProperty("is_resend") @ExcludeMissing fun _isResend() = isResend
+    fun isResend(): Boolean = isResend.getRequired("is_resend")
+
+    /** The id of the existing counterparty. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * This is the link to the secure Modern Treasury form. By default, Modern Treasury will send an
@@ -62,6 +56,12 @@ private constructor(
      * it to the counterparty directly.
      */
     @JsonProperty("form_link") @ExcludeMissing fun _formLink() = formLink
+
+    /**
+     * This field will be `true` if an email requesting account details has already been sent to
+     * this counterparty.
+     */
+    @JsonProperty("is_resend") @ExcludeMissing fun _isResend() = isResend
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -72,8 +72,8 @@ private constructor(
     fun validate(): CounterpartyCollectAccountResponse = apply {
         if (!validated) {
             id()
-            isResend()
             formLink()
+            isResend()
             validated = true
         }
     }
@@ -88,15 +88,15 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var isResend: JsonField<Boolean> = JsonMissing.of()
         private var formLink: JsonField<String> = JsonMissing.of()
+        private var isResend: JsonField<Boolean> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(counterpartyCollectAccountResponse: CounterpartyCollectAccountResponse) =
             apply {
                 id = counterpartyCollectAccountResponse.id
-                isResend = counterpartyCollectAccountResponse.isResend
                 formLink = counterpartyCollectAccountResponse.formLink
+                isResend = counterpartyCollectAccountResponse.isResend
                 additionalProperties =
                     counterpartyCollectAccountResponse.additionalProperties.toMutableMap()
             }
@@ -106,18 +106,6 @@ private constructor(
 
         /** The id of the existing counterparty. */
         fun id(id: JsonField<String>) = apply { this.id = id }
-
-        /**
-         * This field will be `true` if an email requesting account details has already been sent to
-         * this counterparty.
-         */
-        fun isResend(isResend: Boolean) = isResend(JsonField.of(isResend))
-
-        /**
-         * This field will be `true` if an email requesting account details has already been sent to
-         * this counterparty.
-         */
-        fun isResend(isResend: JsonField<Boolean>) = apply { this.isResend = isResend }
 
         /**
          * This is the link to the secure Modern Treasury form. By default, Modern Treasury will
@@ -134,6 +122,18 @@ private constructor(
          * email and you can send it to the counterparty directly.
          */
         fun formLink(formLink: JsonField<String>) = apply { this.formLink = formLink }
+
+        /**
+         * This field will be `true` if an email requesting account details has already been sent to
+         * this counterparty.
+         */
+        fun isResend(isResend: Boolean) = isResend(JsonField.of(isResend))
+
+        /**
+         * This field will be `true` if an email requesting account details has already been sent to
+         * this counterparty.
+         */
+        fun isResend(isResend: JsonField<Boolean>) = apply { this.isResend = isResend }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -157,8 +157,8 @@ private constructor(
         fun build(): CounterpartyCollectAccountResponse =
             CounterpartyCollectAccountResponse(
                 id,
-                isResend,
                 formLink,
+                isResend,
                 additionalProperties.toImmutable(),
             )
     }
@@ -168,15 +168,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CounterpartyCollectAccountResponse && id == other.id && isResend == other.isResend && formLink == other.formLink && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is CounterpartyCollectAccountResponse && id == other.id && formLink == other.formLink && isResend == other.isResend && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, isResend, formLink, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, formLink, isResend, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CounterpartyCollectAccountResponse{id=$id, isResend=$isResend, formLink=$formLink, additionalProperties=$additionalProperties}"
+        "CounterpartyCollectAccountResponse{id=$id, formLink=$formLink, isResend=$isResend, additionalProperties=$additionalProperties}"
 }

@@ -24,67 +24,35 @@ class IncomingPaymentDetail
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("internal_account_id")
-    @ExcludeMissing
-    private val internalAccountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("virtual_account_id")
-    @ExcludeMissing
-    private val virtualAccountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("virtual_account")
-    @ExcludeMissing
-    private val virtualAccount: JsonField<VirtualAccount> = JsonMissing.of(),
-    @JsonProperty("transaction_line_item_id")
-    @ExcludeMissing
-    private val transactionLineItemId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("transaction_id")
-    @ExcludeMissing
-    private val transactionId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("ledger_transaction_id")
-    @ExcludeMissing
-    private val ledgerTransactionId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonProperty("data") @ExcludeMissing private val data: JsonField<Data> = JsonMissing.of(),
     @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("currency")
-    @ExcludeMissing
-    private val currency: JsonField<Currency> = JsonMissing.of(),
-    @JsonProperty("direction")
-    @ExcludeMissing
-    private val direction: JsonField<TransactionDirection> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("metadata")
-    @ExcludeMissing
-    private val metadata: JsonField<Metadata> = JsonMissing.of(),
     @JsonProperty("as_of_date")
     @ExcludeMissing
     private val asOfDate: JsonField<LocalDate> = JsonMissing.of(),
-    @JsonProperty("vendor_id")
+    @JsonProperty("created_at")
     @ExcludeMissing
-    private val vendorId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("originating_routing_number")
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("currency")
     @ExcludeMissing
-    private val originatingRoutingNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("originating_routing_number_type")
+    private val currency: JsonField<Currency> = JsonMissing.of(),
+    @JsonProperty("data") @ExcludeMissing private val data: JsonField<Data> = JsonMissing.of(),
+    @JsonProperty("direction")
     @ExcludeMissing
-    private val originatingRoutingNumberType: JsonField<OriginatingRoutingNumberType> =
-        JsonMissing.of(),
-    @JsonProperty("originating_account_number")
+    private val direction: JsonField<TransactionDirection> = JsonMissing.of(),
+    @JsonProperty("internal_account_id")
     @ExcludeMissing
-    private val originatingAccountNumber: JsonField<String> = JsonMissing.of(),
+    private val internalAccountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("ledger_transaction_id")
+    @ExcludeMissing
+    private val ledgerTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("metadata")
+    @ExcludeMissing
+    private val metadata: JsonField<Metadata> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
     @JsonProperty("originating_account_number_safe")
     @ExcludeMissing
     private val originatingAccountNumberSafe: JsonField<String> = JsonMissing.of(),
@@ -92,12 +60,65 @@ private constructor(
     @ExcludeMissing
     private val originatingAccountNumberType: JsonField<OriginatingAccountNumberType> =
         JsonMissing.of(),
+    @JsonProperty("originating_routing_number")
+    @ExcludeMissing
+    private val originatingRoutingNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originating_routing_number_type")
+    @ExcludeMissing
+    private val originatingRoutingNumberType: JsonField<OriginatingRoutingNumberType> =
+        JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("transaction_id")
+    @ExcludeMissing
+    private val transactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("transaction_line_item_id")
+    @ExcludeMissing
+    private val transactionLineItemId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("vendor_id")
+    @ExcludeMissing
+    private val vendorId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("virtual_account")
+    @ExcludeMissing
+    private val virtualAccount: JsonField<VirtualAccount> = JsonMissing.of(),
+    @JsonProperty("virtual_account_id")
+    @ExcludeMissing
+    private val virtualAccountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originating_account_number")
+    @ExcludeMissing
+    private val originatingAccountNumber: JsonField<String> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
 
-    fun object_(): String = object_.getRequired("object")
+    /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+    fun amount(): Long = amount.getRequired("amount")
+
+    /** The date on which the corresponding transaction will occur. */
+    fun asOfDate(): LocalDate = asOfDate.getRequired("as_of_date")
+
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /** The currency of the incoming payment detail. */
+    fun currency(): Currency = currency.getRequired("currency")
+
+    /** The raw data from the payment pre-notification file that we get from the bank. */
+    fun data(): Data = data.getRequired("data")
+
+    /** One of `credit` or `debit`. */
+    fun direction(): TransactionDirection = direction.getRequired("direction")
+
+    /** The ID of the Internal Account for the incoming payment detail. This is always present. */
+    fun internalAccountId(): String = internalAccountId.getRequired("internal_account_id")
+
+    /** The ID of the ledger transaction linked to the incoming payment detail or `null`. */
+    fun ledgerTransactionId(): String? = ledgerTransactionId.getNullable("ledger_transaction_id")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
@@ -105,73 +126,10 @@ private constructor(
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
-
-    /** The ID of the Internal Account for the incoming payment detail. This is always present. */
-    fun internalAccountId(): String = internalAccountId.getRequired("internal_account_id")
-
-    /** If the incoming payment detail is in a virtual account, the ID of the Virtual Account. */
-    fun virtualAccountId(): String? = virtualAccountId.getNullable("virtual_account_id")
-
-    /**
-     * If the incoming payment detail is in a virtual account, the serialized virtual account
-     * object.
-     */
-    fun virtualAccount(): VirtualAccount? = virtualAccount.getNullable("virtual_account")
-
-    /** The ID of the reconciled Transaction Line Item or `null`. */
-    fun transactionLineItemId(): String? =
-        transactionLineItemId.getNullable("transaction_line_item_id")
-
-    /** The ID of the reconciled Transaction or `null`. */
-    fun transactionId(): String? = transactionId.getNullable("transaction_id")
-
-    /** The ID of the ledger transaction linked to the incoming payment detail or `null`. */
-    fun ledgerTransactionId(): String? = ledgerTransactionId.getNullable("ledger_transaction_id")
-
-    /** One of: `ach`, `book`, `check`, `eft`, `interac`, `rtp`, `sepa`, `signet`, or `wire`. */
-    fun type(): Type = type.getRequired("type")
-
-    /** The raw data from the payment pre-notification file that we get from the bank. */
-    fun data(): Data = data.getRequired("data")
-
-    /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-    fun amount(): Long = amount.getRequired("amount")
-
-    /** The currency of the incoming payment detail. */
-    fun currency(): Currency = currency.getRequired("currency")
-
-    /** One of `credit` or `debit`. */
-    fun direction(): TransactionDirection = direction.getRequired("direction")
-
-    /**
-     * The current status of the incoming payment order. One of `pending`, `completed`, or
-     * `returned`.
-     */
-    fun status(): Status = status.getRequired("status")
-
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
     fun metadata(): Metadata = metadata.getRequired("metadata")
 
-    /** The date on which the corresponding transaction will occur. */
-    fun asOfDate(): LocalDate = asOfDate.getRequired("as_of_date")
-
-    /** The identifier of the vendor bank. */
-    fun vendorId(): String? = vendorId.getNullable("vendor_id")
-
-    /** The routing number of the originating account for the incoming payment detail. */
-    fun originatingRoutingNumber(): String? =
-        originatingRoutingNumber.getNullable("originating_routing_number")
-
-    /** The type of the originating routing number for the incoming payment detail. */
-    fun originatingRoutingNumberType(): OriginatingRoutingNumberType? =
-        originatingRoutingNumberType.getNullable("originating_routing_number_type")
-
-    /** The account number of the originating account for the incoming payment detail. */
-    fun originatingAccountNumber(): String? =
-        originatingAccountNumber.getNullable("originating_account_number")
+    fun object_(): String = object_.getRequired("object")
 
     /** The last 4 digits of the originating account_number for the incoming payment detail. */
     fun originatingAccountNumberSafe(): String? =
@@ -181,9 +139,76 @@ private constructor(
     fun originatingAccountNumberType(): OriginatingAccountNumberType? =
         originatingAccountNumberType.getNullable("originating_account_number_type")
 
+    /** The routing number of the originating account for the incoming payment detail. */
+    fun originatingRoutingNumber(): String? =
+        originatingRoutingNumber.getNullable("originating_routing_number")
+
+    /** The type of the originating routing number for the incoming payment detail. */
+    fun originatingRoutingNumberType(): OriginatingRoutingNumberType? =
+        originatingRoutingNumberType.getNullable("originating_routing_number_type")
+
+    /**
+     * The current status of the incoming payment order. One of `pending`, `completed`, or
+     * `returned`.
+     */
+    fun status(): Status = status.getRequired("status")
+
+    /** The ID of the reconciled Transaction or `null`. */
+    fun transactionId(): String? = transactionId.getNullable("transaction_id")
+
+    /** The ID of the reconciled Transaction Line Item or `null`. */
+    fun transactionLineItemId(): String? =
+        transactionLineItemId.getNullable("transaction_line_item_id")
+
+    /** One of: `ach`, `book`, `check`, `eft`, `interac`, `rtp`, `sepa`, `signet`, or `wire`. */
+    fun type(): Type = type.getRequired("type")
+
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+
+    /** The identifier of the vendor bank. */
+    fun vendorId(): String? = vendorId.getNullable("vendor_id")
+
+    /**
+     * If the incoming payment detail is in a virtual account, the serialized virtual account
+     * object.
+     */
+    fun virtualAccount(): VirtualAccount? = virtualAccount.getNullable("virtual_account")
+
+    /** If the incoming payment detail is in a virtual account, the ID of the Virtual Account. */
+    fun virtualAccountId(): String? = virtualAccountId.getNullable("virtual_account_id")
+
+    /** The account number of the originating account for the incoming payment detail. */
+    fun originatingAccountNumber(): String? =
+        originatingAccountNumber.getNullable("originating_account_number")
+
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+    /** The date on which the corresponding transaction will occur. */
+    @JsonProperty("as_of_date") @ExcludeMissing fun _asOfDate() = asOfDate
+
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /** The currency of the incoming payment detail. */
+    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+    /** The raw data from the payment pre-notification file that we get from the bank. */
+    @JsonProperty("data") @ExcludeMissing fun _data() = data
+
+    /** One of `credit` or `debit`. */
+    @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
+
+    /** The ID of the Internal Account for the incoming payment detail. This is always present. */
+    @JsonProperty("internal_account_id")
+    @ExcludeMissing
+    fun _internalAccountId() = internalAccountId
+
+    /** The ID of the ledger transaction linked to the incoming payment detail or `null`. */
+    @JsonProperty("ledger_transaction_id")
+    @ExcludeMissing
+    fun _ledgerTransactionId() = ledgerTransactionId
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
@@ -191,81 +216,10 @@ private constructor(
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
-    /** The ID of the Internal Account for the incoming payment detail. This is always present. */
-    @JsonProperty("internal_account_id")
-    @ExcludeMissing
-    fun _internalAccountId() = internalAccountId
-
-    /** If the incoming payment detail is in a virtual account, the ID of the Virtual Account. */
-    @JsonProperty("virtual_account_id") @ExcludeMissing fun _virtualAccountId() = virtualAccountId
-
-    /**
-     * If the incoming payment detail is in a virtual account, the serialized virtual account
-     * object.
-     */
-    @JsonProperty("virtual_account") @ExcludeMissing fun _virtualAccount() = virtualAccount
-
-    /** The ID of the reconciled Transaction Line Item or `null`. */
-    @JsonProperty("transaction_line_item_id")
-    @ExcludeMissing
-    fun _transactionLineItemId() = transactionLineItemId
-
-    /** The ID of the reconciled Transaction or `null`. */
-    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
-
-    /** The ID of the ledger transaction linked to the incoming payment detail or `null`. */
-    @JsonProperty("ledger_transaction_id")
-    @ExcludeMissing
-    fun _ledgerTransactionId() = ledgerTransactionId
-
-    /** One of: `ach`, `book`, `check`, `eft`, `interac`, `rtp`, `sepa`, `signet`, or `wire`. */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
-
-    /** The raw data from the payment pre-notification file that we get from the bank. */
-    @JsonProperty("data") @ExcludeMissing fun _data() = data
-
-    /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
-
-    /** The currency of the incoming payment detail. */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-    /** One of `credit` or `debit`. */
-    @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
-
-    /**
-     * The current status of the incoming payment order. One of `pending`, `completed`, or
-     * `returned`.
-     */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
-
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
     @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
 
-    /** The date on which the corresponding transaction will occur. */
-    @JsonProperty("as_of_date") @ExcludeMissing fun _asOfDate() = asOfDate
-
-    /** The identifier of the vendor bank. */
-    @JsonProperty("vendor_id") @ExcludeMissing fun _vendorId() = vendorId
-
-    /** The routing number of the originating account for the incoming payment detail. */
-    @JsonProperty("originating_routing_number")
-    @ExcludeMissing
-    fun _originatingRoutingNumber() = originatingRoutingNumber
-
-    /** The type of the originating routing number for the incoming payment detail. */
-    @JsonProperty("originating_routing_number_type")
-    @ExcludeMissing
-    fun _originatingRoutingNumberType() = originatingRoutingNumberType
-
-    /** The account number of the originating account for the incoming payment detail. */
-    @JsonProperty("originating_account_number")
-    @ExcludeMissing
-    fun _originatingAccountNumber() = originatingAccountNumber
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
     /** The last 4 digits of the originating account_number for the incoming payment detail. */
     @JsonProperty("originating_account_number_safe")
@@ -277,6 +231,52 @@ private constructor(
     @ExcludeMissing
     fun _originatingAccountNumberType() = originatingAccountNumberType
 
+    /** The routing number of the originating account for the incoming payment detail. */
+    @JsonProperty("originating_routing_number")
+    @ExcludeMissing
+    fun _originatingRoutingNumber() = originatingRoutingNumber
+
+    /** The type of the originating routing number for the incoming payment detail. */
+    @JsonProperty("originating_routing_number_type")
+    @ExcludeMissing
+    fun _originatingRoutingNumberType() = originatingRoutingNumberType
+
+    /**
+     * The current status of the incoming payment order. One of `pending`, `completed`, or
+     * `returned`.
+     */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
+
+    /** The ID of the reconciled Transaction or `null`. */
+    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+
+    /** The ID of the reconciled Transaction Line Item or `null`. */
+    @JsonProperty("transaction_line_item_id")
+    @ExcludeMissing
+    fun _transactionLineItemId() = transactionLineItemId
+
+    /** One of: `ach`, `book`, `check`, `eft`, `interac`, `rtp`, `sepa`, `signet`, or `wire`. */
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
+
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+
+    /** The identifier of the vendor bank. */
+    @JsonProperty("vendor_id") @ExcludeMissing fun _vendorId() = vendorId
+
+    /**
+     * If the incoming payment detail is in a virtual account, the serialized virtual account
+     * object.
+     */
+    @JsonProperty("virtual_account") @ExcludeMissing fun _virtualAccount() = virtualAccount
+
+    /** If the incoming payment detail is in a virtual account, the ID of the Virtual Account. */
+    @JsonProperty("virtual_account_id") @ExcludeMissing fun _virtualAccountId() = virtualAccountId
+
+    /** The account number of the originating account for the incoming payment detail. */
+    @JsonProperty("originating_account_number")
+    @ExcludeMissing
+    fun _originatingAccountNumber() = originatingAccountNumber
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -286,30 +286,30 @@ private constructor(
     fun validate(): IncomingPaymentDetail = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
-            createdAt()
-            updatedAt()
-            internalAccountId()
-            virtualAccountId()
-            virtualAccount()?.validate()
-            transactionLineItemId()
-            transactionId()
-            ledgerTransactionId()
-            type()
-            data().validate()
             amount()
-            currency()
-            direction()
-            status()
-            metadata().validate()
             asOfDate()
-            vendorId()
-            originatingRoutingNumber()
-            originatingRoutingNumberType()
-            originatingAccountNumber()
+            createdAt()
+            currency()
+            data().validate()
+            direction()
+            internalAccountId()
+            ledgerTransactionId()
+            liveMode()
+            metadata().validate()
+            object_()
             originatingAccountNumberSafe()
             originatingAccountNumberType()
+            originatingRoutingNumber()
+            originatingRoutingNumberType()
+            status()
+            transactionId()
+            transactionLineItemId()
+            type()
+            updatedAt()
+            vendorId()
+            virtualAccount()?.validate()
+            virtualAccountId()
+            originatingAccountNumber()
             validated = true
         }
     }
@@ -324,60 +324,60 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var internalAccountId: JsonField<String> = JsonMissing.of()
-        private var virtualAccountId: JsonField<String> = JsonMissing.of()
-        private var virtualAccount: JsonField<VirtualAccount> = JsonMissing.of()
-        private var transactionLineItemId: JsonField<String> = JsonMissing.of()
-        private var transactionId: JsonField<String> = JsonMissing.of()
-        private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
-        private var data: JsonField<Data> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
-        private var direction: JsonField<TransactionDirection> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
         private var asOfDate: JsonField<LocalDate> = JsonMissing.of()
-        private var vendorId: JsonField<String> = JsonMissing.of()
-        private var originatingRoutingNumber: JsonField<String> = JsonMissing.of()
-        private var originatingRoutingNumberType: JsonField<OriginatingRoutingNumberType> =
-            JsonMissing.of()
-        private var originatingAccountNumber: JsonField<String> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var currency: JsonField<Currency> = JsonMissing.of()
+        private var data: JsonField<Data> = JsonMissing.of()
+        private var direction: JsonField<TransactionDirection> = JsonMissing.of()
+        private var internalAccountId: JsonField<String> = JsonMissing.of()
+        private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var metadata: JsonField<Metadata> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
         private var originatingAccountNumberSafe: JsonField<String> = JsonMissing.of()
         private var originatingAccountNumberType: JsonField<OriginatingAccountNumberType> =
             JsonMissing.of()
+        private var originatingRoutingNumber: JsonField<String> = JsonMissing.of()
+        private var originatingRoutingNumberType: JsonField<OriginatingRoutingNumberType> =
+            JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
+        private var transactionId: JsonField<String> = JsonMissing.of()
+        private var transactionLineItemId: JsonField<String> = JsonMissing.of()
+        private var type: JsonField<Type> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var vendorId: JsonField<String> = JsonMissing.of()
+        private var virtualAccount: JsonField<VirtualAccount> = JsonMissing.of()
+        private var virtualAccountId: JsonField<String> = JsonMissing.of()
+        private var originatingAccountNumber: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(incomingPaymentDetail: IncomingPaymentDetail) = apply {
             id = incomingPaymentDetail.id
-            object_ = incomingPaymentDetail.object_
-            liveMode = incomingPaymentDetail.liveMode
-            createdAt = incomingPaymentDetail.createdAt
-            updatedAt = incomingPaymentDetail.updatedAt
-            internalAccountId = incomingPaymentDetail.internalAccountId
-            virtualAccountId = incomingPaymentDetail.virtualAccountId
-            virtualAccount = incomingPaymentDetail.virtualAccount
-            transactionLineItemId = incomingPaymentDetail.transactionLineItemId
-            transactionId = incomingPaymentDetail.transactionId
-            ledgerTransactionId = incomingPaymentDetail.ledgerTransactionId
-            type = incomingPaymentDetail.type
-            data = incomingPaymentDetail.data
             amount = incomingPaymentDetail.amount
-            currency = incomingPaymentDetail.currency
-            direction = incomingPaymentDetail.direction
-            status = incomingPaymentDetail.status
-            metadata = incomingPaymentDetail.metadata
             asOfDate = incomingPaymentDetail.asOfDate
-            vendorId = incomingPaymentDetail.vendorId
-            originatingRoutingNumber = incomingPaymentDetail.originatingRoutingNumber
-            originatingRoutingNumberType = incomingPaymentDetail.originatingRoutingNumberType
-            originatingAccountNumber = incomingPaymentDetail.originatingAccountNumber
+            createdAt = incomingPaymentDetail.createdAt
+            currency = incomingPaymentDetail.currency
+            data = incomingPaymentDetail.data
+            direction = incomingPaymentDetail.direction
+            internalAccountId = incomingPaymentDetail.internalAccountId
+            ledgerTransactionId = incomingPaymentDetail.ledgerTransactionId
+            liveMode = incomingPaymentDetail.liveMode
+            metadata = incomingPaymentDetail.metadata
+            object_ = incomingPaymentDetail.object_
             originatingAccountNumberSafe = incomingPaymentDetail.originatingAccountNumberSafe
             originatingAccountNumberType = incomingPaymentDetail.originatingAccountNumberType
+            originatingRoutingNumber = incomingPaymentDetail.originatingRoutingNumber
+            originatingRoutingNumberType = incomingPaymentDetail.originatingRoutingNumberType
+            status = incomingPaymentDetail.status
+            transactionId = incomingPaymentDetail.transactionId
+            transactionLineItemId = incomingPaymentDetail.transactionLineItemId
+            type = incomingPaymentDetail.type
+            updatedAt = incomingPaymentDetail.updatedAt
+            vendorId = incomingPaymentDetail.vendorId
+            virtualAccount = incomingPaymentDetail.virtualAccount
+            virtualAccountId = incomingPaymentDetail.virtualAccountId
+            originatingAccountNumber = incomingPaymentDetail.originatingAccountNumber
             additionalProperties = incomingPaymentDetail.additionalProperties.toMutableMap()
         }
 
@@ -385,29 +385,41 @@ private constructor(
 
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun object_(object_: String) = object_(JsonField.of(object_))
+        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+        fun amount(amount: Long) = amount(JsonField.of(amount))
 
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
+        /** The date on which the corresponding transaction will occur. */
+        fun asOfDate(asOfDate: LocalDate) = asOfDate(JsonField.of(asOfDate))
 
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+        /** The date on which the corresponding transaction will occur. */
+        fun asOfDate(asOfDate: JsonField<LocalDate>) = apply { this.asOfDate = asOfDate }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+        /** The currency of the incoming payment detail. */
+        fun currency(currency: Currency) = currency(JsonField.of(currency))
 
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+        /** The currency of the incoming payment detail. */
+        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+        /** The raw data from the payment pre-notification file that we get from the bank. */
+        fun data(data: Data) = data(JsonField.of(data))
+
+        /** The raw data from the payment pre-notification file that we get from the bank. */
+        fun data(data: JsonField<Data>) = apply { this.data = data }
+
+        /** One of `credit` or `debit`. */
+        fun direction(direction: TransactionDirection) = direction(JsonField.of(direction))
+
+        /** One of `credit` or `debit`. */
+        fun direction(direction: JsonField<TransactionDirection>) = apply {
+            this.direction = direction
+        }
 
         /**
          * The ID of the Internal Account for the incoming payment detail. This is always present.
@@ -422,51 +434,6 @@ private constructor(
             this.internalAccountId = internalAccountId
         }
 
-        /**
-         * If the incoming payment detail is in a virtual account, the ID of the Virtual Account.
-         */
-        fun virtualAccountId(virtualAccountId: String) =
-            virtualAccountId(JsonField.of(virtualAccountId))
-
-        /**
-         * If the incoming payment detail is in a virtual account, the ID of the Virtual Account.
-         */
-        fun virtualAccountId(virtualAccountId: JsonField<String>) = apply {
-            this.virtualAccountId = virtualAccountId
-        }
-
-        /**
-         * If the incoming payment detail is in a virtual account, the serialized virtual account
-         * object.
-         */
-        fun virtualAccount(virtualAccount: VirtualAccount) =
-            virtualAccount(JsonField.of(virtualAccount))
-
-        /**
-         * If the incoming payment detail is in a virtual account, the serialized virtual account
-         * object.
-         */
-        fun virtualAccount(virtualAccount: JsonField<VirtualAccount>) = apply {
-            this.virtualAccount = virtualAccount
-        }
-
-        /** The ID of the reconciled Transaction Line Item or `null`. */
-        fun transactionLineItemId(transactionLineItemId: String) =
-            transactionLineItemId(JsonField.of(transactionLineItemId))
-
-        /** The ID of the reconciled Transaction Line Item or `null`. */
-        fun transactionLineItemId(transactionLineItemId: JsonField<String>) = apply {
-            this.transactionLineItemId = transactionLineItemId
-        }
-
-        /** The ID of the reconciled Transaction or `null`. */
-        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
-
-        /** The ID of the reconciled Transaction or `null`. */
-        fun transactionId(transactionId: JsonField<String>) = apply {
-            this.transactionId = transactionId
-        }
-
         /** The ID of the ledger transaction linked to the incoming payment detail or `null`. */
         fun ledgerTransactionId(ledgerTransactionId: String) =
             ledgerTransactionId(JsonField.of(ledgerTransactionId))
@@ -476,49 +443,17 @@ private constructor(
             this.ledgerTransactionId = ledgerTransactionId
         }
 
-        /** One of: `ach`, `book`, `check`, `eft`, `interac`, `rtp`, `sepa`, `signet`, or `wire`. */
-        fun type(type: Type) = type(JsonField.of(type))
-
-        /** One of: `ach`, `book`, `check`, `eft`, `interac`, `rtp`, `sepa`, `signet`, or `wire`. */
-        fun type(type: JsonField<Type>) = apply { this.type = type }
-
-        /** The raw data from the payment pre-notification file that we get from the bank. */
-        fun data(data: Data) = data(JsonField.of(data))
-
-        /** The raw data from the payment pre-notification file that we get from the bank. */
-        fun data(data: JsonField<Data>) = apply { this.data = data }
-
-        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-        fun amount(amount: Long) = amount(JsonField.of(amount))
-
-        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-        /** The currency of the incoming payment detail. */
-        fun currency(currency: Currency) = currency(JsonField.of(currency))
-
-        /** The currency of the incoming payment detail. */
-        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-        /** One of `credit` or `debit`. */
-        fun direction(direction: TransactionDirection) = direction(JsonField.of(direction))
-
-        /** One of `credit` or `debit`. */
-        fun direction(direction: JsonField<TransactionDirection>) = apply {
-            this.direction = direction
-        }
+        /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
-         * The current status of the incoming payment order. One of `pending`, `completed`, or
-         * `returned`.
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
          */
-        fun status(status: Status) = status(JsonField.of(status))
-
-        /**
-         * The current status of the incoming payment order. One of `pending`, `completed`, or
-         * `returned`.
-         */
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
@@ -530,17 +465,28 @@ private constructor(
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
-        /** The date on which the corresponding transaction will occur. */
-        fun asOfDate(asOfDate: LocalDate) = asOfDate(JsonField.of(asOfDate))
+        fun object_(object_: String) = object_(JsonField.of(object_))
 
-        /** The date on which the corresponding transaction will occur. */
-        fun asOfDate(asOfDate: JsonField<LocalDate>) = apply { this.asOfDate = asOfDate }
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
-        /** The identifier of the vendor bank. */
-        fun vendorId(vendorId: String) = vendorId(JsonField.of(vendorId))
+        /** The last 4 digits of the originating account_number for the incoming payment detail. */
+        fun originatingAccountNumberSafe(originatingAccountNumberSafe: String) =
+            originatingAccountNumberSafe(JsonField.of(originatingAccountNumberSafe))
 
-        /** The identifier of the vendor bank. */
-        fun vendorId(vendorId: JsonField<String>) = apply { this.vendorId = vendorId }
+        /** The last 4 digits of the originating account_number for the incoming payment detail. */
+        fun originatingAccountNumberSafe(originatingAccountNumberSafe: JsonField<String>) = apply {
+            this.originatingAccountNumberSafe = originatingAccountNumberSafe
+        }
+
+        /** The type of the originating account number for the incoming payment detail. */
+        fun originatingAccountNumberType(
+            originatingAccountNumberType: OriginatingAccountNumberType
+        ) = originatingAccountNumberType(JsonField.of(originatingAccountNumberType))
+
+        /** The type of the originating account number for the incoming payment detail. */
+        fun originatingAccountNumberType(
+            originatingAccountNumberType: JsonField<OriginatingAccountNumberType>
+        ) = apply { this.originatingAccountNumberType = originatingAccountNumberType }
 
         /** The routing number of the originating account for the incoming payment detail. */
         fun originatingRoutingNumber(originatingRoutingNumber: String) =
@@ -561,6 +507,79 @@ private constructor(
             originatingRoutingNumberType: JsonField<OriginatingRoutingNumberType>
         ) = apply { this.originatingRoutingNumberType = originatingRoutingNumberType }
 
+        /**
+         * The current status of the incoming payment order. One of `pending`, `completed`, or
+         * `returned`.
+         */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /**
+         * The current status of the incoming payment order. One of `pending`, `completed`, or
+         * `returned`.
+         */
+        fun status(status: JsonField<Status>) = apply { this.status = status }
+
+        /** The ID of the reconciled Transaction or `null`. */
+        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+
+        /** The ID of the reconciled Transaction or `null`. */
+        fun transactionId(transactionId: JsonField<String>) = apply {
+            this.transactionId = transactionId
+        }
+
+        /** The ID of the reconciled Transaction Line Item or `null`. */
+        fun transactionLineItemId(transactionLineItemId: String) =
+            transactionLineItemId(JsonField.of(transactionLineItemId))
+
+        /** The ID of the reconciled Transaction Line Item or `null`. */
+        fun transactionLineItemId(transactionLineItemId: JsonField<String>) = apply {
+            this.transactionLineItemId = transactionLineItemId
+        }
+
+        /** One of: `ach`, `book`, `check`, `eft`, `interac`, `rtp`, `sepa`, `signet`, or `wire`. */
+        fun type(type: Type) = type(JsonField.of(type))
+
+        /** One of: `ach`, `book`, `check`, `eft`, `interac`, `rtp`, `sepa`, `signet`, or `wire`. */
+        fun type(type: JsonField<Type>) = apply { this.type = type }
+
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+
+        /** The identifier of the vendor bank. */
+        fun vendorId(vendorId: String) = vendorId(JsonField.of(vendorId))
+
+        /** The identifier of the vendor bank. */
+        fun vendorId(vendorId: JsonField<String>) = apply { this.vendorId = vendorId }
+
+        /**
+         * If the incoming payment detail is in a virtual account, the serialized virtual account
+         * object.
+         */
+        fun virtualAccount(virtualAccount: VirtualAccount) =
+            virtualAccount(JsonField.of(virtualAccount))
+
+        /**
+         * If the incoming payment detail is in a virtual account, the serialized virtual account
+         * object.
+         */
+        fun virtualAccount(virtualAccount: JsonField<VirtualAccount>) = apply {
+            this.virtualAccount = virtualAccount
+        }
+
+        /**
+         * If the incoming payment detail is in a virtual account, the ID of the Virtual Account.
+         */
+        fun virtualAccountId(virtualAccountId: String) =
+            virtualAccountId(JsonField.of(virtualAccountId))
+
+        /**
+         * If the incoming payment detail is in a virtual account, the ID of the Virtual Account.
+         */
+        fun virtualAccountId(virtualAccountId: JsonField<String>) = apply {
+            this.virtualAccountId = virtualAccountId
+        }
+
         /** The account number of the originating account for the incoming payment detail. */
         fun originatingAccountNumber(originatingAccountNumber: String) =
             originatingAccountNumber(JsonField.of(originatingAccountNumber))
@@ -569,25 +588,6 @@ private constructor(
         fun originatingAccountNumber(originatingAccountNumber: JsonField<String>) = apply {
             this.originatingAccountNumber = originatingAccountNumber
         }
-
-        /** The last 4 digits of the originating account_number for the incoming payment detail. */
-        fun originatingAccountNumberSafe(originatingAccountNumberSafe: String) =
-            originatingAccountNumberSafe(JsonField.of(originatingAccountNumberSafe))
-
-        /** The last 4 digits of the originating account_number for the incoming payment detail. */
-        fun originatingAccountNumberSafe(originatingAccountNumberSafe: JsonField<String>) = apply {
-            this.originatingAccountNumberSafe = originatingAccountNumberSafe
-        }
-
-        /** The type of the originating account number for the incoming payment detail. */
-        fun originatingAccountNumberType(
-            originatingAccountNumberType: OriginatingAccountNumberType
-        ) = originatingAccountNumberType(JsonField.of(originatingAccountNumberType))
-
-        /** The type of the originating account number for the incoming payment detail. */
-        fun originatingAccountNumberType(
-            originatingAccountNumberType: JsonField<OriginatingAccountNumberType>
-        ) = apply { this.originatingAccountNumberType = originatingAccountNumberType }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -611,30 +611,30 @@ private constructor(
         fun build(): IncomingPaymentDetail =
             IncomingPaymentDetail(
                 id,
-                object_,
-                liveMode,
-                createdAt,
-                updatedAt,
-                internalAccountId,
-                virtualAccountId,
-                virtualAccount,
-                transactionLineItemId,
-                transactionId,
-                ledgerTransactionId,
-                type,
-                data,
                 amount,
-                currency,
-                direction,
-                status,
-                metadata,
                 asOfDate,
-                vendorId,
-                originatingRoutingNumber,
-                originatingRoutingNumberType,
-                originatingAccountNumber,
+                createdAt,
+                currency,
+                data,
+                direction,
+                internalAccountId,
+                ledgerTransactionId,
+                liveMode,
+                metadata,
+                object_,
                 originatingAccountNumberSafe,
                 originatingAccountNumberType,
+                originatingRoutingNumber,
+                originatingRoutingNumberType,
+                status,
+                transactionId,
+                transactionLineItemId,
+                type,
+                updatedAt,
+                vendorId,
+                virtualAccount,
+                virtualAccountId,
+                originatingAccountNumber,
                 additionalProperties.toImmutable(),
             )
     }
@@ -1232,15 +1232,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is IncomingPaymentDetail && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && internalAccountId == other.internalAccountId && virtualAccountId == other.virtualAccountId && virtualAccount == other.virtualAccount && transactionLineItemId == other.transactionLineItemId && transactionId == other.transactionId && ledgerTransactionId == other.ledgerTransactionId && type == other.type && data == other.data && amount == other.amount && currency == other.currency && direction == other.direction && status == other.status && metadata == other.metadata && asOfDate == other.asOfDate && vendorId == other.vendorId && originatingRoutingNumber == other.originatingRoutingNumber && originatingRoutingNumberType == other.originatingRoutingNumberType && originatingAccountNumber == other.originatingAccountNumber && originatingAccountNumberSafe == other.originatingAccountNumberSafe && originatingAccountNumberType == other.originatingAccountNumberType && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is IncomingPaymentDetail && id == other.id && amount == other.amount && asOfDate == other.asOfDate && createdAt == other.createdAt && currency == other.currency && data == other.data && direction == other.direction && internalAccountId == other.internalAccountId && ledgerTransactionId == other.ledgerTransactionId && liveMode == other.liveMode && metadata == other.metadata && object_ == other.object_ && originatingAccountNumberSafe == other.originatingAccountNumberSafe && originatingAccountNumberType == other.originatingAccountNumberType && originatingRoutingNumber == other.originatingRoutingNumber && originatingRoutingNumberType == other.originatingRoutingNumberType && status == other.status && transactionId == other.transactionId && transactionLineItemId == other.transactionLineItemId && type == other.type && updatedAt == other.updatedAt && vendorId == other.vendorId && virtualAccount == other.virtualAccount && virtualAccountId == other.virtualAccountId && originatingAccountNumber == other.originatingAccountNumber && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, internalAccountId, virtualAccountId, virtualAccount, transactionLineItemId, transactionId, ledgerTransactionId, type, data, amount, currency, direction, status, metadata, asOfDate, vendorId, originatingRoutingNumber, originatingRoutingNumberType, originatingAccountNumber, originatingAccountNumberSafe, originatingAccountNumberType, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, amount, asOfDate, createdAt, currency, data, direction, internalAccountId, ledgerTransactionId, liveMode, metadata, object_, originatingAccountNumberSafe, originatingAccountNumberType, originatingRoutingNumber, originatingRoutingNumberType, status, transactionId, transactionLineItemId, type, updatedAt, vendorId, virtualAccount, virtualAccountId, originatingAccountNumber, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "IncomingPaymentDetail{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, internalAccountId=$internalAccountId, virtualAccountId=$virtualAccountId, virtualAccount=$virtualAccount, transactionLineItemId=$transactionLineItemId, transactionId=$transactionId, ledgerTransactionId=$ledgerTransactionId, type=$type, data=$data, amount=$amount, currency=$currency, direction=$direction, status=$status, metadata=$metadata, asOfDate=$asOfDate, vendorId=$vendorId, originatingRoutingNumber=$originatingRoutingNumber, originatingRoutingNumberType=$originatingRoutingNumberType, originatingAccountNumber=$originatingAccountNumber, originatingAccountNumberSafe=$originatingAccountNumberSafe, originatingAccountNumberType=$originatingAccountNumberType, additionalProperties=$additionalProperties}"
+        "IncomingPaymentDetail{id=$id, amount=$amount, asOfDate=$asOfDate, createdAt=$createdAt, currency=$currency, data=$data, direction=$direction, internalAccountId=$internalAccountId, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, object_=$object_, originatingAccountNumberSafe=$originatingAccountNumberSafe, originatingAccountNumberType=$originatingAccountNumberType, originatingRoutingNumber=$originatingRoutingNumber, originatingRoutingNumberType=$originatingRoutingNumberType, status=$status, transactionId=$transactionId, transactionLineItemId=$transactionLineItemId, type=$type, updatedAt=$updatedAt, vendorId=$vendorId, virtualAccount=$virtualAccount, virtualAccountId=$virtualAccountId, originatingAccountNumber=$originatingAccountNumber, additionalProperties=$additionalProperties}"
 }

@@ -23,36 +23,36 @@ class PaymentReference
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
     @JsonProperty("created_at")
     @ExcludeMissing
     private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
+    @JsonProperty("live_mode")
     @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("referenceable_id")
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("object")
     @ExcludeMissing
-    private val referenceableId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("referenceable_type")
-    @ExcludeMissing
-    private val referenceableType: JsonField<ReferenceableType> = JsonMissing.of(),
+    private val object_: JsonField<String> = JsonMissing.of(),
     @JsonProperty("reference_number")
     @ExcludeMissing
     private val referenceNumber: JsonField<String> = JsonMissing.of(),
     @JsonProperty("reference_number_type")
     @ExcludeMissing
     private val referenceNumberType: JsonField<ReferenceNumberType> = JsonMissing.of(),
+    @JsonProperty("referenceable_id")
+    @ExcludeMissing
+    private val referenceableId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("referenceable_type")
+    @ExcludeMissing
+    private val referenceableType: JsonField<ReferenceableType> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
 
-    fun object_(): String = object_.getRequired("object")
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
@@ -60,9 +60,14 @@ private constructor(
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+    fun object_(): String = object_.getRequired("object")
 
-    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+    /** The actual reference number assigned by the bank. */
+    fun referenceNumber(): String = referenceNumber.getRequired("reference_number")
+
+    /** The type of reference number. */
+    fun referenceNumberType(): ReferenceNumberType =
+        referenceNumberType.getRequired("reference_number_type")
 
     /**
      * The id of the referenceable to search for. Must be accompanied by the referenceable_type or
@@ -76,16 +81,11 @@ private constructor(
      */
     fun referenceableType(): ReferenceableType = referenceableType.getRequired("referenceable_type")
 
-    /** The actual reference number assigned by the bank. */
-    fun referenceNumber(): String = referenceNumber.getRequired("reference_number")
-
-    /** The type of reference number. */
-    fun referenceNumberType(): ReferenceNumberType =
-        referenceNumberType.getRequired("reference_number_type")
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
@@ -93,9 +93,15 @@ private constructor(
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    /** The actual reference number assigned by the bank. */
+    @JsonProperty("reference_number") @ExcludeMissing fun _referenceNumber() = referenceNumber
+
+    /** The type of reference number. */
+    @JsonProperty("reference_number_type")
+    @ExcludeMissing
+    fun _referenceNumberType() = referenceNumberType
 
     /**
      * The id of the referenceable to search for. Must be accompanied by the referenceable_type or
@@ -109,13 +115,7 @@ private constructor(
      */
     @JsonProperty("referenceable_type") @ExcludeMissing fun _referenceableType() = referenceableType
 
-    /** The actual reference number assigned by the bank. */
-    @JsonProperty("reference_number") @ExcludeMissing fun _referenceNumber() = referenceNumber
-
-    /** The type of reference number. */
-    @JsonProperty("reference_number_type")
-    @ExcludeMissing
-    fun _referenceNumberType() = referenceNumberType
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -126,14 +126,14 @@ private constructor(
     fun validate(): PaymentReference = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
             createdAt()
-            updatedAt()
-            referenceableId()
-            referenceableType()
+            liveMode()
+            object_()
             referenceNumber()
             referenceNumberType()
+            referenceableId()
+            referenceableType()
+            updatedAt()
             validated = true
         }
     }
@@ -148,26 +148,26 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var referenceableId: JsonField<String> = JsonMissing.of()
-        private var referenceableType: JsonField<ReferenceableType> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
         private var referenceNumber: JsonField<String> = JsonMissing.of()
         private var referenceNumberType: JsonField<ReferenceNumberType> = JsonMissing.of()
+        private var referenceableId: JsonField<String> = JsonMissing.of()
+        private var referenceableType: JsonField<ReferenceableType> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(paymentReference: PaymentReference) = apply {
             id = paymentReference.id
-            object_ = paymentReference.object_
-            liveMode = paymentReference.liveMode
             createdAt = paymentReference.createdAt
-            updatedAt = paymentReference.updatedAt
-            referenceableId = paymentReference.referenceableId
-            referenceableType = paymentReference.referenceableType
+            liveMode = paymentReference.liveMode
+            object_ = paymentReference.object_
             referenceNumber = paymentReference.referenceNumber
             referenceNumberType = paymentReference.referenceNumberType
+            referenceableId = paymentReference.referenceableId
+            referenceableType = paymentReference.referenceableType
+            updatedAt = paymentReference.updatedAt
             additionalProperties = paymentReference.additionalProperties.toMutableMap()
         }
 
@@ -175,9 +175,9 @@ private constructor(
 
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun object_(object_: String) = object_(JsonField.of(object_))
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -191,13 +191,27 @@ private constructor(
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+        fun object_(object_: String) = object_(JsonField.of(object_))
 
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+        /** The actual reference number assigned by the bank. */
+        fun referenceNumber(referenceNumber: String) =
+            referenceNumber(JsonField.of(referenceNumber))
 
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+        /** The actual reference number assigned by the bank. */
+        fun referenceNumber(referenceNumber: JsonField<String>) = apply {
+            this.referenceNumber = referenceNumber
+        }
+
+        /** The type of reference number. */
+        fun referenceNumberType(referenceNumberType: ReferenceNumberType) =
+            referenceNumberType(JsonField.of(referenceNumberType))
+
+        /** The type of reference number. */
+        fun referenceNumberType(referenceNumberType: JsonField<ReferenceNumberType>) = apply {
+            this.referenceNumberType = referenceNumberType
+        }
 
         /**
          * The id of the referenceable to search for. Must be accompanied by the referenceable_type
@@ -229,23 +243,9 @@ private constructor(
             this.referenceableType = referenceableType
         }
 
-        /** The actual reference number assigned by the bank. */
-        fun referenceNumber(referenceNumber: String) =
-            referenceNumber(JsonField.of(referenceNumber))
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
-        /** The actual reference number assigned by the bank. */
-        fun referenceNumber(referenceNumber: JsonField<String>) = apply {
-            this.referenceNumber = referenceNumber
-        }
-
-        /** The type of reference number. */
-        fun referenceNumberType(referenceNumberType: ReferenceNumberType) =
-            referenceNumberType(JsonField.of(referenceNumberType))
-
-        /** The type of reference number. */
-        fun referenceNumberType(referenceNumberType: JsonField<ReferenceNumberType>) = apply {
-            this.referenceNumberType = referenceNumberType
-        }
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -269,14 +269,14 @@ private constructor(
         fun build(): PaymentReference =
             PaymentReference(
                 id,
-                object_,
-                liveMode,
                 createdAt,
-                updatedAt,
-                referenceableId,
-                referenceableType,
+                liveMode,
+                object_,
                 referenceNumber,
                 referenceNumberType,
+                referenceableId,
+                referenceableType,
+                updatedAt,
                 additionalProperties.toImmutable(),
             )
     }
@@ -834,15 +834,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentReference && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && referenceableId == other.referenceableId && referenceableType == other.referenceableType && referenceNumber == other.referenceNumber && referenceNumberType == other.referenceNumberType && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is PaymentReference && id == other.id && createdAt == other.createdAt && liveMode == other.liveMode && object_ == other.object_ && referenceNumber == other.referenceNumber && referenceNumberType == other.referenceNumberType && referenceableId == other.referenceableId && referenceableType == other.referenceableType && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, referenceableId, referenceableType, referenceNumber, referenceNumberType, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, createdAt, liveMode, object_, referenceNumber, referenceNumberType, referenceableId, referenceableType, updatedAt, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PaymentReference{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, referenceableId=$referenceableId, referenceableType=$referenceableType, referenceNumber=$referenceNumber, referenceNumberType=$referenceNumberType, additionalProperties=$additionalProperties}"
+        "PaymentReference{id=$id, createdAt=$createdAt, liveMode=$liveMode, object_=$object_, referenceNumber=$referenceNumber, referenceNumberType=$referenceNumberType, referenceableId=$referenceableId, referenceableType=$referenceableType, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

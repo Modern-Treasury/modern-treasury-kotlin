@@ -918,12 +918,12 @@ constructor(
     class LedgerAccountCreateRequest
     @JsonCreator
     private constructor(
-        @JsonProperty("name") private val name: String,
-        @JsonProperty("description") private val description: String?,
-        @JsonProperty("normal_balance") private val normalBalance: TransactionDirection,
-        @JsonProperty("ledger_id") private val ledgerId: String,
         @JsonProperty("currency") private val currency: String,
+        @JsonProperty("ledger_id") private val ledgerId: String,
+        @JsonProperty("name") private val name: String,
+        @JsonProperty("normal_balance") private val normalBalance: TransactionDirection,
         @JsonProperty("currency_exponent") private val currencyExponent: Long?,
+        @JsonProperty("description") private val description: String?,
         @JsonProperty("ledger_account_category_ids")
         private val ledgerAccountCategoryIds: List<String>?,
         @JsonProperty("ledgerable_id") private val ledgerableId: String?,
@@ -933,23 +933,23 @@ constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The name of the ledger account. */
-        @JsonProperty("name") fun name(): String = name
-
-        /** The description of the ledger account. */
-        @JsonProperty("description") fun description(): String? = description
-
-        /** The normal balance of the ledger account. */
-        @JsonProperty("normal_balance") fun normalBalance(): TransactionDirection = normalBalance
+        /** The currency of the ledger account. */
+        @JsonProperty("currency") fun currency(): String = currency
 
         /** The id of the ledger that this account belongs to. */
         @JsonProperty("ledger_id") fun ledgerId(): String = ledgerId
 
-        /** The currency of the ledger account. */
-        @JsonProperty("currency") fun currency(): String = currency
+        /** The name of the ledger account. */
+        @JsonProperty("name") fun name(): String = name
+
+        /** The normal balance of the ledger account. */
+        @JsonProperty("normal_balance") fun normalBalance(): TransactionDirection = normalBalance
 
         /** The currency exponent of the ledger account. */
         @JsonProperty("currency_exponent") fun currencyExponent(): Long? = currencyExponent
+
+        /** The description of the ledger account. */
+        @JsonProperty("description") fun description(): String? = description
 
         /**
          * The array of ledger account category ids that this ledger account should be a child of.
@@ -987,12 +987,12 @@ constructor(
 
         class Builder {
 
-            private var name: String? = null
-            private var description: String? = null
-            private var normalBalance: TransactionDirection? = null
-            private var ledgerId: String? = null
             private var currency: String? = null
+            private var ledgerId: String? = null
+            private var name: String? = null
+            private var normalBalance: TransactionDirection? = null
             private var currencyExponent: Long? = null
+            private var description: String? = null
             private var ledgerAccountCategoryIds: MutableList<String>? = null
             private var ledgerableId: String? = null
             private var ledgerableType: LedgerableType? = null
@@ -1000,12 +1000,12 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerAccountCreateRequest: LedgerAccountCreateRequest) = apply {
-                name = ledgerAccountCreateRequest.name
-                description = ledgerAccountCreateRequest.description
-                normalBalance = ledgerAccountCreateRequest.normalBalance
-                ledgerId = ledgerAccountCreateRequest.ledgerId
                 currency = ledgerAccountCreateRequest.currency
+                ledgerId = ledgerAccountCreateRequest.ledgerId
+                name = ledgerAccountCreateRequest.name
+                normalBalance = ledgerAccountCreateRequest.normalBalance
                 currencyExponent = ledgerAccountCreateRequest.currencyExponent
+                description = ledgerAccountCreateRequest.description
                 ledgerAccountCategoryIds =
                     ledgerAccountCreateRequest.ledgerAccountCategoryIds?.toMutableList()
                 ledgerableId = ledgerAccountCreateRequest.ledgerableId
@@ -1015,27 +1015,27 @@ constructor(
                     ledgerAccountCreateRequest.additionalProperties.toMutableMap()
             }
 
+            /** The currency of the ledger account. */
+            fun currency(currency: String) = apply { this.currency = currency }
+
+            /** The id of the ledger that this account belongs to. */
+            fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
+
             /** The name of the ledger account. */
             fun name(name: String) = apply { this.name = name }
-
-            /** The description of the ledger account. */
-            fun description(description: String) = apply { this.description = description }
 
             /** The normal balance of the ledger account. */
             fun normalBalance(normalBalance: TransactionDirection) = apply {
                 this.normalBalance = normalBalance
             }
 
-            /** The id of the ledger that this account belongs to. */
-            fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
-
-            /** The currency of the ledger account. */
-            fun currency(currency: String) = apply { this.currency = currency }
-
             /** The currency exponent of the ledger account. */
             fun currencyExponent(currencyExponent: Long) = apply {
                 this.currencyExponent = currencyExponent
             }
+
+            /** The description of the ledger account. */
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * The array of ledger account category ids that this ledger account should be a child
@@ -1098,12 +1098,12 @@ constructor(
 
             fun build(): LedgerAccountCreateRequest =
                 LedgerAccountCreateRequest(
-                    checkNotNull(name) { "`name` is required but was not set" },
-                    description,
-                    checkNotNull(normalBalance) { "`normalBalance` is required but was not set" },
-                    checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
                     checkNotNull(currency) { "`currency` is required but was not set" },
+                    checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
+                    checkNotNull(name) { "`name` is required but was not set" },
+                    checkNotNull(normalBalance) { "`normalBalance` is required but was not set" },
                     currencyExponent,
+                    description,
                     ledgerAccountCategoryIds?.toImmutable(),
                     ledgerableId,
                     ledgerableType,
@@ -1259,17 +1259,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerAccountCreateRequest && name == other.name && description == other.description && normalBalance == other.normalBalance && ledgerId == other.ledgerId && currency == other.currency && currencyExponent == other.currencyExponent && ledgerAccountCategoryIds == other.ledgerAccountCategoryIds && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerAccountCreateRequest && currency == other.currency && ledgerId == other.ledgerId && name == other.name && normalBalance == other.normalBalance && currencyExponent == other.currencyExponent && description == other.description && ledgerAccountCategoryIds == other.ledgerAccountCategoryIds && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(name, description, normalBalance, ledgerId, currency, currencyExponent, ledgerAccountCategoryIds, ledgerableId, ledgerableType, metadata, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(currency, ledgerId, name, normalBalance, currencyExponent, description, ledgerAccountCategoryIds, ledgerableId, ledgerableType, metadata, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerAccountCreateRequest{name=$name, description=$description, normalBalance=$normalBalance, ledgerId=$ledgerId, currency=$currency, currencyExponent=$currencyExponent, ledgerAccountCategoryIds=$ledgerAccountCategoryIds, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalProperties=$additionalProperties}"
+            "LedgerAccountCreateRequest{currency=$currency, ledgerId=$ledgerId, name=$name, normalBalance=$normalBalance, currencyExponent=$currencyExponent, description=$description, ledgerAccountCategoryIds=$ledgerAccountCategoryIds, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
@@ -1344,15 +1344,18 @@ constructor(
     class AddressRequest
     @JsonCreator
     private constructor(
+        @JsonProperty("country") private val country: String?,
         @JsonProperty("line1") private val line1: String?,
         @JsonProperty("line2") private val line2: String?,
         @JsonProperty("locality") private val locality: String?,
-        @JsonProperty("region") private val region: String?,
         @JsonProperty("postal_code") private val postalCode: String?,
-        @JsonProperty("country") private val country: String?,
+        @JsonProperty("region") private val region: String?,
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
+
+        /** Country code conforms to [ISO 3166-1 alpha-2] */
+        @JsonProperty("country") fun country(): String? = country
 
         @JsonProperty("line1") fun line1(): String? = line1
 
@@ -1361,14 +1364,11 @@ constructor(
         /** Locality or City. */
         @JsonProperty("locality") fun locality(): String? = locality
 
-        /** Region or State. */
-        @JsonProperty("region") fun region(): String? = region
-
         /** The postal code of the address. */
         @JsonProperty("postal_code") fun postalCode(): String? = postalCode
 
-        /** Country code conforms to [ISO 3166-1 alpha-2] */
-        @JsonProperty("country") fun country(): String? = country
+        /** Region or State. */
+        @JsonProperty("region") fun region(): String? = region
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1383,23 +1383,26 @@ constructor(
 
         class Builder {
 
+            private var country: String? = null
             private var line1: String? = null
             private var line2: String? = null
             private var locality: String? = null
-            private var region: String? = null
             private var postalCode: String? = null
-            private var country: String? = null
+            private var region: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(addressRequest: AddressRequest) = apply {
+                country = addressRequest.country
                 line1 = addressRequest.line1
                 line2 = addressRequest.line2
                 locality = addressRequest.locality
-                region = addressRequest.region
                 postalCode = addressRequest.postalCode
-                country = addressRequest.country
+                region = addressRequest.region
                 additionalProperties = addressRequest.additionalProperties.toMutableMap()
             }
+
+            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            fun country(country: String) = apply { this.country = country }
 
             fun line1(line1: String) = apply { this.line1 = line1 }
 
@@ -1408,14 +1411,11 @@ constructor(
             /** Locality or City. */
             fun locality(locality: String) = apply { this.locality = locality }
 
-            /** Region or State. */
-            fun region(region: String) = apply { this.region = region }
-
             /** The postal code of the address. */
             fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
-            /** Country code conforms to [ISO 3166-1 alpha-2] */
-            fun country(country: String) = apply { this.country = country }
+            /** Region or State. */
+            fun region(region: String) = apply { this.region = region }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1438,12 +1438,12 @@ constructor(
 
             fun build(): AddressRequest =
                 AddressRequest(
+                    country,
                     line1,
                     line2,
                     locality,
-                    region,
                     postalCode,
-                    country,
+                    region,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1453,17 +1453,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AddressRequest && line1 == other.line1 && line2 == other.line2 && locality == other.locality && region == other.region && postalCode == other.postalCode && country == other.country && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is AddressRequest && country == other.country && line1 == other.line1 && line2 == other.line2 && locality == other.locality && postalCode == other.postalCode && region == other.region && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(line1, line2, locality, region, postalCode, country, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(country, line1, line2, locality, postalCode, region, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "AddressRequest{line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
+            "AddressRequest{country=$country, line1=$line1, line2=$line2, locality=$locality, postalCode=$postalCode, region=$region, additionalProperties=$additionalProperties}"
     }
 
     class PartyType
