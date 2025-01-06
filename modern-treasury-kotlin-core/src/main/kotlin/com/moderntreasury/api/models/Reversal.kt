@@ -23,39 +23,42 @@ class Reversal
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
     @JsonProperty("created_at")
     @ExcludeMissing
     private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("payment_order_id")
-    @ExcludeMissing
-    private val paymentOrderId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("ledger_transaction_id")
     @ExcludeMissing
     private val ledgerTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
     @JsonProperty("metadata")
     @ExcludeMissing
     private val metadata: JsonField<Metadata> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("payment_order_id")
+    @ExcludeMissing
+    private val paymentOrderId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("reason")
     @ExcludeMissing
     private val reason: JsonField<Reason> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
 
-    fun object_(): String = object_.getRequired("object")
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /** The ID of the ledger transaction linked to the reversal. */
+    fun ledgerTransactionId(): String? = ledgerTransactionId.getNullable("ledger_transaction_id")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
@@ -63,28 +66,30 @@ private constructor(
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun metadata(): Metadata = metadata.getRequired("metadata")
 
-    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
-
-    /** The current status of the reversal. */
-    fun status(): Status = status.getRequired("status")
+    fun object_(): String = object_.getRequired("object")
 
     /** The ID of the relevant Payment Order. */
     fun paymentOrderId(): String? = paymentOrderId.getNullable("payment_order_id")
 
-    /** The ID of the ledger transaction linked to the reversal. */
-    fun ledgerTransactionId(): String? = ledgerTransactionId.getNullable("ledger_transaction_id")
-
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    fun metadata(): Metadata = metadata.getRequired("metadata")
-
     /** The reason for the reversal. */
     fun reason(): Reason = reason.getRequired("reason")
 
+    /** The current status of the reversal. */
+    fun status(): Status = status.getRequired("status")
+
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /** The ID of the ledger transaction linked to the reversal. */
+    @JsonProperty("ledger_transaction_id")
+    @ExcludeMissing
+    fun _ledgerTransactionId() = ledgerTransactionId
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
@@ -92,26 +97,21 @@ private constructor(
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
-    /** The current status of the reversal. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
     /** The ID of the relevant Payment Order. */
     @JsonProperty("payment_order_id") @ExcludeMissing fun _paymentOrderId() = paymentOrderId
 
-    /** The ID of the ledger transaction linked to the reversal. */
-    @JsonProperty("ledger_transaction_id")
-    @ExcludeMissing
-    fun _ledgerTransactionId() = ledgerTransactionId
-
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
-
     /** The reason for the reversal. */
     @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
+
+    /** The current status of the reversal. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
+
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -122,15 +122,15 @@ private constructor(
     fun validate(): Reversal = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
             createdAt()
-            updatedAt()
-            status()
-            paymentOrderId()
             ledgerTransactionId()
+            liveMode()
             metadata().validate()
+            object_()
+            paymentOrderId()
             reason()
+            status()
+            updatedAt()
             validated = true
         }
     }
@@ -145,28 +145,28 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var paymentOrderId: JsonField<String> = JsonMissing.of()
         private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
         private var metadata: JsonField<Metadata> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
+        private var paymentOrderId: JsonField<String> = JsonMissing.of()
         private var reason: JsonField<Reason> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(reversal: Reversal) = apply {
             id = reversal.id
-            object_ = reversal.object_
-            liveMode = reversal.liveMode
             createdAt = reversal.createdAt
-            updatedAt = reversal.updatedAt
-            status = reversal.status
-            paymentOrderId = reversal.paymentOrderId
             ledgerTransactionId = reversal.ledgerTransactionId
+            liveMode = reversal.liveMode
             metadata = reversal.metadata
+            object_ = reversal.object_
+            paymentOrderId = reversal.paymentOrderId
             reason = reversal.reason
+            status = reversal.status
+            updatedAt = reversal.updatedAt
             additionalProperties = reversal.additionalProperties.toMutableMap()
         }
 
@@ -174,9 +174,18 @@ private constructor(
 
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun object_(object_: String) = object_(JsonField.of(object_))
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** The ID of the ledger transaction linked to the reversal. */
+        fun ledgerTransactionId(ledgerTransactionId: String) =
+            ledgerTransactionId(JsonField.of(ledgerTransactionId))
+
+        /** The ID of the ledger transaction linked to the reversal. */
+        fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
+            this.ledgerTransactionId = ledgerTransactionId
+        }
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -190,37 +199,6 @@ private constructor(
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
-
-        /** The current status of the reversal. */
-        fun status(status: Status) = status(JsonField.of(status))
-
-        /** The current status of the reversal. */
-        fun status(status: JsonField<Status>) = apply { this.status = status }
-
-        /** The ID of the relevant Payment Order. */
-        fun paymentOrderId(paymentOrderId: String) = paymentOrderId(JsonField.of(paymentOrderId))
-
-        /** The ID of the relevant Payment Order. */
-        fun paymentOrderId(paymentOrderId: JsonField<String>) = apply {
-            this.paymentOrderId = paymentOrderId
-        }
-
-        /** The ID of the ledger transaction linked to the reversal. */
-        fun ledgerTransactionId(ledgerTransactionId: String) =
-            ledgerTransactionId(JsonField.of(ledgerTransactionId))
-
-        /** The ID of the ledger transaction linked to the reversal. */
-        fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
-            this.ledgerTransactionId = ledgerTransactionId
-        }
-
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
@@ -231,11 +209,33 @@ private constructor(
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
+        fun object_(object_: String) = object_(JsonField.of(object_))
+
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+
+        /** The ID of the relevant Payment Order. */
+        fun paymentOrderId(paymentOrderId: String) = paymentOrderId(JsonField.of(paymentOrderId))
+
+        /** The ID of the relevant Payment Order. */
+        fun paymentOrderId(paymentOrderId: JsonField<String>) = apply {
+            this.paymentOrderId = paymentOrderId
+        }
+
         /** The reason for the reversal. */
         fun reason(reason: Reason) = reason(JsonField.of(reason))
 
         /** The reason for the reversal. */
         fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
+        /** The current status of the reversal. */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /** The current status of the reversal. */
+        fun status(status: JsonField<Status>) = apply { this.status = status }
+
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -259,15 +259,15 @@ private constructor(
         fun build(): Reversal =
             Reversal(
                 id,
-                object_,
-                liveMode,
                 createdAt,
-                updatedAt,
-                status,
-                paymentOrderId,
                 ledgerTransactionId,
+                liveMode,
                 metadata,
+                object_,
+                paymentOrderId,
                 reason,
+                status,
+                updatedAt,
                 additionalProperties.toImmutable(),
             )
     }
@@ -508,15 +508,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Reversal && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && status == other.status && paymentOrderId == other.paymentOrderId && ledgerTransactionId == other.ledgerTransactionId && metadata == other.metadata && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Reversal && id == other.id && createdAt == other.createdAt && ledgerTransactionId == other.ledgerTransactionId && liveMode == other.liveMode && metadata == other.metadata && object_ == other.object_ && paymentOrderId == other.paymentOrderId && reason == other.reason && status == other.status && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, status, paymentOrderId, ledgerTransactionId, metadata, reason, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, createdAt, ledgerTransactionId, liveMode, metadata, object_, paymentOrderId, reason, status, updatedAt, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Reversal{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, status=$status, paymentOrderId=$paymentOrderId, ledgerTransactionId=$ledgerTransactionId, metadata=$metadata, reason=$reason, additionalProperties=$additionalProperties}"
+        "Reversal{id=$id, createdAt=$createdAt, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, object_=$object_, paymentOrderId=$paymentOrderId, reason=$reason, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

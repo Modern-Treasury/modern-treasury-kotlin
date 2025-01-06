@@ -34,37 +34,6 @@ class PaymentOrder
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("type")
-    @ExcludeMissing
-    private val type: JsonField<PaymentOrderType> = JsonMissing.of(),
-    @JsonProperty("subtype")
-    @ExcludeMissing
-    private val subtype: JsonField<PaymentOrderSubtype> = JsonMissing.of(),
-    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("direction")
-    @ExcludeMissing
-    private val direction: JsonField<Direction> = JsonMissing.of(),
-    @JsonProperty("priority")
-    @ExcludeMissing
-    private val priority: JsonField<Priority> = JsonMissing.of(),
-    @JsonProperty("originating_account_id")
-    @ExcludeMissing
-    private val originatingAccountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("receiving_account_id")
-    @ExcludeMissing
-    private val receivingAccountId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("accounting")
     @ExcludeMissing
     private val accounting: JsonField<Accounting> = JsonMissing.of(),
@@ -74,69 +43,112 @@ private constructor(
     @JsonProperty("accounting_ledger_class_id")
     @ExcludeMissing
     private val accountingLedgerClassId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("charge_bearer")
+    @ExcludeMissing
+    private val chargeBearer: JsonField<ChargeBearer> = JsonMissing.of(),
+    @JsonProperty("compliance_rule_metadata")
+    @ExcludeMissing
+    private val complianceRuleMetadata: JsonField<ComplianceRuleMetadata> = JsonMissing.of(),
+    @JsonProperty("counterparty_id")
+    @ExcludeMissing
+    private val counterpartyId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("currency")
     @ExcludeMissing
     private val currency: JsonField<Currency> = JsonMissing.of(),
-    @JsonProperty("effective_date")
+    @JsonProperty("current_return")
     @ExcludeMissing
-    private val effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
+    private val currentReturn: JsonField<ReturnObject> = JsonMissing.of(),
+    @JsonProperty("decision_id")
+    @ExcludeMissing
+    private val decisionId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("description")
     @ExcludeMissing
     private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("statement_descriptor")
+    @JsonProperty("direction")
     @ExcludeMissing
-    private val statementDescriptor: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("remittance_information")
+    private val direction: JsonField<Direction> = JsonMissing.of(),
+    @JsonProperty("effective_date")
     @ExcludeMissing
-    private val remittanceInformation: JsonField<String> = JsonMissing.of(),
+    private val effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
+    @JsonProperty("expires_at")
+    @ExcludeMissing
+    private val expiresAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("foreign_exchange_contract")
+    @ExcludeMissing
+    private val foreignExchangeContract: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("foreign_exchange_indicator")
+    @ExcludeMissing
+    private val foreignExchangeIndicator: JsonField<ForeignExchangeIndicator> = JsonMissing.of(),
+    @JsonProperty("foreign_exchange_rate")
+    @ExcludeMissing
+    private val foreignExchangeRate: JsonField<ForeignExchangeRate> = JsonMissing.of(),
+    @JsonProperty("ledger_transaction_id")
+    @ExcludeMissing
+    private val ledgerTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("metadata")
+    @ExcludeMissing
+    private val metadata: JsonField<Metadata> = JsonMissing.of(),
+    @JsonProperty("nsf_protected")
+    @ExcludeMissing
+    private val nsfProtected: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originating_account_id")
+    @ExcludeMissing
+    private val originatingAccountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originating_party_name")
+    @ExcludeMissing
+    private val originatingPartyName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("priority")
+    @ExcludeMissing
+    private val priority: JsonField<Priority> = JsonMissing.of(),
     @JsonProperty("process_after")
     @ExcludeMissing
     private val processAfter: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("purpose")
     @ExcludeMissing
     private val purpose: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("metadata")
+    @JsonProperty("receiving_account_id")
     @ExcludeMissing
-    private val metadata: JsonField<Metadata> = JsonMissing.of(),
-    @JsonProperty("charge_bearer")
-    @ExcludeMissing
-    private val chargeBearer: JsonField<ChargeBearer> = JsonMissing.of(),
-    @JsonProperty("foreign_exchange_indicator")
-    @ExcludeMissing
-    private val foreignExchangeIndicator: JsonField<ForeignExchangeIndicator> = JsonMissing.of(),
-    @JsonProperty("foreign_exchange_contract")
-    @ExcludeMissing
-    private val foreignExchangeContract: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("nsf_protected")
-    @ExcludeMissing
-    private val nsfProtected: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("originating_party_name")
-    @ExcludeMissing
-    private val originatingPartyName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("ultimate_originating_party_name")
-    @ExcludeMissing
-    private val ultimateOriginatingPartyName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("ultimate_originating_party_identifier")
-    @ExcludeMissing
-    private val ultimateOriginatingPartyIdentifier: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("ultimate_receiving_party_name")
-    @ExcludeMissing
-    private val ultimateReceivingPartyName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("ultimate_receiving_party_identifier")
-    @ExcludeMissing
-    private val ultimateReceivingPartyIdentifier: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("send_remittance_advice")
-    @ExcludeMissing
-    private val sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("expires_at")
-    @ExcludeMissing
-    private val expiresAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
+    private val receivingAccountId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("receiving_account_type")
     @ExcludeMissing
     private val receivingAccountType: JsonField<ReceivingAccountType> = JsonMissing.of(),
+    @JsonProperty("reference_numbers")
+    @ExcludeMissing
+    private val referenceNumbers: JsonField<List<PaymentReference>> = JsonMissing.of(),
+    @JsonProperty("remittance_information")
+    @ExcludeMissing
+    private val remittanceInformation: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("send_remittance_advice")
+    @ExcludeMissing
+    private val sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("statement_descriptor")
+    @ExcludeMissing
+    private val statementDescriptor: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("subtype")
+    @ExcludeMissing
+    private val subtype: JsonField<PaymentOrderSubtype> = JsonMissing.of(),
+    @JsonProperty("transaction_ids")
+    @ExcludeMissing
+    private val transactionIds: JsonField<List<String>> = JsonMissing.of(),
+    @JsonProperty("transaction_monitoring_enabled")
+    @ExcludeMissing
+    private val transactionMonitoringEnabled: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("type")
+    @ExcludeMissing
+    private val type: JsonField<PaymentOrderType> = JsonMissing.of(),
     @JsonProperty("ultimate_originating_account")
     @ExcludeMissing
     private val ultimateOriginatingAccount: JsonField<UltimateOriginatingAccount> =
@@ -148,96 +160,31 @@ private constructor(
     @ExcludeMissing
     private val ultimateOriginatingAccountType: JsonField<UltimateOriginatingAccountType> =
         JsonMissing.of(),
-    @JsonProperty("counterparty_id")
+    @JsonProperty("ultimate_originating_party_identifier")
     @ExcludeMissing
-    private val counterpartyId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("transaction_ids")
+    private val ultimateOriginatingPartyIdentifier: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("ultimate_originating_party_name")
     @ExcludeMissing
-    private val transactionIds: JsonField<List<String>> = JsonMissing.of(),
-    @JsonProperty("ledger_transaction_id")
+    private val ultimateOriginatingPartyName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("ultimate_receiving_party_identifier")
     @ExcludeMissing
-    private val ledgerTransactionId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("current_return")
+    private val ultimateReceivingPartyIdentifier: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("ultimate_receiving_party_name")
     @ExcludeMissing
-    private val currentReturn: JsonField<ReturnObject> = JsonMissing.of(),
-    @JsonProperty("transaction_monitoring_enabled")
+    private val ultimateReceivingPartyName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("updated_at")
     @ExcludeMissing
-    private val transactionMonitoringEnabled: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("compliance_rule_metadata")
-    @ExcludeMissing
-    private val complianceRuleMetadata: JsonField<ComplianceRuleMetadata> = JsonMissing.of(),
-    @JsonProperty("reference_numbers")
-    @ExcludeMissing
-    private val referenceNumbers: JsonField<List<PaymentReference>> = JsonMissing.of(),
-    @JsonProperty("vendor_failure_reason")
-    @ExcludeMissing
-    private val vendorFailureReason: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("decision_id")
-    @ExcludeMissing
-    private val decisionId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("foreign_exchange_rate")
-    @ExcludeMissing
-    private val foreignExchangeRate: JsonField<ForeignExchangeRate> = JsonMissing.of(),
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("vendor_attributes")
     @ExcludeMissing
     private val vendorAttributes: JsonValue = JsonMissing.of(),
+    @JsonProperty("vendor_failure_reason")
+    @ExcludeMissing
+    private val vendorFailureReason: JsonField<String> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
-
-    fun object_(): String = object_.getRequired("object")
-
-    /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
-     */
-    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
-
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
-
-    /**
-     * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`,
-     * `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `signet`,
-     * `provexchange`, `zengin`.
-     */
-    fun type(): PaymentOrderType = type.getRequired("type")
-
-    /**
-     * An additional layer of classification for the type of payment order you are doing. This field
-     * is only used for `ach` payment orders currently. For `ach` payment orders, the `subtype`
-     * represents the SEC code. We currently support `CCD`, `PPD`, `IAT`, `CTX`, `WEB`, `CIE`, and
-     * `TEL`.
-     */
-    fun subtype(): PaymentOrderSubtype? = subtype.getNullable("subtype")
-
-    /**
-     * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000 (cents).
-     * For RTP, the maximum amount allowed by the network is $100,000.
-     */
-    fun amount(): Long = amount.getRequired("amount")
-
-    /**
-     * One of `credit`, `debit`. Describes the direction money is flowing in the transaction. A
-     * `credit` moves money from your account to someone else's. A `debit` pulls money from someone
-     * else's account to your own. Note that wire, rtp, and check payments will always be `credit`.
-     */
-    fun direction(): Direction = direction.getRequired("direction")
-
-    /**
-     * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH or EFT
-     * transfer, respectively. For check payments, `high` can mean an overnight check rather than
-     * standard mail.
-     */
-    fun priority(): Priority = priority.getRequired("priority")
-
-    /** The ID of one of your organization's internal accounts. */
-    fun originatingAccountId(): String = originatingAccountId.getRequired("originating_account_id")
-
-    /** The receiving account ID. Can be an `external_account` or `internal_account`. */
-    fun receivingAccountId(): String = receivingAccountId.getRequired("receiving_account_id")
 
     fun accounting(): Accounting = accounting.getRequired("accounting")
 
@@ -254,8 +201,55 @@ private constructor(
     fun accountingLedgerClassId(): String? =
         accountingLedgerClassId.getNullable("accounting_ledger_class_id")
 
+    /**
+     * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000 (cents).
+     * For RTP, the maximum amount allowed by the network is $100,000.
+     */
+    fun amount(): Long = amount.getRequired("amount")
+
+    /**
+     * The party that will pay the fees for the payment order. Only applies to wire payment orders.
+     * Can be one of shared, sender, or receiver, which correspond respectively with the SWIFT 71A
+     * values `SHA`, `OUR`, `BEN`.
+     */
+    fun chargeBearer(): ChargeBearer? = chargeBearer.getNullable("charge_bearer")
+
+    /**
+     * Custom key-value pair for usage in compliance rules. Please contact support before making
+     * changes to this field.
+     */
+    fun complianceRuleMetadata(): ComplianceRuleMetadata? =
+        complianceRuleMetadata.getNullable("compliance_rule_metadata")
+
+    /**
+     * If the payment order is tied to a specific Counterparty, their id will appear, otherwise
+     * `null`.
+     */
+    fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
+
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
     /** Defaults to the currency of the originating account. */
     fun currency(): Currency = currency.getRequired("currency")
+
+    /** If the payment order's status is `returned`, this will include the return object's data. */
+    fun currentReturn(): ReturnObject? = currentReturn.getNullable("current_return")
+
+    /**
+     * The ID of the compliance decision for the payment order, if transaction monitoring is
+     * enabled.
+     */
+    fun decisionId(): String? = decisionId.getNullable("decision_id")
+
+    /** An optional description for internal use. */
+    fun description(): String? = description.getNullable("description")
+
+    /**
+     * One of `credit`, `debit`. Describes the direction money is flowing in the transaction. A
+     * `credit` moves money from your account to someone else's. A `debit` pulls money from someone
+     * else's account to your own. Note that wire, rtp, and check payments will always be `credit`.
+     */
+    fun direction(): Direction = direction.getRequired("direction")
 
     /**
      * Date transactions are to be posted to the participants' account. Defaults to the current
@@ -264,25 +258,64 @@ private constructor(
      */
     fun effectiveDate(): LocalDate = effectiveDate.getRequired("effective_date")
 
-    /** An optional description for internal use. */
-    fun description(): String? = description.getNullable("description")
+    /** RFP payments require an expires_at. This value must be past the effective_date. */
+    fun expiresAt(): OffsetDateTime? = expiresAt.getNullable("expires_at")
 
     /**
-     * An optional descriptor which will appear in the receiver's statement. For `check` payments
-     * this field will be used as the memo line. For `ach` the maximum length is 10 characters. Note
-     * that for ACH payments, the name on your bank account will be included automatically by the
-     * bank, so you can use the characters for other useful information. For `eft` the maximum
-     * length is 15 characters.
+     * If present, indicates a specific foreign exchange contract number that has been generated by
+     * your financial institution.
      */
-    fun statementDescriptor(): String? = statementDescriptor.getNullable("statement_descriptor")
+    fun foreignExchangeContract(): String? =
+        foreignExchangeContract.getNullable("foreign_exchange_contract")
 
     /**
-     * For `ach`, this field will be passed through on an addenda record. For `wire` payments the
-     * field will be passed through as the "Originator to Beneficiary Information", also known as
-     * OBI or Fedwire tag 6000.
+     * Indicates the type of FX transfer to initiate, can be either `variable_to_fixed`,
+     * `fixed_to_variable`, or `null` if the payment order currency matches the originating account
+     * currency.
      */
-    fun remittanceInformation(): String? =
-        remittanceInformation.getNullable("remittance_information")
+    fun foreignExchangeIndicator(): ForeignExchangeIndicator? =
+        foreignExchangeIndicator.getNullable("foreign_exchange_indicator")
+
+    /** Associated serialized foreign exchange rate information. */
+    fun foreignExchangeRate(): ForeignExchangeRate? =
+        foreignExchangeRate.getNullable("foreign_exchange_rate")
+
+    /** The ID of the ledger transaction linked to the payment order. */
+    fun ledgerTransactionId(): String? = ledgerTransactionId.getNullable("ledger_transaction_id")
+
+    /**
+     * This field will be true if this object exists in the live environment or false if it exists
+     * in the test environment.
+     */
+    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun metadata(): Metadata = metadata.getRequired("metadata")
+
+    /**
+     * A boolean to determine if NSF Protection is enabled for this payment order. Note that this
+     * setting must also be turned on in your organization settings page.
+     */
+    fun nsfProtected(): Boolean = nsfProtected.getRequired("nsf_protected")
+
+    fun object_(): String = object_.getRequired("object")
+
+    /** The ID of one of your organization's internal accounts. */
+    fun originatingAccountId(): String = originatingAccountId.getRequired("originating_account_id")
+
+    /**
+     * If present, this will replace your default company name on receiver's bank statement. This
+     * field can only be used for ACH payments currently. For ACH, only the first 16 characters of
+     * this string will be used. Any additional characters will be truncated.
+     */
+    fun originatingPartyName(): String? = originatingPartyName.getNullable("originating_party_name")
+
+    /**
+     * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH or EFT
+     * transfer, respectively. For check payments, `high` can mean an overnight check rather than
+     * standard mail.
+     */
+    fun priority(): Priority = priority.getRequired("priority")
 
     /**
      * If present, Modern Treasury will not process the payment until after this time. If
@@ -299,57 +332,22 @@ private constructor(
      */
     fun purpose(): String? = purpose.getNullable("purpose")
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    fun metadata(): Metadata = metadata.getRequired("metadata")
+    /** The receiving account ID. Can be an `external_account` or `internal_account`. */
+    fun receivingAccountId(): String = receivingAccountId.getRequired("receiving_account_id")
+
+    fun receivingAccountType(): ReceivingAccountType =
+        receivingAccountType.getRequired("receiving_account_type")
+
+    fun referenceNumbers(): List<PaymentReference> =
+        referenceNumbers.getRequired("reference_numbers")
 
     /**
-     * The party that will pay the fees for the payment order. Only applies to wire payment orders.
-     * Can be one of shared, sender, or receiver, which correspond respectively with the SWIFT 71A
-     * values `SHA`, `OUR`, `BEN`.
+     * For `ach`, this field will be passed through on an addenda record. For `wire` payments the
+     * field will be passed through as the "Originator to Beneficiary Information", also known as
+     * OBI or Fedwire tag 6000.
      */
-    fun chargeBearer(): ChargeBearer? = chargeBearer.getNullable("charge_bearer")
-
-    /**
-     * Indicates the type of FX transfer to initiate, can be either `variable_to_fixed`,
-     * `fixed_to_variable`, or `null` if the payment order currency matches the originating account
-     * currency.
-     */
-    fun foreignExchangeIndicator(): ForeignExchangeIndicator? =
-        foreignExchangeIndicator.getNullable("foreign_exchange_indicator")
-
-    /**
-     * If present, indicates a specific foreign exchange contract number that has been generated by
-     * your financial institution.
-     */
-    fun foreignExchangeContract(): String? =
-        foreignExchangeContract.getNullable("foreign_exchange_contract")
-
-    /**
-     * A boolean to determine if NSF Protection is enabled for this payment order. Note that this
-     * setting must also be turned on in your organization settings page.
-     */
-    fun nsfProtected(): Boolean = nsfProtected.getRequired("nsf_protected")
-
-    /**
-     * If present, this will replace your default company name on receiver's bank statement. This
-     * field can only be used for ACH payments currently. For ACH, only the first 16 characters of
-     * this string will be used. Any additional characters will be truncated.
-     */
-    fun originatingPartyName(): String? = originatingPartyName.getNullable("originating_party_name")
-
-    /** Name of the ultimate originator of the payment order. */
-    fun ultimateOriginatingPartyName(): String? =
-        ultimateOriginatingPartyName.getNullable("ultimate_originating_party_name")
-
-    /** Identifier of the ultimate originator of the payment order. */
-    fun ultimateOriginatingPartyIdentifier(): String? =
-        ultimateOriginatingPartyIdentifier.getNullable("ultimate_originating_party_identifier")
-
-    fun ultimateReceivingPartyName(): String? =
-        ultimateReceivingPartyName.getNullable("ultimate_receiving_party_name")
-
-    fun ultimateReceivingPartyIdentifier(): String? =
-        ultimateReceivingPartyIdentifier.getNullable("ultimate_receiving_party_identifier")
+    fun remittanceInformation(): String? =
+        remittanceInformation.getNullable("remittance_information")
 
     /**
      * Send an email to the counterparty when the payment order is sent to the bank. If `null`,
@@ -358,14 +356,43 @@ private constructor(
     fun sendRemittanceAdvice(): Boolean? =
         sendRemittanceAdvice.getNullable("send_remittance_advice")
 
-    /** RFP payments require an expires_at. This value must be past the effective_date. */
-    fun expiresAt(): OffsetDateTime? = expiresAt.getNullable("expires_at")
+    /**
+     * An optional descriptor which will appear in the receiver's statement. For `check` payments
+     * this field will be used as the memo line. For `ach` the maximum length is 10 characters. Note
+     * that for ACH payments, the name on your bank account will be included automatically by the
+     * bank, so you can use the characters for other useful information. For `eft` the maximum
+     * length is 15 characters.
+     */
+    fun statementDescriptor(): String? = statementDescriptor.getNullable("statement_descriptor")
 
     /** The current status of the payment order. */
     fun status(): Status = status.getRequired("status")
 
-    fun receivingAccountType(): ReceivingAccountType =
-        receivingAccountType.getRequired("receiving_account_type")
+    /**
+     * An additional layer of classification for the type of payment order you are doing. This field
+     * is only used for `ach` payment orders currently. For `ach` payment orders, the `subtype`
+     * represents the SEC code. We currently support `CCD`, `PPD`, `IAT`, `CTX`, `WEB`, `CIE`, and
+     * `TEL`.
+     */
+    fun subtype(): PaymentOrderSubtype? = subtype.getNullable("subtype")
+
+    /**
+     * The IDs of all the transactions associated to this payment order. Usually, you will only have
+     * a single transaction ID. However, if a payment order initially results in a Return, but gets
+     * redrafted and is later successfully completed, it can have many transactions.
+     */
+    fun transactionIds(): List<String> = transactionIds.getRequired("transaction_ids")
+
+    /** A flag that determines whether a payment order should go through transaction monitoring. */
+    fun transactionMonitoringEnabled(): Boolean =
+        transactionMonitoringEnabled.getRequired("transaction_monitoring_enabled")
+
+    /**
+     * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`,
+     * `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `signet`,
+     * `provexchange`, `zengin`.
+     */
+    fun type(): PaymentOrderType = type.getRequired("type")
 
     /**
      * The account to which the originating of this payment should be attributed to. Can be a
@@ -381,38 +408,21 @@ private constructor(
     fun ultimateOriginatingAccountType(): UltimateOriginatingAccountType? =
         ultimateOriginatingAccountType.getNullable("ultimate_originating_account_type")
 
-    /**
-     * If the payment order is tied to a specific Counterparty, their id will appear, otherwise
-     * `null`.
-     */
-    fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
+    /** Identifier of the ultimate originator of the payment order. */
+    fun ultimateOriginatingPartyIdentifier(): String? =
+        ultimateOriginatingPartyIdentifier.getNullable("ultimate_originating_party_identifier")
 
-    /**
-     * The IDs of all the transactions associated to this payment order. Usually, you will only have
-     * a single transaction ID. However, if a payment order initially results in a Return, but gets
-     * redrafted and is later successfully completed, it can have many transactions.
-     */
-    fun transactionIds(): List<String> = transactionIds.getRequired("transaction_ids")
+    /** Name of the ultimate originator of the payment order. */
+    fun ultimateOriginatingPartyName(): String? =
+        ultimateOriginatingPartyName.getNullable("ultimate_originating_party_name")
 
-    /** The ID of the ledger transaction linked to the payment order. */
-    fun ledgerTransactionId(): String? = ledgerTransactionId.getNullable("ledger_transaction_id")
+    fun ultimateReceivingPartyIdentifier(): String? =
+        ultimateReceivingPartyIdentifier.getNullable("ultimate_receiving_party_identifier")
 
-    /** If the payment order's status is `returned`, this will include the return object's data. */
-    fun currentReturn(): ReturnObject? = currentReturn.getNullable("current_return")
+    fun ultimateReceivingPartyName(): String? =
+        ultimateReceivingPartyName.getNullable("ultimate_receiving_party_name")
 
-    /** A flag that determines whether a payment order should go through transaction monitoring. */
-    fun transactionMonitoringEnabled(): Boolean =
-        transactionMonitoringEnabled.getRequired("transaction_monitoring_enabled")
-
-    /**
-     * Custom key-value pair for usage in compliance rules. Please contact support before making
-     * changes to this field.
-     */
-    fun complianceRuleMetadata(): ComplianceRuleMetadata? =
-        complianceRuleMetadata.getNullable("compliance_rule_metadata")
-
-    fun referenceNumbers(): List<PaymentReference> =
-        referenceNumbers.getRequired("reference_numbers")
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     /**
      * This field will be populated if a vendor failure occurs. Logic shouldn't be built on its
@@ -420,74 +430,7 @@ private constructor(
      */
     fun vendorFailureReason(): String? = vendorFailureReason.getNullable("vendor_failure_reason")
 
-    /**
-     * The ID of the compliance decision for the payment order, if transaction monitoring is
-     * enabled.
-     */
-    fun decisionId(): String? = decisionId.getNullable("decision_id")
-
-    /** Associated serialized foreign exchange rate information. */
-    fun foreignExchangeRate(): ForeignExchangeRate? =
-        foreignExchangeRate.getNullable("foreign_exchange_rate")
-
     @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
-
-    /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
-     */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
-
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
-    /**
-     * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`,
-     * `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `signet`,
-     * `provexchange`, `zengin`.
-     */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
-
-    /**
-     * An additional layer of classification for the type of payment order you are doing. This field
-     * is only used for `ach` payment orders currently. For `ach` payment orders, the `subtype`
-     * represents the SEC code. We currently support `CCD`, `PPD`, `IAT`, `CTX`, `WEB`, `CIE`, and
-     * `TEL`.
-     */
-    @JsonProperty("subtype") @ExcludeMissing fun _subtype() = subtype
-
-    /**
-     * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000 (cents).
-     * For RTP, the maximum amount allowed by the network is $100,000.
-     */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
-
-    /**
-     * One of `credit`, `debit`. Describes the direction money is flowing in the transaction. A
-     * `credit` moves money from your account to someone else's. A `debit` pulls money from someone
-     * else's account to your own. Note that wire, rtp, and check payments will always be `credit`.
-     */
-    @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
-
-    /**
-     * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH or EFT
-     * transfer, respectively. For check payments, `high` can mean an overnight check rather than
-     * standard mail.
-     */
-    @JsonProperty("priority") @ExcludeMissing fun _priority() = priority
-
-    /** The ID of one of your organization's internal accounts. */
-    @JsonProperty("originating_account_id")
-    @ExcludeMissing
-    fun _originatingAccountId() = originatingAccountId
-
-    /** The receiving account ID. Can be an `external_account` or `internal_account`. */
-    @JsonProperty("receiving_account_id")
-    @ExcludeMissing
-    fun _receivingAccountId() = receivingAccountId
 
     @JsonProperty("accounting") @ExcludeMissing fun _accounting() = accounting
 
@@ -507,8 +450,56 @@ private constructor(
     @ExcludeMissing
     fun _accountingLedgerClassId() = accountingLedgerClassId
 
+    /**
+     * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000 (cents).
+     * For RTP, the maximum amount allowed by the network is $100,000.
+     */
+    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+    /**
+     * The party that will pay the fees for the payment order. Only applies to wire payment orders.
+     * Can be one of shared, sender, or receiver, which correspond respectively with the SWIFT 71A
+     * values `SHA`, `OUR`, `BEN`.
+     */
+    @JsonProperty("charge_bearer") @ExcludeMissing fun _chargeBearer() = chargeBearer
+
+    /**
+     * Custom key-value pair for usage in compliance rules. Please contact support before making
+     * changes to this field.
+     */
+    @JsonProperty("compliance_rule_metadata")
+    @ExcludeMissing
+    fun _complianceRuleMetadata() = complianceRuleMetadata
+
+    /**
+     * If the payment order is tied to a specific Counterparty, their id will appear, otherwise
+     * `null`.
+     */
+    @JsonProperty("counterparty_id") @ExcludeMissing fun _counterpartyId() = counterpartyId
+
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
     /** Defaults to the currency of the originating account. */
     @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+    /** If the payment order's status is `returned`, this will include the return object's data. */
+    @JsonProperty("current_return") @ExcludeMissing fun _currentReturn() = currentReturn
+
+    /**
+     * The ID of the compliance decision for the payment order, if transaction monitoring is
+     * enabled.
+     */
+    @JsonProperty("decision_id") @ExcludeMissing fun _decisionId() = decisionId
+
+    /** An optional description for internal use. */
+    @JsonProperty("description") @ExcludeMissing fun _description() = description
+
+    /**
+     * One of `credit`, `debit`. Describes the direction money is flowing in the transaction. A
+     * `credit` moves money from your account to someone else's. A `debit` pulls money from someone
+     * else's account to your own. Note that wire, rtp, and check payments will always be `credit`.
+     */
+    @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
 
     /**
      * Date transactions are to be posted to the participants' account. Defaults to the current
@@ -517,28 +508,73 @@ private constructor(
      */
     @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
 
-    /** An optional description for internal use. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    /** RFP payments require an expires_at. This value must be past the effective_date. */
+    @JsonProperty("expires_at") @ExcludeMissing fun _expiresAt() = expiresAt
 
     /**
-     * An optional descriptor which will appear in the receiver's statement. For `check` payments
-     * this field will be used as the memo line. For `ach` the maximum length is 10 characters. Note
-     * that for ACH payments, the name on your bank account will be included automatically by the
-     * bank, so you can use the characters for other useful information. For `eft` the maximum
-     * length is 15 characters.
+     * If present, indicates a specific foreign exchange contract number that has been generated by
+     * your financial institution.
      */
-    @JsonProperty("statement_descriptor")
+    @JsonProperty("foreign_exchange_contract")
     @ExcludeMissing
-    fun _statementDescriptor() = statementDescriptor
+    fun _foreignExchangeContract() = foreignExchangeContract
 
     /**
-     * For `ach`, this field will be passed through on an addenda record. For `wire` payments the
-     * field will be passed through as the "Originator to Beneficiary Information", also known as
-     * OBI or Fedwire tag 6000.
+     * Indicates the type of FX transfer to initiate, can be either `variable_to_fixed`,
+     * `fixed_to_variable`, or `null` if the payment order currency matches the originating account
+     * currency.
      */
-    @JsonProperty("remittance_information")
+    @JsonProperty("foreign_exchange_indicator")
     @ExcludeMissing
-    fun _remittanceInformation() = remittanceInformation
+    fun _foreignExchangeIndicator() = foreignExchangeIndicator
+
+    /** Associated serialized foreign exchange rate information. */
+    @JsonProperty("foreign_exchange_rate")
+    @ExcludeMissing
+    fun _foreignExchangeRate() = foreignExchangeRate
+
+    /** The ID of the ledger transaction linked to the payment order. */
+    @JsonProperty("ledger_transaction_id")
+    @ExcludeMissing
+    fun _ledgerTransactionId() = ledgerTransactionId
+
+    /**
+     * This field will be true if this object exists in the live environment or false if it exists
+     * in the test environment.
+     */
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+
+    /**
+     * A boolean to determine if NSF Protection is enabled for this payment order. Note that this
+     * setting must also be turned on in your organization settings page.
+     */
+    @JsonProperty("nsf_protected") @ExcludeMissing fun _nsfProtected() = nsfProtected
+
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+
+    /** The ID of one of your organization's internal accounts. */
+    @JsonProperty("originating_account_id")
+    @ExcludeMissing
+    fun _originatingAccountId() = originatingAccountId
+
+    /**
+     * If present, this will replace your default company name on receiver's bank statement. This
+     * field can only be used for ACH payments currently. For ACH, only the first 16 characters of
+     * this string will be used. Any additional characters will be truncated.
+     */
+    @JsonProperty("originating_party_name")
+    @ExcludeMissing
+    fun _originatingPartyName() = originatingPartyName
+
+    /**
+     * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH or EFT
+     * transfer, respectively. For check payments, `high` can mean an overnight check rather than
+     * standard mail.
+     */
+    @JsonProperty("priority") @ExcludeMissing fun _priority() = priority
 
     /**
      * If present, Modern Treasury will not process the payment until after this time. If
@@ -555,65 +591,25 @@ private constructor(
      */
     @JsonProperty("purpose") @ExcludeMissing fun _purpose() = purpose
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+    /** The receiving account ID. Can be an `external_account` or `internal_account`. */
+    @JsonProperty("receiving_account_id")
+    @ExcludeMissing
+    fun _receivingAccountId() = receivingAccountId
+
+    @JsonProperty("receiving_account_type")
+    @ExcludeMissing
+    fun _receivingAccountType() = receivingAccountType
+
+    @JsonProperty("reference_numbers") @ExcludeMissing fun _referenceNumbers() = referenceNumbers
 
     /**
-     * The party that will pay the fees for the payment order. Only applies to wire payment orders.
-     * Can be one of shared, sender, or receiver, which correspond respectively with the SWIFT 71A
-     * values `SHA`, `OUR`, `BEN`.
+     * For `ach`, this field will be passed through on an addenda record. For `wire` payments the
+     * field will be passed through as the "Originator to Beneficiary Information", also known as
+     * OBI or Fedwire tag 6000.
      */
-    @JsonProperty("charge_bearer") @ExcludeMissing fun _chargeBearer() = chargeBearer
-
-    /**
-     * Indicates the type of FX transfer to initiate, can be either `variable_to_fixed`,
-     * `fixed_to_variable`, or `null` if the payment order currency matches the originating account
-     * currency.
-     */
-    @JsonProperty("foreign_exchange_indicator")
+    @JsonProperty("remittance_information")
     @ExcludeMissing
-    fun _foreignExchangeIndicator() = foreignExchangeIndicator
-
-    /**
-     * If present, indicates a specific foreign exchange contract number that has been generated by
-     * your financial institution.
-     */
-    @JsonProperty("foreign_exchange_contract")
-    @ExcludeMissing
-    fun _foreignExchangeContract() = foreignExchangeContract
-
-    /**
-     * A boolean to determine if NSF Protection is enabled for this payment order. Note that this
-     * setting must also be turned on in your organization settings page.
-     */
-    @JsonProperty("nsf_protected") @ExcludeMissing fun _nsfProtected() = nsfProtected
-
-    /**
-     * If present, this will replace your default company name on receiver's bank statement. This
-     * field can only be used for ACH payments currently. For ACH, only the first 16 characters of
-     * this string will be used. Any additional characters will be truncated.
-     */
-    @JsonProperty("originating_party_name")
-    @ExcludeMissing
-    fun _originatingPartyName() = originatingPartyName
-
-    /** Name of the ultimate originator of the payment order. */
-    @JsonProperty("ultimate_originating_party_name")
-    @ExcludeMissing
-    fun _ultimateOriginatingPartyName() = ultimateOriginatingPartyName
-
-    /** Identifier of the ultimate originator of the payment order. */
-    @JsonProperty("ultimate_originating_party_identifier")
-    @ExcludeMissing
-    fun _ultimateOriginatingPartyIdentifier() = ultimateOriginatingPartyIdentifier
-
-    @JsonProperty("ultimate_receiving_party_name")
-    @ExcludeMissing
-    fun _ultimateReceivingPartyName() = ultimateReceivingPartyName
-
-    @JsonProperty("ultimate_receiving_party_identifier")
-    @ExcludeMissing
-    fun _ultimateReceivingPartyIdentifier() = ultimateReceivingPartyIdentifier
+    fun _remittanceInformation() = remittanceInformation
 
     /**
      * Send an email to the counterparty when the payment order is sent to the bank. If `null`,
@@ -623,15 +619,46 @@ private constructor(
     @ExcludeMissing
     fun _sendRemittanceAdvice() = sendRemittanceAdvice
 
-    /** RFP payments require an expires_at. This value must be past the effective_date. */
-    @JsonProperty("expires_at") @ExcludeMissing fun _expiresAt() = expiresAt
+    /**
+     * An optional descriptor which will appear in the receiver's statement. For `check` payments
+     * this field will be used as the memo line. For `ach` the maximum length is 10 characters. Note
+     * that for ACH payments, the name on your bank account will be included automatically by the
+     * bank, so you can use the characters for other useful information. For `eft` the maximum
+     * length is 15 characters.
+     */
+    @JsonProperty("statement_descriptor")
+    @ExcludeMissing
+    fun _statementDescriptor() = statementDescriptor
 
     /** The current status of the payment order. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
-    @JsonProperty("receiving_account_type")
+    /**
+     * An additional layer of classification for the type of payment order you are doing. This field
+     * is only used for `ach` payment orders currently. For `ach` payment orders, the `subtype`
+     * represents the SEC code. We currently support `CCD`, `PPD`, `IAT`, `CTX`, `WEB`, `CIE`, and
+     * `TEL`.
+     */
+    @JsonProperty("subtype") @ExcludeMissing fun _subtype() = subtype
+
+    /**
+     * The IDs of all the transactions associated to this payment order. Usually, you will only have
+     * a single transaction ID. However, if a payment order initially results in a Return, but gets
+     * redrafted and is later successfully completed, it can have many transactions.
+     */
+    @JsonProperty("transaction_ids") @ExcludeMissing fun _transactionIds() = transactionIds
+
+    /** A flag that determines whether a payment order should go through transaction monitoring. */
+    @JsonProperty("transaction_monitoring_enabled")
     @ExcludeMissing
-    fun _receivingAccountType() = receivingAccountType
+    fun _transactionMonitoringEnabled() = transactionMonitoringEnabled
+
+    /**
+     * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`,
+     * `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `signet`,
+     * `provexchange`, `zengin`.
+     */
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
 
     /**
      * The account to which the originating of this payment should be attributed to. Can be a
@@ -650,41 +677,31 @@ private constructor(
     @ExcludeMissing
     fun _ultimateOriginatingAccountType() = ultimateOriginatingAccountType
 
-    /**
-     * If the payment order is tied to a specific Counterparty, their id will appear, otherwise
-     * `null`.
-     */
-    @JsonProperty("counterparty_id") @ExcludeMissing fun _counterpartyId() = counterpartyId
-
-    /**
-     * The IDs of all the transactions associated to this payment order. Usually, you will only have
-     * a single transaction ID. However, if a payment order initially results in a Return, but gets
-     * redrafted and is later successfully completed, it can have many transactions.
-     */
-    @JsonProperty("transaction_ids") @ExcludeMissing fun _transactionIds() = transactionIds
-
-    /** The ID of the ledger transaction linked to the payment order. */
-    @JsonProperty("ledger_transaction_id")
+    /** Identifier of the ultimate originator of the payment order. */
+    @JsonProperty("ultimate_originating_party_identifier")
     @ExcludeMissing
-    fun _ledgerTransactionId() = ledgerTransactionId
+    fun _ultimateOriginatingPartyIdentifier() = ultimateOriginatingPartyIdentifier
 
-    /** If the payment order's status is `returned`, this will include the return object's data. */
-    @JsonProperty("current_return") @ExcludeMissing fun _currentReturn() = currentReturn
-
-    /** A flag that determines whether a payment order should go through transaction monitoring. */
-    @JsonProperty("transaction_monitoring_enabled")
+    /** Name of the ultimate originator of the payment order. */
+    @JsonProperty("ultimate_originating_party_name")
     @ExcludeMissing
-    fun _transactionMonitoringEnabled() = transactionMonitoringEnabled
+    fun _ultimateOriginatingPartyName() = ultimateOriginatingPartyName
+
+    @JsonProperty("ultimate_receiving_party_identifier")
+    @ExcludeMissing
+    fun _ultimateReceivingPartyIdentifier() = ultimateReceivingPartyIdentifier
+
+    @JsonProperty("ultimate_receiving_party_name")
+    @ExcludeMissing
+    fun _ultimateReceivingPartyName() = ultimateReceivingPartyName
+
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
     /**
-     * Custom key-value pair for usage in compliance rules. Please contact support before making
-     * changes to this field.
+     * Additional vendor specific fields for this payment. Data must be represented as key-value
+     * pairs.
      */
-    @JsonProperty("compliance_rule_metadata")
-    @ExcludeMissing
-    fun _complianceRuleMetadata() = complianceRuleMetadata
-
-    @JsonProperty("reference_numbers") @ExcludeMissing fun _referenceNumbers() = referenceNumbers
+    @JsonProperty("vendor_attributes") @ExcludeMissing fun _vendorAttributes() = vendorAttributes
 
     /**
      * This field will be populated if a vendor failure occurs. Logic shouldn't be built on its
@@ -693,23 +710,6 @@ private constructor(
     @JsonProperty("vendor_failure_reason")
     @ExcludeMissing
     fun _vendorFailureReason() = vendorFailureReason
-
-    /**
-     * The ID of the compliance decision for the payment order, if transaction monitoring is
-     * enabled.
-     */
-    @JsonProperty("decision_id") @ExcludeMissing fun _decisionId() = decisionId
-
-    /** Associated serialized foreign exchange rate information. */
-    @JsonProperty("foreign_exchange_rate")
-    @ExcludeMissing
-    fun _foreignExchangeRate() = foreignExchangeRate
-
-    /**
-     * Additional vendor specific fields for this payment. Data must be represented as key-value
-     * pairs.
-     */
-    @JsonProperty("vendor_attributes") @ExcludeMissing fun _vendorAttributes() = vendorAttributes
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -720,54 +720,54 @@ private constructor(
     fun validate(): PaymentOrder = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
-            createdAt()
-            updatedAt()
-            type()
-            subtype()
-            amount()
-            direction()
-            priority()
-            originatingAccountId()
-            receivingAccountId()
             accounting().validate()
             accountingCategoryId()
             accountingLedgerClassId()
+            amount()
+            chargeBearer()
+            complianceRuleMetadata()?.validate()
+            counterpartyId()
+            createdAt()
             currency()
-            effectiveDate()
+            currentReturn()?.validate()
+            decisionId()
             description()
-            statementDescriptor()
-            remittanceInformation()
+            direction()
+            effectiveDate()
+            expiresAt()
+            foreignExchangeContract()
+            foreignExchangeIndicator()
+            foreignExchangeRate()?.validate()
+            ledgerTransactionId()
+            liveMode()
+            metadata().validate()
+            nsfProtected()
+            object_()
+            originatingAccountId()
+            originatingPartyName()
+            priority()
             processAfter()
             purpose()
-            metadata().validate()
-            chargeBearer()
-            foreignExchangeIndicator()
-            foreignExchangeContract()
-            nsfProtected()
-            originatingPartyName()
-            ultimateOriginatingPartyName()
-            ultimateOriginatingPartyIdentifier()
-            ultimateReceivingPartyName()
-            ultimateReceivingPartyIdentifier()
-            sendRemittanceAdvice()
-            expiresAt()
-            status()
+            receivingAccountId()
             receivingAccountType()
+            referenceNumbers().forEach { it.validate() }
+            remittanceInformation()
+            sendRemittanceAdvice()
+            statementDescriptor()
+            status()
+            subtype()
+            transactionIds()
+            transactionMonitoringEnabled()
+            type()
             ultimateOriginatingAccount()
             ultimateOriginatingAccountId()
             ultimateOriginatingAccountType()
-            counterpartyId()
-            transactionIds()
-            ledgerTransactionId()
-            currentReturn()?.validate()
-            transactionMonitoringEnabled()
-            complianceRuleMetadata()?.validate()
-            referenceNumbers().forEach { it.validate() }
+            ultimateOriginatingPartyIdentifier()
+            ultimateOriginatingPartyName()
+            ultimateReceivingPartyIdentifier()
+            ultimateReceivingPartyName()
+            updatedAt()
             vendorFailureReason()
-            decisionId()
-            foreignExchangeRate()?.validate()
             validated = true
         }
     }
@@ -782,230 +782,116 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var type: JsonField<PaymentOrderType> = JsonMissing.of()
-        private var subtype: JsonField<PaymentOrderSubtype> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var direction: JsonField<Direction> = JsonMissing.of()
-        private var priority: JsonField<Priority> = JsonMissing.of()
-        private var originatingAccountId: JsonField<String> = JsonMissing.of()
-        private var receivingAccountId: JsonField<String> = JsonMissing.of()
         private var accounting: JsonField<Accounting> = JsonMissing.of()
         private var accountingCategoryId: JsonField<String> = JsonMissing.of()
         private var accountingLedgerClassId: JsonField<String> = JsonMissing.of()
+        private var amount: JsonField<Long> = JsonMissing.of()
+        private var chargeBearer: JsonField<ChargeBearer> = JsonMissing.of()
+        private var complianceRuleMetadata: JsonField<ComplianceRuleMetadata> = JsonMissing.of()
+        private var counterpartyId: JsonField<String> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
-        private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
+        private var currentReturn: JsonField<ReturnObject> = JsonMissing.of()
+        private var decisionId: JsonField<String> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
-        private var statementDescriptor: JsonField<String> = JsonMissing.of()
-        private var remittanceInformation: JsonField<String> = JsonMissing.of()
+        private var direction: JsonField<Direction> = JsonMissing.of()
+        private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
+        private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var foreignExchangeContract: JsonField<String> = JsonMissing.of()
+        private var foreignExchangeIndicator: JsonField<ForeignExchangeIndicator> = JsonMissing.of()
+        private var foreignExchangeRate: JsonField<ForeignExchangeRate> = JsonMissing.of()
+        private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var metadata: JsonField<Metadata> = JsonMissing.of()
+        private var nsfProtected: JsonField<Boolean> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
+        private var originatingAccountId: JsonField<String> = JsonMissing.of()
+        private var originatingPartyName: JsonField<String> = JsonMissing.of()
+        private var priority: JsonField<Priority> = JsonMissing.of()
         private var processAfter: JsonField<OffsetDateTime> = JsonMissing.of()
         private var purpose: JsonField<String> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
-        private var chargeBearer: JsonField<ChargeBearer> = JsonMissing.of()
-        private var foreignExchangeIndicator: JsonField<ForeignExchangeIndicator> = JsonMissing.of()
-        private var foreignExchangeContract: JsonField<String> = JsonMissing.of()
-        private var nsfProtected: JsonField<Boolean> = JsonMissing.of()
-        private var originatingPartyName: JsonField<String> = JsonMissing.of()
-        private var ultimateOriginatingPartyName: JsonField<String> = JsonMissing.of()
-        private var ultimateOriginatingPartyIdentifier: JsonField<String> = JsonMissing.of()
-        private var ultimateReceivingPartyName: JsonField<String> = JsonMissing.of()
-        private var ultimateReceivingPartyIdentifier: JsonField<String> = JsonMissing.of()
-        private var sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of()
-        private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
+        private var receivingAccountId: JsonField<String> = JsonMissing.of()
         private var receivingAccountType: JsonField<ReceivingAccountType> = JsonMissing.of()
+        private var referenceNumbers: JsonField<List<PaymentReference>> = JsonMissing.of()
+        private var remittanceInformation: JsonField<String> = JsonMissing.of()
+        private var sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of()
+        private var statementDescriptor: JsonField<String> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
+        private var subtype: JsonField<PaymentOrderSubtype> = JsonMissing.of()
+        private var transactionIds: JsonField<List<String>> = JsonMissing.of()
+        private var transactionMonitoringEnabled: JsonField<Boolean> = JsonMissing.of()
+        private var type: JsonField<PaymentOrderType> = JsonMissing.of()
         private var ultimateOriginatingAccount: JsonField<UltimateOriginatingAccount> =
             JsonMissing.of()
         private var ultimateOriginatingAccountId: JsonField<String> = JsonMissing.of()
         private var ultimateOriginatingAccountType: JsonField<UltimateOriginatingAccountType> =
             JsonMissing.of()
-        private var counterpartyId: JsonField<String> = JsonMissing.of()
-        private var transactionIds: JsonField<List<String>> = JsonMissing.of()
-        private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
-        private var currentReturn: JsonField<ReturnObject> = JsonMissing.of()
-        private var transactionMonitoringEnabled: JsonField<Boolean> = JsonMissing.of()
-        private var complianceRuleMetadata: JsonField<ComplianceRuleMetadata> = JsonMissing.of()
-        private var referenceNumbers: JsonField<List<PaymentReference>> = JsonMissing.of()
-        private var vendorFailureReason: JsonField<String> = JsonMissing.of()
-        private var decisionId: JsonField<String> = JsonMissing.of()
-        private var foreignExchangeRate: JsonField<ForeignExchangeRate> = JsonMissing.of()
+        private var ultimateOriginatingPartyIdentifier: JsonField<String> = JsonMissing.of()
+        private var ultimateOriginatingPartyName: JsonField<String> = JsonMissing.of()
+        private var ultimateReceivingPartyIdentifier: JsonField<String> = JsonMissing.of()
+        private var ultimateReceivingPartyName: JsonField<String> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var vendorAttributes: JsonValue = JsonMissing.of()
+        private var vendorFailureReason: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(paymentOrder: PaymentOrder) = apply {
             id = paymentOrder.id
-            object_ = paymentOrder.object_
-            liveMode = paymentOrder.liveMode
-            createdAt = paymentOrder.createdAt
-            updatedAt = paymentOrder.updatedAt
-            type = paymentOrder.type
-            subtype = paymentOrder.subtype
-            amount = paymentOrder.amount
-            direction = paymentOrder.direction
-            priority = paymentOrder.priority
-            originatingAccountId = paymentOrder.originatingAccountId
-            receivingAccountId = paymentOrder.receivingAccountId
             accounting = paymentOrder.accounting
             accountingCategoryId = paymentOrder.accountingCategoryId
             accountingLedgerClassId = paymentOrder.accountingLedgerClassId
+            amount = paymentOrder.amount
+            chargeBearer = paymentOrder.chargeBearer
+            complianceRuleMetadata = paymentOrder.complianceRuleMetadata
+            counterpartyId = paymentOrder.counterpartyId
+            createdAt = paymentOrder.createdAt
             currency = paymentOrder.currency
-            effectiveDate = paymentOrder.effectiveDate
+            currentReturn = paymentOrder.currentReturn
+            decisionId = paymentOrder.decisionId
             description = paymentOrder.description
-            statementDescriptor = paymentOrder.statementDescriptor
-            remittanceInformation = paymentOrder.remittanceInformation
+            direction = paymentOrder.direction
+            effectiveDate = paymentOrder.effectiveDate
+            expiresAt = paymentOrder.expiresAt
+            foreignExchangeContract = paymentOrder.foreignExchangeContract
+            foreignExchangeIndicator = paymentOrder.foreignExchangeIndicator
+            foreignExchangeRate = paymentOrder.foreignExchangeRate
+            ledgerTransactionId = paymentOrder.ledgerTransactionId
+            liveMode = paymentOrder.liveMode
+            metadata = paymentOrder.metadata
+            nsfProtected = paymentOrder.nsfProtected
+            object_ = paymentOrder.object_
+            originatingAccountId = paymentOrder.originatingAccountId
+            originatingPartyName = paymentOrder.originatingPartyName
+            priority = paymentOrder.priority
             processAfter = paymentOrder.processAfter
             purpose = paymentOrder.purpose
-            metadata = paymentOrder.metadata
-            chargeBearer = paymentOrder.chargeBearer
-            foreignExchangeIndicator = paymentOrder.foreignExchangeIndicator
-            foreignExchangeContract = paymentOrder.foreignExchangeContract
-            nsfProtected = paymentOrder.nsfProtected
-            originatingPartyName = paymentOrder.originatingPartyName
-            ultimateOriginatingPartyName = paymentOrder.ultimateOriginatingPartyName
-            ultimateOriginatingPartyIdentifier = paymentOrder.ultimateOriginatingPartyIdentifier
-            ultimateReceivingPartyName = paymentOrder.ultimateReceivingPartyName
-            ultimateReceivingPartyIdentifier = paymentOrder.ultimateReceivingPartyIdentifier
-            sendRemittanceAdvice = paymentOrder.sendRemittanceAdvice
-            expiresAt = paymentOrder.expiresAt
-            status = paymentOrder.status
+            receivingAccountId = paymentOrder.receivingAccountId
             receivingAccountType = paymentOrder.receivingAccountType
+            referenceNumbers = paymentOrder.referenceNumbers
+            remittanceInformation = paymentOrder.remittanceInformation
+            sendRemittanceAdvice = paymentOrder.sendRemittanceAdvice
+            statementDescriptor = paymentOrder.statementDescriptor
+            status = paymentOrder.status
+            subtype = paymentOrder.subtype
+            transactionIds = paymentOrder.transactionIds
+            transactionMonitoringEnabled = paymentOrder.transactionMonitoringEnabled
+            type = paymentOrder.type
             ultimateOriginatingAccount = paymentOrder.ultimateOriginatingAccount
             ultimateOriginatingAccountId = paymentOrder.ultimateOriginatingAccountId
             ultimateOriginatingAccountType = paymentOrder.ultimateOriginatingAccountType
-            counterpartyId = paymentOrder.counterpartyId
-            transactionIds = paymentOrder.transactionIds
-            ledgerTransactionId = paymentOrder.ledgerTransactionId
-            currentReturn = paymentOrder.currentReturn
-            transactionMonitoringEnabled = paymentOrder.transactionMonitoringEnabled
-            complianceRuleMetadata = paymentOrder.complianceRuleMetadata
-            referenceNumbers = paymentOrder.referenceNumbers
-            vendorFailureReason = paymentOrder.vendorFailureReason
-            decisionId = paymentOrder.decisionId
-            foreignExchangeRate = paymentOrder.foreignExchangeRate
+            ultimateOriginatingPartyIdentifier = paymentOrder.ultimateOriginatingPartyIdentifier
+            ultimateOriginatingPartyName = paymentOrder.ultimateOriginatingPartyName
+            ultimateReceivingPartyIdentifier = paymentOrder.ultimateReceivingPartyIdentifier
+            ultimateReceivingPartyName = paymentOrder.ultimateReceivingPartyName
+            updatedAt = paymentOrder.updatedAt
             vendorAttributes = paymentOrder.vendorAttributes
+            vendorFailureReason = paymentOrder.vendorFailureReason
             additionalProperties = paymentOrder.additionalProperties.toMutableMap()
         }
 
         fun id(id: String) = id(JsonField.of(id))
 
         fun id(id: JsonField<String>) = apply { this.id = id }
-
-        fun object_(object_: String) = object_(JsonField.of(object_))
-
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
-
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
-
-        /**
-         * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`,
-         * `bacs`, `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`,
-         * `signet`, `provexchange`, `zengin`.
-         */
-        fun type(type: PaymentOrderType) = type(JsonField.of(type))
-
-        /**
-         * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`,
-         * `bacs`, `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`,
-         * `signet`, `provexchange`, `zengin`.
-         */
-        fun type(type: JsonField<PaymentOrderType>) = apply { this.type = type }
-
-        /**
-         * An additional layer of classification for the type of payment order you are doing. This
-         * field is only used for `ach` payment orders currently. For `ach` payment orders, the
-         * `subtype` represents the SEC code. We currently support `CCD`, `PPD`, `IAT`, `CTX`,
-         * `WEB`, `CIE`, and `TEL`.
-         */
-        fun subtype(subtype: PaymentOrderSubtype) = subtype(JsonField.of(subtype))
-
-        /**
-         * An additional layer of classification for the type of payment order you are doing. This
-         * field is only used for `ach` payment orders currently. For `ach` payment orders, the
-         * `subtype` represents the SEC code. We currently support `CCD`, `PPD`, `IAT`, `CTX`,
-         * `WEB`, `CIE`, and `TEL`.
-         */
-        fun subtype(subtype: JsonField<PaymentOrderSubtype>) = apply { this.subtype = subtype }
-
-        /**
-         * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000
-         * (cents). For RTP, the maximum amount allowed by the network is $100,000.
-         */
-        fun amount(amount: Long) = amount(JsonField.of(amount))
-
-        /**
-         * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000
-         * (cents). For RTP, the maximum amount allowed by the network is $100,000.
-         */
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-        /**
-         * One of `credit`, `debit`. Describes the direction money is flowing in the transaction. A
-         * `credit` moves money from your account to someone else's. A `debit` pulls money from
-         * someone else's account to your own. Note that wire, rtp, and check payments will always
-         * be `credit`.
-         */
-        fun direction(direction: Direction) = direction(JsonField.of(direction))
-
-        /**
-         * One of `credit`, `debit`. Describes the direction money is flowing in the transaction. A
-         * `credit` moves money from your account to someone else's. A `debit` pulls money from
-         * someone else's account to your own. Note that wire, rtp, and check payments will always
-         * be `credit`.
-         */
-        fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
-
-        /**
-         * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH or
-         * EFT transfer, respectively. For check payments, `high` can mean an overnight check rather
-         * than standard mail.
-         */
-        fun priority(priority: Priority) = priority(JsonField.of(priority))
-
-        /**
-         * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH or
-         * EFT transfer, respectively. For check payments, `high` can mean an overnight check rather
-         * than standard mail.
-         */
-        fun priority(priority: JsonField<Priority>) = apply { this.priority = priority }
-
-        /** The ID of one of your organization's internal accounts. */
-        fun originatingAccountId(originatingAccountId: String) =
-            originatingAccountId(JsonField.of(originatingAccountId))
-
-        /** The ID of one of your organization's internal accounts. */
-        fun originatingAccountId(originatingAccountId: JsonField<String>) = apply {
-            this.originatingAccountId = originatingAccountId
-        }
-
-        /** The receiving account ID. Can be an `external_account` or `internal_account`. */
-        fun receivingAccountId(receivingAccountId: String) =
-            receivingAccountId(JsonField.of(receivingAccountId))
-
-        /** The receiving account ID. Can be an `external_account` or `internal_account`. */
-        fun receivingAccountId(receivingAccountId: JsonField<String>) = apply {
-            this.receivingAccountId = receivingAccountId
-        }
 
         fun accounting(accounting: Accounting) = accounting(JsonField.of(accounting))
 
@@ -1041,11 +927,119 @@ private constructor(
             this.accountingLedgerClassId = accountingLedgerClassId
         }
 
+        /**
+         * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000
+         * (cents). For RTP, the maximum amount allowed by the network is $100,000.
+         */
+        fun amount(amount: Long) = amount(JsonField.of(amount))
+
+        /**
+         * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000
+         * (cents). For RTP, the maximum amount allowed by the network is $100,000.
+         */
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+        /**
+         * The party that will pay the fees for the payment order. Only applies to wire payment
+         * orders. Can be one of shared, sender, or receiver, which correspond respectively with the
+         * SWIFT 71A values `SHA`, `OUR`, `BEN`.
+         */
+        fun chargeBearer(chargeBearer: ChargeBearer) = chargeBearer(JsonField.of(chargeBearer))
+
+        /**
+         * The party that will pay the fees for the payment order. Only applies to wire payment
+         * orders. Can be one of shared, sender, or receiver, which correspond respectively with the
+         * SWIFT 71A values `SHA`, `OUR`, `BEN`.
+         */
+        fun chargeBearer(chargeBearer: JsonField<ChargeBearer>) = apply {
+            this.chargeBearer = chargeBearer
+        }
+
+        /**
+         * Custom key-value pair for usage in compliance rules. Please contact support before making
+         * changes to this field.
+         */
+        fun complianceRuleMetadata(complianceRuleMetadata: ComplianceRuleMetadata) =
+            complianceRuleMetadata(JsonField.of(complianceRuleMetadata))
+
+        /**
+         * Custom key-value pair for usage in compliance rules. Please contact support before making
+         * changes to this field.
+         */
+        fun complianceRuleMetadata(complianceRuleMetadata: JsonField<ComplianceRuleMetadata>) =
+            apply {
+                this.complianceRuleMetadata = complianceRuleMetadata
+            }
+
+        /**
+         * If the payment order is tied to a specific Counterparty, their id will appear, otherwise
+         * `null`.
+         */
+        fun counterpartyId(counterpartyId: String) = counterpartyId(JsonField.of(counterpartyId))
+
+        /**
+         * If the payment order is tied to a specific Counterparty, their id will appear, otherwise
+         * `null`.
+         */
+        fun counterpartyId(counterpartyId: JsonField<String>) = apply {
+            this.counterpartyId = counterpartyId
+        }
+
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
         /** Defaults to the currency of the originating account. */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
         /** Defaults to the currency of the originating account. */
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+        /**
+         * If the payment order's status is `returned`, this will include the return object's data.
+         */
+        fun currentReturn(currentReturn: ReturnObject) = currentReturn(JsonField.of(currentReturn))
+
+        /**
+         * If the payment order's status is `returned`, this will include the return object's data.
+         */
+        fun currentReturn(currentReturn: JsonField<ReturnObject>) = apply {
+            this.currentReturn = currentReturn
+        }
+
+        /**
+         * The ID of the compliance decision for the payment order, if transaction monitoring is
+         * enabled.
+         */
+        fun decisionId(decisionId: String) = decisionId(JsonField.of(decisionId))
+
+        /**
+         * The ID of the compliance decision for the payment order, if transaction monitoring is
+         * enabled.
+         */
+        fun decisionId(decisionId: JsonField<String>) = apply { this.decisionId = decisionId }
+
+        /** An optional description for internal use. */
+        fun description(description: String) = description(JsonField.of(description))
+
+        /** An optional description for internal use. */
+        fun description(description: JsonField<String>) = apply { this.description = description }
+
+        /**
+         * One of `credit`, `debit`. Describes the direction money is flowing in the transaction. A
+         * `credit` moves money from your account to someone else's. A `debit` pulls money from
+         * someone else's account to your own. Note that wire, rtp, and check payments will always
+         * be `credit`.
+         */
+        fun direction(direction: Direction) = direction(JsonField.of(direction))
+
+        /**
+         * One of `credit`, `debit`. Describes the direction money is flowing in the transaction. A
+         * `credit` moves money from your account to someone else's. A `debit` pulls money from
+         * someone else's account to your own. Note that wire, rtp, and check payments will always
+         * be `credit`.
+         */
+        fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
         /**
          * Date transactions are to be posted to the participants' account. Defaults to the current
@@ -1063,49 +1057,141 @@ private constructor(
             this.effectiveDate = effectiveDate
         }
 
-        /** An optional description for internal use. */
-        fun description(description: String) = description(JsonField.of(description))
+        /** RFP payments require an expires_at. This value must be past the effective_date. */
+        fun expiresAt(expiresAt: OffsetDateTime) = expiresAt(JsonField.of(expiresAt))
 
-        /** An optional description for internal use. */
-        fun description(description: JsonField<String>) = apply { this.description = description }
-
-        /**
-         * An optional descriptor which will appear in the receiver's statement. For `check`
-         * payments this field will be used as the memo line. For `ach` the maximum length is 10
-         * characters. Note that for ACH payments, the name on your bank account will be included
-         * automatically by the bank, so you can use the characters for other useful information.
-         * For `eft` the maximum length is 15 characters.
-         */
-        fun statementDescriptor(statementDescriptor: String) =
-            statementDescriptor(JsonField.of(statementDescriptor))
+        /** RFP payments require an expires_at. This value must be past the effective_date. */
+        fun expiresAt(expiresAt: JsonField<OffsetDateTime>) = apply { this.expiresAt = expiresAt }
 
         /**
-         * An optional descriptor which will appear in the receiver's statement. For `check`
-         * payments this field will be used as the memo line. For `ach` the maximum length is 10
-         * characters. Note that for ACH payments, the name on your bank account will be included
-         * automatically by the bank, so you can use the characters for other useful information.
-         * For `eft` the maximum length is 15 characters.
+         * If present, indicates a specific foreign exchange contract number that has been generated
+         * by your financial institution.
          */
-        fun statementDescriptor(statementDescriptor: JsonField<String>) = apply {
-            this.statementDescriptor = statementDescriptor
+        fun foreignExchangeContract(foreignExchangeContract: String) =
+            foreignExchangeContract(JsonField.of(foreignExchangeContract))
+
+        /**
+         * If present, indicates a specific foreign exchange contract number that has been generated
+         * by your financial institution.
+         */
+        fun foreignExchangeContract(foreignExchangeContract: JsonField<String>) = apply {
+            this.foreignExchangeContract = foreignExchangeContract
         }
 
         /**
-         * For `ach`, this field will be passed through on an addenda record. For `wire` payments
-         * the field will be passed through as the "Originator to Beneficiary Information", also
-         * known as OBI or Fedwire tag 6000.
+         * Indicates the type of FX transfer to initiate, can be either `variable_to_fixed`,
+         * `fixed_to_variable`, or `null` if the payment order currency matches the originating
+         * account currency.
          */
-        fun remittanceInformation(remittanceInformation: String) =
-            remittanceInformation(JsonField.of(remittanceInformation))
+        fun foreignExchangeIndicator(foreignExchangeIndicator: ForeignExchangeIndicator) =
+            foreignExchangeIndicator(JsonField.of(foreignExchangeIndicator))
 
         /**
-         * For `ach`, this field will be passed through on an addenda record. For `wire` payments
-         * the field will be passed through as the "Originator to Beneficiary Information", also
-         * known as OBI or Fedwire tag 6000.
+         * Indicates the type of FX transfer to initiate, can be either `variable_to_fixed`,
+         * `fixed_to_variable`, or `null` if the payment order currency matches the originating
+         * account currency.
          */
-        fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
-            this.remittanceInformation = remittanceInformation
+        fun foreignExchangeIndicator(
+            foreignExchangeIndicator: JsonField<ForeignExchangeIndicator>
+        ) = apply { this.foreignExchangeIndicator = foreignExchangeIndicator }
+
+        /** Associated serialized foreign exchange rate information. */
+        fun foreignExchangeRate(foreignExchangeRate: ForeignExchangeRate) =
+            foreignExchangeRate(JsonField.of(foreignExchangeRate))
+
+        /** Associated serialized foreign exchange rate information. */
+        fun foreignExchangeRate(foreignExchangeRate: JsonField<ForeignExchangeRate>) = apply {
+            this.foreignExchangeRate = foreignExchangeRate
         }
+
+        /** The ID of the ledger transaction linked to the payment order. */
+        fun ledgerTransactionId(ledgerTransactionId: String) =
+            ledgerTransactionId(JsonField.of(ledgerTransactionId))
+
+        /** The ID of the ledger transaction linked to the payment order. */
+        fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
+            this.ledgerTransactionId = ledgerTransactionId
+        }
+
+        /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
+
+        /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+        /**
+         * A boolean to determine if NSF Protection is enabled for this payment order. Note that
+         * this setting must also be turned on in your organization settings page.
+         */
+        fun nsfProtected(nsfProtected: Boolean) = nsfProtected(JsonField.of(nsfProtected))
+
+        /**
+         * A boolean to determine if NSF Protection is enabled for this payment order. Note that
+         * this setting must also be turned on in your organization settings page.
+         */
+        fun nsfProtected(nsfProtected: JsonField<Boolean>) = apply {
+            this.nsfProtected = nsfProtected
+        }
+
+        fun object_(object_: String) = object_(JsonField.of(object_))
+
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+
+        /** The ID of one of your organization's internal accounts. */
+        fun originatingAccountId(originatingAccountId: String) =
+            originatingAccountId(JsonField.of(originatingAccountId))
+
+        /** The ID of one of your organization's internal accounts. */
+        fun originatingAccountId(originatingAccountId: JsonField<String>) = apply {
+            this.originatingAccountId = originatingAccountId
+        }
+
+        /**
+         * If present, this will replace your default company name on receiver's bank statement.
+         * This field can only be used for ACH payments currently. For ACH, only the first 16
+         * characters of this string will be used. Any additional characters will be truncated.
+         */
+        fun originatingPartyName(originatingPartyName: String) =
+            originatingPartyName(JsonField.of(originatingPartyName))
+
+        /**
+         * If present, this will replace your default company name on receiver's bank statement.
+         * This field can only be used for ACH payments currently. For ACH, only the first 16
+         * characters of this string will be used. Any additional characters will be truncated.
+         */
+        fun originatingPartyName(originatingPartyName: JsonField<String>) = apply {
+            this.originatingPartyName = originatingPartyName
+        }
+
+        /**
+         * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH or
+         * EFT transfer, respectively. For check payments, `high` can mean an overnight check rather
+         * than standard mail.
+         */
+        fun priority(priority: Priority) = priority(JsonField.of(priority))
+
+        /**
+         * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH or
+         * EFT transfer, respectively. For check payments, `high` can mean an overnight check rather
+         * than standard mail.
+         */
+        fun priority(priority: JsonField<Priority>) = apply { this.priority = priority }
 
         /**
          * If present, Modern Treasury will not process the payment until after this time. If
@@ -1139,127 +1225,45 @@ private constructor(
          */
         fun purpose(purpose: JsonField<String>) = apply { this.purpose = purpose }
 
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+        /** The receiving account ID. Can be an `external_account` or `internal_account`. */
+        fun receivingAccountId(receivingAccountId: String) =
+            receivingAccountId(JsonField.of(receivingAccountId))
 
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+        /** The receiving account ID. Can be an `external_account` or `internal_account`. */
+        fun receivingAccountId(receivingAccountId: JsonField<String>) = apply {
+            this.receivingAccountId = receivingAccountId
+        }
 
-        /**
-         * The party that will pay the fees for the payment order. Only applies to wire payment
-         * orders. Can be one of shared, sender, or receiver, which correspond respectively with the
-         * SWIFT 71A values `SHA`, `OUR`, `BEN`.
-         */
-        fun chargeBearer(chargeBearer: ChargeBearer) = chargeBearer(JsonField.of(chargeBearer))
+        fun receivingAccountType(receivingAccountType: ReceivingAccountType) =
+            receivingAccountType(JsonField.of(receivingAccountType))
 
-        /**
-         * The party that will pay the fees for the payment order. Only applies to wire payment
-         * orders. Can be one of shared, sender, or receiver, which correspond respectively with the
-         * SWIFT 71A values `SHA`, `OUR`, `BEN`.
-         */
-        fun chargeBearer(chargeBearer: JsonField<ChargeBearer>) = apply {
-            this.chargeBearer = chargeBearer
+        fun receivingAccountType(receivingAccountType: JsonField<ReceivingAccountType>) = apply {
+            this.receivingAccountType = receivingAccountType
+        }
+
+        fun referenceNumbers(referenceNumbers: List<PaymentReference>) =
+            referenceNumbers(JsonField.of(referenceNumbers))
+
+        fun referenceNumbers(referenceNumbers: JsonField<List<PaymentReference>>) = apply {
+            this.referenceNumbers = referenceNumbers
         }
 
         /**
-         * Indicates the type of FX transfer to initiate, can be either `variable_to_fixed`,
-         * `fixed_to_variable`, or `null` if the payment order currency matches the originating
-         * account currency.
+         * For `ach`, this field will be passed through on an addenda record. For `wire` payments
+         * the field will be passed through as the "Originator to Beneficiary Information", also
+         * known as OBI or Fedwire tag 6000.
          */
-        fun foreignExchangeIndicator(foreignExchangeIndicator: ForeignExchangeIndicator) =
-            foreignExchangeIndicator(JsonField.of(foreignExchangeIndicator))
+        fun remittanceInformation(remittanceInformation: String) =
+            remittanceInformation(JsonField.of(remittanceInformation))
 
         /**
-         * Indicates the type of FX transfer to initiate, can be either `variable_to_fixed`,
-         * `fixed_to_variable`, or `null` if the payment order currency matches the originating
-         * account currency.
+         * For `ach`, this field will be passed through on an addenda record. For `wire` payments
+         * the field will be passed through as the "Originator to Beneficiary Information", also
+         * known as OBI or Fedwire tag 6000.
          */
-        fun foreignExchangeIndicator(
-            foreignExchangeIndicator: JsonField<ForeignExchangeIndicator>
-        ) = apply { this.foreignExchangeIndicator = foreignExchangeIndicator }
-
-        /**
-         * If present, indicates a specific foreign exchange contract number that has been generated
-         * by your financial institution.
-         */
-        fun foreignExchangeContract(foreignExchangeContract: String) =
-            foreignExchangeContract(JsonField.of(foreignExchangeContract))
-
-        /**
-         * If present, indicates a specific foreign exchange contract number that has been generated
-         * by your financial institution.
-         */
-        fun foreignExchangeContract(foreignExchangeContract: JsonField<String>) = apply {
-            this.foreignExchangeContract = foreignExchangeContract
+        fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
+            this.remittanceInformation = remittanceInformation
         }
-
-        /**
-         * A boolean to determine if NSF Protection is enabled for this payment order. Note that
-         * this setting must also be turned on in your organization settings page.
-         */
-        fun nsfProtected(nsfProtected: Boolean) = nsfProtected(JsonField.of(nsfProtected))
-
-        /**
-         * A boolean to determine if NSF Protection is enabled for this payment order. Note that
-         * this setting must also be turned on in your organization settings page.
-         */
-        fun nsfProtected(nsfProtected: JsonField<Boolean>) = apply {
-            this.nsfProtected = nsfProtected
-        }
-
-        /**
-         * If present, this will replace your default company name on receiver's bank statement.
-         * This field can only be used for ACH payments currently. For ACH, only the first 16
-         * characters of this string will be used. Any additional characters will be truncated.
-         */
-        fun originatingPartyName(originatingPartyName: String) =
-            originatingPartyName(JsonField.of(originatingPartyName))
-
-        /**
-         * If present, this will replace your default company name on receiver's bank statement.
-         * This field can only be used for ACH payments currently. For ACH, only the first 16
-         * characters of this string will be used. Any additional characters will be truncated.
-         */
-        fun originatingPartyName(originatingPartyName: JsonField<String>) = apply {
-            this.originatingPartyName = originatingPartyName
-        }
-
-        /** Name of the ultimate originator of the payment order. */
-        fun ultimateOriginatingPartyName(ultimateOriginatingPartyName: String) =
-            ultimateOriginatingPartyName(JsonField.of(ultimateOriginatingPartyName))
-
-        /** Name of the ultimate originator of the payment order. */
-        fun ultimateOriginatingPartyName(ultimateOriginatingPartyName: JsonField<String>) = apply {
-            this.ultimateOriginatingPartyName = ultimateOriginatingPartyName
-        }
-
-        /** Identifier of the ultimate originator of the payment order. */
-        fun ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier: String) =
-            ultimateOriginatingPartyIdentifier(JsonField.of(ultimateOriginatingPartyIdentifier))
-
-        /** Identifier of the ultimate originator of the payment order. */
-        fun ultimateOriginatingPartyIdentifier(
-            ultimateOriginatingPartyIdentifier: JsonField<String>
-        ) = apply { this.ultimateOriginatingPartyIdentifier = ultimateOriginatingPartyIdentifier }
-
-        fun ultimateReceivingPartyName(ultimateReceivingPartyName: String) =
-            ultimateReceivingPartyName(JsonField.of(ultimateReceivingPartyName))
-
-        fun ultimateReceivingPartyName(ultimateReceivingPartyName: JsonField<String>) = apply {
-            this.ultimateReceivingPartyName = ultimateReceivingPartyName
-        }
-
-        fun ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier: String) =
-            ultimateReceivingPartyIdentifier(JsonField.of(ultimateReceivingPartyIdentifier))
-
-        fun ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier: JsonField<String>) =
-            apply {
-                this.ultimateReceivingPartyIdentifier = ultimateReceivingPartyIdentifier
-            }
 
         /**
          * Send an email to the counterparty when the payment order is sent to the bank. If `null`,
@@ -1276,11 +1280,26 @@ private constructor(
             this.sendRemittanceAdvice = sendRemittanceAdvice
         }
 
-        /** RFP payments require an expires_at. This value must be past the effective_date. */
-        fun expiresAt(expiresAt: OffsetDateTime) = expiresAt(JsonField.of(expiresAt))
+        /**
+         * An optional descriptor which will appear in the receiver's statement. For `check`
+         * payments this field will be used as the memo line. For `ach` the maximum length is 10
+         * characters. Note that for ACH payments, the name on your bank account will be included
+         * automatically by the bank, so you can use the characters for other useful information.
+         * For `eft` the maximum length is 15 characters.
+         */
+        fun statementDescriptor(statementDescriptor: String) =
+            statementDescriptor(JsonField.of(statementDescriptor))
 
-        /** RFP payments require an expires_at. This value must be past the effective_date. */
-        fun expiresAt(expiresAt: JsonField<OffsetDateTime>) = apply { this.expiresAt = expiresAt }
+        /**
+         * An optional descriptor which will appear in the receiver's statement. For `check`
+         * payments this field will be used as the memo line. For `ach` the maximum length is 10
+         * characters. Note that for ACH payments, the name on your bank account will be included
+         * automatically by the bank, so you can use the characters for other useful information.
+         * For `eft` the maximum length is 15 characters.
+         */
+        fun statementDescriptor(statementDescriptor: JsonField<String>) = apply {
+            this.statementDescriptor = statementDescriptor
+        }
 
         /** The current status of the payment order. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -1288,12 +1307,65 @@ private constructor(
         /** The current status of the payment order. */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
-        fun receivingAccountType(receivingAccountType: ReceivingAccountType) =
-            receivingAccountType(JsonField.of(receivingAccountType))
+        /**
+         * An additional layer of classification for the type of payment order you are doing. This
+         * field is only used for `ach` payment orders currently. For `ach` payment orders, the
+         * `subtype` represents the SEC code. We currently support `CCD`, `PPD`, `IAT`, `CTX`,
+         * `WEB`, `CIE`, and `TEL`.
+         */
+        fun subtype(subtype: PaymentOrderSubtype) = subtype(JsonField.of(subtype))
 
-        fun receivingAccountType(receivingAccountType: JsonField<ReceivingAccountType>) = apply {
-            this.receivingAccountType = receivingAccountType
+        /**
+         * An additional layer of classification for the type of payment order you are doing. This
+         * field is only used for `ach` payment orders currently. For `ach` payment orders, the
+         * `subtype` represents the SEC code. We currently support `CCD`, `PPD`, `IAT`, `CTX`,
+         * `WEB`, `CIE`, and `TEL`.
+         */
+        fun subtype(subtype: JsonField<PaymentOrderSubtype>) = apply { this.subtype = subtype }
+
+        /**
+         * The IDs of all the transactions associated to this payment order. Usually, you will only
+         * have a single transaction ID. However, if a payment order initially results in a Return,
+         * but gets redrafted and is later successfully completed, it can have many transactions.
+         */
+        fun transactionIds(transactionIds: List<String>) =
+            transactionIds(JsonField.of(transactionIds))
+
+        /**
+         * The IDs of all the transactions associated to this payment order. Usually, you will only
+         * have a single transaction ID. However, if a payment order initially results in a Return,
+         * but gets redrafted and is later successfully completed, it can have many transactions.
+         */
+        fun transactionIds(transactionIds: JsonField<List<String>>) = apply {
+            this.transactionIds = transactionIds
         }
+
+        /**
+         * A flag that determines whether a payment order should go through transaction monitoring.
+         */
+        fun transactionMonitoringEnabled(transactionMonitoringEnabled: Boolean) =
+            transactionMonitoringEnabled(JsonField.of(transactionMonitoringEnabled))
+
+        /**
+         * A flag that determines whether a payment order should go through transaction monitoring.
+         */
+        fun transactionMonitoringEnabled(transactionMonitoringEnabled: JsonField<Boolean>) = apply {
+            this.transactionMonitoringEnabled = transactionMonitoringEnabled
+        }
+
+        /**
+         * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`,
+         * `bacs`, `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`,
+         * `signet`, `provexchange`, `zengin`.
+         */
+        fun type(type: PaymentOrderType) = type(JsonField.of(type))
+
+        /**
+         * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`,
+         * `bacs`, `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`,
+         * `signet`, `provexchange`, `zengin`.
+         */
+        fun type(type: JsonField<PaymentOrderType>) = apply { this.type = type }
 
         /**
          * The account to which the originating of this payment should be attributed to. Can be a
@@ -1331,92 +1403,49 @@ private constructor(
             ultimateOriginatingAccountType: JsonField<UltimateOriginatingAccountType>
         ) = apply { this.ultimateOriginatingAccountType = ultimateOriginatingAccountType }
 
-        /**
-         * If the payment order is tied to a specific Counterparty, their id will appear, otherwise
-         * `null`.
-         */
-        fun counterpartyId(counterpartyId: String) = counterpartyId(JsonField.of(counterpartyId))
+        /** Identifier of the ultimate originator of the payment order. */
+        fun ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier: String) =
+            ultimateOriginatingPartyIdentifier(JsonField.of(ultimateOriginatingPartyIdentifier))
 
-        /**
-         * If the payment order is tied to a specific Counterparty, their id will appear, otherwise
-         * `null`.
-         */
-        fun counterpartyId(counterpartyId: JsonField<String>) = apply {
-            this.counterpartyId = counterpartyId
+        /** Identifier of the ultimate originator of the payment order. */
+        fun ultimateOriginatingPartyIdentifier(
+            ultimateOriginatingPartyIdentifier: JsonField<String>
+        ) = apply { this.ultimateOriginatingPartyIdentifier = ultimateOriginatingPartyIdentifier }
+
+        /** Name of the ultimate originator of the payment order. */
+        fun ultimateOriginatingPartyName(ultimateOriginatingPartyName: String) =
+            ultimateOriginatingPartyName(JsonField.of(ultimateOriginatingPartyName))
+
+        /** Name of the ultimate originator of the payment order. */
+        fun ultimateOriginatingPartyName(ultimateOriginatingPartyName: JsonField<String>) = apply {
+            this.ultimateOriginatingPartyName = ultimateOriginatingPartyName
         }
 
-        /**
-         * The IDs of all the transactions associated to this payment order. Usually, you will only
-         * have a single transaction ID. However, if a payment order initially results in a Return,
-         * but gets redrafted and is later successfully completed, it can have many transactions.
-         */
-        fun transactionIds(transactionIds: List<String>) =
-            transactionIds(JsonField.of(transactionIds))
+        fun ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier: String) =
+            ultimateReceivingPartyIdentifier(JsonField.of(ultimateReceivingPartyIdentifier))
 
-        /**
-         * The IDs of all the transactions associated to this payment order. Usually, you will only
-         * have a single transaction ID. However, if a payment order initially results in a Return,
-         * but gets redrafted and is later successfully completed, it can have many transactions.
-         */
-        fun transactionIds(transactionIds: JsonField<List<String>>) = apply {
-            this.transactionIds = transactionIds
-        }
-
-        /** The ID of the ledger transaction linked to the payment order. */
-        fun ledgerTransactionId(ledgerTransactionId: String) =
-            ledgerTransactionId(JsonField.of(ledgerTransactionId))
-
-        /** The ID of the ledger transaction linked to the payment order. */
-        fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
-            this.ledgerTransactionId = ledgerTransactionId
-        }
-
-        /**
-         * If the payment order's status is `returned`, this will include the return object's data.
-         */
-        fun currentReturn(currentReturn: ReturnObject) = currentReturn(JsonField.of(currentReturn))
-
-        /**
-         * If the payment order's status is `returned`, this will include the return object's data.
-         */
-        fun currentReturn(currentReturn: JsonField<ReturnObject>) = apply {
-            this.currentReturn = currentReturn
-        }
-
-        /**
-         * A flag that determines whether a payment order should go through transaction monitoring.
-         */
-        fun transactionMonitoringEnabled(transactionMonitoringEnabled: Boolean) =
-            transactionMonitoringEnabled(JsonField.of(transactionMonitoringEnabled))
-
-        /**
-         * A flag that determines whether a payment order should go through transaction monitoring.
-         */
-        fun transactionMonitoringEnabled(transactionMonitoringEnabled: JsonField<Boolean>) = apply {
-            this.transactionMonitoringEnabled = transactionMonitoringEnabled
-        }
-
-        /**
-         * Custom key-value pair for usage in compliance rules. Please contact support before making
-         * changes to this field.
-         */
-        fun complianceRuleMetadata(complianceRuleMetadata: ComplianceRuleMetadata) =
-            complianceRuleMetadata(JsonField.of(complianceRuleMetadata))
-
-        /**
-         * Custom key-value pair for usage in compliance rules. Please contact support before making
-         * changes to this field.
-         */
-        fun complianceRuleMetadata(complianceRuleMetadata: JsonField<ComplianceRuleMetadata>) =
+        fun ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier: JsonField<String>) =
             apply {
-                this.complianceRuleMetadata = complianceRuleMetadata
+                this.ultimateReceivingPartyIdentifier = ultimateReceivingPartyIdentifier
             }
 
-        fun referenceNumbers(referenceNumbers: List<PaymentReference>) =
-            referenceNumbers(JsonField.of(referenceNumbers))
+        fun ultimateReceivingPartyName(ultimateReceivingPartyName: String) =
+            ultimateReceivingPartyName(JsonField.of(ultimateReceivingPartyName))
 
-        fun referenceNumbers(referenceNumbers: JsonField<List<PaymentReference>>) = apply {
-            this.referenceNumbers = referenceNumbers
+        fun ultimateReceivingPartyName(ultimateReceivingPartyName: JsonField<String>) = apply {
+            this.ultimateReceivingPartyName = ultimateReceivingPartyName
+        }
+
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+
+        /**
+         * Additional vendor specific fields for this payment. Data must be represented as key-value
+         * pairs.
+         */
+        fun vendorAttributes(vendorAttributes: JsonValue) = apply {
+            this.vendorAttributes = vendorAttributes
         }
 
         /**
@@ -1432,35 +1461,6 @@ private constructor(
          */
         fun vendorFailureReason(vendorFailureReason: JsonField<String>) = apply {
             this.vendorFailureReason = vendorFailureReason
-        }
-
-        /**
-         * The ID of the compliance decision for the payment order, if transaction monitoring is
-         * enabled.
-         */
-        fun decisionId(decisionId: String) = decisionId(JsonField.of(decisionId))
-
-        /**
-         * The ID of the compliance decision for the payment order, if transaction monitoring is
-         * enabled.
-         */
-        fun decisionId(decisionId: JsonField<String>) = apply { this.decisionId = decisionId }
-
-        /** Associated serialized foreign exchange rate information. */
-        fun foreignExchangeRate(foreignExchangeRate: ForeignExchangeRate) =
-            foreignExchangeRate(JsonField.of(foreignExchangeRate))
-
-        /** Associated serialized foreign exchange rate information. */
-        fun foreignExchangeRate(foreignExchangeRate: JsonField<ForeignExchangeRate>) = apply {
-            this.foreignExchangeRate = foreignExchangeRate
-        }
-
-        /**
-         * Additional vendor specific fields for this payment. Data must be represented as key-value
-         * pairs.
-         */
-        fun vendorAttributes(vendorAttributes: JsonValue) = apply {
-            this.vendorAttributes = vendorAttributes
         }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1485,55 +1485,55 @@ private constructor(
         fun build(): PaymentOrder =
             PaymentOrder(
                 id,
-                object_,
-                liveMode,
-                createdAt,
-                updatedAt,
-                type,
-                subtype,
-                amount,
-                direction,
-                priority,
-                originatingAccountId,
-                receivingAccountId,
                 accounting,
                 accountingCategoryId,
                 accountingLedgerClassId,
+                amount,
+                chargeBearer,
+                complianceRuleMetadata,
+                counterpartyId,
+                createdAt,
                 currency,
-                effectiveDate,
+                currentReturn,
+                decisionId,
                 description,
-                statementDescriptor,
-                remittanceInformation,
+                direction,
+                effectiveDate,
+                expiresAt,
+                foreignExchangeContract,
+                foreignExchangeIndicator,
+                foreignExchangeRate,
+                ledgerTransactionId,
+                liveMode,
+                metadata,
+                nsfProtected,
+                object_,
+                originatingAccountId,
+                originatingPartyName,
+                priority,
                 processAfter,
                 purpose,
-                metadata,
-                chargeBearer,
-                foreignExchangeIndicator,
-                foreignExchangeContract,
-                nsfProtected,
-                originatingPartyName,
-                ultimateOriginatingPartyName,
-                ultimateOriginatingPartyIdentifier,
-                ultimateReceivingPartyName,
-                ultimateReceivingPartyIdentifier,
-                sendRemittanceAdvice,
-                expiresAt,
-                status,
+                receivingAccountId,
                 receivingAccountType,
+                referenceNumbers.map { it.toImmutable() },
+                remittanceInformation,
+                sendRemittanceAdvice,
+                statementDescriptor,
+                status,
+                subtype,
+                transactionIds.map { it.toImmutable() },
+                transactionMonitoringEnabled,
+                type,
                 ultimateOriginatingAccount,
                 ultimateOriginatingAccountId,
                 ultimateOriginatingAccountType,
-                counterpartyId,
-                transactionIds.map { it.toImmutable() },
-                ledgerTransactionId,
-                currentReturn,
-                transactionMonitoringEnabled,
-                complianceRuleMetadata,
-                referenceNumbers.map { it.toImmutable() },
-                vendorFailureReason,
-                decisionId,
-                foreignExchangeRate,
+                ultimateOriginatingPartyIdentifier,
+                ultimateOriginatingPartyName,
+                ultimateReceivingPartyIdentifier,
+                ultimateReceivingPartyName,
+                updatedAt,
                 vendorAttributes,
+                vendorFailureReason,
                 additionalProperties.toImmutable(),
             )
     }
@@ -2404,31 +2404,31 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("object")
-        @ExcludeMissing
-        private val object_: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("live_mode")
-        @ExcludeMissing
-        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
         private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("updated_at")
+        @JsonProperty("live_mode")
         @ExcludeMissing
-        private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("object")
+        @ExcludeMissing
+        private val object_: JsonField<String> = JsonMissing.of(),
         @JsonProperty("reference_number")
         @ExcludeMissing
         private val referenceNumber: JsonField<String> = JsonMissing.of(),
         @JsonProperty("reference_number_type")
         @ExcludeMissing
         private val referenceNumberType: JsonField<ReferenceNumberType> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         fun id(): String = id.getRequired("id")
 
-        fun object_(): String = object_.getRequired("object")
+        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -2436,9 +2436,7 @@ private constructor(
          */
         fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-        fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+        fun object_(): String = object_.getRequired("object")
 
         /** The vendor reference number. */
         fun referenceNumber(): String = referenceNumber.getRequired("reference_number")
@@ -2447,9 +2445,11 @@ private constructor(
         fun referenceNumberType(): ReferenceNumberType =
             referenceNumberType.getRequired("reference_number_type")
 
+        fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+
         @JsonProperty("id") @ExcludeMissing fun _id() = id
 
-        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -2457,9 +2457,7 @@ private constructor(
          */
         @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
 
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
         /** The vendor reference number. */
         @JsonProperty("reference_number") @ExcludeMissing fun _referenceNumber() = referenceNumber
@@ -2468,6 +2466,8 @@ private constructor(
         @JsonProperty("reference_number_type")
         @ExcludeMissing
         fun _referenceNumberType() = referenceNumberType
+
+        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2478,12 +2478,12 @@ private constructor(
         fun validate(): PaymentReference = apply {
             if (!validated) {
                 id()
-                object_()
-                liveMode()
                 createdAt()
-                updatedAt()
+                liveMode()
+                object_()
                 referenceNumber()
                 referenceNumberType()
+                updatedAt()
                 validated = true
             }
         }
@@ -2498,22 +2498,22 @@ private constructor(
         class Builder {
 
             private var id: JsonField<String> = JsonMissing.of()
-            private var object_: JsonField<String> = JsonMissing.of()
-            private var liveMode: JsonField<Boolean> = JsonMissing.of()
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var liveMode: JsonField<Boolean> = JsonMissing.of()
+            private var object_: JsonField<String> = JsonMissing.of()
             private var referenceNumber: JsonField<String> = JsonMissing.of()
             private var referenceNumberType: JsonField<ReferenceNumberType> = JsonMissing.of()
+            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(paymentReference: PaymentReference) = apply {
                 id = paymentReference.id
-                object_ = paymentReference.object_
-                liveMode = paymentReference.liveMode
                 createdAt = paymentReference.createdAt
-                updatedAt = paymentReference.updatedAt
+                liveMode = paymentReference.liveMode
+                object_ = paymentReference.object_
                 referenceNumber = paymentReference.referenceNumber
                 referenceNumberType = paymentReference.referenceNumberType
+                updatedAt = paymentReference.updatedAt
                 additionalProperties = paymentReference.additionalProperties.toMutableMap()
             }
 
@@ -2521,9 +2521,11 @@ private constructor(
 
             fun id(id: JsonField<String>) = apply { this.id = id }
 
-            fun object_(object_: String) = object_(JsonField.of(object_))
+            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-            fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                this.createdAt = createdAt
+            }
 
             /**
              * This field will be true if this object exists in the live environment or false if it
@@ -2537,17 +2539,9 @@ private constructor(
              */
             fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
-            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+            fun object_(object_: String) = object_(JsonField.of(object_))
 
-            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-                this.createdAt = createdAt
-            }
-
-            fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-            fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
-                this.updatedAt = updatedAt
-            }
+            fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
             /** The vendor reference number. */
             fun referenceNumber(referenceNumber: String) =
@@ -2565,6 +2559,12 @@ private constructor(
             /** The type of the reference number. Referring to the vendor payment id. */
             fun referenceNumberType(referenceNumberType: JsonField<ReferenceNumberType>) = apply {
                 this.referenceNumberType = referenceNumberType
+            }
+
+            fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+            fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
+                this.updatedAt = updatedAt
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -2589,12 +2589,12 @@ private constructor(
             fun build(): PaymentReference =
                 PaymentReference(
                     id,
-                    object_,
-                    liveMode,
                     createdAt,
-                    updatedAt,
+                    liveMode,
+                    object_,
                     referenceNumber,
                     referenceNumberType,
+                    updatedAt,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -3090,17 +3090,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PaymentReference && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && referenceNumber == other.referenceNumber && referenceNumberType == other.referenceNumberType && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PaymentReference && id == other.id && createdAt == other.createdAt && liveMode == other.liveMode && object_ == other.object_ && referenceNumber == other.referenceNumber && referenceNumberType == other.referenceNumberType && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, referenceNumber, referenceNumberType, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(id, createdAt, liveMode, object_, referenceNumber, referenceNumberType, updatedAt, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PaymentReference{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, referenceNumber=$referenceNumber, referenceNumberType=$referenceNumberType, additionalProperties=$additionalProperties}"
+            "PaymentReference{id=$id, createdAt=$createdAt, liveMode=$liveMode, object_=$object_, referenceNumber=$referenceNumber, referenceNumberType=$referenceNumberType, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
     }
 
     class Status
@@ -3408,15 +3408,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentOrder && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && type == other.type && subtype == other.subtype && amount == other.amount && direction == other.direction && priority == other.priority && originatingAccountId == other.originatingAccountId && receivingAccountId == other.receivingAccountId && accounting == other.accounting && accountingCategoryId == other.accountingCategoryId && accountingLedgerClassId == other.accountingLedgerClassId && currency == other.currency && effectiveDate == other.effectiveDate && description == other.description && statementDescriptor == other.statementDescriptor && remittanceInformation == other.remittanceInformation && processAfter == other.processAfter && purpose == other.purpose && metadata == other.metadata && chargeBearer == other.chargeBearer && foreignExchangeIndicator == other.foreignExchangeIndicator && foreignExchangeContract == other.foreignExchangeContract && nsfProtected == other.nsfProtected && originatingPartyName == other.originatingPartyName && ultimateOriginatingPartyName == other.ultimateOriginatingPartyName && ultimateOriginatingPartyIdentifier == other.ultimateOriginatingPartyIdentifier && ultimateReceivingPartyName == other.ultimateReceivingPartyName && ultimateReceivingPartyIdentifier == other.ultimateReceivingPartyIdentifier && sendRemittanceAdvice == other.sendRemittanceAdvice && expiresAt == other.expiresAt && status == other.status && receivingAccountType == other.receivingAccountType && ultimateOriginatingAccount == other.ultimateOriginatingAccount && ultimateOriginatingAccountId == other.ultimateOriginatingAccountId && ultimateOriginatingAccountType == other.ultimateOriginatingAccountType && counterpartyId == other.counterpartyId && transactionIds == other.transactionIds && ledgerTransactionId == other.ledgerTransactionId && currentReturn == other.currentReturn && transactionMonitoringEnabled == other.transactionMonitoringEnabled && complianceRuleMetadata == other.complianceRuleMetadata && referenceNumbers == other.referenceNumbers && vendorFailureReason == other.vendorFailureReason && decisionId == other.decisionId && foreignExchangeRate == other.foreignExchangeRate && vendorAttributes == other.vendorAttributes && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is PaymentOrder && id == other.id && accounting == other.accounting && accountingCategoryId == other.accountingCategoryId && accountingLedgerClassId == other.accountingLedgerClassId && amount == other.amount && chargeBearer == other.chargeBearer && complianceRuleMetadata == other.complianceRuleMetadata && counterpartyId == other.counterpartyId && createdAt == other.createdAt && currency == other.currency && currentReturn == other.currentReturn && decisionId == other.decisionId && description == other.description && direction == other.direction && effectiveDate == other.effectiveDate && expiresAt == other.expiresAt && foreignExchangeContract == other.foreignExchangeContract && foreignExchangeIndicator == other.foreignExchangeIndicator && foreignExchangeRate == other.foreignExchangeRate && ledgerTransactionId == other.ledgerTransactionId && liveMode == other.liveMode && metadata == other.metadata && nsfProtected == other.nsfProtected && object_ == other.object_ && originatingAccountId == other.originatingAccountId && originatingPartyName == other.originatingPartyName && priority == other.priority && processAfter == other.processAfter && purpose == other.purpose && receivingAccountId == other.receivingAccountId && receivingAccountType == other.receivingAccountType && referenceNumbers == other.referenceNumbers && remittanceInformation == other.remittanceInformation && sendRemittanceAdvice == other.sendRemittanceAdvice && statementDescriptor == other.statementDescriptor && status == other.status && subtype == other.subtype && transactionIds == other.transactionIds && transactionMonitoringEnabled == other.transactionMonitoringEnabled && type == other.type && ultimateOriginatingAccount == other.ultimateOriginatingAccount && ultimateOriginatingAccountId == other.ultimateOriginatingAccountId && ultimateOriginatingAccountType == other.ultimateOriginatingAccountType && ultimateOriginatingPartyIdentifier == other.ultimateOriginatingPartyIdentifier && ultimateOriginatingPartyName == other.ultimateOriginatingPartyName && ultimateReceivingPartyIdentifier == other.ultimateReceivingPartyIdentifier && ultimateReceivingPartyName == other.ultimateReceivingPartyName && updatedAt == other.updatedAt && vendorAttributes == other.vendorAttributes && vendorFailureReason == other.vendorFailureReason && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, type, subtype, amount, direction, priority, originatingAccountId, receivingAccountId, accounting, accountingCategoryId, accountingLedgerClassId, currency, effectiveDate, description, statementDescriptor, remittanceInformation, processAfter, purpose, metadata, chargeBearer, foreignExchangeIndicator, foreignExchangeContract, nsfProtected, originatingPartyName, ultimateOriginatingPartyName, ultimateOriginatingPartyIdentifier, ultimateReceivingPartyName, ultimateReceivingPartyIdentifier, sendRemittanceAdvice, expiresAt, status, receivingAccountType, ultimateOriginatingAccount, ultimateOriginatingAccountId, ultimateOriginatingAccountType, counterpartyId, transactionIds, ledgerTransactionId, currentReturn, transactionMonitoringEnabled, complianceRuleMetadata, referenceNumbers, vendorFailureReason, decisionId, foreignExchangeRate, vendorAttributes, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accounting, accountingCategoryId, accountingLedgerClassId, amount, chargeBearer, complianceRuleMetadata, counterpartyId, createdAt, currency, currentReturn, decisionId, description, direction, effectiveDate, expiresAt, foreignExchangeContract, foreignExchangeIndicator, foreignExchangeRate, ledgerTransactionId, liveMode, metadata, nsfProtected, object_, originatingAccountId, originatingPartyName, priority, processAfter, purpose, receivingAccountId, receivingAccountType, referenceNumbers, remittanceInformation, sendRemittanceAdvice, statementDescriptor, status, subtype, transactionIds, transactionMonitoringEnabled, type, ultimateOriginatingAccount, ultimateOriginatingAccountId, ultimateOriginatingAccountType, ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier, ultimateReceivingPartyName, updatedAt, vendorAttributes, vendorFailureReason, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PaymentOrder{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, type=$type, subtype=$subtype, amount=$amount, direction=$direction, priority=$priority, originatingAccountId=$originatingAccountId, receivingAccountId=$receivingAccountId, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, currency=$currency, effectiveDate=$effectiveDate, description=$description, statementDescriptor=$statementDescriptor, remittanceInformation=$remittanceInformation, processAfter=$processAfter, purpose=$purpose, metadata=$metadata, chargeBearer=$chargeBearer, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeContract=$foreignExchangeContract, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, sendRemittanceAdvice=$sendRemittanceAdvice, expiresAt=$expiresAt, status=$status, receivingAccountType=$receivingAccountType, ultimateOriginatingAccount=$ultimateOriginatingAccount, ultimateOriginatingAccountId=$ultimateOriginatingAccountId, ultimateOriginatingAccountType=$ultimateOriginatingAccountType, counterpartyId=$counterpartyId, transactionIds=$transactionIds, ledgerTransactionId=$ledgerTransactionId, currentReturn=$currentReturn, transactionMonitoringEnabled=$transactionMonitoringEnabled, complianceRuleMetadata=$complianceRuleMetadata, referenceNumbers=$referenceNumbers, vendorFailureReason=$vendorFailureReason, decisionId=$decisionId, foreignExchangeRate=$foreignExchangeRate, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
+        "PaymentOrder{id=$id, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, amount=$amount, chargeBearer=$chargeBearer, complianceRuleMetadata=$complianceRuleMetadata, counterpartyId=$counterpartyId, createdAt=$createdAt, currency=$currency, currentReturn=$currentReturn, decisionId=$decisionId, description=$description, direction=$direction, effectiveDate=$effectiveDate, expiresAt=$expiresAt, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeRate=$foreignExchangeRate, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, nsfProtected=$nsfProtected, object_=$object_, originatingAccountId=$originatingAccountId, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccountId=$receivingAccountId, receivingAccountType=$receivingAccountType, referenceNumbers=$referenceNumbers, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, status=$status, subtype=$subtype, transactionIds=$transactionIds, transactionMonitoringEnabled=$transactionMonitoringEnabled, type=$type, ultimateOriginatingAccount=$ultimateOriginatingAccount, ultimateOriginatingAccountId=$ultimateOriginatingAccountId, ultimateOriginatingAccountType=$ultimateOriginatingAccountType, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, updatedAt=$updatedAt, vendorAttributes=$vendorAttributes, vendorFailureReason=$vendorFailureReason, additionalProperties=$additionalProperties}"
 }

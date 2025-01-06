@@ -24,70 +24,102 @@ class ReturnObject
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("code") @ExcludeMissing private val code: JsonField<Code> = JsonMissing.of(),
     @JsonProperty("created_at")
     @ExcludeMissing
     private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
+    @JsonProperty("currency")
     @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    private val currency: JsonField<Currency> = JsonMissing.of(),
+    @JsonProperty("current_return")
+    @ExcludeMissing
+    private val currentReturn: JsonField<ReturnObject> = JsonMissing.of(),
+    @JsonProperty("date_of_death")
+    @ExcludeMissing
+    private val dateOfDeath: JsonField<LocalDate> = JsonMissing.of(),
+    @JsonProperty("failure_reason")
+    @ExcludeMissing
+    private val failureReason: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("internal_account_id")
+    @ExcludeMissing
+    private val internalAccountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("ledger_transaction_id")
+    @ExcludeMissing
+    private val ledgerTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("reason")
+    @ExcludeMissing
+    private val reason: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("reference_numbers")
+    @ExcludeMissing
+    private val referenceNumbers: JsonField<List<PaymentReference>> = JsonMissing.of(),
     @JsonProperty("returnable_id")
     @ExcludeMissing
     private val returnableId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("returnable_type")
     @ExcludeMissing
     private val returnableType: JsonField<ReturnableType> = JsonMissing.of(),
-    @JsonProperty("code") @ExcludeMissing private val code: JsonField<Code> = JsonMissing.of(),
-    @JsonProperty("reason")
-    @ExcludeMissing
-    private val reason: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("date_of_death")
-    @ExcludeMissing
-    private val dateOfDeath: JsonField<LocalDate> = JsonMissing.of(),
-    @JsonProperty("additional_information")
-    @ExcludeMissing
-    private val additionalInformation: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("role") @ExcludeMissing private val role: JsonField<Role> = JsonMissing.of(),
     @JsonProperty("status")
     @ExcludeMissing
     private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("transaction_line_item_id")
-    @ExcludeMissing
-    private val transactionLineItemId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("transaction_id")
     @ExcludeMissing
     private val transactionId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("internal_account_id")
+    @JsonProperty("transaction_line_item_id")
     @ExcludeMissing
-    private val internalAccountId: JsonField<String> = JsonMissing.of(),
+    private val transactionLineItemId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("currency")
+    @JsonProperty("updated_at")
     @ExcludeMissing
-    private val currency: JsonField<Currency> = JsonMissing.of(),
-    @JsonProperty("failure_reason")
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("additional_information")
     @ExcludeMissing
-    private val failureReason: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("role") @ExcludeMissing private val role: JsonField<Role> = JsonMissing.of(),
-    @JsonProperty("current_return")
-    @ExcludeMissing
-    private val currentReturn: JsonField<ReturnObject> = JsonMissing.of(),
-    @JsonProperty("reference_numbers")
-    @ExcludeMissing
-    private val referenceNumbers: JsonField<List<PaymentReference>> = JsonMissing.of(),
-    @JsonProperty("ledger_transaction_id")
-    @ExcludeMissing
-    private val ledgerTransactionId: JsonField<String> = JsonMissing.of(),
+    private val additionalInformation: JsonField<String> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
 
-    fun object_(): String = object_.getRequired("object")
+    /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+    fun amount(): Long = amount.getRequired("amount")
+
+    /** The return code. For ACH returns, this is the required ACH return code. */
+    fun code(): Code? = code.getNullable("code")
+
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /** Currency that this transaction is denominated in. */
+    fun currency(): Currency = currency.getRequired("currency")
+
+    /**
+     * If the return's status is `returned`, this will include the return object's data that is
+     * returning this return.
+     */
+    fun currentReturn(): ReturnObject? = currentReturn.getNullable("current_return")
+
+    /**
+     * If the return code is `R14` or `R15` this is the date the deceased counterparty passed away.
+     */
+    fun dateOfDeath(): LocalDate? = dateOfDeath.getNullable("date_of_death")
+
+    /**
+     * If an originating return failed to be processed by the bank, a description of the failure
+     * reason will be available.
+     */
+    fun failureReason(): String? = failureReason.getNullable("failure_reason")
+
+    /** The ID of the relevant Internal Account. */
+    fun internalAccountId(): String? = internalAccountId.getNullable("internal_account_id")
+
+    /** The ID of the ledger transaction linked to the return. */
+    fun ledgerTransactionId(): String? = ledgerTransactionId.getNullable("ledger_transaction_id")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
@@ -95,18 +127,7 @@ private constructor(
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
-
-    /** The ID of the object being returned or `null`. */
-    fun returnableId(): String? = returnableId.getNullable("returnable_id")
-
-    /** The type of object being returned or `null`. */
-    fun returnableType(): ReturnableType? = returnableType.getNullable("returnable_type")
-
-    /** The return code. For ACH returns, this is the required ACH return code. */
-    fun code(): Code? = code.getNullable("code")
+    fun object_(): String = object_.getRequired("object")
 
     /**
      * Often the bank will provide an explanation for the return, which is a short human readable
@@ -114,10 +135,36 @@ private constructor(
      */
     fun reason(): String? = reason.getNullable("reason")
 
+    /** An array of Payment Reference objects. */
+    fun referenceNumbers(): List<PaymentReference> =
+        referenceNumbers.getRequired("reference_numbers")
+
+    /** The ID of the object being returned or `null`. */
+    fun returnableId(): String? = returnableId.getNullable("returnable_id")
+
+    /** The type of object being returned or `null`. */
+    fun returnableType(): ReturnableType? = returnableType.getNullable("returnable_type")
+
+    /** The role of the return, can be `originating` or `receiving`. */
+    fun role(): Role = role.getRequired("role")
+
+    /** The current status of the return. */
+    fun status(): Status = status.getRequired("status")
+
+    /** The ID of the relevant Transaction or `null`. */
+    fun transactionId(): String? = transactionId.getNullable("transaction_id")
+
+    /** The ID of the relevant Transaction Line Item or `null`. */
+    fun transactionLineItemId(): String? =
+        transactionLineItemId.getNullable("transaction_line_item_id")
+
     /**
-     * If the return code is `R14` or `R15` this is the date the deceased counterparty passed away.
+     * The type of return. Can be one of: `ach`, `ach_noc`, `au_becs`, `bacs`, `eft`, `interac`,
+     * `manual`, `paper_item`, `wire`.
      */
-    fun dateOfDeath(): LocalDate? = dateOfDeath.getNullable("date_of_death")
+    fun type(): Type = type.getRequired("type")
+
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     /**
      * Some returns may include additional information from the bank. In these cases, this string
@@ -126,56 +173,45 @@ private constructor(
     fun additionalInformation(): String? =
         additionalInformation.getNullable("additional_information")
 
-    /** The current status of the return. */
-    fun status(): Status = status.getRequired("status")
-
-    /** The ID of the relevant Transaction Line Item or `null`. */
-    fun transactionLineItemId(): String? =
-        transactionLineItemId.getNullable("transaction_line_item_id")
-
-    /** The ID of the relevant Transaction or `null`. */
-    fun transactionId(): String? = transactionId.getNullable("transaction_id")
-
-    /** The ID of the relevant Internal Account. */
-    fun internalAccountId(): String? = internalAccountId.getNullable("internal_account_id")
-
-    /**
-     * The type of return. Can be one of: `ach`, `ach_noc`, `au_becs`, `bacs`, `eft`, `interac`,
-     * `manual`, `paper_item`, `wire`.
-     */
-    fun type(): Type = type.getRequired("type")
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-    fun amount(): Long = amount.getRequired("amount")
+    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+    /** The return code. For ACH returns, this is the required ACH return code. */
+    @JsonProperty("code") @ExcludeMissing fun _code() = code
+
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /** Currency that this transaction is denominated in. */
-    fun currency(): Currency = currency.getRequired("currency")
-
-    /**
-     * If an originating return failed to be processed by the bank, a description of the failure
-     * reason will be available.
-     */
-    fun failureReason(): String? = failureReason.getNullable("failure_reason")
-
-    /** The role of the return, can be `originating` or `receiving`. */
-    fun role(): Role = role.getRequired("role")
+    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
     /**
      * If the return's status is `returned`, this will include the return object's data that is
      * returning this return.
      */
-    fun currentReturn(): ReturnObject? = currentReturn.getNullable("current_return")
+    @JsonProperty("current_return") @ExcludeMissing fun _currentReturn() = currentReturn
 
-    /** An array of Payment Reference objects. */
-    fun referenceNumbers(): List<PaymentReference> =
-        referenceNumbers.getRequired("reference_numbers")
+    /**
+     * If the return code is `R14` or `R15` this is the date the deceased counterparty passed away.
+     */
+    @JsonProperty("date_of_death") @ExcludeMissing fun _dateOfDeath() = dateOfDeath
+
+    /**
+     * If an originating return failed to be processed by the bank, a description of the failure
+     * reason will be available.
+     */
+    @JsonProperty("failure_reason") @ExcludeMissing fun _failureReason() = failureReason
+
+    /** The ID of the relevant Internal Account. */
+    @JsonProperty("internal_account_id")
+    @ExcludeMissing
+    fun _internalAccountId() = internalAccountId
 
     /** The ID of the ledger transaction linked to the return. */
-    fun ledgerTransactionId(): String? = ledgerTransactionId.getNullable("ledger_transaction_id")
-
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("ledger_transaction_id")
+    @ExcludeMissing
+    fun _ledgerTransactionId() = ledgerTransactionId
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
@@ -183,18 +219,7 @@ private constructor(
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
-    /** The ID of the object being returned or `null`. */
-    @JsonProperty("returnable_id") @ExcludeMissing fun _returnableId() = returnableId
-
-    /** The type of object being returned or `null`. */
-    @JsonProperty("returnable_type") @ExcludeMissing fun _returnableType() = returnableType
-
-    /** The return code. For ACH returns, this is the required ACH return code. */
-    @JsonProperty("code") @ExcludeMissing fun _code() = code
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
     /**
      * Often the bank will provide an explanation for the return, which is a short human readable
@@ -202,10 +227,36 @@ private constructor(
      */
     @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
 
+    /** An array of Payment Reference objects. */
+    @JsonProperty("reference_numbers") @ExcludeMissing fun _referenceNumbers() = referenceNumbers
+
+    /** The ID of the object being returned or `null`. */
+    @JsonProperty("returnable_id") @ExcludeMissing fun _returnableId() = returnableId
+
+    /** The type of object being returned or `null`. */
+    @JsonProperty("returnable_type") @ExcludeMissing fun _returnableType() = returnableType
+
+    /** The role of the return, can be `originating` or `receiving`. */
+    @JsonProperty("role") @ExcludeMissing fun _role() = role
+
+    /** The current status of the return. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
+
+    /** The ID of the relevant Transaction or `null`. */
+    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+
+    /** The ID of the relevant Transaction Line Item or `null`. */
+    @JsonProperty("transaction_line_item_id")
+    @ExcludeMissing
+    fun _transactionLineItemId() = transactionLineItemId
+
     /**
-     * If the return code is `R14` or `R15` this is the date the deceased counterparty passed away.
+     * The type of return. Can be one of: `ach`, `ach_noc`, `au_becs`, `bacs`, `eft`, `interac`,
+     * `manual`, `paper_item`, `wire`.
      */
-    @JsonProperty("date_of_death") @ExcludeMissing fun _dateOfDeath() = dateOfDeath
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
+
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
     /**
      * Some returns may include additional information from the bank. In these cases, this string
@@ -214,57 +265,6 @@ private constructor(
     @JsonProperty("additional_information")
     @ExcludeMissing
     fun _additionalInformation() = additionalInformation
-
-    /** The current status of the return. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
-
-    /** The ID of the relevant Transaction Line Item or `null`. */
-    @JsonProperty("transaction_line_item_id")
-    @ExcludeMissing
-    fun _transactionLineItemId() = transactionLineItemId
-
-    /** The ID of the relevant Transaction or `null`. */
-    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
-
-    /** The ID of the relevant Internal Account. */
-    @JsonProperty("internal_account_id")
-    @ExcludeMissing
-    fun _internalAccountId() = internalAccountId
-
-    /**
-     * The type of return. Can be one of: `ach`, `ach_noc`, `au_becs`, `bacs`, `eft`, `interac`,
-     * `manual`, `paper_item`, `wire`.
-     */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
-
-    /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
-
-    /** Currency that this transaction is denominated in. */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-    /**
-     * If an originating return failed to be processed by the bank, a description of the failure
-     * reason will be available.
-     */
-    @JsonProperty("failure_reason") @ExcludeMissing fun _failureReason() = failureReason
-
-    /** The role of the return, can be `originating` or `receiving`. */
-    @JsonProperty("role") @ExcludeMissing fun _role() = role
-
-    /**
-     * If the return's status is `returned`, this will include the return object's data that is
-     * returning this return.
-     */
-    @JsonProperty("current_return") @ExcludeMissing fun _currentReturn() = currentReturn
-
-    /** An array of Payment Reference objects. */
-    @JsonProperty("reference_numbers") @ExcludeMissing fun _referenceNumbers() = referenceNumbers
-
-    /** The ID of the ledger transaction linked to the return. */
-    @JsonProperty("ledger_transaction_id")
-    @ExcludeMissing
-    fun _ledgerTransactionId() = ledgerTransactionId
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -275,28 +275,28 @@ private constructor(
     fun validate(): ReturnObject = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
+            amount()
+            code()
             createdAt()
-            updatedAt()
+            currency()
+            currentReturn()?.validate()
+            dateOfDeath()
+            failureReason()
+            internalAccountId()
+            ledgerTransactionId()
+            liveMode()
+            object_()
+            reason()
+            referenceNumbers().forEach { it.validate() }
             returnableId()
             returnableType()
-            code()
-            reason()
-            dateOfDeath()
-            additionalInformation()
-            status()
-            transactionLineItemId()
-            transactionId()
-            internalAccountId()
-            type()
-            amount()
-            currency()
-            failureReason()
             role()
-            currentReturn()?.validate()
-            referenceNumbers().forEach { it.validate() }
-            ledgerTransactionId()
+            status()
+            transactionId()
+            transactionLineItemId()
+            type()
+            updatedAt()
+            additionalInformation()
             validated = true
         }
     }
@@ -311,54 +311,54 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var amount: JsonField<Long> = JsonMissing.of()
+        private var code: JsonField<Code> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var currency: JsonField<Currency> = JsonMissing.of()
+        private var currentReturn: JsonField<ReturnObject> = JsonMissing.of()
+        private var dateOfDeath: JsonField<LocalDate> = JsonMissing.of()
+        private var failureReason: JsonField<String> = JsonMissing.of()
+        private var internalAccountId: JsonField<String> = JsonMissing.of()
+        private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
+        private var reason: JsonField<String> = JsonMissing.of()
+        private var referenceNumbers: JsonField<List<PaymentReference>> = JsonMissing.of()
         private var returnableId: JsonField<String> = JsonMissing.of()
         private var returnableType: JsonField<ReturnableType> = JsonMissing.of()
-        private var code: JsonField<Code> = JsonMissing.of()
-        private var reason: JsonField<String> = JsonMissing.of()
-        private var dateOfDeath: JsonField<LocalDate> = JsonMissing.of()
-        private var additionalInformation: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var transactionLineItemId: JsonField<String> = JsonMissing.of()
-        private var transactionId: JsonField<String> = JsonMissing.of()
-        private var internalAccountId: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
-        private var failureReason: JsonField<String> = JsonMissing.of()
         private var role: JsonField<Role> = JsonMissing.of()
-        private var currentReturn: JsonField<ReturnObject> = JsonMissing.of()
-        private var referenceNumbers: JsonField<List<PaymentReference>> = JsonMissing.of()
-        private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
+        private var transactionId: JsonField<String> = JsonMissing.of()
+        private var transactionLineItemId: JsonField<String> = JsonMissing.of()
+        private var type: JsonField<Type> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var additionalInformation: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(returnObject: ReturnObject) = apply {
             id = returnObject.id
-            object_ = returnObject.object_
-            liveMode = returnObject.liveMode
+            amount = returnObject.amount
+            code = returnObject.code
             createdAt = returnObject.createdAt
-            updatedAt = returnObject.updatedAt
+            currency = returnObject.currency
+            currentReturn = returnObject.currentReturn
+            dateOfDeath = returnObject.dateOfDeath
+            failureReason = returnObject.failureReason
+            internalAccountId = returnObject.internalAccountId
+            ledgerTransactionId = returnObject.ledgerTransactionId
+            liveMode = returnObject.liveMode
+            object_ = returnObject.object_
+            reason = returnObject.reason
+            referenceNumbers = returnObject.referenceNumbers
             returnableId = returnObject.returnableId
             returnableType = returnObject.returnableType
-            code = returnObject.code
-            reason = returnObject.reason
-            dateOfDeath = returnObject.dateOfDeath
-            additionalInformation = returnObject.additionalInformation
-            status = returnObject.status
-            transactionLineItemId = returnObject.transactionLineItemId
-            transactionId = returnObject.transactionId
-            internalAccountId = returnObject.internalAccountId
-            type = returnObject.type
-            amount = returnObject.amount
-            currency = returnObject.currency
-            failureReason = returnObject.failureReason
             role = returnObject.role
-            currentReturn = returnObject.currentReturn
-            referenceNumbers = returnObject.referenceNumbers
-            ledgerTransactionId = returnObject.ledgerTransactionId
+            status = returnObject.status
+            transactionId = returnObject.transactionId
+            transactionLineItemId = returnObject.transactionLineItemId
+            type = returnObject.type
+            updatedAt = returnObject.updatedAt
+            additionalInformation = returnObject.additionalInformation
             additionalProperties = returnObject.additionalProperties.toMutableMap()
         }
 
@@ -366,9 +366,87 @@ private constructor(
 
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun object_(object_: String) = object_(JsonField.of(object_))
+        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+        fun amount(amount: Long) = amount(JsonField.of(amount))
 
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+        /** The return code. For ACH returns, this is the required ACH return code. */
+        fun code(code: Code) = code(JsonField.of(code))
+
+        /** The return code. For ACH returns, this is the required ACH return code. */
+        fun code(code: JsonField<Code>) = apply { this.code = code }
+
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** Currency that this transaction is denominated in. */
+        fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+        /** Currency that this transaction is denominated in. */
+        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+        /**
+         * If the return's status is `returned`, this will include the return object's data that is
+         * returning this return.
+         */
+        fun currentReturn(currentReturn: ReturnObject) = currentReturn(JsonField.of(currentReturn))
+
+        /**
+         * If the return's status is `returned`, this will include the return object's data that is
+         * returning this return.
+         */
+        fun currentReturn(currentReturn: JsonField<ReturnObject>) = apply {
+            this.currentReturn = currentReturn
+        }
+
+        /**
+         * If the return code is `R14` or `R15` this is the date the deceased counterparty passed
+         * away.
+         */
+        fun dateOfDeath(dateOfDeath: LocalDate) = dateOfDeath(JsonField.of(dateOfDeath))
+
+        /**
+         * If the return code is `R14` or `R15` this is the date the deceased counterparty passed
+         * away.
+         */
+        fun dateOfDeath(dateOfDeath: JsonField<LocalDate>) = apply {
+            this.dateOfDeath = dateOfDeath
+        }
+
+        /**
+         * If an originating return failed to be processed by the bank, a description of the failure
+         * reason will be available.
+         */
+        fun failureReason(failureReason: String) = failureReason(JsonField.of(failureReason))
+
+        /**
+         * If an originating return failed to be processed by the bank, a description of the failure
+         * reason will be available.
+         */
+        fun failureReason(failureReason: JsonField<String>) = apply {
+            this.failureReason = failureReason
+        }
+
+        /** The ID of the relevant Internal Account. */
+        fun internalAccountId(internalAccountId: String) =
+            internalAccountId(JsonField.of(internalAccountId))
+
+        /** The ID of the relevant Internal Account. */
+        fun internalAccountId(internalAccountId: JsonField<String>) = apply {
+            this.internalAccountId = internalAccountId
+        }
+
+        /** The ID of the ledger transaction linked to the return. */
+        fun ledgerTransactionId(ledgerTransactionId: String) =
+            ledgerTransactionId(JsonField.of(ledgerTransactionId))
+
+        /** The ID of the ledger transaction linked to the return. */
+        fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
+            this.ledgerTransactionId = ledgerTransactionId
+        }
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -382,13 +460,30 @@ private constructor(
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+        fun object_(object_: String) = object_(JsonField.of(object_))
 
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+        /**
+         * Often the bank will provide an explanation for the return, which is a short human
+         * readable string.
+         */
+        fun reason(reason: String) = reason(JsonField.of(reason))
 
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+        /**
+         * Often the bank will provide an explanation for the return, which is a short human
+         * readable string.
+         */
+        fun reason(reason: JsonField<String>) = apply { this.reason = reason }
+
+        /** An array of Payment Reference objects. */
+        fun referenceNumbers(referenceNumbers: List<PaymentReference>) =
+            referenceNumbers(JsonField.of(referenceNumbers))
+
+        /** An array of Payment Reference objects. */
+        fun referenceNumbers(referenceNumbers: JsonField<List<PaymentReference>>) = apply {
+            this.referenceNumbers = referenceNumbers
+        }
 
         /** The ID of the object being returned or `null`. */
         fun returnableId(returnableId: String) = returnableId(JsonField.of(returnableId))
@@ -407,67 +502,17 @@ private constructor(
             this.returnableType = returnableType
         }
 
-        /** The return code. For ACH returns, this is the required ACH return code. */
-        fun code(code: Code) = code(JsonField.of(code))
+        /** The role of the return, can be `originating` or `receiving`. */
+        fun role(role: Role) = role(JsonField.of(role))
 
-        /** The return code. For ACH returns, this is the required ACH return code. */
-        fun code(code: JsonField<Code>) = apply { this.code = code }
-
-        /**
-         * Often the bank will provide an explanation for the return, which is a short human
-         * readable string.
-         */
-        fun reason(reason: String) = reason(JsonField.of(reason))
-
-        /**
-         * Often the bank will provide an explanation for the return, which is a short human
-         * readable string.
-         */
-        fun reason(reason: JsonField<String>) = apply { this.reason = reason }
-
-        /**
-         * If the return code is `R14` or `R15` this is the date the deceased counterparty passed
-         * away.
-         */
-        fun dateOfDeath(dateOfDeath: LocalDate) = dateOfDeath(JsonField.of(dateOfDeath))
-
-        /**
-         * If the return code is `R14` or `R15` this is the date the deceased counterparty passed
-         * away.
-         */
-        fun dateOfDeath(dateOfDeath: JsonField<LocalDate>) = apply {
-            this.dateOfDeath = dateOfDeath
-        }
-
-        /**
-         * Some returns may include additional information from the bank. In these cases, this
-         * string will be present.
-         */
-        fun additionalInformation(additionalInformation: String) =
-            additionalInformation(JsonField.of(additionalInformation))
-
-        /**
-         * Some returns may include additional information from the bank. In these cases, this
-         * string will be present.
-         */
-        fun additionalInformation(additionalInformation: JsonField<String>) = apply {
-            this.additionalInformation = additionalInformation
-        }
+        /** The role of the return, can be `originating` or `receiving`. */
+        fun role(role: JsonField<Role>) = apply { this.role = role }
 
         /** The current status of the return. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The current status of the return. */
         fun status(status: JsonField<Status>) = apply { this.status = status }
-
-        /** The ID of the relevant Transaction Line Item or `null`. */
-        fun transactionLineItemId(transactionLineItemId: String) =
-            transactionLineItemId(JsonField.of(transactionLineItemId))
-
-        /** The ID of the relevant Transaction Line Item or `null`. */
-        fun transactionLineItemId(transactionLineItemId: JsonField<String>) = apply {
-            this.transactionLineItemId = transactionLineItemId
-        }
 
         /** The ID of the relevant Transaction or `null`. */
         fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
@@ -477,13 +522,13 @@ private constructor(
             this.transactionId = transactionId
         }
 
-        /** The ID of the relevant Internal Account. */
-        fun internalAccountId(internalAccountId: String) =
-            internalAccountId(JsonField.of(internalAccountId))
+        /** The ID of the relevant Transaction Line Item or `null`. */
+        fun transactionLineItemId(transactionLineItemId: String) =
+            transactionLineItemId(JsonField.of(transactionLineItemId))
 
-        /** The ID of the relevant Internal Account. */
-        fun internalAccountId(internalAccountId: JsonField<String>) = apply {
-            this.internalAccountId = internalAccountId
+        /** The ID of the relevant Transaction Line Item or `null`. */
+        fun transactionLineItemId(transactionLineItemId: JsonField<String>) = apply {
+            this.transactionLineItemId = transactionLineItemId
         }
 
         /**
@@ -498,68 +543,23 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-        fun amount(amount: Long) = amount(JsonField.of(amount))
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
-        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-        /** Currency that this transaction is denominated in. */
-        fun currency(currency: Currency) = currency(JsonField.of(currency))
-
-        /** Currency that this transaction is denominated in. */
-        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         /**
-         * If an originating return failed to be processed by the bank, a description of the failure
-         * reason will be available.
+         * Some returns may include additional information from the bank. In these cases, this
+         * string will be present.
          */
-        fun failureReason(failureReason: String) = failureReason(JsonField.of(failureReason))
+        fun additionalInformation(additionalInformation: String) =
+            additionalInformation(JsonField.of(additionalInformation))
 
         /**
-         * If an originating return failed to be processed by the bank, a description of the failure
-         * reason will be available.
+         * Some returns may include additional information from the bank. In these cases, this
+         * string will be present.
          */
-        fun failureReason(failureReason: JsonField<String>) = apply {
-            this.failureReason = failureReason
-        }
-
-        /** The role of the return, can be `originating` or `receiving`. */
-        fun role(role: Role) = role(JsonField.of(role))
-
-        /** The role of the return, can be `originating` or `receiving`. */
-        fun role(role: JsonField<Role>) = apply { this.role = role }
-
-        /**
-         * If the return's status is `returned`, this will include the return object's data that is
-         * returning this return.
-         */
-        fun currentReturn(currentReturn: ReturnObject) = currentReturn(JsonField.of(currentReturn))
-
-        /**
-         * If the return's status is `returned`, this will include the return object's data that is
-         * returning this return.
-         */
-        fun currentReturn(currentReturn: JsonField<ReturnObject>) = apply {
-            this.currentReturn = currentReturn
-        }
-
-        /** An array of Payment Reference objects. */
-        fun referenceNumbers(referenceNumbers: List<PaymentReference>) =
-            referenceNumbers(JsonField.of(referenceNumbers))
-
-        /** An array of Payment Reference objects. */
-        fun referenceNumbers(referenceNumbers: JsonField<List<PaymentReference>>) = apply {
-            this.referenceNumbers = referenceNumbers
-        }
-
-        /** The ID of the ledger transaction linked to the return. */
-        fun ledgerTransactionId(ledgerTransactionId: String) =
-            ledgerTransactionId(JsonField.of(ledgerTransactionId))
-
-        /** The ID of the ledger transaction linked to the return. */
-        fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
-            this.ledgerTransactionId = ledgerTransactionId
+        fun additionalInformation(additionalInformation: JsonField<String>) = apply {
+            this.additionalInformation = additionalInformation
         }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -584,28 +584,28 @@ private constructor(
         fun build(): ReturnObject =
             ReturnObject(
                 id,
-                object_,
-                liveMode,
+                amount,
+                code,
                 createdAt,
-                updatedAt,
+                currency,
+                currentReturn,
+                dateOfDeath,
+                failureReason,
+                internalAccountId,
+                ledgerTransactionId,
+                liveMode,
+                object_,
+                reason,
+                referenceNumbers.map { it.toImmutable() },
                 returnableId,
                 returnableType,
-                code,
-                reason,
-                dateOfDeath,
-                additionalInformation,
-                status,
-                transactionLineItemId,
-                transactionId,
-                internalAccountId,
-                type,
-                amount,
-                currency,
-                failureReason,
                 role,
-                currentReturn,
-                referenceNumbers.map { it.toImmutable() },
-                ledgerTransactionId,
+                status,
+                transactionId,
+                transactionLineItemId,
+                type,
+                updatedAt,
+                additionalInformation,
                 additionalProperties.toImmutable(),
             )
     }
@@ -978,31 +978,31 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("object")
-        @ExcludeMissing
-        private val object_: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("live_mode")
-        @ExcludeMissing
-        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
         private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("updated_at")
+        @JsonProperty("live_mode")
         @ExcludeMissing
-        private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("object")
+        @ExcludeMissing
+        private val object_: JsonField<String> = JsonMissing.of(),
         @JsonProperty("reference_number")
         @ExcludeMissing
         private val referenceNumber: JsonField<String> = JsonMissing.of(),
         @JsonProperty("reference_number_type")
         @ExcludeMissing
         private val referenceNumberType: JsonField<ReferenceNumberType> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         fun id(): String = id.getRequired("id")
 
-        fun object_(): String = object_.getRequired("object")
+        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -1010,9 +1010,7 @@ private constructor(
          */
         fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-        fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+        fun object_(): String = object_.getRequired("object")
 
         /** The vendor reference number. */
         fun referenceNumber(): String = referenceNumber.getRequired("reference_number")
@@ -1021,9 +1019,11 @@ private constructor(
         fun referenceNumberType(): ReferenceNumberType =
             referenceNumberType.getRequired("reference_number_type")
 
+        fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+
         @JsonProperty("id") @ExcludeMissing fun _id() = id
 
-        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -1031,9 +1031,7 @@ private constructor(
          */
         @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
 
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
         /** The vendor reference number. */
         @JsonProperty("reference_number") @ExcludeMissing fun _referenceNumber() = referenceNumber
@@ -1042,6 +1040,8 @@ private constructor(
         @JsonProperty("reference_number_type")
         @ExcludeMissing
         fun _referenceNumberType() = referenceNumberType
+
+        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1052,12 +1052,12 @@ private constructor(
         fun validate(): PaymentReference = apply {
             if (!validated) {
                 id()
-                object_()
-                liveMode()
                 createdAt()
-                updatedAt()
+                liveMode()
+                object_()
                 referenceNumber()
                 referenceNumberType()
+                updatedAt()
                 validated = true
             }
         }
@@ -1072,22 +1072,22 @@ private constructor(
         class Builder {
 
             private var id: JsonField<String> = JsonMissing.of()
-            private var object_: JsonField<String> = JsonMissing.of()
-            private var liveMode: JsonField<Boolean> = JsonMissing.of()
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var liveMode: JsonField<Boolean> = JsonMissing.of()
+            private var object_: JsonField<String> = JsonMissing.of()
             private var referenceNumber: JsonField<String> = JsonMissing.of()
             private var referenceNumberType: JsonField<ReferenceNumberType> = JsonMissing.of()
+            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(paymentReference: PaymentReference) = apply {
                 id = paymentReference.id
-                object_ = paymentReference.object_
-                liveMode = paymentReference.liveMode
                 createdAt = paymentReference.createdAt
-                updatedAt = paymentReference.updatedAt
+                liveMode = paymentReference.liveMode
+                object_ = paymentReference.object_
                 referenceNumber = paymentReference.referenceNumber
                 referenceNumberType = paymentReference.referenceNumberType
+                updatedAt = paymentReference.updatedAt
                 additionalProperties = paymentReference.additionalProperties.toMutableMap()
             }
 
@@ -1095,9 +1095,11 @@ private constructor(
 
             fun id(id: JsonField<String>) = apply { this.id = id }
 
-            fun object_(object_: String) = object_(JsonField.of(object_))
+            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-            fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                this.createdAt = createdAt
+            }
 
             /**
              * This field will be true if this object exists in the live environment or false if it
@@ -1111,17 +1113,9 @@ private constructor(
              */
             fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
-            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+            fun object_(object_: String) = object_(JsonField.of(object_))
 
-            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-                this.createdAt = createdAt
-            }
-
-            fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-            fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
-                this.updatedAt = updatedAt
-            }
+            fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
             /** The vendor reference number. */
             fun referenceNumber(referenceNumber: String) =
@@ -1139,6 +1133,12 @@ private constructor(
             /** The type of the reference number. Referring to the vendor payment id. */
             fun referenceNumberType(referenceNumberType: JsonField<ReferenceNumberType>) = apply {
                 this.referenceNumberType = referenceNumberType
+            }
+
+            fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+            fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
+                this.updatedAt = updatedAt
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1163,12 +1163,12 @@ private constructor(
             fun build(): PaymentReference =
                 PaymentReference(
                     id,
-                    object_,
-                    liveMode,
                     createdAt,
-                    updatedAt,
+                    liveMode,
+                    object_,
                     referenceNumber,
                     referenceNumberType,
+                    updatedAt,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1664,17 +1664,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PaymentReference && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && referenceNumber == other.referenceNumber && referenceNumberType == other.referenceNumberType && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PaymentReference && id == other.id && createdAt == other.createdAt && liveMode == other.liveMode && object_ == other.object_ && referenceNumber == other.referenceNumber && referenceNumberType == other.referenceNumberType && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, referenceNumber, referenceNumberType, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(id, createdAt, liveMode, object_, referenceNumber, referenceNumberType, updatedAt, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PaymentReference{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, referenceNumber=$referenceNumber, referenceNumberType=$referenceNumberType, additionalProperties=$additionalProperties}"
+            "PaymentReference{id=$id, createdAt=$createdAt, liveMode=$liveMode, object_=$object_, referenceNumber=$referenceNumber, referenceNumberType=$referenceNumberType, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
     }
 
     class ReturnableType
@@ -2018,15 +2018,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ReturnObject && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && returnableId == other.returnableId && returnableType == other.returnableType && code == other.code && reason == other.reason && dateOfDeath == other.dateOfDeath && additionalInformation == other.additionalInformation && status == other.status && transactionLineItemId == other.transactionLineItemId && transactionId == other.transactionId && internalAccountId == other.internalAccountId && type == other.type && amount == other.amount && currency == other.currency && failureReason == other.failureReason && role == other.role && currentReturn == other.currentReturn && referenceNumbers == other.referenceNumbers && ledgerTransactionId == other.ledgerTransactionId && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is ReturnObject && id == other.id && amount == other.amount && code == other.code && createdAt == other.createdAt && currency == other.currency && currentReturn == other.currentReturn && dateOfDeath == other.dateOfDeath && failureReason == other.failureReason && internalAccountId == other.internalAccountId && ledgerTransactionId == other.ledgerTransactionId && liveMode == other.liveMode && object_ == other.object_ && reason == other.reason && referenceNumbers == other.referenceNumbers && returnableId == other.returnableId && returnableType == other.returnableType && role == other.role && status == other.status && transactionId == other.transactionId && transactionLineItemId == other.transactionLineItemId && type == other.type && updatedAt == other.updatedAt && additionalInformation == other.additionalInformation && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, returnableId, returnableType, code, reason, dateOfDeath, additionalInformation, status, transactionLineItemId, transactionId, internalAccountId, type, amount, currency, failureReason, role, currentReturn, referenceNumbers, ledgerTransactionId, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, amount, code, createdAt, currency, currentReturn, dateOfDeath, failureReason, internalAccountId, ledgerTransactionId, liveMode, object_, reason, referenceNumbers, returnableId, returnableType, role, status, transactionId, transactionLineItemId, type, updatedAt, additionalInformation, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ReturnObject{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, returnableId=$returnableId, returnableType=$returnableType, code=$code, reason=$reason, dateOfDeath=$dateOfDeath, additionalInformation=$additionalInformation, status=$status, transactionLineItemId=$transactionLineItemId, transactionId=$transactionId, internalAccountId=$internalAccountId, type=$type, amount=$amount, currency=$currency, failureReason=$failureReason, role=$role, currentReturn=$currentReturn, referenceNumbers=$referenceNumbers, ledgerTransactionId=$ledgerTransactionId, additionalProperties=$additionalProperties}"
+        "ReturnObject{id=$id, amount=$amount, code=$code, createdAt=$createdAt, currency=$currency, currentReturn=$currentReturn, dateOfDeath=$dateOfDeath, failureReason=$failureReason, internalAccountId=$internalAccountId, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, object_=$object_, reason=$reason, referenceNumbers=$referenceNumbers, returnableId=$returnableId, returnableType=$returnableType, role=$role, status=$status, transactionId=$transactionId, transactionLineItemId=$transactionLineItemId, type=$type, updatedAt=$updatedAt, additionalInformation=$additionalInformation, additionalProperties=$additionalProperties}"
 }

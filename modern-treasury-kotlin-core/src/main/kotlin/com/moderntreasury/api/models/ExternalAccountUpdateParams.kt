@@ -475,15 +475,18 @@ constructor(
     class AddressRequest
     @JsonCreator
     private constructor(
+        @JsonProperty("country") private val country: String?,
         @JsonProperty("line1") private val line1: String?,
         @JsonProperty("line2") private val line2: String?,
         @JsonProperty("locality") private val locality: String?,
-        @JsonProperty("region") private val region: String?,
         @JsonProperty("postal_code") private val postalCode: String?,
-        @JsonProperty("country") private val country: String?,
+        @JsonProperty("region") private val region: String?,
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
+
+        /** Country code conforms to [ISO 3166-1 alpha-2] */
+        @JsonProperty("country") fun country(): String? = country
 
         @JsonProperty("line1") fun line1(): String? = line1
 
@@ -492,14 +495,11 @@ constructor(
         /** Locality or City. */
         @JsonProperty("locality") fun locality(): String? = locality
 
-        /** Region or State. */
-        @JsonProperty("region") fun region(): String? = region
-
         /** The postal code of the address. */
         @JsonProperty("postal_code") fun postalCode(): String? = postalCode
 
-        /** Country code conforms to [ISO 3166-1 alpha-2] */
-        @JsonProperty("country") fun country(): String? = country
+        /** Region or State. */
+        @JsonProperty("region") fun region(): String? = region
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -514,23 +514,26 @@ constructor(
 
         class Builder {
 
+            private var country: String? = null
             private var line1: String? = null
             private var line2: String? = null
             private var locality: String? = null
-            private var region: String? = null
             private var postalCode: String? = null
-            private var country: String? = null
+            private var region: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(addressRequest: AddressRequest) = apply {
+                country = addressRequest.country
                 line1 = addressRequest.line1
                 line2 = addressRequest.line2
                 locality = addressRequest.locality
-                region = addressRequest.region
                 postalCode = addressRequest.postalCode
-                country = addressRequest.country
+                region = addressRequest.region
                 additionalProperties = addressRequest.additionalProperties.toMutableMap()
             }
+
+            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            fun country(country: String) = apply { this.country = country }
 
             fun line1(line1: String) = apply { this.line1 = line1 }
 
@@ -539,14 +542,11 @@ constructor(
             /** Locality or City. */
             fun locality(locality: String) = apply { this.locality = locality }
 
-            /** Region or State. */
-            fun region(region: String) = apply { this.region = region }
-
             /** The postal code of the address. */
             fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
-            /** Country code conforms to [ISO 3166-1 alpha-2] */
-            fun country(country: String) = apply { this.country = country }
+            /** Region or State. */
+            fun region(region: String) = apply { this.region = region }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -569,12 +569,12 @@ constructor(
 
             fun build(): AddressRequest =
                 AddressRequest(
+                    country,
                     line1,
                     line2,
                     locality,
-                    region,
                     postalCode,
-                    country,
+                    region,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -584,17 +584,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AddressRequest && line1 == other.line1 && line2 == other.line2 && locality == other.locality && region == other.region && postalCode == other.postalCode && country == other.country && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is AddressRequest && country == other.country && line1 == other.line1 && line2 == other.line2 && locality == other.locality && postalCode == other.postalCode && region == other.region && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(line1, line2, locality, region, postalCode, country, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(country, line1, line2, locality, postalCode, region, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "AddressRequest{line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
+            "AddressRequest{country=$country, line1=$line1, line2=$line2, locality=$locality, postalCode=$postalCode, region=$region, additionalProperties=$additionalProperties}"
     }
 
     class PartyType

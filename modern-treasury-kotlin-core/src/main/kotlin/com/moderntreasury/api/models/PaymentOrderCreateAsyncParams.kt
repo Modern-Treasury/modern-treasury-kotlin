@@ -1653,29 +1653,25 @@ constructor(
     class LedgerTransactionCreateRequest
     @JsonCreator
     private constructor(
+        @JsonProperty("ledger_entries") private val ledgerEntries: List<LedgerEntryCreateRequest>,
         @JsonProperty("description") private val description: String?,
-        @JsonProperty("status") private val status: Status?,
-        @JsonProperty("metadata") private val metadata: Metadata?,
         @JsonProperty("effective_at") private val effectiveAt: OffsetDateTime?,
         @JsonProperty("effective_date") private val effectiveDate: LocalDate?,
-        @JsonProperty("ledger_entries") private val ledgerEntries: List<LedgerEntryCreateRequest>,
         @JsonProperty("external_id") private val externalId: String?,
-        @JsonProperty("ledgerable_type") private val ledgerableType: LedgerableType?,
         @JsonProperty("ledgerable_id") private val ledgerableId: String?,
+        @JsonProperty("ledgerable_type") private val ledgerableType: LedgerableType?,
+        @JsonProperty("metadata") private val metadata: Metadata?,
+        @JsonProperty("status") private val status: Status?,
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
+        /** An array of ledger entry objects. */
+        @JsonProperty("ledger_entries")
+        fun ledgerEntries(): List<LedgerEntryCreateRequest> = ledgerEntries
+
         /** An optional description for internal use. */
         @JsonProperty("description") fun description(): String? = description
-
-        /** To post a ledger transaction at creation, use `posted`. */
-        @JsonProperty("status") fun status(): Status? = status
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
 
         /**
          * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
@@ -1688,15 +1684,17 @@ constructor(
          */
         @JsonProperty("effective_date") fun effectiveDate(): LocalDate? = effectiveDate
 
-        /** An array of ledger entry objects. */
-        @JsonProperty("ledger_entries")
-        fun ledgerEntries(): List<LedgerEntryCreateRequest> = ledgerEntries
-
         /**
          * A unique string to represent the ledger transaction. Only one pending or posted ledger
          * transaction may have this ID in the ledger.
          */
         @JsonProperty("external_id") fun externalId(): String? = externalId
+
+        /**
+         * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
+         * will be populated here, otherwise null.
+         */
+        @JsonProperty("ledgerable_id") fun ledgerableId(): String? = ledgerableId
 
         /**
          * If the ledger transaction can be reconciled to another object in Modern Treasury, the
@@ -1706,10 +1704,12 @@ constructor(
         @JsonProperty("ledgerable_type") fun ledgerableType(): LedgerableType? = ledgerableType
 
         /**
-         * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
-         * will be populated here, otherwise null.
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @JsonProperty("ledgerable_id") fun ledgerableId(): String? = ledgerableId
+        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+
+        /** To post a ledger transaction at creation, use `posted`. */
+        @JsonProperty("status") fun status(): Status? = status
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1724,43 +1724,44 @@ constructor(
 
         class Builder {
 
+            private var ledgerEntries: MutableList<LedgerEntryCreateRequest>? = null
             private var description: String? = null
-            private var status: Status? = null
-            private var metadata: Metadata? = null
             private var effectiveAt: OffsetDateTime? = null
             private var effectiveDate: LocalDate? = null
-            private var ledgerEntries: MutableList<LedgerEntryCreateRequest>? = null
             private var externalId: String? = null
-            private var ledgerableType: LedgerableType? = null
             private var ledgerableId: String? = null
+            private var ledgerableType: LedgerableType? = null
+            private var metadata: Metadata? = null
+            private var status: Status? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerTransactionCreateRequest: LedgerTransactionCreateRequest) =
                 apply {
+                    ledgerEntries = ledgerTransactionCreateRequest.ledgerEntries.toMutableList()
                     description = ledgerTransactionCreateRequest.description
-                    status = ledgerTransactionCreateRequest.status
-                    metadata = ledgerTransactionCreateRequest.metadata
                     effectiveAt = ledgerTransactionCreateRequest.effectiveAt
                     effectiveDate = ledgerTransactionCreateRequest.effectiveDate
-                    ledgerEntries = ledgerTransactionCreateRequest.ledgerEntries.toMutableList()
                     externalId = ledgerTransactionCreateRequest.externalId
-                    ledgerableType = ledgerTransactionCreateRequest.ledgerableType
                     ledgerableId = ledgerTransactionCreateRequest.ledgerableId
+                    ledgerableType = ledgerTransactionCreateRequest.ledgerableType
+                    metadata = ledgerTransactionCreateRequest.metadata
+                    status = ledgerTransactionCreateRequest.status
                     additionalProperties =
                         ledgerTransactionCreateRequest.additionalProperties.toMutableMap()
                 }
 
+            /** An array of ledger entry objects. */
+            fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>) = apply {
+                this.ledgerEntries = ledgerEntries.toMutableList()
+            }
+
+            /** An array of ledger entry objects. */
+            fun addLedgerEntry(ledgerEntry: LedgerEntryCreateRequest) = apply {
+                ledgerEntries = (ledgerEntries ?: mutableListOf()).apply { add(ledgerEntry) }
+            }
+
             /** An optional description for internal use. */
             fun description(description: String) = apply { this.description = description }
-
-            /** To post a ledger transaction at creation, use `posted`. */
-            fun status(status: Status) = apply { this.status = status }
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             /**
              * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
@@ -1776,21 +1777,17 @@ constructor(
                 this.effectiveDate = effectiveDate
             }
 
-            /** An array of ledger entry objects. */
-            fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>) = apply {
-                this.ledgerEntries = ledgerEntries.toMutableList()
-            }
-
-            /** An array of ledger entry objects. */
-            fun addLedgerEntry(ledgerEntry: LedgerEntryCreateRequest) = apply {
-                ledgerEntries = (ledgerEntries ?: mutableListOf()).apply { add(ledgerEntry) }
-            }
-
             /**
              * A unique string to represent the ledger transaction. Only one pending or posted
              * ledger transaction may have this ID in the ledger.
              */
             fun externalId(externalId: String) = apply { this.externalId = externalId }
+
+            /**
+             * If the ledger transaction can be reconciled to another object in Modern Treasury, the
+             * id will be populated here, otherwise null.
+             */
+            fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
 
             /**
              * If the ledger transaction can be reconciled to another object in Modern Treasury, the
@@ -1802,10 +1799,13 @@ constructor(
             }
 
             /**
-             * If the ledger transaction can be reconciled to another object in Modern Treasury, the
-             * id will be populated here, otherwise null.
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
              */
-            fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+            /** To post a ledger transaction at creation, use `posted`. */
+            fun status(status: Status) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1828,16 +1828,16 @@ constructor(
 
             fun build(): LedgerTransactionCreateRequest =
                 LedgerTransactionCreateRequest(
-                    description,
-                    status,
-                    metadata,
-                    effectiveAt,
-                    effectiveDate,
                     checkNotNull(ledgerEntries) { "`ledgerEntries` is required but was not set" }
                         .toImmutable(),
+                    description,
+                    effectiveAt,
+                    effectiveDate,
                     externalId,
-                    ledgerableType,
                     ledgerableId,
+                    ledgerableType,
+                    metadata,
+                    status,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1849,16 +1849,16 @@ constructor(
             @JsonProperty("amount") private val amount: Long,
             @JsonProperty("direction") private val direction: TransactionDirection,
             @JsonProperty("ledger_account_id") private val ledgerAccountId: String,
+            @JsonProperty("available_balance_amount")
+            private val availableBalanceAmount: AvailableBalanceAmount?,
             @JsonProperty("lock_version") private val lockVersion: Long?,
+            @JsonProperty("metadata") private val metadata: Metadata?,
             @JsonProperty("pending_balance_amount")
             private val pendingBalanceAmount: PendingBalanceAmount?,
             @JsonProperty("posted_balance_amount")
             private val postedBalanceAmount: PostedBalanceAmount?,
-            @JsonProperty("available_balance_amount")
-            private val availableBalanceAmount: AvailableBalanceAmount?,
             @JsonProperty("show_resulting_ledger_account_balances")
             private val showResultingLedgerAccountBalances: Boolean?,
-            @JsonProperty("metadata") private val metadata: Metadata?,
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
@@ -1881,12 +1881,26 @@ constructor(
             @JsonProperty("ledger_account_id") fun ledgerAccountId(): String = ledgerAccountId
 
             /**
+             * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to lock on the account’s
+             * available balance. If any of these conditions would be false after the transaction is
+             * created, the entire call will fail with error code 422.
+             */
+            @JsonProperty("available_balance_amount")
+            fun availableBalanceAmount(): AvailableBalanceAmount? = availableBalanceAmount
+
+            /**
              * Lock version of the ledger account. This can be passed when creating a ledger
              * transaction to only succeed if no ledger transactions have posted since the given
              * version. See our post about Designing the Ledgers API with Optimistic Locking for
              * more details.
              */
             @JsonProperty("lock_version") fun lockVersion(): Long? = lockVersion
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            @JsonProperty("metadata") fun metadata(): Metadata? = metadata
 
             /**
              * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to lock on the account’s
@@ -1905,25 +1919,11 @@ constructor(
             fun postedBalanceAmount(): PostedBalanceAmount? = postedBalanceAmount
 
             /**
-             * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to lock on the account’s
-             * available balance. If any of these conditions would be false after the transaction is
-             * created, the entire call will fail with error code 422.
-             */
-            @JsonProperty("available_balance_amount")
-            fun availableBalanceAmount(): AvailableBalanceAmount? = availableBalanceAmount
-
-            /**
              * If true, response will include the balance of the associated ledger account for the
              * entry.
              */
             @JsonProperty("show_resulting_ledger_account_balances")
             fun showResultingLedgerAccountBalances(): Boolean? = showResultingLedgerAccountBalances
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            @JsonProperty("metadata") fun metadata(): Metadata? = metadata
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1941,25 +1941,25 @@ constructor(
                 private var amount: Long? = null
                 private var direction: TransactionDirection? = null
                 private var ledgerAccountId: String? = null
+                private var availableBalanceAmount: AvailableBalanceAmount? = null
                 private var lockVersion: Long? = null
+                private var metadata: Metadata? = null
                 private var pendingBalanceAmount: PendingBalanceAmount? = null
                 private var postedBalanceAmount: PostedBalanceAmount? = null
-                private var availableBalanceAmount: AvailableBalanceAmount? = null
                 private var showResultingLedgerAccountBalances: Boolean? = null
-                private var metadata: Metadata? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(ledgerEntryCreateRequest: LedgerEntryCreateRequest) = apply {
                     amount = ledgerEntryCreateRequest.amount
                     direction = ledgerEntryCreateRequest.direction
                     ledgerAccountId = ledgerEntryCreateRequest.ledgerAccountId
+                    availableBalanceAmount = ledgerEntryCreateRequest.availableBalanceAmount
                     lockVersion = ledgerEntryCreateRequest.lockVersion
+                    metadata = ledgerEntryCreateRequest.metadata
                     pendingBalanceAmount = ledgerEntryCreateRequest.pendingBalanceAmount
                     postedBalanceAmount = ledgerEntryCreateRequest.postedBalanceAmount
-                    availableBalanceAmount = ledgerEntryCreateRequest.availableBalanceAmount
                     showResultingLedgerAccountBalances =
                         ledgerEntryCreateRequest.showResultingLedgerAccountBalances
-                    metadata = ledgerEntryCreateRequest.metadata
                     additionalProperties =
                         ledgerEntryCreateRequest.additionalProperties.toMutableMap()
                 }
@@ -1986,12 +1986,27 @@ constructor(
                 }
 
                 /**
+                 * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to lock on the
+                 * account’s available balance. If any of these conditions would be false after the
+                 * transaction is created, the entire call will fail with error code 422.
+                 */
+                fun availableBalanceAmount(availableBalanceAmount: AvailableBalanceAmount) = apply {
+                    this.availableBalanceAmount = availableBalanceAmount
+                }
+
+                /**
                  * Lock version of the ledger account. This can be passed when creating a ledger
                  * transaction to only succeed if no ledger transactions have posted since the given
                  * version. See our post about Designing the Ledgers API with Optimistic Locking for
                  * more details.
                  */
                 fun lockVersion(lockVersion: Long) = apply { this.lockVersion = lockVersion }
+
+                /**
+                 * Additional data represented as key-value pairs. Both the key and value must be
+                 * strings.
+                 */
+                fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
                 /**
                  * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to lock on the
@@ -2012,15 +2027,6 @@ constructor(
                 }
 
                 /**
-                 * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to lock on the
-                 * account’s available balance. If any of these conditions would be false after the
-                 * transaction is created, the entire call will fail with error code 422.
-                 */
-                fun availableBalanceAmount(availableBalanceAmount: AvailableBalanceAmount) = apply {
-                    this.availableBalanceAmount = availableBalanceAmount
-                }
-
-                /**
                  * If true, response will include the balance of the associated ledger account for
                  * the entry.
                  */
@@ -2029,12 +2035,6 @@ constructor(
                 ) = apply {
                     this.showResultingLedgerAccountBalances = showResultingLedgerAccountBalances
                 }
-
-                /**
-                 * Additional data represented as key-value pairs. Both the key and value must be
-                 * strings.
-                 */
-                fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -2065,12 +2065,12 @@ constructor(
                         checkNotNull(ledgerAccountId) {
                             "`ledgerAccountId` is required but was not set"
                         },
+                        availableBalanceAmount,
                         lockVersion,
+                        metadata,
                         pendingBalanceAmount,
                         postedBalanceAmount,
-                        availableBalanceAmount,
                         showResultingLedgerAccountBalances,
-                        metadata,
                         additionalProperties.toImmutable(),
                     )
             }
@@ -2384,17 +2384,17 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is LedgerEntryCreateRequest && amount == other.amount && direction == other.direction && ledgerAccountId == other.ledgerAccountId && lockVersion == other.lockVersion && pendingBalanceAmount == other.pendingBalanceAmount && postedBalanceAmount == other.postedBalanceAmount && availableBalanceAmount == other.availableBalanceAmount && showResultingLedgerAccountBalances == other.showResultingLedgerAccountBalances && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is LedgerEntryCreateRequest && amount == other.amount && direction == other.direction && ledgerAccountId == other.ledgerAccountId && availableBalanceAmount == other.availableBalanceAmount && lockVersion == other.lockVersion && metadata == other.metadata && pendingBalanceAmount == other.pendingBalanceAmount && postedBalanceAmount == other.postedBalanceAmount && showResultingLedgerAccountBalances == other.showResultingLedgerAccountBalances && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(amount, direction, ledgerAccountId, lockVersion, pendingBalanceAmount, postedBalanceAmount, availableBalanceAmount, showResultingLedgerAccountBalances, metadata, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(amount, direction, ledgerAccountId, availableBalanceAmount, lockVersion, metadata, pendingBalanceAmount, postedBalanceAmount, showResultingLedgerAccountBalances, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "LedgerEntryCreateRequest{amount=$amount, direction=$direction, ledgerAccountId=$ledgerAccountId, lockVersion=$lockVersion, pendingBalanceAmount=$pendingBalanceAmount, postedBalanceAmount=$postedBalanceAmount, availableBalanceAmount=$availableBalanceAmount, showResultingLedgerAccountBalances=$showResultingLedgerAccountBalances, metadata=$metadata, additionalProperties=$additionalProperties}"
+                "LedgerEntryCreateRequest{amount=$amount, direction=$direction, ledgerAccountId=$ledgerAccountId, availableBalanceAmount=$availableBalanceAmount, lockVersion=$lockVersion, metadata=$metadata, pendingBalanceAmount=$pendingBalanceAmount, postedBalanceAmount=$postedBalanceAmount, showResultingLedgerAccountBalances=$showResultingLedgerAccountBalances, additionalProperties=$additionalProperties}"
         }
 
         class LedgerableType
@@ -2619,17 +2619,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerTransactionCreateRequest && description == other.description && status == other.status && metadata == other.metadata && effectiveAt == other.effectiveAt && effectiveDate == other.effectiveDate && ledgerEntries == other.ledgerEntries && externalId == other.externalId && ledgerableType == other.ledgerableType && ledgerableId == other.ledgerableId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerTransactionCreateRequest && ledgerEntries == other.ledgerEntries && description == other.description && effectiveAt == other.effectiveAt && effectiveDate == other.effectiveDate && externalId == other.externalId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(description, status, metadata, effectiveAt, effectiveDate, ledgerEntries, externalId, ledgerableType, ledgerableId, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(ledgerEntries, description, effectiveAt, effectiveDate, externalId, ledgerableId, ledgerableType, metadata, status, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerTransactionCreateRequest{description=$description, status=$status, metadata=$metadata, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, ledgerEntries=$ledgerEntries, externalId=$externalId, ledgerableType=$ledgerableType, ledgerableId=$ledgerableId, additionalProperties=$additionalProperties}"
+            "LedgerTransactionCreateRequest{ledgerEntries=$ledgerEntries, description=$description, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
     }
 
     @NoAutoDetect
@@ -2637,9 +2637,9 @@ constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("amount") private val amount: Long,
-        @JsonProperty("metadata") private val metadata: Metadata?,
-        @JsonProperty("description") private val description: String?,
         @JsonProperty("accounting_category_id") private val accountingCategoryId: String?,
+        @JsonProperty("description") private val description: String?,
+        @JsonProperty("metadata") private val metadata: Metadata?,
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -2648,19 +2648,19 @@ constructor(
         @JsonProperty("amount") fun amount(): Long = amount
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
-
-        /** A free-form description of the line item. */
-        @JsonProperty("description") fun description(): String? = description
-
-        /**
          * The ID of one of your accounting categories. Note that these will only be accessible if
          * your accounting system has been connected.
          */
         @JsonProperty("accounting_category_id")
         fun accountingCategoryId(): String? = accountingCategoryId
+
+        /** A free-form description of the line item. */
+        @JsonProperty("description") fun description(): String? = description
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2676,16 +2676,16 @@ constructor(
         class Builder {
 
             private var amount: Long? = null
-            private var metadata: Metadata? = null
-            private var description: String? = null
             private var accountingCategoryId: String? = null
+            private var description: String? = null
+            private var metadata: Metadata? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(lineItemRequest: LineItemRequest) = apply {
                 amount = lineItemRequest.amount
-                metadata = lineItemRequest.metadata
-                description = lineItemRequest.description
                 accountingCategoryId = lineItemRequest.accountingCategoryId
+                description = lineItemRequest.description
+                metadata = lineItemRequest.metadata
                 additionalProperties = lineItemRequest.additionalProperties.toMutableMap()
             }
 
@@ -2695,21 +2695,21 @@ constructor(
             fun amount(amount: Long) = apply { this.amount = amount }
 
             /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
-
-            /** A free-form description of the line item. */
-            fun description(description: String) = apply { this.description = description }
-
-            /**
              * The ID of one of your accounting categories. Note that these will only be accessible
              * if your accounting system has been connected.
              */
             fun accountingCategoryId(accountingCategoryId: String) = apply {
                 this.accountingCategoryId = accountingCategoryId
             }
+
+            /** A free-form description of the line item. */
+            fun description(description: String) = apply { this.description = description }
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -2733,9 +2733,9 @@ constructor(
             fun build(): LineItemRequest =
                 LineItemRequest(
                     checkNotNull(amount) { "`amount` is required but was not set" },
-                    metadata,
-                    description,
                     accountingCategoryId,
+                    description,
+                    metadata,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -2817,17 +2817,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LineItemRequest && amount == other.amount && metadata == other.metadata && description == other.description && accountingCategoryId == other.accountingCategoryId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LineItemRequest && amount == other.amount && accountingCategoryId == other.accountingCategoryId && description == other.description && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(amount, metadata, description, accountingCategoryId, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(amount, accountingCategoryId, description, metadata, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LineItemRequest{amount=$amount, metadata=$metadata, description=$description, accountingCategoryId=$accountingCategoryId, additionalProperties=$additionalProperties}"
+            "LineItemRequest{amount=$amount, accountingCategoryId=$accountingCategoryId, description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
@@ -2962,51 +2962,30 @@ constructor(
     class ReceivingAccount
     @JsonCreator
     private constructor(
-        @JsonProperty("account_type") private val accountType: ExternalAccountType?,
-        @JsonProperty("party_type") private val partyType: PartyType?,
-        @JsonProperty("party_address") private val partyAddress: AddressRequest?,
-        @JsonProperty("name") private val name: String?,
         @JsonProperty("account_details") private val accountDetails: List<AccountDetail>?,
-        @JsonProperty("routing_details") private val routingDetails: List<RoutingDetail>?,
-        @JsonProperty("metadata") private val metadata: Metadata?,
-        @JsonProperty("party_name") private val partyName: String?,
-        @JsonProperty("party_identifier") private val partyIdentifier: String?,
-        @JsonProperty("ledger_account") private val ledgerAccount: LedgerAccountCreateRequest?,
-        @JsonProperty("plaid_processor_token") private val plaidProcessorToken: String?,
+        @JsonProperty("account_type") private val accountType: ExternalAccountType?,
         @JsonProperty("contact_details")
         private val contactDetails: List<ContactDetailCreateRequest>?,
+        @JsonProperty("ledger_account") private val ledgerAccount: LedgerAccountCreateRequest?,
+        @JsonProperty("metadata") private val metadata: Metadata?,
+        @JsonProperty("name") private val name: String?,
+        @JsonProperty("party_address") private val partyAddress: AddressRequest?,
+        @JsonProperty("party_identifier") private val partyIdentifier: String?,
+        @JsonProperty("party_name") private val partyName: String?,
+        @JsonProperty("party_type") private val partyType: PartyType?,
+        @JsonProperty("plaid_processor_token") private val plaidProcessorToken: String?,
+        @JsonProperty("routing_details") private val routingDetails: List<RoutingDetail>?,
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
+        @JsonProperty("account_details") fun accountDetails(): List<AccountDetail>? = accountDetails
+
         /** Can be `checking`, `savings` or `other`. */
         @JsonProperty("account_type") fun accountType(): ExternalAccountType? = accountType
 
-        /** Either `individual` or `business`. */
-        @JsonProperty("party_type") fun partyType(): PartyType? = partyType
-
-        /** Required if receiving wire payments. */
-        @JsonProperty("party_address") fun partyAddress(): AddressRequest? = partyAddress
-
-        /**
-         * A nickname for the external account. This is only for internal usage and won't affect any
-         * payments
-         */
-        @JsonProperty("name") fun name(): String? = name
-
-        @JsonProperty("account_details") fun accountDetails(): List<AccountDetail>? = accountDetails
-
-        @JsonProperty("routing_details") fun routingDetails(): List<RoutingDetail>? = routingDetails
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
-
-        /** If this value isn't provided, it will be inherited from the counterparty's name. */
-        @JsonProperty("party_name") fun partyName(): String? = partyName
-
-        @JsonProperty("party_identifier") fun partyIdentifier(): String? = partyIdentifier
+        @JsonProperty("contact_details")
+        fun contactDetails(): List<ContactDetailCreateRequest>? = contactDetails
 
         /**
          * Specifies a ledger account object that will be created with the external account. The
@@ -3019,14 +2998,35 @@ constructor(
         fun ledgerAccount(): LedgerAccountCreateRequest? = ledgerAccount
 
         /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+
+        /**
+         * A nickname for the external account. This is only for internal usage and won't affect any
+         * payments
+         */
+        @JsonProperty("name") fun name(): String? = name
+
+        /** Required if receiving wire payments. */
+        @JsonProperty("party_address") fun partyAddress(): AddressRequest? = partyAddress
+
+        @JsonProperty("party_identifier") fun partyIdentifier(): String? = partyIdentifier
+
+        /** If this value isn't provided, it will be inherited from the counterparty's name. */
+        @JsonProperty("party_name") fun partyName(): String? = partyName
+
+        /** Either `individual` or `business`. */
+        @JsonProperty("party_type") fun partyType(): PartyType? = partyType
+
+        /**
          * If you've enabled the Modern Treasury + Plaid integration in your Plaid account, you can
          * pass the processor token in this field.
          */
         @JsonProperty("plaid_processor_token")
         fun plaidProcessorToken(): String? = plaidProcessorToken
 
-        @JsonProperty("contact_details")
-        fun contactDetails(): List<ContactDetailCreateRequest>? = contactDetails
+        @JsonProperty("routing_details") fun routingDetails(): List<RoutingDetail>? = routingDetails
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -3041,54 +3041,35 @@ constructor(
 
         class Builder {
 
-            private var accountType: ExternalAccountType? = null
-            private var partyType: PartyType? = null
-            private var partyAddress: AddressRequest? = null
-            private var name: String? = null
             private var accountDetails: MutableList<AccountDetail>? = null
-            private var routingDetails: MutableList<RoutingDetail>? = null
-            private var metadata: Metadata? = null
-            private var partyName: String? = null
-            private var partyIdentifier: String? = null
-            private var ledgerAccount: LedgerAccountCreateRequest? = null
-            private var plaidProcessorToken: String? = null
+            private var accountType: ExternalAccountType? = null
             private var contactDetails: MutableList<ContactDetailCreateRequest>? = null
+            private var ledgerAccount: LedgerAccountCreateRequest? = null
+            private var metadata: Metadata? = null
+            private var name: String? = null
+            private var partyAddress: AddressRequest? = null
+            private var partyIdentifier: String? = null
+            private var partyName: String? = null
+            private var partyType: PartyType? = null
+            private var plaidProcessorToken: String? = null
+            private var routingDetails: MutableList<RoutingDetail>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(receivingAccount: ReceivingAccount) = apply {
-                accountType = receivingAccount.accountType
-                partyType = receivingAccount.partyType
-                partyAddress = receivingAccount.partyAddress
-                name = receivingAccount.name
                 accountDetails = receivingAccount.accountDetails?.toMutableList()
-                routingDetails = receivingAccount.routingDetails?.toMutableList()
-                metadata = receivingAccount.metadata
-                partyName = receivingAccount.partyName
-                partyIdentifier = receivingAccount.partyIdentifier
-                ledgerAccount = receivingAccount.ledgerAccount
-                plaidProcessorToken = receivingAccount.plaidProcessorToken
+                accountType = receivingAccount.accountType
                 contactDetails = receivingAccount.contactDetails?.toMutableList()
+                ledgerAccount = receivingAccount.ledgerAccount
+                metadata = receivingAccount.metadata
+                name = receivingAccount.name
+                partyAddress = receivingAccount.partyAddress
+                partyIdentifier = receivingAccount.partyIdentifier
+                partyName = receivingAccount.partyName
+                partyType = receivingAccount.partyType
+                plaidProcessorToken = receivingAccount.plaidProcessorToken
+                routingDetails = receivingAccount.routingDetails?.toMutableList()
                 additionalProperties = receivingAccount.additionalProperties.toMutableMap()
             }
-
-            /** Can be `checking`, `savings` or `other`. */
-            fun accountType(accountType: ExternalAccountType) = apply {
-                this.accountType = accountType
-            }
-
-            /** Either `individual` or `business`. */
-            fun partyType(partyType: PartyType) = apply { this.partyType = partyType }
-
-            /** Required if receiving wire payments. */
-            fun partyAddress(partyAddress: AddressRequest) = apply {
-                this.partyAddress = partyAddress
-            }
-
-            /**
-             * A nickname for the external account. This is only for internal usage and won't affect
-             * any payments
-             */
-            fun name(name: String) = apply { this.name = name }
 
             fun accountDetails(accountDetails: List<AccountDetail>) = apply {
                 this.accountDetails = accountDetails.toMutableList()
@@ -3098,25 +3079,17 @@ constructor(
                 accountDetails = (accountDetails ?: mutableListOf()).apply { add(accountDetail) }
             }
 
-            fun routingDetails(routingDetails: List<RoutingDetail>) = apply {
-                this.routingDetails = routingDetails.toMutableList()
+            /** Can be `checking`, `savings` or `other`. */
+            fun accountType(accountType: ExternalAccountType) = apply {
+                this.accountType = accountType
             }
 
-            fun addRoutingDetail(routingDetail: RoutingDetail) = apply {
-                routingDetails = (routingDetails ?: mutableListOf()).apply { add(routingDetail) }
+            fun contactDetails(contactDetails: List<ContactDetailCreateRequest>) = apply {
+                this.contactDetails = contactDetails.toMutableList()
             }
 
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
-
-            /** If this value isn't provided, it will be inherited from the counterparty's name. */
-            fun partyName(partyName: String) = apply { this.partyName = partyName }
-
-            fun partyIdentifier(partyIdentifier: String) = apply {
-                this.partyIdentifier = partyIdentifier
+            fun addContactDetail(contactDetail: ContactDetailCreateRequest) = apply {
+                contactDetails = (contactDetails ?: mutableListOf()).apply { add(contactDetail) }
             }
 
             /**
@@ -3131,6 +3104,33 @@ constructor(
             }
 
             /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+            /**
+             * A nickname for the external account. This is only for internal usage and won't affect
+             * any payments
+             */
+            fun name(name: String) = apply { this.name = name }
+
+            /** Required if receiving wire payments. */
+            fun partyAddress(partyAddress: AddressRequest) = apply {
+                this.partyAddress = partyAddress
+            }
+
+            fun partyIdentifier(partyIdentifier: String) = apply {
+                this.partyIdentifier = partyIdentifier
+            }
+
+            /** If this value isn't provided, it will be inherited from the counterparty's name. */
+            fun partyName(partyName: String) = apply { this.partyName = partyName }
+
+            /** Either `individual` or `business`. */
+            fun partyType(partyType: PartyType) = apply { this.partyType = partyType }
+
+            /**
              * If you've enabled the Modern Treasury + Plaid integration in your Plaid account, you
              * can pass the processor token in this field.
              */
@@ -3138,12 +3138,12 @@ constructor(
                 this.plaidProcessorToken = plaidProcessorToken
             }
 
-            fun contactDetails(contactDetails: List<ContactDetailCreateRequest>) = apply {
-                this.contactDetails = contactDetails.toMutableList()
+            fun routingDetails(routingDetails: List<RoutingDetail>) = apply {
+                this.routingDetails = routingDetails.toMutableList()
             }
 
-            fun addContactDetail(contactDetail: ContactDetailCreateRequest) = apply {
-                contactDetails = (contactDetails ?: mutableListOf()).apply { add(contactDetail) }
+            fun addRoutingDetail(routingDetail: RoutingDetail) = apply {
+                routingDetails = (routingDetails ?: mutableListOf()).apply { add(routingDetail) }
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -3167,18 +3167,18 @@ constructor(
 
             fun build(): ReceivingAccount =
                 ReceivingAccount(
-                    accountType,
-                    partyType,
-                    partyAddress,
-                    name,
                     accountDetails?.toImmutable(),
-                    routingDetails?.toImmutable(),
-                    metadata,
-                    partyName,
-                    partyIdentifier,
-                    ledgerAccount,
-                    plaidProcessorToken,
+                    accountType,
                     contactDetails?.toImmutable(),
+                    ledgerAccount,
+                    metadata,
+                    name,
+                    partyAddress,
+                    partyIdentifier,
+                    partyName,
+                    partyType,
+                    plaidProcessorToken,
+                    routingDetails?.toImmutable(),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -3560,12 +3560,12 @@ constructor(
         class LedgerAccountCreateRequest
         @JsonCreator
         private constructor(
-            @JsonProperty("name") private val name: String,
-            @JsonProperty("description") private val description: String?,
-            @JsonProperty("normal_balance") private val normalBalance: TransactionDirection,
-            @JsonProperty("ledger_id") private val ledgerId: String,
             @JsonProperty("currency") private val currency: String,
+            @JsonProperty("ledger_id") private val ledgerId: String,
+            @JsonProperty("name") private val name: String,
+            @JsonProperty("normal_balance") private val normalBalance: TransactionDirection,
             @JsonProperty("currency_exponent") private val currencyExponent: Long?,
+            @JsonProperty("description") private val description: String?,
             @JsonProperty("ledger_account_category_ids")
             private val ledgerAccountCategoryIds: List<String>?,
             @JsonProperty("ledgerable_id") private val ledgerableId: String?,
@@ -3575,24 +3575,24 @@ constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
+            /** The currency of the ledger account. */
+            @JsonProperty("currency") fun currency(): String = currency
+
+            /** The id of the ledger that this account belongs to. */
+            @JsonProperty("ledger_id") fun ledgerId(): String = ledgerId
+
             /** The name of the ledger account. */
             @JsonProperty("name") fun name(): String = name
-
-            /** The description of the ledger account. */
-            @JsonProperty("description") fun description(): String? = description
 
             /** The normal balance of the ledger account. */
             @JsonProperty("normal_balance")
             fun normalBalance(): TransactionDirection = normalBalance
 
-            /** The id of the ledger that this account belongs to. */
-            @JsonProperty("ledger_id") fun ledgerId(): String = ledgerId
-
-            /** The currency of the ledger account. */
-            @JsonProperty("currency") fun currency(): String = currency
-
             /** The currency exponent of the ledger account. */
             @JsonProperty("currency_exponent") fun currencyExponent(): Long? = currencyExponent
+
+            /** The description of the ledger account. */
+            @JsonProperty("description") fun description(): String? = description
 
             /**
              * The array of ledger account category ids that this ledger account should be a child
@@ -3633,12 +3633,12 @@ constructor(
 
             class Builder {
 
-                private var name: String? = null
-                private var description: String? = null
-                private var normalBalance: TransactionDirection? = null
-                private var ledgerId: String? = null
                 private var currency: String? = null
+                private var ledgerId: String? = null
+                private var name: String? = null
+                private var normalBalance: TransactionDirection? = null
                 private var currencyExponent: Long? = null
+                private var description: String? = null
                 private var ledgerAccountCategoryIds: MutableList<String>? = null
                 private var ledgerableId: String? = null
                 private var ledgerableType: LedgerableType? = null
@@ -3646,12 +3646,12 @@ constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(ledgerAccountCreateRequest: LedgerAccountCreateRequest) = apply {
-                    name = ledgerAccountCreateRequest.name
-                    description = ledgerAccountCreateRequest.description
-                    normalBalance = ledgerAccountCreateRequest.normalBalance
-                    ledgerId = ledgerAccountCreateRequest.ledgerId
                     currency = ledgerAccountCreateRequest.currency
+                    ledgerId = ledgerAccountCreateRequest.ledgerId
+                    name = ledgerAccountCreateRequest.name
+                    normalBalance = ledgerAccountCreateRequest.normalBalance
                     currencyExponent = ledgerAccountCreateRequest.currencyExponent
+                    description = ledgerAccountCreateRequest.description
                     ledgerAccountCategoryIds =
                         ledgerAccountCreateRequest.ledgerAccountCategoryIds?.toMutableList()
                     ledgerableId = ledgerAccountCreateRequest.ledgerableId
@@ -3661,27 +3661,27 @@ constructor(
                         ledgerAccountCreateRequest.additionalProperties.toMutableMap()
                 }
 
+                /** The currency of the ledger account. */
+                fun currency(currency: String) = apply { this.currency = currency }
+
+                /** The id of the ledger that this account belongs to. */
+                fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
+
                 /** The name of the ledger account. */
                 fun name(name: String) = apply { this.name = name }
-
-                /** The description of the ledger account. */
-                fun description(description: String) = apply { this.description = description }
 
                 /** The normal balance of the ledger account. */
                 fun normalBalance(normalBalance: TransactionDirection) = apply {
                     this.normalBalance = normalBalance
                 }
 
-                /** The id of the ledger that this account belongs to. */
-                fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
-
-                /** The currency of the ledger account. */
-                fun currency(currency: String) = apply { this.currency = currency }
-
                 /** The currency exponent of the ledger account. */
                 fun currencyExponent(currencyExponent: Long) = apply {
                     this.currencyExponent = currencyExponent
                 }
+
+                /** The description of the ledger account. */
+                fun description(description: String) = apply { this.description = description }
 
                 /**
                  * The array of ledger account category ids that this ledger account should be a
@@ -3747,14 +3747,14 @@ constructor(
 
                 fun build(): LedgerAccountCreateRequest =
                     LedgerAccountCreateRequest(
+                        checkNotNull(currency) { "`currency` is required but was not set" },
+                        checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
                         checkNotNull(name) { "`name` is required but was not set" },
-                        description,
                         checkNotNull(normalBalance) {
                             "`normalBalance` is required but was not set"
                         },
-                        checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
-                        checkNotNull(currency) { "`currency` is required but was not set" },
                         currencyExponent,
+                        description,
                         ledgerAccountCategoryIds?.toImmutable(),
                         ledgerableId,
                         ledgerableType,
@@ -3913,17 +3913,17 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is LedgerAccountCreateRequest && name == other.name && description == other.description && normalBalance == other.normalBalance && ledgerId == other.ledgerId && currency == other.currency && currencyExponent == other.currencyExponent && ledgerAccountCategoryIds == other.ledgerAccountCategoryIds && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is LedgerAccountCreateRequest && currency == other.currency && ledgerId == other.ledgerId && name == other.name && normalBalance == other.normalBalance && currencyExponent == other.currencyExponent && description == other.description && ledgerAccountCategoryIds == other.ledgerAccountCategoryIds && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(name, description, normalBalance, ledgerId, currency, currencyExponent, ledgerAccountCategoryIds, ledgerableId, ledgerableType, metadata, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(currency, ledgerId, name, normalBalance, currencyExponent, description, ledgerAccountCategoryIds, ledgerableId, ledgerableType, metadata, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "LedgerAccountCreateRequest{name=$name, description=$description, normalBalance=$normalBalance, ledgerId=$ledgerId, currency=$currency, currencyExponent=$currencyExponent, ledgerAccountCategoryIds=$ledgerAccountCategoryIds, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalProperties=$additionalProperties}"
+                "LedgerAccountCreateRequest{currency=$currency, ledgerId=$ledgerId, name=$name, normalBalance=$normalBalance, currencyExponent=$currencyExponent, description=$description, ledgerAccountCategoryIds=$ledgerAccountCategoryIds, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -4003,15 +4003,18 @@ constructor(
         class AddressRequest
         @JsonCreator
         private constructor(
+            @JsonProperty("country") private val country: String?,
             @JsonProperty("line1") private val line1: String?,
             @JsonProperty("line2") private val line2: String?,
             @JsonProperty("locality") private val locality: String?,
-            @JsonProperty("region") private val region: String?,
             @JsonProperty("postal_code") private val postalCode: String?,
-            @JsonProperty("country") private val country: String?,
+            @JsonProperty("region") private val region: String?,
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
+
+            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            @JsonProperty("country") fun country(): String? = country
 
             @JsonProperty("line1") fun line1(): String? = line1
 
@@ -4020,14 +4023,11 @@ constructor(
             /** Locality or City. */
             @JsonProperty("locality") fun locality(): String? = locality
 
-            /** Region or State. */
-            @JsonProperty("region") fun region(): String? = region
-
             /** The postal code of the address. */
             @JsonProperty("postal_code") fun postalCode(): String? = postalCode
 
-            /** Country code conforms to [ISO 3166-1 alpha-2] */
-            @JsonProperty("country") fun country(): String? = country
+            /** Region or State. */
+            @JsonProperty("region") fun region(): String? = region
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -4042,23 +4042,26 @@ constructor(
 
             class Builder {
 
+                private var country: String? = null
                 private var line1: String? = null
                 private var line2: String? = null
                 private var locality: String? = null
-                private var region: String? = null
                 private var postalCode: String? = null
-                private var country: String? = null
+                private var region: String? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(addressRequest: AddressRequest) = apply {
+                    country = addressRequest.country
                     line1 = addressRequest.line1
                     line2 = addressRequest.line2
                     locality = addressRequest.locality
-                    region = addressRequest.region
                     postalCode = addressRequest.postalCode
-                    country = addressRequest.country
+                    region = addressRequest.region
                     additionalProperties = addressRequest.additionalProperties.toMutableMap()
                 }
+
+                /** Country code conforms to [ISO 3166-1 alpha-2] */
+                fun country(country: String) = apply { this.country = country }
 
                 fun line1(line1: String) = apply { this.line1 = line1 }
 
@@ -4067,14 +4070,11 @@ constructor(
                 /** Locality or City. */
                 fun locality(locality: String) = apply { this.locality = locality }
 
-                /** Region or State. */
-                fun region(region: String) = apply { this.region = region }
-
                 /** The postal code of the address. */
                 fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
-                /** Country code conforms to [ISO 3166-1 alpha-2] */
-                fun country(country: String) = apply { this.country = country }
+                /** Region or State. */
+                fun region(region: String) = apply { this.region = region }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -4100,12 +4100,12 @@ constructor(
 
                 fun build(): AddressRequest =
                     AddressRequest(
+                        country,
                         line1,
                         line2,
                         locality,
-                        region,
                         postalCode,
-                        country,
+                        region,
                         additionalProperties.toImmutable(),
                     )
             }
@@ -4115,17 +4115,17 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is AddressRequest && line1 == other.line1 && line2 == other.line2 && locality == other.locality && region == other.region && postalCode == other.postalCode && country == other.country && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is AddressRequest && country == other.country && line1 == other.line1 && line2 == other.line2 && locality == other.locality && postalCode == other.postalCode && region == other.region && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(line1, line2, locality, region, postalCode, country, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(country, line1, line2, locality, postalCode, region, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "AddressRequest{line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
+                "AddressRequest{country=$country, line1=$line1, line2=$line2, locality=$locality, postalCode=$postalCode, region=$region, additionalProperties=$additionalProperties}"
         }
 
         class PartyType
@@ -4690,17 +4690,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ReceivingAccount && accountType == other.accountType && partyType == other.partyType && partyAddress == other.partyAddress && name == other.name && accountDetails == other.accountDetails && routingDetails == other.routingDetails && metadata == other.metadata && partyName == other.partyName && partyIdentifier == other.partyIdentifier && ledgerAccount == other.ledgerAccount && plaidProcessorToken == other.plaidProcessorToken && contactDetails == other.contactDetails && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ReceivingAccount && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && ledgerAccount == other.ledgerAccount && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyIdentifier == other.partyIdentifier && partyName == other.partyName && partyType == other.partyType && plaidProcessorToken == other.plaidProcessorToken && routingDetails == other.routingDetails && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountType, partyType, partyAddress, name, accountDetails, routingDetails, metadata, partyName, partyIdentifier, ledgerAccount, plaidProcessorToken, contactDetails, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(accountDetails, accountType, contactDetails, ledgerAccount, metadata, name, partyAddress, partyIdentifier, partyName, partyType, plaidProcessorToken, routingDetails, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ReceivingAccount{accountType=$accountType, partyType=$partyType, partyAddress=$partyAddress, name=$name, accountDetails=$accountDetails, routingDetails=$routingDetails, metadata=$metadata, partyName=$partyName, partyIdentifier=$partyIdentifier, ledgerAccount=$ledgerAccount, plaidProcessorToken=$plaidProcessorToken, contactDetails=$contactDetails, additionalProperties=$additionalProperties}"
+            "ReceivingAccount{accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

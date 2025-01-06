@@ -23,86 +23,59 @@ class TransactionLineItem
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("discarded_at")
-    @ExcludeMissing
-    private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonProperty("transactable_type")
-    @ExcludeMissing
-    private val transactableType: JsonField<TransactableType> = JsonMissing.of(),
-    @JsonProperty("transactable_id")
-    @ExcludeMissing
-    private val transactableId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("description")
-    @ExcludeMissing
-    private val description: JsonField<String> = JsonMissing.of(),
     @JsonProperty("counterparty_id")
     @ExcludeMissing
     private val counterpartyId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("description")
+    @ExcludeMissing
+    private val description: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("discarded_at")
+    @ExcludeMissing
+    private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("expected_payment_id")
     @ExcludeMissing
     private val expectedPaymentId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("transaction_id")
+    @JsonProperty("live_mode")
     @ExcludeMissing
-    private val transactionId: JsonField<String> = JsonMissing.of(),
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
     @JsonProperty("reconcilable")
     @ExcludeMissing
     private val reconcilable: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("transactable_id")
+    @ExcludeMissing
+    private val transactableId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("transactable_type")
+    @ExcludeMissing
+    private val transactableType: JsonField<TransactableType> = JsonMissing.of(),
+    @JsonProperty("transaction_id")
+    @ExcludeMissing
+    private val transactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
-
-    fun object_(): String = object_.getRequired("object")
-
-    /**
-     * This field will be true if this object exists in the live environment, or false if it exists
-     * in the test environment.
-     */
-    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
-
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
-
-    fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
-
-    /**
-     * Indicates whether the line item is `originating` or `receiving` (see
-     * https://www.moderntreasury.com/journal/beginners-guide-to-ach for more).
-     */
-    fun type(): Type = type.getRequired("type")
-
-    /**
-     * If a matching object exists in Modern Treasury, the type will be populated here, otherwise
-     * `null`.
-     */
-    fun transactableType(): TransactableType? = transactableType.getNullable("transactable_type")
-
-    /**
-     * If a matching object exists in Modern Treasury, the ID will be populated here, otherwise
-     * `null`.
-     */
-    fun transactableId(): String? = transactableId.getNullable("transactable_id")
 
     /**
      * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
      * specified currency's smallest unit (taken from parent Transaction).
      */
     fun amount(): Long = amount.getRequired("amount")
+
+    /** The ID for the counterparty for this transaction line item. */
+    fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
+
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * If no matching object is found, `description` will be a free-form text field describing the
@@ -112,14 +85,18 @@ private constructor(
      */
     fun description(): String = description.getRequired("description")
 
-    /** The ID for the counterparty for this transaction line item. */
-    fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
+    fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
     /** The ID of the reconciled Expected Payment, otherwise `null`. */
     fun expectedPaymentId(): String? = expectedPaymentId.getNullable("expected_payment_id")
 
-    /** The ID of the parent transaction. */
-    fun transactionId(): String = transactionId.getRequired("transaction_id")
+    /**
+     * This field will be true if this object exists in the live environment, or false if it exists
+     * in the test environment.
+     */
+    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
+
+    fun object_(): String = object_.getRequired("object")
 
     /**
      * Describes whether this line item should be counted towards the corresponding transaction’s
@@ -127,45 +104,41 @@ private constructor(
      */
     fun reconcilable(): Boolean = reconcilable.getRequired("reconcilable")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
-
     /**
-     * This field will be true if this object exists in the live environment, or false if it exists
-     * in the test environment.
+     * If a matching object exists in Modern Treasury, the ID will be populated here, otherwise
+     * `null`.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
-
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
-    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
-
-    /**
-     * Indicates whether the line item is `originating` or `receiving` (see
-     * https://www.moderntreasury.com/journal/beginners-guide-to-ach for more).
-     */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    fun transactableId(): String? = transactableId.getNullable("transactable_id")
 
     /**
      * If a matching object exists in Modern Treasury, the type will be populated here, otherwise
      * `null`.
      */
-    @JsonProperty("transactable_type") @ExcludeMissing fun _transactableType() = transactableType
+    fun transactableType(): TransactableType? = transactableType.getNullable("transactable_type")
+
+    /** The ID of the parent transaction. */
+    fun transactionId(): String = transactionId.getRequired("transaction_id")
 
     /**
-     * If a matching object exists in Modern Treasury, the ID will be populated here, otherwise
-     * `null`.
+     * Indicates whether the line item is `originating` or `receiving` (see
+     * https://www.moderntreasury.com/journal/beginners-guide-to-ach for more).
      */
-    @JsonProperty("transactable_id") @ExcludeMissing fun _transactableId() = transactableId
+    fun type(): Type = type.getRequired("type")
+
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
      * specified currency's smallest unit (taken from parent Transaction).
      */
     @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+    /** The ID for the counterparty for this transaction line item. */
+    @JsonProperty("counterparty_id") @ExcludeMissing fun _counterpartyId() = counterpartyId
+
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /**
      * If no matching object is found, `description` will be a free-form text field describing the
@@ -175,22 +148,49 @@ private constructor(
      */
     @JsonProperty("description") @ExcludeMissing fun _description() = description
 
-    /** The ID for the counterparty for this transaction line item. */
-    @JsonProperty("counterparty_id") @ExcludeMissing fun _counterpartyId() = counterpartyId
+    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
 
     /** The ID of the reconciled Expected Payment, otherwise `null`. */
     @JsonProperty("expected_payment_id")
     @ExcludeMissing
     fun _expectedPaymentId() = expectedPaymentId
 
-    /** The ID of the parent transaction. */
-    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+    /**
+     * This field will be true if this object exists in the live environment, or false if it exists
+     * in the test environment.
+     */
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
     /**
      * Describes whether this line item should be counted towards the corresponding transaction’s
      * reconciliation.
      */
     @JsonProperty("reconcilable") @ExcludeMissing fun _reconcilable() = reconcilable
+
+    /**
+     * If a matching object exists in Modern Treasury, the ID will be populated here, otherwise
+     * `null`.
+     */
+    @JsonProperty("transactable_id") @ExcludeMissing fun _transactableId() = transactableId
+
+    /**
+     * If a matching object exists in Modern Treasury, the type will be populated here, otherwise
+     * `null`.
+     */
+    @JsonProperty("transactable_type") @ExcludeMissing fun _transactableType() = transactableType
+
+    /** The ID of the parent transaction. */
+    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+
+    /**
+     * Indicates whether the line item is `originating` or `receiving` (see
+     * https://www.moderntreasury.com/journal/beginners-guide-to-ach for more).
+     */
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
+
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -201,20 +201,20 @@ private constructor(
     fun validate(): TransactionLineItem = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
-            createdAt()
-            updatedAt()
-            discardedAt()
-            type()
-            transactableType()
-            transactableId()
             amount()
-            description()
             counterpartyId()
+            createdAt()
+            description()
+            discardedAt()
             expectedPaymentId()
-            transactionId()
+            liveMode()
+            object_()
             reconcilable()
+            transactableId()
+            transactableType()
+            transactionId()
+            type()
+            updatedAt()
             validated = true
         }
     }
@@ -229,115 +229,44 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
-        private var transactableType: JsonField<TransactableType> = JsonMissing.of()
-        private var transactableId: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
         private var counterpartyId: JsonField<String> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var description: JsonField<String> = JsonMissing.of()
+        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var expectedPaymentId: JsonField<String> = JsonMissing.of()
-        private var transactionId: JsonField<String> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
         private var reconcilable: JsonField<Boolean> = JsonMissing.of()
+        private var transactableId: JsonField<String> = JsonMissing.of()
+        private var transactableType: JsonField<TransactableType> = JsonMissing.of()
+        private var transactionId: JsonField<String> = JsonMissing.of()
+        private var type: JsonField<Type> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(transactionLineItem: TransactionLineItem) = apply {
             id = transactionLineItem.id
-            object_ = transactionLineItem.object_
-            liveMode = transactionLineItem.liveMode
-            createdAt = transactionLineItem.createdAt
-            updatedAt = transactionLineItem.updatedAt
-            discardedAt = transactionLineItem.discardedAt
-            type = transactionLineItem.type
-            transactableType = transactionLineItem.transactableType
-            transactableId = transactionLineItem.transactableId
             amount = transactionLineItem.amount
-            description = transactionLineItem.description
             counterpartyId = transactionLineItem.counterpartyId
+            createdAt = transactionLineItem.createdAt
+            description = transactionLineItem.description
+            discardedAt = transactionLineItem.discardedAt
             expectedPaymentId = transactionLineItem.expectedPaymentId
-            transactionId = transactionLineItem.transactionId
+            liveMode = transactionLineItem.liveMode
+            object_ = transactionLineItem.object_
             reconcilable = transactionLineItem.reconcilable
+            transactableId = transactionLineItem.transactableId
+            transactableType = transactionLineItem.transactableType
+            transactionId = transactionLineItem.transactionId
+            type = transactionLineItem.type
+            updatedAt = transactionLineItem.updatedAt
             additionalProperties = transactionLineItem.additionalProperties.toMutableMap()
         }
 
         fun id(id: String) = id(JsonField.of(id))
 
         fun id(id: JsonField<String>) = apply { this.id = id }
-
-        fun object_(object_: String) = object_(JsonField.of(object_))
-
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
-
-        /**
-         * This field will be true if this object exists in the live environment, or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
-
-        /**
-         * This field will be true if this object exists in the live environment, or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
-
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
-
-        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
-
-        fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
-            this.discardedAt = discardedAt
-        }
-
-        /**
-         * Indicates whether the line item is `originating` or `receiving` (see
-         * https://www.moderntreasury.com/journal/beginners-guide-to-ach for more).
-         */
-        fun type(type: Type) = type(JsonField.of(type))
-
-        /**
-         * Indicates whether the line item is `originating` or `receiving` (see
-         * https://www.moderntreasury.com/journal/beginners-guide-to-ach for more).
-         */
-        fun type(type: JsonField<Type>) = apply { this.type = type }
-
-        /**
-         * If a matching object exists in Modern Treasury, the type will be populated here,
-         * otherwise `null`.
-         */
-        fun transactableType(transactableType: TransactableType) =
-            transactableType(JsonField.of(transactableType))
-
-        /**
-         * If a matching object exists in Modern Treasury, the type will be populated here,
-         * otherwise `null`.
-         */
-        fun transactableType(transactableType: JsonField<TransactableType>) = apply {
-            this.transactableType = transactableType
-        }
-
-        /**
-         * If a matching object exists in Modern Treasury, the ID will be populated here, otherwise
-         * `null`.
-         */
-        fun transactableId(transactableId: String) = transactableId(JsonField.of(transactableId))
-
-        /**
-         * If a matching object exists in Modern Treasury, the ID will be populated here, otherwise
-         * `null`.
-         */
-        fun transactableId(transactableId: JsonField<String>) = apply {
-            this.transactableId = transactableId
-        }
 
         /**
          * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
@@ -350,6 +279,18 @@ private constructor(
          * specified currency's smallest unit (taken from parent Transaction).
          */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+        /** The ID for the counterparty for this transaction line item. */
+        fun counterpartyId(counterpartyId: String) = counterpartyId(JsonField.of(counterpartyId))
+
+        /** The ID for the counterparty for this transaction line item. */
+        fun counterpartyId(counterpartyId: JsonField<String>) = apply {
+            this.counterpartyId = counterpartyId
+        }
+
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
          * If no matching object is found, `description` will be a free-form text field describing
@@ -367,12 +308,10 @@ private constructor(
          */
         fun description(description: JsonField<String>) = apply { this.description = description }
 
-        /** The ID for the counterparty for this transaction line item. */
-        fun counterpartyId(counterpartyId: String) = counterpartyId(JsonField.of(counterpartyId))
+        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
 
-        /** The ID for the counterparty for this transaction line item. */
-        fun counterpartyId(counterpartyId: JsonField<String>) = apply {
-            this.counterpartyId = counterpartyId
+        fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
+            this.discardedAt = discardedAt
         }
 
         /** The ID of the reconciled Expected Payment, otherwise `null`. */
@@ -384,13 +323,21 @@ private constructor(
             this.expectedPaymentId = expectedPaymentId
         }
 
-        /** The ID of the parent transaction. */
-        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+        /**
+         * This field will be true if this object exists in the live environment, or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
-        /** The ID of the parent transaction. */
-        fun transactionId(transactionId: JsonField<String>) = apply {
-            this.transactionId = transactionId
-        }
+        /**
+         * This field will be true if this object exists in the live environment, or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+
+        fun object_(object_: String) = object_(JsonField.of(object_))
+
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /**
          * Describes whether this line item should be counted towards the corresponding
@@ -405,6 +352,59 @@ private constructor(
         fun reconcilable(reconcilable: JsonField<Boolean>) = apply {
             this.reconcilable = reconcilable
         }
+
+        /**
+         * If a matching object exists in Modern Treasury, the ID will be populated here, otherwise
+         * `null`.
+         */
+        fun transactableId(transactableId: String) = transactableId(JsonField.of(transactableId))
+
+        /**
+         * If a matching object exists in Modern Treasury, the ID will be populated here, otherwise
+         * `null`.
+         */
+        fun transactableId(transactableId: JsonField<String>) = apply {
+            this.transactableId = transactableId
+        }
+
+        /**
+         * If a matching object exists in Modern Treasury, the type will be populated here,
+         * otherwise `null`.
+         */
+        fun transactableType(transactableType: TransactableType) =
+            transactableType(JsonField.of(transactableType))
+
+        /**
+         * If a matching object exists in Modern Treasury, the type will be populated here,
+         * otherwise `null`.
+         */
+        fun transactableType(transactableType: JsonField<TransactableType>) = apply {
+            this.transactableType = transactableType
+        }
+
+        /** The ID of the parent transaction. */
+        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+
+        /** The ID of the parent transaction. */
+        fun transactionId(transactionId: JsonField<String>) = apply {
+            this.transactionId = transactionId
+        }
+
+        /**
+         * Indicates whether the line item is `originating` or `receiving` (see
+         * https://www.moderntreasury.com/journal/beginners-guide-to-ach for more).
+         */
+        fun type(type: Type) = type(JsonField.of(type))
+
+        /**
+         * Indicates whether the line item is `originating` or `receiving` (see
+         * https://www.moderntreasury.com/journal/beginners-guide-to-ach for more).
+         */
+        fun type(type: JsonField<Type>) = apply { this.type = type }
+
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -428,20 +428,20 @@ private constructor(
         fun build(): TransactionLineItem =
             TransactionLineItem(
                 id,
-                object_,
-                liveMode,
-                createdAt,
-                updatedAt,
-                discardedAt,
-                type,
-                transactableType,
-                transactableId,
                 amount,
-                description,
                 counterpartyId,
+                createdAt,
+                description,
+                discardedAt,
                 expectedPaymentId,
-                transactionId,
+                liveMode,
+                object_,
                 reconcilable,
+                transactableId,
+                transactableType,
+                transactionId,
+                type,
+                updatedAt,
                 additionalProperties.toImmutable(),
             )
     }
@@ -589,15 +589,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is TransactionLineItem && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && discardedAt == other.discardedAt && type == other.type && transactableType == other.transactableType && transactableId == other.transactableId && amount == other.amount && description == other.description && counterpartyId == other.counterpartyId && expectedPaymentId == other.expectedPaymentId && transactionId == other.transactionId && reconcilable == other.reconcilable && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is TransactionLineItem && id == other.id && amount == other.amount && counterpartyId == other.counterpartyId && createdAt == other.createdAt && description == other.description && discardedAt == other.discardedAt && expectedPaymentId == other.expectedPaymentId && liveMode == other.liveMode && object_ == other.object_ && reconcilable == other.reconcilable && transactableId == other.transactableId && transactableType == other.transactableType && transactionId == other.transactionId && type == other.type && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, type, transactableType, transactableId, amount, description, counterpartyId, expectedPaymentId, transactionId, reconcilable, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, amount, counterpartyId, createdAt, description, discardedAt, expectedPaymentId, liveMode, object_, reconcilable, transactableId, transactableType, transactionId, type, updatedAt, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TransactionLineItem{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, type=$type, transactableType=$transactableType, transactableId=$transactableId, amount=$amount, description=$description, counterpartyId=$counterpartyId, expectedPaymentId=$expectedPaymentId, transactionId=$transactionId, reconcilable=$reconcilable, additionalProperties=$additionalProperties}"
+        "TransactionLineItem{id=$id, amount=$amount, counterpartyId=$counterpartyId, createdAt=$createdAt, description=$description, discardedAt=$discardedAt, expectedPaymentId=$expectedPaymentId, liveMode=$liveMode, object_=$object_, reconcilable=$reconcilable, transactableId=$transactableId, transactableType=$transactableType, transactionId=$transactionId, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

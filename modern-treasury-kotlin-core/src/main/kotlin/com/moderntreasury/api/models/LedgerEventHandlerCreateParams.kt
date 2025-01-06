@@ -381,9 +381,9 @@ constructor(
     private constructor(
         @JsonProperty("description") private val description: String?,
         @JsonProperty("effective_at") private val effectiveAt: String?,
-        @JsonProperty("status") private val status: String?,
         @JsonProperty("ledger_entries")
         private val ledgerEntries: List<LedgerEventHandlerLedgerEntries>,
+        @JsonProperty("status") private val status: String?,
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -397,12 +397,12 @@ constructor(
          */
         @JsonProperty("effective_at") fun effectiveAt(): String? = effectiveAt
 
-        /** To post a ledger transaction at creation, use `posted`. */
-        @JsonProperty("status") fun status(): String? = status
-
         /** An array of ledger entry objects. */
         @JsonProperty("ledger_entries")
         fun ledgerEntries(): List<LedgerEventHandlerLedgerEntries> = ledgerEntries
+
+        /** To post a ledger transaction at creation, use `posted`. */
+        @JsonProperty("status") fun status(): String? = status
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -419,8 +419,8 @@ constructor(
 
             private var description: String? = null
             private var effectiveAt: String? = null
-            private var status: String? = null
             private var ledgerEntries: MutableList<LedgerEventHandlerLedgerEntries>? = null
+            private var status: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
@@ -429,9 +429,9 @@ constructor(
             ) = apply {
                 description = ledgerEventHandlerLedgerTransactionTemplate.description
                 effectiveAt = ledgerEventHandlerLedgerTransactionTemplate.effectiveAt
-                status = ledgerEventHandlerLedgerTransactionTemplate.status
                 ledgerEntries =
                     ledgerEventHandlerLedgerTransactionTemplate.ledgerEntries.toMutableList()
+                status = ledgerEventHandlerLedgerTransactionTemplate.status
                 additionalProperties =
                     ledgerEventHandlerLedgerTransactionTemplate.additionalProperties.toMutableMap()
             }
@@ -445,9 +445,6 @@ constructor(
              */
             fun effectiveAt(effectiveAt: String) = apply { this.effectiveAt = effectiveAt }
 
-            /** To post a ledger transaction at creation, use `posted`. */
-            fun status(status: String) = apply { this.status = status }
-
             /** An array of ledger entry objects. */
             fun ledgerEntries(ledgerEntries: List<LedgerEventHandlerLedgerEntries>) = apply {
                 this.ledgerEntries = ledgerEntries.toMutableList()
@@ -457,6 +454,9 @@ constructor(
             fun addLedgerEntry(ledgerEntry: LedgerEventHandlerLedgerEntries) = apply {
                 ledgerEntries = (ledgerEntries ?: mutableListOf()).apply { add(ledgerEntry) }
             }
+
+            /** To post a ledger transaction at creation, use `posted`. */
+            fun status(status: String) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -481,9 +481,9 @@ constructor(
                 LedgerEventHandlerLedgerTransactionTemplate(
                     description,
                     effectiveAt,
-                    status,
                     checkNotNull(ledgerEntries) { "`ledgerEntries` is required but was not set" }
                         .toImmutable(),
+                    status,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -603,17 +603,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerEventHandlerLedgerTransactionTemplate && description == other.description && effectiveAt == other.effectiveAt && status == other.status && ledgerEntries == other.ledgerEntries && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerEventHandlerLedgerTransactionTemplate && description == other.description && effectiveAt == other.effectiveAt && ledgerEntries == other.ledgerEntries && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(description, effectiveAt, status, ledgerEntries, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(description, effectiveAt, ledgerEntries, status, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerEventHandlerLedgerTransactionTemplate{description=$description, effectiveAt=$effectiveAt, status=$status, ledgerEntries=$ledgerEntries, additionalProperties=$additionalProperties}"
+            "LedgerEventHandlerLedgerTransactionTemplate{description=$description, effectiveAt=$effectiveAt, ledgerEntries=$ledgerEntries, status=$status, additionalProperties=$additionalProperties}"
     }
 
     @NoAutoDetect

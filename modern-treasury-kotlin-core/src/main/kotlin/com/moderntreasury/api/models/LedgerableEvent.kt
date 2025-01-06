@@ -21,50 +21,37 @@ class LedgerableEvent
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
     @JsonProperty("created_at")
     @ExcludeMissing
     private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("name") @ExcludeMissing private val name: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("description")
-    @ExcludeMissing
-    private val description: JsonField<String> = JsonMissing.of(),
     @JsonProperty("custom_data")
     @ExcludeMissing
     private val customData: JsonValue = JsonMissing.of(),
+    @JsonProperty("description")
+    @ExcludeMissing
+    private val description: JsonField<String> = JsonMissing.of(),
     @JsonProperty("ledger_event_handler_id")
     @ExcludeMissing
     private val ledgerEventHandlerId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
     @JsonProperty("metadata")
     @ExcludeMissing
     private val metadata: JsonField<Metadata> = JsonMissing.of(),
+    @JsonProperty("name") @ExcludeMissing private val name: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
 
-    fun object_(): String = object_.getRequired("object")
-
-    /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
-     */
-    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
-
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
-
-    /** Name of the ledgerable event. */
-    fun name(): String = name.getRequired("name")
 
     /** Description of the ledgerable event. */
     fun description(): String? = description.getNullable("description")
@@ -72,12 +59,36 @@ private constructor(
     /** Id of the ledger event handler that is used to create a ledger transaction. */
     fun ledgerEventHandlerId(): String = ledgerEventHandlerId.getRequired("ledger_event_handler_id")
 
+    /**
+     * This field will be true if this object exists in the live environment or false if it exists
+     * in the test environment.
+     */
+    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
+
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
     fun metadata(): Metadata? = metadata.getNullable("metadata")
 
+    /** Name of the ledgerable event. */
+    fun name(): String = name.getRequired("name")
+
+    fun object_(): String = object_.getRequired("object")
+
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /** Additionally data to be used by the Ledger Event Handler. */
+    @JsonProperty("custom_data") @ExcludeMissing fun _customData() = customData
+
+    /** Description of the ledgerable event. */
+    @JsonProperty("description") @ExcludeMissing fun _description() = description
+
+    /** Id of the ledger event handler that is used to create a ledger transaction. */
+    @JsonProperty("ledger_event_handler_id")
+    @ExcludeMissing
+    fun _ledgerEventHandlerId() = ledgerEventHandlerId
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
@@ -85,26 +96,15 @@ private constructor(
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
 
     /** Name of the ledgerable event. */
     @JsonProperty("name") @ExcludeMissing fun _name() = name
 
-    /** Description of the ledgerable event. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
-    /** Additionally data to be used by the Ledger Event Handler. */
-    @JsonProperty("custom_data") @ExcludeMissing fun _customData() = customData
-
-    /** Id of the ledger event handler that is used to create a ledger transaction. */
-    @JsonProperty("ledger_event_handler_id")
-    @ExcludeMissing
-    fun _ledgerEventHandlerId() = ledgerEventHandlerId
-
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -115,14 +115,14 @@ private constructor(
     fun validate(): LedgerableEvent = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
             createdAt()
-            updatedAt()
-            name()
             description()
             ledgerEventHandlerId()
+            liveMode()
             metadata()?.validate()
+            name()
+            object_()
+            updatedAt()
             validated = true
         }
     }
@@ -137,28 +137,28 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var name: JsonField<String> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
         private var customData: JsonValue = JsonMissing.of()
+        private var description: JsonField<String> = JsonMissing.of()
         private var ledgerEventHandlerId: JsonField<String> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
         private var metadata: JsonField<Metadata> = JsonMissing.of()
+        private var name: JsonField<String> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerableEvent: LedgerableEvent) = apply {
             id = ledgerableEvent.id
-            object_ = ledgerableEvent.object_
-            liveMode = ledgerableEvent.liveMode
             createdAt = ledgerableEvent.createdAt
-            updatedAt = ledgerableEvent.updatedAt
-            name = ledgerableEvent.name
-            description = ledgerableEvent.description
             customData = ledgerableEvent.customData
+            description = ledgerableEvent.description
             ledgerEventHandlerId = ledgerableEvent.ledgerEventHandlerId
+            liveMode = ledgerableEvent.liveMode
             metadata = ledgerableEvent.metadata
+            name = ledgerableEvent.name
+            object_ = ledgerableEvent.object_
+            updatedAt = ledgerableEvent.updatedAt
             additionalProperties = ledgerableEvent.additionalProperties.toMutableMap()
         }
 
@@ -166,9 +166,27 @@ private constructor(
 
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun object_(object_: String) = object_(JsonField.of(object_))
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** Additionally data to be used by the Ledger Event Handler. */
+        fun customData(customData: JsonValue) = apply { this.customData = customData }
+
+        /** Description of the ledgerable event. */
+        fun description(description: String) = description(JsonField.of(description))
+
+        /** Description of the ledgerable event. */
+        fun description(description: JsonField<String>) = apply { this.description = description }
+
+        /** Id of the ledger event handler that is used to create a ledger transaction. */
+        fun ledgerEventHandlerId(ledgerEventHandlerId: String) =
+            ledgerEventHandlerId(JsonField.of(ledgerEventHandlerId))
+
+        /** Id of the ledger event handler that is used to create a ledger transaction. */
+        fun ledgerEventHandlerId(ledgerEventHandlerId: JsonField<String>) = apply {
+            this.ledgerEventHandlerId = ledgerEventHandlerId
+        }
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -182,38 +200,6 @@ private constructor(
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
-
-        /** Name of the ledgerable event. */
-        fun name(name: String) = name(JsonField.of(name))
-
-        /** Name of the ledgerable event. */
-        fun name(name: JsonField<String>) = apply { this.name = name }
-
-        /** Description of the ledgerable event. */
-        fun description(description: String) = description(JsonField.of(description))
-
-        /** Description of the ledgerable event. */
-        fun description(description: JsonField<String>) = apply { this.description = description }
-
-        /** Additionally data to be used by the Ledger Event Handler. */
-        fun customData(customData: JsonValue) = apply { this.customData = customData }
-
-        /** Id of the ledger event handler that is used to create a ledger transaction. */
-        fun ledgerEventHandlerId(ledgerEventHandlerId: String) =
-            ledgerEventHandlerId(JsonField.of(ledgerEventHandlerId))
-
-        /** Id of the ledger event handler that is used to create a ledger transaction. */
-        fun ledgerEventHandlerId(ledgerEventHandlerId: JsonField<String>) = apply {
-            this.ledgerEventHandlerId = ledgerEventHandlerId
-        }
-
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
@@ -223,6 +209,20 @@ private constructor(
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+        /** Name of the ledgerable event. */
+        fun name(name: String) = name(JsonField.of(name))
+
+        /** Name of the ledgerable event. */
+        fun name(name: JsonField<String>) = apply { this.name = name }
+
+        fun object_(object_: String) = object_(JsonField.of(object_))
+
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -246,15 +246,15 @@ private constructor(
         fun build(): LedgerableEvent =
             LedgerableEvent(
                 id,
-                object_,
-                liveMode,
                 createdAt,
-                updatedAt,
-                name,
-                description,
                 customData,
+                description,
                 ledgerEventHandlerId,
+                liveMode,
                 metadata,
+                name,
+                object_,
+                updatedAt,
                 additionalProperties.toImmutable(),
             )
     }
@@ -339,15 +339,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerableEvent && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && name == other.name && description == other.description && customData == other.customData && ledgerEventHandlerId == other.ledgerEventHandlerId && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is LedgerableEvent && id == other.id && createdAt == other.createdAt && customData == other.customData && description == other.description && ledgerEventHandlerId == other.ledgerEventHandlerId && liveMode == other.liveMode && metadata == other.metadata && name == other.name && object_ == other.object_ && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, name, description, customData, ledgerEventHandlerId, metadata, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, createdAt, customData, description, ledgerEventHandlerId, liveMode, metadata, name, object_, updatedAt, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "LedgerableEvent{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, name=$name, description=$description, customData=$customData, ledgerEventHandlerId=$ledgerEventHandlerId, metadata=$metadata, additionalProperties=$additionalProperties}"
+        "LedgerableEvent{id=$id, createdAt=$createdAt, customData=$customData, description=$description, ledgerEventHandlerId=$ledgerEventHandlerId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

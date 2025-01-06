@@ -23,30 +23,30 @@ class ConnectionLegalEntity
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("discarded_at")
-    @ExcludeMissing
-    private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("connection_id")
     @ExcludeMissing
     private val connectionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("discarded_at")
+    @ExcludeMissing
+    private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("legal_entity_id")
     @ExcludeMissing
     private val legalEntityId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
     @JsonProperty("status")
     @ExcludeMissing
     private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("vendor_id")
     @ExcludeMissing
     private val vendorId: JsonField<String> = JsonMissing.of(),
@@ -55,7 +55,15 @@ private constructor(
 
     fun id(): String = id.getRequired("id")
 
-    fun object_(): String = object_.getRequired("object")
+    /** The ID of the connection. */
+    fun connectionId(): String = connectionId.getRequired("connection_id")
+
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
+
+    /** The ID of the legal entity. */
+    fun legalEntityId(): String = legalEntityId.getRequired("legal_entity_id")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
@@ -63,27 +71,27 @@ private constructor(
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
-
-    fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
-
-    /** The ID of the connection. */
-    fun connectionId(): String = connectionId.getRequired("connection_id")
-
-    /** The ID of the legal entity. */
-    fun legalEntityId(): String = legalEntityId.getRequired("legal_entity_id")
+    fun object_(): String = object_.getRequired("object")
 
     /** The status of the connection legal entity. */
     fun status(): Status = status.getRequired("status")
+
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     /** The ID of the legal entity at the vendor. */
     fun vendorId(): String = vendorId.getRequired("vendor_id")
 
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    /** The ID of the connection. */
+    @JsonProperty("connection_id") @ExcludeMissing fun _connectionId() = connectionId
+
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+
+    /** The ID of the legal entity. */
+    @JsonProperty("legal_entity_id") @ExcludeMissing fun _legalEntityId() = legalEntityId
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
@@ -91,20 +99,12 @@ private constructor(
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
-    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
-
-    /** The ID of the connection. */
-    @JsonProperty("connection_id") @ExcludeMissing fun _connectionId() = connectionId
-
-    /** The ID of the legal entity. */
-    @JsonProperty("legal_entity_id") @ExcludeMissing fun _legalEntityId() = legalEntityId
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
     /** The status of the connection legal entity. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
+
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
     /** The ID of the legal entity at the vendor. */
     @JsonProperty("vendor_id") @ExcludeMissing fun _vendorId() = vendorId
@@ -118,14 +118,14 @@ private constructor(
     fun validate(): ConnectionLegalEntity = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
-            createdAt()
-            updatedAt()
-            discardedAt()
             connectionId()
+            createdAt()
+            discardedAt()
             legalEntityId()
+            liveMode()
+            object_()
             status()
+            updatedAt()
             vendorId()
             validated = true
         }
@@ -141,27 +141,27 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var connectionId: JsonField<String> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var legalEntityId: JsonField<String> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var vendorId: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(connectionLegalEntity: ConnectionLegalEntity) = apply {
             id = connectionLegalEntity.id
-            object_ = connectionLegalEntity.object_
-            liveMode = connectionLegalEntity.liveMode
-            createdAt = connectionLegalEntity.createdAt
-            updatedAt = connectionLegalEntity.updatedAt
-            discardedAt = connectionLegalEntity.discardedAt
             connectionId = connectionLegalEntity.connectionId
+            createdAt = connectionLegalEntity.createdAt
+            discardedAt = connectionLegalEntity.discardedAt
             legalEntityId = connectionLegalEntity.legalEntityId
+            liveMode = connectionLegalEntity.liveMode
+            object_ = connectionLegalEntity.object_
             status = connectionLegalEntity.status
+            updatedAt = connectionLegalEntity.updatedAt
             vendorId = connectionLegalEntity.vendorId
             additionalProperties = connectionLegalEntity.additionalProperties.toMutableMap()
         }
@@ -170,9 +170,31 @@ private constructor(
 
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun object_(object_: String) = object_(JsonField.of(object_))
+        /** The ID of the connection. */
+        fun connectionId(connectionId: String) = connectionId(JsonField.of(connectionId))
 
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        /** The ID of the connection. */
+        fun connectionId(connectionId: JsonField<String>) = apply {
+            this.connectionId = connectionId
+        }
+
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+
+        fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
+            this.discardedAt = discardedAt
+        }
+
+        /** The ID of the legal entity. */
+        fun legalEntityId(legalEntityId: String) = legalEntityId(JsonField.of(legalEntityId))
+
+        /** The ID of the legal entity. */
+        fun legalEntityId(legalEntityId: JsonField<String>) = apply {
+            this.legalEntityId = legalEntityId
+        }
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -186,41 +208,19 @@ private constructor(
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+        fun object_(object_: String) = object_(JsonField.of(object_))
 
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
-
-        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
-
-        fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
-            this.discardedAt = discardedAt
-        }
-
-        /** The ID of the connection. */
-        fun connectionId(connectionId: String) = connectionId(JsonField.of(connectionId))
-
-        /** The ID of the connection. */
-        fun connectionId(connectionId: JsonField<String>) = apply {
-            this.connectionId = connectionId
-        }
-
-        /** The ID of the legal entity. */
-        fun legalEntityId(legalEntityId: String) = legalEntityId(JsonField.of(legalEntityId))
-
-        /** The ID of the legal entity. */
-        fun legalEntityId(legalEntityId: JsonField<String>) = apply {
-            this.legalEntityId = legalEntityId
-        }
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /** The status of the connection legal entity. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The status of the connection legal entity. */
         fun status(status: JsonField<Status>) = apply { this.status = status }
+
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         /** The ID of the legal entity at the vendor. */
         fun vendorId(vendorId: String) = vendorId(JsonField.of(vendorId))
@@ -250,14 +250,14 @@ private constructor(
         fun build(): ConnectionLegalEntity =
             ConnectionLegalEntity(
                 id,
-                object_,
-                liveMode,
-                createdAt,
-                updatedAt,
-                discardedAt,
                 connectionId,
+                createdAt,
+                discardedAt,
                 legalEntityId,
+                liveMode,
+                object_,
                 status,
+                updatedAt,
                 vendorId,
                 additionalProperties.toImmutable(),
             )
@@ -337,15 +337,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ConnectionLegalEntity && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && discardedAt == other.discardedAt && connectionId == other.connectionId && legalEntityId == other.legalEntityId && status == other.status && vendorId == other.vendorId && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is ConnectionLegalEntity && id == other.id && connectionId == other.connectionId && createdAt == other.createdAt && discardedAt == other.discardedAt && legalEntityId == other.legalEntityId && liveMode == other.liveMode && object_ == other.object_ && status == other.status && updatedAt == other.updatedAt && vendorId == other.vendorId && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, connectionId, legalEntityId, status, vendorId, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, connectionId, createdAt, discardedAt, legalEntityId, liveMode, object_, status, updatedAt, vendorId, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ConnectionLegalEntity{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, connectionId=$connectionId, legalEntityId=$legalEntityId, status=$status, vendorId=$vendorId, additionalProperties=$additionalProperties}"
+        "ConnectionLegalEntity{id=$id, connectionId=$connectionId, createdAt=$createdAt, discardedAt=$discardedAt, legalEntityId=$legalEntityId, liveMode=$liveMode, object_=$object_, status=$status, updatedAt=$updatedAt, vendorId=$vendorId, additionalProperties=$additionalProperties}"
 }

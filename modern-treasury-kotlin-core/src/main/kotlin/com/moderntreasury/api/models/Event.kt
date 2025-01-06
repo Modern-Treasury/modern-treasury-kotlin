@@ -21,56 +21,37 @@ class Event
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
     @JsonProperty("created_at")
     @ExcludeMissing
     private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
+    @JsonProperty("data") @ExcludeMissing private val data: JsonField<Data> = JsonMissing.of(),
+    @JsonProperty("entity_id")
     @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("resource")
-    @ExcludeMissing
-    private val resource: JsonField<String> = JsonMissing.of(),
+    private val entityId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("event_name")
     @ExcludeMissing
     private val eventName: JsonField<String> = JsonMissing.of(),
     @JsonProperty("event_time")
     @ExcludeMissing
     private val eventTime: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("data") @ExcludeMissing private val data: JsonField<Data> = JsonMissing.of(),
-    @JsonProperty("entity_id")
+    @JsonProperty("live_mode")
     @ExcludeMissing
-    private val entityId: JsonField<String> = JsonMissing.of(),
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("resource")
+    @ExcludeMissing
+    private val resource: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
 
-    fun object_(): String = object_.getRequired("object")
-
-    /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
-     */
-    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
-
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
-
-    /** The type of resource for the event. */
-    fun resource(): String = resource.getRequired("resource")
-
-    /** The name of the event. */
-    fun eventName(): String = eventName.getRequired("event_name")
-
-    /** The time of the event. */
-    fun eventTime(): OffsetDateTime = eventTime.getRequired("event_time")
 
     /** The body of the event. */
     fun data(): Data = data.getRequired("data")
@@ -78,22 +59,34 @@ private constructor(
     /** The ID of the entity for the event. */
     fun entityId(): String = entityId.getRequired("entity_id")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    /** The name of the event. */
+    fun eventName(): String = eventName.getRequired("event_name")
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    /** The time of the event. */
+    fun eventTime(): OffsetDateTime = eventTime.getRequired("event_time")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
+
+    fun object_(): String = object_.getRequired("object")
+
+    /** The type of resource for the event. */
+    fun resource(): String = resource.getRequired("resource")
+
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    /** The body of the event. */
+    @JsonProperty("data") @ExcludeMissing fun _data() = data
 
-    /** The type of resource for the event. */
-    @JsonProperty("resource") @ExcludeMissing fun _resource() = resource
+    /** The ID of the entity for the event. */
+    @JsonProperty("entity_id") @ExcludeMissing fun _entityId() = entityId
 
     /** The name of the event. */
     @JsonProperty("event_name") @ExcludeMissing fun _eventName() = eventName
@@ -101,11 +94,18 @@ private constructor(
     /** The time of the event. */
     @JsonProperty("event_time") @ExcludeMissing fun _eventTime() = eventTime
 
-    /** The body of the event. */
-    @JsonProperty("data") @ExcludeMissing fun _data() = data
+    /**
+     * This field will be true if this object exists in the live environment or false if it exists
+     * in the test environment.
+     */
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
 
-    /** The ID of the entity for the event. */
-    @JsonProperty("entity_id") @ExcludeMissing fun _entityId() = entityId
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+
+    /** The type of resource for the event. */
+    @JsonProperty("resource") @ExcludeMissing fun _resource() = resource
+
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -116,15 +116,15 @@ private constructor(
     fun validate(): Event = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
             createdAt()
-            updatedAt()
-            resource()
-            eventName()
-            eventTime()
             data().validate()
             entityId()
+            eventName()
+            eventTime()
+            liveMode()
+            object_()
+            resource()
+            updatedAt()
             validated = true
         }
     }
@@ -139,28 +139,28 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var resource: JsonField<String> = JsonMissing.of()
-        private var eventName: JsonField<String> = JsonMissing.of()
-        private var eventTime: JsonField<OffsetDateTime> = JsonMissing.of()
         private var data: JsonField<Data> = JsonMissing.of()
         private var entityId: JsonField<String> = JsonMissing.of()
+        private var eventName: JsonField<String> = JsonMissing.of()
+        private var eventTime: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
+        private var resource: JsonField<String> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(event: Event) = apply {
             id = event.id
-            object_ = event.object_
-            liveMode = event.liveMode
             createdAt = event.createdAt
-            updatedAt = event.updatedAt
-            resource = event.resource
-            eventName = event.eventName
-            eventTime = event.eventTime
             data = event.data
             entityId = event.entityId
+            eventName = event.eventName
+            eventTime = event.eventTime
+            liveMode = event.liveMode
+            object_ = event.object_
+            resource = event.resource
+            updatedAt = event.updatedAt
             additionalProperties = event.additionalProperties.toMutableMap()
         }
 
@@ -168,35 +168,21 @@ private constructor(
 
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun object_(object_: String) = object_(JsonField.of(object_))
-
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
-
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+        /** The body of the event. */
+        fun data(data: Data) = data(JsonField.of(data))
 
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+        /** The body of the event. */
+        fun data(data: JsonField<Data>) = apply { this.data = data }
 
-        /** The type of resource for the event. */
-        fun resource(resource: String) = resource(JsonField.of(resource))
+        /** The ID of the entity for the event. */
+        fun entityId(entityId: String) = entityId(JsonField.of(entityId))
 
-        /** The type of resource for the event. */
-        fun resource(resource: JsonField<String>) = apply { this.resource = resource }
+        /** The ID of the entity for the event. */
+        fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
         /** The name of the event. */
         fun eventName(eventName: String) = eventName(JsonField.of(eventName))
@@ -210,17 +196,31 @@ private constructor(
         /** The time of the event. */
         fun eventTime(eventTime: JsonField<OffsetDateTime>) = apply { this.eventTime = eventTime }
 
-        /** The body of the event. */
-        fun data(data: Data) = data(JsonField.of(data))
+        /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
-        /** The body of the event. */
-        fun data(data: JsonField<Data>) = apply { this.data = data }
+        /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
-        /** The ID of the entity for the event. */
-        fun entityId(entityId: String) = entityId(JsonField.of(entityId))
+        fun object_(object_: String) = object_(JsonField.of(object_))
 
-        /** The ID of the entity for the event. */
-        fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+
+        /** The type of resource for the event. */
+        fun resource(resource: String) = resource(JsonField.of(resource))
+
+        /** The type of resource for the event. */
+        fun resource(resource: JsonField<String>) = apply { this.resource = resource }
+
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -244,15 +244,15 @@ private constructor(
         fun build(): Event =
             Event(
                 id,
-                object_,
-                liveMode,
                 createdAt,
-                updatedAt,
-                resource,
-                eventName,
-                eventTime,
                 data,
                 entityId,
+                eventName,
+                eventTime,
+                liveMode,
+                object_,
+                resource,
+                updatedAt,
                 additionalProperties.toImmutable(),
             )
     }
@@ -337,15 +337,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Event && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && resource == other.resource && eventName == other.eventName && eventTime == other.eventTime && data == other.data && entityId == other.entityId && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Event && id == other.id && createdAt == other.createdAt && data == other.data && entityId == other.entityId && eventName == other.eventName && eventTime == other.eventTime && liveMode == other.liveMode && object_ == other.object_ && resource == other.resource && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, resource, eventName, eventTime, data, entityId, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, createdAt, data, entityId, eventName, eventTime, liveMode, object_, resource, updatedAt, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Event{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, resource=$resource, eventName=$eventName, eventTime=$eventTime, data=$data, entityId=$entityId, additionalProperties=$additionalProperties}"
+        "Event{id=$id, createdAt=$createdAt, data=$data, entityId=$entityId, eventName=$eventName, eventTime=$eventTime, liveMode=$liveMode, object_=$object_, resource=$resource, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

@@ -170,21 +170,18 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("object")
-        @ExcludeMissing
-        private val object_: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("live_mode")
-        @ExcludeMissing
-        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
         private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("external_account_id")
         @ExcludeMissing
         private val externalAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("live_mode")
+        @ExcludeMissing
+        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("object")
+        @ExcludeMissing
+        private val object_: JsonField<String> = JsonMissing.of(),
         @JsonProperty("originating_account_id")
         @ExcludeMissing
         private val originatingAccountId: JsonField<String> = JsonMissing.of(),
@@ -197,13 +194,19 @@ private constructor(
         @JsonProperty("status")
         @ExcludeMissing
         private val status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         fun id(): String = id.getRequired("id")
 
-        fun object_(): String = object_.getRequired("object")
+        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+        /** The ID of the external account. */
+        fun externalAccountId(): String = externalAccountId.getRequired("external_account_id")
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -211,12 +214,7 @@ private constructor(
          */
         fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-        fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
-
-        /** The ID of the external account. */
-        fun externalAccountId(): String = externalAccountId.getRequired("external_account_id")
+        fun object_(): String = object_.getRequired("object")
 
         /** The ID of the internal account where the micro-deposits originate from. */
         fun originatingAccountId(): String =
@@ -234,9 +232,16 @@ private constructor(
          */
         fun status(): Status = status.getRequired("status")
 
+        fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+
         @JsonProperty("id") @ExcludeMissing fun _id() = id
 
-        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+        /** The ID of the external account. */
+        @JsonProperty("external_account_id")
+        @ExcludeMissing
+        fun _externalAccountId() = externalAccountId
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -244,14 +249,7 @@ private constructor(
          */
         @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
 
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
-        /** The ID of the external account. */
-        @JsonProperty("external_account_id")
-        @ExcludeMissing
-        fun _externalAccountId() = externalAccountId
+        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
         /** The ID of the internal account where the micro-deposits originate from. */
         @JsonProperty("originating_account_id")
@@ -270,6 +268,8 @@ private constructor(
          */
         @JsonProperty("status") @ExcludeMissing fun _status() = status
 
+        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -279,15 +279,15 @@ private constructor(
         fun validate(): ExternalAccountVerificationAttempt = apply {
             if (!validated) {
                 id()
-                object_()
-                liveMode()
                 createdAt()
-                updatedAt()
                 externalAccountId()
+                liveMode()
+                object_()
                 originatingAccountId()
                 paymentType()
                 priority()
                 status()
+                updatedAt()
                 validated = true
             }
         }
@@ -302,30 +302,30 @@ private constructor(
         class Builder {
 
             private var id: JsonField<String> = JsonMissing.of()
-            private var object_: JsonField<String> = JsonMissing.of()
-            private var liveMode: JsonField<Boolean> = JsonMissing.of()
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var externalAccountId: JsonField<String> = JsonMissing.of()
+            private var liveMode: JsonField<Boolean> = JsonMissing.of()
+            private var object_: JsonField<String> = JsonMissing.of()
             private var originatingAccountId: JsonField<String> = JsonMissing.of()
             private var paymentType: JsonField<PaymentType> = JsonMissing.of()
             private var priority: JsonField<Priority> = JsonMissing.of()
             private var status: JsonField<Status> = JsonMissing.of()
+            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
                 externalAccountVerificationAttempt: ExternalAccountVerificationAttempt
             ) = apply {
                 id = externalAccountVerificationAttempt.id
-                object_ = externalAccountVerificationAttempt.object_
-                liveMode = externalAccountVerificationAttempt.liveMode
                 createdAt = externalAccountVerificationAttempt.createdAt
-                updatedAt = externalAccountVerificationAttempt.updatedAt
                 externalAccountId = externalAccountVerificationAttempt.externalAccountId
+                liveMode = externalAccountVerificationAttempt.liveMode
+                object_ = externalAccountVerificationAttempt.object_
                 originatingAccountId = externalAccountVerificationAttempt.originatingAccountId
                 paymentType = externalAccountVerificationAttempt.paymentType
                 priority = externalAccountVerificationAttempt.priority
                 status = externalAccountVerificationAttempt.status
+                updatedAt = externalAccountVerificationAttempt.updatedAt
                 additionalProperties =
                     externalAccountVerificationAttempt.additionalProperties.toMutableMap()
             }
@@ -334,9 +334,20 @@ private constructor(
 
             fun id(id: JsonField<String>) = apply { this.id = id }
 
-            fun object_(object_: String) = object_(JsonField.of(object_))
+            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-            fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                this.createdAt = createdAt
+            }
+
+            /** The ID of the external account. */
+            fun externalAccountId(externalAccountId: String) =
+                externalAccountId(JsonField.of(externalAccountId))
+
+            /** The ID of the external account. */
+            fun externalAccountId(externalAccountId: JsonField<String>) = apply {
+                this.externalAccountId = externalAccountId
+            }
 
             /**
              * This field will be true if this object exists in the live environment or false if it
@@ -350,26 +361,9 @@ private constructor(
              */
             fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
-            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+            fun object_(object_: String) = object_(JsonField.of(object_))
 
-            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-                this.createdAt = createdAt
-            }
-
-            fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-            fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
-                this.updatedAt = updatedAt
-            }
-
-            /** The ID of the external account. */
-            fun externalAccountId(externalAccountId: String) =
-                externalAccountId(JsonField.of(externalAccountId))
-
-            /** The ID of the external account. */
-            fun externalAccountId(externalAccountId: JsonField<String>) = apply {
-                this.externalAccountId = externalAccountId
-            }
+            fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
             /** The ID of the internal account where the micro-deposits originate from. */
             fun originatingAccountId(originatingAccountId: String) =
@@ -410,6 +404,12 @@ private constructor(
              */
             fun status(status: JsonField<Status>) = apply { this.status = status }
 
+            fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+            fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
+                this.updatedAt = updatedAt
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -432,15 +432,15 @@ private constructor(
             fun build(): ExternalAccountVerificationAttempt =
                 ExternalAccountVerificationAttempt(
                     id,
-                    object_,
-                    liveMode,
                     createdAt,
-                    updatedAt,
                     externalAccountId,
+                    liveMode,
+                    object_,
                     originatingAccountId,
                     paymentType,
                     priority,
                     status,
+                    updatedAt,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -801,16 +801,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExternalAccountVerificationAttempt && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && externalAccountId == other.externalAccountId && originatingAccountId == other.originatingAccountId && paymentType == other.paymentType && priority == other.priority && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ExternalAccountVerificationAttempt && id == other.id && createdAt == other.createdAt && externalAccountId == other.externalAccountId && liveMode == other.liveMode && object_ == other.object_ && originatingAccountId == other.originatingAccountId && paymentType == other.paymentType && priority == other.priority && status == other.status && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, externalAccountId, originatingAccountId, paymentType, priority, status, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(id, createdAt, externalAccountId, liveMode, object_, originatingAccountId, paymentType, priority, status, updatedAt, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ExternalAccountVerificationAttempt{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, externalAccountId=$externalAccountId, originatingAccountId=$originatingAccountId, paymentType=$paymentType, priority=$priority, status=$status, additionalProperties=$additionalProperties}"
+            "ExternalAccountVerificationAttempt{id=$id, createdAt=$createdAt, externalAccountId=$externalAccountId, liveMode=$liveMode, object_=$object_, originatingAccountId=$originatingAccountId, paymentType=$paymentType, priority=$priority, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
     }
 }
