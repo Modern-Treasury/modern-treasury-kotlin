@@ -483,31 +483,31 @@ constructor(
     class PartyAddress
     @JsonCreator
     private constructor(
-        @JsonProperty("line1") private val line1: String,
-        @JsonProperty("line2") private val line2: String?,
-        @JsonProperty("locality") private val locality: String,
-        @JsonProperty("region") private val region: String,
-        @JsonProperty("postal_code") private val postalCode: String,
         @JsonProperty("country") private val country: String,
+        @JsonProperty("line1") private val line1: String,
+        @JsonProperty("locality") private val locality: String,
+        @JsonProperty("postal_code") private val postalCode: String,
+        @JsonProperty("region") private val region: String,
+        @JsonProperty("line2") private val line2: String?,
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        @JsonProperty("line1") fun line1(): String = line1
+        /** Country code conforms to [ISO 3166-1 alpha-2] */
+        @JsonProperty("country") fun country(): String = country
 
-        @JsonProperty("line2") fun line2(): String? = line2
+        @JsonProperty("line1") fun line1(): String = line1
 
         /** Locality or City. */
         @JsonProperty("locality") fun locality(): String = locality
 
-        /** Region or State. */
-        @JsonProperty("region") fun region(): String = region
-
         /** The postal code of the address. */
         @JsonProperty("postal_code") fun postalCode(): String = postalCode
 
-        /** Country code conforms to [ISO 3166-1 alpha-2] */
-        @JsonProperty("country") fun country(): String = country
+        /** Region or State. */
+        @JsonProperty("region") fun region(): String = region
+
+        @JsonProperty("line2") fun line2(): String? = line2
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -522,39 +522,39 @@ constructor(
 
         class Builder {
 
-            private var line1: String? = null
-            private var line2: String? = null
-            private var locality: String? = null
-            private var region: String? = null
-            private var postalCode: String? = null
             private var country: String? = null
+            private var line1: String? = null
+            private var locality: String? = null
+            private var postalCode: String? = null
+            private var region: String? = null
+            private var line2: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(partyAddress: PartyAddress) = apply {
-                line1 = partyAddress.line1
-                line2 = partyAddress.line2
-                locality = partyAddress.locality
-                region = partyAddress.region
-                postalCode = partyAddress.postalCode
                 country = partyAddress.country
+                line1 = partyAddress.line1
+                locality = partyAddress.locality
+                postalCode = partyAddress.postalCode
+                region = partyAddress.region
+                line2 = partyAddress.line2
                 additionalProperties = partyAddress.additionalProperties.toMutableMap()
             }
 
-            fun line1(line1: String) = apply { this.line1 = line1 }
+            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            fun country(country: String) = apply { this.country = country }
 
-            fun line2(line2: String) = apply { this.line2 = line2 }
+            fun line1(line1: String) = apply { this.line1 = line1 }
 
             /** Locality or City. */
             fun locality(locality: String) = apply { this.locality = locality }
 
-            /** Region or State. */
-            fun region(region: String) = apply { this.region = region }
-
             /** The postal code of the address. */
             fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
-            /** Country code conforms to [ISO 3166-1 alpha-2] */
-            fun country(country: String) = apply { this.country = country }
+            /** Region or State. */
+            fun region(region: String) = apply { this.region = region }
+
+            fun line2(line2: String) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -577,12 +577,12 @@ constructor(
 
             fun build(): PartyAddress =
                 PartyAddress(
-                    checkNotNull(line1) { "`line1` is required but was not set" },
-                    line2,
-                    checkNotNull(locality) { "`locality` is required but was not set" },
-                    checkNotNull(region) { "`region` is required but was not set" },
-                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
                     checkNotNull(country) { "`country` is required but was not set" },
+                    checkNotNull(line1) { "`line1` is required but was not set" },
+                    checkNotNull(locality) { "`locality` is required but was not set" },
+                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                    checkNotNull(region) { "`region` is required but was not set" },
+                    line2,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -592,17 +592,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PartyAddress && line1 == other.line1 && line2 == other.line2 && locality == other.locality && region == other.region && postalCode == other.postalCode && country == other.country && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PartyAddress && country == other.country && line1 == other.line1 && locality == other.locality && postalCode == other.postalCode && region == other.region && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(line1, line2, locality, region, postalCode, country, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(country, line1, locality, postalCode, region, line2, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PartyAddress{line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
+            "PartyAddress{country=$country, line1=$line1, locality=$locality, postalCode=$postalCode, region=$region, line2=$line2, additionalProperties=$additionalProperties}"
     }
 
     /**

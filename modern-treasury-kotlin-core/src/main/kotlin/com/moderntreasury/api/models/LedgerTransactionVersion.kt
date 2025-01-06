@@ -24,86 +24,69 @@ class LedgerTransactionVersion
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
     @JsonProperty("created_at")
     @ExcludeMissing
     private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("ledger_transaction_id")
-    @ExcludeMissing
-    private val ledgerTransactionId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("description")
     @ExcludeMissing
     private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("metadata")
-    @ExcludeMissing
-    private val metadata: JsonField<Metadata> = JsonMissing.of(),
     @JsonProperty("effective_at")
     @ExcludeMissing
     private val effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("effective_date")
     @ExcludeMissing
     private val effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
-    @JsonProperty("ledger_entries")
-    @ExcludeMissing
-    private val ledgerEntries: JsonField<List<LedgerEntryOfTransactionVersion>> = JsonMissing.of(),
-    @JsonProperty("posted_at")
-    @ExcludeMissing
-    private val postedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("ledger_id")
-    @ExcludeMissing
-    private val ledgerId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("ledgerable_type")
-    @ExcludeMissing
-    private val ledgerableType: JsonField<LedgerableType> = JsonMissing.of(),
-    @JsonProperty("ledgerable_id")
-    @ExcludeMissing
-    private val ledgerableId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("external_id")
     @ExcludeMissing
     private val externalId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("version")
+    @JsonProperty("ledger_entries")
     @ExcludeMissing
-    private val version: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("reverses_ledger_transaction_id")
+    private val ledgerEntries: JsonField<List<LedgerEntryOfTransactionVersion>> = JsonMissing.of(),
+    @JsonProperty("ledger_id")
     @ExcludeMissing
-    private val reversesLedgerTransactionId: JsonField<String> = JsonMissing.of(),
+    private val ledgerId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("ledger_transaction_id")
+    @ExcludeMissing
+    private val ledgerTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("ledgerable_id")
+    @ExcludeMissing
+    private val ledgerableId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("ledgerable_type")
+    @ExcludeMissing
+    private val ledgerableType: JsonField<LedgerableType> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("metadata")
+    @ExcludeMissing
+    private val metadata: JsonField<Metadata> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("posted_at")
+    @ExcludeMissing
+    private val postedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("reversed_by_ledger_transaction_id")
     @ExcludeMissing
     private val reversedByLedgerTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("reverses_ledger_transaction_id")
+    @ExcludeMissing
+    private val reversesLedgerTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("version")
+    @ExcludeMissing
+    private val version: JsonField<Long> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
 
-    fun object_(): String = object_.getRequired("object")
-
-    /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
-     */
-    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
-
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    /** The ID of the ledger transaction */
-    fun ledgerTransactionId(): String = ledgerTransactionId.getRequired("ledger_transaction_id")
 
     /** An optional description for internal use. */
     fun description(): String? = description.getNullable("description")
-
-    /** One of `pending`, `posted`, or `archived`. */
-    fun status(): Status = status.getRequired("status")
-
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    fun metadata(): Metadata = metadata.getRequired("metadata")
 
     /**
      * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
@@ -114,18 +97,27 @@ private constructor(
     /** The date (YYYY-MM-DD) on which the ledger transaction happened for reporting purposes. */
     fun effectiveDate(): LocalDate = effectiveDate.getRequired("effective_date")
 
+    /**
+     * A unique string to represent the ledger transaction. Only one pending or posted ledger
+     * transaction may have this ID in the ledger.
+     */
+    fun externalId(): String? = externalId.getNullable("external_id")
+
     /** An array of ledger entry objects. */
     fun ledgerEntries(): List<LedgerEntryOfTransactionVersion> =
         ledgerEntries.getRequired("ledger_entries")
 
-    /**
-     * The time on which the ledger transaction posted. This is null if the ledger transaction is
-     * pending.
-     */
-    fun postedAt(): OffsetDateTime? = postedAt.getNullable("posted_at")
-
     /** The ID of the ledger this ledger transaction belongs to. */
     fun ledgerId(): String = ledgerId.getRequired("ledger_id")
+
+    /** The ID of the ledger transaction */
+    fun ledgerTransactionId(): String = ledgerTransactionId.getRequired("ledger_transaction_id")
+
+    /**
+     * If the ledger transaction can be reconciled to another object in Modern Treasury, the id will
+     * be populated here, otherwise null.
+     */
+    fun ledgerableId(): String? = ledgerableId.getNullable("ledgerable_id")
 
     /**
      * If the ledger transaction can be reconciled to another object in Modern Treasury, the type
@@ -135,53 +127,42 @@ private constructor(
     fun ledgerableType(): LedgerableType? = ledgerableType.getNullable("ledgerable_type")
 
     /**
-     * If the ledger transaction can be reconciled to another object in Modern Treasury, the id will
-     * be populated here, otherwise null.
+     * This field will be true if this object exists in the live environment or false if it exists
+     * in the test environment.
      */
-    fun ledgerableId(): String? = ledgerableId.getNullable("ledgerable_id")
+    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun metadata(): Metadata = metadata.getRequired("metadata")
+
+    fun object_(): String = object_.getRequired("object")
 
     /**
-     * A unique string to represent the ledger transaction. Only one pending or posted ledger
-     * transaction may have this ID in the ledger.
+     * The time on which the ledger transaction posted. This is null if the ledger transaction is
+     * pending.
      */
-    fun externalId(): String? = externalId.getNullable("external_id")
-
-    /** Version number of the ledger transaction. */
-    fun version(): Long = version.getRequired("version")
-
-    /** The ID of the original ledger transaction. that this ledger transaction reverses. */
-    fun reversesLedgerTransactionId(): String? =
-        reversesLedgerTransactionId.getNullable("reverses_ledger_transaction_id")
+    fun postedAt(): OffsetDateTime? = postedAt.getNullable("posted_at")
 
     /** The ID of the ledger transaction that reversed this ledger transaction. */
     fun reversedByLedgerTransactionId(): String? =
         reversedByLedgerTransactionId.getNullable("reversed_by_ledger_transaction_id")
 
+    /** The ID of the original ledger transaction. that this ledger transaction reverses. */
+    fun reversesLedgerTransactionId(): String? =
+        reversesLedgerTransactionId.getNullable("reverses_ledger_transaction_id")
+
+    /** One of `pending`, `posted`, or `archived`. */
+    fun status(): Status = status.getRequired("status")
+
+    /** Version number of the ledger transaction. */
+    fun version(): Long = version.getRequired("version")
+
     @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
-
-    /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
-     */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
 
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
-    /** The ID of the ledger transaction */
-    @JsonProperty("ledger_transaction_id")
-    @ExcludeMissing
-    fun _ledgerTransactionId() = ledgerTransactionId
-
     /** An optional description for internal use. */
     @JsonProperty("description") @ExcludeMissing fun _description() = description
-
-    /** One of `pending`, `posted`, or `archived`. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
-
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
 
     /**
      * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
@@ -192,17 +173,28 @@ private constructor(
     /** The date (YYYY-MM-DD) on which the ledger transaction happened for reporting purposes. */
     @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
 
+    /**
+     * A unique string to represent the ledger transaction. Only one pending or posted ledger
+     * transaction may have this ID in the ledger.
+     */
+    @JsonProperty("external_id") @ExcludeMissing fun _externalId() = externalId
+
     /** An array of ledger entry objects. */
     @JsonProperty("ledger_entries") @ExcludeMissing fun _ledgerEntries() = ledgerEntries
 
-    /**
-     * The time on which the ledger transaction posted. This is null if the ledger transaction is
-     * pending.
-     */
-    @JsonProperty("posted_at") @ExcludeMissing fun _postedAt() = postedAt
-
     /** The ID of the ledger this ledger transaction belongs to. */
     @JsonProperty("ledger_id") @ExcludeMissing fun _ledgerId() = ledgerId
+
+    /** The ID of the ledger transaction */
+    @JsonProperty("ledger_transaction_id")
+    @ExcludeMissing
+    fun _ledgerTransactionId() = ledgerTransactionId
+
+    /**
+     * If the ledger transaction can be reconciled to another object in Modern Treasury, the id will
+     * be populated here, otherwise null.
+     */
+    @JsonProperty("ledgerable_id") @ExcludeMissing fun _ledgerableId() = ledgerableId
 
     /**
      * If the ledger transaction can be reconciled to another object in Modern Treasury, the type
@@ -212,29 +204,37 @@ private constructor(
     @JsonProperty("ledgerable_type") @ExcludeMissing fun _ledgerableType() = ledgerableType
 
     /**
-     * If the ledger transaction can be reconciled to another object in Modern Treasury, the id will
-     * be populated here, otherwise null.
+     * This field will be true if this object exists in the live environment or false if it exists
+     * in the test environment.
      */
-    @JsonProperty("ledgerable_id") @ExcludeMissing fun _ledgerableId() = ledgerableId
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
     /**
-     * A unique string to represent the ledger transaction. Only one pending or posted ledger
-     * transaction may have this ID in the ledger.
+     * The time on which the ledger transaction posted. This is null if the ledger transaction is
+     * pending.
      */
-    @JsonProperty("external_id") @ExcludeMissing fun _externalId() = externalId
+    @JsonProperty("posted_at") @ExcludeMissing fun _postedAt() = postedAt
 
-    /** Version number of the ledger transaction. */
-    @JsonProperty("version") @ExcludeMissing fun _version() = version
+    /** The ID of the ledger transaction that reversed this ledger transaction. */
+    @JsonProperty("reversed_by_ledger_transaction_id")
+    @ExcludeMissing
+    fun _reversedByLedgerTransactionId() = reversedByLedgerTransactionId
 
     /** The ID of the original ledger transaction. that this ledger transaction reverses. */
     @JsonProperty("reverses_ledger_transaction_id")
     @ExcludeMissing
     fun _reversesLedgerTransactionId() = reversesLedgerTransactionId
 
-    /** The ID of the ledger transaction that reversed this ledger transaction. */
-    @JsonProperty("reversed_by_ledger_transaction_id")
-    @ExcludeMissing
-    fun _reversedByLedgerTransactionId() = reversedByLedgerTransactionId
+    /** One of `pending`, `posted`, or `archived`. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
+
+    /** Version number of the ledger transaction. */
+    @JsonProperty("version") @ExcludeMissing fun _version() = version
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -245,24 +245,24 @@ private constructor(
     fun validate(): LedgerTransactionVersion = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
             createdAt()
-            ledgerTransactionId()
             description()
-            status()
-            metadata().validate()
             effectiveAt()
             effectiveDate()
-            ledgerEntries().forEach { it.validate() }
-            postedAt()
-            ledgerId()
-            ledgerableType()
-            ledgerableId()
             externalId()
-            version()
-            reversesLedgerTransactionId()
+            ledgerEntries().forEach { it.validate() }
+            ledgerId()
+            ledgerTransactionId()
+            ledgerableId()
+            ledgerableType()
+            liveMode()
+            metadata().validate()
+            object_()
+            postedAt()
             reversedByLedgerTransactionId()
+            reversesLedgerTransactionId()
+            status()
+            version()
             validated = true
         }
     }
@@ -277,47 +277,47 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
         private var effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
+        private var externalId: JsonField<String> = JsonMissing.of()
         private var ledgerEntries: JsonField<List<LedgerEntryOfTransactionVersion>> =
             JsonMissing.of()
-        private var postedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var ledgerId: JsonField<String> = JsonMissing.of()
-        private var ledgerableType: JsonField<LedgerableType> = JsonMissing.of()
+        private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
         private var ledgerableId: JsonField<String> = JsonMissing.of()
-        private var externalId: JsonField<String> = JsonMissing.of()
-        private var version: JsonField<Long> = JsonMissing.of()
-        private var reversesLedgerTransactionId: JsonField<String> = JsonMissing.of()
+        private var ledgerableType: JsonField<LedgerableType> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var metadata: JsonField<Metadata> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
+        private var postedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var reversedByLedgerTransactionId: JsonField<String> = JsonMissing.of()
+        private var reversesLedgerTransactionId: JsonField<String> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
+        private var version: JsonField<Long> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerTransactionVersion: LedgerTransactionVersion) = apply {
             id = ledgerTransactionVersion.id
-            object_ = ledgerTransactionVersion.object_
-            liveMode = ledgerTransactionVersion.liveMode
             createdAt = ledgerTransactionVersion.createdAt
-            ledgerTransactionId = ledgerTransactionVersion.ledgerTransactionId
             description = ledgerTransactionVersion.description
-            status = ledgerTransactionVersion.status
-            metadata = ledgerTransactionVersion.metadata
             effectiveAt = ledgerTransactionVersion.effectiveAt
             effectiveDate = ledgerTransactionVersion.effectiveDate
-            ledgerEntries = ledgerTransactionVersion.ledgerEntries
-            postedAt = ledgerTransactionVersion.postedAt
-            ledgerId = ledgerTransactionVersion.ledgerId
-            ledgerableType = ledgerTransactionVersion.ledgerableType
-            ledgerableId = ledgerTransactionVersion.ledgerableId
             externalId = ledgerTransactionVersion.externalId
-            version = ledgerTransactionVersion.version
-            reversesLedgerTransactionId = ledgerTransactionVersion.reversesLedgerTransactionId
+            ledgerEntries = ledgerTransactionVersion.ledgerEntries
+            ledgerId = ledgerTransactionVersion.ledgerId
+            ledgerTransactionId = ledgerTransactionVersion.ledgerTransactionId
+            ledgerableId = ledgerTransactionVersion.ledgerableId
+            ledgerableType = ledgerTransactionVersion.ledgerableType
+            liveMode = ledgerTransactionVersion.liveMode
+            metadata = ledgerTransactionVersion.metadata
+            object_ = ledgerTransactionVersion.object_
+            postedAt = ledgerTransactionVersion.postedAt
             reversedByLedgerTransactionId = ledgerTransactionVersion.reversedByLedgerTransactionId
+            reversesLedgerTransactionId = ledgerTransactionVersion.reversesLedgerTransactionId
+            status = ledgerTransactionVersion.status
+            version = ledgerTransactionVersion.version
             additionalProperties = ledgerTransactionVersion.additionalProperties.toMutableMap()
         }
 
@@ -325,56 +325,15 @@ private constructor(
 
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun object_(object_: String) = object_(JsonField.of(object_))
-
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
-
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        /** The ID of the ledger transaction */
-        fun ledgerTransactionId(ledgerTransactionId: String) =
-            ledgerTransactionId(JsonField.of(ledgerTransactionId))
-
-        /** The ID of the ledger transaction */
-        fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
-            this.ledgerTransactionId = ledgerTransactionId
-        }
 
         /** An optional description for internal use. */
         fun description(description: String) = description(JsonField.of(description))
 
         /** An optional description for internal use. */
         fun description(description: JsonField<String>) = apply { this.description = description }
-
-        /** One of `pending`, `posted`, or `archived`. */
-        fun status(status: Status) = status(JsonField.of(status))
-
-        /** One of `pending`, `posted`, or `archived`. */
-        fun status(status: JsonField<Status>) = apply { this.status = status }
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         /**
          * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
@@ -402,6 +361,18 @@ private constructor(
             this.effectiveDate = effectiveDate
         }
 
+        /**
+         * A unique string to represent the ledger transaction. Only one pending or posted ledger
+         * transaction may have this ID in the ledger.
+         */
+        fun externalId(externalId: String) = externalId(JsonField.of(externalId))
+
+        /**
+         * A unique string to represent the ledger transaction. Only one pending or posted ledger
+         * transaction may have this ID in the ledger.
+         */
+        fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
+
         /** An array of ledger entry objects. */
         fun ledgerEntries(ledgerEntries: List<LedgerEntryOfTransactionVersion>) =
             ledgerEntries(JsonField.of(ledgerEntries))
@@ -411,23 +382,34 @@ private constructor(
             this.ledgerEntries = ledgerEntries
         }
 
-        /**
-         * The time on which the ledger transaction posted. This is null if the ledger transaction
-         * is pending.
-         */
-        fun postedAt(postedAt: OffsetDateTime) = postedAt(JsonField.of(postedAt))
-
-        /**
-         * The time on which the ledger transaction posted. This is null if the ledger transaction
-         * is pending.
-         */
-        fun postedAt(postedAt: JsonField<OffsetDateTime>) = apply { this.postedAt = postedAt }
-
         /** The ID of the ledger this ledger transaction belongs to. */
         fun ledgerId(ledgerId: String) = ledgerId(JsonField.of(ledgerId))
 
         /** The ID of the ledger this ledger transaction belongs to. */
         fun ledgerId(ledgerId: JsonField<String>) = apply { this.ledgerId = ledgerId }
+
+        /** The ID of the ledger transaction */
+        fun ledgerTransactionId(ledgerTransactionId: String) =
+            ledgerTransactionId(JsonField.of(ledgerTransactionId))
+
+        /** The ID of the ledger transaction */
+        fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
+            this.ledgerTransactionId = ledgerTransactionId
+        }
+
+        /**
+         * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
+         * will be populated here, otherwise null.
+         */
+        fun ledgerableId(ledgerableId: String) = ledgerableId(JsonField.of(ledgerableId))
+
+        /**
+         * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
+         * will be populated here, otherwise null.
+         */
+        fun ledgerableId(ledgerableId: JsonField<String>) = apply {
+            this.ledgerableId = ledgerableId
+        }
 
         /**
          * If the ledger transaction can be reconciled to another object in Modern Treasury, the
@@ -447,45 +429,42 @@ private constructor(
         }
 
         /**
-         * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
-         * will be populated here, otherwise null.
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
          */
-        fun ledgerableId(ledgerableId: String) = ledgerableId(JsonField.of(ledgerableId))
+        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
-         * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
-         * will be populated here, otherwise null.
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
          */
-        fun ledgerableId(ledgerableId: JsonField<String>) = apply {
-            this.ledgerableId = ledgerableId
-        }
+        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         /**
-         * A unique string to represent the ledger transaction. Only one pending or posted ledger
-         * transaction may have this ID in the ledger.
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun externalId(externalId: String) = externalId(JsonField.of(externalId))
+        fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
         /**
-         * A unique string to represent the ledger transaction. Only one pending or posted ledger
-         * transaction may have this ID in the ledger.
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
+        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
-        /** Version number of the ledger transaction. */
-        fun version(version: Long) = version(JsonField.of(version))
+        fun object_(object_: String) = object_(JsonField.of(object_))
 
-        /** Version number of the ledger transaction. */
-        fun version(version: JsonField<Long>) = apply { this.version = version }
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
-        /** The ID of the original ledger transaction. that this ledger transaction reverses. */
-        fun reversesLedgerTransactionId(reversesLedgerTransactionId: String) =
-            reversesLedgerTransactionId(JsonField.of(reversesLedgerTransactionId))
+        /**
+         * The time on which the ledger transaction posted. This is null if the ledger transaction
+         * is pending.
+         */
+        fun postedAt(postedAt: OffsetDateTime) = postedAt(JsonField.of(postedAt))
 
-        /** The ID of the original ledger transaction. that this ledger transaction reverses. */
-        fun reversesLedgerTransactionId(reversesLedgerTransactionId: JsonField<String>) = apply {
-            this.reversesLedgerTransactionId = reversesLedgerTransactionId
-        }
+        /**
+         * The time on which the ledger transaction posted. This is null if the ledger transaction
+         * is pending.
+         */
+        fun postedAt(postedAt: JsonField<OffsetDateTime>) = apply { this.postedAt = postedAt }
 
         /** The ID of the ledger transaction that reversed this ledger transaction. */
         fun reversedByLedgerTransactionId(reversedByLedgerTransactionId: String) =
@@ -496,6 +475,27 @@ private constructor(
             apply {
                 this.reversedByLedgerTransactionId = reversedByLedgerTransactionId
             }
+
+        /** The ID of the original ledger transaction. that this ledger transaction reverses. */
+        fun reversesLedgerTransactionId(reversesLedgerTransactionId: String) =
+            reversesLedgerTransactionId(JsonField.of(reversesLedgerTransactionId))
+
+        /** The ID of the original ledger transaction. that this ledger transaction reverses. */
+        fun reversesLedgerTransactionId(reversesLedgerTransactionId: JsonField<String>) = apply {
+            this.reversesLedgerTransactionId = reversesLedgerTransactionId
+        }
+
+        /** One of `pending`, `posted`, or `archived`. */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /** One of `pending`, `posted`, or `archived`. */
+        fun status(status: JsonField<Status>) = apply { this.status = status }
+
+        /** Version number of the ledger transaction. */
+        fun version(version: Long) = version(JsonField.of(version))
+
+        /** Version number of the ledger transaction. */
+        fun version(version: JsonField<Long>) = apply { this.version = version }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -519,24 +519,24 @@ private constructor(
         fun build(): LedgerTransactionVersion =
             LedgerTransactionVersion(
                 id,
-                object_,
-                liveMode,
                 createdAt,
-                ledgerTransactionId,
                 description,
-                status,
-                metadata,
                 effectiveAt,
                 effectiveDate,
-                ledgerEntries.map { it.toImmutable() },
-                postedAt,
-                ledgerId,
-                ledgerableType,
-                ledgerableId,
                 externalId,
-                version,
-                reversesLedgerTransactionId,
+                ledgerEntries.map { it.toImmutable() },
+                ledgerId,
+                ledgerTransactionId,
+                ledgerableId,
+                ledgerableType,
+                liveMode,
+                metadata,
+                object_,
+                postedAt,
                 reversedByLedgerTransactionId,
+                reversesLedgerTransactionId,
+                status,
+                version,
                 additionalProperties.toImmutable(),
             )
     }
@@ -546,66 +546,58 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("object")
-        @ExcludeMissing
-        private val object_: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("live_mode")
-        @ExcludeMissing
-        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("amount")
         @ExcludeMissing
         private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("direction")
         @ExcludeMissing
         private val direction: JsonField<TransactionDirection> = JsonMissing.of(),
-        @JsonProperty("status")
-        @ExcludeMissing
-        private val status: JsonField<Status> = JsonMissing.of(),
-        @JsonProperty("ledger_account_id")
-        @ExcludeMissing
-        private val ledgerAccountId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("ledger_account_lock_version")
-        @ExcludeMissing
-        private val ledgerAccountLockVersion: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("ledger_account_currency")
         @ExcludeMissing
         private val ledgerAccountCurrency: JsonField<String> = JsonMissing.of(),
         @JsonProperty("ledger_account_currency_exponent")
         @ExcludeMissing
         private val ledgerAccountCurrencyExponent: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("ledger_account_id")
+        @ExcludeMissing
+        private val ledgerAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("ledger_account_lock_version")
+        @ExcludeMissing
+        private val ledgerAccountLockVersion: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("ledger_transaction_id")
         @ExcludeMissing
         private val ledgerTransactionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("live_mode")
+        @ExcludeMissing
+        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("metadata")
         @ExcludeMissing
         private val metadata: JsonField<Metadata> = JsonMissing.of(),
+        @JsonProperty("object")
+        @ExcludeMissing
+        private val object_: JsonField<String> = JsonMissing.of(),
         @JsonProperty("resulting_ledger_account_balances")
         @ExcludeMissing
         private val resultingLedgerAccountBalances: JsonField<LedgerBalances> = JsonMissing.of(),
+        @JsonProperty("status")
+        @ExcludeMissing
+        private val status: JsonField<Status> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         fun id(): String = id.getRequired("id")
 
-        fun object_(): String = object_.getRequired("object")
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(): Boolean = liveMode.getRequired("live_mode")
-
-        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
         /**
          * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can
          * be any integer up to 36 digits.
          */
         fun amount(): Long = amount.getRequired("amount")
+
+        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
         /**
          * One of `credit`, `debit`. Describes the direction money is flowing in the transaction. A
@@ -615,11 +607,13 @@ private constructor(
          */
         fun direction(): TransactionDirection = direction.getRequired("direction")
 
-        /**
-         * Equal to the state of the ledger transaction when the ledger entry was created. One of
-         * `pending`, `posted`, or `archived`.
-         */
-        fun status(): Status = status.getRequired("status")
+        /** The currency of the ledger account. */
+        fun ledgerAccountCurrency(): String =
+            ledgerAccountCurrency.getRequired("ledger_account_currency")
+
+        /** The currency exponent of the ledger account. */
+        fun ledgerAccountCurrencyExponent(): Long =
+            ledgerAccountCurrencyExponent.getRequired("ledger_account_currency_exponent")
 
         /** The ledger account that this ledger entry is associated with. */
         fun ledgerAccountId(): String = ledgerAccountId.getRequired("ledger_account_id")
@@ -632,21 +626,21 @@ private constructor(
         fun ledgerAccountLockVersion(): Long? =
             ledgerAccountLockVersion.getNullable("ledger_account_lock_version")
 
-        /** The currency of the ledger account. */
-        fun ledgerAccountCurrency(): String =
-            ledgerAccountCurrency.getRequired("ledger_account_currency")
-
-        /** The currency exponent of the ledger account. */
-        fun ledgerAccountCurrencyExponent(): Long =
-            ledgerAccountCurrencyExponent.getRequired("ledger_account_currency_exponent")
-
         /** The ledger transaction that this ledger entry is associated with. */
         fun ledgerTransactionId(): String = ledgerTransactionId.getRequired("ledger_transaction_id")
+
+        /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
         fun metadata(): Metadata = metadata.getRequired("metadata")
+
+        fun object_(): String = object_.getRequired("object")
 
         /**
          * The pending, posted, and available balances for this ledger entry's ledger account. The
@@ -659,23 +653,21 @@ private constructor(
         fun resultingLedgerAccountBalances(): LedgerBalances? =
             resultingLedgerAccountBalances.getNullable("resulting_ledger_account_balances")
 
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
-
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Equal to the state of the ledger transaction when the ledger entry was created. One of
+         * `pending`, `posted`, or `archived`.
          */
-        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+        fun status(): Status = status.getRequired("status")
 
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+        @JsonProperty("id") @ExcludeMissing fun _id() = id
 
         /**
          * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can
          * be any integer up to 36 digits.
          */
         @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
         /**
          * One of `credit`, `debit`. Describes the direction money is flowing in the transaction. A
@@ -685,11 +677,15 @@ private constructor(
          */
         @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
 
-        /**
-         * Equal to the state of the ledger transaction when the ledger entry was created. One of
-         * `pending`, `posted`, or `archived`.
-         */
-        @JsonProperty("status") @ExcludeMissing fun _status() = status
+        /** The currency of the ledger account. */
+        @JsonProperty("ledger_account_currency")
+        @ExcludeMissing
+        fun _ledgerAccountCurrency() = ledgerAccountCurrency
+
+        /** The currency exponent of the ledger account. */
+        @JsonProperty("ledger_account_currency_exponent")
+        @ExcludeMissing
+        fun _ledgerAccountCurrencyExponent() = ledgerAccountCurrencyExponent
 
         /** The ledger account that this ledger entry is associated with. */
         @JsonProperty("ledger_account_id") @ExcludeMissing fun _ledgerAccountId() = ledgerAccountId
@@ -703,25 +699,23 @@ private constructor(
         @ExcludeMissing
         fun _ledgerAccountLockVersion() = ledgerAccountLockVersion
 
-        /** The currency of the ledger account. */
-        @JsonProperty("ledger_account_currency")
-        @ExcludeMissing
-        fun _ledgerAccountCurrency() = ledgerAccountCurrency
-
-        /** The currency exponent of the ledger account. */
-        @JsonProperty("ledger_account_currency_exponent")
-        @ExcludeMissing
-        fun _ledgerAccountCurrencyExponent() = ledgerAccountCurrencyExponent
-
         /** The ledger transaction that this ledger entry is associated with. */
         @JsonProperty("ledger_transaction_id")
         @ExcludeMissing
         fun _ledgerTransactionId() = ledgerTransactionId
 
         /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+
+        /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
         @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+
+        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
         /**
          * The pending, posted, and available balances for this ledger entry's ledger account. The
@@ -735,6 +729,12 @@ private constructor(
         @ExcludeMissing
         fun _resultingLedgerAccountBalances() = resultingLedgerAccountBalances
 
+        /**
+         * Equal to the state of the ledger transaction when the ledger entry was created. One of
+         * `pending`, `posted`, or `archived`.
+         */
+        @JsonProperty("status") @ExcludeMissing fun _status() = status
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -744,19 +744,19 @@ private constructor(
         fun validate(): LedgerEntryOfTransactionVersion = apply {
             if (!validated) {
                 id()
-                object_()
-                liveMode()
-                createdAt()
                 amount()
+                createdAt()
                 direction()
-                status()
-                ledgerAccountId()
-                ledgerAccountLockVersion()
                 ledgerAccountCurrency()
                 ledgerAccountCurrencyExponent()
+                ledgerAccountId()
+                ledgerAccountLockVersion()
                 ledgerTransactionId()
+                liveMode()
                 metadata().validate()
+                object_()
                 resultingLedgerAccountBalances()?.validate()
+                status()
                 validated = true
             }
         }
@@ -771,40 +771,40 @@ private constructor(
         class Builder {
 
             private var id: JsonField<String> = JsonMissing.of()
-            private var object_: JsonField<String> = JsonMissing.of()
-            private var liveMode: JsonField<Boolean> = JsonMissing.of()
-            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var amount: JsonField<Long> = JsonMissing.of()
+            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var direction: JsonField<TransactionDirection> = JsonMissing.of()
-            private var status: JsonField<Status> = JsonMissing.of()
-            private var ledgerAccountId: JsonField<String> = JsonMissing.of()
-            private var ledgerAccountLockVersion: JsonField<Long> = JsonMissing.of()
             private var ledgerAccountCurrency: JsonField<String> = JsonMissing.of()
             private var ledgerAccountCurrencyExponent: JsonField<Long> = JsonMissing.of()
+            private var ledgerAccountId: JsonField<String> = JsonMissing.of()
+            private var ledgerAccountLockVersion: JsonField<Long> = JsonMissing.of()
             private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
+            private var liveMode: JsonField<Boolean> = JsonMissing.of()
             private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var object_: JsonField<String> = JsonMissing.of()
             private var resultingLedgerAccountBalances: JsonField<LedgerBalances> = JsonMissing.of()
+            private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerEntryOfTransactionVersion: LedgerEntryOfTransactionVersion) =
                 apply {
                     id = ledgerEntryOfTransactionVersion.id
-                    object_ = ledgerEntryOfTransactionVersion.object_
-                    liveMode = ledgerEntryOfTransactionVersion.liveMode
-                    createdAt = ledgerEntryOfTransactionVersion.createdAt
                     amount = ledgerEntryOfTransactionVersion.amount
+                    createdAt = ledgerEntryOfTransactionVersion.createdAt
                     direction = ledgerEntryOfTransactionVersion.direction
-                    status = ledgerEntryOfTransactionVersion.status
-                    ledgerAccountId = ledgerEntryOfTransactionVersion.ledgerAccountId
-                    ledgerAccountLockVersion =
-                        ledgerEntryOfTransactionVersion.ledgerAccountLockVersion
                     ledgerAccountCurrency = ledgerEntryOfTransactionVersion.ledgerAccountCurrency
                     ledgerAccountCurrencyExponent =
                         ledgerEntryOfTransactionVersion.ledgerAccountCurrencyExponent
+                    ledgerAccountId = ledgerEntryOfTransactionVersion.ledgerAccountId
+                    ledgerAccountLockVersion =
+                        ledgerEntryOfTransactionVersion.ledgerAccountLockVersion
                     ledgerTransactionId = ledgerEntryOfTransactionVersion.ledgerTransactionId
+                    liveMode = ledgerEntryOfTransactionVersion.liveMode
                     metadata = ledgerEntryOfTransactionVersion.metadata
+                    object_ = ledgerEntryOfTransactionVersion.object_
                     resultingLedgerAccountBalances =
                         ledgerEntryOfTransactionVersion.resultingLedgerAccountBalances
+                    status = ledgerEntryOfTransactionVersion.status
                     additionalProperties =
                         ledgerEntryOfTransactionVersion.additionalProperties.toMutableMap()
                 }
@@ -812,28 +812,6 @@ private constructor(
             fun id(id: String) = id(JsonField.of(id))
 
             fun id(id: JsonField<String>) = apply { this.id = id }
-
-            fun object_(object_: String) = object_(JsonField.of(object_))
-
-            fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
-
-            /**
-             * This field will be true if this object exists in the live environment or false if it
-             * exists in the test environment.
-             */
-            fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
-
-            /**
-             * This field will be true if this object exists in the live environment or false if it
-             * exists in the test environment.
-             */
-            fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
-
-            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-                this.createdAt = createdAt
-            }
 
             /**
              * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
@@ -846,6 +824,12 @@ private constructor(
              * Can be any integer up to 36 digits.
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                this.createdAt = createdAt
+            }
 
             /**
              * One of `credit`, `debit`. Describes the direction money is flowing in the
@@ -865,17 +849,24 @@ private constructor(
                 this.direction = direction
             }
 
-            /**
-             * Equal to the state of the ledger transaction when the ledger entry was created. One
-             * of `pending`, `posted`, or `archived`.
-             */
-            fun status(status: Status) = status(JsonField.of(status))
+            /** The currency of the ledger account. */
+            fun ledgerAccountCurrency(ledgerAccountCurrency: String) =
+                ledgerAccountCurrency(JsonField.of(ledgerAccountCurrency))
 
-            /**
-             * Equal to the state of the ledger transaction when the ledger entry was created. One
-             * of `pending`, `posted`, or `archived`.
-             */
-            fun status(status: JsonField<Status>) = apply { this.status = status }
+            /** The currency of the ledger account. */
+            fun ledgerAccountCurrency(ledgerAccountCurrency: JsonField<String>) = apply {
+                this.ledgerAccountCurrency = ledgerAccountCurrency
+            }
+
+            /** The currency exponent of the ledger account. */
+            fun ledgerAccountCurrencyExponent(ledgerAccountCurrencyExponent: Long) =
+                ledgerAccountCurrencyExponent(JsonField.of(ledgerAccountCurrencyExponent))
+
+            /** The currency exponent of the ledger account. */
+            fun ledgerAccountCurrencyExponent(ledgerAccountCurrencyExponent: JsonField<Long>) =
+                apply {
+                    this.ledgerAccountCurrencyExponent = ledgerAccountCurrencyExponent
+                }
 
             /** The ledger account that this ledger entry is associated with. */
             fun ledgerAccountId(ledgerAccountId: String) =
@@ -905,25 +896,6 @@ private constructor(
                 this.ledgerAccountLockVersion = ledgerAccountLockVersion
             }
 
-            /** The currency of the ledger account. */
-            fun ledgerAccountCurrency(ledgerAccountCurrency: String) =
-                ledgerAccountCurrency(JsonField.of(ledgerAccountCurrency))
-
-            /** The currency of the ledger account. */
-            fun ledgerAccountCurrency(ledgerAccountCurrency: JsonField<String>) = apply {
-                this.ledgerAccountCurrency = ledgerAccountCurrency
-            }
-
-            /** The currency exponent of the ledger account. */
-            fun ledgerAccountCurrencyExponent(ledgerAccountCurrencyExponent: Long) =
-                ledgerAccountCurrencyExponent(JsonField.of(ledgerAccountCurrencyExponent))
-
-            /** The currency exponent of the ledger account. */
-            fun ledgerAccountCurrencyExponent(ledgerAccountCurrencyExponent: JsonField<Long>) =
-                apply {
-                    this.ledgerAccountCurrencyExponent = ledgerAccountCurrencyExponent
-                }
-
             /** The ledger transaction that this ledger entry is associated with. */
             fun ledgerTransactionId(ledgerTransactionId: String) =
                 ledgerTransactionId(JsonField.of(ledgerTransactionId))
@@ -932,6 +904,18 @@ private constructor(
             fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
                 this.ledgerTransactionId = ledgerTransactionId
             }
+
+            /**
+             * This field will be true if this object exists in the live environment or false if it
+             * exists in the test environment.
+             */
+            fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
+
+            /**
+             * This field will be true if this object exists in the live environment or false if it
+             * exists in the test environment.
+             */
+            fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
@@ -944,6 +928,10 @@ private constructor(
              * strings.
              */
             fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+            fun object_(object_: String) = object_(JsonField.of(object_))
+
+            fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
             /**
              * The pending, posted, and available balances for this ledger entry's ledger account.
@@ -970,6 +958,18 @@ private constructor(
                 resultingLedgerAccountBalances: JsonField<LedgerBalances>
             ) = apply { this.resultingLedgerAccountBalances = resultingLedgerAccountBalances }
 
+            /**
+             * Equal to the state of the ledger transaction when the ledger entry was created. One
+             * of `pending`, `posted`, or `archived`.
+             */
+            fun status(status: Status) = status(JsonField.of(status))
+
+            /**
+             * Equal to the state of the ledger transaction when the ledger entry was created. One
+             * of `pending`, `posted`, or `archived`.
+             */
+            fun status(status: JsonField<Status>) = apply { this.status = status }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -992,19 +992,19 @@ private constructor(
             fun build(): LedgerEntryOfTransactionVersion =
                 LedgerEntryOfTransactionVersion(
                     id,
-                    object_,
-                    liveMode,
-                    createdAt,
                     amount,
+                    createdAt,
                     direction,
-                    status,
-                    ledgerAccountId,
-                    ledgerAccountLockVersion,
                     ledgerAccountCurrency,
                     ledgerAccountCurrencyExponent,
+                    ledgerAccountId,
+                    ledgerAccountLockVersion,
                     ledgerTransactionId,
+                    liveMode,
                     metadata,
+                    object_,
                     resultingLedgerAccountBalances,
+                    status,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1101,18 +1101,26 @@ private constructor(
         class LedgerBalances
         @JsonCreator
         private constructor(
+            @JsonProperty("available_balance")
+            @ExcludeMissing
+            private val availableBalance: JsonField<LedgerBalance> = JsonMissing.of(),
             @JsonProperty("pending_balance")
             @ExcludeMissing
             private val pendingBalance: JsonField<LedgerBalance> = JsonMissing.of(),
             @JsonProperty("posted_balance")
             @ExcludeMissing
             private val postedBalance: JsonField<LedgerBalance> = JsonMissing.of(),
-            @JsonProperty("available_balance")
-            @ExcludeMissing
-            private val availableBalance: JsonField<LedgerBalance> = JsonMissing.of(),
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
+
+            /**
+             * The available_balance is the sum of all posted inbound entries and pending outbound
+             * entries. For credit normal, available_amount = posted_credits - pending_debits; for
+             * debit normal, available_amount = posted_debits - pending_credits.
+             */
+            fun availableBalance(): LedgerBalance =
+                availableBalance.getRequired("available_balance")
 
             /** The pending_balance is the sum of all pending and posted entries. */
             fun pendingBalance(): LedgerBalance = pendingBalance.getRequired("pending_balance")
@@ -1125,23 +1133,15 @@ private constructor(
              * entries. For credit normal, available_amount = posted_credits - pending_debits; for
              * debit normal, available_amount = posted_debits - pending_credits.
              */
-            fun availableBalance(): LedgerBalance =
-                availableBalance.getRequired("available_balance")
+            @JsonProperty("available_balance")
+            @ExcludeMissing
+            fun _availableBalance() = availableBalance
 
             /** The pending_balance is the sum of all pending and posted entries. */
             @JsonProperty("pending_balance") @ExcludeMissing fun _pendingBalance() = pendingBalance
 
             /** The posted_balance is the sum of all posted entries. */
             @JsonProperty("posted_balance") @ExcludeMissing fun _postedBalance() = postedBalance
-
-            /**
-             * The available_balance is the sum of all posted inbound entries and pending outbound
-             * entries. For credit normal, available_amount = posted_credits - pending_debits; for
-             * debit normal, available_amount = posted_debits - pending_credits.
-             */
-            @JsonProperty("available_balance")
-            @ExcludeMissing
-            fun _availableBalance() = availableBalance
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1151,9 +1151,9 @@ private constructor(
 
             fun validate(): LedgerBalances = apply {
                 if (!validated) {
+                    availableBalance().validate()
                     pendingBalance().validate()
                     postedBalance().validate()
-                    availableBalance().validate()
                     validated = true
                 }
             }
@@ -1167,34 +1167,16 @@ private constructor(
 
             class Builder {
 
+                private var availableBalance: JsonField<LedgerBalance> = JsonMissing.of()
                 private var pendingBalance: JsonField<LedgerBalance> = JsonMissing.of()
                 private var postedBalance: JsonField<LedgerBalance> = JsonMissing.of()
-                private var availableBalance: JsonField<LedgerBalance> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(ledgerBalances: LedgerBalances) = apply {
+                    availableBalance = ledgerBalances.availableBalance
                     pendingBalance = ledgerBalances.pendingBalance
                     postedBalance = ledgerBalances.postedBalance
-                    availableBalance = ledgerBalances.availableBalance
                     additionalProperties = ledgerBalances.additionalProperties.toMutableMap()
-                }
-
-                /** The pending_balance is the sum of all pending and posted entries. */
-                fun pendingBalance(pendingBalance: LedgerBalance) =
-                    pendingBalance(JsonField.of(pendingBalance))
-
-                /** The pending_balance is the sum of all pending and posted entries. */
-                fun pendingBalance(pendingBalance: JsonField<LedgerBalance>) = apply {
-                    this.pendingBalance = pendingBalance
-                }
-
-                /** The posted_balance is the sum of all posted entries. */
-                fun postedBalance(postedBalance: LedgerBalance) =
-                    postedBalance(JsonField.of(postedBalance))
-
-                /** The posted_balance is the sum of all posted entries. */
-                fun postedBalance(postedBalance: JsonField<LedgerBalance>) = apply {
-                    this.postedBalance = postedBalance
                 }
 
                 /**
@@ -1214,6 +1196,24 @@ private constructor(
                  */
                 fun availableBalance(availableBalance: JsonField<LedgerBalance>) = apply {
                     this.availableBalance = availableBalance
+                }
+
+                /** The pending_balance is the sum of all pending and posted entries. */
+                fun pendingBalance(pendingBalance: LedgerBalance) =
+                    pendingBalance(JsonField.of(pendingBalance))
+
+                /** The pending_balance is the sum of all pending and posted entries. */
+                fun pendingBalance(pendingBalance: JsonField<LedgerBalance>) = apply {
+                    this.pendingBalance = pendingBalance
+                }
+
+                /** The posted_balance is the sum of all posted entries. */
+                fun postedBalance(postedBalance: LedgerBalance) =
+                    postedBalance(JsonField.of(postedBalance))
+
+                /** The posted_balance is the sum of all posted entries. */
+                fun postedBalance(postedBalance: JsonField<LedgerBalance>) = apply {
+                    this.postedBalance = postedBalance
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1240,9 +1240,9 @@ private constructor(
 
                 fun build(): LedgerBalances =
                     LedgerBalances(
+                        availableBalance,
                         pendingBalance,
                         postedBalance,
-                        availableBalance,
                         additionalProperties.toImmutable(),
                     )
             }
@@ -1256,30 +1256,28 @@ private constructor(
             class LedgerBalance
             @JsonCreator
             private constructor(
-                @JsonProperty("credits")
-                @ExcludeMissing
-                private val credits: JsonField<Long> = JsonMissing.of(),
-                @JsonProperty("debits")
-                @ExcludeMissing
-                private val debits: JsonField<Long> = JsonMissing.of(),
                 @JsonProperty("amount")
                 @ExcludeMissing
                 private val amount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("credits")
+                @ExcludeMissing
+                private val credits: JsonField<Long> = JsonMissing.of(),
                 @JsonProperty("currency")
                 @ExcludeMissing
                 private val currency: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("currency_exponent")
                 @ExcludeMissing
                 private val currencyExponent: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("debits")
+                @ExcludeMissing
+                private val debits: JsonField<Long> = JsonMissing.of(),
                 @JsonAnySetter
                 private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
             ) {
 
-                fun credits(): Long = credits.getRequired("credits")
-
-                fun debits(): Long = debits.getRequired("debits")
-
                 fun amount(): Long = amount.getRequired("amount")
+
+                fun credits(): Long = credits.getRequired("credits")
 
                 /** The currency of the ledger account. */
                 fun currency(): String = currency.getRequired("currency")
@@ -1287,11 +1285,11 @@ private constructor(
                 /** The currency exponent of the ledger account. */
                 fun currencyExponent(): Long = currencyExponent.getRequired("currency_exponent")
 
-                @JsonProperty("credits") @ExcludeMissing fun _credits() = credits
-
-                @JsonProperty("debits") @ExcludeMissing fun _debits() = debits
+                fun debits(): Long = debits.getRequired("debits")
 
                 @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+                @JsonProperty("credits") @ExcludeMissing fun _credits() = credits
 
                 /** The currency of the ledger account. */
                 @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
@@ -1301,6 +1299,8 @@ private constructor(
                 @ExcludeMissing
                 fun _currencyExponent() = currencyExponent
 
+                @JsonProperty("debits") @ExcludeMissing fun _debits() = debits
+
                 @JsonAnyGetter
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -1309,11 +1309,11 @@ private constructor(
 
                 fun validate(): LedgerBalance = apply {
                     if (!validated) {
-                        credits()
-                        debits()
                         amount()
+                        credits()
                         currency()
                         currencyExponent()
+                        debits()
                         validated = true
                     }
                 }
@@ -1327,33 +1327,29 @@ private constructor(
 
                 class Builder {
 
-                    private var credits: JsonField<Long> = JsonMissing.of()
-                    private var debits: JsonField<Long> = JsonMissing.of()
                     private var amount: JsonField<Long> = JsonMissing.of()
+                    private var credits: JsonField<Long> = JsonMissing.of()
                     private var currency: JsonField<String> = JsonMissing.of()
                     private var currencyExponent: JsonField<Long> = JsonMissing.of()
+                    private var debits: JsonField<Long> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(ledgerBalance: LedgerBalance) = apply {
-                        credits = ledgerBalance.credits
-                        debits = ledgerBalance.debits
                         amount = ledgerBalance.amount
+                        credits = ledgerBalance.credits
                         currency = ledgerBalance.currency
                         currencyExponent = ledgerBalance.currencyExponent
+                        debits = ledgerBalance.debits
                         additionalProperties = ledgerBalance.additionalProperties.toMutableMap()
                     }
-
-                    fun credits(credits: Long) = credits(JsonField.of(credits))
-
-                    fun credits(credits: JsonField<Long>) = apply { this.credits = credits }
-
-                    fun debits(debits: Long) = debits(JsonField.of(debits))
-
-                    fun debits(debits: JsonField<Long>) = apply { this.debits = debits }
 
                     fun amount(amount: Long) = amount(JsonField.of(amount))
 
                     fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                    fun credits(credits: Long) = credits(JsonField.of(credits))
+
+                    fun credits(credits: JsonField<Long>) = apply { this.credits = credits }
 
                     /** The currency of the ledger account. */
                     fun currency(currency: String) = currency(JsonField.of(currency))
@@ -1369,6 +1365,10 @@ private constructor(
                     fun currencyExponent(currencyExponent: JsonField<Long>) = apply {
                         this.currencyExponent = currencyExponent
                     }
+
+                    fun debits(debits: Long) = debits(JsonField.of(debits))
+
+                    fun debits(debits: JsonField<Long>) = apply { this.debits = debits }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -1394,11 +1394,11 @@ private constructor(
 
                     fun build(): LedgerBalance =
                         LedgerBalance(
-                            credits,
-                            debits,
                             amount,
+                            credits,
                             currency,
                             currencyExponent,
+                            debits,
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -1408,17 +1408,17 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is LedgerBalance && credits == other.credits && debits == other.debits && amount == other.amount && currency == other.currency && currencyExponent == other.currencyExponent && additionalProperties == other.additionalProperties /* spotless:on */
+                    return /* spotless:off */ other is LedgerBalance && amount == other.amount && credits == other.credits && currency == other.currency && currencyExponent == other.currencyExponent && debits == other.debits && additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
                 /* spotless:off */
-                private val hashCode: Int by lazy { Objects.hash(credits, debits, amount, currency, currencyExponent, additionalProperties) }
+                private val hashCode: Int by lazy { Objects.hash(amount, credits, currency, currencyExponent, debits, additionalProperties) }
                 /* spotless:on */
 
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "LedgerBalance{credits=$credits, debits=$debits, amount=$amount, currency=$currency, currencyExponent=$currencyExponent, additionalProperties=$additionalProperties}"
+                    "LedgerBalance{amount=$amount, credits=$credits, currency=$currency, currencyExponent=$currencyExponent, debits=$debits, additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1426,17 +1426,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is LedgerBalances && pendingBalance == other.pendingBalance && postedBalance == other.postedBalance && availableBalance == other.availableBalance && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is LedgerBalances && availableBalance == other.availableBalance && pendingBalance == other.pendingBalance && postedBalance == other.postedBalance && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(pendingBalance, postedBalance, availableBalance, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(availableBalance, pendingBalance, postedBalance, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "LedgerBalances{pendingBalance=$pendingBalance, postedBalance=$postedBalance, availableBalance=$availableBalance, additionalProperties=$additionalProperties}"
+                "LedgerBalances{availableBalance=$availableBalance, pendingBalance=$pendingBalance, postedBalance=$postedBalance, additionalProperties=$additionalProperties}"
         }
 
         class Status
@@ -1507,17 +1507,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerEntryOfTransactionVersion && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && amount == other.amount && direction == other.direction && status == other.status && ledgerAccountId == other.ledgerAccountId && ledgerAccountLockVersion == other.ledgerAccountLockVersion && ledgerAccountCurrency == other.ledgerAccountCurrency && ledgerAccountCurrencyExponent == other.ledgerAccountCurrencyExponent && ledgerTransactionId == other.ledgerTransactionId && metadata == other.metadata && resultingLedgerAccountBalances == other.resultingLedgerAccountBalances && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerEntryOfTransactionVersion && id == other.id && amount == other.amount && createdAt == other.createdAt && direction == other.direction && ledgerAccountCurrency == other.ledgerAccountCurrency && ledgerAccountCurrencyExponent == other.ledgerAccountCurrencyExponent && ledgerAccountId == other.ledgerAccountId && ledgerAccountLockVersion == other.ledgerAccountLockVersion && ledgerTransactionId == other.ledgerTransactionId && liveMode == other.liveMode && metadata == other.metadata && object_ == other.object_ && resultingLedgerAccountBalances == other.resultingLedgerAccountBalances && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, amount, direction, status, ledgerAccountId, ledgerAccountLockVersion, ledgerAccountCurrency, ledgerAccountCurrencyExponent, ledgerTransactionId, metadata, resultingLedgerAccountBalances, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(id, amount, createdAt, direction, ledgerAccountCurrency, ledgerAccountCurrencyExponent, ledgerAccountId, ledgerAccountLockVersion, ledgerTransactionId, liveMode, metadata, object_, resultingLedgerAccountBalances, status, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerEntryOfTransactionVersion{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, amount=$amount, direction=$direction, status=$status, ledgerAccountId=$ledgerAccountId, ledgerAccountLockVersion=$ledgerAccountLockVersion, ledgerAccountCurrency=$ledgerAccountCurrency, ledgerAccountCurrencyExponent=$ledgerAccountCurrencyExponent, ledgerTransactionId=$ledgerTransactionId, metadata=$metadata, resultingLedgerAccountBalances=$resultingLedgerAccountBalances, additionalProperties=$additionalProperties}"
+            "LedgerEntryOfTransactionVersion{id=$id, amount=$amount, createdAt=$createdAt, direction=$direction, ledgerAccountCurrency=$ledgerAccountCurrency, ledgerAccountCurrencyExponent=$ledgerAccountCurrencyExponent, ledgerAccountId=$ledgerAccountId, ledgerAccountLockVersion=$ledgerAccountLockVersion, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, object_=$object_, resultingLedgerAccountBalances=$resultingLedgerAccountBalances, status=$status, additionalProperties=$additionalProperties}"
     }
 
     class LedgerableType
@@ -1744,15 +1744,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerTransactionVersion && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && ledgerTransactionId == other.ledgerTransactionId && description == other.description && status == other.status && metadata == other.metadata && effectiveAt == other.effectiveAt && effectiveDate == other.effectiveDate && ledgerEntries == other.ledgerEntries && postedAt == other.postedAt && ledgerId == other.ledgerId && ledgerableType == other.ledgerableType && ledgerableId == other.ledgerableId && externalId == other.externalId && version == other.version && reversesLedgerTransactionId == other.reversesLedgerTransactionId && reversedByLedgerTransactionId == other.reversedByLedgerTransactionId && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is LedgerTransactionVersion && id == other.id && createdAt == other.createdAt && description == other.description && effectiveAt == other.effectiveAt && effectiveDate == other.effectiveDate && externalId == other.externalId && ledgerEntries == other.ledgerEntries && ledgerId == other.ledgerId && ledgerTransactionId == other.ledgerTransactionId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && liveMode == other.liveMode && metadata == other.metadata && object_ == other.object_ && postedAt == other.postedAt && reversedByLedgerTransactionId == other.reversedByLedgerTransactionId && reversesLedgerTransactionId == other.reversesLedgerTransactionId && status == other.status && version == other.version && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, ledgerTransactionId, description, status, metadata, effectiveAt, effectiveDate, ledgerEntries, postedAt, ledgerId, ledgerableType, ledgerableId, externalId, version, reversesLedgerTransactionId, reversedByLedgerTransactionId, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, createdAt, description, effectiveAt, effectiveDate, externalId, ledgerEntries, ledgerId, ledgerTransactionId, ledgerableId, ledgerableType, liveMode, metadata, object_, postedAt, reversedByLedgerTransactionId, reversesLedgerTransactionId, status, version, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "LedgerTransactionVersion{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, ledgerTransactionId=$ledgerTransactionId, description=$description, status=$status, metadata=$metadata, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, ledgerEntries=$ledgerEntries, postedAt=$postedAt, ledgerId=$ledgerId, ledgerableType=$ledgerableType, ledgerableId=$ledgerableId, externalId=$externalId, version=$version, reversesLedgerTransactionId=$reversesLedgerTransactionId, reversedByLedgerTransactionId=$reversedByLedgerTransactionId, additionalProperties=$additionalProperties}"
+        "LedgerTransactionVersion{id=$id, createdAt=$createdAt, description=$description, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerEntries=$ledgerEntries, ledgerId=$ledgerId, ledgerTransactionId=$ledgerTransactionId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, liveMode=$liveMode, metadata=$metadata, object_=$object_, postedAt=$postedAt, reversedByLedgerTransactionId=$reversedByLedgerTransactionId, reversesLedgerTransactionId=$reversesLedgerTransactionId, status=$status, version=$version, additionalProperties=$additionalProperties}"
 }

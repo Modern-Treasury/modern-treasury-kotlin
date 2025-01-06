@@ -23,35 +23,35 @@ class Counterparty
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("discarded_at")
-    @ExcludeMissing
-    private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("name") @ExcludeMissing private val name: JsonField<String> = JsonMissing.of(),
     @JsonProperty("accounts")
     @ExcludeMissing
     private val accounts: JsonField<List<Account>> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("discarded_at")
+    @ExcludeMissing
+    private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("email") @ExcludeMissing private val email: JsonField<String> = JsonMissing.of(),
     @JsonProperty("legal_entity_id")
     @ExcludeMissing
     private val legalEntityId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
     @JsonProperty("metadata")
     @ExcludeMissing
     private val metadata: JsonField<Metadata> = JsonMissing.of(),
+    @JsonProperty("name") @ExcludeMissing private val name: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
     @JsonProperty("send_remittance_advice")
     @ExcludeMissing
     private val sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("verification_status")
     @ExcludeMissing
     private val verificationStatus: JsonField<VerificationStatus> = JsonMissing.of(),
@@ -60,25 +60,12 @@ private constructor(
 
     fun id(): String = id.getRequired("id")
 
-    fun object_(): String = object_.getRequired("object")
-
-    /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
-     */
-    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
+    /** The accounts for this counterparty. */
+    fun accounts(): List<Account> = accounts.getRequired("accounts")
 
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
-
     fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
-
-    /** A human friendly name for this counterparty. */
-    fun name(): String? = name.getNullable("name")
-
-    /** The accounts for this counterparty. */
-    fun accounts(): List<Account> = accounts.getRequired("accounts")
 
     /** The counterparty's email. */
     fun email(): String? = email.getNullable("email")
@@ -86,13 +73,26 @@ private constructor(
     /** The id of the legal entity. */
     fun legalEntityId(): String? = legalEntityId.getNullable("legal_entity_id")
 
+    /**
+     * This field will be true if this object exists in the live environment or false if it exists
+     * in the test environment.
+     */
+    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
+
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
     fun metadata(): Metadata = metadata.getRequired("metadata")
+
+    /** A human friendly name for this counterparty. */
+    fun name(): String? = name.getNullable("name")
+
+    fun object_(): String = object_.getRequired("object")
 
     /**
      * Send an email to the counterparty whenever an associated payment order is sent to the bank.
      */
     fun sendRemittanceAdvice(): Boolean = sendRemittanceAdvice.getRequired("send_remittance_advice")
+
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     /** The verification status of the counterparty. */
     fun verificationStatus(): VerificationStatus =
@@ -100,25 +100,12 @@ private constructor(
 
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
-
-    /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
-     */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    /** The accounts for this counterparty. */
+    @JsonProperty("accounts") @ExcludeMissing fun _accounts() = accounts
 
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
     @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
-
-    /** A human friendly name for this counterparty. */
-    @JsonProperty("name") @ExcludeMissing fun _name() = name
-
-    /** The accounts for this counterparty. */
-    @JsonProperty("accounts") @ExcludeMissing fun _accounts() = accounts
 
     /** The counterparty's email. */
     @JsonProperty("email") @ExcludeMissing fun _email() = email
@@ -126,8 +113,19 @@ private constructor(
     /** The id of the legal entity. */
     @JsonProperty("legal_entity_id") @ExcludeMissing fun _legalEntityId() = legalEntityId
 
+    /**
+     * This field will be true if this object exists in the live environment or false if it exists
+     * in the test environment.
+     */
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
     @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+
+    /** A human friendly name for this counterparty. */
+    @JsonProperty("name") @ExcludeMissing fun _name() = name
+
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
     /**
      * Send an email to the counterparty whenever an associated payment order is sent to the bank.
@@ -135,6 +133,8 @@ private constructor(
     @JsonProperty("send_remittance_advice")
     @ExcludeMissing
     fun _sendRemittanceAdvice() = sendRemittanceAdvice
+
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
     /** The verification status of the counterparty. */
     @JsonProperty("verification_status")
@@ -150,17 +150,17 @@ private constructor(
     fun validate(): Counterparty = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
-            createdAt()
-            updatedAt()
-            discardedAt()
-            name()
             accounts().forEach { it.validate() }
+            createdAt()
+            discardedAt()
             email()
             legalEntityId()
+            liveMode()
             metadata().validate()
+            name()
+            object_()
             sendRemittanceAdvice()
+            updatedAt()
             verificationStatus()
             validated = true
         }
@@ -176,33 +176,33 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var name: JsonField<String> = JsonMissing.of()
         private var accounts: JsonField<List<Account>> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var email: JsonField<String> = JsonMissing.of()
         private var legalEntityId: JsonField<String> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
         private var metadata: JsonField<Metadata> = JsonMissing.of()
+        private var name: JsonField<String> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
         private var sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var verificationStatus: JsonField<VerificationStatus> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(counterparty: Counterparty) = apply {
             id = counterparty.id
-            object_ = counterparty.object_
-            liveMode = counterparty.liveMode
-            createdAt = counterparty.createdAt
-            updatedAt = counterparty.updatedAt
-            discardedAt = counterparty.discardedAt
-            name = counterparty.name
             accounts = counterparty.accounts
+            createdAt = counterparty.createdAt
+            discardedAt = counterparty.discardedAt
             email = counterparty.email
             legalEntityId = counterparty.legalEntityId
+            liveMode = counterparty.liveMode
             metadata = counterparty.metadata
+            name = counterparty.name
+            object_ = counterparty.object_
             sendRemittanceAdvice = counterparty.sendRemittanceAdvice
+            updatedAt = counterparty.updatedAt
             verificationStatus = counterparty.verificationStatus
             additionalProperties = counterparty.additionalProperties.toMutableMap()
         }
@@ -211,47 +211,21 @@ private constructor(
 
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun object_(object_: String) = object_(JsonField.of(object_))
+        /** The accounts for this counterparty. */
+        fun accounts(accounts: List<Account>) = accounts(JsonField.of(accounts))
 
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+        /** The accounts for this counterparty. */
+        fun accounts(accounts: JsonField<List<Account>>) = apply { this.accounts = accounts }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
 
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
         }
-
-        /** A human friendly name for this counterparty. */
-        fun name(name: String) = name(JsonField.of(name))
-
-        /** A human friendly name for this counterparty. */
-        fun name(name: JsonField<String>) = apply { this.name = name }
-
-        /** The accounts for this counterparty. */
-        fun accounts(accounts: List<Account>) = accounts(JsonField.of(accounts))
-
-        /** The accounts for this counterparty. */
-        fun accounts(accounts: JsonField<List<Account>>) = apply { this.accounts = accounts }
 
         /** The counterparty's email. */
         fun email(email: String) = email(JsonField.of(email))
@@ -268,6 +242,18 @@ private constructor(
         }
 
         /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
+
+        /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+
+        /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
         fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
@@ -276,6 +262,16 @@ private constructor(
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+        /** A human friendly name for this counterparty. */
+        fun name(name: String) = name(JsonField.of(name))
+
+        /** A human friendly name for this counterparty. */
+        fun name(name: JsonField<String>) = apply { this.name = name }
+
+        fun object_(object_: String) = object_(JsonField.of(object_))
+
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /**
          * Send an email to the counterparty whenever an associated payment order is sent to the
@@ -291,6 +287,10 @@ private constructor(
         fun sendRemittanceAdvice(sendRemittanceAdvice: JsonField<Boolean>) = apply {
             this.sendRemittanceAdvice = sendRemittanceAdvice
         }
+
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         /** The verification status of the counterparty. */
         fun verificationStatus(verificationStatus: VerificationStatus) =
@@ -323,17 +323,17 @@ private constructor(
         fun build(): Counterparty =
             Counterparty(
                 id,
-                object_,
-                liveMode,
-                createdAt,
-                updatedAt,
-                discardedAt,
-                name,
                 accounts.map { it.toImmutable() },
+                createdAt,
+                discardedAt,
                 email,
                 legalEntityId,
+                liveMode,
                 metadata,
+                name,
+                object_,
                 sendRemittanceAdvice,
+                updatedAt,
                 verificationStatus,
                 additionalProperties.toImmutable(),
             )
@@ -344,105 +344,73 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("object")
-        @ExcludeMissing
-        private val object_: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("live_mode")
-        @ExcludeMissing
-        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("discarded_at")
-        @ExcludeMissing
-        private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("account_type")
-        @ExcludeMissing
-        private val accountType: JsonField<ExternalAccountType> = JsonMissing.of(),
-        @JsonProperty("party_type")
-        @ExcludeMissing
-        private val partyType: JsonField<PartyType> = JsonMissing.of(),
-        @JsonProperty("party_address")
-        @ExcludeMissing
-        private val partyAddress: JsonField<Address> = JsonMissing.of(),
-        @JsonProperty("name")
-        @ExcludeMissing
-        private val name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("account_details")
         @ExcludeMissing
         private val accountDetails: JsonField<List<AccountDetail>> = JsonMissing.of(),
-        @JsonProperty("routing_details")
+        @JsonProperty("account_type")
         @ExcludeMissing
-        private val routingDetails: JsonField<List<RoutingDetail>> = JsonMissing.of(),
-        @JsonProperty("metadata")
-        @ExcludeMissing
-        private val metadata: JsonField<Metadata> = JsonMissing.of(),
-        @JsonProperty("party_name")
-        @ExcludeMissing
-        private val partyName: JsonField<String> = JsonMissing.of(),
+        private val accountType: JsonField<ExternalAccountType> = JsonMissing.of(),
         @JsonProperty("contact_details")
         @ExcludeMissing
         private val contactDetails: JsonField<List<ContactDetail>> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("discarded_at")
+        @ExcludeMissing
+        private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("ledger_account_id")
         @ExcludeMissing
         private val ledgerAccountId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("verification_status")
+        @JsonProperty("live_mode")
         @ExcludeMissing
-        private val verificationStatus: JsonField<VerificationStatus> = JsonMissing.of(),
+        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        private val metadata: JsonField<Metadata> = JsonMissing.of(),
+        @JsonProperty("name")
+        @ExcludeMissing
+        private val name: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("object")
+        @ExcludeMissing
+        private val object_: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("party_address")
+        @ExcludeMissing
+        private val partyAddress: JsonField<Address> = JsonMissing.of(),
+        @JsonProperty("party_name")
+        @ExcludeMissing
+        private val partyName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("party_type")
+        @ExcludeMissing
+        private val partyType: JsonField<PartyType> = JsonMissing.of(),
+        @JsonProperty("routing_details")
+        @ExcludeMissing
+        private val routingDetails: JsonField<List<RoutingDetail>> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("verification_source")
         @ExcludeMissing
         private val verificationSource: JsonField<VerificationSource> = JsonMissing.of(),
+        @JsonProperty("verification_status")
+        @ExcludeMissing
+        private val verificationStatus: JsonField<VerificationStatus> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         fun id(): String? = id.getNullable("id")
 
-        fun object_(): String? = object_.getNullable("object")
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(): Boolean? = liveMode.getNullable("live_mode")
-
-        fun createdAt(): OffsetDateTime? = createdAt.getNullable("created_at")
-
-        fun updatedAt(): OffsetDateTime? = updatedAt.getNullable("updated_at")
-
-        fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
+        fun accountDetails(): List<AccountDetail>? = accountDetails.getNullable("account_details")
 
         /** Can be `checking`, `savings` or `other`. */
         fun accountType(): ExternalAccountType? = accountType.getNullable("account_type")
 
-        /** Either `individual` or `business`. */
-        fun partyType(): PartyType? = partyType.getNullable("party_type")
-
-        /** The address associated with the owner or `null`. */
-        fun partyAddress(): Address? = partyAddress.getNullable("party_address")
-
-        /**
-         * A nickname for the external account. This is only for internal usage and won't affect any
-         * payments
-         */
-        fun name(): String? = name.getNullable("name")
-
-        fun accountDetails(): List<AccountDetail>? = accountDetails.getNullable("account_details")
-
-        fun routingDetails(): List<RoutingDetail>? = routingDetails.getNullable("routing_details")
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        fun metadata(): Metadata? = metadata.getNullable("metadata")
-
-        /** The legal name of the entity which owns the account. */
-        fun partyName(): String? = partyName.getNullable("party_name")
-
         fun contactDetails(): List<ContactDetail>? = contactDetails.getNullable("contact_details")
+
+        fun createdAt(): OffsetDateTime? = createdAt.getNullable("created_at")
+
+        fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
         /**
          * If the external account links to a ledger account in Modern Treasury, the id of the
@@ -450,56 +418,56 @@ private constructor(
          */
         fun ledgerAccountId(): String? = ledgerAccountId.getNullable("ledger_account_id")
 
-        fun verificationStatus(): VerificationStatus? =
-            verificationStatus.getNullable("verification_status")
-
-        fun verificationSource(): VerificationSource? =
-            verificationSource.getNullable("verification_source")
-
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
-
         /**
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
          */
-        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+        fun liveMode(): Boolean? = liveMode.getNullable("live_mode")
 
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
-        @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
-
-        /** Can be `checking`, `savings` or `other`. */
-        @JsonProperty("account_type") @ExcludeMissing fun _accountType() = accountType
-
-        /** Either `individual` or `business`. */
-        @JsonProperty("party_type") @ExcludeMissing fun _partyType() = partyType
-
-        /** The address associated with the owner or `null`. */
-        @JsonProperty("party_address") @ExcludeMissing fun _partyAddress() = partyAddress
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
 
         /**
          * A nickname for the external account. This is only for internal usage and won't affect any
          * payments
          */
-        @JsonProperty("name") @ExcludeMissing fun _name() = name
+        fun name(): String? = name.getNullable("name")
+
+        fun object_(): String? = object_.getNullable("object")
+
+        /** The address associated with the owner or `null`. */
+        fun partyAddress(): Address? = partyAddress.getNullable("party_address")
+
+        /** The legal name of the entity which owns the account. */
+        fun partyName(): String? = partyName.getNullable("party_name")
+
+        /** Either `individual` or `business`. */
+        fun partyType(): PartyType? = partyType.getNullable("party_type")
+
+        fun routingDetails(): List<RoutingDetail>? = routingDetails.getNullable("routing_details")
+
+        fun updatedAt(): OffsetDateTime? = updatedAt.getNullable("updated_at")
+
+        fun verificationSource(): VerificationSource? =
+            verificationSource.getNullable("verification_source")
+
+        fun verificationStatus(): VerificationStatus? =
+            verificationStatus.getNullable("verification_status")
+
+        @JsonProperty("id") @ExcludeMissing fun _id() = id
 
         @JsonProperty("account_details") @ExcludeMissing fun _accountDetails() = accountDetails
 
-        @JsonProperty("routing_details") @ExcludeMissing fun _routingDetails() = routingDetails
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
-
-        /** The legal name of the entity which owns the account. */
-        @JsonProperty("party_name") @ExcludeMissing fun _partyName() = partyName
+        /** Can be `checking`, `savings` or `other`. */
+        @JsonProperty("account_type") @ExcludeMissing fun _accountType() = accountType
 
         @JsonProperty("contact_details") @ExcludeMissing fun _contactDetails() = contactDetails
+
+        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+        @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
 
         /**
          * If the external account links to a ledger account in Modern Treasury, the id of the
@@ -507,13 +475,45 @@ private constructor(
          */
         @JsonProperty("ledger_account_id") @ExcludeMissing fun _ledgerAccountId() = ledgerAccountId
 
-        @JsonProperty("verification_status")
-        @ExcludeMissing
-        fun _verificationStatus() = verificationStatus
+        /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+
+        /**
+         * A nickname for the external account. This is only for internal usage and won't affect any
+         * payments
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name() = name
+
+        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+
+        /** The address associated with the owner or `null`. */
+        @JsonProperty("party_address") @ExcludeMissing fun _partyAddress() = partyAddress
+
+        /** The legal name of the entity which owns the account. */
+        @JsonProperty("party_name") @ExcludeMissing fun _partyName() = partyName
+
+        /** Either `individual` or `business`. */
+        @JsonProperty("party_type") @ExcludeMissing fun _partyType() = partyType
+
+        @JsonProperty("routing_details") @ExcludeMissing fun _routingDetails() = routingDetails
+
+        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
         @JsonProperty("verification_source")
         @ExcludeMissing
         fun _verificationSource() = verificationSource
+
+        @JsonProperty("verification_status")
+        @ExcludeMissing
+        fun _verificationStatus() = verificationStatus
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -524,23 +524,23 @@ private constructor(
         fun validate(): Account = apply {
             if (!validated) {
                 id()
-                object_()
-                liveMode()
-                createdAt()
-                updatedAt()
-                discardedAt()
-                accountType()
-                partyType()
-                partyAddress()?.validate()
-                name()
                 accountDetails()?.forEach { it.validate() }
-                routingDetails()?.forEach { it.validate() }
-                metadata()?.validate()
-                partyName()
+                accountType()
                 contactDetails()?.forEach { it.validate() }
+                createdAt()
+                discardedAt()
                 ledgerAccountId()
-                verificationStatus()
+                liveMode()
+                metadata()?.validate()
+                name()
+                object_()
+                partyAddress()?.validate()
+                partyName()
+                partyType()
+                routingDetails()?.forEach { it.validate() }
+                updatedAt()
                 verificationSource()
+                verificationStatus()
                 validated = true
             }
         }
@@ -555,44 +555,44 @@ private constructor(
         class Builder {
 
             private var id: JsonField<String> = JsonMissing.of()
-            private var object_: JsonField<String> = JsonMissing.of()
-            private var liveMode: JsonField<Boolean> = JsonMissing.of()
-            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var accountType: JsonField<ExternalAccountType> = JsonMissing.of()
-            private var partyType: JsonField<PartyType> = JsonMissing.of()
-            private var partyAddress: JsonField<Address> = JsonMissing.of()
-            private var name: JsonField<String> = JsonMissing.of()
             private var accountDetails: JsonField<List<AccountDetail>> = JsonMissing.of()
-            private var routingDetails: JsonField<List<RoutingDetail>> = JsonMissing.of()
-            private var metadata: JsonField<Metadata> = JsonMissing.of()
-            private var partyName: JsonField<String> = JsonMissing.of()
+            private var accountType: JsonField<ExternalAccountType> = JsonMissing.of()
             private var contactDetails: JsonField<List<ContactDetail>> = JsonMissing.of()
+            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var ledgerAccountId: JsonField<String> = JsonMissing.of()
-            private var verificationStatus: JsonField<VerificationStatus> = JsonMissing.of()
+            private var liveMode: JsonField<Boolean> = JsonMissing.of()
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var name: JsonField<String> = JsonMissing.of()
+            private var object_: JsonField<String> = JsonMissing.of()
+            private var partyAddress: JsonField<Address> = JsonMissing.of()
+            private var partyName: JsonField<String> = JsonMissing.of()
+            private var partyType: JsonField<PartyType> = JsonMissing.of()
+            private var routingDetails: JsonField<List<RoutingDetail>> = JsonMissing.of()
+            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var verificationSource: JsonField<VerificationSource> = JsonMissing.of()
+            private var verificationStatus: JsonField<VerificationStatus> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(account: Account) = apply {
                 id = account.id
-                object_ = account.object_
-                liveMode = account.liveMode
-                createdAt = account.createdAt
-                updatedAt = account.updatedAt
-                discardedAt = account.discardedAt
-                accountType = account.accountType
-                partyType = account.partyType
-                partyAddress = account.partyAddress
-                name = account.name
                 accountDetails = account.accountDetails
-                routingDetails = account.routingDetails
-                metadata = account.metadata
-                partyName = account.partyName
+                accountType = account.accountType
                 contactDetails = account.contactDetails
+                createdAt = account.createdAt
+                discardedAt = account.discardedAt
                 ledgerAccountId = account.ledgerAccountId
-                verificationStatus = account.verificationStatus
+                liveMode = account.liveMode
+                metadata = account.metadata
+                name = account.name
+                object_ = account.object_
+                partyAddress = account.partyAddress
+                partyName = account.partyName
+                partyType = account.partyType
+                routingDetails = account.routingDetails
+                updatedAt = account.updatedAt
                 verificationSource = account.verificationSource
+                verificationStatus = account.verificationStatus
                 additionalProperties = account.additionalProperties.toMutableMap()
             }
 
@@ -600,38 +600,11 @@ private constructor(
 
             fun id(id: JsonField<String>) = apply { this.id = id }
 
-            fun object_(object_: String) = object_(JsonField.of(object_))
+            fun accountDetails(accountDetails: List<AccountDetail>) =
+                accountDetails(JsonField.of(accountDetails))
 
-            fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
-
-            /**
-             * This field will be true if this object exists in the live environment or false if it
-             * exists in the test environment.
-             */
-            fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
-
-            /**
-             * This field will be true if this object exists in the live environment or false if it
-             * exists in the test environment.
-             */
-            fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
-
-            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-                this.createdAt = createdAt
-            }
-
-            fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-            fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
-                this.updatedAt = updatedAt
-            }
-
-            fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
-
-            fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
-                this.discardedAt = discardedAt
+            fun accountDetails(accountDetails: JsonField<List<AccountDetail>>) = apply {
+                this.accountDetails = accountDetails
             }
 
             /** Can be `checking`, `savings` or `other`. */
@@ -643,69 +616,23 @@ private constructor(
                 this.accountType = accountType
             }
 
-            /** Either `individual` or `business`. */
-            fun partyType(partyType: PartyType) = partyType(JsonField.of(partyType))
-
-            /** Either `individual` or `business`. */
-            fun partyType(partyType: JsonField<PartyType>) = apply { this.partyType = partyType }
-
-            /** The address associated with the owner or `null`. */
-            fun partyAddress(partyAddress: Address) = partyAddress(JsonField.of(partyAddress))
-
-            /** The address associated with the owner or `null`. */
-            fun partyAddress(partyAddress: JsonField<Address>) = apply {
-                this.partyAddress = partyAddress
-            }
-
-            /**
-             * A nickname for the external account. This is only for internal usage and won't affect
-             * any payments
-             */
-            fun name(name: String) = name(JsonField.of(name))
-
-            /**
-             * A nickname for the external account. This is only for internal usage and won't affect
-             * any payments
-             */
-            fun name(name: JsonField<String>) = apply { this.name = name }
-
-            fun accountDetails(accountDetails: List<AccountDetail>) =
-                accountDetails(JsonField.of(accountDetails))
-
-            fun accountDetails(accountDetails: JsonField<List<AccountDetail>>) = apply {
-                this.accountDetails = accountDetails
-            }
-
-            fun routingDetails(routingDetails: List<RoutingDetail>) =
-                routingDetails(JsonField.of(routingDetails))
-
-            fun routingDetails(routingDetails: JsonField<List<RoutingDetail>>) = apply {
-                this.routingDetails = routingDetails
-            }
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
-
-            /** The legal name of the entity which owns the account. */
-            fun partyName(partyName: String) = partyName(JsonField.of(partyName))
-
-            /** The legal name of the entity which owns the account. */
-            fun partyName(partyName: JsonField<String>) = apply { this.partyName = partyName }
-
             fun contactDetails(contactDetails: List<ContactDetail>) =
                 contactDetails(JsonField.of(contactDetails))
 
             fun contactDetails(contactDetails: JsonField<List<ContactDetail>>) = apply {
                 this.contactDetails = contactDetails
+            }
+
+            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                this.createdAt = createdAt
+            }
+
+            fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+
+            fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
+                this.discardedAt = discardedAt
             }
 
             /**
@@ -723,11 +650,77 @@ private constructor(
                 this.ledgerAccountId = ledgerAccountId
             }
 
-            fun verificationStatus(verificationStatus: VerificationStatus) =
-                verificationStatus(JsonField.of(verificationStatus))
+            /**
+             * This field will be true if this object exists in the live environment or false if it
+             * exists in the test environment.
+             */
+            fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
-            fun verificationStatus(verificationStatus: JsonField<VerificationStatus>) = apply {
-                this.verificationStatus = verificationStatus
+            /**
+             * This field will be true if this object exists in the live environment or false if it
+             * exists in the test environment.
+             */
+            fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+            /**
+             * A nickname for the external account. This is only for internal usage and won't affect
+             * any payments
+             */
+            fun name(name: String) = name(JsonField.of(name))
+
+            /**
+             * A nickname for the external account. This is only for internal usage and won't affect
+             * any payments
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
+            fun object_(object_: String) = object_(JsonField.of(object_))
+
+            fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+
+            /** The address associated with the owner or `null`. */
+            fun partyAddress(partyAddress: Address) = partyAddress(JsonField.of(partyAddress))
+
+            /** The address associated with the owner or `null`. */
+            fun partyAddress(partyAddress: JsonField<Address>) = apply {
+                this.partyAddress = partyAddress
+            }
+
+            /** The legal name of the entity which owns the account. */
+            fun partyName(partyName: String) = partyName(JsonField.of(partyName))
+
+            /** The legal name of the entity which owns the account. */
+            fun partyName(partyName: JsonField<String>) = apply { this.partyName = partyName }
+
+            /** Either `individual` or `business`. */
+            fun partyType(partyType: PartyType) = partyType(JsonField.of(partyType))
+
+            /** Either `individual` or `business`. */
+            fun partyType(partyType: JsonField<PartyType>) = apply { this.partyType = partyType }
+
+            fun routingDetails(routingDetails: List<RoutingDetail>) =
+                routingDetails(JsonField.of(routingDetails))
+
+            fun routingDetails(routingDetails: JsonField<List<RoutingDetail>>) = apply {
+                this.routingDetails = routingDetails
+            }
+
+            fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+            fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
+                this.updatedAt = updatedAt
             }
 
             fun verificationSource(verificationSource: VerificationSource) =
@@ -735,6 +728,13 @@ private constructor(
 
             fun verificationSource(verificationSource: JsonField<VerificationSource>) = apply {
                 this.verificationSource = verificationSource
+            }
+
+            fun verificationStatus(verificationStatus: VerificationStatus) =
+                verificationStatus(JsonField.of(verificationStatus))
+
+            fun verificationStatus(verificationStatus: JsonField<VerificationStatus>) = apply {
+                this.verificationStatus = verificationStatus
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -759,23 +759,23 @@ private constructor(
             fun build(): Account =
                 Account(
                     id,
-                    object_,
-                    liveMode,
-                    createdAt,
-                    updatedAt,
-                    discardedAt,
-                    accountType,
-                    partyType,
-                    partyAddress,
-                    name,
                     accountDetails.map { it.toImmutable() },
-                    routingDetails.map { it.toImmutable() },
-                    metadata,
-                    partyName,
+                    accountType,
                     contactDetails.map { it.toImmutable() },
+                    createdAt,
+                    discardedAt,
                     ledgerAccountId,
-                    verificationStatus,
+                    liveMode,
+                    metadata,
+                    name,
+                    object_,
+                    partyAddress,
+                    partyName,
+                    partyType,
+                    routingDetails.map { it.toImmutable() },
+                    updatedAt,
                     verificationSource,
+                    verificationStatus,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -787,34 +787,41 @@ private constructor(
             @JsonProperty("id")
             @ExcludeMissing
             private val id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("object")
-            @ExcludeMissing
-            private val object_: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("live_mode")
-            @ExcludeMissing
-            private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("created_at")
-            @ExcludeMissing
-            private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            @JsonProperty("updated_at")
-            @ExcludeMissing
-            private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            @JsonProperty("discarded_at")
-            @ExcludeMissing
-            private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
             @JsonProperty("contact_identifier")
             @ExcludeMissing
             private val contactIdentifier: JsonField<String> = JsonMissing.of(),
             @JsonProperty("contact_identifier_type")
             @ExcludeMissing
             private val contactIdentifierType: JsonField<ContactIdentifierType> = JsonMissing.of(),
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("discarded_at")
+            @ExcludeMissing
+            private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("live_mode")
+            @ExcludeMissing
+            private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("object")
+            @ExcludeMissing
+            private val object_: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("updated_at")
+            @ExcludeMissing
+            private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             fun id(): String = id.getRequired("id")
 
-            fun object_(): String = object_.getRequired("object")
+            fun contactIdentifier(): String = contactIdentifier.getRequired("contact_identifier")
+
+            fun contactIdentifierType(): ContactIdentifierType =
+                contactIdentifierType.getRequired("contact_identifier_type")
+
+            fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+            fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
             /**
              * This field will be true if this object exists in the live environment or false if it
@@ -822,32 +829,11 @@ private constructor(
              */
             fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-            fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+            fun object_(): String = object_.getRequired("object")
 
             fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-            fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
-
-            fun contactIdentifier(): String = contactIdentifier.getRequired("contact_identifier")
-
-            fun contactIdentifierType(): ContactIdentifierType =
-                contactIdentifierType.getRequired("contact_identifier_type")
-
             @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-            @JsonProperty("object") @ExcludeMissing fun _object_() = object_
-
-            /**
-             * This field will be true if this object exists in the live environment or false if it
-             * exists in the test environment.
-             */
-            @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
-
-            @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-            @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
-            @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
 
             @JsonProperty("contact_identifier")
             @ExcludeMissing
@@ -856,6 +842,20 @@ private constructor(
             @JsonProperty("contact_identifier_type")
             @ExcludeMissing
             fun _contactIdentifierType() = contactIdentifierType
+
+            @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+            @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+
+            /**
+             * This field will be true if this object exists in the live environment or false if it
+             * exists in the test environment.
+             */
+            @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+
+            @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+
+            @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -866,13 +866,13 @@ private constructor(
             fun validate(): ContactDetail = apply {
                 if (!validated) {
                     id()
-                    object_()
-                    liveMode()
-                    createdAt()
-                    updatedAt()
-                    discardedAt()
                     contactIdentifier()
                     contactIdentifierType()
+                    createdAt()
+                    discardedAt()
+                    liveMode()
+                    object_()
+                    updatedAt()
                     validated = true
                 }
             }
@@ -887,66 +887,31 @@ private constructor(
             class Builder {
 
                 private var id: JsonField<String> = JsonMissing.of()
-                private var object_: JsonField<String> = JsonMissing.of()
-                private var liveMode: JsonField<Boolean> = JsonMissing.of()
-                private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var contactIdentifier: JsonField<String> = JsonMissing.of()
                 private var contactIdentifierType: JsonField<ContactIdentifierType> =
                     JsonMissing.of()
+                private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var liveMode: JsonField<Boolean> = JsonMissing.of()
+                private var object_: JsonField<String> = JsonMissing.of()
+                private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(contactDetail: ContactDetail) = apply {
                     id = contactDetail.id
-                    object_ = contactDetail.object_
-                    liveMode = contactDetail.liveMode
-                    createdAt = contactDetail.createdAt
-                    updatedAt = contactDetail.updatedAt
-                    discardedAt = contactDetail.discardedAt
                     contactIdentifier = contactDetail.contactIdentifier
                     contactIdentifierType = contactDetail.contactIdentifierType
+                    createdAt = contactDetail.createdAt
+                    discardedAt = contactDetail.discardedAt
+                    liveMode = contactDetail.liveMode
+                    object_ = contactDetail.object_
+                    updatedAt = contactDetail.updatedAt
                     additionalProperties = contactDetail.additionalProperties.toMutableMap()
                 }
 
                 fun id(id: String) = id(JsonField.of(id))
 
                 fun id(id: JsonField<String>) = apply { this.id = id }
-
-                fun object_(object_: String) = object_(JsonField.of(object_))
-
-                fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
-
-                /**
-                 * This field will be true if this object exists in the live environment or false if
-                 * it exists in the test environment.
-                 */
-                fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
-
-                /**
-                 * This field will be true if this object exists in the live environment or false if
-                 * it exists in the test environment.
-                 */
-                fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
-
-                fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-                fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-                    this.createdAt = createdAt
-                }
-
-                fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-                fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
-                    this.updatedAt = updatedAt
-                }
-
-                fun discardedAt(discardedAt: OffsetDateTime) =
-                    discardedAt(JsonField.of(discardedAt))
-
-                fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
-                    this.discardedAt = discardedAt
-                }
 
                 fun contactIdentifier(contactIdentifier: String) =
                     contactIdentifier(JsonField.of(contactIdentifier))
@@ -962,6 +927,41 @@ private constructor(
                     apply {
                         this.contactIdentifierType = contactIdentifierType
                     }
+
+                fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+                fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                    this.createdAt = createdAt
+                }
+
+                fun discardedAt(discardedAt: OffsetDateTime) =
+                    discardedAt(JsonField.of(discardedAt))
+
+                fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
+                    this.discardedAt = discardedAt
+                }
+
+                /**
+                 * This field will be true if this object exists in the live environment or false if
+                 * it exists in the test environment.
+                 */
+                fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
+
+                /**
+                 * This field will be true if this object exists in the live environment or false if
+                 * it exists in the test environment.
+                 */
+                fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+
+                fun object_(object_: String) = object_(JsonField.of(object_))
+
+                fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+
+                fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+                fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
+                    this.updatedAt = updatedAt
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -988,13 +988,13 @@ private constructor(
                 fun build(): ContactDetail =
                     ContactDetail(
                         id,
-                        object_,
-                        liveMode,
-                        createdAt,
-                        updatedAt,
-                        discardedAt,
                         contactIdentifier,
                         contactIdentifierType,
+                        createdAt,
+                        discardedAt,
+                        liveMode,
+                        object_,
+                        updatedAt,
                         additionalProperties.toImmutable(),
                     )
             }
@@ -1070,17 +1070,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is ContactDetail && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && discardedAt == other.discardedAt && contactIdentifier == other.contactIdentifier && contactIdentifierType == other.contactIdentifierType && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is ContactDetail && id == other.id && contactIdentifier == other.contactIdentifier && contactIdentifierType == other.contactIdentifierType && createdAt == other.createdAt && discardedAt == other.discardedAt && liveMode == other.liveMode && object_ == other.object_ && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, contactIdentifier, contactIdentifierType, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(id, contactIdentifier, contactIdentifierType, createdAt, discardedAt, liveMode, object_, updatedAt, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "ContactDetail{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, contactIdentifier=$contactIdentifier, contactIdentifierType=$contactIdentifierType, additionalProperties=$additionalProperties}"
+                "ContactDetail{id=$id, contactIdentifier=$contactIdentifier, contactIdentifierType=$contactIdentifierType, createdAt=$createdAt, discardedAt=$discardedAt, liveMode=$liveMode, object_=$object_, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -1171,43 +1171,50 @@ private constructor(
             @JsonProperty("id")
             @ExcludeMissing
             private val id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("object")
+            @JsonProperty("country")
             @ExcludeMissing
-            private val object_: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("live_mode")
-            @ExcludeMissing
-            private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+            private val country: JsonField<String> = JsonMissing.of(),
             @JsonProperty("created_at")
             @ExcludeMissing
             private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            @JsonProperty("updated_at")
-            @ExcludeMissing
-            private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
             @JsonProperty("line1")
             @ExcludeMissing
             private val line1: JsonField<String> = JsonMissing.of(),
             @JsonProperty("line2")
             @ExcludeMissing
             private val line2: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("live_mode")
+            @ExcludeMissing
+            private val liveMode: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("locality")
             @ExcludeMissing
             private val locality: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("region")
+            @JsonProperty("object")
             @ExcludeMissing
-            private val region: JsonField<String> = JsonMissing.of(),
+            private val object_: JsonField<String> = JsonMissing.of(),
             @JsonProperty("postal_code")
             @ExcludeMissing
             private val postalCode: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("country")
+            @JsonProperty("region")
             @ExcludeMissing
-            private val country: JsonField<String> = JsonMissing.of(),
+            private val region: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("updated_at")
+            @ExcludeMissing
+            private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             fun id(): String = id.getRequired("id")
 
-            fun object_(): String = object_.getRequired("object")
+            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            fun country(): String? = country.getNullable("country")
+
+            fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+            fun line1(): String? = line1.getNullable("line1")
+
+            fun line2(): String? = line2.getNullable("line2")
 
             /**
              * This field will be true if this object exists in the live environment or false if it
@@ -1215,29 +1222,29 @@ private constructor(
              */
             fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-            fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-            fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
-
-            fun line1(): String? = line1.getNullable("line1")
-
-            fun line2(): String? = line2.getNullable("line2")
-
             /** Locality or City. */
             fun locality(): String? = locality.getNullable("locality")
 
-            /** Region or State. */
-            fun region(): String? = region.getNullable("region")
+            fun object_(): String = object_.getRequired("object")
 
             /** The postal code of the address. */
             fun postalCode(): String? = postalCode.getNullable("postal_code")
 
-            /** Country code conforms to [ISO 3166-1 alpha-2] */
-            fun country(): String? = country.getNullable("country")
+            /** Region or State. */
+            fun region(): String? = region.getNullable("region")
+
+            fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
             @JsonProperty("id") @ExcludeMissing fun _id() = id
 
-            @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            @JsonProperty("country") @ExcludeMissing fun _country() = country
+
+            @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+            @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+
+            @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
 
             /**
              * This field will be true if this object exists in the live environment or false if it
@@ -1245,25 +1252,18 @@ private constructor(
              */
             @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
 
-            @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-            @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
-            @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
-
-            @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
-
             /** Locality or City. */
             @JsonProperty("locality") @ExcludeMissing fun _locality() = locality
 
-            /** Region or State. */
-            @JsonProperty("region") @ExcludeMissing fun _region() = region
+            @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
             /** The postal code of the address. */
             @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
 
-            /** Country code conforms to [ISO 3166-1 alpha-2] */
-            @JsonProperty("country") @ExcludeMissing fun _country() = country
+            /** Region or State. */
+            @JsonProperty("region") @ExcludeMissing fun _region() = region
+
+            @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1274,16 +1274,16 @@ private constructor(
             fun validate(): Address = apply {
                 if (!validated) {
                     id()
-                    object_()
-                    liveMode()
+                    country()
                     createdAt()
-                    updatedAt()
                     line1()
                     line2()
+                    liveMode()
                     locality()
-                    region()
+                    object_()
                     postalCode()
-                    country()
+                    region()
+                    updatedAt()
                     validated = true
                 }
             }
@@ -1298,30 +1298,30 @@ private constructor(
             class Builder {
 
                 private var id: JsonField<String> = JsonMissing.of()
-                private var object_: JsonField<String> = JsonMissing.of()
-                private var liveMode: JsonField<Boolean> = JsonMissing.of()
+                private var country: JsonField<String> = JsonMissing.of()
                 private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var line1: JsonField<String> = JsonMissing.of()
                 private var line2: JsonField<String> = JsonMissing.of()
+                private var liveMode: JsonField<Boolean> = JsonMissing.of()
                 private var locality: JsonField<String> = JsonMissing.of()
-                private var region: JsonField<String> = JsonMissing.of()
+                private var object_: JsonField<String> = JsonMissing.of()
                 private var postalCode: JsonField<String> = JsonMissing.of()
-                private var country: JsonField<String> = JsonMissing.of()
+                private var region: JsonField<String> = JsonMissing.of()
+                private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(address: Address) = apply {
                     id = address.id
-                    object_ = address.object_
-                    liveMode = address.liveMode
+                    country = address.country
                     createdAt = address.createdAt
-                    updatedAt = address.updatedAt
                     line1 = address.line1
                     line2 = address.line2
+                    liveMode = address.liveMode
                     locality = address.locality
-                    region = address.region
+                    object_ = address.object_
                     postalCode = address.postalCode
-                    country = address.country
+                    region = address.region
+                    updatedAt = address.updatedAt
                     additionalProperties = address.additionalProperties.toMutableMap()
                 }
 
@@ -1329,9 +1329,25 @@ private constructor(
 
                 fun id(id: JsonField<String>) = apply { this.id = id }
 
-                fun object_(object_: String) = object_(JsonField.of(object_))
+                /** Country code conforms to [ISO 3166-1 alpha-2] */
+                fun country(country: String) = country(JsonField.of(country))
 
-                fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+                /** Country code conforms to [ISO 3166-1 alpha-2] */
+                fun country(country: JsonField<String>) = apply { this.country = country }
+
+                fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+                fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                    this.createdAt = createdAt
+                }
+
+                fun line1(line1: String) = line1(JsonField.of(line1))
+
+                fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+
+                fun line2(line2: String) = line2(JsonField.of(line2))
+
+                fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 /**
                  * This field will be true if this object exists in the live environment or false if
@@ -1345,37 +1361,15 @@ private constructor(
                  */
                 fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
-                fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-                fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-                    this.createdAt = createdAt
-                }
-
-                fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-                fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
-                    this.updatedAt = updatedAt
-                }
-
-                fun line1(line1: String) = line1(JsonField.of(line1))
-
-                fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
-
-                fun line2(line2: String) = line2(JsonField.of(line2))
-
-                fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
-
                 /** Locality or City. */
                 fun locality(locality: String) = locality(JsonField.of(locality))
 
                 /** Locality or City. */
                 fun locality(locality: JsonField<String>) = apply { this.locality = locality }
 
-                /** Region or State. */
-                fun region(region: String) = region(JsonField.of(region))
+                fun object_(object_: String) = object_(JsonField.of(object_))
 
-                /** Region or State. */
-                fun region(region: JsonField<String>) = apply { this.region = region }
+                fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
                 /** The postal code of the address. */
                 fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
@@ -1385,11 +1379,17 @@ private constructor(
                     this.postalCode = postalCode
                 }
 
-                /** Country code conforms to [ISO 3166-1 alpha-2] */
-                fun country(country: String) = country(JsonField.of(country))
+                /** Region or State. */
+                fun region(region: String) = region(JsonField.of(region))
 
-                /** Country code conforms to [ISO 3166-1 alpha-2] */
-                fun country(country: JsonField<String>) = apply { this.country = country }
+                /** Region or State. */
+                fun region(region: JsonField<String>) = apply { this.region = region }
+
+                fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+                fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
+                    this.updatedAt = updatedAt
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1416,16 +1416,16 @@ private constructor(
                 fun build(): Address =
                     Address(
                         id,
-                        object_,
-                        liveMode,
+                        country,
                         createdAt,
-                        updatedAt,
                         line1,
                         line2,
+                        liveMode,
                         locality,
-                        region,
+                        object_,
                         postalCode,
-                        country,
+                        region,
+                        updatedAt,
                         additionalProperties.toImmutable(),
                     )
             }
@@ -1435,17 +1435,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Address && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && line1 == other.line1 && line2 == other.line2 && locality == other.locality && region == other.region && postalCode == other.postalCode && country == other.country && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is Address && id == other.id && country == other.country && createdAt == other.createdAt && line1 == other.line1 && line2 == other.line2 && liveMode == other.liveMode && locality == other.locality && object_ == other.object_ && postalCode == other.postalCode && region == other.region && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, line1, line2, locality, region, postalCode, country, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(id, country, createdAt, line1, line2, liveMode, locality, object_, postalCode, region, updatedAt, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Address{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
+                "Address{id=$id, country=$country, createdAt=$createdAt, line1=$line1, line2=$line2, liveMode=$liveMode, locality=$locality, object_=$object_, postalCode=$postalCode, region=$region, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
         }
 
         class PartyType
@@ -1642,17 +1642,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Account && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && discardedAt == other.discardedAt && accountType == other.accountType && partyType == other.partyType && partyAddress == other.partyAddress && name == other.name && accountDetails == other.accountDetails && routingDetails == other.routingDetails && metadata == other.metadata && partyName == other.partyName && contactDetails == other.contactDetails && ledgerAccountId == other.ledgerAccountId && verificationStatus == other.verificationStatus && verificationSource == other.verificationSource && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Account && id == other.id && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && createdAt == other.createdAt && discardedAt == other.discardedAt && ledgerAccountId == other.ledgerAccountId && liveMode == other.liveMode && metadata == other.metadata && name == other.name && object_ == other.object_ && partyAddress == other.partyAddress && partyName == other.partyName && partyType == other.partyType && routingDetails == other.routingDetails && updatedAt == other.updatedAt && verificationSource == other.verificationSource && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, accountType, partyType, partyAddress, name, accountDetails, routingDetails, metadata, partyName, contactDetails, ledgerAccountId, verificationStatus, verificationSource, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(id, accountDetails, accountType, contactDetails, createdAt, discardedAt, ledgerAccountId, liveMode, metadata, name, object_, partyAddress, partyName, partyType, routingDetails, updatedAt, verificationSource, verificationStatus, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Account{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, accountType=$accountType, partyType=$partyType, partyAddress=$partyAddress, name=$name, accountDetails=$accountDetails, routingDetails=$routingDetails, metadata=$metadata, partyName=$partyName, contactDetails=$contactDetails, ledgerAccountId=$ledgerAccountId, verificationStatus=$verificationStatus, verificationSource=$verificationSource, additionalProperties=$additionalProperties}"
+            "Account{id=$id, accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, createdAt=$createdAt, discardedAt=$discardedAt, ledgerAccountId=$ledgerAccountId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, partyAddress=$partyAddress, partyName=$partyName, partyType=$partyType, routingDetails=$routingDetails, updatedAt=$updatedAt, verificationSource=$verificationSource, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
@@ -1805,15 +1805,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Counterparty && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && discardedAt == other.discardedAt && name == other.name && accounts == other.accounts && email == other.email && legalEntityId == other.legalEntityId && metadata == other.metadata && sendRemittanceAdvice == other.sendRemittanceAdvice && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Counterparty && id == other.id && accounts == other.accounts && createdAt == other.createdAt && discardedAt == other.discardedAt && email == other.email && legalEntityId == other.legalEntityId && liveMode == other.liveMode && metadata == other.metadata && name == other.name && object_ == other.object_ && sendRemittanceAdvice == other.sendRemittanceAdvice && updatedAt == other.updatedAt && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, name, accounts, email, legalEntityId, metadata, sendRemittanceAdvice, verificationStatus, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accounts, createdAt, discardedAt, email, legalEntityId, liveMode, metadata, name, object_, sendRemittanceAdvice, updatedAt, verificationStatus, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Counterparty{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, name=$name, accounts=$accounts, email=$email, legalEntityId=$legalEntityId, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
+        "Counterparty{id=$id, accounts=$accounts, createdAt=$createdAt, discardedAt=$discardedAt, email=$email, legalEntityId=$legalEntityId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, sendRemittanceAdvice=$sendRemittanceAdvice, updatedAt=$updatedAt, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
 }
