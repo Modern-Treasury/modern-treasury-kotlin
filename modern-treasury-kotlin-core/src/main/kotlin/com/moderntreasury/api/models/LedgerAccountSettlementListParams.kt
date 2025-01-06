@@ -141,7 +141,7 @@ constructor(
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
          * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
          */
-        fun id(id: List<String>) = apply { this.id = id.toMutableList() }
+        fun id(id: List<String>?) = apply { this.id = id?.toMutableList() }
 
         /**
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
@@ -149,18 +149,18 @@ constructor(
          */
         fun addId(id: String) = apply { this.id = (this.id ?: mutableListOf()).apply { add(id) } }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the created at
          * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
          * created_at%5Bgt%5D=2000-01-01T12:00:00Z.
          */
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
-        fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
+        fun ledgerId(ledgerId: String?) = apply { this.ledgerId = ledgerId }
 
-        fun ledgerTransactionId(ledgerTransactionId: String) = apply {
+        fun ledgerTransactionId(ledgerTransactionId: String?) = apply {
             this.ledgerTransactionId = ledgerTransactionId
         }
 
@@ -168,15 +168,17 @@ constructor(
          * For example, if you want to query for records with metadata key `Type` and value `Loan`,
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
-        fun settledLedgerAccountId(settledLedgerAccountId: String) = apply {
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
+
+        fun settledLedgerAccountId(settledLedgerAccountId: String?) = apply {
             this.settledLedgerAccountId = settledLedgerAccountId
         }
 
-        fun settlementEntryDirection(settlementEntryDirection: String) = apply {
+        fun settlementEntryDirection(settlementEntryDirection: String?) = apply {
             this.settlementEntryDirection = settlementEntryDirection
         }
 
@@ -185,7 +187,7 @@ constructor(
          * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
          * updated_at%5Bgt%5D=2000-01-01T12:00:00Z.
          */
-        fun updatedAt(updatedAt: UpdatedAt) = apply { this.updatedAt = updatedAt }
+        fun updatedAt(updatedAt: UpdatedAt?) = apply { this.updatedAt = updatedAt }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

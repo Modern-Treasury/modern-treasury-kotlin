@@ -140,7 +140,7 @@ constructor(
             }
 
             /** The ID of the object being returned or `null`. */
-            fun returnableId(returnableId: String) = apply { this.returnableId = returnableId }
+            fun returnableId(returnableId: String?) = apply { this.returnableId = returnableId }
 
             /**
              * The type of object being returned. Currently, this may only be
@@ -154,24 +154,24 @@ constructor(
              * Some returns may include additional information from the bank. In these cases, this
              * string will be present.
              */
-            fun additionalInformation(additionalInformation: String) = apply {
+            fun additionalInformation(additionalInformation: String?) = apply {
                 this.additionalInformation = additionalInformation
             }
 
             /** The return code. For ACH returns, this is the required ACH return code. */
-            fun code(code: Code) = apply { this.code = code }
+            fun code(code: Code?) = apply { this.code = code }
 
             /**
              * If the return code is `R14` or `R15` this is the date the deceased counterparty
              * passed away.
              */
-            fun dateOfDeath(dateOfDeath: LocalDate) = apply { this.dateOfDeath = dateOfDeath }
+            fun dateOfDeath(dateOfDeath: LocalDate?) = apply { this.dateOfDeath = dateOfDeath }
 
             /**
              * An optional description of the reason for the return. This is for internal usage and
              * will not be transmitted to the bank.”
              */
-            fun reason(reason: String) = apply { this.reason = reason }
+            fun reason(reason: String?) = apply { this.reason = reason }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -243,7 +243,7 @@ constructor(
         }
 
         /** The ID of the object being returned or `null`. */
-        fun returnableId(returnableId: String) = apply { body.returnableId(returnableId) }
+        fun returnableId(returnableId: String?) = apply { body.returnableId(returnableId) }
 
         /**
          * The type of object being returned. Currently, this may only be incoming_payment_detail.
@@ -256,24 +256,24 @@ constructor(
          * Some returns may include additional information from the bank. In these cases, this
          * string will be present.
          */
-        fun additionalInformation(additionalInformation: String) = apply {
+        fun additionalInformation(additionalInformation: String?) = apply {
             body.additionalInformation(additionalInformation)
         }
 
         /** The return code. For ACH returns, this is the required ACH return code. */
-        fun code(code: Code) = apply { body.code(code) }
+        fun code(code: Code?) = apply { body.code(code) }
 
         /**
          * If the return code is `R14` or `R15` this is the date the deceased counterparty passed
          * away.
          */
-        fun dateOfDeath(dateOfDeath: LocalDate) = apply { body.dateOfDeath(dateOfDeath) }
+        fun dateOfDeath(dateOfDeath: LocalDate?) = apply { body.dateOfDeath(dateOfDeath) }
 
         /**
          * An optional description of the reason for the return. This is for internal usage and will
          * not be transmitted to the bank.”
          */
-        fun reason(reason: String) = apply { body.reason(reason) }
+        fun reason(reason: String?) = apply { body.reason(reason) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

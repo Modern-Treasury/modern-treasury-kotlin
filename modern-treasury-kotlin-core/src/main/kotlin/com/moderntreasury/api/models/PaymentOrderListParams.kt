@@ -185,27 +185,27 @@ constructor(
             additionalQueryParams = paymentOrderListParams.additionalQueryParams.toBuilder()
         }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
-        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
+        fun counterpartyId(counterpartyId: String?) = apply { this.counterpartyId = counterpartyId }
 
         /** An inclusive upper bound for searching created_at */
-        fun createdAtEnd(createdAtEnd: LocalDate) = apply { this.createdAtEnd = createdAtEnd }
+        fun createdAtEnd(createdAtEnd: LocalDate?) = apply { this.createdAtEnd = createdAtEnd }
 
         /** An inclusive lower bound for searching created_at */
-        fun createdAtStart(createdAtStart: LocalDate) = apply {
+        fun createdAtStart(createdAtStart: LocalDate?) = apply {
             this.createdAtStart = createdAtStart
         }
 
-        fun direction(direction: TransactionDirection) = apply { this.direction = direction }
+        fun direction(direction: TransactionDirection?) = apply { this.direction = direction }
 
         /** An inclusive upper bound for searching effective_date */
-        fun effectiveDateEnd(effectiveDateEnd: LocalDate) = apply {
+        fun effectiveDateEnd(effectiveDateEnd: LocalDate?) = apply {
             this.effectiveDateEnd = effectiveDateEnd
         }
 
         /** An inclusive lower bound for searching effective_date */
-        fun effectiveDateStart(effectiveDateStart: LocalDate) = apply {
+        fun effectiveDateStart(effectiveDateStart: LocalDate?) = apply {
             this.effectiveDateStart = effectiveDateStart
         }
 
@@ -213,42 +213,44 @@ constructor(
          * For example, if you want to query for records with metadata key `Type` and value `Loan`,
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
-        fun originatingAccountId(originatingAccountId: String) = apply {
+        fun originatingAccountId(originatingAccountId: String?) = apply {
             this.originatingAccountId = originatingAccountId
         }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
+
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /**
          * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH or
          * EFT transfer, respectively. For check payments, `high` can mean an overnight check rather
          * than standard mail.
          */
-        fun priority(priority: Priority) = apply { this.priority = priority }
+        fun priority(priority: Priority?) = apply { this.priority = priority }
 
         /** An inclusive upper bound for searching process_after */
-        fun processAfterEnd(processAfterEnd: OffsetDateTime) = apply {
+        fun processAfterEnd(processAfterEnd: OffsetDateTime?) = apply {
             this.processAfterEnd = processAfterEnd
         }
 
         /** An inclusive lower bound for searching process_after */
-        fun processAfterStart(processAfterStart: OffsetDateTime) = apply {
+        fun processAfterStart(processAfterStart: OffsetDateTime?) = apply {
             this.processAfterStart = processAfterStart
         }
 
         /** Query for records with the provided reference number */
-        fun referenceNumber(referenceNumber: String) = apply {
+        fun referenceNumber(referenceNumber: String?) = apply {
             this.referenceNumber = referenceNumber
         }
 
-        fun status(status: Status) = apply { this.status = status }
+        fun status(status: Status?) = apply { this.status = status }
 
         /** The ID of a transaction that the payment order has been reconciled to. */
-        fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
+        fun transactionId(transactionId: String?) = apply { this.transactionId = transactionId }
 
-        fun type(type: Type) = apply { this.type = type }
+        fun type(type: Type?) = apply { this.type = type }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

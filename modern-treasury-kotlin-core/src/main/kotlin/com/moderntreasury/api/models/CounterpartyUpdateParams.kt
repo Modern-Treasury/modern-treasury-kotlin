@@ -139,30 +139,37 @@ constructor(
             }
 
             /** A new email for the counterparty. */
-            fun email(email: String) = apply { this.email = email }
+            fun email(email: String?) = apply { this.email = email }
 
             /** The id of the legal entity. */
-            fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
+            fun legalEntityId(legalEntityId: String?) = apply { this.legalEntityId = legalEntityId }
 
             /**
              * Additional data in the form of key-value pairs. Pairs can be removed by passing an
              * empty string or `null` as the value.
              */
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /** A new name for the counterparty. Will only update if passed. */
-            fun name(name: String) = apply { this.name = name }
+            fun name(name: String?) = apply { this.name = name }
 
             /**
              * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
              * associated payment order is sent to the bank.
              */
-            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) = apply {
+            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean?) = apply {
                 this.sendRemittanceAdvice = sendRemittanceAdvice
             }
 
+            /**
+             * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
+             * associated payment order is sent to the bank.
+             */
+            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) =
+                sendRemittanceAdvice(sendRemittanceAdvice as Boolean?)
+
             /** Either a valid SSN or EIN. */
-            fun taxpayerIdentifier(taxpayerIdentifier: String) = apply {
+            fun taxpayerIdentifier(taxpayerIdentifier: String?) = apply {
                 this.taxpayerIdentifier = taxpayerIdentifier
             }
 
@@ -240,30 +247,37 @@ constructor(
         fun id(id: String) = apply { this.id = id }
 
         /** A new email for the counterparty. */
-        fun email(email: String) = apply { body.email(email) }
+        fun email(email: String?) = apply { body.email(email) }
 
         /** The id of the legal entity. */
-        fun legalEntityId(legalEntityId: String) = apply { body.legalEntityId(legalEntityId) }
+        fun legalEntityId(legalEntityId: String?) = apply { body.legalEntityId(legalEntityId) }
 
         /**
          * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
          * string or `null` as the value.
          */
-        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
 
         /** A new name for the counterparty. Will only update if passed. */
-        fun name(name: String) = apply { body.name(name) }
+        fun name(name: String?) = apply { body.name(name) }
 
         /**
          * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
          * associated payment order is sent to the bank.
          */
-        fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) = apply {
+        fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean?) = apply {
             body.sendRemittanceAdvice(sendRemittanceAdvice)
         }
 
+        /**
+         * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
+         * associated payment order is sent to the bank.
+         */
+        fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) =
+            sendRemittanceAdvice(sendRemittanceAdvice as Boolean?)
+
         /** Either a valid SSN or EIN. */
-        fun taxpayerIdentifier(taxpayerIdentifier: String) = apply {
+        fun taxpayerIdentifier(taxpayerIdentifier: String?) = apply {
             body.taxpayerIdentifier(taxpayerIdentifier)
         }
 

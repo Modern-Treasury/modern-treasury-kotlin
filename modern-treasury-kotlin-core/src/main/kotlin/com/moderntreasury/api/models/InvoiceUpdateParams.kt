@@ -413,8 +413,8 @@ constructor(
             }
 
             /** The invoicer's contact details displayed at the top of the invoice. */
-            fun contactDetails(contactDetails: List<ContactDetail>) = apply {
-                this.contactDetails = contactDetails.toMutableList()
+            fun contactDetails(contactDetails: List<ContactDetail>?) = apply {
+                this.contactDetails = contactDetails?.toMutableList()
             }
 
             /** The invoicer's contact details displayed at the top of the invoice. */
@@ -423,35 +423,34 @@ constructor(
             }
 
             /** The counterparty's billing address. */
-            fun counterpartyBillingAddress(counterpartyBillingAddress: CounterpartyBillingAddress) =
-                apply {
-                    this.counterpartyBillingAddress = counterpartyBillingAddress
-                }
+            fun counterpartyBillingAddress(
+                counterpartyBillingAddress: CounterpartyBillingAddress?
+            ) = apply { this.counterpartyBillingAddress = counterpartyBillingAddress }
 
             /** The ID of the counterparty receiving the invoice. */
-            fun counterpartyId(counterpartyId: String) = apply {
+            fun counterpartyId(counterpartyId: String?) = apply {
                 this.counterpartyId = counterpartyId
             }
 
             /** The counterparty's shipping address where physical goods should be delivered. */
             fun counterpartyShippingAddress(
-                counterpartyShippingAddress: CounterpartyShippingAddress
+                counterpartyShippingAddress: CounterpartyShippingAddress?
             ) = apply { this.counterpartyShippingAddress = counterpartyShippingAddress }
 
             /** Currency that the invoice is denominated in. Defaults to `USD` if not provided. */
-            fun currency(currency: Currency) = apply { this.currency = currency }
+            fun currency(currency: Currency?) = apply { this.currency = currency }
 
             /** A free-form description of the invoice. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /** A future date by when the invoice needs to be paid. */
-            fun dueDate(dueDate: OffsetDateTime) = apply { this.dueDate = dueDate }
+            fun dueDate(dueDate: OffsetDateTime?) = apply { this.dueDate = dueDate }
 
             /**
              * When payment_method is automatic, the fallback payment method to use when an
              * automatic payment fails. One of `manual` or `ui`.
              */
-            fun fallbackPaymentMethod(fallbackPaymentMethod: String) = apply {
+            fun fallbackPaymentMethod(fallbackPaymentMethod: String?) = apply {
                 this.fallbackPaymentMethod = fallbackPaymentMethod
             }
 
@@ -460,17 +459,25 @@ constructor(
              * false, then a line item must be provided. If this is true, line_items must be empty.
              * Ignored if ledger_account_settlement_id is empty.
              */
-            fun ingestLedgerEntries(ingestLedgerEntries: Boolean) = apply {
+            fun ingestLedgerEntries(ingestLedgerEntries: Boolean?) = apply {
                 this.ingestLedgerEntries = ingestLedgerEntries
             }
+
+            /**
+             * Whether to ingest the ledger_entries to populate the invoice line items. If this is
+             * false, then a line item must be provided. If this is true, line_items must be empty.
+             * Ignored if ledger_account_settlement_id is empty.
+             */
+            fun ingestLedgerEntries(ingestLedgerEntries: Boolean) =
+                ingestLedgerEntries(ingestLedgerEntries as Boolean?)
 
             /**
              * An array of invoice line items. The API supports a maximum of 50 invoice line items
              * per invoice. If a greater number of invoice line items is required, please contact
              * support.
              */
-            fun invoiceLineItems(invoiceLineItems: List<InvoiceLineItemCreateRequest>) = apply {
-                this.invoiceLineItems = invoiceLineItems.toMutableList()
+            fun invoiceLineItems(invoiceLineItems: List<InvoiceLineItemCreateRequest>?) = apply {
+                this.invoiceLineItems = invoiceLineItems?.toMutableList()
             }
 
             /**
@@ -484,12 +491,12 @@ constructor(
             }
 
             /** The invoice issuer's business address. */
-            fun invoicerAddress(invoicerAddress: InvoicerAddress) = apply {
+            fun invoicerAddress(invoicerAddress: InvoicerAddress?) = apply {
                 this.invoicerAddress = invoicerAddress
             }
 
             /** The ID of the virtual account the invoice should be paid to. */
-            fun ledgerAccountSettlementId(ledgerAccountSettlementId: String) = apply {
+            fun ledgerAccountSettlementId(ledgerAccountSettlementId: String?) = apply {
                 this.ledgerAccountSettlementId = ledgerAccountSettlementId
             }
 
@@ -497,15 +504,15 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /**
              * Emails in addition to the counterparty email to send invoice status notifications to.
              * At least one email is required if notifications are enabled and the counterparty
              * doesn't have an email.
              */
-            fun notificationEmailAddresses(notificationEmailAddresses: List<String>) = apply {
-                this.notificationEmailAddresses = notificationEmailAddresses.toMutableList()
+            fun notificationEmailAddresses(notificationEmailAddresses: List<String>?) = apply {
+                this.notificationEmailAddresses = notificationEmailAddresses?.toMutableList()
             }
 
             /**
@@ -524,12 +531,19 @@ constructor(
              * If true, the invoice will send email notifications to the invoice recipients about
              * invoice status changes.
              */
-            fun notificationsEnabled(notificationsEnabled: Boolean) = apply {
+            fun notificationsEnabled(notificationsEnabled: Boolean?) = apply {
                 this.notificationsEnabled = notificationsEnabled
             }
 
+            /**
+             * If true, the invoice will send email notifications to the invoice recipients about
+             * invoice status changes.
+             */
+            fun notificationsEnabled(notificationsEnabled: Boolean) =
+                notificationsEnabled(notificationsEnabled as Boolean?)
+
             /** The ID of the internal account the invoice should be paid to. */
-            fun originatingAccountId(originatingAccountId: String) = apply {
+            fun originatingAccountId(originatingAccountId: String?) = apply {
                 this.originatingAccountId = originatingAccountId
             }
 
@@ -538,7 +552,7 @@ constructor(
              * current business day or the next business day if the current day is a bank holiday or
              * weekend. Format: yyyy-mm-dd.
              */
-            fun paymentEffectiveDate(paymentEffectiveDate: LocalDate) = apply {
+            fun paymentEffectiveDate(paymentEffectiveDate: LocalDate?) = apply {
                 this.paymentEffectiveDate = paymentEffectiveDate
             }
 
@@ -550,7 +564,7 @@ constructor(
              * amount is negative, the automatically initiated payment order's direction will be
              * credit. One of `manual`, `ui`, or `automatic`.
              */
-            fun paymentMethod(paymentMethod: PaymentMethod) = apply {
+            fun paymentMethod(paymentMethod: PaymentMethod?) = apply {
                 this.paymentMethod = paymentMethod
             }
 
@@ -559,12 +573,12 @@ constructor(
              * `bacs`, `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`,
              * `signet`, `provexchange`, `zengin`.
              */
-            fun paymentType(paymentType: PaymentOrderType) = apply {
+            fun paymentType(paymentType: PaymentOrderType?) = apply {
                 this.paymentType = paymentType
             }
 
             /** The receiving account ID. Can be an `external_account`. */
-            fun receivingAccountId(receivingAccountId: String) = apply {
+            fun receivingAccountId(receivingAccountId: String?) = apply {
                 this.receivingAccountId = receivingAccountId
             }
 
@@ -572,7 +586,7 @@ constructor(
              * The email of the recipient of the invoice. Leaving this value as null will fallback
              * to using the counterparty's name.
              */
-            fun recipientEmail(recipientEmail: String) = apply {
+            fun recipientEmail(recipientEmail: String?) = apply {
                 this.recipientEmail = recipientEmail
             }
 
@@ -580,14 +594,14 @@ constructor(
              * The name of the recipient of the invoice. Leaving this value as null will fallback to
              * using the counterparty's name.
              */
-            fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
+            fun recipientName(recipientName: String?) = apply { this.recipientName = recipientName }
 
             /**
              * Number of days after due date when overdue reminder emails will be sent out to
              * invoice recipients.
              */
-            fun remindAfterOverdueDays(remindAfterOverdueDays: List<Long>) = apply {
-                this.remindAfterOverdueDays = remindAfterOverdueDays.toMutableList()
+            fun remindAfterOverdueDays(remindAfterOverdueDays: List<Long>?) = apply {
+                this.remindAfterOverdueDays = remindAfterOverdueDays?.toMutableList()
             }
 
             /**
@@ -604,10 +618,10 @@ constructor(
              * invoice attributes. Valid state transitions are `draft` to `unpaid`, `draft` or
              * `unpaid` to `voided`, and `draft` or `unpaid` to `paid`.
              */
-            fun status(status: String) = apply { this.status = status }
+            fun status(status: String?) = apply { this.status = status }
 
             /** The ID of the virtual account the invoice should be paid to. */
-            fun virtualAccountId(virtualAccountId: String) = apply {
+            fun virtualAccountId(virtualAccountId: String?) = apply {
                 this.virtualAccountId = virtualAccountId
             }
 
@@ -704,7 +718,7 @@ constructor(
         fun id(id: String) = apply { this.id = id }
 
         /** The invoicer's contact details displayed at the top of the invoice. */
-        fun contactDetails(contactDetails: List<ContactDetail>) = apply {
+        fun contactDetails(contactDetails: List<ContactDetail>?) = apply {
             body.contactDetails(contactDetails)
         }
 
@@ -714,34 +728,34 @@ constructor(
         }
 
         /** The counterparty's billing address. */
-        fun counterpartyBillingAddress(counterpartyBillingAddress: CounterpartyBillingAddress) =
+        fun counterpartyBillingAddress(counterpartyBillingAddress: CounterpartyBillingAddress?) =
             apply {
                 body.counterpartyBillingAddress(counterpartyBillingAddress)
             }
 
         /** The ID of the counterparty receiving the invoice. */
-        fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
+        fun counterpartyId(counterpartyId: String?) = apply { body.counterpartyId(counterpartyId) }
 
         /** The counterparty's shipping address where physical goods should be delivered. */
-        fun counterpartyShippingAddress(counterpartyShippingAddress: CounterpartyShippingAddress) =
+        fun counterpartyShippingAddress(counterpartyShippingAddress: CounterpartyShippingAddress?) =
             apply {
                 body.counterpartyShippingAddress(counterpartyShippingAddress)
             }
 
         /** Currency that the invoice is denominated in. Defaults to `USD` if not provided. */
-        fun currency(currency: Currency) = apply { body.currency(currency) }
+        fun currency(currency: Currency?) = apply { body.currency(currency) }
 
         /** A free-form description of the invoice. */
-        fun description(description: String) = apply { body.description(description) }
+        fun description(description: String?) = apply { body.description(description) }
 
         /** A future date by when the invoice needs to be paid. */
-        fun dueDate(dueDate: OffsetDateTime) = apply { body.dueDate(dueDate) }
+        fun dueDate(dueDate: OffsetDateTime?) = apply { body.dueDate(dueDate) }
 
         /**
          * When payment_method is automatic, the fallback payment method to use when an automatic
          * payment fails. One of `manual` or `ui`.
          */
-        fun fallbackPaymentMethod(fallbackPaymentMethod: String) = apply {
+        fun fallbackPaymentMethod(fallbackPaymentMethod: String?) = apply {
             body.fallbackPaymentMethod(fallbackPaymentMethod)
         }
 
@@ -750,15 +764,23 @@ constructor(
          * false, then a line item must be provided. If this is true, line_items must be empty.
          * Ignored if ledger_account_settlement_id is empty.
          */
-        fun ingestLedgerEntries(ingestLedgerEntries: Boolean) = apply {
+        fun ingestLedgerEntries(ingestLedgerEntries: Boolean?) = apply {
             body.ingestLedgerEntries(ingestLedgerEntries)
         }
+
+        /**
+         * Whether to ingest the ledger_entries to populate the invoice line items. If this is
+         * false, then a line item must be provided. If this is true, line_items must be empty.
+         * Ignored if ledger_account_settlement_id is empty.
+         */
+        fun ingestLedgerEntries(ingestLedgerEntries: Boolean) =
+            ingestLedgerEntries(ingestLedgerEntries as Boolean?)
 
         /**
          * An array of invoice line items. The API supports a maximum of 50 invoice line items per
          * invoice. If a greater number of invoice line items is required, please contact support.
          */
-        fun invoiceLineItems(invoiceLineItems: List<InvoiceLineItemCreateRequest>) = apply {
+        fun invoiceLineItems(invoiceLineItems: List<InvoiceLineItemCreateRequest>?) = apply {
             body.invoiceLineItems(invoiceLineItems)
         }
 
@@ -771,26 +793,26 @@ constructor(
         }
 
         /** The invoice issuer's business address. */
-        fun invoicerAddress(invoicerAddress: InvoicerAddress) = apply {
+        fun invoicerAddress(invoicerAddress: InvoicerAddress?) = apply {
             body.invoicerAddress(invoicerAddress)
         }
 
         /** The ID of the virtual account the invoice should be paid to. */
-        fun ledgerAccountSettlementId(ledgerAccountSettlementId: String) = apply {
+        fun ledgerAccountSettlementId(ledgerAccountSettlementId: String?) = apply {
             body.ledgerAccountSettlementId(ledgerAccountSettlementId)
         }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
 
         /**
          * Emails in addition to the counterparty email to send invoice status notifications to. At
          * least one email is required if notifications are enabled and the counterparty doesn't
          * have an email.
          */
-        fun notificationEmailAddresses(notificationEmailAddresses: List<String>) = apply {
+        fun notificationEmailAddresses(notificationEmailAddresses: List<String>?) = apply {
             body.notificationEmailAddresses(notificationEmailAddresses)
         }
 
@@ -807,12 +829,19 @@ constructor(
          * If true, the invoice will send email notifications to the invoice recipients about
          * invoice status changes.
          */
-        fun notificationsEnabled(notificationsEnabled: Boolean) = apply {
+        fun notificationsEnabled(notificationsEnabled: Boolean?) = apply {
             body.notificationsEnabled(notificationsEnabled)
         }
 
+        /**
+         * If true, the invoice will send email notifications to the invoice recipients about
+         * invoice status changes.
+         */
+        fun notificationsEnabled(notificationsEnabled: Boolean) =
+            notificationsEnabled(notificationsEnabled as Boolean?)
+
         /** The ID of the internal account the invoice should be paid to. */
-        fun originatingAccountId(originatingAccountId: String) = apply {
+        fun originatingAccountId(originatingAccountId: String?) = apply {
             body.originatingAccountId(originatingAccountId)
         }
 
@@ -821,7 +850,7 @@ constructor(
          * business day or the next business day if the current day is a bank holiday or weekend.
          * Format: yyyy-mm-dd.
          */
-        fun paymentEffectiveDate(paymentEffectiveDate: LocalDate) = apply {
+        fun paymentEffectiveDate(paymentEffectiveDate: LocalDate?) = apply {
             body.paymentEffectiveDate(paymentEffectiveDate)
         }
 
@@ -833,7 +862,7 @@ constructor(
          * negative, the automatically initiated payment order's direction will be credit. One of
          * `manual`, `ui`, or `automatic`.
          */
-        fun paymentMethod(paymentMethod: PaymentMethod) = apply {
+        fun paymentMethod(paymentMethod: PaymentMethod?) = apply {
             body.paymentMethod(paymentMethod)
         }
 
@@ -842,10 +871,10 @@ constructor(
          * `bacs`, `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`,
          * `signet`, `provexchange`, `zengin`.
          */
-        fun paymentType(paymentType: PaymentOrderType) = apply { body.paymentType(paymentType) }
+        fun paymentType(paymentType: PaymentOrderType?) = apply { body.paymentType(paymentType) }
 
         /** The receiving account ID. Can be an `external_account`. */
-        fun receivingAccountId(receivingAccountId: String) = apply {
+        fun receivingAccountId(receivingAccountId: String?) = apply {
             body.receivingAccountId(receivingAccountId)
         }
 
@@ -853,19 +882,19 @@ constructor(
          * The email of the recipient of the invoice. Leaving this value as null will fallback to
          * using the counterparty's name.
          */
-        fun recipientEmail(recipientEmail: String) = apply { body.recipientEmail(recipientEmail) }
+        fun recipientEmail(recipientEmail: String?) = apply { body.recipientEmail(recipientEmail) }
 
         /**
          * The name of the recipient of the invoice. Leaving this value as null will fallback to
          * using the counterparty's name.
          */
-        fun recipientName(recipientName: String) = apply { body.recipientName(recipientName) }
+        fun recipientName(recipientName: String?) = apply { body.recipientName(recipientName) }
 
         /**
          * Number of days after due date when overdue reminder emails will be sent out to invoice
          * recipients.
          */
-        fun remindAfterOverdueDays(remindAfterOverdueDays: List<Long>) = apply {
+        fun remindAfterOverdueDays(remindAfterOverdueDays: List<Long>?) = apply {
             body.remindAfterOverdueDays(remindAfterOverdueDays)
         }
 
@@ -882,10 +911,10 @@ constructor(
          * invoice attributes. Valid state transitions are `draft` to `unpaid`, `draft` or `unpaid`
          * to `voided`, and `draft` or `unpaid` to `paid`.
          */
-        fun status(status: String) = apply { body.status(status) }
+        fun status(status: String?) = apply { body.status(status) }
 
         /** The ID of the virtual account the invoice should be paid to. */
-        fun virtualAccountId(virtualAccountId: String) = apply {
+        fun virtualAccountId(virtualAccountId: String?) = apply {
             body.virtualAccountId(virtualAccountId)
         }
 
@@ -1100,7 +1129,7 @@ constructor(
 
             fun createdAt(createdAt: OffsetDateTime) = apply { this.createdAt = createdAt }
 
-            fun discardedAt(discardedAt: OffsetDateTime) = apply { this.discardedAt = discardedAt }
+            fun discardedAt(discardedAt: OffsetDateTime?) = apply { this.discardedAt = discardedAt }
 
             /**
              * This field will be true if this object exists in the live environment or false if it
@@ -1310,7 +1339,7 @@ constructor(
             /** Region or State. */
             fun region(region: String) = apply { this.region = region }
 
-            fun line2(line2: String) = apply { this.line2 = line2 }
+            fun line2(line2: String?) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1438,7 +1467,7 @@ constructor(
             /** Region or State. */
             fun region(region: String) = apply { this.region = region }
 
-            fun line2(line2: String) = apply { this.line2 = line2 }
+            fun line2(line2: String?) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1584,32 +1613,38 @@ constructor(
             fun unitAmount(unitAmount: Long) = apply { this.unitAmount = unitAmount }
 
             /** An optional free-form description of the line item. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /**
              * Either `debit` or `credit`. `debit` indicates that a client owes the business money
              * and increases the invoice's `total_amount` due. `credit` has the opposite intention
              * and effect.
              */
-            fun direction(direction: String) = apply { this.direction = direction }
+            fun direction(direction: String?) = apply { this.direction = direction }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /**
              * The number of units of a product or service that this line item is for. Must be a
              * whole number. Defaults to 1 if not provided.
              */
-            fun quantity(quantity: Long) = apply { this.quantity = quantity }
+            fun quantity(quantity: Long?) = apply { this.quantity = quantity }
+
+            /**
+             * The number of units of a product or service that this line item is for. Must be a
+             * whole number. Defaults to 1 if not provided.
+             */
+            fun quantity(quantity: Long) = quantity(quantity as Long?)
 
             /**
              * The cost per unit of the product or service that this line item is for, specified in
              * the invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
              */
-            fun unitAmountDecimal(unitAmountDecimal: String) = apply {
+            fun unitAmountDecimal(unitAmountDecimal: String?) = apply {
                 this.unitAmountDecimal = unitAmountDecimal
             }
 
@@ -1811,7 +1846,7 @@ constructor(
             /** Region or State. */
             fun region(region: String) = apply { this.region = region }
 
-            fun line2(line2: String) = apply { this.line2 = line2 }
+            fun line2(line2: String?) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()

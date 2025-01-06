@@ -208,7 +208,7 @@ constructor(
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
          * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
          */
-        fun id(id: List<String>) = apply { this.id = id.toMutableList() }
+        fun id(id: List<String>?) = apply { this.id = id?.toMutableList() }
 
         /**
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
@@ -216,42 +216,42 @@ constructor(
          */
         fun addId(id: String) = apply { this.id = (this.id ?: mutableListOf()).apply { add(id) } }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
         /**
          * Use "gt" (>), "gte" (>=), "lt" (<), "lte" (<=), or "eq" (=) to filter by effective at.
          * For example, for all transactions after Jan 1 2000, use
          * effective_at%5Bgt%5D=2000-01-01T00:00:00:00.000Z.
          */
-        fun effectiveAt(effectiveAt: EffectiveAt) = apply { this.effectiveAt = effectiveAt }
+        fun effectiveAt(effectiveAt: EffectiveAt?) = apply { this.effectiveAt = effectiveAt }
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by effective date.
          * For example, for all dates after Jan 1 2000, use effective_date%5Bgt%5D=2000-01-01.
          */
-        fun effectiveDate(effectiveDate: EffectiveDate) = apply {
+        fun effectiveDate(effectiveDate: EffectiveDate?) = apply {
             this.effectiveDate = effectiveDate
         }
 
-        fun externalId(externalId: String) = apply { this.externalId = externalId }
+        fun externalId(externalId: String?) = apply { this.externalId = externalId }
 
-        fun ledgerAccountCategoryId(ledgerAccountCategoryId: String) = apply {
+        fun ledgerAccountCategoryId(ledgerAccountCategoryId: String?) = apply {
             this.ledgerAccountCategoryId = ledgerAccountCategoryId
         }
 
-        fun ledgerAccountId(ledgerAccountId: String) = apply {
+        fun ledgerAccountId(ledgerAccountId: String?) = apply {
             this.ledgerAccountId = ledgerAccountId
         }
 
-        fun ledgerAccountSettlementId(ledgerAccountSettlementId: String) = apply {
+        fun ledgerAccountSettlementId(ledgerAccountSettlementId: String?) = apply {
             this.ledgerAccountSettlementId = ledgerAccountSettlementId
         }
 
-        fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
+        fun ledgerId(ledgerId: String?) = apply { this.ledgerId = ledgerId }
 
-        fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
+        fun ledgerableId(ledgerableId: String?) = apply { this.ledgerableId = ledgerableId }
 
-        fun ledgerableType(ledgerableType: LedgerableType) = apply {
+        fun ledgerableType(ledgerableType: LedgerableType?) = apply {
             this.ledgerableType = ledgerableType
         }
 
@@ -259,36 +259,38 @@ constructor(
          * For example, if you want to query for records with metadata key `Type` and value `Loan`,
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
         /**
          * Order by `created_at` or `effective_at` in `asc` or `desc` order. For example, to order
          * by `effective_at asc`, use `order_by%5Beffective_at%5D=asc`. Ordering by only one field
          * at a time is supported.
          */
-        fun orderBy(orderBy: OrderBy) = apply { this.orderBy = orderBy }
+        fun orderBy(orderBy: OrderBy?) = apply { this.orderBy = orderBy }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
+
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
          * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
          * posted_at%5Bgt%5D=2000-01-01T12:00:00Z.
          */
-        fun postedAt(postedAt: PostedAt) = apply { this.postedAt = postedAt }
+        fun postedAt(postedAt: PostedAt?) = apply { this.postedAt = postedAt }
 
-        fun reversesLedgerTransactionId(reversesLedgerTransactionId: String) = apply {
+        fun reversesLedgerTransactionId(reversesLedgerTransactionId: String?) = apply {
             this.reversesLedgerTransactionId = reversesLedgerTransactionId
         }
 
-        fun status(status: Status) = apply { this.status = status }
+        fun status(status: Status?) = apply { this.status = status }
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
          * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
          * updated_at%5Bgt%5D=2000-01-01T12:00:00Z.
          */
-        fun updatedAt(updatedAt: UpdatedAt) = apply { this.updatedAt = updatedAt }
+        fun updatedAt(updatedAt: UpdatedAt?) = apply { this.updatedAt = updatedAt }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -835,9 +837,9 @@ constructor(
                 additionalProperties = orderBy.additionalProperties.toBuilder()
             }
 
-            fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+            fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
-            fun effectiveAt(effectiveAt: EffectiveAt) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: EffectiveAt?) = apply { this.effectiveAt = effectiveAt }
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()

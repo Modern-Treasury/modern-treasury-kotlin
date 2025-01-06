@@ -82,7 +82,7 @@ constructor(
          * will be retrieved not including that bound. Use `balances[as_of_lock_version]` to
          * retrieve a balance as of a specific Ledger Account `lock_version`.
          */
-        fun balances(balances: Balances) = apply { this.balances = balances }
+        fun balances(balances: Balances?) = apply { this.balances = balances }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -266,19 +266,21 @@ constructor(
                 additionalProperties = balances.additionalProperties.toBuilder()
             }
 
-            fun asOfDate(asOfDate: LocalDate) = apply { this.asOfDate = asOfDate }
+            fun asOfDate(asOfDate: LocalDate?) = apply { this.asOfDate = asOfDate }
 
-            fun asOfLockVersion(asOfLockVersion: Long) = apply {
+            fun asOfLockVersion(asOfLockVersion: Long?) = apply {
                 this.asOfLockVersion = asOfLockVersion
             }
 
-            fun effectiveAt(effectiveAt: OffsetDateTime) = apply { this.effectiveAt = effectiveAt }
+            fun asOfLockVersion(asOfLockVersion: Long) = asOfLockVersion(asOfLockVersion as Long?)
 
-            fun effectiveAtLowerBound(effectiveAtLowerBound: OffsetDateTime) = apply {
+            fun effectiveAt(effectiveAt: OffsetDateTime?) = apply { this.effectiveAt = effectiveAt }
+
+            fun effectiveAtLowerBound(effectiveAtLowerBound: OffsetDateTime?) = apply {
                 this.effectiveAtLowerBound = effectiveAtLowerBound
             }
 
-            fun effectiveAtUpperBound(effectiveAtUpperBound: OffsetDateTime) = apply {
+            fun effectiveAtUpperBound(effectiveAtUpperBound: OffsetDateTime?) = apply {
                 this.effectiveAtUpperBound = effectiveAtUpperBound
             }
 

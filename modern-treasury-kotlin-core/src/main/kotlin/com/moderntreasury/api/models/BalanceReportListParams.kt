@@ -95,20 +95,22 @@ constructor(
             this.internalAccountId = internalAccountId
         }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
         /** The date of the balance report in local time. */
-        fun asOfDate(asOfDate: LocalDate) = apply { this.asOfDate = asOfDate }
+        fun asOfDate(asOfDate: LocalDate?) = apply { this.asOfDate = asOfDate }
 
         /**
          * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
          * `other`.
          */
-        fun balanceReportType(balanceReportType: BalanceReportType) = apply {
+        fun balanceReportType(balanceReportType: BalanceReportType?) = apply {
             this.balanceReportType = balanceReportType
         }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
+
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

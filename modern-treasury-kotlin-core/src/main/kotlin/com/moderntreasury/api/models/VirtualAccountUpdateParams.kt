@@ -101,18 +101,18 @@ constructor(
                 additionalProperties = virtualAccountUpdateBody.additionalProperties.toMutableMap()
             }
 
-            fun counterpartyId(counterpartyId: String) = apply {
+            fun counterpartyId(counterpartyId: String?) = apply {
                 this.counterpartyId = counterpartyId
             }
 
             /** The ledger account that you'd like to link to the virtual account. */
-            fun ledgerAccountId(ledgerAccountId: String) = apply {
+            fun ledgerAccountId(ledgerAccountId: String?) = apply {
                 this.ledgerAccountId = ledgerAccountId
             }
 
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
-            fun name(name: String) = apply { this.name = name }
+            fun name(name: String?) = apply { this.name = name }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -185,16 +185,16 @@ constructor(
 
         fun id(id: String) = apply { this.id = id }
 
-        fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
+        fun counterpartyId(counterpartyId: String?) = apply { body.counterpartyId(counterpartyId) }
 
         /** The ledger account that you'd like to link to the virtual account. */
-        fun ledgerAccountId(ledgerAccountId: String) = apply {
+        fun ledgerAccountId(ledgerAccountId: String?) = apply {
             body.ledgerAccountId(ledgerAccountId)
         }
 
-        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
 
-        fun name(name: String) = apply { body.name(name) }
+        fun name(name: String?) = apply { body.name(name) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

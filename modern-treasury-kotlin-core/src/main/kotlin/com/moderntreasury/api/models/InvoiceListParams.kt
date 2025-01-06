@@ -127,17 +127,17 @@ constructor(
             additionalQueryParams = invoiceListParams.additionalQueryParams.toBuilder()
         }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
-        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
+        fun counterpartyId(counterpartyId: String?) = apply { this.counterpartyId = counterpartyId }
 
         /** An inclusive upper bound for searching due_date */
-        fun dueDateEnd(dueDateEnd: LocalDate) = apply { this.dueDateEnd = dueDateEnd }
+        fun dueDateEnd(dueDateEnd: LocalDate?) = apply { this.dueDateEnd = dueDateEnd }
 
         /** An inclusive lower bound for searching due_date */
-        fun dueDateStart(dueDateStart: LocalDate) = apply { this.dueDateStart = dueDateStart }
+        fun dueDateStart(dueDateStart: LocalDate?) = apply { this.dueDateStart = dueDateStart }
 
-        fun expectedPaymentId(expectedPaymentId: String) = apply {
+        fun expectedPaymentId(expectedPaymentId: String?) = apply {
             this.expectedPaymentId = expectedPaymentId
         }
 
@@ -145,20 +145,22 @@ constructor(
          * For example, if you want to query for records with metadata key `Type` and value `Loan`,
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
         /** A unique record number assigned to each invoice that is issued. */
-        fun number(number: String) = apply { this.number = number }
+        fun number(number: String?) = apply { this.number = number }
 
-        fun originatingAccountId(originatingAccountId: String) = apply {
+        fun originatingAccountId(originatingAccountId: String?) = apply {
             this.originatingAccountId = originatingAccountId
         }
 
-        fun paymentOrderId(paymentOrderId: String) = apply { this.paymentOrderId = paymentOrderId }
+        fun paymentOrderId(paymentOrderId: String?) = apply { this.paymentOrderId = paymentOrderId }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
-        fun status(status: Status) = apply { this.status = status }
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
+
+        fun status(status: Status?) = apply { this.status = status }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

@@ -110,7 +110,7 @@ constructor(
              * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
              * number is in a generic format.
              */
-            fun accountNumberType(accountNumberType: AccountNumberType) = apply {
+            fun accountNumberType(accountNumberType: AccountNumberType?) = apply {
                 this.accountNumberType = accountNumberType
             }
 
@@ -194,7 +194,7 @@ constructor(
          * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
          * number is in a generic format.
          */
-        fun accountNumberType(accountNumberType: AccountNumberType) = apply {
+        fun accountNumberType(accountNumberType: AccountNumberType?) = apply {
             body.accountNumberType(accountNumberType)
         }
 

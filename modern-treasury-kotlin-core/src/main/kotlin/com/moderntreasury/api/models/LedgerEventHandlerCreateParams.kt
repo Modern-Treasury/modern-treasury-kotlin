@@ -133,23 +133,23 @@ constructor(
             /** Name of the ledger event handler. */
             fun name(name: String) = apply { this.name = name }
 
-            fun conditions(conditions: LedgerEventHandlerConditions) = apply {
+            fun conditions(conditions: LedgerEventHandlerConditions?) = apply {
                 this.conditions = conditions
             }
 
             /** An optional description. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /** The id of the ledger that this account belongs to. */
-            fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
+            fun ledgerId(ledgerId: String?) = apply { this.ledgerId = ledgerId }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
-            fun variables(variables: LedgerEventHandlerVariables) = apply {
+            fun variables(variables: LedgerEventHandlerVariables?) = apply {
                 this.variables = variables
             }
 
@@ -233,22 +233,22 @@ constructor(
         /** Name of the ledger event handler. */
         fun name(name: String) = apply { body.name(name) }
 
-        fun conditions(conditions: LedgerEventHandlerConditions) = apply {
+        fun conditions(conditions: LedgerEventHandlerConditions?) = apply {
             body.conditions(conditions)
         }
 
         /** An optional description. */
-        fun description(description: String) = apply { body.description(description) }
+        fun description(description: String?) = apply { body.description(description) }
 
         /** The id of the ledger that this account belongs to. */
-        fun ledgerId(ledgerId: String) = apply { body.ledgerId(ledgerId) }
+        fun ledgerId(ledgerId: String?) = apply { body.ledgerId(ledgerId) }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
 
-        fun variables(variables: LedgerEventHandlerVariables) = apply { body.variables(variables) }
+        fun variables(variables: LedgerEventHandlerVariables?) = apply { body.variables(variables) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -437,13 +437,13 @@ constructor(
             }
 
             /** An optional description for internal use. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /**
              * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
              * purposes.
              */
-            fun effectiveAt(effectiveAt: String) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: String?) = apply { this.effectiveAt = effectiveAt }
 
             /** An array of ledger entry objects. */
             fun ledgerEntries(ledgerEntries: List<LedgerEventHandlerLedgerEntries>) = apply {
@@ -456,7 +456,7 @@ constructor(
             }
 
             /** To post a ledger transaction at creation, use `posted`. */
-            fun status(status: String) = apply { this.status = status }
+            fun status(status: String?) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
