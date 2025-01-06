@@ -166,41 +166,53 @@ constructor(
             }
 
             /** An optional free-form description of the line item. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /**
              * Either `debit` or `credit`. `debit` indicates that a client owes the business money
              * and increases the invoice's `total_amount` due. `credit` has the opposite intention
              * and effect.
              */
-            fun direction(direction: String) = apply { this.direction = direction }
+            fun direction(direction: String?) = apply { this.direction = direction }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /** The name of the line item, typically a product or SKU name. */
-            fun name(name: String) = apply { this.name = name }
+            fun name(name: String?) = apply { this.name = name }
 
             /**
              * The number of units of a product or service that this line item is for. Must be a
              * whole number. Defaults to 1 if not provided.
              */
-            fun quantity(quantity: Long) = apply { this.quantity = quantity }
+            fun quantity(quantity: Long?) = apply { this.quantity = quantity }
+
+            /**
+             * The number of units of a product or service that this line item is for. Must be a
+             * whole number. Defaults to 1 if not provided.
+             */
+            fun quantity(quantity: Long) = quantity(quantity as Long?)
 
             /**
              * The cost per unit of the product or service that this line item is for, specified in
              * the invoice currency's smallest unit.
              */
-            fun unitAmount(unitAmount: Long) = apply { this.unitAmount = unitAmount }
+            fun unitAmount(unitAmount: Long?) = apply { this.unitAmount = unitAmount }
+
+            /**
+             * The cost per unit of the product or service that this line item is for, specified in
+             * the invoice currency's smallest unit.
+             */
+            fun unitAmount(unitAmount: Long) = unitAmount(unitAmount as Long?)
 
             /**
              * The cost per unit of the product or service that this line item is for, specified in
              * the invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
              */
-            fun unitAmountDecimal(unitAmountDecimal: String) = apply {
+            fun unitAmountDecimal(unitAmountDecimal: String?) = apply {
                 this.unitAmountDecimal = unitAmountDecimal
             }
 
@@ -283,40 +295,52 @@ constructor(
         fun id(id: String) = apply { this.id = id }
 
         /** An optional free-form description of the line item. */
-        fun description(description: String) = apply { body.description(description) }
+        fun description(description: String?) = apply { body.description(description) }
 
         /**
          * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
          * increases the invoice's `total_amount` due. `credit` has the opposite intention and
          * effect.
          */
-        fun direction(direction: String) = apply { body.direction(direction) }
+        fun direction(direction: String?) = apply { body.direction(direction) }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
 
         /** The name of the line item, typically a product or SKU name. */
-        fun name(name: String) = apply { body.name(name) }
+        fun name(name: String?) = apply { body.name(name) }
 
         /**
          * The number of units of a product or service that this line item is for. Must be a whole
          * number. Defaults to 1 if not provided.
          */
-        fun quantity(quantity: Long) = apply { body.quantity(quantity) }
+        fun quantity(quantity: Long?) = apply { body.quantity(quantity) }
+
+        /**
+         * The number of units of a product or service that this line item is for. Must be a whole
+         * number. Defaults to 1 if not provided.
+         */
+        fun quantity(quantity: Long) = quantity(quantity as Long?)
 
         /**
          * The cost per unit of the product or service that this line item is for, specified in the
          * invoice currency's smallest unit.
          */
-        fun unitAmount(unitAmount: Long) = apply { body.unitAmount(unitAmount) }
+        fun unitAmount(unitAmount: Long?) = apply { body.unitAmount(unitAmount) }
+
+        /**
+         * The cost per unit of the product or service that this line item is for, specified in the
+         * invoice currency's smallest unit.
+         */
+        fun unitAmount(unitAmount: Long) = unitAmount(unitAmount as Long?)
 
         /**
          * The cost per unit of the product or service that this line item is for, specified in the
          * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
          */
-        fun unitAmountDecimal(unitAmountDecimal: String) = apply {
+        fun unitAmountDecimal(unitAmountDecimal: String?) = apply {
             body.unitAmountDecimal(unitAmountDecimal)
         }
 

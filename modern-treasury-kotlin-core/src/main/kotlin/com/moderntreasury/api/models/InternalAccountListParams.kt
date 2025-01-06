@@ -106,32 +106,34 @@ constructor(
             additionalQueryParams = internalAccountListParams.additionalQueryParams.toBuilder()
         }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
         /** Only return internal accounts associated with this counterparty. */
-        fun counterpartyId(counterpartyId: String) = apply { this.counterpartyId = counterpartyId }
+        fun counterpartyId(counterpartyId: String?) = apply { this.counterpartyId = counterpartyId }
 
         /** Only return internal accounts with this currency. */
-        fun currency(currency: Currency) = apply { this.currency = currency }
+        fun currency(currency: Currency?) = apply { this.currency = currency }
 
         /** Only return internal accounts associated with this legal entity. */
-        fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
+        fun legalEntityId(legalEntityId: String?) = apply { this.legalEntityId = legalEntityId }
 
         /**
          * For example, if you want to query for records with metadata key `Type` and value `Loan`,
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
         /** Only return internal accounts that can originate payments with this direction. */
-        fun paymentDirection(paymentDirection: TransactionDirection) = apply {
+        fun paymentDirection(paymentDirection: TransactionDirection?) = apply {
             this.paymentDirection = paymentDirection
         }
 
         /** Only return internal accounts that can make this type of payment. */
-        fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
+        fun paymentType(paymentType: PaymentType?) = apply { this.paymentType = paymentType }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
+
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

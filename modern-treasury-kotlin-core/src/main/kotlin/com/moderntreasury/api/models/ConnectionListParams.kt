@@ -69,15 +69,17 @@ constructor(
             additionalQueryParams = connectionListParams.additionalQueryParams.toBuilder()
         }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
         /** A string code representing the vendor (i.e. bank). */
-        fun entity(entity: String) = apply { this.entity = entity }
+        fun entity(entity: String?) = apply { this.entity = entity }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
+
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /** An identifier assigned by the vendor to your organization. */
-        fun vendorCustomerId(vendorCustomerId: String) = apply {
+        fun vendorCustomerId(vendorCustomerId: String?) = apply {
             this.vendorCustomerId = vendorCustomerId
         }
 

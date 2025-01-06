@@ -125,44 +125,46 @@ constructor(
                     incomingPaymentDetailListParams.additionalQueryParams.toBuilder()
             }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
         /**
          * Filters incoming payment details with an as_of_date starting on or before the specified
          * date (YYYY-MM-DD).
          */
-        fun asOfDateEnd(asOfDateEnd: LocalDate) = apply { this.asOfDateEnd = asOfDateEnd }
+        fun asOfDateEnd(asOfDateEnd: LocalDate?) = apply { this.asOfDateEnd = asOfDateEnd }
 
         /**
          * Filters incoming payment details with an as_of_date starting on or after the specified
          * date (YYYY-MM-DD).
          */
-        fun asOfDateStart(asOfDateStart: LocalDate) = apply { this.asOfDateStart = asOfDateStart }
+        fun asOfDateStart(asOfDateStart: LocalDate?) = apply { this.asOfDateStart = asOfDateStart }
 
         /** One of `credit` or `debit`. */
-        fun direction(direction: TransactionDirection) = apply { this.direction = direction }
+        fun direction(direction: TransactionDirection?) = apply { this.direction = direction }
 
         /**
          * For example, if you want to query for records with metadata key `Type` and value `Loan`,
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
+
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /**
          * The current status of the incoming payment order. One of `pending`, `completed`, or
          * `returned`.
          */
-        fun status(status: Status) = apply { this.status = status }
+        fun status(status: Status?) = apply { this.status = status }
 
         /** One of: `ach`, `book`, `check`, `eft`, `interac`, `rtp`, `sepa`, `signet`, or `wire`. */
-        fun type(type: Type) = apply { this.type = type }
+        fun type(type: Type?) = apply { this.type = type }
 
         /**
          * If the incoming payment detail is in a virtual account, the ID of the Virtual Account.
          */
-        fun virtualAccountId(virtualAccountId: String) = apply {
+        fun virtualAccountId(virtualAccountId: String?) = apply {
             this.virtualAccountId = virtualAccountId
         }
 

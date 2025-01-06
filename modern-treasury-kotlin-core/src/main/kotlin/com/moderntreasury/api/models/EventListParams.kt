@@ -99,23 +99,25 @@ constructor(
             additionalQueryParams = eventListParams.additionalQueryParams.toBuilder()
         }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
+        fun entityId(entityId: String?) = apply { this.entityId = entityId }
 
-        fun eventName(eventName: String) = apply { this.eventName = eventName }
+        fun eventName(eventName: String?) = apply { this.eventName = eventName }
 
         /** An inclusive upper bound for when the event occurred */
-        fun eventTimeEnd(eventTimeEnd: OffsetDateTime) = apply { this.eventTimeEnd = eventTimeEnd }
+        fun eventTimeEnd(eventTimeEnd: OffsetDateTime?) = apply { this.eventTimeEnd = eventTimeEnd }
 
         /** An inclusive lower bound for when the event occurred */
-        fun eventTimeStart(eventTimeStart: OffsetDateTime) = apply {
+        fun eventTimeStart(eventTimeStart: OffsetDateTime?) = apply {
             this.eventTimeStart = eventTimeStart
         }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
-        fun resource(resource: String) = apply { this.resource = resource }
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
+
+        fun resource(resource: String?) = apply { this.resource = resource }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

@@ -143,19 +143,31 @@ constructor(
              * Amount in the lowest denomination of the `base_currency` to convert, often called the
              * "sell" amount.
              */
-            fun baseAmount(baseAmount: Long) = apply { this.baseAmount = baseAmount }
+            fun baseAmount(baseAmount: Long?) = apply { this.baseAmount = baseAmount }
+
+            /**
+             * Amount in the lowest denomination of the `base_currency` to convert, often called the
+             * "sell" amount.
+             */
+            fun baseAmount(baseAmount: Long) = baseAmount(baseAmount as Long?)
 
             /** Currency to convert, often called the "sell" currency. */
-            fun baseCurrency(baseCurrency: Currency) = apply { this.baseCurrency = baseCurrency }
+            fun baseCurrency(baseCurrency: Currency?) = apply { this.baseCurrency = baseCurrency }
 
             /** The timestamp until when the quoted rate is valid. */
-            fun effectiveAt(effectiveAt: OffsetDateTime) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: OffsetDateTime?) = apply { this.effectiveAt = effectiveAt }
 
             /**
              * Amount in the lowest denomination of the `target_currency`, often called the "buy"
              * amount.
              */
-            fun targetAmount(targetAmount: Long) = apply { this.targetAmount = targetAmount }
+            fun targetAmount(targetAmount: Long?) = apply { this.targetAmount = targetAmount }
+
+            /**
+             * Amount in the lowest denomination of the `target_currency`, often called the "buy"
+             * amount.
+             */
+            fun targetAmount(targetAmount: Long) = targetAmount(targetAmount as Long?)
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -243,19 +255,31 @@ constructor(
          * Amount in the lowest denomination of the `base_currency` to convert, often called the
          * "sell" amount.
          */
-        fun baseAmount(baseAmount: Long) = apply { body.baseAmount(baseAmount) }
+        fun baseAmount(baseAmount: Long?) = apply { body.baseAmount(baseAmount) }
+
+        /**
+         * Amount in the lowest denomination of the `base_currency` to convert, often called the
+         * "sell" amount.
+         */
+        fun baseAmount(baseAmount: Long) = baseAmount(baseAmount as Long?)
 
         /** Currency to convert, often called the "sell" currency. */
-        fun baseCurrency(baseCurrency: Currency) = apply { body.baseCurrency(baseCurrency) }
+        fun baseCurrency(baseCurrency: Currency?) = apply { body.baseCurrency(baseCurrency) }
 
         /** The timestamp until when the quoted rate is valid. */
-        fun effectiveAt(effectiveAt: OffsetDateTime) = apply { body.effectiveAt(effectiveAt) }
+        fun effectiveAt(effectiveAt: OffsetDateTime?) = apply { body.effectiveAt(effectiveAt) }
 
         /**
          * Amount in the lowest denomination of the `target_currency`, often called the "buy"
          * amount.
          */
-        fun targetAmount(targetAmount: Long) = apply { body.targetAmount(targetAmount) }
+        fun targetAmount(targetAmount: Long?) = apply { body.targetAmount(targetAmount) }
+
+        /**
+         * Amount in the lowest denomination of the `target_currency`, often called the "buy"
+         * amount.
+         */
+        fun targetAmount(targetAmount: Long) = targetAmount(targetAmount as Long?)
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

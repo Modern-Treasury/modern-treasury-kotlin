@@ -143,32 +143,37 @@ constructor(
             /**
              * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
              */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long?) = apply { this.amount = amount }
+
+            /**
+             * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
+             */
+            fun amount(amount: Long) = amount(amount as Long?)
 
             /** Defaults to today. */
-            fun asOfDate(asOfDate: LocalDate) = apply { this.asOfDate = asOfDate }
+            fun asOfDate(asOfDate: LocalDate?) = apply { this.asOfDate = asOfDate }
 
             /** Defaults to the currency of the originating account. */
-            fun currency(currency: Currency) = apply { this.currency = currency }
+            fun currency(currency: Currency?) = apply { this.currency = currency }
 
             /** Defaults to a random description. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /** One of `credit`, `debit`. */
-            fun direction(direction: Direction) = apply { this.direction = direction }
+            fun direction(direction: Direction?) = apply { this.direction = direction }
 
             /** The ID of one of your internal accounts. */
-            fun internalAccountId(internalAccountId: String) = apply {
+            fun internalAccountId(internalAccountId: String?) = apply {
                 this.internalAccountId = internalAccountId
             }
 
             /** One of `ach`, `wire`, `check`. */
-            fun type(type: Type) = apply { this.type = type }
+            fun type(type: Type?) = apply { this.type = type }
 
             /**
              * An optional parameter to associate the incoming payment detail to a virtual account.
              */
-            fun virtualAccountId(virtualAccountId: String) = apply {
+            fun virtualAccountId(virtualAccountId: String?) = apply {
                 this.virtualAccountId = virtualAccountId
             }
 
@@ -248,30 +253,33 @@ constructor(
         }
 
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-        fun amount(amount: Long) = apply { body.amount(amount) }
+        fun amount(amount: Long?) = apply { body.amount(amount) }
+
+        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+        fun amount(amount: Long) = amount(amount as Long?)
 
         /** Defaults to today. */
-        fun asOfDate(asOfDate: LocalDate) = apply { body.asOfDate(asOfDate) }
+        fun asOfDate(asOfDate: LocalDate?) = apply { body.asOfDate(asOfDate) }
 
         /** Defaults to the currency of the originating account. */
-        fun currency(currency: Currency) = apply { body.currency(currency) }
+        fun currency(currency: Currency?) = apply { body.currency(currency) }
 
         /** Defaults to a random description. */
-        fun description(description: String) = apply { body.description(description) }
+        fun description(description: String?) = apply { body.description(description) }
 
         /** One of `credit`, `debit`. */
-        fun direction(direction: Direction) = apply { body.direction(direction) }
+        fun direction(direction: Direction?) = apply { body.direction(direction) }
 
         /** The ID of one of your internal accounts. */
-        fun internalAccountId(internalAccountId: String) = apply {
+        fun internalAccountId(internalAccountId: String?) = apply {
             body.internalAccountId(internalAccountId)
         }
 
         /** One of `ach`, `wire`, `check`. */
-        fun type(type: Type) = apply { body.type(type) }
+        fun type(type: Type?) = apply { body.type(type) }
 
         /** An optional parameter to associate the incoming payment detail to a virtual account. */
-        fun virtualAccountId(virtualAccountId: String) = apply {
+        fun virtualAccountId(virtualAccountId: String?) = apply {
             body.virtualAccountId(virtualAccountId)
         }
 

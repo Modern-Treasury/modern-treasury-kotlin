@@ -86,7 +86,7 @@ constructor(
                 }
 
             /** The status of the connection legal entity. */
-            fun status(status: Status) = apply { this.status = status }
+            fun status(status: Status?) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -157,7 +157,7 @@ constructor(
         fun id(id: String) = apply { this.id = id }
 
         /** The status of the connection legal entity. */
-        fun status(status: Status) = apply { body.status(status) }
+        fun status(status: Status?) = apply { body.status(status) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

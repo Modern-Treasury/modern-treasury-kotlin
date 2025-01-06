@@ -79,15 +79,17 @@ constructor(
                     connectionLegalEntityListParams.additionalQueryParams.toBuilder()
             }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
-        fun connectionId(connectionId: String) = apply { this.connectionId = connectionId }
+        fun connectionId(connectionId: String?) = apply { this.connectionId = connectionId }
 
-        fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
+        fun legalEntityId(legalEntityId: String?) = apply { this.legalEntityId = legalEntityId }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
-        fun status(status: Status) = apply { this.status = status }
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
+
+        fun status(status: Status?) = apply { this.status = status }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

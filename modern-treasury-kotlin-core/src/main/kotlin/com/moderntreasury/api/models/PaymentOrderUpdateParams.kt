@@ -603,13 +603,13 @@ constructor(
                 additionalProperties = paymentOrderUpdateBody.additionalProperties.toMutableMap()
             }
 
-            fun accounting(accounting: Accounting) = apply { this.accounting = accounting }
+            fun accounting(accounting: Accounting?) = apply { this.accounting = accounting }
 
             /**
              * The ID of one of your accounting categories. Note that these will only be accessible
              * if your accounting system has been connected.
              */
-            fun accountingCategoryId(accountingCategoryId: String) = apply {
+            fun accountingCategoryId(accountingCategoryId: String?) = apply {
                 this.accountingCategoryId = accountingCategoryId
             }
 
@@ -617,7 +617,7 @@ constructor(
              * The ID of one of your accounting ledger classes. Note that these will only be
              * accessible if your accounting system has been connected.
              */
-            fun accountingLedgerClassId(accountingLedgerClassId: String) = apply {
+            fun accountingLedgerClassId(accountingLedgerClassId: String?) = apply {
                 this.accountingLedgerClassId = accountingLedgerClassId
             }
 
@@ -625,27 +625,33 @@ constructor(
              * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000
              * (cents). For RTP, the maximum amount allowed by the network is $100,000.
              */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long?) = apply { this.amount = amount }
+
+            /**
+             * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000
+             * (cents). For RTP, the maximum amount allowed by the network is $100,000.
+             */
+            fun amount(amount: Long) = amount(amount as Long?)
 
             /**
              * The party that will pay the fees for the payment order. Only applies to wire payment
              * orders. Can be one of shared, sender, or receiver, which correspond respectively with
              * the SWIFT 71A values `SHA`, `OUR`, `BEN`.
              */
-            fun chargeBearer(chargeBearer: ChargeBearer) = apply {
+            fun chargeBearer(chargeBearer: ChargeBearer?) = apply {
                 this.chargeBearer = chargeBearer
             }
 
             /** Required when receiving_account_id is passed the ID of an external account. */
-            fun counterpartyId(counterpartyId: String) = apply {
+            fun counterpartyId(counterpartyId: String?) = apply {
                 this.counterpartyId = counterpartyId
             }
 
             /** Defaults to the currency of the originating account. */
-            fun currency(currency: Currency) = apply { this.currency = currency }
+            fun currency(currency: Currency?) = apply { this.currency = currency }
 
             /** An optional description for internal use. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /**
              * One of `credit`, `debit`. Describes the direction money is flowing in the
@@ -653,26 +659,26 @@ constructor(
              * pulls money from someone else's account to your own. Note that wire, rtp, and check
              * payments will always be `credit`.
              */
-            fun direction(direction: Direction) = apply { this.direction = direction }
+            fun direction(direction: Direction?) = apply { this.direction = direction }
 
             /**
              * Date transactions are to be posted to the participants' account. Defaults to the
              * current business day or the next business day if the current day is a bank holiday or
              * weekend. Format: yyyy-mm-dd.
              */
-            fun effectiveDate(effectiveDate: LocalDate) = apply {
+            fun effectiveDate(effectiveDate: LocalDate?) = apply {
                 this.effectiveDate = effectiveDate
             }
 
             /** RFP payments require an expires_at. This value must be past the effective_date. */
-            fun expiresAt(expiresAt: OffsetDateTime) = apply { this.expiresAt = expiresAt }
+            fun expiresAt(expiresAt: OffsetDateTime?) = apply { this.expiresAt = expiresAt }
 
             /**
              * A payment type to fallback to if the original type is not valid for the receiving
              * account. Currently, this only supports falling back from RTP to ACH (type=rtp and
              * fallback_type=ach)
              */
-            fun fallbackType(fallbackType: FallbackType) = apply {
+            fun fallbackType(fallbackType: FallbackType?) = apply {
                 this.fallbackType = fallbackType
             }
 
@@ -680,7 +686,7 @@ constructor(
              * If present, indicates a specific foreign exchange contract number that has been
              * generated by your financial institution.
              */
-            fun foreignExchangeContract(foreignExchangeContract: String) = apply {
+            fun foreignExchangeContract(foreignExchangeContract: String?) = apply {
                 this.foreignExchangeContract = foreignExchangeContract
             }
 
@@ -689,14 +695,14 @@ constructor(
              * `fixed_to_variable`, or `null` if the payment order currency matches the originating
              * account currency.
              */
-            fun foreignExchangeIndicator(foreignExchangeIndicator: ForeignExchangeIndicator) =
+            fun foreignExchangeIndicator(foreignExchangeIndicator: ForeignExchangeIndicator?) =
                 apply {
                     this.foreignExchangeIndicator = foreignExchangeIndicator
                 }
 
             /** An array of line items that must sum up to the amount of the payment order. */
-            fun lineItems(lineItems: List<LineItemRequest>) = apply {
-                this.lineItems = lineItems.toMutableList()
+            fun lineItems(lineItems: List<LineItemRequest>?) = apply {
+                this.lineItems = lineItems?.toMutableList()
             }
 
             /** An array of line items that must sum up to the amount of the payment order. */
@@ -708,16 +714,22 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /**
              * A boolean to determine if NSF Protection is enabled for this payment order. Note that
              * this setting must also be turned on in your organization settings page.
              */
-            fun nsfProtected(nsfProtected: Boolean) = apply { this.nsfProtected = nsfProtected }
+            fun nsfProtected(nsfProtected: Boolean?) = apply { this.nsfProtected = nsfProtected }
+
+            /**
+             * A boolean to determine if NSF Protection is enabled for this payment order. Note that
+             * this setting must also be turned on in your organization settings page.
+             */
+            fun nsfProtected(nsfProtected: Boolean) = nsfProtected(nsfProtected as Boolean?)
 
             /** The ID of one of your organization's internal accounts. */
-            fun originatingAccountId(originatingAccountId: String) = apply {
+            fun originatingAccountId(originatingAccountId: String?) = apply {
                 this.originatingAccountId = originatingAccountId
             }
 
@@ -726,7 +738,7 @@ constructor(
              * This field can only be used for ACH payments currently. For ACH, only the first 16
              * characters of this string will be used. Any additional characters will be truncated.
              */
-            fun originatingPartyName(originatingPartyName: String) = apply {
+            fun originatingPartyName(originatingPartyName: String?) = apply {
                 this.originatingPartyName = originatingPartyName
             }
 
@@ -735,7 +747,7 @@ constructor(
              * or EFT transfer, respectively. For check payments, `high` can mean an overnight check
              * rather than standard mail.
              */
-            fun priority(priority: Priority) = apply { this.priority = priority }
+            fun priority(priority: Priority?) = apply { this.priority = priority }
 
             /**
              * If present, Modern Treasury will not process the payment until after this time. If
@@ -743,7 +755,7 @@ constructor(
              * precedence and `effective_date` will automatically update to reflect the earliest
              * possible sending date after `process_after`. Format is ISO8601 timestamp.
              */
-            fun processAfter(processAfter: OffsetDateTime) = apply {
+            fun processAfter(processAfter: OffsetDateTime?) = apply {
                 this.processAfter = processAfter
             }
 
@@ -752,14 +764,14 @@ constructor(
              * "InstrForDbtrAgt" field in the ISO20022 file. For `eft`, this field is the 3 digit
              * CPA Code that will be attached to the payment.
              */
-            fun purpose(purpose: String) = apply { this.purpose = purpose }
+            fun purpose(purpose: String?) = apply { this.purpose = purpose }
 
             /**
              * Either `receiving_account` or `receiving_account_id` must be present. When using
              * `receiving_account_id`, you may pass the id of an external account or an internal
              * account.
              */
-            fun receivingAccount(receivingAccount: ReceivingAccount) = apply {
+            fun receivingAccount(receivingAccount: ReceivingAccount?) = apply {
                 this.receivingAccount = receivingAccount
             }
 
@@ -768,7 +780,7 @@ constructor(
              * `receiving_account_id`, you may pass the id of an external account or an internal
              * account.
              */
-            fun receivingAccountId(receivingAccountId: String) = apply {
+            fun receivingAccountId(receivingAccountId: String?) = apply {
                 this.receivingAccountId = receivingAccountId
             }
 
@@ -777,7 +789,7 @@ constructor(
              * payments the field will be passed through as the "Originator to Beneficiary
              * Information", also known as OBI or Fedwire tag 6000.
              */
-            fun remittanceInformation(remittanceInformation: String) = apply {
+            fun remittanceInformation(remittanceInformation: String?) = apply {
                 this.remittanceInformation = remittanceInformation
             }
 
@@ -785,9 +797,16 @@ constructor(
              * Send an email to the counterparty when the payment order is sent to the bank. If
              * `null`, `send_remittance_advice` on the Counterparty is used.
              */
-            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) = apply {
+            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean?) = apply {
                 this.sendRemittanceAdvice = sendRemittanceAdvice
             }
+
+            /**
+             * Send an email to the counterparty when the payment order is sent to the bank. If
+             * `null`, `send_remittance_advice` on the Counterparty is used.
+             */
+            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) =
+                sendRemittanceAdvice(sendRemittanceAdvice as Boolean?)
 
             /**
              * An optional descriptor which will appear in the receiver's statement. For `check`
@@ -796,7 +815,7 @@ constructor(
              * included automatically by the bank, so you can use the characters for other useful
              * information. For `eft` the maximum length is 15 characters.
              */
-            fun statementDescriptor(statementDescriptor: String) = apply {
+            fun statementDescriptor(statementDescriptor: String?) = apply {
                 this.statementDescriptor = statementDescriptor
             }
 
@@ -805,7 +824,7 @@ constructor(
              * `approved`. To undo approval on a denied or approved payment order, use
              * `needs_approval`.
              */
-            fun status(status: Status) = apply { this.status = status }
+            fun status(status: Status?) = apply { this.status = status }
 
             /**
              * An additional layer of classification for the type of payment order you are doing.
@@ -813,21 +832,21 @@ constructor(
              * the `subtype` represents the SEC code. We currently support `CCD`, `PPD`, `IAT`,
              * `CTX`, `WEB`, `CIE`, and `TEL`.
              */
-            fun subtype(subtype: PaymentOrderSubtype) = apply { this.subtype = subtype }
+            fun subtype(subtype: PaymentOrderSubtype?) = apply { this.subtype = subtype }
 
             /**
              * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`,
              * `bacs`, `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`,
              * `signet`, `provexchange`, `zengin`.
              */
-            fun type(type: PaymentOrderType) = apply { this.type = type }
+            fun type(type: PaymentOrderType?) = apply { this.type = type }
 
             /**
              * This represents the identifier by which the person is known to the receiver when
              * using the CIE subtype for ACH payments. Only the first 22 characters of this string
              * will be used. Any additional characters will be truncated.
              */
-            fun ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier: String) =
+            fun ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier: String?) =
                 apply {
                     this.ultimateOriginatingPartyIdentifier = ultimateOriginatingPartyIdentifier
                 }
@@ -837,7 +856,7 @@ constructor(
              * the CIE subtype for ACH payments. Only the first 15 characters of this string will be
              * used. Any additional characters will be truncated.
              */
-            fun ultimateOriginatingPartyName(ultimateOriginatingPartyName: String) = apply {
+            fun ultimateOriginatingPartyName(ultimateOriginatingPartyName: String?) = apply {
                 this.ultimateOriginatingPartyName = ultimateOriginatingPartyName
             }
 
@@ -846,16 +865,17 @@ constructor(
              * the CIE subtype for ACH payments. Only the first 22 characters of this string will be
              * used. Any additional characters will be truncated.
              */
-            fun ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier: String) = apply {
-                this.ultimateReceivingPartyIdentifier = ultimateReceivingPartyIdentifier
-            }
+            fun ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier: String?) =
+                apply {
+                    this.ultimateReceivingPartyIdentifier = ultimateReceivingPartyIdentifier
+                }
 
             /**
              * This represents the identifier by which the merchant is known to the person
              * initiating an ACH payment with CIE subtype. Only the first 15 characters of this
              * string will be used. Any additional characters will be truncated.
              */
-            fun ultimateReceivingPartyName(ultimateReceivingPartyName: String) = apply {
+            fun ultimateReceivingPartyName(ultimateReceivingPartyName: String?) = apply {
                 this.ultimateReceivingPartyName = ultimateReceivingPartyName
             }
 
@@ -960,13 +980,13 @@ constructor(
 
         fun id(id: String) = apply { this.id = id }
 
-        fun accounting(accounting: Accounting) = apply { body.accounting(accounting) }
+        fun accounting(accounting: Accounting?) = apply { body.accounting(accounting) }
 
         /**
          * The ID of one of your accounting categories. Note that these will only be accessible if
          * your accounting system has been connected.
          */
-        fun accountingCategoryId(accountingCategoryId: String) = apply {
+        fun accountingCategoryId(accountingCategoryId: String?) = apply {
             body.accountingCategoryId(accountingCategoryId)
         }
 
@@ -974,7 +994,7 @@ constructor(
          * The ID of one of your accounting ledger classes. Note that these will only be accessible
          * if your accounting system has been connected.
          */
-        fun accountingLedgerClassId(accountingLedgerClassId: String) = apply {
+        fun accountingLedgerClassId(accountingLedgerClassId: String?) = apply {
             body.accountingLedgerClassId(accountingLedgerClassId)
         }
 
@@ -982,23 +1002,29 @@ constructor(
          * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000
          * (cents). For RTP, the maximum amount allowed by the network is $100,000.
          */
-        fun amount(amount: Long) = apply { body.amount(amount) }
+        fun amount(amount: Long?) = apply { body.amount(amount) }
+
+        /**
+         * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000
+         * (cents). For RTP, the maximum amount allowed by the network is $100,000.
+         */
+        fun amount(amount: Long) = amount(amount as Long?)
 
         /**
          * The party that will pay the fees for the payment order. Only applies to wire payment
          * orders. Can be one of shared, sender, or receiver, which correspond respectively with the
          * SWIFT 71A values `SHA`, `OUR`, `BEN`.
          */
-        fun chargeBearer(chargeBearer: ChargeBearer) = apply { body.chargeBearer(chargeBearer) }
+        fun chargeBearer(chargeBearer: ChargeBearer?) = apply { body.chargeBearer(chargeBearer) }
 
         /** Required when receiving_account_id is passed the ID of an external account. */
-        fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
+        fun counterpartyId(counterpartyId: String?) = apply { body.counterpartyId(counterpartyId) }
 
         /** Defaults to the currency of the originating account. */
-        fun currency(currency: Currency) = apply { body.currency(currency) }
+        fun currency(currency: Currency?) = apply { body.currency(currency) }
 
         /** An optional description for internal use. */
-        fun description(description: String) = apply { body.description(description) }
+        fun description(description: String?) = apply { body.description(description) }
 
         /**
          * One of `credit`, `debit`. Describes the direction money is flowing in the transaction. A
@@ -1006,30 +1032,30 @@ constructor(
          * someone else's account to your own. Note that wire, rtp, and check payments will always
          * be `credit`.
          */
-        fun direction(direction: Direction) = apply { body.direction(direction) }
+        fun direction(direction: Direction?) = apply { body.direction(direction) }
 
         /**
          * Date transactions are to be posted to the participants' account. Defaults to the current
          * business day or the next business day if the current day is a bank holiday or weekend.
          * Format: yyyy-mm-dd.
          */
-        fun effectiveDate(effectiveDate: LocalDate) = apply { body.effectiveDate(effectiveDate) }
+        fun effectiveDate(effectiveDate: LocalDate?) = apply { body.effectiveDate(effectiveDate) }
 
         /** RFP payments require an expires_at. This value must be past the effective_date. */
-        fun expiresAt(expiresAt: OffsetDateTime) = apply { body.expiresAt(expiresAt) }
+        fun expiresAt(expiresAt: OffsetDateTime?) = apply { body.expiresAt(expiresAt) }
 
         /**
          * A payment type to fallback to if the original type is not valid for the receiving
          * account. Currently, this only supports falling back from RTP to ACH (type=rtp and
          * fallback_type=ach)
          */
-        fun fallbackType(fallbackType: FallbackType) = apply { body.fallbackType(fallbackType) }
+        fun fallbackType(fallbackType: FallbackType?) = apply { body.fallbackType(fallbackType) }
 
         /**
          * If present, indicates a specific foreign exchange contract number that has been generated
          * by your financial institution.
          */
-        fun foreignExchangeContract(foreignExchangeContract: String) = apply {
+        fun foreignExchangeContract(foreignExchangeContract: String?) = apply {
             body.foreignExchangeContract(foreignExchangeContract)
         }
 
@@ -1038,12 +1064,12 @@ constructor(
          * `fixed_to_variable`, or `null` if the payment order currency matches the originating
          * account currency.
          */
-        fun foreignExchangeIndicator(foreignExchangeIndicator: ForeignExchangeIndicator) = apply {
+        fun foreignExchangeIndicator(foreignExchangeIndicator: ForeignExchangeIndicator?) = apply {
             body.foreignExchangeIndicator(foreignExchangeIndicator)
         }
 
         /** An array of line items that must sum up to the amount of the payment order. */
-        fun lineItems(lineItems: List<LineItemRequest>) = apply { body.lineItems(lineItems) }
+        fun lineItems(lineItems: List<LineItemRequest>?) = apply { body.lineItems(lineItems) }
 
         /** An array of line items that must sum up to the amount of the payment order. */
         fun addLineItem(lineItem: LineItemRequest) = apply { body.addLineItem(lineItem) }
@@ -1051,16 +1077,22 @@ constructor(
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
 
         /**
          * A boolean to determine if NSF Protection is enabled for this payment order. Note that
          * this setting must also be turned on in your organization settings page.
          */
-        fun nsfProtected(nsfProtected: Boolean) = apply { body.nsfProtected(nsfProtected) }
+        fun nsfProtected(nsfProtected: Boolean?) = apply { body.nsfProtected(nsfProtected) }
+
+        /**
+         * A boolean to determine if NSF Protection is enabled for this payment order. Note that
+         * this setting must also be turned on in your organization settings page.
+         */
+        fun nsfProtected(nsfProtected: Boolean) = nsfProtected(nsfProtected as Boolean?)
 
         /** The ID of one of your organization's internal accounts. */
-        fun originatingAccountId(originatingAccountId: String) = apply {
+        fun originatingAccountId(originatingAccountId: String?) = apply {
             body.originatingAccountId(originatingAccountId)
         }
 
@@ -1069,7 +1101,7 @@ constructor(
          * This field can only be used for ACH payments currently. For ACH, only the first 16
          * characters of this string will be used. Any additional characters will be truncated.
          */
-        fun originatingPartyName(originatingPartyName: String) = apply {
+        fun originatingPartyName(originatingPartyName: String?) = apply {
             body.originatingPartyName(originatingPartyName)
         }
 
@@ -1078,7 +1110,7 @@ constructor(
          * EFT transfer, respectively. For check payments, `high` can mean an overnight check rather
          * than standard mail.
          */
-        fun priority(priority: Priority) = apply { body.priority(priority) }
+        fun priority(priority: Priority?) = apply { body.priority(priority) }
 
         /**
          * If present, Modern Treasury will not process the payment until after this time. If
@@ -1086,21 +1118,21 @@ constructor(
          * precedence and `effective_date` will automatically update to reflect the earliest
          * possible sending date after `process_after`. Format is ISO8601 timestamp.
          */
-        fun processAfter(processAfter: OffsetDateTime) = apply { body.processAfter(processAfter) }
+        fun processAfter(processAfter: OffsetDateTime?) = apply { body.processAfter(processAfter) }
 
         /**
          * For `wire`, this is usually the purpose which is transmitted via the "InstrForDbtrAgt"
          * field in the ISO20022 file. For `eft`, this field is the 3 digit CPA Code that will be
          * attached to the payment.
          */
-        fun purpose(purpose: String) = apply { body.purpose(purpose) }
+        fun purpose(purpose: String?) = apply { body.purpose(purpose) }
 
         /**
          * Either `receiving_account` or `receiving_account_id` must be present. When using
          * `receiving_account_id`, you may pass the id of an external account or an internal
          * account.
          */
-        fun receivingAccount(receivingAccount: ReceivingAccount) = apply {
+        fun receivingAccount(receivingAccount: ReceivingAccount?) = apply {
             body.receivingAccount(receivingAccount)
         }
 
@@ -1109,7 +1141,7 @@ constructor(
          * `receiving_account_id`, you may pass the id of an external account or an internal
          * account.
          */
-        fun receivingAccountId(receivingAccountId: String) = apply {
+        fun receivingAccountId(receivingAccountId: String?) = apply {
             body.receivingAccountId(receivingAccountId)
         }
 
@@ -1118,7 +1150,7 @@ constructor(
          * the field will be passed through as the "Originator to Beneficiary Information", also
          * known as OBI or Fedwire tag 6000.
          */
-        fun remittanceInformation(remittanceInformation: String) = apply {
+        fun remittanceInformation(remittanceInformation: String?) = apply {
             body.remittanceInformation(remittanceInformation)
         }
 
@@ -1126,9 +1158,16 @@ constructor(
          * Send an email to the counterparty when the payment order is sent to the bank. If `null`,
          * `send_remittance_advice` on the Counterparty is used.
          */
-        fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) = apply {
+        fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean?) = apply {
             body.sendRemittanceAdvice(sendRemittanceAdvice)
         }
+
+        /**
+         * Send an email to the counterparty when the payment order is sent to the bank. If `null`,
+         * `send_remittance_advice` on the Counterparty is used.
+         */
+        fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) =
+            sendRemittanceAdvice(sendRemittanceAdvice as Boolean?)
 
         /**
          * An optional descriptor which will appear in the receiver's statement. For `check`
@@ -1137,7 +1176,7 @@ constructor(
          * automatically by the bank, so you can use the characters for other useful information.
          * For `eft` the maximum length is 15 characters.
          */
-        fun statementDescriptor(statementDescriptor: String) = apply {
+        fun statementDescriptor(statementDescriptor: String?) = apply {
             body.statementDescriptor(statementDescriptor)
         }
 
@@ -1145,7 +1184,7 @@ constructor(
          * To cancel a payment order, use `cancelled`. To redraft a returned payment order, use
          * `approved`. To undo approval on a denied or approved payment order, use `needs_approval`.
          */
-        fun status(status: Status) = apply { body.status(status) }
+        fun status(status: Status?) = apply { body.status(status) }
 
         /**
          * An additional layer of classification for the type of payment order you are doing. This
@@ -1153,30 +1192,31 @@ constructor(
          * `subtype` represents the SEC code. We currently support `CCD`, `PPD`, `IAT`, `CTX`,
          * `WEB`, `CIE`, and `TEL`.
          */
-        fun subtype(subtype: PaymentOrderSubtype) = apply { body.subtype(subtype) }
+        fun subtype(subtype: PaymentOrderSubtype?) = apply { body.subtype(subtype) }
 
         /**
          * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`,
          * `bacs`, `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`,
          * `signet`, `provexchange`, `zengin`.
          */
-        fun type(type: PaymentOrderType) = apply { body.type(type) }
+        fun type(type: PaymentOrderType?) = apply { body.type(type) }
 
         /**
          * This represents the identifier by which the person is known to the receiver when using
          * the CIE subtype for ACH payments. Only the first 22 characters of this string will be
          * used. Any additional characters will be truncated.
          */
-        fun ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier: String) = apply {
-            body.ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier)
-        }
+        fun ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier: String?) =
+            apply {
+                body.ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier)
+            }
 
         /**
          * This represents the name of the person that the payment is on behalf of when using the
          * CIE subtype for ACH payments. Only the first 15 characters of this string will be used.
          * Any additional characters will be truncated.
          */
-        fun ultimateOriginatingPartyName(ultimateOriginatingPartyName: String) = apply {
+        fun ultimateOriginatingPartyName(ultimateOriginatingPartyName: String?) = apply {
             body.ultimateOriginatingPartyName(ultimateOriginatingPartyName)
         }
 
@@ -1185,7 +1225,7 @@ constructor(
          * CIE subtype for ACH payments. Only the first 22 characters of this string will be used.
          * Any additional characters will be truncated.
          */
-        fun ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier: String) = apply {
+        fun ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier: String?) = apply {
             body.ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier)
         }
 
@@ -1194,7 +1234,7 @@ constructor(
          * ACH payment with CIE subtype. Only the first 15 characters of this string will be used.
          * Any additional characters will be truncated.
          */
-        fun ultimateReceivingPartyName(ultimateReceivingPartyName: String) = apply {
+        fun ultimateReceivingPartyName(ultimateReceivingPartyName: String?) = apply {
             body.ultimateReceivingPartyName(ultimateReceivingPartyName)
         }
 
@@ -1374,14 +1414,14 @@ constructor(
              * The ID of one of your accounting categories. Note that these will only be accessible
              * if your accounting system has been connected.
              */
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
+            fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
             /**
              * The ID of one of the class objects in your accounting system. Class objects track
              * segments of your business independent of client or project. Note that these will only
              * be accessible if your accounting system has been connected.
              */
-            fun classId(classId: String) = apply { this.classId = classId }
+            fun classId(classId: String?) = apply { this.classId = classId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1725,18 +1765,18 @@ constructor(
              * The ID of one of your accounting categories. Note that these will only be accessible
              * if your accounting system has been connected.
              */
-            fun accountingCategoryId(accountingCategoryId: String) = apply {
+            fun accountingCategoryId(accountingCategoryId: String?) = apply {
                 this.accountingCategoryId = accountingCategoryId
             }
 
             /** A free-form description of the line item. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -2098,8 +2138,8 @@ constructor(
                 additionalProperties = receivingAccount.additionalProperties.toMutableMap()
             }
 
-            fun accountDetails(accountDetails: List<AccountDetail>) = apply {
-                this.accountDetails = accountDetails.toMutableList()
+            fun accountDetails(accountDetails: List<AccountDetail>?) = apply {
+                this.accountDetails = accountDetails?.toMutableList()
             }
 
             fun addAccountDetail(accountDetail: AccountDetail) = apply {
@@ -2107,12 +2147,12 @@ constructor(
             }
 
             /** Can be `checking`, `savings` or `other`. */
-            fun accountType(accountType: ExternalAccountType) = apply {
+            fun accountType(accountType: ExternalAccountType?) = apply {
                 this.accountType = accountType
             }
 
-            fun contactDetails(contactDetails: List<ContactDetailCreateRequest>) = apply {
-                this.contactDetails = contactDetails.toMutableList()
+            fun contactDetails(contactDetails: List<ContactDetailCreateRequest>?) = apply {
+                this.contactDetails = contactDetails?.toMutableList()
             }
 
             fun addContactDetail(contactDetail: ContactDetailCreateRequest) = apply {
@@ -2126,7 +2166,7 @@ constructor(
              * https://docs.moderntreasury.com/docs/linking-to-other-modern-treasury-objects for
              * more details.
              */
-            fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest) = apply {
+            fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest?) = apply {
                 this.ledgerAccount = ledgerAccount
             }
 
@@ -2134,39 +2174,39 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /**
              * A nickname for the external account. This is only for internal usage and won't affect
              * any payments
              */
-            fun name(name: String) = apply { this.name = name }
+            fun name(name: String?) = apply { this.name = name }
 
             /** Required if receiving wire payments. */
-            fun partyAddress(partyAddress: AddressRequest) = apply {
+            fun partyAddress(partyAddress: AddressRequest?) = apply {
                 this.partyAddress = partyAddress
             }
 
-            fun partyIdentifier(partyIdentifier: String) = apply {
+            fun partyIdentifier(partyIdentifier: String?) = apply {
                 this.partyIdentifier = partyIdentifier
             }
 
             /** If this value isn't provided, it will be inherited from the counterparty's name. */
-            fun partyName(partyName: String) = apply { this.partyName = partyName }
+            fun partyName(partyName: String?) = apply { this.partyName = partyName }
 
             /** Either `individual` or `business`. */
-            fun partyType(partyType: PartyType) = apply { this.partyType = partyType }
+            fun partyType(partyType: PartyType?) = apply { this.partyType = partyType }
 
             /**
              * If you've enabled the Modern Treasury + Plaid integration in your Plaid account, you
              * can pass the processor token in this field.
              */
-            fun plaidProcessorToken(plaidProcessorToken: String) = apply {
+            fun plaidProcessorToken(plaidProcessorToken: String?) = apply {
                 this.plaidProcessorToken = plaidProcessorToken
             }
 
-            fun routingDetails(routingDetails: List<RoutingDetail>) = apply {
-                this.routingDetails = routingDetails.toMutableList()
+            fun routingDetails(routingDetails: List<RoutingDetail>?) = apply {
+                this.routingDetails = routingDetails?.toMutableList()
             }
 
             fun addRoutingDetail(routingDetail: RoutingDetail) = apply {
@@ -2252,7 +2292,7 @@ constructor(
                     this.accountNumber = accountNumber
                 }
 
-                fun accountNumberType(accountNumberType: AccountNumberType) = apply {
+                fun accountNumberType(accountNumberType: AccountNumberType?) = apply {
                     this.accountNumberType = accountNumberType
                 }
 
@@ -2454,11 +2494,11 @@ constructor(
                         contactDetailCreateRequest.additionalProperties.toMutableMap()
                 }
 
-                fun contactIdentifier(contactIdentifier: String) = apply {
+                fun contactIdentifier(contactIdentifier: String?) = apply {
                     this.contactIdentifier = contactIdentifier
                 }
 
-                fun contactIdentifierType(contactIdentifierType: ContactIdentifierType) = apply {
+                fun contactIdentifierType(contactIdentifierType: ContactIdentifierType?) = apply {
                     this.contactIdentifierType = contactIdentifierType
                 }
 
@@ -2703,19 +2743,23 @@ constructor(
                 }
 
                 /** The currency exponent of the ledger account. */
-                fun currencyExponent(currencyExponent: Long) = apply {
+                fun currencyExponent(currencyExponent: Long?) = apply {
                     this.currencyExponent = currencyExponent
                 }
 
+                /** The currency exponent of the ledger account. */
+                fun currencyExponent(currencyExponent: Long) =
+                    currencyExponent(currencyExponent as Long?)
+
                 /** The description of the ledger account. */
-                fun description(description: String) = apply { this.description = description }
+                fun description(description: String?) = apply { this.description = description }
 
                 /**
                  * The array of ledger account category ids that this ledger account should be a
                  * child of.
                  */
-                fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>) = apply {
-                    this.ledgerAccountCategoryIds = ledgerAccountCategoryIds.toMutableList()
+                fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>?) = apply {
+                    this.ledgerAccountCategoryIds = ledgerAccountCategoryIds?.toMutableList()
                 }
 
                 /**
@@ -2733,14 +2777,14 @@ constructor(
                  * If the ledger account links to another object in Modern Treasury, the id will be
                  * populated here, otherwise null.
                  */
-                fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
+                fun ledgerableId(ledgerableId: String?) = apply { this.ledgerableId = ledgerableId }
 
                 /**
                  * If the ledger account links to another object in Modern Treasury, the type will
                  * be populated here, otherwise null. The value is one of internal_account or
                  * external_account.
                  */
-                fun ledgerableType(ledgerableType: LedgerableType) = apply {
+                fun ledgerableType(ledgerableType: LedgerableType?) = apply {
                     this.ledgerableType = ledgerableType
                 }
 
@@ -2748,7 +2792,7 @@ constructor(
                  * Additional data represented as key-value pairs. Both the key and value must be
                  * strings.
                  */
-                fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+                fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -3088,20 +3132,20 @@ constructor(
                 }
 
                 /** Country code conforms to [ISO 3166-1 alpha-2] */
-                fun country(country: String) = apply { this.country = country }
+                fun country(country: String?) = apply { this.country = country }
 
-                fun line1(line1: String) = apply { this.line1 = line1 }
+                fun line1(line1: String?) = apply { this.line1 = line1 }
 
-                fun line2(line2: String) = apply { this.line2 = line2 }
+                fun line2(line2: String?) = apply { this.line2 = line2 }
 
                 /** Locality or City. */
-                fun locality(locality: String) = apply { this.locality = locality }
+                fun locality(locality: String?) = apply { this.locality = locality }
 
                 /** The postal code of the address. */
-                fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
+                fun postalCode(postalCode: String?) = apply { this.postalCode = postalCode }
 
                 /** Region or State. */
-                fun region(region: String) = apply { this.region = region }
+                fun region(region: String?) = apply { this.region = region }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -3263,7 +3307,9 @@ constructor(
                     this.routingNumberType = routingNumberType
                 }
 
-                fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
+                fun paymentType(paymentType: PaymentType?) = apply {
+                    this.paymentType = paymentType
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()

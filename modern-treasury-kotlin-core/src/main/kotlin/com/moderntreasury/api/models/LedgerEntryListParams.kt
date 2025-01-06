@@ -245,7 +245,7 @@ constructor(
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
          * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
          */
-        fun id(id: List<String>) = apply { this.id = id.toMutableList() }
+        fun id(id: List<String>?) = apply { this.id = id?.toMutableList() }
 
         /**
          * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
@@ -253,42 +253,48 @@ constructor(
          */
         fun addId(id: String) = apply { this.id = (this.id ?: mutableListOf()).apply { add(id) } }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
         /**
          * Shows all ledger entries that were present on a ledger account at a particular
          * `lock_version`. You must also specify `ledger_account_id`.
          */
-        fun asOfLockVersion(asOfLockVersion: Long) = apply {
+        fun asOfLockVersion(asOfLockVersion: Long?) = apply {
             this.asOfLockVersion = asOfLockVersion
         }
+
+        /**
+         * Shows all ledger entries that were present on a ledger account at a particular
+         * `lock_version`. You must also specify `ledger_account_id`.
+         */
+        fun asOfLockVersion(asOfLockVersion: Long) = asOfLockVersion(asOfLockVersion as Long?)
 
         /**
          * If true, response will include ledger entries that were deleted. When you update a ledger
          * transaction to specify a new set of entries, the previous entries are deleted.
          */
-        fun direction(direction: TransactionDirection) = apply { this.direction = direction }
+        fun direction(direction: TransactionDirection?) = apply { this.direction = direction }
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the
          * transaction's effective time. Format ISO8601
          */
-        fun effectiveAt(effectiveAt: EffectiveAt) = apply { this.effectiveAt = effectiveAt }
+        fun effectiveAt(effectiveAt: EffectiveAt?) = apply { this.effectiveAt = effectiveAt }
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the
          * transaction's effective date. Format YYYY-MM-DD
          */
-        fun effectiveDate(effectiveDate: EffectiveDate) = apply {
+        fun effectiveDate(effectiveDate: EffectiveDate?) = apply {
             this.effectiveDate = effectiveDate
         }
 
         /** Get all ledger entries that match the direction specified. One of `credit`, `debit`. */
-        fun ledgerAccountCategoryId(ledgerAccountCategoryId: String) = apply {
+        fun ledgerAccountCategoryId(ledgerAccountCategoryId: String?) = apply {
             this.ledgerAccountCategoryId = ledgerAccountCategoryId
         }
 
-        fun ledgerAccountId(ledgerAccountId: String) = apply {
+        fun ledgerAccountId(ledgerAccountId: String?) = apply {
             this.ledgerAccountId = ledgerAccountId
         }
 
@@ -297,24 +303,24 @@ constructor(
          * of a ledger account. For example, for all entries created at or before before
          * lock_version 1000 of a ledger account, use `ledger_account_lock_version%5Blte%5D=1000`.
          */
-        fun ledgerAccountLockVersion(ledgerAccountLockVersion: LedgerAccountLockVersion) = apply {
+        fun ledgerAccountLockVersion(ledgerAccountLockVersion: LedgerAccountLockVersion?) = apply {
             this.ledgerAccountLockVersion = ledgerAccountLockVersion
         }
 
-        fun ledgerAccountPayoutId(ledgerAccountPayoutId: String) = apply {
+        fun ledgerAccountPayoutId(ledgerAccountPayoutId: String?) = apply {
             this.ledgerAccountPayoutId = ledgerAccountPayoutId
         }
 
-        fun ledgerAccountSettlementId(ledgerAccountSettlementId: String) = apply {
+        fun ledgerAccountSettlementId(ledgerAccountSettlementId: String?) = apply {
             this.ledgerAccountSettlementId = ledgerAccountSettlementId
         }
 
         /** Get all ledger entries that are included in the ledger account statement. */
-        fun ledgerAccountStatementId(ledgerAccountStatementId: String) = apply {
+        fun ledgerAccountStatementId(ledgerAccountStatementId: String?) = apply {
             this.ledgerAccountStatementId = ledgerAccountStatementId
         }
 
-        fun ledgerTransactionId(ledgerTransactionId: String) = apply {
+        fun ledgerTransactionId(ledgerTransactionId: String?) = apply {
             this.ledgerTransactionId = ledgerTransactionId
         }
 
@@ -322,41 +328,55 @@ constructor(
          * For example, if you want to query for records with metadata key `Type` and value `Loan`,
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
         /**
          * Order by `created_at` or `effective_at` in `asc` or `desc` order. For example, to order
          * by `effective_at asc`, use `order_by%5Beffective_at%5D=asc`. Ordering by only one field
          * at a time is supported.
          */
-        fun orderBy(orderBy: OrderBy) = apply { this.orderBy = orderBy }
+        fun orderBy(orderBy: OrderBy?) = apply { this.orderBy = orderBy }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
+
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /**
          * If true, response will include the balances attached to the ledger entry. If there is no
          * balance available, null will be returned instead.
          */
-        fun showBalances(showBalances: Boolean) = apply { this.showBalances = showBalances }
+        fun showBalances(showBalances: Boolean?) = apply { this.showBalances = showBalances }
+
+        /**
+         * If true, response will include the balances attached to the ledger entry. If there is no
+         * balance available, null will be returned instead.
+         */
+        fun showBalances(showBalances: Boolean) = showBalances(showBalances as Boolean?)
 
         /**
          * If true, response will include ledger entries that were deleted. When you update a ledger
          * transaction to specify a new set of entries, the previous entries are deleted.
          */
-        fun showDeleted(showDeleted: Boolean) = apply { this.showDeleted = showDeleted }
+        fun showDeleted(showDeleted: Boolean?) = apply { this.showDeleted = showDeleted }
+
+        /**
+         * If true, response will include ledger entries that were deleted. When you update a ledger
+         * transaction to specify a new set of entries, the previous entries are deleted.
+         */
+        fun showDeleted(showDeleted: Boolean) = showDeleted(showDeleted as Boolean?)
 
         /**
          * Get all ledger entries that match the status specified. One of `pending`, `posted`, or
          * `archived`.
          */
-        fun status(status: Status) = apply { this.status = status }
+        fun status(status: Status?) = apply { this.status = status }
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
          * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
          * updated_at%5Bgt%5D=2000-01-01T12:00:00Z.
          */
-        fun updatedAt(updatedAt: UpdatedAt) = apply { this.updatedAt = updatedAt }
+        fun updatedAt(updatedAt: UpdatedAt?) = apply { this.updatedAt = updatedAt }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -925,9 +945,9 @@ constructor(
                 additionalProperties = orderBy.additionalProperties.toBuilder()
             }
 
-            fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+            fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
-            fun effectiveAt(effectiveAt: EffectiveAt) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: EffectiveAt?) = apply { this.effectiveAt = effectiveAt }
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
