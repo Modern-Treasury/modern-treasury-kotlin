@@ -165,20 +165,20 @@ constructor(
             fun partyName(partyName: String) = apply { this.partyName = partyName }
 
             /** The Counterparty associated to this account. */
-            fun counterpartyId(counterpartyId: String) = apply {
+            fun counterpartyId(counterpartyId: String?) = apply {
                 this.counterpartyId = counterpartyId
             }
 
             /** The LegalEntity associated to this account. */
-            fun legalEntityId(legalEntityId: String) = apply { this.legalEntityId = legalEntityId }
+            fun legalEntityId(legalEntityId: String?) = apply { this.legalEntityId = legalEntityId }
 
             /** The parent internal account of this new account. */
-            fun parentAccountId(parentAccountId: String) = apply {
+            fun parentAccountId(parentAccountId: String?) = apply {
                 this.parentAccountId = parentAccountId
             }
 
             /** The address associated with the owner or null. */
-            fun partyAddress(partyAddress: PartyAddress) = apply {
+            fun partyAddress(partyAddress: PartyAddress?) = apply {
                 this.partyAddress = partyAddress
             }
 
@@ -186,7 +186,7 @@ constructor(
              * A hash of vendor specific attributes that will be used when creating the account at
              * the vendor specified by the given connection.
              */
-            fun vendorAttributes(vendorAttributes: VendorAttributes) = apply {
+            fun vendorAttributes(vendorAttributes: VendorAttributes?) = apply {
                 this.vendorAttributes = vendorAttributes
             }
 
@@ -275,24 +275,24 @@ constructor(
         fun partyName(partyName: String) = apply { body.partyName(partyName) }
 
         /** The Counterparty associated to this account. */
-        fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
+        fun counterpartyId(counterpartyId: String?) = apply { body.counterpartyId(counterpartyId) }
 
         /** The LegalEntity associated to this account. */
-        fun legalEntityId(legalEntityId: String) = apply { body.legalEntityId(legalEntityId) }
+        fun legalEntityId(legalEntityId: String?) = apply { body.legalEntityId(legalEntityId) }
 
         /** The parent internal account of this new account. */
-        fun parentAccountId(parentAccountId: String) = apply {
+        fun parentAccountId(parentAccountId: String?) = apply {
             body.parentAccountId(parentAccountId)
         }
 
         /** The address associated with the owner or null. */
-        fun partyAddress(partyAddress: PartyAddress) = apply { body.partyAddress(partyAddress) }
+        fun partyAddress(partyAddress: PartyAddress?) = apply { body.partyAddress(partyAddress) }
 
         /**
          * A hash of vendor specific attributes that will be used when creating the account at the
          * vendor specified by the given connection.
          */
-        fun vendorAttributes(vendorAttributes: VendorAttributes) = apply {
+        fun vendorAttributes(vendorAttributes: VendorAttributes?) = apply {
             body.vendorAttributes(vendorAttributes)
         }
 
@@ -554,7 +554,7 @@ constructor(
             /** Region or State. */
             fun region(region: String) = apply { this.region = region }
 
-            fun line2(line2: String) = apply { this.line2 = line2 }
+            fun line2(line2: String?) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()

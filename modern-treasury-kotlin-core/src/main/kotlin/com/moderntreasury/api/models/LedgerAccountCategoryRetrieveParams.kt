@@ -81,7 +81,7 @@ constructor(
          * query string would be `balances%5Beffective_at%5D=2000-12-31T12:00:00Z`. The balances as
          * of a time are inclusive of entries with that exact time.
          */
-        fun balances(balances: Balances) = apply { this.balances = balances }
+        fun balances(balances: Balances?) = apply { this.balances = balances }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -235,9 +235,9 @@ constructor(
                 additionalProperties = balances.additionalProperties.toBuilder()
             }
 
-            fun asOfDate(asOfDate: LocalDate) = apply { this.asOfDate = asOfDate }
+            fun asOfDate(asOfDate: LocalDate?) = apply { this.asOfDate = asOfDate }
 
-            fun effectiveAt(effectiveAt: OffsetDateTime) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: OffsetDateTime?) = apply { this.effectiveAt = effectiveAt }
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()

@@ -123,12 +123,12 @@ constructor(
             }
 
             /** The Counterparty associated to this account. */
-            fun counterpartyId(counterpartyId: String) = apply {
+            fun counterpartyId(counterpartyId: String?) = apply {
                 this.counterpartyId = counterpartyId
             }
 
             /** The Ledger Account associated to this account. */
-            fun ledgerAccountId(ledgerAccountId: String) = apply {
+            fun ledgerAccountId(ledgerAccountId: String?) = apply {
                 this.ledgerAccountId = ledgerAccountId
             }
 
@@ -136,13 +136,13 @@ constructor(
              * Additional data in the form of key-value pairs. Pairs can be removed by passing an
              * empty string or `null` as the value.
              */
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /** The nickname for the internal account. */
-            fun name(name: String) = apply { this.name = name }
+            fun name(name: String?) = apply { this.name = name }
 
             /** The parent internal account for this account. */
-            fun parentAccountId(parentAccountId: String) = apply {
+            fun parentAccountId(parentAccountId: String?) = apply {
                 this.parentAccountId = parentAccountId
             }
 
@@ -219,10 +219,10 @@ constructor(
         fun id(id: String) = apply { this.id = id }
 
         /** The Counterparty associated to this account. */
-        fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
+        fun counterpartyId(counterpartyId: String?) = apply { body.counterpartyId(counterpartyId) }
 
         /** The Ledger Account associated to this account. */
-        fun ledgerAccountId(ledgerAccountId: String) = apply {
+        fun ledgerAccountId(ledgerAccountId: String?) = apply {
             body.ledgerAccountId(ledgerAccountId)
         }
 
@@ -230,13 +230,13 @@ constructor(
          * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
          * string or `null` as the value.
          */
-        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
 
         /** The nickname for the internal account. */
-        fun name(name: String) = apply { body.name(name) }
+        fun name(name: String?) = apply { body.name(name) }
 
         /** The parent internal account for this account. */
-        fun parentAccountId(parentAccountId: String) = apply {
+        fun parentAccountId(parentAccountId: String?) = apply {
             body.parentAccountId(parentAccountId)
         }
 

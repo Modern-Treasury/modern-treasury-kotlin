@@ -116,26 +116,26 @@ constructor(
             additionalQueryParams = foreignExchangeQuoteListParams.additionalQueryParams.toBuilder()
         }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
         /** Currency to convert, often called the "sell" currency. */
-        fun baseCurrency(baseCurrency: String) = apply { this.baseCurrency = baseCurrency }
+        fun baseCurrency(baseCurrency: String?) = apply { this.baseCurrency = baseCurrency }
 
         /** An inclusive upper bound for searching effective_at */
-        fun effectiveAtEnd(effectiveAtEnd: LocalDate) = apply {
+        fun effectiveAtEnd(effectiveAtEnd: LocalDate?) = apply {
             this.effectiveAtEnd = effectiveAtEnd
         }
 
         /** An inclusive lower bound for searching effective_at */
-        fun effectiveAtStart(effectiveAtStart: LocalDate) = apply {
+        fun effectiveAtStart(effectiveAtStart: LocalDate?) = apply {
             this.effectiveAtStart = effectiveAtStart
         }
 
         /** The timestamp until which the quote must be booked by. */
-        fun expiresAt(expiresAt: OffsetDateTime) = apply { this.expiresAt = expiresAt }
+        fun expiresAt(expiresAt: OffsetDateTime?) = apply { this.expiresAt = expiresAt }
 
         /** The ID for the `InternalAccount` this quote is associated with. */
-        fun internalAccountId(internalAccountId: String) = apply {
+        fun internalAccountId(internalAccountId: String?) = apply {
             this.internalAccountId = internalAccountId
         }
 
@@ -143,12 +143,14 @@ constructor(
          * For example, if you want to query for records with metadata key `Type` and value `Loan`,
          * the query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
          */
-        fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
+
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /** Currency to convert the `base_currency` to, often called the "buy" currency. */
-        fun targetCurrency(targetCurrency: String) = apply { this.targetCurrency = targetCurrency }
+        fun targetCurrency(targetCurrency: String?) = apply { this.targetCurrency = targetCurrency }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

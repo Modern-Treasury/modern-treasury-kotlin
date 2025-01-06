@@ -282,47 +282,61 @@ constructor(
              * The lowest amount this expected payment may be equal to. Value in specified
              * currency's smallest unit. e.g. $10 would be represented as 1000.
              */
-            fun amountLowerBound(amountLowerBound: Long) = apply {
+            fun amountLowerBound(amountLowerBound: Long?) = apply {
                 this.amountLowerBound = amountLowerBound
+            }
+
+            /**
+             * The lowest amount this expected payment may be equal to. Value in specified
+             * currency's smallest unit. e.g. $10 would be represented as 1000.
+             */
+            fun amountLowerBound(amountLowerBound: Long) =
+                amountLowerBound(amountLowerBound as Long?)
+
+            /**
+             * The highest amount this expected payment may be equal to. Value in specified
+             * currency's smallest unit. e.g. $10 would be represented as 1000.
+             */
+            fun amountUpperBound(amountUpperBound: Long?) = apply {
+                this.amountUpperBound = amountUpperBound
             }
 
             /**
              * The highest amount this expected payment may be equal to. Value in specified
              * currency's smallest unit. e.g. $10 would be represented as 1000.
              */
-            fun amountUpperBound(amountUpperBound: Long) = apply {
-                this.amountUpperBound = amountUpperBound
-            }
+            fun amountUpperBound(amountUpperBound: Long) =
+                amountUpperBound(amountUpperBound as Long?)
 
             /** The ID of the counterparty you expect for this payment. */
-            fun counterpartyId(counterpartyId: String) = apply {
+            fun counterpartyId(counterpartyId: String?) = apply {
                 this.counterpartyId = counterpartyId
             }
 
             /** Must conform to ISO 4217. Defaults to the currency of the internal account. */
-            fun currency(currency: Currency) = apply { this.currency = currency }
+            fun currency(currency: Currency?) = apply { this.currency = currency }
 
             /** The earliest date the payment may come in. Format: yyyy-mm-dd */
-            fun dateLowerBound(dateLowerBound: LocalDate) = apply {
+            fun dateLowerBound(dateLowerBound: LocalDate?) = apply {
                 this.dateLowerBound = dateLowerBound
             }
 
             /** The latest date the payment may come in. Format: yyyy-mm-dd */
-            fun dateUpperBound(dateUpperBound: LocalDate) = apply {
+            fun dateUpperBound(dateUpperBound: LocalDate?) = apply {
                 this.dateUpperBound = dateUpperBound
             }
 
             /** An optional description for internal use. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /**
              * One of credit or debit. When you are receiving money, use credit. When you are being
              * charged, use debit.
              */
-            fun direction(direction: Direction) = apply { this.direction = direction }
+            fun direction(direction: Direction?) = apply { this.direction = direction }
 
             /** The ID of the Internal Account for the expected payment. */
-            fun internalAccountId(internalAccountId: String) = apply {
+            fun internalAccountId(internalAccountId: String?) = apply {
                 this.internalAccountId = internalAccountId
             }
 
@@ -330,23 +344,24 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             /** The reconciliation filters you have for this payment. */
-            fun reconciliationFilters(reconciliationFilters: JsonValue) = apply {
+            fun reconciliationFilters(reconciliationFilters: JsonValue?) = apply {
                 this.reconciliationFilters = reconciliationFilters
             }
 
             /** The reconciliation groups you have for this payment. */
-            fun reconciliationGroups(reconciliationGroups: JsonValue) = apply {
+            fun reconciliationGroups(reconciliationGroups: JsonValue?) = apply {
                 this.reconciliationGroups = reconciliationGroups
             }
 
             /** An array of reconciliation rule variables for this payment. */
-            fun reconciliationRuleVariables(reconciliationRuleVariables: List<ReconciliationRule>) =
-                apply {
-                    this.reconciliationRuleVariables = reconciliationRuleVariables.toMutableList()
-                }
+            fun reconciliationRuleVariables(
+                reconciliationRuleVariables: List<ReconciliationRule>?
+            ) = apply {
+                this.reconciliationRuleVariables = reconciliationRuleVariables?.toMutableList()
+            }
 
             /** An array of reconciliation rule variables for this payment. */
             fun addReconciliationRuleVariable(reconciliationRuleVariable: ReconciliationRule) =
@@ -362,7 +377,7 @@ constructor(
              * payments the field will be passed through as the "Originator to Beneficiary
              * Information", also known as OBI or Fedwire tag 6000.
              */
-            fun remittanceInformation(remittanceInformation: String) = apply {
+            fun remittanceInformation(remittanceInformation: String?) = apply {
                 this.remittanceInformation = remittanceInformation
             }
 
@@ -371,20 +386,20 @@ constructor(
              * this will be the full line item passed from the bank. For wire payments, this will be
              * the OBI field on the wire. For check payments, this will be the memo field.
              */
-            fun statementDescriptor(statementDescriptor: String) = apply {
+            fun statementDescriptor(statementDescriptor: String?) = apply {
                 this.statementDescriptor = statementDescriptor
             }
 
             /**
              * The Expected Payment's status can be updated from partially_reconciled to reconciled.
              */
-            fun status(status: Status) = apply { this.status = status }
+            fun status(status: Status?) = apply { this.status = status }
 
             /**
              * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa,
              * signet, wire.
              */
-            fun type(type: ExpectedPaymentType) = apply { this.type = type }
+            fun type(type: ExpectedPaymentType?) = apply { this.type = type }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -474,65 +489,77 @@ constructor(
          * The lowest amount this expected payment may be equal to. Value in specified currency's
          * smallest unit. e.g. $10 would be represented as 1000.
          */
-        fun amountLowerBound(amountLowerBound: Long) = apply {
+        fun amountLowerBound(amountLowerBound: Long?) = apply {
             body.amountLowerBound(amountLowerBound)
+        }
+
+        /**
+         * The lowest amount this expected payment may be equal to. Value in specified currency's
+         * smallest unit. e.g. $10 would be represented as 1000.
+         */
+        fun amountLowerBound(amountLowerBound: Long) = amountLowerBound(amountLowerBound as Long?)
+
+        /**
+         * The highest amount this expected payment may be equal to. Value in specified currency's
+         * smallest unit. e.g. $10 would be represented as 1000.
+         */
+        fun amountUpperBound(amountUpperBound: Long?) = apply {
+            body.amountUpperBound(amountUpperBound)
         }
 
         /**
          * The highest amount this expected payment may be equal to. Value in specified currency's
          * smallest unit. e.g. $10 would be represented as 1000.
          */
-        fun amountUpperBound(amountUpperBound: Long) = apply {
-            body.amountUpperBound(amountUpperBound)
-        }
+        fun amountUpperBound(amountUpperBound: Long) = amountUpperBound(amountUpperBound as Long?)
 
         /** The ID of the counterparty you expect for this payment. */
-        fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
+        fun counterpartyId(counterpartyId: String?) = apply { body.counterpartyId(counterpartyId) }
 
         /** Must conform to ISO 4217. Defaults to the currency of the internal account. */
-        fun currency(currency: Currency) = apply { body.currency(currency) }
+        fun currency(currency: Currency?) = apply { body.currency(currency) }
 
         /** The earliest date the payment may come in. Format: yyyy-mm-dd */
-        fun dateLowerBound(dateLowerBound: LocalDate) = apply {
+        fun dateLowerBound(dateLowerBound: LocalDate?) = apply {
             body.dateLowerBound(dateLowerBound)
         }
 
         /** The latest date the payment may come in. Format: yyyy-mm-dd */
-        fun dateUpperBound(dateUpperBound: LocalDate) = apply {
+        fun dateUpperBound(dateUpperBound: LocalDate?) = apply {
             body.dateUpperBound(dateUpperBound)
         }
 
         /** An optional description for internal use. */
-        fun description(description: String) = apply { body.description(description) }
+        fun description(description: String?) = apply { body.description(description) }
 
         /**
          * One of credit or debit. When you are receiving money, use credit. When you are being
          * charged, use debit.
          */
-        fun direction(direction: Direction) = apply { body.direction(direction) }
+        fun direction(direction: Direction?) = apply { body.direction(direction) }
 
         /** The ID of the Internal Account for the expected payment. */
-        fun internalAccountId(internalAccountId: String) = apply {
+        fun internalAccountId(internalAccountId: String?) = apply {
             body.internalAccountId(internalAccountId)
         }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
 
         /** The reconciliation filters you have for this payment. */
-        fun reconciliationFilters(reconciliationFilters: JsonValue) = apply {
+        fun reconciliationFilters(reconciliationFilters: JsonValue?) = apply {
             body.reconciliationFilters(reconciliationFilters)
         }
 
         /** The reconciliation groups you have for this payment. */
-        fun reconciliationGroups(reconciliationGroups: JsonValue) = apply {
+        fun reconciliationGroups(reconciliationGroups: JsonValue?) = apply {
             body.reconciliationGroups(reconciliationGroups)
         }
 
         /** An array of reconciliation rule variables for this payment. */
-        fun reconciliationRuleVariables(reconciliationRuleVariables: List<ReconciliationRule>) =
+        fun reconciliationRuleVariables(reconciliationRuleVariables: List<ReconciliationRule>?) =
             apply {
                 body.reconciliationRuleVariables(reconciliationRuleVariables)
             }
@@ -547,7 +574,7 @@ constructor(
          * the field will be passed through as the "Originator to Beneficiary Information", also
          * known as OBI or Fedwire tag 6000.
          */
-        fun remittanceInformation(remittanceInformation: String) = apply {
+        fun remittanceInformation(remittanceInformation: String?) = apply {
             body.remittanceInformation(remittanceInformation)
         }
 
@@ -556,18 +583,18 @@ constructor(
          * will be the full line item passed from the bank. For wire payments, this will be the OBI
          * field on the wire. For check payments, this will be the memo field.
          */
-        fun statementDescriptor(statementDescriptor: String) = apply {
+        fun statementDescriptor(statementDescriptor: String?) = apply {
             body.statementDescriptor(statementDescriptor)
         }
 
         /** The Expected Payment's status can be updated from partially_reconciled to reconciled. */
-        fun status(status: Status) = apply { body.status(status) }
+        fun status(status: Status?) = apply { body.status(status) }
 
         /**
          * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa,
          * signet, wire.
          */
-        fun type(type: ExpectedPaymentType) = apply { body.type(type) }
+        fun type(type: ExpectedPaymentType?) = apply { body.type(type) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

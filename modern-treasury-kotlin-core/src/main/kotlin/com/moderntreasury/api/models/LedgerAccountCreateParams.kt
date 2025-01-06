@@ -188,19 +188,23 @@ constructor(
             }
 
             /** The currency exponent of the ledger account. */
-            fun currencyExponent(currencyExponent: Long) = apply {
+            fun currencyExponent(currencyExponent: Long?) = apply {
                 this.currencyExponent = currencyExponent
             }
 
+            /** The currency exponent of the ledger account. */
+            fun currencyExponent(currencyExponent: Long) =
+                currencyExponent(currencyExponent as Long?)
+
             /** The description of the ledger account. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /**
              * The array of ledger account category ids that this ledger account should be a child
              * of.
              */
-            fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>) = apply {
-                this.ledgerAccountCategoryIds = ledgerAccountCategoryIds.toMutableList()
+            fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>?) = apply {
+                this.ledgerAccountCategoryIds = ledgerAccountCategoryIds?.toMutableList()
             }
 
             /**
@@ -218,14 +222,14 @@ constructor(
              * If the ledger account links to another object in Modern Treasury, the id will be
              * populated here, otherwise null.
              */
-            fun ledgerableId(ledgerableId: String) = apply { this.ledgerableId = ledgerableId }
+            fun ledgerableId(ledgerableId: String?) = apply { this.ledgerableId = ledgerableId }
 
             /**
              * If the ledger account links to another object in Modern Treasury, the type will be
              * populated here, otherwise null. The value is one of internal_account or
              * external_account.
              */
-            fun ledgerableType(ledgerableType: LedgerableType) = apply {
+            fun ledgerableType(ledgerableType: LedgerableType?) = apply {
                 this.ledgerableType = ledgerableType
             }
 
@@ -233,7 +237,7 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -323,17 +327,20 @@ constructor(
         }
 
         /** The currency exponent of the ledger account. */
-        fun currencyExponent(currencyExponent: Long) = apply {
+        fun currencyExponent(currencyExponent: Long?) = apply {
             body.currencyExponent(currencyExponent)
         }
 
+        /** The currency exponent of the ledger account. */
+        fun currencyExponent(currencyExponent: Long) = currencyExponent(currencyExponent as Long?)
+
         /** The description of the ledger account. */
-        fun description(description: String) = apply { body.description(description) }
+        fun description(description: String?) = apply { body.description(description) }
 
         /**
          * The array of ledger account category ids that this ledger account should be a child of.
          */
-        fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>) = apply {
+        fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>?) = apply {
             body.ledgerAccountCategoryIds(ledgerAccountCategoryIds)
         }
 
@@ -348,20 +355,20 @@ constructor(
          * If the ledger account links to another object in Modern Treasury, the id will be
          * populated here, otherwise null.
          */
-        fun ledgerableId(ledgerableId: String) = apply { body.ledgerableId(ledgerableId) }
+        fun ledgerableId(ledgerableId: String?) = apply { body.ledgerableId(ledgerableId) }
 
         /**
          * If the ledger account links to another object in Modern Treasury, the type will be
          * populated here, otherwise null. The value is one of internal_account or external_account.
          */
-        fun ledgerableType(ledgerableType: LedgerableType) = apply {
+        fun ledgerableType(ledgerableType: LedgerableType?) = apply {
             body.ledgerableType(ledgerableType)
         }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

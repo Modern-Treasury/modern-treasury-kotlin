@@ -80,15 +80,15 @@ constructor(
             additionalQueryParams = paperItemListParams.additionalQueryParams.toBuilder()
         }
 
-        fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
         /** Specify an inclusive end date (YYYY-MM-DD) when filtering by deposit_date */
-        fun depositDateEnd(depositDateEnd: LocalDate) = apply {
+        fun depositDateEnd(depositDateEnd: LocalDate?) = apply {
             this.depositDateEnd = depositDateEnd
         }
 
         /** Specify an inclusive start date (YYYY-MM-DD) when filtering by deposit_date */
-        fun depositDateStart(depositDateStart: LocalDate) = apply {
+        fun depositDateStart(depositDateStart: LocalDate?) = apply {
             this.depositDateStart = depositDateStart
         }
 
@@ -96,9 +96,11 @@ constructor(
          * Specify `lockbox_number` if you wish to see paper items that are associated with a
          * specific lockbox number.
          */
-        fun lockboxNumber(lockboxNumber: String) = apply { this.lockboxNumber = lockboxNumber }
+        fun lockboxNumber(lockboxNumber: String?) = apply { this.lockboxNumber = lockboxNumber }
 
-        fun perPage(perPage: Long) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
+
+        fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
