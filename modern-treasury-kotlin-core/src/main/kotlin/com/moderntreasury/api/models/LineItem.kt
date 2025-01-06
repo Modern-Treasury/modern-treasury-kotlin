@@ -23,31 +23,6 @@ class LineItem
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("itemizable_id")
-    @ExcludeMissing
-    private val itemizableId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("itemizable_type")
-    @ExcludeMissing
-    private val itemizableType: JsonField<ItemizableType> = JsonMissing.of(),
-    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("description")
-    @ExcludeMissing
-    private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("metadata")
-    @ExcludeMissing
-    private val metadata: JsonField<Metadata> = JsonMissing.of(),
     @JsonProperty("accounting")
     @ExcludeMissing
     private val accounting: JsonField<Accounting> = JsonMissing.of(),
@@ -57,37 +32,35 @@ private constructor(
     @JsonProperty("accounting_ledger_class_id")
     @ExcludeMissing
     private val accountingLedgerClassId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("description")
+    @ExcludeMissing
+    private val description: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("itemizable_id")
+    @ExcludeMissing
+    private val itemizableId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("itemizable_type")
+    @ExcludeMissing
+    private val itemizableType: JsonField<ItemizableType> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("metadata")
+    @ExcludeMissing
+    private val metadata: JsonField<Metadata> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
-
-    fun object_(): String = object_.getRequired("object")
-
-    /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
-     */
-    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
-
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
-
-    /** The ID of the payment order or expected payment. */
-    fun itemizableId(): String = itemizableId.getRequired("itemizable_id")
-
-    /** One of `payment_orders` or `expected_payments`. */
-    fun itemizableType(): ItemizableType = itemizableType.getRequired("itemizable_type")
-
-    /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-    fun amount(): Long = amount.getRequired("amount")
-
-    /** A free-form description of the line item. */
-    fun description(): String? = description.getNullable("description")
-
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    fun metadata(): Metadata = metadata.getRequired("metadata")
 
     fun accounting(): Accounting = accounting.getRequired("accounting")
 
@@ -105,34 +78,34 @@ private constructor(
     fun accountingLedgerClassId(): String? =
         accountingLedgerClassId.getNullable("accounting_ledger_class_id")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+    fun amount(): Long = amount.getRequired("amount")
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /** A free-form description of the line item. */
+    fun description(): String? = description.getNullable("description")
+
+    /** The ID of the payment order or expected payment. */
+    fun itemizableId(): String = itemizableId.getRequired("itemizable_id")
+
+    /** One of `payment_orders` or `expected_payments`. */
+    fun itemizableType(): ItemizableType = itemizableType.getRequired("itemizable_type")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
-
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
-    /** The ID of the payment order or expected payment. */
-    @JsonProperty("itemizable_id") @ExcludeMissing fun _itemizableId() = itemizableId
-
-    /** One of `payment_orders` or `expected_payments`. */
-    @JsonProperty("itemizable_type") @ExcludeMissing fun _itemizableType() = itemizableType
-
-    /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
-
-    /** A free-form description of the line item. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+    fun metadata(): Metadata = metadata.getRequired("metadata")
+
+    fun object_(): String = object_.getRequired("object")
+
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     @JsonProperty("accounting") @ExcludeMissing fun _accounting() = accounting
 
@@ -153,6 +126,33 @@ private constructor(
     @ExcludeMissing
     fun _accountingLedgerClassId() = accountingLedgerClassId
 
+    /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /** A free-form description of the line item. */
+    @JsonProperty("description") @ExcludeMissing fun _description() = description
+
+    /** The ID of the payment order or expected payment. */
+    @JsonProperty("itemizable_id") @ExcludeMissing fun _itemizableId() = itemizableId
+
+    /** One of `payment_orders` or `expected_payments`. */
+    @JsonProperty("itemizable_type") @ExcludeMissing fun _itemizableType() = itemizableType
+
+    /**
+     * This field will be true if this object exists in the live environment or false if it exists
+     * in the test environment.
+     */
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -162,18 +162,18 @@ private constructor(
     fun validate(): LineItem = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
-            createdAt()
-            updatedAt()
-            itemizableId()
-            itemizableType()
-            amount()
-            description()
-            metadata().validate()
             accounting().validate()
             accountingCategoryId()
             accountingLedgerClassId()
+            amount()
+            createdAt()
+            description()
+            itemizableId()
+            itemizableType()
+            liveMode()
+            metadata().validate()
+            object_()
+            updatedAt()
             validated = true
         }
     }
@@ -188,103 +188,40 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var itemizableId: JsonField<String> = JsonMissing.of()
-        private var itemizableType: JsonField<ItemizableType> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
         private var accounting: JsonField<Accounting> = JsonMissing.of()
         private var accountingCategoryId: JsonField<String> = JsonMissing.of()
         private var accountingLedgerClassId: JsonField<String> = JsonMissing.of()
+        private var amount: JsonField<Long> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var description: JsonField<String> = JsonMissing.of()
+        private var itemizableId: JsonField<String> = JsonMissing.of()
+        private var itemizableType: JsonField<ItemizableType> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var metadata: JsonField<Metadata> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(lineItem: LineItem) = apply {
             id = lineItem.id
-            object_ = lineItem.object_
-            liveMode = lineItem.liveMode
-            createdAt = lineItem.createdAt
-            updatedAt = lineItem.updatedAt
-            itemizableId = lineItem.itemizableId
-            itemizableType = lineItem.itemizableType
-            amount = lineItem.amount
-            description = lineItem.description
-            metadata = lineItem.metadata
             accounting = lineItem.accounting
             accountingCategoryId = lineItem.accountingCategoryId
             accountingLedgerClassId = lineItem.accountingLedgerClassId
+            amount = lineItem.amount
+            createdAt = lineItem.createdAt
+            description = lineItem.description
+            itemizableId = lineItem.itemizableId
+            itemizableType = lineItem.itemizableType
+            liveMode = lineItem.liveMode
+            metadata = lineItem.metadata
+            object_ = lineItem.object_
+            updatedAt = lineItem.updatedAt
             additionalProperties = lineItem.additionalProperties.toMutableMap()
         }
 
         fun id(id: String) = id(JsonField.of(id))
 
         fun id(id: JsonField<String>) = apply { this.id = id }
-
-        fun object_(object_: String) = object_(JsonField.of(object_))
-
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
-
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
-
-        /** The ID of the payment order or expected payment. */
-        fun itemizableId(itemizableId: String) = itemizableId(JsonField.of(itemizableId))
-
-        /** The ID of the payment order or expected payment. */
-        fun itemizableId(itemizableId: JsonField<String>) = apply {
-            this.itemizableId = itemizableId
-        }
-
-        /** One of `payment_orders` or `expected_payments`. */
-        fun itemizableType(itemizableType: ItemizableType) =
-            itemizableType(JsonField.of(itemizableType))
-
-        /** One of `payment_orders` or `expected_payments`. */
-        fun itemizableType(itemizableType: JsonField<ItemizableType>) = apply {
-            this.itemizableType = itemizableType
-        }
-
-        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-        fun amount(amount: Long) = amount(JsonField.of(amount))
-
-        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-        /** A free-form description of the line item. */
-        fun description(description: String) = description(JsonField.of(description))
-
-        /** A free-form description of the line item. */
-        fun description(description: JsonField<String>) = apply { this.description = description }
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         fun accounting(accounting: Accounting) = accounting(JsonField.of(accounting))
 
@@ -322,6 +259,69 @@ private constructor(
             this.accountingLedgerClassId = accountingLedgerClassId
         }
 
+        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+        fun amount(amount: Long) = amount(JsonField.of(amount))
+
+        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** A free-form description of the line item. */
+        fun description(description: String) = description(JsonField.of(description))
+
+        /** A free-form description of the line item. */
+        fun description(description: JsonField<String>) = apply { this.description = description }
+
+        /** The ID of the payment order or expected payment. */
+        fun itemizableId(itemizableId: String) = itemizableId(JsonField.of(itemizableId))
+
+        /** The ID of the payment order or expected payment. */
+        fun itemizableId(itemizableId: JsonField<String>) = apply {
+            this.itemizableId = itemizableId
+        }
+
+        /** One of `payment_orders` or `expected_payments`. */
+        fun itemizableType(itemizableType: ItemizableType) =
+            itemizableType(JsonField.of(itemizableType))
+
+        /** One of `payment_orders` or `expected_payments`. */
+        fun itemizableType(itemizableType: JsonField<ItemizableType>) = apply {
+            this.itemizableType = itemizableType
+        }
+
+        /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
+
+        /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+        fun object_(object_: String) = object_(JsonField.of(object_))
+
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -344,18 +344,18 @@ private constructor(
         fun build(): LineItem =
             LineItem(
                 id,
-                object_,
-                liveMode,
-                createdAt,
-                updatedAt,
-                itemizableId,
-                itemizableType,
-                amount,
-                description,
-                metadata,
                 accounting,
                 accountingCategoryId,
                 accountingLedgerClassId,
+                amount,
+                createdAt,
+                description,
+                itemizableId,
+                itemizableType,
+                liveMode,
+                metadata,
+                object_,
+                updatedAt,
                 additionalProperties.toImmutable(),
             )
     }
@@ -641,15 +641,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LineItem && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && itemizableId == other.itemizableId && itemizableType == other.itemizableType && amount == other.amount && description == other.description && metadata == other.metadata && accounting == other.accounting && accountingCategoryId == other.accountingCategoryId && accountingLedgerClassId == other.accountingLedgerClassId && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is LineItem && id == other.id && accounting == other.accounting && accountingCategoryId == other.accountingCategoryId && accountingLedgerClassId == other.accountingLedgerClassId && amount == other.amount && createdAt == other.createdAt && description == other.description && itemizableId == other.itemizableId && itemizableType == other.itemizableType && liveMode == other.liveMode && metadata == other.metadata && object_ == other.object_ && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, itemizableId, itemizableType, amount, description, metadata, accounting, accountingCategoryId, accountingLedgerClassId, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accounting, accountingCategoryId, accountingLedgerClassId, amount, createdAt, description, itemizableId, itemizableType, liveMode, metadata, object_, updatedAt, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "LineItem{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, itemizableId=$itemizableId, itemizableType=$itemizableType, amount=$amount, description=$description, metadata=$metadata, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, additionalProperties=$additionalProperties}"
+        "LineItem{id=$id, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, amount=$amount, createdAt=$createdAt, description=$description, itemizableId=$itemizableId, itemizableType=$itemizableType, liveMode=$liveMode, metadata=$metadata, object_=$object_, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

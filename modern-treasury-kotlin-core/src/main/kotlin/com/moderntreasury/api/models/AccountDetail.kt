@@ -23,51 +23,37 @@ class AccountDetail
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("discarded_at")
-    @ExcludeMissing
-    private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("account_number")
-    @ExcludeMissing
-    private val accountNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("account_number_type")
-    @ExcludeMissing
-    private val accountNumberType: JsonField<AccountNumberType> = JsonMissing.of(),
     @JsonProperty("account_number_safe")
     @ExcludeMissing
     private val accountNumberSafe: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("account_number_type")
+    @ExcludeMissing
+    private val accountNumberType: JsonField<AccountNumberType> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("discarded_at")
+    @ExcludeMissing
+    private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("account_number")
+    @ExcludeMissing
+    private val accountNumber: JsonField<String> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
 
-    fun object_(): String = object_.getRequired("object")
-
-    /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
-     */
-    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
-
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
-
-    fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
-
-    /** The account number for the bank account. */
-    fun accountNumber(): String? = accountNumber.getNullable("account_number")
+    /** The last 4 digits of the account_number. */
+    fun accountNumberSafe(): String = accountNumberSafe.getRequired("account_number_safe")
 
     /**
      * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account number
@@ -76,27 +62,29 @@ private constructor(
     fun accountNumberType(): AccountNumberType =
         accountNumberType.getRequired("account_number_type")
 
-    /** The last 4 digits of the account_number. */
-    fun accountNumberSafe(): String = accountNumberSafe.getRequired("account_number_safe")
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    fun object_(): String = object_.getRequired("object")
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
-    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     /** The account number for the bank account. */
-    @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
+    fun accountNumber(): String? = accountNumber.getNullable("account_number")
+
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /** The last 4 digits of the account_number. */
+    @JsonProperty("account_number_safe")
+    @ExcludeMissing
+    fun _accountNumberSafe() = accountNumberSafe
 
     /**
      * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account number
@@ -106,10 +94,22 @@ private constructor(
     @ExcludeMissing
     fun _accountNumberType() = accountNumberType
 
-    /** The last 4 digits of the account_number. */
-    @JsonProperty("account_number_safe")
-    @ExcludeMissing
-    fun _accountNumberSafe() = accountNumberSafe
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+
+    /**
+     * This field will be true if this object exists in the live environment or false if it exists
+     * in the test environment.
+     */
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+
+    /** The account number for the bank account. */
+    @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -120,14 +120,14 @@ private constructor(
     fun validate(): AccountDetail = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
-            createdAt()
-            updatedAt()
-            discardedAt()
-            accountNumber()
-            accountNumberType()
             accountNumberSafe()
+            accountNumberType()
+            createdAt()
+            discardedAt()
+            liveMode()
+            object_()
+            updatedAt()
+            accountNumber()
             validated = true
         }
     }
@@ -142,26 +142,26 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var accountNumber: JsonField<String> = JsonMissing.of()
-        private var accountNumberType: JsonField<AccountNumberType> = JsonMissing.of()
         private var accountNumberSafe: JsonField<String> = JsonMissing.of()
+        private var accountNumberType: JsonField<AccountNumberType> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var accountNumber: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(accountDetail: AccountDetail) = apply {
             id = accountDetail.id
-            object_ = accountDetail.object_
-            liveMode = accountDetail.liveMode
-            createdAt = accountDetail.createdAt
-            updatedAt = accountDetail.updatedAt
-            discardedAt = accountDetail.discardedAt
-            accountNumber = accountDetail.accountNumber
-            accountNumberType = accountDetail.accountNumberType
             accountNumberSafe = accountDetail.accountNumberSafe
+            accountNumberType = accountDetail.accountNumberType
+            createdAt = accountDetail.createdAt
+            discardedAt = accountDetail.discardedAt
+            liveMode = accountDetail.liveMode
+            object_ = accountDetail.object_
+            updatedAt = accountDetail.updatedAt
+            accountNumber = accountDetail.accountNumber
             additionalProperties = accountDetail.additionalProperties.toMutableMap()
         }
 
@@ -169,42 +169,13 @@ private constructor(
 
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun object_(object_: String) = object_(JsonField.of(object_))
+        /** The last 4 digits of the account_number. */
+        fun accountNumberSafe(accountNumberSafe: String) =
+            accountNumberSafe(JsonField.of(accountNumberSafe))
 
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
-
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
-
-        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
-
-        fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
-            this.discardedAt = discardedAt
-        }
-
-        /** The account number for the bank account. */
-        fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
-
-        /** The account number for the bank account. */
-        fun accountNumber(accountNumber: JsonField<String>) = apply {
-            this.accountNumber = accountNumber
+        /** The last 4 digits of the account_number. */
+        fun accountNumberSafe(accountNumberSafe: JsonField<String>) = apply {
+            this.accountNumberSafe = accountNumberSafe
         }
 
         /**
@@ -222,13 +193,42 @@ private constructor(
             this.accountNumberType = accountNumberType
         }
 
-        /** The last 4 digits of the account_number. */
-        fun accountNumberSafe(accountNumberSafe: String) =
-            accountNumberSafe(JsonField.of(accountNumberSafe))
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        /** The last 4 digits of the account_number. */
-        fun accountNumberSafe(accountNumberSafe: JsonField<String>) = apply {
-            this.accountNumberSafe = accountNumberSafe
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+
+        fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
+            this.discardedAt = discardedAt
+        }
+
+        /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
+
+        /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+
+        fun object_(object_: String) = object_(JsonField.of(object_))
+
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+
+        /** The account number for the bank account. */
+        fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
+
+        /** The account number for the bank account. */
+        fun accountNumber(accountNumber: JsonField<String>) = apply {
+            this.accountNumber = accountNumber
         }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -253,14 +253,14 @@ private constructor(
         fun build(): AccountDetail =
             AccountDetail(
                 id,
-                object_,
-                liveMode,
-                createdAt,
-                updatedAt,
-                discardedAt,
-                accountNumber,
-                accountNumberType,
                 accountNumberSafe,
+                accountNumberType,
+                createdAt,
+                discardedAt,
+                liveMode,
+                object_,
+                updatedAt,
+                accountNumber,
                 additionalProperties.toImmutable(),
             )
     }
@@ -376,15 +376,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountDetail && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && discardedAt == other.discardedAt && accountNumber == other.accountNumber && accountNumberType == other.accountNumberType && accountNumberSafe == other.accountNumberSafe && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is AccountDetail && id == other.id && accountNumberSafe == other.accountNumberSafe && accountNumberType == other.accountNumberType && createdAt == other.createdAt && discardedAt == other.discardedAt && liveMode == other.liveMode && object_ == other.object_ && updatedAt == other.updatedAt && accountNumber == other.accountNumber && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, accountNumber, accountNumberType, accountNumberSafe, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountNumberSafe, accountNumberType, createdAt, discardedAt, liveMode, object_, updatedAt, accountNumber, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AccountDetail{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, accountNumber=$accountNumber, accountNumberType=$accountNumberType, accountNumberSafe=$accountNumberSafe, additionalProperties=$additionalProperties}"
+        "AccountDetail{id=$id, accountNumberSafe=$accountNumberSafe, accountNumberType=$accountNumberType, createdAt=$createdAt, discardedAt=$discardedAt, liveMode=$liveMode, object_=$object_, updatedAt=$updatedAt, accountNumber=$accountNumber, additionalProperties=$additionalProperties}"
 }

@@ -19,22 +19,22 @@ import java.util.Objects
 class LedgerEventHandlerVariable
 @JsonCreator
 private constructor(
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<String> = JsonMissing.of(),
     @JsonProperty("query")
     @ExcludeMissing
     private val query: JsonField<LedgerEventHandlerConditions> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<String> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
-
-    /** The type of object this variable is. Currently, only "ledger_account" is supported. */
-    fun type(): String = type.getRequired("type")
 
     fun query(): LedgerEventHandlerConditions = query.getRequired("query")
 
     /** The type of object this variable is. Currently, only "ledger_account" is supported. */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    fun type(): String = type.getRequired("type")
 
     @JsonProperty("query") @ExcludeMissing fun _query() = query
+
+    /** The type of object this variable is. Currently, only "ledger_account" is supported. */
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -44,8 +44,8 @@ private constructor(
 
     fun validate(): LedgerEventHandlerVariable = apply {
         if (!validated) {
-            type()
             query().validate()
+            type()
             validated = true
         }
     }
@@ -59,25 +59,25 @@ private constructor(
 
     class Builder {
 
-        private var type: JsonField<String> = JsonMissing.of()
         private var query: JsonField<LedgerEventHandlerConditions> = JsonMissing.of()
+        private var type: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerEventHandlerVariable: LedgerEventHandlerVariable) = apply {
-            type = ledgerEventHandlerVariable.type
             query = ledgerEventHandlerVariable.query
+            type = ledgerEventHandlerVariable.type
             additionalProperties = ledgerEventHandlerVariable.additionalProperties.toMutableMap()
         }
+
+        fun query(query: LedgerEventHandlerConditions) = query(JsonField.of(query))
+
+        fun query(query: JsonField<LedgerEventHandlerConditions>) = apply { this.query = query }
 
         /** The type of object this variable is. Currently, only "ledger_account" is supported. */
         fun type(type: String) = type(JsonField.of(type))
 
         /** The type of object this variable is. Currently, only "ledger_account" is supported. */
         fun type(type: JsonField<String>) = apply { this.type = type }
-
-        fun query(query: LedgerEventHandlerConditions) = query(JsonField.of(query))
-
-        fun query(query: JsonField<LedgerEventHandlerConditions>) = apply { this.query = query }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -100,8 +100,8 @@ private constructor(
 
         fun build(): LedgerEventHandlerVariable =
             LedgerEventHandlerVariable(
-                type,
                 query,
+                type,
                 additionalProperties.toImmutable(),
             )
     }
@@ -247,15 +247,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerEventHandlerVariable && type == other.type && query == other.query && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is LedgerEventHandlerVariable && query == other.query && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(type, query, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(query, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "LedgerEventHandlerVariable{type=$type, query=$query, additionalProperties=$additionalProperties}"
+        "LedgerEventHandlerVariable{query=$query, type=$type, additionalProperties=$additionalProperties}"
 }

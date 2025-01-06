@@ -24,75 +24,69 @@ class PaymentFlow
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
     @JsonProperty("client_token")
     @ExcludeMissing
     private val clientToken: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status")
+    @JsonProperty("counterparty_id")
     @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
+    private val counterpartyId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("currency")
     @ExcludeMissing
     private val currency: JsonField<String> = JsonMissing.of(),
     @JsonProperty("direction")
     @ExcludeMissing
     private val direction: JsonField<Direction> = JsonMissing.of(),
-    @JsonProperty("counterparty_id")
+    @JsonProperty("due_date")
     @ExcludeMissing
-    private val counterpartyId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("receiving_account_id")
+    private val dueDate: JsonField<LocalDate> = JsonMissing.of(),
+    @JsonProperty("effective_date_selection_enabled")
     @ExcludeMissing
-    private val receivingAccountId: JsonField<String> = JsonMissing.of(),
+    private val effectiveDateSelectionEnabled: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("existing_external_accounts_filter")
+    @ExcludeMissing
+    private val existingExternalAccountsFilter: JsonField<ExistingExternalAccountsFilter> =
+        JsonMissing.of(),
+    @JsonProperty("external_account_collection")
+    @ExcludeMissing
+    private val externalAccountCollection: JsonField<ExternalAccountCollection> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
     @JsonProperty("originating_account_id")
     @ExcludeMissing
     private val originatingAccountId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("payment_order_id")
     @ExcludeMissing
     private val paymentOrderId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("effective_date_selection_enabled")
+    @JsonProperty("receiving_account_id")
     @ExcludeMissing
-    private val effectiveDateSelectionEnabled: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("due_date")
-    @ExcludeMissing
-    private val dueDate: JsonField<LocalDate> = JsonMissing.of(),
+    private val receivingAccountId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("selected_effective_date")
     @ExcludeMissing
     private val selectedEffectiveDate: JsonField<LocalDate> = JsonMissing.of(),
-    @JsonProperty("external_account_collection")
+    @JsonProperty("status")
     @ExcludeMissing
-    private val externalAccountCollection: JsonField<ExternalAccountCollection> = JsonMissing.of(),
-    @JsonProperty("existing_external_accounts_filter")
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("updated_at")
     @ExcludeMissing
-    private val existingExternalAccountsFilter: JsonField<ExistingExternalAccountsFilter> =
-        JsonMissing.of(),
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String? = id.getNullable("id")
 
-    fun object_(): String? = object_.getNullable("object")
-
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can be
+     * any integer up to 36 digits.
      */
-    fun liveMode(): Boolean? = liveMode.getNullable("live_mode")
-
-    fun createdAt(): OffsetDateTime? = createdAt.getNullable("created_at")
-
-    fun updatedAt(): OffsetDateTime? = updatedAt.getNullable("updated_at")
+    fun amount(): Long? = amount.getNullable("amount")
 
     /**
      * The client token of the payment flow. This token can be used to embed a payment workflow in
@@ -101,16 +95,12 @@ private constructor(
     fun clientToken(): String? = clientToken.getNullable("client_token")
 
     /**
-     * The current status of the payment flow. One of `pending`, `completed`, `expired`, or
-     * `cancelled`.
+     * The ID of a counterparty associated with the payment. As part of the payment workflow an
+     * external account will be associated with this counterparty.
      */
-    fun status(): Status? = status.getNullable("status")
+    fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
 
-    /**
-     * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can be
-     * any integer up to 36 digits.
-     */
-    fun amount(): Long? = amount.getNullable("amount")
+    fun createdAt(): OffsetDateTime? = createdAt.getNullable("created_at")
 
     /** The currency of the payment. */
     fun currency(): String? = currency.getNullable("currency")
@@ -122,19 +112,10 @@ private constructor(
     fun direction(): Direction? = direction.getNullable("direction")
 
     /**
-     * The ID of a counterparty associated with the payment. As part of the payment workflow an
-     * external account will be associated with this counterparty.
+     * The due date for the flow. Can only be passed in when `effective_date_selection_enabled` is
+     * `true`.
      */
-    fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
-
-    /** If present, the ID of the external account created using this flow. */
-    fun receivingAccountId(): String? = receivingAccountId.getNullable("receiving_account_id")
-
-    /** The ID of one of your organization's internal accounts. */
-    fun originatingAccountId(): String? = originatingAccountId.getNullable("originating_account_id")
-
-    /** If present, the ID of the payment order created using this flow. */
-    fun paymentOrderId(): String? = paymentOrderId.getNullable("payment_order_id")
+    fun dueDate(): LocalDate? = dueDate.getNullable("due_date")
 
     /**
      * When `true`, your end-user can schedule the payment `effective_date` while completing the
@@ -144,17 +125,11 @@ private constructor(
         effectiveDateSelectionEnabled.getNullable("effective_date_selection_enabled")
 
     /**
-     * The due date for the flow. Can only be passed in when `effective_date_selection_enabled` is
-     * `true`.
+     * When `verified` and `external_account_collection` is `enabled`, filters the list of external
+     * accounts your end-user can select to those with a `verification_status` of `verified`.
      */
-    fun dueDate(): LocalDate? = dueDate.getNullable("due_date")
-
-    /**
-     * This field is set after your end-user selects a payment date while completing the pre-built
-     * UI. This field is always `null` unless `effective_date_selection_enabled` is `true`.
-     */
-    fun selectedEffectiveDate(): LocalDate? =
-        selectedEffectiveDate.getNullable("selected_effective_date")
+    fun existingExternalAccountsFilter(): ExistingExternalAccountsFilter? =
+        existingExternalAccountsFilter.getNullable("existing_external_accounts_filter")
 
     /**
      * When `enabled`, your end-user can select from an existing external account when completing
@@ -165,25 +140,44 @@ private constructor(
         externalAccountCollection.getNullable("external_account_collection")
 
     /**
-     * When `verified` and `external_account_collection` is `enabled`, filters the list of external
-     * accounts your end-user can select to those with a `verification_status` of `verified`.
-     */
-    fun existingExternalAccountsFilter(): ExistingExternalAccountsFilter? =
-        existingExternalAccountsFilter.getNullable("existing_external_accounts_filter")
-
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
-
-    /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    fun liveMode(): Boolean? = liveMode.getNullable("live_mode")
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    fun object_(): String? = object_.getNullable("object")
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    /** The ID of one of your organization's internal accounts. */
+    fun originatingAccountId(): String? = originatingAccountId.getNullable("originating_account_id")
+
+    /** If present, the ID of the payment order created using this flow. */
+    fun paymentOrderId(): String? = paymentOrderId.getNullable("payment_order_id")
+
+    /** If present, the ID of the external account created using this flow. */
+    fun receivingAccountId(): String? = receivingAccountId.getNullable("receiving_account_id")
+
+    /**
+     * This field is set after your end-user selects a payment date while completing the pre-built
+     * UI. This field is always `null` unless `effective_date_selection_enabled` is `true`.
+     */
+    fun selectedEffectiveDate(): LocalDate? =
+        selectedEffectiveDate.getNullable("selected_effective_date")
+
+    /**
+     * The current status of the payment flow. One of `pending`, `completed`, `expired`, or
+     * `cancelled`.
+     */
+    fun status(): Status? = status.getNullable("status")
+
+    fun updatedAt(): OffsetDateTime? = updatedAt.getNullable("updated_at")
+
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /**
+     * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can be
+     * any integer up to 36 digits.
+     */
+    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
     /**
      * The client token of the payment flow. This token can be used to embed a payment workflow in
@@ -192,16 +186,12 @@ private constructor(
     @JsonProperty("client_token") @ExcludeMissing fun _clientToken() = clientToken
 
     /**
-     * The current status of the payment flow. One of `pending`, `completed`, `expired`, or
-     * `cancelled`.
+     * The ID of a counterparty associated with the payment. As part of the payment workflow an
+     * external account will be associated with this counterparty.
      */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("counterparty_id") @ExcludeMissing fun _counterpartyId() = counterpartyId
 
-    /**
-     * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can be
-     * any integer up to 36 digits.
-     */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /** The currency of the payment. */
     @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
@@ -213,23 +203,10 @@ private constructor(
     @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
 
     /**
-     * The ID of a counterparty associated with the payment. As part of the payment workflow an
-     * external account will be associated with this counterparty.
+     * The due date for the flow. Can only be passed in when `effective_date_selection_enabled` is
+     * `true`.
      */
-    @JsonProperty("counterparty_id") @ExcludeMissing fun _counterpartyId() = counterpartyId
-
-    /** If present, the ID of the external account created using this flow. */
-    @JsonProperty("receiving_account_id")
-    @ExcludeMissing
-    fun _receivingAccountId() = receivingAccountId
-
-    /** The ID of one of your organization's internal accounts. */
-    @JsonProperty("originating_account_id")
-    @ExcludeMissing
-    fun _originatingAccountId() = originatingAccountId
-
-    /** If present, the ID of the payment order created using this flow. */
-    @JsonProperty("payment_order_id") @ExcludeMissing fun _paymentOrderId() = paymentOrderId
+    @JsonProperty("due_date") @ExcludeMissing fun _dueDate() = dueDate
 
     /**
      * When `true`, your end-user can schedule the payment `effective_date` while completing the
@@ -240,18 +217,12 @@ private constructor(
     fun _effectiveDateSelectionEnabled() = effectiveDateSelectionEnabled
 
     /**
-     * The due date for the flow. Can only be passed in when `effective_date_selection_enabled` is
-     * `true`.
+     * When `verified` and `external_account_collection` is `enabled`, filters the list of external
+     * accounts your end-user can select to those with a `verification_status` of `verified`.
      */
-    @JsonProperty("due_date") @ExcludeMissing fun _dueDate() = dueDate
-
-    /**
-     * This field is set after your end-user selects a payment date while completing the pre-built
-     * UI. This field is always `null` unless `effective_date_selection_enabled` is `true`.
-     */
-    @JsonProperty("selected_effective_date")
+    @JsonProperty("existing_external_accounts_filter")
     @ExcludeMissing
-    fun _selectedEffectiveDate() = selectedEffectiveDate
+    fun _existingExternalAccountsFilter() = existingExternalAccountsFilter
 
     /**
      * When `enabled`, your end-user can select from an existing external account when completing
@@ -263,12 +234,41 @@ private constructor(
     fun _externalAccountCollection() = externalAccountCollection
 
     /**
-     * When `verified` and `external_account_collection` is `enabled`, filters the list of external
-     * accounts your end-user can select to those with a `verification_status` of `verified`.
+     * This field will be true if this object exists in the live environment or false if it exists
+     * in the test environment.
      */
-    @JsonProperty("existing_external_accounts_filter")
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+
+    /** The ID of one of your organization's internal accounts. */
+    @JsonProperty("originating_account_id")
     @ExcludeMissing
-    fun _existingExternalAccountsFilter() = existingExternalAccountsFilter
+    fun _originatingAccountId() = originatingAccountId
+
+    /** If present, the ID of the payment order created using this flow. */
+    @JsonProperty("payment_order_id") @ExcludeMissing fun _paymentOrderId() = paymentOrderId
+
+    /** If present, the ID of the external account created using this flow. */
+    @JsonProperty("receiving_account_id")
+    @ExcludeMissing
+    fun _receivingAccountId() = receivingAccountId
+
+    /**
+     * This field is set after your end-user selects a payment date while completing the pre-built
+     * UI. This field is always `null` unless `effective_date_selection_enabled` is `true`.
+     */
+    @JsonProperty("selected_effective_date")
+    @ExcludeMissing
+    fun _selectedEffectiveDate() = selectedEffectiveDate
+
+    /**
+     * The current status of the payment flow. One of `pending`, `completed`, `expired`, or
+     * `cancelled`.
+     */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
+
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -279,24 +279,24 @@ private constructor(
     fun validate(): PaymentFlow = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
-            createdAt()
-            updatedAt()
-            clientToken()
-            status()
             amount()
+            clientToken()
+            counterpartyId()
+            createdAt()
             currency()
             direction()
-            counterpartyId()
-            receivingAccountId()
+            dueDate()
+            effectiveDateSelectionEnabled()
+            existingExternalAccountsFilter()
+            externalAccountCollection()
+            liveMode()
+            object_()
             originatingAccountId()
             paymentOrderId()
-            effectiveDateSelectionEnabled()
-            dueDate()
+            receivingAccountId()
             selectedEffectiveDate()
-            externalAccountCollection()
-            existingExternalAccountsFilter()
+            status()
+            updatedAt()
             validated = true
         }
     }
@@ -311,48 +311,48 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var clientToken: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
+        private var clientToken: JsonField<String> = JsonMissing.of()
+        private var counterpartyId: JsonField<String> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var currency: JsonField<String> = JsonMissing.of()
         private var direction: JsonField<Direction> = JsonMissing.of()
-        private var counterpartyId: JsonField<String> = JsonMissing.of()
-        private var receivingAccountId: JsonField<String> = JsonMissing.of()
-        private var originatingAccountId: JsonField<String> = JsonMissing.of()
-        private var paymentOrderId: JsonField<String> = JsonMissing.of()
-        private var effectiveDateSelectionEnabled: JsonField<Boolean> = JsonMissing.of()
         private var dueDate: JsonField<LocalDate> = JsonMissing.of()
-        private var selectedEffectiveDate: JsonField<LocalDate> = JsonMissing.of()
-        private var externalAccountCollection: JsonField<ExternalAccountCollection> =
-            JsonMissing.of()
+        private var effectiveDateSelectionEnabled: JsonField<Boolean> = JsonMissing.of()
         private var existingExternalAccountsFilter: JsonField<ExistingExternalAccountsFilter> =
             JsonMissing.of()
+        private var externalAccountCollection: JsonField<ExternalAccountCollection> =
+            JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
+        private var originatingAccountId: JsonField<String> = JsonMissing.of()
+        private var paymentOrderId: JsonField<String> = JsonMissing.of()
+        private var receivingAccountId: JsonField<String> = JsonMissing.of()
+        private var selectedEffectiveDate: JsonField<LocalDate> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(paymentFlow: PaymentFlow) = apply {
             id = paymentFlow.id
-            object_ = paymentFlow.object_
-            liveMode = paymentFlow.liveMode
-            createdAt = paymentFlow.createdAt
-            updatedAt = paymentFlow.updatedAt
-            clientToken = paymentFlow.clientToken
-            status = paymentFlow.status
             amount = paymentFlow.amount
+            clientToken = paymentFlow.clientToken
+            counterpartyId = paymentFlow.counterpartyId
+            createdAt = paymentFlow.createdAt
             currency = paymentFlow.currency
             direction = paymentFlow.direction
-            counterpartyId = paymentFlow.counterpartyId
-            receivingAccountId = paymentFlow.receivingAccountId
+            dueDate = paymentFlow.dueDate
+            effectiveDateSelectionEnabled = paymentFlow.effectiveDateSelectionEnabled
+            existingExternalAccountsFilter = paymentFlow.existingExternalAccountsFilter
+            externalAccountCollection = paymentFlow.externalAccountCollection
+            liveMode = paymentFlow.liveMode
+            object_ = paymentFlow.object_
             originatingAccountId = paymentFlow.originatingAccountId
             paymentOrderId = paymentFlow.paymentOrderId
-            effectiveDateSelectionEnabled = paymentFlow.effectiveDateSelectionEnabled
-            dueDate = paymentFlow.dueDate
+            receivingAccountId = paymentFlow.receivingAccountId
             selectedEffectiveDate = paymentFlow.selectedEffectiveDate
-            externalAccountCollection = paymentFlow.externalAccountCollection
-            existingExternalAccountsFilter = paymentFlow.existingExternalAccountsFilter
+            status = paymentFlow.status
+            updatedAt = paymentFlow.updatedAt
             additionalProperties = paymentFlow.additionalProperties.toMutableMap()
         }
 
@@ -360,29 +360,17 @@ private constructor(
 
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun object_(object_: String) = object_(JsonField.of(object_))
-
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        /**
+         * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can
+         * be any integer up to 36 digits.
+         */
+        fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can
+         * be any integer up to 36 digits.
          */
-        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
-
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
          * The client token of the payment flow. This token can be used to embed a payment workflow
@@ -397,28 +385,22 @@ private constructor(
         fun clientToken(clientToken: JsonField<String>) = apply { this.clientToken = clientToken }
 
         /**
-         * The current status of the payment flow. One of `pending`, `completed`, `expired`, or
-         * `cancelled`.
+         * The ID of a counterparty associated with the payment. As part of the payment workflow an
+         * external account will be associated with this counterparty.
          */
-        fun status(status: Status) = status(JsonField.of(status))
+        fun counterpartyId(counterpartyId: String) = counterpartyId(JsonField.of(counterpartyId))
 
         /**
-         * The current status of the payment flow. One of `pending`, `completed`, `expired`, or
-         * `cancelled`.
+         * The ID of a counterparty associated with the payment. As part of the payment workflow an
+         * external account will be associated with this counterparty.
          */
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun counterpartyId(counterpartyId: JsonField<String>) = apply {
+            this.counterpartyId = counterpartyId
+        }
 
-        /**
-         * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can
-         * be any integer up to 36 digits.
-         */
-        fun amount(amount: Long) = amount(JsonField.of(amount))
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        /**
-         * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can
-         * be any integer up to 36 digits.
-         */
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The currency of the payment. */
         fun currency(currency: String) = currency(JsonField.of(currency))
@@ -439,44 +421,16 @@ private constructor(
         fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
         /**
-         * The ID of a counterparty associated with the payment. As part of the payment workflow an
-         * external account will be associated with this counterparty.
+         * The due date for the flow. Can only be passed in when `effective_date_selection_enabled`
+         * is `true`.
          */
-        fun counterpartyId(counterpartyId: String) = counterpartyId(JsonField.of(counterpartyId))
+        fun dueDate(dueDate: LocalDate) = dueDate(JsonField.of(dueDate))
 
         /**
-         * The ID of a counterparty associated with the payment. As part of the payment workflow an
-         * external account will be associated with this counterparty.
+         * The due date for the flow. Can only be passed in when `effective_date_selection_enabled`
+         * is `true`.
          */
-        fun counterpartyId(counterpartyId: JsonField<String>) = apply {
-            this.counterpartyId = counterpartyId
-        }
-
-        /** If present, the ID of the external account created using this flow. */
-        fun receivingAccountId(receivingAccountId: String) =
-            receivingAccountId(JsonField.of(receivingAccountId))
-
-        /** If present, the ID of the external account created using this flow. */
-        fun receivingAccountId(receivingAccountId: JsonField<String>) = apply {
-            this.receivingAccountId = receivingAccountId
-        }
-
-        /** The ID of one of your organization's internal accounts. */
-        fun originatingAccountId(originatingAccountId: String) =
-            originatingAccountId(JsonField.of(originatingAccountId))
-
-        /** The ID of one of your organization's internal accounts. */
-        fun originatingAccountId(originatingAccountId: JsonField<String>) = apply {
-            this.originatingAccountId = originatingAccountId
-        }
-
-        /** If present, the ID of the payment order created using this flow. */
-        fun paymentOrderId(paymentOrderId: String) = paymentOrderId(JsonField.of(paymentOrderId))
-
-        /** If present, the ID of the payment order created using this flow. */
-        fun paymentOrderId(paymentOrderId: JsonField<String>) = apply {
-            this.paymentOrderId = paymentOrderId
-        }
+        fun dueDate(dueDate: JsonField<LocalDate>) = apply { this.dueDate = dueDate }
 
         /**
          * When `true`, your end-user can schedule the payment `effective_date` while completing the
@@ -495,33 +449,22 @@ private constructor(
             }
 
         /**
-         * The due date for the flow. Can only be passed in when `effective_date_selection_enabled`
-         * is `true`.
+         * When `verified` and `external_account_collection` is `enabled`, filters the list of
+         * external accounts your end-user can select to those with a `verification_status` of
+         * `verified`.
          */
-        fun dueDate(dueDate: LocalDate) = dueDate(JsonField.of(dueDate))
+        fun existingExternalAccountsFilter(
+            existingExternalAccountsFilter: ExistingExternalAccountsFilter
+        ) = existingExternalAccountsFilter(JsonField.of(existingExternalAccountsFilter))
 
         /**
-         * The due date for the flow. Can only be passed in when `effective_date_selection_enabled`
-         * is `true`.
+         * When `verified` and `external_account_collection` is `enabled`, filters the list of
+         * external accounts your end-user can select to those with a `verification_status` of
+         * `verified`.
          */
-        fun dueDate(dueDate: JsonField<LocalDate>) = apply { this.dueDate = dueDate }
-
-        /**
-         * This field is set after your end-user selects a payment date while completing the
-         * pre-built UI. This field is always `null` unless `effective_date_selection_enabled` is
-         * `true`.
-         */
-        fun selectedEffectiveDate(selectedEffectiveDate: LocalDate) =
-            selectedEffectiveDate(JsonField.of(selectedEffectiveDate))
-
-        /**
-         * This field is set after your end-user selects a payment date while completing the
-         * pre-built UI. This field is always `null` unless `effective_date_selection_enabled` is
-         * `true`.
-         */
-        fun selectedEffectiveDate(selectedEffectiveDate: JsonField<LocalDate>) = apply {
-            this.selectedEffectiveDate = selectedEffectiveDate
-        }
+        fun existingExternalAccountsFilter(
+            existingExternalAccountsFilter: JsonField<ExistingExternalAccountsFilter>
+        ) = apply { this.existingExternalAccountsFilter = existingExternalAccountsFilter }
 
         /**
          * When `enabled`, your end-user can select from an existing external account when
@@ -541,22 +484,79 @@ private constructor(
         ) = apply { this.externalAccountCollection = externalAccountCollection }
 
         /**
-         * When `verified` and `external_account_collection` is `enabled`, filters the list of
-         * external accounts your end-user can select to those with a `verification_status` of
-         * `verified`.
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
          */
-        fun existingExternalAccountsFilter(
-            existingExternalAccountsFilter: ExistingExternalAccountsFilter
-        ) = existingExternalAccountsFilter(JsonField.of(existingExternalAccountsFilter))
+        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
-         * When `verified` and `external_account_collection` is `enabled`, filters the list of
-         * external accounts your end-user can select to those with a `verification_status` of
-         * `verified`.
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
          */
-        fun existingExternalAccountsFilter(
-            existingExternalAccountsFilter: JsonField<ExistingExternalAccountsFilter>
-        ) = apply { this.existingExternalAccountsFilter = existingExternalAccountsFilter }
+        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+
+        fun object_(object_: String) = object_(JsonField.of(object_))
+
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+
+        /** The ID of one of your organization's internal accounts. */
+        fun originatingAccountId(originatingAccountId: String) =
+            originatingAccountId(JsonField.of(originatingAccountId))
+
+        /** The ID of one of your organization's internal accounts. */
+        fun originatingAccountId(originatingAccountId: JsonField<String>) = apply {
+            this.originatingAccountId = originatingAccountId
+        }
+
+        /** If present, the ID of the payment order created using this flow. */
+        fun paymentOrderId(paymentOrderId: String) = paymentOrderId(JsonField.of(paymentOrderId))
+
+        /** If present, the ID of the payment order created using this flow. */
+        fun paymentOrderId(paymentOrderId: JsonField<String>) = apply {
+            this.paymentOrderId = paymentOrderId
+        }
+
+        /** If present, the ID of the external account created using this flow. */
+        fun receivingAccountId(receivingAccountId: String) =
+            receivingAccountId(JsonField.of(receivingAccountId))
+
+        /** If present, the ID of the external account created using this flow. */
+        fun receivingAccountId(receivingAccountId: JsonField<String>) = apply {
+            this.receivingAccountId = receivingAccountId
+        }
+
+        /**
+         * This field is set after your end-user selects a payment date while completing the
+         * pre-built UI. This field is always `null` unless `effective_date_selection_enabled` is
+         * `true`.
+         */
+        fun selectedEffectiveDate(selectedEffectiveDate: LocalDate) =
+            selectedEffectiveDate(JsonField.of(selectedEffectiveDate))
+
+        /**
+         * This field is set after your end-user selects a payment date while completing the
+         * pre-built UI. This field is always `null` unless `effective_date_selection_enabled` is
+         * `true`.
+         */
+        fun selectedEffectiveDate(selectedEffectiveDate: JsonField<LocalDate>) = apply {
+            this.selectedEffectiveDate = selectedEffectiveDate
+        }
+
+        /**
+         * The current status of the payment flow. One of `pending`, `completed`, `expired`, or
+         * `cancelled`.
+         */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /**
+         * The current status of the payment flow. One of `pending`, `completed`, `expired`, or
+         * `cancelled`.
+         */
+        fun status(status: JsonField<Status>) = apply { this.status = status }
+
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -580,24 +580,24 @@ private constructor(
         fun build(): PaymentFlow =
             PaymentFlow(
                 id,
-                object_,
-                liveMode,
-                createdAt,
-                updatedAt,
-                clientToken,
-                status,
                 amount,
+                clientToken,
+                counterpartyId,
+                createdAt,
                 currency,
                 direction,
-                counterpartyId,
-                receivingAccountId,
+                dueDate,
+                effectiveDateSelectionEnabled,
+                existingExternalAccountsFilter,
+                externalAccountCollection,
+                liveMode,
+                object_,
                 originatingAccountId,
                 paymentOrderId,
-                effectiveDateSelectionEnabled,
-                dueDate,
+                receivingAccountId,
                 selectedEffectiveDate,
-                externalAccountCollection,
-                existingExternalAccountsFilter,
+                status,
+                updatedAt,
                 additionalProperties.toImmutable(),
             )
     }
@@ -847,15 +847,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentFlow && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && clientToken == other.clientToken && status == other.status && amount == other.amount && currency == other.currency && direction == other.direction && counterpartyId == other.counterpartyId && receivingAccountId == other.receivingAccountId && originatingAccountId == other.originatingAccountId && paymentOrderId == other.paymentOrderId && effectiveDateSelectionEnabled == other.effectiveDateSelectionEnabled && dueDate == other.dueDate && selectedEffectiveDate == other.selectedEffectiveDate && externalAccountCollection == other.externalAccountCollection && existingExternalAccountsFilter == other.existingExternalAccountsFilter && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is PaymentFlow && id == other.id && amount == other.amount && clientToken == other.clientToken && counterpartyId == other.counterpartyId && createdAt == other.createdAt && currency == other.currency && direction == other.direction && dueDate == other.dueDate && effectiveDateSelectionEnabled == other.effectiveDateSelectionEnabled && existingExternalAccountsFilter == other.existingExternalAccountsFilter && externalAccountCollection == other.externalAccountCollection && liveMode == other.liveMode && object_ == other.object_ && originatingAccountId == other.originatingAccountId && paymentOrderId == other.paymentOrderId && receivingAccountId == other.receivingAccountId && selectedEffectiveDate == other.selectedEffectiveDate && status == other.status && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, clientToken, status, amount, currency, direction, counterpartyId, receivingAccountId, originatingAccountId, paymentOrderId, effectiveDateSelectionEnabled, dueDate, selectedEffectiveDate, externalAccountCollection, existingExternalAccountsFilter, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, amount, clientToken, counterpartyId, createdAt, currency, direction, dueDate, effectiveDateSelectionEnabled, existingExternalAccountsFilter, externalAccountCollection, liveMode, object_, originatingAccountId, paymentOrderId, receivingAccountId, selectedEffectiveDate, status, updatedAt, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PaymentFlow{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, clientToken=$clientToken, status=$status, amount=$amount, currency=$currency, direction=$direction, counterpartyId=$counterpartyId, receivingAccountId=$receivingAccountId, originatingAccountId=$originatingAccountId, paymentOrderId=$paymentOrderId, effectiveDateSelectionEnabled=$effectiveDateSelectionEnabled, dueDate=$dueDate, selectedEffectiveDate=$selectedEffectiveDate, externalAccountCollection=$externalAccountCollection, existingExternalAccountsFilter=$existingExternalAccountsFilter, additionalProperties=$additionalProperties}"
+        "PaymentFlow{id=$id, amount=$amount, clientToken=$clientToken, counterpartyId=$counterpartyId, createdAt=$createdAt, currency=$currency, direction=$direction, dueDate=$dueDate, effectiveDateSelectionEnabled=$effectiveDateSelectionEnabled, existingExternalAccountsFilter=$existingExternalAccountsFilter, externalAccountCollection=$externalAccountCollection, liveMode=$liveMode, object_=$object_, originatingAccountId=$originatingAccountId, paymentOrderId=$paymentOrderId, receivingAccountId=$receivingAccountId, selectedEffectiveDate=$selectedEffectiveDate, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

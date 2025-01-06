@@ -21,22 +21,26 @@ class InvoiceLineItem
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
     @JsonProperty("created_at")
     @ExcludeMissing
     private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("name") @ExcludeMissing private val name: JsonField<String> = JsonMissing.of(),
     @JsonProperty("description")
     @ExcludeMissing
     private val description: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("direction")
+    @ExcludeMissing
+    private val direction: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("metadata")
+    @ExcludeMissing
+    private val metadata: JsonField<Metadata> = JsonMissing.of(),
+    @JsonProperty("name") @ExcludeMissing private val name: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
     @JsonProperty("quantity")
     @ExcludeMissing
     private val quantity: JsonField<Long> = JsonMissing.of(),
@@ -46,19 +50,27 @@ private constructor(
     @JsonProperty("unit_amount_decimal")
     @ExcludeMissing
     private val unitAmountDecimal: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("direction")
+    @JsonProperty("updated_at")
     @ExcludeMissing
-    private val direction: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("metadata")
-    @ExcludeMissing
-    private val metadata: JsonField<Metadata> = JsonMissing.of(),
-    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
 
-    fun object_(): String = object_.getRequired("object")
+    /** The total amount for this line item specified in the invoice currency's smallest unit. */
+    fun amount(): Long = amount.getRequired("amount")
+
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /** An optional free-form description of the line item. */
+    fun description(): String = description.getRequired("description")
+
+    /**
+     * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
+     * increases the invoice's `total_amount` due. `credit` has the opposite intention and effect.
+     */
+    fun direction(): String = direction.getRequired("direction")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
@@ -66,15 +78,13 @@ private constructor(
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun metadata(): Metadata = metadata.getRequired("metadata")
 
     /** The name of the line item, typically a product or SKU name. */
     fun name(): String = name.getRequired("name")
 
-    /** An optional free-form description of the line item. */
-    fun description(): String = description.getRequired("description")
+    fun object_(): String = object_.getRequired("object")
 
     /**
      * The number of units of a product or service that this line item is for. Must be a whole
@@ -94,21 +104,23 @@ private constructor(
      */
     fun unitAmountDecimal(): String = unitAmountDecimal.getRequired("unit_amount_decimal")
 
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /** The total amount for this line item specified in the invoice currency's smallest unit. */
+    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /** An optional free-form description of the line item. */
+    @JsonProperty("description") @ExcludeMissing fun _description() = description
+
     /**
      * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
      * increases the invoice's `total_amount` due. `credit` has the opposite intention and effect.
      */
-    fun direction(): String = direction.getRequired("direction")
-
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    fun metadata(): Metadata = metadata.getRequired("metadata")
-
-    /** The total amount for this line item specified in the invoice currency's smallest unit. */
-    fun amount(): Long = amount.getRequired("amount")
-
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
@@ -116,15 +128,13 @@ private constructor(
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
 
     /** The name of the line item, typically a product or SKU name. */
     @JsonProperty("name") @ExcludeMissing fun _name() = name
 
-    /** An optional free-form description of the line item. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
     /**
      * The number of units of a product or service that this line item is for. Must be a whole
@@ -146,17 +156,7 @@ private constructor(
     @ExcludeMissing
     fun _unitAmountDecimal() = unitAmountDecimal
 
-    /**
-     * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
-     * increases the invoice's `total_amount` due. `credit` has the opposite intention and effect.
-     */
-    @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
-
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
-
-    /** The total amount for this line item specified in the invoice currency's smallest unit. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -167,18 +167,18 @@ private constructor(
     fun validate(): InvoiceLineItem = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
+            amount()
             createdAt()
-            updatedAt()
-            name()
             description()
+            direction()
+            liveMode()
+            metadata().validate()
+            name()
+            object_()
             quantity()
             unitAmount()
             unitAmountDecimal()
-            direction()
-            metadata().validate()
-            amount()
+            updatedAt()
             validated = true
         }
     }
@@ -193,34 +193,34 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var amount: JsonField<Long> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var name: JsonField<String> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
+        private var direction: JsonField<String> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var metadata: JsonField<Metadata> = JsonMissing.of()
+        private var name: JsonField<String> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
         private var quantity: JsonField<Long> = JsonMissing.of()
         private var unitAmount: JsonField<Long> = JsonMissing.of()
         private var unitAmountDecimal: JsonField<String> = JsonMissing.of()
-        private var direction: JsonField<String> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(invoiceLineItem: InvoiceLineItem) = apply {
             id = invoiceLineItem.id
-            object_ = invoiceLineItem.object_
-            liveMode = invoiceLineItem.liveMode
+            amount = invoiceLineItem.amount
             createdAt = invoiceLineItem.createdAt
-            updatedAt = invoiceLineItem.updatedAt
-            name = invoiceLineItem.name
             description = invoiceLineItem.description
+            direction = invoiceLineItem.direction
+            liveMode = invoiceLineItem.liveMode
+            metadata = invoiceLineItem.metadata
+            name = invoiceLineItem.name
+            object_ = invoiceLineItem.object_
             quantity = invoiceLineItem.quantity
             unitAmount = invoiceLineItem.unitAmount
             unitAmountDecimal = invoiceLineItem.unitAmountDecimal
-            direction = invoiceLineItem.direction
-            metadata = invoiceLineItem.metadata
-            amount = invoiceLineItem.amount
+            updatedAt = invoiceLineItem.updatedAt
             additionalProperties = invoiceLineItem.additionalProperties.toMutableMap()
         }
 
@@ -228,9 +228,39 @@ private constructor(
 
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun object_(object_: String) = object_(JsonField.of(object_))
+        /**
+         * The total amount for this line item specified in the invoice currency's smallest unit.
+         */
+        fun amount(amount: Long) = amount(JsonField.of(amount))
 
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        /**
+         * The total amount for this line item specified in the invoice currency's smallest unit.
+         */
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** An optional free-form description of the line item. */
+        fun description(description: String) = description(JsonField.of(description))
+
+        /** An optional free-form description of the line item. */
+        fun description(description: JsonField<String>) = apply { this.description = description }
+
+        /**
+         * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
+         * increases the invoice's `total_amount` due. `credit` has the opposite intention and
+         * effect.
+         */
+        fun direction(direction: String) = direction(JsonField.of(direction))
+
+        /**
+         * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
+         * increases the invoice's `total_amount` due. `credit` has the opposite intention and
+         * effect.
+         */
+        fun direction(direction: JsonField<String>) = apply { this.direction = direction }
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -244,13 +274,15 @@ private constructor(
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         /** The name of the line item, typically a product or SKU name. */
         fun name(name: String) = name(JsonField.of(name))
@@ -258,11 +290,9 @@ private constructor(
         /** The name of the line item, typically a product or SKU name. */
         fun name(name: JsonField<String>) = apply { this.name = name }
 
-        /** An optional free-form description of the line item. */
-        fun description(description: String) = description(JsonField.of(description))
+        fun object_(object_: String) = object_(JsonField.of(object_))
 
-        /** An optional free-form description of the line item. */
-        fun description(description: JsonField<String>) = apply { this.description = description }
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /**
          * The number of units of a product or service that this line item is for. Must be a whole
@@ -303,39 +333,9 @@ private constructor(
             this.unitAmountDecimal = unitAmountDecimal
         }
 
-        /**
-         * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
-         * increases the invoice's `total_amount` due. `credit` has the opposite intention and
-         * effect.
-         */
-        fun direction(direction: String) = direction(JsonField.of(direction))
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
-        /**
-         * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
-         * increases the invoice's `total_amount` due. `credit` has the opposite intention and
-         * effect.
-         */
-        fun direction(direction: JsonField<String>) = apply { this.direction = direction }
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
-
-        /**
-         * The total amount for this line item specified in the invoice currency's smallest unit.
-         */
-        fun amount(amount: Long) = amount(JsonField.of(amount))
-
-        /**
-         * The total amount for this line item specified in the invoice currency's smallest unit.
-         */
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -359,18 +359,18 @@ private constructor(
         fun build(): InvoiceLineItem =
             InvoiceLineItem(
                 id,
-                object_,
-                liveMode,
+                amount,
                 createdAt,
-                updatedAt,
-                name,
                 description,
+                direction,
+                liveMode,
+                metadata,
+                name,
+                object_,
                 quantity,
                 unitAmount,
                 unitAmountDecimal,
-                direction,
-                metadata,
-                amount,
+                updatedAt,
                 additionalProperties.toImmutable(),
             )
     }
@@ -455,15 +455,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InvoiceLineItem && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && name == other.name && description == other.description && quantity == other.quantity && unitAmount == other.unitAmount && unitAmountDecimal == other.unitAmountDecimal && direction == other.direction && metadata == other.metadata && amount == other.amount && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is InvoiceLineItem && id == other.id && amount == other.amount && createdAt == other.createdAt && description == other.description && direction == other.direction && liveMode == other.liveMode && metadata == other.metadata && name == other.name && object_ == other.object_ && quantity == other.quantity && unitAmount == other.unitAmount && unitAmountDecimal == other.unitAmountDecimal && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, name, description, quantity, unitAmount, unitAmountDecimal, direction, metadata, amount, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, amount, createdAt, description, direction, liveMode, metadata, name, object_, quantity, unitAmount, unitAmountDecimal, updatedAt, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InvoiceLineItem{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, name=$name, description=$description, quantity=$quantity, unitAmount=$unitAmount, unitAmountDecimal=$unitAmountDecimal, direction=$direction, metadata=$metadata, amount=$amount, additionalProperties=$additionalProperties}"
+        "InvoiceLineItem{id=$id, amount=$amount, createdAt=$createdAt, description=$description, direction=$direction, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, quantity=$quantity, unitAmount=$unitAmount, unitAmountDecimal=$unitAmountDecimal, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

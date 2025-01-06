@@ -23,61 +23,50 @@ class Document
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
     @JsonProperty("created_at")
     @ExcludeMissing
     private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("discarded_at")
     @ExcludeMissing
     private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("document_details")
+    @ExcludeMissing
+    private val documentDetails: JsonField<List<DocumentDetail>> = JsonMissing.of(),
     @JsonProperty("document_type")
     @ExcludeMissing
     private val documentType: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("source")
-    @ExcludeMissing
-    private val source: JsonField<String> = JsonMissing.of(),
     @JsonProperty("documentable_id")
     @ExcludeMissing
     private val documentableId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("documentable_type")
     @ExcludeMissing
     private val documentableType: JsonField<DocumentableType> = JsonMissing.of(),
-    @JsonProperty("document_details")
-    @ExcludeMissing
-    private val documentDetails: JsonField<List<DocumentDetail>> = JsonMissing.of(),
     @JsonProperty("file") @ExcludeMissing private val file: JsonField<File> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("source")
+    @ExcludeMissing
+    private val source: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
 
-    fun object_(): String = object_.getRequired("object")
-
-    /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
-     */
-    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
-
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
+    fun documentDetails(): List<DocumentDetail> = documentDetails.getRequired("document_details")
+
     /** A category given to the document, can be `null`. */
     fun documentType(): String? = documentType.getNullable("document_type")
-
-    /** The source of the document. Can be `vendor`, `customer`, or `modern_treasury`. */
-    fun source(): String = source.getRequired("source")
 
     /** The unique identifier for the associated object. */
     fun documentableId(): String = documentableId.getRequired("documentable_id")
@@ -89,31 +78,31 @@ private constructor(
      */
     fun documentableType(): DocumentableType = documentableType.getRequired("documentable_type")
 
-    fun documentDetails(): List<DocumentDetail> = documentDetails.getRequired("document_details")
-
     fun file(): File = file.getRequired("file")
-
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
+
+    fun object_(): String = object_.getRequired("object")
+
+    /** The source of the document. Can be `vendor`, `customer`, or `modern_treasury`. */
+    fun source(): String = source.getRequired("source")
+
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
     @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+
+    @JsonProperty("document_details") @ExcludeMissing fun _documentDetails() = documentDetails
 
     /** A category given to the document, can be `null`. */
     @JsonProperty("document_type") @ExcludeMissing fun _documentType() = documentType
-
-    /** The source of the document. Can be `vendor`, `customer`, or `modern_treasury`. */
-    @JsonProperty("source") @ExcludeMissing fun _source() = source
 
     /** The unique identifier for the associated object. */
     @JsonProperty("documentable_id") @ExcludeMissing fun _documentableId() = documentableId
@@ -125,9 +114,20 @@ private constructor(
      */
     @JsonProperty("documentable_type") @ExcludeMissing fun _documentableType() = documentableType
 
-    @JsonProperty("document_details") @ExcludeMissing fun _documentDetails() = documentDetails
-
     @JsonProperty("file") @ExcludeMissing fun _file() = file
+
+    /**
+     * This field will be true if this object exists in the live environment or false if it exists
+     * in the test environment.
+     */
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+
+    /** The source of the document. Can be `vendor`, `customer`, or `modern_treasury`. */
+    @JsonProperty("source") @ExcludeMissing fun _source() = source
+
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -138,17 +138,17 @@ private constructor(
     fun validate(): Document = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
             createdAt()
-            updatedAt()
             discardedAt()
+            documentDetails().forEach { it.validate() }
             documentType()
-            source()
             documentableId()
             documentableType()
-            documentDetails().forEach { it.validate() }
             file().validate()
+            liveMode()
+            object_()
+            source()
+            updatedAt()
             validated = true
         }
     }
@@ -163,32 +163,32 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var documentDetails: JsonField<List<DocumentDetail>> = JsonMissing.of()
         private var documentType: JsonField<String> = JsonMissing.of()
-        private var source: JsonField<String> = JsonMissing.of()
         private var documentableId: JsonField<String> = JsonMissing.of()
         private var documentableType: JsonField<DocumentableType> = JsonMissing.of()
-        private var documentDetails: JsonField<List<DocumentDetail>> = JsonMissing.of()
         private var file: JsonField<File> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
+        private var source: JsonField<String> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(document: Document) = apply {
             id = document.id
-            object_ = document.object_
-            liveMode = document.liveMode
             createdAt = document.createdAt
-            updatedAt = document.updatedAt
             discardedAt = document.discardedAt
+            documentDetails = document.documentDetails
             documentType = document.documentType
-            source = document.source
             documentableId = document.documentableId
             documentableType = document.documentableType
-            documentDetails = document.documentDetails
             file = document.file
+            liveMode = document.liveMode
+            object_ = document.object_
+            source = document.source
+            updatedAt = document.updatedAt
             additionalProperties = document.additionalProperties.toMutableMap()
         }
 
@@ -196,34 +196,21 @@ private constructor(
 
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun object_(object_: String) = object_(JsonField.of(object_))
-
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
-
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
 
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
+        }
+
+        fun documentDetails(documentDetails: List<DocumentDetail>) =
+            documentDetails(JsonField.of(documentDetails))
+
+        fun documentDetails(documentDetails: JsonField<List<DocumentDetail>>) = apply {
+            this.documentDetails = documentDetails
         }
 
         /** A category given to the document, can be `null`. */
@@ -233,12 +220,6 @@ private constructor(
         fun documentType(documentType: JsonField<String>) = apply {
             this.documentType = documentType
         }
-
-        /** The source of the document. Can be `vendor`, `customer`, or `modern_treasury`. */
-        fun source(source: String) = source(JsonField.of(source))
-
-        /** The source of the document. Can be `vendor`, `customer`, or `modern_treasury`. */
-        fun source(source: JsonField<String>) = apply { this.source = source }
 
         /** The unique identifier for the associated object. */
         fun documentableId(documentableId: String) = documentableId(JsonField.of(documentableId))
@@ -265,16 +246,35 @@ private constructor(
             this.documentableType = documentableType
         }
 
-        fun documentDetails(documentDetails: List<DocumentDetail>) =
-            documentDetails(JsonField.of(documentDetails))
-
-        fun documentDetails(documentDetails: JsonField<List<DocumentDetail>>) = apply {
-            this.documentDetails = documentDetails
-        }
-
         fun file(file: File) = file(JsonField.of(file))
 
         fun file(file: JsonField<File>) = apply { this.file = file }
+
+        /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
+
+        /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+
+        fun object_(object_: String) = object_(JsonField.of(object_))
+
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+
+        /** The source of the document. Can be `vendor`, `customer`, or `modern_treasury`. */
+        fun source(source: String) = source(JsonField.of(source))
+
+        /** The source of the document. Can be `vendor`, `customer`, or `modern_treasury`. */
+        fun source(source: JsonField<String>) = apply { this.source = source }
+
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -298,17 +298,17 @@ private constructor(
         fun build(): Document =
             Document(
                 id,
-                object_,
-                liveMode,
                 createdAt,
-                updatedAt,
                 discardedAt,
+                documentDetails.map { it.toImmutable() },
                 documentType,
-                source,
                 documentableId,
                 documentableType,
-                documentDetails.map { it.toImmutable() },
                 file,
+                liveMode,
+                object_,
+                source,
+                updatedAt,
                 additionalProperties.toImmutable(),
             )
     }
@@ -318,34 +318,41 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("object")
-        @ExcludeMissing
-        private val object_: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("live_mode")
-        @ExcludeMissing
-        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
         private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("discarded_at")
         @ExcludeMissing
         private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("document_identifier_type")
-        @ExcludeMissing
-        private val documentIdentifierType: JsonField<String> = JsonMissing.of(),
         @JsonProperty("document_identifier")
         @ExcludeMissing
         private val documentIdentifier: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("document_identifier_type")
+        @ExcludeMissing
+        private val documentIdentifierType: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("live_mode")
+        @ExcludeMissing
+        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("object")
+        @ExcludeMissing
+        private val object_: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         fun id(): String = id.getRequired("id")
 
-        fun object_(): String = object_.getRequired("object")
+        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+        fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
+
+        fun documentIdentifier(): String = documentIdentifier.getRequired("document_identifier")
+
+        fun documentIdentifierType(): String =
+            documentIdentifierType.getRequired("document_identifier_type")
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -353,20 +360,23 @@ private constructor(
          */
         fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+        fun object_(): String = object_.getRequired("object")
 
         fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-        fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
-
-        fun documentIdentifierType(): String =
-            documentIdentifierType.getRequired("document_identifier_type")
-
-        fun documentIdentifier(): String = documentIdentifier.getRequired("document_identifier")
-
         @JsonProperty("id") @ExcludeMissing fun _id() = id
 
-        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+        @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+
+        @JsonProperty("document_identifier")
+        @ExcludeMissing
+        fun _documentIdentifier() = documentIdentifier
+
+        @JsonProperty("document_identifier_type")
+        @ExcludeMissing
+        fun _documentIdentifierType() = documentIdentifierType
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -374,19 +384,9 @@ private constructor(
          */
         @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
 
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
         @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
-        @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
-
-        @JsonProperty("document_identifier_type")
-        @ExcludeMissing
-        fun _documentIdentifierType() = documentIdentifierType
-
-        @JsonProperty("document_identifier")
-        @ExcludeMissing
-        fun _documentIdentifier() = documentIdentifier
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -397,13 +397,13 @@ private constructor(
         fun validate(): DocumentDetail = apply {
             if (!validated) {
                 id()
-                object_()
-                liveMode()
                 createdAt()
-                updatedAt()
                 discardedAt()
-                documentIdentifierType()
                 documentIdentifier()
+                documentIdentifierType()
+                liveMode()
+                object_()
+                updatedAt()
                 validated = true
             }
         }
@@ -418,24 +418,24 @@ private constructor(
         class Builder {
 
             private var id: JsonField<String> = JsonMissing.of()
-            private var object_: JsonField<String> = JsonMissing.of()
-            private var liveMode: JsonField<Boolean> = JsonMissing.of()
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var documentIdentifierType: JsonField<String> = JsonMissing.of()
             private var documentIdentifier: JsonField<String> = JsonMissing.of()
+            private var documentIdentifierType: JsonField<String> = JsonMissing.of()
+            private var liveMode: JsonField<Boolean> = JsonMissing.of()
+            private var object_: JsonField<String> = JsonMissing.of()
+            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(documentDetail: DocumentDetail) = apply {
                 id = documentDetail.id
-                object_ = documentDetail.object_
-                liveMode = documentDetail.liveMode
                 createdAt = documentDetail.createdAt
-                updatedAt = documentDetail.updatedAt
                 discardedAt = documentDetail.discardedAt
-                documentIdentifierType = documentDetail.documentIdentifierType
                 documentIdentifier = documentDetail.documentIdentifier
+                documentIdentifierType = documentDetail.documentIdentifierType
+                liveMode = documentDetail.liveMode
+                object_ = documentDetail.object_
+                updatedAt = documentDetail.updatedAt
                 additionalProperties = documentDetail.additionalProperties.toMutableMap()
             }
 
@@ -443,9 +443,31 @@ private constructor(
 
             fun id(id: JsonField<String>) = apply { this.id = id }
 
-            fun object_(object_: String) = object_(JsonField.of(object_))
+            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-            fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                this.createdAt = createdAt
+            }
+
+            fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+
+            fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
+                this.discardedAt = discardedAt
+            }
+
+            fun documentIdentifier(documentIdentifier: String) =
+                documentIdentifier(JsonField.of(documentIdentifier))
+
+            fun documentIdentifier(documentIdentifier: JsonField<String>) = apply {
+                this.documentIdentifier = documentIdentifier
+            }
+
+            fun documentIdentifierType(documentIdentifierType: String) =
+                documentIdentifierType(JsonField.of(documentIdentifierType))
+
+            fun documentIdentifierType(documentIdentifierType: JsonField<String>) = apply {
+                this.documentIdentifierType = documentIdentifierType
+            }
 
             /**
              * This field will be true if this object exists in the live environment or false if it
@@ -459,36 +481,14 @@ private constructor(
              */
             fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
-            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+            fun object_(object_: String) = object_(JsonField.of(object_))
 
-            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-                this.createdAt = createdAt
-            }
+            fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
             fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
             fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
                 this.updatedAt = updatedAt
-            }
-
-            fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
-
-            fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
-                this.discardedAt = discardedAt
-            }
-
-            fun documentIdentifierType(documentIdentifierType: String) =
-                documentIdentifierType(JsonField.of(documentIdentifierType))
-
-            fun documentIdentifierType(documentIdentifierType: JsonField<String>) = apply {
-                this.documentIdentifierType = documentIdentifierType
-            }
-
-            fun documentIdentifier(documentIdentifier: String) =
-                documentIdentifier(JsonField.of(documentIdentifier))
-
-            fun documentIdentifier(documentIdentifier: JsonField<String>) = apply {
-                this.documentIdentifier = documentIdentifier
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -513,13 +513,13 @@ private constructor(
             fun build(): DocumentDetail =
                 DocumentDetail(
                     id,
-                    object_,
-                    liveMode,
                     createdAt,
-                    updatedAt,
                     discardedAt,
-                    documentIdentifierType,
                     documentIdentifier,
+                    documentIdentifierType,
+                    liveMode,
+                    object_,
+                    updatedAt,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -529,17 +529,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DocumentDetail && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && discardedAt == other.discardedAt && documentIdentifierType == other.documentIdentifierType && documentIdentifier == other.documentIdentifier && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is DocumentDetail && id == other.id && createdAt == other.createdAt && discardedAt == other.discardedAt && documentIdentifier == other.documentIdentifier && documentIdentifierType == other.documentIdentifierType && liveMode == other.liveMode && object_ == other.object_ && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, documentIdentifierType, documentIdentifier, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(id, createdAt, discardedAt, documentIdentifier, documentIdentifierType, liveMode, object_, updatedAt, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "DocumentDetail{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, documentIdentifierType=$documentIdentifierType, documentIdentifier=$documentIdentifier, additionalProperties=$additionalProperties}"
+            "DocumentDetail{id=$id, createdAt=$createdAt, discardedAt=$discardedAt, documentIdentifier=$documentIdentifier, documentIdentifierType=$documentIdentifierType, liveMode=$liveMode, object_=$object_, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
     }
 
     class DocumentableType
@@ -663,34 +663,34 @@ private constructor(
     class File
     @JsonCreator
     private constructor(
-        @JsonProperty("size") @ExcludeMissing private val size: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("filename")
-        @ExcludeMissing
-        private val filename: JsonField<String> = JsonMissing.of(),
         @JsonProperty("content_type")
         @ExcludeMissing
         private val contentType: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("filename")
+        @ExcludeMissing
+        private val filename: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("size") @ExcludeMissing private val size: JsonField<Long> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The size of the document in bytes. */
-        fun size(): Long? = size.getNullable("size")
+        /** The MIME content type of the document. */
+        fun contentType(): String? = contentType.getNullable("content_type")
 
         /** The original filename of the document. */
         fun filename(): String? = filename.getNullable("filename")
 
-        /** The MIME content type of the document. */
-        fun contentType(): String? = contentType.getNullable("content_type")
-
         /** The size of the document in bytes. */
-        @JsonProperty("size") @ExcludeMissing fun _size() = size
+        fun size(): Long? = size.getNullable("size")
+
+        /** The MIME content type of the document. */
+        @JsonProperty("content_type") @ExcludeMissing fun _contentType() = contentType
 
         /** The original filename of the document. */
         @JsonProperty("filename") @ExcludeMissing fun _filename() = filename
 
-        /** The MIME content type of the document. */
-        @JsonProperty("content_type") @ExcludeMissing fun _contentType() = contentType
+        /** The size of the document in bytes. */
+        @JsonProperty("size") @ExcludeMissing fun _size() = size
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -700,9 +700,9 @@ private constructor(
 
         fun validate(): File = apply {
             if (!validated) {
-                size()
-                filename()
                 contentType()
+                filename()
+                size()
                 validated = true
             }
         }
@@ -716,29 +716,17 @@ private constructor(
 
         class Builder {
 
-            private var size: JsonField<Long> = JsonMissing.of()
-            private var filename: JsonField<String> = JsonMissing.of()
             private var contentType: JsonField<String> = JsonMissing.of()
+            private var filename: JsonField<String> = JsonMissing.of()
+            private var size: JsonField<Long> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(file: File) = apply {
-                size = file.size
-                filename = file.filename
                 contentType = file.contentType
+                filename = file.filename
+                size = file.size
                 additionalProperties = file.additionalProperties.toMutableMap()
             }
-
-            /** The size of the document in bytes. */
-            fun size(size: Long) = size(JsonField.of(size))
-
-            /** The size of the document in bytes. */
-            fun size(size: JsonField<Long>) = apply { this.size = size }
-
-            /** The original filename of the document. */
-            fun filename(filename: String) = filename(JsonField.of(filename))
-
-            /** The original filename of the document. */
-            fun filename(filename: JsonField<String>) = apply { this.filename = filename }
 
             /** The MIME content type of the document. */
             fun contentType(contentType: String) = contentType(JsonField.of(contentType))
@@ -747,6 +735,18 @@ private constructor(
             fun contentType(contentType: JsonField<String>) = apply {
                 this.contentType = contentType
             }
+
+            /** The original filename of the document. */
+            fun filename(filename: String) = filename(JsonField.of(filename))
+
+            /** The original filename of the document. */
+            fun filename(filename: JsonField<String>) = apply { this.filename = filename }
+
+            /** The size of the document in bytes. */
+            fun size(size: Long) = size(JsonField.of(size))
+
+            /** The size of the document in bytes. */
+            fun size(size: JsonField<Long>) = apply { this.size = size }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -769,9 +769,9 @@ private constructor(
 
             fun build(): File =
                 File(
-                    size,
-                    filename,
                     contentType,
+                    filename,
+                    size,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -781,17 +781,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is File && size == other.size && filename == other.filename && contentType == other.contentType && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is File && contentType == other.contentType && filename == other.filename && size == other.size && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(size, filename, contentType, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(contentType, filename, size, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "File{size=$size, filename=$filename, contentType=$contentType, additionalProperties=$additionalProperties}"
+            "File{contentType=$contentType, filename=$filename, size=$size, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -799,15 +799,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Document && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && discardedAt == other.discardedAt && documentType == other.documentType && source == other.source && documentableId == other.documentableId && documentableType == other.documentableType && documentDetails == other.documentDetails && file == other.file && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Document && id == other.id && createdAt == other.createdAt && discardedAt == other.discardedAt && documentDetails == other.documentDetails && documentType == other.documentType && documentableId == other.documentableId && documentableType == other.documentableType && file == other.file && liveMode == other.liveMode && object_ == other.object_ && source == other.source && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, documentType, source, documentableId, documentableType, documentDetails, file, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, createdAt, discardedAt, documentDetails, documentType, documentableId, documentableType, file, liveMode, object_, source, updatedAt, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Document{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, documentType=$documentType, source=$source, documentableId=$documentableId, documentableType=$documentableType, documentDetails=$documentDetails, file=$file, additionalProperties=$additionalProperties}"
+        "Document{id=$id, createdAt=$createdAt, discardedAt=$discardedAt, documentDetails=$documentDetails, documentType=$documentType, documentableId=$documentableId, documentableType=$documentableType, file=$file, liveMode=$liveMode, object_=$object_, source=$source, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

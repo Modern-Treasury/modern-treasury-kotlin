@@ -1007,21 +1007,28 @@ constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") private val id: String,
-        @JsonProperty("object") private val object_: String,
-        @JsonProperty("live_mode") private val liveMode: Boolean,
-        @JsonProperty("created_at") private val createdAt: OffsetDateTime,
-        @JsonProperty("updated_at") private val updatedAt: OffsetDateTime,
-        @JsonProperty("discarded_at") private val discardedAt: OffsetDateTime?,
         @JsonProperty("contact_identifier") private val contactIdentifier: String,
         @JsonProperty("contact_identifier_type")
         private val contactIdentifierType: ContactIdentifierType,
+        @JsonProperty("created_at") private val createdAt: OffsetDateTime,
+        @JsonProperty("discarded_at") private val discardedAt: OffsetDateTime?,
+        @JsonProperty("live_mode") private val liveMode: Boolean,
+        @JsonProperty("object") private val object_: String,
+        @JsonProperty("updated_at") private val updatedAt: OffsetDateTime,
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         @JsonProperty("id") fun id(): String = id
 
-        @JsonProperty("object") fun object_(): String = object_
+        @JsonProperty("contact_identifier") fun contactIdentifier(): String = contactIdentifier
+
+        @JsonProperty("contact_identifier_type")
+        fun contactIdentifierType(): ContactIdentifierType = contactIdentifierType
+
+        @JsonProperty("created_at") fun createdAt(): OffsetDateTime = createdAt
+
+        @JsonProperty("discarded_at") fun discardedAt(): OffsetDateTime? = discardedAt
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -1029,16 +1036,9 @@ constructor(
          */
         @JsonProperty("live_mode") fun liveMode(): Boolean = liveMode
 
-        @JsonProperty("created_at") fun createdAt(): OffsetDateTime = createdAt
+        @JsonProperty("object") fun object_(): String = object_
 
         @JsonProperty("updated_at") fun updatedAt(): OffsetDateTime = updatedAt
-
-        @JsonProperty("discarded_at") fun discardedAt(): OffsetDateTime? = discardedAt
-
-        @JsonProperty("contact_identifier") fun contactIdentifier(): String = contactIdentifier
-
-        @JsonProperty("contact_identifier_type")
-        fun contactIdentifierType(): ContactIdentifierType = contactIdentifierType
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1054,42 +1054,28 @@ constructor(
         class Builder {
 
             private var id: String? = null
-            private var object_: String? = null
-            private var liveMode: Boolean? = null
-            private var createdAt: OffsetDateTime? = null
-            private var updatedAt: OffsetDateTime? = null
-            private var discardedAt: OffsetDateTime? = null
             private var contactIdentifier: String? = null
             private var contactIdentifierType: ContactIdentifierType? = null
+            private var createdAt: OffsetDateTime? = null
+            private var discardedAt: OffsetDateTime? = null
+            private var liveMode: Boolean? = null
+            private var object_: String? = null
+            private var updatedAt: OffsetDateTime? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(contactDetail: ContactDetail) = apply {
                 id = contactDetail.id
-                object_ = contactDetail.object_
-                liveMode = contactDetail.liveMode
-                createdAt = contactDetail.createdAt
-                updatedAt = contactDetail.updatedAt
-                discardedAt = contactDetail.discardedAt
                 contactIdentifier = contactDetail.contactIdentifier
                 contactIdentifierType = contactDetail.contactIdentifierType
+                createdAt = contactDetail.createdAt
+                discardedAt = contactDetail.discardedAt
+                liveMode = contactDetail.liveMode
+                object_ = contactDetail.object_
+                updatedAt = contactDetail.updatedAt
                 additionalProperties = contactDetail.additionalProperties.toMutableMap()
             }
 
             fun id(id: String) = apply { this.id = id }
-
-            fun object_(object_: String) = apply { this.object_ = object_ }
-
-            /**
-             * This field will be true if this object exists in the live environment or false if it
-             * exists in the test environment.
-             */
-            fun liveMode(liveMode: Boolean) = apply { this.liveMode = liveMode }
-
-            fun createdAt(createdAt: OffsetDateTime) = apply { this.createdAt = createdAt }
-
-            fun updatedAt(updatedAt: OffsetDateTime) = apply { this.updatedAt = updatedAt }
-
-            fun discardedAt(discardedAt: OffsetDateTime) = apply { this.discardedAt = discardedAt }
 
             fun contactIdentifier(contactIdentifier: String) = apply {
                 this.contactIdentifier = contactIdentifier
@@ -1098,6 +1084,20 @@ constructor(
             fun contactIdentifierType(contactIdentifierType: ContactIdentifierType) = apply {
                 this.contactIdentifierType = contactIdentifierType
             }
+
+            fun createdAt(createdAt: OffsetDateTime) = apply { this.createdAt = createdAt }
+
+            fun discardedAt(discardedAt: OffsetDateTime) = apply { this.discardedAt = discardedAt }
+
+            /**
+             * This field will be true if this object exists in the live environment or false if it
+             * exists in the test environment.
+             */
+            fun liveMode(liveMode: Boolean) = apply { this.liveMode = liveMode }
+
+            fun object_(object_: String) = apply { this.object_ = object_ }
+
+            fun updatedAt(updatedAt: OffsetDateTime) = apply { this.updatedAt = updatedAt }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1121,17 +1121,17 @@ constructor(
             fun build(): ContactDetail =
                 ContactDetail(
                     checkNotNull(id) { "`id` is required but was not set" },
-                    checkNotNull(object_) { "`object_` is required but was not set" },
-                    checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                    checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
-                    discardedAt,
                     checkNotNull(contactIdentifier) {
                         "`contactIdentifier` is required but was not set"
                     },
                     checkNotNull(contactIdentifierType) {
                         "`contactIdentifierType` is required but was not set"
                     },
+                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                    discardedAt,
+                    checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                    checkNotNull(object_) { "`object_` is required but was not set" },
+                    checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1207,17 +1207,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ContactDetail && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && discardedAt == other.discardedAt && contactIdentifier == other.contactIdentifier && contactIdentifierType == other.contactIdentifierType && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ContactDetail && id == other.id && contactIdentifier == other.contactIdentifier && contactIdentifierType == other.contactIdentifierType && createdAt == other.createdAt && discardedAt == other.discardedAt && liveMode == other.liveMode && object_ == other.object_ && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, contactIdentifier, contactIdentifierType, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(id, contactIdentifier, contactIdentifierType, createdAt, discardedAt, liveMode, object_, updatedAt, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ContactDetail{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, contactIdentifier=$contactIdentifier, contactIdentifierType=$contactIdentifierType, additionalProperties=$additionalProperties}"
+            "ContactDetail{id=$id, contactIdentifier=$contactIdentifier, contactIdentifierType=$contactIdentifierType, createdAt=$createdAt, discardedAt=$discardedAt, liveMode=$liveMode, object_=$object_, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
     }
 
     /** The counterparty's billing address. */
@@ -1225,31 +1225,31 @@ constructor(
     class CounterpartyBillingAddress
     @JsonCreator
     private constructor(
-        @JsonProperty("line1") private val line1: String,
-        @JsonProperty("line2") private val line2: String?,
-        @JsonProperty("locality") private val locality: String,
-        @JsonProperty("region") private val region: String,
-        @JsonProperty("postal_code") private val postalCode: String,
         @JsonProperty("country") private val country: String,
+        @JsonProperty("line1") private val line1: String,
+        @JsonProperty("locality") private val locality: String,
+        @JsonProperty("postal_code") private val postalCode: String,
+        @JsonProperty("region") private val region: String,
+        @JsonProperty("line2") private val line2: String?,
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        @JsonProperty("line1") fun line1(): String = line1
+        /** Country code conforms to [ISO 3166-1 alpha-2] */
+        @JsonProperty("country") fun country(): String = country
 
-        @JsonProperty("line2") fun line2(): String? = line2
+        @JsonProperty("line1") fun line1(): String = line1
 
         /** Locality or City. */
         @JsonProperty("locality") fun locality(): String = locality
 
-        /** Region or State. */
-        @JsonProperty("region") fun region(): String = region
-
         /** The postal code of the address. */
         @JsonProperty("postal_code") fun postalCode(): String = postalCode
 
-        /** Country code conforms to [ISO 3166-1 alpha-2] */
-        @JsonProperty("country") fun country(): String = country
+        /** Region or State. */
+        @JsonProperty("region") fun region(): String = region
+
+        @JsonProperty("line2") fun line2(): String? = line2
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1264,40 +1264,40 @@ constructor(
 
         class Builder {
 
-            private var line1: String? = null
-            private var line2: String? = null
-            private var locality: String? = null
-            private var region: String? = null
-            private var postalCode: String? = null
             private var country: String? = null
+            private var line1: String? = null
+            private var locality: String? = null
+            private var postalCode: String? = null
+            private var region: String? = null
+            private var line2: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(counterpartyBillingAddress: CounterpartyBillingAddress) = apply {
-                line1 = counterpartyBillingAddress.line1
-                line2 = counterpartyBillingAddress.line2
-                locality = counterpartyBillingAddress.locality
-                region = counterpartyBillingAddress.region
-                postalCode = counterpartyBillingAddress.postalCode
                 country = counterpartyBillingAddress.country
+                line1 = counterpartyBillingAddress.line1
+                locality = counterpartyBillingAddress.locality
+                postalCode = counterpartyBillingAddress.postalCode
+                region = counterpartyBillingAddress.region
+                line2 = counterpartyBillingAddress.line2
                 additionalProperties =
                     counterpartyBillingAddress.additionalProperties.toMutableMap()
             }
 
-            fun line1(line1: String) = apply { this.line1 = line1 }
+            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            fun country(country: String) = apply { this.country = country }
 
-            fun line2(line2: String) = apply { this.line2 = line2 }
+            fun line1(line1: String) = apply { this.line1 = line1 }
 
             /** Locality or City. */
             fun locality(locality: String) = apply { this.locality = locality }
 
-            /** Region or State. */
-            fun region(region: String) = apply { this.region = region }
-
             /** The postal code of the address. */
             fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
-            /** Country code conforms to [ISO 3166-1 alpha-2] */
-            fun country(country: String) = apply { this.country = country }
+            /** Region or State. */
+            fun region(region: String) = apply { this.region = region }
+
+            fun line2(line2: String) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1320,12 +1320,12 @@ constructor(
 
             fun build(): CounterpartyBillingAddress =
                 CounterpartyBillingAddress(
-                    checkNotNull(line1) { "`line1` is required but was not set" },
-                    line2,
-                    checkNotNull(locality) { "`locality` is required but was not set" },
-                    checkNotNull(region) { "`region` is required but was not set" },
-                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
                     checkNotNull(country) { "`country` is required but was not set" },
+                    checkNotNull(line1) { "`line1` is required but was not set" },
+                    checkNotNull(locality) { "`locality` is required but was not set" },
+                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                    checkNotNull(region) { "`region` is required but was not set" },
+                    line2,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1335,17 +1335,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CounterpartyBillingAddress && line1 == other.line1 && line2 == other.line2 && locality == other.locality && region == other.region && postalCode == other.postalCode && country == other.country && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CounterpartyBillingAddress && country == other.country && line1 == other.line1 && locality == other.locality && postalCode == other.postalCode && region == other.region && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(line1, line2, locality, region, postalCode, country, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(country, line1, locality, postalCode, region, line2, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "CounterpartyBillingAddress{line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
+            "CounterpartyBillingAddress{country=$country, line1=$line1, locality=$locality, postalCode=$postalCode, region=$region, line2=$line2, additionalProperties=$additionalProperties}"
     }
 
     /** The counterparty's shipping address where physical goods should be delivered. */
@@ -1353,31 +1353,31 @@ constructor(
     class CounterpartyShippingAddress
     @JsonCreator
     private constructor(
-        @JsonProperty("line1") private val line1: String,
-        @JsonProperty("line2") private val line2: String?,
-        @JsonProperty("locality") private val locality: String,
-        @JsonProperty("region") private val region: String,
-        @JsonProperty("postal_code") private val postalCode: String,
         @JsonProperty("country") private val country: String,
+        @JsonProperty("line1") private val line1: String,
+        @JsonProperty("locality") private val locality: String,
+        @JsonProperty("postal_code") private val postalCode: String,
+        @JsonProperty("region") private val region: String,
+        @JsonProperty("line2") private val line2: String?,
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        @JsonProperty("line1") fun line1(): String = line1
+        /** Country code conforms to [ISO 3166-1 alpha-2] */
+        @JsonProperty("country") fun country(): String = country
 
-        @JsonProperty("line2") fun line2(): String? = line2
+        @JsonProperty("line1") fun line1(): String = line1
 
         /** Locality or City. */
         @JsonProperty("locality") fun locality(): String = locality
 
-        /** Region or State. */
-        @JsonProperty("region") fun region(): String = region
-
         /** The postal code of the address. */
         @JsonProperty("postal_code") fun postalCode(): String = postalCode
 
-        /** Country code conforms to [ISO 3166-1 alpha-2] */
-        @JsonProperty("country") fun country(): String = country
+        /** Region or State. */
+        @JsonProperty("region") fun region(): String = region
+
+        @JsonProperty("line2") fun line2(): String? = line2
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1392,40 +1392,40 @@ constructor(
 
         class Builder {
 
-            private var line1: String? = null
-            private var line2: String? = null
-            private var locality: String? = null
-            private var region: String? = null
-            private var postalCode: String? = null
             private var country: String? = null
+            private var line1: String? = null
+            private var locality: String? = null
+            private var postalCode: String? = null
+            private var region: String? = null
+            private var line2: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(counterpartyShippingAddress: CounterpartyShippingAddress) = apply {
-                line1 = counterpartyShippingAddress.line1
-                line2 = counterpartyShippingAddress.line2
-                locality = counterpartyShippingAddress.locality
-                region = counterpartyShippingAddress.region
-                postalCode = counterpartyShippingAddress.postalCode
                 country = counterpartyShippingAddress.country
+                line1 = counterpartyShippingAddress.line1
+                locality = counterpartyShippingAddress.locality
+                postalCode = counterpartyShippingAddress.postalCode
+                region = counterpartyShippingAddress.region
+                line2 = counterpartyShippingAddress.line2
                 additionalProperties =
                     counterpartyShippingAddress.additionalProperties.toMutableMap()
             }
 
-            fun line1(line1: String) = apply { this.line1 = line1 }
+            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            fun country(country: String) = apply { this.country = country }
 
-            fun line2(line2: String) = apply { this.line2 = line2 }
+            fun line1(line1: String) = apply { this.line1 = line1 }
 
             /** Locality or City. */
             fun locality(locality: String) = apply { this.locality = locality }
 
-            /** Region or State. */
-            fun region(region: String) = apply { this.region = region }
-
             /** The postal code of the address. */
             fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
-            /** Country code conforms to [ISO 3166-1 alpha-2] */
-            fun country(country: String) = apply { this.country = country }
+            /** Region or State. */
+            fun region(region: String) = apply { this.region = region }
+
+            fun line2(line2: String) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1448,12 +1448,12 @@ constructor(
 
             fun build(): CounterpartyShippingAddress =
                 CounterpartyShippingAddress(
-                    checkNotNull(line1) { "`line1` is required but was not set" },
-                    line2,
-                    checkNotNull(locality) { "`locality` is required but was not set" },
-                    checkNotNull(region) { "`region` is required but was not set" },
-                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
                     checkNotNull(country) { "`country` is required but was not set" },
+                    checkNotNull(line1) { "`line1` is required but was not set" },
+                    checkNotNull(locality) { "`locality` is required but was not set" },
+                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                    checkNotNull(region) { "`region` is required but was not set" },
+                    line2,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1463,17 +1463,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CounterpartyShippingAddress && line1 == other.line1 && line2 == other.line2 && locality == other.locality && region == other.region && postalCode == other.postalCode && country == other.country && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CounterpartyShippingAddress && country == other.country && line1 == other.line1 && locality == other.locality && postalCode == other.postalCode && region == other.region && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(line1, line2, locality, region, postalCode, country, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(country, line1, locality, postalCode, region, line2, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "CounterpartyShippingAddress{line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
+            "CounterpartyShippingAddress{country=$country, line1=$line1, locality=$locality, postalCode=$postalCode, region=$region, line2=$line2, additionalProperties=$additionalProperties}"
     }
 
     @NoAutoDetect
@@ -1481,12 +1481,12 @@ constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("name") private val name: String,
-        @JsonProperty("description") private val description: String?,
-        @JsonProperty("quantity") private val quantity: Long?,
         @JsonProperty("unit_amount") private val unitAmount: Long,
-        @JsonProperty("unit_amount_decimal") private val unitAmountDecimal: String?,
+        @JsonProperty("description") private val description: String?,
         @JsonProperty("direction") private val direction: String?,
         @JsonProperty("metadata") private val metadata: Metadata?,
+        @JsonProperty("quantity") private val quantity: Long?,
+        @JsonProperty("unit_amount_decimal") private val unitAmountDecimal: String?,
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -1494,26 +1494,14 @@ constructor(
         /** The name of the line item, typically a product or SKU name. */
         @JsonProperty("name") fun name(): String = name
 
-        /** An optional free-form description of the line item. */
-        @JsonProperty("description") fun description(): String? = description
-
-        /**
-         * The number of units of a product or service that this line item is for. Must be a whole
-         * number. Defaults to 1 if not provided.
-         */
-        @JsonProperty("quantity") fun quantity(): Long? = quantity
-
         /**
          * The cost per unit of the product or service that this line item is for, specified in the
          * invoice currency's smallest unit.
          */
         @JsonProperty("unit_amount") fun unitAmount(): Long = unitAmount
 
-        /**
-         * The cost per unit of the product or service that this line item is for, specified in the
-         * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
-         */
-        @JsonProperty("unit_amount_decimal") fun unitAmountDecimal(): String? = unitAmountDecimal
+        /** An optional free-form description of the line item. */
+        @JsonProperty("description") fun description(): String? = description
 
         /**
          * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
@@ -1526,6 +1514,18 @@ constructor(
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
         @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+
+        /**
+         * The number of units of a product or service that this line item is for. Must be a whole
+         * number. Defaults to 1 if not provided.
+         */
+        @JsonProperty("quantity") fun quantity(): Long? = quantity
+
+        /**
+         * The cost per unit of the product or service that this line item is for, specified in the
+         * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+         */
+        @JsonProperty("unit_amount_decimal") fun unitAmountDecimal(): String? = unitAmountDecimal
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1541,22 +1541,22 @@ constructor(
         class Builder {
 
             private var name: String? = null
-            private var description: String? = null
-            private var quantity: Long? = null
             private var unitAmount: Long? = null
-            private var unitAmountDecimal: String? = null
+            private var description: String? = null
             private var direction: String? = null
             private var metadata: Metadata? = null
+            private var quantity: Long? = null
+            private var unitAmountDecimal: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(invoiceLineItemCreateRequest: InvoiceLineItemCreateRequest) = apply {
                 name = invoiceLineItemCreateRequest.name
-                description = invoiceLineItemCreateRequest.description
-                quantity = invoiceLineItemCreateRequest.quantity
                 unitAmount = invoiceLineItemCreateRequest.unitAmount
-                unitAmountDecimal = invoiceLineItemCreateRequest.unitAmountDecimal
+                description = invoiceLineItemCreateRequest.description
                 direction = invoiceLineItemCreateRequest.direction
                 metadata = invoiceLineItemCreateRequest.metadata
+                quantity = invoiceLineItemCreateRequest.quantity
+                unitAmountDecimal = invoiceLineItemCreateRequest.unitAmountDecimal
                 additionalProperties =
                     invoiceLineItemCreateRequest.additionalProperties.toMutableMap()
             }
@@ -1564,28 +1564,14 @@ constructor(
             /** The name of the line item, typically a product or SKU name. */
             fun name(name: String) = apply { this.name = name }
 
-            /** An optional free-form description of the line item. */
-            fun description(description: String) = apply { this.description = description }
-
-            /**
-             * The number of units of a product or service that this line item is for. Must be a
-             * whole number. Defaults to 1 if not provided.
-             */
-            fun quantity(quantity: Long) = apply { this.quantity = quantity }
-
             /**
              * The cost per unit of the product or service that this line item is for, specified in
              * the invoice currency's smallest unit.
              */
             fun unitAmount(unitAmount: Long) = apply { this.unitAmount = unitAmount }
 
-            /**
-             * The cost per unit of the product or service that this line item is for, specified in
-             * the invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
-             */
-            fun unitAmountDecimal(unitAmountDecimal: String) = apply {
-                this.unitAmountDecimal = unitAmountDecimal
-            }
+            /** An optional free-form description of the line item. */
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * Either `debit` or `credit`. `debit` indicates that a client owes the business money
@@ -1599,6 +1585,20 @@ constructor(
              * strings.
              */
             fun metadata(metadata: Metadata) = apply { this.metadata = metadata }
+
+            /**
+             * The number of units of a product or service that this line item is for. Must be a
+             * whole number. Defaults to 1 if not provided.
+             */
+            fun quantity(quantity: Long) = apply { this.quantity = quantity }
+
+            /**
+             * The cost per unit of the product or service that this line item is for, specified in
+             * the invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+             */
+            fun unitAmountDecimal(unitAmountDecimal: String) = apply {
+                this.unitAmountDecimal = unitAmountDecimal
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1622,12 +1622,12 @@ constructor(
             fun build(): InvoiceLineItemCreateRequest =
                 InvoiceLineItemCreateRequest(
                     checkNotNull(name) { "`name` is required but was not set" },
-                    description,
-                    quantity,
                     checkNotNull(unitAmount) { "`unitAmount` is required but was not set" },
-                    unitAmountDecimal,
+                    description,
                     direction,
                     metadata,
+                    quantity,
+                    unitAmountDecimal,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1709,17 +1709,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is InvoiceLineItemCreateRequest && name == other.name && description == other.description && quantity == other.quantity && unitAmount == other.unitAmount && unitAmountDecimal == other.unitAmountDecimal && direction == other.direction && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is InvoiceLineItemCreateRequest && name == other.name && unitAmount == other.unitAmount && description == other.description && direction == other.direction && metadata == other.metadata && quantity == other.quantity && unitAmountDecimal == other.unitAmountDecimal && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(name, description, quantity, unitAmount, unitAmountDecimal, direction, metadata, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(name, unitAmount, description, direction, metadata, quantity, unitAmountDecimal, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "InvoiceLineItemCreateRequest{name=$name, description=$description, quantity=$quantity, unitAmount=$unitAmount, unitAmountDecimal=$unitAmountDecimal, direction=$direction, metadata=$metadata, additionalProperties=$additionalProperties}"
+            "InvoiceLineItemCreateRequest{name=$name, unitAmount=$unitAmount, description=$description, direction=$direction, metadata=$metadata, quantity=$quantity, unitAmountDecimal=$unitAmountDecimal, additionalProperties=$additionalProperties}"
     }
 
     /** The invoice issuer's business address. */
@@ -1727,31 +1727,31 @@ constructor(
     class InvoicerAddress
     @JsonCreator
     private constructor(
-        @JsonProperty("line1") private val line1: String,
-        @JsonProperty("line2") private val line2: String?,
-        @JsonProperty("locality") private val locality: String,
-        @JsonProperty("region") private val region: String,
-        @JsonProperty("postal_code") private val postalCode: String,
         @JsonProperty("country") private val country: String,
+        @JsonProperty("line1") private val line1: String,
+        @JsonProperty("locality") private val locality: String,
+        @JsonProperty("postal_code") private val postalCode: String,
+        @JsonProperty("region") private val region: String,
+        @JsonProperty("line2") private val line2: String?,
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        @JsonProperty("line1") fun line1(): String = line1
+        /** Country code conforms to [ISO 3166-1 alpha-2] */
+        @JsonProperty("country") fun country(): String = country
 
-        @JsonProperty("line2") fun line2(): String? = line2
+        @JsonProperty("line1") fun line1(): String = line1
 
         /** Locality or City. */
         @JsonProperty("locality") fun locality(): String = locality
 
-        /** Region or State. */
-        @JsonProperty("region") fun region(): String = region
-
         /** The postal code of the address. */
         @JsonProperty("postal_code") fun postalCode(): String = postalCode
 
-        /** Country code conforms to [ISO 3166-1 alpha-2] */
-        @JsonProperty("country") fun country(): String = country
+        /** Region or State. */
+        @JsonProperty("region") fun region(): String = region
+
+        @JsonProperty("line2") fun line2(): String? = line2
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1766,39 +1766,39 @@ constructor(
 
         class Builder {
 
-            private var line1: String? = null
-            private var line2: String? = null
-            private var locality: String? = null
-            private var region: String? = null
-            private var postalCode: String? = null
             private var country: String? = null
+            private var line1: String? = null
+            private var locality: String? = null
+            private var postalCode: String? = null
+            private var region: String? = null
+            private var line2: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(invoicerAddress: InvoicerAddress) = apply {
-                line1 = invoicerAddress.line1
-                line2 = invoicerAddress.line2
-                locality = invoicerAddress.locality
-                region = invoicerAddress.region
-                postalCode = invoicerAddress.postalCode
                 country = invoicerAddress.country
+                line1 = invoicerAddress.line1
+                locality = invoicerAddress.locality
+                postalCode = invoicerAddress.postalCode
+                region = invoicerAddress.region
+                line2 = invoicerAddress.line2
                 additionalProperties = invoicerAddress.additionalProperties.toMutableMap()
             }
 
-            fun line1(line1: String) = apply { this.line1 = line1 }
+            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            fun country(country: String) = apply { this.country = country }
 
-            fun line2(line2: String) = apply { this.line2 = line2 }
+            fun line1(line1: String) = apply { this.line1 = line1 }
 
             /** Locality or City. */
             fun locality(locality: String) = apply { this.locality = locality }
 
-            /** Region or State. */
-            fun region(region: String) = apply { this.region = region }
-
             /** The postal code of the address. */
             fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
-            /** Country code conforms to [ISO 3166-1 alpha-2] */
-            fun country(country: String) = apply { this.country = country }
+            /** Region or State. */
+            fun region(region: String) = apply { this.region = region }
+
+            fun line2(line2: String) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1821,12 +1821,12 @@ constructor(
 
             fun build(): InvoicerAddress =
                 InvoicerAddress(
-                    checkNotNull(line1) { "`line1` is required but was not set" },
-                    line2,
-                    checkNotNull(locality) { "`locality` is required but was not set" },
-                    checkNotNull(region) { "`region` is required but was not set" },
-                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
                     checkNotNull(country) { "`country` is required but was not set" },
+                    checkNotNull(line1) { "`line1` is required but was not set" },
+                    checkNotNull(locality) { "`locality` is required but was not set" },
+                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                    checkNotNull(region) { "`region` is required but was not set" },
+                    line2,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1836,17 +1836,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is InvoicerAddress && line1 == other.line1 && line2 == other.line2 && locality == other.locality && region == other.region && postalCode == other.postalCode && country == other.country && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is InvoicerAddress && country == other.country && line1 == other.line1 && locality == other.locality && postalCode == other.postalCode && region == other.region && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(line1, line2, locality, region, postalCode, country, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(country, line1, locality, postalCode, region, line2, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "InvoicerAddress{line1=$line1, line2=$line2, locality=$locality, region=$region, postalCode=$postalCode, country=$country, additionalProperties=$additionalProperties}"
+            "InvoicerAddress{country=$country, line1=$line1, locality=$locality, postalCode=$postalCode, region=$region, line2=$line2, additionalProperties=$additionalProperties}"
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */

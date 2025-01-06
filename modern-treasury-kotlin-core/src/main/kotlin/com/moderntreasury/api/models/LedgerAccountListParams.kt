@@ -402,24 +402,24 @@ constructor(
      */
     class AvailableBalanceAmount
     private constructor(
-        private val gt: Long?,
-        private val lt: Long?,
-        private val gte: Long?,
-        private val lte: Long?,
         private val eq: Long?,
+        private val gt: Long?,
+        private val gte: Long?,
+        private val lt: Long?,
+        private val lte: Long?,
         private val notEq: Long?,
         private val additionalProperties: QueryParams,
     ) {
 
-        fun gt(): Long? = gt
+        fun eq(): Long? = eq
 
-        fun lt(): Long? = lt
+        fun gt(): Long? = gt
 
         fun gte(): Long? = gte
 
-        fun lte(): Long? = lte
+        fun lt(): Long? = lt
 
-        fun eq(): Long? = eq
+        fun lte(): Long? = lte
 
         fun notEq(): Long? = notEq
 
@@ -444,33 +444,33 @@ constructor(
 
         class Builder {
 
-            private var gt: Long? = null
-            private var lt: Long? = null
-            private var gte: Long? = null
-            private var lte: Long? = null
             private var eq: Long? = null
+            private var gt: Long? = null
+            private var gte: Long? = null
+            private var lt: Long? = null
+            private var lte: Long? = null
             private var notEq: Long? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             internal fun from(availableBalanceAmount: AvailableBalanceAmount) = apply {
-                gt = availableBalanceAmount.gt
-                lt = availableBalanceAmount.lt
-                gte = availableBalanceAmount.gte
-                lte = availableBalanceAmount.lte
                 eq = availableBalanceAmount.eq
+                gt = availableBalanceAmount.gt
+                gte = availableBalanceAmount.gte
+                lt = availableBalanceAmount.lt
+                lte = availableBalanceAmount.lte
                 notEq = availableBalanceAmount.notEq
                 additionalProperties = availableBalanceAmount.additionalProperties.toBuilder()
             }
 
-            fun gt(gt: Long) = apply { this.gt = gt }
+            fun eq(eq: Long) = apply { this.eq = eq }
 
-            fun lt(lt: Long) = apply { this.lt = lt }
+            fun gt(gt: Long) = apply { this.gt = gt }
 
             fun gte(gte: Long) = apply { this.gte = gte }
 
-            fun lte(lte: Long) = apply { this.lte = lte }
+            fun lt(lt: Long) = apply { this.lt = lt }
 
-            fun eq(eq: Long) = apply { this.eq = eq }
+            fun lte(lte: Long) = apply { this.lte = lte }
 
             fun notEq(notEq: Long) = apply { this.notEq = notEq }
 
@@ -525,11 +525,11 @@ constructor(
 
             fun build(): AvailableBalanceAmount =
                 AvailableBalanceAmount(
-                    gt,
-                    lt,
-                    gte,
-                    lte,
                     eq,
+                    gt,
+                    gte,
+                    lt,
+                    lte,
                     notEq,
                     additionalProperties.build(),
                 )
@@ -540,17 +540,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AvailableBalanceAmount && gt == other.gt && lt == other.lt && gte == other.gte && lte == other.lte && eq == other.eq && notEq == other.notEq && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is AvailableBalanceAmount && eq == other.eq && gt == other.gt && gte == other.gte && lt == other.lt && lte == other.lte && notEq == other.notEq && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(gt, lt, gte, lte, eq, notEq, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(eq, gt, gte, lt, lte, notEq, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "AvailableBalanceAmount{gt=$gt, lt=$lt, gte=$gte, lte=$lte, eq=$eq, notEq=$notEq, additionalProperties=$additionalProperties}"
+            "AvailableBalanceAmount{eq=$eq, gt=$gt, gte=$gte, lt=$lt, lte=$lte, notEq=$notEq, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -915,24 +915,24 @@ constructor(
      */
     class PendingBalanceAmount
     private constructor(
-        private val gt: Long?,
-        private val lt: Long?,
-        private val gte: Long?,
-        private val lte: Long?,
         private val eq: Long?,
+        private val gt: Long?,
+        private val gte: Long?,
+        private val lt: Long?,
+        private val lte: Long?,
         private val notEq: Long?,
         private val additionalProperties: QueryParams,
     ) {
 
-        fun gt(): Long? = gt
+        fun eq(): Long? = eq
 
-        fun lt(): Long? = lt
+        fun gt(): Long? = gt
 
         fun gte(): Long? = gte
 
-        fun lte(): Long? = lte
+        fun lt(): Long? = lt
 
-        fun eq(): Long? = eq
+        fun lte(): Long? = lte
 
         fun notEq(): Long? = notEq
 
@@ -957,33 +957,33 @@ constructor(
 
         class Builder {
 
-            private var gt: Long? = null
-            private var lt: Long? = null
-            private var gte: Long? = null
-            private var lte: Long? = null
             private var eq: Long? = null
+            private var gt: Long? = null
+            private var gte: Long? = null
+            private var lt: Long? = null
+            private var lte: Long? = null
             private var notEq: Long? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             internal fun from(pendingBalanceAmount: PendingBalanceAmount) = apply {
-                gt = pendingBalanceAmount.gt
-                lt = pendingBalanceAmount.lt
-                gte = pendingBalanceAmount.gte
-                lte = pendingBalanceAmount.lte
                 eq = pendingBalanceAmount.eq
+                gt = pendingBalanceAmount.gt
+                gte = pendingBalanceAmount.gte
+                lt = pendingBalanceAmount.lt
+                lte = pendingBalanceAmount.lte
                 notEq = pendingBalanceAmount.notEq
                 additionalProperties = pendingBalanceAmount.additionalProperties.toBuilder()
             }
 
-            fun gt(gt: Long) = apply { this.gt = gt }
+            fun eq(eq: Long) = apply { this.eq = eq }
 
-            fun lt(lt: Long) = apply { this.lt = lt }
+            fun gt(gt: Long) = apply { this.gt = gt }
 
             fun gte(gte: Long) = apply { this.gte = gte }
 
-            fun lte(lte: Long) = apply { this.lte = lte }
+            fun lt(lt: Long) = apply { this.lt = lt }
 
-            fun eq(eq: Long) = apply { this.eq = eq }
+            fun lte(lte: Long) = apply { this.lte = lte }
 
             fun notEq(notEq: Long) = apply { this.notEq = notEq }
 
@@ -1038,11 +1038,11 @@ constructor(
 
             fun build(): PendingBalanceAmount =
                 PendingBalanceAmount(
-                    gt,
-                    lt,
-                    gte,
-                    lte,
                     eq,
+                    gt,
+                    gte,
+                    lt,
+                    lte,
                     notEq,
                     additionalProperties.build(),
                 )
@@ -1053,17 +1053,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PendingBalanceAmount && gt == other.gt && lt == other.lt && gte == other.gte && lte == other.lte && eq == other.eq && notEq == other.notEq && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PendingBalanceAmount && eq == other.eq && gt == other.gt && gte == other.gte && lt == other.lt && lte == other.lte && notEq == other.notEq && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(gt, lt, gte, lte, eq, notEq, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(eq, gt, gte, lt, lte, notEq, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PendingBalanceAmount{gt=$gt, lt=$lt, gte=$gte, lte=$lte, eq=$eq, notEq=$notEq, additionalProperties=$additionalProperties}"
+            "PendingBalanceAmount{eq=$eq, gt=$gt, gte=$gte, lt=$lt, lte=$lte, notEq=$notEq, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -1072,24 +1072,24 @@ constructor(
      */
     class PostedBalanceAmount
     private constructor(
-        private val gt: Long?,
-        private val lt: Long?,
-        private val gte: Long?,
-        private val lte: Long?,
         private val eq: Long?,
+        private val gt: Long?,
+        private val gte: Long?,
+        private val lt: Long?,
+        private val lte: Long?,
         private val notEq: Long?,
         private val additionalProperties: QueryParams,
     ) {
 
-        fun gt(): Long? = gt
+        fun eq(): Long? = eq
 
-        fun lt(): Long? = lt
+        fun gt(): Long? = gt
 
         fun gte(): Long? = gte
 
-        fun lte(): Long? = lte
+        fun lt(): Long? = lt
 
-        fun eq(): Long? = eq
+        fun lte(): Long? = lte
 
         fun notEq(): Long? = notEq
 
@@ -1114,33 +1114,33 @@ constructor(
 
         class Builder {
 
-            private var gt: Long? = null
-            private var lt: Long? = null
-            private var gte: Long? = null
-            private var lte: Long? = null
             private var eq: Long? = null
+            private var gt: Long? = null
+            private var gte: Long? = null
+            private var lt: Long? = null
+            private var lte: Long? = null
             private var notEq: Long? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             internal fun from(postedBalanceAmount: PostedBalanceAmount) = apply {
-                gt = postedBalanceAmount.gt
-                lt = postedBalanceAmount.lt
-                gte = postedBalanceAmount.gte
-                lte = postedBalanceAmount.lte
                 eq = postedBalanceAmount.eq
+                gt = postedBalanceAmount.gt
+                gte = postedBalanceAmount.gte
+                lt = postedBalanceAmount.lt
+                lte = postedBalanceAmount.lte
                 notEq = postedBalanceAmount.notEq
                 additionalProperties = postedBalanceAmount.additionalProperties.toBuilder()
             }
 
-            fun gt(gt: Long) = apply { this.gt = gt }
+            fun eq(eq: Long) = apply { this.eq = eq }
 
-            fun lt(lt: Long) = apply { this.lt = lt }
+            fun gt(gt: Long) = apply { this.gt = gt }
 
             fun gte(gte: Long) = apply { this.gte = gte }
 
-            fun lte(lte: Long) = apply { this.lte = lte }
+            fun lt(lt: Long) = apply { this.lt = lt }
 
-            fun eq(eq: Long) = apply { this.eq = eq }
+            fun lte(lte: Long) = apply { this.lte = lte }
 
             fun notEq(notEq: Long) = apply { this.notEq = notEq }
 
@@ -1195,11 +1195,11 @@ constructor(
 
             fun build(): PostedBalanceAmount =
                 PostedBalanceAmount(
-                    gt,
-                    lt,
-                    gte,
-                    lte,
                     eq,
+                    gt,
+                    gte,
+                    lt,
+                    lte,
                     notEq,
                     additionalProperties.build(),
                 )
@@ -1210,17 +1210,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PostedBalanceAmount && gt == other.gt && lt == other.lt && gte == other.gte && lte == other.lte && eq == other.eq && notEq == other.notEq && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PostedBalanceAmount && eq == other.eq && gt == other.gt && gte == other.gte && lt == other.lt && lte == other.lte && notEq == other.notEq && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(gt, lt, gte, lte, eq, notEq, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(eq, gt, gte, lt, lte, notEq, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PostedBalanceAmount{gt=$gt, lt=$lt, gte=$gte, lte=$lte, eq=$eq, notEq=$notEq, additionalProperties=$additionalProperties}"
+            "PostedBalanceAmount{eq=$eq, gt=$gt, gte=$gte, lt=$lt, lte=$lte, notEq=$notEq, additionalProperties=$additionalProperties}"
     }
 
     /**

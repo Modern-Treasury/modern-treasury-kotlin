@@ -24,40 +24,7 @@ class Transaction
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("discarded_at")
-    @ExcludeMissing
-    private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("currency")
-    @ExcludeMissing
-    private val currency: JsonField<Currency> = JsonMissing.of(),
-    @JsonProperty("direction")
-    @ExcludeMissing
-    private val direction: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("vendor_description")
-    @ExcludeMissing
-    private val vendorDescription: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("vendor_code")
-    @ExcludeMissing
-    private val vendorCode: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("vendor_code_type")
-    @ExcludeMissing
-    private val vendorCodeType: JsonField<VendorCodeType> = JsonMissing.of(),
-    @JsonProperty("vendor_id")
-    @ExcludeMissing
-    private val vendorId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("as_of_date")
     @ExcludeMissing
     private val asOfDate: JsonField<LocalDate> = JsonMissing.of(),
@@ -67,80 +34,71 @@ private constructor(
     @JsonProperty("as_of_timezone")
     @ExcludeMissing
     private val asOfTimezone: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("internal_account_id")
+    @JsonProperty("created_at")
     @ExcludeMissing
-    private val internalAccountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("metadata")
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("currency")
     @ExcludeMissing
-    private val metadata: JsonField<Metadata> = JsonMissing.of(),
-    @JsonProperty("posted")
-    @ExcludeMissing
-    private val posted: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("vendor_customer_id")
-    @ExcludeMissing
-    private val vendorCustomerId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("reconciled")
-    @ExcludeMissing
-    private val reconciled: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("details")
-    @ExcludeMissing
-    private val details: JsonField<Details> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonProperty("foreign_exchange_rate")
-    @ExcludeMissing
-    private val foreignExchangeRate: JsonField<ForeignExchangeRate> = JsonMissing.of(),
+    private val currency: JsonField<Currency> = JsonMissing.of(),
     @JsonProperty("custom_identifiers")
     @ExcludeMissing
     private val customIdentifiers: JsonField<CustomIdentifiers> = JsonMissing.of(),
+    @JsonProperty("direction")
+    @ExcludeMissing
+    private val direction: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("discarded_at")
+    @ExcludeMissing
+    private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("foreign_exchange_rate")
+    @ExcludeMissing
+    private val foreignExchangeRate: JsonField<ForeignExchangeRate> = JsonMissing.of(),
+    @JsonProperty("internal_account_id")
+    @ExcludeMissing
+    private val internalAccountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("metadata")
+    @ExcludeMissing
+    private val metadata: JsonField<Metadata> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("posted")
+    @ExcludeMissing
+    private val posted: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("reconciled")
+    @ExcludeMissing
+    private val reconciled: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("vendor_code")
+    @ExcludeMissing
+    private val vendorCode: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("vendor_code_type")
+    @ExcludeMissing
+    private val vendorCodeType: JsonField<VendorCodeType> = JsonMissing.of(),
+    @JsonProperty("vendor_customer_id")
+    @ExcludeMissing
+    private val vendorCustomerId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("vendor_id")
+    @ExcludeMissing
+    private val vendorId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("details")
+    @ExcludeMissing
+    private val details: JsonField<Details> = JsonMissing.of(),
+    @JsonProperty("vendor_description")
+    @ExcludeMissing
+    private val vendorDescription: JsonField<String> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     fun id(): String = id.getRequired("id")
 
-    fun object_(): String = object_.getRequired("object")
-
-    /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
-     */
-    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
-
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
-
-    fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
-
     /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
     fun amount(): Long = amount.getRequired("amount")
-
-    /** Currency that this transaction is denominated in. */
-    fun currency(): Currency = currency.getRequired("currency")
-
-    /** Either `credit` or `debit`. */
-    fun direction(): String = direction.getRequired("direction")
-
-    /**
-     * The transaction detail text that often appears in on your bank statement and in your banking
-     * portal.
-     */
-    fun vendorDescription(): String? = vendorDescription.getNullable("vendor_description")
-
-    /**
-     * When applicable, the bank-given code that determines the transaction's category. For most
-     * banks this is the BAI2/BTRS transaction code.
-     */
-    fun vendorCode(): String? = vendorCode.getNullable("vendor_code")
-
-    /**
-     * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
-     * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`, `goldman_sachs`,
-     * `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, `us_bank`, or others.
-     */
-    fun vendorCodeType(): VendorCodeType? = vendorCodeType.getNullable("vendor_code_type")
-
-    /** An identifier given to this transaction by the bank. */
-    fun vendorId(): String? = vendorId.getNullable("vendor_id")
 
     /** The date on which the transaction occurred. */
     fun asOfDate(): LocalDate? = asOfDate.getNullable("as_of_date")
@@ -157,23 +115,75 @@ private constructor(
      */
     fun asOfTimezone(): String? = asOfTimezone.getNullable("as_of_timezone")
 
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /** Currency that this transaction is denominated in. */
+    fun currency(): Currency = currency.getRequired("currency")
+
+    /**
+     * An object containing key-value pairs, each with a custom identifier as the key and a string
+     * value.
+     */
+    fun customIdentifiers(): CustomIdentifiers = customIdentifiers.getRequired("custom_identifiers")
+
+    /** Either `credit` or `debit`. */
+    fun direction(): String = direction.getRequired("direction")
+
+    fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
+
+    /** Associated serialized foreign exchange rate information. */
+    fun foreignExchangeRate(): ForeignExchangeRate? =
+        foreignExchangeRate.getNullable("foreign_exchange_rate")
+
     /** The ID of the relevant Internal Account. */
     fun internalAccountId(): String = internalAccountId.getRequired("internal_account_id")
+
+    /**
+     * This field will be true if this object exists in the live environment or false if it exists
+     * in the test environment.
+     */
+    fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
     fun metadata(): Metadata = metadata.getRequired("metadata")
 
+    fun object_(): String = object_.getRequired("object")
+
     /** This field will be `true` if the transaction has posted to the account. */
     fun posted(): Boolean = posted.getRequired("posted")
-
-    /** An identifier given to this transaction by the bank, often `null`. */
-    fun vendorCustomerId(): String? = vendorCustomerId.getNullable("vendor_customer_id")
 
     /**
      * This field will be `true` if a transaction is reconciled by the Modern Treasury system. This
      * means that it has transaction line items that sum up to the transaction's amount.
      */
     fun reconciled(): Boolean = reconciled.getRequired("reconciled")
+
+    /**
+     * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`, `book`,
+     * or `sen`.
+     */
+    fun type(): Type = type.getRequired("type")
+
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+
+    /**
+     * When applicable, the bank-given code that determines the transaction's category. For most
+     * banks this is the BAI2/BTRS transaction code.
+     */
+    fun vendorCode(): String? = vendorCode.getNullable("vendor_code")
+
+    /**
+     * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
+     * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`, `goldman_sachs`,
+     * `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, `us_bank`, or others.
+     */
+    fun vendorCodeType(): VendorCodeType? = vendorCodeType.getNullable("vendor_code_type")
+
+    /** An identifier given to this transaction by the bank, often `null`. */
+    fun vendorCustomerId(): String? = vendorCustomerId.getNullable("vendor_customer_id")
+
+    /** An identifier given to this transaction by the bank. */
+    fun vendorId(): String? = vendorId.getNullable("vendor_id")
 
     /**
      * This field contains additional information that the bank provided about the transaction. This
@@ -186,67 +196,15 @@ private constructor(
     fun details(): Details? = details.getNullable("details")
 
     /**
-     * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`, `book`,
-     * or `sen`.
-     */
-    fun type(): Type = type.getRequired("type")
-
-    /** Associated serialized foreign exchange rate information. */
-    fun foreignExchangeRate(): ForeignExchangeRate? =
-        foreignExchangeRate.getNullable("foreign_exchange_rate")
-
-    /**
-     * An object containing key-value pairs, each with a custom identifier as the key and a string
-     * value.
-     */
-    fun customIdentifiers(): CustomIdentifiers = customIdentifiers.getRequired("custom_identifiers")
-
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
-
-    /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
-     */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
-
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
-    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
-
-    /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
-
-    /** Currency that this transaction is denominated in. */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-    /** Either `credit` or `debit`. */
-    @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
-
-    /**
      * The transaction detail text that often appears in on your bank statement and in your banking
      * portal.
      */
-    @JsonProperty("vendor_description") @ExcludeMissing fun _vendorDescription() = vendorDescription
+    fun vendorDescription(): String? = vendorDescription.getNullable("vendor_description")
 
-    /**
-     * When applicable, the bank-given code that determines the transaction's category. For most
-     * banks this is the BAI2/BTRS transaction code.
-     */
-    @JsonProperty("vendor_code") @ExcludeMissing fun _vendorCode() = vendorCode
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
-    /**
-     * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
-     * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`, `goldman_sachs`,
-     * `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, `us_bank`, or others.
-     */
-    @JsonProperty("vendor_code_type") @ExcludeMissing fun _vendorCodeType() = vendorCodeType
-
-    /** An identifier given to this transaction by the bank. */
-    @JsonProperty("vendor_id") @ExcludeMissing fun _vendorId() = vendorId
+    /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
     /** The date on which the transaction occurred. */
     @JsonProperty("as_of_date") @ExcludeMissing fun _asOfDate() = asOfDate
@@ -263,25 +221,78 @@ private constructor(
      */
     @JsonProperty("as_of_timezone") @ExcludeMissing fun _asOfTimezone() = asOfTimezone
 
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /** Currency that this transaction is denominated in. */
+    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+    /**
+     * An object containing key-value pairs, each with a custom identifier as the key and a string
+     * value.
+     */
+    @JsonProperty("custom_identifiers") @ExcludeMissing fun _customIdentifiers() = customIdentifiers
+
+    /** Either `credit` or `debit`. */
+    @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
+
+    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+
+    /** Associated serialized foreign exchange rate information. */
+    @JsonProperty("foreign_exchange_rate")
+    @ExcludeMissing
+    fun _foreignExchangeRate() = foreignExchangeRate
+
     /** The ID of the relevant Internal Account. */
     @JsonProperty("internal_account_id")
     @ExcludeMissing
     fun _internalAccountId() = internalAccountId
 
+    /**
+     * This field will be true if this object exists in the live environment or false if it exists
+     * in the test environment.
+     */
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
     @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
 
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+
     /** This field will be `true` if the transaction has posted to the account. */
     @JsonProperty("posted") @ExcludeMissing fun _posted() = posted
-
-    /** An identifier given to this transaction by the bank, often `null`. */
-    @JsonProperty("vendor_customer_id") @ExcludeMissing fun _vendorCustomerId() = vendorCustomerId
 
     /**
      * This field will be `true` if a transaction is reconciled by the Modern Treasury system. This
      * means that it has transaction line items that sum up to the transaction's amount.
      */
     @JsonProperty("reconciled") @ExcludeMissing fun _reconciled() = reconciled
+
+    /**
+     * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`, `book`,
+     * or `sen`.
+     */
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
+
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+
+    /**
+     * When applicable, the bank-given code that determines the transaction's category. For most
+     * banks this is the BAI2/BTRS transaction code.
+     */
+    @JsonProperty("vendor_code") @ExcludeMissing fun _vendorCode() = vendorCode
+
+    /**
+     * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
+     * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`, `goldman_sachs`,
+     * `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, `us_bank`, or others.
+     */
+    @JsonProperty("vendor_code_type") @ExcludeMissing fun _vendorCodeType() = vendorCodeType
+
+    /** An identifier given to this transaction by the bank, often `null`. */
+    @JsonProperty("vendor_customer_id") @ExcludeMissing fun _vendorCustomerId() = vendorCustomerId
+
+    /** An identifier given to this transaction by the bank. */
+    @JsonProperty("vendor_id") @ExcludeMissing fun _vendorId() = vendorId
 
     /**
      * This field contains additional information that the bank provided about the transaction. This
@@ -294,21 +305,10 @@ private constructor(
     @JsonProperty("details") @ExcludeMissing fun _details() = details
 
     /**
-     * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`, `book`,
-     * or `sen`.
+     * The transaction detail text that often appears in on your bank statement and in your banking
+     * portal.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
-
-    /** Associated serialized foreign exchange rate information. */
-    @JsonProperty("foreign_exchange_rate")
-    @ExcludeMissing
-    fun _foreignExchangeRate() = foreignExchangeRate
-
-    /**
-     * An object containing key-value pairs, each with a custom identifier as the key and a string
-     * value.
-     */
-    @JsonProperty("custom_identifiers") @ExcludeMissing fun _customIdentifiers() = customIdentifiers
+    @JsonProperty("vendor_description") @ExcludeMissing fun _vendorDescription() = vendorDescription
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -319,30 +319,30 @@ private constructor(
     fun validate(): Transaction = apply {
         if (!validated) {
             id()
-            object_()
-            liveMode()
-            createdAt()
-            updatedAt()
-            discardedAt()
             amount()
-            currency()
-            direction()
-            vendorDescription()
-            vendorCode()
-            vendorCodeType()
-            vendorId()
             asOfDate()
             asOfTime()
             asOfTimezone()
-            internalAccountId()
-            metadata().validate()
-            posted()
-            vendorCustomerId()
-            reconciled()
-            details()?.validate()
-            type()
-            foreignExchangeRate()?.validate()
+            createdAt()
+            currency()
             customIdentifiers().validate()
+            direction()
+            discardedAt()
+            foreignExchangeRate()?.validate()
+            internalAccountId()
+            liveMode()
+            metadata().validate()
+            object_()
+            posted()
+            reconciled()
+            type()
+            updatedAt()
+            vendorCode()
+            vendorCodeType()
+            vendorCustomerId()
+            vendorId()
+            details()?.validate()
+            vendorDescription()
             validated = true
         }
     }
@@ -357,58 +357,58 @@ private constructor(
     class Builder {
 
         private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
-        private var direction: JsonField<String> = JsonMissing.of()
-        private var vendorDescription: JsonField<String> = JsonMissing.of()
-        private var vendorCode: JsonField<String> = JsonMissing.of()
-        private var vendorCodeType: JsonField<VendorCodeType> = JsonMissing.of()
-        private var vendorId: JsonField<String> = JsonMissing.of()
         private var asOfDate: JsonField<LocalDate> = JsonMissing.of()
         private var asOfTime: JsonField<String> = JsonMissing.of()
         private var asOfTimezone: JsonField<String> = JsonMissing.of()
-        private var internalAccountId: JsonField<String> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
-        private var posted: JsonField<Boolean> = JsonMissing.of()
-        private var vendorCustomerId: JsonField<String> = JsonMissing.of()
-        private var reconciled: JsonField<Boolean> = JsonMissing.of()
-        private var details: JsonField<Details> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
-        private var foreignExchangeRate: JsonField<ForeignExchangeRate> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var currency: JsonField<Currency> = JsonMissing.of()
         private var customIdentifiers: JsonField<CustomIdentifiers> = JsonMissing.of()
+        private var direction: JsonField<String> = JsonMissing.of()
+        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var foreignExchangeRate: JsonField<ForeignExchangeRate> = JsonMissing.of()
+        private var internalAccountId: JsonField<String> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var metadata: JsonField<Metadata> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
+        private var posted: JsonField<Boolean> = JsonMissing.of()
+        private var reconciled: JsonField<Boolean> = JsonMissing.of()
+        private var type: JsonField<Type> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var vendorCode: JsonField<String> = JsonMissing.of()
+        private var vendorCodeType: JsonField<VendorCodeType> = JsonMissing.of()
+        private var vendorCustomerId: JsonField<String> = JsonMissing.of()
+        private var vendorId: JsonField<String> = JsonMissing.of()
+        private var details: JsonField<Details> = JsonMissing.of()
+        private var vendorDescription: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(transaction: Transaction) = apply {
             id = transaction.id
-            object_ = transaction.object_
-            liveMode = transaction.liveMode
-            createdAt = transaction.createdAt
-            updatedAt = transaction.updatedAt
-            discardedAt = transaction.discardedAt
             amount = transaction.amount
-            currency = transaction.currency
-            direction = transaction.direction
-            vendorDescription = transaction.vendorDescription
-            vendorCode = transaction.vendorCode
-            vendorCodeType = transaction.vendorCodeType
-            vendorId = transaction.vendorId
             asOfDate = transaction.asOfDate
             asOfTime = transaction.asOfTime
             asOfTimezone = transaction.asOfTimezone
-            internalAccountId = transaction.internalAccountId
-            metadata = transaction.metadata
-            posted = transaction.posted
-            vendorCustomerId = transaction.vendorCustomerId
-            reconciled = transaction.reconciled
-            details = transaction.details
-            type = transaction.type
-            foreignExchangeRate = transaction.foreignExchangeRate
+            createdAt = transaction.createdAt
+            currency = transaction.currency
             customIdentifiers = transaction.customIdentifiers
+            direction = transaction.direction
+            discardedAt = transaction.discardedAt
+            foreignExchangeRate = transaction.foreignExchangeRate
+            internalAccountId = transaction.internalAccountId
+            liveMode = transaction.liveMode
+            metadata = transaction.metadata
+            object_ = transaction.object_
+            posted = transaction.posted
+            reconciled = transaction.reconciled
+            type = transaction.type
+            updatedAt = transaction.updatedAt
+            vendorCode = transaction.vendorCode
+            vendorCodeType = transaction.vendorCodeType
+            vendorCustomerId = transaction.vendorCustomerId
+            vendorId = transaction.vendorId
+            details = transaction.details
+            vendorDescription = transaction.vendorDescription
             additionalProperties = transaction.additionalProperties.toMutableMap()
         }
 
@@ -416,105 +416,11 @@ private constructor(
 
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun object_(object_: String) = object_(JsonField.of(object_))
-
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
-
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
-
-        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
-
-        fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
-            this.discardedAt = discardedAt
-        }
-
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-        /** Currency that this transaction is denominated in. */
-        fun currency(currency: Currency) = currency(JsonField.of(currency))
-
-        /** Currency that this transaction is denominated in. */
-        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-        /** Either `credit` or `debit`. */
-        fun direction(direction: String) = direction(JsonField.of(direction))
-
-        /** Either `credit` or `debit`. */
-        fun direction(direction: JsonField<String>) = apply { this.direction = direction }
-
-        /**
-         * The transaction detail text that often appears in on your bank statement and in your
-         * banking portal.
-         */
-        fun vendorDescription(vendorDescription: String) =
-            vendorDescription(JsonField.of(vendorDescription))
-
-        /**
-         * The transaction detail text that often appears in on your bank statement and in your
-         * banking portal.
-         */
-        fun vendorDescription(vendorDescription: JsonField<String>) = apply {
-            this.vendorDescription = vendorDescription
-        }
-
-        /**
-         * When applicable, the bank-given code that determines the transaction's category. For most
-         * banks this is the BAI2/BTRS transaction code.
-         */
-        fun vendorCode(vendorCode: String) = vendorCode(JsonField.of(vendorCode))
-
-        /**
-         * When applicable, the bank-given code that determines the transaction's category. For most
-         * banks this is the BAI2/BTRS transaction code.
-         */
-        fun vendorCode(vendorCode: JsonField<String>) = apply { this.vendorCode = vendorCode }
-
-        /**
-         * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
-         * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`,
-         * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, `us_bank`, or
-         * others.
-         */
-        fun vendorCodeType(vendorCodeType: VendorCodeType) =
-            vendorCodeType(JsonField.of(vendorCodeType))
-
-        /**
-         * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
-         * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`,
-         * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, `us_bank`, or
-         * others.
-         */
-        fun vendorCodeType(vendorCodeType: JsonField<VendorCodeType>) = apply {
-            this.vendorCodeType = vendorCodeType
-        }
-
-        /** An identifier given to this transaction by the bank. */
-        fun vendorId(vendorId: String) = vendorId(JsonField.of(vendorId))
-
-        /** An identifier given to this transaction by the bank. */
-        fun vendorId(vendorId: JsonField<String>) = apply { this.vendorId = vendorId }
 
         /** The date on which the transaction occurred. */
         fun asOfDate(asOfDate: LocalDate) = asOfDate(JsonField.of(asOfDate))
@@ -548,6 +454,52 @@ private constructor(
             this.asOfTimezone = asOfTimezone
         }
 
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** Currency that this transaction is denominated in. */
+        fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+        /** Currency that this transaction is denominated in. */
+        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+        /**
+         * An object containing key-value pairs, each with a custom identifier as the key and a
+         * string value.
+         */
+        fun customIdentifiers(customIdentifiers: CustomIdentifiers) =
+            customIdentifiers(JsonField.of(customIdentifiers))
+
+        /**
+         * An object containing key-value pairs, each with a custom identifier as the key and a
+         * string value.
+         */
+        fun customIdentifiers(customIdentifiers: JsonField<CustomIdentifiers>) = apply {
+            this.customIdentifiers = customIdentifiers
+        }
+
+        /** Either `credit` or `debit`. */
+        fun direction(direction: String) = direction(JsonField.of(direction))
+
+        /** Either `credit` or `debit`. */
+        fun direction(direction: JsonField<String>) = apply { this.direction = direction }
+
+        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+
+        fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
+            this.discardedAt = discardedAt
+        }
+
+        /** Associated serialized foreign exchange rate information. */
+        fun foreignExchangeRate(foreignExchangeRate: ForeignExchangeRate) =
+            foreignExchangeRate(JsonField.of(foreignExchangeRate))
+
+        /** Associated serialized foreign exchange rate information. */
+        fun foreignExchangeRate(foreignExchangeRate: JsonField<ForeignExchangeRate>) = apply {
+            this.foreignExchangeRate = foreignExchangeRate
+        }
+
         /** The ID of the relevant Internal Account. */
         fun internalAccountId(internalAccountId: String) =
             internalAccountId(JsonField.of(internalAccountId))
@@ -556,6 +508,18 @@ private constructor(
         fun internalAccountId(internalAccountId: JsonField<String>) = apply {
             this.internalAccountId = internalAccountId
         }
+
+        /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
+
+        /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
@@ -567,20 +531,15 @@ private constructor(
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
+        fun object_(object_: String) = object_(JsonField.of(object_))
+
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+
         /** This field will be `true` if the transaction has posted to the account. */
         fun posted(posted: Boolean) = posted(JsonField.of(posted))
 
         /** This field will be `true` if the transaction has posted to the account. */
         fun posted(posted: JsonField<Boolean>) = apply { this.posted = posted }
-
-        /** An identifier given to this transaction by the bank, often `null`. */
-        fun vendorCustomerId(vendorCustomerId: String) =
-            vendorCustomerId(JsonField.of(vendorCustomerId))
-
-        /** An identifier given to this transaction by the bank, often `null`. */
-        fun vendorCustomerId(vendorCustomerId: JsonField<String>) = apply {
-            this.vendorCustomerId = vendorCustomerId
-        }
 
         /**
          * This field will be `true` if a transaction is reconciled by the Modern Treasury system.
@@ -593,6 +552,68 @@ private constructor(
          * This means that it has transaction line items that sum up to the transaction's amount.
          */
         fun reconciled(reconciled: JsonField<Boolean>) = apply { this.reconciled = reconciled }
+
+        /**
+         * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
+         * `book`, or `sen`.
+         */
+        fun type(type: Type) = type(JsonField.of(type))
+
+        /**
+         * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
+         * `book`, or `sen`.
+         */
+        fun type(type: JsonField<Type>) = apply { this.type = type }
+
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+
+        /**
+         * When applicable, the bank-given code that determines the transaction's category. For most
+         * banks this is the BAI2/BTRS transaction code.
+         */
+        fun vendorCode(vendorCode: String) = vendorCode(JsonField.of(vendorCode))
+
+        /**
+         * When applicable, the bank-given code that determines the transaction's category. For most
+         * banks this is the BAI2/BTRS transaction code.
+         */
+        fun vendorCode(vendorCode: JsonField<String>) = apply { this.vendorCode = vendorCode }
+
+        /**
+         * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
+         * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`,
+         * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, `us_bank`, or
+         * others.
+         */
+        fun vendorCodeType(vendorCodeType: VendorCodeType) =
+            vendorCodeType(JsonField.of(vendorCodeType))
+
+        /**
+         * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
+         * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`,
+         * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, `us_bank`, or
+         * others.
+         */
+        fun vendorCodeType(vendorCodeType: JsonField<VendorCodeType>) = apply {
+            this.vendorCodeType = vendorCodeType
+        }
+
+        /** An identifier given to this transaction by the bank, often `null`. */
+        fun vendorCustomerId(vendorCustomerId: String) =
+            vendorCustomerId(JsonField.of(vendorCustomerId))
+
+        /** An identifier given to this transaction by the bank, often `null`. */
+        fun vendorCustomerId(vendorCustomerId: JsonField<String>) = apply {
+            this.vendorCustomerId = vendorCustomerId
+        }
+
+        /** An identifier given to this transaction by the bank. */
+        fun vendorId(vendorId: String) = vendorId(JsonField.of(vendorId))
+
+        /** An identifier given to this transaction by the bank. */
+        fun vendorId(vendorId: JsonField<String>) = apply { this.vendorId = vendorId }
 
         /**
          * This field contains additional information that the bank provided about the transaction.
@@ -615,39 +636,18 @@ private constructor(
         fun details(details: JsonField<Details>) = apply { this.details = details }
 
         /**
-         * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
-         * `book`, or `sen`.
+         * The transaction detail text that often appears in on your bank statement and in your
+         * banking portal.
          */
-        fun type(type: Type) = type(JsonField.of(type))
+        fun vendorDescription(vendorDescription: String) =
+            vendorDescription(JsonField.of(vendorDescription))
 
         /**
-         * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
-         * `book`, or `sen`.
+         * The transaction detail text that often appears in on your bank statement and in your
+         * banking portal.
          */
-        fun type(type: JsonField<Type>) = apply { this.type = type }
-
-        /** Associated serialized foreign exchange rate information. */
-        fun foreignExchangeRate(foreignExchangeRate: ForeignExchangeRate) =
-            foreignExchangeRate(JsonField.of(foreignExchangeRate))
-
-        /** Associated serialized foreign exchange rate information. */
-        fun foreignExchangeRate(foreignExchangeRate: JsonField<ForeignExchangeRate>) = apply {
-            this.foreignExchangeRate = foreignExchangeRate
-        }
-
-        /**
-         * An object containing key-value pairs, each with a custom identifier as the key and a
-         * string value.
-         */
-        fun customIdentifiers(customIdentifiers: CustomIdentifiers) =
-            customIdentifiers(JsonField.of(customIdentifiers))
-
-        /**
-         * An object containing key-value pairs, each with a custom identifier as the key and a
-         * string value.
-         */
-        fun customIdentifiers(customIdentifiers: JsonField<CustomIdentifiers>) = apply {
-            this.customIdentifiers = customIdentifiers
+        fun vendorDescription(vendorDescription: JsonField<String>) = apply {
+            this.vendorDescription = vendorDescription
         }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -672,30 +672,30 @@ private constructor(
         fun build(): Transaction =
             Transaction(
                 id,
-                object_,
-                liveMode,
-                createdAt,
-                updatedAt,
-                discardedAt,
                 amount,
-                currency,
-                direction,
-                vendorDescription,
-                vendorCode,
-                vendorCodeType,
-                vendorId,
                 asOfDate,
                 asOfTime,
                 asOfTimezone,
-                internalAccountId,
-                metadata,
-                posted,
-                vendorCustomerId,
-                reconciled,
-                details,
-                type,
-                foreignExchangeRate,
+                createdAt,
+                currency,
                 customIdentifiers,
+                direction,
+                discardedAt,
+                foreignExchangeRate,
+                internalAccountId,
+                liveMode,
+                metadata,
+                object_,
+                posted,
+                reconciled,
+                type,
+                updatedAt,
+                vendorCode,
+                vendorCodeType,
+                vendorCustomerId,
+                vendorId,
+                details,
+                vendorDescription,
                 additionalProperties.toImmutable(),
             )
     }
@@ -1615,15 +1615,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Transaction && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && discardedAt == other.discardedAt && amount == other.amount && currency == other.currency && direction == other.direction && vendorDescription == other.vendorDescription && vendorCode == other.vendorCode && vendorCodeType == other.vendorCodeType && vendorId == other.vendorId && asOfDate == other.asOfDate && asOfTime == other.asOfTime && asOfTimezone == other.asOfTimezone && internalAccountId == other.internalAccountId && metadata == other.metadata && posted == other.posted && vendorCustomerId == other.vendorCustomerId && reconciled == other.reconciled && details == other.details && type == other.type && foreignExchangeRate == other.foreignExchangeRate && customIdentifiers == other.customIdentifiers && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Transaction && id == other.id && amount == other.amount && asOfDate == other.asOfDate && asOfTime == other.asOfTime && asOfTimezone == other.asOfTimezone && createdAt == other.createdAt && currency == other.currency && customIdentifiers == other.customIdentifiers && direction == other.direction && discardedAt == other.discardedAt && foreignExchangeRate == other.foreignExchangeRate && internalAccountId == other.internalAccountId && liveMode == other.liveMode && metadata == other.metadata && object_ == other.object_ && posted == other.posted && reconciled == other.reconciled && type == other.type && updatedAt == other.updatedAt && vendorCode == other.vendorCode && vendorCodeType == other.vendorCodeType && vendorCustomerId == other.vendorCustomerId && vendorId == other.vendorId && details == other.details && vendorDescription == other.vendorDescription && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, discardedAt, amount, currency, direction, vendorDescription, vendorCode, vendorCodeType, vendorId, asOfDate, asOfTime, asOfTimezone, internalAccountId, metadata, posted, vendorCustomerId, reconciled, details, type, foreignExchangeRate, customIdentifiers, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, amount, asOfDate, asOfTime, asOfTimezone, createdAt, currency, customIdentifiers, direction, discardedAt, foreignExchangeRate, internalAccountId, liveMode, metadata, object_, posted, reconciled, type, updatedAt, vendorCode, vendorCodeType, vendorCustomerId, vendorId, details, vendorDescription, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Transaction{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, discardedAt=$discardedAt, amount=$amount, currency=$currency, direction=$direction, vendorDescription=$vendorDescription, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, vendorId=$vendorId, asOfDate=$asOfDate, asOfTime=$asOfTime, asOfTimezone=$asOfTimezone, internalAccountId=$internalAccountId, metadata=$metadata, posted=$posted, vendorCustomerId=$vendorCustomerId, reconciled=$reconciled, details=$details, type=$type, foreignExchangeRate=$foreignExchangeRate, customIdentifiers=$customIdentifiers, additionalProperties=$additionalProperties}"
+        "Transaction{id=$id, amount=$amount, asOfDate=$asOfDate, asOfTime=$asOfTime, asOfTimezone=$asOfTimezone, createdAt=$createdAt, currency=$currency, customIdentifiers=$customIdentifiers, direction=$direction, discardedAt=$discardedAt, foreignExchangeRate=$foreignExchangeRate, internalAccountId=$internalAccountId, liveMode=$liveMode, metadata=$metadata, object_=$object_, posted=$posted, reconciled=$reconciled, type=$type, updatedAt=$updatedAt, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, vendorCustomerId=$vendorCustomerId, vendorId=$vendorId, details=$details, vendorDescription=$vendorDescription, additionalProperties=$additionalProperties}"
 }

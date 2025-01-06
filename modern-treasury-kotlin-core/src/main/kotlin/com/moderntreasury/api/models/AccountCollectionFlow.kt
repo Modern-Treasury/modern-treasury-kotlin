@@ -22,65 +22,39 @@ import java.util.Objects
 class AccountCollectionFlow
 @JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("client_token")
-    @ExcludeMissing
-    private val clientToken: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
     @JsonProperty("counterparty_id")
     @ExcludeMissing
     private val counterpartyId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("external_account_id")
-    @ExcludeMissing
-    private val externalAccountId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("payment_types")
     @ExcludeMissing
     private val paymentTypes: JsonField<List<PaymentType>> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("client_token")
+    @ExcludeMissing
+    private val clientToken: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("external_account_id")
+    @ExcludeMissing
+    private val externalAccountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("object")
+    @ExcludeMissing
+    private val object_: JsonField<String> = JsonMissing.of(),
     @JsonProperty("receiving_countries")
     @ExcludeMissing
     private val receivingCountries: JsonField<List<ReceivingCountry>> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
-
-    fun id(): String? = id.getNullable("id")
-
-    fun object_(): String? = object_.getNullable("object")
-
-    /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
-     */
-    fun liveMode(): Boolean? = liveMode.getNullable("live_mode")
-
-    fun createdAt(): OffsetDateTime? = createdAt.getNullable("created_at")
-
-    fun updatedAt(): OffsetDateTime? = updatedAt.getNullable("updated_at")
-
-    /**
-     * The client token of the account collection flow. This token can be used to embed account
-     * collection in your client-side application.
-     */
-    fun clientToken(): String? = clientToken.getNullable("client_token")
-
-    /**
-     * The current status of the account collection flow. One of `pending`, `completed`, `expired`,
-     * or `cancelled`.
-     */
-    fun status(): Status? = status.getNullable("status")
 
     /**
      * The ID of a counterparty. An external account created with this flow will be associated with
@@ -88,39 +62,39 @@ private constructor(
      */
     fun counterpartyId(): String = counterpartyId.getRequired("counterparty_id")
 
-    /** If present, the ID of the external account created using this flow. */
-    fun externalAccountId(): String? = externalAccountId.getNullable("external_account_id")
-
     fun paymentTypes(): List<PaymentType> = paymentTypes.getRequired("payment_types")
 
-    fun receivingCountries(): List<ReceivingCountry>? =
-        receivingCountries.getNullable("receiving_countries")
-
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
-
-    /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
-     */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
-
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    fun id(): String? = id.getNullable("id")
 
     /**
      * The client token of the account collection flow. This token can be used to embed account
      * collection in your client-side application.
      */
-    @JsonProperty("client_token") @ExcludeMissing fun _clientToken() = clientToken
+    fun clientToken(): String? = clientToken.getNullable("client_token")
+
+    fun createdAt(): OffsetDateTime? = createdAt.getNullable("created_at")
+
+    /** If present, the ID of the external account created using this flow. */
+    fun externalAccountId(): String? = externalAccountId.getNullable("external_account_id")
+
+    /**
+     * This field will be true if this object exists in the live environment or false if it exists
+     * in the test environment.
+     */
+    fun liveMode(): Boolean? = liveMode.getNullable("live_mode")
+
+    fun object_(): String? = object_.getNullable("object")
+
+    fun receivingCountries(): List<ReceivingCountry>? =
+        receivingCountries.getNullable("receiving_countries")
 
     /**
      * The current status of the account collection flow. One of `pending`, `completed`, `expired`,
      * or `cancelled`.
      */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    fun status(): Status? = status.getNullable("status")
+
+    fun updatedAt(): OffsetDateTime? = updatedAt.getNullable("updated_at")
 
     /**
      * The ID of a counterparty. An external account created with this flow will be associated with
@@ -128,16 +102,42 @@ private constructor(
      */
     @JsonProperty("counterparty_id") @ExcludeMissing fun _counterpartyId() = counterpartyId
 
+    @JsonProperty("payment_types") @ExcludeMissing fun _paymentTypes() = paymentTypes
+
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /**
+     * The client token of the account collection flow. This token can be used to embed account
+     * collection in your client-side application.
+     */
+    @JsonProperty("client_token") @ExcludeMissing fun _clientToken() = clientToken
+
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
     /** If present, the ID of the external account created using this flow. */
     @JsonProperty("external_account_id")
     @ExcludeMissing
     fun _externalAccountId() = externalAccountId
 
-    @JsonProperty("payment_types") @ExcludeMissing fun _paymentTypes() = paymentTypes
+    /**
+     * This field will be true if this object exists in the live environment or false if it exists
+     * in the test environment.
+     */
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+
+    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
 
     @JsonProperty("receiving_countries")
     @ExcludeMissing
     fun _receivingCountries() = receivingCountries
+
+    /**
+     * The current status of the account collection flow. One of `pending`, `completed`, `expired`,
+     * or `cancelled`.
+     */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
+
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -147,17 +147,17 @@ private constructor(
 
     fun validate(): AccountCollectionFlow = apply {
         if (!validated) {
-            id()
-            object_()
-            liveMode()
-            createdAt()
-            updatedAt()
-            clientToken()
-            status()
             counterpartyId()
-            externalAccountId()
             paymentTypes()
+            id()
+            clientToken()
+            createdAt()
+            externalAccountId()
+            liveMode()
+            object_()
             receivingCountries()
+            status()
+            updatedAt()
             validated = true
         }
     }
@@ -171,85 +171,33 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var clientToken: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
         private var counterpartyId: JsonField<String> = JsonMissing.of()
-        private var externalAccountId: JsonField<String> = JsonMissing.of()
         private var paymentTypes: JsonField<List<PaymentType>> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
+        private var clientToken: JsonField<String> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var externalAccountId: JsonField<String> = JsonMissing.of()
+        private var liveMode: JsonField<Boolean> = JsonMissing.of()
+        private var object_: JsonField<String> = JsonMissing.of()
         private var receivingCountries: JsonField<List<ReceivingCountry>> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(accountCollectionFlow: AccountCollectionFlow) = apply {
-            id = accountCollectionFlow.id
-            object_ = accountCollectionFlow.object_
-            liveMode = accountCollectionFlow.liveMode
-            createdAt = accountCollectionFlow.createdAt
-            updatedAt = accountCollectionFlow.updatedAt
-            clientToken = accountCollectionFlow.clientToken
-            status = accountCollectionFlow.status
             counterpartyId = accountCollectionFlow.counterpartyId
-            externalAccountId = accountCollectionFlow.externalAccountId
             paymentTypes = accountCollectionFlow.paymentTypes
+            id = accountCollectionFlow.id
+            clientToken = accountCollectionFlow.clientToken
+            createdAt = accountCollectionFlow.createdAt
+            externalAccountId = accountCollectionFlow.externalAccountId
+            liveMode = accountCollectionFlow.liveMode
+            object_ = accountCollectionFlow.object_
             receivingCountries = accountCollectionFlow.receivingCountries
+            status = accountCollectionFlow.status
+            updatedAt = accountCollectionFlow.updatedAt
             additionalProperties = accountCollectionFlow.additionalProperties.toMutableMap()
         }
-
-        fun id(id: String) = id(JsonField.of(id))
-
-        fun id(id: JsonField<String>) = apply { this.id = id }
-
-        fun object_(object_: String) = object_(JsonField.of(object_))
-
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
-
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
-
-        /**
-         * The client token of the account collection flow. This token can be used to embed account
-         * collection in your client-side application.
-         */
-        fun clientToken(clientToken: String) = clientToken(JsonField.of(clientToken))
-
-        /**
-         * The client token of the account collection flow. This token can be used to embed account
-         * collection in your client-side application.
-         */
-        fun clientToken(clientToken: JsonField<String>) = apply { this.clientToken = clientToken }
-
-        /**
-         * The current status of the account collection flow. One of `pending`, `completed`,
-         * `expired`, or `cancelled`.
-         */
-        fun status(status: Status) = status(JsonField.of(status))
-
-        /**
-         * The current status of the account collection flow. One of `pending`, `completed`,
-         * `expired`, or `cancelled`.
-         */
-        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
          * The ID of a counterparty. An external account created with this flow will be associated
@@ -265,6 +213,32 @@ private constructor(
             this.counterpartyId = counterpartyId
         }
 
+        fun paymentTypes(paymentTypes: List<PaymentType>) = paymentTypes(JsonField.of(paymentTypes))
+
+        fun paymentTypes(paymentTypes: JsonField<List<PaymentType>>) = apply {
+            this.paymentTypes = paymentTypes
+        }
+
+        fun id(id: String) = id(JsonField.of(id))
+
+        fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * The client token of the account collection flow. This token can be used to embed account
+         * collection in your client-side application.
+         */
+        fun clientToken(clientToken: String) = clientToken(JsonField.of(clientToken))
+
+        /**
+         * The client token of the account collection flow. This token can be used to embed account
+         * collection in your client-side application.
+         */
+        fun clientToken(clientToken: JsonField<String>) = apply { this.clientToken = clientToken }
+
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
         /** If present, the ID of the external account created using this flow. */
         fun externalAccountId(externalAccountId: String) =
             externalAccountId(JsonField.of(externalAccountId))
@@ -274,11 +248,21 @@ private constructor(
             this.externalAccountId = externalAccountId
         }
 
-        fun paymentTypes(paymentTypes: List<PaymentType>) = paymentTypes(JsonField.of(paymentTypes))
+        /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
-        fun paymentTypes(paymentTypes: JsonField<List<PaymentType>>) = apply {
-            this.paymentTypes = paymentTypes
-        }
+        /**
+         * This field will be true if this object exists in the live environment or false if it
+         * exists in the test environment.
+         */
+        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+
+        fun object_(object_: String) = object_(JsonField.of(object_))
+
+        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         fun receivingCountries(receivingCountries: List<ReceivingCountry>) =
             receivingCountries(JsonField.of(receivingCountries))
@@ -286,6 +270,22 @@ private constructor(
         fun receivingCountries(receivingCountries: JsonField<List<ReceivingCountry>>) = apply {
             this.receivingCountries = receivingCountries
         }
+
+        /**
+         * The current status of the account collection flow. One of `pending`, `completed`,
+         * `expired`, or `cancelled`.
+         */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /**
+         * The current status of the account collection flow. One of `pending`, `completed`,
+         * `expired`, or `cancelled`.
+         */
+        fun status(status: JsonField<Status>) = apply { this.status = status }
+
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -308,17 +308,17 @@ private constructor(
 
         fun build(): AccountCollectionFlow =
             AccountCollectionFlow(
-                id,
-                object_,
-                liveMode,
-                createdAt,
-                updatedAt,
-                clientToken,
-                status,
                 counterpartyId,
-                externalAccountId,
                 paymentTypes.map { it.toImmutable() },
+                id,
+                clientToken,
+                createdAt,
+                externalAccountId,
+                liveMode,
+                object_,
                 receivingCountries.map { it.toImmutable() },
+                status,
+                updatedAt,
                 additionalProperties.toImmutable(),
             )
     }
@@ -607,15 +607,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountCollectionFlow && id == other.id && object_ == other.object_ && liveMode == other.liveMode && createdAt == other.createdAt && updatedAt == other.updatedAt && clientToken == other.clientToken && status == other.status && counterpartyId == other.counterpartyId && externalAccountId == other.externalAccountId && paymentTypes == other.paymentTypes && receivingCountries == other.receivingCountries && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is AccountCollectionFlow && counterpartyId == other.counterpartyId && paymentTypes == other.paymentTypes && id == other.id && clientToken == other.clientToken && createdAt == other.createdAt && externalAccountId == other.externalAccountId && liveMode == other.liveMode && object_ == other.object_ && receivingCountries == other.receivingCountries && status == other.status && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, object_, liveMode, createdAt, updatedAt, clientToken, status, counterpartyId, externalAccountId, paymentTypes, receivingCountries, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(counterpartyId, paymentTypes, id, clientToken, createdAt, externalAccountId, liveMode, object_, receivingCountries, status, updatedAt, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AccountCollectionFlow{id=$id, object_=$object_, liveMode=$liveMode, createdAt=$createdAt, updatedAt=$updatedAt, clientToken=$clientToken, status=$status, counterpartyId=$counterpartyId, externalAccountId=$externalAccountId, paymentTypes=$paymentTypes, receivingCountries=$receivingCountries, additionalProperties=$additionalProperties}"
+        "AccountCollectionFlow{counterpartyId=$counterpartyId, paymentTypes=$paymentTypes, id=$id, clientToken=$clientToken, createdAt=$createdAt, externalAccountId=$externalAccountId, liveMode=$liveMode, object_=$object_, receivingCountries=$receivingCountries, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }
