@@ -19,6 +19,7 @@ import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.util.Objects
 
+/** Create a new counterparty. */
 class CounterpartyCreateParams
 constructor(
     private val body: CounterpartyCreateBody,

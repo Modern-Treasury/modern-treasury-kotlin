@@ -18,6 +18,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
+/** update account_collection_flow */
 class AccountCollectionFlowUpdateParams
 constructor(
     private val id: String,

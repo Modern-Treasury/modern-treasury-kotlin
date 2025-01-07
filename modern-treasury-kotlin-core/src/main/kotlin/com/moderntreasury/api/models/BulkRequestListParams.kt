@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
+/** list bulk_requests */
 class BulkRequestListParams
 constructor(
     private val actionType: ActionType?,

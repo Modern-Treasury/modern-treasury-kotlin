@@ -18,6 +18,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
+/** Send an email requesting account details. */
 class CounterpartyCollectAccountParams
 constructor(
     private val id: String,

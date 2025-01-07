@@ -9,6 +9,7 @@ import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
+/** delete virtual_account */
 class VirtualAccountDeleteParams
 constructor(
     private val id: String,

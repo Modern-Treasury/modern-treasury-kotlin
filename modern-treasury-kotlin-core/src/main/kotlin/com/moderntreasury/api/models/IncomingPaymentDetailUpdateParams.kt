@@ -15,6 +15,7 @@ import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
+/** Update an existing Incoming Payment Detail. */
 class IncomingPaymentDetailUpdateParams
 constructor(
     private val id: String,

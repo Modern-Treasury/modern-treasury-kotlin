@@ -13,6 +13,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** list expected_payments */
 class ExpectedPaymentListParams
 constructor(
     private val afterCursor: String?,

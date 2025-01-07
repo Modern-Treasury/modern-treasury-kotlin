@@ -18,6 +18,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
+/** create internal account */
 class InternalAccountCreateParams
 constructor(
     private val body: InternalAccountCreateBody,

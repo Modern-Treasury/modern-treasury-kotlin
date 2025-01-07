@@ -19,6 +19,7 @@ import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.util.Objects
 
+/** create payment_flow */
 class PaymentFlowCreateParams
 constructor(
     private val body: PaymentFlowCreateBody,

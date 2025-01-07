@@ -19,6 +19,7 @@ import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 
+/** Update the details of a ledger transaction. */
 class LedgerTransactionUpdateParams
 constructor(
     private val id: String,

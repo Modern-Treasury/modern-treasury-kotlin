@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
+/** Get a list of ledger transactions. */
 class LedgerTransactionListParams
 constructor(
     private val id: List<String>?,

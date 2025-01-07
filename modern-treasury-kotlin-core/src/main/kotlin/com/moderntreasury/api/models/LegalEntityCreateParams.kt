@@ -19,6 +19,7 @@ import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.util.Objects
 
+/** create legal_entity */
 class LegalEntityCreateParams
 constructor(
     private val body: LegalEntityCreateBody,

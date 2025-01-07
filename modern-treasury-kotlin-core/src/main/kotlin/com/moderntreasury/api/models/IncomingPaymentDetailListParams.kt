@@ -12,6 +12,7 @@ import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.util.Objects
 
+/** Get a list of Incoming Payment Details. */
 class IncomingPaymentDetailListParams
 constructor(
     private val afterCursor: String?,

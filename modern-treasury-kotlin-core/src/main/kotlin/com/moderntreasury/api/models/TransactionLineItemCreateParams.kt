@@ -15,6 +15,7 @@ import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
+/** create transaction line items */
 class TransactionLineItemCreateParams
 constructor(
     private val body: TransactionLineItemCreateBody,
