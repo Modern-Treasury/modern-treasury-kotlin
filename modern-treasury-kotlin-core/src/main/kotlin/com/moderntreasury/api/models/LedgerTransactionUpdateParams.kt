@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -61,11 +62,42 @@ constructor(
     /** To post a ledger transaction at creation, use `posted`. */
     fun status(): Status? = body.status()
 
+    /** An optional description for internal use. */
+    fun _description(): JsonField<String> = body._description()
+
+    /**
+     * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
+     * purposes.
+     */
+    fun _effectiveAt(): JsonField<OffsetDateTime> = body._effectiveAt()
+
+    /** An array of ledger entry objects. */
+    fun _ledgerEntries(): JsonField<List<LedgerEntryCreateRequest>> = body._ledgerEntries()
+
+    /**
+     * If the ledger transaction can be reconciled to another object in Modern Treasury, the id will
+     * be populated here, otherwise null.
+     */
+    fun _ledgerableId(): JsonField<String> = body._ledgerableId()
+
+    /**
+     * If the ledger transaction can be reconciled to another object in Modern Treasury, the type
+     * will be populated here, otherwise null. This can be one of payment_order,
+     * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
+     */
+    fun _ledgerableType(): JsonField<LedgerableType> = body._ledgerableType()
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun _metadata(): JsonField<Metadata> = body._metadata()
+
+    /** To post a ledger transaction at creation, use `posted`. */
+    fun _status(): JsonField<Status> = body._status()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): LedgerTransactionUpdateBody = body
 
@@ -84,54 +116,126 @@ constructor(
     class LedgerTransactionUpdateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("description") private val description: String?,
-        @JsonProperty("effective_at") private val effectiveAt: OffsetDateTime?,
-        @JsonProperty("ledger_entries") private val ledgerEntries: List<LedgerEntryCreateRequest>?,
-        @JsonProperty("ledgerable_id") private val ledgerableId: String?,
-        @JsonProperty("ledgerable_type") private val ledgerableType: LedgerableType?,
-        @JsonProperty("metadata") private val metadata: Metadata?,
-        @JsonProperty("status") private val status: Status?,
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("effective_at")
+        @ExcludeMissing
+        private val effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("ledger_entries")
+        @ExcludeMissing
+        private val ledgerEntries: JsonField<List<LedgerEntryCreateRequest>> = JsonMissing.of(),
+        @JsonProperty("ledgerable_id")
+        @ExcludeMissing
+        private val ledgerableId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("ledgerable_type")
+        @ExcludeMissing
+        private val ledgerableType: JsonField<LedgerableType> = JsonMissing.of(),
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        private val metadata: JsonField<Metadata> = JsonMissing.of(),
+        @JsonProperty("status")
+        @ExcludeMissing
+        private val status: JsonField<Status> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** An optional description for internal use. */
-        @JsonProperty("description") fun description(): String? = description
+        fun description(): String? = description.getNullable("description")
 
         /**
          * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
          * purposes.
          */
-        @JsonProperty("effective_at") fun effectiveAt(): OffsetDateTime? = effectiveAt
+        fun effectiveAt(): OffsetDateTime? = effectiveAt.getNullable("effective_at")
 
         /** An array of ledger entry objects. */
-        @JsonProperty("ledger_entries")
-        fun ledgerEntries(): List<LedgerEntryCreateRequest>? = ledgerEntries
+        fun ledgerEntries(): List<LedgerEntryCreateRequest>? =
+            ledgerEntries.getNullable("ledger_entries")
 
         /**
          * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
          * will be populated here, otherwise null.
          */
-        @JsonProperty("ledgerable_id") fun ledgerableId(): String? = ledgerableId
+        fun ledgerableId(): String? = ledgerableId.getNullable("ledgerable_id")
 
         /**
          * If the ledger transaction can be reconciled to another object in Modern Treasury, the
          * type will be populated here, otherwise null. This can be one of payment_order,
          * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
          */
-        @JsonProperty("ledgerable_type") fun ledgerableType(): LedgerableType? = ledgerableType
+        fun ledgerableType(): LedgerableType? = ledgerableType.getNullable("ledgerable_type")
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
 
         /** To post a ledger transaction at creation, use `posted`. */
-        @JsonProperty("status") fun status(): Status? = status
+        fun status(): Status? = status.getNullable("status")
+
+        /** An optional description for internal use. */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
+
+        /**
+         * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
+         * purposes.
+         */
+        @JsonProperty("effective_at")
+        @ExcludeMissing
+        fun _effectiveAt(): JsonField<OffsetDateTime> = effectiveAt
+
+        /** An array of ledger entry objects. */
+        @JsonProperty("ledger_entries")
+        @ExcludeMissing
+        fun _ledgerEntries(): JsonField<List<LedgerEntryCreateRequest>> = ledgerEntries
+
+        /**
+         * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
+         * will be populated here, otherwise null.
+         */
+        @JsonProperty("ledgerable_id")
+        @ExcludeMissing
+        fun _ledgerableId(): JsonField<String> = ledgerableId
+
+        /**
+         * If the ledger transaction can be reconciled to another object in Modern Treasury, the
+         * type will be populated here, otherwise null. This can be one of payment_order,
+         * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
+         */
+        @JsonProperty("ledgerable_type")
+        @ExcludeMissing
+        fun _ledgerableType(): JsonField<LedgerableType> = ledgerableType
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+
+        /** To post a ledger transaction at creation, use `posted`. */
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): LedgerTransactionUpdateBody = apply {
+            if (!validated) {
+                description()
+                effectiveAt()
+                ledgerEntries()?.forEach { it.validate() }
+                ledgerableId()
+                ledgerableType()
+                metadata()?.validate()
+                status()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -142,19 +246,19 @@ constructor(
 
         class Builder {
 
-            private var description: String? = null
-            private var effectiveAt: OffsetDateTime? = null
-            private var ledgerEntries: MutableList<LedgerEntryCreateRequest>? = null
-            private var ledgerableId: String? = null
-            private var ledgerableType: LedgerableType? = null
-            private var metadata: Metadata? = null
-            private var status: Status? = null
+            private var description: JsonField<String> = JsonMissing.of()
+            private var effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var ledgerEntries: JsonField<MutableList<LedgerEntryCreateRequest>>? = null
+            private var ledgerableId: JsonField<String> = JsonMissing.of()
+            private var ledgerableType: JsonField<LedgerableType> = JsonMissing.of()
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerTransactionUpdateBody: LedgerTransactionUpdateBody) = apply {
                 description = ledgerTransactionUpdateBody.description
                 effectiveAt = ledgerTransactionUpdateBody.effectiveAt
-                ledgerEntries = ledgerTransactionUpdateBody.ledgerEntries?.toMutableList()
+                ledgerEntries = ledgerTransactionUpdateBody.ledgerEntries.map { it.toMutableList() }
                 ledgerableId = ledgerTransactionUpdateBody.ledgerableId
                 ledgerableType = ledgerTransactionUpdateBody.ledgerableType
                 metadata = ledgerTransactionUpdateBody.metadata
@@ -164,36 +268,76 @@ constructor(
             }
 
             /** An optional description for internal use. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String?) = description(JsonField.ofNullable(description))
+
+            /** An optional description for internal use. */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
 
             /**
              * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
              * purposes.
              */
-            fun effectiveAt(effectiveAt: OffsetDateTime?) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: OffsetDateTime) = effectiveAt(JsonField.of(effectiveAt))
+
+            /**
+             * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
+             * purposes.
+             */
+            fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
+                this.effectiveAt = effectiveAt
+            }
 
             /** An array of ledger entry objects. */
-            fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>?) = apply {
-                this.ledgerEntries = ledgerEntries?.toMutableList()
+            fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>) =
+                ledgerEntries(JsonField.of(ledgerEntries))
+
+            /** An array of ledger entry objects. */
+            fun ledgerEntries(ledgerEntries: JsonField<List<LedgerEntryCreateRequest>>) = apply {
+                this.ledgerEntries = ledgerEntries.map { it.toMutableList() }
             }
 
             /** An array of ledger entry objects. */
             fun addLedgerEntry(ledgerEntry: LedgerEntryCreateRequest) = apply {
-                ledgerEntries = (ledgerEntries ?: mutableListOf()).apply { add(ledgerEntry) }
+                ledgerEntries =
+                    (ledgerEntries ?: JsonField.of(mutableListOf())).apply {
+                        (asKnown()
+                                ?: throw IllegalStateException(
+                                    "Field was set to non-list type: ${javaClass.simpleName}"
+                                ))
+                            .add(ledgerEntry)
+                    }
             }
 
             /**
              * If the ledger transaction can be reconciled to another object in Modern Treasury, the
              * id will be populated here, otherwise null.
              */
-            fun ledgerableId(ledgerableId: String?) = apply { this.ledgerableId = ledgerableId }
+            fun ledgerableId(ledgerableId: String) = ledgerableId(JsonField.of(ledgerableId))
+
+            /**
+             * If the ledger transaction can be reconciled to another object in Modern Treasury, the
+             * id will be populated here, otherwise null.
+             */
+            fun ledgerableId(ledgerableId: JsonField<String>) = apply {
+                this.ledgerableId = ledgerableId
+            }
 
             /**
              * If the ledger transaction can be reconciled to another object in Modern Treasury, the
              * type will be populated here, otherwise null. This can be one of payment_order,
              * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
              */
-            fun ledgerableType(ledgerableType: LedgerableType?) = apply {
+            fun ledgerableType(ledgerableType: LedgerableType) =
+                ledgerableType(JsonField.of(ledgerableType))
+
+            /**
+             * If the ledger transaction can be reconciled to another object in Modern Treasury, the
+             * type will be populated here, otherwise null. This can be one of payment_order,
+             * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
+             */
+            fun ledgerableType(ledgerableType: JsonField<LedgerableType>) = apply {
                 this.ledgerableType = ledgerableType
             }
 
@@ -201,10 +345,19 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
             /** To post a ledger transaction at creation, use `posted`. */
-            fun status(status: Status?) = apply { this.status = status }
+            fun status(status: Status) = status(JsonField.of(status))
+
+            /** To post a ledger transaction at creation, use `posted`. */
+            fun status(status: JsonField<Status>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -229,7 +382,7 @@ constructor(
                 LedgerTransactionUpdateBody(
                     description,
                     effectiveAt,
-                    ledgerEntries?.toImmutable(),
+                    (ledgerEntries ?: JsonMissing.of()).map { it.toImmutable() },
                     ledgerableId,
                     ledgerableType,
                     metadata,
@@ -284,14 +437,30 @@ constructor(
         /** An optional description for internal use. */
         fun description(description: String?) = apply { body.description(description) }
 
+        /** An optional description for internal use. */
+        fun description(description: JsonField<String>) = apply { body.description(description) }
+
         /**
          * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
          * purposes.
          */
-        fun effectiveAt(effectiveAt: OffsetDateTime?) = apply { body.effectiveAt(effectiveAt) }
+        fun effectiveAt(effectiveAt: OffsetDateTime) = apply { body.effectiveAt(effectiveAt) }
+
+        /**
+         * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
+         * purposes.
+         */
+        fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
+            body.effectiveAt(effectiveAt)
+        }
 
         /** An array of ledger entry objects. */
-        fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>?) = apply {
+        fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>) = apply {
+            body.ledgerEntries(ledgerEntries)
+        }
+
+        /** An array of ledger entry objects. */
+        fun ledgerEntries(ledgerEntries: JsonField<List<LedgerEntryCreateRequest>>) = apply {
             body.ledgerEntries(ledgerEntries)
         }
 
@@ -304,24 +473,68 @@ constructor(
          * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
          * will be populated here, otherwise null.
          */
-        fun ledgerableId(ledgerableId: String?) = apply { body.ledgerableId(ledgerableId) }
+        fun ledgerableId(ledgerableId: String) = apply { body.ledgerableId(ledgerableId) }
+
+        /**
+         * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
+         * will be populated here, otherwise null.
+         */
+        fun ledgerableId(ledgerableId: JsonField<String>) = apply {
+            body.ledgerableId(ledgerableId)
+        }
 
         /**
          * If the ledger transaction can be reconciled to another object in Modern Treasury, the
          * type will be populated here, otherwise null. This can be one of payment_order,
          * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
          */
-        fun ledgerableType(ledgerableType: LedgerableType?) = apply {
+        fun ledgerableType(ledgerableType: LedgerableType) = apply {
+            body.ledgerableType(ledgerableType)
+        }
+
+        /**
+         * If the ledger transaction can be reconciled to another object in Modern Treasury, the
+         * type will be populated here, otherwise null. This can be one of payment_order,
+         * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
+         */
+        fun ledgerableType(ledgerableType: JsonField<LedgerableType>) = apply {
             body.ledgerableType(ledgerableType)
         }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
         /** To post a ledger transaction at creation, use `posted`. */
-        fun status(status: Status?) = apply { body.status(status) }
+        fun status(status: Status) = apply { body.status(status) }
+
+        /** To post a ledger transaction at creation, use `posted`. */
+        fun status(status: JsonField<Status>) = apply { body.status(status) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -421,25 +634,6 @@ constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
-
         fun build(): LedgerTransactionUpdateParams =
             LedgerTransactionUpdateParams(
                 checkNotNull(id) { "`id` is required but was not set" },
@@ -453,19 +647,33 @@ constructor(
     class LedgerEntryCreateRequest
     @JsonCreator
     private constructor(
-        @JsonProperty("amount") private val amount: Long,
-        @JsonProperty("direction") private val direction: TransactionDirection,
-        @JsonProperty("ledger_account_id") private val ledgerAccountId: String,
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("direction")
+        @ExcludeMissing
+        private val direction: JsonField<TransactionDirection> = JsonMissing.of(),
+        @JsonProperty("ledger_account_id")
+        @ExcludeMissing
+        private val ledgerAccountId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("available_balance_amount")
-        private val availableBalanceAmount: AvailableBalanceAmount?,
-        @JsonProperty("lock_version") private val lockVersion: Long?,
-        @JsonProperty("metadata") private val metadata: Metadata?,
+        @ExcludeMissing
+        private val availableBalanceAmount: JsonField<AvailableBalanceAmount> = JsonMissing.of(),
+        @JsonProperty("lock_version")
+        @ExcludeMissing
+        private val lockVersion: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        private val metadata: JsonField<Metadata> = JsonMissing.of(),
         @JsonProperty("pending_balance_amount")
-        private val pendingBalanceAmount: PendingBalanceAmount?,
+        @ExcludeMissing
+        private val pendingBalanceAmount: JsonField<PendingBalanceAmount> = JsonMissing.of(),
         @JsonProperty("posted_balance_amount")
-        private val postedBalanceAmount: PostedBalanceAmount?,
+        @ExcludeMissing
+        private val postedBalanceAmount: JsonField<PostedBalanceAmount> = JsonMissing.of(),
         @JsonProperty("show_resulting_ledger_account_balances")
-        private val showResultingLedgerAccountBalances: Boolean?,
+        @ExcludeMissing
+        private val showResultingLedgerAccountBalances: JsonField<Boolean> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -474,7 +682,7 @@ constructor(
          * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can
          * be any integer up to 36 digits.
          */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
 
         /**
          * One of `credit`, `debit`. Describes the direction money is flowing in the transaction. A
@@ -482,10 +690,74 @@ constructor(
          * someone else's account to your own. Note that wire, rtp, and check payments will always
          * be `credit`.
          */
-        @JsonProperty("direction") fun direction(): TransactionDirection = direction
+        fun direction(): TransactionDirection = direction.getRequired("direction")
 
         /** The ledger account that this ledger entry is associated with. */
-        @JsonProperty("ledger_account_id") fun ledgerAccountId(): String = ledgerAccountId
+        fun ledgerAccountId(): String = ledgerAccountId.getRequired("ledger_account_id")
+
+        /**
+         * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to lock on the account’s
+         * available balance. If any of these conditions would be false after the transaction is
+         * created, the entire call will fail with error code 422.
+         */
+        fun availableBalanceAmount(): AvailableBalanceAmount? =
+            availableBalanceAmount.getNullable("available_balance_amount")
+
+        /**
+         * Lock version of the ledger account. This can be passed when creating a ledger transaction
+         * to only succeed if no ledger transactions have posted since the given version. See our
+         * post about Designing the Ledgers API with Optimistic Locking for more details.
+         */
+        fun lockVersion(): Long? = lockVersion.getNullable("lock_version")
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
+
+        /**
+         * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to lock on the account’s
+         * pending balance. If any of these conditions would be false after the transaction is
+         * created, the entire call will fail with error code 422.
+         */
+        fun pendingBalanceAmount(): PendingBalanceAmount? =
+            pendingBalanceAmount.getNullable("pending_balance_amount")
+
+        /**
+         * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to lock on the account’s
+         * posted balance. If any of these conditions would be false after the transaction is
+         * created, the entire call will fail with error code 422.
+         */
+        fun postedBalanceAmount(): PostedBalanceAmount? =
+            postedBalanceAmount.getNullable("posted_balance_amount")
+
+        /**
+         * If true, response will include the balance of the associated ledger account for the
+         * entry.
+         */
+        fun showResultingLedgerAccountBalances(): Boolean? =
+            showResultingLedgerAccountBalances.getNullable("show_resulting_ledger_account_balances")
+
+        /**
+         * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can
+         * be any integer up to 36 digits.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /**
+         * One of `credit`, `debit`. Describes the direction money is flowing in the transaction. A
+         * `credit` moves money from your account to someone else's. A `debit` pulls money from
+         * someone else's account to your own. Note that wire, rtp, and check payments will always
+         * be `credit`.
+         */
+        @JsonProperty("direction")
+        @ExcludeMissing
+        fun _direction(): JsonField<TransactionDirection> = direction
+
+        /** The ledger account that this ledger entry is associated with. */
+        @JsonProperty("ledger_account_id")
+        @ExcludeMissing
+        fun _ledgerAccountId(): JsonField<String> = ledgerAccountId
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to lock on the account’s
@@ -493,19 +765,22 @@ constructor(
          * created, the entire call will fail with error code 422.
          */
         @JsonProperty("available_balance_amount")
-        fun availableBalanceAmount(): AvailableBalanceAmount? = availableBalanceAmount
+        @ExcludeMissing
+        fun _availableBalanceAmount(): JsonField<AvailableBalanceAmount> = availableBalanceAmount
 
         /**
          * Lock version of the ledger account. This can be passed when creating a ledger transaction
          * to only succeed if no ledger transactions have posted since the given version. See our
          * post about Designing the Ledgers API with Optimistic Locking for more details.
          */
-        @JsonProperty("lock_version") fun lockVersion(): Long? = lockVersion
+        @JsonProperty("lock_version")
+        @ExcludeMissing
+        fun _lockVersion(): JsonField<Long> = lockVersion
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to lock on the account’s
@@ -513,7 +788,8 @@ constructor(
          * created, the entire call will fail with error code 422.
          */
         @JsonProperty("pending_balance_amount")
-        fun pendingBalanceAmount(): PendingBalanceAmount? = pendingBalanceAmount
+        @ExcludeMissing
+        fun _pendingBalanceAmount(): JsonField<PendingBalanceAmount> = pendingBalanceAmount
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to lock on the account’s
@@ -521,18 +797,38 @@ constructor(
          * created, the entire call will fail with error code 422.
          */
         @JsonProperty("posted_balance_amount")
-        fun postedBalanceAmount(): PostedBalanceAmount? = postedBalanceAmount
+        @ExcludeMissing
+        fun _postedBalanceAmount(): JsonField<PostedBalanceAmount> = postedBalanceAmount
 
         /**
          * If true, response will include the balance of the associated ledger account for the
          * entry.
          */
         @JsonProperty("show_resulting_ledger_account_balances")
-        fun showResultingLedgerAccountBalances(): Boolean? = showResultingLedgerAccountBalances
+        @ExcludeMissing
+        fun _showResultingLedgerAccountBalances(): JsonField<Boolean> =
+            showResultingLedgerAccountBalances
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): LedgerEntryCreateRequest = apply {
+            if (!validated) {
+                amount()
+                direction()
+                ledgerAccountId()
+                availableBalanceAmount()?.validate()
+                lockVersion()
+                metadata()?.validate()
+                pendingBalanceAmount()?.validate()
+                postedBalanceAmount()?.validate()
+                showResultingLedgerAccountBalances()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -543,15 +839,15 @@ constructor(
 
         class Builder {
 
-            private var amount: Long? = null
-            private var direction: TransactionDirection? = null
-            private var ledgerAccountId: String? = null
-            private var availableBalanceAmount: AvailableBalanceAmount? = null
-            private var lockVersion: Long? = null
-            private var metadata: Metadata? = null
-            private var pendingBalanceAmount: PendingBalanceAmount? = null
-            private var postedBalanceAmount: PostedBalanceAmount? = null
-            private var showResultingLedgerAccountBalances: Boolean? = null
+            private var amount: JsonField<Long>? = null
+            private var direction: JsonField<TransactionDirection>? = null
+            private var ledgerAccountId: JsonField<String>? = null
+            private var availableBalanceAmount: JsonField<AvailableBalanceAmount> = JsonMissing.of()
+            private var lockVersion: JsonField<Long> = JsonMissing.of()
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var pendingBalanceAmount: JsonField<PendingBalanceAmount> = JsonMissing.of()
+            private var postedBalanceAmount: JsonField<PostedBalanceAmount> = JsonMissing.of()
+            private var showResultingLedgerAccountBalances: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerEntryCreateRequest: LedgerEntryCreateRequest) = apply {
@@ -572,7 +868,13 @@ constructor(
              * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
              * Can be any integer up to 36 digits.
              */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
+             * Can be any integer up to 36 digits.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /**
              * One of `credit`, `debit`. Describes the direction money is flowing in the
@@ -580,10 +882,24 @@ constructor(
              * pulls money from someone else's account to your own. Note that wire, rtp, and check
              * payments will always be `credit`.
              */
-            fun direction(direction: TransactionDirection) = apply { this.direction = direction }
+            fun direction(direction: TransactionDirection) = direction(JsonField.of(direction))
+
+            /**
+             * One of `credit`, `debit`. Describes the direction money is flowing in the
+             * transaction. A `credit` moves money from your account to someone else's. A `debit`
+             * pulls money from someone else's account to your own. Note that wire, rtp, and check
+             * payments will always be `credit`.
+             */
+            fun direction(direction: JsonField<TransactionDirection>) = apply {
+                this.direction = direction
+            }
 
             /** The ledger account that this ledger entry is associated with. */
-            fun ledgerAccountId(ledgerAccountId: String) = apply {
+            fun ledgerAccountId(ledgerAccountId: String) =
+                ledgerAccountId(JsonField.of(ledgerAccountId))
+
+            /** The ledger account that this ledger entry is associated with. */
+            fun ledgerAccountId(ledgerAccountId: JsonField<String>) = apply {
                 this.ledgerAccountId = ledgerAccountId
             }
 
@@ -592,9 +908,18 @@ constructor(
              * available balance. If any of these conditions would be false after the transaction is
              * created, the entire call will fail with error code 422.
              */
-            fun availableBalanceAmount(availableBalanceAmount: AvailableBalanceAmount?) = apply {
-                this.availableBalanceAmount = availableBalanceAmount
-            }
+            fun availableBalanceAmount(availableBalanceAmount: AvailableBalanceAmount?) =
+                availableBalanceAmount(JsonField.ofNullable(availableBalanceAmount))
+
+            /**
+             * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to lock on the account’s
+             * available balance. If any of these conditions would be false after the transaction is
+             * created, the entire call will fail with error code 422.
+             */
+            fun availableBalanceAmount(availableBalanceAmount: JsonField<AvailableBalanceAmount>) =
+                apply {
+                    this.availableBalanceAmount = availableBalanceAmount
+                }
 
             /**
              * Lock version of the ledger account. This can be passed when creating a ledger
@@ -602,7 +927,7 @@ constructor(
              * version. See our post about Designing the Ledgers API with Optimistic Locking for
              * more details.
              */
-            fun lockVersion(lockVersion: Long?) = apply { this.lockVersion = lockVersion }
+            fun lockVersion(lockVersion: Long?) = lockVersion(JsonField.ofNullable(lockVersion))
 
             /**
              * Lock version of the ledger account. This can be passed when creating a ledger
@@ -613,26 +938,57 @@ constructor(
             fun lockVersion(lockVersion: Long) = lockVersion(lockVersion as Long?)
 
             /**
+             * Lock version of the ledger account. This can be passed when creating a ledger
+             * transaction to only succeed if no ledger transactions have posted since the given
+             * version. See our post about Designing the Ledgers API with Optimistic Locking for
+             * more details.
+             */
+            fun lockVersion(lockVersion: JsonField<Long>) = apply { this.lockVersion = lockVersion }
+
+            /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
             /**
              * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to lock on the account’s
              * pending balance. If any of these conditions would be false after the transaction is
              * created, the entire call will fail with error code 422.
              */
-            fun pendingBalanceAmount(pendingBalanceAmount: PendingBalanceAmount?) = apply {
-                this.pendingBalanceAmount = pendingBalanceAmount
-            }
+            fun pendingBalanceAmount(pendingBalanceAmount: PendingBalanceAmount?) =
+                pendingBalanceAmount(JsonField.ofNullable(pendingBalanceAmount))
+
+            /**
+             * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to lock on the account’s
+             * pending balance. If any of these conditions would be false after the transaction is
+             * created, the entire call will fail with error code 422.
+             */
+            fun pendingBalanceAmount(pendingBalanceAmount: JsonField<PendingBalanceAmount>) =
+                apply {
+                    this.pendingBalanceAmount = pendingBalanceAmount
+                }
 
             /**
              * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to lock on the account’s
              * posted balance. If any of these conditions would be false after the transaction is
              * created, the entire call will fail with error code 422.
              */
-            fun postedBalanceAmount(postedBalanceAmount: PostedBalanceAmount?) = apply {
+            fun postedBalanceAmount(postedBalanceAmount: PostedBalanceAmount?) =
+                postedBalanceAmount(JsonField.ofNullable(postedBalanceAmount))
+
+            /**
+             * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to lock on the account’s
+             * posted balance. If any of these conditions would be false after the transaction is
+             * created, the entire call will fail with error code 422.
+             */
+            fun postedBalanceAmount(postedBalanceAmount: JsonField<PostedBalanceAmount>) = apply {
                 this.postedBalanceAmount = postedBalanceAmount
             }
 
@@ -641,9 +997,9 @@ constructor(
              * entry.
              */
             fun showResultingLedgerAccountBalances(showResultingLedgerAccountBalances: Boolean?) =
-                apply {
-                    this.showResultingLedgerAccountBalances = showResultingLedgerAccountBalances
-                }
+                showResultingLedgerAccountBalances(
+                    JsonField.ofNullable(showResultingLedgerAccountBalances)
+                )
 
             /**
              * If true, response will include the balance of the associated ledger account for the
@@ -651,6 +1007,16 @@ constructor(
              */
             fun showResultingLedgerAccountBalances(showResultingLedgerAccountBalances: Boolean) =
                 showResultingLedgerAccountBalances(showResultingLedgerAccountBalances as Boolean?)
+
+            /**
+             * If true, response will include the balance of the associated ledger account for the
+             * entry.
+             */
+            fun showResultingLedgerAccountBalances(
+                showResultingLedgerAccountBalances: JsonField<Boolean>
+            ) = apply {
+                this.showResultingLedgerAccountBalances = showResultingLedgerAccountBalances
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -704,6 +1070,14 @@ constructor(
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): AvailableBalanceAmount = apply {
+                if (!validated) {
+                    validated = true
+                }
+            }
 
             fun toBuilder() = Builder().from(this)
 
@@ -780,6 +1154,14 @@ constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+            private var validated: Boolean = false
+
+            fun validate(): Metadata = apply {
+                if (!validated) {
+                    validated = true
+                }
+            }
+
             fun toBuilder() = Builder().from(this)
 
             companion object {
@@ -853,6 +1235,14 @@ constructor(
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): PendingBalanceAmount = apply {
+                if (!validated) {
+                    validated = true
+                }
+            }
 
             fun toBuilder() = Builder().from(this)
 
@@ -929,6 +1319,14 @@ constructor(
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): PostedBalanceAmount = apply {
+                if (!validated) {
+                    validated = true
+                }
+            }
 
             fun toBuilder() = Builder().from(this)
 
@@ -1100,6 +1498,14 @@ constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (!validated) {
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 

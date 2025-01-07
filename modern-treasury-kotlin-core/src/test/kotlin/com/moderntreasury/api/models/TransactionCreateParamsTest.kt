@@ -78,13 +78,19 @@ class TransactionCreateParamsTest {
         val params =
             TransactionCreateParams.builder()
                 .amount(0L)
+                .asOfDate(LocalDate.parse("2019-12-27"))
                 .direction("direction")
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .vendorCode("vendor_code")
+                .vendorCodeType("vendor_code_type")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(0L)
+        assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.direction()).isEqualTo("direction")
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(body.vendorCode()).isEqualTo("vendor_code")
+        assertThat(body.vendorCodeType()).isEqualTo("vendor_code_type")
     }
 }

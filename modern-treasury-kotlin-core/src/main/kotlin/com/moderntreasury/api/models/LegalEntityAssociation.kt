@@ -86,39 +86,49 @@ private constructor(
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The child legal entity. */
-    @JsonProperty("child_legal_entity") @ExcludeMissing fun _childLegalEntity() = childLegalEntity
+    @JsonProperty("child_legal_entity")
+    @ExcludeMissing
+    fun _childLegalEntity(): JsonField<ChildLegalEntity> = childLegalEntity
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+    @JsonProperty("discarded_at")
+    @ExcludeMissing
+    fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /** The child entity's ownership percentage iff they are a beneficial owner. */
     @JsonProperty("ownership_percentage")
     @ExcludeMissing
-    fun _ownershipPercentage() = ownershipPercentage
+    fun _ownershipPercentage(): JsonField<Long> = ownershipPercentage
 
     /** The ID of the parent legal entity. This must be a business or joint legal entity. */
     @JsonProperty("parent_legal_entity_id")
     @ExcludeMissing
-    fun _parentLegalEntityId() = parentLegalEntityId
+    fun _parentLegalEntityId(): JsonField<String> = parentLegalEntityId
 
-    @JsonProperty("relationship_types") @ExcludeMissing fun _relationshipTypes() = relationshipTypes
+    @JsonProperty("relationship_types")
+    @ExcludeMissing
+    fun _relationshipTypes(): JsonField<List<RelationshipType>> = relationshipTypes
 
     /** The job title of the child entity at the parent entity. */
-    @JsonProperty("title") @ExcludeMissing fun _title() = title
+    @JsonProperty("title") @ExcludeMissing fun _title(): JsonField<String> = title
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -152,17 +162,17 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var childLegalEntity: JsonField<ChildLegalEntity> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var ownershipPercentage: JsonField<Long> = JsonMissing.of()
-        private var parentLegalEntityId: JsonField<String> = JsonMissing.of()
-        private var relationshipTypes: JsonField<List<RelationshipType>> = JsonMissing.of()
-        private var title: JsonField<String> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var childLegalEntity: JsonField<ChildLegalEntity>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var discardedAt: JsonField<OffsetDateTime>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var object_: JsonField<String>? = null
+        private var ownershipPercentage: JsonField<Long>? = null
+        private var parentLegalEntityId: JsonField<String>? = null
+        private var relationshipTypes: JsonField<MutableList<RelationshipType>>? = null
+        private var title: JsonField<String>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(legalEntityAssociation: LegalEntityAssociation) = apply {
@@ -174,7 +184,7 @@ private constructor(
             object_ = legalEntityAssociation.object_
             ownershipPercentage = legalEntityAssociation.ownershipPercentage
             parentLegalEntityId = legalEntityAssociation.parentLegalEntityId
-            relationshipTypes = legalEntityAssociation.relationshipTypes
+            relationshipTypes = legalEntityAssociation.relationshipTypes.map { it.toMutableList() }
             title = legalEntityAssociation.title
             updatedAt = legalEntityAssociation.updatedAt
             additionalProperties = legalEntityAssociation.additionalProperties.toMutableMap()
@@ -197,7 +207,8 @@ private constructor(
 
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+        fun discardedAt(discardedAt: OffsetDateTime?) =
+            discardedAt(JsonField.ofNullable(discardedAt))
 
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
@@ -220,8 +231,12 @@ private constructor(
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /** The child entity's ownership percentage iff they are a beneficial owner. */
+        fun ownershipPercentage(ownershipPercentage: Long?) =
+            ownershipPercentage(JsonField.ofNullable(ownershipPercentage))
+
+        /** The child entity's ownership percentage iff they are a beneficial owner. */
         fun ownershipPercentage(ownershipPercentage: Long) =
-            ownershipPercentage(JsonField.of(ownershipPercentage))
+            ownershipPercentage(ownershipPercentage as Long?)
 
         /** The child entity's ownership percentage iff they are a beneficial owner. */
         fun ownershipPercentage(ownershipPercentage: JsonField<Long>) = apply {
@@ -241,11 +256,22 @@ private constructor(
             relationshipTypes(JsonField.of(relationshipTypes))
 
         fun relationshipTypes(relationshipTypes: JsonField<List<RelationshipType>>) = apply {
-            this.relationshipTypes = relationshipTypes
+            this.relationshipTypes = relationshipTypes.map { it.toMutableList() }
+        }
+
+        fun addRelationshipType(relationshipType: RelationshipType) = apply {
+            relationshipTypes =
+                (relationshipTypes ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(relationshipType)
+                }
         }
 
         /** The job title of the child entity at the parent entity. */
-        fun title(title: String) = title(JsonField.of(title))
+        fun title(title: String?) = title(JsonField.ofNullable(title))
 
         /** The job title of the child entity at the parent entity. */
         fun title(title: JsonField<String>) = apply { this.title = title }
@@ -275,17 +301,24 @@ private constructor(
 
         fun build(): LegalEntityAssociation =
             LegalEntityAssociation(
-                id,
-                childLegalEntity,
-                createdAt,
-                discardedAt,
-                liveMode,
-                object_,
-                ownershipPercentage,
-                parentLegalEntityId,
-                relationshipTypes.map { it.toImmutable() },
-                title,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(childLegalEntity) { "`childLegalEntity` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(ownershipPercentage) {
+                    "`ownershipPercentage` is required but was not set"
+                },
+                checkNotNull(parentLegalEntityId) {
+                    "`parentLegalEntityId` is required but was not set"
+                },
+                checkNotNull(relationshipTypes) {
+                        "`relationshipTypes` is required but was not set"
+                    }
+                    .map { it.toImmutable() },
+                checkNotNull(title) { "`title` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -471,96 +504,127 @@ private constructor(
         /** The entity's primary website URL. */
         fun website(): String? = website.getNullable("website")
 
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
         /** A list of addresses for the entity. */
-        @JsonProperty("addresses") @ExcludeMissing fun _addresses() = addresses
+        @JsonProperty("addresses")
+        @ExcludeMissing
+        fun _addresses(): JsonField<List<LegalEntityAddress>> = addresses
 
-        @JsonProperty("bank_settings") @ExcludeMissing fun _bankSettings() = bankSettings
+        @JsonProperty("bank_settings")
+        @ExcludeMissing
+        fun _bankSettings(): JsonField<BankSettings> = bankSettings
 
         /** The business's legal business name. */
-        @JsonProperty("business_name") @ExcludeMissing fun _businessName() = businessName
+        @JsonProperty("business_name")
+        @ExcludeMissing
+        fun _businessName(): JsonField<String> = businessName
 
         /** The country of citizenship for an individual. */
         @JsonProperty("citizenship_country")
         @ExcludeMissing
-        fun _citizenshipCountry() = citizenshipCountry
+        fun _citizenshipCountry(): JsonField<String> = citizenshipCountry
 
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
         /** A business's formation date (YYYY-MM-DD). */
-        @JsonProperty("date_formed") @ExcludeMissing fun _dateFormed() = dateFormed
+        @JsonProperty("date_formed")
+        @ExcludeMissing
+        fun _dateFormed(): JsonField<LocalDate> = dateFormed
 
         /** An individual's date of birth (YYYY-MM-DD). */
-        @JsonProperty("date_of_birth") @ExcludeMissing fun _dateOfBirth() = dateOfBirth
+        @JsonProperty("date_of_birth")
+        @ExcludeMissing
+        fun _dateOfBirth(): JsonField<LocalDate> = dateOfBirth
 
-        @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+        @JsonProperty("discarded_at")
+        @ExcludeMissing
+        fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
         @JsonProperty("doing_business_as_names")
         @ExcludeMissing
-        fun _doingBusinessAsNames() = doingBusinessAsNames
+        fun _doingBusinessAsNames(): JsonField<List<String>> = doingBusinessAsNames
 
         /** The entity's primary email. */
-        @JsonProperty("email") @ExcludeMissing fun _email() = email
+        @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
 
         /** An individual's first name. */
-        @JsonProperty("first_name") @ExcludeMissing fun _firstName() = firstName
+        @JsonProperty("first_name") @ExcludeMissing fun _firstName(): JsonField<String> = firstName
 
         /** A list of identifications for the legal entity. */
-        @JsonProperty("identifications") @ExcludeMissing fun _identifications() = identifications
+        @JsonProperty("identifications")
+        @ExcludeMissing
+        fun _identifications(): JsonField<List<Identification>> = identifications
 
         /** An individual's last name. */
-        @JsonProperty("last_name") @ExcludeMissing fun _lastName() = lastName
+        @JsonProperty("last_name") @ExcludeMissing fun _lastName(): JsonField<String> = lastName
 
         /** The type of legal entity. */
-        @JsonProperty("legal_entity_type") @ExcludeMissing fun _legalEntityType() = legalEntityType
+        @JsonProperty("legal_entity_type")
+        @ExcludeMissing
+        fun _legalEntityType(): JsonField<LegalEntityType> = legalEntityType
 
         /** The business's legal structure. */
-        @JsonProperty("legal_structure") @ExcludeMissing fun _legalStructure() = legalStructure
+        @JsonProperty("legal_structure")
+        @ExcludeMissing
+        fun _legalStructure(): JsonField<LegalStructure> = legalStructure
 
         /**
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
          */
-        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
         /** An individual's middle name. */
-        @JsonProperty("middle_name") @ExcludeMissing fun _middleName() = middleName
+        @JsonProperty("middle_name")
+        @ExcludeMissing
+        fun _middleName(): JsonField<String> = middleName
 
-        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+        @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-        @JsonProperty("phone_numbers") @ExcludeMissing fun _phoneNumbers() = phoneNumbers
+        @JsonProperty("phone_numbers")
+        @ExcludeMissing
+        fun _phoneNumbers(): JsonField<List<PhoneNumber>> = phoneNumbers
 
         /** Whether the individual is a politically exposed person. */
         @JsonProperty("politically_exposed_person")
         @ExcludeMissing
-        fun _politicallyExposedPerson() = politicallyExposedPerson
+        fun _politicallyExposedPerson(): JsonField<Boolean> = politicallyExposedPerson
 
         /** An individual's preferred name. */
-        @JsonProperty("preferred_name") @ExcludeMissing fun _preferredName() = preferredName
+        @JsonProperty("preferred_name")
+        @ExcludeMissing
+        fun _preferredName(): JsonField<String> = preferredName
 
         /** An individual's prefix. */
-        @JsonProperty("prefix") @ExcludeMissing fun _prefix() = prefix
+        @JsonProperty("prefix") @ExcludeMissing fun _prefix(): JsonField<String> = prefix
 
         /** The risk rating of the legal entity. One of low, medium, high. */
-        @JsonProperty("risk_rating") @ExcludeMissing fun _riskRating() = riskRating
+        @JsonProperty("risk_rating")
+        @ExcludeMissing
+        fun _riskRating(): JsonField<RiskRating> = riskRating
 
         /** An individual's suffix. */
-        @JsonProperty("suffix") @ExcludeMissing fun _suffix() = suffix
+        @JsonProperty("suffix") @ExcludeMissing fun _suffix(): JsonField<String> = suffix
 
-        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
         @JsonProperty("wealth_and_employment_details")
         @ExcludeMissing
-        fun _wealthAndEmploymentDetails() = wealthAndEmploymentDetails
+        fun _wealthAndEmploymentDetails(): JsonField<WealthAndEmploymentDetails> =
+            wealthAndEmploymentDetails
 
         /** The entity's primary website URL. */
-        @JsonProperty("website") @ExcludeMissing fun _website() = website
+        @JsonProperty("website") @ExcludeMissing fun _website(): JsonField<String> = website
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -612,41 +676,40 @@ private constructor(
 
         class Builder {
 
-            private var id: JsonField<String> = JsonMissing.of()
-            private var addresses: JsonField<List<LegalEntityAddress>> = JsonMissing.of()
-            private var bankSettings: JsonField<BankSettings> = JsonMissing.of()
-            private var businessName: JsonField<String> = JsonMissing.of()
-            private var citizenshipCountry: JsonField<String> = JsonMissing.of()
-            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var dateFormed: JsonField<LocalDate> = JsonMissing.of()
-            private var dateOfBirth: JsonField<LocalDate> = JsonMissing.of()
-            private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var doingBusinessAsNames: JsonField<List<String>> = JsonMissing.of()
-            private var email: JsonField<String> = JsonMissing.of()
-            private var firstName: JsonField<String> = JsonMissing.of()
-            private var identifications: JsonField<List<Identification>> = JsonMissing.of()
-            private var lastName: JsonField<String> = JsonMissing.of()
-            private var legalEntityType: JsonField<LegalEntityType> = JsonMissing.of()
-            private var legalStructure: JsonField<LegalStructure> = JsonMissing.of()
-            private var liveMode: JsonField<Boolean> = JsonMissing.of()
-            private var metadata: JsonField<Metadata> = JsonMissing.of()
-            private var middleName: JsonField<String> = JsonMissing.of()
-            private var object_: JsonField<String> = JsonMissing.of()
-            private var phoneNumbers: JsonField<List<PhoneNumber>> = JsonMissing.of()
-            private var politicallyExposedPerson: JsonField<Boolean> = JsonMissing.of()
-            private var preferredName: JsonField<String> = JsonMissing.of()
-            private var prefix: JsonField<String> = JsonMissing.of()
-            private var riskRating: JsonField<RiskRating> = JsonMissing.of()
-            private var suffix: JsonField<String> = JsonMissing.of()
-            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails> =
-                JsonMissing.of()
-            private var website: JsonField<String> = JsonMissing.of()
+            private var id: JsonField<String>? = null
+            private var addresses: JsonField<MutableList<LegalEntityAddress>>? = null
+            private var bankSettings: JsonField<BankSettings>? = null
+            private var businessName: JsonField<String>? = null
+            private var citizenshipCountry: JsonField<String>? = null
+            private var createdAt: JsonField<OffsetDateTime>? = null
+            private var dateFormed: JsonField<LocalDate>? = null
+            private var dateOfBirth: JsonField<LocalDate>? = null
+            private var discardedAt: JsonField<OffsetDateTime>? = null
+            private var doingBusinessAsNames: JsonField<MutableList<String>>? = null
+            private var email: JsonField<String>? = null
+            private var firstName: JsonField<String>? = null
+            private var identifications: JsonField<MutableList<Identification>>? = null
+            private var lastName: JsonField<String>? = null
+            private var legalEntityType: JsonField<LegalEntityType>? = null
+            private var legalStructure: JsonField<LegalStructure>? = null
+            private var liveMode: JsonField<Boolean>? = null
+            private var metadata: JsonField<Metadata>? = null
+            private var middleName: JsonField<String>? = null
+            private var object_: JsonField<String>? = null
+            private var phoneNumbers: JsonField<MutableList<PhoneNumber>>? = null
+            private var politicallyExposedPerson: JsonField<Boolean>? = null
+            private var preferredName: JsonField<String>? = null
+            private var prefix: JsonField<String>? = null
+            private var riskRating: JsonField<RiskRating>? = null
+            private var suffix: JsonField<String>? = null
+            private var updatedAt: JsonField<OffsetDateTime>? = null
+            private var wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails>? = null
+            private var website: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(childLegalEntity: ChildLegalEntity) = apply {
                 id = childLegalEntity.id
-                addresses = childLegalEntity.addresses
+                addresses = childLegalEntity.addresses.map { it.toMutableList() }
                 bankSettings = childLegalEntity.bankSettings
                 businessName = childLegalEntity.businessName
                 citizenshipCountry = childLegalEntity.citizenshipCountry
@@ -654,10 +717,11 @@ private constructor(
                 dateFormed = childLegalEntity.dateFormed
                 dateOfBirth = childLegalEntity.dateOfBirth
                 discardedAt = childLegalEntity.discardedAt
-                doingBusinessAsNames = childLegalEntity.doingBusinessAsNames
+                doingBusinessAsNames =
+                    childLegalEntity.doingBusinessAsNames.map { it.toMutableList() }
                 email = childLegalEntity.email
                 firstName = childLegalEntity.firstName
-                identifications = childLegalEntity.identifications
+                identifications = childLegalEntity.identifications.map { it.toMutableList() }
                 lastName = childLegalEntity.lastName
                 legalEntityType = childLegalEntity.legalEntityType
                 legalStructure = childLegalEntity.legalStructure
@@ -665,7 +729,7 @@ private constructor(
                 metadata = childLegalEntity.metadata
                 middleName = childLegalEntity.middleName
                 object_ = childLegalEntity.object_
-                phoneNumbers = childLegalEntity.phoneNumbers
+                phoneNumbers = childLegalEntity.phoneNumbers.map { it.toMutableList() }
                 politicallyExposedPerson = childLegalEntity.politicallyExposedPerson
                 preferredName = childLegalEntity.preferredName
                 prefix = childLegalEntity.prefix
@@ -686,17 +750,31 @@ private constructor(
 
             /** A list of addresses for the entity. */
             fun addresses(addresses: JsonField<List<LegalEntityAddress>>) = apply {
-                this.addresses = addresses
+                this.addresses = addresses.map { it.toMutableList() }
             }
 
-            fun bankSettings(bankSettings: BankSettings) = bankSettings(JsonField.of(bankSettings))
+            /** A list of addresses for the entity. */
+            fun addAddress(address: LegalEntityAddress) = apply {
+                addresses =
+                    (addresses ?: JsonField.of(mutableListOf())).apply {
+                        (asKnown()
+                                ?: throw IllegalStateException(
+                                    "Field was set to non-list type: ${javaClass.simpleName}"
+                                ))
+                            .add(address)
+                    }
+            }
+
+            fun bankSettings(bankSettings: BankSettings?) =
+                bankSettings(JsonField.ofNullable(bankSettings))
 
             fun bankSettings(bankSettings: JsonField<BankSettings>) = apply {
                 this.bankSettings = bankSettings
             }
 
             /** The business's legal business name. */
-            fun businessName(businessName: String) = businessName(JsonField.of(businessName))
+            fun businessName(businessName: String?) =
+                businessName(JsonField.ofNullable(businessName))
 
             /** The business's legal business name. */
             fun businessName(businessName: JsonField<String>) = apply {
@@ -704,8 +782,8 @@ private constructor(
             }
 
             /** The country of citizenship for an individual. */
-            fun citizenshipCountry(citizenshipCountry: String) =
-                citizenshipCountry(JsonField.of(citizenshipCountry))
+            fun citizenshipCountry(citizenshipCountry: String?) =
+                citizenshipCountry(JsonField.ofNullable(citizenshipCountry))
 
             /** The country of citizenship for an individual. */
             fun citizenshipCountry(citizenshipCountry: JsonField<String>) = apply {
@@ -719,7 +797,7 @@ private constructor(
             }
 
             /** A business's formation date (YYYY-MM-DD). */
-            fun dateFormed(dateFormed: LocalDate) = dateFormed(JsonField.of(dateFormed))
+            fun dateFormed(dateFormed: LocalDate?) = dateFormed(JsonField.ofNullable(dateFormed))
 
             /** A business's formation date (YYYY-MM-DD). */
             fun dateFormed(dateFormed: JsonField<LocalDate>) = apply {
@@ -727,14 +805,16 @@ private constructor(
             }
 
             /** An individual's date of birth (YYYY-MM-DD). */
-            fun dateOfBirth(dateOfBirth: LocalDate) = dateOfBirth(JsonField.of(dateOfBirth))
+            fun dateOfBirth(dateOfBirth: LocalDate?) =
+                dateOfBirth(JsonField.ofNullable(dateOfBirth))
 
             /** An individual's date of birth (YYYY-MM-DD). */
             fun dateOfBirth(dateOfBirth: JsonField<LocalDate>) = apply {
                 this.dateOfBirth = dateOfBirth
             }
 
-            fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+            fun discardedAt(discardedAt: OffsetDateTime?) =
+                discardedAt(JsonField.ofNullable(discardedAt))
 
             fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
                 this.discardedAt = discardedAt
@@ -744,17 +824,28 @@ private constructor(
                 doingBusinessAsNames(JsonField.of(doingBusinessAsNames))
 
             fun doingBusinessAsNames(doingBusinessAsNames: JsonField<List<String>>) = apply {
-                this.doingBusinessAsNames = doingBusinessAsNames
+                this.doingBusinessAsNames = doingBusinessAsNames.map { it.toMutableList() }
+            }
+
+            fun addDoingBusinessAsName(doingBusinessAsName: String) = apply {
+                doingBusinessAsNames =
+                    (doingBusinessAsNames ?: JsonField.of(mutableListOf())).apply {
+                        (asKnown()
+                                ?: throw IllegalStateException(
+                                    "Field was set to non-list type: ${javaClass.simpleName}"
+                                ))
+                            .add(doingBusinessAsName)
+                    }
             }
 
             /** The entity's primary email. */
-            fun email(email: String) = email(JsonField.of(email))
+            fun email(email: String?) = email(JsonField.ofNullable(email))
 
             /** The entity's primary email. */
             fun email(email: JsonField<String>) = apply { this.email = email }
 
             /** An individual's first name. */
-            fun firstName(firstName: String) = firstName(JsonField.of(firstName))
+            fun firstName(firstName: String?) = firstName(JsonField.ofNullable(firstName))
 
             /** An individual's first name. */
             fun firstName(firstName: JsonField<String>) = apply { this.firstName = firstName }
@@ -765,11 +856,23 @@ private constructor(
 
             /** A list of identifications for the legal entity. */
             fun identifications(identifications: JsonField<List<Identification>>) = apply {
-                this.identifications = identifications
+                this.identifications = identifications.map { it.toMutableList() }
+            }
+
+            /** A list of identifications for the legal entity. */
+            fun addIdentification(identification: Identification) = apply {
+                identifications =
+                    (identifications ?: JsonField.of(mutableListOf())).apply {
+                        (asKnown()
+                                ?: throw IllegalStateException(
+                                    "Field was set to non-list type: ${javaClass.simpleName}"
+                                ))
+                            .add(identification)
+                    }
             }
 
             /** An individual's last name. */
-            fun lastName(lastName: String) = lastName(JsonField.of(lastName))
+            fun lastName(lastName: String?) = lastName(JsonField.ofNullable(lastName))
 
             /** An individual's last name. */
             fun lastName(lastName: JsonField<String>) = apply { this.lastName = lastName }
@@ -784,8 +887,8 @@ private constructor(
             }
 
             /** The business's legal structure. */
-            fun legalStructure(legalStructure: LegalStructure) =
-                legalStructure(JsonField.of(legalStructure))
+            fun legalStructure(legalStructure: LegalStructure?) =
+                legalStructure(JsonField.ofNullable(legalStructure))
 
             /** The business's legal structure. */
             fun legalStructure(legalStructure: JsonField<LegalStructure>) = apply {
@@ -817,7 +920,7 @@ private constructor(
             fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
             /** An individual's middle name. */
-            fun middleName(middleName: String) = middleName(JsonField.of(middleName))
+            fun middleName(middleName: String?) = middleName(JsonField.ofNullable(middleName))
 
             /** An individual's middle name. */
             fun middleName(middleName: JsonField<String>) = apply { this.middleName = middleName }
@@ -830,12 +933,27 @@ private constructor(
                 phoneNumbers(JsonField.of(phoneNumbers))
 
             fun phoneNumbers(phoneNumbers: JsonField<List<PhoneNumber>>) = apply {
-                this.phoneNumbers = phoneNumbers
+                this.phoneNumbers = phoneNumbers.map { it.toMutableList() }
+            }
+
+            fun addPhoneNumber(phoneNumber: PhoneNumber) = apply {
+                phoneNumbers =
+                    (phoneNumbers ?: JsonField.of(mutableListOf())).apply {
+                        (asKnown()
+                                ?: throw IllegalStateException(
+                                    "Field was set to non-list type: ${javaClass.simpleName}"
+                                ))
+                            .add(phoneNumber)
+                    }
             }
 
             /** Whether the individual is a politically exposed person. */
+            fun politicallyExposedPerson(politicallyExposedPerson: Boolean?) =
+                politicallyExposedPerson(JsonField.ofNullable(politicallyExposedPerson))
+
+            /** Whether the individual is a politically exposed person. */
             fun politicallyExposedPerson(politicallyExposedPerson: Boolean) =
-                politicallyExposedPerson(JsonField.of(politicallyExposedPerson))
+                politicallyExposedPerson(politicallyExposedPerson as Boolean?)
 
             /** Whether the individual is a politically exposed person. */
             fun politicallyExposedPerson(politicallyExposedPerson: JsonField<Boolean>) = apply {
@@ -843,7 +961,8 @@ private constructor(
             }
 
             /** An individual's preferred name. */
-            fun preferredName(preferredName: String) = preferredName(JsonField.of(preferredName))
+            fun preferredName(preferredName: String?) =
+                preferredName(JsonField.ofNullable(preferredName))
 
             /** An individual's preferred name. */
             fun preferredName(preferredName: JsonField<String>) = apply {
@@ -851,13 +970,13 @@ private constructor(
             }
 
             /** An individual's prefix. */
-            fun prefix(prefix: String) = prefix(JsonField.of(prefix))
+            fun prefix(prefix: String?) = prefix(JsonField.ofNullable(prefix))
 
             /** An individual's prefix. */
             fun prefix(prefix: JsonField<String>) = apply { this.prefix = prefix }
 
             /** The risk rating of the legal entity. One of low, medium, high. */
-            fun riskRating(riskRating: RiskRating) = riskRating(JsonField.of(riskRating))
+            fun riskRating(riskRating: RiskRating?) = riskRating(JsonField.ofNullable(riskRating))
 
             /** The risk rating of the legal entity. One of low, medium, high. */
             fun riskRating(riskRating: JsonField<RiskRating>) = apply {
@@ -865,7 +984,7 @@ private constructor(
             }
 
             /** An individual's suffix. */
-            fun suffix(suffix: String) = suffix(JsonField.of(suffix))
+            fun suffix(suffix: String?) = suffix(JsonField.ofNullable(suffix))
 
             /** An individual's suffix. */
             fun suffix(suffix: JsonField<String>) = apply { this.suffix = suffix }
@@ -876,15 +995,16 @@ private constructor(
                 this.updatedAt = updatedAt
             }
 
-            fun wealthAndEmploymentDetails(wealthAndEmploymentDetails: WealthAndEmploymentDetails) =
-                wealthAndEmploymentDetails(JsonField.of(wealthAndEmploymentDetails))
+            fun wealthAndEmploymentDetails(
+                wealthAndEmploymentDetails: WealthAndEmploymentDetails?
+            ) = wealthAndEmploymentDetails(JsonField.ofNullable(wealthAndEmploymentDetails))
 
             fun wealthAndEmploymentDetails(
                 wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails>
             ) = apply { this.wealthAndEmploymentDetails = wealthAndEmploymentDetails }
 
             /** The entity's primary website URL. */
-            fun website(website: String) = website(JsonField.of(website))
+            fun website(website: String?) = website(JsonField.ofNullable(website))
 
             /** The entity's primary website URL. */
             fun website(website: JsonField<String>) = apply { this.website = website }
@@ -910,35 +1030,51 @@ private constructor(
 
             fun build(): ChildLegalEntity =
                 ChildLegalEntity(
-                    id,
-                    addresses.map { it.toImmutable() },
-                    bankSettings,
-                    businessName,
-                    citizenshipCountry,
-                    createdAt,
-                    dateFormed,
-                    dateOfBirth,
-                    discardedAt,
-                    doingBusinessAsNames.map { it.toImmutable() },
-                    email,
-                    firstName,
-                    identifications.map { it.toImmutable() },
-                    lastName,
-                    legalEntityType,
-                    legalStructure,
-                    liveMode,
-                    metadata,
-                    middleName,
-                    object_,
-                    phoneNumbers.map { it.toImmutable() },
-                    politicallyExposedPerson,
-                    preferredName,
-                    prefix,
-                    riskRating,
-                    suffix,
-                    updatedAt,
-                    wealthAndEmploymentDetails,
-                    website,
+                    checkNotNull(id) { "`id` is required but was not set" },
+                    checkNotNull(addresses) { "`addresses` is required but was not set" }
+                        .map { it.toImmutable() },
+                    checkNotNull(bankSettings) { "`bankSettings` is required but was not set" },
+                    checkNotNull(businessName) { "`businessName` is required but was not set" },
+                    checkNotNull(citizenshipCountry) {
+                        "`citizenshipCountry` is required but was not set"
+                    },
+                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                    checkNotNull(dateFormed) { "`dateFormed` is required but was not set" },
+                    checkNotNull(dateOfBirth) { "`dateOfBirth` is required but was not set" },
+                    checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
+                    checkNotNull(doingBusinessAsNames) {
+                            "`doingBusinessAsNames` is required but was not set"
+                        }
+                        .map { it.toImmutable() },
+                    checkNotNull(email) { "`email` is required but was not set" },
+                    checkNotNull(firstName) { "`firstName` is required but was not set" },
+                    checkNotNull(identifications) {
+                            "`identifications` is required but was not set"
+                        }
+                        .map { it.toImmutable() },
+                    checkNotNull(lastName) { "`lastName` is required but was not set" },
+                    checkNotNull(legalEntityType) {
+                        "`legalEntityType` is required but was not set"
+                    },
+                    checkNotNull(legalStructure) { "`legalStructure` is required but was not set" },
+                    checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                    checkNotNull(metadata) { "`metadata` is required but was not set" },
+                    checkNotNull(middleName) { "`middleName` is required but was not set" },
+                    checkNotNull(object_) { "`object_` is required but was not set" },
+                    checkNotNull(phoneNumbers) { "`phoneNumbers` is required but was not set" }
+                        .map { it.toImmutable() },
+                    checkNotNull(politicallyExposedPerson) {
+                        "`politicallyExposedPerson` is required but was not set"
+                    },
+                    checkNotNull(preferredName) { "`preferredName` is required but was not set" },
+                    checkNotNull(prefix) { "`prefix` is required but was not set" },
+                    checkNotNull(riskRating) { "`riskRating` is required but was not set" },
+                    checkNotNull(suffix) { "`suffix` is required but was not set" },
+                    checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                    checkNotNull(wealthAndEmploymentDetails) {
+                        "`wealthAndEmploymentDetails` is required but was not set"
+                    },
+                    checkNotNull(website) { "`website` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1025,40 +1161,52 @@ private constructor(
 
             fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-            @JsonProperty("id") @ExcludeMissing fun _id() = id
+            @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
             /** The types of this address. */
-            @JsonProperty("address_types") @ExcludeMissing fun _addressTypes() = addressTypes
+            @JsonProperty("address_types")
+            @ExcludeMissing
+            fun _addressTypes(): JsonField<List<AddressType>> = addressTypes
 
             /** Country code conforms to [ISO 3166-1 alpha-2] */
-            @JsonProperty("country") @ExcludeMissing fun _country() = country
+            @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
 
-            @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-            @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+            @JsonProperty("discarded_at")
+            @ExcludeMissing
+            fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
-            @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+            @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
-            @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+            @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
             /**
              * This field will be true if this object exists in the live environment or false if it
              * exists in the test environment.
              */
-            @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+            @JsonProperty("live_mode")
+            @ExcludeMissing
+            fun _liveMode(): JsonField<Boolean> = liveMode
 
             /** Locality or City. */
-            @JsonProperty("locality") @ExcludeMissing fun _locality() = locality
+            @JsonProperty("locality") @ExcludeMissing fun _locality(): JsonField<String> = locality
 
-            @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+            @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
             /** The postal code of the address. */
-            @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            fun _postalCode(): JsonField<String> = postalCode
 
             /** Region or State. */
-            @JsonProperty("region") @ExcludeMissing fun _region() = region
+            @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
 
-            @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+            @JsonProperty("updated_at")
+            @ExcludeMissing
+            fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1094,24 +1242,24 @@ private constructor(
 
             class Builder {
 
-                private var id: JsonField<String> = JsonMissing.of()
-                private var addressTypes: JsonField<List<AddressType>> = JsonMissing.of()
-                private var country: JsonField<String> = JsonMissing.of()
-                private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var line1: JsonField<String> = JsonMissing.of()
-                private var line2: JsonField<String> = JsonMissing.of()
-                private var liveMode: JsonField<Boolean> = JsonMissing.of()
-                private var locality: JsonField<String> = JsonMissing.of()
-                private var object_: JsonField<String> = JsonMissing.of()
-                private var postalCode: JsonField<String> = JsonMissing.of()
-                private var region: JsonField<String> = JsonMissing.of()
-                private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var id: JsonField<String>? = null
+                private var addressTypes: JsonField<MutableList<AddressType>>? = null
+                private var country: JsonField<String>? = null
+                private var createdAt: JsonField<OffsetDateTime>? = null
+                private var discardedAt: JsonField<OffsetDateTime>? = null
+                private var line1: JsonField<String>? = null
+                private var line2: JsonField<String>? = null
+                private var liveMode: JsonField<Boolean>? = null
+                private var locality: JsonField<String>? = null
+                private var object_: JsonField<String>? = null
+                private var postalCode: JsonField<String>? = null
+                private var region: JsonField<String>? = null
+                private var updatedAt: JsonField<OffsetDateTime>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(legalEntityAddress: LegalEntityAddress) = apply {
                     id = legalEntityAddress.id
-                    addressTypes = legalEntityAddress.addressTypes
+                    addressTypes = legalEntityAddress.addressTypes.map { it.toMutableList() }
                     country = legalEntityAddress.country
                     createdAt = legalEntityAddress.createdAt
                     discardedAt = legalEntityAddress.discardedAt
@@ -1136,11 +1284,23 @@ private constructor(
 
                 /** The types of this address. */
                 fun addressTypes(addressTypes: JsonField<List<AddressType>>) = apply {
-                    this.addressTypes = addressTypes
+                    this.addressTypes = addressTypes.map { it.toMutableList() }
+                }
+
+                /** The types of this address. */
+                fun addAddressType(addressType: AddressType) = apply {
+                    addressTypes =
+                        (addressTypes ?: JsonField.of(mutableListOf())).apply {
+                            (asKnown()
+                                    ?: throw IllegalStateException(
+                                        "Field was set to non-list type: ${javaClass.simpleName}"
+                                    ))
+                                .add(addressType)
+                        }
                 }
 
                 /** Country code conforms to [ISO 3166-1 alpha-2] */
-                fun country(country: String) = country(JsonField.of(country))
+                fun country(country: String?) = country(JsonField.ofNullable(country))
 
                 /** Country code conforms to [ISO 3166-1 alpha-2] */
                 fun country(country: JsonField<String>) = apply { this.country = country }
@@ -1151,18 +1311,18 @@ private constructor(
                     this.createdAt = createdAt
                 }
 
-                fun discardedAt(discardedAt: OffsetDateTime) =
-                    discardedAt(JsonField.of(discardedAt))
+                fun discardedAt(discardedAt: OffsetDateTime?) =
+                    discardedAt(JsonField.ofNullable(discardedAt))
 
                 fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
                     this.discardedAt = discardedAt
                 }
 
-                fun line1(line1: String) = line1(JsonField.of(line1))
+                fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
 
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
-                fun line2(line2: String) = line2(JsonField.of(line2))
+                fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
@@ -1179,7 +1339,7 @@ private constructor(
                 fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
                 /** Locality or City. */
-                fun locality(locality: String) = locality(JsonField.of(locality))
+                fun locality(locality: String?) = locality(JsonField.ofNullable(locality))
 
                 /** Locality or City. */
                 fun locality(locality: JsonField<String>) = apply { this.locality = locality }
@@ -1189,7 +1349,7 @@ private constructor(
                 fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
                 /** The postal code of the address. */
-                fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
+                fun postalCode(postalCode: String?) = postalCode(JsonField.ofNullable(postalCode))
 
                 /** The postal code of the address. */
                 fun postalCode(postalCode: JsonField<String>) = apply {
@@ -1197,7 +1357,7 @@ private constructor(
                 }
 
                 /** Region or State. */
-                fun region(region: String) = region(JsonField.of(region))
+                fun region(region: String?) = region(JsonField.ofNullable(region))
 
                 /** Region or State. */
                 fun region(region: JsonField<String>) = apply { this.region = region }
@@ -1232,19 +1392,20 @@ private constructor(
 
                 fun build(): LegalEntityAddress =
                     LegalEntityAddress(
-                        id,
-                        addressTypes.map { it.toImmutable() },
-                        country,
-                        createdAt,
-                        discardedAt,
-                        line1,
-                        line2,
-                        liveMode,
-                        locality,
-                        object_,
-                        postalCode,
-                        region,
-                        updatedAt,
+                        checkNotNull(id) { "`id` is required but was not set" },
+                        checkNotNull(addressTypes) { "`addressTypes` is required but was not set" }
+                            .map { it.toImmutable() },
+                        checkNotNull(country) { "`country` is required but was not set" },
+                        checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                        checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
+                        checkNotNull(line1) { "`line1` is required but was not set" },
+                        checkNotNull(line2) { "`line2` is required but was not set" },
+                        checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                        checkNotNull(locality) { "`locality` is required but was not set" },
+                        checkNotNull(object_) { "`object_` is required but was not set" },
+                        checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                        checkNotNull(region) { "`region` is required but was not set" },
+                        checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -1397,27 +1558,37 @@ private constructor(
 
             fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-            @JsonProperty("id") @ExcludeMissing fun _id() = id
+            @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-            @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-            @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+            @JsonProperty("discarded_at")
+            @ExcludeMissing
+            fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
             /** The type of ID number. */
-            @JsonProperty("id_type") @ExcludeMissing fun _idType() = idType
+            @JsonProperty("id_type") @ExcludeMissing fun _idType(): JsonField<IdType> = idType
 
             /** The ISO 3166-1 alpha-2 country code of the country that issued the identification */
-            @JsonProperty("issuing_country") @ExcludeMissing fun _issuingCountry() = issuingCountry
+            @JsonProperty("issuing_country")
+            @ExcludeMissing
+            fun _issuingCountry(): JsonField<String> = issuingCountry
 
             /**
              * This field will be true if this object exists in the live environment or false if it
              * exists in the test environment.
              */
-            @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+            @JsonProperty("live_mode")
+            @ExcludeMissing
+            fun _liveMode(): JsonField<Boolean> = liveMode
 
-            @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+            @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-            @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+            @JsonProperty("updated_at")
+            @ExcludeMissing
+            fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1448,14 +1619,14 @@ private constructor(
 
             class Builder {
 
-                private var id: JsonField<String> = JsonMissing.of()
-                private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var idType: JsonField<IdType> = JsonMissing.of()
-                private var issuingCountry: JsonField<String> = JsonMissing.of()
-                private var liveMode: JsonField<Boolean> = JsonMissing.of()
-                private var object_: JsonField<String> = JsonMissing.of()
-                private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var id: JsonField<String>? = null
+                private var createdAt: JsonField<OffsetDateTime>? = null
+                private var discardedAt: JsonField<OffsetDateTime>? = null
+                private var idType: JsonField<IdType>? = null
+                private var issuingCountry: JsonField<String>? = null
+                private var liveMode: JsonField<Boolean>? = null
+                private var object_: JsonField<String>? = null
+                private var updatedAt: JsonField<OffsetDateTime>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(identification: Identification) = apply {
@@ -1480,8 +1651,8 @@ private constructor(
                     this.createdAt = createdAt
                 }
 
-                fun discardedAt(discardedAt: OffsetDateTime) =
-                    discardedAt(JsonField.of(discardedAt))
+                fun discardedAt(discardedAt: OffsetDateTime?) =
+                    discardedAt(JsonField.ofNullable(discardedAt))
 
                 fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
                     this.discardedAt = discardedAt
@@ -1496,8 +1667,8 @@ private constructor(
                 /**
                  * The ISO 3166-1 alpha-2 country code of the country that issued the identification
                  */
-                fun issuingCountry(issuingCountry: String) =
-                    issuingCountry(JsonField.of(issuingCountry))
+                fun issuingCountry(issuingCountry: String?) =
+                    issuingCountry(JsonField.ofNullable(issuingCountry))
 
                 /**
                  * The ISO 3166-1 alpha-2 country code of the country that issued the identification
@@ -1552,14 +1723,16 @@ private constructor(
 
                 fun build(): Identification =
                     Identification(
-                        id,
-                        createdAt,
-                        discardedAt,
-                        idType,
-                        issuingCountry,
-                        liveMode,
-                        object_,
-                        updatedAt,
+                        checkNotNull(id) { "`id` is required but was not set" },
+                        checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                        checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
+                        checkNotNull(idType) { "`idType` is required but was not set" },
+                        checkNotNull(issuingCountry) {
+                            "`issuingCountry` is required but was not set"
+                        },
+                        checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                        checkNotNull(object_) { "`object_` is required but was not set" },
+                        checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -1993,7 +2166,9 @@ private constructor(
 
             fun phoneNumber(): String? = phoneNumber.getNullable("phone_number")
 
-            @JsonProperty("phone_number") @ExcludeMissing fun _phoneNumber() = phoneNumber
+            @JsonProperty("phone_number")
+            @ExcludeMissing
+            fun _phoneNumber(): JsonField<String> = phoneNumber
 
             @JsonAnyGetter
             @ExcludeMissing

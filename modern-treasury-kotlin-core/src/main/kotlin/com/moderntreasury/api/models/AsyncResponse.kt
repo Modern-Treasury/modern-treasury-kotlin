@@ -30,9 +30,9 @@ private constructor(
 
     fun object_(): String = object_.getRequired("object")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -57,8 +57,8 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var object_: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(asyncResponse: AsyncResponse) = apply {
@@ -96,8 +96,8 @@ private constructor(
 
         fun build(): AsyncResponse =
             AsyncResponse(
-                id,
-                object_,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

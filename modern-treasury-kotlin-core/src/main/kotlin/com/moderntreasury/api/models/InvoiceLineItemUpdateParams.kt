@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.ExcludeMissing
+import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -62,11 +64,44 @@ constructor(
      */
     fun unitAmountDecimal(): String? = body.unitAmountDecimal()
 
+    /** An optional free-form description of the line item. */
+    fun _description(): JsonField<String> = body._description()
+
+    /**
+     * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
+     * increases the invoice's `total_amount` due. `credit` has the opposite intention and effect.
+     */
+    fun _direction(): JsonField<String> = body._direction()
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun _metadata(): JsonField<Metadata> = body._metadata()
+
+    /** The name of the line item, typically a product or SKU name. */
+    fun _name(): JsonField<String> = body._name()
+
+    /**
+     * The number of units of a product or service that this line item is for. Must be a whole
+     * number. Defaults to 1 if not provided.
+     */
+    fun _quantity(): JsonField<Long> = body._quantity()
+
+    /**
+     * The cost per unit of the product or service that this line item is for, specified in the
+     * invoice currency's smallest unit.
+     */
+    fun _unitAmount(): JsonField<Long> = body._unitAmount()
+
+    /**
+     * The cost per unit of the product or service that this line item is for, specified in the
+     * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+     */
+    fun _unitAmountDecimal(): JsonField<String> = body._unitAmountDecimal()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): InvoiceLineItemUpdateBody = body
 
@@ -86,56 +121,125 @@ constructor(
     class InvoiceLineItemUpdateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("description") private val description: String?,
-        @JsonProperty("direction") private val direction: String?,
-        @JsonProperty("metadata") private val metadata: Metadata?,
-        @JsonProperty("name") private val name: String?,
-        @JsonProperty("quantity") private val quantity: Long?,
-        @JsonProperty("unit_amount") private val unitAmount: Long?,
-        @JsonProperty("unit_amount_decimal") private val unitAmountDecimal: String?,
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("direction")
+        @ExcludeMissing
+        private val direction: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        private val metadata: JsonField<Metadata> = JsonMissing.of(),
+        @JsonProperty("name")
+        @ExcludeMissing
+        private val name: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("quantity")
+        @ExcludeMissing
+        private val quantity: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("unit_amount")
+        @ExcludeMissing
+        private val unitAmount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("unit_amount_decimal")
+        @ExcludeMissing
+        private val unitAmountDecimal: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** An optional free-form description of the line item. */
-        @JsonProperty("description") fun description(): String? = description
+        fun description(): String? = description.getNullable("description")
 
         /**
          * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
          * increases the invoice's `total_amount` due. `credit` has the opposite intention and
          * effect.
          */
-        @JsonProperty("direction") fun direction(): String? = direction
+        fun direction(): String? = direction.getNullable("direction")
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
 
         /** The name of the line item, typically a product or SKU name. */
-        @JsonProperty("name") fun name(): String? = name
+        fun name(): String? = name.getNullable("name")
 
         /**
          * The number of units of a product or service that this line item is for. Must be a whole
          * number. Defaults to 1 if not provided.
          */
-        @JsonProperty("quantity") fun quantity(): Long? = quantity
+        fun quantity(): Long? = quantity.getNullable("quantity")
 
         /**
          * The cost per unit of the product or service that this line item is for, specified in the
          * invoice currency's smallest unit.
          */
-        @JsonProperty("unit_amount") fun unitAmount(): Long? = unitAmount
+        fun unitAmount(): Long? = unitAmount.getNullable("unit_amount")
 
         /**
          * The cost per unit of the product or service that this line item is for, specified in the
          * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
          */
-        @JsonProperty("unit_amount_decimal") fun unitAmountDecimal(): String? = unitAmountDecimal
+        fun unitAmountDecimal(): String? = unitAmountDecimal.getNullable("unit_amount_decimal")
+
+        /** An optional free-form description of the line item. */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
+
+        /**
+         * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
+         * increases the invoice's `total_amount` due. `credit` has the opposite intention and
+         * effect.
+         */
+        @JsonProperty("direction") @ExcludeMissing fun _direction(): JsonField<String> = direction
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+
+        /** The name of the line item, typically a product or SKU name. */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /**
+         * The number of units of a product or service that this line item is for. Must be a whole
+         * number. Defaults to 1 if not provided.
+         */
+        @JsonProperty("quantity") @ExcludeMissing fun _quantity(): JsonField<Long> = quantity
+
+        /**
+         * The cost per unit of the product or service that this line item is for, specified in the
+         * invoice currency's smallest unit.
+         */
+        @JsonProperty("unit_amount") @ExcludeMissing fun _unitAmount(): JsonField<Long> = unitAmount
+
+        /**
+         * The cost per unit of the product or service that this line item is for, specified in the
+         * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+         */
+        @JsonProperty("unit_amount_decimal")
+        @ExcludeMissing
+        fun _unitAmountDecimal(): JsonField<String> = unitAmountDecimal
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): InvoiceLineItemUpdateBody = apply {
+            if (!validated) {
+                description()
+                direction()
+                metadata()?.validate()
+                name()
+                quantity()
+                unitAmount()
+                unitAmountDecimal()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -146,13 +250,13 @@ constructor(
 
         class Builder {
 
-            private var description: String? = null
-            private var direction: String? = null
-            private var metadata: Metadata? = null
-            private var name: String? = null
-            private var quantity: Long? = null
-            private var unitAmount: Long? = null
-            private var unitAmountDecimal: String? = null
+            private var description: JsonField<String> = JsonMissing.of()
+            private var direction: JsonField<String> = JsonMissing.of()
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var name: JsonField<String> = JsonMissing.of()
+            private var quantity: JsonField<Long> = JsonMissing.of()
+            private var unitAmount: JsonField<Long> = JsonMissing.of()
+            private var unitAmountDecimal: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(invoiceLineItemUpdateBody: InvoiceLineItemUpdateBody) = apply {
@@ -167,53 +271,81 @@ constructor(
             }
 
             /** An optional free-form description of the line item. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = description(JsonField.of(description))
+
+            /** An optional free-form description of the line item. */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
 
             /**
              * Either `debit` or `credit`. `debit` indicates that a client owes the business money
              * and increases the invoice's `total_amount` due. `credit` has the opposite intention
              * and effect.
              */
-            fun direction(direction: String?) = apply { this.direction = direction }
+            fun direction(direction: String) = direction(JsonField.of(direction))
+
+            /**
+             * Either `debit` or `credit`. `debit` indicates that a client owes the business money
+             * and increases the invoice's `total_amount` due. `credit` has the opposite intention
+             * and effect.
+             */
+            fun direction(direction: JsonField<String>) = apply { this.direction = direction }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
             /** The name of the line item, typically a product or SKU name. */
-            fun name(name: String?) = apply { this.name = name }
+            fun name(name: String) = name(JsonField.of(name))
+
+            /** The name of the line item, typically a product or SKU name. */
+            fun name(name: JsonField<String>) = apply { this.name = name }
 
             /**
              * The number of units of a product or service that this line item is for. Must be a
              * whole number. Defaults to 1 if not provided.
              */
-            fun quantity(quantity: Long?) = apply { this.quantity = quantity }
+            fun quantity(quantity: Long) = quantity(JsonField.of(quantity))
 
             /**
              * The number of units of a product or service that this line item is for. Must be a
              * whole number. Defaults to 1 if not provided.
              */
-            fun quantity(quantity: Long) = quantity(quantity as Long?)
+            fun quantity(quantity: JsonField<Long>) = apply { this.quantity = quantity }
 
             /**
              * The cost per unit of the product or service that this line item is for, specified in
              * the invoice currency's smallest unit.
              */
-            fun unitAmount(unitAmount: Long?) = apply { this.unitAmount = unitAmount }
+            fun unitAmount(unitAmount: Long) = unitAmount(JsonField.of(unitAmount))
 
             /**
              * The cost per unit of the product or service that this line item is for, specified in
              * the invoice currency's smallest unit.
              */
-            fun unitAmount(unitAmount: Long) = unitAmount(unitAmount as Long?)
+            fun unitAmount(unitAmount: JsonField<Long>) = apply { this.unitAmount = unitAmount }
 
             /**
              * The cost per unit of the product or service that this line item is for, specified in
              * the invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
              */
-            fun unitAmountDecimal(unitAmountDecimal: String?) = apply {
+            fun unitAmountDecimal(unitAmountDecimal: String) =
+                unitAmountDecimal(JsonField.of(unitAmountDecimal))
+
+            /**
+             * The cost per unit of the product or service that this line item is for, specified in
+             * the invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+             */
+            fun unitAmountDecimal(unitAmountDecimal: JsonField<String>) = apply {
                 this.unitAmountDecimal = unitAmountDecimal
             }
 
@@ -296,53 +428,98 @@ constructor(
         fun id(id: String) = apply { this.id = id }
 
         /** An optional free-form description of the line item. */
-        fun description(description: String?) = apply { body.description(description) }
+        fun description(description: String) = apply { body.description(description) }
+
+        /** An optional free-form description of the line item. */
+        fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /**
          * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
          * increases the invoice's `total_amount` due. `credit` has the opposite intention and
          * effect.
          */
-        fun direction(direction: String?) = apply { body.direction(direction) }
+        fun direction(direction: String) = apply { body.direction(direction) }
+
+        /**
+         * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
+         * increases the invoice's `total_amount` due. `credit` has the opposite intention and
+         * effect.
+         */
+        fun direction(direction: JsonField<String>) = apply { body.direction(direction) }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
         /** The name of the line item, typically a product or SKU name. */
-        fun name(name: String?) = apply { body.name(name) }
+        fun name(name: String) = apply { body.name(name) }
+
+        /** The name of the line item, typically a product or SKU name. */
+        fun name(name: JsonField<String>) = apply { body.name(name) }
 
         /**
          * The number of units of a product or service that this line item is for. Must be a whole
          * number. Defaults to 1 if not provided.
          */
-        fun quantity(quantity: Long?) = apply { body.quantity(quantity) }
+        fun quantity(quantity: Long) = apply { body.quantity(quantity) }
 
         /**
          * The number of units of a product or service that this line item is for. Must be a whole
          * number. Defaults to 1 if not provided.
          */
-        fun quantity(quantity: Long) = quantity(quantity as Long?)
+        fun quantity(quantity: JsonField<Long>) = apply { body.quantity(quantity) }
 
         /**
          * The cost per unit of the product or service that this line item is for, specified in the
          * invoice currency's smallest unit.
          */
-        fun unitAmount(unitAmount: Long?) = apply { body.unitAmount(unitAmount) }
+        fun unitAmount(unitAmount: Long) = apply { body.unitAmount(unitAmount) }
 
         /**
          * The cost per unit of the product or service that this line item is for, specified in the
          * invoice currency's smallest unit.
          */
-        fun unitAmount(unitAmount: Long) = unitAmount(unitAmount as Long?)
+        fun unitAmount(unitAmount: JsonField<Long>) = apply { body.unitAmount(unitAmount) }
 
         /**
          * The cost per unit of the product or service that this line item is for, specified in the
          * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
          */
-        fun unitAmountDecimal(unitAmountDecimal: String?) = apply {
+        fun unitAmountDecimal(unitAmountDecimal: String) = apply {
             body.unitAmountDecimal(unitAmountDecimal)
+        }
+
+        /**
+         * The cost per unit of the product or service that this line item is for, specified in the
+         * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+         */
+        fun unitAmountDecimal(unitAmountDecimal: JsonField<String>) = apply {
+            body.unitAmountDecimal(unitAmountDecimal)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -443,25 +620,6 @@ constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
-
         fun build(): InvoiceLineItemUpdateParams =
             InvoiceLineItemUpdateParams(
                 checkNotNull(invoiceId) { "`invoiceId` is required but was not set" },
@@ -484,6 +642,14 @@ constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (!validated) {
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 

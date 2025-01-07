@@ -1358,8 +1358,9 @@ class CounterpartyCreateParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = CounterpartyCreateParams.builder().build()
+        val params = CounterpartyCreateParams.builder().name("name").build()
         val body = params.getBody()
         assertThat(body).isNotNull
+        assertThat(body.name()).isEqualTo("name")
     }
 }

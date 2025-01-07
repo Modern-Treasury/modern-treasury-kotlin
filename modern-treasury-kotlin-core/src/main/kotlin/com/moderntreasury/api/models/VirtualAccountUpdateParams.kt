@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.ExcludeMissing
+import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -35,11 +37,20 @@ constructor(
 
     fun name(): String? = body.name()
 
+    fun _counterpartyId(): JsonField<String> = body._counterpartyId()
+
+    /** The ledger account that you'd like to link to the virtual account. */
+    fun _ledgerAccountId(): JsonField<String> = body._ledgerAccountId()
+
+    fun _metadata(): JsonField<Metadata> = body._metadata()
+
+    fun _name(): JsonField<String> = body._name()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): VirtualAccountUpdateBody = body
 
@@ -58,26 +69,59 @@ constructor(
     class VirtualAccountUpdateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("counterparty_id") private val counterpartyId: String?,
-        @JsonProperty("ledger_account_id") private val ledgerAccountId: String?,
-        @JsonProperty("metadata") private val metadata: Metadata?,
-        @JsonProperty("name") private val name: String?,
+        @JsonProperty("counterparty_id")
+        @ExcludeMissing
+        private val counterpartyId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("ledger_account_id")
+        @ExcludeMissing
+        private val ledgerAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        private val metadata: JsonField<Metadata> = JsonMissing.of(),
+        @JsonProperty("name")
+        @ExcludeMissing
+        private val name: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        @JsonProperty("counterparty_id") fun counterpartyId(): String? = counterpartyId
+        fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
 
         /** The ledger account that you'd like to link to the virtual account. */
-        @JsonProperty("ledger_account_id") fun ledgerAccountId(): String? = ledgerAccountId
+        fun ledgerAccountId(): String? = ledgerAccountId.getNullable("ledger_account_id")
 
-        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
 
-        @JsonProperty("name") fun name(): String? = name
+        fun name(): String? = name.getNullable("name")
+
+        @JsonProperty("counterparty_id")
+        @ExcludeMissing
+        fun _counterpartyId(): JsonField<String> = counterpartyId
+
+        /** The ledger account that you'd like to link to the virtual account. */
+        @JsonProperty("ledger_account_id")
+        @ExcludeMissing
+        fun _ledgerAccountId(): JsonField<String> = ledgerAccountId
+
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): VirtualAccountUpdateBody = apply {
+            if (!validated) {
+                counterpartyId()
+                ledgerAccountId()
+                metadata()?.validate()
+                name()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -88,10 +132,10 @@ constructor(
 
         class Builder {
 
-            private var counterpartyId: String? = null
-            private var ledgerAccountId: String? = null
-            private var metadata: Metadata? = null
-            private var name: String? = null
+            private var counterpartyId: JsonField<String> = JsonMissing.of()
+            private var ledgerAccountId: JsonField<String> = JsonMissing.of()
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var name: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(virtualAccountUpdateBody: VirtualAccountUpdateBody) = apply {
@@ -102,18 +146,29 @@ constructor(
                 additionalProperties = virtualAccountUpdateBody.additionalProperties.toMutableMap()
             }
 
-            fun counterpartyId(counterpartyId: String?) = apply {
+            fun counterpartyId(counterpartyId: String) =
+                counterpartyId(JsonField.of(counterpartyId))
+
+            fun counterpartyId(counterpartyId: JsonField<String>) = apply {
                 this.counterpartyId = counterpartyId
             }
 
             /** The ledger account that you'd like to link to the virtual account. */
-            fun ledgerAccountId(ledgerAccountId: String?) = apply {
+            fun ledgerAccountId(ledgerAccountId: String) =
+                ledgerAccountId(JsonField.of(ledgerAccountId))
+
+            /** The ledger account that you'd like to link to the virtual account. */
+            fun ledgerAccountId(ledgerAccountId: JsonField<String>) = apply {
                 this.ledgerAccountId = ledgerAccountId
             }
 
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
-            fun name(name: String?) = apply { this.name = name }
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+            fun name(name: String?) = name(JsonField.ofNullable(name))
+
+            fun name(name: JsonField<String>) = apply { this.name = name }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -186,16 +241,48 @@ constructor(
 
         fun id(id: String) = apply { this.id = id }
 
-        fun counterpartyId(counterpartyId: String?) = apply { body.counterpartyId(counterpartyId) }
+        fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
+
+        fun counterpartyId(counterpartyId: JsonField<String>) = apply {
+            body.counterpartyId(counterpartyId)
+        }
 
         /** The ledger account that you'd like to link to the virtual account. */
-        fun ledgerAccountId(ledgerAccountId: String?) = apply {
+        fun ledgerAccountId(ledgerAccountId: String) = apply {
             body.ledgerAccountId(ledgerAccountId)
         }
 
-        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
+        /** The ledger account that you'd like to link to the virtual account. */
+        fun ledgerAccountId(ledgerAccountId: JsonField<String>) = apply {
+            body.ledgerAccountId(ledgerAccountId)
+        }
+
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+
+        fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
         fun name(name: String?) = apply { body.name(name) }
+
+        fun name(name: JsonField<String>) = apply { body.name(name) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -295,25 +382,6 @@ constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
-
         fun build(): VirtualAccountUpdateParams =
             VirtualAccountUpdateParams(
                 checkNotNull(id) { "`id` is required but was not set" },
@@ -334,6 +402,14 @@ constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (!validated) {
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 

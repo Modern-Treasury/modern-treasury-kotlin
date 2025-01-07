@@ -79,12 +79,12 @@ private constructor(
     /** The account number for the bank account. */
     fun accountNumber(): String? = accountNumber.getNullable("account_number")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The last 4 digits of the account_number. */
     @JsonProperty("account_number_safe")
     @ExcludeMissing
-    fun _accountNumberSafe() = accountNumberSafe
+    fun _accountNumberSafe(): JsonField<String> = accountNumberSafe
 
     /**
      * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account number
@@ -92,24 +92,32 @@ private constructor(
      */
     @JsonProperty("account_number_type")
     @ExcludeMissing
-    fun _accountNumberType() = accountNumberType
+    fun _accountNumberType(): JsonField<AccountNumberType> = accountNumberType
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+    @JsonProperty("discarded_at")
+    @ExcludeMissing
+    fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     /** The account number for the bank account. */
-    @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
+    @JsonProperty("account_number")
+    @ExcludeMissing
+    fun _accountNumber(): JsonField<String> = accountNumber
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -141,14 +149,14 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var accountNumberSafe: JsonField<String> = JsonMissing.of()
-        private var accountNumberType: JsonField<AccountNumberType> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var accountNumberSafe: JsonField<String>? = null
+        private var accountNumberType: JsonField<AccountNumberType>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var discardedAt: JsonField<OffsetDateTime>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var object_: JsonField<String>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var accountNumber: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -197,7 +205,8 @@ private constructor(
 
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+        fun discardedAt(discardedAt: OffsetDateTime?) =
+            discardedAt(JsonField.ofNullable(discardedAt))
 
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
@@ -252,14 +261,18 @@ private constructor(
 
         fun build(): AccountDetail =
             AccountDetail(
-                id,
-                accountNumberSafe,
-                accountNumberType,
-                createdAt,
-                discardedAt,
-                liveMode,
-                object_,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(accountNumberSafe) {
+                    "`accountNumberSafe` is required but was not set"
+                },
+                checkNotNull(accountNumberType) {
+                    "`accountNumberType` is required but was not set"
+                },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 accountNumber,
                 additionalProperties.toImmutable(),
             )

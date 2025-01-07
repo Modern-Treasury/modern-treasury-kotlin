@@ -81,33 +81,43 @@ private constructor(
     /** The ID of the legal entity at the vendor. */
     fun vendorId(): String = vendorId.getRequired("vendor_id")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The ID of the connection. */
-    @JsonProperty("connection_id") @ExcludeMissing fun _connectionId() = connectionId
+    @JsonProperty("connection_id")
+    @ExcludeMissing
+    fun _connectionId(): JsonField<String> = connectionId
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+    @JsonProperty("discarded_at")
+    @ExcludeMissing
+    fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
     /** The ID of the legal entity. */
-    @JsonProperty("legal_entity_id") @ExcludeMissing fun _legalEntityId() = legalEntityId
+    @JsonProperty("legal_entity_id")
+    @ExcludeMissing
+    fun _legalEntityId(): JsonField<String> = legalEntityId
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /** The status of the connection legal entity. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     /** The ID of the legal entity at the vendor. */
-    @JsonProperty("vendor_id") @ExcludeMissing fun _vendorId() = vendorId
+    @JsonProperty("vendor_id") @ExcludeMissing fun _vendorId(): JsonField<String> = vendorId
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -140,16 +150,16 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var connectionId: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var legalEntityId: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var vendorId: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var connectionId: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var discardedAt: JsonField<OffsetDateTime>? = null
+        private var legalEntityId: JsonField<String>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var object_: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
+        private var vendorId: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(connectionLegalEntity: ConnectionLegalEntity) = apply {
@@ -182,7 +192,8 @@ private constructor(
 
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+        fun discardedAt(discardedAt: OffsetDateTime?) =
+            discardedAt(JsonField.ofNullable(discardedAt))
 
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
@@ -249,16 +260,16 @@ private constructor(
 
         fun build(): ConnectionLegalEntity =
             ConnectionLegalEntity(
-                id,
-                connectionId,
-                createdAt,
-                discardedAt,
-                legalEntityId,
-                liveMode,
-                object_,
-                status,
-                updatedAt,
-                vendorId,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(connectionId) { "`connectionId` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
+                checkNotNull(legalEntityId) { "`legalEntityId` is required but was not set" },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkNotNull(vendorId) { "`vendorId` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

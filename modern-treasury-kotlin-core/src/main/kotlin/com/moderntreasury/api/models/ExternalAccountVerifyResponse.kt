@@ -234,41 +234,47 @@ private constructor(
 
         fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
         /** The ID of the external account. */
         @JsonProperty("external_account_id")
         @ExcludeMissing
-        fun _externalAccountId() = externalAccountId
+        fun _externalAccountId(): JsonField<String> = externalAccountId
 
         /**
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
          */
-        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+        @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
         /** The ID of the internal account where the micro-deposits originate from. */
         @JsonProperty("originating_account_id")
         @ExcludeMissing
-        fun _originatingAccountId() = originatingAccountId
+        fun _originatingAccountId(): JsonField<String> = originatingAccountId
 
         /** The type of payment that can be made to this account. Can be `ach`, `eft`, or `rtp`. */
-        @JsonProperty("payment_type") @ExcludeMissing fun _paymentType() = paymentType
+        @JsonProperty("payment_type")
+        @ExcludeMissing
+        fun _paymentType(): JsonField<PaymentType> = paymentType
 
         /** The priority of the payment. Can be `normal` or `high`. */
-        @JsonProperty("priority") @ExcludeMissing fun _priority() = priority
+        @JsonProperty("priority") @ExcludeMissing fun _priority(): JsonField<Priority> = priority
 
         /**
          * The status of the verification attempt. Can be `pending_verification`, `verified`,
          * `failed`, or `cancelled`.
          */
-        @JsonProperty("status") @ExcludeMissing fun _status() = status
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
-        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -301,16 +307,16 @@ private constructor(
 
         class Builder {
 
-            private var id: JsonField<String> = JsonMissing.of()
-            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var externalAccountId: JsonField<String> = JsonMissing.of()
-            private var liveMode: JsonField<Boolean> = JsonMissing.of()
-            private var object_: JsonField<String> = JsonMissing.of()
-            private var originatingAccountId: JsonField<String> = JsonMissing.of()
-            private var paymentType: JsonField<PaymentType> = JsonMissing.of()
-            private var priority: JsonField<Priority> = JsonMissing.of()
-            private var status: JsonField<Status> = JsonMissing.of()
-            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var id: JsonField<String>? = null
+            private var createdAt: JsonField<OffsetDateTime>? = null
+            private var externalAccountId: JsonField<String>? = null
+            private var liveMode: JsonField<Boolean>? = null
+            private var object_: JsonField<String>? = null
+            private var originatingAccountId: JsonField<String>? = null
+            private var paymentType: JsonField<PaymentType>? = null
+            private var priority: JsonField<Priority>? = null
+            private var status: JsonField<Status>? = null
+            private var updatedAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
@@ -387,7 +393,7 @@ private constructor(
             }
 
             /** The priority of the payment. Can be `normal` or `high`. */
-            fun priority(priority: Priority) = priority(JsonField.of(priority))
+            fun priority(priority: Priority?) = priority(JsonField.ofNullable(priority))
 
             /** The priority of the payment. Can be `normal` or `high`. */
             fun priority(priority: JsonField<Priority>) = apply { this.priority = priority }
@@ -431,16 +437,20 @@ private constructor(
 
             fun build(): ExternalAccountVerificationAttempt =
                 ExternalAccountVerificationAttempt(
-                    id,
-                    createdAt,
-                    externalAccountId,
-                    liveMode,
-                    object_,
-                    originatingAccountId,
-                    paymentType,
-                    priority,
-                    status,
-                    updatedAt,
+                    checkNotNull(id) { "`id` is required but was not set" },
+                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                    checkNotNull(externalAccountId) {
+                        "`externalAccountId` is required but was not set"
+                    },
+                    checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                    checkNotNull(object_) { "`object_` is required but was not set" },
+                    checkNotNull(originatingAccountId) {
+                        "`originatingAccountId` is required but was not set"
+                    },
+                    checkNotNull(paymentType) { "`paymentType` is required but was not set" },
+                    checkNotNull(priority) { "`priority` is required but was not set" },
+                    checkNotNull(status) { "`status` is required but was not set" },
+                    checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }

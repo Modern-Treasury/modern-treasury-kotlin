@@ -93,33 +93,43 @@ private constructor(
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    @JsonProperty("bank_address") @ExcludeMissing fun _bankAddress() = bankAddress
+    @JsonProperty("bank_address")
+    @ExcludeMissing
+    fun _bankAddress(): JsonField<Address> = bankAddress
 
     /** The name of the bank. */
-    @JsonProperty("bank_name") @ExcludeMissing fun _bankName() = bankName
+    @JsonProperty("bank_name") @ExcludeMissing fun _bankName(): JsonField<String> = bankName
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+    @JsonProperty("discarded_at")
+    @ExcludeMissing
+    fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /**
      * If the routing detail is to be used for a specific payment type this field will be populated,
      * otherwise null.
      */
-    @JsonProperty("payment_type") @ExcludeMissing fun _paymentType() = paymentType
+    @JsonProperty("payment_type")
+    @ExcludeMissing
+    fun _paymentType(): JsonField<PaymentType> = paymentType
 
     /** The routing number of the bank. */
-    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
+    @JsonProperty("routing_number")
+    @ExcludeMissing
+    fun _routingNumber(): JsonField<String> = routingNumber
 
     /**
      * The type of routing number. See
@@ -127,9 +137,11 @@ private constructor(
      */
     @JsonProperty("routing_number_type")
     @ExcludeMissing
-    fun _routingNumberType() = routingNumberType
+    fun _routingNumberType(): JsonField<RoutingNumberType> = routingNumberType
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -163,17 +175,17 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var bankAddress: JsonField<Address> = JsonMissing.of()
-        private var bankName: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var paymentType: JsonField<PaymentType> = JsonMissing.of()
-        private var routingNumber: JsonField<String> = JsonMissing.of()
-        private var routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var bankAddress: JsonField<Address>? = null
+        private var bankName: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var discardedAt: JsonField<OffsetDateTime>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var object_: JsonField<String>? = null
+        private var paymentType: JsonField<PaymentType>? = null
+        private var routingNumber: JsonField<String>? = null
+        private var routingNumberType: JsonField<RoutingNumberType>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(routingDetail: RoutingDetail) = apply {
@@ -195,7 +207,7 @@ private constructor(
 
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun bankAddress(bankAddress: Address) = bankAddress(JsonField.of(bankAddress))
+        fun bankAddress(bankAddress: Address?) = bankAddress(JsonField.ofNullable(bankAddress))
 
         fun bankAddress(bankAddress: JsonField<Address>) = apply { this.bankAddress = bankAddress }
 
@@ -209,7 +221,8 @@ private constructor(
 
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+        fun discardedAt(discardedAt: OffsetDateTime?) =
+            discardedAt(JsonField.ofNullable(discardedAt))
 
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
@@ -235,7 +248,7 @@ private constructor(
          * If the routing detail is to be used for a specific payment type this field will be
          * populated, otherwise null.
          */
-        fun paymentType(paymentType: PaymentType) = paymentType(JsonField.of(paymentType))
+        fun paymentType(paymentType: PaymentType?) = paymentType(JsonField.ofNullable(paymentType))
 
         /**
          * If the routing detail is to be used for a specific payment type this field will be
@@ -295,17 +308,19 @@ private constructor(
 
         fun build(): RoutingDetail =
             RoutingDetail(
-                id,
-                bankAddress,
-                bankName,
-                createdAt,
-                discardedAt,
-                liveMode,
-                object_,
-                paymentType,
-                routingNumber,
-                routingNumberType,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(bankAddress) { "`bankAddress` is required but was not set" },
+                checkNotNull(bankName) { "`bankName` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(paymentType) { "`paymentType` is required but was not set" },
+                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
+                checkNotNull(routingNumberType) {
+                    "`routingNumberType` is required but was not set"
+                },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -379,35 +394,41 @@ private constructor(
 
         fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
         /** Country code conforms to [ISO 3166-1 alpha-2] */
-        @JsonProperty("country") @ExcludeMissing fun _country() = country
+        @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
 
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-        @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+        @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
-        @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+        @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
         /**
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
          */
-        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
         /** Locality or City. */
-        @JsonProperty("locality") @ExcludeMissing fun _locality() = locality
+        @JsonProperty("locality") @ExcludeMissing fun _locality(): JsonField<String> = locality
 
-        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+        @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
         /** The postal code of the address. */
-        @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+        @JsonProperty("postal_code")
+        @ExcludeMissing
+        fun _postalCode(): JsonField<String> = postalCode
 
         /** Region or State. */
-        @JsonProperty("region") @ExcludeMissing fun _region() = region
+        @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
 
-        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -441,17 +462,17 @@ private constructor(
 
         class Builder {
 
-            private var id: JsonField<String> = JsonMissing.of()
-            private var country: JsonField<String> = JsonMissing.of()
-            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var line1: JsonField<String> = JsonMissing.of()
-            private var line2: JsonField<String> = JsonMissing.of()
-            private var liveMode: JsonField<Boolean> = JsonMissing.of()
-            private var locality: JsonField<String> = JsonMissing.of()
-            private var object_: JsonField<String> = JsonMissing.of()
-            private var postalCode: JsonField<String> = JsonMissing.of()
-            private var region: JsonField<String> = JsonMissing.of()
-            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var id: JsonField<String>? = null
+            private var country: JsonField<String>? = null
+            private var createdAt: JsonField<OffsetDateTime>? = null
+            private var line1: JsonField<String>? = null
+            private var line2: JsonField<String>? = null
+            private var liveMode: JsonField<Boolean>? = null
+            private var locality: JsonField<String>? = null
+            private var object_: JsonField<String>? = null
+            private var postalCode: JsonField<String>? = null
+            private var region: JsonField<String>? = null
+            private var updatedAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(address: Address) = apply {
@@ -474,7 +495,7 @@ private constructor(
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             /** Country code conforms to [ISO 3166-1 alpha-2] */
-            fun country(country: String) = country(JsonField.of(country))
+            fun country(country: String?) = country(JsonField.ofNullable(country))
 
             /** Country code conforms to [ISO 3166-1 alpha-2] */
             fun country(country: JsonField<String>) = apply { this.country = country }
@@ -485,11 +506,11 @@ private constructor(
                 this.createdAt = createdAt
             }
 
-            fun line1(line1: String) = line1(JsonField.of(line1))
+            fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
 
             fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
-            fun line2(line2: String) = line2(JsonField.of(line2))
+            fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
             fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
@@ -506,7 +527,7 @@ private constructor(
             fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
             /** Locality or City. */
-            fun locality(locality: String) = locality(JsonField.of(locality))
+            fun locality(locality: String?) = locality(JsonField.ofNullable(locality))
 
             /** Locality or City. */
             fun locality(locality: JsonField<String>) = apply { this.locality = locality }
@@ -516,13 +537,13 @@ private constructor(
             fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
             /** The postal code of the address. */
-            fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
+            fun postalCode(postalCode: String?) = postalCode(JsonField.ofNullable(postalCode))
 
             /** The postal code of the address. */
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
             /** Region or State. */
-            fun region(region: String) = region(JsonField.of(region))
+            fun region(region: String?) = region(JsonField.ofNullable(region))
 
             /** Region or State. */
             fun region(region: JsonField<String>) = apply { this.region = region }
@@ -554,17 +575,17 @@ private constructor(
 
             fun build(): Address =
                 Address(
-                    id,
-                    country,
-                    createdAt,
-                    line1,
-                    line2,
-                    liveMode,
-                    locality,
-                    object_,
-                    postalCode,
-                    region,
-                    updatedAt,
+                    checkNotNull(id) { "`id` is required but was not set" },
+                    checkNotNull(country) { "`country` is required but was not set" },
+                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                    checkNotNull(line1) { "`line1` is required but was not set" },
+                    checkNotNull(line2) { "`line2` is required but was not set" },
+                    checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                    checkNotNull(locality) { "`locality` is required but was not set" },
+                    checkNotNull(object_) { "`object_` is required but was not set" },
+                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                    checkNotNull(region) { "`region` is required but was not set" },
+                    checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }

@@ -135,12 +135,14 @@ private constructor(
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The description of the ledger account statement. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /**
      * The inclusive lower bound of the effective_at timestamp of the ledger entries to be included
@@ -148,7 +150,7 @@ private constructor(
      */
     @JsonProperty("effective_at_lower_bound")
     @ExcludeMissing
-    fun _effectiveAtLowerBound() = effectiveAtLowerBound
+    fun _effectiveAtLowerBound(): JsonField<OffsetDateTime> = effectiveAtLowerBound
 
     /**
      * The exclusive upper bound of the effective_at timestamp of the ledger entries to be included
@@ -156,7 +158,7 @@ private constructor(
      */
     @JsonProperty("effective_at_upper_bound")
     @ExcludeMissing
-    fun _effectiveAtUpperBound() = effectiveAtUpperBound
+    fun _effectiveAtUpperBound(): JsonField<OffsetDateTime> = effectiveAtUpperBound
 
     /**
      * The pending, posted, and available balances for this ledger account at the
@@ -165,37 +167,41 @@ private constructor(
      * available balance is the posted incoming entries minus the sum of the pending and posted
      * outgoing amounts.
      */
-    @JsonProperty("ending_balance") @ExcludeMissing fun _endingBalance() = endingBalance
+    @JsonProperty("ending_balance")
+    @ExcludeMissing
+    fun _endingBalance(): JsonField<LedgerBalances> = endingBalance
 
     /**
      * The id of the ledger account whose ledger entries are queried against, and its balances are
      * computed as a result.
      */
-    @JsonProperty("ledger_account_id") @ExcludeMissing fun _ledgerAccountId() = ledgerAccountId
+    @JsonProperty("ledger_account_id")
+    @ExcludeMissing
+    fun _ledgerAccountId(): JsonField<String> = ledgerAccountId
 
     /** Lock version of the ledger account at the time of statement generation. */
     @JsonProperty("ledger_account_lock_version")
     @ExcludeMissing
-    fun _ledgerAccountLockVersion() = ledgerAccountLockVersion
+    fun _ledgerAccountLockVersion(): JsonField<Long> = ledgerAccountLockVersion
 
     /** The normal balance of the ledger account. */
     @JsonProperty("ledger_account_normal_balance")
     @ExcludeMissing
-    fun _ledgerAccountNormalBalance() = ledgerAccountNormalBalance
+    fun _ledgerAccountNormalBalance(): JsonField<TransactionDirection> = ledgerAccountNormalBalance
 
     /** The id of the ledger that this ledger account statement belongs to. */
-    @JsonProperty("ledger_id") @ExcludeMissing fun _ledgerId() = ledgerId
+    @JsonProperty("ledger_id") @ExcludeMissing fun _ledgerId(): JsonField<String> = ledgerId
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /**
      * The pending, posted, and available balances for this ledger account at the
@@ -204,9 +210,13 @@ private constructor(
      * available balance is the posted incoming entries minus the sum of the pending and posted
      * outgoing amounts.
      */
-    @JsonProperty("starting_balance") @ExcludeMissing fun _startingBalance() = startingBalance
+    @JsonProperty("starting_balance")
+    @ExcludeMissing
+    fun _startingBalance(): JsonField<LedgerBalances> = startingBalance
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -244,21 +254,21 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var effectiveAtLowerBound: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var effectiveAtUpperBound: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var endingBalance: JsonField<LedgerBalances> = JsonMissing.of()
-        private var ledgerAccountId: JsonField<String> = JsonMissing.of()
-        private var ledgerAccountLockVersion: JsonField<Long> = JsonMissing.of()
-        private var ledgerAccountNormalBalance: JsonField<TransactionDirection> = JsonMissing.of()
-        private var ledgerId: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var startingBalance: JsonField<LedgerBalances> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var description: JsonField<String>? = null
+        private var effectiveAtLowerBound: JsonField<OffsetDateTime>? = null
+        private var effectiveAtUpperBound: JsonField<OffsetDateTime>? = null
+        private var endingBalance: JsonField<LedgerBalances>? = null
+        private var ledgerAccountId: JsonField<String>? = null
+        private var ledgerAccountLockVersion: JsonField<Long>? = null
+        private var ledgerAccountNormalBalance: JsonField<TransactionDirection>? = null
+        private var ledgerId: JsonField<String>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var metadata: JsonField<Metadata>? = null
+        private var object_: JsonField<String>? = null
+        private var startingBalance: JsonField<LedgerBalances>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(
@@ -294,7 +304,7 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The description of the ledger account statement. */
-        fun description(description: String) = description(JsonField.of(description))
+        fun description(description: String?) = description(JsonField.ofNullable(description))
 
         /** The description of the ledger account statement. */
         fun description(description: JsonField<String>) = apply { this.description = description }
@@ -461,21 +471,29 @@ private constructor(
 
         fun build(): LedgerAccountStatementRetrieveResponse =
             LedgerAccountStatementRetrieveResponse(
-                id,
-                createdAt,
-                description,
-                effectiveAtLowerBound,
-                effectiveAtUpperBound,
-                endingBalance,
-                ledgerAccountId,
-                ledgerAccountLockVersion,
-                ledgerAccountNormalBalance,
-                ledgerId,
-                liveMode,
-                metadata,
-                object_,
-                startingBalance,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(description) { "`description` is required but was not set" },
+                checkNotNull(effectiveAtLowerBound) {
+                    "`effectiveAtLowerBound` is required but was not set"
+                },
+                checkNotNull(effectiveAtUpperBound) {
+                    "`effectiveAtUpperBound` is required but was not set"
+                },
+                checkNotNull(endingBalance) { "`endingBalance` is required but was not set" },
+                checkNotNull(ledgerAccountId) { "`ledgerAccountId` is required but was not set" },
+                checkNotNull(ledgerAccountLockVersion) {
+                    "`ledgerAccountLockVersion` is required but was not set"
+                },
+                checkNotNull(ledgerAccountNormalBalance) {
+                    "`ledgerAccountNormalBalance` is required but was not set"
+                },
+                checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(metadata) { "`metadata` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(startingBalance) { "`startingBalance` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -524,13 +542,17 @@ private constructor(
          */
         @JsonProperty("available_balance")
         @ExcludeMissing
-        fun _availableBalance() = availableBalance
+        fun _availableBalance(): JsonField<LedgerBalance> = availableBalance
 
         /** The pending_balance is the sum of all pending and posted entries. */
-        @JsonProperty("pending_balance") @ExcludeMissing fun _pendingBalance() = pendingBalance
+        @JsonProperty("pending_balance")
+        @ExcludeMissing
+        fun _pendingBalance(): JsonField<LedgerBalance> = pendingBalance
 
         /** The posted_balance is the sum of all posted entries. */
-        @JsonProperty("posted_balance") @ExcludeMissing fun _postedBalance() = postedBalance
+        @JsonProperty("posted_balance")
+        @ExcludeMissing
+        fun _postedBalance(): JsonField<LedgerBalance> = postedBalance
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -556,9 +578,9 @@ private constructor(
 
         class Builder {
 
-            private var availableBalance: JsonField<LedgerBalance> = JsonMissing.of()
-            private var pendingBalance: JsonField<LedgerBalance> = JsonMissing.of()
-            private var postedBalance: JsonField<LedgerBalance> = JsonMissing.of()
+            private var availableBalance: JsonField<LedgerBalance>? = null
+            private var pendingBalance: JsonField<LedgerBalance>? = null
+            private var postedBalance: JsonField<LedgerBalance>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerBalances: LedgerBalances) = apply {
@@ -624,9 +646,11 @@ private constructor(
 
             fun build(): LedgerBalances =
                 LedgerBalances(
-                    availableBalance,
-                    pendingBalance,
-                    postedBalance,
+                    checkNotNull(availableBalance) {
+                        "`availableBalance` is required but was not set"
+                    },
+                    checkNotNull(pendingBalance) { "`pendingBalance` is required but was not set" },
+                    checkNotNull(postedBalance) { "`postedBalance` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -671,19 +695,19 @@ private constructor(
 
             fun debits(): Long = debits.getRequired("debits")
 
-            @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+            @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
-            @JsonProperty("credits") @ExcludeMissing fun _credits() = credits
+            @JsonProperty("credits") @ExcludeMissing fun _credits(): JsonField<Long> = credits
 
             /** The currency of the ledger account. */
-            @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+            @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<String> = currency
 
             /** The currency exponent of the ledger account. */
             @JsonProperty("currency_exponent")
             @ExcludeMissing
-            fun _currencyExponent() = currencyExponent
+            fun _currencyExponent(): JsonField<Long> = currencyExponent
 
-            @JsonProperty("debits") @ExcludeMissing fun _debits() = debits
+            @JsonProperty("debits") @ExcludeMissing fun _debits(): JsonField<Long> = debits
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -711,11 +735,11 @@ private constructor(
 
             class Builder {
 
-                private var amount: JsonField<Long> = JsonMissing.of()
-                private var credits: JsonField<Long> = JsonMissing.of()
-                private var currency: JsonField<String> = JsonMissing.of()
-                private var currencyExponent: JsonField<Long> = JsonMissing.of()
-                private var debits: JsonField<Long> = JsonMissing.of()
+                private var amount: JsonField<Long>? = null
+                private var credits: JsonField<Long>? = null
+                private var currency: JsonField<String>? = null
+                private var currencyExponent: JsonField<Long>? = null
+                private var debits: JsonField<Long>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(ledgerBalance: LedgerBalance) = apply {
@@ -778,11 +802,13 @@ private constructor(
 
                 fun build(): LedgerBalance =
                     LedgerBalance(
-                        amount,
-                        credits,
-                        currency,
-                        currencyExponent,
-                        debits,
+                        checkNotNull(amount) { "`amount` is required but was not set" },
+                        checkNotNull(credits) { "`credits` is required but was not set" },
+                        checkNotNull(currency) { "`currency` is required but was not set" },
+                        checkNotNull(currencyExponent) {
+                            "`currencyExponent` is required but was not set"
+                        },
+                        checkNotNull(debits) { "`debits` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }

@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.ExcludeMissing
+import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -35,11 +37,23 @@ constructor(
     /** The ID of the parent transaction. */
     fun transactionId(): String = body.transactionId()
 
+    /**
+     * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
+     * specified currency's smallest unit (taken from parent Transaction).
+     */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /** The ID of the reconciled Expected Payment, otherwise `null`. */
+    fun _expectedPaymentId(): JsonField<String> = body._expectedPaymentId()
+
+    /** The ID of the parent transaction. */
+    fun _transactionId(): JsonField<String> = body._transactionId()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): TransactionLineItemCreateBody = body
 
@@ -51,9 +65,15 @@ constructor(
     class TransactionLineItemCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("amount") private val amount: Long,
-        @JsonProperty("expected_payment_id") private val expectedPaymentId: String,
-        @JsonProperty("transaction_id") private val transactionId: String,
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("expected_payment_id")
+        @ExcludeMissing
+        private val expectedPaymentId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        private val transactionId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -62,17 +82,44 @@ constructor(
          * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
          * specified currency's smallest unit (taken from parent Transaction).
          */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
 
         /** The ID of the reconciled Expected Payment, otherwise `null`. */
-        @JsonProperty("expected_payment_id") fun expectedPaymentId(): String = expectedPaymentId
+        fun expectedPaymentId(): String = expectedPaymentId.getRequired("expected_payment_id")
 
         /** The ID of the parent transaction. */
-        @JsonProperty("transaction_id") fun transactionId(): String = transactionId
+        fun transactionId(): String = transactionId.getRequired("transaction_id")
+
+        /**
+         * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
+         * specified currency's smallest unit (taken from parent Transaction).
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /** The ID of the reconciled Expected Payment, otherwise `null`. */
+        @JsonProperty("expected_payment_id")
+        @ExcludeMissing
+        fun _expectedPaymentId(): JsonField<String> = expectedPaymentId
+
+        /** The ID of the parent transaction. */
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        fun _transactionId(): JsonField<String> = transactionId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): TransactionLineItemCreateBody = apply {
+            if (!validated) {
+                amount()
+                expectedPaymentId()
+                transactionId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -83,9 +130,9 @@ constructor(
 
         class Builder {
 
-            private var amount: Long? = null
-            private var expectedPaymentId: String? = null
-            private var transactionId: String? = null
+            private var amount: JsonField<Long>? = null
+            private var expectedPaymentId: JsonField<String>? = null
+            private var transactionId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(transactionLineItemCreateBody: TransactionLineItemCreateBody) =
@@ -101,15 +148,30 @@ constructor(
              * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
              * specified currency's smallest unit (taken from parent Transaction).
              */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
+             * specified currency's smallest unit (taken from parent Transaction).
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The ID of the reconciled Expected Payment, otherwise `null`. */
-            fun expectedPaymentId(expectedPaymentId: String) = apply {
+            fun expectedPaymentId(expectedPaymentId: String) =
+                expectedPaymentId(JsonField.of(expectedPaymentId))
+
+            /** The ID of the reconciled Expected Payment, otherwise `null`. */
+            fun expectedPaymentId(expectedPaymentId: JsonField<String>) = apply {
                 this.expectedPaymentId = expectedPaymentId
             }
 
             /** The ID of the parent transaction. */
-            fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
+            fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+
+            /** The ID of the parent transaction. */
+            fun transactionId(transactionId: JsonField<String>) = apply {
+                this.transactionId = transactionId
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -188,13 +250,48 @@ constructor(
          */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
+        /**
+         * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
+         * specified currency's smallest unit (taken from parent Transaction).
+         */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
         /** The ID of the reconciled Expected Payment, otherwise `null`. */
         fun expectedPaymentId(expectedPaymentId: String) = apply {
             body.expectedPaymentId(expectedPaymentId)
         }
 
+        /** The ID of the reconciled Expected Payment, otherwise `null`. */
+        fun expectedPaymentId(expectedPaymentId: JsonField<String>) = apply {
+            body.expectedPaymentId(expectedPaymentId)
+        }
+
         /** The ID of the parent transaction. */
         fun transactionId(transactionId: String) = apply { body.transactionId(transactionId) }
+
+        /** The ID of the parent transaction. */
+        fun transactionId(transactionId: JsonField<String>) = apply {
+            body.transactionId(transactionId)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -292,25 +389,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): TransactionLineItemCreateParams =
