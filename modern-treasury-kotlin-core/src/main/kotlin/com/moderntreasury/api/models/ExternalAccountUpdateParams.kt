@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -54,11 +55,36 @@ constructor(
     /** Either `individual` or `business`. */
     fun partyType(): PartyType? = body.partyType()
 
+    /** Can be `checking`, `savings` or `other`. */
+    fun _accountType(): JsonField<ExternalAccountType> = body._accountType()
+
+    fun _counterpartyId(): JsonField<String> = body._counterpartyId()
+
+    /**
+     * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
+     * string or `null` as the value.
+     */
+    fun _metadata(): JsonField<Metadata> = body._metadata()
+
+    /**
+     * A nickname for the external account. This is only for internal usage and won't affect any
+     * payments
+     */
+    fun _name(): JsonField<String> = body._name()
+
+    fun _partyAddress(): JsonField<AddressRequest> = body._partyAddress()
+
+    /** If this value isn't provided, it will be inherited from the counterparty's name. */
+    fun _partyName(): JsonField<String> = body._partyName()
+
+    /** Either `individual` or `business`. */
+    fun _partyType(): JsonField<PartyType> = body._partyType()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): ExternalAccountUpdateBody = body
 
@@ -77,45 +103,107 @@ constructor(
     class ExternalAccountUpdateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("account_type") private val accountType: ExternalAccountType?,
-        @JsonProperty("counterparty_id") private val counterpartyId: String?,
-        @JsonProperty("metadata") private val metadata: Metadata?,
-        @JsonProperty("name") private val name: String?,
-        @JsonProperty("party_address") private val partyAddress: AddressRequest?,
-        @JsonProperty("party_name") private val partyName: String?,
-        @JsonProperty("party_type") private val partyType: PartyType?,
+        @JsonProperty("account_type")
+        @ExcludeMissing
+        private val accountType: JsonField<ExternalAccountType> = JsonMissing.of(),
+        @JsonProperty("counterparty_id")
+        @ExcludeMissing
+        private val counterpartyId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        private val metadata: JsonField<Metadata> = JsonMissing.of(),
+        @JsonProperty("name")
+        @ExcludeMissing
+        private val name: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("party_address")
+        @ExcludeMissing
+        private val partyAddress: JsonField<AddressRequest> = JsonMissing.of(),
+        @JsonProperty("party_name")
+        @ExcludeMissing
+        private val partyName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("party_type")
+        @ExcludeMissing
+        private val partyType: JsonField<PartyType> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Can be `checking`, `savings` or `other`. */
-        @JsonProperty("account_type") fun accountType(): ExternalAccountType? = accountType
+        fun accountType(): ExternalAccountType? = accountType.getNullable("account_type")
 
-        @JsonProperty("counterparty_id") fun counterpartyId(): String? = counterpartyId
+        fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
 
         /**
          * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
          * string or `null` as the value.
          */
-        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
 
         /**
          * A nickname for the external account. This is only for internal usage and won't affect any
          * payments
          */
-        @JsonProperty("name") fun name(): String? = name
+        fun name(): String? = name.getNullable("name")
 
-        @JsonProperty("party_address") fun partyAddress(): AddressRequest? = partyAddress
+        fun partyAddress(): AddressRequest? = partyAddress.getNullable("party_address")
 
         /** If this value isn't provided, it will be inherited from the counterparty's name. */
-        @JsonProperty("party_name") fun partyName(): String? = partyName
+        fun partyName(): String? = partyName.getNullable("party_name")
 
         /** Either `individual` or `business`. */
-        @JsonProperty("party_type") fun partyType(): PartyType? = partyType
+        fun partyType(): PartyType? = partyType.getNullable("party_type")
+
+        /** Can be `checking`, `savings` or `other`. */
+        @JsonProperty("account_type")
+        @ExcludeMissing
+        fun _accountType(): JsonField<ExternalAccountType> = accountType
+
+        @JsonProperty("counterparty_id")
+        @ExcludeMissing
+        fun _counterpartyId(): JsonField<String> = counterpartyId
+
+        /**
+         * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
+         * string or `null` as the value.
+         */
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+
+        /**
+         * A nickname for the external account. This is only for internal usage and won't affect any
+         * payments
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        @JsonProperty("party_address")
+        @ExcludeMissing
+        fun _partyAddress(): JsonField<AddressRequest> = partyAddress
+
+        /** If this value isn't provided, it will be inherited from the counterparty's name. */
+        @JsonProperty("party_name") @ExcludeMissing fun _partyName(): JsonField<String> = partyName
+
+        /** Either `individual` or `business`. */
+        @JsonProperty("party_type")
+        @ExcludeMissing
+        fun _partyType(): JsonField<PartyType> = partyType
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): ExternalAccountUpdateBody = apply {
+            if (!validated) {
+                accountType()
+                counterpartyId()
+                metadata()?.validate()
+                name()
+                partyAddress()?.validate()
+                partyName()
+                partyType()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -126,13 +214,13 @@ constructor(
 
         class Builder {
 
-            private var accountType: ExternalAccountType? = null
-            private var counterpartyId: String? = null
-            private var metadata: Metadata? = null
-            private var name: String? = null
-            private var partyAddress: AddressRequest? = null
-            private var partyName: String? = null
-            private var partyType: PartyType? = null
+            private var accountType: JsonField<ExternalAccountType> = JsonMissing.of()
+            private var counterpartyId: JsonField<String> = JsonMissing.of()
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var name: JsonField<String> = JsonMissing.of()
+            private var partyAddress: JsonField<AddressRequest> = JsonMissing.of()
+            private var partyName: JsonField<String> = JsonMissing.of()
+            private var partyType: JsonField<PartyType> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(externalAccountUpdateBody: ExternalAccountUpdateBody) = apply {
@@ -147,11 +235,18 @@ constructor(
             }
 
             /** Can be `checking`, `savings` or `other`. */
-            fun accountType(accountType: ExternalAccountType?) = apply {
+            fun accountType(accountType: ExternalAccountType) =
+                accountType(JsonField.of(accountType))
+
+            /** Can be `checking`, `savings` or `other`. */
+            fun accountType(accountType: JsonField<ExternalAccountType>) = apply {
                 this.accountType = accountType
             }
 
-            fun counterpartyId(counterpartyId: String?) = apply {
+            fun counterpartyId(counterpartyId: String?) =
+                counterpartyId(JsonField.ofNullable(counterpartyId))
+
+            fun counterpartyId(counterpartyId: JsonField<String>) = apply {
                 this.counterpartyId = counterpartyId
             }
 
@@ -159,23 +254,44 @@ constructor(
              * Additional data in the form of key-value pairs. Pairs can be removed by passing an
              * empty string or `null` as the value.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Additional data in the form of key-value pairs. Pairs can be removed by passing an
+             * empty string or `null` as the value.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
             /**
              * A nickname for the external account. This is only for internal usage and won't affect
              * any payments
              */
-            fun name(name: String?) = apply { this.name = name }
+            fun name(name: String?) = name(JsonField.ofNullable(name))
 
-            fun partyAddress(partyAddress: AddressRequest?) = apply {
+            /**
+             * A nickname for the external account. This is only for internal usage and won't affect
+             * any payments
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
+            fun partyAddress(partyAddress: AddressRequest) =
+                partyAddress(JsonField.of(partyAddress))
+
+            fun partyAddress(partyAddress: JsonField<AddressRequest>) = apply {
                 this.partyAddress = partyAddress
             }
 
             /** If this value isn't provided, it will be inherited from the counterparty's name. */
-            fun partyName(partyName: String?) = apply { this.partyName = partyName }
+            fun partyName(partyName: String) = partyName(JsonField.of(partyName))
+
+            /** If this value isn't provided, it will be inherited from the counterparty's name. */
+            fun partyName(partyName: JsonField<String>) = apply { this.partyName = partyName }
 
             /** Either `individual` or `business`. */
-            fun partyType(partyType: PartyType?) = apply { this.partyType = partyType }
+            fun partyType(partyType: PartyType?) = partyType(JsonField.ofNullable(partyType))
+
+            /** Either `individual` or `business`. */
+            fun partyType(partyType: JsonField<PartyType>) = apply { this.partyType = partyType }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -252,15 +368,30 @@ constructor(
         fun id(id: String) = apply { this.id = id }
 
         /** Can be `checking`, `savings` or `other`. */
-        fun accountType(accountType: ExternalAccountType?) = apply { body.accountType(accountType) }
+        fun accountType(accountType: ExternalAccountType) = apply { body.accountType(accountType) }
+
+        /** Can be `checking`, `savings` or `other`. */
+        fun accountType(accountType: JsonField<ExternalAccountType>) = apply {
+            body.accountType(accountType)
+        }
 
         fun counterpartyId(counterpartyId: String?) = apply { body.counterpartyId(counterpartyId) }
+
+        fun counterpartyId(counterpartyId: JsonField<String>) = apply {
+            body.counterpartyId(counterpartyId)
+        }
 
         /**
          * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
          * string or `null` as the value.
          */
-        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+
+        /**
+         * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
+         * string or `null` as the value.
+         */
+        fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
         /**
          * A nickname for the external account. This is only for internal usage and won't affect any
@@ -268,13 +399,48 @@ constructor(
          */
         fun name(name: String?) = apply { body.name(name) }
 
-        fun partyAddress(partyAddress: AddressRequest?) = apply { body.partyAddress(partyAddress) }
+        /**
+         * A nickname for the external account. This is only for internal usage and won't affect any
+         * payments
+         */
+        fun name(name: JsonField<String>) = apply { body.name(name) }
+
+        fun partyAddress(partyAddress: AddressRequest) = apply { body.partyAddress(partyAddress) }
+
+        fun partyAddress(partyAddress: JsonField<AddressRequest>) = apply {
+            body.partyAddress(partyAddress)
+        }
 
         /** If this value isn't provided, it will be inherited from the counterparty's name. */
-        fun partyName(partyName: String?) = apply { body.partyName(partyName) }
+        fun partyName(partyName: String) = apply { body.partyName(partyName) }
+
+        /** If this value isn't provided, it will be inherited from the counterparty's name. */
+        fun partyName(partyName: JsonField<String>) = apply { body.partyName(partyName) }
 
         /** Either `individual` or `business`. */
         fun partyType(partyType: PartyType?) = apply { body.partyType(partyType) }
+
+        /** Either `individual` or `business`. */
+        fun partyType(partyType: JsonField<PartyType>) = apply { body.partyType(partyType) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -374,25 +540,6 @@ constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
-
         fun build(): ExternalAccountUpdateParams =
             ExternalAccountUpdateParams(
                 checkNotNull(id) { "`id` is required but was not set" },
@@ -417,6 +564,14 @@ constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (!validated) {
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -476,35 +631,79 @@ constructor(
     class AddressRequest
     @JsonCreator
     private constructor(
-        @JsonProperty("country") private val country: String?,
-        @JsonProperty("line1") private val line1: String?,
-        @JsonProperty("line2") private val line2: String?,
-        @JsonProperty("locality") private val locality: String?,
-        @JsonProperty("postal_code") private val postalCode: String?,
-        @JsonProperty("region") private val region: String?,
+        @JsonProperty("country")
+        @ExcludeMissing
+        private val country: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("line1")
+        @ExcludeMissing
+        private val line1: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("line2")
+        @ExcludeMissing
+        private val line2: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("locality")
+        @ExcludeMissing
+        private val locality: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("postal_code")
+        @ExcludeMissing
+        private val postalCode: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("region")
+        @ExcludeMissing
+        private val region: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Country code conforms to [ISO 3166-1 alpha-2] */
-        @JsonProperty("country") fun country(): String? = country
+        fun country(): String? = country.getNullable("country")
 
-        @JsonProperty("line1") fun line1(): String? = line1
+        fun line1(): String? = line1.getNullable("line1")
 
-        @JsonProperty("line2") fun line2(): String? = line2
+        fun line2(): String? = line2.getNullable("line2")
 
         /** Locality or City. */
-        @JsonProperty("locality") fun locality(): String? = locality
+        fun locality(): String? = locality.getNullable("locality")
 
         /** The postal code of the address. */
-        @JsonProperty("postal_code") fun postalCode(): String? = postalCode
+        fun postalCode(): String? = postalCode.getNullable("postal_code")
 
         /** Region or State. */
-        @JsonProperty("region") fun region(): String? = region
+        fun region(): String? = region.getNullable("region")
+
+        /** Country code conforms to [ISO 3166-1 alpha-2] */
+        @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
+
+        @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
+
+        @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
+
+        /** Locality or City. */
+        @JsonProperty("locality") @ExcludeMissing fun _locality(): JsonField<String> = locality
+
+        /** The postal code of the address. */
+        @JsonProperty("postal_code")
+        @ExcludeMissing
+        fun _postalCode(): JsonField<String> = postalCode
+
+        /** Region or State. */
+        @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): AddressRequest = apply {
+            if (!validated) {
+                country()
+                line1()
+                line2()
+                locality()
+                postalCode()
+                region()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -515,12 +714,12 @@ constructor(
 
         class Builder {
 
-            private var country: String? = null
-            private var line1: String? = null
-            private var line2: String? = null
-            private var locality: String? = null
-            private var postalCode: String? = null
-            private var region: String? = null
+            private var country: JsonField<String> = JsonMissing.of()
+            private var line1: JsonField<String> = JsonMissing.of()
+            private var line2: JsonField<String> = JsonMissing.of()
+            private var locality: JsonField<String> = JsonMissing.of()
+            private var postalCode: JsonField<String> = JsonMissing.of()
+            private var region: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(addressRequest: AddressRequest) = apply {
@@ -534,20 +733,36 @@ constructor(
             }
 
             /** Country code conforms to [ISO 3166-1 alpha-2] */
-            fun country(country: String?) = apply { this.country = country }
+            fun country(country: String?) = country(JsonField.ofNullable(country))
 
-            fun line1(line1: String?) = apply { this.line1 = line1 }
+            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            fun country(country: JsonField<String>) = apply { this.country = country }
 
-            fun line2(line2: String?) = apply { this.line2 = line2 }
+            fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
+
+            fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+
+            fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
+
+            fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
             /** Locality or City. */
-            fun locality(locality: String?) = apply { this.locality = locality }
+            fun locality(locality: String?) = locality(JsonField.ofNullable(locality))
+
+            /** Locality or City. */
+            fun locality(locality: JsonField<String>) = apply { this.locality = locality }
 
             /** The postal code of the address. */
-            fun postalCode(postalCode: String?) = apply { this.postalCode = postalCode }
+            fun postalCode(postalCode: String?) = postalCode(JsonField.ofNullable(postalCode))
+
+            /** The postal code of the address. */
+            fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
             /** Region or State. */
-            fun region(region: String?) = apply { this.region = region }
+            fun region(region: String?) = region(JsonField.ofNullable(region))
+
+            /** Region or State. */
+            fun region(region: JsonField<String>) = apply { this.region = region }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()

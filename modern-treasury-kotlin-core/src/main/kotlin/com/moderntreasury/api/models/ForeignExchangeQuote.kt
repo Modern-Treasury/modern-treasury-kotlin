@@ -97,15 +97,21 @@ private constructor(
     /** This vendor assigned ID for this quote. */
     fun vendorId(): String? = vendorId.getNullable("vendor_id")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The timestamp until when the quoted rate is valid. */
-    @JsonProperty("effective_at") @ExcludeMissing fun _effectiveAt() = effectiveAt
+    @JsonProperty("effective_at")
+    @ExcludeMissing
+    fun _effectiveAt(): JsonField<OffsetDateTime> = effectiveAt
 
     /** The timestamp until which the quote must be booked by. */
-    @JsonProperty("expires_at") @ExcludeMissing fun _expiresAt() = expiresAt
+    @JsonProperty("expires_at")
+    @ExcludeMissing
+    fun _expiresAt(): JsonField<OffsetDateTime> = expiresAt
 
     /**
      * Either `fixed_to_variable` if the `base_amount` was specified, or `variable_to_fixed` if the
@@ -113,33 +119,35 @@ private constructor(
      */
     @JsonProperty("foreign_exchange_indicator")
     @ExcludeMissing
-    fun _foreignExchangeIndicator() = foreignExchangeIndicator
+    fun _foreignExchangeIndicator(): JsonField<String> = foreignExchangeIndicator
 
     /** The serialized rate information represented by this quote. */
     @JsonProperty("foreign_exchange_rate")
     @ExcludeMissing
-    fun _foreignExchangeRate() = foreignExchangeRate
+    fun _foreignExchangeRate(): JsonField<ForeignExchangeRate> = foreignExchangeRate
 
     /** The ID for the `InternalAccount` this quote is associated with. */
     @JsonProperty("internal_account_id")
     @ExcludeMissing
-    fun _internalAccountId() = internalAccountId
+    fun _internalAccountId(): JsonField<String> = internalAccountId
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     /** This vendor assigned ID for this quote. */
-    @JsonProperty("vendor_id") @ExcludeMissing fun _vendorId() = vendorId
+    @JsonProperty("vendor_id") @ExcludeMissing fun _vendorId(): JsonField<String> = vendorId
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -174,17 +182,17 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var foreignExchangeIndicator: JsonField<String> = JsonMissing.of()
-        private var foreignExchangeRate: JsonField<ForeignExchangeRate> = JsonMissing.of()
-        private var internalAccountId: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var effectiveAt: JsonField<OffsetDateTime>? = null
+        private var expiresAt: JsonField<OffsetDateTime>? = null
+        private var foreignExchangeIndicator: JsonField<String>? = null
+        private var foreignExchangeRate: JsonField<ForeignExchangeRate>? = null
+        private var internalAccountId: JsonField<String>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var metadata: JsonField<Metadata>? = null
+        private var object_: JsonField<String>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var vendorId: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -316,17 +324,23 @@ private constructor(
 
         fun build(): ForeignExchangeQuote =
             ForeignExchangeQuote(
-                id,
-                createdAt,
-                effectiveAt,
-                expiresAt,
-                foreignExchangeIndicator,
-                foreignExchangeRate,
-                internalAccountId,
-                liveMode,
-                metadata,
-                object_,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(effectiveAt) { "`effectiveAt` is required but was not set" },
+                checkNotNull(expiresAt) { "`expiresAt` is required but was not set" },
+                checkNotNull(foreignExchangeIndicator) {
+                    "`foreignExchangeIndicator` is required but was not set"
+                },
+                checkNotNull(foreignExchangeRate) {
+                    "`foreignExchangeRate` is required but was not set"
+                },
+                checkNotNull(internalAccountId) {
+                    "`internalAccountId` is required but was not set"
+                },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(metadata) { "`metadata` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 vendorId,
                 additionalProperties.toImmutable(),
             )
@@ -399,34 +413,42 @@ private constructor(
          * Amount in the lowest denomination of the `base_currency` to convert, often called the
          * "sell" amount.
          */
-        @JsonProperty("base_amount") @ExcludeMissing fun _baseAmount() = baseAmount
+        @JsonProperty("base_amount") @ExcludeMissing fun _baseAmount(): JsonField<Long> = baseAmount
 
         /** Currency to convert, often called the "sell" currency. */
-        @JsonProperty("base_currency") @ExcludeMissing fun _baseCurrency() = baseCurrency
+        @JsonProperty("base_currency")
+        @ExcludeMissing
+        fun _baseCurrency(): JsonField<Currency> = baseCurrency
 
         /**
          * The exponent component of the rate. The decimal is calculated as `value` / (10 ^
          * `exponent`).
          */
-        @JsonProperty("exponent") @ExcludeMissing fun _exponent() = exponent
+        @JsonProperty("exponent") @ExcludeMissing fun _exponent(): JsonField<Long> = exponent
 
         /** A string representation of the rate. */
-        @JsonProperty("rate_string") @ExcludeMissing fun _rateString() = rateString
+        @JsonProperty("rate_string")
+        @ExcludeMissing
+        fun _rateString(): JsonField<String> = rateString
 
         /**
          * Amount in the lowest denomination of the `target_currency`, often called the "buy"
          * amount.
          */
-        @JsonProperty("target_amount") @ExcludeMissing fun _targetAmount() = targetAmount
+        @JsonProperty("target_amount")
+        @ExcludeMissing
+        fun _targetAmount(): JsonField<Long> = targetAmount
 
         /** Currency to convert the `base_currency` to, often called the "buy" currency. */
-        @JsonProperty("target_currency") @ExcludeMissing fun _targetCurrency() = targetCurrency
+        @JsonProperty("target_currency")
+        @ExcludeMissing
+        fun _targetCurrency(): JsonField<Currency> = targetCurrency
 
         /**
          * The whole number component of the rate. The decimal is calculated as `value` / (10 ^
          * `exponent`).
          */
-        @JsonProperty("value") @ExcludeMissing fun _value() = value
+        @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<Long> = value
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -456,13 +478,13 @@ private constructor(
 
         class Builder {
 
-            private var baseAmount: JsonField<Long> = JsonMissing.of()
-            private var baseCurrency: JsonField<Currency> = JsonMissing.of()
-            private var exponent: JsonField<Long> = JsonMissing.of()
-            private var rateString: JsonField<String> = JsonMissing.of()
-            private var targetAmount: JsonField<Long> = JsonMissing.of()
-            private var targetCurrency: JsonField<Currency> = JsonMissing.of()
-            private var value: JsonField<Long> = JsonMissing.of()
+            private var baseAmount: JsonField<Long>? = null
+            private var baseCurrency: JsonField<Currency>? = null
+            private var exponent: JsonField<Long>? = null
+            private var rateString: JsonField<String>? = null
+            private var targetAmount: JsonField<Long>? = null
+            private var targetCurrency: JsonField<Currency>? = null
+            private var value: JsonField<Long>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(foreignExchangeRate: ForeignExchangeRate) = apply {
@@ -570,13 +592,13 @@ private constructor(
 
             fun build(): ForeignExchangeRate =
                 ForeignExchangeRate(
-                    baseAmount,
-                    baseCurrency,
-                    exponent,
-                    rateString,
-                    targetAmount,
-                    targetCurrency,
-                    value,
+                    checkNotNull(baseAmount) { "`baseAmount` is required but was not set" },
+                    checkNotNull(baseCurrency) { "`baseCurrency` is required but was not set" },
+                    checkNotNull(exponent) { "`exponent` is required but was not set" },
+                    checkNotNull(rateString) { "`rateString` is required but was not set" },
+                    checkNotNull(targetAmount) { "`targetAmount` is required but was not set" },
+                    checkNotNull(targetCurrency) { "`targetCurrency` is required but was not set" },
+                    checkNotNull(value) { "`value` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }

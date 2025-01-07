@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -65,11 +66,50 @@ constructor(
     /** An array of routing detail objects. */
     fun routingDetails(): List<RoutingDetailCreateRequest>? = body.routingDetails()
 
+    /** The ID of the internal account that this virtual account is associated with. */
+    fun _internalAccountId(): JsonField<String> = body._internalAccountId()
+
+    /** The name of the virtual account. */
+    fun _name(): JsonField<String> = body._name()
+
+    /** An array of account detail objects. */
+    fun _accountDetails(): JsonField<List<AccountDetailCreateRequest>> = body._accountDetails()
+
+    /** The ID of the counterparty that the virtual account belongs to. */
+    fun _counterpartyId(): JsonField<String> = body._counterpartyId()
+
+    /**
+     * The ID of a credit normal ledger account. When money leaves the virtual account, this ledger
+     * account will be credited. Must be accompanied by a debit_ledger_account_id if present.
+     */
+    fun _creditLedgerAccountId(): JsonField<String> = body._creditLedgerAccountId()
+
+    /**
+     * The ID of a debit normal ledger account. When money enters the virtual account, this ledger
+     * account will be debited. Must be accompanied by a credit_ledger_account_id if present.
+     */
+    fun _debitLedgerAccountId(): JsonField<String> = body._debitLedgerAccountId()
+
+    /** An optional description for internal use. */
+    fun _description(): JsonField<String> = body._description()
+
+    /**
+     * Specifies a ledger account object that will be created with the virtual account. The
+     * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
+     */
+    fun _ledgerAccount(): JsonField<LedgerAccountCreateRequest> = body._ledgerAccount()
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun _metadata(): JsonField<Metadata> = body._metadata()
+
+    /** An array of routing detail objects. */
+    fun _routingDetails(): JsonField<List<RoutingDetailCreateRequest>> = body._routingDetails()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): VirtualAccountCreateBody = body
 
@@ -81,34 +121,105 @@ constructor(
     class VirtualAccountCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("internal_account_id") private val internalAccountId: String,
-        @JsonProperty("name") private val name: String,
+        @JsonProperty("internal_account_id")
+        @ExcludeMissing
+        private val internalAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("name")
+        @ExcludeMissing
+        private val name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("account_details")
-        private val accountDetails: List<AccountDetailCreateRequest>?,
-        @JsonProperty("counterparty_id") private val counterpartyId: String?,
-        @JsonProperty("credit_ledger_account_id") private val creditLedgerAccountId: String?,
-        @JsonProperty("debit_ledger_account_id") private val debitLedgerAccountId: String?,
-        @JsonProperty("description") private val description: String?,
-        @JsonProperty("ledger_account") private val ledgerAccount: LedgerAccountCreateRequest?,
-        @JsonProperty("metadata") private val metadata: Metadata?,
+        @ExcludeMissing
+        private val accountDetails: JsonField<List<AccountDetailCreateRequest>> = JsonMissing.of(),
+        @JsonProperty("counterparty_id")
+        @ExcludeMissing
+        private val counterpartyId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("credit_ledger_account_id")
+        @ExcludeMissing
+        private val creditLedgerAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("debit_ledger_account_id")
+        @ExcludeMissing
+        private val debitLedgerAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("ledger_account")
+        @ExcludeMissing
+        private val ledgerAccount: JsonField<LedgerAccountCreateRequest> = JsonMissing.of(),
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        private val metadata: JsonField<Metadata> = JsonMissing.of(),
         @JsonProperty("routing_details")
-        private val routingDetails: List<RoutingDetailCreateRequest>?,
+        @ExcludeMissing
+        private val routingDetails: JsonField<List<RoutingDetailCreateRequest>> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The ID of the internal account that this virtual account is associated with. */
-        @JsonProperty("internal_account_id") fun internalAccountId(): String = internalAccountId
+        fun internalAccountId(): String = internalAccountId.getRequired("internal_account_id")
 
         /** The name of the virtual account. */
-        @JsonProperty("name") fun name(): String = name
+        fun name(): String = name.getRequired("name")
+
+        /** An array of account detail objects. */
+        fun accountDetails(): List<AccountDetailCreateRequest>? =
+            accountDetails.getNullable("account_details")
+
+        /** The ID of the counterparty that the virtual account belongs to. */
+        fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
+
+        /**
+         * The ID of a credit normal ledger account. When money leaves the virtual account, this
+         * ledger account will be credited. Must be accompanied by a debit_ledger_account_id if
+         * present.
+         */
+        fun creditLedgerAccountId(): String? =
+            creditLedgerAccountId.getNullable("credit_ledger_account_id")
+
+        /**
+         * The ID of a debit normal ledger account. When money enters the virtual account, this
+         * ledger account will be debited. Must be accompanied by a credit_ledger_account_id if
+         * present.
+         */
+        fun debitLedgerAccountId(): String? =
+            debitLedgerAccountId.getNullable("debit_ledger_account_id")
+
+        /** An optional description for internal use. */
+        fun description(): String? = description.getNullable("description")
+
+        /**
+         * Specifies a ledger account object that will be created with the virtual account. The
+         * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
+         */
+        fun ledgerAccount(): LedgerAccountCreateRequest? =
+            ledgerAccount.getNullable("ledger_account")
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
+
+        /** An array of routing detail objects. */
+        fun routingDetails(): List<RoutingDetailCreateRequest>? =
+            routingDetails.getNullable("routing_details")
+
+        /** The ID of the internal account that this virtual account is associated with. */
+        @JsonProperty("internal_account_id")
+        @ExcludeMissing
+        fun _internalAccountId(): JsonField<String> = internalAccountId
+
+        /** The name of the virtual account. */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
         /** An array of account detail objects. */
         @JsonProperty("account_details")
-        fun accountDetails(): List<AccountDetailCreateRequest>? = accountDetails
+        @ExcludeMissing
+        fun _accountDetails(): JsonField<List<AccountDetailCreateRequest>> = accountDetails
 
         /** The ID of the counterparty that the virtual account belongs to. */
-        @JsonProperty("counterparty_id") fun counterpartyId(): String? = counterpartyId
+        @JsonProperty("counterparty_id")
+        @ExcludeMissing
+        fun _counterpartyId(): JsonField<String> = counterpartyId
 
         /**
          * The ID of a credit normal ledger account. When money leaves the virtual account, this
@@ -116,7 +227,8 @@ constructor(
          * present.
          */
         @JsonProperty("credit_ledger_account_id")
-        fun creditLedgerAccountId(): String? = creditLedgerAccountId
+        @ExcludeMissing
+        fun _creditLedgerAccountId(): JsonField<String> = creditLedgerAccountId
 
         /**
          * The ID of a debit normal ledger account. When money enters the virtual account, this
@@ -124,30 +236,53 @@ constructor(
          * present.
          */
         @JsonProperty("debit_ledger_account_id")
-        fun debitLedgerAccountId(): String? = debitLedgerAccountId
+        @ExcludeMissing
+        fun _debitLedgerAccountId(): JsonField<String> = debitLedgerAccountId
 
         /** An optional description for internal use. */
-        @JsonProperty("description") fun description(): String? = description
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
 
         /**
          * Specifies a ledger account object that will be created with the virtual account. The
          * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
          */
         @JsonProperty("ledger_account")
-        fun ledgerAccount(): LedgerAccountCreateRequest? = ledgerAccount
+        @ExcludeMissing
+        fun _ledgerAccount(): JsonField<LedgerAccountCreateRequest> = ledgerAccount
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
         /** An array of routing detail objects. */
         @JsonProperty("routing_details")
-        fun routingDetails(): List<RoutingDetailCreateRequest>? = routingDetails
+        @ExcludeMissing
+        fun _routingDetails(): JsonField<List<RoutingDetailCreateRequest>> = routingDetails
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): VirtualAccountCreateBody = apply {
+            if (!validated) {
+                internalAccountId()
+                name()
+                accountDetails()?.forEach { it.validate() }
+                counterpartyId()
+                creditLedgerAccountId()
+                debitLedgerAccountId()
+                description()
+                ledgerAccount()?.validate()
+                metadata()?.validate()
+                routingDetails()?.forEach { it.validate() }
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -158,52 +293,75 @@ constructor(
 
         class Builder {
 
-            private var internalAccountId: String? = null
-            private var name: String? = null
-            private var accountDetails: MutableList<AccountDetailCreateRequest>? = null
-            private var counterpartyId: String? = null
-            private var creditLedgerAccountId: String? = null
-            private var debitLedgerAccountId: String? = null
-            private var description: String? = null
-            private var ledgerAccount: LedgerAccountCreateRequest? = null
-            private var metadata: Metadata? = null
-            private var routingDetails: MutableList<RoutingDetailCreateRequest>? = null
+            private var internalAccountId: JsonField<String>? = null
+            private var name: JsonField<String>? = null
+            private var accountDetails: JsonField<MutableList<AccountDetailCreateRequest>>? = null
+            private var counterpartyId: JsonField<String> = JsonMissing.of()
+            private var creditLedgerAccountId: JsonField<String> = JsonMissing.of()
+            private var debitLedgerAccountId: JsonField<String> = JsonMissing.of()
+            private var description: JsonField<String> = JsonMissing.of()
+            private var ledgerAccount: JsonField<LedgerAccountCreateRequest> = JsonMissing.of()
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var routingDetails: JsonField<MutableList<RoutingDetailCreateRequest>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(virtualAccountCreateBody: VirtualAccountCreateBody) = apply {
                 internalAccountId = virtualAccountCreateBody.internalAccountId
                 name = virtualAccountCreateBody.name
-                accountDetails = virtualAccountCreateBody.accountDetails?.toMutableList()
+                accountDetails = virtualAccountCreateBody.accountDetails.map { it.toMutableList() }
                 counterpartyId = virtualAccountCreateBody.counterpartyId
                 creditLedgerAccountId = virtualAccountCreateBody.creditLedgerAccountId
                 debitLedgerAccountId = virtualAccountCreateBody.debitLedgerAccountId
                 description = virtualAccountCreateBody.description
                 ledgerAccount = virtualAccountCreateBody.ledgerAccount
                 metadata = virtualAccountCreateBody.metadata
-                routingDetails = virtualAccountCreateBody.routingDetails?.toMutableList()
+                routingDetails = virtualAccountCreateBody.routingDetails.map { it.toMutableList() }
                 additionalProperties = virtualAccountCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The ID of the internal account that this virtual account is associated with. */
-            fun internalAccountId(internalAccountId: String) = apply {
+            fun internalAccountId(internalAccountId: String) =
+                internalAccountId(JsonField.of(internalAccountId))
+
+            /** The ID of the internal account that this virtual account is associated with. */
+            fun internalAccountId(internalAccountId: JsonField<String>) = apply {
                 this.internalAccountId = internalAccountId
             }
 
             /** The name of the virtual account. */
-            fun name(name: String) = apply { this.name = name }
+            fun name(name: String) = name(JsonField.of(name))
+
+            /** The name of the virtual account. */
+            fun name(name: JsonField<String>) = apply { this.name = name }
 
             /** An array of account detail objects. */
-            fun accountDetails(accountDetails: List<AccountDetailCreateRequest>?) = apply {
-                this.accountDetails = accountDetails?.toMutableList()
-            }
+            fun accountDetails(accountDetails: List<AccountDetailCreateRequest>) =
+                accountDetails(JsonField.of(accountDetails))
+
+            /** An array of account detail objects. */
+            fun accountDetails(accountDetails: JsonField<List<AccountDetailCreateRequest>>) =
+                apply {
+                    this.accountDetails = accountDetails.map { it.toMutableList() }
+                }
 
             /** An array of account detail objects. */
             fun addAccountDetail(accountDetail: AccountDetailCreateRequest) = apply {
-                accountDetails = (accountDetails ?: mutableListOf()).apply { add(accountDetail) }
+                accountDetails =
+                    (accountDetails ?: JsonField.of(mutableListOf())).apply {
+                        (asKnown()
+                                ?: throw IllegalStateException(
+                                    "Field was set to non-list type: ${javaClass.simpleName}"
+                                ))
+                            .add(accountDetail)
+                    }
             }
 
             /** The ID of the counterparty that the virtual account belongs to. */
-            fun counterpartyId(counterpartyId: String?) = apply {
+            fun counterpartyId(counterpartyId: String) =
+                counterpartyId(JsonField.of(counterpartyId))
+
+            /** The ID of the counterparty that the virtual account belongs to. */
+            fun counterpartyId(counterpartyId: JsonField<String>) = apply {
                 this.counterpartyId = counterpartyId
             }
 
@@ -212,7 +370,15 @@ constructor(
              * ledger account will be credited. Must be accompanied by a debit_ledger_account_id if
              * present.
              */
-            fun creditLedgerAccountId(creditLedgerAccountId: String?) = apply {
+            fun creditLedgerAccountId(creditLedgerAccountId: String) =
+                creditLedgerAccountId(JsonField.of(creditLedgerAccountId))
+
+            /**
+             * The ID of a credit normal ledger account. When money leaves the virtual account, this
+             * ledger account will be credited. Must be accompanied by a debit_ledger_account_id if
+             * present.
+             */
+            fun creditLedgerAccountId(creditLedgerAccountId: JsonField<String>) = apply {
                 this.creditLedgerAccountId = creditLedgerAccountId
             }
 
@@ -221,18 +387,38 @@ constructor(
              * ledger account will be debited. Must be accompanied by a credit_ledger_account_id if
              * present.
              */
-            fun debitLedgerAccountId(debitLedgerAccountId: String?) = apply {
+            fun debitLedgerAccountId(debitLedgerAccountId: String) =
+                debitLedgerAccountId(JsonField.of(debitLedgerAccountId))
+
+            /**
+             * The ID of a debit normal ledger account. When money enters the virtual account, this
+             * ledger account will be debited. Must be accompanied by a credit_ledger_account_id if
+             * present.
+             */
+            fun debitLedgerAccountId(debitLedgerAccountId: JsonField<String>) = apply {
                 this.debitLedgerAccountId = debitLedgerAccountId
             }
 
             /** An optional description for internal use. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = description(JsonField.of(description))
+
+            /** An optional description for internal use. */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
 
             /**
              * Specifies a ledger account object that will be created with the virtual account. The
              * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
              */
-            fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest?) = apply {
+            fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest) =
+                ledgerAccount(JsonField.of(ledgerAccount))
+
+            /**
+             * Specifies a ledger account object that will be created with the virtual account. The
+             * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
+             */
+            fun ledgerAccount(ledgerAccount: JsonField<LedgerAccountCreateRequest>) = apply {
                 this.ledgerAccount = ledgerAccount
             }
 
@@ -240,16 +426,34 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
             /** An array of routing detail objects. */
-            fun routingDetails(routingDetails: List<RoutingDetailCreateRequest>?) = apply {
-                this.routingDetails = routingDetails?.toMutableList()
-            }
+            fun routingDetails(routingDetails: List<RoutingDetailCreateRequest>) =
+                routingDetails(JsonField.of(routingDetails))
+
+            /** An array of routing detail objects. */
+            fun routingDetails(routingDetails: JsonField<List<RoutingDetailCreateRequest>>) =
+                apply {
+                    this.routingDetails = routingDetails.map { it.toMutableList() }
+                }
 
             /** An array of routing detail objects. */
             fun addRoutingDetail(routingDetail: RoutingDetailCreateRequest) = apply {
-                routingDetails = (routingDetails ?: mutableListOf()).apply { add(routingDetail) }
+                routingDetails =
+                    (routingDetails ?: JsonField.of(mutableListOf())).apply {
+                        (asKnown()
+                                ?: throw IllegalStateException(
+                                    "Field was set to non-list type: ${javaClass.simpleName}"
+                                ))
+                            .add(routingDetail)
+                    }
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -277,14 +481,14 @@ constructor(
                         "`internalAccountId` is required but was not set"
                     },
                     checkNotNull(name) { "`name` is required but was not set" },
-                    accountDetails?.toImmutable(),
+                    (accountDetails ?: JsonMissing.of()).map { it.toImmutable() },
                     counterpartyId,
                     creditLedgerAccountId,
                     debitLedgerAccountId,
                     description,
                     ledgerAccount,
                     metadata,
-                    routingDetails?.toImmutable(),
+                    (routingDetails ?: JsonMissing.of()).map { it.toImmutable() },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -332,11 +536,24 @@ constructor(
             body.internalAccountId(internalAccountId)
         }
 
+        /** The ID of the internal account that this virtual account is associated with. */
+        fun internalAccountId(internalAccountId: JsonField<String>) = apply {
+            body.internalAccountId(internalAccountId)
+        }
+
         /** The name of the virtual account. */
         fun name(name: String) = apply { body.name(name) }
 
+        /** The name of the virtual account. */
+        fun name(name: JsonField<String>) = apply { body.name(name) }
+
         /** An array of account detail objects. */
-        fun accountDetails(accountDetails: List<AccountDetailCreateRequest>?) = apply {
+        fun accountDetails(accountDetails: List<AccountDetailCreateRequest>) = apply {
+            body.accountDetails(accountDetails)
+        }
+
+        /** An array of account detail objects. */
+        fun accountDetails(accountDetails: JsonField<List<AccountDetailCreateRequest>>) = apply {
             body.accountDetails(accountDetails)
         }
 
@@ -346,14 +563,28 @@ constructor(
         }
 
         /** The ID of the counterparty that the virtual account belongs to. */
-        fun counterpartyId(counterpartyId: String?) = apply { body.counterpartyId(counterpartyId) }
+        fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
+
+        /** The ID of the counterparty that the virtual account belongs to. */
+        fun counterpartyId(counterpartyId: JsonField<String>) = apply {
+            body.counterpartyId(counterpartyId)
+        }
 
         /**
          * The ID of a credit normal ledger account. When money leaves the virtual account, this
          * ledger account will be credited. Must be accompanied by a debit_ledger_account_id if
          * present.
          */
-        fun creditLedgerAccountId(creditLedgerAccountId: String?) = apply {
+        fun creditLedgerAccountId(creditLedgerAccountId: String) = apply {
+            body.creditLedgerAccountId(creditLedgerAccountId)
+        }
+
+        /**
+         * The ID of a credit normal ledger account. When money leaves the virtual account, this
+         * ledger account will be credited. Must be accompanied by a debit_ledger_account_id if
+         * present.
+         */
+        fun creditLedgerAccountId(creditLedgerAccountId: JsonField<String>) = apply {
             body.creditLedgerAccountId(creditLedgerAccountId)
         }
 
@@ -362,34 +593,83 @@ constructor(
          * ledger account will be debited. Must be accompanied by a credit_ledger_account_id if
          * present.
          */
-        fun debitLedgerAccountId(debitLedgerAccountId: String?) = apply {
+        fun debitLedgerAccountId(debitLedgerAccountId: String) = apply {
+            body.debitLedgerAccountId(debitLedgerAccountId)
+        }
+
+        /**
+         * The ID of a debit normal ledger account. When money enters the virtual account, this
+         * ledger account will be debited. Must be accompanied by a credit_ledger_account_id if
+         * present.
+         */
+        fun debitLedgerAccountId(debitLedgerAccountId: JsonField<String>) = apply {
             body.debitLedgerAccountId(debitLedgerAccountId)
         }
 
         /** An optional description for internal use. */
-        fun description(description: String?) = apply { body.description(description) }
+        fun description(description: String) = apply { body.description(description) }
+
+        /** An optional description for internal use. */
+        fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /**
          * Specifies a ledger account object that will be created with the virtual account. The
          * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
          */
-        fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest?) = apply {
+        fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest) = apply {
+            body.ledgerAccount(ledgerAccount)
+        }
+
+        /**
+         * Specifies a ledger account object that will be created with the virtual account. The
+         * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
+         */
+        fun ledgerAccount(ledgerAccount: JsonField<LedgerAccountCreateRequest>) = apply {
             body.ledgerAccount(ledgerAccount)
         }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
         /** An array of routing detail objects. */
-        fun routingDetails(routingDetails: List<RoutingDetailCreateRequest>?) = apply {
+        fun routingDetails(routingDetails: List<RoutingDetailCreateRequest>) = apply {
+            body.routingDetails(routingDetails)
+        }
+
+        /** An array of routing detail objects. */
+        fun routingDetails(routingDetails: JsonField<List<RoutingDetailCreateRequest>>) = apply {
             body.routingDetails(routingDetails)
         }
 
         /** An array of routing detail objects. */
         fun addRoutingDetail(routingDetail: RoutingDetailCreateRequest) = apply {
             body.addRoutingDetail(routingDetail)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -490,25 +770,6 @@ constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
-
         fun build(): VirtualAccountCreateParams =
             VirtualAccountCreateParams(
                 body.build(),
@@ -521,25 +782,52 @@ constructor(
     class AccountDetailCreateRequest
     @JsonCreator
     private constructor(
-        @JsonProperty("account_number") private val accountNumber: String,
-        @JsonProperty("account_number_type") private val accountNumberType: AccountNumberType?,
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        private val accountNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_number_type")
+        @ExcludeMissing
+        private val accountNumberType: JsonField<AccountNumberType> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The account number for the bank account. */
-        @JsonProperty("account_number") fun accountNumber(): String = accountNumber
+        fun accountNumber(): String = accountNumber.getRequired("account_number")
+
+        /**
+         * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
+         * number is in a generic format.
+         */
+        fun accountNumberType(): AccountNumberType? =
+            accountNumberType.getNullable("account_number_type")
+
+        /** The account number for the bank account. */
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        fun _accountNumber(): JsonField<String> = accountNumber
 
         /**
          * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
          * number is in a generic format.
          */
         @JsonProperty("account_number_type")
-        fun accountNumberType(): AccountNumberType? = accountNumberType
+        @ExcludeMissing
+        fun _accountNumberType(): JsonField<AccountNumberType> = accountNumberType
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): AccountDetailCreateRequest = apply {
+            if (!validated) {
+                accountNumber()
+                accountNumberType()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -550,8 +838,8 @@ constructor(
 
         class Builder {
 
-            private var accountNumber: String? = null
-            private var accountNumberType: AccountNumberType? = null
+            private var accountNumber: JsonField<String>? = null
+            private var accountNumberType: JsonField<AccountNumberType> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(accountDetailCreateRequest: AccountDetailCreateRequest) = apply {
@@ -562,13 +850,25 @@ constructor(
             }
 
             /** The account number for the bank account. */
-            fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+            fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
+
+            /** The account number for the bank account. */
+            fun accountNumber(accountNumber: JsonField<String>) = apply {
+                this.accountNumber = accountNumber
+            }
 
             /**
              * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
              * number is in a generic format.
              */
-            fun accountNumberType(accountNumberType: AccountNumberType?) = apply {
+            fun accountNumberType(accountNumberType: AccountNumberType) =
+                accountNumberType(JsonField.of(accountNumberType))
+
+            /**
+             * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
+             * number is in a generic format.
+             */
+            fun accountNumberType(accountNumberType: JsonField<AccountNumberType>) = apply {
                 this.accountNumberType = accountNumberType
             }
 
@@ -733,65 +1033,154 @@ constructor(
     class LedgerAccountCreateRequest
     @JsonCreator
     private constructor(
-        @JsonProperty("currency") private val currency: String,
-        @JsonProperty("ledger_id") private val ledgerId: String,
-        @JsonProperty("name") private val name: String,
-        @JsonProperty("normal_balance") private val normalBalance: TransactionDirection,
-        @JsonProperty("currency_exponent") private val currencyExponent: Long?,
-        @JsonProperty("description") private val description: String?,
+        @JsonProperty("currency")
+        @ExcludeMissing
+        private val currency: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("ledger_id")
+        @ExcludeMissing
+        private val ledgerId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("name")
+        @ExcludeMissing
+        private val name: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("normal_balance")
+        @ExcludeMissing
+        private val normalBalance: JsonField<TransactionDirection> = JsonMissing.of(),
+        @JsonProperty("currency_exponent")
+        @ExcludeMissing
+        private val currencyExponent: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
         @JsonProperty("ledger_account_category_ids")
-        private val ledgerAccountCategoryIds: List<String>?,
-        @JsonProperty("ledgerable_id") private val ledgerableId: String?,
-        @JsonProperty("ledgerable_type") private val ledgerableType: LedgerableType?,
-        @JsonProperty("metadata") private val metadata: Metadata?,
+        @ExcludeMissing
+        private val ledgerAccountCategoryIds: JsonField<List<String>> = JsonMissing.of(),
+        @JsonProperty("ledgerable_id")
+        @ExcludeMissing
+        private val ledgerableId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("ledgerable_type")
+        @ExcludeMissing
+        private val ledgerableType: JsonField<LedgerableType> = JsonMissing.of(),
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        private val metadata: JsonField<Metadata> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The currency of the ledger account. */
-        @JsonProperty("currency") fun currency(): String = currency
+        fun currency(): String = currency.getRequired("currency")
 
         /** The id of the ledger that this account belongs to. */
-        @JsonProperty("ledger_id") fun ledgerId(): String = ledgerId
+        fun ledgerId(): String = ledgerId.getRequired("ledger_id")
 
         /** The name of the ledger account. */
-        @JsonProperty("name") fun name(): String = name
+        fun name(): String = name.getRequired("name")
 
         /** The normal balance of the ledger account. */
-        @JsonProperty("normal_balance") fun normalBalance(): TransactionDirection = normalBalance
+        fun normalBalance(): TransactionDirection = normalBalance.getRequired("normal_balance")
 
         /** The currency exponent of the ledger account. */
-        @JsonProperty("currency_exponent") fun currencyExponent(): Long? = currencyExponent
+        fun currencyExponent(): Long? = currencyExponent.getNullable("currency_exponent")
 
         /** The description of the ledger account. */
-        @JsonProperty("description") fun description(): String? = description
+        fun description(): String? = description.getNullable("description")
 
         /**
          * The array of ledger account category ids that this ledger account should be a child of.
          */
-        @JsonProperty("ledger_account_category_ids")
-        fun ledgerAccountCategoryIds(): List<String>? = ledgerAccountCategoryIds
+        fun ledgerAccountCategoryIds(): List<String>? =
+            ledgerAccountCategoryIds.getNullable("ledger_account_category_ids")
 
         /**
          * If the ledger account links to another object in Modern Treasury, the id will be
          * populated here, otherwise null.
          */
-        @JsonProperty("ledgerable_id") fun ledgerableId(): String? = ledgerableId
+        fun ledgerableId(): String? = ledgerableId.getNullable("ledgerable_id")
 
         /**
          * If the ledger account links to another object in Modern Treasury, the type will be
          * populated here, otherwise null. The value is one of internal_account or external_account.
          */
-        @JsonProperty("ledgerable_type") fun ledgerableType(): LedgerableType? = ledgerableType
+        fun ledgerableType(): LedgerableType? = ledgerableType.getNullable("ledgerable_type")
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
+
+        /** The currency of the ledger account. */
+        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<String> = currency
+
+        /** The id of the ledger that this account belongs to. */
+        @JsonProperty("ledger_id") @ExcludeMissing fun _ledgerId(): JsonField<String> = ledgerId
+
+        /** The name of the ledger account. */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /** The normal balance of the ledger account. */
+        @JsonProperty("normal_balance")
+        @ExcludeMissing
+        fun _normalBalance(): JsonField<TransactionDirection> = normalBalance
+
+        /** The currency exponent of the ledger account. */
+        @JsonProperty("currency_exponent")
+        @ExcludeMissing
+        fun _currencyExponent(): JsonField<Long> = currencyExponent
+
+        /** The description of the ledger account. */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
+
+        /**
+         * The array of ledger account category ids that this ledger account should be a child of.
+         */
+        @JsonProperty("ledger_account_category_ids")
+        @ExcludeMissing
+        fun _ledgerAccountCategoryIds(): JsonField<List<String>> = ledgerAccountCategoryIds
+
+        /**
+         * If the ledger account links to another object in Modern Treasury, the id will be
+         * populated here, otherwise null.
+         */
+        @JsonProperty("ledgerable_id")
+        @ExcludeMissing
+        fun _ledgerableId(): JsonField<String> = ledgerableId
+
+        /**
+         * If the ledger account links to another object in Modern Treasury, the type will be
+         * populated here, otherwise null. The value is one of internal_account or external_account.
+         */
+        @JsonProperty("ledgerable_type")
+        @ExcludeMissing
+        fun _ledgerableType(): JsonField<LedgerableType> = ledgerableType
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): LedgerAccountCreateRequest = apply {
+            if (!validated) {
+                currency()
+                ledgerId()
+                name()
+                normalBalance()
+                currencyExponent()
+                description()
+                ledgerAccountCategoryIds()
+                ledgerableId()
+                ledgerableType()
+                metadata()?.validate()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -802,16 +1191,16 @@ constructor(
 
         class Builder {
 
-            private var currency: String? = null
-            private var ledgerId: String? = null
-            private var name: String? = null
-            private var normalBalance: TransactionDirection? = null
-            private var currencyExponent: Long? = null
-            private var description: String? = null
-            private var ledgerAccountCategoryIds: MutableList<String>? = null
-            private var ledgerableId: String? = null
-            private var ledgerableType: LedgerableType? = null
-            private var metadata: Metadata? = null
+            private var currency: JsonField<String>? = null
+            private var ledgerId: JsonField<String>? = null
+            private var name: JsonField<String>? = null
+            private var normalBalance: JsonField<TransactionDirection>? = null
+            private var currencyExponent: JsonField<Long> = JsonMissing.of()
+            private var description: JsonField<String> = JsonMissing.of()
+            private var ledgerAccountCategoryIds: JsonField<MutableList<String>>? = null
+            private var ledgerableId: JsonField<String> = JsonMissing.of()
+            private var ledgerableType: JsonField<LedgerableType> = JsonMissing.of()
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerAccountCreateRequest: LedgerAccountCreateRequest) = apply {
@@ -822,7 +1211,7 @@ constructor(
                 currencyExponent = ledgerAccountCreateRequest.currencyExponent
                 description = ledgerAccountCreateRequest.description
                 ledgerAccountCategoryIds =
-                    ledgerAccountCreateRequest.ledgerAccountCategoryIds?.toMutableList()
+                    ledgerAccountCreateRequest.ledgerAccountCategoryIds.map { it.toMutableList() }
                 ledgerableId = ledgerAccountCreateRequest.ledgerableId
                 ledgerableType = ledgerAccountCreateRequest.ledgerableType
                 metadata = ledgerAccountCreateRequest.metadata
@@ -831,38 +1220,69 @@ constructor(
             }
 
             /** The currency of the ledger account. */
-            fun currency(currency: String) = apply { this.currency = currency }
+            fun currency(currency: String) = currency(JsonField.of(currency))
+
+            /** The currency of the ledger account. */
+            fun currency(currency: JsonField<String>) = apply { this.currency = currency }
 
             /** The id of the ledger that this account belongs to. */
-            fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
+            fun ledgerId(ledgerId: String) = ledgerId(JsonField.of(ledgerId))
+
+            /** The id of the ledger that this account belongs to. */
+            fun ledgerId(ledgerId: JsonField<String>) = apply { this.ledgerId = ledgerId }
 
             /** The name of the ledger account. */
-            fun name(name: String) = apply { this.name = name }
+            fun name(name: String) = name(JsonField.of(name))
+
+            /** The name of the ledger account. */
+            fun name(name: JsonField<String>) = apply { this.name = name }
 
             /** The normal balance of the ledger account. */
-            fun normalBalance(normalBalance: TransactionDirection) = apply {
+            fun normalBalance(normalBalance: TransactionDirection) =
+                normalBalance(JsonField.of(normalBalance))
+
+            /** The normal balance of the ledger account. */
+            fun normalBalance(normalBalance: JsonField<TransactionDirection>) = apply {
                 this.normalBalance = normalBalance
             }
 
             /** The currency exponent of the ledger account. */
-            fun currencyExponent(currencyExponent: Long?) = apply {
-                this.currencyExponent = currencyExponent
-            }
+            fun currencyExponent(currencyExponent: Long?) =
+                currencyExponent(JsonField.ofNullable(currencyExponent))
 
             /** The currency exponent of the ledger account. */
             fun currencyExponent(currencyExponent: Long) =
                 currencyExponent(currencyExponent as Long?)
 
+            /** The currency exponent of the ledger account. */
+            fun currencyExponent(currencyExponent: JsonField<Long>) = apply {
+                this.currencyExponent = currencyExponent
+            }
+
             /** The description of the ledger account. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String?) = description(JsonField.ofNullable(description))
+
+            /** The description of the ledger account. */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
 
             /**
              * The array of ledger account category ids that this ledger account should be a child
              * of.
              */
-            fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>?) = apply {
-                this.ledgerAccountCategoryIds = ledgerAccountCategoryIds?.toMutableList()
-            }
+            fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>) =
+                ledgerAccountCategoryIds(JsonField.of(ledgerAccountCategoryIds))
+
+            /**
+             * The array of ledger account category ids that this ledger account should be a child
+             * of.
+             */
+            fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: JsonField<List<String>>) =
+                apply {
+                    this.ledgerAccountCategoryIds =
+                        ledgerAccountCategoryIds.map { it.toMutableList() }
+                }
 
             /**
              * The array of ledger account category ids that this ledger account should be a child
@@ -870,8 +1290,12 @@ constructor(
              */
             fun addLedgerAccountCategoryId(ledgerAccountCategoryId: String) = apply {
                 ledgerAccountCategoryIds =
-                    (ledgerAccountCategoryIds ?: mutableListOf()).apply {
-                        add(ledgerAccountCategoryId)
+                    (ledgerAccountCategoryIds ?: JsonField.of(mutableListOf())).apply {
+                        (asKnown()
+                                ?: throw IllegalStateException(
+                                    "Field was set to non-list type: ${javaClass.simpleName}"
+                                ))
+                            .add(ledgerAccountCategoryId)
                     }
             }
 
@@ -879,14 +1303,30 @@ constructor(
              * If the ledger account links to another object in Modern Treasury, the id will be
              * populated here, otherwise null.
              */
-            fun ledgerableId(ledgerableId: String?) = apply { this.ledgerableId = ledgerableId }
+            fun ledgerableId(ledgerableId: String) = ledgerableId(JsonField.of(ledgerableId))
+
+            /**
+             * If the ledger account links to another object in Modern Treasury, the id will be
+             * populated here, otherwise null.
+             */
+            fun ledgerableId(ledgerableId: JsonField<String>) = apply {
+                this.ledgerableId = ledgerableId
+            }
 
             /**
              * If the ledger account links to another object in Modern Treasury, the type will be
              * populated here, otherwise null. The value is one of internal_account or
              * external_account.
              */
-            fun ledgerableType(ledgerableType: LedgerableType?) = apply {
+            fun ledgerableType(ledgerableType: LedgerableType) =
+                ledgerableType(JsonField.of(ledgerableType))
+
+            /**
+             * If the ledger account links to another object in Modern Treasury, the type will be
+             * populated here, otherwise null. The value is one of internal_account or
+             * external_account.
+             */
+            fun ledgerableType(ledgerableType: JsonField<LedgerableType>) = apply {
                 this.ledgerableType = ledgerableType
             }
 
@@ -894,7 +1334,13 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -923,7 +1369,7 @@ constructor(
                     checkNotNull(normalBalance) { "`normalBalance` is required but was not set" },
                     currencyExponent,
                     description,
-                    ledgerAccountCategoryIds?.toImmutable(),
+                    (ledgerAccountCategoryIds ?: JsonMissing.of()).map { it.toImmutable() },
                     ledgerableId,
                     ledgerableType,
                     metadata,
@@ -1016,6 +1462,14 @@ constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+            private var validated: Boolean = false
+
+            fun validate(): Metadata = apply {
+                if (!validated) {
+                    validated = true
+                }
+            }
+
             fun toBuilder() = Builder().from(this)
 
             companion object {
@@ -1104,6 +1558,14 @@ constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (!validated) {
+                validated = true
+            }
+        }
+
         fun toBuilder() = Builder().from(this)
 
         companion object {
@@ -1162,15 +1624,40 @@ constructor(
     class RoutingDetailCreateRequest
     @JsonCreator
     private constructor(
-        @JsonProperty("routing_number") private val routingNumber: String,
-        @JsonProperty("routing_number_type") private val routingNumberType: RoutingNumberType,
-        @JsonProperty("payment_type") private val paymentType: PaymentType?,
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        private val routingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("routing_number_type")
+        @ExcludeMissing
+        private val routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of(),
+        @JsonProperty("payment_type")
+        @ExcludeMissing
+        private val paymentType: JsonField<PaymentType> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The routing number of the bank. */
-        @JsonProperty("routing_number") fun routingNumber(): String = routingNumber
+        fun routingNumber(): String = routingNumber.getRequired("routing_number")
+
+        /**
+         * The type of routing number. See
+         * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
+         * details.
+         */
+        fun routingNumberType(): RoutingNumberType =
+            routingNumberType.getRequired("routing_number_type")
+
+        /**
+         * If the routing detail is to be used for a specific payment type this field will be
+         * populated, otherwise null.
+         */
+        fun paymentType(): PaymentType? = paymentType.getNullable("payment_type")
+
+        /** The routing number of the bank. */
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        fun _routingNumber(): JsonField<String> = routingNumber
 
         /**
          * The type of routing number. See
@@ -1178,17 +1665,31 @@ constructor(
          * details.
          */
         @JsonProperty("routing_number_type")
-        fun routingNumberType(): RoutingNumberType = routingNumberType
+        @ExcludeMissing
+        fun _routingNumberType(): JsonField<RoutingNumberType> = routingNumberType
 
         /**
          * If the routing detail is to be used for a specific payment type this field will be
          * populated, otherwise null.
          */
-        @JsonProperty("payment_type") fun paymentType(): PaymentType? = paymentType
+        @JsonProperty("payment_type")
+        @ExcludeMissing
+        fun _paymentType(): JsonField<PaymentType> = paymentType
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): RoutingDetailCreateRequest = apply {
+            if (!validated) {
+                routingNumber()
+                routingNumberType()
+                paymentType()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -1199,9 +1700,9 @@ constructor(
 
         class Builder {
 
-            private var routingNumber: String? = null
-            private var routingNumberType: RoutingNumberType? = null
-            private var paymentType: PaymentType? = null
+            private var routingNumber: JsonField<String>? = null
+            private var routingNumberType: JsonField<RoutingNumberType>? = null
+            private var paymentType: JsonField<PaymentType> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(routingDetailCreateRequest: RoutingDetailCreateRequest) = apply {
@@ -1213,14 +1714,27 @@ constructor(
             }
 
             /** The routing number of the bank. */
-            fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
+            fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
+
+            /** The routing number of the bank. */
+            fun routingNumber(routingNumber: JsonField<String>) = apply {
+                this.routingNumber = routingNumber
+            }
 
             /**
              * The type of routing number. See
              * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
              * details.
              */
-            fun routingNumberType(routingNumberType: RoutingNumberType) = apply {
+            fun routingNumberType(routingNumberType: RoutingNumberType) =
+                routingNumberType(JsonField.of(routingNumberType))
+
+            /**
+             * The type of routing number. See
+             * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
+             * details.
+             */
+            fun routingNumberType(routingNumberType: JsonField<RoutingNumberType>) = apply {
                 this.routingNumberType = routingNumberType
             }
 
@@ -1228,7 +1742,16 @@ constructor(
              * If the routing detail is to be used for a specific payment type this field will be
              * populated, otherwise null.
              */
-            fun paymentType(paymentType: PaymentType?) = apply { this.paymentType = paymentType }
+            fun paymentType(paymentType: PaymentType?) =
+                paymentType(JsonField.ofNullable(paymentType))
+
+            /**
+             * If the routing detail is to be used for a specific payment type this field will be
+             * populated, otherwise null.
+             */
+            fun paymentType(paymentType: JsonField<PaymentType>) = apply {
+                this.paymentType = paymentType
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()

@@ -75,13 +75,17 @@ private constructor(
         supportedPaymentTypes.getNullable("supported_payment_types")
 
     /** The address of the bank. */
-    @JsonProperty("bank_address") @ExcludeMissing fun _bankAddress() = bankAddress
+    @JsonProperty("bank_address")
+    @ExcludeMissing
+    fun _bankAddress(): JsonField<AddressRequest> = bankAddress
 
     /** The name of the bank. */
-    @JsonProperty("bank_name") @ExcludeMissing fun _bankName() = bankName
+    @JsonProperty("bank_name") @ExcludeMissing fun _bankName(): JsonField<String> = bankName
 
     /** The routing number of the bank. */
-    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
+    @JsonProperty("routing_number")
+    @ExcludeMissing
+    fun _routingNumber(): JsonField<String> = routingNumber
 
     /**
      * The type of routing number. See
@@ -91,14 +95,14 @@ private constructor(
      */
     @JsonProperty("routing_number_type")
     @ExcludeMissing
-    fun _routingNumberType() = routingNumberType
+    fun _routingNumberType(): JsonField<RoutingNumberType> = routingNumberType
 
     /**
      * An object containing key-value pairs, each with a sanctions list as the key and a boolean
      * value representing whether the bank is on that particular sanctions list. Currently, this
      * includes eu_con, uk_hmt, us_ofac, and un sanctions lists.
      */
-    @JsonProperty("sanctions") @ExcludeMissing fun _sanctions() = sanctions
+    @JsonProperty("sanctions") @ExcludeMissing fun _sanctions(): JsonField<Sanctions> = sanctions
 
     /**
      * An array of payment types that are supported for this routing number. This can include `ach`,
@@ -106,7 +110,7 @@ private constructor(
      */
     @JsonProperty("supported_payment_types")
     @ExcludeMissing
-    fun _supportedPaymentTypes() = supportedPaymentTypes
+    fun _supportedPaymentTypes(): JsonField<List<SupportedPaymentType>> = supportedPaymentTypes
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -140,7 +144,7 @@ private constructor(
         private var routingNumber: JsonField<String> = JsonMissing.of()
         private var routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of()
         private var sanctions: JsonField<Sanctions> = JsonMissing.of()
-        private var supportedPaymentTypes: JsonField<List<SupportedPaymentType>> = JsonMissing.of()
+        private var supportedPaymentTypes: JsonField<MutableList<SupportedPaymentType>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(routingNumberLookupRequest: RoutingNumberLookupRequest) = apply {
@@ -149,7 +153,8 @@ private constructor(
             routingNumber = routingNumberLookupRequest.routingNumber
             routingNumberType = routingNumberLookupRequest.routingNumberType
             sanctions = routingNumberLookupRequest.sanctions
-            supportedPaymentTypes = routingNumberLookupRequest.supportedPaymentTypes
+            supportedPaymentTypes =
+                routingNumberLookupRequest.supportedPaymentTypes.map { it.toMutableList() }
             additionalProperties = routingNumberLookupRequest.additionalProperties.toMutableMap()
         }
 
@@ -221,8 +226,23 @@ private constructor(
          */
         fun supportedPaymentTypes(supportedPaymentTypes: JsonField<List<SupportedPaymentType>>) =
             apply {
-                this.supportedPaymentTypes = supportedPaymentTypes
+                this.supportedPaymentTypes = supportedPaymentTypes.map { it.toMutableList() }
             }
+
+        /**
+         * An array of payment types that are supported for this routing number. This can include
+         * `ach`, `wire`, `rtp`, `sepa`, `bacs`, `au_becs` currently.
+         */
+        fun addSupportedPaymentType(supportedPaymentType: SupportedPaymentType) = apply {
+            supportedPaymentTypes =
+                (supportedPaymentTypes ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(supportedPaymentType)
+                }
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -250,7 +270,7 @@ private constructor(
                 routingNumber,
                 routingNumberType,
                 sanctions,
-                supportedPaymentTypes.map { it.toImmutable() },
+                (supportedPaymentTypes ?: JsonMissing.of()).map { it.toImmutable() },
                 additionalProperties.toImmutable(),
             )
     }
@@ -299,20 +319,22 @@ private constructor(
         fun region(): String? = region.getNullable("region")
 
         /** Country code conforms to [ISO 3166-1 alpha-2] */
-        @JsonProperty("country") @ExcludeMissing fun _country() = country
+        @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
 
-        @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+        @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
-        @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+        @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
         /** Locality or City. */
-        @JsonProperty("locality") @ExcludeMissing fun _locality() = locality
+        @JsonProperty("locality") @ExcludeMissing fun _locality(): JsonField<String> = locality
 
         /** The postal code of the address. */
-        @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+        @JsonProperty("postal_code")
+        @ExcludeMissing
+        fun _postalCode(): JsonField<String> = postalCode
 
         /** Region or State. */
-        @JsonProperty("region") @ExcludeMissing fun _region() = region
+        @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -360,33 +382,33 @@ private constructor(
             }
 
             /** Country code conforms to [ISO 3166-1 alpha-2] */
-            fun country(country: String) = country(JsonField.of(country))
+            fun country(country: String?) = country(JsonField.ofNullable(country))
 
             /** Country code conforms to [ISO 3166-1 alpha-2] */
             fun country(country: JsonField<String>) = apply { this.country = country }
 
-            fun line1(line1: String) = line1(JsonField.of(line1))
+            fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
 
             fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
-            fun line2(line2: String) = line2(JsonField.of(line2))
+            fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
             fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
             /** Locality or City. */
-            fun locality(locality: String) = locality(JsonField.of(locality))
+            fun locality(locality: String?) = locality(JsonField.ofNullable(locality))
 
             /** Locality or City. */
             fun locality(locality: JsonField<String>) = apply { this.locality = locality }
 
             /** The postal code of the address. */
-            fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
+            fun postalCode(postalCode: String?) = postalCode(JsonField.ofNullable(postalCode))
 
             /** The postal code of the address. */
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
             /** Region or State. */
-            fun region(region: String) = region(JsonField.of(region))
+            fun region(region: String?) = region(JsonField.ofNullable(region))
 
             /** Region or State. */
             fun region(region: JsonField<String>) = apply { this.region = region }

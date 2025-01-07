@@ -93,41 +93,55 @@ private constructor(
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+    @JsonProperty("discarded_at")
+    @ExcludeMissing
+    fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
-    @JsonProperty("document_details") @ExcludeMissing fun _documentDetails() = documentDetails
+    @JsonProperty("document_details")
+    @ExcludeMissing
+    fun _documentDetails(): JsonField<List<DocumentDetail>> = documentDetails
 
     /** A category given to the document, can be `null`. */
-    @JsonProperty("document_type") @ExcludeMissing fun _documentType() = documentType
+    @JsonProperty("document_type")
+    @ExcludeMissing
+    fun _documentType(): JsonField<String> = documentType
 
     /** The unique identifier for the associated object. */
-    @JsonProperty("documentable_id") @ExcludeMissing fun _documentableId() = documentableId
+    @JsonProperty("documentable_id")
+    @ExcludeMissing
+    fun _documentableId(): JsonField<String> = documentableId
 
     /**
      * The type of the associated object. Currently can be one of `payment_order`, `transaction`,
      * `paper_item`, `expected_payment`, `counterparty`, `organization`, `case`, `internal_account`,
      * `decision`, or `external_account`.
      */
-    @JsonProperty("documentable_type") @ExcludeMissing fun _documentableType() = documentableType
+    @JsonProperty("documentable_type")
+    @ExcludeMissing
+    fun _documentableType(): JsonField<DocumentableType> = documentableType
 
-    @JsonProperty("file") @ExcludeMissing fun _file() = file
+    @JsonProperty("file") @ExcludeMissing fun _file(): JsonField<File> = file
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /** The source of the document. Can be `vendor`, `customer`, or `modern_treasury`. */
-    @JsonProperty("source") @ExcludeMissing fun _source() = source
+    @JsonProperty("source") @ExcludeMissing fun _source(): JsonField<String> = source
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -162,25 +176,25 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var documentDetails: JsonField<List<DocumentDetail>> = JsonMissing.of()
-        private var documentType: JsonField<String> = JsonMissing.of()
-        private var documentableId: JsonField<String> = JsonMissing.of()
-        private var documentableType: JsonField<DocumentableType> = JsonMissing.of()
-        private var file: JsonField<File> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var source: JsonField<String> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var discardedAt: JsonField<OffsetDateTime>? = null
+        private var documentDetails: JsonField<MutableList<DocumentDetail>>? = null
+        private var documentType: JsonField<String>? = null
+        private var documentableId: JsonField<String>? = null
+        private var documentableType: JsonField<DocumentableType>? = null
+        private var file: JsonField<File>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var object_: JsonField<String>? = null
+        private var source: JsonField<String>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(document: Document) = apply {
             id = document.id
             createdAt = document.createdAt
             discardedAt = document.discardedAt
-            documentDetails = document.documentDetails
+            documentDetails = document.documentDetails.map { it.toMutableList() }
             documentType = document.documentType
             documentableId = document.documentableId
             documentableType = document.documentableType
@@ -200,7 +214,8 @@ private constructor(
 
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+        fun discardedAt(discardedAt: OffsetDateTime?) =
+            discardedAt(JsonField.ofNullable(discardedAt))
 
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
@@ -210,11 +225,22 @@ private constructor(
             documentDetails(JsonField.of(documentDetails))
 
         fun documentDetails(documentDetails: JsonField<List<DocumentDetail>>) = apply {
-            this.documentDetails = documentDetails
+            this.documentDetails = documentDetails.map { it.toMutableList() }
+        }
+
+        fun addDocumentDetail(documentDetail: DocumentDetail) = apply {
+            documentDetails =
+                (documentDetails ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(documentDetail)
+                }
         }
 
         /** A category given to the document, can be `null`. */
-        fun documentType(documentType: String) = documentType(JsonField.of(documentType))
+        fun documentType(documentType: String?) = documentType(JsonField.ofNullable(documentType))
 
         /** A category given to the document, can be `null`. */
         fun documentType(documentType: JsonField<String>) = apply {
@@ -297,18 +323,19 @@ private constructor(
 
         fun build(): Document =
             Document(
-                id,
-                createdAt,
-                discardedAt,
-                documentDetails.map { it.toImmutable() },
-                documentType,
-                documentableId,
-                documentableType,
-                file,
-                liveMode,
-                object_,
-                source,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
+                checkNotNull(documentDetails) { "`documentDetails` is required but was not set" }
+                    .map { it.toImmutable() },
+                checkNotNull(documentType) { "`documentType` is required but was not set" },
+                checkNotNull(documentableId) { "`documentableId` is required but was not set" },
+                checkNotNull(documentableType) { "`documentableType` is required but was not set" },
+                checkNotNull(file) { "`file` is required but was not set" },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(source) { "`source` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -364,29 +391,35 @@ private constructor(
 
         fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-        @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+        @JsonProperty("discarded_at")
+        @ExcludeMissing
+        fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
         @JsonProperty("document_identifier")
         @ExcludeMissing
-        fun _documentIdentifier() = documentIdentifier
+        fun _documentIdentifier(): JsonField<String> = documentIdentifier
 
         @JsonProperty("document_identifier_type")
         @ExcludeMissing
-        fun _documentIdentifierType() = documentIdentifierType
+        fun _documentIdentifierType(): JsonField<String> = documentIdentifierType
 
         /**
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
          */
-        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+        @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -417,14 +450,14 @@ private constructor(
 
         class Builder {
 
-            private var id: JsonField<String> = JsonMissing.of()
-            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var documentIdentifier: JsonField<String> = JsonMissing.of()
-            private var documentIdentifierType: JsonField<String> = JsonMissing.of()
-            private var liveMode: JsonField<Boolean> = JsonMissing.of()
-            private var object_: JsonField<String> = JsonMissing.of()
-            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var id: JsonField<String>? = null
+            private var createdAt: JsonField<OffsetDateTime>? = null
+            private var discardedAt: JsonField<OffsetDateTime>? = null
+            private var documentIdentifier: JsonField<String>? = null
+            private var documentIdentifierType: JsonField<String>? = null
+            private var liveMode: JsonField<Boolean>? = null
+            private var object_: JsonField<String>? = null
+            private var updatedAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(documentDetail: DocumentDetail) = apply {
@@ -449,7 +482,8 @@ private constructor(
                 this.createdAt = createdAt
             }
 
-            fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+            fun discardedAt(discardedAt: OffsetDateTime?) =
+                discardedAt(JsonField.ofNullable(discardedAt))
 
             fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
                 this.discardedAt = discardedAt
@@ -512,14 +546,18 @@ private constructor(
 
             fun build(): DocumentDetail =
                 DocumentDetail(
-                    id,
-                    createdAt,
-                    discardedAt,
-                    documentIdentifier,
-                    documentIdentifierType,
-                    liveMode,
-                    object_,
-                    updatedAt,
+                    checkNotNull(id) { "`id` is required but was not set" },
+                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                    checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
+                    checkNotNull(documentIdentifier) {
+                        "`documentIdentifier` is required but was not set"
+                    },
+                    checkNotNull(documentIdentifierType) {
+                        "`documentIdentifierType` is required but was not set"
+                    },
+                    checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                    checkNotNull(object_) { "`object_` is required but was not set" },
+                    checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -684,13 +722,15 @@ private constructor(
         fun size(): Long? = size.getNullable("size")
 
         /** The MIME content type of the document. */
-        @JsonProperty("content_type") @ExcludeMissing fun _contentType() = contentType
+        @JsonProperty("content_type")
+        @ExcludeMissing
+        fun _contentType(): JsonField<String> = contentType
 
         /** The original filename of the document. */
-        @JsonProperty("filename") @ExcludeMissing fun _filename() = filename
+        @JsonProperty("filename") @ExcludeMissing fun _filename(): JsonField<String> = filename
 
         /** The size of the document in bytes. */
-        @JsonProperty("size") @ExcludeMissing fun _size() = size
+        @JsonProperty("size") @ExcludeMissing fun _size(): JsonField<Long> = size
 
         @JsonAnyGetter
         @ExcludeMissing

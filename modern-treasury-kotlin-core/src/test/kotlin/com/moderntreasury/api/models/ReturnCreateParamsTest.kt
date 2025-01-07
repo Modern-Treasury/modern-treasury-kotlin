@@ -46,10 +46,12 @@ class ReturnCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             ReturnCreateParams.builder()
+                .returnableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .returnableType(ReturnCreateParams.ReturnableType.INCOMING_PAYMENT_DETAIL)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
+        assertThat(body.returnableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.returnableType())
             .isEqualTo(ReturnCreateParams.ReturnableType.INCOMING_PAYMENT_DETAIL)
     }

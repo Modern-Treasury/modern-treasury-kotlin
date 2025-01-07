@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -70,11 +71,55 @@ constructor(
      */
     fun status(): Status? = body.status()
 
+    /**
+     * The id of the contra ledger account that sends to or receives funds from the settled ledger
+     * account.
+     */
+    fun _contraLedgerAccountId(): JsonField<String> = body._contraLedgerAccountId()
+
+    /**
+     * The id of the settled ledger account whose ledger entries are queried against, and its
+     * balance is reduced as a result.
+     */
+    fun _settledLedgerAccountId(): JsonField<String> = body._settledLedgerAccountId()
+
+    /**
+     * If true, the settlement amount and settlement_entry_direction will bring the settlement
+     * ledger account's balance closer to zero, even if the balance is negative.
+     */
+    fun _allowEitherDirection(): JsonField<Boolean> = body._allowEitherDirection()
+
+    /** The description of the ledger account settlement. */
+    fun _description(): JsonField<String> = body._description()
+
+    /**
+     * The exclusive upper bound of the effective_at timestamp of the ledger entries to be included
+     * in the ledger account settlement. The default value is the created_at timestamp of the ledger
+     * account settlement.
+     */
+    fun _effectiveAtUpperBound(): JsonField<OffsetDateTime> = body._effectiveAtUpperBound()
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun _metadata(): JsonField<Metadata> = body._metadata()
+
+    /**
+     * It is set to `false` by default. It should be set to `true` when migrating existing
+     * settlements.
+     */
+    fun _skipSettlementLedgerTransaction(): JsonField<Boolean> =
+        body._skipSettlementLedgerTransaction()
+
+    /**
+     * The status of the ledger account settlement. It is set to `pending` by default. To post a
+     * ledger account settlement at creation, use `posted`.
+     */
+    fun _status(): JsonField<Status> = body._status()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): LedgerAccountSettlementCreateBody = body
 
@@ -86,16 +131,30 @@ constructor(
     class LedgerAccountSettlementCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("contra_ledger_account_id") private val contraLedgerAccountId: String,
-        @JsonProperty("settled_ledger_account_id") private val settledLedgerAccountId: String,
-        @JsonProperty("allow_either_direction") private val allowEitherDirection: Boolean?,
-        @JsonProperty("description") private val description: String?,
+        @JsonProperty("contra_ledger_account_id")
+        @ExcludeMissing
+        private val contraLedgerAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("settled_ledger_account_id")
+        @ExcludeMissing
+        private val settledLedgerAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("allow_either_direction")
+        @ExcludeMissing
+        private val allowEitherDirection: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
         @JsonProperty("effective_at_upper_bound")
-        private val effectiveAtUpperBound: OffsetDateTime?,
-        @JsonProperty("metadata") private val metadata: Metadata?,
+        @ExcludeMissing
+        private val effectiveAtUpperBound: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        private val metadata: JsonField<Metadata> = JsonMissing.of(),
         @JsonProperty("skip_settlement_ledger_transaction")
-        private val skipSettlementLedgerTransaction: Boolean?,
-        @JsonProperty("status") private val status: Status?,
+        @ExcludeMissing
+        private val skipSettlementLedgerTransaction: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("status")
+        @ExcludeMissing
+        private val status: JsonField<Status> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -104,25 +163,80 @@ constructor(
          * The id of the contra ledger account that sends to or receives funds from the settled
          * ledger account.
          */
+        fun contraLedgerAccountId(): String =
+            contraLedgerAccountId.getRequired("contra_ledger_account_id")
+
+        /**
+         * The id of the settled ledger account whose ledger entries are queried against, and its
+         * balance is reduced as a result.
+         */
+        fun settledLedgerAccountId(): String =
+            settledLedgerAccountId.getRequired("settled_ledger_account_id")
+
+        /**
+         * If true, the settlement amount and settlement_entry_direction will bring the settlement
+         * ledger account's balance closer to zero, even if the balance is negative.
+         */
+        fun allowEitherDirection(): Boolean? =
+            allowEitherDirection.getNullable("allow_either_direction")
+
+        /** The description of the ledger account settlement. */
+        fun description(): String? = description.getNullable("description")
+
+        /**
+         * The exclusive upper bound of the effective_at timestamp of the ledger entries to be
+         * included in the ledger account settlement. The default value is the created_at timestamp
+         * of the ledger account settlement.
+         */
+        fun effectiveAtUpperBound(): OffsetDateTime? =
+            effectiveAtUpperBound.getNullable("effective_at_upper_bound")
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
+
+        /**
+         * It is set to `false` by default. It should be set to `true` when migrating existing
+         * settlements.
+         */
+        fun skipSettlementLedgerTransaction(): Boolean? =
+            skipSettlementLedgerTransaction.getNullable("skip_settlement_ledger_transaction")
+
+        /**
+         * The status of the ledger account settlement. It is set to `pending` by default. To post a
+         * ledger account settlement at creation, use `posted`.
+         */
+        fun status(): Status? = status.getNullable("status")
+
+        /**
+         * The id of the contra ledger account that sends to or receives funds from the settled
+         * ledger account.
+         */
         @JsonProperty("contra_ledger_account_id")
-        fun contraLedgerAccountId(): String = contraLedgerAccountId
+        @ExcludeMissing
+        fun _contraLedgerAccountId(): JsonField<String> = contraLedgerAccountId
 
         /**
          * The id of the settled ledger account whose ledger entries are queried against, and its
          * balance is reduced as a result.
          */
         @JsonProperty("settled_ledger_account_id")
-        fun settledLedgerAccountId(): String = settledLedgerAccountId
+        @ExcludeMissing
+        fun _settledLedgerAccountId(): JsonField<String> = settledLedgerAccountId
 
         /**
          * If true, the settlement amount and settlement_entry_direction will bring the settlement
          * ledger account's balance closer to zero, even if the balance is negative.
          */
         @JsonProperty("allow_either_direction")
-        fun allowEitherDirection(): Boolean? = allowEitherDirection
+        @ExcludeMissing
+        fun _allowEitherDirection(): JsonField<Boolean> = allowEitherDirection
 
         /** The description of the ledger account settlement. */
-        @JsonProperty("description") fun description(): String? = description
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
 
         /**
          * The exclusive upper bound of the effective_at timestamp of the ledger entries to be
@@ -130,29 +244,47 @@ constructor(
          * of the ledger account settlement.
          */
         @JsonProperty("effective_at_upper_bound")
-        fun effectiveAtUpperBound(): OffsetDateTime? = effectiveAtUpperBound
+        @ExcludeMissing
+        fun _effectiveAtUpperBound(): JsonField<OffsetDateTime> = effectiveAtUpperBound
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
         /**
          * It is set to `false` by default. It should be set to `true` when migrating existing
          * settlements.
          */
         @JsonProperty("skip_settlement_ledger_transaction")
-        fun skipSettlementLedgerTransaction(): Boolean? = skipSettlementLedgerTransaction
+        @ExcludeMissing
+        fun _skipSettlementLedgerTransaction(): JsonField<Boolean> = skipSettlementLedgerTransaction
 
         /**
          * The status of the ledger account settlement. It is set to `pending` by default. To post a
          * ledger account settlement at creation, use `posted`.
          */
-        @JsonProperty("status") fun status(): Status? = status
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): LedgerAccountSettlementCreateBody = apply {
+            if (!validated) {
+                contraLedgerAccountId()
+                settledLedgerAccountId()
+                allowEitherDirection()
+                description()
+                effectiveAtUpperBound()
+                metadata()?.validate()
+                skipSettlementLedgerTransaction()
+                status()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -163,14 +295,14 @@ constructor(
 
         class Builder {
 
-            private var contraLedgerAccountId: String? = null
-            private var settledLedgerAccountId: String? = null
-            private var allowEitherDirection: Boolean? = null
-            private var description: String? = null
-            private var effectiveAtUpperBound: OffsetDateTime? = null
-            private var metadata: Metadata? = null
-            private var skipSettlementLedgerTransaction: Boolean? = null
-            private var status: Status? = null
+            private var contraLedgerAccountId: JsonField<String>? = null
+            private var settledLedgerAccountId: JsonField<String>? = null
+            private var allowEitherDirection: JsonField<Boolean> = JsonMissing.of()
+            private var description: JsonField<String> = JsonMissing.of()
+            private var effectiveAtUpperBound: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var skipSettlementLedgerTransaction: JsonField<Boolean> = JsonMissing.of()
+            private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
@@ -193,7 +325,14 @@ constructor(
              * The id of the contra ledger account that sends to or receives funds from the settled
              * ledger account.
              */
-            fun contraLedgerAccountId(contraLedgerAccountId: String) = apply {
+            fun contraLedgerAccountId(contraLedgerAccountId: String) =
+                contraLedgerAccountId(JsonField.of(contraLedgerAccountId))
+
+            /**
+             * The id of the contra ledger account that sends to or receives funds from the settled
+             * ledger account.
+             */
+            fun contraLedgerAccountId(contraLedgerAccountId: JsonField<String>) = apply {
                 this.contraLedgerAccountId = contraLedgerAccountId
             }
 
@@ -201,7 +340,14 @@ constructor(
              * The id of the settled ledger account whose ledger entries are queried against, and
              * its balance is reduced as a result.
              */
-            fun settledLedgerAccountId(settledLedgerAccountId: String) = apply {
+            fun settledLedgerAccountId(settledLedgerAccountId: String) =
+                settledLedgerAccountId(JsonField.of(settledLedgerAccountId))
+
+            /**
+             * The id of the settled ledger account whose ledger entries are queried against, and
+             * its balance is reduced as a result.
+             */
+            fun settledLedgerAccountId(settledLedgerAccountId: JsonField<String>) = apply {
                 this.settledLedgerAccountId = settledLedgerAccountId
             }
 
@@ -209,9 +355,8 @@ constructor(
              * If true, the settlement amount and settlement_entry_direction will bring the
              * settlement ledger account's balance closer to zero, even if the balance is negative.
              */
-            fun allowEitherDirection(allowEitherDirection: Boolean?) = apply {
-                this.allowEitherDirection = allowEitherDirection
-            }
+            fun allowEitherDirection(allowEitherDirection: Boolean?) =
+                allowEitherDirection(JsonField.ofNullable(allowEitherDirection))
 
             /**
              * If true, the settlement amount and settlement_entry_direction will bring the
@@ -220,15 +365,36 @@ constructor(
             fun allowEitherDirection(allowEitherDirection: Boolean) =
                 allowEitherDirection(allowEitherDirection as Boolean?)
 
+            /**
+             * If true, the settlement amount and settlement_entry_direction will bring the
+             * settlement ledger account's balance closer to zero, even if the balance is negative.
+             */
+            fun allowEitherDirection(allowEitherDirection: JsonField<Boolean>) = apply {
+                this.allowEitherDirection = allowEitherDirection
+            }
+
             /** The description of the ledger account settlement. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String?) = description(JsonField.ofNullable(description))
+
+            /** The description of the ledger account settlement. */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
 
             /**
              * The exclusive upper bound of the effective_at timestamp of the ledger entries to be
              * included in the ledger account settlement. The default value is the created_at
              * timestamp of the ledger account settlement.
              */
-            fun effectiveAtUpperBound(effectiveAtUpperBound: OffsetDateTime?) = apply {
+            fun effectiveAtUpperBound(effectiveAtUpperBound: OffsetDateTime?) =
+                effectiveAtUpperBound(JsonField.ofNullable(effectiveAtUpperBound))
+
+            /**
+             * The exclusive upper bound of the effective_at timestamp of the ledger entries to be
+             * included in the ledger account settlement. The default value is the created_at
+             * timestamp of the ledger account settlement.
+             */
+            fun effectiveAtUpperBound(effectiveAtUpperBound: JsonField<OffsetDateTime>) = apply {
                 this.effectiveAtUpperBound = effectiveAtUpperBound
             }
 
@@ -236,15 +402,22 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
             /**
              * It is set to `false` by default. It should be set to `true` when migrating existing
              * settlements.
              */
-            fun skipSettlementLedgerTransaction(skipSettlementLedgerTransaction: Boolean?) = apply {
-                this.skipSettlementLedgerTransaction = skipSettlementLedgerTransaction
-            }
+            fun skipSettlementLedgerTransaction(skipSettlementLedgerTransaction: Boolean?) =
+                skipSettlementLedgerTransaction(
+                    JsonField.ofNullable(skipSettlementLedgerTransaction)
+                )
 
             /**
              * It is set to `false` by default. It should be set to `true` when migrating existing
@@ -254,10 +427,24 @@ constructor(
                 skipSettlementLedgerTransaction(skipSettlementLedgerTransaction as Boolean?)
 
             /**
+             * It is set to `false` by default. It should be set to `true` when migrating existing
+             * settlements.
+             */
+            fun skipSettlementLedgerTransaction(
+                skipSettlementLedgerTransaction: JsonField<Boolean>
+            ) = apply { this.skipSettlementLedgerTransaction = skipSettlementLedgerTransaction }
+
+            /**
              * The status of the ledger account settlement. It is set to `pending` by default. To
              * post a ledger account settlement at creation, use `posted`.
              */
-            fun status(status: Status?) = apply { this.status = status }
+            fun status(status: Status?) = status(JsonField.ofNullable(status))
+
+            /**
+             * The status of the ledger account settlement. It is set to `pending` by default. To
+             * post a ledger account settlement at creation, use `posted`.
+             */
+            fun status(status: JsonField<Status>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -347,10 +534,26 @@ constructor(
         }
 
         /**
+         * The id of the contra ledger account that sends to or receives funds from the settled
+         * ledger account.
+         */
+        fun contraLedgerAccountId(contraLedgerAccountId: JsonField<String>) = apply {
+            body.contraLedgerAccountId(contraLedgerAccountId)
+        }
+
+        /**
          * The id of the settled ledger account whose ledger entries are queried against, and its
          * balance is reduced as a result.
          */
         fun settledLedgerAccountId(settledLedgerAccountId: String) = apply {
+            body.settledLedgerAccountId(settledLedgerAccountId)
+        }
+
+        /**
+         * The id of the settled ledger account whose ledger entries are queried against, and its
+         * balance is reduced as a result.
+         */
+        fun settledLedgerAccountId(settledLedgerAccountId: JsonField<String>) = apply {
             body.settledLedgerAccountId(settledLedgerAccountId)
         }
 
@@ -369,8 +572,19 @@ constructor(
         fun allowEitherDirection(allowEitherDirection: Boolean) =
             allowEitherDirection(allowEitherDirection as Boolean?)
 
+        /**
+         * If true, the settlement amount and settlement_entry_direction will bring the settlement
+         * ledger account's balance closer to zero, even if the balance is negative.
+         */
+        fun allowEitherDirection(allowEitherDirection: JsonField<Boolean>) = apply {
+            body.allowEitherDirection(allowEitherDirection)
+        }
+
         /** The description of the ledger account settlement. */
         fun description(description: String?) = apply { body.description(description) }
+
+        /** The description of the ledger account settlement. */
+        fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /**
          * The exclusive upper bound of the effective_at timestamp of the ledger entries to be
@@ -382,9 +596,23 @@ constructor(
         }
 
         /**
+         * The exclusive upper bound of the effective_at timestamp of the ledger entries to be
+         * included in the ledger account settlement. The default value is the created_at timestamp
+         * of the ledger account settlement.
+         */
+        fun effectiveAtUpperBound(effectiveAtUpperBound: JsonField<OffsetDateTime>) = apply {
+            body.effectiveAtUpperBound(effectiveAtUpperBound)
+        }
+
+        /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
         /**
          * It is set to `false` by default. It should be set to `true` when migrating existing
@@ -402,10 +630,44 @@ constructor(
             skipSettlementLedgerTransaction(skipSettlementLedgerTransaction as Boolean?)
 
         /**
+         * It is set to `false` by default. It should be set to `true` when migrating existing
+         * settlements.
+         */
+        fun skipSettlementLedgerTransaction(skipSettlementLedgerTransaction: JsonField<Boolean>) =
+            apply {
+                body.skipSettlementLedgerTransaction(skipSettlementLedgerTransaction)
+            }
+
+        /**
          * The status of the ledger account settlement. It is set to `pending` by default. To post a
          * ledger account settlement at creation, use `posted`.
          */
         fun status(status: Status?) = apply { body.status(status) }
+
+        /**
+         * The status of the ledger account settlement. It is set to `pending` by default. To post a
+         * ledger account settlement at creation, use `posted`.
+         */
+        fun status(status: JsonField<Status>) = apply { body.status(status) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -505,25 +767,6 @@ constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
-
         fun build(): LedgerAccountSettlementCreateParams =
             LedgerAccountSettlementCreateParams(
                 body.build(),
@@ -544,6 +787,14 @@ constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (!validated) {
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 

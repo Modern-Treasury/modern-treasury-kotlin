@@ -291,49 +291,61 @@ private constructor(
     /** The ID of the virtual account the invoice should be paid to. */
     fun virtualAccountId(): String? = virtualAccountId.getNullable("virtual_account_id")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
      * Amount paid on the invoice in specified currency's smallest unit, e.g., $10 USD would be
      * represented as 1000.
      */
-    @JsonProperty("amount_paid") @ExcludeMissing fun _amountPaid() = amountPaid
+    @JsonProperty("amount_paid") @ExcludeMissing fun _amountPaid(): JsonField<Long> = amountPaid
 
     /**
      * Amount remaining due on the invoice in specified currency's smallest unit, e.g., $10 USD
      * would be represented as 1000.
      */
-    @JsonProperty("amount_remaining") @ExcludeMissing fun _amountRemaining() = amountRemaining
+    @JsonProperty("amount_remaining")
+    @ExcludeMissing
+    fun _amountRemaining(): JsonField<Long> = amountRemaining
 
     /** The invoicer's contact details displayed at the top of the invoice. */
-    @JsonProperty("contact_details") @ExcludeMissing fun _contactDetails() = contactDetails
+    @JsonProperty("contact_details")
+    @ExcludeMissing
+    fun _contactDetails(): JsonField<List<ContactDetail>> = contactDetails
 
     /** The counterparty's billing address. */
     @JsonProperty("counterparty_billing_address")
     @ExcludeMissing
-    fun _counterpartyBillingAddress() = counterpartyBillingAddress
+    fun _counterpartyBillingAddress(): JsonField<CounterpartyBillingAddress> =
+        counterpartyBillingAddress
 
     /** The ID of the counterparty receiving the invoice. */
-    @JsonProperty("counterparty_id") @ExcludeMissing fun _counterpartyId() = counterpartyId
+    @JsonProperty("counterparty_id")
+    @ExcludeMissing
+    fun _counterpartyId(): JsonField<String> = counterpartyId
 
     /** The counterparty's shipping address where physical goods should be delivered. */
     @JsonProperty("counterparty_shipping_address")
     @ExcludeMissing
-    fun _counterpartyShippingAddress() = counterpartyShippingAddress
+    fun _counterpartyShippingAddress(): JsonField<CounterpartyShippingAddress> =
+        counterpartyShippingAddress
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** Currency that the invoice is denominated in. Defaults to `USD` if not provided. */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+    @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
     /** A free-form description of the invoice. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /** A future date by when the invoice needs to be paid. */
-    @JsonProperty("due_date") @ExcludeMissing fun _dueDate() = dueDate
+    @JsonProperty("due_date") @ExcludeMissing fun _dueDate(): JsonField<OffsetDateTime> = dueDate
 
     /** The expected payments created for an unpaid invoice. */
-    @JsonProperty("expected_payments") @ExcludeMissing fun _expectedPayments() = expectedPayments
+    @JsonProperty("expected_payments")
+    @ExcludeMissing
+    fun _expectedPayments(): JsonField<List<ExpectedPayment>> = expectedPayments
 
     /**
      * When payment_method is automatic, the fallback payment method to use when an automatic
@@ -341,27 +353,29 @@ private constructor(
      */
     @JsonProperty("fallback_payment_method")
     @ExcludeMissing
-    fun _fallbackPaymentMethod() = fallbackPaymentMethod
+    fun _fallbackPaymentMethod(): JsonField<String> = fallbackPaymentMethod
 
     /** The URL of the hosted web UI where the invoice can be viewed. */
-    @JsonProperty("hosted_url") @ExcludeMissing fun _hostedUrl() = hostedUrl
+    @JsonProperty("hosted_url") @ExcludeMissing fun _hostedUrl(): JsonField<String> = hostedUrl
 
     /** The invoice issuer's business address. */
-    @JsonProperty("invoicer_address") @ExcludeMissing fun _invoicerAddress() = invoicerAddress
+    @JsonProperty("invoicer_address")
+    @ExcludeMissing
+    fun _invoicerAddress(): JsonField<InvoicerAddress> = invoicerAddress
 
     /** The ledger account settlement object linked to the invoice. */
     @JsonProperty("ledger_account_settlement_id")
     @ExcludeMissing
-    fun _ledgerAccountSettlementId() = ledgerAccountSettlementId
+    fun _ledgerAccountSettlementId(): JsonField<String> = ledgerAccountSettlementId
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
     /**
      * Emails in addition to the counterparty email to send invoice status notifications to. At
@@ -370,7 +384,7 @@ private constructor(
      */
     @JsonProperty("notification_email_addresses")
     @ExcludeMissing
-    fun _notificationEmailAddresses() = notificationEmailAddresses
+    fun _notificationEmailAddresses(): JsonField<List<String>> = notificationEmailAddresses
 
     /**
      * If true, the invoice will send email notifications to the invoice recipients about invoice
@@ -378,17 +392,17 @@ private constructor(
      */
     @JsonProperty("notifications_enabled")
     @ExcludeMissing
-    fun _notificationsEnabled() = notificationsEnabled
+    fun _notificationsEnabled(): JsonField<Boolean> = notificationsEnabled
 
     /** A unique record number assigned to each invoice that is issued. */
-    @JsonProperty("number") @ExcludeMissing fun _number() = number
+    @JsonProperty("number") @ExcludeMissing fun _number(): JsonField<String> = number
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /** The ID of the internal account the invoice should be paid to. */
     @JsonProperty("originating_account_id")
     @ExcludeMissing
-    fun _originatingAccountId() = originatingAccountId
+    fun _originatingAccountId(): JsonField<String> = originatingAccountId
 
     /**
      * Date transactions are to be posted to the participants' account. Defaults to the current
@@ -397,39 +411,49 @@ private constructor(
      */
     @JsonProperty("payment_effective_date")
     @ExcludeMissing
-    fun _paymentEffectiveDate() = paymentEffectiveDate
+    fun _paymentEffectiveDate(): JsonField<LocalDate> = paymentEffectiveDate
 
     /**
      * When opening an invoice, whether to show the embedded payment UI , automatically debit the
      * recipient, or rely on manual payment from the recipient.
      */
-    @JsonProperty("payment_method") @ExcludeMissing fun _paymentMethod() = paymentMethod
+    @JsonProperty("payment_method")
+    @ExcludeMissing
+    fun _paymentMethod(): JsonField<PaymentMethod> = paymentMethod
 
     /** The payment orders created for paying the invoice through the invoice payment UI. */
-    @JsonProperty("payment_orders") @ExcludeMissing fun _paymentOrders() = paymentOrders
+    @JsonProperty("payment_orders")
+    @ExcludeMissing
+    fun _paymentOrders(): JsonField<List<PaymentOrder>> = paymentOrders
 
     /** One of `ach` or `eft`. */
-    @JsonProperty("payment_type") @ExcludeMissing fun _paymentType() = paymentType
+    @JsonProperty("payment_type")
+    @ExcludeMissing
+    fun _paymentType(): JsonField<PaymentType> = paymentType
 
     /** The URL where the invoice PDF can be downloaded. */
-    @JsonProperty("pdf_url") @ExcludeMissing fun _pdfUrl() = pdfUrl
+    @JsonProperty("pdf_url") @ExcludeMissing fun _pdfUrl(): JsonField<String> = pdfUrl
 
     /** The receiving account ID. Can be an `internal_account`. */
     @JsonProperty("receiving_account_id")
     @ExcludeMissing
-    fun _receivingAccountId() = receivingAccountId
+    fun _receivingAccountId(): JsonField<String> = receivingAccountId
 
     /**
      * The email of the recipient of the invoice. Leaving this value as null will fallback to using
      * the counterparty's name.
      */
-    @JsonProperty("recipient_email") @ExcludeMissing fun _recipientEmail() = recipientEmail
+    @JsonProperty("recipient_email")
+    @ExcludeMissing
+    fun _recipientEmail(): JsonField<String> = recipientEmail
 
     /**
      * The name of the recipient of the invoice. Leaving this value as null will fallback to using
      * the counterparty's name.
      */
-    @JsonProperty("recipient_name") @ExcludeMissing fun _recipientName() = recipientName
+    @JsonProperty("recipient_name")
+    @ExcludeMissing
+    fun _recipientName(): JsonField<String> = recipientName
 
     /**
      * Number of days after due date when overdue reminder emails will be sent out to invoice
@@ -437,26 +461,30 @@ private constructor(
      */
     @JsonProperty("remind_after_overdue_days")
     @ExcludeMissing
-    fun _remindAfterOverdueDays() = remindAfterOverdueDays
+    fun _remindAfterOverdueDays(): JsonField<List<Long>> = remindAfterOverdueDays
 
     /** The status of the invoice. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * Total amount due in specified currency's smallest unit, e.g., $10 USD would be represented
      * as 1000.
      */
-    @JsonProperty("total_amount") @ExcludeMissing fun _totalAmount() = totalAmount
+    @JsonProperty("total_amount") @ExcludeMissing fun _totalAmount(): JsonField<Long> = totalAmount
 
     /** IDs of transaction line items associated with an invoice. */
     @JsonProperty("transaction_line_item_ids")
     @ExcludeMissing
-    fun _transactionLineItemIds() = transactionLineItemIds
+    fun _transactionLineItemIds(): JsonField<List<String>> = transactionLineItemIds
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     /** The ID of the virtual account the invoice should be paid to. */
-    @JsonProperty("virtual_account_id") @ExcludeMissing fun _virtualAccountId() = virtualAccountId
+    @JsonProperty("virtual_account_id")
+    @ExcludeMissing
+    fun _virtualAccountId(): JsonField<String> = virtualAccountId
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -516,52 +544,50 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var amountPaid: JsonField<Long> = JsonMissing.of()
-        private var amountRemaining: JsonField<Long> = JsonMissing.of()
-        private var contactDetails: JsonField<List<ContactDetail>> = JsonMissing.of()
-        private var counterpartyBillingAddress: JsonField<CounterpartyBillingAddress> =
-            JsonMissing.of()
-        private var counterpartyId: JsonField<String> = JsonMissing.of()
-        private var counterpartyShippingAddress: JsonField<CounterpartyShippingAddress> =
-            JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var dueDate: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var expectedPayments: JsonField<List<ExpectedPayment>> = JsonMissing.of()
-        private var fallbackPaymentMethod: JsonField<String> = JsonMissing.of()
-        private var hostedUrl: JsonField<String> = JsonMissing.of()
-        private var invoicerAddress: JsonField<InvoicerAddress> = JsonMissing.of()
-        private var ledgerAccountSettlementId: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
-        private var notificationEmailAddresses: JsonField<List<String>> = JsonMissing.of()
-        private var notificationsEnabled: JsonField<Boolean> = JsonMissing.of()
-        private var number: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var originatingAccountId: JsonField<String> = JsonMissing.of()
-        private var paymentEffectiveDate: JsonField<LocalDate> = JsonMissing.of()
-        private var paymentMethod: JsonField<PaymentMethod> = JsonMissing.of()
-        private var paymentOrders: JsonField<List<PaymentOrder>> = JsonMissing.of()
-        private var paymentType: JsonField<PaymentType> = JsonMissing.of()
-        private var pdfUrl: JsonField<String> = JsonMissing.of()
-        private var receivingAccountId: JsonField<String> = JsonMissing.of()
-        private var recipientEmail: JsonField<String> = JsonMissing.of()
-        private var recipientName: JsonField<String> = JsonMissing.of()
-        private var remindAfterOverdueDays: JsonField<List<Long>> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var totalAmount: JsonField<Long> = JsonMissing.of()
-        private var transactionLineItemIds: JsonField<List<String>> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var virtualAccountId: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var amountPaid: JsonField<Long>? = null
+        private var amountRemaining: JsonField<Long>? = null
+        private var contactDetails: JsonField<MutableList<ContactDetail>>? = null
+        private var counterpartyBillingAddress: JsonField<CounterpartyBillingAddress>? = null
+        private var counterpartyId: JsonField<String>? = null
+        private var counterpartyShippingAddress: JsonField<CounterpartyShippingAddress>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var currency: JsonField<Currency>? = null
+        private var description: JsonField<String>? = null
+        private var dueDate: JsonField<OffsetDateTime>? = null
+        private var expectedPayments: JsonField<MutableList<ExpectedPayment>>? = null
+        private var fallbackPaymentMethod: JsonField<String>? = null
+        private var hostedUrl: JsonField<String>? = null
+        private var invoicerAddress: JsonField<InvoicerAddress>? = null
+        private var ledgerAccountSettlementId: JsonField<String>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var metadata: JsonField<Metadata>? = null
+        private var notificationEmailAddresses: JsonField<MutableList<String>>? = null
+        private var notificationsEnabled: JsonField<Boolean>? = null
+        private var number: JsonField<String>? = null
+        private var object_: JsonField<String>? = null
+        private var originatingAccountId: JsonField<String>? = null
+        private var paymentEffectiveDate: JsonField<LocalDate>? = null
+        private var paymentMethod: JsonField<PaymentMethod>? = null
+        private var paymentOrders: JsonField<MutableList<PaymentOrder>>? = null
+        private var paymentType: JsonField<PaymentType>? = null
+        private var pdfUrl: JsonField<String>? = null
+        private var receivingAccountId: JsonField<String>? = null
+        private var recipientEmail: JsonField<String>? = null
+        private var recipientName: JsonField<String>? = null
+        private var remindAfterOverdueDays: JsonField<MutableList<Long>>? = null
+        private var status: JsonField<Status>? = null
+        private var totalAmount: JsonField<Long>? = null
+        private var transactionLineItemIds: JsonField<MutableList<String>>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
+        private var virtualAccountId: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(invoice: Invoice) = apply {
             id = invoice.id
             amountPaid = invoice.amountPaid
             amountRemaining = invoice.amountRemaining
-            contactDetails = invoice.contactDetails
+            contactDetails = invoice.contactDetails.map { it.toMutableList() }
             counterpartyBillingAddress = invoice.counterpartyBillingAddress
             counterpartyId = invoice.counterpartyId
             counterpartyShippingAddress = invoice.counterpartyShippingAddress
@@ -569,30 +595,31 @@ private constructor(
             currency = invoice.currency
             description = invoice.description
             dueDate = invoice.dueDate
-            expectedPayments = invoice.expectedPayments
+            expectedPayments = invoice.expectedPayments.map { it.toMutableList() }
             fallbackPaymentMethod = invoice.fallbackPaymentMethod
             hostedUrl = invoice.hostedUrl
             invoicerAddress = invoice.invoicerAddress
             ledgerAccountSettlementId = invoice.ledgerAccountSettlementId
             liveMode = invoice.liveMode
             metadata = invoice.metadata
-            notificationEmailAddresses = invoice.notificationEmailAddresses
+            notificationEmailAddresses =
+                invoice.notificationEmailAddresses.map { it.toMutableList() }
             notificationsEnabled = invoice.notificationsEnabled
             number = invoice.number
             object_ = invoice.object_
             originatingAccountId = invoice.originatingAccountId
             paymentEffectiveDate = invoice.paymentEffectiveDate
             paymentMethod = invoice.paymentMethod
-            paymentOrders = invoice.paymentOrders
+            paymentOrders = invoice.paymentOrders.map { it.toMutableList() }
             paymentType = invoice.paymentType
             pdfUrl = invoice.pdfUrl
             receivingAccountId = invoice.receivingAccountId
             recipientEmail = invoice.recipientEmail
             recipientName = invoice.recipientName
-            remindAfterOverdueDays = invoice.remindAfterOverdueDays
+            remindAfterOverdueDays = invoice.remindAfterOverdueDays.map { it.toMutableList() }
             status = invoice.status
             totalAmount = invoice.totalAmount
-            transactionLineItemIds = invoice.transactionLineItemIds
+            transactionLineItemIds = invoice.transactionLineItemIds.map { it.toMutableList() }
             updatedAt = invoice.updatedAt
             virtualAccountId = invoice.virtualAccountId
             additionalProperties = invoice.additionalProperties.toMutableMap()
@@ -634,12 +661,24 @@ private constructor(
 
         /** The invoicer's contact details displayed at the top of the invoice. */
         fun contactDetails(contactDetails: JsonField<List<ContactDetail>>) = apply {
-            this.contactDetails = contactDetails
+            this.contactDetails = contactDetails.map { it.toMutableList() }
+        }
+
+        /** The invoicer's contact details displayed at the top of the invoice. */
+        fun addContactDetail(contactDetail: ContactDetail) = apply {
+            contactDetails =
+                (contactDetails ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(contactDetail)
+                }
         }
 
         /** The counterparty's billing address. */
-        fun counterpartyBillingAddress(counterpartyBillingAddress: CounterpartyBillingAddress) =
-            counterpartyBillingAddress(JsonField.of(counterpartyBillingAddress))
+        fun counterpartyBillingAddress(counterpartyBillingAddress: CounterpartyBillingAddress?) =
+            counterpartyBillingAddress(JsonField.ofNullable(counterpartyBillingAddress))
 
         /** The counterparty's billing address. */
         fun counterpartyBillingAddress(
@@ -655,8 +694,8 @@ private constructor(
         }
 
         /** The counterparty's shipping address where physical goods should be delivered. */
-        fun counterpartyShippingAddress(counterpartyShippingAddress: CounterpartyShippingAddress) =
-            counterpartyShippingAddress(JsonField.of(counterpartyShippingAddress))
+        fun counterpartyShippingAddress(counterpartyShippingAddress: CounterpartyShippingAddress?) =
+            counterpartyShippingAddress(JsonField.ofNullable(counterpartyShippingAddress))
 
         /** The counterparty's shipping address where physical goods should be delivered. */
         fun counterpartyShippingAddress(
@@ -691,15 +730,27 @@ private constructor(
 
         /** The expected payments created for an unpaid invoice. */
         fun expectedPayments(expectedPayments: JsonField<List<ExpectedPayment>>) = apply {
-            this.expectedPayments = expectedPayments
+            this.expectedPayments = expectedPayments.map { it.toMutableList() }
+        }
+
+        /** The expected payments created for an unpaid invoice. */
+        fun addExpectedPayment(expectedPayment: ExpectedPayment) = apply {
+            expectedPayments =
+                (expectedPayments ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(expectedPayment)
+                }
         }
 
         /**
          * When payment_method is automatic, the fallback payment method to use when an automatic
          * payment fails. One of `manual` or `ui`.
          */
-        fun fallbackPaymentMethod(fallbackPaymentMethod: String) =
-            fallbackPaymentMethod(JsonField.of(fallbackPaymentMethod))
+        fun fallbackPaymentMethod(fallbackPaymentMethod: String?) =
+            fallbackPaymentMethod(JsonField.ofNullable(fallbackPaymentMethod))
 
         /**
          * When payment_method is automatic, the fallback payment method to use when an automatic
@@ -716,8 +767,8 @@ private constructor(
         fun hostedUrl(hostedUrl: JsonField<String>) = apply { this.hostedUrl = hostedUrl }
 
         /** The invoice issuer's business address. */
-        fun invoicerAddress(invoicerAddress: InvoicerAddress) =
-            invoicerAddress(JsonField.of(invoicerAddress))
+        fun invoicerAddress(invoicerAddress: InvoicerAddress?) =
+            invoicerAddress(JsonField.ofNullable(invoicerAddress))
 
         /** The invoice issuer's business address. */
         fun invoicerAddress(invoicerAddress: JsonField<InvoicerAddress>) = apply {
@@ -725,8 +776,8 @@ private constructor(
         }
 
         /** The ledger account settlement object linked to the invoice. */
-        fun ledgerAccountSettlementId(ledgerAccountSettlementId: String) =
-            ledgerAccountSettlementId(JsonField.of(ledgerAccountSettlementId))
+        fun ledgerAccountSettlementId(ledgerAccountSettlementId: String?) =
+            ledgerAccountSettlementId(JsonField.ofNullable(ledgerAccountSettlementId))
 
         /** The ledger account settlement object linked to the invoice. */
         fun ledgerAccountSettlementId(ledgerAccountSettlementId: JsonField<String>) = apply {
@@ -748,7 +799,7 @@ private constructor(
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+        fun metadata(metadata: Metadata?) = metadata(JsonField.ofNullable(metadata))
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
@@ -760,8 +811,8 @@ private constructor(
          * least one email is required if notifications are enabled and the counterparty doesn't
          * have an email.
          */
-        fun notificationEmailAddresses(notificationEmailAddresses: List<String>) =
-            notificationEmailAddresses(JsonField.of(notificationEmailAddresses))
+        fun notificationEmailAddresses(notificationEmailAddresses: List<String>?) =
+            notificationEmailAddresses(JsonField.ofNullable(notificationEmailAddresses))
 
         /**
          * Emails in addition to the counterparty email to send invoice status notifications to. At
@@ -770,8 +821,25 @@ private constructor(
          */
         fun notificationEmailAddresses(notificationEmailAddresses: JsonField<List<String>>) =
             apply {
-                this.notificationEmailAddresses = notificationEmailAddresses
+                this.notificationEmailAddresses =
+                    notificationEmailAddresses.map { it.toMutableList() }
             }
+
+        /**
+         * Emails in addition to the counterparty email to send invoice status notifications to. At
+         * least one email is required if notifications are enabled and the counterparty doesn't
+         * have an email.
+         */
+        fun addNotificationEmailAddress(notificationEmailAddress: String) = apply {
+            notificationEmailAddresses =
+                (notificationEmailAddresses ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(notificationEmailAddress)
+                }
+        }
 
         /**
          * If true, the invoice will send email notifications to the invoice recipients about
@@ -812,8 +880,8 @@ private constructor(
          * business day or the next business day if the current day is a bank holiday or weekend.
          * Format: yyyy-mm-dd.
          */
-        fun paymentEffectiveDate(paymentEffectiveDate: LocalDate) =
-            paymentEffectiveDate(JsonField.of(paymentEffectiveDate))
+        fun paymentEffectiveDate(paymentEffectiveDate: LocalDate?) =
+            paymentEffectiveDate(JsonField.ofNullable(paymentEffectiveDate))
 
         /**
          * Date transactions are to be posted to the participants' account. Defaults to the current
@@ -828,7 +896,8 @@ private constructor(
          * When opening an invoice, whether to show the embedded payment UI , automatically debit
          * the recipient, or rely on manual payment from the recipient.
          */
-        fun paymentMethod(paymentMethod: PaymentMethod) = paymentMethod(JsonField.of(paymentMethod))
+        fun paymentMethod(paymentMethod: PaymentMethod?) =
+            paymentMethod(JsonField.ofNullable(paymentMethod))
 
         /**
          * When opening an invoice, whether to show the embedded payment UI , automatically debit
@@ -844,11 +913,23 @@ private constructor(
 
         /** The payment orders created for paying the invoice through the invoice payment UI. */
         fun paymentOrders(paymentOrders: JsonField<List<PaymentOrder>>) = apply {
-            this.paymentOrders = paymentOrders
+            this.paymentOrders = paymentOrders.map { it.toMutableList() }
+        }
+
+        /** The payment orders created for paying the invoice through the invoice payment UI. */
+        fun addPaymentOrder(paymentOrder: PaymentOrder) = apply {
+            paymentOrders =
+                (paymentOrders ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(paymentOrder)
+                }
         }
 
         /** One of `ach` or `eft`. */
-        fun paymentType(paymentType: PaymentType) = paymentType(JsonField.of(paymentType))
+        fun paymentType(paymentType: PaymentType?) = paymentType(JsonField.ofNullable(paymentType))
 
         /** One of `ach` or `eft`. */
         fun paymentType(paymentType: JsonField<PaymentType>) = apply {
@@ -856,14 +937,14 @@ private constructor(
         }
 
         /** The URL where the invoice PDF can be downloaded. */
-        fun pdfUrl(pdfUrl: String) = pdfUrl(JsonField.of(pdfUrl))
+        fun pdfUrl(pdfUrl: String?) = pdfUrl(JsonField.ofNullable(pdfUrl))
 
         /** The URL where the invoice PDF can be downloaded. */
         fun pdfUrl(pdfUrl: JsonField<String>) = apply { this.pdfUrl = pdfUrl }
 
         /** The receiving account ID. Can be an `internal_account`. */
-        fun receivingAccountId(receivingAccountId: String) =
-            receivingAccountId(JsonField.of(receivingAccountId))
+        fun receivingAccountId(receivingAccountId: String?) =
+            receivingAccountId(JsonField.ofNullable(receivingAccountId))
 
         /** The receiving account ID. Can be an `internal_account`. */
         fun receivingAccountId(receivingAccountId: JsonField<String>) = apply {
@@ -874,7 +955,8 @@ private constructor(
          * The email of the recipient of the invoice. Leaving this value as null will fallback to
          * using the counterparty's name.
          */
-        fun recipientEmail(recipientEmail: String) = recipientEmail(JsonField.of(recipientEmail))
+        fun recipientEmail(recipientEmail: String?) =
+            recipientEmail(JsonField.ofNullable(recipientEmail))
 
         /**
          * The email of the recipient of the invoice. Leaving this value as null will fallback to
@@ -888,7 +970,8 @@ private constructor(
          * The name of the recipient of the invoice. Leaving this value as null will fallback to
          * using the counterparty's name.
          */
-        fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
+        fun recipientName(recipientName: String?) =
+            recipientName(JsonField.ofNullable(recipientName))
 
         /**
          * The name of the recipient of the invoice. Leaving this value as null will fallback to
@@ -902,15 +985,30 @@ private constructor(
          * Number of days after due date when overdue reminder emails will be sent out to invoice
          * recipients.
          */
-        fun remindAfterOverdueDays(remindAfterOverdueDays: List<Long>) =
-            remindAfterOverdueDays(JsonField.of(remindAfterOverdueDays))
+        fun remindAfterOverdueDays(remindAfterOverdueDays: List<Long>?) =
+            remindAfterOverdueDays(JsonField.ofNullable(remindAfterOverdueDays))
 
         /**
          * Number of days after due date when overdue reminder emails will be sent out to invoice
          * recipients.
          */
         fun remindAfterOverdueDays(remindAfterOverdueDays: JsonField<List<Long>>) = apply {
-            this.remindAfterOverdueDays = remindAfterOverdueDays
+            this.remindAfterOverdueDays = remindAfterOverdueDays.map { it.toMutableList() }
+        }
+
+        /**
+         * Number of days after due date when overdue reminder emails will be sent out to invoice
+         * recipients.
+         */
+        fun addRemindAfterOverdueDay(remindAfterOverdueDay: Long) = apply {
+            remindAfterOverdueDays =
+                (remindAfterOverdueDays ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(remindAfterOverdueDay)
+                }
         }
 
         /** The status of the invoice. */
@@ -937,7 +1035,19 @@ private constructor(
 
         /** IDs of transaction line items associated with an invoice. */
         fun transactionLineItemIds(transactionLineItemIds: JsonField<List<String>>) = apply {
-            this.transactionLineItemIds = transactionLineItemIds
+            this.transactionLineItemIds = transactionLineItemIds.map { it.toMutableList() }
+        }
+
+        /** IDs of transaction line items associated with an invoice. */
+        fun addTransactionLineItemId(transactionLineItemId: String) = apply {
+            transactionLineItemIds =
+                (transactionLineItemIds ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(transactionLineItemId)
+                }
         }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
@@ -945,8 +1055,8 @@ private constructor(
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         /** The ID of the virtual account the invoice should be paid to. */
-        fun virtualAccountId(virtualAccountId: String) =
-            virtualAccountId(JsonField.of(virtualAccountId))
+        fun virtualAccountId(virtualAccountId: String?) =
+            virtualAccountId(JsonField.ofNullable(virtualAccountId))
 
         /** The ID of the virtual account the invoice should be paid to. */
         fun virtualAccountId(virtualAccountId: JsonField<String>) = apply {
@@ -974,43 +1084,71 @@ private constructor(
 
         fun build(): Invoice =
             Invoice(
-                id,
-                amountPaid,
-                amountRemaining,
-                contactDetails.map { it.toImmutable() },
-                counterpartyBillingAddress,
-                counterpartyId,
-                counterpartyShippingAddress,
-                createdAt,
-                currency,
-                description,
-                dueDate,
-                expectedPayments.map { it.toImmutable() },
-                fallbackPaymentMethod,
-                hostedUrl,
-                invoicerAddress,
-                ledgerAccountSettlementId,
-                liveMode,
-                metadata,
-                notificationEmailAddresses.map { it.toImmutable() },
-                notificationsEnabled,
-                number,
-                object_,
-                originatingAccountId,
-                paymentEffectiveDate,
-                paymentMethod,
-                paymentOrders.map { it.toImmutable() },
-                paymentType,
-                pdfUrl,
-                receivingAccountId,
-                recipientEmail,
-                recipientName,
-                remindAfterOverdueDays.map { it.toImmutable() },
-                status,
-                totalAmount,
-                transactionLineItemIds.map { it.toImmutable() },
-                updatedAt,
-                virtualAccountId,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(amountPaid) { "`amountPaid` is required but was not set" },
+                checkNotNull(amountRemaining) { "`amountRemaining` is required but was not set" },
+                checkNotNull(contactDetails) { "`contactDetails` is required but was not set" }
+                    .map { it.toImmutable() },
+                checkNotNull(counterpartyBillingAddress) {
+                    "`counterpartyBillingAddress` is required but was not set"
+                },
+                checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
+                checkNotNull(counterpartyShippingAddress) {
+                    "`counterpartyShippingAddress` is required but was not set"
+                },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(currency) { "`currency` is required but was not set" },
+                checkNotNull(description) { "`description` is required but was not set" },
+                checkNotNull(dueDate) { "`dueDate` is required but was not set" },
+                checkNotNull(expectedPayments) { "`expectedPayments` is required but was not set" }
+                    .map { it.toImmutable() },
+                checkNotNull(fallbackPaymentMethod) {
+                    "`fallbackPaymentMethod` is required but was not set"
+                },
+                checkNotNull(hostedUrl) { "`hostedUrl` is required but was not set" },
+                checkNotNull(invoicerAddress) { "`invoicerAddress` is required but was not set" },
+                checkNotNull(ledgerAccountSettlementId) {
+                    "`ledgerAccountSettlementId` is required but was not set"
+                },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(metadata) { "`metadata` is required but was not set" },
+                checkNotNull(notificationEmailAddresses) {
+                        "`notificationEmailAddresses` is required but was not set"
+                    }
+                    .map { it.toImmutable() },
+                checkNotNull(notificationsEnabled) {
+                    "`notificationsEnabled` is required but was not set"
+                },
+                checkNotNull(number) { "`number` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(originatingAccountId) {
+                    "`originatingAccountId` is required but was not set"
+                },
+                checkNotNull(paymentEffectiveDate) {
+                    "`paymentEffectiveDate` is required but was not set"
+                },
+                checkNotNull(paymentMethod) { "`paymentMethod` is required but was not set" },
+                checkNotNull(paymentOrders) { "`paymentOrders` is required but was not set" }
+                    .map { it.toImmutable() },
+                checkNotNull(paymentType) { "`paymentType` is required but was not set" },
+                checkNotNull(pdfUrl) { "`pdfUrl` is required but was not set" },
+                checkNotNull(receivingAccountId) {
+                    "`receivingAccountId` is required but was not set"
+                },
+                checkNotNull(recipientEmail) { "`recipientEmail` is required but was not set" },
+                checkNotNull(recipientName) { "`recipientName` is required but was not set" },
+                checkNotNull(remindAfterOverdueDays) {
+                        "`remindAfterOverdueDays` is required but was not set"
+                    }
+                    .map { it.toImmutable() },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(totalAmount) { "`totalAmount` is required but was not set" },
+                checkNotNull(transactionLineItemIds) {
+                        "`transactionLineItemIds` is required but was not set"
+                    }
+                    .map { it.toImmutable() },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkNotNull(virtualAccountId) { "`virtualAccountId` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -1066,29 +1204,35 @@ private constructor(
 
         fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
         @JsonProperty("contact_identifier")
         @ExcludeMissing
-        fun _contactIdentifier() = contactIdentifier
+        fun _contactIdentifier(): JsonField<String> = contactIdentifier
 
         @JsonProperty("contact_identifier_type")
         @ExcludeMissing
-        fun _contactIdentifierType() = contactIdentifierType
+        fun _contactIdentifierType(): JsonField<ContactIdentifierType> = contactIdentifierType
 
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-        @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+        @JsonProperty("discarded_at")
+        @ExcludeMissing
+        fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
         /**
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
          */
-        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+        @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1119,14 +1263,14 @@ private constructor(
 
         class Builder {
 
-            private var id: JsonField<String> = JsonMissing.of()
-            private var contactIdentifier: JsonField<String> = JsonMissing.of()
-            private var contactIdentifierType: JsonField<ContactIdentifierType> = JsonMissing.of()
-            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var liveMode: JsonField<Boolean> = JsonMissing.of()
-            private var object_: JsonField<String> = JsonMissing.of()
-            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var id: JsonField<String>? = null
+            private var contactIdentifier: JsonField<String>? = null
+            private var contactIdentifierType: JsonField<ContactIdentifierType>? = null
+            private var createdAt: JsonField<OffsetDateTime>? = null
+            private var discardedAt: JsonField<OffsetDateTime>? = null
+            private var liveMode: JsonField<Boolean>? = null
+            private var object_: JsonField<String>? = null
+            private var updatedAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(contactDetail: ContactDetail) = apply {
@@ -1166,7 +1310,8 @@ private constructor(
                 this.createdAt = createdAt
             }
 
-            fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+            fun discardedAt(discardedAt: OffsetDateTime?) =
+                discardedAt(JsonField.ofNullable(discardedAt))
 
             fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
                 this.discardedAt = discardedAt
@@ -1215,14 +1360,18 @@ private constructor(
 
             fun build(): ContactDetail =
                 ContactDetail(
-                    id,
-                    contactIdentifier,
-                    contactIdentifierType,
-                    createdAt,
-                    discardedAt,
-                    liveMode,
-                    object_,
-                    updatedAt,
+                    checkNotNull(id) { "`id` is required but was not set" },
+                    checkNotNull(contactIdentifier) {
+                        "`contactIdentifier` is required but was not set"
+                    },
+                    checkNotNull(contactIdentifierType) {
+                        "`contactIdentifierType` is required but was not set"
+                    },
+                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                    checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
+                    checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                    checkNotNull(object_) { "`object_` is required but was not set" },
+                    checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1355,20 +1504,22 @@ private constructor(
         fun line2(): String? = line2.getNullable("line2")
 
         /** Country code conforms to [ISO 3166-1 alpha-2] */
-        @JsonProperty("country") @ExcludeMissing fun _country() = country
+        @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
 
-        @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+        @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
         /** Locality or City. */
-        @JsonProperty("locality") @ExcludeMissing fun _locality() = locality
+        @JsonProperty("locality") @ExcludeMissing fun _locality(): JsonField<String> = locality
 
         /** The postal code of the address. */
-        @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+        @JsonProperty("postal_code")
+        @ExcludeMissing
+        fun _postalCode(): JsonField<String> = postalCode
 
         /** Region or State. */
-        @JsonProperty("region") @ExcludeMissing fun _region() = region
+        @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
 
-        @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+        @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1397,11 +1548,11 @@ private constructor(
 
         class Builder {
 
-            private var country: JsonField<String> = JsonMissing.of()
-            private var line1: JsonField<String> = JsonMissing.of()
-            private var locality: JsonField<String> = JsonMissing.of()
-            private var postalCode: JsonField<String> = JsonMissing.of()
-            private var region: JsonField<String> = JsonMissing.of()
+            private var country: JsonField<String>? = null
+            private var line1: JsonField<String>? = null
+            private var locality: JsonField<String>? = null
+            private var postalCode: JsonField<String>? = null
+            private var region: JsonField<String>? = null
             private var line2: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1469,11 +1620,11 @@ private constructor(
 
             fun build(): CounterpartyBillingAddress =
                 CounterpartyBillingAddress(
-                    country,
-                    line1,
-                    locality,
-                    postalCode,
-                    region,
+                    checkNotNull(country) { "`country` is required but was not set" },
+                    checkNotNull(line1) { "`line1` is required but was not set" },
+                    checkNotNull(locality) { "`locality` is required but was not set" },
+                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                    checkNotNull(region) { "`region` is required but was not set" },
                     line2,
                     additionalProperties.toImmutable(),
                 )
@@ -1541,20 +1692,22 @@ private constructor(
         fun line2(): String? = line2.getNullable("line2")
 
         /** Country code conforms to [ISO 3166-1 alpha-2] */
-        @JsonProperty("country") @ExcludeMissing fun _country() = country
+        @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
 
-        @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+        @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
         /** Locality or City. */
-        @JsonProperty("locality") @ExcludeMissing fun _locality() = locality
+        @JsonProperty("locality") @ExcludeMissing fun _locality(): JsonField<String> = locality
 
         /** The postal code of the address. */
-        @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+        @JsonProperty("postal_code")
+        @ExcludeMissing
+        fun _postalCode(): JsonField<String> = postalCode
 
         /** Region or State. */
-        @JsonProperty("region") @ExcludeMissing fun _region() = region
+        @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
 
-        @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+        @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1583,11 +1736,11 @@ private constructor(
 
         class Builder {
 
-            private var country: JsonField<String> = JsonMissing.of()
-            private var line1: JsonField<String> = JsonMissing.of()
-            private var locality: JsonField<String> = JsonMissing.of()
-            private var postalCode: JsonField<String> = JsonMissing.of()
-            private var region: JsonField<String> = JsonMissing.of()
+            private var country: JsonField<String>? = null
+            private var line1: JsonField<String>? = null
+            private var locality: JsonField<String>? = null
+            private var postalCode: JsonField<String>? = null
+            private var region: JsonField<String>? = null
             private var line2: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1655,11 +1808,11 @@ private constructor(
 
             fun build(): CounterpartyShippingAddress =
                 CounterpartyShippingAddress(
-                    country,
-                    line1,
-                    locality,
-                    postalCode,
-                    region,
+                    checkNotNull(country) { "`country` is required but was not set" },
+                    checkNotNull(line1) { "`line1` is required but was not set" },
+                    checkNotNull(locality) { "`locality` is required but was not set" },
+                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                    checkNotNull(region) { "`region` is required but was not set" },
                     line2,
                     additionalProperties.toImmutable(),
                 )
@@ -1727,20 +1880,22 @@ private constructor(
         fun line2(): String? = line2.getNullable("line2")
 
         /** Country code conforms to [ISO 3166-1 alpha-2] */
-        @JsonProperty("country") @ExcludeMissing fun _country() = country
+        @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
 
-        @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+        @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
         /** Locality or City. */
-        @JsonProperty("locality") @ExcludeMissing fun _locality() = locality
+        @JsonProperty("locality") @ExcludeMissing fun _locality(): JsonField<String> = locality
 
         /** The postal code of the address. */
-        @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+        @JsonProperty("postal_code")
+        @ExcludeMissing
+        fun _postalCode(): JsonField<String> = postalCode
 
         /** Region or State. */
-        @JsonProperty("region") @ExcludeMissing fun _region() = region
+        @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
 
-        @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+        @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1769,11 +1924,11 @@ private constructor(
 
         class Builder {
 
-            private var country: JsonField<String> = JsonMissing.of()
-            private var line1: JsonField<String> = JsonMissing.of()
-            private var locality: JsonField<String> = JsonMissing.of()
-            private var postalCode: JsonField<String> = JsonMissing.of()
-            private var region: JsonField<String> = JsonMissing.of()
+            private var country: JsonField<String>? = null
+            private var line1: JsonField<String>? = null
+            private var locality: JsonField<String>? = null
+            private var postalCode: JsonField<String>? = null
+            private var region: JsonField<String>? = null
             private var line2: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1840,11 +1995,11 @@ private constructor(
 
             fun build(): InvoicerAddress =
                 InvoicerAddress(
-                    country,
-                    line1,
-                    locality,
-                    postalCode,
-                    region,
+                    checkNotNull(country) { "`country` is required but was not set" },
+                    checkNotNull(line1) { "`line1` is required but was not set" },
+                    checkNotNull(locality) { "`locality` is required but was not set" },
+                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                    checkNotNull(region) { "`region` is required but was not set" },
                     line2,
                     additionalProperties.toImmutable(),
                 )

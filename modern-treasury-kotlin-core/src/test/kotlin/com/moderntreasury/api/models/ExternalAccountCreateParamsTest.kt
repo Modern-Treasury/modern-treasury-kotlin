@@ -273,8 +273,12 @@ class ExternalAccountCreateParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = ExternalAccountCreateParams.builder().build()
+        val params =
+            ExternalAccountCreateParams.builder()
+                .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .build()
         val body = params.getBody()
         assertThat(body).isNotNull
+        assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
     }
 }

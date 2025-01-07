@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -58,11 +59,42 @@ constructor(
      */
     fun dueDate(): LocalDate? = body.dueDate()
 
+    /**
+     * Required. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
+     * Can be any integer up to 36 digits.
+     */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /**
+     * Required. The ID of a counterparty associated with the payment. As part of the payment
+     * workflow an external account will be associated with this model.
+     */
+    fun _counterpartyId(): JsonField<String> = body._counterpartyId()
+
+    /** Required. The currency of the payment. */
+    fun _currency(): JsonField<String> = body._currency()
+
+    /**
+     * Required. Describes the direction money is flowing in the transaction. Can only be `debit`. A
+     * `debit` pulls money from someone else's account to your own.
+     */
+    fun _direction(): JsonField<Direction> = body._direction()
+
+    /** Required. The ID of one of your organization's internal accounts. */
+    fun _originatingAccountId(): JsonField<String> = body._originatingAccountId()
+
+    /**
+     * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`. When set,
+     * the due date is shown to your end-user in the pre-built UI as they are selecting a payment
+     * `effective_date`.
+     */
+    fun _dueDate(): JsonField<LocalDate> = body._dueDate()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): PaymentFlowCreateBody = body
 
@@ -74,12 +106,24 @@ constructor(
     class PaymentFlowCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("amount") private val amount: Long,
-        @JsonProperty("counterparty_id") private val counterpartyId: String,
-        @JsonProperty("currency") private val currency: String,
-        @JsonProperty("direction") private val direction: Direction,
-        @JsonProperty("originating_account_id") private val originatingAccountId: String,
-        @JsonProperty("due_date") private val dueDate: LocalDate?,
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("counterparty_id")
+        @ExcludeMissing
+        private val counterpartyId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("currency")
+        @ExcludeMissing
+        private val currency: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("direction")
+        @ExcludeMissing
+        private val direction: JsonField<Direction> = JsonMissing.of(),
+        @JsonProperty("originating_account_id")
+        @ExcludeMissing
+        private val originatingAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("due_date")
+        @ExcludeMissing
+        private val dueDate: JsonField<LocalDate> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -88,37 +132,88 @@ constructor(
          * Required. Value in specified currency's smallest unit. e.g. $10 would be represented
          * as 1000. Can be any integer up to 36 digits.
          */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
 
         /**
          * Required. The ID of a counterparty associated with the payment. As part of the payment
          * workflow an external account will be associated with this model.
          */
-        @JsonProperty("counterparty_id") fun counterpartyId(): String = counterpartyId
+        fun counterpartyId(): String = counterpartyId.getRequired("counterparty_id")
 
         /** Required. The currency of the payment. */
-        @JsonProperty("currency") fun currency(): String = currency
+        fun currency(): String = currency.getRequired("currency")
 
         /**
          * Required. Describes the direction money is flowing in the transaction. Can only be
          * `debit`. A `debit` pulls money from someone else's account to your own.
          */
-        @JsonProperty("direction") fun direction(): Direction = direction
+        fun direction(): Direction = direction.getRequired("direction")
 
         /** Required. The ID of one of your organization's internal accounts. */
-        @JsonProperty("originating_account_id")
-        fun originatingAccountId(): String = originatingAccountId
+        fun originatingAccountId(): String =
+            originatingAccountId.getRequired("originating_account_id")
 
         /**
          * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`. When
          * set, the due date is shown to your end-user in the pre-built UI as they are selecting a
          * payment `effective_date`.
          */
-        @JsonProperty("due_date") fun dueDate(): LocalDate? = dueDate
+        fun dueDate(): LocalDate? = dueDate.getNullable("due_date")
+
+        /**
+         * Required. Value in specified currency's smallest unit. e.g. $10 would be represented
+         * as 1000. Can be any integer up to 36 digits.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /**
+         * Required. The ID of a counterparty associated with the payment. As part of the payment
+         * workflow an external account will be associated with this model.
+         */
+        @JsonProperty("counterparty_id")
+        @ExcludeMissing
+        fun _counterpartyId(): JsonField<String> = counterpartyId
+
+        /** Required. The currency of the payment. */
+        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<String> = currency
+
+        /**
+         * Required. Describes the direction money is flowing in the transaction. Can only be
+         * `debit`. A `debit` pulls money from someone else's account to your own.
+         */
+        @JsonProperty("direction")
+        @ExcludeMissing
+        fun _direction(): JsonField<Direction> = direction
+
+        /** Required. The ID of one of your organization's internal accounts. */
+        @JsonProperty("originating_account_id")
+        @ExcludeMissing
+        fun _originatingAccountId(): JsonField<String> = originatingAccountId
+
+        /**
+         * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`. When
+         * set, the due date is shown to your end-user in the pre-built UI as they are selecting a
+         * payment `effective_date`.
+         */
+        @JsonProperty("due_date") @ExcludeMissing fun _dueDate(): JsonField<LocalDate> = dueDate
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): PaymentFlowCreateBody = apply {
+            if (!validated) {
+                amount()
+                counterpartyId()
+                currency()
+                direction()
+                originatingAccountId()
+                dueDate()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -129,12 +224,12 @@ constructor(
 
         class Builder {
 
-            private var amount: Long? = null
-            private var counterpartyId: String? = null
-            private var currency: String? = null
-            private var direction: Direction? = null
-            private var originatingAccountId: String? = null
-            private var dueDate: LocalDate? = null
+            private var amount: JsonField<Long>? = null
+            private var counterpartyId: JsonField<String>? = null
+            private var currency: JsonField<String>? = null
+            private var direction: JsonField<Direction>? = null
+            private var originatingAccountId: JsonField<String>? = null
+            private var dueDate: JsonField<LocalDate> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(paymentFlowCreateBody: PaymentFlowCreateBody) = apply {
@@ -151,27 +246,53 @@ constructor(
              * Required. Value in specified currency's smallest unit. e.g. $10 would be represented
              * as 1000. Can be any integer up to 36 digits.
              */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * Required. Value in specified currency's smallest unit. e.g. $10 would be represented
+             * as 1000. Can be any integer up to 36 digits.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /**
              * Required. The ID of a counterparty associated with the payment. As part of the
              * payment workflow an external account will be associated with this model.
              */
-            fun counterpartyId(counterpartyId: String) = apply {
+            fun counterpartyId(counterpartyId: String) =
+                counterpartyId(JsonField.of(counterpartyId))
+
+            /**
+             * Required. The ID of a counterparty associated with the payment. As part of the
+             * payment workflow an external account will be associated with this model.
+             */
+            fun counterpartyId(counterpartyId: JsonField<String>) = apply {
                 this.counterpartyId = counterpartyId
             }
 
             /** Required. The currency of the payment. */
-            fun currency(currency: String) = apply { this.currency = currency }
+            fun currency(currency: String) = currency(JsonField.of(currency))
+
+            /** Required. The currency of the payment. */
+            fun currency(currency: JsonField<String>) = apply { this.currency = currency }
 
             /**
              * Required. Describes the direction money is flowing in the transaction. Can only be
              * `debit`. A `debit` pulls money from someone else's account to your own.
              */
-            fun direction(direction: Direction) = apply { this.direction = direction }
+            fun direction(direction: Direction) = direction(JsonField.of(direction))
+
+            /**
+             * Required. Describes the direction money is flowing in the transaction. Can only be
+             * `debit`. A `debit` pulls money from someone else's account to your own.
+             */
+            fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
             /** Required. The ID of one of your organization's internal accounts. */
-            fun originatingAccountId(originatingAccountId: String) = apply {
+            fun originatingAccountId(originatingAccountId: String) =
+                originatingAccountId(JsonField.of(originatingAccountId))
+
+            /** Required. The ID of one of your organization's internal accounts. */
+            fun originatingAccountId(originatingAccountId: JsonField<String>) = apply {
                 this.originatingAccountId = originatingAccountId
             }
 
@@ -180,7 +301,14 @@ constructor(
              * When set, the due date is shown to your end-user in the pre-built UI as they are
              * selecting a payment `effective_date`.
              */
-            fun dueDate(dueDate: LocalDate?) = apply { this.dueDate = dueDate }
+            fun dueDate(dueDate: LocalDate) = dueDate(JsonField.of(dueDate))
+
+            /**
+             * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`.
+             * When set, the due date is shown to your end-user in the pre-built UI as they are
+             * selecting a payment `effective_date`.
+             */
+            fun dueDate(dueDate: JsonField<LocalDate>) = apply { this.dueDate = dueDate }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -260,13 +388,30 @@ constructor(
         fun amount(amount: Long) = apply { body.amount(amount) }
 
         /**
+         * Required. Value in specified currency's smallest unit. e.g. $10 would be represented
+         * as 1000. Can be any integer up to 36 digits.
+         */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
+        /**
          * Required. The ID of a counterparty associated with the payment. As part of the payment
          * workflow an external account will be associated with this model.
          */
         fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
 
+        /**
+         * Required. The ID of a counterparty associated with the payment. As part of the payment
+         * workflow an external account will be associated with this model.
+         */
+        fun counterpartyId(counterpartyId: JsonField<String>) = apply {
+            body.counterpartyId(counterpartyId)
+        }
+
         /** Required. The currency of the payment. */
         fun currency(currency: String) = apply { body.currency(currency) }
+
+        /** Required. The currency of the payment. */
+        fun currency(currency: JsonField<String>) = apply { body.currency(currency) }
 
         /**
          * Required. Describes the direction money is flowing in the transaction. Can only be
@@ -274,8 +419,19 @@ constructor(
          */
         fun direction(direction: Direction) = apply { body.direction(direction) }
 
+        /**
+         * Required. Describes the direction money is flowing in the transaction. Can only be
+         * `debit`. A `debit` pulls money from someone else's account to your own.
+         */
+        fun direction(direction: JsonField<Direction>) = apply { body.direction(direction) }
+
         /** Required. The ID of one of your organization's internal accounts. */
         fun originatingAccountId(originatingAccountId: String) = apply {
+            body.originatingAccountId(originatingAccountId)
+        }
+
+        /** Required. The ID of one of your organization's internal accounts. */
+        fun originatingAccountId(originatingAccountId: JsonField<String>) = apply {
             body.originatingAccountId(originatingAccountId)
         }
 
@@ -284,7 +440,33 @@ constructor(
          * set, the due date is shown to your end-user in the pre-built UI as they are selecting a
          * payment `effective_date`.
          */
-        fun dueDate(dueDate: LocalDate?) = apply { body.dueDate(dueDate) }
+        fun dueDate(dueDate: LocalDate) = apply { body.dueDate(dueDate) }
+
+        /**
+         * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`. When
+         * set, the due date is shown to your end-user in the pre-built UI as they are selecting a
+         * payment `effective_date`.
+         */
+        fun dueDate(dueDate: JsonField<LocalDate>) = apply { body.dueDate(dueDate) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -382,25 +564,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): PaymentFlowCreateParams =

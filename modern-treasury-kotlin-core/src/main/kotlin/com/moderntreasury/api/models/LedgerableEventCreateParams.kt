@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.ExcludeMissing
+import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -27,7 +29,7 @@ constructor(
     fun name(): String = body.name()
 
     /** Additionally data to be used by the Ledger Event Handler. */
-    fun customData(): JsonValue? = body.customData()
+    fun _customData(): JsonValue = body._customData()
 
     /** Description of the ledgerable event. */
     fun description(): String? = body.description()
@@ -35,11 +37,20 @@ constructor(
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
     fun metadata(): Metadata? = body.metadata()
 
+    /** Name of the ledgerable event. */
+    fun _name(): JsonField<String> = body._name()
+
+    /** Description of the ledgerable event. */
+    fun _description(): JsonField<String> = body._description()
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun _metadata(): JsonField<Metadata> = body._metadata()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): LedgerableEventCreateBody = body
 
@@ -51,31 +62,63 @@ constructor(
     class LedgerableEventCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("name") private val name: String,
-        @JsonProperty("custom_data") private val customData: JsonValue?,
-        @JsonProperty("description") private val description: String?,
-        @JsonProperty("metadata") private val metadata: Metadata?,
+        @JsonProperty("name")
+        @ExcludeMissing
+        private val name: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("custom_data")
+        @ExcludeMissing
+        private val customData: JsonValue = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        private val metadata: JsonField<Metadata> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Name of the ledgerable event. */
-        @JsonProperty("name") fun name(): String = name
+        fun name(): String = name.getRequired("name")
 
         /** Additionally data to be used by the Ledger Event Handler. */
-        @JsonProperty("custom_data") fun customData(): JsonValue? = customData
+        @JsonProperty("custom_data") @ExcludeMissing fun _customData(): JsonValue = customData
 
         /** Description of the ledgerable event. */
-        @JsonProperty("description") fun description(): String? = description
+        fun description(): String? = description.getNullable("description")
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
+
+        /** Name of the ledgerable event. */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /** Description of the ledgerable event. */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): LedgerableEventCreateBody = apply {
+            if (!validated) {
+                name()
+                description()
+                metadata()?.validate()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -86,10 +129,10 @@ constructor(
 
         class Builder {
 
-            private var name: String? = null
-            private var customData: JsonValue? = null
-            private var description: String? = null
-            private var metadata: Metadata? = null
+            private var name: JsonField<String>? = null
+            private var customData: JsonValue = JsonMissing.of()
+            private var description: JsonField<String> = JsonMissing.of()
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerableEventCreateBody: LedgerableEventCreateBody) = apply {
@@ -101,19 +144,33 @@ constructor(
             }
 
             /** Name of the ledgerable event. */
-            fun name(name: String) = apply { this.name = name }
+            fun name(name: String) = name(JsonField.of(name))
+
+            /** Name of the ledgerable event. */
+            fun name(name: JsonField<String>) = apply { this.name = name }
 
             /** Additionally data to be used by the Ledger Event Handler. */
-            fun customData(customData: JsonValue?) = apply { this.customData = customData }
+            fun customData(customData: JsonValue) = apply { this.customData = customData }
 
             /** Description of the ledgerable event. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String?) = description(JsonField.ofNullable(description))
+
+            /** Description of the ledgerable event. */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -185,16 +242,46 @@ constructor(
         /** Name of the ledgerable event. */
         fun name(name: String) = apply { body.name(name) }
 
+        /** Name of the ledgerable event. */
+        fun name(name: JsonField<String>) = apply { body.name(name) }
+
         /** Additionally data to be used by the Ledger Event Handler. */
-        fun customData(customData: JsonValue?) = apply { body.customData(customData) }
+        fun customData(customData: JsonValue) = apply { body.customData(customData) }
 
         /** Description of the ledgerable event. */
         fun description(description: String?) = apply { body.description(description) }
 
+        /** Description of the ledgerable event. */
+        fun description(description: JsonField<String>) = apply { body.description(description) }
+
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -294,25 +381,6 @@ constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
-
         fun build(): LedgerableEventCreateParams =
             LedgerableEventCreateParams(
                 body.build(),
@@ -333,6 +401,14 @@ constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (!validated) {
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 

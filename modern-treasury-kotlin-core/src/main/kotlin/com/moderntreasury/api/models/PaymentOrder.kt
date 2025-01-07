@@ -425,14 +425,24 @@ private constructor(
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     /**
+     * Additional vendor specific fields for this payment. Data must be represented as key-value
+     * pairs.
+     */
+    @JsonProperty("vendor_attributes")
+    @ExcludeMissing
+    fun _vendorAttributes(): JsonValue = vendorAttributes
+
+    /**
      * This field will be populated if a vendor failure occurs. Logic shouldn't be built on its
      * value as it is free-form.
      */
     fun vendorFailureReason(): String? = vendorFailureReason.getNullable("vendor_failure_reason")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    @JsonProperty("accounting") @ExcludeMissing fun _accounting() = accounting
+    @JsonProperty("accounting")
+    @ExcludeMissing
+    fun _accounting(): JsonField<Accounting> = accounting
 
     /**
      * The ID of one of your accounting categories. Note that these will only be accessible if your
@@ -440,7 +450,7 @@ private constructor(
      */
     @JsonProperty("accounting_category_id")
     @ExcludeMissing
-    fun _accountingCategoryId() = accountingCategoryId
+    fun _accountingCategoryId(): JsonField<String> = accountingCategoryId
 
     /**
      * The ID of one of your accounting ledger classes. Note that these will only be accessible if
@@ -448,20 +458,22 @@ private constructor(
      */
     @JsonProperty("accounting_ledger_class_id")
     @ExcludeMissing
-    fun _accountingLedgerClassId() = accountingLedgerClassId
+    fun _accountingLedgerClassId(): JsonField<String> = accountingLedgerClassId
 
     /**
      * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000 (cents).
      * For RTP, the maximum amount allowed by the network is $100,000.
      */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
      * The party that will pay the fees for the payment order. Only applies to wire payment orders.
      * Can be one of shared, sender, or receiver, which correspond respectively with the SWIFT 71A
      * values `SHA`, `OUR`, `BEN`.
      */
-    @JsonProperty("charge_bearer") @ExcludeMissing fun _chargeBearer() = chargeBearer
+    @JsonProperty("charge_bearer")
+    @ExcludeMissing
+    fun _chargeBearer(): JsonField<ChargeBearer> = chargeBearer
 
     /**
      * Custom key-value pair for usage in compliance rules. Please contact support before making
@@ -469,47 +481,57 @@ private constructor(
      */
     @JsonProperty("compliance_rule_metadata")
     @ExcludeMissing
-    fun _complianceRuleMetadata() = complianceRuleMetadata
+    fun _complianceRuleMetadata(): JsonField<ComplianceRuleMetadata> = complianceRuleMetadata
 
     /**
      * If the payment order is tied to a specific Counterparty, their id will appear, otherwise
      * `null`.
      */
-    @JsonProperty("counterparty_id") @ExcludeMissing fun _counterpartyId() = counterpartyId
+    @JsonProperty("counterparty_id")
+    @ExcludeMissing
+    fun _counterpartyId(): JsonField<String> = counterpartyId
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** Defaults to the currency of the originating account. */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+    @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
     /** If the payment order's status is `returned`, this will include the return object's data. */
-    @JsonProperty("current_return") @ExcludeMissing fun _currentReturn() = currentReturn
+    @JsonProperty("current_return")
+    @ExcludeMissing
+    fun _currentReturn(): JsonField<ReturnObject> = currentReturn
 
     /**
      * The ID of the compliance decision for the payment order, if transaction monitoring is
      * enabled.
      */
-    @JsonProperty("decision_id") @ExcludeMissing fun _decisionId() = decisionId
+    @JsonProperty("decision_id") @ExcludeMissing fun _decisionId(): JsonField<String> = decisionId
 
     /** An optional description for internal use. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /**
      * One of `credit`, `debit`. Describes the direction money is flowing in the transaction. A
      * `credit` moves money from your account to someone else's. A `debit` pulls money from someone
      * else's account to your own. Note that wire, rtp, and check payments will always be `credit`.
      */
-    @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
+    @JsonProperty("direction") @ExcludeMissing fun _direction(): JsonField<Direction> = direction
 
     /**
      * Date transactions are to be posted to the participants' account. Defaults to the current
      * business day or the next business day if the current day is a bank holiday or weekend.
      * Format: yyyy-mm-dd.
      */
-    @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
+    @JsonProperty("effective_date")
+    @ExcludeMissing
+    fun _effectiveDate(): JsonField<LocalDate> = effectiveDate
 
     /** RFP payments require an expires_at. This value must be past the effective_date. */
-    @JsonProperty("expires_at") @ExcludeMissing fun _expiresAt() = expiresAt
+    @JsonProperty("expires_at")
+    @ExcludeMissing
+    fun _expiresAt(): JsonField<OffsetDateTime> = expiresAt
 
     /**
      * If present, indicates a specific foreign exchange contract number that has been generated by
@@ -517,7 +539,7 @@ private constructor(
      */
     @JsonProperty("foreign_exchange_contract")
     @ExcludeMissing
-    fun _foreignExchangeContract() = foreignExchangeContract
+    fun _foreignExchangeContract(): JsonField<String> = foreignExchangeContract
 
     /**
      * Indicates the type of FX transfer to initiate, can be either `variable_to_fixed`,
@@ -526,39 +548,41 @@ private constructor(
      */
     @JsonProperty("foreign_exchange_indicator")
     @ExcludeMissing
-    fun _foreignExchangeIndicator() = foreignExchangeIndicator
+    fun _foreignExchangeIndicator(): JsonField<ForeignExchangeIndicator> = foreignExchangeIndicator
 
     /** Associated serialized foreign exchange rate information. */
     @JsonProperty("foreign_exchange_rate")
     @ExcludeMissing
-    fun _foreignExchangeRate() = foreignExchangeRate
+    fun _foreignExchangeRate(): JsonField<ForeignExchangeRate> = foreignExchangeRate
 
     /** The ID of the ledger transaction linked to the payment order. */
     @JsonProperty("ledger_transaction_id")
     @ExcludeMissing
-    fun _ledgerTransactionId() = ledgerTransactionId
+    fun _ledgerTransactionId(): JsonField<String> = ledgerTransactionId
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
     /**
      * A boolean to determine if NSF Protection is enabled for this payment order. Note that this
      * setting must also be turned on in your organization settings page.
      */
-    @JsonProperty("nsf_protected") @ExcludeMissing fun _nsfProtected() = nsfProtected
+    @JsonProperty("nsf_protected")
+    @ExcludeMissing
+    fun _nsfProtected(): JsonField<Boolean> = nsfProtected
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /** The ID of one of your organization's internal accounts. */
     @JsonProperty("originating_account_id")
     @ExcludeMissing
-    fun _originatingAccountId() = originatingAccountId
+    fun _originatingAccountId(): JsonField<String> = originatingAccountId
 
     /**
      * If present, this will replace your default company name on receiver's bank statement. This
@@ -567,14 +591,14 @@ private constructor(
      */
     @JsonProperty("originating_party_name")
     @ExcludeMissing
-    fun _originatingPartyName() = originatingPartyName
+    fun _originatingPartyName(): JsonField<String> = originatingPartyName
 
     /**
      * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH or EFT
      * transfer, respectively. For check payments, `high` can mean an overnight check rather than
      * standard mail.
      */
-    @JsonProperty("priority") @ExcludeMissing fun _priority() = priority
+    @JsonProperty("priority") @ExcludeMissing fun _priority(): JsonField<Priority> = priority
 
     /**
      * If present, Modern Treasury will not process the payment until after this time. If
@@ -582,25 +606,29 @@ private constructor(
      * and `effective_date` will automatically update to reflect the earliest possible sending date
      * after `process_after`. Format is ISO8601 timestamp.
      */
-    @JsonProperty("process_after") @ExcludeMissing fun _processAfter() = processAfter
+    @JsonProperty("process_after")
+    @ExcludeMissing
+    fun _processAfter(): JsonField<OffsetDateTime> = processAfter
 
     /**
      * For `wire`, this is usually the purpose which is transmitted via the "InstrForDbtrAgt" field
      * in the ISO20022 file. For `eft`, this field is the 3 digit CPA Code that will be attached to
      * the payment.
      */
-    @JsonProperty("purpose") @ExcludeMissing fun _purpose() = purpose
+    @JsonProperty("purpose") @ExcludeMissing fun _purpose(): JsonField<String> = purpose
 
     /** The receiving account ID. Can be an `external_account` or `internal_account`. */
     @JsonProperty("receiving_account_id")
     @ExcludeMissing
-    fun _receivingAccountId() = receivingAccountId
+    fun _receivingAccountId(): JsonField<String> = receivingAccountId
 
     @JsonProperty("receiving_account_type")
     @ExcludeMissing
-    fun _receivingAccountType() = receivingAccountType
+    fun _receivingAccountType(): JsonField<ReceivingAccountType> = receivingAccountType
 
-    @JsonProperty("reference_numbers") @ExcludeMissing fun _referenceNumbers() = referenceNumbers
+    @JsonProperty("reference_numbers")
+    @ExcludeMissing
+    fun _referenceNumbers(): JsonField<List<PaymentReference>> = referenceNumbers
 
     /**
      * For `ach`, this field will be passed through on an addenda record. For `wire` payments the
@@ -609,7 +637,7 @@ private constructor(
      */
     @JsonProperty("remittance_information")
     @ExcludeMissing
-    fun _remittanceInformation() = remittanceInformation
+    fun _remittanceInformation(): JsonField<String> = remittanceInformation
 
     /**
      * Send an email to the counterparty when the payment order is sent to the bank. If `null`,
@@ -617,7 +645,7 @@ private constructor(
      */
     @JsonProperty("send_remittance_advice")
     @ExcludeMissing
-    fun _sendRemittanceAdvice() = sendRemittanceAdvice
+    fun _sendRemittanceAdvice(): JsonField<Boolean> = sendRemittanceAdvice
 
     /**
      * An optional descriptor which will appear in the receiver's statement. For `check` payments
@@ -628,10 +656,10 @@ private constructor(
      */
     @JsonProperty("statement_descriptor")
     @ExcludeMissing
-    fun _statementDescriptor() = statementDescriptor
+    fun _statementDescriptor(): JsonField<String> = statementDescriptor
 
     /** The current status of the payment order. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * An additional layer of classification for the type of payment order you are doing. This field
@@ -639,26 +667,30 @@ private constructor(
      * represents the SEC code. We currently support `CCD`, `PPD`, `IAT`, `CTX`, `WEB`, `CIE`, and
      * `TEL`.
      */
-    @JsonProperty("subtype") @ExcludeMissing fun _subtype() = subtype
+    @JsonProperty("subtype")
+    @ExcludeMissing
+    fun _subtype(): JsonField<PaymentOrderSubtype> = subtype
 
     /**
      * The IDs of all the transactions associated to this payment order. Usually, you will only have
      * a single transaction ID. However, if a payment order initially results in a Return, but gets
      * redrafted and is later successfully completed, it can have many transactions.
      */
-    @JsonProperty("transaction_ids") @ExcludeMissing fun _transactionIds() = transactionIds
+    @JsonProperty("transaction_ids")
+    @ExcludeMissing
+    fun _transactionIds(): JsonField<List<String>> = transactionIds
 
     /** A flag that determines whether a payment order should go through transaction monitoring. */
     @JsonProperty("transaction_monitoring_enabled")
     @ExcludeMissing
-    fun _transactionMonitoringEnabled() = transactionMonitoringEnabled
+    fun _transactionMonitoringEnabled(): JsonField<Boolean> = transactionMonitoringEnabled
 
     /**
      * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`,
      * `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `signet`,
      * `provexchange`, `zengin`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<PaymentOrderType> = type
 
     /**
      * The account to which the originating of this payment should be attributed to. Can be a
@@ -666,42 +698,41 @@ private constructor(
      */
     @JsonProperty("ultimate_originating_account")
     @ExcludeMissing
-    fun _ultimateOriginatingAccount() = ultimateOriginatingAccount
+    fun _ultimateOriginatingAccount(): JsonField<UltimateOriginatingAccount> =
+        ultimateOriginatingAccount
 
     /** The ultimate originating account ID. Can be a `virtual_account` or `internal_account`. */
     @JsonProperty("ultimate_originating_account_id")
     @ExcludeMissing
-    fun _ultimateOriginatingAccountId() = ultimateOriginatingAccountId
+    fun _ultimateOriginatingAccountId(): JsonField<String> = ultimateOriginatingAccountId
 
     @JsonProperty("ultimate_originating_account_type")
     @ExcludeMissing
-    fun _ultimateOriginatingAccountType() = ultimateOriginatingAccountType
+    fun _ultimateOriginatingAccountType(): JsonField<UltimateOriginatingAccountType> =
+        ultimateOriginatingAccountType
 
     /** Identifier of the ultimate originator of the payment order. */
     @JsonProperty("ultimate_originating_party_identifier")
     @ExcludeMissing
-    fun _ultimateOriginatingPartyIdentifier() = ultimateOriginatingPartyIdentifier
+    fun _ultimateOriginatingPartyIdentifier(): JsonField<String> =
+        ultimateOriginatingPartyIdentifier
 
     /** Name of the ultimate originator of the payment order. */
     @JsonProperty("ultimate_originating_party_name")
     @ExcludeMissing
-    fun _ultimateOriginatingPartyName() = ultimateOriginatingPartyName
+    fun _ultimateOriginatingPartyName(): JsonField<String> = ultimateOriginatingPartyName
 
     @JsonProperty("ultimate_receiving_party_identifier")
     @ExcludeMissing
-    fun _ultimateReceivingPartyIdentifier() = ultimateReceivingPartyIdentifier
+    fun _ultimateReceivingPartyIdentifier(): JsonField<String> = ultimateReceivingPartyIdentifier
 
     @JsonProperty("ultimate_receiving_party_name")
     @ExcludeMissing
-    fun _ultimateReceivingPartyName() = ultimateReceivingPartyName
+    fun _ultimateReceivingPartyName(): JsonField<String> = ultimateReceivingPartyName
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
-    /**
-     * Additional vendor specific fields for this payment. Data must be represented as key-value
-     * pairs.
-     */
-    @JsonProperty("vendor_attributes") @ExcludeMissing fun _vendorAttributes() = vendorAttributes
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     /**
      * This field will be populated if a vendor failure occurs. Logic shouldn't be built on its
@@ -709,7 +740,7 @@ private constructor(
      */
     @JsonProperty("vendor_failure_reason")
     @ExcludeMissing
-    fun _vendorFailureReason() = vendorFailureReason
+    fun _vendorFailureReason(): JsonField<String> = vendorFailureReason
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -781,58 +812,57 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var accounting: JsonField<Accounting> = JsonMissing.of()
-        private var accountingCategoryId: JsonField<String> = JsonMissing.of()
-        private var accountingLedgerClassId: JsonField<String> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var chargeBearer: JsonField<ChargeBearer> = JsonMissing.of()
-        private var complianceRuleMetadata: JsonField<ComplianceRuleMetadata> = JsonMissing.of()
-        private var counterpartyId: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
-        private var currentReturn: JsonField<ReturnObject> = JsonMissing.of()
-        private var decisionId: JsonField<String> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var direction: JsonField<Direction> = JsonMissing.of()
-        private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
-        private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var foreignExchangeContract: JsonField<String> = JsonMissing.of()
-        private var foreignExchangeIndicator: JsonField<ForeignExchangeIndicator> = JsonMissing.of()
-        private var foreignExchangeRate: JsonField<ForeignExchangeRate> = JsonMissing.of()
-        private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
-        private var nsfProtected: JsonField<Boolean> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var originatingAccountId: JsonField<String> = JsonMissing.of()
-        private var originatingPartyName: JsonField<String> = JsonMissing.of()
-        private var priority: JsonField<Priority> = JsonMissing.of()
-        private var processAfter: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var purpose: JsonField<String> = JsonMissing.of()
-        private var receivingAccountId: JsonField<String> = JsonMissing.of()
-        private var receivingAccountType: JsonField<ReceivingAccountType> = JsonMissing.of()
-        private var referenceNumbers: JsonField<List<PaymentReference>> = JsonMissing.of()
-        private var remittanceInformation: JsonField<String> = JsonMissing.of()
-        private var sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of()
-        private var statementDescriptor: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var subtype: JsonField<PaymentOrderSubtype> = JsonMissing.of()
-        private var transactionIds: JsonField<List<String>> = JsonMissing.of()
-        private var transactionMonitoringEnabled: JsonField<Boolean> = JsonMissing.of()
-        private var type: JsonField<PaymentOrderType> = JsonMissing.of()
-        private var ultimateOriginatingAccount: JsonField<UltimateOriginatingAccount> =
-            JsonMissing.of()
-        private var ultimateOriginatingAccountId: JsonField<String> = JsonMissing.of()
-        private var ultimateOriginatingAccountType: JsonField<UltimateOriginatingAccountType> =
-            JsonMissing.of()
-        private var ultimateOriginatingPartyIdentifier: JsonField<String> = JsonMissing.of()
-        private var ultimateOriginatingPartyName: JsonField<String> = JsonMissing.of()
-        private var ultimateReceivingPartyIdentifier: JsonField<String> = JsonMissing.of()
-        private var ultimateReceivingPartyName: JsonField<String> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var vendorAttributes: JsonValue = JsonMissing.of()
-        private var vendorFailureReason: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var accounting: JsonField<Accounting>? = null
+        private var accountingCategoryId: JsonField<String>? = null
+        private var accountingLedgerClassId: JsonField<String>? = null
+        private var amount: JsonField<Long>? = null
+        private var chargeBearer: JsonField<ChargeBearer>? = null
+        private var complianceRuleMetadata: JsonField<ComplianceRuleMetadata>? = null
+        private var counterpartyId: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var currency: JsonField<Currency>? = null
+        private var currentReturn: JsonField<ReturnObject>? = null
+        private var decisionId: JsonField<String>? = null
+        private var description: JsonField<String>? = null
+        private var direction: JsonField<Direction>? = null
+        private var effectiveDate: JsonField<LocalDate>? = null
+        private var expiresAt: JsonField<OffsetDateTime>? = null
+        private var foreignExchangeContract: JsonField<String>? = null
+        private var foreignExchangeIndicator: JsonField<ForeignExchangeIndicator>? = null
+        private var foreignExchangeRate: JsonField<ForeignExchangeRate>? = null
+        private var ledgerTransactionId: JsonField<String>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var metadata: JsonField<Metadata>? = null
+        private var nsfProtected: JsonField<Boolean>? = null
+        private var object_: JsonField<String>? = null
+        private var originatingAccountId: JsonField<String>? = null
+        private var originatingPartyName: JsonField<String>? = null
+        private var priority: JsonField<Priority>? = null
+        private var processAfter: JsonField<OffsetDateTime>? = null
+        private var purpose: JsonField<String>? = null
+        private var receivingAccountId: JsonField<String>? = null
+        private var receivingAccountType: JsonField<ReceivingAccountType>? = null
+        private var referenceNumbers: JsonField<MutableList<PaymentReference>>? = null
+        private var remittanceInformation: JsonField<String>? = null
+        private var sendRemittanceAdvice: JsonField<Boolean>? = null
+        private var statementDescriptor: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var subtype: JsonField<PaymentOrderSubtype>? = null
+        private var transactionIds: JsonField<MutableList<String>>? = null
+        private var transactionMonitoringEnabled: JsonField<Boolean>? = null
+        private var type: JsonField<PaymentOrderType>? = null
+        private var ultimateOriginatingAccount: JsonField<UltimateOriginatingAccount>? = null
+        private var ultimateOriginatingAccountId: JsonField<String>? = null
+        private var ultimateOriginatingAccountType: JsonField<UltimateOriginatingAccountType>? =
+            null
+        private var ultimateOriginatingPartyIdentifier: JsonField<String>? = null
+        private var ultimateOriginatingPartyName: JsonField<String>? = null
+        private var ultimateReceivingPartyIdentifier: JsonField<String>? = null
+        private var ultimateReceivingPartyName: JsonField<String>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
+        private var vendorAttributes: JsonValue? = null
+        private var vendorFailureReason: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(paymentOrder: PaymentOrder) = apply {
@@ -867,13 +897,13 @@ private constructor(
             purpose = paymentOrder.purpose
             receivingAccountId = paymentOrder.receivingAccountId
             receivingAccountType = paymentOrder.receivingAccountType
-            referenceNumbers = paymentOrder.referenceNumbers
+            referenceNumbers = paymentOrder.referenceNumbers.map { it.toMutableList() }
             remittanceInformation = paymentOrder.remittanceInformation
             sendRemittanceAdvice = paymentOrder.sendRemittanceAdvice
             statementDescriptor = paymentOrder.statementDescriptor
             status = paymentOrder.status
             subtype = paymentOrder.subtype
-            transactionIds = paymentOrder.transactionIds
+            transactionIds = paymentOrder.transactionIds.map { it.toMutableList() }
             transactionMonitoringEnabled = paymentOrder.transactionMonitoringEnabled
             type = paymentOrder.type
             ultimateOriginatingAccount = paymentOrder.ultimateOriginatingAccount
@@ -901,8 +931,8 @@ private constructor(
          * The ID of one of your accounting categories. Note that these will only be accessible if
          * your accounting system has been connected.
          */
-        fun accountingCategoryId(accountingCategoryId: String) =
-            accountingCategoryId(JsonField.of(accountingCategoryId))
+        fun accountingCategoryId(accountingCategoryId: String?) =
+            accountingCategoryId(JsonField.ofNullable(accountingCategoryId))
 
         /**
          * The ID of one of your accounting categories. Note that these will only be accessible if
@@ -916,8 +946,8 @@ private constructor(
          * The ID of one of your accounting ledger classes. Note that these will only be accessible
          * if your accounting system has been connected.
          */
-        fun accountingLedgerClassId(accountingLedgerClassId: String) =
-            accountingLedgerClassId(JsonField.of(accountingLedgerClassId))
+        fun accountingLedgerClassId(accountingLedgerClassId: String?) =
+            accountingLedgerClassId(JsonField.ofNullable(accountingLedgerClassId))
 
         /**
          * The ID of one of your accounting ledger classes. Note that these will only be accessible
@@ -944,7 +974,8 @@ private constructor(
          * orders. Can be one of shared, sender, or receiver, which correspond respectively with the
          * SWIFT 71A values `SHA`, `OUR`, `BEN`.
          */
-        fun chargeBearer(chargeBearer: ChargeBearer) = chargeBearer(JsonField.of(chargeBearer))
+        fun chargeBearer(chargeBearer: ChargeBearer?) =
+            chargeBearer(JsonField.ofNullable(chargeBearer))
 
         /**
          * The party that will pay the fees for the payment order. Only applies to wire payment
@@ -959,8 +990,8 @@ private constructor(
          * Custom key-value pair for usage in compliance rules. Please contact support before making
          * changes to this field.
          */
-        fun complianceRuleMetadata(complianceRuleMetadata: ComplianceRuleMetadata) =
-            complianceRuleMetadata(JsonField.of(complianceRuleMetadata))
+        fun complianceRuleMetadata(complianceRuleMetadata: ComplianceRuleMetadata?) =
+            complianceRuleMetadata(JsonField.ofNullable(complianceRuleMetadata))
 
         /**
          * Custom key-value pair for usage in compliance rules. Please contact support before making
@@ -975,7 +1006,8 @@ private constructor(
          * If the payment order is tied to a specific Counterparty, their id will appear, otherwise
          * `null`.
          */
-        fun counterpartyId(counterpartyId: String) = counterpartyId(JsonField.of(counterpartyId))
+        fun counterpartyId(counterpartyId: String?) =
+            counterpartyId(JsonField.ofNullable(counterpartyId))
 
         /**
          * If the payment order is tied to a specific Counterparty, their id will appear, otherwise
@@ -998,7 +1030,8 @@ private constructor(
         /**
          * If the payment order's status is `returned`, this will include the return object's data.
          */
-        fun currentReturn(currentReturn: ReturnObject) = currentReturn(JsonField.of(currentReturn))
+        fun currentReturn(currentReturn: ReturnObject?) =
+            currentReturn(JsonField.ofNullable(currentReturn))
 
         /**
          * If the payment order's status is `returned`, this will include the return object's data.
@@ -1011,7 +1044,7 @@ private constructor(
          * The ID of the compliance decision for the payment order, if transaction monitoring is
          * enabled.
          */
-        fun decisionId(decisionId: String) = decisionId(JsonField.of(decisionId))
+        fun decisionId(decisionId: String?) = decisionId(JsonField.ofNullable(decisionId))
 
         /**
          * The ID of the compliance decision for the payment order, if transaction monitoring is
@@ -1020,7 +1053,7 @@ private constructor(
         fun decisionId(decisionId: JsonField<String>) = apply { this.decisionId = decisionId }
 
         /** An optional description for internal use. */
-        fun description(description: String) = description(JsonField.of(description))
+        fun description(description: String?) = description(JsonField.ofNullable(description))
 
         /** An optional description for internal use. */
         fun description(description: JsonField<String>) = apply { this.description = description }
@@ -1058,7 +1091,7 @@ private constructor(
         }
 
         /** RFP payments require an expires_at. This value must be past the effective_date. */
-        fun expiresAt(expiresAt: OffsetDateTime) = expiresAt(JsonField.of(expiresAt))
+        fun expiresAt(expiresAt: OffsetDateTime?) = expiresAt(JsonField.ofNullable(expiresAt))
 
         /** RFP payments require an expires_at. This value must be past the effective_date. */
         fun expiresAt(expiresAt: JsonField<OffsetDateTime>) = apply { this.expiresAt = expiresAt }
@@ -1067,8 +1100,8 @@ private constructor(
          * If present, indicates a specific foreign exchange contract number that has been generated
          * by your financial institution.
          */
-        fun foreignExchangeContract(foreignExchangeContract: String) =
-            foreignExchangeContract(JsonField.of(foreignExchangeContract))
+        fun foreignExchangeContract(foreignExchangeContract: String?) =
+            foreignExchangeContract(JsonField.ofNullable(foreignExchangeContract))
 
         /**
          * If present, indicates a specific foreign exchange contract number that has been generated
@@ -1083,8 +1116,8 @@ private constructor(
          * `fixed_to_variable`, or `null` if the payment order currency matches the originating
          * account currency.
          */
-        fun foreignExchangeIndicator(foreignExchangeIndicator: ForeignExchangeIndicator) =
-            foreignExchangeIndicator(JsonField.of(foreignExchangeIndicator))
+        fun foreignExchangeIndicator(foreignExchangeIndicator: ForeignExchangeIndicator?) =
+            foreignExchangeIndicator(JsonField.ofNullable(foreignExchangeIndicator))
 
         /**
          * Indicates the type of FX transfer to initiate, can be either `variable_to_fixed`,
@@ -1096,8 +1129,8 @@ private constructor(
         ) = apply { this.foreignExchangeIndicator = foreignExchangeIndicator }
 
         /** Associated serialized foreign exchange rate information. */
-        fun foreignExchangeRate(foreignExchangeRate: ForeignExchangeRate) =
-            foreignExchangeRate(JsonField.of(foreignExchangeRate))
+        fun foreignExchangeRate(foreignExchangeRate: ForeignExchangeRate?) =
+            foreignExchangeRate(JsonField.ofNullable(foreignExchangeRate))
 
         /** Associated serialized foreign exchange rate information. */
         fun foreignExchangeRate(foreignExchangeRate: JsonField<ForeignExchangeRate>) = apply {
@@ -1105,8 +1138,8 @@ private constructor(
         }
 
         /** The ID of the ledger transaction linked to the payment order. */
-        fun ledgerTransactionId(ledgerTransactionId: String) =
-            ledgerTransactionId(JsonField.of(ledgerTransactionId))
+        fun ledgerTransactionId(ledgerTransactionId: String?) =
+            ledgerTransactionId(JsonField.ofNullable(ledgerTransactionId))
 
         /** The ID of the ledger transaction linked to the payment order. */
         fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
@@ -1167,8 +1200,8 @@ private constructor(
          * This field can only be used for ACH payments currently. For ACH, only the first 16
          * characters of this string will be used. Any additional characters will be truncated.
          */
-        fun originatingPartyName(originatingPartyName: String) =
-            originatingPartyName(JsonField.of(originatingPartyName))
+        fun originatingPartyName(originatingPartyName: String?) =
+            originatingPartyName(JsonField.ofNullable(originatingPartyName))
 
         /**
          * If present, this will replace your default company name on receiver's bank statement.
@@ -1199,7 +1232,8 @@ private constructor(
          * precedence and `effective_date` will automatically update to reflect the earliest
          * possible sending date after `process_after`. Format is ISO8601 timestamp.
          */
-        fun processAfter(processAfter: OffsetDateTime) = processAfter(JsonField.of(processAfter))
+        fun processAfter(processAfter: OffsetDateTime?) =
+            processAfter(JsonField.ofNullable(processAfter))
 
         /**
          * If present, Modern Treasury will not process the payment until after this time. If
@@ -1216,7 +1250,7 @@ private constructor(
          * field in the ISO20022 file. For `eft`, this field is the 3 digit CPA Code that will be
          * attached to the payment.
          */
-        fun purpose(purpose: String) = purpose(JsonField.of(purpose))
+        fun purpose(purpose: String?) = purpose(JsonField.ofNullable(purpose))
 
         /**
          * For `wire`, this is usually the purpose which is transmitted via the "InstrForDbtrAgt"
@@ -1245,7 +1279,18 @@ private constructor(
             referenceNumbers(JsonField.of(referenceNumbers))
 
         fun referenceNumbers(referenceNumbers: JsonField<List<PaymentReference>>) = apply {
-            this.referenceNumbers = referenceNumbers
+            this.referenceNumbers = referenceNumbers.map { it.toMutableList() }
+        }
+
+        fun addReferenceNumber(referenceNumber: PaymentReference) = apply {
+            referenceNumbers =
+                (referenceNumbers ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(referenceNumber)
+                }
         }
 
         /**
@@ -1253,8 +1298,8 @@ private constructor(
          * the field will be passed through as the "Originator to Beneficiary Information", also
          * known as OBI or Fedwire tag 6000.
          */
-        fun remittanceInformation(remittanceInformation: String) =
-            remittanceInformation(JsonField.of(remittanceInformation))
+        fun remittanceInformation(remittanceInformation: String?) =
+            remittanceInformation(JsonField.ofNullable(remittanceInformation))
 
         /**
          * For `ach`, this field will be passed through on an addenda record. For `wire` payments
@@ -1269,8 +1314,15 @@ private constructor(
          * Send an email to the counterparty when the payment order is sent to the bank. If `null`,
          * `send_remittance_advice` on the Counterparty is used.
          */
+        fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean?) =
+            sendRemittanceAdvice(JsonField.ofNullable(sendRemittanceAdvice))
+
+        /**
+         * Send an email to the counterparty when the payment order is sent to the bank. If `null`,
+         * `send_remittance_advice` on the Counterparty is used.
+         */
         fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) =
-            sendRemittanceAdvice(JsonField.of(sendRemittanceAdvice))
+            sendRemittanceAdvice(sendRemittanceAdvice as Boolean?)
 
         /**
          * Send an email to the counterparty when the payment order is sent to the bank. If `null`,
@@ -1287,8 +1339,8 @@ private constructor(
          * automatically by the bank, so you can use the characters for other useful information.
          * For `eft` the maximum length is 15 characters.
          */
-        fun statementDescriptor(statementDescriptor: String) =
-            statementDescriptor(JsonField.of(statementDescriptor))
+        fun statementDescriptor(statementDescriptor: String?) =
+            statementDescriptor(JsonField.ofNullable(statementDescriptor))
 
         /**
          * An optional descriptor which will appear in the receiver's statement. For `check`
@@ -1313,7 +1365,7 @@ private constructor(
          * `subtype` represents the SEC code. We currently support `CCD`, `PPD`, `IAT`, `CTX`,
          * `WEB`, `CIE`, and `TEL`.
          */
-        fun subtype(subtype: PaymentOrderSubtype) = subtype(JsonField.of(subtype))
+        fun subtype(subtype: PaymentOrderSubtype?) = subtype(JsonField.ofNullable(subtype))
 
         /**
          * An additional layer of classification for the type of payment order you are doing. This
@@ -1337,7 +1389,23 @@ private constructor(
          * but gets redrafted and is later successfully completed, it can have many transactions.
          */
         fun transactionIds(transactionIds: JsonField<List<String>>) = apply {
-            this.transactionIds = transactionIds
+            this.transactionIds = transactionIds.map { it.toMutableList() }
+        }
+
+        /**
+         * The IDs of all the transactions associated to this payment order. Usually, you will only
+         * have a single transaction ID. However, if a payment order initially results in a Return,
+         * but gets redrafted and is later successfully completed, it can have many transactions.
+         */
+        fun addTransactionId(transactionId: String) = apply {
+            transactionIds =
+                (transactionIds ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(transactionId)
+                }
         }
 
         /**
@@ -1371,8 +1439,8 @@ private constructor(
          * The account to which the originating of this payment should be attributed to. Can be a
          * `virtual_account` or `internal_account`.
          */
-        fun ultimateOriginatingAccount(ultimateOriginatingAccount: UltimateOriginatingAccount) =
-            ultimateOriginatingAccount(JsonField.of(ultimateOriginatingAccount))
+        fun ultimateOriginatingAccount(ultimateOriginatingAccount: UltimateOriginatingAccount?) =
+            ultimateOriginatingAccount(JsonField.ofNullable(ultimateOriginatingAccount))
 
         /**
          * The account to which the originating of this payment should be attributed to. Can be a
@@ -1382,11 +1450,19 @@ private constructor(
             ultimateOriginatingAccount: JsonField<UltimateOriginatingAccount>
         ) = apply { this.ultimateOriginatingAccount = ultimateOriginatingAccount }
 
+        fun ultimateOriginatingAccount(virtualAccount: VirtualAccount) =
+            ultimateOriginatingAccount(UltimateOriginatingAccount.ofVirtualAccount(virtualAccount))
+
+        fun ultimateOriginatingAccount(internalAccount: InternalAccount) =
+            ultimateOriginatingAccount(
+                UltimateOriginatingAccount.ofInternalAccount(internalAccount)
+            )
+
         /**
          * The ultimate originating account ID. Can be a `virtual_account` or `internal_account`.
          */
-        fun ultimateOriginatingAccountId(ultimateOriginatingAccountId: String) =
-            ultimateOriginatingAccountId(JsonField.of(ultimateOriginatingAccountId))
+        fun ultimateOriginatingAccountId(ultimateOriginatingAccountId: String?) =
+            ultimateOriginatingAccountId(JsonField.ofNullable(ultimateOriginatingAccountId))
 
         /**
          * The ultimate originating account ID. Can be a `virtual_account` or `internal_account`.
@@ -1396,16 +1472,18 @@ private constructor(
         }
 
         fun ultimateOriginatingAccountType(
-            ultimateOriginatingAccountType: UltimateOriginatingAccountType
-        ) = ultimateOriginatingAccountType(JsonField.of(ultimateOriginatingAccountType))
+            ultimateOriginatingAccountType: UltimateOriginatingAccountType?
+        ) = ultimateOriginatingAccountType(JsonField.ofNullable(ultimateOriginatingAccountType))
 
         fun ultimateOriginatingAccountType(
             ultimateOriginatingAccountType: JsonField<UltimateOriginatingAccountType>
         ) = apply { this.ultimateOriginatingAccountType = ultimateOriginatingAccountType }
 
         /** Identifier of the ultimate originator of the payment order. */
-        fun ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier: String) =
-            ultimateOriginatingPartyIdentifier(JsonField.of(ultimateOriginatingPartyIdentifier))
+        fun ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier: String?) =
+            ultimateOriginatingPartyIdentifier(
+                JsonField.ofNullable(ultimateOriginatingPartyIdentifier)
+            )
 
         /** Identifier of the ultimate originator of the payment order. */
         fun ultimateOriginatingPartyIdentifier(
@@ -1413,24 +1491,24 @@ private constructor(
         ) = apply { this.ultimateOriginatingPartyIdentifier = ultimateOriginatingPartyIdentifier }
 
         /** Name of the ultimate originator of the payment order. */
-        fun ultimateOriginatingPartyName(ultimateOriginatingPartyName: String) =
-            ultimateOriginatingPartyName(JsonField.of(ultimateOriginatingPartyName))
+        fun ultimateOriginatingPartyName(ultimateOriginatingPartyName: String?) =
+            ultimateOriginatingPartyName(JsonField.ofNullable(ultimateOriginatingPartyName))
 
         /** Name of the ultimate originator of the payment order. */
         fun ultimateOriginatingPartyName(ultimateOriginatingPartyName: JsonField<String>) = apply {
             this.ultimateOriginatingPartyName = ultimateOriginatingPartyName
         }
 
-        fun ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier: String) =
-            ultimateReceivingPartyIdentifier(JsonField.of(ultimateReceivingPartyIdentifier))
+        fun ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier: String?) =
+            ultimateReceivingPartyIdentifier(JsonField.ofNullable(ultimateReceivingPartyIdentifier))
 
         fun ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier: JsonField<String>) =
             apply {
                 this.ultimateReceivingPartyIdentifier = ultimateReceivingPartyIdentifier
             }
 
-        fun ultimateReceivingPartyName(ultimateReceivingPartyName: String) =
-            ultimateReceivingPartyName(JsonField.of(ultimateReceivingPartyName))
+        fun ultimateReceivingPartyName(ultimateReceivingPartyName: String?) =
+            ultimateReceivingPartyName(JsonField.ofNullable(ultimateReceivingPartyName))
 
         fun ultimateReceivingPartyName(ultimateReceivingPartyName: JsonField<String>) = apply {
             this.ultimateReceivingPartyName = ultimateReceivingPartyName
@@ -1452,8 +1530,8 @@ private constructor(
          * This field will be populated if a vendor failure occurs. Logic shouldn't be built on its
          * value as it is free-form.
          */
-        fun vendorFailureReason(vendorFailureReason: String) =
-            vendorFailureReason(JsonField.of(vendorFailureReason))
+        fun vendorFailureReason(vendorFailureReason: String?) =
+            vendorFailureReason(JsonField.ofNullable(vendorFailureReason))
 
         /**
          * This field will be populated if a vendor failure occurs. Logic shouldn't be built on its
@@ -1484,56 +1562,104 @@ private constructor(
 
         fun build(): PaymentOrder =
             PaymentOrder(
-                id,
-                accounting,
-                accountingCategoryId,
-                accountingLedgerClassId,
-                amount,
-                chargeBearer,
-                complianceRuleMetadata,
-                counterpartyId,
-                createdAt,
-                currency,
-                currentReturn,
-                decisionId,
-                description,
-                direction,
-                effectiveDate,
-                expiresAt,
-                foreignExchangeContract,
-                foreignExchangeIndicator,
-                foreignExchangeRate,
-                ledgerTransactionId,
-                liveMode,
-                metadata,
-                nsfProtected,
-                object_,
-                originatingAccountId,
-                originatingPartyName,
-                priority,
-                processAfter,
-                purpose,
-                receivingAccountId,
-                receivingAccountType,
-                referenceNumbers.map { it.toImmutable() },
-                remittanceInformation,
-                sendRemittanceAdvice,
-                statementDescriptor,
-                status,
-                subtype,
-                transactionIds.map { it.toImmutable() },
-                transactionMonitoringEnabled,
-                type,
-                ultimateOriginatingAccount,
-                ultimateOriginatingAccountId,
-                ultimateOriginatingAccountType,
-                ultimateOriginatingPartyIdentifier,
-                ultimateOriginatingPartyName,
-                ultimateReceivingPartyIdentifier,
-                ultimateReceivingPartyName,
-                updatedAt,
-                vendorAttributes,
-                vendorFailureReason,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(accounting) { "`accounting` is required but was not set" },
+                checkNotNull(accountingCategoryId) {
+                    "`accountingCategoryId` is required but was not set"
+                },
+                checkNotNull(accountingLedgerClassId) {
+                    "`accountingLedgerClassId` is required but was not set"
+                },
+                checkNotNull(amount) { "`amount` is required but was not set" },
+                checkNotNull(chargeBearer) { "`chargeBearer` is required but was not set" },
+                checkNotNull(complianceRuleMetadata) {
+                    "`complianceRuleMetadata` is required but was not set"
+                },
+                checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(currency) { "`currency` is required but was not set" },
+                checkNotNull(currentReturn) { "`currentReturn` is required but was not set" },
+                checkNotNull(decisionId) { "`decisionId` is required but was not set" },
+                checkNotNull(description) { "`description` is required but was not set" },
+                checkNotNull(direction) { "`direction` is required but was not set" },
+                checkNotNull(effectiveDate) { "`effectiveDate` is required but was not set" },
+                checkNotNull(expiresAt) { "`expiresAt` is required but was not set" },
+                checkNotNull(foreignExchangeContract) {
+                    "`foreignExchangeContract` is required but was not set"
+                },
+                checkNotNull(foreignExchangeIndicator) {
+                    "`foreignExchangeIndicator` is required but was not set"
+                },
+                checkNotNull(foreignExchangeRate) {
+                    "`foreignExchangeRate` is required but was not set"
+                },
+                checkNotNull(ledgerTransactionId) {
+                    "`ledgerTransactionId` is required but was not set"
+                },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(metadata) { "`metadata` is required but was not set" },
+                checkNotNull(nsfProtected) { "`nsfProtected` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(originatingAccountId) {
+                    "`originatingAccountId` is required but was not set"
+                },
+                checkNotNull(originatingPartyName) {
+                    "`originatingPartyName` is required but was not set"
+                },
+                checkNotNull(priority) { "`priority` is required but was not set" },
+                checkNotNull(processAfter) { "`processAfter` is required but was not set" },
+                checkNotNull(purpose) { "`purpose` is required but was not set" },
+                checkNotNull(receivingAccountId) {
+                    "`receivingAccountId` is required but was not set"
+                },
+                checkNotNull(receivingAccountType) {
+                    "`receivingAccountType` is required but was not set"
+                },
+                checkNotNull(referenceNumbers) { "`referenceNumbers` is required but was not set" }
+                    .map { it.toImmutable() },
+                checkNotNull(remittanceInformation) {
+                    "`remittanceInformation` is required but was not set"
+                },
+                checkNotNull(sendRemittanceAdvice) {
+                    "`sendRemittanceAdvice` is required but was not set"
+                },
+                checkNotNull(statementDescriptor) {
+                    "`statementDescriptor` is required but was not set"
+                },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(subtype) { "`subtype` is required but was not set" },
+                checkNotNull(transactionIds) { "`transactionIds` is required but was not set" }
+                    .map { it.toImmutable() },
+                checkNotNull(transactionMonitoringEnabled) {
+                    "`transactionMonitoringEnabled` is required but was not set"
+                },
+                checkNotNull(type) { "`type` is required but was not set" },
+                checkNotNull(ultimateOriginatingAccount) {
+                    "`ultimateOriginatingAccount` is required but was not set"
+                },
+                checkNotNull(ultimateOriginatingAccountId) {
+                    "`ultimateOriginatingAccountId` is required but was not set"
+                },
+                checkNotNull(ultimateOriginatingAccountType) {
+                    "`ultimateOriginatingAccountType` is required but was not set"
+                },
+                checkNotNull(ultimateOriginatingPartyIdentifier) {
+                    "`ultimateOriginatingPartyIdentifier` is required but was not set"
+                },
+                checkNotNull(ultimateOriginatingPartyName) {
+                    "`ultimateOriginatingPartyName` is required but was not set"
+                },
+                checkNotNull(ultimateReceivingPartyIdentifier) {
+                    "`ultimateReceivingPartyIdentifier` is required but was not set"
+                },
+                checkNotNull(ultimateReceivingPartyName) {
+                    "`ultimateReceivingPartyName` is required but was not set"
+                },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkNotNull(vendorAttributes) { "`vendorAttributes` is required but was not set" },
+                checkNotNull(vendorFailureReason) {
+                    "`vendorFailureReason` is required but was not set"
+                },
                 additionalProperties.toImmutable(),
             )
     }
@@ -1569,14 +1695,14 @@ private constructor(
          * The ID of one of your accounting categories. Note that these will only be accessible if
          * your accounting system has been connected.
          */
-        @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
         /**
          * The ID of one of the class objects in your accounting system. Class objects track
          * segments of your business independent of client or project. Note that these will only be
          * accessible if your accounting system has been connected.
          */
-        @JsonProperty("class_id") @ExcludeMissing fun _classId() = classId
+        @JsonProperty("class_id") @ExcludeMissing fun _classId(): JsonField<String> = classId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1615,7 +1741,7 @@ private constructor(
              * The ID of one of your accounting categories. Note that these will only be accessible
              * if your accounting system has been connected.
              */
-            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+            fun accountId(accountId: String?) = accountId(JsonField.ofNullable(accountId))
 
             /**
              * The ID of one of your accounting categories. Note that these will only be accessible
@@ -1628,7 +1754,7 @@ private constructor(
              * segments of your business independent of client or project. Note that these will only
              * be accessible if your accounting system has been connected.
              */
-            fun classId(classId: String) = classId(JsonField.of(classId))
+            fun classId(classId: String?) = classId(JsonField.ofNullable(classId))
 
             /**
              * The ID of one of the class objects in your accounting system. Class objects track
@@ -2009,34 +2135,42 @@ private constructor(
          * Amount in the lowest denomination of the `base_currency` to convert, often called the
          * "sell" amount.
          */
-        @JsonProperty("base_amount") @ExcludeMissing fun _baseAmount() = baseAmount
+        @JsonProperty("base_amount") @ExcludeMissing fun _baseAmount(): JsonField<Long> = baseAmount
 
         /** Currency to convert, often called the "sell" currency. */
-        @JsonProperty("base_currency") @ExcludeMissing fun _baseCurrency() = baseCurrency
+        @JsonProperty("base_currency")
+        @ExcludeMissing
+        fun _baseCurrency(): JsonField<Currency> = baseCurrency
 
         /**
          * The exponent component of the rate. The decimal is calculated as `value` / (10 ^
          * `exponent`).
          */
-        @JsonProperty("exponent") @ExcludeMissing fun _exponent() = exponent
+        @JsonProperty("exponent") @ExcludeMissing fun _exponent(): JsonField<Long> = exponent
 
         /** A string representation of the rate. */
-        @JsonProperty("rate_string") @ExcludeMissing fun _rateString() = rateString
+        @JsonProperty("rate_string")
+        @ExcludeMissing
+        fun _rateString(): JsonField<String> = rateString
 
         /**
          * Amount in the lowest denomination of the `target_currency`, often called the "buy"
          * amount.
          */
-        @JsonProperty("target_amount") @ExcludeMissing fun _targetAmount() = targetAmount
+        @JsonProperty("target_amount")
+        @ExcludeMissing
+        fun _targetAmount(): JsonField<Long> = targetAmount
 
         /** Currency to convert the `base_currency` to, often called the "buy" currency. */
-        @JsonProperty("target_currency") @ExcludeMissing fun _targetCurrency() = targetCurrency
+        @JsonProperty("target_currency")
+        @ExcludeMissing
+        fun _targetCurrency(): JsonField<Currency> = targetCurrency
 
         /**
          * The whole number component of the rate. The decimal is calculated as `value` / (10 ^
          * `exponent`).
          */
-        @JsonProperty("value") @ExcludeMissing fun _value() = value
+        @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<Long> = value
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2066,13 +2200,13 @@ private constructor(
 
         class Builder {
 
-            private var baseAmount: JsonField<Long> = JsonMissing.of()
-            private var baseCurrency: JsonField<Currency> = JsonMissing.of()
-            private var exponent: JsonField<Long> = JsonMissing.of()
-            private var rateString: JsonField<String> = JsonMissing.of()
-            private var targetAmount: JsonField<Long> = JsonMissing.of()
-            private var targetCurrency: JsonField<Currency> = JsonMissing.of()
-            private var value: JsonField<Long> = JsonMissing.of()
+            private var baseAmount: JsonField<Long>? = null
+            private var baseCurrency: JsonField<Currency>? = null
+            private var exponent: JsonField<Long>? = null
+            private var rateString: JsonField<String>? = null
+            private var targetAmount: JsonField<Long>? = null
+            private var targetCurrency: JsonField<Currency>? = null
+            private var value: JsonField<Long>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(foreignExchangeRate: ForeignExchangeRate) = apply {
@@ -2180,13 +2314,13 @@ private constructor(
 
             fun build(): ForeignExchangeRate =
                 ForeignExchangeRate(
-                    baseAmount,
-                    baseCurrency,
-                    exponent,
-                    rateString,
-                    targetAmount,
-                    targetCurrency,
-                    value,
+                    checkNotNull(baseAmount) { "`baseAmount` is required but was not set" },
+                    checkNotNull(baseCurrency) { "`baseCurrency` is required but was not set" },
+                    checkNotNull(exponent) { "`exponent` is required but was not set" },
+                    checkNotNull(rateString) { "`rateString` is required but was not set" },
+                    checkNotNull(targetAmount) { "`targetAmount` is required but was not set" },
+                    checkNotNull(targetCurrency) { "`targetCurrency` is required but was not set" },
+                    checkNotNull(value) { "`value` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -2447,27 +2581,33 @@ private constructor(
 
         fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
         /**
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
          */
-        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+        @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
         /** The vendor reference number. */
-        @JsonProperty("reference_number") @ExcludeMissing fun _referenceNumber() = referenceNumber
+        @JsonProperty("reference_number")
+        @ExcludeMissing
+        fun _referenceNumber(): JsonField<String> = referenceNumber
 
         /** The type of the reference number. Referring to the vendor payment id. */
         @JsonProperty("reference_number_type")
         @ExcludeMissing
-        fun _referenceNumberType() = referenceNumberType
+        fun _referenceNumberType(): JsonField<ReferenceNumberType> = referenceNumberType
 
-        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2497,13 +2637,13 @@ private constructor(
 
         class Builder {
 
-            private var id: JsonField<String> = JsonMissing.of()
-            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var liveMode: JsonField<Boolean> = JsonMissing.of()
-            private var object_: JsonField<String> = JsonMissing.of()
-            private var referenceNumber: JsonField<String> = JsonMissing.of()
-            private var referenceNumberType: JsonField<ReferenceNumberType> = JsonMissing.of()
-            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var id: JsonField<String>? = null
+            private var createdAt: JsonField<OffsetDateTime>? = null
+            private var liveMode: JsonField<Boolean>? = null
+            private var object_: JsonField<String>? = null
+            private var referenceNumber: JsonField<String>? = null
+            private var referenceNumberType: JsonField<ReferenceNumberType>? = null
+            private var updatedAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(paymentReference: PaymentReference) = apply {
@@ -2588,13 +2728,17 @@ private constructor(
 
             fun build(): PaymentReference =
                 PaymentReference(
-                    id,
-                    createdAt,
-                    liveMode,
-                    object_,
-                    referenceNumber,
-                    referenceNumberType,
-                    updatedAt,
+                    checkNotNull(id) { "`id` is required but was not set" },
+                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                    checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                    checkNotNull(object_) { "`object_` is required but was not set" },
+                    checkNotNull(referenceNumber) {
+                        "`referenceNumber` is required but was not set"
+                    },
+                    checkNotNull(referenceNumberType) {
+                        "`referenceNumberType` is required but was not set"
+                    },
+                    checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }

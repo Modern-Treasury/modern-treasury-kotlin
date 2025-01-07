@@ -97,39 +97,45 @@ private constructor(
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** One of create, or update. */
-    @JsonProperty("action_type") @ExcludeMissing fun _actionType() = actionType
+    @JsonProperty("action_type")
+    @ExcludeMissing
+    fun _actionType(): JsonField<ActionType> = actionType
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** Total number of failed bulk results so far for this request */
     @JsonProperty("failed_result_count")
     @ExcludeMissing
-    fun _failedResultCount() = failedResultCount
+    fun _failedResultCount(): JsonField<Long> = failedResultCount
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /** One of payment_order, expected_payment, or ledger_transaction. */
-    @JsonProperty("resource_type") @ExcludeMissing fun _resourceType() = resourceType
+    @JsonProperty("resource_type")
+    @ExcludeMissing
+    fun _resourceType(): JsonField<ResourceType> = resourceType
 
     /** One of pending, processing, or completed. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /** Total number of successful bulk results so far for this request */
     @JsonProperty("success_result_count")
     @ExcludeMissing
-    fun _successResultCount() = successResultCount
+    fun _successResultCount(): JsonField<Long> = successResultCount
 
     /**
      * Total number of items in the `resources` array. Once a bulk request is completed,
@@ -137,9 +143,11 @@ private constructor(
      */
     @JsonProperty("total_resource_count")
     @ExcludeMissing
-    fun _totalResourceCount() = totalResourceCount
+    fun _totalResourceCount(): JsonField<Long> = totalResourceCount
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -174,18 +182,18 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var actionType: JsonField<ActionType> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var failedResultCount: JsonField<Long> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var resourceType: JsonField<ResourceType> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var successResultCount: JsonField<Long> = JsonMissing.of()
-        private var totalResourceCount: JsonField<Long> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var actionType: JsonField<ActionType>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var failedResultCount: JsonField<Long>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var metadata: JsonField<Metadata>? = null
+        private var object_: JsonField<String>? = null
+        private var resourceType: JsonField<ResourceType>? = null
+        private var status: JsonField<Status>? = null
+        private var successResultCount: JsonField<Long>? = null
+        private var totalResourceCount: JsonField<Long>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(bulkRequest: BulkRequest) = apply {
@@ -316,18 +324,24 @@ private constructor(
 
         fun build(): BulkRequest =
             BulkRequest(
-                id,
-                actionType,
-                createdAt,
-                failedResultCount,
-                liveMode,
-                metadata,
-                object_,
-                resourceType,
-                status,
-                successResultCount,
-                totalResourceCount,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(actionType) { "`actionType` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(failedResultCount) {
+                    "`failedResultCount` is required but was not set"
+                },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(metadata) { "`metadata` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(resourceType) { "`resourceType` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(successResultCount) {
+                    "`successResultCount` is required but was not set"
+                },
+                checkNotNull(totalResourceCount) {
+                    "`totalResourceCount` is required but was not set"
+                },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
