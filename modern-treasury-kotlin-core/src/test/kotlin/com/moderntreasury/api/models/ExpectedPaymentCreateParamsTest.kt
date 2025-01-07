@@ -393,8 +393,8 @@ class ExpectedPaymentCreateParamsTest {
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
-        assertThat(body.reconciliationFilters()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
-        assertThat(body.reconciliationGroups()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
+        assertThat(body._reconciliationFilters()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
+        assertThat(body._reconciliationGroups()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(body.reconciliationRuleVariables())
             .isEqualTo(
                 listOf(

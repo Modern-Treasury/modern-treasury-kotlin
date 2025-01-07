@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.ExcludeMissing
+import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -50,11 +52,38 @@ constructor(
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
     fun metadata(): Metadata? = body.metadata()
 
+    /** The currency of the ledger account category. */
+    fun _currency(): JsonField<String> = body._currency()
+
+    /** The id of the ledger that this account category belongs to. */
+    fun _ledgerId(): JsonField<String> = body._ledgerId()
+
+    /** The name of the ledger account category. */
+    fun _name(): JsonField<String> = body._name()
+
+    /** The normal balance of the ledger account category. */
+    fun _normalBalance(): JsonField<TransactionDirection> = body._normalBalance()
+
+    /** The currency exponent of the ledger account category. */
+    fun _currencyExponent(): JsonField<Long> = body._currencyExponent()
+
+    /** The description of the ledger account category. */
+    fun _description(): JsonField<String> = body._description()
+
+    /**
+     * The array of ledger account category ids that this ledger account category should be a child
+     * of.
+     */
+    fun _ledgerAccountCategoryIds(): JsonField<List<String>> = body._ledgerAccountCategoryIds()
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    fun _metadata(): JsonField<Metadata> = body._metadata()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): LedgerAccountCategoryCreateBody = body
 
@@ -66,52 +95,120 @@ constructor(
     class LedgerAccountCategoryCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("currency") private val currency: String,
-        @JsonProperty("ledger_id") private val ledgerId: String,
-        @JsonProperty("name") private val name: String,
-        @JsonProperty("normal_balance") private val normalBalance: TransactionDirection,
-        @JsonProperty("currency_exponent") private val currencyExponent: Long?,
-        @JsonProperty("description") private val description: String?,
+        @JsonProperty("currency")
+        @ExcludeMissing
+        private val currency: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("ledger_id")
+        @ExcludeMissing
+        private val ledgerId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("name")
+        @ExcludeMissing
+        private val name: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("normal_balance")
+        @ExcludeMissing
+        private val normalBalance: JsonField<TransactionDirection> = JsonMissing.of(),
+        @JsonProperty("currency_exponent")
+        @ExcludeMissing
+        private val currencyExponent: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
         @JsonProperty("ledger_account_category_ids")
-        private val ledgerAccountCategoryIds: List<String>?,
-        @JsonProperty("metadata") private val metadata: Metadata?,
+        @ExcludeMissing
+        private val ledgerAccountCategoryIds: JsonField<List<String>> = JsonMissing.of(),
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        private val metadata: JsonField<Metadata> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The currency of the ledger account category. */
-        @JsonProperty("currency") fun currency(): String = currency
+        fun currency(): String = currency.getRequired("currency")
 
         /** The id of the ledger that this account category belongs to. */
-        @JsonProperty("ledger_id") fun ledgerId(): String = ledgerId
+        fun ledgerId(): String = ledgerId.getRequired("ledger_id")
 
         /** The name of the ledger account category. */
-        @JsonProperty("name") fun name(): String = name
+        fun name(): String = name.getRequired("name")
 
         /** The normal balance of the ledger account category. */
-        @JsonProperty("normal_balance") fun normalBalance(): TransactionDirection = normalBalance
+        fun normalBalance(): TransactionDirection = normalBalance.getRequired("normal_balance")
 
         /** The currency exponent of the ledger account category. */
-        @JsonProperty("currency_exponent") fun currencyExponent(): Long? = currencyExponent
+        fun currencyExponent(): Long? = currencyExponent.getNullable("currency_exponent")
 
         /** The description of the ledger account category. */
-        @JsonProperty("description") fun description(): String? = description
+        fun description(): String? = description.getNullable("description")
+
+        /**
+         * The array of ledger account category ids that this ledger account category should be a
+         * child of.
+         */
+        fun ledgerAccountCategoryIds(): List<String>? =
+            ledgerAccountCategoryIds.getNullable("ledger_account_category_ids")
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
+
+        /** The currency of the ledger account category. */
+        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<String> = currency
+
+        /** The id of the ledger that this account category belongs to. */
+        @JsonProperty("ledger_id") @ExcludeMissing fun _ledgerId(): JsonField<String> = ledgerId
+
+        /** The name of the ledger account category. */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /** The normal balance of the ledger account category. */
+        @JsonProperty("normal_balance")
+        @ExcludeMissing
+        fun _normalBalance(): JsonField<TransactionDirection> = normalBalance
+
+        /** The currency exponent of the ledger account category. */
+        @JsonProperty("currency_exponent")
+        @ExcludeMissing
+        fun _currencyExponent(): JsonField<Long> = currencyExponent
+
+        /** The description of the ledger account category. */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
 
         /**
          * The array of ledger account category ids that this ledger account category should be a
          * child of.
          */
         @JsonProperty("ledger_account_category_ids")
-        fun ledgerAccountCategoryIds(): List<String>? = ledgerAccountCategoryIds
+        @ExcludeMissing
+        fun _ledgerAccountCategoryIds(): JsonField<List<String>> = ledgerAccountCategoryIds
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): LedgerAccountCategoryCreateBody = apply {
+            if (!validated) {
+                currency()
+                ledgerId()
+                name()
+                normalBalance()
+                currencyExponent()
+                description()
+                ledgerAccountCategoryIds()
+                metadata()?.validate()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -122,14 +219,14 @@ constructor(
 
         class Builder {
 
-            private var currency: String? = null
-            private var ledgerId: String? = null
-            private var name: String? = null
-            private var normalBalance: TransactionDirection? = null
-            private var currencyExponent: Long? = null
-            private var description: String? = null
-            private var ledgerAccountCategoryIds: MutableList<String>? = null
-            private var metadata: Metadata? = null
+            private var currency: JsonField<String>? = null
+            private var ledgerId: JsonField<String>? = null
+            private var name: JsonField<String>? = null
+            private var normalBalance: JsonField<TransactionDirection>? = null
+            private var currencyExponent: JsonField<Long> = JsonMissing.of()
+            private var description: JsonField<String> = JsonMissing.of()
+            private var ledgerAccountCategoryIds: JsonField<MutableList<String>>? = null
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerAccountCategoryCreateBody: LedgerAccountCategoryCreateBody) =
@@ -141,45 +238,78 @@ constructor(
                     currencyExponent = ledgerAccountCategoryCreateBody.currencyExponent
                     description = ledgerAccountCategoryCreateBody.description
                     ledgerAccountCategoryIds =
-                        ledgerAccountCategoryCreateBody.ledgerAccountCategoryIds?.toMutableList()
+                        ledgerAccountCategoryCreateBody.ledgerAccountCategoryIds.map {
+                            it.toMutableList()
+                        }
                     metadata = ledgerAccountCategoryCreateBody.metadata
                     additionalProperties =
                         ledgerAccountCategoryCreateBody.additionalProperties.toMutableMap()
                 }
 
             /** The currency of the ledger account category. */
-            fun currency(currency: String) = apply { this.currency = currency }
+            fun currency(currency: String) = currency(JsonField.of(currency))
+
+            /** The currency of the ledger account category. */
+            fun currency(currency: JsonField<String>) = apply { this.currency = currency }
 
             /** The id of the ledger that this account category belongs to. */
-            fun ledgerId(ledgerId: String) = apply { this.ledgerId = ledgerId }
+            fun ledgerId(ledgerId: String) = ledgerId(JsonField.of(ledgerId))
+
+            /** The id of the ledger that this account category belongs to. */
+            fun ledgerId(ledgerId: JsonField<String>) = apply { this.ledgerId = ledgerId }
 
             /** The name of the ledger account category. */
-            fun name(name: String) = apply { this.name = name }
+            fun name(name: String) = name(JsonField.of(name))
+
+            /** The name of the ledger account category. */
+            fun name(name: JsonField<String>) = apply { this.name = name }
 
             /** The normal balance of the ledger account category. */
-            fun normalBalance(normalBalance: TransactionDirection) = apply {
+            fun normalBalance(normalBalance: TransactionDirection) =
+                normalBalance(JsonField.of(normalBalance))
+
+            /** The normal balance of the ledger account category. */
+            fun normalBalance(normalBalance: JsonField<TransactionDirection>) = apply {
                 this.normalBalance = normalBalance
             }
 
             /** The currency exponent of the ledger account category. */
-            fun currencyExponent(currencyExponent: Long?) = apply {
-                this.currencyExponent = currencyExponent
-            }
+            fun currencyExponent(currencyExponent: Long?) =
+                currencyExponent(JsonField.ofNullable(currencyExponent))
 
             /** The currency exponent of the ledger account category. */
             fun currencyExponent(currencyExponent: Long) =
                 currencyExponent(currencyExponent as Long?)
 
+            /** The currency exponent of the ledger account category. */
+            fun currencyExponent(currencyExponent: JsonField<Long>) = apply {
+                this.currencyExponent = currencyExponent
+            }
+
             /** The description of the ledger account category. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String?) = description(JsonField.ofNullable(description))
+
+            /** The description of the ledger account category. */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
 
             /**
              * The array of ledger account category ids that this ledger account category should be
              * a child of.
              */
-            fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>?) = apply {
-                this.ledgerAccountCategoryIds = ledgerAccountCategoryIds?.toMutableList()
-            }
+            fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>) =
+                ledgerAccountCategoryIds(JsonField.of(ledgerAccountCategoryIds))
+
+            /**
+             * The array of ledger account category ids that this ledger account category should be
+             * a child of.
+             */
+            fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: JsonField<List<String>>) =
+                apply {
+                    this.ledgerAccountCategoryIds =
+                        ledgerAccountCategoryIds.map { it.toMutableList() }
+                }
 
             /**
              * The array of ledger account category ids that this ledger account category should be
@@ -187,8 +317,12 @@ constructor(
              */
             fun addLedgerAccountCategoryId(ledgerAccountCategoryId: String) = apply {
                 ledgerAccountCategoryIds =
-                    (ledgerAccountCategoryIds ?: mutableListOf()).apply {
-                        add(ledgerAccountCategoryId)
+                    (ledgerAccountCategoryIds ?: JsonField.of(mutableListOf())).apply {
+                        (asKnown()
+                                ?: throw IllegalStateException(
+                                    "Field was set to non-list type: ${javaClass.simpleName}"
+                                ))
+                            .add(ledgerAccountCategoryId)
                     }
             }
 
@@ -196,7 +330,13 @@ constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -225,7 +365,7 @@ constructor(
                     checkNotNull(normalBalance) { "`normalBalance` is required but was not set" },
                     currencyExponent,
                     description,
-                    ledgerAccountCategoryIds?.toImmutable(),
+                    (ledgerAccountCategoryIds ?: JsonMissing.of()).map { it.toImmutable() },
                     metadata,
                     additionalProperties.toImmutable(),
                 )
@@ -275,14 +415,28 @@ constructor(
         /** The currency of the ledger account category. */
         fun currency(currency: String) = apply { body.currency(currency) }
 
+        /** The currency of the ledger account category. */
+        fun currency(currency: JsonField<String>) = apply { body.currency(currency) }
+
         /** The id of the ledger that this account category belongs to. */
         fun ledgerId(ledgerId: String) = apply { body.ledgerId(ledgerId) }
+
+        /** The id of the ledger that this account category belongs to. */
+        fun ledgerId(ledgerId: JsonField<String>) = apply { body.ledgerId(ledgerId) }
 
         /** The name of the ledger account category. */
         fun name(name: String) = apply { body.name(name) }
 
+        /** The name of the ledger account category. */
+        fun name(name: JsonField<String>) = apply { body.name(name) }
+
         /** The normal balance of the ledger account category. */
         fun normalBalance(normalBalance: TransactionDirection) = apply {
+            body.normalBalance(normalBalance)
+        }
+
+        /** The normal balance of the ledger account category. */
+        fun normalBalance(normalBalance: JsonField<TransactionDirection>) = apply {
             body.normalBalance(normalBalance)
         }
 
@@ -294,14 +448,30 @@ constructor(
         /** The currency exponent of the ledger account category. */
         fun currencyExponent(currencyExponent: Long) = currencyExponent(currencyExponent as Long?)
 
+        /** The currency exponent of the ledger account category. */
+        fun currencyExponent(currencyExponent: JsonField<Long>) = apply {
+            body.currencyExponent(currencyExponent)
+        }
+
         /** The description of the ledger account category. */
         fun description(description: String?) = apply { body.description(description) }
+
+        /** The description of the ledger account category. */
+        fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /**
          * The array of ledger account category ids that this ledger account category should be a
          * child of.
          */
-        fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>?) = apply {
+        fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: List<String>) = apply {
+            body.ledgerAccountCategoryIds(ledgerAccountCategoryIds)
+        }
+
+        /**
+         * The array of ledger account category ids that this ledger account category should be a
+         * child of.
+         */
+        fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: JsonField<List<String>>) = apply {
             body.ledgerAccountCategoryIds(ledgerAccountCategoryIds)
         }
 
@@ -316,7 +486,31 @@ constructor(
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -416,25 +610,6 @@ constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
-
         fun build(): LedgerAccountCategoryCreateParams =
             LedgerAccountCategoryCreateParams(
                 body.build(),
@@ -455,6 +630,14 @@ constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (!validated) {
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 

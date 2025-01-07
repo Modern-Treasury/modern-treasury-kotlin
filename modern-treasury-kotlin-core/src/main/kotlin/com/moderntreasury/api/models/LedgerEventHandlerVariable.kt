@@ -31,10 +31,12 @@ private constructor(
     /** The type of object this variable is. Currently, only "ledger_account" is supported. */
     fun type(): String = type.getRequired("type")
 
-    @JsonProperty("query") @ExcludeMissing fun _query() = query
+    @JsonProperty("query")
+    @ExcludeMissing
+    fun _query(): JsonField<LedgerEventHandlerConditions> = query
 
     /** The type of object this variable is. Currently, only "ledger_account" is supported. */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<String> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -59,8 +61,8 @@ private constructor(
 
     class Builder {
 
-        private var query: JsonField<LedgerEventHandlerConditions> = JsonMissing.of()
-        private var type: JsonField<String> = JsonMissing.of()
+        private var query: JsonField<LedgerEventHandlerConditions>? = null
+        private var type: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerEventHandlerVariable: LedgerEventHandlerVariable) = apply {
@@ -100,8 +102,8 @@ private constructor(
 
         fun build(): LedgerEventHandlerVariable =
             LedgerEventHandlerVariable(
-                query,
-                type,
+                checkNotNull(query) { "`query` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -133,13 +135,13 @@ private constructor(
         fun value(): String = value.getRequired("value")
 
         /** The LHS of the conditional. */
-        @JsonProperty("field") @ExcludeMissing fun _field() = field
+        @JsonProperty("field") @ExcludeMissing fun _field(): JsonField<String> = field
 
         /** What the operator between the `field` and `value` is. */
-        @JsonProperty("operator") @ExcludeMissing fun _operator() = operator
+        @JsonProperty("operator") @ExcludeMissing fun _operator(): JsonField<String> = operator
 
         /** The RHS of the conditional. */
-        @JsonProperty("value") @ExcludeMissing fun _value() = value
+        @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<String> = value
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -165,9 +167,9 @@ private constructor(
 
         class Builder {
 
-            private var field: JsonField<String> = JsonMissing.of()
-            private var operator: JsonField<String> = JsonMissing.of()
-            private var value: JsonField<String> = JsonMissing.of()
+            private var field: JsonField<String>? = null
+            private var operator: JsonField<String>? = null
+            private var value: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(ledgerEventHandlerConditions: LedgerEventHandlerConditions) = apply {
@@ -217,9 +219,9 @@ private constructor(
 
             fun build(): LedgerEventHandlerConditions =
                 LedgerEventHandlerConditions(
-                    field,
-                    operator,
-                    value,
+                    checkNotNull(field) { "`field` is required but was not set" },
+                    checkNotNull(operator) { "`operator` is required but was not set" },
+                    checkNotNull(value) { "`value` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }

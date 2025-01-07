@@ -127,18 +127,22 @@ private constructor(
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
      * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
      * specified currency's smallest unit (taken from parent Transaction).
      */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /** The ID for the counterparty for this transaction line item. */
-    @JsonProperty("counterparty_id") @ExcludeMissing fun _counterpartyId() = counterpartyId
+    @JsonProperty("counterparty_id")
+    @ExcludeMissing
+    fun _counterpartyId(): JsonField<String> = counterpartyId
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
      * If no matching object is found, `description` will be a free-form text field describing the
@@ -146,51 +150,63 @@ private constructor(
      * included in API responses by default. Learn more about changing your settings at
      * https://docs.moderntreasury.com/reference/personally-identifiable-information.
      */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
-    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+    @JsonProperty("discarded_at")
+    @ExcludeMissing
+    fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
     /** The ID of the reconciled Expected Payment, otherwise `null`. */
     @JsonProperty("expected_payment_id")
     @ExcludeMissing
-    fun _expectedPaymentId() = expectedPaymentId
+    fun _expectedPaymentId(): JsonField<String> = expectedPaymentId
 
     /**
      * This field will be true if this object exists in the live environment, or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /**
      * Describes whether this line item should be counted towards the corresponding transaction’s
      * reconciliation.
      */
-    @JsonProperty("reconcilable") @ExcludeMissing fun _reconcilable() = reconcilable
+    @JsonProperty("reconcilable")
+    @ExcludeMissing
+    fun _reconcilable(): JsonField<Boolean> = reconcilable
 
     /**
      * If a matching object exists in Modern Treasury, the ID will be populated here, otherwise
      * `null`.
      */
-    @JsonProperty("transactable_id") @ExcludeMissing fun _transactableId() = transactableId
+    @JsonProperty("transactable_id")
+    @ExcludeMissing
+    fun _transactableId(): JsonField<String> = transactableId
 
     /**
      * If a matching object exists in Modern Treasury, the type will be populated here, otherwise
      * `null`.
      */
-    @JsonProperty("transactable_type") @ExcludeMissing fun _transactableType() = transactableType
+    @JsonProperty("transactable_type")
+    @ExcludeMissing
+    fun _transactableType(): JsonField<TransactableType> = transactableType
 
     /** The ID of the parent transaction. */
-    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+    @JsonProperty("transaction_id")
+    @ExcludeMissing
+    fun _transactionId(): JsonField<String> = transactionId
 
     /**
      * Indicates whether the line item is `originating` or `receiving` (see
      * https://www.moderntreasury.com/journal/beginners-guide-to-ach for more).
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -228,21 +244,21 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var counterpartyId: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var expectedPaymentId: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var reconcilable: JsonField<Boolean> = JsonMissing.of()
-        private var transactableId: JsonField<String> = JsonMissing.of()
-        private var transactableType: JsonField<TransactableType> = JsonMissing.of()
-        private var transactionId: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var amount: JsonField<Long>? = null
+        private var counterpartyId: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var description: JsonField<String>? = null
+        private var discardedAt: JsonField<OffsetDateTime>? = null
+        private var expectedPaymentId: JsonField<String>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var object_: JsonField<String>? = null
+        private var reconcilable: JsonField<Boolean>? = null
+        private var transactableId: JsonField<String>? = null
+        private var transactableType: JsonField<TransactableType>? = null
+        private var transactionId: JsonField<String>? = null
+        private var type: JsonField<Type>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(transactionLineItem: TransactionLineItem) = apply {
@@ -281,7 +297,8 @@ private constructor(
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /** The ID for the counterparty for this transaction line item. */
-        fun counterpartyId(counterpartyId: String) = counterpartyId(JsonField.of(counterpartyId))
+        fun counterpartyId(counterpartyId: String?) =
+            counterpartyId(JsonField.ofNullable(counterpartyId))
 
         /** The ID for the counterparty for this transaction line item. */
         fun counterpartyId(counterpartyId: JsonField<String>) = apply {
@@ -308,15 +325,16 @@ private constructor(
          */
         fun description(description: JsonField<String>) = apply { this.description = description }
 
-        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+        fun discardedAt(discardedAt: OffsetDateTime?) =
+            discardedAt(JsonField.ofNullable(discardedAt))
 
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
         }
 
         /** The ID of the reconciled Expected Payment, otherwise `null`. */
-        fun expectedPaymentId(expectedPaymentId: String) =
-            expectedPaymentId(JsonField.of(expectedPaymentId))
+        fun expectedPaymentId(expectedPaymentId: String?) =
+            expectedPaymentId(JsonField.ofNullable(expectedPaymentId))
 
         /** The ID of the reconciled Expected Payment, otherwise `null`. */
         fun expectedPaymentId(expectedPaymentId: JsonField<String>) = apply {
@@ -357,7 +375,8 @@ private constructor(
          * If a matching object exists in Modern Treasury, the ID will be populated here, otherwise
          * `null`.
          */
-        fun transactableId(transactableId: String) = transactableId(JsonField.of(transactableId))
+        fun transactableId(transactableId: String?) =
+            transactableId(JsonField.ofNullable(transactableId))
 
         /**
          * If a matching object exists in Modern Treasury, the ID will be populated here, otherwise
@@ -371,8 +390,8 @@ private constructor(
          * If a matching object exists in Modern Treasury, the type will be populated here,
          * otherwise `null`.
          */
-        fun transactableType(transactableType: TransactableType) =
-            transactableType(JsonField.of(transactableType))
+        fun transactableType(transactableType: TransactableType?) =
+            transactableType(JsonField.ofNullable(transactableType))
 
         /**
          * If a matching object exists in Modern Treasury, the type will be populated here,
@@ -427,21 +446,23 @@ private constructor(
 
         fun build(): TransactionLineItem =
             TransactionLineItem(
-                id,
-                amount,
-                counterpartyId,
-                createdAt,
-                description,
-                discardedAt,
-                expectedPaymentId,
-                liveMode,
-                object_,
-                reconcilable,
-                transactableId,
-                transactableType,
-                transactionId,
-                type,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(amount) { "`amount` is required but was not set" },
+                checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(description) { "`description` is required but was not set" },
+                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
+                checkNotNull(expectedPaymentId) {
+                    "`expectedPaymentId` is required but was not set"
+                },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(reconcilable) { "`reconcilable` is required but was not set" },
+                checkNotNull(transactableId) { "`transactableId` is required but was not set" },
+                checkNotNull(transactableType) { "`transactableType` is required but was not set" },
+                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

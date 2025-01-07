@@ -129,57 +129,85 @@ private constructor(
     /** The source of the individual's wealth. */
     fun wealthSource(): WealthSource? = wealthSource.getNullable("wealth_source")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The annual income of the individual. */
-    @JsonProperty("annual_income") @ExcludeMissing fun _annualIncome() = annualIncome
+    @JsonProperty("annual_income")
+    @ExcludeMissing
+    fun _annualIncome(): JsonField<Long> = annualIncome
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+    @JsonProperty("discarded_at")
+    @ExcludeMissing
+    fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
     /** The country in which the employer is located. */
-    @JsonProperty("employer_country") @ExcludeMissing fun _employerCountry() = employerCountry
+    @JsonProperty("employer_country")
+    @ExcludeMissing
+    fun _employerCountry(): JsonField<String> = employerCountry
 
     /** The name of the employer. */
-    @JsonProperty("employer_name") @ExcludeMissing fun _employerName() = employerName
+    @JsonProperty("employer_name")
+    @ExcludeMissing
+    fun _employerName(): JsonField<String> = employerName
 
     /** The state in which the employer is located. */
-    @JsonProperty("employer_state") @ExcludeMissing fun _employerState() = employerState
+    @JsonProperty("employer_state")
+    @ExcludeMissing
+    fun _employerState(): JsonField<String> = employerState
 
     /** The employment status of the individual. */
-    @JsonProperty("employment_status") @ExcludeMissing fun _employmentStatus() = employmentStatus
+    @JsonProperty("employment_status")
+    @ExcludeMissing
+    fun _employmentStatus(): JsonField<EmploymentStatus> = employmentStatus
 
     /** The country in which the individual's income is earned. */
-    @JsonProperty("income_country") @ExcludeMissing fun _incomeCountry() = incomeCountry
+    @JsonProperty("income_country")
+    @ExcludeMissing
+    fun _incomeCountry(): JsonField<String> = incomeCountry
 
     /** The source of the individual's income. */
-    @JsonProperty("income_source") @ExcludeMissing fun _incomeSource() = incomeSource
+    @JsonProperty("income_source")
+    @ExcludeMissing
+    fun _incomeSource(): JsonField<IncomeSource> = incomeSource
 
     /** The state in which the individual's income is earned. */
-    @JsonProperty("income_state") @ExcludeMissing fun _incomeState() = incomeState
+    @JsonProperty("income_state")
+    @ExcludeMissing
+    fun _incomeState(): JsonField<String> = incomeState
 
     /** The industry of the individual. */
-    @JsonProperty("industry") @ExcludeMissing fun _industry() = industry
+    @JsonProperty("industry") @ExcludeMissing fun _industry(): JsonField<Industry> = industry
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /** The occupation of the individual. */
-    @JsonProperty("occupation") @ExcludeMissing fun _occupation() = occupation
+    @JsonProperty("occupation")
+    @ExcludeMissing
+    fun _occupation(): JsonField<Occupation> = occupation
 
     /** The source of the individual's funds. */
-    @JsonProperty("source_of_funds") @ExcludeMissing fun _sourceOfFunds() = sourceOfFunds
+    @JsonProperty("source_of_funds")
+    @ExcludeMissing
+    fun _sourceOfFunds(): JsonField<SourceOfFunds> = sourceOfFunds
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     /** The source of the individual's wealth. */
-    @JsonProperty("wealth_source") @ExcludeMissing fun _wealthSource() = wealthSource
+    @JsonProperty("wealth_source")
+    @ExcludeMissing
+    fun _wealthSource(): JsonField<WealthSource> = wealthSource
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -220,24 +248,24 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var annualIncome: JsonField<Long> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var employerCountry: JsonField<String> = JsonMissing.of()
-        private var employerName: JsonField<String> = JsonMissing.of()
-        private var employerState: JsonField<String> = JsonMissing.of()
-        private var employmentStatus: JsonField<EmploymentStatus> = JsonMissing.of()
-        private var incomeCountry: JsonField<String> = JsonMissing.of()
-        private var incomeSource: JsonField<IncomeSource> = JsonMissing.of()
-        private var incomeState: JsonField<String> = JsonMissing.of()
-        private var industry: JsonField<Industry> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var occupation: JsonField<Occupation> = JsonMissing.of()
-        private var sourceOfFunds: JsonField<SourceOfFunds> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var wealthSource: JsonField<WealthSource> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var annualIncome: JsonField<Long>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var discardedAt: JsonField<OffsetDateTime>? = null
+        private var employerCountry: JsonField<String>? = null
+        private var employerName: JsonField<String>? = null
+        private var employerState: JsonField<String>? = null
+        private var employmentStatus: JsonField<EmploymentStatus>? = null
+        private var incomeCountry: JsonField<String>? = null
+        private var incomeSource: JsonField<IncomeSource>? = null
+        private var incomeState: JsonField<String>? = null
+        private var industry: JsonField<Industry>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var object_: JsonField<String>? = null
+        private var occupation: JsonField<Occupation>? = null
+        private var sourceOfFunds: JsonField<SourceOfFunds>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
+        private var wealthSource: JsonField<WealthSource>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(wealthAndEmploymentDetails: WealthAndEmploymentDetails) = apply {
@@ -267,7 +295,10 @@ private constructor(
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The annual income of the individual. */
-        fun annualIncome(annualIncome: Long) = annualIncome(JsonField.of(annualIncome))
+        fun annualIncome(annualIncome: Long?) = annualIncome(JsonField.ofNullable(annualIncome))
+
+        /** The annual income of the individual. */
+        fun annualIncome(annualIncome: Long) = annualIncome(annualIncome as Long?)
 
         /** The annual income of the individual. */
         fun annualIncome(annualIncome: JsonField<Long>) = apply { this.annualIncome = annualIncome }
@@ -276,15 +307,16 @@ private constructor(
 
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+        fun discardedAt(discardedAt: OffsetDateTime?) =
+            discardedAt(JsonField.ofNullable(discardedAt))
 
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
         }
 
         /** The country in which the employer is located. */
-        fun employerCountry(employerCountry: String) =
-            employerCountry(JsonField.of(employerCountry))
+        fun employerCountry(employerCountry: String?) =
+            employerCountry(JsonField.ofNullable(employerCountry))
 
         /** The country in which the employer is located. */
         fun employerCountry(employerCountry: JsonField<String>) = apply {
@@ -292,7 +324,7 @@ private constructor(
         }
 
         /** The name of the employer. */
-        fun employerName(employerName: String) = employerName(JsonField.of(employerName))
+        fun employerName(employerName: String?) = employerName(JsonField.ofNullable(employerName))
 
         /** The name of the employer. */
         fun employerName(employerName: JsonField<String>) = apply {
@@ -300,7 +332,8 @@ private constructor(
         }
 
         /** The state in which the employer is located. */
-        fun employerState(employerState: String) = employerState(JsonField.of(employerState))
+        fun employerState(employerState: String?) =
+            employerState(JsonField.ofNullable(employerState))
 
         /** The state in which the employer is located. */
         fun employerState(employerState: JsonField<String>) = apply {
@@ -308,8 +341,8 @@ private constructor(
         }
 
         /** The employment status of the individual. */
-        fun employmentStatus(employmentStatus: EmploymentStatus) =
-            employmentStatus(JsonField.of(employmentStatus))
+        fun employmentStatus(employmentStatus: EmploymentStatus?) =
+            employmentStatus(JsonField.ofNullable(employmentStatus))
 
         /** The employment status of the individual. */
         fun employmentStatus(employmentStatus: JsonField<EmploymentStatus>) = apply {
@@ -317,7 +350,8 @@ private constructor(
         }
 
         /** The country in which the individual's income is earned. */
-        fun incomeCountry(incomeCountry: String) = incomeCountry(JsonField.of(incomeCountry))
+        fun incomeCountry(incomeCountry: String?) =
+            incomeCountry(JsonField.ofNullable(incomeCountry))
 
         /** The country in which the individual's income is earned. */
         fun incomeCountry(incomeCountry: JsonField<String>) = apply {
@@ -325,7 +359,8 @@ private constructor(
         }
 
         /** The source of the individual's income. */
-        fun incomeSource(incomeSource: IncomeSource) = incomeSource(JsonField.of(incomeSource))
+        fun incomeSource(incomeSource: IncomeSource?) =
+            incomeSource(JsonField.ofNullable(incomeSource))
 
         /** The source of the individual's income. */
         fun incomeSource(incomeSource: JsonField<IncomeSource>) = apply {
@@ -333,13 +368,13 @@ private constructor(
         }
 
         /** The state in which the individual's income is earned. */
-        fun incomeState(incomeState: String) = incomeState(JsonField.of(incomeState))
+        fun incomeState(incomeState: String?) = incomeState(JsonField.ofNullable(incomeState))
 
         /** The state in which the individual's income is earned. */
         fun incomeState(incomeState: JsonField<String>) = apply { this.incomeState = incomeState }
 
         /** The industry of the individual. */
-        fun industry(industry: Industry) = industry(JsonField.of(industry))
+        fun industry(industry: Industry?) = industry(JsonField.ofNullable(industry))
 
         /** The industry of the individual. */
         fun industry(industry: JsonField<Industry>) = apply { this.industry = industry }
@@ -361,13 +396,14 @@ private constructor(
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /** The occupation of the individual. */
-        fun occupation(occupation: Occupation) = occupation(JsonField.of(occupation))
+        fun occupation(occupation: Occupation?) = occupation(JsonField.ofNullable(occupation))
 
         /** The occupation of the individual. */
         fun occupation(occupation: JsonField<Occupation>) = apply { this.occupation = occupation }
 
         /** The source of the individual's funds. */
-        fun sourceOfFunds(sourceOfFunds: SourceOfFunds) = sourceOfFunds(JsonField.of(sourceOfFunds))
+        fun sourceOfFunds(sourceOfFunds: SourceOfFunds?) =
+            sourceOfFunds(JsonField.ofNullable(sourceOfFunds))
 
         /** The source of the individual's funds. */
         fun sourceOfFunds(sourceOfFunds: JsonField<SourceOfFunds>) = apply {
@@ -379,7 +415,8 @@ private constructor(
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         /** The source of the individual's wealth. */
-        fun wealthSource(wealthSource: WealthSource) = wealthSource(JsonField.of(wealthSource))
+        fun wealthSource(wealthSource: WealthSource?) =
+            wealthSource(JsonField.ofNullable(wealthSource))
 
         /** The source of the individual's wealth. */
         fun wealthSource(wealthSource: JsonField<WealthSource>) = apply {
@@ -407,24 +444,24 @@ private constructor(
 
         fun build(): WealthAndEmploymentDetails =
             WealthAndEmploymentDetails(
-                id,
-                annualIncome,
-                createdAt,
-                discardedAt,
-                employerCountry,
-                employerName,
-                employerState,
-                employmentStatus,
-                incomeCountry,
-                incomeSource,
-                incomeState,
-                industry,
-                liveMode,
-                object_,
-                occupation,
-                sourceOfFunds,
-                updatedAt,
-                wealthSource,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(annualIncome) { "`annualIncome` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
+                checkNotNull(employerCountry) { "`employerCountry` is required but was not set" },
+                checkNotNull(employerName) { "`employerName` is required but was not set" },
+                checkNotNull(employerState) { "`employerState` is required but was not set" },
+                checkNotNull(employmentStatus) { "`employmentStatus` is required but was not set" },
+                checkNotNull(incomeCountry) { "`incomeCountry` is required but was not set" },
+                checkNotNull(incomeSource) { "`incomeSource` is required but was not set" },
+                checkNotNull(incomeState) { "`incomeState` is required but was not set" },
+                checkNotNull(industry) { "`industry` is required but was not set" },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(occupation) { "`occupation` is required but was not set" },
+                checkNotNull(sourceOfFunds) { "`sourceOfFunds` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkNotNull(wealthSource) { "`wealthSource` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

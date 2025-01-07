@@ -139,10 +139,10 @@ private constructor(
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The amount of the ledger account settlement. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
      * The id of the contra ledger account that sends to or receives funds from the settled ledger
@@ -150,18 +150,22 @@ private constructor(
      */
     @JsonProperty("contra_ledger_account_id")
     @ExcludeMissing
-    fun _contraLedgerAccountId() = contraLedgerAccountId
+    fun _contraLedgerAccountId(): JsonField<String> = contraLedgerAccountId
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The currency of the ledger account settlement. */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+    @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<String> = currency
 
     /** The currency exponent of the ledger account settlement. */
-    @JsonProperty("currency_exponent") @ExcludeMissing fun _currencyExponent() = currencyExponent
+    @JsonProperty("currency_exponent")
+    @ExcludeMissing
+    fun _currencyExponent(): JsonField<Long> = currencyExponent
 
     /** The description of the ledger account settlement. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /**
      * The exclusive upper bound of the effective_at timestamp of the ledger entries to be included
@@ -170,26 +174,26 @@ private constructor(
      */
     @JsonProperty("effective_at_upper_bound")
     @ExcludeMissing
-    fun _effectiveAtUpperBound() = effectiveAtUpperBound
+    fun _effectiveAtUpperBound(): JsonField<OffsetDateTime> = effectiveAtUpperBound
 
     /** The id of the ledger that this ledger account settlement belongs to. */
-    @JsonProperty("ledger_id") @ExcludeMissing fun _ledgerId() = ledgerId
+    @JsonProperty("ledger_id") @ExcludeMissing fun _ledgerId(): JsonField<String> = ledgerId
 
     /** The id of the ledger transaction that this settlement is associated with. */
     @JsonProperty("ledger_transaction_id")
     @ExcludeMissing
-    fun _ledgerTransactionId() = ledgerTransactionId
+    fun _ledgerTransactionId(): JsonField<String> = ledgerTransactionId
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /**
      * The id of the settled ledger account whose ledger entries are queried against, and its
@@ -197,20 +201,22 @@ private constructor(
      */
     @JsonProperty("settled_ledger_account_id")
     @ExcludeMissing
-    fun _settledLedgerAccountId() = settledLedgerAccountId
+    fun _settledLedgerAccountId(): JsonField<String> = settledLedgerAccountId
 
     /** The direction of the ledger entry with the settlement_ledger_account. */
     @JsonProperty("settlement_entry_direction")
     @ExcludeMissing
-    fun _settlementEntryDirection() = settlementEntryDirection
+    fun _settlementEntryDirection(): JsonField<String> = settlementEntryDirection
 
     /**
      * The status of the ledger account settlement. One of `processing`, `pending`, `posted`,
      * `archiving` or `archived`.
      */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -250,23 +256,23 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var contraLedgerAccountId: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var currency: JsonField<String> = JsonMissing.of()
-        private var currencyExponent: JsonField<Long> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var effectiveAtUpperBound: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var ledgerId: JsonField<String> = JsonMissing.of()
-        private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var settledLedgerAccountId: JsonField<String> = JsonMissing.of()
-        private var settlementEntryDirection: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var amount: JsonField<Long>? = null
+        private var contraLedgerAccountId: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var currency: JsonField<String>? = null
+        private var currencyExponent: JsonField<Long>? = null
+        private var description: JsonField<String>? = null
+        private var effectiveAtUpperBound: JsonField<OffsetDateTime>? = null
+        private var ledgerId: JsonField<String>? = null
+        private var ledgerTransactionId: JsonField<String>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var metadata: JsonField<Metadata>? = null
+        private var object_: JsonField<String>? = null
+        private var settledLedgerAccountId: JsonField<String>? = null
+        private var settlementEntryDirection: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerAccountSettlement: LedgerAccountSettlement) = apply {
@@ -295,7 +301,10 @@ private constructor(
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The amount of the ledger account settlement. */
-        fun amount(amount: Long) = amount(JsonField.of(amount))
+        fun amount(amount: Long?) = amount(JsonField.ofNullable(amount))
+
+        /** The amount of the ledger account settlement. */
+        fun amount(amount: Long) = amount(amount as Long?)
 
         /** The amount of the ledger account settlement. */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
@@ -326,8 +335,11 @@ private constructor(
         fun currency(currency: JsonField<String>) = apply { this.currency = currency }
 
         /** The currency exponent of the ledger account settlement. */
-        fun currencyExponent(currencyExponent: Long) =
-            currencyExponent(JsonField.of(currencyExponent))
+        fun currencyExponent(currencyExponent: Long?) =
+            currencyExponent(JsonField.ofNullable(currencyExponent))
+
+        /** The currency exponent of the ledger account settlement. */
+        fun currencyExponent(currencyExponent: Long) = currencyExponent(currencyExponent as Long?)
 
         /** The currency exponent of the ledger account settlement. */
         fun currencyExponent(currencyExponent: JsonField<Long>) = apply {
@@ -335,7 +347,7 @@ private constructor(
         }
 
         /** The description of the ledger account settlement. */
-        fun description(description: String) = description(JsonField.of(description))
+        fun description(description: String?) = description(JsonField.ofNullable(description))
 
         /** The description of the ledger account settlement. */
         fun description(description: JsonField<String>) = apply { this.description = description }
@@ -364,8 +376,8 @@ private constructor(
         fun ledgerId(ledgerId: JsonField<String>) = apply { this.ledgerId = ledgerId }
 
         /** The id of the ledger transaction that this settlement is associated with. */
-        fun ledgerTransactionId(ledgerTransactionId: String) =
-            ledgerTransactionId(JsonField.of(ledgerTransactionId))
+        fun ledgerTransactionId(ledgerTransactionId: String?) =
+            ledgerTransactionId(JsonField.ofNullable(ledgerTransactionId))
 
         /** The id of the ledger transaction that this settlement is associated with. */
         fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
@@ -414,8 +426,8 @@ private constructor(
         }
 
         /** The direction of the ledger entry with the settlement_ledger_account. */
-        fun settlementEntryDirection(settlementEntryDirection: String) =
-            settlementEntryDirection(JsonField.of(settlementEntryDirection))
+        fun settlementEntryDirection(settlementEntryDirection: String?) =
+            settlementEntryDirection(JsonField.ofNullable(settlementEntryDirection))
 
         /** The direction of the ledger entry with the settlement_ledger_account. */
         fun settlementEntryDirection(settlementEntryDirection: JsonField<String>) = apply {
@@ -459,23 +471,33 @@ private constructor(
 
         fun build(): LedgerAccountSettlement =
             LedgerAccountSettlement(
-                id,
-                amount,
-                contraLedgerAccountId,
-                createdAt,
-                currency,
-                currencyExponent,
-                description,
-                effectiveAtUpperBound,
-                ledgerId,
-                ledgerTransactionId,
-                liveMode,
-                metadata,
-                object_,
-                settledLedgerAccountId,
-                settlementEntryDirection,
-                status,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(amount) { "`amount` is required but was not set" },
+                checkNotNull(contraLedgerAccountId) {
+                    "`contraLedgerAccountId` is required but was not set"
+                },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(currency) { "`currency` is required but was not set" },
+                checkNotNull(currencyExponent) { "`currencyExponent` is required but was not set" },
+                checkNotNull(description) { "`description` is required but was not set" },
+                checkNotNull(effectiveAtUpperBound) {
+                    "`effectiveAtUpperBound` is required but was not set"
+                },
+                checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
+                checkNotNull(ledgerTransactionId) {
+                    "`ledgerTransactionId` is required but was not set"
+                },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(metadata) { "`metadata` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(settledLedgerAccountId) {
+                    "`settledLedgerAccountId` is required but was not set"
+                },
+                checkNotNull(settlementEntryDirection) {
+                    "`settlementEntryDirection` is required but was not set"
+                },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

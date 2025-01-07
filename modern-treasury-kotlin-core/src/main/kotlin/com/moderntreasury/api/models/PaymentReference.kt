@@ -83,39 +83,49 @@ private constructor(
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /** The actual reference number assigned by the bank. */
-    @JsonProperty("reference_number") @ExcludeMissing fun _referenceNumber() = referenceNumber
+    @JsonProperty("reference_number")
+    @ExcludeMissing
+    fun _referenceNumber(): JsonField<String> = referenceNumber
 
     /** The type of reference number. */
     @JsonProperty("reference_number_type")
     @ExcludeMissing
-    fun _referenceNumberType() = referenceNumberType
+    fun _referenceNumberType(): JsonField<ReferenceNumberType> = referenceNumberType
 
     /**
      * The id of the referenceable to search for. Must be accompanied by the referenceable_type or
      * will return an error.
      */
-    @JsonProperty("referenceable_id") @ExcludeMissing fun _referenceableId() = referenceableId
+    @JsonProperty("referenceable_id")
+    @ExcludeMissing
+    fun _referenceableId(): JsonField<String> = referenceableId
 
     /**
      * One of the referenceable types. This must be accompanied by the id of the referenceable or
      * will return an error.
      */
-    @JsonProperty("referenceable_type") @ExcludeMissing fun _referenceableType() = referenceableType
+    @JsonProperty("referenceable_type")
+    @ExcludeMissing
+    fun _referenceableType(): JsonField<ReferenceableType> = referenceableType
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -147,15 +157,15 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var referenceNumber: JsonField<String> = JsonMissing.of()
-        private var referenceNumberType: JsonField<ReferenceNumberType> = JsonMissing.of()
-        private var referenceableId: JsonField<String> = JsonMissing.of()
-        private var referenceableType: JsonField<ReferenceableType> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var object_: JsonField<String>? = null
+        private var referenceNumber: JsonField<String>? = null
+        private var referenceNumberType: JsonField<ReferenceNumberType>? = null
+        private var referenceableId: JsonField<String>? = null
+        private var referenceableType: JsonField<ReferenceableType>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(paymentReference: PaymentReference) = apply {
@@ -268,15 +278,19 @@ private constructor(
 
         fun build(): PaymentReference =
             PaymentReference(
-                id,
-                createdAt,
-                liveMode,
-                object_,
-                referenceNumber,
-                referenceNumberType,
-                referenceableId,
-                referenceableType,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(referenceNumber) { "`referenceNumber` is required but was not set" },
+                checkNotNull(referenceNumberType) {
+                    "`referenceNumberType` is required but was not set"
+                },
+                checkNotNull(referenceableId) { "`referenceableId` is required but was not set" },
+                checkNotNull(referenceableType) {
+                    "`referenceableType` is required but was not set"
+                },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

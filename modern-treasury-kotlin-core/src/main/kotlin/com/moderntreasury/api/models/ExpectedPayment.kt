@@ -156,6 +156,16 @@ private constructor(
 
     fun object_(): String = object_.getRequired("object")
 
+    /** The reconciliation filters you have for this payment. */
+    @JsonProperty("reconciliation_filters")
+    @ExcludeMissing
+    fun _reconciliationFilters(): JsonValue = reconciliationFilters
+
+    /** The reconciliation groups you have for this payment. */
+    @JsonProperty("reconciliation_groups")
+    @ExcludeMissing
+    fun _reconciliationGroups(): JsonValue = reconciliationGroups
+
     /**
      * One of manual if this expected payment was manually reconciled in the dashboard, automatic if
      * it was automatically reconciled by Modern Treasury, or null if it is unreconciled.
@@ -200,73 +210,75 @@ private constructor(
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
      * The lowest amount this expected payment may be equal to. Value in specified currency's
      * smallest unit. e.g. $10 would be represented as 1000.
      */
-    @JsonProperty("amount_lower_bound") @ExcludeMissing fun _amountLowerBound() = amountLowerBound
+    @JsonProperty("amount_lower_bound")
+    @ExcludeMissing
+    fun _amountLowerBound(): JsonField<Long> = amountLowerBound
 
     /**
      * The highest amount this expected payment may be equal to. Value in specified currency's
      * smallest unit. e.g. $10 would be represented as 1000.
      */
-    @JsonProperty("amount_upper_bound") @ExcludeMissing fun _amountUpperBound() = amountUpperBound
+    @JsonProperty("amount_upper_bound")
+    @ExcludeMissing
+    fun _amountUpperBound(): JsonField<Long> = amountUpperBound
 
     /** The ID of the counterparty you expect for this payment. */
-    @JsonProperty("counterparty_id") @ExcludeMissing fun _counterpartyId() = counterpartyId
+    @JsonProperty("counterparty_id")
+    @ExcludeMissing
+    fun _counterpartyId(): JsonField<String> = counterpartyId
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** Must conform to ISO 4217. Defaults to the currency of the internal account. */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+    @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
     /** The earliest date the payment may come in. Format: yyyy-mm-dd */
-    @JsonProperty("date_lower_bound") @ExcludeMissing fun _dateLowerBound() = dateLowerBound
+    @JsonProperty("date_lower_bound")
+    @ExcludeMissing
+    fun _dateLowerBound(): JsonField<LocalDate> = dateLowerBound
 
     /** The latest date the payment may come in. Format: yyyy-mm-dd */
-    @JsonProperty("date_upper_bound") @ExcludeMissing fun _dateUpperBound() = dateUpperBound
+    @JsonProperty("date_upper_bound")
+    @ExcludeMissing
+    fun _dateUpperBound(): JsonField<LocalDate> = dateUpperBound
 
     /** An optional description for internal use. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /**
      * One of credit or debit. When you are receiving money, use credit. When you are being charged,
      * use debit.
      */
-    @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
+    @JsonProperty("direction") @ExcludeMissing fun _direction(): JsonField<Direction> = direction
 
     /** The ID of the Internal Account for the expected payment. */
     @JsonProperty("internal_account_id")
     @ExcludeMissing
-    fun _internalAccountId() = internalAccountId
+    fun _internalAccountId(): JsonField<String> = internalAccountId
 
     /** The ID of the ledger transaction linked to the expected payment. */
     @JsonProperty("ledger_transaction_id")
     @ExcludeMissing
-    fun _ledgerTransactionId() = ledgerTransactionId
+    fun _ledgerTransactionId(): JsonField<String> = ledgerTransactionId
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
-
-    /** The reconciliation filters you have for this payment. */
-    @JsonProperty("reconciliation_filters")
-    @ExcludeMissing
-    fun _reconciliationFilters() = reconciliationFilters
-
-    /** The reconciliation groups you have for this payment. */
-    @JsonProperty("reconciliation_groups")
-    @ExcludeMissing
-    fun _reconciliationGroups() = reconciliationGroups
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /**
      * One of manual if this expected payment was manually reconciled in the dashboard, automatic if
@@ -274,12 +286,13 @@ private constructor(
      */
     @JsonProperty("reconciliation_method")
     @ExcludeMissing
-    fun _reconciliationMethod() = reconciliationMethod
+    fun _reconciliationMethod(): JsonField<ReconciliationMethod> = reconciliationMethod
 
     /** An array of reconciliation rule variables for this payment. */
     @JsonProperty("reconciliation_rule_variables")
     @ExcludeMissing
-    fun _reconciliationRuleVariables() = reconciliationRuleVariables
+    fun _reconciliationRuleVariables(): JsonField<List<ReconciliationRule>> =
+        reconciliationRuleVariables
 
     /**
      * For `ach`, this field will be passed through on an addenda record. For `wire` payments the
@@ -288,7 +301,7 @@ private constructor(
      */
     @JsonProperty("remittance_information")
     @ExcludeMissing
-    fun _remittanceInformation() = remittanceInformation
+    fun _remittanceInformation(): JsonField<String> = remittanceInformation
 
     /**
      * The statement description you expect to see on the transaction. For ACH payments, this will
@@ -297,26 +310,30 @@ private constructor(
      */
     @JsonProperty("statement_descriptor")
     @ExcludeMissing
-    fun _statementDescriptor() = statementDescriptor
+    fun _statementDescriptor(): JsonField<String> = statementDescriptor
 
     /** One of unreconciled, partially_reconciled, reconciled, or archived. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /** The ID of the Transaction this expected payment object has been matched to. */
-    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+    @JsonProperty("transaction_id")
+    @ExcludeMissing
+    fun _transactionId(): JsonField<String> = transactionId
 
     /** The ID of the Transaction Line Item this expected payment has been matched to. */
     @JsonProperty("transaction_line_item_id")
     @ExcludeMissing
-    fun _transactionLineItemId() = transactionLineItemId
+    fun _transactionLineItemId(): JsonField<String> = transactionLineItemId
 
     /**
      * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa, signet,
      * wire.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<ExpectedPaymentType> = type
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -363,33 +380,32 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var amountLowerBound: JsonField<Long> = JsonMissing.of()
-        private var amountUpperBound: JsonField<Long> = JsonMissing.of()
-        private var counterpartyId: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
-        private var dateLowerBound: JsonField<LocalDate> = JsonMissing.of()
-        private var dateUpperBound: JsonField<LocalDate> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var direction: JsonField<Direction> = JsonMissing.of()
-        private var internalAccountId: JsonField<String> = JsonMissing.of()
-        private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var reconciliationFilters: JsonValue = JsonMissing.of()
-        private var reconciliationGroups: JsonValue = JsonMissing.of()
-        private var reconciliationMethod: JsonField<ReconciliationMethod> = JsonMissing.of()
-        private var reconciliationRuleVariables: JsonField<List<ReconciliationRule>> =
-            JsonMissing.of()
-        private var remittanceInformation: JsonField<String> = JsonMissing.of()
-        private var statementDescriptor: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var transactionId: JsonField<String> = JsonMissing.of()
-        private var transactionLineItemId: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<ExpectedPaymentType> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var amountLowerBound: JsonField<Long>? = null
+        private var amountUpperBound: JsonField<Long>? = null
+        private var counterpartyId: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var currency: JsonField<Currency>? = null
+        private var dateLowerBound: JsonField<LocalDate>? = null
+        private var dateUpperBound: JsonField<LocalDate>? = null
+        private var description: JsonField<String>? = null
+        private var direction: JsonField<Direction>? = null
+        private var internalAccountId: JsonField<String>? = null
+        private var ledgerTransactionId: JsonField<String>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var metadata: JsonField<Metadata>? = null
+        private var object_: JsonField<String>? = null
+        private var reconciliationFilters: JsonValue? = null
+        private var reconciliationGroups: JsonValue? = null
+        private var reconciliationMethod: JsonField<ReconciliationMethod>? = null
+        private var reconciliationRuleVariables: JsonField<MutableList<ReconciliationRule>>? = null
+        private var remittanceInformation: JsonField<String>? = null
+        private var statementDescriptor: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var transactionId: JsonField<String>? = null
+        private var transactionLineItemId: JsonField<String>? = null
+        private var type: JsonField<ExpectedPaymentType>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(expectedPayment: ExpectedPayment) = apply {
@@ -411,7 +427,8 @@ private constructor(
             reconciliationFilters = expectedPayment.reconciliationFilters
             reconciliationGroups = expectedPayment.reconciliationGroups
             reconciliationMethod = expectedPayment.reconciliationMethod
-            reconciliationRuleVariables = expectedPayment.reconciliationRuleVariables
+            reconciliationRuleVariables =
+                expectedPayment.reconciliationRuleVariables.map { it.toMutableList() }
             remittanceInformation = expectedPayment.remittanceInformation
             statementDescriptor = expectedPayment.statementDescriptor
             status = expectedPayment.status
@@ -430,8 +447,14 @@ private constructor(
          * The lowest amount this expected payment may be equal to. Value in specified currency's
          * smallest unit. e.g. $10 would be represented as 1000.
          */
-        fun amountLowerBound(amountLowerBound: Long) =
-            amountLowerBound(JsonField.of(amountLowerBound))
+        fun amountLowerBound(amountLowerBound: Long?) =
+            amountLowerBound(JsonField.ofNullable(amountLowerBound))
+
+        /**
+         * The lowest amount this expected payment may be equal to. Value in specified currency's
+         * smallest unit. e.g. $10 would be represented as 1000.
+         */
+        fun amountLowerBound(amountLowerBound: Long) = amountLowerBound(amountLowerBound as Long?)
 
         /**
          * The lowest amount this expected payment may be equal to. Value in specified currency's
@@ -445,8 +468,14 @@ private constructor(
          * The highest amount this expected payment may be equal to. Value in specified currency's
          * smallest unit. e.g. $10 would be represented as 1000.
          */
-        fun amountUpperBound(amountUpperBound: Long) =
-            amountUpperBound(JsonField.of(amountUpperBound))
+        fun amountUpperBound(amountUpperBound: Long?) =
+            amountUpperBound(JsonField.ofNullable(amountUpperBound))
+
+        /**
+         * The highest amount this expected payment may be equal to. Value in specified currency's
+         * smallest unit. e.g. $10 would be represented as 1000.
+         */
+        fun amountUpperBound(amountUpperBound: Long) = amountUpperBound(amountUpperBound as Long?)
 
         /**
          * The highest amount this expected payment may be equal to. Value in specified currency's
@@ -457,7 +486,8 @@ private constructor(
         }
 
         /** The ID of the counterparty you expect for this payment. */
-        fun counterpartyId(counterpartyId: String) = counterpartyId(JsonField.of(counterpartyId))
+        fun counterpartyId(counterpartyId: String?) =
+            counterpartyId(JsonField.ofNullable(counterpartyId))
 
         /** The ID of the counterparty you expect for this payment. */
         fun counterpartyId(counterpartyId: JsonField<String>) = apply {
@@ -469,13 +499,14 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** Must conform to ISO 4217. Defaults to the currency of the internal account. */
-        fun currency(currency: Currency) = currency(JsonField.of(currency))
+        fun currency(currency: Currency?) = currency(JsonField.ofNullable(currency))
 
         /** Must conform to ISO 4217. Defaults to the currency of the internal account. */
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** The earliest date the payment may come in. Format: yyyy-mm-dd */
-        fun dateLowerBound(dateLowerBound: LocalDate) = dateLowerBound(JsonField.of(dateLowerBound))
+        fun dateLowerBound(dateLowerBound: LocalDate?) =
+            dateLowerBound(JsonField.ofNullable(dateLowerBound))
 
         /** The earliest date the payment may come in. Format: yyyy-mm-dd */
         fun dateLowerBound(dateLowerBound: JsonField<LocalDate>) = apply {
@@ -483,7 +514,8 @@ private constructor(
         }
 
         /** The latest date the payment may come in. Format: yyyy-mm-dd */
-        fun dateUpperBound(dateUpperBound: LocalDate) = dateUpperBound(JsonField.of(dateUpperBound))
+        fun dateUpperBound(dateUpperBound: LocalDate?) =
+            dateUpperBound(JsonField.ofNullable(dateUpperBound))
 
         /** The latest date the payment may come in. Format: yyyy-mm-dd */
         fun dateUpperBound(dateUpperBound: JsonField<LocalDate>) = apply {
@@ -491,7 +523,7 @@ private constructor(
         }
 
         /** An optional description for internal use. */
-        fun description(description: String) = description(JsonField.of(description))
+        fun description(description: String?) = description(JsonField.ofNullable(description))
 
         /** An optional description for internal use. */
         fun description(description: JsonField<String>) = apply { this.description = description }
@@ -500,7 +532,7 @@ private constructor(
          * One of credit or debit. When you are receiving money, use credit. When you are being
          * charged, use debit.
          */
-        fun direction(direction: Direction) = direction(JsonField.of(direction))
+        fun direction(direction: Direction?) = direction(JsonField.ofNullable(direction))
 
         /**
          * One of credit or debit. When you are receiving money, use credit. When you are being
@@ -509,8 +541,8 @@ private constructor(
         fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
         /** The ID of the Internal Account for the expected payment. */
-        fun internalAccountId(internalAccountId: String) =
-            internalAccountId(JsonField.of(internalAccountId))
+        fun internalAccountId(internalAccountId: String?) =
+            internalAccountId(JsonField.ofNullable(internalAccountId))
 
         /** The ID of the Internal Account for the expected payment. */
         fun internalAccountId(internalAccountId: JsonField<String>) = apply {
@@ -518,8 +550,8 @@ private constructor(
         }
 
         /** The ID of the ledger transaction linked to the expected payment. */
-        fun ledgerTransactionId(ledgerTransactionId: String) =
-            ledgerTransactionId(JsonField.of(ledgerTransactionId))
+        fun ledgerTransactionId(ledgerTransactionId: String?) =
+            ledgerTransactionId(JsonField.ofNullable(ledgerTransactionId))
 
         /** The ID of the ledger transaction linked to the expected payment. */
         fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
@@ -567,8 +599,8 @@ private constructor(
          * automatic if it was automatically reconciled by Modern Treasury, or null if it is
          * unreconciled.
          */
-        fun reconciliationMethod(reconciliationMethod: ReconciliationMethod) =
-            reconciliationMethod(JsonField.of(reconciliationMethod))
+        fun reconciliationMethod(reconciliationMethod: ReconciliationMethod?) =
+            reconciliationMethod(JsonField.ofNullable(reconciliationMethod))
 
         /**
          * One of manual if this expected payment was manually reconciled in the dashboard,
@@ -580,21 +612,36 @@ private constructor(
         }
 
         /** An array of reconciliation rule variables for this payment. */
-        fun reconciliationRuleVariables(reconciliationRuleVariables: List<ReconciliationRule>) =
-            reconciliationRuleVariables(JsonField.of(reconciliationRuleVariables))
+        fun reconciliationRuleVariables(reconciliationRuleVariables: List<ReconciliationRule>?) =
+            reconciliationRuleVariables(JsonField.ofNullable(reconciliationRuleVariables))
 
         /** An array of reconciliation rule variables for this payment. */
         fun reconciliationRuleVariables(
             reconciliationRuleVariables: JsonField<List<ReconciliationRule>>
-        ) = apply { this.reconciliationRuleVariables = reconciliationRuleVariables }
+        ) = apply {
+            this.reconciliationRuleVariables =
+                reconciliationRuleVariables.map { it.toMutableList() }
+        }
+
+        /** An array of reconciliation rule variables for this payment. */
+        fun addReconciliationRuleVariable(reconciliationRuleVariable: ReconciliationRule) = apply {
+            reconciliationRuleVariables =
+                (reconciliationRuleVariables ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(reconciliationRuleVariable)
+                }
+        }
 
         /**
          * For `ach`, this field will be passed through on an addenda record. For `wire` payments
          * the field will be passed through as the "Originator to Beneficiary Information", also
          * known as OBI or Fedwire tag 6000.
          */
-        fun remittanceInformation(remittanceInformation: String) =
-            remittanceInformation(JsonField.of(remittanceInformation))
+        fun remittanceInformation(remittanceInformation: String?) =
+            remittanceInformation(JsonField.ofNullable(remittanceInformation))
 
         /**
          * For `ach`, this field will be passed through on an addenda record. For `wire` payments
@@ -610,8 +657,8 @@ private constructor(
          * will be the full line item passed from the bank. For wire payments, this will be the OBI
          * field on the wire. For check payments, this will be the memo field.
          */
-        fun statementDescriptor(statementDescriptor: String) =
-            statementDescriptor(JsonField.of(statementDescriptor))
+        fun statementDescriptor(statementDescriptor: String?) =
+            statementDescriptor(JsonField.ofNullable(statementDescriptor))
 
         /**
          * The statement description you expect to see on the transaction. For ACH payments, this
@@ -629,7 +676,8 @@ private constructor(
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** The ID of the Transaction this expected payment object has been matched to. */
-        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+        fun transactionId(transactionId: String?) =
+            transactionId(JsonField.ofNullable(transactionId))
 
         /** The ID of the Transaction this expected payment object has been matched to. */
         fun transactionId(transactionId: JsonField<String>) = apply {
@@ -637,8 +685,8 @@ private constructor(
         }
 
         /** The ID of the Transaction Line Item this expected payment has been matched to. */
-        fun transactionLineItemId(transactionLineItemId: String) =
-            transactionLineItemId(JsonField.of(transactionLineItemId))
+        fun transactionLineItemId(transactionLineItemId: String?) =
+            transactionLineItemId(JsonField.ofNullable(transactionLineItemId))
 
         /** The ID of the Transaction Line Item this expected payment has been matched to. */
         fun transactionLineItemId(transactionLineItemId: JsonField<String>) = apply {
@@ -649,7 +697,7 @@ private constructor(
          * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa,
          * signet, wire.
          */
-        fun type(type: ExpectedPaymentType) = type(JsonField.of(type))
+        fun type(type: ExpectedPaymentType?) = type(JsonField.ofNullable(type))
 
         /**
          * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa,
@@ -682,32 +730,51 @@ private constructor(
 
         fun build(): ExpectedPayment =
             ExpectedPayment(
-                id,
-                amountLowerBound,
-                amountUpperBound,
-                counterpartyId,
-                createdAt,
-                currency,
-                dateLowerBound,
-                dateUpperBound,
-                description,
-                direction,
-                internalAccountId,
-                ledgerTransactionId,
-                liveMode,
-                metadata,
-                object_,
-                reconciliationFilters,
-                reconciliationGroups,
-                reconciliationMethod,
-                reconciliationRuleVariables.map { it.toImmutable() },
-                remittanceInformation,
-                statementDescriptor,
-                status,
-                transactionId,
-                transactionLineItemId,
-                type,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(amountLowerBound) { "`amountLowerBound` is required but was not set" },
+                checkNotNull(amountUpperBound) { "`amountUpperBound` is required but was not set" },
+                checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(currency) { "`currency` is required but was not set" },
+                checkNotNull(dateLowerBound) { "`dateLowerBound` is required but was not set" },
+                checkNotNull(dateUpperBound) { "`dateUpperBound` is required but was not set" },
+                checkNotNull(description) { "`description` is required but was not set" },
+                checkNotNull(direction) { "`direction` is required but was not set" },
+                checkNotNull(internalAccountId) {
+                    "`internalAccountId` is required but was not set"
+                },
+                checkNotNull(ledgerTransactionId) {
+                    "`ledgerTransactionId` is required but was not set"
+                },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(metadata) { "`metadata` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(reconciliationFilters) {
+                    "`reconciliationFilters` is required but was not set"
+                },
+                checkNotNull(reconciliationGroups) {
+                    "`reconciliationGroups` is required but was not set"
+                },
+                checkNotNull(reconciliationMethod) {
+                    "`reconciliationMethod` is required but was not set"
+                },
+                checkNotNull(reconciliationRuleVariables) {
+                        "`reconciliationRuleVariables` is required but was not set"
+                    }
+                    .map { it.toImmutable() },
+                checkNotNull(remittanceInformation) {
+                    "`remittanceInformation` is required but was not set"
+                },
+                checkNotNull(statementDescriptor) {
+                    "`statementDescriptor` is required but was not set"
+                },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
+                checkNotNull(transactionLineItemId) {
+                    "`transactionLineItemId` is required but was not set"
+                },
+                checkNotNull(type) { "`type` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

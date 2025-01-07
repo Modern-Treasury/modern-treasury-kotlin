@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.ExcludeMissing
+import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -47,11 +49,34 @@ constructor(
      */
     fun targetAmount(): Long? = body.targetAmount()
 
+    /** The ID for the `InternalAccount` this quote is associated with. */
+    fun _internalAccountId(): JsonField<String> = body._internalAccountId()
+
+    /** Currency to convert the `base_currency` to, often called the "buy" currency. */
+    fun _targetCurrency(): JsonField<Currency> = body._targetCurrency()
+
+    /**
+     * Amount in the lowest denomination of the `base_currency` to convert, often called the "sell"
+     * amount.
+     */
+    fun _baseAmount(): JsonField<Long> = body._baseAmount()
+
+    /** Currency to convert, often called the "sell" currency. */
+    fun _baseCurrency(): JsonField<Currency> = body._baseCurrency()
+
+    /** The timestamp until when the quoted rate is valid. */
+    fun _effectiveAt(): JsonField<OffsetDateTime> = body._effectiveAt()
+
+    /**
+     * Amount in the lowest denomination of the `target_currency`, often called the "buy" amount.
+     */
+    fun _targetAmount(): JsonField<Long> = body._targetAmount()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): ForeignExchangeQuoteCreateBody = body
 
@@ -63,43 +88,103 @@ constructor(
     class ForeignExchangeQuoteCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("internal_account_id") private val internalAccountId: String,
-        @JsonProperty("target_currency") private val targetCurrency: Currency,
-        @JsonProperty("base_amount") private val baseAmount: Long?,
-        @JsonProperty("base_currency") private val baseCurrency: Currency?,
-        @JsonProperty("effective_at") private val effectiveAt: OffsetDateTime?,
-        @JsonProperty("target_amount") private val targetAmount: Long?,
+        @JsonProperty("internal_account_id")
+        @ExcludeMissing
+        private val internalAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("target_currency")
+        @ExcludeMissing
+        private val targetCurrency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("base_amount")
+        @ExcludeMissing
+        private val baseAmount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("base_currency")
+        @ExcludeMissing
+        private val baseCurrency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("effective_at")
+        @ExcludeMissing
+        private val effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("target_amount")
+        @ExcludeMissing
+        private val targetAmount: JsonField<Long> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The ID for the `InternalAccount` this quote is associated with. */
-        @JsonProperty("internal_account_id") fun internalAccountId(): String = internalAccountId
+        fun internalAccountId(): String = internalAccountId.getRequired("internal_account_id")
 
         /** Currency to convert the `base_currency` to, often called the "buy" currency. */
-        @JsonProperty("target_currency") fun targetCurrency(): Currency = targetCurrency
+        fun targetCurrency(): Currency = targetCurrency.getRequired("target_currency")
 
         /**
          * Amount in the lowest denomination of the `base_currency` to convert, often called the
          * "sell" amount.
          */
-        @JsonProperty("base_amount") fun baseAmount(): Long? = baseAmount
+        fun baseAmount(): Long? = baseAmount.getNullable("base_amount")
 
         /** Currency to convert, often called the "sell" currency. */
-        @JsonProperty("base_currency") fun baseCurrency(): Currency? = baseCurrency
+        fun baseCurrency(): Currency? = baseCurrency.getNullable("base_currency")
 
         /** The timestamp until when the quoted rate is valid. */
-        @JsonProperty("effective_at") fun effectiveAt(): OffsetDateTime? = effectiveAt
+        fun effectiveAt(): OffsetDateTime? = effectiveAt.getNullable("effective_at")
 
         /**
          * Amount in the lowest denomination of the `target_currency`, often called the "buy"
          * amount.
          */
-        @JsonProperty("target_amount") fun targetAmount(): Long? = targetAmount
+        fun targetAmount(): Long? = targetAmount.getNullable("target_amount")
+
+        /** The ID for the `InternalAccount` this quote is associated with. */
+        @JsonProperty("internal_account_id")
+        @ExcludeMissing
+        fun _internalAccountId(): JsonField<String> = internalAccountId
+
+        /** Currency to convert the `base_currency` to, often called the "buy" currency. */
+        @JsonProperty("target_currency")
+        @ExcludeMissing
+        fun _targetCurrency(): JsonField<Currency> = targetCurrency
+
+        /**
+         * Amount in the lowest denomination of the `base_currency` to convert, often called the
+         * "sell" amount.
+         */
+        @JsonProperty("base_amount") @ExcludeMissing fun _baseAmount(): JsonField<Long> = baseAmount
+
+        /** Currency to convert, often called the "sell" currency. */
+        @JsonProperty("base_currency")
+        @ExcludeMissing
+        fun _baseCurrency(): JsonField<Currency> = baseCurrency
+
+        /** The timestamp until when the quoted rate is valid. */
+        @JsonProperty("effective_at")
+        @ExcludeMissing
+        fun _effectiveAt(): JsonField<OffsetDateTime> = effectiveAt
+
+        /**
+         * Amount in the lowest denomination of the `target_currency`, often called the "buy"
+         * amount.
+         */
+        @JsonProperty("target_amount")
+        @ExcludeMissing
+        fun _targetAmount(): JsonField<Long> = targetAmount
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): ForeignExchangeQuoteCreateBody = apply {
+            if (!validated) {
+                internalAccountId()
+                targetCurrency()
+                baseAmount()
+                baseCurrency()
+                effectiveAt()
+                targetAmount()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -110,12 +195,12 @@ constructor(
 
         class Builder {
 
-            private var internalAccountId: String? = null
-            private var targetCurrency: Currency? = null
-            private var baseAmount: Long? = null
-            private var baseCurrency: Currency? = null
-            private var effectiveAt: OffsetDateTime? = null
-            private var targetAmount: Long? = null
+            private var internalAccountId: JsonField<String>? = null
+            private var targetCurrency: JsonField<Currency>? = null
+            private var baseAmount: JsonField<Long> = JsonMissing.of()
+            private var baseCurrency: JsonField<Currency> = JsonMissing.of()
+            private var effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var targetAmount: JsonField<Long> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(foreignExchangeQuoteCreateBody: ForeignExchangeQuoteCreateBody) =
@@ -131,12 +216,20 @@ constructor(
                 }
 
             /** The ID for the `InternalAccount` this quote is associated with. */
-            fun internalAccountId(internalAccountId: String) = apply {
+            fun internalAccountId(internalAccountId: String) =
+                internalAccountId(JsonField.of(internalAccountId))
+
+            /** The ID for the `InternalAccount` this quote is associated with. */
+            fun internalAccountId(internalAccountId: JsonField<String>) = apply {
                 this.internalAccountId = internalAccountId
             }
 
             /** Currency to convert the `base_currency` to, often called the "buy" currency. */
-            fun targetCurrency(targetCurrency: Currency) = apply {
+            fun targetCurrency(targetCurrency: Currency) =
+                targetCurrency(JsonField.of(targetCurrency))
+
+            /** Currency to convert the `base_currency` to, often called the "buy" currency. */
+            fun targetCurrency(targetCurrency: JsonField<Currency>) = apply {
                 this.targetCurrency = targetCurrency
             }
 
@@ -144,31 +237,43 @@ constructor(
              * Amount in the lowest denomination of the `base_currency` to convert, often called the
              * "sell" amount.
              */
-            fun baseAmount(baseAmount: Long?) = apply { this.baseAmount = baseAmount }
+            fun baseAmount(baseAmount: Long) = baseAmount(JsonField.of(baseAmount))
 
             /**
              * Amount in the lowest denomination of the `base_currency` to convert, often called the
              * "sell" amount.
              */
-            fun baseAmount(baseAmount: Long) = baseAmount(baseAmount as Long?)
+            fun baseAmount(baseAmount: JsonField<Long>) = apply { this.baseAmount = baseAmount }
 
             /** Currency to convert, often called the "sell" currency. */
-            fun baseCurrency(baseCurrency: Currency?) = apply { this.baseCurrency = baseCurrency }
+            fun baseCurrency(baseCurrency: Currency) = baseCurrency(JsonField.of(baseCurrency))
+
+            /** Currency to convert, often called the "sell" currency. */
+            fun baseCurrency(baseCurrency: JsonField<Currency>) = apply {
+                this.baseCurrency = baseCurrency
+            }
 
             /** The timestamp until when the quoted rate is valid. */
-            fun effectiveAt(effectiveAt: OffsetDateTime?) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: OffsetDateTime) = effectiveAt(JsonField.of(effectiveAt))
+
+            /** The timestamp until when the quoted rate is valid. */
+            fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
+                this.effectiveAt = effectiveAt
+            }
 
             /**
              * Amount in the lowest denomination of the `target_currency`, often called the "buy"
              * amount.
              */
-            fun targetAmount(targetAmount: Long?) = apply { this.targetAmount = targetAmount }
+            fun targetAmount(targetAmount: Long) = targetAmount(JsonField.of(targetAmount))
 
             /**
              * Amount in the lowest denomination of the `target_currency`, often called the "buy"
              * amount.
              */
-            fun targetAmount(targetAmount: Long) = targetAmount(targetAmount as Long?)
+            fun targetAmount(targetAmount: JsonField<Long>) = apply {
+                this.targetAmount = targetAmount
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -249,38 +354,77 @@ constructor(
             body.internalAccountId(internalAccountId)
         }
 
+        /** The ID for the `InternalAccount` this quote is associated with. */
+        fun internalAccountId(internalAccountId: JsonField<String>) = apply {
+            body.internalAccountId(internalAccountId)
+        }
+
         /** Currency to convert the `base_currency` to, often called the "buy" currency. */
         fun targetCurrency(targetCurrency: Currency) = apply { body.targetCurrency(targetCurrency) }
 
-        /**
-         * Amount in the lowest denomination of the `base_currency` to convert, often called the
-         * "sell" amount.
-         */
-        fun baseAmount(baseAmount: Long?) = apply { body.baseAmount(baseAmount) }
+        /** Currency to convert the `base_currency` to, often called the "buy" currency. */
+        fun targetCurrency(targetCurrency: JsonField<Currency>) = apply {
+            body.targetCurrency(targetCurrency)
+        }
 
         /**
          * Amount in the lowest denomination of the `base_currency` to convert, often called the
          * "sell" amount.
          */
-        fun baseAmount(baseAmount: Long) = baseAmount(baseAmount as Long?)
+        fun baseAmount(baseAmount: Long) = apply { body.baseAmount(baseAmount) }
+
+        /**
+         * Amount in the lowest denomination of the `base_currency` to convert, often called the
+         * "sell" amount.
+         */
+        fun baseAmount(baseAmount: JsonField<Long>) = apply { body.baseAmount(baseAmount) }
 
         /** Currency to convert, often called the "sell" currency. */
-        fun baseCurrency(baseCurrency: Currency?) = apply { body.baseCurrency(baseCurrency) }
+        fun baseCurrency(baseCurrency: Currency) = apply { body.baseCurrency(baseCurrency) }
+
+        /** Currency to convert, often called the "sell" currency. */
+        fun baseCurrency(baseCurrency: JsonField<Currency>) = apply {
+            body.baseCurrency(baseCurrency)
+        }
 
         /** The timestamp until when the quoted rate is valid. */
-        fun effectiveAt(effectiveAt: OffsetDateTime?) = apply { body.effectiveAt(effectiveAt) }
+        fun effectiveAt(effectiveAt: OffsetDateTime) = apply { body.effectiveAt(effectiveAt) }
+
+        /** The timestamp until when the quoted rate is valid. */
+        fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
+            body.effectiveAt(effectiveAt)
+        }
 
         /**
          * Amount in the lowest denomination of the `target_currency`, often called the "buy"
          * amount.
          */
-        fun targetAmount(targetAmount: Long?) = apply { body.targetAmount(targetAmount) }
+        fun targetAmount(targetAmount: Long) = apply { body.targetAmount(targetAmount) }
 
         /**
          * Amount in the lowest denomination of the `target_currency`, often called the "buy"
          * amount.
          */
-        fun targetAmount(targetAmount: Long) = targetAmount(targetAmount as Long?)
+        fun targetAmount(targetAmount: JsonField<Long>) = apply { body.targetAmount(targetAmount) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -378,25 +522,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): ForeignExchangeQuoteCreateParams =

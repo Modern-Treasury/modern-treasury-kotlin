@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -33,11 +34,18 @@ constructor(
 
     fun receivingCountries(): List<ReceivingCountry>? = body.receivingCountries()
 
+    /** Required. */
+    fun _counterpartyId(): JsonField<String> = body._counterpartyId()
+
+    fun _paymentTypes(): JsonField<List<String>> = body._paymentTypes()
+
+    fun _receivingCountries(): JsonField<List<ReceivingCountry>> = body._receivingCountries()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): AccountCollectionFlowCreateBody = body
 
@@ -49,25 +57,54 @@ constructor(
     class AccountCollectionFlowCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("counterparty_id") private val counterpartyId: String,
-        @JsonProperty("payment_types") private val paymentTypes: List<String>,
+        @JsonProperty("counterparty_id")
+        @ExcludeMissing
+        private val counterpartyId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("payment_types")
+        @ExcludeMissing
+        private val paymentTypes: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("receiving_countries")
-        private val receivingCountries: List<ReceivingCountry>?,
+        @ExcludeMissing
+        private val receivingCountries: JsonField<List<ReceivingCountry>> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Required. */
-        @JsonProperty("counterparty_id") fun counterpartyId(): String = counterpartyId
+        fun counterpartyId(): String = counterpartyId.getRequired("counterparty_id")
 
-        @JsonProperty("payment_types") fun paymentTypes(): List<String> = paymentTypes
+        fun paymentTypes(): List<String> = paymentTypes.getRequired("payment_types")
+
+        fun receivingCountries(): List<ReceivingCountry>? =
+            receivingCountries.getNullable("receiving_countries")
+
+        /** Required. */
+        @JsonProperty("counterparty_id")
+        @ExcludeMissing
+        fun _counterpartyId(): JsonField<String> = counterpartyId
+
+        @JsonProperty("payment_types")
+        @ExcludeMissing
+        fun _paymentTypes(): JsonField<List<String>> = paymentTypes
 
         @JsonProperty("receiving_countries")
-        fun receivingCountries(): List<ReceivingCountry>? = receivingCountries
+        @ExcludeMissing
+        fun _receivingCountries(): JsonField<List<ReceivingCountry>> = receivingCountries
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): AccountCollectionFlowCreateBody = apply {
+            if (!validated) {
+                counterpartyId()
+                paymentTypes()
+                receivingCountries()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -78,41 +115,66 @@ constructor(
 
         class Builder {
 
-            private var counterpartyId: String? = null
-            private var paymentTypes: MutableList<String>? = null
-            private var receivingCountries: MutableList<ReceivingCountry>? = null
+            private var counterpartyId: JsonField<String>? = null
+            private var paymentTypes: JsonField<MutableList<String>>? = null
+            private var receivingCountries: JsonField<MutableList<ReceivingCountry>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(accountCollectionFlowCreateBody: AccountCollectionFlowCreateBody) =
                 apply {
                     counterpartyId = accountCollectionFlowCreateBody.counterpartyId
-                    paymentTypes = accountCollectionFlowCreateBody.paymentTypes.toMutableList()
+                    paymentTypes =
+                        accountCollectionFlowCreateBody.paymentTypes.map { it.toMutableList() }
                     receivingCountries =
-                        accountCollectionFlowCreateBody.receivingCountries?.toMutableList()
+                        accountCollectionFlowCreateBody.receivingCountries.map {
+                            it.toMutableList()
+                        }
                     additionalProperties =
                         accountCollectionFlowCreateBody.additionalProperties.toMutableMap()
                 }
 
             /** Required. */
-            fun counterpartyId(counterpartyId: String) = apply {
+            fun counterpartyId(counterpartyId: String) =
+                counterpartyId(JsonField.of(counterpartyId))
+
+            /** Required. */
+            fun counterpartyId(counterpartyId: JsonField<String>) = apply {
                 this.counterpartyId = counterpartyId
             }
 
-            fun paymentTypes(paymentTypes: List<String>) = apply {
-                this.paymentTypes = paymentTypes.toMutableList()
+            fun paymentTypes(paymentTypes: List<String>) = paymentTypes(JsonField.of(paymentTypes))
+
+            fun paymentTypes(paymentTypes: JsonField<List<String>>) = apply {
+                this.paymentTypes = paymentTypes.map { it.toMutableList() }
             }
 
             fun addPaymentType(paymentType: String) = apply {
-                paymentTypes = (paymentTypes ?: mutableListOf()).apply { add(paymentType) }
+                paymentTypes =
+                    (paymentTypes ?: JsonField.of(mutableListOf())).apply {
+                        (asKnown()
+                                ?: throw IllegalStateException(
+                                    "Field was set to non-list type: ${javaClass.simpleName}"
+                                ))
+                            .add(paymentType)
+                    }
             }
 
-            fun receivingCountries(receivingCountries: List<ReceivingCountry>?) = apply {
-                this.receivingCountries = receivingCountries?.toMutableList()
+            fun receivingCountries(receivingCountries: List<ReceivingCountry>) =
+                receivingCountries(JsonField.of(receivingCountries))
+
+            fun receivingCountries(receivingCountries: JsonField<List<ReceivingCountry>>) = apply {
+                this.receivingCountries = receivingCountries.map { it.toMutableList() }
             }
 
             fun addReceivingCountry(receivingCountry: ReceivingCountry) = apply {
                 receivingCountries =
-                    (receivingCountries ?: mutableListOf()).apply { add(receivingCountry) }
+                    (receivingCountries ?: JsonField.of(mutableListOf())).apply {
+                        (asKnown()
+                                ?: throw IllegalStateException(
+                                    "Field was set to non-list type: ${javaClass.simpleName}"
+                                ))
+                            .add(receivingCountry)
+                    }
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -138,8 +200,8 @@ constructor(
                 AccountCollectionFlowCreateBody(
                     checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
                     checkNotNull(paymentTypes) { "`paymentTypes` is required but was not set" }
-                        .toImmutable(),
-                    receivingCountries?.toImmutable(),
+                        .map { it.toImmutable() },
+                    (receivingCountries ?: JsonMissing.of()).map { it.toImmutable() },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -188,16 +250,48 @@ constructor(
         /** Required. */
         fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
 
+        /** Required. */
+        fun counterpartyId(counterpartyId: JsonField<String>) = apply {
+            body.counterpartyId(counterpartyId)
+        }
+
         fun paymentTypes(paymentTypes: List<String>) = apply { body.paymentTypes(paymentTypes) }
+
+        fun paymentTypes(paymentTypes: JsonField<List<String>>) = apply {
+            body.paymentTypes(paymentTypes)
+        }
 
         fun addPaymentType(paymentType: String) = apply { body.addPaymentType(paymentType) }
 
-        fun receivingCountries(receivingCountries: List<ReceivingCountry>?) = apply {
+        fun receivingCountries(receivingCountries: List<ReceivingCountry>) = apply {
+            body.receivingCountries(receivingCountries)
+        }
+
+        fun receivingCountries(receivingCountries: JsonField<List<ReceivingCountry>>) = apply {
             body.receivingCountries(receivingCountries)
         }
 
         fun addReceivingCountry(receivingCountry: ReceivingCountry) = apply {
             body.addReceivingCountry(receivingCountry)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -296,25 +390,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): AccountCollectionFlowCreateParams =

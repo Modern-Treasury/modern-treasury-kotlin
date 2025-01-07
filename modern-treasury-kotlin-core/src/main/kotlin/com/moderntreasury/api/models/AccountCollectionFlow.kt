@@ -100,44 +100,54 @@ private constructor(
      * The ID of a counterparty. An external account created with this flow will be associated with
      * this counterparty.
      */
-    @JsonProperty("counterparty_id") @ExcludeMissing fun _counterpartyId() = counterpartyId
+    @JsonProperty("counterparty_id")
+    @ExcludeMissing
+    fun _counterpartyId(): JsonField<String> = counterpartyId
 
-    @JsonProperty("payment_types") @ExcludeMissing fun _paymentTypes() = paymentTypes
+    @JsonProperty("payment_types")
+    @ExcludeMissing
+    fun _paymentTypes(): JsonField<List<PaymentType>> = paymentTypes
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
      * The client token of the account collection flow. This token can be used to embed account
      * collection in your client-side application.
      */
-    @JsonProperty("client_token") @ExcludeMissing fun _clientToken() = clientToken
+    @JsonProperty("client_token")
+    @ExcludeMissing
+    fun _clientToken(): JsonField<String> = clientToken
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** If present, the ID of the external account created using this flow. */
     @JsonProperty("external_account_id")
     @ExcludeMissing
-    fun _externalAccountId() = externalAccountId
+    fun _externalAccountId(): JsonField<String> = externalAccountId
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     @JsonProperty("receiving_countries")
     @ExcludeMissing
-    fun _receivingCountries() = receivingCountries
+    fun _receivingCountries(): JsonField<List<ReceivingCountry>> = receivingCountries
 
     /**
      * The current status of the account collection flow. One of `pending`, `completed`, `expired`,
      * or `cancelled`.
      */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -171,29 +181,29 @@ private constructor(
 
     class Builder {
 
-        private var counterpartyId: JsonField<String> = JsonMissing.of()
-        private var paymentTypes: JsonField<List<PaymentType>> = JsonMissing.of()
+        private var counterpartyId: JsonField<String>? = null
+        private var paymentTypes: JsonField<MutableList<PaymentType>>? = null
         private var id: JsonField<String> = JsonMissing.of()
         private var clientToken: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var externalAccountId: JsonField<String> = JsonMissing.of()
         private var liveMode: JsonField<Boolean> = JsonMissing.of()
         private var object_: JsonField<String> = JsonMissing.of()
-        private var receivingCountries: JsonField<List<ReceivingCountry>> = JsonMissing.of()
+        private var receivingCountries: JsonField<MutableList<ReceivingCountry>>? = null
         private var status: JsonField<Status> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(accountCollectionFlow: AccountCollectionFlow) = apply {
             counterpartyId = accountCollectionFlow.counterpartyId
-            paymentTypes = accountCollectionFlow.paymentTypes
+            paymentTypes = accountCollectionFlow.paymentTypes.map { it.toMutableList() }
             id = accountCollectionFlow.id
             clientToken = accountCollectionFlow.clientToken
             createdAt = accountCollectionFlow.createdAt
             externalAccountId = accountCollectionFlow.externalAccountId
             liveMode = accountCollectionFlow.liveMode
             object_ = accountCollectionFlow.object_
-            receivingCountries = accountCollectionFlow.receivingCountries
+            receivingCountries = accountCollectionFlow.receivingCountries.map { it.toMutableList() }
             status = accountCollectionFlow.status
             updatedAt = accountCollectionFlow.updatedAt
             additionalProperties = accountCollectionFlow.additionalProperties.toMutableMap()
@@ -216,7 +226,18 @@ private constructor(
         fun paymentTypes(paymentTypes: List<PaymentType>) = paymentTypes(JsonField.of(paymentTypes))
 
         fun paymentTypes(paymentTypes: JsonField<List<PaymentType>>) = apply {
-            this.paymentTypes = paymentTypes
+            this.paymentTypes = paymentTypes.map { it.toMutableList() }
+        }
+
+        fun addPaymentType(paymentType: PaymentType) = apply {
+            paymentTypes =
+                (paymentTypes ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(paymentType)
+                }
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -240,8 +261,8 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** If present, the ID of the external account created using this flow. */
-        fun externalAccountId(externalAccountId: String) =
-            externalAccountId(JsonField.of(externalAccountId))
+        fun externalAccountId(externalAccountId: String?) =
+            externalAccountId(JsonField.ofNullable(externalAccountId))
 
         /** If present, the ID of the external account created using this flow. */
         fun externalAccountId(externalAccountId: JsonField<String>) = apply {
@@ -268,7 +289,18 @@ private constructor(
             receivingCountries(JsonField.of(receivingCountries))
 
         fun receivingCountries(receivingCountries: JsonField<List<ReceivingCountry>>) = apply {
-            this.receivingCountries = receivingCountries
+            this.receivingCountries = receivingCountries.map { it.toMutableList() }
+        }
+
+        fun addReceivingCountry(receivingCountry: ReceivingCountry) = apply {
+            receivingCountries =
+                (receivingCountries ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(receivingCountry)
+                }
         }
 
         /**
@@ -308,15 +340,16 @@ private constructor(
 
         fun build(): AccountCollectionFlow =
             AccountCollectionFlow(
-                counterpartyId,
-                paymentTypes.map { it.toImmutable() },
+                checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
+                checkNotNull(paymentTypes) { "`paymentTypes` is required but was not set" }
+                    .map { it.toImmutable() },
                 id,
                 clientToken,
                 createdAt,
                 externalAccountId,
                 liveMode,
                 object_,
-                receivingCountries.map { it.toImmutable() },
+                (receivingCountries ?: JsonMissing.of()).map { it.toImmutable() },
                 status,
                 updatedAt,
                 additionalProperties.toImmutable(),

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -35,11 +36,17 @@ constructor(
      */
     fun status(): Status = body.status()
 
+    /**
+     * Required. The updated status of the account collection flow. Can only be used to mark a flow
+     * as `cancelled`.
+     */
+    fun _status(): JsonField<Status> = body._status()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): AccountCollectionFlowUpdateBody = body
 
@@ -58,7 +65,9 @@ constructor(
     class AccountCollectionFlowUpdateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("status") private val status: Status,
+        @JsonProperty("status")
+        @ExcludeMissing
+        private val status: JsonField<Status> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -67,11 +76,26 @@ constructor(
          * Required. The updated status of the account collection flow. Can only be used to mark a
          * flow as `cancelled`.
          */
-        @JsonProperty("status") fun status(): Status = status
+        fun status(): Status = status.getRequired("status")
+
+        /**
+         * Required. The updated status of the account collection flow. Can only be used to mark a
+         * flow as `cancelled`.
+         */
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): AccountCollectionFlowUpdateBody = apply {
+            if (!validated) {
+                status()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -82,7 +106,7 @@ constructor(
 
         class Builder {
 
-            private var status: Status? = null
+            private var status: JsonField<Status>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(accountCollectionFlowUpdateBody: AccountCollectionFlowUpdateBody) =
@@ -96,7 +120,13 @@ constructor(
              * Required. The updated status of the account collection flow. Can only be used to mark
              * a flow as `cancelled`.
              */
-            fun status(status: Status) = apply { this.status = status }
+            fun status(status: Status) = status(JsonField.of(status))
+
+            /**
+             * Required. The updated status of the account collection flow. Can only be used to mark
+             * a flow as `cancelled`.
+             */
+            fun status(status: JsonField<Status>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -174,6 +204,31 @@ constructor(
          * flow as `cancelled`.
          */
         fun status(status: Status) = apply { body.status(status) }
+
+        /**
+         * Required. The updated status of the account collection flow. Can only be used to mark a
+         * flow as `cancelled`.
+         */
+        fun status(status: JsonField<Status>) = apply { body.status(status) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -271,25 +326,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): AccountCollectionFlowUpdateParams =

@@ -130,62 +130,80 @@ private constructor(
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The account number on the paper item. */
-    @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
+    @JsonProperty("account_number")
+    @ExcludeMissing
+    fun _accountNumber(): JsonField<String> = accountNumber
 
     /** The last 4 digits of the account_number. */
     @JsonProperty("account_number_safe")
     @ExcludeMissing
-    fun _accountNumberSafe() = accountNumberSafe
+    fun _accountNumberSafe(): JsonField<String> = accountNumberSafe
 
     /** The amount of the paper item. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /** The check number on the paper item. */
-    @JsonProperty("check_number") @ExcludeMissing fun _checkNumber() = checkNumber
+    @JsonProperty("check_number")
+    @ExcludeMissing
+    fun _checkNumber(): JsonField<String> = checkNumber
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The currency of the paper item. */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+    @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
     /** The date the paper item was deposited into your organization's bank account. */
-    @JsonProperty("deposit_date") @ExcludeMissing fun _depositDate() = depositDate
+    @JsonProperty("deposit_date")
+    @ExcludeMissing
+    fun _depositDate(): JsonField<LocalDate> = depositDate
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
     /** The identifier for the lockbox assigned by the bank. */
-    @JsonProperty("lockbox_number") @ExcludeMissing fun _lockboxNumber() = lockboxNumber
+    @JsonProperty("lockbox_number")
+    @ExcludeMissing
+    fun _lockboxNumber(): JsonField<String> = lockboxNumber
 
     /** The memo field on the paper item. */
-    @JsonProperty("memo_field") @ExcludeMissing fun _memoField() = memoField
+    @JsonProperty("memo_field") @ExcludeMissing fun _memoField(): JsonField<String> = memoField
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /** The name of the remitter on the paper item. */
-    @JsonProperty("remitter_name") @ExcludeMissing fun _remitterName() = remitterName
+    @JsonProperty("remitter_name")
+    @ExcludeMissing
+    fun _remitterName(): JsonField<String> = remitterName
 
     /** The routing number on the paper item. */
-    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
+    @JsonProperty("routing_number")
+    @ExcludeMissing
+    fun _routingNumber(): JsonField<String> = routingNumber
 
     /** The current status of the paper item. One of `pending`, `completed`, or `returned`. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /** The ID of the reconciled Transaction or `null`. */
-    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+    @JsonProperty("transaction_id")
+    @ExcludeMissing
+    fun _transactionId(): JsonField<String> = transactionId
 
     /** The ID of the reconciled Transaction Line Item or `null`. */
     @JsonProperty("transaction_line_item_id")
     @ExcludeMissing
-    fun _transactionLineItemId() = transactionLineItemId
+    fun _transactionLineItemId(): JsonField<String> = transactionLineItemId
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -226,24 +244,24 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var accountNumber: JsonField<String> = JsonMissing.of()
-        private var accountNumberSafe: JsonField<String> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var checkNumber: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
-        private var depositDate: JsonField<LocalDate> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var lockboxNumber: JsonField<String> = JsonMissing.of()
-        private var memoField: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var remitterName: JsonField<String> = JsonMissing.of()
-        private var routingNumber: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var transactionId: JsonField<String> = JsonMissing.of()
-        private var transactionLineItemId: JsonField<String> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var accountNumber: JsonField<String>? = null
+        private var accountNumberSafe: JsonField<String>? = null
+        private var amount: JsonField<Long>? = null
+        private var checkNumber: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var currency: JsonField<Currency>? = null
+        private var depositDate: JsonField<LocalDate>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var lockboxNumber: JsonField<String>? = null
+        private var memoField: JsonField<String>? = null
+        private var object_: JsonField<String>? = null
+        private var remitterName: JsonField<String>? = null
+        private var routingNumber: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var transactionId: JsonField<String>? = null
+        private var transactionLineItemId: JsonField<String>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(paperItem: PaperItem) = apply {
@@ -273,7 +291,8 @@ private constructor(
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The account number on the paper item. */
-        fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
+        fun accountNumber(accountNumber: String?) =
+            accountNumber(JsonField.ofNullable(accountNumber))
 
         /** The account number on the paper item. */
         fun accountNumber(accountNumber: JsonField<String>) = apply {
@@ -281,8 +300,8 @@ private constructor(
         }
 
         /** The last 4 digits of the account_number. */
-        fun accountNumberSafe(accountNumberSafe: String) =
-            accountNumberSafe(JsonField.of(accountNumberSafe))
+        fun accountNumberSafe(accountNumberSafe: String?) =
+            accountNumberSafe(JsonField.ofNullable(accountNumberSafe))
 
         /** The last 4 digits of the account_number. */
         fun accountNumberSafe(accountNumberSafe: JsonField<String>) = apply {
@@ -296,7 +315,7 @@ private constructor(
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /** The check number on the paper item. */
-        fun checkNumber(checkNumber: String) = checkNumber(JsonField.of(checkNumber))
+        fun checkNumber(checkNumber: String?) = checkNumber(JsonField.ofNullable(checkNumber))
 
         /** The check number on the paper item. */
         fun checkNumber(checkNumber: JsonField<String>) = apply { this.checkNumber = checkNumber }
@@ -340,7 +359,7 @@ private constructor(
         }
 
         /** The memo field on the paper item. */
-        fun memoField(memoField: String) = memoField(JsonField.of(memoField))
+        fun memoField(memoField: String?) = memoField(JsonField.ofNullable(memoField))
 
         /** The memo field on the paper item. */
         fun memoField(memoField: JsonField<String>) = apply { this.memoField = memoField }
@@ -350,7 +369,7 @@ private constructor(
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /** The name of the remitter on the paper item. */
-        fun remitterName(remitterName: String) = remitterName(JsonField.of(remitterName))
+        fun remitterName(remitterName: String?) = remitterName(JsonField.ofNullable(remitterName))
 
         /** The name of the remitter on the paper item. */
         fun remitterName(remitterName: JsonField<String>) = apply {
@@ -358,7 +377,8 @@ private constructor(
         }
 
         /** The routing number on the paper item. */
-        fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
+        fun routingNumber(routingNumber: String?) =
+            routingNumber(JsonField.ofNullable(routingNumber))
 
         /** The routing number on the paper item. */
         fun routingNumber(routingNumber: JsonField<String>) = apply {
@@ -372,7 +392,8 @@ private constructor(
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** The ID of the reconciled Transaction or `null`. */
-        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+        fun transactionId(transactionId: String?) =
+            transactionId(JsonField.ofNullable(transactionId))
 
         /** The ID of the reconciled Transaction or `null`. */
         fun transactionId(transactionId: JsonField<String>) = apply {
@@ -380,8 +401,8 @@ private constructor(
         }
 
         /** The ID of the reconciled Transaction Line Item or `null`. */
-        fun transactionLineItemId(transactionLineItemId: String) =
-            transactionLineItemId(JsonField.of(transactionLineItemId))
+        fun transactionLineItemId(transactionLineItemId: String?) =
+            transactionLineItemId(JsonField.ofNullable(transactionLineItemId))
 
         /** The ID of the reconciled Transaction Line Item or `null`. */
         fun transactionLineItemId(transactionLineItemId: JsonField<String>) = apply {
@@ -413,24 +434,28 @@ private constructor(
 
         fun build(): PaperItem =
             PaperItem(
-                id,
-                accountNumber,
-                accountNumberSafe,
-                amount,
-                checkNumber,
-                createdAt,
-                currency,
-                depositDate,
-                liveMode,
-                lockboxNumber,
-                memoField,
-                object_,
-                remitterName,
-                routingNumber,
-                status,
-                transactionId,
-                transactionLineItemId,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
+                checkNotNull(accountNumberSafe) {
+                    "`accountNumberSafe` is required but was not set"
+                },
+                checkNotNull(amount) { "`amount` is required but was not set" },
+                checkNotNull(checkNumber) { "`checkNumber` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(currency) { "`currency` is required but was not set" },
+                checkNotNull(depositDate) { "`depositDate` is required but was not set" },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(lockboxNumber) { "`lockboxNumber` is required but was not set" },
+                checkNotNull(memoField) { "`memoField` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(remitterName) { "`remitterName` is required but was not set" },
+                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
+                checkNotNull(transactionLineItemId) {
+                    "`transactionLineItemId` is required but was not set"
+                },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

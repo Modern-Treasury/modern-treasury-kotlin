@@ -78,34 +78,40 @@ private constructor(
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The body of the event. */
-    @JsonProperty("data") @ExcludeMissing fun _data() = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<Data> = data
 
     /** The ID of the entity for the event. */
-    @JsonProperty("entity_id") @ExcludeMissing fun _entityId() = entityId
+    @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
     /** The name of the event. */
-    @JsonProperty("event_name") @ExcludeMissing fun _eventName() = eventName
+    @JsonProperty("event_name") @ExcludeMissing fun _eventName(): JsonField<String> = eventName
 
     /** The time of the event. */
-    @JsonProperty("event_time") @ExcludeMissing fun _eventTime() = eventTime
+    @JsonProperty("event_time")
+    @ExcludeMissing
+    fun _eventTime(): JsonField<OffsetDateTime> = eventTime
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /** The type of resource for the event. */
-    @JsonProperty("resource") @ExcludeMissing fun _resource() = resource
+    @JsonProperty("resource") @ExcludeMissing fun _resource(): JsonField<String> = resource
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -138,16 +144,16 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var data: JsonField<Data> = JsonMissing.of()
-        private var entityId: JsonField<String> = JsonMissing.of()
-        private var eventName: JsonField<String> = JsonMissing.of()
-        private var eventTime: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var resource: JsonField<String> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var data: JsonField<Data>? = null
+        private var entityId: JsonField<String>? = null
+        private var eventName: JsonField<String>? = null
+        private var eventTime: JsonField<OffsetDateTime>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var object_: JsonField<String>? = null
+        private var resource: JsonField<String>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(event: Event) = apply {
@@ -243,16 +249,16 @@ private constructor(
 
         fun build(): Event =
             Event(
-                id,
-                createdAt,
-                data,
-                entityId,
-                eventName,
-                eventTime,
-                liveMode,
-                object_,
-                resource,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(data) { "`data` is required but was not set" },
+                checkNotNull(entityId) { "`entityId` is required but was not set" },
+                checkNotNull(eventName) { "`eventName` is required but was not set" },
+                checkNotNull(eventTime) { "`eventTime` is required but was not set" },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(resource) { "`resource` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

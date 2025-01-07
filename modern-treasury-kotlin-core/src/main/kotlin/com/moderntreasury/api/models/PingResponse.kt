@@ -25,7 +25,7 @@ private constructor(
 
     fun ping(): String = ping.getRequired("ping")
 
-    @JsonProperty("ping") @ExcludeMissing fun _ping() = ping
+    @JsonProperty("ping") @ExcludeMissing fun _ping(): JsonField<String> = ping
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -49,7 +49,7 @@ private constructor(
 
     class Builder {
 
-        private var ping: JsonField<String> = JsonMissing.of()
+        private var ping: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(pingResponse: PingResponse) = apply {
@@ -80,7 +80,11 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
-        fun build(): PingResponse = PingResponse(ping, additionalProperties.toImmutable())
+        fun build(): PingResponse =
+            PingResponse(
+                checkNotNull(ping) { "`ping` is required but was not set" },
+                additionalProperties.toImmutable()
+            )
     }
 
     override fun equals(other: Any?): Boolean {

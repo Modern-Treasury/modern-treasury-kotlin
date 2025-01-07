@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.ExcludeMissing
+import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -28,11 +30,13 @@ constructor(
 
     fun amounts(): List<Long>? = body.amounts()
 
+    fun _amounts(): JsonField<List<Long>> = body._amounts()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): ExternalAccountCompleteVerificationBody = body
 
@@ -51,16 +55,29 @@ constructor(
     class ExternalAccountCompleteVerificationBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("amounts") private val amounts: List<Long>?,
+        @JsonProperty("amounts")
+        @ExcludeMissing
+        private val amounts: JsonField<List<Long>> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        @JsonProperty("amounts") fun amounts(): List<Long>? = amounts
+        fun amounts(): List<Long>? = amounts.getNullable("amounts")
+
+        @JsonProperty("amounts") @ExcludeMissing fun _amounts(): JsonField<List<Long>> = amounts
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): ExternalAccountCompleteVerificationBody = apply {
+            if (!validated) {
+                amounts()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -71,21 +88,32 @@ constructor(
 
         class Builder {
 
-            private var amounts: MutableList<Long>? = null
+            private var amounts: JsonField<MutableList<Long>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
                 externalAccountCompleteVerificationBody: ExternalAccountCompleteVerificationBody
             ) = apply {
-                amounts = externalAccountCompleteVerificationBody.amounts?.toMutableList()
+                amounts = externalAccountCompleteVerificationBody.amounts.map { it.toMutableList() }
                 additionalProperties =
                     externalAccountCompleteVerificationBody.additionalProperties.toMutableMap()
             }
 
-            fun amounts(amounts: List<Long>?) = apply { this.amounts = amounts?.toMutableList() }
+            fun amounts(amounts: List<Long>) = amounts(JsonField.of(amounts))
+
+            fun amounts(amounts: JsonField<List<Long>>) = apply {
+                this.amounts = amounts.map { it.toMutableList() }
+            }
 
             fun addAmount(amount: Long) = apply {
-                amounts = (amounts ?: mutableListOf()).apply { add(amount) }
+                amounts =
+                    (amounts ?: JsonField.of(mutableListOf())).apply {
+                        (asKnown()
+                                ?: throw IllegalStateException(
+                                    "Field was set to non-list type: ${javaClass.simpleName}"
+                                ))
+                            .add(amount)
+                    }
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -109,7 +137,7 @@ constructor(
 
             fun build(): ExternalAccountCompleteVerificationBody =
                 ExternalAccountCompleteVerificationBody(
-                    amounts?.toImmutable(),
+                    (amounts ?: JsonMissing.of()).map { it.toImmutable() },
                     additionalProperties.toImmutable()
                 )
         }
@@ -161,9 +189,30 @@ constructor(
 
         fun id(id: String) = apply { this.id = id }
 
-        fun amounts(amounts: List<Long>?) = apply { body.amounts(amounts) }
+        fun amounts(amounts: List<Long>) = apply { body.amounts(amounts) }
+
+        fun amounts(amounts: JsonField<List<Long>>) = apply { body.amounts(amounts) }
 
         fun addAmount(amount: Long) = apply { body.addAmount(amount) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -261,25 +310,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): ExternalAccountCompleteVerificationParams =

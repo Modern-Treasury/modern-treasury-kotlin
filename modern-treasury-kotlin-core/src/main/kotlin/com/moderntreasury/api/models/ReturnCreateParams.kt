@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -53,11 +54,37 @@ constructor(
      */
     fun reason(): String? = body.reason()
 
+    /** The ID of the object being returned or `null`. */
+    fun _returnableId(): JsonField<String> = body._returnableId()
+
+    /** The type of object being returned. Currently, this may only be incoming_payment_detail. */
+    fun _returnableType(): JsonField<ReturnableType> = body._returnableType()
+
+    /**
+     * Some returns may include additional information from the bank. In these cases, this string
+     * will be present.
+     */
+    fun _additionalInformation(): JsonField<String> = body._additionalInformation()
+
+    /** The return code. For ACH returns, this is the required ACH return code. */
+    fun _code(): JsonField<Code> = body._code()
+
+    /**
+     * If the return code is `R14` or `R15` this is the date the deceased counterparty passed away.
+     */
+    fun _dateOfDeath(): JsonField<LocalDate> = body._dateOfDeath()
+
+    /**
+     * An optional description of the reason for the return. This is for internal usage and will not
+     * be transmitted to the bank.”
+     */
+    fun _reason(): JsonField<String> = body._reason()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): ReturnCreateBody = body
 
@@ -69,49 +96,110 @@ constructor(
     class ReturnCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("returnable_id") private val returnableId: String?,
-        @JsonProperty("returnable_type") private val returnableType: ReturnableType,
-        @JsonProperty("additional_information") private val additionalInformation: String?,
-        @JsonProperty("code") private val code: Code?,
-        @JsonProperty("date_of_death") private val dateOfDeath: LocalDate?,
-        @JsonProperty("reason") private val reason: String?,
+        @JsonProperty("returnable_id")
+        @ExcludeMissing
+        private val returnableId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("returnable_type")
+        @ExcludeMissing
+        private val returnableType: JsonField<ReturnableType> = JsonMissing.of(),
+        @JsonProperty("additional_information")
+        @ExcludeMissing
+        private val additionalInformation: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("code") @ExcludeMissing private val code: JsonField<Code> = JsonMissing.of(),
+        @JsonProperty("date_of_death")
+        @ExcludeMissing
+        private val dateOfDeath: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("reason")
+        @ExcludeMissing
+        private val reason: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The ID of the object being returned or `null`. */
-        @JsonProperty("returnable_id") fun returnableId(): String? = returnableId
+        fun returnableId(): String? = returnableId.getNullable("returnable_id")
 
         /**
          * The type of object being returned. Currently, this may only be incoming_payment_detail.
          */
-        @JsonProperty("returnable_type") fun returnableType(): ReturnableType = returnableType
+        fun returnableType(): ReturnableType = returnableType.getRequired("returnable_type")
+
+        /**
+         * Some returns may include additional information from the bank. In these cases, this
+         * string will be present.
+         */
+        fun additionalInformation(): String? =
+            additionalInformation.getNullable("additional_information")
+
+        /** The return code. For ACH returns, this is the required ACH return code. */
+        fun code(): Code? = code.getNullable("code")
+
+        /**
+         * If the return code is `R14` or `R15` this is the date the deceased counterparty passed
+         * away.
+         */
+        fun dateOfDeath(): LocalDate? = dateOfDeath.getNullable("date_of_death")
+
+        /**
+         * An optional description of the reason for the return. This is for internal usage and will
+         * not be transmitted to the bank.”
+         */
+        fun reason(): String? = reason.getNullable("reason")
+
+        /** The ID of the object being returned or `null`. */
+        @JsonProperty("returnable_id")
+        @ExcludeMissing
+        fun _returnableId(): JsonField<String> = returnableId
+
+        /**
+         * The type of object being returned. Currently, this may only be incoming_payment_detail.
+         */
+        @JsonProperty("returnable_type")
+        @ExcludeMissing
+        fun _returnableType(): JsonField<ReturnableType> = returnableType
 
         /**
          * Some returns may include additional information from the bank. In these cases, this
          * string will be present.
          */
         @JsonProperty("additional_information")
-        fun additionalInformation(): String? = additionalInformation
+        @ExcludeMissing
+        fun _additionalInformation(): JsonField<String> = additionalInformation
 
         /** The return code. For ACH returns, this is the required ACH return code. */
-        @JsonProperty("code") fun code(): Code? = code
+        @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<Code> = code
 
         /**
          * If the return code is `R14` or `R15` this is the date the deceased counterparty passed
          * away.
          */
-        @JsonProperty("date_of_death") fun dateOfDeath(): LocalDate? = dateOfDeath
+        @JsonProperty("date_of_death")
+        @ExcludeMissing
+        fun _dateOfDeath(): JsonField<LocalDate> = dateOfDeath
 
         /**
          * An optional description of the reason for the return. This is for internal usage and will
          * not be transmitted to the bank.”
          */
-        @JsonProperty("reason") fun reason(): String? = reason
+        @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<String> = reason
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): ReturnCreateBody = apply {
+            if (!validated) {
+                returnableId()
+                returnableType()
+                additionalInformation()
+                code()
+                dateOfDeath()
+                reason()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -122,12 +210,12 @@ constructor(
 
         class Builder {
 
-            private var returnableId: String? = null
-            private var returnableType: ReturnableType? = null
-            private var additionalInformation: String? = null
-            private var code: Code? = null
-            private var dateOfDeath: LocalDate? = null
-            private var reason: String? = null
+            private var returnableId: JsonField<String>? = null
+            private var returnableType: JsonField<ReturnableType>? = null
+            private var additionalInformation: JsonField<String> = JsonMissing.of()
+            private var code: JsonField<Code> = JsonMissing.of()
+            private var dateOfDeath: JsonField<LocalDate> = JsonMissing.of()
+            private var reason: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(returnCreateBody: ReturnCreateBody) = apply {
@@ -141,13 +229,26 @@ constructor(
             }
 
             /** The ID of the object being returned or `null`. */
-            fun returnableId(returnableId: String?) = apply { this.returnableId = returnableId }
+            fun returnableId(returnableId: String?) =
+                returnableId(JsonField.ofNullable(returnableId))
+
+            /** The ID of the object being returned or `null`. */
+            fun returnableId(returnableId: JsonField<String>) = apply {
+                this.returnableId = returnableId
+            }
 
             /**
              * The type of object being returned. Currently, this may only be
              * incoming_payment_detail.
              */
-            fun returnableType(returnableType: ReturnableType) = apply {
+            fun returnableType(returnableType: ReturnableType) =
+                returnableType(JsonField.of(returnableType))
+
+            /**
+             * The type of object being returned. Currently, this may only be
+             * incoming_payment_detail.
+             */
+            fun returnableType(returnableType: JsonField<ReturnableType>) = apply {
                 this.returnableType = returnableType
             }
 
@@ -155,24 +256,49 @@ constructor(
              * Some returns may include additional information from the bank. In these cases, this
              * string will be present.
              */
-            fun additionalInformation(additionalInformation: String?) = apply {
+            fun additionalInformation(additionalInformation: String?) =
+                additionalInformation(JsonField.ofNullable(additionalInformation))
+
+            /**
+             * Some returns may include additional information from the bank. In these cases, this
+             * string will be present.
+             */
+            fun additionalInformation(additionalInformation: JsonField<String>) = apply {
                 this.additionalInformation = additionalInformation
             }
 
             /** The return code. For ACH returns, this is the required ACH return code. */
-            fun code(code: Code?) = apply { this.code = code }
+            fun code(code: Code?) = code(JsonField.ofNullable(code))
+
+            /** The return code. For ACH returns, this is the required ACH return code. */
+            fun code(code: JsonField<Code>) = apply { this.code = code }
 
             /**
              * If the return code is `R14` or `R15` this is the date the deceased counterparty
              * passed away.
              */
-            fun dateOfDeath(dateOfDeath: LocalDate?) = apply { this.dateOfDeath = dateOfDeath }
+            fun dateOfDeath(dateOfDeath: LocalDate?) =
+                dateOfDeath(JsonField.ofNullable(dateOfDeath))
+
+            /**
+             * If the return code is `R14` or `R15` this is the date the deceased counterparty
+             * passed away.
+             */
+            fun dateOfDeath(dateOfDeath: JsonField<LocalDate>) = apply {
+                this.dateOfDeath = dateOfDeath
+            }
 
             /**
              * An optional description of the reason for the return. This is for internal usage and
              * will not be transmitted to the bank.”
              */
-            fun reason(reason: String?) = apply { this.reason = reason }
+            fun reason(reason: String?) = reason(JsonField.ofNullable(reason))
+
+            /**
+             * An optional description of the reason for the return. This is for internal usage and
+             * will not be transmitted to the bank.”
+             */
+            fun reason(reason: JsonField<String>) = apply { this.reason = reason }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -195,7 +321,7 @@ constructor(
 
             fun build(): ReturnCreateBody =
                 ReturnCreateBody(
-                    returnableId,
+                    checkNotNull(returnableId) { "`returnableId` is required but was not set" },
                     checkNotNull(returnableType) { "`returnableType` is required but was not set" },
                     additionalInformation,
                     code,
@@ -246,10 +372,22 @@ constructor(
         /** The ID of the object being returned or `null`. */
         fun returnableId(returnableId: String?) = apply { body.returnableId(returnableId) }
 
+        /** The ID of the object being returned or `null`. */
+        fun returnableId(returnableId: JsonField<String>) = apply {
+            body.returnableId(returnableId)
+        }
+
         /**
          * The type of object being returned. Currently, this may only be incoming_payment_detail.
          */
         fun returnableType(returnableType: ReturnableType) = apply {
+            body.returnableType(returnableType)
+        }
+
+        /**
+         * The type of object being returned. Currently, this may only be incoming_payment_detail.
+         */
+        fun returnableType(returnableType: JsonField<ReturnableType>) = apply {
             body.returnableType(returnableType)
         }
 
@@ -261,8 +399,19 @@ constructor(
             body.additionalInformation(additionalInformation)
         }
 
+        /**
+         * Some returns may include additional information from the bank. In these cases, this
+         * string will be present.
+         */
+        fun additionalInformation(additionalInformation: JsonField<String>) = apply {
+            body.additionalInformation(additionalInformation)
+        }
+
         /** The return code. For ACH returns, this is the required ACH return code. */
         fun code(code: Code?) = apply { body.code(code) }
+
+        /** The return code. For ACH returns, this is the required ACH return code. */
+        fun code(code: JsonField<Code>) = apply { body.code(code) }
 
         /**
          * If the return code is `R14` or `R15` this is the date the deceased counterparty passed
@@ -271,10 +420,41 @@ constructor(
         fun dateOfDeath(dateOfDeath: LocalDate?) = apply { body.dateOfDeath(dateOfDeath) }
 
         /**
+         * If the return code is `R14` or `R15` this is the date the deceased counterparty passed
+         * away.
+         */
+        fun dateOfDeath(dateOfDeath: JsonField<LocalDate>) = apply { body.dateOfDeath(dateOfDeath) }
+
+        /**
          * An optional description of the reason for the return. This is for internal usage and will
          * not be transmitted to the bank.”
          */
         fun reason(reason: String?) = apply { body.reason(reason) }
+
+        /**
+         * An optional description of the reason for the return. This is for internal usage and will
+         * not be transmitted to the bank.”
+         */
+        fun reason(reason: JsonField<String>) = apply { body.reason(reason) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -372,25 +552,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): ReturnCreateParams =

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -54,11 +55,36 @@ constructor(
      */
     fun priority(): Priority? = body.priority()
 
+    /**
+     * The ID of the internal account where the micro-deposits originate from. Both credit and debit
+     * capabilities must be enabled.
+     */
+    fun _originatingAccountId(): JsonField<String> = body._originatingAccountId()
+
+    /** Can be `ach`, `eft`, or `rtp`. */
+    fun _paymentType(): JsonField<PaymentType> = body._paymentType()
+
+    /** Defaults to the currency of the originating account. */
+    fun _currency(): JsonField<Currency> = body._currency()
+
+    /**
+     * A payment type to fallback to if the original type is not valid for the receiving account.
+     * Currently, this only supports falling back from RTP to ACH (payment_type=rtp and
+     * fallback_type=ach)
+     */
+    fun _fallbackType(): JsonField<FallbackType> = body._fallbackType()
+
+    /**
+     * Either `normal` or `high`. For ACH payments, `high` represents a same-day ACH transfer. This
+     * will apply to both `payment_type` and `fallback_type`.
+     */
+    fun _priority(): JsonField<Priority> = body._priority()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): ExternalAccountVerifyBody = body
 
@@ -77,11 +103,21 @@ constructor(
     class ExternalAccountVerifyBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("originating_account_id") private val originatingAccountId: String,
-        @JsonProperty("payment_type") private val paymentType: PaymentType,
-        @JsonProperty("currency") private val currency: Currency?,
-        @JsonProperty("fallback_type") private val fallbackType: FallbackType?,
-        @JsonProperty("priority") private val priority: Priority?,
+        @JsonProperty("originating_account_id")
+        @ExcludeMissing
+        private val originatingAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("payment_type")
+        @ExcludeMissing
+        private val paymentType: JsonField<PaymentType> = JsonMissing.of(),
+        @JsonProperty("currency")
+        @ExcludeMissing
+        private val currency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("fallback_type")
+        @ExcludeMissing
+        private val fallbackType: JsonField<FallbackType> = JsonMissing.of(),
+        @JsonProperty("priority")
+        @ExcludeMissing
+        private val priority: JsonField<Priority> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -90,31 +126,75 @@ constructor(
          * The ID of the internal account where the micro-deposits originate from. Both credit and
          * debit capabilities must be enabled.
          */
-        @JsonProperty("originating_account_id")
-        fun originatingAccountId(): String = originatingAccountId
+        fun originatingAccountId(): String =
+            originatingAccountId.getRequired("originating_account_id")
 
         /** Can be `ach`, `eft`, or `rtp`. */
-        @JsonProperty("payment_type") fun paymentType(): PaymentType = paymentType
+        fun paymentType(): PaymentType = paymentType.getRequired("payment_type")
 
         /** Defaults to the currency of the originating account. */
-        @JsonProperty("currency") fun currency(): Currency? = currency
+        fun currency(): Currency? = currency.getNullable("currency")
 
         /**
          * A payment type to fallback to if the original type is not valid for the receiving
          * account. Currently, this only supports falling back from RTP to ACH (payment_type=rtp and
          * fallback_type=ach)
          */
-        @JsonProperty("fallback_type") fun fallbackType(): FallbackType? = fallbackType
+        fun fallbackType(): FallbackType? = fallbackType.getNullable("fallback_type")
 
         /**
          * Either `normal` or `high`. For ACH payments, `high` represents a same-day ACH transfer.
          * This will apply to both `payment_type` and `fallback_type`.
          */
-        @JsonProperty("priority") fun priority(): Priority? = priority
+        fun priority(): Priority? = priority.getNullable("priority")
+
+        /**
+         * The ID of the internal account where the micro-deposits originate from. Both credit and
+         * debit capabilities must be enabled.
+         */
+        @JsonProperty("originating_account_id")
+        @ExcludeMissing
+        fun _originatingAccountId(): JsonField<String> = originatingAccountId
+
+        /** Can be `ach`, `eft`, or `rtp`. */
+        @JsonProperty("payment_type")
+        @ExcludeMissing
+        fun _paymentType(): JsonField<PaymentType> = paymentType
+
+        /** Defaults to the currency of the originating account. */
+        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
+
+        /**
+         * A payment type to fallback to if the original type is not valid for the receiving
+         * account. Currently, this only supports falling back from RTP to ACH (payment_type=rtp and
+         * fallback_type=ach)
+         */
+        @JsonProperty("fallback_type")
+        @ExcludeMissing
+        fun _fallbackType(): JsonField<FallbackType> = fallbackType
+
+        /**
+         * Either `normal` or `high`. For ACH payments, `high` represents a same-day ACH transfer.
+         * This will apply to both `payment_type` and `fallback_type`.
+         */
+        @JsonProperty("priority") @ExcludeMissing fun _priority(): JsonField<Priority> = priority
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): ExternalAccountVerifyBody = apply {
+            if (!validated) {
+                originatingAccountId()
+                paymentType()
+                currency()
+                fallbackType()
+                priority()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -125,11 +205,11 @@ constructor(
 
         class Builder {
 
-            private var originatingAccountId: String? = null
-            private var paymentType: PaymentType? = null
-            private var currency: Currency? = null
-            private var fallbackType: FallbackType? = null
-            private var priority: Priority? = null
+            private var originatingAccountId: JsonField<String>? = null
+            private var paymentType: JsonField<PaymentType>? = null
+            private var currency: JsonField<Currency> = JsonMissing.of()
+            private var fallbackType: JsonField<FallbackType> = JsonMissing.of()
+            private var priority: JsonField<Priority> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(externalAccountVerifyBody: ExternalAccountVerifyBody) = apply {
@@ -145,22 +225,44 @@ constructor(
              * The ID of the internal account where the micro-deposits originate from. Both credit
              * and debit capabilities must be enabled.
              */
-            fun originatingAccountId(originatingAccountId: String) = apply {
+            fun originatingAccountId(originatingAccountId: String) =
+                originatingAccountId(JsonField.of(originatingAccountId))
+
+            /**
+             * The ID of the internal account where the micro-deposits originate from. Both credit
+             * and debit capabilities must be enabled.
+             */
+            fun originatingAccountId(originatingAccountId: JsonField<String>) = apply {
                 this.originatingAccountId = originatingAccountId
             }
 
             /** Can be `ach`, `eft`, or `rtp`. */
-            fun paymentType(paymentType: PaymentType) = apply { this.paymentType = paymentType }
+            fun paymentType(paymentType: PaymentType) = paymentType(JsonField.of(paymentType))
+
+            /** Can be `ach`, `eft`, or `rtp`. */
+            fun paymentType(paymentType: JsonField<PaymentType>) = apply {
+                this.paymentType = paymentType
+            }
 
             /** Defaults to the currency of the originating account. */
-            fun currency(currency: Currency?) = apply { this.currency = currency }
+            fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+            /** Defaults to the currency of the originating account. */
+            fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
             /**
              * A payment type to fallback to if the original type is not valid for the receiving
              * account. Currently, this only supports falling back from RTP to ACH (payment_type=rtp
              * and fallback_type=ach)
              */
-            fun fallbackType(fallbackType: FallbackType?) = apply {
+            fun fallbackType(fallbackType: FallbackType) = fallbackType(JsonField.of(fallbackType))
+
+            /**
+             * A payment type to fallback to if the original type is not valid for the receiving
+             * account. Currently, this only supports falling back from RTP to ACH (payment_type=rtp
+             * and fallback_type=ach)
+             */
+            fun fallbackType(fallbackType: JsonField<FallbackType>) = apply {
                 this.fallbackType = fallbackType
             }
 
@@ -168,7 +270,13 @@ constructor(
              * Either `normal` or `high`. For ACH payments, `high` represents a same-day ACH
              * transfer. This will apply to both `payment_type` and `fallback_type`.
              */
-            fun priority(priority: Priority?) = apply { this.priority = priority }
+            fun priority(priority: Priority) = priority(JsonField.of(priority))
+
+            /**
+             * Either `normal` or `high`. For ACH payments, `high` represents a same-day ACH
+             * transfer. This will apply to both `payment_type` and `fallback_type`.
+             */
+            fun priority(priority: JsonField<Priority>) = apply { this.priority = priority }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -252,24 +360,74 @@ constructor(
             body.originatingAccountId(originatingAccountId)
         }
 
+        /**
+         * The ID of the internal account where the micro-deposits originate from. Both credit and
+         * debit capabilities must be enabled.
+         */
+        fun originatingAccountId(originatingAccountId: JsonField<String>) = apply {
+            body.originatingAccountId(originatingAccountId)
+        }
+
         /** Can be `ach`, `eft`, or `rtp`. */
         fun paymentType(paymentType: PaymentType) = apply { body.paymentType(paymentType) }
 
+        /** Can be `ach`, `eft`, or `rtp`. */
+        fun paymentType(paymentType: JsonField<PaymentType>) = apply {
+            body.paymentType(paymentType)
+        }
+
         /** Defaults to the currency of the originating account. */
-        fun currency(currency: Currency?) = apply { body.currency(currency) }
+        fun currency(currency: Currency) = apply { body.currency(currency) }
+
+        /** Defaults to the currency of the originating account. */
+        fun currency(currency: JsonField<Currency>) = apply { body.currency(currency) }
 
         /**
          * A payment type to fallback to if the original type is not valid for the receiving
          * account. Currently, this only supports falling back from RTP to ACH (payment_type=rtp and
          * fallback_type=ach)
          */
-        fun fallbackType(fallbackType: FallbackType?) = apply { body.fallbackType(fallbackType) }
+        fun fallbackType(fallbackType: FallbackType) = apply { body.fallbackType(fallbackType) }
+
+        /**
+         * A payment type to fallback to if the original type is not valid for the receiving
+         * account. Currently, this only supports falling back from RTP to ACH (payment_type=rtp and
+         * fallback_type=ach)
+         */
+        fun fallbackType(fallbackType: JsonField<FallbackType>) = apply {
+            body.fallbackType(fallbackType)
+        }
 
         /**
          * Either `normal` or `high`. For ACH payments, `high` represents a same-day ACH transfer.
          * This will apply to both `payment_type` and `fallback_type`.
          */
-        fun priority(priority: Priority?) = apply { body.priority(priority) }
+        fun priority(priority: Priority) = apply { body.priority(priority) }
+
+        /**
+         * Either `normal` or `high`. For ACH payments, `high` represents a same-day ACH transfer.
+         * This will apply to both `payment_type` and `fallback_type`.
+         */
+        fun priority(priority: JsonField<Priority>) = apply { body.priority(priority) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -367,25 +525,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): ExternalAccountVerifyParams =

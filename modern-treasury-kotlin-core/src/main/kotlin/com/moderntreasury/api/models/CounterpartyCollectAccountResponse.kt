@@ -47,7 +47,7 @@ private constructor(
     fun isResend(): Boolean = isResend.getRequired("is_resend")
 
     /** The id of the existing counterparty. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
      * This is the link to the secure Modern Treasury form. By default, Modern Treasury will send an
@@ -55,13 +55,13 @@ private constructor(
      * passed as `false` in the body then Modern Treasury will not send the email and you can send
      * it to the counterparty directly.
      */
-    @JsonProperty("form_link") @ExcludeMissing fun _formLink() = formLink
+    @JsonProperty("form_link") @ExcludeMissing fun _formLink(): JsonField<String> = formLink
 
     /**
      * This field will be `true` if an email requesting account details has already been sent to
      * this counterparty.
      */
-    @JsonProperty("is_resend") @ExcludeMissing fun _isResend() = isResend
+    @JsonProperty("is_resend") @ExcludeMissing fun _isResend(): JsonField<Boolean> = isResend
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -87,9 +87,9 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var formLink: JsonField<String> = JsonMissing.of()
-        private var isResend: JsonField<Boolean> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var formLink: JsonField<String>? = null
+        private var isResend: JsonField<Boolean>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(counterpartyCollectAccountResponse: CounterpartyCollectAccountResponse) =
@@ -156,9 +156,9 @@ private constructor(
 
         fun build(): CounterpartyCollectAccountResponse =
             CounterpartyCollectAccountResponse(
-                id,
-                formLink,
-                isResend,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(formLink) { "`formLink` is required but was not set" },
+                checkNotNull(isResend) { "`isResend` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
