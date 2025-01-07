@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import java.time.OffsetDateTime
 import java.util.Objects
 
+/** Create a ledger account statement. */
 class LedgerAccountStatementCreateParams
 constructor(
     private val body: LedgerAccountStatementCreateBody,

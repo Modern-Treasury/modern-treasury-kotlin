@@ -7,6 +7,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
 
+/** get invoice_line_item */
 class InvoiceLineItemRetrieveParams
 constructor(
     private val invoiceId: String,

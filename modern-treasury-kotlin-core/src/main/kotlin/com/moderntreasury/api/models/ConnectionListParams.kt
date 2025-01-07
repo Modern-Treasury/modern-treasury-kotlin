@@ -7,6 +7,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
 
+/** Get a list of all connections. */
 class ConnectionListParams
 constructor(
     private val afterCursor: String?,

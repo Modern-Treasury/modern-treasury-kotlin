@@ -7,6 +7,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
 
+/** list account_collection_flows */
 class AccountCollectionFlowListParams
 constructor(
     private val afterCursor: String?,

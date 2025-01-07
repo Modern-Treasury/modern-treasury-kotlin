@@ -8,6 +8,7 @@ import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
+/** Get a list of ledger account settlements. */
 class LedgerAccountSettlementListParams
 constructor(
     private val id: List<String>?,

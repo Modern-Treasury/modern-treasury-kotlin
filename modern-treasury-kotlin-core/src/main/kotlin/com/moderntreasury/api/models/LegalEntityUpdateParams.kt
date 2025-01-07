@@ -19,6 +19,7 @@ import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.util.Objects
 
+/** Update a legal entity. */
 class LegalEntityUpdateParams
 constructor(
     private val id: String,

@@ -18,6 +18,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
+/** Update a connection legal entity. */
 class ConnectionLegalEntityUpdateParams
 constructor(
     private val id: String,

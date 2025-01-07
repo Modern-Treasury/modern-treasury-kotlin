@@ -20,6 +20,7 @@ import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 
+/** Create a ledger transaction. */
 class LedgerTransactionCreateParams
 constructor(
     private val body: LedgerTransactionCreateBody,

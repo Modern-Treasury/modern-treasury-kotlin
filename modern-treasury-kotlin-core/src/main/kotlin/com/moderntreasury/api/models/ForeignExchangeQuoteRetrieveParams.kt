@@ -7,6 +7,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
 
+/** get foreign_exchange_quote */
 class ForeignExchangeQuoteRetrieveParams
 constructor(
     private val id: String,

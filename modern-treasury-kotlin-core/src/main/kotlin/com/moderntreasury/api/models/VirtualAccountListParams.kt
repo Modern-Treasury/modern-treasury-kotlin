@@ -7,6 +7,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
 
+/** Get a list of virtual accounts. */
 class VirtualAccountListParams
 constructor(
     private val afterCursor: String?,

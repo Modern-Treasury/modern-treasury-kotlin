@@ -15,6 +15,7 @@ import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
+/** create invoice_line_item */
 class InvoiceLineItemCreateParams
 constructor(
     private val invoiceId: String,

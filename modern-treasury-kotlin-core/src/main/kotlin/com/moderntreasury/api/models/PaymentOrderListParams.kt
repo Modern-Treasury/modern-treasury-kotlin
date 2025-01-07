@@ -14,6 +14,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** Get a list of all payment orders */
 class PaymentOrderListParams
 constructor(
     private val afterCursor: String?,

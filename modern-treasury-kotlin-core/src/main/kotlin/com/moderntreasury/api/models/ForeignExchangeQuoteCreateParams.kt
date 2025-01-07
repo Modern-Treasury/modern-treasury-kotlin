@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import java.time.OffsetDateTime
 import java.util.Objects
 
+/** create foreign_exchange_quote */
 class ForeignExchangeQuoteCreateParams
 constructor(
     private val body: ForeignExchangeQuoteCreateBody,
