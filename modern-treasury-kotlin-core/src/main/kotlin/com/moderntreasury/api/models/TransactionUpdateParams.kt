@@ -15,6 +15,7 @@ import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
+/** Update a single transaction. */
 class TransactionUpdateParams
 constructor(
     private val id: String,

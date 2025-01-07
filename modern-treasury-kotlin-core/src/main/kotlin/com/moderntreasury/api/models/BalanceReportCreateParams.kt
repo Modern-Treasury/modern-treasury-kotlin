@@ -19,6 +19,7 @@ import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.util.Objects
 
+/** create balance reports */
 class BalanceReportCreateParams
 constructor(
     private val internalAccountId: String,

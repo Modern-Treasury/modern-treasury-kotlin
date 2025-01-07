@@ -12,6 +12,7 @@ import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.util.Objects
 
+/** list invoices */
 class InvoiceListParams
 constructor(
     private val afterCursor: String?,

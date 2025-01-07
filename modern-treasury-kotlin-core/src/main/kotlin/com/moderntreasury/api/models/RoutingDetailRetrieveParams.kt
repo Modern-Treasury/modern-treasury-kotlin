@@ -7,6 +7,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
 
+/** Get a single routing detail for a single internal or external account. */
 class RoutingDetailRetrieveParams
 constructor(
     private val accountsType: AccountsType,

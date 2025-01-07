@@ -7,6 +7,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
 
+/** get virtual_account */
 class VirtualAccountRetrieveParams
 constructor(
     private val id: String,

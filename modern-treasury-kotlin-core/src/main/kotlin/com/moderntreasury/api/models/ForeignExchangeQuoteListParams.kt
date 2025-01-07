@@ -10,6 +10,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** list foreign_exchange_quotes */
 class ForeignExchangeQuoteListParams
 constructor(
     private val afterCursor: String?,

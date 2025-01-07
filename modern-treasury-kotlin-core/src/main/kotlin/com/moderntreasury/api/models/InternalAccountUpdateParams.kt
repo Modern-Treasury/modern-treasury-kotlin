@@ -15,6 +15,7 @@ import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
+/** update internal account */
 class InternalAccountUpdateParams
 constructor(
     private val id: String,

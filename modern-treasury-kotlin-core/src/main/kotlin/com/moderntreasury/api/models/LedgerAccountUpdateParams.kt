@@ -15,6 +15,7 @@ import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
+/** Update the details of a ledger account. */
 class LedgerAccountUpdateParams
 constructor(
     private val id: String,

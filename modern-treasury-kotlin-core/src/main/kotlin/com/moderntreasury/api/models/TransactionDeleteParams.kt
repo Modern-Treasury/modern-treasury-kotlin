@@ -9,6 +9,7 @@ import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
+/** delete transaction */
 class TransactionDeleteParams
 constructor(
     private val id: String,

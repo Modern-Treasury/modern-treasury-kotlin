@@ -15,6 +15,7 @@ import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
+/** Create a ledger account balance monitor. */
 class LedgerAccountBalanceMonitorCreateParams
 constructor(
     private val body: LedgerAccountBalanceMonitorCreateBody,

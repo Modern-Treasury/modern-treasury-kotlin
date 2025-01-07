@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
+/** list internal accounts */
 class InternalAccountListParams
 constructor(
     private val afterCursor: String?,

@@ -9,6 +9,7 @@ import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
+/** Delete a ledger account balance monitor. */
 class LedgerAccountBalanceMonitorDeleteParams
 constructor(
     private val id: String,

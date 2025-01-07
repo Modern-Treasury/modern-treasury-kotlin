@@ -7,6 +7,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
 
+/** Get details on a single ledger event handler. */
 class LedgerEventHandlerRetrieveParams
 constructor(
     private val id: String,
