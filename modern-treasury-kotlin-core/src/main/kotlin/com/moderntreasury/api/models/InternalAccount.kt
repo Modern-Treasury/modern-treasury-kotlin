@@ -137,64 +137,86 @@ private constructor(
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** An array of account detail objects. */
-    @JsonProperty("account_details") @ExcludeMissing fun _accountDetails() = accountDetails
+    @JsonProperty("account_details")
+    @ExcludeMissing
+    fun _accountDetails(): JsonField<List<AccountDetail>> = accountDetails
 
     /** Can be checking, savings or other. */
-    @JsonProperty("account_type") @ExcludeMissing fun _accountType() = accountType
+    @JsonProperty("account_type")
+    @ExcludeMissing
+    fun _accountType(): JsonField<AccountType> = accountType
 
     /** Specifies which financial institution the accounts belong to. */
-    @JsonProperty("connection") @ExcludeMissing fun _connection() = connection
+    @JsonProperty("connection")
+    @ExcludeMissing
+    fun _connection(): JsonField<Connection> = connection
 
     /** The Counterparty associated to this account. */
-    @JsonProperty("counterparty_id") @ExcludeMissing fun _counterpartyId() = counterpartyId
+    @JsonProperty("counterparty_id")
+    @ExcludeMissing
+    fun _counterpartyId(): JsonField<String> = counterpartyId
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The currency of the account. */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+    @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
     /**
      * If the internal account links to a ledger account in Modern Treasury, the id of the ledger
      * account will be populated here.
      */
-    @JsonProperty("ledger_account_id") @ExcludeMissing fun _ledgerAccountId() = ledgerAccountId
+    @JsonProperty("ledger_account_id")
+    @ExcludeMissing
+    fun _ledgerAccountId(): JsonField<String> = ledgerAccountId
 
     /** The Legal Entity associated to this account */
-    @JsonProperty("legal_entity_id") @ExcludeMissing fun _legalEntityId() = legalEntityId
+    @JsonProperty("legal_entity_id")
+    @ExcludeMissing
+    fun _legalEntityId(): JsonField<String> = legalEntityId
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
     /** A nickname for the account. */
-    @JsonProperty("name") @ExcludeMissing fun _name() = name
+    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /** The parent InternalAccount of this account. */
-    @JsonProperty("parent_account_id") @ExcludeMissing fun _parentAccountId() = parentAccountId
+    @JsonProperty("parent_account_id")
+    @ExcludeMissing
+    fun _parentAccountId(): JsonField<String> = parentAccountId
 
     /** The address associated with the owner or null. */
-    @JsonProperty("party_address") @ExcludeMissing fun _partyAddress() = partyAddress
+    @JsonProperty("party_address")
+    @ExcludeMissing
+    fun _partyAddress(): JsonField<Address> = partyAddress
 
     /** The legal name of the entity which owns the account. */
-    @JsonProperty("party_name") @ExcludeMissing fun _partyName() = partyName
+    @JsonProperty("party_name") @ExcludeMissing fun _partyName(): JsonField<String> = partyName
 
     /** Either individual or business. */
-    @JsonProperty("party_type") @ExcludeMissing fun _partyType() = partyType
+    @JsonProperty("party_type") @ExcludeMissing fun _partyType(): JsonField<PartyType> = partyType
 
     /** An array of routing detail objects. */
-    @JsonProperty("routing_details") @ExcludeMissing fun _routingDetails() = routingDetails
+    @JsonProperty("routing_details")
+    @ExcludeMissing
+    fun _routingDetails(): JsonField<List<RoutingDetail>> = routingDetails
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -236,30 +258,30 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var accountDetails: JsonField<List<AccountDetail>> = JsonMissing.of()
-        private var accountType: JsonField<AccountType> = JsonMissing.of()
-        private var connection: JsonField<Connection> = JsonMissing.of()
-        private var counterpartyId: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
-        private var ledgerAccountId: JsonField<String> = JsonMissing.of()
-        private var legalEntityId: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
-        private var name: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var parentAccountId: JsonField<String> = JsonMissing.of()
-        private var partyAddress: JsonField<Address> = JsonMissing.of()
-        private var partyName: JsonField<String> = JsonMissing.of()
-        private var partyType: JsonField<PartyType> = JsonMissing.of()
-        private var routingDetails: JsonField<List<RoutingDetail>> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var accountDetails: JsonField<MutableList<AccountDetail>>? = null
+        private var accountType: JsonField<AccountType>? = null
+        private var connection: JsonField<Connection>? = null
+        private var counterpartyId: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var currency: JsonField<Currency>? = null
+        private var ledgerAccountId: JsonField<String>? = null
+        private var legalEntityId: JsonField<String>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var metadata: JsonField<Metadata>? = null
+        private var name: JsonField<String>? = null
+        private var object_: JsonField<String>? = null
+        private var parentAccountId: JsonField<String>? = null
+        private var partyAddress: JsonField<Address>? = null
+        private var partyName: JsonField<String>? = null
+        private var partyType: JsonField<PartyType>? = null
+        private var routingDetails: JsonField<MutableList<RoutingDetail>>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(internalAccount: InternalAccount) = apply {
             id = internalAccount.id
-            accountDetails = internalAccount.accountDetails
+            accountDetails = internalAccount.accountDetails.map { it.toMutableList() }
             accountType = internalAccount.accountType
             connection = internalAccount.connection
             counterpartyId = internalAccount.counterpartyId
@@ -275,7 +297,7 @@ private constructor(
             partyAddress = internalAccount.partyAddress
             partyName = internalAccount.partyName
             partyType = internalAccount.partyType
-            routingDetails = internalAccount.routingDetails
+            routingDetails = internalAccount.routingDetails.map { it.toMutableList() }
             updatedAt = internalAccount.updatedAt
             additionalProperties = internalAccount.additionalProperties.toMutableMap()
         }
@@ -290,11 +312,23 @@ private constructor(
 
         /** An array of account detail objects. */
         fun accountDetails(accountDetails: JsonField<List<AccountDetail>>) = apply {
-            this.accountDetails = accountDetails
+            this.accountDetails = accountDetails.map { it.toMutableList() }
+        }
+
+        /** An array of account detail objects. */
+        fun addAccountDetail(accountDetail: AccountDetail) = apply {
+            accountDetails =
+                (accountDetails ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(accountDetail)
+                }
         }
 
         /** Can be checking, savings or other. */
-        fun accountType(accountType: AccountType) = accountType(JsonField.of(accountType))
+        fun accountType(accountType: AccountType?) = accountType(JsonField.ofNullable(accountType))
 
         /** Can be checking, savings or other. */
         fun accountType(accountType: JsonField<AccountType>) = apply {
@@ -308,7 +342,8 @@ private constructor(
         fun connection(connection: JsonField<Connection>) = apply { this.connection = connection }
 
         /** The Counterparty associated to this account. */
-        fun counterpartyId(counterpartyId: String) = counterpartyId(JsonField.of(counterpartyId))
+        fun counterpartyId(counterpartyId: String?) =
+            counterpartyId(JsonField.ofNullable(counterpartyId))
 
         /** The Counterparty associated to this account. */
         fun counterpartyId(counterpartyId: JsonField<String>) = apply {
@@ -329,8 +364,8 @@ private constructor(
          * If the internal account links to a ledger account in Modern Treasury, the id of the
          * ledger account will be populated here.
          */
-        fun ledgerAccountId(ledgerAccountId: String) =
-            ledgerAccountId(JsonField.of(ledgerAccountId))
+        fun ledgerAccountId(ledgerAccountId: String?) =
+            ledgerAccountId(JsonField.ofNullable(ledgerAccountId))
 
         /**
          * If the internal account links to a ledger account in Modern Treasury, the id of the
@@ -341,7 +376,8 @@ private constructor(
         }
 
         /** The Legal Entity associated to this account */
-        fun legalEntityId(legalEntityId: String) = legalEntityId(JsonField.of(legalEntityId))
+        fun legalEntityId(legalEntityId: String?) =
+            legalEntityId(JsonField.ofNullable(legalEntityId))
 
         /** The Legal Entity associated to this account */
         fun legalEntityId(legalEntityId: JsonField<String>) = apply {
@@ -371,7 +407,7 @@ private constructor(
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         /** A nickname for the account. */
-        fun name(name: String) = name(JsonField.of(name))
+        fun name(name: String?) = name(JsonField.ofNullable(name))
 
         /** A nickname for the account. */
         fun name(name: JsonField<String>) = apply { this.name = name }
@@ -381,8 +417,8 @@ private constructor(
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /** The parent InternalAccount of this account. */
-        fun parentAccountId(parentAccountId: String) =
-            parentAccountId(JsonField.of(parentAccountId))
+        fun parentAccountId(parentAccountId: String?) =
+            parentAccountId(JsonField.ofNullable(parentAccountId))
 
         /** The parent InternalAccount of this account. */
         fun parentAccountId(parentAccountId: JsonField<String>) = apply {
@@ -390,7 +426,7 @@ private constructor(
         }
 
         /** The address associated with the owner or null. */
-        fun partyAddress(partyAddress: Address) = partyAddress(JsonField.of(partyAddress))
+        fun partyAddress(partyAddress: Address?) = partyAddress(JsonField.ofNullable(partyAddress))
 
         /** The address associated with the owner or null. */
         fun partyAddress(partyAddress: JsonField<Address>) = apply {
@@ -404,7 +440,7 @@ private constructor(
         fun partyName(partyName: JsonField<String>) = apply { this.partyName = partyName }
 
         /** Either individual or business. */
-        fun partyType(partyType: PartyType) = partyType(JsonField.of(partyType))
+        fun partyType(partyType: PartyType?) = partyType(JsonField.ofNullable(partyType))
 
         /** Either individual or business. */
         fun partyType(partyType: JsonField<PartyType>) = apply { this.partyType = partyType }
@@ -415,7 +451,19 @@ private constructor(
 
         /** An array of routing detail objects. */
         fun routingDetails(routingDetails: JsonField<List<RoutingDetail>>) = apply {
-            this.routingDetails = routingDetails
+            this.routingDetails = routingDetails.map { it.toMutableList() }
+        }
+
+        /** An array of routing detail objects. */
+        fun addRoutingDetail(routingDetail: RoutingDetail) = apply {
+            routingDetails =
+                (routingDetails ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(routingDetail)
+                }
         }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
@@ -443,25 +491,27 @@ private constructor(
 
         fun build(): InternalAccount =
             InternalAccount(
-                id,
-                accountDetails.map { it.toImmutable() },
-                accountType,
-                connection,
-                counterpartyId,
-                createdAt,
-                currency,
-                ledgerAccountId,
-                legalEntityId,
-                liveMode,
-                metadata,
-                name,
-                object_,
-                parentAccountId,
-                partyAddress,
-                partyName,
-                partyType,
-                routingDetails.map { it.toImmutable() },
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(accountDetails) { "`accountDetails` is required but was not set" }
+                    .map { it.toImmutable() },
+                checkNotNull(accountType) { "`accountType` is required but was not set" },
+                checkNotNull(connection) { "`connection` is required but was not set" },
+                checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(currency) { "`currency` is required but was not set" },
+                checkNotNull(ledgerAccountId) { "`ledgerAccountId` is required but was not set" },
+                checkNotNull(legalEntityId) { "`legalEntityId` is required but was not set" },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(metadata) { "`metadata` is required but was not set" },
+                checkNotNull(name) { "`name` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(parentAccountId) { "`parentAccountId` is required but was not set" },
+                checkNotNull(partyAddress) { "`partyAddress` is required but was not set" },
+                checkNotNull(partyName) { "`partyName` is required but was not set" },
+                checkNotNull(partyType) { "`partyType` is required but was not set" },
+                checkNotNull(routingDetails) { "`routingDetails` is required but was not set" }
+                    .map { it.toImmutable() },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -704,35 +754,41 @@ private constructor(
 
         fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
         /** Country code conforms to [ISO 3166-1 alpha-2] */
-        @JsonProperty("country") @ExcludeMissing fun _country() = country
+        @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
 
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-        @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+        @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
-        @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+        @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
         /**
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
          */
-        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
         /** Locality or City. */
-        @JsonProperty("locality") @ExcludeMissing fun _locality() = locality
+        @JsonProperty("locality") @ExcludeMissing fun _locality(): JsonField<String> = locality
 
-        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+        @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
         /** The postal code of the address. */
-        @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+        @JsonProperty("postal_code")
+        @ExcludeMissing
+        fun _postalCode(): JsonField<String> = postalCode
 
         /** Region or State. */
-        @JsonProperty("region") @ExcludeMissing fun _region() = region
+        @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
 
-        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -766,17 +822,17 @@ private constructor(
 
         class Builder {
 
-            private var id: JsonField<String> = JsonMissing.of()
-            private var country: JsonField<String> = JsonMissing.of()
-            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var line1: JsonField<String> = JsonMissing.of()
-            private var line2: JsonField<String> = JsonMissing.of()
-            private var liveMode: JsonField<Boolean> = JsonMissing.of()
-            private var locality: JsonField<String> = JsonMissing.of()
-            private var object_: JsonField<String> = JsonMissing.of()
-            private var postalCode: JsonField<String> = JsonMissing.of()
-            private var region: JsonField<String> = JsonMissing.of()
-            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var id: JsonField<String>? = null
+            private var country: JsonField<String>? = null
+            private var createdAt: JsonField<OffsetDateTime>? = null
+            private var line1: JsonField<String>? = null
+            private var line2: JsonField<String>? = null
+            private var liveMode: JsonField<Boolean>? = null
+            private var locality: JsonField<String>? = null
+            private var object_: JsonField<String>? = null
+            private var postalCode: JsonField<String>? = null
+            private var region: JsonField<String>? = null
+            private var updatedAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(address: Address) = apply {
@@ -799,7 +855,7 @@ private constructor(
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             /** Country code conforms to [ISO 3166-1 alpha-2] */
-            fun country(country: String) = country(JsonField.of(country))
+            fun country(country: String?) = country(JsonField.ofNullable(country))
 
             /** Country code conforms to [ISO 3166-1 alpha-2] */
             fun country(country: JsonField<String>) = apply { this.country = country }
@@ -810,11 +866,11 @@ private constructor(
                 this.createdAt = createdAt
             }
 
-            fun line1(line1: String) = line1(JsonField.of(line1))
+            fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
 
             fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
-            fun line2(line2: String) = line2(JsonField.of(line2))
+            fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
             fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
@@ -831,7 +887,7 @@ private constructor(
             fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
             /** Locality or City. */
-            fun locality(locality: String) = locality(JsonField.of(locality))
+            fun locality(locality: String?) = locality(JsonField.ofNullable(locality))
 
             /** Locality or City. */
             fun locality(locality: JsonField<String>) = apply { this.locality = locality }
@@ -841,13 +897,13 @@ private constructor(
             fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
             /** The postal code of the address. */
-            fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
+            fun postalCode(postalCode: String?) = postalCode(JsonField.ofNullable(postalCode))
 
             /** The postal code of the address. */
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
             /** Region or State. */
-            fun region(region: String) = region(JsonField.of(region))
+            fun region(region: String?) = region(JsonField.ofNullable(region))
 
             /** Region or State. */
             fun region(region: JsonField<String>) = apply { this.region = region }
@@ -879,17 +935,17 @@ private constructor(
 
             fun build(): Address =
                 Address(
-                    id,
-                    country,
-                    createdAt,
-                    line1,
-                    line2,
-                    liveMode,
-                    locality,
-                    object_,
-                    postalCode,
-                    region,
-                    updatedAt,
+                    checkNotNull(id) { "`id` is required but was not set" },
+                    checkNotNull(country) { "`country` is required but was not set" },
+                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                    checkNotNull(line1) { "`line1` is required but was not set" },
+                    checkNotNull(line2) { "`line2` is required but was not set" },
+                    checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                    checkNotNull(locality) { "`locality` is required but was not set" },
+                    checkNotNull(object_) { "`object_` is required but was not set" },
+                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                    checkNotNull(region) { "`region` is required but was not set" },
+                    checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }

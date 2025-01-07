@@ -82,36 +82,42 @@ private constructor(
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The ID of the ledger transaction linked to the reversal. */
     @JsonProperty("ledger_transaction_id")
     @ExcludeMissing
-    fun _ledgerTransactionId() = ledgerTransactionId
+    fun _ledgerTransactionId(): JsonField<String> = ledgerTransactionId
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /** The ID of the relevant Payment Order. */
-    @JsonProperty("payment_order_id") @ExcludeMissing fun _paymentOrderId() = paymentOrderId
+    @JsonProperty("payment_order_id")
+    @ExcludeMissing
+    fun _paymentOrderId(): JsonField<String> = paymentOrderId
 
     /** The reason for the reversal. */
-    @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
+    @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
 
     /** The current status of the reversal. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -144,16 +150,16 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var paymentOrderId: JsonField<String> = JsonMissing.of()
-        private var reason: JsonField<Reason> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var ledgerTransactionId: JsonField<String>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var metadata: JsonField<Metadata>? = null
+        private var object_: JsonField<String>? = null
+        private var paymentOrderId: JsonField<String>? = null
+        private var reason: JsonField<Reason>? = null
+        private var status: JsonField<Status>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(reversal: Reversal) = apply {
@@ -179,8 +185,8 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The ID of the ledger transaction linked to the reversal. */
-        fun ledgerTransactionId(ledgerTransactionId: String) =
-            ledgerTransactionId(JsonField.of(ledgerTransactionId))
+        fun ledgerTransactionId(ledgerTransactionId: String?) =
+            ledgerTransactionId(JsonField.ofNullable(ledgerTransactionId))
 
         /** The ID of the ledger transaction linked to the reversal. */
         fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
@@ -214,7 +220,8 @@ private constructor(
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /** The ID of the relevant Payment Order. */
-        fun paymentOrderId(paymentOrderId: String) = paymentOrderId(JsonField.of(paymentOrderId))
+        fun paymentOrderId(paymentOrderId: String?) =
+            paymentOrderId(JsonField.ofNullable(paymentOrderId))
 
         /** The ID of the relevant Payment Order. */
         fun paymentOrderId(paymentOrderId: JsonField<String>) = apply {
@@ -258,16 +265,18 @@ private constructor(
 
         fun build(): Reversal =
             Reversal(
-                id,
-                createdAt,
-                ledgerTransactionId,
-                liveMode,
-                metadata,
-                object_,
-                paymentOrderId,
-                reason,
-                status,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(ledgerTransactionId) {
+                    "`ledgerTransactionId` is required but was not set"
+                },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(metadata) { "`metadata` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(paymentOrderId) { "`paymentOrderId` is required but was not set" },
+                checkNotNull(reason) { "`reason` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

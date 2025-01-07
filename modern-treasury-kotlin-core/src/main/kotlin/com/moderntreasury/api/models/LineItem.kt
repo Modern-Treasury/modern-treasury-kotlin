@@ -105,9 +105,11 @@ private constructor(
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    @JsonProperty("accounting") @ExcludeMissing fun _accounting() = accounting
+    @JsonProperty("accounting")
+    @ExcludeMissing
+    fun _accounting(): JsonField<Accounting> = accounting
 
     /**
      * The ID of one of your accounting categories. Note that these will only be accessible if your
@@ -115,7 +117,7 @@ private constructor(
      */
     @JsonProperty("accounting_category_id")
     @ExcludeMissing
-    fun _accountingCategoryId() = accountingCategoryId
+    fun _accountingCategoryId(): JsonField<String> = accountingCategoryId
 
     /**
      * The ID of one of the class objects in your accounting system. Class objects track segments of
@@ -124,34 +126,42 @@ private constructor(
      */
     @JsonProperty("accounting_ledger_class_id")
     @ExcludeMissing
-    fun _accountingLedgerClassId() = accountingLedgerClassId
+    fun _accountingLedgerClassId(): JsonField<String> = accountingLedgerClassId
 
     /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** A free-form description of the line item. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /** The ID of the payment order or expected payment. */
-    @JsonProperty("itemizable_id") @ExcludeMissing fun _itemizableId() = itemizableId
+    @JsonProperty("itemizable_id")
+    @ExcludeMissing
+    fun _itemizableId(): JsonField<String> = itemizableId
 
     /** One of `payment_orders` or `expected_payments`. */
-    @JsonProperty("itemizable_type") @ExcludeMissing fun _itemizableType() = itemizableType
+    @JsonProperty("itemizable_type")
+    @ExcludeMissing
+    fun _itemizableType(): JsonField<ItemizableType> = itemizableType
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -187,19 +197,19 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var accounting: JsonField<Accounting> = JsonMissing.of()
-        private var accountingCategoryId: JsonField<String> = JsonMissing.of()
-        private var accountingLedgerClassId: JsonField<String> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var itemizableId: JsonField<String> = JsonMissing.of()
-        private var itemizableType: JsonField<ItemizableType> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var accounting: JsonField<Accounting>? = null
+        private var accountingCategoryId: JsonField<String>? = null
+        private var accountingLedgerClassId: JsonField<String>? = null
+        private var amount: JsonField<Long>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var description: JsonField<String>? = null
+        private var itemizableId: JsonField<String>? = null
+        private var itemizableType: JsonField<ItemizableType>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var metadata: JsonField<Metadata>? = null
+        private var object_: JsonField<String>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(lineItem: LineItem) = apply {
@@ -231,8 +241,8 @@ private constructor(
          * The ID of one of your accounting categories. Note that these will only be accessible if
          * your accounting system has been connected.
          */
-        fun accountingCategoryId(accountingCategoryId: String) =
-            accountingCategoryId(JsonField.of(accountingCategoryId))
+        fun accountingCategoryId(accountingCategoryId: String?) =
+            accountingCategoryId(JsonField.ofNullable(accountingCategoryId))
 
         /**
          * The ID of one of your accounting categories. Note that these will only be accessible if
@@ -247,8 +257,8 @@ private constructor(
          * segments of your business independent of client or project. Note that these will only be
          * accessible if your accounting system has been connected.
          */
-        fun accountingLedgerClassId(accountingLedgerClassId: String) =
-            accountingLedgerClassId(JsonField.of(accountingLedgerClassId))
+        fun accountingLedgerClassId(accountingLedgerClassId: String?) =
+            accountingLedgerClassId(JsonField.ofNullable(accountingLedgerClassId))
 
         /**
          * The ID of one of the class objects in your accounting system. Class objects track
@@ -270,7 +280,7 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** A free-form description of the line item. */
-        fun description(description: String) = description(JsonField.of(description))
+        fun description(description: String?) = description(JsonField.ofNullable(description))
 
         /** A free-form description of the line item. */
         fun description(description: JsonField<String>) = apply { this.description = description }
@@ -343,19 +353,23 @@ private constructor(
 
         fun build(): LineItem =
             LineItem(
-                id,
-                accounting,
-                accountingCategoryId,
-                accountingLedgerClassId,
-                amount,
-                createdAt,
-                description,
-                itemizableId,
-                itemizableType,
-                liveMode,
-                metadata,
-                object_,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(accounting) { "`accounting` is required but was not set" },
+                checkNotNull(accountingCategoryId) {
+                    "`accountingCategoryId` is required but was not set"
+                },
+                checkNotNull(accountingLedgerClassId) {
+                    "`accountingLedgerClassId` is required but was not set"
+                },
+                checkNotNull(amount) { "`amount` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(description) { "`description` is required but was not set" },
+                checkNotNull(itemizableId) { "`itemizableId` is required but was not set" },
+                checkNotNull(itemizableType) { "`itemizableType` is required but was not set" },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(metadata) { "`metadata` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -391,14 +405,14 @@ private constructor(
          * The ID of one of your accounting categories. Note that these will only be accessible if
          * your accounting system has been connected.
          */
-        @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
         /**
          * The ID of one of the class objects in your accounting system. Class objects track
          * segments of your business independent of client or project. Note that these will only be
          * accessible if your accounting system has been connected.
          */
-        @JsonProperty("class_id") @ExcludeMissing fun _classId() = classId
+        @JsonProperty("class_id") @ExcludeMissing fun _classId(): JsonField<String> = classId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -437,7 +451,7 @@ private constructor(
              * The ID of one of your accounting categories. Note that these will only be accessible
              * if your accounting system has been connected.
              */
-            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+            fun accountId(accountId: String?) = accountId(JsonField.ofNullable(accountId))
 
             /**
              * The ID of one of your accounting categories. Note that these will only be accessible
@@ -450,7 +464,7 @@ private constructor(
              * segments of your business independent of client or project. Note that these will only
              * be accessible if your accounting system has been connected.
              */
-            fun classId(classId: String) = classId(JsonField.of(classId))
+            fun classId(classId: String?) = classId(JsonField.ofNullable(classId))
 
             /**
              * The ID of one of the class objects in your accounting system. Class objects track

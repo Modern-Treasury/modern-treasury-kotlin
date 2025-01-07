@@ -127,15 +127,21 @@ private constructor(
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** An array of account detail objects. */
-    @JsonProperty("account_details") @ExcludeMissing fun _accountDetails() = accountDetails
+    @JsonProperty("account_details")
+    @ExcludeMissing
+    fun _accountDetails(): JsonField<List<AccountDetail>> = accountDetails
 
     /** The ID of a counterparty that the virtual account belongs to. Optional. */
-    @JsonProperty("counterparty_id") @ExcludeMissing fun _counterpartyId() = counterpartyId
+    @JsonProperty("counterparty_id")
+    @ExcludeMissing
+    fun _counterpartyId(): JsonField<String> = counterpartyId
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
      * The ID of a credit normal ledger account. When money enters the virtual account, this ledger
@@ -143,7 +149,7 @@ private constructor(
      */
     @JsonProperty("credit_ledger_account_id")
     @ExcludeMissing
-    fun _creditLedgerAccountId() = creditLedgerAccountId
+    fun _creditLedgerAccountId(): JsonField<String> = creditLedgerAccountId
 
     /**
      * The ID of a debit normal ledger account. When money enters the virtual account, this ledger
@@ -151,45 +157,53 @@ private constructor(
      */
     @JsonProperty("debit_ledger_account_id")
     @ExcludeMissing
-    fun _debitLedgerAccountId() = debitLedgerAccountId
+    fun _debitLedgerAccountId(): JsonField<String> = debitLedgerAccountId
 
     /** An optional free-form description for internal use. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
-    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+    @JsonProperty("discarded_at")
+    @ExcludeMissing
+    fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
     /** The ID of the internal account that the virtual account is in. */
     @JsonProperty("internal_account_id")
     @ExcludeMissing
-    fun _internalAccountId() = internalAccountId
+    fun _internalAccountId(): JsonField<String> = internalAccountId
 
     /**
      * If the virtual account links to a ledger account in Modern Treasury, the id of the ledger
      * account will be populated here.
      */
-    @JsonProperty("ledger_account_id") @ExcludeMissing fun _ledgerAccountId() = ledgerAccountId
+    @JsonProperty("ledger_account_id")
+    @ExcludeMissing
+    fun _ledgerAccountId(): JsonField<String> = ledgerAccountId
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
     /** The name of the virtual account. */
-    @JsonProperty("name") @ExcludeMissing fun _name() = name
+    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /**
      * An array of routing detail objects. These will be the routing details of the internal
      * account.
      */
-    @JsonProperty("routing_details") @ExcludeMissing fun _routingDetails() = routingDetails
+    @JsonProperty("routing_details")
+    @ExcludeMissing
+    fun _routingDetails(): JsonField<List<RoutingDetail>> = routingDetails
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -228,27 +242,27 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var accountDetails: JsonField<List<AccountDetail>> = JsonMissing.of()
-        private var counterpartyId: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var creditLedgerAccountId: JsonField<String> = JsonMissing.of()
-        private var debitLedgerAccountId: JsonField<String> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var internalAccountId: JsonField<String> = JsonMissing.of()
-        private var ledgerAccountId: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
-        private var name: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var routingDetails: JsonField<List<RoutingDetail>> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var accountDetails: JsonField<MutableList<AccountDetail>>? = null
+        private var counterpartyId: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var creditLedgerAccountId: JsonField<String>? = null
+        private var debitLedgerAccountId: JsonField<String>? = null
+        private var description: JsonField<String>? = null
+        private var discardedAt: JsonField<OffsetDateTime>? = null
+        private var internalAccountId: JsonField<String>? = null
+        private var ledgerAccountId: JsonField<String>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var metadata: JsonField<Metadata>? = null
+        private var name: JsonField<String>? = null
+        private var object_: JsonField<String>? = null
+        private var routingDetails: JsonField<MutableList<RoutingDetail>>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(virtualAccount: VirtualAccount) = apply {
             id = virtualAccount.id
-            accountDetails = virtualAccount.accountDetails
+            accountDetails = virtualAccount.accountDetails.map { it.toMutableList() }
             counterpartyId = virtualAccount.counterpartyId
             createdAt = virtualAccount.createdAt
             creditLedgerAccountId = virtualAccount.creditLedgerAccountId
@@ -261,7 +275,7 @@ private constructor(
             metadata = virtualAccount.metadata
             name = virtualAccount.name
             object_ = virtualAccount.object_
-            routingDetails = virtualAccount.routingDetails
+            routingDetails = virtualAccount.routingDetails.map { it.toMutableList() }
             updatedAt = virtualAccount.updatedAt
             additionalProperties = virtualAccount.additionalProperties.toMutableMap()
         }
@@ -276,11 +290,24 @@ private constructor(
 
         /** An array of account detail objects. */
         fun accountDetails(accountDetails: JsonField<List<AccountDetail>>) = apply {
-            this.accountDetails = accountDetails
+            this.accountDetails = accountDetails.map { it.toMutableList() }
+        }
+
+        /** An array of account detail objects. */
+        fun addAccountDetail(accountDetail: AccountDetail) = apply {
+            accountDetails =
+                (accountDetails ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(accountDetail)
+                }
         }
 
         /** The ID of a counterparty that the virtual account belongs to. Optional. */
-        fun counterpartyId(counterpartyId: String) = counterpartyId(JsonField.of(counterpartyId))
+        fun counterpartyId(counterpartyId: String?) =
+            counterpartyId(JsonField.ofNullable(counterpartyId))
 
         /** The ID of a counterparty that the virtual account belongs to. Optional. */
         fun counterpartyId(counterpartyId: JsonField<String>) = apply {
@@ -296,8 +323,8 @@ private constructor(
          * ledger account will be credited. Must be accompanied by a debit_ledger_account_id if
          * present.
          */
-        fun creditLedgerAccountId(creditLedgerAccountId: String) =
-            creditLedgerAccountId(JsonField.of(creditLedgerAccountId))
+        fun creditLedgerAccountId(creditLedgerAccountId: String?) =
+            creditLedgerAccountId(JsonField.ofNullable(creditLedgerAccountId))
 
         /**
          * The ID of a credit normal ledger account. When money enters the virtual account, this
@@ -313,8 +340,8 @@ private constructor(
          * ledger account will be debited. Must be accompanied by a credit_ledger_account_id if
          * present.
          */
-        fun debitLedgerAccountId(debitLedgerAccountId: String) =
-            debitLedgerAccountId(JsonField.of(debitLedgerAccountId))
+        fun debitLedgerAccountId(debitLedgerAccountId: String?) =
+            debitLedgerAccountId(JsonField.ofNullable(debitLedgerAccountId))
 
         /**
          * The ID of a debit normal ledger account. When money enters the virtual account, this
@@ -326,12 +353,13 @@ private constructor(
         }
 
         /** An optional free-form description for internal use. */
-        fun description(description: String) = description(JsonField.of(description))
+        fun description(description: String?) = description(JsonField.ofNullable(description))
 
         /** An optional free-form description for internal use. */
         fun description(description: JsonField<String>) = apply { this.description = description }
 
-        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+        fun discardedAt(discardedAt: OffsetDateTime?) =
+            discardedAt(JsonField.ofNullable(discardedAt))
 
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
@@ -350,8 +378,8 @@ private constructor(
          * If the virtual account links to a ledger account in Modern Treasury, the id of the ledger
          * account will be populated here.
          */
-        fun ledgerAccountId(ledgerAccountId: String) =
-            ledgerAccountId(JsonField.of(ledgerAccountId))
+        fun ledgerAccountId(ledgerAccountId: String?) =
+            ledgerAccountId(JsonField.ofNullable(ledgerAccountId))
 
         /**
          * If the virtual account links to a ledger account in Modern Treasury, the id of the ledger
@@ -405,7 +433,22 @@ private constructor(
          * account.
          */
         fun routingDetails(routingDetails: JsonField<List<RoutingDetail>>) = apply {
-            this.routingDetails = routingDetails
+            this.routingDetails = routingDetails.map { it.toMutableList() }
+        }
+
+        /**
+         * An array of routing detail objects. These will be the routing details of the internal
+         * account.
+         */
+        fun addRoutingDetail(routingDetail: RoutingDetail) = apply {
+            routingDetails =
+                (routingDetails ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(routingDetail)
+                }
         }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
@@ -433,22 +476,30 @@ private constructor(
 
         fun build(): VirtualAccount =
             VirtualAccount(
-                id,
-                accountDetails.map { it.toImmutable() },
-                counterpartyId,
-                createdAt,
-                creditLedgerAccountId,
-                debitLedgerAccountId,
-                description,
-                discardedAt,
-                internalAccountId,
-                ledgerAccountId,
-                liveMode,
-                metadata,
-                name,
-                object_,
-                routingDetails.map { it.toImmutable() },
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(accountDetails) { "`accountDetails` is required but was not set" }
+                    .map { it.toImmutable() },
+                checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(creditLedgerAccountId) {
+                    "`creditLedgerAccountId` is required but was not set"
+                },
+                checkNotNull(debitLedgerAccountId) {
+                    "`debitLedgerAccountId` is required but was not set"
+                },
+                checkNotNull(description) { "`description` is required but was not set" },
+                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
+                checkNotNull(internalAccountId) {
+                    "`internalAccountId` is required but was not set"
+                },
+                checkNotNull(ledgerAccountId) { "`ledgerAccountId` is required but was not set" },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(metadata) { "`metadata` is required but was not set" },
+                checkNotNull(name) { "`name` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(routingDetails) { "`routingDetails` is required but was not set" }
+                    .map { it.toImmutable() },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

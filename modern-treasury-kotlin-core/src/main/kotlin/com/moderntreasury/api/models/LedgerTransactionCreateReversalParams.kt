@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -67,11 +68,48 @@ constructor(
     /** Status of the reversal ledger transaction. It defaults to `posted` if not provided. */
     fun status(): Status? = body.status()
 
+    /**
+     * An optional free-form description for the reversal ledger transaction. Maximum of 1000
+     * characters allowed.
+     */
+    fun _description(): JsonField<String> = body._description()
+
+    /**
+     * The timestamp (ISO8601 format) at which the reversal ledger transaction happened for
+     * reporting purposes. It defaults to the `effective_at` of the original ledger transaction if
+     * not provided.
+     */
+    fun _effectiveAt(): JsonField<OffsetDateTime> = body._effectiveAt()
+
+    /** Must be unique within the ledger. */
+    fun _externalId(): JsonField<String> = body._externalId()
+
+    /**
+     * Specify this if you'd like to link the reversal ledger transaction to a Payment object like
+     * Return or Reversal.
+     */
+    fun _ledgerableId(): JsonField<String> = body._ledgerableId()
+
+    /**
+     * Specify this if you'd like to link the reversal ledger transaction to a Payment object like
+     * Return or Reversal.
+     */
+    fun _ledgerableType(): JsonField<LedgerableType> = body._ledgerableType()
+
+    /**
+     * Additional data to be added to the reversal ledger transaction as key-value pairs. Both the
+     * key and value must be strings.
+     */
+    fun _metadata(): JsonField<Metadata> = body._metadata()
+
+    /** Status of the reversal ledger transaction. It defaults to `posted` if not provided. */
+    fun _status(): JsonField<Status> = body._status()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): LedgerTransactionCreateReversalBody = body
 
@@ -90,13 +128,27 @@ constructor(
     class LedgerTransactionCreateReversalBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("description") private val description: String?,
-        @JsonProperty("effective_at") private val effectiveAt: OffsetDateTime?,
-        @JsonProperty("external_id") private val externalId: String?,
-        @JsonProperty("ledgerable_id") private val ledgerableId: String?,
-        @JsonProperty("ledgerable_type") private val ledgerableType: LedgerableType?,
-        @JsonProperty("metadata") private val metadata: Metadata?,
-        @JsonProperty("status") private val status: Status?,
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("effective_at")
+        @ExcludeMissing
+        private val effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("external_id")
+        @ExcludeMissing
+        private val externalId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("ledgerable_id")
+        @ExcludeMissing
+        private val ledgerableId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("ledgerable_type")
+        @ExcludeMissing
+        private val ledgerableType: JsonField<LedgerableType> = JsonMissing.of(),
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        private val metadata: JsonField<Metadata> = JsonMissing.of(),
+        @JsonProperty("status")
+        @ExcludeMissing
+        private val status: JsonField<Status> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -105,42 +157,104 @@ constructor(
          * An optional free-form description for the reversal ledger transaction. Maximum of 1000
          * characters allowed.
          */
-        @JsonProperty("description") fun description(): String? = description
+        fun description(): String? = description.getNullable("description")
 
         /**
          * The timestamp (ISO8601 format) at which the reversal ledger transaction happened for
          * reporting purposes. It defaults to the `effective_at` of the original ledger transaction
          * if not provided.
          */
-        @JsonProperty("effective_at") fun effectiveAt(): OffsetDateTime? = effectiveAt
+        fun effectiveAt(): OffsetDateTime? = effectiveAt.getNullable("effective_at")
 
         /** Must be unique within the ledger. */
-        @JsonProperty("external_id") fun externalId(): String? = externalId
+        fun externalId(): String? = externalId.getNullable("external_id")
 
         /**
          * Specify this if you'd like to link the reversal ledger transaction to a Payment object
          * like Return or Reversal.
          */
-        @JsonProperty("ledgerable_id") fun ledgerableId(): String? = ledgerableId
+        fun ledgerableId(): String? = ledgerableId.getNullable("ledgerable_id")
 
         /**
          * Specify this if you'd like to link the reversal ledger transaction to a Payment object
          * like Return or Reversal.
          */
-        @JsonProperty("ledgerable_type") fun ledgerableType(): LedgerableType? = ledgerableType
+        fun ledgerableType(): LedgerableType? = ledgerableType.getNullable("ledgerable_type")
 
         /**
          * Additional data to be added to the reversal ledger transaction as key-value pairs. Both
          * the key and value must be strings.
          */
-        @JsonProperty("metadata") fun metadata(): Metadata? = metadata
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
 
         /** Status of the reversal ledger transaction. It defaults to `posted` if not provided. */
-        @JsonProperty("status") fun status(): Status? = status
+        fun status(): Status? = status.getNullable("status")
+
+        /**
+         * An optional free-form description for the reversal ledger transaction. Maximum of 1000
+         * characters allowed.
+         */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
+
+        /**
+         * The timestamp (ISO8601 format) at which the reversal ledger transaction happened for
+         * reporting purposes. It defaults to the `effective_at` of the original ledger transaction
+         * if not provided.
+         */
+        @JsonProperty("effective_at")
+        @ExcludeMissing
+        fun _effectiveAt(): JsonField<OffsetDateTime> = effectiveAt
+
+        /** Must be unique within the ledger. */
+        @JsonProperty("external_id")
+        @ExcludeMissing
+        fun _externalId(): JsonField<String> = externalId
+
+        /**
+         * Specify this if you'd like to link the reversal ledger transaction to a Payment object
+         * like Return or Reversal.
+         */
+        @JsonProperty("ledgerable_id")
+        @ExcludeMissing
+        fun _ledgerableId(): JsonField<String> = ledgerableId
+
+        /**
+         * Specify this if you'd like to link the reversal ledger transaction to a Payment object
+         * like Return or Reversal.
+         */
+        @JsonProperty("ledgerable_type")
+        @ExcludeMissing
+        fun _ledgerableType(): JsonField<LedgerableType> = ledgerableType
+
+        /**
+         * Additional data to be added to the reversal ledger transaction as key-value pairs. Both
+         * the key and value must be strings.
+         */
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+
+        /** Status of the reversal ledger transaction. It defaults to `posted` if not provided. */
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): LedgerTransactionCreateReversalBody = apply {
+            if (!validated) {
+                description()
+                effectiveAt()
+                externalId()
+                ledgerableId()
+                ledgerableType()
+                metadata()?.validate()
+                status()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -151,13 +265,13 @@ constructor(
 
         class Builder {
 
-            private var description: String? = null
-            private var effectiveAt: OffsetDateTime? = null
-            private var externalId: String? = null
-            private var ledgerableId: String? = null
-            private var ledgerableType: LedgerableType? = null
-            private var metadata: Metadata? = null
-            private var status: Status? = null
+            private var description: JsonField<String> = JsonMissing.of()
+            private var effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var externalId: JsonField<String> = JsonMissing.of()
+            private var ledgerableId: JsonField<String> = JsonMissing.of()
+            private var ledgerableType: JsonField<LedgerableType> = JsonMissing.of()
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
@@ -178,29 +292,65 @@ constructor(
              * An optional free-form description for the reversal ledger transaction. Maximum of
              * 1000 characters allowed.
              */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = description(JsonField.of(description))
+
+            /**
+             * An optional free-form description for the reversal ledger transaction. Maximum of
+             * 1000 characters allowed.
+             */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
 
             /**
              * The timestamp (ISO8601 format) at which the reversal ledger transaction happened for
              * reporting purposes. It defaults to the `effective_at` of the original ledger
              * transaction if not provided.
              */
-            fun effectiveAt(effectiveAt: OffsetDateTime?) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: OffsetDateTime?) =
+                effectiveAt(JsonField.ofNullable(effectiveAt))
+
+            /**
+             * The timestamp (ISO8601 format) at which the reversal ledger transaction happened for
+             * reporting purposes. It defaults to the `effective_at` of the original ledger
+             * transaction if not provided.
+             */
+            fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
+                this.effectiveAt = effectiveAt
+            }
 
             /** Must be unique within the ledger. */
-            fun externalId(externalId: String?) = apply { this.externalId = externalId }
+            fun externalId(externalId: String) = externalId(JsonField.of(externalId))
+
+            /** Must be unique within the ledger. */
+            fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
 
             /**
              * Specify this if you'd like to link the reversal ledger transaction to a Payment
              * object like Return or Reversal.
              */
-            fun ledgerableId(ledgerableId: String?) = apply { this.ledgerableId = ledgerableId }
+            fun ledgerableId(ledgerableId: String) = ledgerableId(JsonField.of(ledgerableId))
 
             /**
              * Specify this if you'd like to link the reversal ledger transaction to a Payment
              * object like Return or Reversal.
              */
-            fun ledgerableType(ledgerableType: LedgerableType?) = apply {
+            fun ledgerableId(ledgerableId: JsonField<String>) = apply {
+                this.ledgerableId = ledgerableId
+            }
+
+            /**
+             * Specify this if you'd like to link the reversal ledger transaction to a Payment
+             * object like Return or Reversal.
+             */
+            fun ledgerableType(ledgerableType: LedgerableType) =
+                ledgerableType(JsonField.of(ledgerableType))
+
+            /**
+             * Specify this if you'd like to link the reversal ledger transaction to a Payment
+             * object like Return or Reversal.
+             */
+            fun ledgerableType(ledgerableType: JsonField<LedgerableType>) = apply {
                 this.ledgerableType = ledgerableType
             }
 
@@ -208,12 +358,23 @@ constructor(
              * Additional data to be added to the reversal ledger transaction as key-value pairs.
              * Both the key and value must be strings.
              */
-            fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Additional data to be added to the reversal ledger transaction as key-value pairs.
+             * Both the key and value must be strings.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
             /**
              * Status of the reversal ledger transaction. It defaults to `posted` if not provided.
              */
-            fun status(status: Status?) = apply { this.status = status }
+            fun status(status: Status) = status(JsonField.of(status))
+
+            /**
+             * Status of the reversal ledger transaction. It defaults to `posted` if not provided.
+             */
+            fun status(status: JsonField<Status>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -297,7 +458,13 @@ constructor(
          * An optional free-form description for the reversal ledger transaction. Maximum of 1000
          * characters allowed.
          */
-        fun description(description: String?) = apply { body.description(description) }
+        fun description(description: String) = apply { body.description(description) }
+
+        /**
+         * An optional free-form description for the reversal ledger transaction. Maximum of 1000
+         * characters allowed.
+         */
+        fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /**
          * The timestamp (ISO8601 format) at which the reversal ledger transaction happened for
@@ -306,20 +473,48 @@ constructor(
          */
         fun effectiveAt(effectiveAt: OffsetDateTime?) = apply { body.effectiveAt(effectiveAt) }
 
+        /**
+         * The timestamp (ISO8601 format) at which the reversal ledger transaction happened for
+         * reporting purposes. It defaults to the `effective_at` of the original ledger transaction
+         * if not provided.
+         */
+        fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
+            body.effectiveAt(effectiveAt)
+        }
+
         /** Must be unique within the ledger. */
-        fun externalId(externalId: String?) = apply { body.externalId(externalId) }
+        fun externalId(externalId: String) = apply { body.externalId(externalId) }
+
+        /** Must be unique within the ledger. */
+        fun externalId(externalId: JsonField<String>) = apply { body.externalId(externalId) }
 
         /**
          * Specify this if you'd like to link the reversal ledger transaction to a Payment object
          * like Return or Reversal.
          */
-        fun ledgerableId(ledgerableId: String?) = apply { body.ledgerableId(ledgerableId) }
+        fun ledgerableId(ledgerableId: String) = apply { body.ledgerableId(ledgerableId) }
 
         /**
          * Specify this if you'd like to link the reversal ledger transaction to a Payment object
          * like Return or Reversal.
          */
-        fun ledgerableType(ledgerableType: LedgerableType?) = apply {
+        fun ledgerableId(ledgerableId: JsonField<String>) = apply {
+            body.ledgerableId(ledgerableId)
+        }
+
+        /**
+         * Specify this if you'd like to link the reversal ledger transaction to a Payment object
+         * like Return or Reversal.
+         */
+        fun ledgerableType(ledgerableType: LedgerableType) = apply {
+            body.ledgerableType(ledgerableType)
+        }
+
+        /**
+         * Specify this if you'd like to link the reversal ledger transaction to a Payment object
+         * like Return or Reversal.
+         */
+        fun ledgerableType(ledgerableType: JsonField<LedgerableType>) = apply {
             body.ledgerableType(ledgerableType)
         }
 
@@ -327,10 +522,38 @@ constructor(
          * Additional data to be added to the reversal ledger transaction as key-value pairs. Both
          * the key and value must be strings.
          */
-        fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+
+        /**
+         * Additional data to be added to the reversal ledger transaction as key-value pairs. Both
+         * the key and value must be strings.
+         */
+        fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
         /** Status of the reversal ledger transaction. It defaults to `posted` if not provided. */
-        fun status(status: Status?) = apply { body.status(status) }
+        fun status(status: Status) = apply { body.status(status) }
+
+        /** Status of the reversal ledger transaction. It defaults to `posted` if not provided. */
+        fun status(status: JsonField<Status>) = apply { body.status(status) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -428,25 +651,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): LedgerTransactionCreateReversalParams =
@@ -554,6 +758,14 @@ constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (!validated) {
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 

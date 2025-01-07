@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -41,11 +42,20 @@ constructor(
      */
     fun accountNumberType(): AccountNumberType? = body.accountNumberType()
 
+    /** The account number for the bank account. */
+    fun _accountNumber(): JsonField<String> = body._accountNumber()
+
+    /**
+     * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account number
+     * is in a generic format.
+     */
+    fun _accountNumberType(): JsonField<AccountNumberType> = body._accountNumberType()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): AccountDetailCreateBody = body
 
@@ -65,25 +75,52 @@ constructor(
     class AccountDetailCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("account_number") private val accountNumber: String,
-        @JsonProperty("account_number_type") private val accountNumberType: AccountNumberType?,
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        private val accountNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_number_type")
+        @ExcludeMissing
+        private val accountNumberType: JsonField<AccountNumberType> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The account number for the bank account. */
-        @JsonProperty("account_number") fun accountNumber(): String = accountNumber
+        fun accountNumber(): String = accountNumber.getRequired("account_number")
+
+        /**
+         * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
+         * number is in a generic format.
+         */
+        fun accountNumberType(): AccountNumberType? =
+            accountNumberType.getNullable("account_number_type")
+
+        /** The account number for the bank account. */
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        fun _accountNumber(): JsonField<String> = accountNumber
 
         /**
          * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
          * number is in a generic format.
          */
         @JsonProperty("account_number_type")
-        fun accountNumberType(): AccountNumberType? = accountNumberType
+        @ExcludeMissing
+        fun _accountNumberType(): JsonField<AccountNumberType> = accountNumberType
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): AccountDetailCreateBody = apply {
+            if (!validated) {
+                accountNumber()
+                accountNumberType()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -94,8 +131,8 @@ constructor(
 
         class Builder {
 
-            private var accountNumber: String? = null
-            private var accountNumberType: AccountNumberType? = null
+            private var accountNumber: JsonField<String>? = null
+            private var accountNumberType: JsonField<AccountNumberType> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(accountDetailCreateBody: AccountDetailCreateBody) = apply {
@@ -105,13 +142,25 @@ constructor(
             }
 
             /** The account number for the bank account. */
-            fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+            fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
+
+            /** The account number for the bank account. */
+            fun accountNumber(accountNumber: JsonField<String>) = apply {
+                this.accountNumber = accountNumber
+            }
 
             /**
              * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
              * number is in a generic format.
              */
-            fun accountNumberType(accountNumberType: AccountNumberType?) = apply {
+            fun accountNumberType(accountNumberType: AccountNumberType) =
+                accountNumberType(JsonField.of(accountNumberType))
+
+            /**
+             * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
+             * number is in a generic format.
+             */
+            fun accountNumberType(accountNumberType: JsonField<AccountNumberType>) = apply {
                 this.accountNumberType = accountNumberType
             }
 
@@ -191,12 +240,44 @@ constructor(
         /** The account number for the bank account. */
         fun accountNumber(accountNumber: String) = apply { body.accountNumber(accountNumber) }
 
+        /** The account number for the bank account. */
+        fun accountNumber(accountNumber: JsonField<String>) = apply {
+            body.accountNumber(accountNumber)
+        }
+
         /**
          * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
          * number is in a generic format.
          */
-        fun accountNumberType(accountNumberType: AccountNumberType?) = apply {
+        fun accountNumberType(accountNumberType: AccountNumberType) = apply {
             body.accountNumberType(accountNumberType)
+        }
+
+        /**
+         * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
+         * number is in a generic format.
+         */
+        fun accountNumberType(accountNumberType: JsonField<AccountNumberType>) = apply {
+            body.accountNumberType(accountNumberType)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -295,25 +376,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): AccountDetailCreateParams =

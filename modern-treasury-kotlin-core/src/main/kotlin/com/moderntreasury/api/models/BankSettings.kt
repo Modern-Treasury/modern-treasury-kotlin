@@ -89,16 +89,20 @@ private constructor(
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The percentage of backup withholding to apply to the legal entity. */
     @JsonProperty("backup_withholding_percentage")
     @ExcludeMissing
-    fun _backupWithholdingPercentage() = backupWithholdingPercentage
+    fun _backupWithholdingPercentage(): JsonField<Long> = backupWithholdingPercentage
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    @JsonProperty("discarded_at") @ExcludeMissing fun _discardedAt() = discardedAt
+    @JsonProperty("discarded_at")
+    @ExcludeMissing
+    fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
     /**
      * Whether backup withholding is enabled. See more here -
@@ -106,18 +110,20 @@ private constructor(
      */
     @JsonProperty("enable_backup_withholding")
     @ExcludeMissing
-    fun _enableBackupWithholding() = enableBackupWithholding
+    fun _enableBackupWithholding(): JsonField<Boolean> = enableBackupWithholding
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /** Cross River Bank specific setting to opt out of privacy policy. */
-    @JsonProperty("privacy_opt_out") @ExcludeMissing fun _privacyOptOut() = privacyOptOut
+    @JsonProperty("privacy_opt_out")
+    @ExcludeMissing
+    fun _privacyOptOut(): JsonField<Boolean> = privacyOptOut
 
     /**
      * It covers, among other types of insider loans, extensions of credit by a member bank to an
@@ -125,9 +131,13 @@ private constructor(
      * company of which the member bank is a subsidiary; and any other subsidiary of that bank
      * holding company.
      */
-    @JsonProperty("regulation_o") @ExcludeMissing fun _regulationO() = regulationO
+    @JsonProperty("regulation_o")
+    @ExcludeMissing
+    fun _regulationO(): JsonField<Boolean> = regulationO
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -160,16 +170,16 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var backupWithholdingPercentage: JsonField<Long> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var enableBackupWithholding: JsonField<Boolean> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var privacyOptOut: JsonField<Boolean> = JsonMissing.of()
-        private var regulationO: JsonField<Boolean> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var backupWithholdingPercentage: JsonField<Long>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var discardedAt: JsonField<OffsetDateTime>? = null
+        private var enableBackupWithholding: JsonField<Boolean>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var object_: JsonField<String>? = null
+        private var privacyOptOut: JsonField<Boolean>? = null
+        private var regulationO: JsonField<Boolean>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(bankSettings: BankSettings) = apply {
@@ -191,8 +201,12 @@ private constructor(
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The percentage of backup withholding to apply to the legal entity. */
+        fun backupWithholdingPercentage(backupWithholdingPercentage: Long?) =
+            backupWithholdingPercentage(JsonField.ofNullable(backupWithholdingPercentage))
+
+        /** The percentage of backup withholding to apply to the legal entity. */
         fun backupWithholdingPercentage(backupWithholdingPercentage: Long) =
-            backupWithholdingPercentage(JsonField.of(backupWithholdingPercentage))
+            backupWithholdingPercentage(backupWithholdingPercentage as Long?)
 
         /** The percentage of backup withholding to apply to the legal entity. */
         fun backupWithholdingPercentage(backupWithholdingPercentage: JsonField<Long>) = apply {
@@ -203,7 +217,8 @@ private constructor(
 
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        fun discardedAt(discardedAt: OffsetDateTime) = discardedAt(JsonField.of(discardedAt))
+        fun discardedAt(discardedAt: OffsetDateTime?) =
+            discardedAt(JsonField.ofNullable(discardedAt))
 
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
@@ -213,8 +228,15 @@ private constructor(
          * Whether backup withholding is enabled. See more here -
          * https://www.irs.gov/businesses/small-businesses-self-employed/backup-withholding.
          */
+        fun enableBackupWithholding(enableBackupWithholding: Boolean?) =
+            enableBackupWithholding(JsonField.ofNullable(enableBackupWithholding))
+
+        /**
+         * Whether backup withholding is enabled. See more here -
+         * https://www.irs.gov/businesses/small-businesses-self-employed/backup-withholding.
+         */
         fun enableBackupWithholding(enableBackupWithholding: Boolean) =
-            enableBackupWithholding(JsonField.of(enableBackupWithholding))
+            enableBackupWithholding(enableBackupWithholding as Boolean?)
 
         /**
          * Whether backup withholding is enabled. See more here -
@@ -241,7 +263,11 @@ private constructor(
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /** Cross River Bank specific setting to opt out of privacy policy. */
-        fun privacyOptOut(privacyOptOut: Boolean) = privacyOptOut(JsonField.of(privacyOptOut))
+        fun privacyOptOut(privacyOptOut: Boolean?) =
+            privacyOptOut(JsonField.ofNullable(privacyOptOut))
+
+        /** Cross River Bank specific setting to opt out of privacy policy. */
+        fun privacyOptOut(privacyOptOut: Boolean) = privacyOptOut(privacyOptOut as Boolean?)
 
         /** Cross River Bank specific setting to opt out of privacy policy. */
         fun privacyOptOut(privacyOptOut: JsonField<Boolean>) = apply {
@@ -254,7 +280,15 @@ private constructor(
          * holding company of which the member bank is a subsidiary; and any other subsidiary of
          * that bank holding company.
          */
-        fun regulationO(regulationO: Boolean) = regulationO(JsonField.of(regulationO))
+        fun regulationO(regulationO: Boolean?) = regulationO(JsonField.ofNullable(regulationO))
+
+        /**
+         * It covers, among other types of insider loans, extensions of credit by a member bank to
+         * an executive officer, director, or principal shareholder of the member bank; a bank
+         * holding company of which the member bank is a subsidiary; and any other subsidiary of
+         * that bank holding company.
+         */
+        fun regulationO(regulationO: Boolean) = regulationO(regulationO as Boolean?)
 
         /**
          * It covers, among other types of insider loans, extensions of credit by a member bank to
@@ -289,16 +323,20 @@ private constructor(
 
         fun build(): BankSettings =
             BankSettings(
-                id,
-                backupWithholdingPercentage,
-                createdAt,
-                discardedAt,
-                enableBackupWithholding,
-                liveMode,
-                object_,
-                privacyOptOut,
-                regulationO,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(backupWithholdingPercentage) {
+                    "`backupWithholdingPercentage` is required but was not set"
+                },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
+                checkNotNull(enableBackupWithholding) {
+                    "`enableBackupWithholding` is required but was not set"
+                },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(privacyOptOut) { "`privacyOptOut` is required but was not set" },
+                checkNotNull(regulationO) { "`regulationO` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

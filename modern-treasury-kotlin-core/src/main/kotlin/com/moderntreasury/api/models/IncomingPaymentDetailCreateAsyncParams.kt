@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.http.Headers
@@ -51,11 +52,35 @@ constructor(
     /** An optional parameter to associate the incoming payment detail to a virtual account. */
     fun virtualAccountId(): String? = body.virtualAccountId()
 
+    /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /** Defaults to today. */
+    fun _asOfDate(): JsonField<LocalDate> = body._asOfDate()
+
+    /** Defaults to the currency of the originating account. */
+    fun _currency(): JsonField<Currency> = body._currency()
+
+    /** Defaults to a random description. */
+    fun _description(): JsonField<String> = body._description()
+
+    /** One of `credit`, `debit`. */
+    fun _direction(): JsonField<Direction> = body._direction()
+
+    /** The ID of one of your internal accounts. */
+    fun _internalAccountId(): JsonField<String> = body._internalAccountId()
+
+    /** One of `ach`, `wire`, `check`. */
+    fun _type(): JsonField<Type> = body._type()
+
+    /** An optional parameter to associate the incoming payment detail to a virtual account. */
+    fun _virtualAccountId(): JsonField<String> = body._virtualAccountId()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): IncomingPaymentDetailCreateAsyncBody = body
 
@@ -67,45 +92,107 @@ constructor(
     class IncomingPaymentDetailCreateAsyncBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("amount") private val amount: Long?,
-        @JsonProperty("as_of_date") private val asOfDate: LocalDate?,
-        @JsonProperty("currency") private val currency: Currency?,
-        @JsonProperty("description") private val description: String?,
-        @JsonProperty("direction") private val direction: Direction?,
-        @JsonProperty("internal_account_id") private val internalAccountId: String?,
-        @JsonProperty("type") private val type: Type?,
-        @JsonProperty("virtual_account_id") private val virtualAccountId: String?,
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("as_of_date")
+        @ExcludeMissing
+        private val asOfDate: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("currency")
+        @ExcludeMissing
+        private val currency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("direction")
+        @ExcludeMissing
+        private val direction: JsonField<Direction> = JsonMissing.of(),
+        @JsonProperty("internal_account_id")
+        @ExcludeMissing
+        private val internalAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("virtual_account_id")
+        @ExcludeMissing
+        private val virtualAccountId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        fun amount(): Long? = amount.getNullable("amount")
 
         /** Defaults to today. */
-        @JsonProperty("as_of_date") fun asOfDate(): LocalDate? = asOfDate
+        fun asOfDate(): LocalDate? = asOfDate.getNullable("as_of_date")
 
         /** Defaults to the currency of the originating account. */
-        @JsonProperty("currency") fun currency(): Currency? = currency
+        fun currency(): Currency? = currency.getNullable("currency")
 
         /** Defaults to a random description. */
-        @JsonProperty("description") fun description(): String? = description
+        fun description(): String? = description.getNullable("description")
 
         /** One of `credit`, `debit`. */
-        @JsonProperty("direction") fun direction(): Direction? = direction
+        fun direction(): Direction? = direction.getNullable("direction")
 
         /** The ID of one of your internal accounts. */
-        @JsonProperty("internal_account_id") fun internalAccountId(): String? = internalAccountId
+        fun internalAccountId(): String? = internalAccountId.getNullable("internal_account_id")
 
         /** One of `ach`, `wire`, `check`. */
-        @JsonProperty("type") fun type(): Type? = type
+        fun type(): Type? = type.getNullable("type")
 
         /** An optional parameter to associate the incoming payment detail to a virtual account. */
-        @JsonProperty("virtual_account_id") fun virtualAccountId(): String? = virtualAccountId
+        fun virtualAccountId(): String? = virtualAccountId.getNullable("virtual_account_id")
+
+        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /** Defaults to today. */
+        @JsonProperty("as_of_date") @ExcludeMissing fun _asOfDate(): JsonField<LocalDate> = asOfDate
+
+        /** Defaults to the currency of the originating account. */
+        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
+
+        /** Defaults to a random description. */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
+
+        /** One of `credit`, `debit`. */
+        @JsonProperty("direction")
+        @ExcludeMissing
+        fun _direction(): JsonField<Direction> = direction
+
+        /** The ID of one of your internal accounts. */
+        @JsonProperty("internal_account_id")
+        @ExcludeMissing
+        fun _internalAccountId(): JsonField<String> = internalAccountId
+
+        /** One of `ach`, `wire`, `check`. */
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+
+        /** An optional parameter to associate the incoming payment detail to a virtual account. */
+        @JsonProperty("virtual_account_id")
+        @ExcludeMissing
+        fun _virtualAccountId(): JsonField<String> = virtualAccountId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): IncomingPaymentDetailCreateAsyncBody = apply {
+            if (!validated) {
+                amount()
+                asOfDate()
+                currency()
+                description()
+                direction()
+                internalAccountId()
+                type()
+                virtualAccountId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -116,14 +203,14 @@ constructor(
 
         class Builder {
 
-            private var amount: Long? = null
-            private var asOfDate: LocalDate? = null
-            private var currency: Currency? = null
-            private var description: String? = null
-            private var direction: Direction? = null
-            private var internalAccountId: String? = null
-            private var type: Type? = null
-            private var virtualAccountId: String? = null
+            private var amount: JsonField<Long> = JsonMissing.of()
+            private var asOfDate: JsonField<LocalDate> = JsonMissing.of()
+            private var currency: JsonField<Currency> = JsonMissing.of()
+            private var description: JsonField<String> = JsonMissing.of()
+            private var direction: JsonField<Direction> = JsonMissing.of()
+            private var internalAccountId: JsonField<String> = JsonMissing.of()
+            private var type: JsonField<Type> = JsonMissing.of()
+            private var virtualAccountId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
@@ -144,37 +231,64 @@ constructor(
             /**
              * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
              */
-            fun amount(amount: Long?) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /**
              * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
              */
-            fun amount(amount: Long) = amount(amount as Long?)
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** Defaults to today. */
-            fun asOfDate(asOfDate: LocalDate?) = apply { this.asOfDate = asOfDate }
+            fun asOfDate(asOfDate: LocalDate?) = asOfDate(JsonField.ofNullable(asOfDate))
+
+            /** Defaults to today. */
+            fun asOfDate(asOfDate: JsonField<LocalDate>) = apply { this.asOfDate = asOfDate }
 
             /** Defaults to the currency of the originating account. */
-            fun currency(currency: Currency?) = apply { this.currency = currency }
+            fun currency(currency: Currency?) = currency(JsonField.ofNullable(currency))
+
+            /** Defaults to the currency of the originating account. */
+            fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
             /** Defaults to a random description. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String?) = description(JsonField.ofNullable(description))
+
+            /** Defaults to a random description. */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
 
             /** One of `credit`, `debit`. */
-            fun direction(direction: Direction?) = apply { this.direction = direction }
+            fun direction(direction: Direction) = direction(JsonField.of(direction))
+
+            /** One of `credit`, `debit`. */
+            fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
             /** The ID of one of your internal accounts. */
-            fun internalAccountId(internalAccountId: String?) = apply {
+            fun internalAccountId(internalAccountId: String) =
+                internalAccountId(JsonField.of(internalAccountId))
+
+            /** The ID of one of your internal accounts. */
+            fun internalAccountId(internalAccountId: JsonField<String>) = apply {
                 this.internalAccountId = internalAccountId
             }
 
             /** One of `ach`, `wire`, `check`. */
-            fun type(type: Type?) = apply { this.type = type }
+            fun type(type: Type) = type(JsonField.of(type))
+
+            /** One of `ach`, `wire`, `check`. */
+            fun type(type: JsonField<Type>) = apply { this.type = type }
 
             /**
              * An optional parameter to associate the incoming payment detail to a virtual account.
              */
-            fun virtualAccountId(virtualAccountId: String?) = apply {
+            fun virtualAccountId(virtualAccountId: String?) =
+                virtualAccountId(JsonField.ofNullable(virtualAccountId))
+
+            /**
+             * An optional parameter to associate the incoming payment detail to a virtual account.
+             */
+            fun virtualAccountId(virtualAccountId: JsonField<String>) = apply {
                 this.virtualAccountId = virtualAccountId
             }
 
@@ -254,34 +368,78 @@ constructor(
         }
 
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-        fun amount(amount: Long?) = apply { body.amount(amount) }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
-        fun amount(amount: Long) = amount(amount as Long?)
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /** Defaults to today. */
         fun asOfDate(asOfDate: LocalDate?) = apply { body.asOfDate(asOfDate) }
 
+        /** Defaults to today. */
+        fun asOfDate(asOfDate: JsonField<LocalDate>) = apply { body.asOfDate(asOfDate) }
+
         /** Defaults to the currency of the originating account. */
         fun currency(currency: Currency?) = apply { body.currency(currency) }
+
+        /** Defaults to the currency of the originating account. */
+        fun currency(currency: JsonField<Currency>) = apply { body.currency(currency) }
 
         /** Defaults to a random description. */
         fun description(description: String?) = apply { body.description(description) }
 
+        /** Defaults to a random description. */
+        fun description(description: JsonField<String>) = apply { body.description(description) }
+
         /** One of `credit`, `debit`. */
-        fun direction(direction: Direction?) = apply { body.direction(direction) }
+        fun direction(direction: Direction) = apply { body.direction(direction) }
+
+        /** One of `credit`, `debit`. */
+        fun direction(direction: JsonField<Direction>) = apply { body.direction(direction) }
 
         /** The ID of one of your internal accounts. */
-        fun internalAccountId(internalAccountId: String?) = apply {
+        fun internalAccountId(internalAccountId: String) = apply {
+            body.internalAccountId(internalAccountId)
+        }
+
+        /** The ID of one of your internal accounts. */
+        fun internalAccountId(internalAccountId: JsonField<String>) = apply {
             body.internalAccountId(internalAccountId)
         }
 
         /** One of `ach`, `wire`, `check`. */
-        fun type(type: Type?) = apply { body.type(type) }
+        fun type(type: Type) = apply { body.type(type) }
+
+        /** One of `ach`, `wire`, `check`. */
+        fun type(type: JsonField<Type>) = apply { body.type(type) }
 
         /** An optional parameter to associate the incoming payment detail to a virtual account. */
         fun virtualAccountId(virtualAccountId: String?) = apply {
             body.virtualAccountId(virtualAccountId)
+        }
+
+        /** An optional parameter to associate the incoming payment detail to a virtual account. */
+        fun virtualAccountId(virtualAccountId: JsonField<String>) = apply {
+            body.virtualAccountId(virtualAccountId)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -380,25 +538,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): IncomingPaymentDetailCreateAsyncParams =

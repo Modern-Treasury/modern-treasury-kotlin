@@ -100,45 +100,57 @@ private constructor(
      * The lowest amount this expected payment may be equal to. Value in specified currency's
      * smallest unit. e.g. $10 would be represented as 1000.
      */
-    @JsonProperty("amount_lower_bound") @ExcludeMissing fun _amountLowerBound() = amountLowerBound
+    @JsonProperty("amount_lower_bound")
+    @ExcludeMissing
+    fun _amountLowerBound(): JsonField<Long> = amountLowerBound
 
     /**
      * The highest amount this expected payment may be equal to. Value in specified currency's
      * smallest unit. e.g. $10 would be represented as 1000.
      */
-    @JsonProperty("amount_upper_bound") @ExcludeMissing fun _amountUpperBound() = amountUpperBound
+    @JsonProperty("amount_upper_bound")
+    @ExcludeMissing
+    fun _amountUpperBound(): JsonField<Long> = amountUpperBound
 
     /**
      * One of credit or debit. When you are receiving money, use credit. When you are being charged,
      * use debit.
      */
-    @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
+    @JsonProperty("direction") @ExcludeMissing fun _direction(): JsonField<Direction> = direction
 
     /** The ID of the Internal Account for the expected payment */
     @JsonProperty("internal_account_id")
     @ExcludeMissing
-    fun _internalAccountId() = internalAccountId
+    fun _internalAccountId(): JsonField<String> = internalAccountId
 
     /** The ID of the counterparty you expect for this payment */
-    @JsonProperty("counterparty_id") @ExcludeMissing fun _counterpartyId() = counterpartyId
+    @JsonProperty("counterparty_id")
+    @ExcludeMissing
+    fun _counterpartyId(): JsonField<String> = counterpartyId
 
     /** Must conform to ISO 4217. Defaults to the currency of the internal account */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+    @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
     /** A hash of custom identifiers for this payment */
-    @JsonProperty("custom_identifiers") @ExcludeMissing fun _customIdentifiers() = customIdentifiers
+    @JsonProperty("custom_identifiers")
+    @ExcludeMissing
+    fun _customIdentifiers(): JsonField<CustomIdentifiers> = customIdentifiers
 
     /** The earliest date the payment may come in. Format is yyyy-mm-dd */
-    @JsonProperty("date_lower_bound") @ExcludeMissing fun _dateLowerBound() = dateLowerBound
+    @JsonProperty("date_lower_bound")
+    @ExcludeMissing
+    fun _dateLowerBound(): JsonField<LocalDate> = dateLowerBound
 
     /** The latest date the payment may come in. Format is yyyy-mm-dd */
-    @JsonProperty("date_upper_bound") @ExcludeMissing fun _dateUpperBound() = dateUpperBound
+    @JsonProperty("date_upper_bound")
+    @ExcludeMissing
+    fun _dateUpperBound(): JsonField<LocalDate> = dateUpperBound
 
     /**
      * One of ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa, signet
      * wire
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -171,10 +183,10 @@ private constructor(
 
     class Builder {
 
-        private var amountLowerBound: JsonField<Long> = JsonMissing.of()
-        private var amountUpperBound: JsonField<Long> = JsonMissing.of()
-        private var direction: JsonField<Direction> = JsonMissing.of()
-        private var internalAccountId: JsonField<String> = JsonMissing.of()
+        private var amountLowerBound: JsonField<Long>? = null
+        private var amountUpperBound: JsonField<Long>? = null
+        private var direction: JsonField<Direction>? = null
+        private var internalAccountId: JsonField<String>? = null
         private var counterpartyId: JsonField<String> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
         private var customIdentifiers: JsonField<CustomIdentifiers> = JsonMissing.of()
@@ -249,7 +261,8 @@ private constructor(
         }
 
         /** The ID of the counterparty you expect for this payment */
-        fun counterpartyId(counterpartyId: String) = counterpartyId(JsonField.of(counterpartyId))
+        fun counterpartyId(counterpartyId: String?) =
+            counterpartyId(JsonField.ofNullable(counterpartyId))
 
         /** The ID of the counterparty you expect for this payment */
         fun counterpartyId(counterpartyId: JsonField<String>) = apply {
@@ -263,8 +276,8 @@ private constructor(
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** A hash of custom identifiers for this payment */
-        fun customIdentifiers(customIdentifiers: CustomIdentifiers) =
-            customIdentifiers(JsonField.of(customIdentifiers))
+        fun customIdentifiers(customIdentifiers: CustomIdentifiers?) =
+            customIdentifiers(JsonField.ofNullable(customIdentifiers))
 
         /** A hash of custom identifiers for this payment */
         fun customIdentifiers(customIdentifiers: JsonField<CustomIdentifiers>) = apply {
@@ -272,7 +285,8 @@ private constructor(
         }
 
         /** The earliest date the payment may come in. Format is yyyy-mm-dd */
-        fun dateLowerBound(dateLowerBound: LocalDate) = dateLowerBound(JsonField.of(dateLowerBound))
+        fun dateLowerBound(dateLowerBound: LocalDate?) =
+            dateLowerBound(JsonField.ofNullable(dateLowerBound))
 
         /** The earliest date the payment may come in. Format is yyyy-mm-dd */
         fun dateLowerBound(dateLowerBound: JsonField<LocalDate>) = apply {
@@ -280,7 +294,8 @@ private constructor(
         }
 
         /** The latest date the payment may come in. Format is yyyy-mm-dd */
-        fun dateUpperBound(dateUpperBound: LocalDate) = dateUpperBound(JsonField.of(dateUpperBound))
+        fun dateUpperBound(dateUpperBound: LocalDate?) =
+            dateUpperBound(JsonField.ofNullable(dateUpperBound))
 
         /** The latest date the payment may come in. Format is yyyy-mm-dd */
         fun dateUpperBound(dateUpperBound: JsonField<LocalDate>) = apply {
@@ -291,7 +306,7 @@ private constructor(
          * One of ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa, signet
          * wire
          */
-        fun type(type: Type) = type(JsonField.of(type))
+        fun type(type: Type?) = type(JsonField.ofNullable(type))
 
         /**
          * One of ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa, signet
@@ -320,10 +335,12 @@ private constructor(
 
         fun build(): ReconciliationRule =
             ReconciliationRule(
-                amountLowerBound,
-                amountUpperBound,
-                direction,
-                internalAccountId,
+                checkNotNull(amountLowerBound) { "`amountLowerBound` is required but was not set" },
+                checkNotNull(amountUpperBound) { "`amountUpperBound` is required but was not set" },
+                checkNotNull(direction) { "`direction` is required but was not set" },
+                checkNotNull(internalAccountId) {
+                    "`internalAccountId` is required but was not set"
+                },
                 counterpartyId,
                 currency,
                 customIdentifiers,

@@ -87,13 +87,13 @@ private constructor(
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The date of the balance report in local time. */
-    @JsonProperty("as_of_date") @ExcludeMissing fun _asOfDate() = asOfDate
+    @JsonProperty("as_of_date") @ExcludeMissing fun _asOfDate(): JsonField<LocalDate> = asOfDate
 
     /** The time (24-hour clock) of the balance report in local time. */
-    @JsonProperty("as_of_time") @ExcludeMissing fun _asOfTime() = asOfTime
+    @JsonProperty("as_of_time") @ExcludeMissing fun _asOfTime(): JsonField<String> = asOfTime
 
     /**
      * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
@@ -101,27 +101,31 @@ private constructor(
      */
     @JsonProperty("balance_report_type")
     @ExcludeMissing
-    fun _balanceReportType() = balanceReportType
+    fun _balanceReportType(): JsonField<BalanceReportType> = balanceReportType
 
     /** An array of `Balance` objects. */
-    @JsonProperty("balances") @ExcludeMissing fun _balances() = balances
+    @JsonProperty("balances") @ExcludeMissing fun _balances(): JsonField<List<Balance>> = balances
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The ID of one of your organization's Internal Accounts. */
     @JsonProperty("internal_account_id")
     @ExcludeMissing
-    fun _internalAccountId() = internalAccountId
+    fun _internalAccountId(): JsonField<String> = internalAccountId
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -154,16 +158,16 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var asOfDate: JsonField<LocalDate> = JsonMissing.of()
-        private var asOfTime: JsonField<String> = JsonMissing.of()
-        private var balanceReportType: JsonField<BalanceReportType> = JsonMissing.of()
-        private var balances: JsonField<List<Balance>> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var internalAccountId: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var asOfDate: JsonField<LocalDate>? = null
+        private var asOfTime: JsonField<String>? = null
+        private var balanceReportType: JsonField<BalanceReportType>? = null
+        private var balances: JsonField<MutableList<Balance>>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var internalAccountId: JsonField<String>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var object_: JsonField<String>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(balanceReport: BalanceReport) = apply {
@@ -171,7 +175,7 @@ private constructor(
             asOfDate = balanceReport.asOfDate
             asOfTime = balanceReport.asOfTime
             balanceReportType = balanceReport.balanceReportType
-            balances = balanceReport.balances
+            balances = balanceReport.balances.map { it.toMutableList() }
             createdAt = balanceReport.createdAt
             internalAccountId = balanceReport.internalAccountId
             liveMode = balanceReport.liveMode
@@ -191,7 +195,7 @@ private constructor(
         fun asOfDate(asOfDate: JsonField<LocalDate>) = apply { this.asOfDate = asOfDate }
 
         /** The time (24-hour clock) of the balance report in local time. */
-        fun asOfTime(asOfTime: String) = asOfTime(JsonField.of(asOfTime))
+        fun asOfTime(asOfTime: String?) = asOfTime(JsonField.ofNullable(asOfTime))
 
         /** The time (24-hour clock) of the balance report in local time. */
         fun asOfTime(asOfTime: JsonField<String>) = apply { this.asOfTime = asOfTime }
@@ -215,7 +219,21 @@ private constructor(
         fun balances(balances: List<Balance>) = balances(JsonField.of(balances))
 
         /** An array of `Balance` objects. */
-        fun balances(balances: JsonField<List<Balance>>) = apply { this.balances = balances }
+        fun balances(balances: JsonField<List<Balance>>) = apply {
+            this.balances = balances.map { it.toMutableList() }
+        }
+
+        /** An array of `Balance` objects. */
+        fun addBalance(balance: Balance) = apply {
+            balances =
+                (balances ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(balance)
+                }
+        }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
@@ -271,16 +289,21 @@ private constructor(
 
         fun build(): BalanceReport =
             BalanceReport(
-                id,
-                asOfDate,
-                asOfTime,
-                balanceReportType,
-                balances.map { it.toImmutable() },
-                createdAt,
-                internalAccountId,
-                liveMode,
-                object_,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(asOfDate) { "`asOfDate` is required but was not set" },
+                checkNotNull(asOfTime) { "`asOfTime` is required but was not set" },
+                checkNotNull(balanceReportType) {
+                    "`balanceReportType` is required but was not set"
+                },
+                checkNotNull(balances) { "`balances` is required but was not set" }
+                    .map { it.toImmutable() },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(internalAccountId) {
+                    "`internalAccountId` is required but was not set"
+                },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -446,51 +469,63 @@ private constructor(
          */
         fun vendorCodeType(): String? = vendorCodeType.getNullable("vendor_code_type")
 
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
         /** The balance amount. */
-        @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /** The date on which the balance became true for the account. */
-        @JsonProperty("as_of_date") @ExcludeMissing fun _asOfDate() = asOfDate
+        @JsonProperty("as_of_date") @ExcludeMissing fun _asOfDate(): JsonField<LocalDate> = asOfDate
 
         /** The time on which the balance became true for the account. */
-        @JsonProperty("as_of_time") @ExcludeMissing fun _asOfTime() = asOfTime
+        @JsonProperty("as_of_time") @ExcludeMissing fun _asOfTime(): JsonField<String> = asOfTime
 
         /**
          * The specific type of balance reported. One of `opening_ledger`, `closing_ledger`,
          * `current_ledger`, `opening_available`, `opening_available_next_business_day`,
          * `closing_available`, `current_available`, or `other`.
          */
-        @JsonProperty("balance_type") @ExcludeMissing fun _balanceType() = balanceType
+        @JsonProperty("balance_type")
+        @ExcludeMissing
+        fun _balanceType(): JsonField<BalanceType> = balanceType
 
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
         /** The currency of the balance. */
-        @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
         /**
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
          */
-        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-        @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+        @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-        @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
         /** The date on which the balance becomes available. */
-        @JsonProperty("value_date") @ExcludeMissing fun _valueDate() = valueDate
+        @JsonProperty("value_date")
+        @ExcludeMissing
+        fun _valueDate(): JsonField<LocalDate> = valueDate
 
         /** The code used by the bank when reporting this specific balance. */
-        @JsonProperty("vendor_code") @ExcludeMissing fun _vendorCode() = vendorCode
+        @JsonProperty("vendor_code")
+        @ExcludeMissing
+        fun _vendorCode(): JsonField<String> = vendorCode
 
         /**
          * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
          * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`,
          * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, or `us_bank`.
          */
-        @JsonProperty("vendor_code_type") @ExcludeMissing fun _vendorCodeType() = vendorCodeType
+        @JsonProperty("vendor_code_type")
+        @ExcludeMissing
+        fun _vendorCodeType(): JsonField<String> = vendorCodeType
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -526,19 +561,19 @@ private constructor(
 
         class Builder {
 
-            private var id: JsonField<String> = JsonMissing.of()
-            private var amount: JsonField<Long> = JsonMissing.of()
-            private var asOfDate: JsonField<LocalDate> = JsonMissing.of()
-            private var asOfTime: JsonField<String> = JsonMissing.of()
-            private var balanceType: JsonField<BalanceType> = JsonMissing.of()
-            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var currency: JsonField<Currency> = JsonMissing.of()
-            private var liveMode: JsonField<Boolean> = JsonMissing.of()
-            private var object_: JsonField<String> = JsonMissing.of()
-            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var valueDate: JsonField<LocalDate> = JsonMissing.of()
-            private var vendorCode: JsonField<String> = JsonMissing.of()
-            private var vendorCodeType: JsonField<String> = JsonMissing.of()
+            private var id: JsonField<String>? = null
+            private var amount: JsonField<Long>? = null
+            private var asOfDate: JsonField<LocalDate>? = null
+            private var asOfTime: JsonField<String>? = null
+            private var balanceType: JsonField<BalanceType>? = null
+            private var createdAt: JsonField<OffsetDateTime>? = null
+            private var currency: JsonField<Currency>? = null
+            private var liveMode: JsonField<Boolean>? = null
+            private var object_: JsonField<String>? = null
+            private var updatedAt: JsonField<OffsetDateTime>? = null
+            private var valueDate: JsonField<LocalDate>? = null
+            private var vendorCode: JsonField<String>? = null
+            private var vendorCodeType: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(balance: Balance) = apply {
@@ -569,13 +604,13 @@ private constructor(
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The date on which the balance became true for the account. */
-            fun asOfDate(asOfDate: LocalDate) = asOfDate(JsonField.of(asOfDate))
+            fun asOfDate(asOfDate: LocalDate?) = asOfDate(JsonField.ofNullable(asOfDate))
 
             /** The date on which the balance became true for the account. */
             fun asOfDate(asOfDate: JsonField<LocalDate>) = apply { this.asOfDate = asOfDate }
 
             /** The time on which the balance became true for the account. */
-            fun asOfTime(asOfTime: String) = asOfTime(JsonField.of(asOfTime))
+            fun asOfTime(asOfTime: String?) = asOfTime(JsonField.ofNullable(asOfTime))
 
             /** The time on which the balance became true for the account. */
             fun asOfTime(asOfTime: JsonField<String>) = apply { this.asOfTime = asOfTime }
@@ -631,7 +666,7 @@ private constructor(
             }
 
             /** The date on which the balance becomes available. */
-            fun valueDate(valueDate: LocalDate) = valueDate(JsonField.of(valueDate))
+            fun valueDate(valueDate: LocalDate?) = valueDate(JsonField.ofNullable(valueDate))
 
             /** The date on which the balance becomes available. */
             fun valueDate(valueDate: JsonField<LocalDate>) = apply { this.valueDate = valueDate }
@@ -648,8 +683,8 @@ private constructor(
              * `evolve`, `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`,
              * or `us_bank`.
              */
-            fun vendorCodeType(vendorCodeType: String) =
-                vendorCodeType(JsonField.of(vendorCodeType))
+            fun vendorCodeType(vendorCodeType: String?) =
+                vendorCodeType(JsonField.ofNullable(vendorCodeType))
 
             /**
              * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`,
@@ -682,19 +717,19 @@ private constructor(
 
             fun build(): Balance =
                 Balance(
-                    id,
-                    amount,
-                    asOfDate,
-                    asOfTime,
-                    balanceType,
-                    createdAt,
-                    currency,
-                    liveMode,
-                    object_,
-                    updatedAt,
-                    valueDate,
-                    vendorCode,
-                    vendorCodeType,
+                    checkNotNull(id) { "`id` is required but was not set" },
+                    checkNotNull(amount) { "`amount` is required but was not set" },
+                    checkNotNull(asOfDate) { "`asOfDate` is required but was not set" },
+                    checkNotNull(asOfTime) { "`asOfTime` is required but was not set" },
+                    checkNotNull(balanceType) { "`balanceType` is required but was not set" },
+                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                    checkNotNull(currency) { "`currency` is required but was not set" },
+                    checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                    checkNotNull(object_) { "`object_` is required but was not set" },
+                    checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                    checkNotNull(valueDate) { "`valueDate` is required but was not set" },
+                    checkNotNull(vendorCode) { "`vendorCode` is required but was not set" },
+                    checkNotNull(vendorCodeType) { "`vendorCodeType` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }

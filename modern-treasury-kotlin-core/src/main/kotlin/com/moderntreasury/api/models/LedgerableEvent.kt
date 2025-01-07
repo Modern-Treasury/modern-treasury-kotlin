@@ -53,6 +53,9 @@ private constructor(
 
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
+    /** Additionally data to be used by the Ledger Event Handler. */
+    @JsonProperty("custom_data") @ExcludeMissing fun _customData(): JsonValue = customData
+
     /** Description of the ledgerable event. */
     fun description(): String? = description.getNullable("description")
 
@@ -75,36 +78,37 @@ private constructor(
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    /** Additionally data to be used by the Ledger Event Handler. */
-    @JsonProperty("custom_data") @ExcludeMissing fun _customData() = customData
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** Description of the ledgerable event. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /** Id of the ledger event handler that is used to create a ledger transaction. */
     @JsonProperty("ledger_event_handler_id")
     @ExcludeMissing
-    fun _ledgerEventHandlerId() = ledgerEventHandlerId
+    fun _ledgerEventHandlerId(): JsonField<String> = ledgerEventHandlerId
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode() = liveMode
+    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata() = metadata
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
     /** Name of the ledgerable event. */
-    @JsonProperty("name") @ExcludeMissing fun _name() = name
+    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-    @JsonProperty("object") @ExcludeMissing fun _object_() = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -136,16 +140,16 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var customData: JsonValue = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var ledgerEventHandlerId: JsonField<String> = JsonMissing.of()
-        private var liveMode: JsonField<Boolean> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
-        private var name: JsonField<String> = JsonMissing.of()
-        private var object_: JsonField<String> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var customData: JsonValue? = null
+        private var description: JsonField<String>? = null
+        private var ledgerEventHandlerId: JsonField<String>? = null
+        private var liveMode: JsonField<Boolean>? = null
+        private var metadata: JsonField<Metadata>? = null
+        private var name: JsonField<String>? = null
+        private var object_: JsonField<String>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(ledgerableEvent: LedgerableEvent) = apply {
@@ -174,7 +178,7 @@ private constructor(
         fun customData(customData: JsonValue) = apply { this.customData = customData }
 
         /** Description of the ledgerable event. */
-        fun description(description: String) = description(JsonField.of(description))
+        fun description(description: String?) = description(JsonField.ofNullable(description))
 
         /** Description of the ledgerable event. */
         fun description(description: JsonField<String>) = apply { this.description = description }
@@ -203,7 +207,7 @@ private constructor(
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+        fun metadata(metadata: Metadata?) = metadata(JsonField.ofNullable(metadata))
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
@@ -245,16 +249,18 @@ private constructor(
 
         fun build(): LedgerableEvent =
             LedgerableEvent(
-                id,
-                createdAt,
-                customData,
-                description,
-                ledgerEventHandlerId,
-                liveMode,
-                metadata,
-                name,
-                object_,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(customData) { "`customData` is required but was not set" },
+                checkNotNull(description) { "`description` is required but was not set" },
+                checkNotNull(ledgerEventHandlerId) {
+                    "`ledgerEventHandlerId` is required but was not set"
+                },
+                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
+                checkNotNull(metadata) { "`metadata` is required but was not set" },
+                checkNotNull(name) { "`name` is required but was not set" },
+                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
