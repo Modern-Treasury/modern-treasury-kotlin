@@ -7,6 +7,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
 
+/** Get a single balance report for a given internal account. */
 class BalanceReportRetrieveParams
 constructor(
     private val internalAccountId: String,

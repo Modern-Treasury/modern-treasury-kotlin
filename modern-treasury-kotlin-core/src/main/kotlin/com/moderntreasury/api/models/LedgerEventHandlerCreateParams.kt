@@ -15,6 +15,7 @@ import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
+/** create ledger_event_handler */
 class LedgerEventHandlerCreateParams
 constructor(
     private val body: LedgerEventHandlerCreateBody,

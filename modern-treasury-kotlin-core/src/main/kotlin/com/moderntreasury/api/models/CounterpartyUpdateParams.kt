@@ -15,6 +15,7 @@ import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
+/** Updates a given counterparty with new information. */
 class CounterpartyUpdateParams
 constructor(
     private val id: String,

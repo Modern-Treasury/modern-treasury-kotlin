@@ -8,6 +8,7 @@ import com.moderntreasury.api.core.http.QueryParams
 import java.time.LocalDate
 import java.util.Objects
 
+/** Get a list of all paper items. */
 class PaperItemListParams
 constructor(
     private val afterCursor: String?,

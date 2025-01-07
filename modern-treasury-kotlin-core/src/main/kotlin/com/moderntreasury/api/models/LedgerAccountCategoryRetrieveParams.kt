@@ -10,6 +10,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** Get the details on a single ledger account category. */
 class LedgerAccountCategoryRetrieveParams
 constructor(
     private val id: String,

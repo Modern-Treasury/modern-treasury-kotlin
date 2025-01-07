@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
+/** Get a single line item */
 class LineItemRetrieveParams
 constructor(
     private val itemizableType: ItemizableType,

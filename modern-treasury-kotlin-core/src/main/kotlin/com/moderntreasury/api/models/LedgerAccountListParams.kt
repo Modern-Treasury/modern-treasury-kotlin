@@ -11,6 +11,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** Get a list of ledger accounts. */
 class LedgerAccountListParams
 constructor(
     private val id: List<String>?,

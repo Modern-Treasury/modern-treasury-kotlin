@@ -15,6 +15,7 @@ import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
+/** Create a ledger account category. */
 class LedgerAccountCategoryCreateParams
 constructor(
     private val body: LedgerAccountCategoryCreateBody,

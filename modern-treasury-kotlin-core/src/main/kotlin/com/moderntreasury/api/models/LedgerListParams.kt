@@ -8,6 +8,7 @@ import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
+/** Get a list of ledgers. */
 class LedgerListParams
 constructor(
     private val id: List<String>?,

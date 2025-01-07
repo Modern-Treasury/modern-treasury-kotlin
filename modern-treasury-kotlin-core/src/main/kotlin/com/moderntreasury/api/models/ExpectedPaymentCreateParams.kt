@@ -20,6 +20,7 @@ import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 
+/** create expected payment */
 class ExpectedPaymentCreateParams
 constructor(
     private val body: ExpectedPaymentCreateBody,

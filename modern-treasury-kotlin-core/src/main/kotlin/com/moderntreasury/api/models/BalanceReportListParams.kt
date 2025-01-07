@@ -12,6 +12,7 @@ import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.util.Objects
 
+/** Get all balance reports for a given internal account. */
 class BalanceReportListParams
 constructor(
     private val internalAccountId: String,

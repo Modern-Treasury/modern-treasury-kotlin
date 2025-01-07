@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
+/** Validates the routing number information supplied without creating a routing detail */
 class ValidationValidateRoutingNumberParams
 constructor(
     private val routingNumber: String,

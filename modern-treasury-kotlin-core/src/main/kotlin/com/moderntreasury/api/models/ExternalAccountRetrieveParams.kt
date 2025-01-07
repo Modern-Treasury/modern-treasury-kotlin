@@ -7,6 +7,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
 
+/** show external account */
 class ExternalAccountRetrieveParams
 constructor(
     private val id: String,

@@ -20,6 +20,7 @@ import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 
+/** Create a reversal for a payment order. */
 class PaymentOrderReversalCreateParams
 constructor(
     private val paymentOrderId: String,

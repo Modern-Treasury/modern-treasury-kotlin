@@ -19,6 +19,7 @@ import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.util.Objects
 
+/** Simulate Incoming Payment Detail */
 class IncomingPaymentDetailCreateAsyncParams
 constructor(
     private val body: IncomingPaymentDetailCreateAsyncBody,

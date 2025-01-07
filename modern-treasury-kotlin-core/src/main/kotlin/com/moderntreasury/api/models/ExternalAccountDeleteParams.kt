@@ -9,6 +9,7 @@ import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
+/** delete external account */
 class ExternalAccountDeleteParams
 constructor(
     private val id: String,

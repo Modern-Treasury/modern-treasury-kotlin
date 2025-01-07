@@ -19,6 +19,7 @@ import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.util.Objects
 
+/** update expected payment */
 class ExpectedPaymentUpdateParams
 constructor(
     private val id: String,

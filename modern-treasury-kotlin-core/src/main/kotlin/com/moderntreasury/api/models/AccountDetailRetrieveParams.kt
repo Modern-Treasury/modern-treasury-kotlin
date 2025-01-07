@@ -7,6 +7,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
 
+/** Get a single account detail for a single internal or external account. */
 class AccountDetailRetrieveParams
 constructor(
     private val accountsType: AccountsType,
