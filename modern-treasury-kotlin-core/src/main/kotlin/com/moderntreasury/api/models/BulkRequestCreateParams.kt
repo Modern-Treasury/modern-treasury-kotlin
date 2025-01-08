@@ -226,6 +226,96 @@ constructor(
             }
 
             /**
+             * An array of objects where each object contains the input params for a single
+             * `action_type` request on a `resource_type` resource
+             */
+            fun addResource(
+                paymentOrderAsyncCreateRequest: Resource.PaymentOrderAsyncCreateRequest
+            ) =
+                addResource(
+                    Resource.ofPaymentOrderAsyncCreateRequest(paymentOrderAsyncCreateRequest)
+                )
+
+            /**
+             * An array of objects where each object contains the input params for a single
+             * `action_type` request on a `resource_type` resource
+             */
+            fun addResource(expectedPaymentCreateRequest: Resource.ExpectedPaymentCreateRequest) =
+                addResource(Resource.ofExpectedPaymentCreateRequest(expectedPaymentCreateRequest))
+
+            /**
+             * An array of objects where each object contains the input params for a single
+             * `action_type` request on a `resource_type` resource
+             */
+            fun addResource(
+                ledgerTransactionCreateRequest: Resource.LedgerTransactionCreateRequest
+            ) =
+                addResource(
+                    Resource.ofLedgerTransactionCreateRequest(ledgerTransactionCreateRequest)
+                )
+
+            /**
+             * An array of objects where each object contains the input params for a single
+             * `action_type` request on a `resource_type` resource
+             */
+            fun addResource(transactionCreateRequest: Resource.TransactionCreateRequest) =
+                addResource(Resource.ofTransactionCreateRequest(transactionCreateRequest))
+
+            /**
+             * An array of objects where each object contains the input params for a single
+             * `action_type` request on a `resource_type` resource
+             */
+            fun addResource(id: Resource.Id) = addResource(Resource.ofId(id))
+
+            /**
+             * An array of objects where each object contains the input params for a single
+             * `action_type` request on a `resource_type` resource
+             */
+            fun addResource(
+                paymentOrderUpdateRequestWithId: Resource.PaymentOrderUpdateRequestWithId
+            ) =
+                addResource(
+                    Resource.ofPaymentOrderUpdateRequestWithId(paymentOrderUpdateRequestWithId)
+                )
+
+            /**
+             * An array of objects where each object contains the input params for a single
+             * `action_type` request on a `resource_type` resource
+             */
+            fun addResource(
+                expectedPaymentUpdateRequestWithId: Resource.ExpectedPaymentUpdateRequestWithId
+            ) =
+                addResource(
+                    Resource.ofExpectedPaymentUpdateRequestWithId(
+                        expectedPaymentUpdateRequestWithId
+                    )
+                )
+
+            /**
+             * An array of objects where each object contains the input params for a single
+             * `action_type` request on a `resource_type` resource
+             */
+            fun addResource(
+                transactionUpdateRequestWithId: Resource.TransactionUpdateRequestWithId
+            ) =
+                addResource(
+                    Resource.ofTransactionUpdateRequestWithId(transactionUpdateRequestWithId)
+                )
+
+            /**
+             * An array of objects where each object contains the input params for a single
+             * `action_type` request on a `resource_type` resource
+             */
+            fun addResource(
+                ledgerTransactionUpdateRequestWithId: Resource.LedgerTransactionUpdateRequestWithId
+            ) =
+                addResource(
+                    Resource.ofLedgerTransactionUpdateRequestWithId(
+                        ledgerTransactionUpdateRequestWithId
+                    )
+                )
+
+            /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
@@ -336,6 +426,81 @@ constructor(
          * `action_type` request on a `resource_type` resource
          */
         fun addResource(resource: Resource) = apply { body.addResource(resource) }
+
+        /**
+         * An array of objects where each object contains the input params for a single
+         * `action_type` request on a `resource_type` resource
+         */
+        fun addResource(paymentOrderAsyncCreateRequest: Resource.PaymentOrderAsyncCreateRequest) =
+            apply {
+                body.addResource(paymentOrderAsyncCreateRequest)
+            }
+
+        /**
+         * An array of objects where each object contains the input params for a single
+         * `action_type` request on a `resource_type` resource
+         */
+        fun addResource(expectedPaymentCreateRequest: Resource.ExpectedPaymentCreateRequest) =
+            apply {
+                body.addResource(expectedPaymentCreateRequest)
+            }
+
+        /**
+         * An array of objects where each object contains the input params for a single
+         * `action_type` request on a `resource_type` resource
+         */
+        fun addResource(ledgerTransactionCreateRequest: Resource.LedgerTransactionCreateRequest) =
+            apply {
+                body.addResource(ledgerTransactionCreateRequest)
+            }
+
+        /**
+         * An array of objects where each object contains the input params for a single
+         * `action_type` request on a `resource_type` resource
+         */
+        fun addResource(transactionCreateRequest: Resource.TransactionCreateRequest) = apply {
+            body.addResource(transactionCreateRequest)
+        }
+
+        /**
+         * An array of objects where each object contains the input params for a single
+         * `action_type` request on a `resource_type` resource
+         */
+        fun addResource(id: Resource.Id) = apply { body.addResource(id) }
+
+        /**
+         * An array of objects where each object contains the input params for a single
+         * `action_type` request on a `resource_type` resource
+         */
+        fun addResource(paymentOrderUpdateRequestWithId: Resource.PaymentOrderUpdateRequestWithId) =
+            apply {
+                body.addResource(paymentOrderUpdateRequestWithId)
+            }
+
+        /**
+         * An array of objects where each object contains the input params for a single
+         * `action_type` request on a `resource_type` resource
+         */
+        fun addResource(
+            expectedPaymentUpdateRequestWithId: Resource.ExpectedPaymentUpdateRequestWithId
+        ) = apply { body.addResource(expectedPaymentUpdateRequestWithId) }
+
+        /**
+         * An array of objects where each object contains the input params for a single
+         * `action_type` request on a `resource_type` resource
+         */
+        fun addResource(transactionUpdateRequestWithId: Resource.TransactionUpdateRequestWithId) =
+            apply {
+                body.addResource(transactionUpdateRequestWithId)
+            }
+
+        /**
+         * An array of objects where each object contains the input params for a single
+         * `action_type` request on a `resource_type` resource
+         */
+        fun addResource(
+            ledgerTransactionUpdateRequestWithId: Resource.LedgerTransactionUpdateRequestWithId
+        ) = apply { body.addResource(ledgerTransactionUpdateRequestWithId) }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
