@@ -123,13 +123,15 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): LedgerAccountBalanceMonitorCreateBody = apply {
-            if (!validated) {
-                alertCondition().validate()
-                ledgerAccountId()
-                description()
-                metadata()?.validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            alertCondition().validate()
+            ledgerAccountId()
+            description()
+            metadata()?.validate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -492,12 +494,14 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): AlertConditionCreateRequest = apply {
-            if (!validated) {
-                field()
-                operator()
-                value()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            field()
+            operator()
+            value()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -620,9 +624,11 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

@@ -113,18 +113,20 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): Connection = apply {
-        if (!validated) {
-            id()
-            createdAt()
-            discardedAt()
-            liveMode()
-            object_()
-            updatedAt()
-            vendorCustomerId()
-            vendorId()
-            vendorName()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        createdAt()
+        discardedAt()
+        liveMode()
+        object_()
+        updatedAt()
+        vendorCustomerId()
+        vendorId()
+        vendorName()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

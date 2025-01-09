@@ -212,25 +212,27 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): VirtualAccount = apply {
-        if (!validated) {
-            id()
-            accountDetails().forEach { it.validate() }
-            counterpartyId()
-            createdAt()
-            creditLedgerAccountId()
-            debitLedgerAccountId()
-            description()
-            discardedAt()
-            internalAccountId()
-            ledgerAccountId()
-            liveMode()
-            metadata().validate()
-            name()
-            object_()
-            routingDetails().forEach { it.validate() }
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountDetails().forEach { it.validate() }
+        counterpartyId()
+        createdAt()
+        creditLedgerAccountId()
+        debitLedgerAccountId()
+        description()
+        discardedAt()
+        internalAccountId()
+        ledgerAccountId()
+        liveMode()
+        metadata().validate()
+        name()
+        object_()
+        routingDetails().forEach { it.validate() }
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -520,9 +522,11 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

@@ -170,22 +170,24 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): LineItem = apply {
-        if (!validated) {
-            id()
-            accounting().validate()
-            accountingCategoryId()
-            accountingLedgerClassId()
-            amount()
-            createdAt()
-            description()
-            itemizableId()
-            itemizableType()
-            liveMode()
-            metadata().validate()
-            object_()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accounting().validate()
+        accountingCategoryId()
+        accountingLedgerClassId()
+        amount()
+        createdAt()
+        description()
+        itemizableId()
+        itemizableType()
+        liveMode()
+        metadata().validate()
+        object_()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -421,11 +423,13 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Accounting = apply {
-            if (!validated) {
-                accountId()
-                classId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountId()
+            classId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -591,9 +595,11 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

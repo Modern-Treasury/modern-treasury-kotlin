@@ -424,24 +424,26 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): ExpectedPaymentUpdateBody = apply {
-            if (!validated) {
-                amountLowerBound()
-                amountUpperBound()
-                counterpartyId()
-                currency()
-                dateLowerBound()
-                dateUpperBound()
-                description()
-                direction()
-                internalAccountId()
-                metadata()?.validate()
-                reconciliationRuleVariables()?.forEach { it.validate() }
-                remittanceInformation()
-                statementDescriptor()
-                status()
-                type()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            amountLowerBound()
+            amountUpperBound()
+            counterpartyId()
+            currency()
+            dateLowerBound()
+            dateUpperBound()
+            description()
+            direction()
+            internalAccountId()
+            metadata()?.validate()
+            reconciliationRuleVariables()?.forEach { it.validate() }
+            remittanceInformation()
+            statementDescriptor()
+            status()
+            type()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1184,9 +1186,11 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

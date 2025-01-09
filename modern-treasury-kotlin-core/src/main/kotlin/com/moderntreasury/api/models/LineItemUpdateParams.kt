@@ -91,10 +91,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): LineItemUpdateBody = apply {
-            if (!validated) {
-                metadata()?.validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            metadata()?.validate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -355,9 +357,11 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

@@ -114,13 +114,15 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): VirtualAccountUpdateBody = apply {
-            if (!validated) {
-                counterpartyId()
-                ledgerAccountId()
-                metadata()?.validate()
-                name()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            counterpartyId()
+            ledgerAccountId()
+            metadata()?.validate()
+            name()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -406,9 +408,11 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

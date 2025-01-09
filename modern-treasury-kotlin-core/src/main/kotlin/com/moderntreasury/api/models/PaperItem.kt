@@ -212,27 +212,29 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): PaperItem = apply {
-        if (!validated) {
-            id()
-            accountNumber()
-            accountNumberSafe()
-            amount()
-            checkNumber()
-            createdAt()
-            currency()
-            depositDate()
-            liveMode()
-            lockboxNumber()
-            memoField()
-            object_()
-            remitterName()
-            routingNumber()
-            status()
-            transactionId()
-            transactionLineItemId()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountNumber()
+        accountNumberSafe()
+        amount()
+        checkNumber()
+        createdAt()
+        currency()
+        depositDate()
+        liveMode()
+        lockboxNumber()
+        memoField()
+        object_()
+        remitterName()
+        routingNumber()
+        status()
+        transactionId()
+        transactionLineItemId()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

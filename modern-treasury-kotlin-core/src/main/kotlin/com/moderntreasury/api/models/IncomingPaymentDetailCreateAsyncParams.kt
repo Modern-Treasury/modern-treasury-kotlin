@@ -181,17 +181,19 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): IncomingPaymentDetailCreateAsyncBody = apply {
-            if (!validated) {
-                amount()
-                asOfDate()
-                currency()
-                description()
-                direction()
-                internalAccountId()
-                type()
-                virtualAccountId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            amount()
+            asOfDate()
+            currency()
+            description()
+            direction()
+            internalAccountId()
+            type()
+            virtualAccountId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

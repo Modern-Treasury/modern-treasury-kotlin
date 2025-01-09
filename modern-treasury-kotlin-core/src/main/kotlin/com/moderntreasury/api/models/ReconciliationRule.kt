@@ -159,19 +159,21 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): ReconciliationRule = apply {
-        if (!validated) {
-            amountLowerBound()
-            amountUpperBound()
-            direction()
-            internalAccountId()
-            counterpartyId()
-            currency()
-            customIdentifiers()?.validate()
-            dateLowerBound()
-            dateUpperBound()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        amountLowerBound()
+        amountUpperBound()
+        direction()
+        internalAccountId()
+        counterpartyId()
+        currency()
+        customIdentifiers()?.validate()
+        dateLowerBound()
+        dateUpperBound()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -424,9 +426,11 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): CustomIdentifiers = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

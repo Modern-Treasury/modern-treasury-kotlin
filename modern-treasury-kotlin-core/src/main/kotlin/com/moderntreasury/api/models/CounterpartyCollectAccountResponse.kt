@@ -70,12 +70,14 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): CounterpartyCollectAccountResponse = apply {
-        if (!validated) {
-            id()
-            formLink()
-            isResend()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        formLink()
+        isResend()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

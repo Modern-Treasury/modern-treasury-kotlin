@@ -113,12 +113,14 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): TransactionLineItemCreateBody = apply {
-            if (!validated) {
-                amount()
-                expectedPaymentId()
-                transactionId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            amount()
+            expectedPaymentId()
+            transactionId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

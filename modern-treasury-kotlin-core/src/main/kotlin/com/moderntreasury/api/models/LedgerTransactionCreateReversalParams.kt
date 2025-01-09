@@ -244,16 +244,18 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): LedgerTransactionCreateReversalBody = apply {
-            if (!validated) {
-                description()
-                effectiveAt()
-                externalId()
-                ledgerableId()
-                ledgerableType()
-                metadata()?.validate()
-                status()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            description()
+            effectiveAt()
+            externalId()
+            ledgerableId()
+            ledgerableType()
+            metadata()?.validate()
+            status()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -762,9 +764,11 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

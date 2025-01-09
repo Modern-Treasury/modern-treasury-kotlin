@@ -186,14 +186,16 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): ExternalAccountVerifyBody = apply {
-            if (!validated) {
-                originatingAccountId()
-                paymentType()
-                currency()
-                fallbackType()
-                priority()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            originatingAccountId()
+            paymentType()
+            currency()
+            fallbackType()
+            priority()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
