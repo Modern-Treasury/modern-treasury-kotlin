@@ -146,19 +146,21 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): BankSettings = apply {
-        if (!validated) {
-            id()
-            backupWithholdingPercentage()
-            createdAt()
-            discardedAt()
-            enableBackupWithholding()
-            liveMode()
-            object_()
-            privacyOptOut()
-            regulationO()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        backupWithholdingPercentage()
+        createdAt()
+        discardedAt()
+        enableBackupWithholding()
+        liveMode()
+        object_()
+        privacyOptOut()
+        regulationO()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

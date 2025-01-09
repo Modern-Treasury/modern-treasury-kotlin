@@ -156,21 +156,23 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): BulkRequest = apply {
-        if (!validated) {
-            id()
-            actionType()
-            createdAt()
-            failedResultCount()
-            liveMode()
-            metadata().validate()
-            object_()
-            resourceType()
-            status()
-            successResultCount()
-            totalResourceCount()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        actionType()
+        createdAt()
+        failedResultCount()
+        liveMode()
+        metadata().validate()
+        object_()
+        resourceType()
+        status()
+        successResultCount()
+        totalResourceCount()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -425,9 +427,11 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

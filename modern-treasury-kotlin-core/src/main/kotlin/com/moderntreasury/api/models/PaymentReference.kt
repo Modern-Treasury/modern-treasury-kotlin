@@ -134,18 +134,20 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): PaymentReference = apply {
-        if (!validated) {
-            id()
-            createdAt()
-            liveMode()
-            object_()
-            referenceNumber()
-            referenceNumberType()
-            referenceableId()
-            referenceableType()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        createdAt()
+        liveMode()
+        object_()
+        referenceNumber()
+        referenceNumberType()
+        referenceableId()
+        referenceableType()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

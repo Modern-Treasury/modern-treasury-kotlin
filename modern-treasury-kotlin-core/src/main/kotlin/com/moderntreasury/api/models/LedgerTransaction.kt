@@ -243,27 +243,29 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): LedgerTransaction = apply {
-        if (!validated) {
-            id()
-            createdAt()
-            description()
-            effectiveAt()
-            effectiveDate()
-            externalId()
-            ledgerEntries().forEach { it.validate() }
-            ledgerId()
-            ledgerableId()
-            ledgerableType()
-            liveMode()
-            metadata().validate()
-            object_()
-            postedAt()
-            reversedByLedgerTransactionId()
-            reversesLedgerTransactionId()
-            status()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        createdAt()
+        description()
+        effectiveAt()
+        effectiveDate()
+        externalId()
+        ledgerEntries().forEach { it.validate() }
+        ledgerId()
+        ledgerableId()
+        ledgerableType()
+        liveMode()
+        metadata().validate()
+        object_()
+        postedAt()
+        reversedByLedgerTransactionId()
+        reversesLedgerTransactionId()
+        status()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -639,9 +641,11 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

@@ -175,15 +175,17 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): ForeignExchangeQuoteCreateBody = apply {
-            if (!validated) {
-                internalAccountId()
-                targetCurrency()
-                baseAmount()
-                baseCurrency()
-                effectiveAt()
-                targetAmount()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            internalAccountId()
+            targetCurrency()
+            baseAmount()
+            baseCurrency()
+            effectiveAt()
+            targetAmount()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

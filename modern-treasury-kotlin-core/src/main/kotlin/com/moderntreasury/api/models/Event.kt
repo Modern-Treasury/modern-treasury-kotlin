@@ -120,19 +120,21 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): Event = apply {
-        if (!validated) {
-            id()
-            createdAt()
-            data().validate()
-            entityId()
-            eventName()
-            eventTime()
-            liveMode()
-            object_()
-            resource()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        createdAt()
+        data().validate()
+        entityId()
+        eventName()
+        eventTime()
+        liveMode()
+        object_()
+        resource()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -279,9 +281,11 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Data = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

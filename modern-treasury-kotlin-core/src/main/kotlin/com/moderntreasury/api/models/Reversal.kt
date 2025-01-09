@@ -126,19 +126,21 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): Reversal = apply {
-        if (!validated) {
-            id()
-            createdAt()
-            ledgerTransactionId()
-            liveMode()
-            metadata().validate()
-            object_()
-            paymentOrderId()
-            reason()
-            status()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        createdAt()
+        ledgerTransactionId()
+        liveMode()
+        metadata().validate()
+        object_()
+        paymentOrderId()
+        reason()
+        status()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -297,9 +299,11 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

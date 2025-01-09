@@ -273,17 +273,19 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): LedgerAccountSettlementCreateBody = apply {
-            if (!validated) {
-                contraLedgerAccountId()
-                settledLedgerAccountId()
-                allowEitherDirection()
-                description()
-                effectiveAtUpperBound()
-                metadata()?.validate()
-                skipSettlementLedgerTransaction()
-                status()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            contraLedgerAccountId()
+            settledLedgerAccountId()
+            allowEitherDirection()
+            description()
+            effectiveAtUpperBound()
+            metadata()?.validate()
+            skipSettlementLedgerTransaction()
+            status()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -791,9 +793,11 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

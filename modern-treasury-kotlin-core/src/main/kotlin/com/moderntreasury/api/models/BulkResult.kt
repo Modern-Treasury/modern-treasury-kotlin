@@ -186,21 +186,23 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): BulkResult = apply {
-        if (!validated) {
-            id()
-            createdAt()
-            entity()
-            entityId()
-            entityType()
-            liveMode()
-            object_()
-            requestId()
-            requestParams()?.validate()
-            requestType()
-            status()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        createdAt()
+        entity().validate()
+        entityId()
+        entityType()
+        liveMode()
+        object_()
+        requestId()
+        requestParams()?.validate()
+        requestType()
+        status()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -434,8 +436,6 @@ private constructor(
         private val _json: JsonValue? = null,
     ) {
 
-        private var validated: Boolean = false
-
         fun paymentOrder(): PaymentOrder? = paymentOrder
 
         fun expectedPayment(): ExpectedPayment? = expectedPayment
@@ -480,24 +480,37 @@ private constructor(
             }
         }
 
+        private var validated: Boolean = false
+
         fun validate(): Entity = apply {
-            if (!validated) {
-                if (
-                    paymentOrder == null &&
-                        expectedPayment == null &&
-                        ledgerTransaction == null &&
-                        transaction == null &&
-                        bulkError == null
-                ) {
-                    throw ModernTreasuryInvalidDataException("Unknown Entity: $_json")
-                }
-                paymentOrder?.validate()
-                expectedPayment?.validate()
-                ledgerTransaction?.validate()
-                transaction?.validate()
-                bulkError?.validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accept(
+                object : Visitor<Unit> {
+                    override fun visitPaymentOrder(paymentOrder: PaymentOrder) {
+                        paymentOrder.validate()
+                    }
+
+                    override fun visitExpectedPayment(expectedPayment: ExpectedPayment) {
+                        expectedPayment.validate()
+                    }
+
+                    override fun visitLedgerTransaction(ledgerTransaction: LedgerTransaction) {
+                        ledgerTransaction.validate()
+                    }
+
+                    override fun visitTransaction(transaction: Transaction) {
+                        transaction.validate()
+                    }
+
+                    override fun visitBulkError(bulkError: BulkError) {
+                        bulkError.validate()
+                    }
+                }
+            )
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -676,15 +689,17 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): BulkError = apply {
-                if (!validated) {
-                    id()
-                    createdAt()
-                    liveMode()
-                    object_()
-                    requestErrors().forEach { it.validate() }
-                    updatedAt()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                id()
+                createdAt()
+                liveMode()
+                object_()
+                requestErrors().forEach { it.validate() }
+                updatedAt()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -839,12 +854,14 @@ private constructor(
                 private var validated: Boolean = false
 
                 fun validate(): RequestError = apply {
-                    if (!validated) {
-                        code()
-                        message()
-                        parameter()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    code()
+                    message()
+                    parameter()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -1044,9 +1061,11 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): RequestParams = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

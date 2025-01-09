@@ -155,14 +155,16 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): InternalAccountUpdateBody = apply {
-            if (!validated) {
-                counterpartyId()
-                ledgerAccountId()
-                metadata()?.validate()
-                name()
-                parentAccountId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            counterpartyId()
+            ledgerAccountId()
+            metadata()?.validate()
+            name()
+            parentAccountId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -498,9 +500,11 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

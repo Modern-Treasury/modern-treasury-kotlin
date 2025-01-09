@@ -225,26 +225,28 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): LedgerAccountSettlement = apply {
-        if (!validated) {
-            id()
-            amount()
-            contraLedgerAccountId()
-            createdAt()
-            currency()
-            currencyExponent()
-            description()
-            effectiveAtUpperBound()
-            ledgerId()
-            ledgerTransactionId()
-            liveMode()
-            metadata().validate()
-            object_()
-            settledLedgerAccountId()
-            settlementEntryDirection()
-            status()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        amount()
+        contraLedgerAccountId()
+        createdAt()
+        currency()
+        currencyExponent()
+        description()
+        effectiveAtUpperBound()
+        ledgerId()
+        ledgerTransactionId()
+        liveMode()
+        metadata().validate()
+        object_()
+        settledLedgerAccountId()
+        settlementEntryDirection()
+        status()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -518,9 +520,11 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

@@ -749,58 +749,60 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): PaymentOrder = apply {
-        if (!validated) {
-            id()
-            accounting().validate()
-            accountingCategoryId()
-            accountingLedgerClassId()
-            amount()
-            chargeBearer()
-            complianceRuleMetadata()?.validate()
-            counterpartyId()
-            createdAt()
-            currency()
-            currentReturn()?.validate()
-            decisionId()
-            description()
-            direction()
-            effectiveDate()
-            expiresAt()
-            foreignExchangeContract()
-            foreignExchangeIndicator()
-            foreignExchangeRate()?.validate()
-            ledgerTransactionId()
-            liveMode()
-            metadata().validate()
-            nsfProtected()
-            object_()
-            originatingAccountId()
-            originatingPartyName()
-            priority()
-            processAfter()
-            purpose()
-            receivingAccountId()
-            receivingAccountType()
-            referenceNumbers().forEach { it.validate() }
-            remittanceInformation()
-            sendRemittanceAdvice()
-            statementDescriptor()
-            status()
-            subtype()
-            transactionIds()
-            transactionMonitoringEnabled()
-            type()
-            ultimateOriginatingAccount()
-            ultimateOriginatingAccountId()
-            ultimateOriginatingAccountType()
-            ultimateOriginatingPartyIdentifier()
-            ultimateOriginatingPartyName()
-            ultimateReceivingPartyIdentifier()
-            ultimateReceivingPartyName()
-            updatedAt()
-            vendorFailureReason()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accounting().validate()
+        accountingCategoryId()
+        accountingLedgerClassId()
+        amount()
+        chargeBearer()
+        complianceRuleMetadata()?.validate()
+        counterpartyId()
+        createdAt()
+        currency()
+        currentReturn()?.validate()
+        decisionId()
+        description()
+        direction()
+        effectiveDate()
+        expiresAt()
+        foreignExchangeContract()
+        foreignExchangeIndicator()
+        foreignExchangeRate()?.validate()
+        ledgerTransactionId()
+        liveMode()
+        metadata().validate()
+        nsfProtected()
+        object_()
+        originatingAccountId()
+        originatingPartyName()
+        priority()
+        processAfter()
+        purpose()
+        receivingAccountId()
+        receivingAccountType()
+        referenceNumbers().forEach { it.validate() }
+        remittanceInformation()
+        sendRemittanceAdvice()
+        statementDescriptor()
+        status()
+        subtype()
+        transactionIds()
+        transactionMonitoringEnabled()
+        type()
+        ultimateOriginatingAccount()?.validate()
+        ultimateOriginatingAccountId()
+        ultimateOriginatingAccountType()
+        ultimateOriginatingPartyIdentifier()
+        ultimateOriginatingPartyName()
+        ultimateReceivingPartyIdentifier()
+        ultimateReceivingPartyName()
+        updatedAt()
+        vendorFailureReason()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -1719,11 +1721,13 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Accounting = apply {
-            if (!validated) {
-                accountId()
-                classId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountId()
+            classId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1898,9 +1902,11 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): ComplianceRuleMetadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -2187,16 +2193,18 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): ForeignExchangeRate = apply {
-            if (!validated) {
-                baseAmount()
-                baseCurrency()
-                exponent()
-                rateString()
-                targetAmount()
-                targetCurrency()
-                value()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            baseAmount()
+            baseCurrency()
+            exponent()
+            rateString()
+            targetAmount()
+            targetCurrency()
+            value()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -2367,9 +2375,11 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -2624,16 +2634,18 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): PaymentReference = apply {
-            if (!validated) {
-                id()
-                createdAt()
-                liveMode()
-                object_()
-                referenceNumber()
-                referenceNumberType()
-                updatedAt()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            id()
+            createdAt()
+            liveMode()
+            object_()
+            referenceNumber()
+            referenceNumberType()
+            updatedAt()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -3379,8 +3391,6 @@ private constructor(
         private val _json: JsonValue? = null,
     ) {
 
-        private var validated: Boolean = false
-
         fun virtualAccount(): VirtualAccount? = virtualAccount
 
         fun internalAccount(): InternalAccount? = internalAccount
@@ -3403,17 +3413,25 @@ private constructor(
             }
         }
 
+        private var validated: Boolean = false
+
         fun validate(): UltimateOriginatingAccount = apply {
-            if (!validated) {
-                if (virtualAccount == null && internalAccount == null) {
-                    throw ModernTreasuryInvalidDataException(
-                        "Unknown UltimateOriginatingAccount: $_json"
-                    )
-                }
-                virtualAccount?.validate()
-                internalAccount?.validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accept(
+                object : Visitor<Unit> {
+                    override fun visitVirtualAccount(virtualAccount: VirtualAccount) {
+                        virtualAccount.validate()
+                    }
+
+                    override fun visitInternalAccount(internalAccount: InternalAccount) {
+                        internalAccount.validate()
+                    }
+                }
+            )
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
