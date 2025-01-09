@@ -190,15 +190,17 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): ReturnCreateBody = apply {
-            if (!validated) {
-                returnableId()
-                returnableType()
-                additionalInformation()
-                code()
-                dateOfDeath()
-                reason()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            returnableId()
+            returnableType()
+            additionalInformation()
+            code()
+            dateOfDeath()
+            reason()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

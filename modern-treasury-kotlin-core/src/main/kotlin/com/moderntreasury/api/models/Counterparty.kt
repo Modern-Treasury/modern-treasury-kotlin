@@ -156,22 +156,24 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): Counterparty = apply {
-        if (!validated) {
-            id()
-            accounts().forEach { it.validate() }
-            createdAt()
-            discardedAt()
-            email()
-            legalEntityId()
-            liveMode()
-            metadata().validate()
-            name()
-            object_()
-            sendRemittanceAdvice()
-            updatedAt()
-            verificationStatus()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accounts().forEach { it.validate() }
+        createdAt()
+        discardedAt()
+        email()
+        legalEntityId()
+        liveMode()
+        metadata().validate()
+        name()
+        object_()
+        sendRemittanceAdvice()
+        updatedAt()
+        verificationStatus()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -571,27 +573,29 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Account = apply {
-            if (!validated) {
-                id()
-                accountDetails()?.forEach { it.validate() }
-                accountType()
-                contactDetails()?.forEach { it.validate() }
-                createdAt()
-                discardedAt()
-                ledgerAccountId()
-                liveMode()
-                metadata()?.validate()
-                name()
-                object_()
-                partyAddress()?.validate()
-                partyName()
-                partyType()
-                routingDetails()?.forEach { it.validate() }
-                updatedAt()
-                verificationSource()
-                verificationStatus()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            id()
+            accountDetails()?.forEach { it.validate() }
+            accountType()
+            contactDetails()?.forEach { it.validate() }
+            createdAt()
+            discardedAt()
+            ledgerAccountId()
+            liveMode()
+            metadata()?.validate()
+            name()
+            object_()
+            partyAddress()?.validate()
+            partyName()
+            partyType()
+            routingDetails()?.forEach { it.validate() }
+            updatedAt()
+            verificationSource()
+            verificationStatus()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -956,17 +960,19 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): ContactDetail = apply {
-                if (!validated) {
-                    id()
-                    contactIdentifier()
-                    contactIdentifierType()
-                    createdAt()
-                    discardedAt()
-                    liveMode()
-                    object_()
-                    updatedAt()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                id()
+                contactIdentifier()
+                contactIdentifierType()
+                createdAt()
+                discardedAt()
+                liveMode()
+                object_()
+                updatedAt()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1196,9 +1202,11 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): Metadata = apply {
-                if (!validated) {
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1375,20 +1383,22 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): Address = apply {
-                if (!validated) {
-                    id()
-                    country()
-                    createdAt()
-                    line1()
-                    line2()
-                    liveMode()
-                    locality()
-                    object_()
-                    postalCode()
-                    region()
-                    updatedAt()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                id()
+                country()
+                createdAt()
+                line1()
+                line2()
+                liveMode()
+                locality()
+                object_()
+                postalCode()
+                region()
+                updatedAt()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1774,9 +1784,11 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

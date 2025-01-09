@@ -134,19 +134,21 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): BalanceReport = apply {
-        if (!validated) {
-            id()
-            asOfDate()
-            asOfTime()
-            balanceReportType()
-            balances().forEach { it.validate() }
-            createdAt()
-            internalAccountId()
-            liveMode()
-            object_()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        asOfDate()
+        asOfTime()
+        balanceReportType()
+        balances().forEach { it.validate() }
+        createdAt()
+        internalAccountId()
+        liveMode()
+        object_()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -534,22 +536,24 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Balance = apply {
-            if (!validated) {
-                id()
-                amount()
-                asOfDate()
-                asOfTime()
-                balanceType()
-                createdAt()
-                currency()
-                liveMode()
-                object_()
-                updatedAt()
-                valueDate()
-                vendorCode()
-                vendorCodeType()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            id()
+            amount()
+            asOfDate()
+            asOfTime()
+            balanceType()
+            createdAt()
+            currency()
+            liveMode()
+            object_()
+            updatedAt()
+            valueDate()
+            vendorCode()
+            vendorCodeType()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

@@ -45,11 +45,13 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): LedgerEventHandlerVariable = apply {
-        if (!validated) {
-            query().validate()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        query().validate()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -150,12 +152,14 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): LedgerEventHandlerConditions = apply {
-            if (!validated) {
-                field()
-                operator()
-                value()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            field()
+            operator()
+            value()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

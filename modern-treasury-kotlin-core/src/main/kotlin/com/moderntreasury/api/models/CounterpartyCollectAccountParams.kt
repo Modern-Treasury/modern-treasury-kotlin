@@ -200,13 +200,15 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): CounterpartyCollectAccountBody = apply {
-            if (!validated) {
-                direction()
-                customRedirect()
-                fields()
-                sendEmail()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            direction()
+            customRedirect()
+            fields()
+            sendEmail()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

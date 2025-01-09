@@ -37,8 +37,6 @@ private constructor(
     private val _json: JsonValue? = null,
 ) {
 
-    private var validated: Boolean = false
-
     fun externalAccount(): ExternalAccount? = externalAccount
 
     fun externalAccountVerificationAttempt(): ExternalAccountVerificationAttempt? =
@@ -64,17 +62,27 @@ private constructor(
         }
     }
 
+    private var validated: Boolean = false
+
     fun validate(): ExternalAccountVerifyResponse = apply {
-        if (!validated) {
-            if (externalAccount == null && externalAccountVerificationAttempt == null) {
-                throw ModernTreasuryInvalidDataException(
-                    "Unknown ExternalAccountVerifyResponse: $_json"
-                )
-            }
-            externalAccount?.validate()
-            externalAccountVerificationAttempt?.validate()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        accept(
+            object : Visitor<Unit> {
+                override fun visitExternalAccount(externalAccount: ExternalAccount) {
+                    externalAccount.validate()
+                }
+
+                override fun visitExternalAccountVerificationAttempt(
+                    externalAccountVerificationAttempt: ExternalAccountVerificationAttempt
+                ) {
+                    externalAccountVerificationAttempt.validate()
+                }
+            }
+        )
+        validated = true
     }
 
     override fun equals(other: Any?): Boolean {
@@ -283,19 +291,21 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): ExternalAccountVerificationAttempt = apply {
-            if (!validated) {
-                id()
-                createdAt()
-                externalAccountId()
-                liveMode()
-                object_()
-                originatingAccountId()
-                paymentType()
-                priority()
-                status()
-                updatedAt()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            id()
+            createdAt()
+            externalAccountId()
+            liveMode()
+            object_()
+            originatingAccountId()
+            paymentType()
+            priority()
+            status()
+            updatedAt()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

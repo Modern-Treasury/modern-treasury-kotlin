@@ -142,13 +142,15 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): BalanceReportCreateBody = apply {
-            if (!validated) {
-                asOfDate()
-                asOfTime()
-                balanceReportType()
-                balances().forEach { it.validate() }
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            asOfDate()
+            asOfTime()
+            balanceReportType()
+            balances().forEach { it.validate() }
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -607,13 +609,15 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): BalanceCreateRequest = apply {
-            if (!validated) {
-                amount()
-                balanceType()
-                vendorCode()
-                vendorCodeType()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            amount()
+            balanceType()
+            vendorCode()
+            vendorCodeType()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

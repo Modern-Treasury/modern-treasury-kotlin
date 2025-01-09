@@ -195,24 +195,26 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): LedgerAccount = apply {
-        if (!validated) {
-            id()
-            balances().validate()
-            createdAt()
-            description()
-            discardedAt()
-            ledgerId()
-            ledgerableId()
-            ledgerableType()
-            liveMode()
-            lockVersion()
-            metadata().validate()
-            name()
-            normalBalance()
-            object_()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        balances().validate()
+        createdAt()
+        description()
+        discardedAt()
+        ledgerId()
+        ledgerableId()
+        ledgerableType()
+        liveMode()
+        lockVersion()
+        metadata().validate()
+        name()
+        normalBalance()
+        object_()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -511,14 +513,16 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): LedgerBalancesWithEffectiveAt = apply {
-            if (!validated) {
-                availableBalance().validate()
-                effectiveAtLowerBound()
-                effectiveAtUpperBound()
-                pendingBalance().validate()
-                postedBalance().validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            availableBalance().validate()
+            effectiveAtLowerBound()
+            effectiveAtUpperBound()
+            pendingBalance().validate()
+            postedBalance().validate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -706,14 +710,16 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): LedgerBalance = apply {
-                if (!validated) {
-                    amount()
-                    credits()
-                    currency()
-                    currencyExponent()
-                    debits()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                amount()
+                credits()
+                currency()
+                currencyExponent()
+                debits()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -924,9 +930,11 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

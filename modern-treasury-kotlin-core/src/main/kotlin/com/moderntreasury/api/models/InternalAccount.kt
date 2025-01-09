@@ -225,28 +225,30 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): InternalAccount = apply {
-        if (!validated) {
-            id()
-            accountDetails().forEach { it.validate() }
-            accountType()
-            connection().validate()
-            counterpartyId()
-            createdAt()
-            currency()
-            ledgerAccountId()
-            legalEntityId()
-            liveMode()
-            metadata().validate()
-            name()
-            object_()
-            parentAccountId()
-            partyAddress()?.validate()
-            partyName()
-            partyType()
-            routingDetails().forEach { it.validate() }
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountDetails().forEach { it.validate() }
+        accountType()
+        connection().validate()
+        counterpartyId()
+        createdAt()
+        currency()
+        ledgerAccountId()
+        legalEntityId()
+        liveMode()
+        metadata().validate()
+        name()
+        object_()
+        parentAccountId()
+        partyAddress()?.validate()
+        partyName()
+        partyType()
+        routingDetails().forEach { it.validate() }
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -625,9 +627,11 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -797,20 +801,22 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Address = apply {
-            if (!validated) {
-                id()
-                country()
-                createdAt()
-                line1()
-                line2()
-                liveMode()
-                locality()
-                object_()
-                postalCode()
-                region()
-                updatedAt()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            id()
+            country()
+            createdAt()
+            line1()
+            line2()
+            liveMode()
+            locality()
+            object_()
+            postalCode()
+            region()
+            updatedAt()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

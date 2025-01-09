@@ -41,11 +41,13 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): AsyncResponse = apply {
-        if (!validated) {
-            id()
-            object_()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        object_()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

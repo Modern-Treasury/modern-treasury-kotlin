@@ -204,15 +204,17 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): PaymentFlowCreateBody = apply {
-            if (!validated) {
-                amount()
-                counterpartyId()
-                currency()
-                direction()
-                originatingAccountId()
-                dueDate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            amount()
+            counterpartyId()
+            currency()
+            direction()
+            originatingAccountId()
+            dueDate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

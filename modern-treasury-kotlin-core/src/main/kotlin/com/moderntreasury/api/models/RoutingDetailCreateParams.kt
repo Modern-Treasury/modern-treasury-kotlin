@@ -146,12 +146,14 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): RoutingDetailCreateBody = apply {
-            if (!validated) {
-                routingNumber()
-                routingNumberType()
-                paymentType()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            routingNumber()
+            routingNumberType()
+            paymentType()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

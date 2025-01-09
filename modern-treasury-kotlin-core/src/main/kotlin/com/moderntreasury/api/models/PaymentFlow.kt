@@ -289,28 +289,30 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): PaymentFlow = apply {
-        if (!validated) {
-            id()
-            amount()
-            clientToken()
-            counterpartyId()
-            createdAt()
-            currency()
-            direction()
-            dueDate()
-            effectiveDateSelectionEnabled()
-            existingExternalAccountsFilter()
-            externalAccountCollection()
-            liveMode()
-            object_()
-            originatingAccountId()
-            paymentOrderId()
-            receivingAccountId()
-            selectedEffectiveDate()
-            status()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        amount()
+        clientToken()
+        counterpartyId()
+        createdAt()
+        currency()
+        direction()
+        dueDate()
+        effectiveDateSelectionEnabled()
+        existingExternalAccountsFilter()
+        externalAccountCollection()
+        liveMode()
+        object_()
+        originatingAccountId()
+        paymentOrderId()
+        receivingAccountId()
+        selectedEffectiveDate()
+        status()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
