@@ -1450,9 +1450,17 @@ private constructor(
             ultimateOriginatingAccount: JsonField<UltimateOriginatingAccount>
         ) = apply { this.ultimateOriginatingAccount = ultimateOriginatingAccount }
 
+        /**
+         * The account to which the originating of this payment should be attributed to. Can be a
+         * `virtual_account` or `internal_account`.
+         */
         fun ultimateOriginatingAccount(virtualAccount: VirtualAccount) =
             ultimateOriginatingAccount(UltimateOriginatingAccount.ofVirtualAccount(virtualAccount))
 
+        /**
+         * The account to which the originating of this payment should be attributed to. Can be a
+         * `virtual_account` or `internal_account`.
+         */
         fun ultimateOriginatingAccount(internalAccount: InternalAccount) =
             ultimateOriginatingAccount(
                 UltimateOriginatingAccount.ofInternalAccount(internalAccount)
