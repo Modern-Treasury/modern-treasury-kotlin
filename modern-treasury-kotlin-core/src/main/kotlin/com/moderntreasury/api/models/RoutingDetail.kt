@@ -150,20 +150,22 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): RoutingDetail = apply {
-        if (!validated) {
-            id()
-            bankAddress()?.validate()
-            bankName()
-            createdAt()
-            discardedAt()
-            liveMode()
-            object_()
-            paymentType()
-            routingNumber()
-            routingNumberType()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        bankAddress()?.validate()
+        bankName()
+        createdAt()
+        discardedAt()
+        liveMode()
+        object_()
+        paymentType()
+        routingNumber()
+        routingNumberType()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -437,20 +439,22 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Address = apply {
-            if (!validated) {
-                id()
-                country()
-                createdAt()
-                line1()
-                line2()
-                liveMode()
-                locality()
-                object_()
-                postalCode()
-                region()
-                updatedAt()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            id()
+            country()
+            createdAt()
+            line1()
+            line2()
+            liveMode()
+            locality()
+            object_()
+            postalCode()
+            region()
+            updatedAt()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

@@ -216,27 +216,29 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): WealthAndEmploymentDetails = apply {
-        if (!validated) {
-            id()
-            annualIncome()
-            createdAt()
-            discardedAt()
-            employerCountry()
-            employerName()
-            employerState()
-            employmentStatus()
-            incomeCountry()
-            incomeSource()
-            incomeState()
-            industry()
-            liveMode()
-            object_()
-            occupation()
-            sourceOfFunds()
-            updatedAt()
-            wealthSource()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        annualIncome()
+        createdAt()
+        discardedAt()
+        employerCountry()
+        employerName()
+        employerState()
+        employmentStatus()
+        incomeCountry()
+        incomeSource()
+        incomeState()
+        industry()
+        liveMode()
+        object_()
+        occupation()
+        sourceOfFunds()
+        updatedAt()
+        wealthSource()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

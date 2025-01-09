@@ -269,19 +269,21 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): TransactionCreateBody = apply {
-            if (!validated) {
-                amount()
-                asOfDate()
-                direction()
-                internalAccountId()
-                vendorCode()
-                vendorCodeType()
-                metadata()?.validate()
-                posted()
-                type()
-                vendorDescription()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            amount()
+            asOfDate()
+            direction()
+            internalAccountId()
+            vendorCode()
+            vendorCodeType()
+            metadata()?.validate()
+            posted()
+            type()
+            vendorDescription()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -744,9 +746,11 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

@@ -34,10 +34,12 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): PingResponse = apply {
-        if (!validated) {
-            ping()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        ping()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

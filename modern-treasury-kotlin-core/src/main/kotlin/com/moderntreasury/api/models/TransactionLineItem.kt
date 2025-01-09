@@ -215,24 +215,26 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): TransactionLineItem = apply {
-        if (!validated) {
-            id()
-            amount()
-            counterpartyId()
-            createdAt()
-            description()
-            discardedAt()
-            expectedPaymentId()
-            liveMode()
-            object_()
-            reconcilable()
-            transactableId()
-            transactableType()
-            transactionId()
-            type()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        amount()
+        counterpartyId()
+        createdAt()
+        description()
+        discardedAt()
+        expectedPaymentId()
+        liveMode()
+        object_()
+        reconcilable()
+        transactableId()
+        transactableType()
+        transactionId()
+        type()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

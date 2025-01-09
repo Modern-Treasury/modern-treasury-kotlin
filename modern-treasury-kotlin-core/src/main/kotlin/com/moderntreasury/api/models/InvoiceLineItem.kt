@@ -169,22 +169,24 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): InvoiceLineItem = apply {
-        if (!validated) {
-            id()
-            amount()
-            createdAt()
-            description()
-            direction()
-            liveMode()
-            metadata().validate()
-            name()
-            object_()
-            quantity()
-            unitAmount()
-            unitAmountDecimal()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        amount()
+        createdAt()
+        description()
+        direction()
+        liveMode()
+        metadata().validate()
+        name()
+        object_()
+        quantity()
+        unitAmount()
+        unitAmountDecimal()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -397,9 +399,11 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

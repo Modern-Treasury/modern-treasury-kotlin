@@ -126,19 +126,21 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): ConnectionLegalEntity = apply {
-        if (!validated) {
-            id()
-            connectionId()
-            createdAt()
-            discardedAt()
-            legalEntityId()
-            liveMode()
-            object_()
-            status()
-            updatedAt()
-            vendorId()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        connectionId()
+        createdAt()
+        discardedAt()
+        legalEntityId()
+        liveMode()
+        object_()
+        status()
+        updatedAt()
+        vendorId()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

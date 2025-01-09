@@ -342,33 +342,35 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): ExpectedPayment = apply {
-        if (!validated) {
-            id()
-            amountLowerBound()
-            amountUpperBound()
-            counterpartyId()
-            createdAt()
-            currency()
-            dateLowerBound()
-            dateUpperBound()
-            description()
-            direction()
-            internalAccountId()
-            ledgerTransactionId()
-            liveMode()
-            metadata().validate()
-            object_()
-            reconciliationMethod()
-            reconciliationRuleVariables()?.forEach { it.validate() }
-            remittanceInformation()
-            statementDescriptor()
-            status()
-            transactionId()
-            transactionLineItemId()
-            type()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        amountLowerBound()
+        amountUpperBound()
+        counterpartyId()
+        createdAt()
+        currency()
+        dateLowerBound()
+        dateUpperBound()
+        description()
+        direction()
+        internalAccountId()
+        ledgerTransactionId()
+        liveMode()
+        metadata().validate()
+        object_()
+        reconciliationMethod()
+        reconciliationRuleVariables()?.forEach { it.validate() }
+        remittanceInformation()
+        statementDescriptor()
+        status()
+        transactionId()
+        transactionLineItemId()
+        type()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -852,9 +854,11 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

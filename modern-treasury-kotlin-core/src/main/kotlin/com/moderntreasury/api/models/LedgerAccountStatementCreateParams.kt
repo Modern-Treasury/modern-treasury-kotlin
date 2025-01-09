@@ -178,14 +178,16 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): LedgerAccountStatementCreateBody = apply {
-            if (!validated) {
-                effectiveAtLowerBound()
-                effectiveAtUpperBound()
-                ledgerAccountId()
-                description()
-                metadata()?.validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            effectiveAtLowerBound()
+            effectiveAtUpperBound()
+            ledgerAccountId()
+            description()
+            metadata()?.validate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -562,9 +564,11 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): Metadata = apply {
-            if (!validated) {
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

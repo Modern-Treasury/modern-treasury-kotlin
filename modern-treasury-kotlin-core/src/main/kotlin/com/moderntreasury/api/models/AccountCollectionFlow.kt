@@ -156,20 +156,22 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): AccountCollectionFlow = apply {
-        if (!validated) {
-            counterpartyId()
-            paymentTypes()
-            id()
-            clientToken()
-            createdAt()
-            externalAccountId()
-            liveMode()
-            object_()
-            receivingCountries()
-            status()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        counterpartyId()
+        paymentTypes()
+        id()
+        clientToken()
+        createdAt()
+        externalAccountId()
+        liveMode()
+        object_()
+        receivingCountries()
+        status()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
