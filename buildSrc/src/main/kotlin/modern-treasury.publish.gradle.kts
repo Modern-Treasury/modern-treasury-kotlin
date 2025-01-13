@@ -1,12 +1,6 @@
-import org.gradle.api.publish.PublishingExtension
-import org.gradle.api.publish.maven.MavenPublication
-import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.register
-import org.gradle.kotlin.dsl.get
-
 plugins {
     `maven-publish`
-    `signing`
+    signing
 }
 
 configure<PublishingExtension> {
