@@ -1,6 +1,5 @@
 import com.diffplug.gradle.spotless.SpotlessExtension
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import java.util.Locale
 
 plugins {
     `java-library`
