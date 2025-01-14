@@ -8,6 +8,7 @@ import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.MultipartFormValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -229,9 +230,9 @@ constructor(
 
         fun build(): DocumentCreateParams =
             DocumentCreateParams(
-                checkNotNull(documentableId) { "`documentableId` is required but was not set" },
-                checkNotNull(documentableType) { "`documentableType` is required but was not set" },
-                checkNotNull(file) { "`file` is required but was not set" },
+                checkRequired("documentableId", documentableId),
+                checkRequired("documentableType", documentableType),
+                checkRequired("file", file),
                 documentType,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),

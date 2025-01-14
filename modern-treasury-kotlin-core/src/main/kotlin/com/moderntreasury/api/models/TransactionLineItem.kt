@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -448,23 +449,21 @@ private constructor(
 
         fun build(): TransactionLineItem =
             TransactionLineItem(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
-                checkNotNull(expectedPaymentId) {
-                    "`expectedPaymentId` is required but was not set"
-                },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(reconcilable) { "`reconcilable` is required but was not set" },
-                checkNotNull(transactableId) { "`transactableId` is required but was not set" },
-                checkNotNull(transactableType) { "`transactableType` is required but was not set" },
-                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("amount", amount),
+                checkRequired("counterpartyId", counterpartyId),
+                checkRequired("createdAt", createdAt),
+                checkRequired("description", description),
+                checkRequired("discardedAt", discardedAt),
+                checkRequired("expectedPaymentId", expectedPaymentId),
+                checkRequired("liveMode", liveMode),
+                checkRequired("object_", object_),
+                checkRequired("reconcilable", reconcilable),
+                checkRequired("transactableId", transactableId),
+                checkRequired("transactableType", transactableType),
+                checkRequired("transactionId", transactionId),
+                checkRequired("type", type),
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }

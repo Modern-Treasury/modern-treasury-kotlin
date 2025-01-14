@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
@@ -83,10 +84,7 @@ private constructor(
         }
 
         fun build(): PingResponse =
-            PingResponse(
-                checkNotNull(ping) { "`ping` is required but was not set" },
-                additionalProperties.toImmutable()
-            )
+            PingResponse(checkRequired("ping", ping), additionalProperties.toImmutable())
     }
 
     override fun equals(other: Any?): Boolean {

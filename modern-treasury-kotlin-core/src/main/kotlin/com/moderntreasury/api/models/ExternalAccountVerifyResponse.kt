@@ -21,6 +21,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.getOrThrow
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
@@ -447,20 +448,16 @@ private constructor(
 
             fun build(): ExternalAccountVerificationAttempt =
                 ExternalAccountVerificationAttempt(
-                    checkNotNull(id) { "`id` is required but was not set" },
-                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                    checkNotNull(externalAccountId) {
-                        "`externalAccountId` is required but was not set"
-                    },
-                    checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                    checkNotNull(object_) { "`object_` is required but was not set" },
-                    checkNotNull(originatingAccountId) {
-                        "`originatingAccountId` is required but was not set"
-                    },
-                    checkNotNull(paymentType) { "`paymentType` is required but was not set" },
-                    checkNotNull(priority) { "`priority` is required but was not set" },
-                    checkNotNull(status) { "`status` is required but was not set" },
-                    checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                    checkRequired("id", id),
+                    checkRequired("createdAt", createdAt),
+                    checkRequired("externalAccountId", externalAccountId),
+                    checkRequired("liveMode", liveMode),
+                    checkRequired("object_", object_),
+                    checkRequired("originatingAccountId", originatingAccountId),
+                    checkRequired("paymentType", paymentType),
+                    checkRequired("priority", priority),
+                    checkRequired("status", status),
+                    checkRequired("updatedAt", updatedAt),
                     additionalProperties.toImmutable(),
                 )
         }

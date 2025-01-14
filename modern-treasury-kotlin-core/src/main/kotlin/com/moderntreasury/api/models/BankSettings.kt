@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.time.OffsetDateTime
@@ -325,20 +326,16 @@ private constructor(
 
         fun build(): BankSettings =
             BankSettings(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(backupWithholdingPercentage) {
-                    "`backupWithholdingPercentage` is required but was not set"
-                },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
-                checkNotNull(enableBackupWithholding) {
-                    "`enableBackupWithholding` is required but was not set"
-                },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(privacyOptOut) { "`privacyOptOut` is required but was not set" },
-                checkNotNull(regulationO) { "`regulationO` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("backupWithholdingPercentage", backupWithholdingPercentage),
+                checkRequired("createdAt", createdAt),
+                checkRequired("discardedAt", discardedAt),
+                checkRequired("enableBackupWithholding", enableBackupWithholding),
+                checkRequired("liveMode", liveMode),
+                checkRequired("object_", object_),
+                checkRequired("privacyOptOut", privacyOptOut),
+                checkRequired("regulationO", regulationO),
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }

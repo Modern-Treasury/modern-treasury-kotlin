@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -618,35 +619,28 @@ private constructor(
 
         fun build(): ReturnObject =
             ReturnObject(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(code) { "`code` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(currentReturn) { "`currentReturn` is required but was not set" },
-                checkNotNull(dateOfDeath) { "`dateOfDeath` is required but was not set" },
-                checkNotNull(failureReason) { "`failureReason` is required but was not set" },
-                checkNotNull(internalAccountId) {
-                    "`internalAccountId` is required but was not set"
-                },
-                checkNotNull(ledgerTransactionId) {
-                    "`ledgerTransactionId` is required but was not set"
-                },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(reason) { "`reason` is required but was not set" },
-                checkNotNull(referenceNumbers) { "`referenceNumbers` is required but was not set" }
-                    .map { it.toImmutable() },
-                checkNotNull(returnableId) { "`returnableId` is required but was not set" },
-                checkNotNull(returnableType) { "`returnableType` is required but was not set" },
-                checkNotNull(role) { "`role` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
-                checkNotNull(transactionLineItemId) {
-                    "`transactionLineItemId` is required but was not set"
-                },
-                checkNotNull(type) { "`type` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("amount", amount),
+                checkRequired("code", code),
+                checkRequired("createdAt", createdAt),
+                checkRequired("currency", currency),
+                checkRequired("currentReturn", currentReturn),
+                checkRequired("dateOfDeath", dateOfDeath),
+                checkRequired("failureReason", failureReason),
+                checkRequired("internalAccountId", internalAccountId),
+                checkRequired("ledgerTransactionId", ledgerTransactionId),
+                checkRequired("liveMode", liveMode),
+                checkRequired("object_", object_),
+                checkRequired("reason", reason),
+                checkRequired("referenceNumbers", referenceNumbers).map { it.toImmutable() },
+                checkRequired("returnableId", returnableId),
+                checkRequired("returnableType", returnableType),
+                checkRequired("role", role),
+                checkRequired("status", status),
+                checkRequired("transactionId", transactionId),
+                checkRequired("transactionLineItemId", transactionLineItemId),
+                checkRequired("type", type),
+                checkRequired("updatedAt", updatedAt),
                 additionalInformation,
                 additionalProperties.toImmutable(),
             )
@@ -1212,17 +1206,13 @@ private constructor(
 
             fun build(): PaymentReference =
                 PaymentReference(
-                    checkNotNull(id) { "`id` is required but was not set" },
-                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                    checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                    checkNotNull(object_) { "`object_` is required but was not set" },
-                    checkNotNull(referenceNumber) {
-                        "`referenceNumber` is required but was not set"
-                    },
-                    checkNotNull(referenceNumberType) {
-                        "`referenceNumberType` is required but was not set"
-                    },
-                    checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                    checkRequired("id", id),
+                    checkRequired("createdAt", createdAt),
+                    checkRequired("liveMode", liveMode),
+                    checkRequired("object_", object_),
+                    checkRequired("referenceNumber", referenceNumber),
+                    checkRequired("referenceNumberType", referenceNumberType),
+                    checkRequired("updatedAt", updatedAt),
                     additionalProperties.toImmutable(),
                 )
         }

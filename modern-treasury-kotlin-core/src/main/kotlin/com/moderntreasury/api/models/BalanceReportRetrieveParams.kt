@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
@@ -164,10 +165,8 @@ constructor(
 
         fun build(): BalanceReportRetrieveParams =
             BalanceReportRetrieveParams(
-                checkNotNull(internalAccountId) {
-                    "`internalAccountId` is required but was not set"
-                },
-                checkNotNull(id) { "`id` is required but was not set" },
+                checkRequired("internalAccountId", internalAccountId),
+                checkRequired("id", id),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )

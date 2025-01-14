@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
@@ -1657,8 +1658,7 @@ constructor(
 
             fun build(): LedgerTransactionCreateRequest =
                 LedgerTransactionCreateRequest(
-                    checkNotNull(ledgerEntries) { "`ledgerEntries` is required but was not set" }
-                        .map { it.toImmutable() },
+                    checkRequired("ledgerEntries", ledgerEntries).map { it.toImmutable() },
                     description,
                     effectiveAt,
                     effectiveDate,
@@ -2093,11 +2093,9 @@ constructor(
 
                 fun build(): LedgerEntryCreateRequest =
                     LedgerEntryCreateRequest(
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(direction) { "`direction` is required but was not set" },
-                        checkNotNull(ledgerAccountId) {
-                            "`ledgerAccountId` is required but was not set"
-                        },
+                        checkRequired("amount", amount),
+                        checkRequired("direction", direction),
+                        checkRequired("ledgerAccountId", ledgerAccountId),
                         availableBalanceAmount,
                         lockVersion,
                         metadata,
@@ -2881,7 +2879,7 @@ constructor(
 
             fun build(): LineItemRequest =
                 LineItemRequest(
-                    checkNotNull(amount) { "`amount` is required but was not set" },
+                    checkRequired("amount", amount),
                     accountingCategoryId,
                     description,
                     metadata,

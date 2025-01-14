@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
@@ -1129,7 +1130,7 @@ constructor(
 
         fun build(): LegalEntityUpdateParams =
             LegalEntityUpdateParams(
-                checkNotNull(id) { "`id` is required but was not set" },
+                checkRequired("id", id),
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -1334,11 +1335,11 @@ constructor(
 
             fun build(): LegalEntityAddressCreateRequest =
                 LegalEntityAddressCreateRequest(
-                    checkNotNull(country) { "`country` is required but was not set" },
-                    checkNotNull(line1) { "`line1` is required but was not set" },
-                    checkNotNull(locality) { "`locality` is required but was not set" },
-                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
-                    checkNotNull(region) { "`region` is required but was not set" },
+                    checkRequired("country", country),
+                    checkRequired("line1", line1),
+                    checkRequired("locality", locality),
+                    checkRequired("postalCode", postalCode),
+                    checkRequired("region", region),
                     (addressTypes ?: JsonMissing.of()).map { it.toImmutable() },
                     line2,
                     additionalProperties.toImmutable(),
@@ -1556,8 +1557,8 @@ constructor(
 
             fun build(): IdentificationCreateRequest =
                 IdentificationCreateRequest(
-                    checkNotNull(idNumber) { "`idNumber` is required but was not set" },
-                    checkNotNull(idType) { "`idType` is required but was not set" },
+                    checkRequired("idNumber", idNumber),
+                    checkRequired("idType", idType),
                     issuingCountry,
                     additionalProperties.toImmutable(),
                 )

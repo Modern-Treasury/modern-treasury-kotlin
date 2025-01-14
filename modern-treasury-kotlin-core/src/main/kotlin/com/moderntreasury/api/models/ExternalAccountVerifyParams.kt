@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
@@ -301,10 +302,8 @@ constructor(
 
             fun build(): ExternalAccountVerifyBody =
                 ExternalAccountVerifyBody(
-                    checkNotNull(originatingAccountId) {
-                        "`originatingAccountId` is required but was not set"
-                    },
-                    checkNotNull(paymentType) { "`paymentType` is required but was not set" },
+                    checkRequired("originatingAccountId", originatingAccountId),
+                    checkRequired("paymentType", paymentType),
                     currency,
                     fallbackType,
                     priority,
@@ -531,7 +530,7 @@ constructor(
 
         fun build(): ExternalAccountVerifyParams =
             ExternalAccountVerifyParams(
-                checkNotNull(id) { "`id` is required but was not set" },
+                checkRequired("id", id),
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),

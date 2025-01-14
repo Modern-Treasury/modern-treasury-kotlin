@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
@@ -238,10 +239,8 @@ constructor(
 
             fun build(): RoutingDetailCreateBody =
                 RoutingDetailCreateBody(
-                    checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                    checkNotNull(routingNumberType) {
-                        "`routingNumberType` is required but was not set"
-                    },
+                    checkRequired("routingNumber", routingNumber),
+                    checkRequired("routingNumberType", routingNumberType),
                     paymentType,
                     additionalProperties.toImmutable(),
                 )
@@ -452,8 +451,8 @@ constructor(
 
         fun build(): RoutingDetailCreateParams =
             RoutingDetailCreateParams(
-                checkNotNull(accountsType) { "`accountsType` is required but was not set" },
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
+                checkRequired("accountsType", accountsType),
+                checkRequired("accountId", accountId),
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),

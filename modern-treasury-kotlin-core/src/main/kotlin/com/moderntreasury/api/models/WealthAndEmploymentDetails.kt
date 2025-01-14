@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -446,24 +447,24 @@ private constructor(
 
         fun build(): WealthAndEmploymentDetails =
             WealthAndEmploymentDetails(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(annualIncome) { "`annualIncome` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
-                checkNotNull(employerCountry) { "`employerCountry` is required but was not set" },
-                checkNotNull(employerName) { "`employerName` is required but was not set" },
-                checkNotNull(employerState) { "`employerState` is required but was not set" },
-                checkNotNull(employmentStatus) { "`employmentStatus` is required but was not set" },
-                checkNotNull(incomeCountry) { "`incomeCountry` is required but was not set" },
-                checkNotNull(incomeSource) { "`incomeSource` is required but was not set" },
-                checkNotNull(incomeState) { "`incomeState` is required but was not set" },
-                checkNotNull(industry) { "`industry` is required but was not set" },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(occupation) { "`occupation` is required but was not set" },
-                checkNotNull(sourceOfFunds) { "`sourceOfFunds` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
-                checkNotNull(wealthSource) { "`wealthSource` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("annualIncome", annualIncome),
+                checkRequired("createdAt", createdAt),
+                checkRequired("discardedAt", discardedAt),
+                checkRequired("employerCountry", employerCountry),
+                checkRequired("employerName", employerName),
+                checkRequired("employerState", employerState),
+                checkRequired("employmentStatus", employmentStatus),
+                checkRequired("incomeCountry", incomeCountry),
+                checkRequired("incomeSource", incomeSource),
+                checkRequired("incomeState", incomeState),
+                checkRequired("industry", industry),
+                checkRequired("liveMode", liveMode),
+                checkRequired("object_", object_),
+                checkRequired("occupation", occupation),
+                checkRequired("sourceOfFunds", sourceOfFunds),
+                checkRequired("updatedAt", updatedAt),
+                checkRequired("wealthSource", wealthSource),
                 additionalProperties.toImmutable(),
             )
     }

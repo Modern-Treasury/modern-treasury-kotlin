@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
@@ -219,10 +220,8 @@ constructor(
 
             fun build(): LedgerAccountBalanceMonitorCreateBody =
                 LedgerAccountBalanceMonitorCreateBody(
-                    checkNotNull(alertCondition) { "`alertCondition` is required but was not set" },
-                    checkNotNull(ledgerAccountId) {
-                        "`ledgerAccountId` is required but was not set"
-                    },
+                    checkRequired("alertCondition", alertCondition),
+                    checkRequired("ledgerAccountId", ledgerAccountId),
                     description,
                     metadata,
                     additionalProperties.toImmutable(),
@@ -583,9 +582,9 @@ constructor(
 
             fun build(): AlertConditionCreateRequest =
                 AlertConditionCreateRequest(
-                    checkNotNull(field) { "`field` is required but was not set" },
-                    checkNotNull(operator) { "`operator` is required but was not set" },
-                    checkNotNull(value) { "`value` is required but was not set" },
+                    checkRequired("field", field),
+                    checkRequired("operator", operator),
+                    checkRequired("value", value),
                     additionalProperties.toImmutable(),
                 )
         }

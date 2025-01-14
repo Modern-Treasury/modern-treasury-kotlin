@@ -7,6 +7,7 @@ import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
@@ -206,9 +207,9 @@ constructor(
 
         fun build(): RoutingDetailDeleteParams =
             RoutingDetailDeleteParams(
-                checkNotNull(accountsType) { "`accountsType` is required but was not set" },
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(id) { "`id` is required but was not set" },
+                checkRequired("accountsType", accountsType),
+                checkRequired("accountId", accountId),
+                checkRequired("id", id),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),

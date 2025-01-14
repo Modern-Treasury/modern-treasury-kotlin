@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -690,35 +691,29 @@ private constructor(
 
         fun build(): Transaction =
             Transaction(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(asOfDate) { "`asOfDate` is required but was not set" },
-                checkNotNull(asOfTime) { "`asOfTime` is required but was not set" },
-                checkNotNull(asOfTimezone) { "`asOfTimezone` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(customIdentifiers) {
-                    "`customIdentifiers` is required but was not set"
-                },
-                checkNotNull(direction) { "`direction` is required but was not set" },
-                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
-                checkNotNull(foreignExchangeRate) {
-                    "`foreignExchangeRate` is required but was not set"
-                },
-                checkNotNull(internalAccountId) {
-                    "`internalAccountId` is required but was not set"
-                },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(metadata) { "`metadata` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(posted) { "`posted` is required but was not set" },
-                checkNotNull(reconciled) { "`reconciled` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
-                checkNotNull(vendorCode) { "`vendorCode` is required but was not set" },
-                checkNotNull(vendorCodeType) { "`vendorCodeType` is required but was not set" },
-                checkNotNull(vendorCustomerId) { "`vendorCustomerId` is required but was not set" },
-                checkNotNull(vendorId) { "`vendorId` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("amount", amount),
+                checkRequired("asOfDate", asOfDate),
+                checkRequired("asOfTime", asOfTime),
+                checkRequired("asOfTimezone", asOfTimezone),
+                checkRequired("createdAt", createdAt),
+                checkRequired("currency", currency),
+                checkRequired("customIdentifiers", customIdentifiers),
+                checkRequired("direction", direction),
+                checkRequired("discardedAt", discardedAt),
+                checkRequired("foreignExchangeRate", foreignExchangeRate),
+                checkRequired("internalAccountId", internalAccountId),
+                checkRequired("liveMode", liveMode),
+                checkRequired("metadata", metadata),
+                checkRequired("object_", object_),
+                checkRequired("posted", posted),
+                checkRequired("reconciled", reconciled),
+                checkRequired("type", type),
+                checkRequired("updatedAt", updatedAt),
+                checkRequired("vendorCode", vendorCode),
+                checkRequired("vendorCodeType", vendorCodeType),
+                checkRequired("vendorCustomerId", vendorCustomerId),
+                checkRequired("vendorId", vendorId),
                 details,
                 vendorDescription,
                 additionalProperties.toImmutable(),
@@ -1053,13 +1048,13 @@ private constructor(
 
             fun build(): ForeignExchangeRate =
                 ForeignExchangeRate(
-                    checkNotNull(baseAmount) { "`baseAmount` is required but was not set" },
-                    checkNotNull(baseCurrency) { "`baseCurrency` is required but was not set" },
-                    checkNotNull(exponent) { "`exponent` is required but was not set" },
-                    checkNotNull(rateString) { "`rateString` is required but was not set" },
-                    checkNotNull(targetAmount) { "`targetAmount` is required but was not set" },
-                    checkNotNull(targetCurrency) { "`targetCurrency` is required but was not set" },
-                    checkNotNull(value) { "`value` is required but was not set" },
+                    checkRequired("baseAmount", baseAmount),
+                    checkRequired("baseCurrency", baseCurrency),
+                    checkRequired("exponent", exponent),
+                    checkRequired("rateString", rateString),
+                    checkRequired("targetAmount", targetAmount),
+                    checkRequired("targetCurrency", targetCurrency),
+                    checkRequired("value", value),
                     additionalProperties.toImmutable(),
                 )
         }

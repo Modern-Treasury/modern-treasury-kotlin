@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -517,29 +518,24 @@ private constructor(
 
         fun build(): LedgerTransaction =
             LedgerTransaction(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(effectiveAt) { "`effectiveAt` is required but was not set" },
-                checkNotNull(effectiveDate) { "`effectiveDate` is required but was not set" },
-                checkNotNull(externalId) { "`externalId` is required but was not set" },
-                checkNotNull(ledgerEntries) { "`ledgerEntries` is required but was not set" }
-                    .map { it.toImmutable() },
-                checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
-                checkNotNull(ledgerableId) { "`ledgerableId` is required but was not set" },
-                checkNotNull(ledgerableType) { "`ledgerableType` is required but was not set" },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(metadata) { "`metadata` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(postedAt) { "`postedAt` is required but was not set" },
-                checkNotNull(reversedByLedgerTransactionId) {
-                    "`reversedByLedgerTransactionId` is required but was not set"
-                },
-                checkNotNull(reversesLedgerTransactionId) {
-                    "`reversesLedgerTransactionId` is required but was not set"
-                },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("createdAt", createdAt),
+                checkRequired("description", description),
+                checkRequired("effectiveAt", effectiveAt),
+                checkRequired("effectiveDate", effectiveDate),
+                checkRequired("externalId", externalId),
+                checkRequired("ledgerEntries", ledgerEntries).map { it.toImmutable() },
+                checkRequired("ledgerId", ledgerId),
+                checkRequired("ledgerableId", ledgerableId),
+                checkRequired("ledgerableType", ledgerableType),
+                checkRequired("liveMode", liveMode),
+                checkRequired("metadata", metadata),
+                checkRequired("object_", object_),
+                checkRequired("postedAt", postedAt),
+                checkRequired("reversedByLedgerTransactionId", reversedByLedgerTransactionId),
+                checkRequired("reversesLedgerTransactionId", reversesLedgerTransactionId),
+                checkRequired("status", status),
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }

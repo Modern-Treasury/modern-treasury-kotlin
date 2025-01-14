@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
@@ -98,8 +99,8 @@ private constructor(
 
         fun build(): AsyncResponse =
             AsyncResponse(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("object_", object_),
                 additionalProperties.toImmutable(),
             )
     }
