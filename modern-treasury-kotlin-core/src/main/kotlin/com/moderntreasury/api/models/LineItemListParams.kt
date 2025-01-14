@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -190,8 +191,8 @@ constructor(
 
         fun build(): LineItemListParams =
             LineItemListParams(
-                checkNotNull(itemizableType) { "`itemizableType` is required but was not set" },
-                checkNotNull(itemizableId) { "`itemizableId` is required but was not set" },
+                checkRequired("itemizableType", itemizableType),
+                checkRequired("itemizableId", itemizableId),
                 afterCursor,
                 perPage,
                 additionalHeaders.build(),

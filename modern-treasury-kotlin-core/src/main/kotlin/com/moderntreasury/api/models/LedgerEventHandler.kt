@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.time.OffsetDateTime
@@ -317,21 +318,19 @@ private constructor(
 
         fun build(): LedgerEventHandler =
             LedgerEventHandler(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(conditions) { "`conditions` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
-                checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
-                checkNotNull(ledgerTransactionTemplate) {
-                    "`ledgerTransactionTemplate` is required but was not set"
-                },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(metadata) { "`metadata` is required but was not set" },
-                checkNotNull(name) { "`name` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
-                checkNotNull(variables) { "`variables` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("conditions", conditions),
+                checkRequired("createdAt", createdAt),
+                checkRequired("description", description),
+                checkRequired("discardedAt", discardedAt),
+                checkRequired("ledgerId", ledgerId),
+                checkRequired("ledgerTransactionTemplate", ledgerTransactionTemplate),
+                checkRequired("liveMode", liveMode),
+                checkRequired("metadata", metadata),
+                checkRequired("name", name),
+                checkRequired("object_", object_),
+                checkRequired("updatedAt", updatedAt),
+                checkRequired("variables", variables),
                 additionalProperties.toImmutable(),
             )
     }
@@ -449,9 +448,9 @@ private constructor(
 
             fun build(): LedgerEventHandlerConditions =
                 LedgerEventHandlerConditions(
-                    checkNotNull(field) { "`field` is required but was not set" },
-                    checkNotNull(operator) { "`operator` is required but was not set" },
-                    checkNotNull(value) { "`value` is required but was not set" },
+                    checkRequired("field", field),
+                    checkRequired("operator", operator),
+                    checkRequired("value", value),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -652,11 +651,10 @@ private constructor(
 
             fun build(): LedgerEventHandlerLedgerTransactionTemplate =
                 LedgerEventHandlerLedgerTransactionTemplate(
-                    checkNotNull(description) { "`description` is required but was not set" },
-                    checkNotNull(effectiveAt) { "`effectiveAt` is required but was not set" },
-                    checkNotNull(ledgerEntries) { "`ledgerEntries` is required but was not set" }
-                        .map { it.toImmutable() },
-                    checkNotNull(status) { "`status` is required but was not set" },
+                    checkRequired("description", description),
+                    checkRequired("effectiveAt", effectiveAt),
+                    checkRequired("ledgerEntries", ledgerEntries).map { it.toImmutable() },
+                    checkRequired("status", status),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -786,11 +784,9 @@ private constructor(
 
                 fun build(): LedgerEventHandlerLedgerEntries =
                     LedgerEventHandlerLedgerEntries(
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(direction) { "`direction` is required but was not set" },
-                        checkNotNull(ledgerAccountId) {
-                            "`ledgerAccountId` is required but was not set"
-                        },
+                        checkRequired("amount", amount),
+                        checkRequired("direction", direction),
+                        checkRequired("ledgerAccountId", ledgerAccountId),
                         additionalProperties.toImmutable(),
                     )
             }

@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
@@ -368,8 +369,8 @@ constructor(
 
             fun build(): InvoiceLineItemCreateBody =
                 InvoiceLineItemCreateBody(
-                    checkNotNull(name) { "`name` is required but was not set" },
-                    checkNotNull(unitAmount) { "`unitAmount` is required but was not set" },
+                    checkRequired("name", name),
+                    checkRequired("unitAmount", unitAmount),
                     description,
                     direction,
                     metadata,
@@ -616,7 +617,7 @@ constructor(
 
         fun build(): InvoiceLineItemCreateParams =
             InvoiceLineItemCreateParams(
-                checkNotNull(invoiceId) { "`invoiceId` is required but was not set" },
+                checkRequired("invoiceId", invoiceId),
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),

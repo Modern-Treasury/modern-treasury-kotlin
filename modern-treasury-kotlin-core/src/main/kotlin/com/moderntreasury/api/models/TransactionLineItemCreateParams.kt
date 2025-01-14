@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
@@ -196,11 +197,9 @@ constructor(
 
             fun build(): TransactionLineItemCreateBody =
                 TransactionLineItemCreateBody(
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(expectedPaymentId) {
-                        "`expectedPaymentId` is required but was not set"
-                    },
-                    checkNotNull(transactionId) { "`transactionId` is required but was not set" },
+                    checkRequired("amount", amount),
+                    checkRequired("expectedPaymentId", expectedPaymentId),
+                    checkRequired("transactionId", transactionId),
                     additionalProperties.toImmutable(),
                 )
         }

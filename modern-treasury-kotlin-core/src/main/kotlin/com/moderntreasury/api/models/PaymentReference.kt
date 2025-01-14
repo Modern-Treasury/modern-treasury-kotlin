@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -280,19 +281,15 @@ private constructor(
 
         fun build(): PaymentReference =
             PaymentReference(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(referenceNumber) { "`referenceNumber` is required but was not set" },
-                checkNotNull(referenceNumberType) {
-                    "`referenceNumberType` is required but was not set"
-                },
-                checkNotNull(referenceableId) { "`referenceableId` is required but was not set" },
-                checkNotNull(referenceableType) {
-                    "`referenceableType` is required but was not set"
-                },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("createdAt", createdAt),
+                checkRequired("liveMode", liveMode),
+                checkRequired("object_", object_),
+                checkRequired("referenceNumber", referenceNumber),
+                checkRequired("referenceNumberType", referenceNumberType),
+                checkRequired("referenceableId", referenceableId),
+                checkRequired("referenceableType", referenceableType),
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }

@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -473,33 +474,23 @@ private constructor(
 
         fun build(): LedgerAccountSettlement =
             LedgerAccountSettlement(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(contraLedgerAccountId) {
-                    "`contraLedgerAccountId` is required but was not set"
-                },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(currencyExponent) { "`currencyExponent` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(effectiveAtUpperBound) {
-                    "`effectiveAtUpperBound` is required but was not set"
-                },
-                checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
-                checkNotNull(ledgerTransactionId) {
-                    "`ledgerTransactionId` is required but was not set"
-                },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(metadata) { "`metadata` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(settledLedgerAccountId) {
-                    "`settledLedgerAccountId` is required but was not set"
-                },
-                checkNotNull(settlementEntryDirection) {
-                    "`settlementEntryDirection` is required but was not set"
-                },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("amount", amount),
+                checkRequired("contraLedgerAccountId", contraLedgerAccountId),
+                checkRequired("createdAt", createdAt),
+                checkRequired("currency", currency),
+                checkRequired("currencyExponent", currencyExponent),
+                checkRequired("description", description),
+                checkRequired("effectiveAtUpperBound", effectiveAtUpperBound),
+                checkRequired("ledgerId", ledgerId),
+                checkRequired("ledgerTransactionId", ledgerTransactionId),
+                checkRequired("liveMode", liveMode),
+                checkRequired("metadata", metadata),
+                checkRequired("object_", object_),
+                checkRequired("settledLedgerAccountId", settledLedgerAccountId),
+                checkRequired("settlementEntryDirection", settlementEntryDirection),
+                checkRequired("status", status),
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }

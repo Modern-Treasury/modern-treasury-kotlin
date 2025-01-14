@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.time.OffsetDateTime
@@ -326,23 +327,17 @@ private constructor(
 
         fun build(): ForeignExchangeQuote =
             ForeignExchangeQuote(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(effectiveAt) { "`effectiveAt` is required but was not set" },
-                checkNotNull(expiresAt) { "`expiresAt` is required but was not set" },
-                checkNotNull(foreignExchangeIndicator) {
-                    "`foreignExchangeIndicator` is required but was not set"
-                },
-                checkNotNull(foreignExchangeRate) {
-                    "`foreignExchangeRate` is required but was not set"
-                },
-                checkNotNull(internalAccountId) {
-                    "`internalAccountId` is required but was not set"
-                },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(metadata) { "`metadata` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("createdAt", createdAt),
+                checkRequired("effectiveAt", effectiveAt),
+                checkRequired("expiresAt", expiresAt),
+                checkRequired("foreignExchangeIndicator", foreignExchangeIndicator),
+                checkRequired("foreignExchangeRate", foreignExchangeRate),
+                checkRequired("internalAccountId", internalAccountId),
+                checkRequired("liveMode", liveMode),
+                checkRequired("metadata", metadata),
+                checkRequired("object_", object_),
+                checkRequired("updatedAt", updatedAt),
                 vendorId,
                 additionalProperties.toImmutable(),
             )
@@ -596,13 +591,13 @@ private constructor(
 
             fun build(): ForeignExchangeRate =
                 ForeignExchangeRate(
-                    checkNotNull(baseAmount) { "`baseAmount` is required but was not set" },
-                    checkNotNull(baseCurrency) { "`baseCurrency` is required but was not set" },
-                    checkNotNull(exponent) { "`exponent` is required but was not set" },
-                    checkNotNull(rateString) { "`rateString` is required but was not set" },
-                    checkNotNull(targetAmount) { "`targetAmount` is required but was not set" },
-                    checkNotNull(targetCurrency) { "`targetCurrency` is required but was not set" },
-                    checkNotNull(value) { "`value` is required but was not set" },
+                    checkRequired("baseAmount", baseAmount),
+                    checkRequired("baseCurrency", baseCurrency),
+                    checkRequired("exponent", exponent),
+                    checkRequired("rateString", rateString),
+                    checkRequired("targetAmount", targetAmount),
+                    checkRequired("targetCurrency", targetCurrency),
+                    checkRequired("value", value),
                     additionalProperties.toImmutable(),
                 )
         }

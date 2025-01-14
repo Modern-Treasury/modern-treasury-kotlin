@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
@@ -359,10 +360,10 @@ constructor(
 
             fun build(): InternalAccountCreateBody =
                 InternalAccountCreateBody(
-                    checkNotNull(connectionId) { "`connectionId` is required but was not set" },
-                    checkNotNull(currency) { "`currency` is required but was not set" },
-                    checkNotNull(name) { "`name` is required but was not set" },
-                    checkNotNull(partyName) { "`partyName` is required but was not set" },
+                    checkRequired("connectionId", connectionId),
+                    checkRequired("currency", currency),
+                    checkRequired("name", name),
+                    checkRequired("partyName", partyName),
                     counterpartyId,
                     legalEntityId,
                     parentAccountId,
@@ -829,11 +830,11 @@ constructor(
 
             fun build(): PartyAddress =
                 PartyAddress(
-                    checkNotNull(country) { "`country` is required but was not set" },
-                    checkNotNull(line1) { "`line1` is required but was not set" },
-                    checkNotNull(locality) { "`locality` is required but was not set" },
-                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
-                    checkNotNull(region) { "`region` is required but was not set" },
+                    checkRequired("country", country),
+                    checkRequired("line1", line1),
+                    checkRequired("locality", locality),
+                    checkRequired("postalCode", postalCode),
+                    checkRequired("region", region),
                     line2,
                     additionalProperties.toImmutable(),
                 )

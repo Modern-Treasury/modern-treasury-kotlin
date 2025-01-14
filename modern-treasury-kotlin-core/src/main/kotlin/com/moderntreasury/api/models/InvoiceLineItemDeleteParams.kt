@@ -4,6 +4,7 @@ package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
@@ -194,8 +195,8 @@ constructor(
 
         fun build(): InvoiceLineItemDeleteParams =
             InvoiceLineItemDeleteParams(
-                checkNotNull(invoiceId) { "`invoiceId` is required but was not set" },
-                checkNotNull(id) { "`id` is required but was not set" },
+                checkRequired("invoiceId", invoiceId),
+                checkRequired("id", id),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),

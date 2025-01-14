@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -355,23 +356,19 @@ private constructor(
 
         fun build(): LineItem =
             LineItem(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accounting) { "`accounting` is required but was not set" },
-                checkNotNull(accountingCategoryId) {
-                    "`accountingCategoryId` is required but was not set"
-                },
-                checkNotNull(accountingLedgerClassId) {
-                    "`accountingLedgerClassId` is required but was not set"
-                },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(itemizableId) { "`itemizableId` is required but was not set" },
-                checkNotNull(itemizableType) { "`itemizableType` is required but was not set" },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(metadata) { "`metadata` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("accounting", accounting),
+                checkRequired("accountingCategoryId", accountingCategoryId),
+                checkRequired("accountingLedgerClassId", accountingLedgerClassId),
+                checkRequired("amount", amount),
+                checkRequired("createdAt", createdAt),
+                checkRequired("description", description),
+                checkRequired("itemizableId", itemizableId),
+                checkRequired("itemizableType", itemizableType),
+                checkRequired("liveMode", liveMode),
+                checkRequired("metadata", metadata),
+                checkRequired("object_", object_),
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }

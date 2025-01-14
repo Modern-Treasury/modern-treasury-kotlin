@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
@@ -184,8 +185,8 @@ constructor(
 
         fun build(): AccountDetailListParams =
             AccountDetailListParams(
-                checkNotNull(accountsType) { "`accountsType` is required but was not set" },
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
+                checkRequired("accountsType", accountsType),
+                checkRequired("accountId", accountId),
                 afterCursor,
                 perPage,
                 additionalHeaders.build(),

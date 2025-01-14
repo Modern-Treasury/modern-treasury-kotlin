@@ -21,6 +21,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.getOrThrow
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
@@ -404,18 +405,18 @@ private constructor(
 
         fun build(): BulkResult =
             BulkResult(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(entity) { "`entity` is required but was not set" },
-                checkNotNull(entityId) { "`entityId` is required but was not set" },
-                checkNotNull(entityType) { "`entityType` is required but was not set" },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(requestId) { "`requestId` is required but was not set" },
-                checkNotNull(requestParams) { "`requestParams` is required but was not set" },
-                checkNotNull(requestType) { "`requestType` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("createdAt", createdAt),
+                checkRequired("entity", entity),
+                checkRequired("entityId", entityId),
+                checkRequired("entityType", entityType),
+                checkRequired("liveMode", liveMode),
+                checkRequired("object_", object_),
+                checkRequired("requestId", requestId),
+                checkRequired("requestParams", requestParams),
+                checkRequired("requestType", requestType),
+                checkRequired("status", status),
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }
@@ -803,15 +804,12 @@ private constructor(
 
                 fun build(): BulkError =
                     BulkError(
-                        checkNotNull(id) { "`id` is required but was not set" },
-                        checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                        checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                        checkNotNull(object_) { "`object_` is required but was not set" },
-                        checkNotNull(requestErrors) {
-                                "`requestErrors` is required but was not set"
-                            }
-                            .map { it.toImmutable() },
-                        checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                        checkRequired("id", id),
+                        checkRequired("createdAt", createdAt),
+                        checkRequired("liveMode", liveMode),
+                        checkRequired("object_", object_),
+                        checkRequired("requestErrors", requestErrors).map { it.toImmutable() },
+                        checkRequired("updatedAt", updatedAt),
                         additionalProperties.toImmutable(),
                     )
             }

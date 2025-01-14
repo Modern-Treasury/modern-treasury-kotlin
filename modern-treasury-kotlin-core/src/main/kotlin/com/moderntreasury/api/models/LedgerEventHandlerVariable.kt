@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
@@ -104,8 +105,8 @@ private constructor(
 
         fun build(): LedgerEventHandlerVariable =
             LedgerEventHandlerVariable(
-                checkNotNull(query) { "`query` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("query", query),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -223,9 +224,9 @@ private constructor(
 
             fun build(): LedgerEventHandlerConditions =
                 LedgerEventHandlerConditions(
-                    checkNotNull(field) { "`field` is required but was not set" },
-                    checkNotNull(operator) { "`operator` is required but was not set" },
-                    checkNotNull(value) { "`value` is required but was not set" },
+                    checkRequired("field", field),
+                    checkRequired("operator", operator),
+                    checkRequired("value", value),
                     additionalProperties.toImmutable(),
                 )
         }

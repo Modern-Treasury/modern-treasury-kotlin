@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -325,19 +326,18 @@ private constructor(
 
         fun build(): Document =
             Document(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
-                checkNotNull(documentDetails) { "`documentDetails` is required but was not set" }
-                    .map { it.toImmutable() },
-                checkNotNull(documentType) { "`documentType` is required but was not set" },
-                checkNotNull(documentableId) { "`documentableId` is required but was not set" },
-                checkNotNull(documentableType) { "`documentableType` is required but was not set" },
-                checkNotNull(file) { "`file` is required but was not set" },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(source) { "`source` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("createdAt", createdAt),
+                checkRequired("discardedAt", discardedAt),
+                checkRequired("documentDetails", documentDetails).map { it.toImmutable() },
+                checkRequired("documentType", documentType),
+                checkRequired("documentableId", documentableId),
+                checkRequired("documentableType", documentableType),
+                checkRequired("file", file),
+                checkRequired("liveMode", liveMode),
+                checkRequired("object_", object_),
+                checkRequired("source", source),
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }
@@ -550,18 +550,14 @@ private constructor(
 
             fun build(): DocumentDetail =
                 DocumentDetail(
-                    checkNotNull(id) { "`id` is required but was not set" },
-                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                    checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
-                    checkNotNull(documentIdentifier) {
-                        "`documentIdentifier` is required but was not set"
-                    },
-                    checkNotNull(documentIdentifierType) {
-                        "`documentIdentifierType` is required but was not set"
-                    },
-                    checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                    checkNotNull(object_) { "`object_` is required but was not set" },
-                    checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                    checkRequired("id", id),
+                    checkRequired("createdAt", createdAt),
+                    checkRequired("discardedAt", discardedAt),
+                    checkRequired("documentIdentifier", documentIdentifier),
+                    checkRequired("documentIdentifierType", documentIdentifierType),
+                    checkRequired("liveMode", liveMode),
+                    checkRequired("object_", object_),
+                    checkRequired("updatedAt", updatedAt),
                     additionalProperties.toImmutable(),
                 )
         }
