@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -625,44 +626,30 @@ private constructor(
 
         fun build(): IncomingPaymentDetail =
             IncomingPaymentDetail(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(asOfDate) { "`asOfDate` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(data) { "`data` is required but was not set" },
-                checkNotNull(direction) { "`direction` is required but was not set" },
-                checkNotNull(internalAccountId) {
-                    "`internalAccountId` is required but was not set"
-                },
-                checkNotNull(ledgerTransactionId) {
-                    "`ledgerTransactionId` is required but was not set"
-                },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(metadata) { "`metadata` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(originatingAccountNumberSafe) {
-                    "`originatingAccountNumberSafe` is required but was not set"
-                },
-                checkNotNull(originatingAccountNumberType) {
-                    "`originatingAccountNumberType` is required but was not set"
-                },
-                checkNotNull(originatingRoutingNumber) {
-                    "`originatingRoutingNumber` is required but was not set"
-                },
-                checkNotNull(originatingRoutingNumberType) {
-                    "`originatingRoutingNumberType` is required but was not set"
-                },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
-                checkNotNull(transactionLineItemId) {
-                    "`transactionLineItemId` is required but was not set"
-                },
-                checkNotNull(type) { "`type` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
-                checkNotNull(vendorId) { "`vendorId` is required but was not set" },
-                checkNotNull(virtualAccount) { "`virtualAccount` is required but was not set" },
-                checkNotNull(virtualAccountId) { "`virtualAccountId` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("amount", amount),
+                checkRequired("asOfDate", asOfDate),
+                checkRequired("createdAt", createdAt),
+                checkRequired("currency", currency),
+                checkRequired("data", data),
+                checkRequired("direction", direction),
+                checkRequired("internalAccountId", internalAccountId),
+                checkRequired("ledgerTransactionId", ledgerTransactionId),
+                checkRequired("liveMode", liveMode),
+                checkRequired("metadata", metadata),
+                checkRequired("object_", object_),
+                checkRequired("originatingAccountNumberSafe", originatingAccountNumberSafe),
+                checkRequired("originatingAccountNumberType", originatingAccountNumberType),
+                checkRequired("originatingRoutingNumber", originatingRoutingNumber),
+                checkRequired("originatingRoutingNumberType", originatingRoutingNumberType),
+                checkRequired("status", status),
+                checkRequired("transactionId", transactionId),
+                checkRequired("transactionLineItemId", transactionLineItemId),
+                checkRequired("type", type),
+                checkRequired("updatedAt", updatedAt),
+                checkRequired("vendorId", vendorId),
+                checkRequired("virtualAccount", virtualAccount),
+                checkRequired("virtualAccountId", virtualAccountId),
                 originatingAccountNumber,
                 additionalProperties.toImmutable(),
             )

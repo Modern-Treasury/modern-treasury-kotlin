@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -732,51 +733,34 @@ private constructor(
 
         fun build(): ExpectedPayment =
             ExpectedPayment(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(amountLowerBound) { "`amountLowerBound` is required but was not set" },
-                checkNotNull(amountUpperBound) { "`amountUpperBound` is required but was not set" },
-                checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(dateLowerBound) { "`dateLowerBound` is required but was not set" },
-                checkNotNull(dateUpperBound) { "`dateUpperBound` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(direction) { "`direction` is required but was not set" },
-                checkNotNull(internalAccountId) {
-                    "`internalAccountId` is required but was not set"
+                checkRequired("id", id),
+                checkRequired("amountLowerBound", amountLowerBound),
+                checkRequired("amountUpperBound", amountUpperBound),
+                checkRequired("counterpartyId", counterpartyId),
+                checkRequired("createdAt", createdAt),
+                checkRequired("currency", currency),
+                checkRequired("dateLowerBound", dateLowerBound),
+                checkRequired("dateUpperBound", dateUpperBound),
+                checkRequired("description", description),
+                checkRequired("direction", direction),
+                checkRequired("internalAccountId", internalAccountId),
+                checkRequired("ledgerTransactionId", ledgerTransactionId),
+                checkRequired("liveMode", liveMode),
+                checkRequired("metadata", metadata),
+                checkRequired("object_", object_),
+                checkRequired("reconciliationFilters", reconciliationFilters),
+                checkRequired("reconciliationGroups", reconciliationGroups),
+                checkRequired("reconciliationMethod", reconciliationMethod),
+                checkRequired("reconciliationRuleVariables", reconciliationRuleVariables).map {
+                    it.toImmutable()
                 },
-                checkNotNull(ledgerTransactionId) {
-                    "`ledgerTransactionId` is required but was not set"
-                },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(metadata) { "`metadata` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(reconciliationFilters) {
-                    "`reconciliationFilters` is required but was not set"
-                },
-                checkNotNull(reconciliationGroups) {
-                    "`reconciliationGroups` is required but was not set"
-                },
-                checkNotNull(reconciliationMethod) {
-                    "`reconciliationMethod` is required but was not set"
-                },
-                checkNotNull(reconciliationRuleVariables) {
-                        "`reconciliationRuleVariables` is required but was not set"
-                    }
-                    .map { it.toImmutable() },
-                checkNotNull(remittanceInformation) {
-                    "`remittanceInformation` is required but was not set"
-                },
-                checkNotNull(statementDescriptor) {
-                    "`statementDescriptor` is required but was not set"
-                },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
-                checkNotNull(transactionLineItemId) {
-                    "`transactionLineItemId` is required but was not set"
-                },
-                checkNotNull(type) { "`type` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("remittanceInformation", remittanceInformation),
+                checkRequired("statementDescriptor", statementDescriptor),
+                checkRequired("status", status),
+                checkRequired("transactionId", transactionId),
+                checkRequired("transactionLineItemId", transactionLineItemId),
+                checkRequired("type", type),
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }

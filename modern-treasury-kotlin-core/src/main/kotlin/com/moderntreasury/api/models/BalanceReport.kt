@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -291,21 +292,16 @@ private constructor(
 
         fun build(): BalanceReport =
             BalanceReport(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(asOfDate) { "`asOfDate` is required but was not set" },
-                checkNotNull(asOfTime) { "`asOfTime` is required but was not set" },
-                checkNotNull(balanceReportType) {
-                    "`balanceReportType` is required but was not set"
-                },
-                checkNotNull(balances) { "`balances` is required but was not set" }
-                    .map { it.toImmutable() },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(internalAccountId) {
-                    "`internalAccountId` is required but was not set"
-                },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("asOfDate", asOfDate),
+                checkRequired("asOfTime", asOfTime),
+                checkRequired("balanceReportType", balanceReportType),
+                checkRequired("balances", balances).map { it.toImmutable() },
+                checkRequired("createdAt", createdAt),
+                checkRequired("internalAccountId", internalAccountId),
+                checkRequired("liveMode", liveMode),
+                checkRequired("object_", object_),
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }
@@ -721,19 +717,19 @@ private constructor(
 
             fun build(): Balance =
                 Balance(
-                    checkNotNull(id) { "`id` is required but was not set" },
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(asOfDate) { "`asOfDate` is required but was not set" },
-                    checkNotNull(asOfTime) { "`asOfTime` is required but was not set" },
-                    checkNotNull(balanceType) { "`balanceType` is required but was not set" },
-                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                    checkNotNull(currency) { "`currency` is required but was not set" },
-                    checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                    checkNotNull(object_) { "`object_` is required but was not set" },
-                    checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
-                    checkNotNull(valueDate) { "`valueDate` is required but was not set" },
-                    checkNotNull(vendorCode) { "`vendorCode` is required but was not set" },
-                    checkNotNull(vendorCodeType) { "`vendorCodeType` is required but was not set" },
+                    checkRequired("id", id),
+                    checkRequired("amount", amount),
+                    checkRequired("asOfDate", asOfDate),
+                    checkRequired("asOfTime", asOfTime),
+                    checkRequired("balanceType", balanceType),
+                    checkRequired("createdAt", createdAt),
+                    checkRequired("currency", currency),
+                    checkRequired("liveMode", liveMode),
+                    checkRequired("object_", object_),
+                    checkRequired("updatedAt", updatedAt),
+                    checkRequired("valueDate", valueDate),
+                    checkRequired("vendorCode", vendorCode),
+                    checkRequired("vendorCodeType", vendorCodeType),
                     additionalProperties.toImmutable(),
                 )
         }

@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
@@ -200,9 +201,8 @@ constructor(
 
             fun build(): AccountCollectionFlowCreateBody =
                 AccountCollectionFlowCreateBody(
-                    checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
-                    checkNotNull(paymentTypes) { "`paymentTypes` is required but was not set" }
-                        .map { it.toImmutable() },
+                    checkRequired("counterpartyId", counterpartyId),
+                    checkRequired("paymentTypes", paymentTypes).map { it.toImmutable() },
                     (receivingCountries ?: JsonMissing.of()).map { it.toImmutable() },
                     additionalProperties.toImmutable(),
                 )

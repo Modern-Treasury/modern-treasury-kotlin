@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -1086,71 +1087,49 @@ private constructor(
 
         fun build(): Invoice =
             Invoice(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(amountPaid) { "`amountPaid` is required but was not set" },
-                checkNotNull(amountRemaining) { "`amountRemaining` is required but was not set" },
-                checkNotNull(contactDetails) { "`contactDetails` is required but was not set" }
-                    .map { it.toImmutable() },
-                checkNotNull(counterpartyBillingAddress) {
-                    "`counterpartyBillingAddress` is required but was not set"
+                checkRequired("id", id),
+                checkRequired("amountPaid", amountPaid),
+                checkRequired("amountRemaining", amountRemaining),
+                checkRequired("contactDetails", contactDetails).map { it.toImmutable() },
+                checkRequired("counterpartyBillingAddress", counterpartyBillingAddress),
+                checkRequired("counterpartyId", counterpartyId),
+                checkRequired("counterpartyShippingAddress", counterpartyShippingAddress),
+                checkRequired("createdAt", createdAt),
+                checkRequired("currency", currency),
+                checkRequired("description", description),
+                checkRequired("dueDate", dueDate),
+                checkRequired("expectedPayments", expectedPayments).map { it.toImmutable() },
+                checkRequired("fallbackPaymentMethod", fallbackPaymentMethod),
+                checkRequired("hostedUrl", hostedUrl),
+                checkRequired("invoicerAddress", invoicerAddress),
+                checkRequired("ledgerAccountSettlementId", ledgerAccountSettlementId),
+                checkRequired("liveMode", liveMode),
+                checkRequired("metadata", metadata),
+                checkRequired("notificationEmailAddresses", notificationEmailAddresses).map {
+                    it.toImmutable()
                 },
-                checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
-                checkNotNull(counterpartyShippingAddress) {
-                    "`counterpartyShippingAddress` is required but was not set"
+                checkRequired("notificationsEnabled", notificationsEnabled),
+                checkRequired("number", number),
+                checkRequired("object_", object_),
+                checkRequired("originatingAccountId", originatingAccountId),
+                checkRequired("paymentEffectiveDate", paymentEffectiveDate),
+                checkRequired("paymentMethod", paymentMethod),
+                checkRequired("paymentOrders", paymentOrders).map { it.toImmutable() },
+                checkRequired("paymentType", paymentType),
+                checkRequired("pdfUrl", pdfUrl),
+                checkRequired("receivingAccountId", receivingAccountId),
+                checkRequired("recipientEmail", recipientEmail),
+                checkRequired("recipientName", recipientName),
+                checkRequired("remindAfterOverdueDays", remindAfterOverdueDays).map {
+                    it.toImmutable()
                 },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(dueDate) { "`dueDate` is required but was not set" },
-                checkNotNull(expectedPayments) { "`expectedPayments` is required but was not set" }
-                    .map { it.toImmutable() },
-                checkNotNull(fallbackPaymentMethod) {
-                    "`fallbackPaymentMethod` is required but was not set"
+                checkRequired("status", status),
+                checkRequired("totalAmount", totalAmount),
+                checkRequired("transactionLineItemIds", transactionLineItemIds).map {
+                    it.toImmutable()
                 },
-                checkNotNull(hostedUrl) { "`hostedUrl` is required but was not set" },
-                checkNotNull(invoicerAddress) { "`invoicerAddress` is required but was not set" },
-                checkNotNull(ledgerAccountSettlementId) {
-                    "`ledgerAccountSettlementId` is required but was not set"
-                },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(metadata) { "`metadata` is required but was not set" },
-                checkNotNull(notificationEmailAddresses) {
-                        "`notificationEmailAddresses` is required but was not set"
-                    }
-                    .map { it.toImmutable() },
-                checkNotNull(notificationsEnabled) {
-                    "`notificationsEnabled` is required but was not set"
-                },
-                checkNotNull(number) { "`number` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(originatingAccountId) {
-                    "`originatingAccountId` is required but was not set"
-                },
-                checkNotNull(paymentEffectiveDate) {
-                    "`paymentEffectiveDate` is required but was not set"
-                },
-                checkNotNull(paymentMethod) { "`paymentMethod` is required but was not set" },
-                checkNotNull(paymentOrders) { "`paymentOrders` is required but was not set" }
-                    .map { it.toImmutable() },
-                checkNotNull(paymentType) { "`paymentType` is required but was not set" },
-                checkNotNull(pdfUrl) { "`pdfUrl` is required but was not set" },
-                checkNotNull(receivingAccountId) {
-                    "`receivingAccountId` is required but was not set"
-                },
-                checkNotNull(recipientEmail) { "`recipientEmail` is required but was not set" },
-                checkNotNull(recipientName) { "`recipientName` is required but was not set" },
-                checkNotNull(remindAfterOverdueDays) {
-                        "`remindAfterOverdueDays` is required but was not set"
-                    }
-                    .map { it.toImmutable() },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(totalAmount) { "`totalAmount` is required but was not set" },
-                checkNotNull(transactionLineItemIds) {
-                        "`transactionLineItemIds` is required but was not set"
-                    }
-                    .map { it.toImmutable() },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
-                checkNotNull(virtualAccountId) { "`virtualAccountId` is required but was not set" },
+                checkRequired("updatedAt", updatedAt),
+                checkRequired("virtualAccountId", virtualAccountId),
                 additionalProperties.toImmutable(),
             )
     }
@@ -1364,18 +1343,14 @@ private constructor(
 
             fun build(): ContactDetail =
                 ContactDetail(
-                    checkNotNull(id) { "`id` is required but was not set" },
-                    checkNotNull(contactIdentifier) {
-                        "`contactIdentifier` is required but was not set"
-                    },
-                    checkNotNull(contactIdentifierType) {
-                        "`contactIdentifierType` is required but was not set"
-                    },
-                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                    checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
-                    checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                    checkNotNull(object_) { "`object_` is required but was not set" },
-                    checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                    checkRequired("id", id),
+                    checkRequired("contactIdentifier", contactIdentifier),
+                    checkRequired("contactIdentifierType", contactIdentifierType),
+                    checkRequired("createdAt", createdAt),
+                    checkRequired("discardedAt", discardedAt),
+                    checkRequired("liveMode", liveMode),
+                    checkRequired("object_", object_),
+                    checkRequired("updatedAt", updatedAt),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1626,11 +1601,11 @@ private constructor(
 
             fun build(): CounterpartyBillingAddress =
                 CounterpartyBillingAddress(
-                    checkNotNull(country) { "`country` is required but was not set" },
-                    checkNotNull(line1) { "`line1` is required but was not set" },
-                    checkNotNull(locality) { "`locality` is required but was not set" },
-                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
-                    checkNotNull(region) { "`region` is required but was not set" },
+                    checkRequired("country", country),
+                    checkRequired("line1", line1),
+                    checkRequired("locality", locality),
+                    checkRequired("postalCode", postalCode),
+                    checkRequired("region", region),
                     line2,
                     additionalProperties.toImmutable(),
                 )
@@ -1816,11 +1791,11 @@ private constructor(
 
             fun build(): CounterpartyShippingAddress =
                 CounterpartyShippingAddress(
-                    checkNotNull(country) { "`country` is required but was not set" },
-                    checkNotNull(line1) { "`line1` is required but was not set" },
-                    checkNotNull(locality) { "`locality` is required but was not set" },
-                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
-                    checkNotNull(region) { "`region` is required but was not set" },
+                    checkRequired("country", country),
+                    checkRequired("line1", line1),
+                    checkRequired("locality", locality),
+                    checkRequired("postalCode", postalCode),
+                    checkRequired("region", region),
                     line2,
                     additionalProperties.toImmutable(),
                 )
@@ -2005,11 +1980,11 @@ private constructor(
 
             fun build(): InvoicerAddress =
                 InvoicerAddress(
-                    checkNotNull(country) { "`country` is required but was not set" },
-                    checkNotNull(line1) { "`line1` is required but was not set" },
-                    checkNotNull(locality) { "`locality` is required but was not set" },
-                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
-                    checkNotNull(region) { "`region` is required but was not set" },
+                    checkRequired("country", country),
+                    checkRequired("line1", line1),
+                    checkRequired("locality", locality),
+                    checkRequired("postalCode", postalCode),
+                    checkRequired("region", region),
                     line2,
                     additionalProperties.toImmutable(),
                 )

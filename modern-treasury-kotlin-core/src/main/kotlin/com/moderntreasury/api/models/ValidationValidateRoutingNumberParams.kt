@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -183,10 +184,8 @@ constructor(
 
         fun build(): ValidationValidateRoutingNumberParams =
             ValidationValidateRoutingNumberParams(
-                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                checkNotNull(routingNumberType) {
-                    "`routingNumberType` is required but was not set"
-                },
+                checkRequired("routingNumber", routingNumber),
+                checkRequired("routingNumberType", routingNumberType),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )

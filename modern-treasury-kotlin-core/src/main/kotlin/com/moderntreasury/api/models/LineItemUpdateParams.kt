@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
@@ -332,9 +333,9 @@ constructor(
 
         fun build(): LineItemUpdateParams =
             LineItemUpdateParams(
-                checkNotNull(itemizableType) { "`itemizableType` is required but was not set" },
-                checkNotNull(itemizableId) { "`itemizableId` is required but was not set" },
-                checkNotNull(id) { "`id` is required but was not set" },
+                checkRequired("itemizableType", itemizableType),
+                checkRequired("itemizableId", itemizableId),
+                checkRequired("id", id),
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),

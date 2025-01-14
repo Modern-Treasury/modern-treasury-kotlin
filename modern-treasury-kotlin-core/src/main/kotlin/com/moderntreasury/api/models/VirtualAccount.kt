@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.time.OffsetDateTime
@@ -478,30 +479,22 @@ private constructor(
 
         fun build(): VirtualAccount =
             VirtualAccount(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accountDetails) { "`accountDetails` is required but was not set" }
-                    .map { it.toImmutable() },
-                checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(creditLedgerAccountId) {
-                    "`creditLedgerAccountId` is required but was not set"
-                },
-                checkNotNull(debitLedgerAccountId) {
-                    "`debitLedgerAccountId` is required but was not set"
-                },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
-                checkNotNull(internalAccountId) {
-                    "`internalAccountId` is required but was not set"
-                },
-                checkNotNull(ledgerAccountId) { "`ledgerAccountId` is required but was not set" },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(metadata) { "`metadata` is required but was not set" },
-                checkNotNull(name) { "`name` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(routingDetails) { "`routingDetails` is required but was not set" }
-                    .map { it.toImmutable() },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("accountDetails", accountDetails).map { it.toImmutable() },
+                checkRequired("counterpartyId", counterpartyId),
+                checkRequired("createdAt", createdAt),
+                checkRequired("creditLedgerAccountId", creditLedgerAccountId),
+                checkRequired("debitLedgerAccountId", debitLedgerAccountId),
+                checkRequired("description", description),
+                checkRequired("discardedAt", discardedAt),
+                checkRequired("internalAccountId", internalAccountId),
+                checkRequired("ledgerAccountId", ledgerAccountId),
+                checkRequired("liveMode", liveMode),
+                checkRequired("metadata", metadata),
+                checkRequired("name", name),
+                checkRequired("object_", object_),
+                checkRequired("routingDetails", routingDetails).map { it.toImmutable() },
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }

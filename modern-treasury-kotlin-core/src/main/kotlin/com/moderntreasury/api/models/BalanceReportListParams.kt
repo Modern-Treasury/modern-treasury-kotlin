@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -213,9 +214,7 @@ constructor(
 
         fun build(): BalanceReportListParams =
             BalanceReportListParams(
-                checkNotNull(internalAccountId) {
-                    "`internalAccountId` is required but was not set"
-                },
+                checkRequired("internalAccountId", internalAccountId),
                 afterCursor,
                 asOfDate,
                 balanceReportType,

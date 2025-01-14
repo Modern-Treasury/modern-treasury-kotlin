@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -493,27 +494,25 @@ private constructor(
 
         fun build(): InternalAccount =
             InternalAccount(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accountDetails) { "`accountDetails` is required but was not set" }
-                    .map { it.toImmutable() },
-                checkNotNull(accountType) { "`accountType` is required but was not set" },
-                checkNotNull(connection) { "`connection` is required but was not set" },
-                checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(ledgerAccountId) { "`ledgerAccountId` is required but was not set" },
-                checkNotNull(legalEntityId) { "`legalEntityId` is required but was not set" },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(metadata) { "`metadata` is required but was not set" },
-                checkNotNull(name) { "`name` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(parentAccountId) { "`parentAccountId` is required but was not set" },
-                checkNotNull(partyAddress) { "`partyAddress` is required but was not set" },
-                checkNotNull(partyName) { "`partyName` is required but was not set" },
-                checkNotNull(partyType) { "`partyType` is required but was not set" },
-                checkNotNull(routingDetails) { "`routingDetails` is required but was not set" }
-                    .map { it.toImmutable() },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("accountDetails", accountDetails).map { it.toImmutable() },
+                checkRequired("accountType", accountType),
+                checkRequired("connection", connection),
+                checkRequired("counterpartyId", counterpartyId),
+                checkRequired("createdAt", createdAt),
+                checkRequired("currency", currency),
+                checkRequired("ledgerAccountId", ledgerAccountId),
+                checkRequired("legalEntityId", legalEntityId),
+                checkRequired("liveMode", liveMode),
+                checkRequired("metadata", metadata),
+                checkRequired("name", name),
+                checkRequired("object_", object_),
+                checkRequired("parentAccountId", parentAccountId),
+                checkRequired("partyAddress", partyAddress),
+                checkRequired("partyName", partyName),
+                checkRequired("partyType", partyType),
+                checkRequired("routingDetails", routingDetails).map { it.toImmutable() },
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }
@@ -941,17 +940,17 @@ private constructor(
 
             fun build(): Address =
                 Address(
-                    checkNotNull(id) { "`id` is required but was not set" },
-                    checkNotNull(country) { "`country` is required but was not set" },
-                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                    checkNotNull(line1) { "`line1` is required but was not set" },
-                    checkNotNull(line2) { "`line2` is required but was not set" },
-                    checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                    checkNotNull(locality) { "`locality` is required but was not set" },
-                    checkNotNull(object_) { "`object_` is required but was not set" },
-                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
-                    checkNotNull(region) { "`region` is required but was not set" },
-                    checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                    checkRequired("id", id),
+                    checkRequired("country", country),
+                    checkRequired("createdAt", createdAt),
+                    checkRequired("line1", line1),
+                    checkRequired("line2", line2),
+                    checkRequired("liveMode", liveMode),
+                    checkRequired("locality", locality),
+                    checkRequired("object_", object_),
+                    checkRequired("postalCode", postalCode),
+                    checkRequired("region", region),
+                    checkRequired("updatedAt", updatedAt),
                     additionalProperties.toImmutable(),
                 )
         }

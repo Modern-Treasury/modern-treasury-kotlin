@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.time.OffsetDateTime
@@ -251,16 +252,16 @@ private constructor(
 
         fun build(): Event =
             Event(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(data) { "`data` is required but was not set" },
-                checkNotNull(entityId) { "`entityId` is required but was not set" },
-                checkNotNull(eventName) { "`eventName` is required but was not set" },
-                checkNotNull(eventTime) { "`eventTime` is required but was not set" },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(resource) { "`resource` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("createdAt", createdAt),
+                checkRequired("data", data),
+                checkRequired("entityId", entityId),
+                checkRequired("eventName", eventName),
+                checkRequired("eventTime", eventTime),
+                checkRequired("liveMode", liveMode),
+                checkRequired("object_", object_),
+                checkRequired("resource", resource),
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }

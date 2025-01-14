@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
@@ -449,14 +450,12 @@ constructor(
 
             fun build(): TransactionCreateBody =
                 TransactionCreateBody(
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(asOfDate) { "`asOfDate` is required but was not set" },
-                    checkNotNull(direction) { "`direction` is required but was not set" },
-                    checkNotNull(internalAccountId) {
-                        "`internalAccountId` is required but was not set"
-                    },
-                    checkNotNull(vendorCode) { "`vendorCode` is required but was not set" },
-                    checkNotNull(vendorCodeType) { "`vendorCodeType` is required but was not set" },
+                    checkRequired("amount", amount),
+                    checkRequired("asOfDate", asOfDate),
+                    checkRequired("direction", direction),
+                    checkRequired("internalAccountId", internalAccountId),
+                    checkRequired("vendorCode", vendorCode),
+                    checkRequired("vendorCodeType", vendorCodeType),
                     metadata,
                     posted,
                     type,

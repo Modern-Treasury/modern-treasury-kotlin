@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
@@ -333,13 +334,11 @@ constructor(
 
             fun build(): PaymentFlowCreateBody =
                 PaymentFlowCreateBody(
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
-                    checkNotNull(currency) { "`currency` is required but was not set" },
-                    checkNotNull(direction) { "`direction` is required but was not set" },
-                    checkNotNull(originatingAccountId) {
-                        "`originatingAccountId` is required but was not set"
-                    },
+                    checkRequired("amount", amount),
+                    checkRequired("counterpartyId", counterpartyId),
+                    checkRequired("currency", currency),
+                    checkRequired("direction", direction),
+                    checkRequired("originatingAccountId", originatingAccountId),
                     dueDate,
                     additionalProperties.toImmutable(),
                 )

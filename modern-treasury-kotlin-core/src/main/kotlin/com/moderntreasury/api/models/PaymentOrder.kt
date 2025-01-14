@@ -21,6 +21,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.getOrThrow
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
@@ -1572,104 +1573,59 @@ private constructor(
 
         fun build(): PaymentOrder =
             PaymentOrder(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accounting) { "`accounting` is required but was not set" },
-                checkNotNull(accountingCategoryId) {
-                    "`accountingCategoryId` is required but was not set"
-                },
-                checkNotNull(accountingLedgerClassId) {
-                    "`accountingLedgerClassId` is required but was not set"
-                },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(chargeBearer) { "`chargeBearer` is required but was not set" },
-                checkNotNull(complianceRuleMetadata) {
-                    "`complianceRuleMetadata` is required but was not set"
-                },
-                checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(currentReturn) { "`currentReturn` is required but was not set" },
-                checkNotNull(decisionId) { "`decisionId` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(direction) { "`direction` is required but was not set" },
-                checkNotNull(effectiveDate) { "`effectiveDate` is required but was not set" },
-                checkNotNull(expiresAt) { "`expiresAt` is required but was not set" },
-                checkNotNull(foreignExchangeContract) {
-                    "`foreignExchangeContract` is required but was not set"
-                },
-                checkNotNull(foreignExchangeIndicator) {
-                    "`foreignExchangeIndicator` is required but was not set"
-                },
-                checkNotNull(foreignExchangeRate) {
-                    "`foreignExchangeRate` is required but was not set"
-                },
-                checkNotNull(ledgerTransactionId) {
-                    "`ledgerTransactionId` is required but was not set"
-                },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(metadata) { "`metadata` is required but was not set" },
-                checkNotNull(nsfProtected) { "`nsfProtected` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(originatingAccountId) {
-                    "`originatingAccountId` is required but was not set"
-                },
-                checkNotNull(originatingPartyName) {
-                    "`originatingPartyName` is required but was not set"
-                },
-                checkNotNull(priority) { "`priority` is required but was not set" },
-                checkNotNull(processAfter) { "`processAfter` is required but was not set" },
-                checkNotNull(purpose) { "`purpose` is required but was not set" },
-                checkNotNull(receivingAccountId) {
-                    "`receivingAccountId` is required but was not set"
-                },
-                checkNotNull(receivingAccountType) {
-                    "`receivingAccountType` is required but was not set"
-                },
-                checkNotNull(referenceNumbers) { "`referenceNumbers` is required but was not set" }
-                    .map { it.toImmutable() },
-                checkNotNull(remittanceInformation) {
-                    "`remittanceInformation` is required but was not set"
-                },
-                checkNotNull(sendRemittanceAdvice) {
-                    "`sendRemittanceAdvice` is required but was not set"
-                },
-                checkNotNull(statementDescriptor) {
-                    "`statementDescriptor` is required but was not set"
-                },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(subtype) { "`subtype` is required but was not set" },
-                checkNotNull(transactionIds) { "`transactionIds` is required but was not set" }
-                    .map { it.toImmutable() },
-                checkNotNull(transactionMonitoringEnabled) {
-                    "`transactionMonitoringEnabled` is required but was not set"
-                },
-                checkNotNull(type) { "`type` is required but was not set" },
-                checkNotNull(ultimateOriginatingAccount) {
-                    "`ultimateOriginatingAccount` is required but was not set"
-                },
-                checkNotNull(ultimateOriginatingAccountId) {
-                    "`ultimateOriginatingAccountId` is required but was not set"
-                },
-                checkNotNull(ultimateOriginatingAccountType) {
-                    "`ultimateOriginatingAccountType` is required but was not set"
-                },
-                checkNotNull(ultimateOriginatingPartyIdentifier) {
-                    "`ultimateOriginatingPartyIdentifier` is required but was not set"
-                },
-                checkNotNull(ultimateOriginatingPartyName) {
-                    "`ultimateOriginatingPartyName` is required but was not set"
-                },
-                checkNotNull(ultimateReceivingPartyIdentifier) {
-                    "`ultimateReceivingPartyIdentifier` is required but was not set"
-                },
-                checkNotNull(ultimateReceivingPartyName) {
-                    "`ultimateReceivingPartyName` is required but was not set"
-                },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
-                checkNotNull(vendorAttributes) { "`vendorAttributes` is required but was not set" },
-                checkNotNull(vendorFailureReason) {
-                    "`vendorFailureReason` is required but was not set"
-                },
+                checkRequired("id", id),
+                checkRequired("accounting", accounting),
+                checkRequired("accountingCategoryId", accountingCategoryId),
+                checkRequired("accountingLedgerClassId", accountingLedgerClassId),
+                checkRequired("amount", amount),
+                checkRequired("chargeBearer", chargeBearer),
+                checkRequired("complianceRuleMetadata", complianceRuleMetadata),
+                checkRequired("counterpartyId", counterpartyId),
+                checkRequired("createdAt", createdAt),
+                checkRequired("currency", currency),
+                checkRequired("currentReturn", currentReturn),
+                checkRequired("decisionId", decisionId),
+                checkRequired("description", description),
+                checkRequired("direction", direction),
+                checkRequired("effectiveDate", effectiveDate),
+                checkRequired("expiresAt", expiresAt),
+                checkRequired("foreignExchangeContract", foreignExchangeContract),
+                checkRequired("foreignExchangeIndicator", foreignExchangeIndicator),
+                checkRequired("foreignExchangeRate", foreignExchangeRate),
+                checkRequired("ledgerTransactionId", ledgerTransactionId),
+                checkRequired("liveMode", liveMode),
+                checkRequired("metadata", metadata),
+                checkRequired("nsfProtected", nsfProtected),
+                checkRequired("object_", object_),
+                checkRequired("originatingAccountId", originatingAccountId),
+                checkRequired("originatingPartyName", originatingPartyName),
+                checkRequired("priority", priority),
+                checkRequired("processAfter", processAfter),
+                checkRequired("purpose", purpose),
+                checkRequired("receivingAccountId", receivingAccountId),
+                checkRequired("receivingAccountType", receivingAccountType),
+                checkRequired("referenceNumbers", referenceNumbers).map { it.toImmutable() },
+                checkRequired("remittanceInformation", remittanceInformation),
+                checkRequired("sendRemittanceAdvice", sendRemittanceAdvice),
+                checkRequired("statementDescriptor", statementDescriptor),
+                checkRequired("status", status),
+                checkRequired("subtype", subtype),
+                checkRequired("transactionIds", transactionIds).map { it.toImmutable() },
+                checkRequired("transactionMonitoringEnabled", transactionMonitoringEnabled),
+                checkRequired("type", type),
+                checkRequired("ultimateOriginatingAccount", ultimateOriginatingAccount),
+                checkRequired("ultimateOriginatingAccountId", ultimateOriginatingAccountId),
+                checkRequired("ultimateOriginatingAccountType", ultimateOriginatingAccountType),
+                checkRequired(
+                    "ultimateOriginatingPartyIdentifier",
+                    ultimateOriginatingPartyIdentifier
+                ),
+                checkRequired("ultimateOriginatingPartyName", ultimateOriginatingPartyName),
+                checkRequired("ultimateReceivingPartyIdentifier", ultimateReceivingPartyIdentifier),
+                checkRequired("ultimateReceivingPartyName", ultimateReceivingPartyName),
+                checkRequired("updatedAt", updatedAt),
+                checkRequired("vendorAttributes", vendorAttributes),
+                checkRequired("vendorFailureReason", vendorFailureReason),
                 additionalProperties.toImmutable(),
             )
     }
@@ -2330,13 +2286,13 @@ private constructor(
 
             fun build(): ForeignExchangeRate =
                 ForeignExchangeRate(
-                    checkNotNull(baseAmount) { "`baseAmount` is required but was not set" },
-                    checkNotNull(baseCurrency) { "`baseCurrency` is required but was not set" },
-                    checkNotNull(exponent) { "`exponent` is required but was not set" },
-                    checkNotNull(rateString) { "`rateString` is required but was not set" },
-                    checkNotNull(targetAmount) { "`targetAmount` is required but was not set" },
-                    checkNotNull(targetCurrency) { "`targetCurrency` is required but was not set" },
-                    checkNotNull(value) { "`value` is required but was not set" },
+                    checkRequired("baseAmount", baseAmount),
+                    checkRequired("baseCurrency", baseCurrency),
+                    checkRequired("exponent", exponent),
+                    checkRequired("rateString", rateString),
+                    checkRequired("targetAmount", targetAmount),
+                    checkRequired("targetCurrency", targetCurrency),
+                    checkRequired("value", value),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -2748,17 +2704,13 @@ private constructor(
 
             fun build(): PaymentReference =
                 PaymentReference(
-                    checkNotNull(id) { "`id` is required but was not set" },
-                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                    checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                    checkNotNull(object_) { "`object_` is required but was not set" },
-                    checkNotNull(referenceNumber) {
-                        "`referenceNumber` is required but was not set"
-                    },
-                    checkNotNull(referenceNumberType) {
-                        "`referenceNumberType` is required but was not set"
-                    },
-                    checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                    checkRequired("id", id),
+                    checkRequired("createdAt", createdAt),
+                    checkRequired("liveMode", liveMode),
+                    checkRequired("object_", object_),
+                    checkRequired("referenceNumber", referenceNumber),
+                    checkRequired("referenceNumberType", referenceNumberType),
+                    checkRequired("updatedAt", updatedAt),
                     additionalProperties.toImmutable(),
                 )
         }
