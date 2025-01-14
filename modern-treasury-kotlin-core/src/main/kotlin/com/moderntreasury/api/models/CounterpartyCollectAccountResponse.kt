@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
@@ -158,9 +159,9 @@ private constructor(
 
         fun build(): CounterpartyCollectAccountResponse =
             CounterpartyCollectAccountResponse(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(formLink) { "`formLink` is required but was not set" },
-                checkNotNull(isResend) { "`isResend` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("formLink", formLink),
+                checkRequired("isResend", isResend),
                 additionalProperties.toImmutable(),
             )
     }

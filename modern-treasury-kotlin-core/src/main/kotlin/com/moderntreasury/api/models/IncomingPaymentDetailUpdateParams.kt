@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
@@ -327,7 +328,7 @@ constructor(
 
         fun build(): IncomingPaymentDetailUpdateParams =
             IncomingPaymentDetailUpdateParams(
-                checkNotNull(id) { "`id` is required but was not set" },
+                checkRequired("id", id),
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),

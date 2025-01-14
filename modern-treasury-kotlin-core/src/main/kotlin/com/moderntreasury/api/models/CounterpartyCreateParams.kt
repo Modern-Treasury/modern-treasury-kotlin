@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
@@ -443,7 +444,7 @@ constructor(
 
             fun build(): CounterpartyCreateBody =
                 CounterpartyCreateBody(
-                    checkNotNull(name) { "`name` is required but was not set" },
+                    checkRequired("name", name),
                     accounting,
                     (accounts ?: JsonMissing.of()).map { it.toImmutable() },
                     email,
@@ -1393,9 +1394,7 @@ constructor(
 
                 fun build(): AccountDetail =
                     AccountDetail(
-                        checkNotNull(accountNumber) {
-                            "`accountNumber` is required but was not set"
-                        },
+                        checkRequired("accountNumber", accountNumber),
                         accountNumberType,
                         additionalProperties.toImmutable(),
                     )
@@ -2077,12 +2076,10 @@ constructor(
 
                 fun build(): LedgerAccountCreateRequest =
                     LedgerAccountCreateRequest(
-                        checkNotNull(currency) { "`currency` is required but was not set" },
-                        checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
-                        checkNotNull(name) { "`name` is required but was not set" },
-                        checkNotNull(normalBalance) {
-                            "`normalBalance` is required but was not set"
-                        },
+                        checkRequired("currency", currency),
+                        checkRequired("ledgerId", ledgerId),
+                        checkRequired("name", name),
+                        checkRequired("normalBalance", normalBalance),
                         currencyExponent,
                         description,
                         (ledgerAccountCategoryIds ?: JsonMissing.of()).map { it.toImmutable() },
@@ -2717,12 +2714,8 @@ constructor(
 
                 fun build(): RoutingDetail =
                     RoutingDetail(
-                        checkNotNull(routingNumber) {
-                            "`routingNumber` is required but was not set"
-                        },
-                        checkNotNull(routingNumberType) {
-                            "`routingNumberType` is required but was not set"
-                        },
+                        checkRequired("routingNumber", routingNumber),
+                        checkRequired("routingNumberType", routingNumberType),
                         paymentType,
                         additionalProperties.toImmutable(),
                     )
@@ -3865,9 +3858,7 @@ constructor(
 
             fun build(): LegalEntityCreateRequest =
                 LegalEntityCreateRequest(
-                    checkNotNull(legalEntityType) {
-                        "`legalEntityType` is required but was not set"
-                    },
+                    checkRequired("legalEntityType", legalEntityType),
                     (addresses ?: JsonMissing.of()).map { it.toImmutable() },
                     bankSettings,
                     businessName,
@@ -4157,11 +4148,11 @@ constructor(
 
                 fun build(): LegalEntityAddressCreateRequest =
                     LegalEntityAddressCreateRequest(
-                        checkNotNull(country) { "`country` is required but was not set" },
-                        checkNotNull(line1) { "`line1` is required but was not set" },
-                        checkNotNull(locality) { "`locality` is required but was not set" },
-                        checkNotNull(postalCode) { "`postalCode` is required but was not set" },
-                        checkNotNull(region) { "`region` is required but was not set" },
+                        checkRequired("country", country),
+                        checkRequired("line1", line1),
+                        checkRequired("locality", locality),
+                        checkRequired("postalCode", postalCode),
+                        checkRequired("region", region),
                         (addressTypes ?: JsonMissing.of()).map { it.toImmutable() },
                         line2,
                         additionalProperties.toImmutable(),
@@ -4388,8 +4379,8 @@ constructor(
 
                 fun build(): IdentificationCreateRequest =
                     IdentificationCreateRequest(
-                        checkNotNull(idNumber) { "`idNumber` is required but was not set" },
-                        checkNotNull(idType) { "`idType` is required but was not set" },
+                        checkRequired("idNumber", idNumber),
+                        checkRequired("idType", idType),
                         issuingCountry,
                         additionalProperties.toImmutable(),
                     )
@@ -4781,10 +4772,9 @@ constructor(
 
                 fun build(): LegalEntityAssociationInlineCreateRequest =
                     LegalEntityAssociationInlineCreateRequest(
-                        checkNotNull(relationshipTypes) {
-                                "`relationshipTypes` is required but was not set"
-                            }
-                            .map { it.toImmutable() },
+                        checkRequired("relationshipTypes", relationshipTypes).map {
+                            it.toImmutable()
+                        },
                         childLegalEntity,
                         childLegalEntityId,
                         ownershipPercentage,
@@ -5735,13 +5725,11 @@ constructor(
 
                         fun build(): LegalEntityAddressCreateRequest =
                             LegalEntityAddressCreateRequest(
-                                checkNotNull(country) { "`country` is required but was not set" },
-                                checkNotNull(line1) { "`line1` is required but was not set" },
-                                checkNotNull(locality) { "`locality` is required but was not set" },
-                                checkNotNull(postalCode) {
-                                    "`postalCode` is required but was not set"
-                                },
-                                checkNotNull(region) { "`region` is required but was not set" },
+                                checkRequired("country", country),
+                                checkRequired("line1", line1),
+                                checkRequired("locality", locality),
+                                checkRequired("postalCode", postalCode),
+                                checkRequired("region", region),
                                 (addressTypes ?: JsonMissing.of()).map { it.toImmutable() },
                                 line2,
                                 additionalProperties.toImmutable(),
@@ -5987,8 +5975,8 @@ constructor(
 
                         fun build(): IdentificationCreateRequest =
                             IdentificationCreateRequest(
-                                checkNotNull(idNumber) { "`idNumber` is required but was not set" },
-                                checkNotNull(idType) { "`idType` is required but was not set" },
+                                checkRequired("idNumber", idNumber),
+                                checkRequired("idType", idType),
                                 issuingCountry,
                                 additionalProperties.toImmutable(),
                             )

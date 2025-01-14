@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.time.OffsetDateTime
@@ -239,15 +240,15 @@ private constructor(
 
         fun build(): Connection =
             Connection(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
-                checkNotNull(vendorCustomerId) { "`vendorCustomerId` is required but was not set" },
-                checkNotNull(vendorId) { "`vendorId` is required but was not set" },
-                checkNotNull(vendorName) { "`vendorName` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("createdAt", createdAt),
+                checkRequired("discardedAt", discardedAt),
+                checkRequired("liveMode", liveMode),
+                checkRequired("object_", object_),
+                checkRequired("updatedAt", updatedAt),
+                checkRequired("vendorCustomerId", vendorCustomerId),
+                checkRequired("vendorId", vendorId),
+                checkRequired("vendorName", vendorName),
                 additionalProperties.toImmutable(),
             )
     }

@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
@@ -303,15 +304,9 @@ constructor(
 
             fun build(): LedgerAccountStatementCreateBody =
                 LedgerAccountStatementCreateBody(
-                    checkNotNull(effectiveAtLowerBound) {
-                        "`effectiveAtLowerBound` is required but was not set"
-                    },
-                    checkNotNull(effectiveAtUpperBound) {
-                        "`effectiveAtUpperBound` is required but was not set"
-                    },
-                    checkNotNull(ledgerAccountId) {
-                        "`ledgerAccountId` is required but was not set"
-                    },
+                    checkRequired("effectiveAtLowerBound", effectiveAtLowerBound),
+                    checkRequired("effectiveAtUpperBound", effectiveAtUpperBound),
+                    checkRequired("ledgerAccountId", ledgerAccountId),
                     description,
                     metadata,
                     additionalProperties.toImmutable(),

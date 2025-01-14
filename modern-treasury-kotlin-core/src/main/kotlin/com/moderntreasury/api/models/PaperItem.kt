@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -436,28 +437,24 @@ private constructor(
 
         fun build(): PaperItem =
             PaperItem(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
-                checkNotNull(accountNumberSafe) {
-                    "`accountNumberSafe` is required but was not set"
-                },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(checkNumber) { "`checkNumber` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(depositDate) { "`depositDate` is required but was not set" },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(lockboxNumber) { "`lockboxNumber` is required but was not set" },
-                checkNotNull(memoField) { "`memoField` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(remitterName) { "`remitterName` is required but was not set" },
-                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
-                checkNotNull(transactionLineItemId) {
-                    "`transactionLineItemId` is required but was not set"
-                },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("accountNumber", accountNumber),
+                checkRequired("accountNumberSafe", accountNumberSafe),
+                checkRequired("amount", amount),
+                checkRequired("checkNumber", checkNumber),
+                checkRequired("createdAt", createdAt),
+                checkRequired("currency", currency),
+                checkRequired("depositDate", depositDate),
+                checkRequired("liveMode", liveMode),
+                checkRequired("lockboxNumber", lockboxNumber),
+                checkRequired("memoField", memoField),
+                checkRequired("object_", object_),
+                checkRequired("remitterName", remitterName),
+                checkRequired("routingNumber", routingNumber),
+                checkRequired("status", status),
+                checkRequired("transactionId", transactionId),
+                checkRequired("transactionLineItemId", transactionLineItemId),
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }

@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -310,19 +311,17 @@ private constructor(
 
         fun build(): RoutingDetail =
             RoutingDetail(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(bankAddress) { "`bankAddress` is required but was not set" },
-                checkNotNull(bankName) { "`bankName` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(paymentType) { "`paymentType` is required but was not set" },
-                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                checkNotNull(routingNumberType) {
-                    "`routingNumberType` is required but was not set"
-                },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("bankAddress", bankAddress),
+                checkRequired("bankName", bankName),
+                checkRequired("createdAt", createdAt),
+                checkRequired("discardedAt", discardedAt),
+                checkRequired("liveMode", liveMode),
+                checkRequired("object_", object_),
+                checkRequired("paymentType", paymentType),
+                checkRequired("routingNumber", routingNumber),
+                checkRequired("routingNumberType", routingNumberType),
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }
@@ -579,17 +578,17 @@ private constructor(
 
             fun build(): Address =
                 Address(
-                    checkNotNull(id) { "`id` is required but was not set" },
-                    checkNotNull(country) { "`country` is required but was not set" },
-                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                    checkNotNull(line1) { "`line1` is required but was not set" },
-                    checkNotNull(line2) { "`line2` is required but was not set" },
-                    checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                    checkNotNull(locality) { "`locality` is required but was not set" },
-                    checkNotNull(object_) { "`object_` is required but was not set" },
-                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
-                    checkNotNull(region) { "`region` is required but was not set" },
-                    checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                    checkRequired("id", id),
+                    checkRequired("country", country),
+                    checkRequired("createdAt", createdAt),
+                    checkRequired("line1", line1),
+                    checkRequired("line2", line2),
+                    checkRequired("liveMode", liveMode),
+                    checkRequired("locality", locality),
+                    checkRequired("object_", object_),
+                    checkRequired("postalCode", postalCode),
+                    checkRequired("region", region),
+                    checkRequired("updatedAt", updatedAt),
                     additionalProperties.toImmutable(),
                 )
         }

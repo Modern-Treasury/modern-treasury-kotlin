@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -342,9 +343,8 @@ private constructor(
 
         fun build(): AccountCollectionFlow =
             AccountCollectionFlow(
-                checkNotNull(counterpartyId) { "`counterpartyId` is required but was not set" },
-                checkNotNull(paymentTypes) { "`paymentTypes` is required but was not set" }
-                    .map { it.toImmutable() },
+                checkRequired("counterpartyId", counterpartyId),
+                checkRequired("paymentTypes", paymentTypes).map { it.toImmutable() },
                 id,
                 clientToken,
                 createdAt,

@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
@@ -164,8 +165,8 @@ constructor(
 
         fun build(): PaymentOrderReversalRetrieveParams =
             PaymentOrderReversalRetrieveParams(
-                checkNotNull(paymentOrderId) { "`paymentOrderId` is required but was not set" },
-                checkNotNull(reversalId) { "`reversalId` is required but was not set" },
+                checkRequired("paymentOrderId", paymentOrderId),
+                checkRequired("reversalId", reversalId),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )

@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -326,24 +327,18 @@ private constructor(
 
         fun build(): BulkRequest =
             BulkRequest(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(actionType) { "`actionType` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(failedResultCount) {
-                    "`failedResultCount` is required but was not set"
-                },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(metadata) { "`metadata` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(resourceType) { "`resourceType` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(successResultCount) {
-                    "`successResultCount` is required but was not set"
-                },
-                checkNotNull(totalResourceCount) {
-                    "`totalResourceCount` is required but was not set"
-                },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("actionType", actionType),
+                checkRequired("createdAt", createdAt),
+                checkRequired("failedResultCount", failedResultCount),
+                checkRequired("liveMode", liveMode),
+                checkRequired("metadata", metadata),
+                checkRequired("object_", object_),
+                checkRequired("resourceType", resourceType),
+                checkRequired("status", status),
+                checkRequired("successResultCount", successResultCount),
+                checkRequired("totalResourceCount", totalResourceCount),
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }

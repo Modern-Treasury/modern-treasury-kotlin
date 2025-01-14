@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -408,21 +409,21 @@ private constructor(
 
         fun build(): LedgerAccount =
             LedgerAccount(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(balances) { "`balances` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(discardedAt) { "`discardedAt` is required but was not set" },
-                checkNotNull(ledgerId) { "`ledgerId` is required but was not set" },
-                checkNotNull(ledgerableId) { "`ledgerableId` is required but was not set" },
-                checkNotNull(ledgerableType) { "`ledgerableType` is required but was not set" },
-                checkNotNull(liveMode) { "`liveMode` is required but was not set" },
-                checkNotNull(lockVersion) { "`lockVersion` is required but was not set" },
-                checkNotNull(metadata) { "`metadata` is required but was not set" },
-                checkNotNull(name) { "`name` is required but was not set" },
-                checkNotNull(normalBalance) { "`normalBalance` is required but was not set" },
-                checkNotNull(object_) { "`object_` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("balances", balances),
+                checkRequired("createdAt", createdAt),
+                checkRequired("description", description),
+                checkRequired("discardedAt", discardedAt),
+                checkRequired("ledgerId", ledgerId),
+                checkRequired("ledgerableId", ledgerableId),
+                checkRequired("ledgerableType", ledgerableType),
+                checkRequired("liveMode", liveMode),
+                checkRequired("lockVersion", lockVersion),
+                checkRequired("metadata", metadata),
+                checkRequired("name", name),
+                checkRequired("normalBalance", normalBalance),
+                checkRequired("object_", object_),
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }
@@ -634,17 +635,11 @@ private constructor(
 
             fun build(): LedgerBalancesWithEffectiveAt =
                 LedgerBalancesWithEffectiveAt(
-                    checkNotNull(availableBalance) {
-                        "`availableBalance` is required but was not set"
-                    },
-                    checkNotNull(effectiveAtLowerBound) {
-                        "`effectiveAtLowerBound` is required but was not set"
-                    },
-                    checkNotNull(effectiveAtUpperBound) {
-                        "`effectiveAtUpperBound` is required but was not set"
-                    },
-                    checkNotNull(pendingBalance) { "`pendingBalance` is required but was not set" },
-                    checkNotNull(postedBalance) { "`postedBalance` is required but was not set" },
+                    checkRequired("availableBalance", availableBalance),
+                    checkRequired("effectiveAtLowerBound", effectiveAtLowerBound),
+                    checkRequired("effectiveAtUpperBound", effectiveAtUpperBound),
+                    checkRequired("pendingBalance", pendingBalance),
+                    checkRequired("postedBalance", postedBalance),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -798,13 +793,11 @@ private constructor(
 
                 fun build(): LedgerBalance =
                     LedgerBalance(
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(credits) { "`credits` is required but was not set" },
-                        checkNotNull(currency) { "`currency` is required but was not set" },
-                        checkNotNull(currencyExponent) {
-                            "`currencyExponent` is required but was not set"
-                        },
-                        checkNotNull(debits) { "`debits` is required but was not set" },
+                        checkRequired("amount", amount),
+                        checkRequired("credits", credits),
+                        checkRequired("currency", currency),
+                        checkRequired("currencyExponent", currencyExponent),
+                        checkRequired("debits", debits),
                         additionalProperties.toImmutable(),
                     )
             }

@@ -4,6 +4,7 @@ package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
@@ -194,8 +195,8 @@ constructor(
 
         fun build(): InvoiceAddPaymentOrderParams =
             InvoiceAddPaymentOrderParams(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(paymentOrderId) { "`paymentOrderId` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("paymentOrderId", paymentOrderId),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),

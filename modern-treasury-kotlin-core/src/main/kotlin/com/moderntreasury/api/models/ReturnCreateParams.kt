@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
@@ -323,8 +324,8 @@ constructor(
 
             fun build(): ReturnCreateBody =
                 ReturnCreateBody(
-                    checkNotNull(returnableId) { "`returnableId` is required but was not set" },
-                    checkNotNull(returnableType) { "`returnableType` is required but was not set" },
+                    checkRequired("returnableId", returnableId),
+                    checkRequired("returnableType", returnableType),
                     additionalInformation,
                     code,
                     dateOfDeath,

@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -337,12 +338,10 @@ private constructor(
 
         fun build(): ReconciliationRule =
             ReconciliationRule(
-                checkNotNull(amountLowerBound) { "`amountLowerBound` is required but was not set" },
-                checkNotNull(amountUpperBound) { "`amountUpperBound` is required but was not set" },
-                checkNotNull(direction) { "`direction` is required but was not set" },
-                checkNotNull(internalAccountId) {
-                    "`internalAccountId` is required but was not set"
-                },
+                checkRequired("amountLowerBound", amountLowerBound),
+                checkRequired("amountUpperBound", amountUpperBound),
+                checkRequired("direction", direction),
+                checkRequired("internalAccountId", internalAccountId),
                 counterpartyId,
                 currency,
                 customIdentifiers,
