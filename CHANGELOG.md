@@ -1,5 +1,66 @@
 # Changelog
 
+## 4.0.0 (2025-01-14)
+
+Full Changelog: [v3.1.0...v4.0.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v3.1.0...v4.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** switch query params objects to use `QueryParams` ([#283](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/283))
+
+### Features
+
+* **client:** add more builder convenience methods for lists ([#295](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/295)) ([9167c5d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9167c5db8045137a99c28f00e2fcfeb0cafbad76))
+* **client:** add various convenience setters to models ([#292](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/292)) ([9d38e5a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9d38e5ae570bbeb8aabd5a3afbb04ef208079f97))
+* **client:** allow setting arbitrary JSON for top-level body params ([9d38e5a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9d38e5ae570bbeb8aabd5a3afbb04ef208079f97))
+* **client:** expose getters for `JsonField` of body params ([9d38e5a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9d38e5ae570bbeb8aabd5a3afbb04ef208079f97))
+* **client:** put body field in params, add more convenience methods, and add missing docs ([#287](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/287)) ([c3037e7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c3037e788ec52418e25ce1a46862882134e3093d))
+
+
+### Bug Fixes
+
+* **client:** add some missing `validate()` calls ([#297](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/297)) ([a2910af](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a2910af3dbc73529b11fdcbc2805491c067cf5ab))
+* **client:** allow passing null for nullable fields where missing ([#290](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/290)) ([f3181b5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f3181b5bf021a3aa37a078b1950f71603a2cb7c2))
+* **client:** consider header properties in page equality ([#293](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/293)) ([b1bda99](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b1bda99137224cf544ba9decb2b187ce353a56f4))
+* **client:** consistently throw on omitting required fields ([9d38e5a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9d38e5ae570bbeb8aabd5a3afbb04ef208079f97))
+* **client:** convert `JsonField` containing list type to mutable in builder ([9d38e5a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9d38e5ae570bbeb8aabd5a3afbb04ef208079f97))
+
+
+### Chores
+
+* bump license year ([#286](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/286)) ([5c1fcfc](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5c1fcfc759167fde824a573fd3e5e58757ba23e8))
+* **docs:** add example project ([#281](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/281)) ([cd4f196](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/cd4f1965d0fab989c12bc78ca489f2cf1c1e407d))
+* **docs:** fix unused import ([#282](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/282)) ([5aaf526](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5aaf526ab0ae4d9e22612c995680e3439517d948))
+* **docs:** update readme ([#280](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/280)) ([95e1838](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/95e18386d49a47bb3e78cf96570392513a7e7887))
+* **internal:** extract a `checkRequired` function ([#300](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/300)) ([aba017d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/aba017d168ada6507d418177c2cfc74cc930e5c2))
+* **internal:** refactor `validate` methods ([a2910af](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a2910af3dbc73529b11fdcbc2805491c067cf5ab))
+* **internal:** remove unused and expand used wildcard imports ([#275](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/275)) ([6f1c269](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/6f1c2693fc378d0a3184b6d0640871daa8fb05ce))
+* **internal:** remove unused Gradle imports ([#298](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/298)) ([ab6f389](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ab6f3897b6f90d7594e6293514621c83b8cb8bc8))
+* **internal:** remove unused or unnecessary Gradle imports ([#299](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/299)) ([0b641f2](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0b641f262d081ca27b3cad4181de46d5148b9130))
+* update parameter examples in tests and docs ([#279](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/279)) ([e394ff2](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e394ff2faa72bad63be5cffc8bf0899aa60c0b84))
+
+
+### Documentation
+
+* add params class javadocs ([#291](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/291)) ([3a4a79e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3a4a79e8c0e8def61496474c4723eccfef1a1d13))
+* add some missing javadocs ([#288](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/288)) ([b48841f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b48841f03d84216674eaf1eff53fc0c2ffdf2f9e))
+* **readme:** fix misplaced period ([#294](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/294)) ([80c3e41](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/80c3e41ac609825e126c0f70a9cfd3d16ca2c5f7))
+* update some builder method javadocs ([#296](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/296)) ([d620edf](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d620edff3efe63c0df9086ceb343e6ce296f29db))
+
+
+### Styles
+
+* **internal:** explicitly add some method return types ([9d38e5a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9d38e5ae570bbeb8aabd5a3afbb04ef208079f97))
+* **internal:** move headers and query params setters below others ([9d38e5a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9d38e5ae570bbeb8aabd5a3afbb04ef208079f97))
+* **internal:** simplify existing convenience setters on params ([9d38e5a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9d38e5ae570bbeb8aabd5a3afbb04ef208079f97))
+* **internal:** sort fields ([#289](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/289)) ([6fa11e4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/6fa11e40cd8454e78c454ae7773feff0f12a8a51))
+
+
+### Refactors
+
+* **client:** switch query params objects to use `QueryParams` ([#283](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/283)) ([b032c4e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b032c4e535197b53b1a7fd8dc5f0e465a7607eca))
+* **internal:** use constructor to deserialize json ([#284](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/284)) ([b1aaca1](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b1aaca16a18027324ff557c28369b177b74f758e))
+
 ## 3.1.0 (2024-12-12)
 
 Full Changelog: [v3.0.0...v3.1.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v3.0.0...v3.1.0)
