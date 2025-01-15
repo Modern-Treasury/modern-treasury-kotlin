@@ -13,7 +13,7 @@ class LedgerAccountListParamsTest {
     @Test
     fun createLedgerAccountListParams() {
         LedgerAccountListParams.builder()
-            .id(listOf("string"))
+            .addId("string")
             .afterCursor("after_cursor")
             .availableBalanceAmount(
                 LedgerAccountListParams.AvailableBalanceAmount.builder()
@@ -46,7 +46,7 @@ class LedgerAccountListParamsTest {
                     .putAdditionalProperty("foo", "string")
                     .build()
             )
-            .name(listOf("string"))
+            .addName("string")
             .pendingBalanceAmount(
                 LedgerAccountListParams.PendingBalanceAmount.builder()
                     .eq(0L)
@@ -80,7 +80,7 @@ class LedgerAccountListParamsTest {
     fun getQueryParams() {
         val params =
             LedgerAccountListParams.builder()
-                .id(listOf("string"))
+                .addId("string")
                 .afterCursor("after_cursor")
                 .availableBalanceAmount(
                     LedgerAccountListParams.AvailableBalanceAmount.builder()
@@ -113,7 +113,7 @@ class LedgerAccountListParamsTest {
                         .putAdditionalProperty("foo", "string")
                         .build()
                 )
-                .name(listOf("string"))
+                .addName("string")
                 .pendingBalanceAmount(
                     LedgerAccountListParams.PendingBalanceAmount.builder()
                         .eq(0L)

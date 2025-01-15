@@ -11,7 +11,7 @@ class LedgerEntryListParamsTest {
     @Test
     fun createLedgerEntryListParams() {
         LedgerEntryListParams.builder()
-            .id(listOf("string"))
+            .addId("string")
             .afterCursor("after_cursor")
             .asOfLockVersion(0L)
             .direction(TransactionDirection.CREDIT)
@@ -63,7 +63,7 @@ class LedgerEntryListParamsTest {
     fun getQueryParams() {
         val params =
             LedgerEntryListParams.builder()
-                .id(listOf("string"))
+                .addId("string")
                 .afterCursor("after_cursor")
                 .asOfLockVersion(0L)
                 .direction(TransactionDirection.CREDIT)

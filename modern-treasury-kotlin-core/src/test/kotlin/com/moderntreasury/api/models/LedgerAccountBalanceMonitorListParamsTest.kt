@@ -11,7 +11,7 @@ class LedgerAccountBalanceMonitorListParamsTest {
     @Test
     fun createLedgerAccountBalanceMonitorListParams() {
         LedgerAccountBalanceMonitorListParams.builder()
-            .id(listOf("string"))
+            .addId("string")
             .afterCursor("after_cursor")
             .ledgerAccountId("ledger_account_id")
             .metadata(
@@ -27,7 +27,7 @@ class LedgerAccountBalanceMonitorListParamsTest {
     fun getQueryParams() {
         val params =
             LedgerAccountBalanceMonitorListParams.builder()
-                .id(listOf("string"))
+                .addId("string")
                 .afterCursor("after_cursor")
                 .ledgerAccountId("ledger_account_id")
                 .metadata(

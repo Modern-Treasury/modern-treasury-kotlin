@@ -12,7 +12,7 @@ class LedgerAccountCategoryListParamsTest {
     @Test
     fun createLedgerAccountCategoryListParams() {
         LedgerAccountCategoryListParams.builder()
-            .id(listOf("string"))
+            .addId("string")
             .afterCursor("after_cursor")
             .balances(
                 LedgerAccountCategoryListParams.Balances.builder()
@@ -37,7 +37,7 @@ class LedgerAccountCategoryListParamsTest {
     fun getQueryParams() {
         val params =
             LedgerAccountCategoryListParams.builder()
-                .id(listOf("string"))
+                .addId("string")
                 .afterCursor("after_cursor")
                 .balances(
                     LedgerAccountCategoryListParams.Balances.builder()

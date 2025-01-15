@@ -17,21 +17,19 @@ class InvoiceCreateParamsTest {
             .dueDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .originatingAccountId("originating_account_id")
             .autoAdvance(true)
-            .contactDetails(
-                listOf(
-                    InvoiceCreateParams.ContactDetail.builder()
-                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .contactIdentifier("contact_identifier")
-                        .contactIdentifierType(
-                            InvoiceCreateParams.ContactDetail.ContactIdentifierType.EMAIL
-                        )
-                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .liveMode(true)
-                        .object_("object")
-                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .build()
-                )
+            .addContactDetail(
+                InvoiceCreateParams.ContactDetail.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .contactIdentifier("contact_identifier")
+                    .contactIdentifierType(
+                        InvoiceCreateParams.ContactDetail.ContactIdentifierType.EMAIL
+                    )
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .liveMode(true)
+                    .object_("object")
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
             )
             .counterpartyBillingAddress(
                 InvoiceCreateParams.CounterpartyBillingAddress.builder()
@@ -57,24 +55,22 @@ class InvoiceCreateParamsTest {
             .description("description")
             .fallbackPaymentMethod("fallback_payment_method")
             .ingestLedgerEntries(true)
-            .invoiceLineItems(
-                listOf(
-                    InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
-                        .name("name")
-                        .unitAmount(0L)
-                        .description("description")
-                        .direction("direction")
-                        .metadata(
-                            InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                .build()
-                        )
-                        .quantity(0L)
-                        .unitAmountDecimal("unit_amount_decimal")
-                        .build()
-                )
+            .addInvoiceLineItem(
+                InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
+                    .name("name")
+                    .unitAmount(0L)
+                    .description("description")
+                    .direction("direction")
+                    .metadata(
+                        InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
+                    .quantity(0L)
+                    .unitAmountDecimal("unit_amount_decimal")
+                    .build()
             )
             .invoicerAddress(
                 InvoiceCreateParams.InvoicerAddress.builder()
@@ -94,7 +90,7 @@ class InvoiceCreateParamsTest {
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
-            .notificationEmailAddresses(listOf("string"))
+            .addNotificationEmailAddress("string")
             .notificationsEnabled(true)
             .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
             .paymentMethod(InvoiceCreateParams.PaymentMethod.UI)
@@ -102,7 +98,7 @@ class InvoiceCreateParamsTest {
             .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .recipientEmail("recipient_email")
             .recipientName("recipient_name")
-            .remindAfterOverdueDays(listOf(0L))
+            .addRemindAfterOverdueDay(0L)
             .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .build()
     }
@@ -115,21 +111,19 @@ class InvoiceCreateParamsTest {
                 .dueDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .originatingAccountId("originating_account_id")
                 .autoAdvance(true)
-                .contactDetails(
-                    listOf(
-                        InvoiceCreateParams.ContactDetail.builder()
-                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .contactIdentifier("contact_identifier")
-                            .contactIdentifierType(
-                                InvoiceCreateParams.ContactDetail.ContactIdentifierType.EMAIL
-                            )
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .liveMode(true)
-                            .object_("object")
-                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
+                .addContactDetail(
+                    InvoiceCreateParams.ContactDetail.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .contactIdentifier("contact_identifier")
+                        .contactIdentifierType(
+                            InvoiceCreateParams.ContactDetail.ContactIdentifierType.EMAIL
+                        )
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .liveMode(true)
+                        .object_("object")
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
                 )
                 .counterpartyBillingAddress(
                     InvoiceCreateParams.CounterpartyBillingAddress.builder()
@@ -155,24 +149,22 @@ class InvoiceCreateParamsTest {
                 .description("description")
                 .fallbackPaymentMethod("fallback_payment_method")
                 .ingestLedgerEntries(true)
-                .invoiceLineItems(
-                    listOf(
-                        InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
-                            .name("name")
-                            .unitAmount(0L)
-                            .description("description")
-                            .direction("direction")
-                            .metadata(
-                                InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
-                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                    .build()
-                            )
-                            .quantity(0L)
-                            .unitAmountDecimal("unit_amount_decimal")
-                            .build()
-                    )
+                .addInvoiceLineItem(
+                    InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
+                        .name("name")
+                        .unitAmount(0L)
+                        .description("description")
+                        .direction("direction")
+                        .metadata(
+                            InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
+                        .quantity(0L)
+                        .unitAmountDecimal("unit_amount_decimal")
+                        .build()
                 )
                 .invoicerAddress(
                     InvoiceCreateParams.InvoicerAddress.builder()
@@ -192,7 +184,7 @@ class InvoiceCreateParamsTest {
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
-                .notificationEmailAddresses(listOf("string"))
+                .addNotificationEmailAddress("string")
                 .notificationsEnabled(true)
                 .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
                 .paymentMethod(InvoiceCreateParams.PaymentMethod.UI)
@@ -200,7 +192,7 @@ class InvoiceCreateParamsTest {
                 .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .recipientEmail("recipient_email")
                 .recipientName("recipient_name")
-                .remindAfterOverdueDays(listOf(0L))
+                .addRemindAfterOverdueDay(0L)
                 .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
         val body = params.getBody()
