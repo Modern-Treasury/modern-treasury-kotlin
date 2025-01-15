@@ -45,62 +45,53 @@ class ExpectedPaymentServiceTest {
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerTransaction(
                         ExpectedPaymentCreateParams.LedgerTransactionCreateRequest.builder()
-                            .ledgerEntries(
-                                listOf(
-                                    ExpectedPaymentCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .builder()
-                                        .amount(0L)
-                                        .direction(TransactionDirection.CREDIT)
-                                        .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                        .availableBalanceAmount(
-                                            ExpectedPaymentCreateParams
-                                                .LedgerTransactionCreateRequest
-                                                .LedgerEntryCreateRequest
-                                                .AvailableBalanceAmount
-                                                .builder()
-                                                .putAdditionalProperty("foo", JsonValue.from(0))
-                                                .build()
-                                        )
-                                        .lockVersion(0L)
-                                        .metadata(
-                                            ExpectedPaymentCreateParams
-                                                .LedgerTransactionCreateRequest
-                                                .LedgerEntryCreateRequest
-                                                .Metadata
-                                                .builder()
-                                                .putAdditionalProperty(
-                                                    "key",
-                                                    JsonValue.from("value")
-                                                )
-                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                                .putAdditionalProperty(
-                                                    "modern",
-                                                    JsonValue.from("treasury")
-                                                )
-                                                .build()
-                                        )
-                                        .pendingBalanceAmount(
-                                            ExpectedPaymentCreateParams
-                                                .LedgerTransactionCreateRequest
-                                                .LedgerEntryCreateRequest
-                                                .PendingBalanceAmount
-                                                .builder()
-                                                .putAdditionalProperty("foo", JsonValue.from(0))
-                                                .build()
-                                        )
-                                        .postedBalanceAmount(
-                                            ExpectedPaymentCreateParams
-                                                .LedgerTransactionCreateRequest
-                                                .LedgerEntryCreateRequest
-                                                .PostedBalanceAmount
-                                                .builder()
-                                                .putAdditionalProperty("foo", JsonValue.from(0))
-                                                .build()
-                                        )
-                                        .showResultingLedgerAccountBalances(true)
-                                        .build()
-                                )
+                            .addLedgerEntry(
+                                ExpectedPaymentCreateParams.LedgerTransactionCreateRequest
+                                    .LedgerEntryCreateRequest
+                                    .builder()
+                                    .amount(0L)
+                                    .direction(TransactionDirection.CREDIT)
+                                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .availableBalanceAmount(
+                                        ExpectedPaymentCreateParams.LedgerTransactionCreateRequest
+                                            .LedgerEntryCreateRequest
+                                            .AvailableBalanceAmount
+                                            .builder()
+                                            .putAdditionalProperty("foo", JsonValue.from(0))
+                                            .build()
+                                    )
+                                    .lockVersion(0L)
+                                    .metadata(
+                                        ExpectedPaymentCreateParams.LedgerTransactionCreateRequest
+                                            .LedgerEntryCreateRequest
+                                            .Metadata
+                                            .builder()
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
+                                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty(
+                                                "modern",
+                                                JsonValue.from("treasury")
+                                            )
+                                            .build()
+                                    )
+                                    .pendingBalanceAmount(
+                                        ExpectedPaymentCreateParams.LedgerTransactionCreateRequest
+                                            .LedgerEntryCreateRequest
+                                            .PendingBalanceAmount
+                                            .builder()
+                                            .putAdditionalProperty("foo", JsonValue.from(0))
+                                            .build()
+                                    )
+                                    .postedBalanceAmount(
+                                        ExpectedPaymentCreateParams.LedgerTransactionCreateRequest
+                                            .LedgerEntryCreateRequest
+                                            .PostedBalanceAmount
+                                            .builder()
+                                            .putAdditionalProperty("foo", JsonValue.from(0))
+                                            .build()
+                                    )
+                                    .showResultingLedgerAccountBalances(true)
+                                    .build()
                             )
                             .description("description")
                             .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -127,21 +118,19 @@ class ExpectedPaymentServiceTest {
                             .build()
                     )
                     .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .lineItems(
-                        listOf(
-                            ExpectedPaymentCreateParams.LineItemRequest.builder()
-                                .amount(0L)
-                                .accountingCategoryId("accounting_category_id")
-                                .description("description")
-                                .metadata(
-                                    ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder()
-                                        .putAdditionalProperty("key", JsonValue.from("value"))
-                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                        .build()
-                                )
-                                .build()
-                        )
+                    .addLineItem(
+                        ExpectedPaymentCreateParams.LineItemRequest.builder()
+                            .amount(0L)
+                            .accountingCategoryId("accounting_category_id")
+                            .description("description")
+                            .metadata(
+                                ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
+                            .build()
                     )
                     .metadata(
                         ExpectedPaymentCreateParams.Metadata.builder()
@@ -152,25 +141,23 @@ class ExpectedPaymentServiceTest {
                     )
                     .reconciliationFilters(JsonValue.from(mapOf<String, Any>()))
                     .reconciliationGroups(JsonValue.from(mapOf<String, Any>()))
-                    .reconciliationRuleVariables(
-                        listOf(
-                            ReconciliationRule.builder()
-                                .amountLowerBound(0L)
-                                .amountUpperBound(0L)
-                                .direction(ReconciliationRule.Direction.CREDIT)
-                                .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .currency(Currency.AED)
-                                .customIdentifiers(
-                                    ReconciliationRule.CustomIdentifiers.builder()
-                                        .putAdditionalProperty("foo", JsonValue.from("string"))
-                                        .build()
-                                )
-                                .dateLowerBound(LocalDate.parse("2019-12-27"))
-                                .dateUpperBound(LocalDate.parse("2019-12-27"))
-                                .type(ReconciliationRule.Type.ACH)
-                                .build()
-                        )
+                    .addReconciliationRuleVariable(
+                        ReconciliationRule.builder()
+                            .amountLowerBound(0L)
+                            .amountUpperBound(0L)
+                            .direction(ReconciliationRule.Direction.CREDIT)
+                            .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .currency(Currency.AED)
+                            .customIdentifiers(
+                                ReconciliationRule.CustomIdentifiers.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .build()
+                            )
+                            .dateLowerBound(LocalDate.parse("2019-12-27"))
+                            .dateUpperBound(LocalDate.parse("2019-12-27"))
+                            .type(ReconciliationRule.Type.ACH)
+                            .build()
                     )
                     .remittanceInformation("remittance_information")
                     .statementDescriptor("statement_descriptor")
@@ -229,25 +216,23 @@ class ExpectedPaymentServiceTest {
                     )
                     .reconciliationFilters(JsonValue.from(mapOf<String, Any>()))
                     .reconciliationGroups(JsonValue.from(mapOf<String, Any>()))
-                    .reconciliationRuleVariables(
-                        listOf(
-                            ReconciliationRule.builder()
-                                .amountLowerBound(0L)
-                                .amountUpperBound(0L)
-                                .direction(ReconciliationRule.Direction.CREDIT)
-                                .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .currency(Currency.AED)
-                                .customIdentifiers(
-                                    ReconciliationRule.CustomIdentifiers.builder()
-                                        .putAdditionalProperty("foo", JsonValue.from("string"))
-                                        .build()
-                                )
-                                .dateLowerBound(LocalDate.parse("2019-12-27"))
-                                .dateUpperBound(LocalDate.parse("2019-12-27"))
-                                .type(ReconciliationRule.Type.ACH)
-                                .build()
-                        )
+                    .addReconciliationRuleVariable(
+                        ReconciliationRule.builder()
+                            .amountLowerBound(0L)
+                            .amountUpperBound(0L)
+                            .direction(ReconciliationRule.Direction.CREDIT)
+                            .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .currency(Currency.AED)
+                            .customIdentifiers(
+                                ReconciliationRule.CustomIdentifiers.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .build()
+                            )
+                            .dateLowerBound(LocalDate.parse("2019-12-27"))
+                            .dateUpperBound(LocalDate.parse("2019-12-27"))
+                            .type(ReconciliationRule.Type.ACH)
+                            .build()
                     )
                     .remittanceInformation("remittance_information")
                     .statementDescriptor("statement_descriptor")

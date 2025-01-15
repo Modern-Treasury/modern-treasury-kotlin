@@ -26,21 +26,19 @@ class ReturnObjectTest {
                 .liveMode(true)
                 .object_("object")
                 .reason("reason")
-                .referenceNumbers(
-                    listOf(
-                        ReturnObject.PaymentReference.builder()
-                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .liveMode(true)
-                            .object_("object")
-                            .referenceNumber("reference_number")
-                            .referenceNumberType(
-                                ReturnObject.PaymentReference.ReferenceNumberType
-                                    .ACH_ORIGINAL_TRACE_NUMBER
-                            )
-                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
+                .addReferenceNumber(
+                    ReturnObject.PaymentReference.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .liveMode(true)
+                        .object_("object")
+                        .referenceNumber("reference_number")
+                        .referenceNumberType(
+                            ReturnObject.PaymentReference.ReferenceNumberType
+                                .ACH_ORIGINAL_TRACE_NUMBER
+                        )
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
                 )
                 .returnableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .returnableType(ReturnObject.ReturnableType.INCOMING_PAYMENT_DETAIL)

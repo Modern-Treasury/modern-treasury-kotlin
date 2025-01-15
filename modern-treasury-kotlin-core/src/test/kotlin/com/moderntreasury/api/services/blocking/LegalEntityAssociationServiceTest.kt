@@ -29,33 +29,28 @@ class LegalEntityAssociationServiceTest {
             legalEntityAssociationService.create(
                 LegalEntityAssociationCreateParams.builder()
                     .parentLegalEntityId("parent_legal_entity_id")
-                    .relationshipTypes(
-                        listOf(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER)
+                    .addRelationshipType(
+                        LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER
                     )
                     .childLegalEntity(
                         LegalEntityAssociationCreateParams.ChildLegalEntityCreate.builder()
-                            .addresses(
-                                listOf(
-                                    LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                        .LegalEntityAddressCreateRequest
-                                        .builder()
-                                        .country("country")
-                                        .line1("line1")
-                                        .locality("locality")
-                                        .postalCode("postal_code")
-                                        .region("region")
-                                        .addressTypes(
-                                            listOf(
-                                                LegalEntityAssociationCreateParams
-                                                    .ChildLegalEntityCreate
-                                                    .LegalEntityAddressCreateRequest
-                                                    .AddressType
-                                                    .BUSINESS
-                                            )
-                                        )
-                                        .line2("line2")
-                                        .build()
-                                )
+                            .addAddress(
+                                LegalEntityAssociationCreateParams.ChildLegalEntityCreate
+                                    .LegalEntityAddressCreateRequest
+                                    .builder()
+                                    .country("country")
+                                    .line1("line1")
+                                    .locality("locality")
+                                    .postalCode("postal_code")
+                                    .region("region")
+                                    .addAddressType(
+                                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate
+                                            .LegalEntityAddressCreateRequest
+                                            .AddressType
+                                            .BUSINESS
+                                    )
+                                    .line2("line2")
+                                    .build()
                             )
                             .bankSettings(
                                 BankSettings.builder()
@@ -75,25 +70,22 @@ class LegalEntityAssociationServiceTest {
                             .citizenshipCountry("citizenship_country")
                             .dateFormed(LocalDate.parse("2019-12-27"))
                             .dateOfBirth(LocalDate.parse("2019-12-27"))
-                            .doingBusinessAsNames(listOf("string"))
+                            .addDoingBusinessAsName("string")
                             .email("email")
                             .firstName("first_name")
-                            .identifications(
-                                listOf(
-                                    LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                        .IdentificationCreateRequest
-                                        .builder()
-                                        .idNumber("id_number")
-                                        .idType(
-                                            LegalEntityAssociationCreateParams
-                                                .ChildLegalEntityCreate
-                                                .IdentificationCreateRequest
-                                                .IdType
-                                                .AR_CUIL
-                                        )
-                                        .issuingCountry("issuing_country")
-                                        .build()
-                                )
+                            .addIdentification(
+                                LegalEntityAssociationCreateParams.ChildLegalEntityCreate
+                                    .IdentificationCreateRequest
+                                    .builder()
+                                    .idNumber("id_number")
+                                    .idType(
+                                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate
+                                            .IdentificationCreateRequest
+                                            .IdType
+                                            .AR_CUIL
+                                    )
+                                    .issuingCountry("issuing_country")
+                                    .build()
                             )
                             .lastName("last_name")
                             .legalEntityType(
@@ -115,14 +107,12 @@ class LegalEntityAssociationServiceTest {
                                     .build()
                             )
                             .middleName("middle_name")
-                            .phoneNumbers(
-                                listOf(
-                                    LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                        .PhoneNumber
-                                        .builder()
-                                        .phoneNumber("phone_number")
-                                        .build()
-                                )
+                            .addPhoneNumber(
+                                LegalEntityAssociationCreateParams.ChildLegalEntityCreate
+                                    .PhoneNumber
+                                    .builder()
+                                    .phoneNumber("phone_number")
+                                    .build()
                             )
                             .politicallyExposedPerson(true)
                             .preferredName("preferred_name")

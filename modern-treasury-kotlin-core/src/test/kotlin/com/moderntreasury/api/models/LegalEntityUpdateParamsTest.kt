@@ -14,23 +14,18 @@ class LegalEntityUpdateParamsTest {
     fun createLegalEntityUpdateParams() {
         LegalEntityUpdateParams.builder()
             .id("id")
-            .addresses(
-                listOf(
-                    LegalEntityUpdateParams.LegalEntityAddressCreateRequest.builder()
-                        .country("country")
-                        .line1("line1")
-                        .locality("locality")
-                        .postalCode("postal_code")
-                        .region("region")
-                        .addressTypes(
-                            listOf(
-                                LegalEntityUpdateParams.LegalEntityAddressCreateRequest.AddressType
-                                    .BUSINESS
-                            )
-                        )
-                        .line2("line2")
-                        .build()
-                )
+            .addAddress(
+                LegalEntityUpdateParams.LegalEntityAddressCreateRequest.builder()
+                    .country("country")
+                    .line1("line1")
+                    .locality("locality")
+                    .postalCode("postal_code")
+                    .region("region")
+                    .addAddressType(
+                        LegalEntityUpdateParams.LegalEntityAddressCreateRequest.AddressType.BUSINESS
+                    )
+                    .line2("line2")
+                    .build()
             )
             .bankSettings(
                 BankSettings.builder()
@@ -50,17 +45,15 @@ class LegalEntityUpdateParamsTest {
             .citizenshipCountry("citizenship_country")
             .dateFormed(LocalDate.parse("2019-12-27"))
             .dateOfBirth(LocalDate.parse("2019-12-27"))
-            .doingBusinessAsNames(listOf("string"))
+            .addDoingBusinessAsName("string")
             .email("email")
             .firstName("first_name")
-            .identifications(
-                listOf(
-                    LegalEntityUpdateParams.IdentificationCreateRequest.builder()
-                        .idNumber("id_number")
-                        .idType(LegalEntityUpdateParams.IdentificationCreateRequest.IdType.AR_CUIL)
-                        .issuingCountry("issuing_country")
-                        .build()
-                )
+            .addIdentification(
+                LegalEntityUpdateParams.IdentificationCreateRequest.builder()
+                    .idNumber("id_number")
+                    .idType(LegalEntityUpdateParams.IdentificationCreateRequest.IdType.AR_CUIL)
+                    .issuingCountry("issuing_country")
+                    .build()
             )
             .lastName("last_name")
             .legalStructure(LegalEntityUpdateParams.LegalStructure.CORPORATION)
@@ -72,12 +65,8 @@ class LegalEntityUpdateParamsTest {
                     .build()
             )
             .middleName("middle_name")
-            .phoneNumbers(
-                listOf(
-                    LegalEntityUpdateParams.PhoneNumber.builder()
-                        .phoneNumber("phone_number")
-                        .build()
-                )
+            .addPhoneNumber(
+                LegalEntityUpdateParams.PhoneNumber.builder().phoneNumber("phone_number").build()
             )
             .politicallyExposedPerson(true)
             .preferredName("preferred_name")
@@ -115,24 +104,19 @@ class LegalEntityUpdateParamsTest {
         val params =
             LegalEntityUpdateParams.builder()
                 .id("id")
-                .addresses(
-                    listOf(
-                        LegalEntityUpdateParams.LegalEntityAddressCreateRequest.builder()
-                            .country("country")
-                            .line1("line1")
-                            .locality("locality")
-                            .postalCode("postal_code")
-                            .region("region")
-                            .addressTypes(
-                                listOf(
-                                    LegalEntityUpdateParams.LegalEntityAddressCreateRequest
-                                        .AddressType
-                                        .BUSINESS
-                                )
-                            )
-                            .line2("line2")
-                            .build()
-                    )
+                .addAddress(
+                    LegalEntityUpdateParams.LegalEntityAddressCreateRequest.builder()
+                        .country("country")
+                        .line1("line1")
+                        .locality("locality")
+                        .postalCode("postal_code")
+                        .region("region")
+                        .addAddressType(
+                            LegalEntityUpdateParams.LegalEntityAddressCreateRequest.AddressType
+                                .BUSINESS
+                        )
+                        .line2("line2")
+                        .build()
                 )
                 .bankSettings(
                     BankSettings.builder()
@@ -152,19 +136,15 @@ class LegalEntityUpdateParamsTest {
                 .citizenshipCountry("citizenship_country")
                 .dateFormed(LocalDate.parse("2019-12-27"))
                 .dateOfBirth(LocalDate.parse("2019-12-27"))
-                .doingBusinessAsNames(listOf("string"))
+                .addDoingBusinessAsName("string")
                 .email("email")
                 .firstName("first_name")
-                .identifications(
-                    listOf(
-                        LegalEntityUpdateParams.IdentificationCreateRequest.builder()
-                            .idNumber("id_number")
-                            .idType(
-                                LegalEntityUpdateParams.IdentificationCreateRequest.IdType.AR_CUIL
-                            )
-                            .issuingCountry("issuing_country")
-                            .build()
-                    )
+                .addIdentification(
+                    LegalEntityUpdateParams.IdentificationCreateRequest.builder()
+                        .idNumber("id_number")
+                        .idType(LegalEntityUpdateParams.IdentificationCreateRequest.IdType.AR_CUIL)
+                        .issuingCountry("issuing_country")
+                        .build()
                 )
                 .lastName("last_name")
                 .legalStructure(LegalEntityUpdateParams.LegalStructure.CORPORATION)
@@ -176,12 +156,10 @@ class LegalEntityUpdateParamsTest {
                         .build()
                 )
                 .middleName("middle_name")
-                .phoneNumbers(
-                    listOf(
-                        LegalEntityUpdateParams.PhoneNumber.builder()
-                            .phoneNumber("phone_number")
-                            .build()
-                    )
+                .addPhoneNumber(
+                    LegalEntityUpdateParams.PhoneNumber.builder()
+                        .phoneNumber("phone_number")
+                        .build()
                 )
                 .politicallyExposedPerson(true)
                 .preferredName("preferred_name")
@@ -223,11 +201,9 @@ class LegalEntityUpdateParamsTest {
                         .locality("locality")
                         .postalCode("postal_code")
                         .region("region")
-                        .addressTypes(
-                            listOf(
-                                LegalEntityUpdateParams.LegalEntityAddressCreateRequest.AddressType
-                                    .BUSINESS
-                            )
+                        .addAddressType(
+                            LegalEntityUpdateParams.LegalEntityAddressCreateRequest.AddressType
+                                .BUSINESS
                         )
                         .line2("line2")
                         .build()

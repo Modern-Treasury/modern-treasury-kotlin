@@ -13,7 +13,7 @@ class CounterpartyCollectAccountParamsTest {
             .id("id")
             .direction(TransactionDirection.CREDIT)
             .customRedirect("https://example.com")
-            .fields(listOf(CounterpartyCollectAccountParams.Field.NAME))
+            .addField(CounterpartyCollectAccountParams.Field.NAME)
             .sendEmail(true)
             .build()
     }
@@ -25,7 +25,7 @@ class CounterpartyCollectAccountParamsTest {
                 .id("id")
                 .direction(TransactionDirection.CREDIT)
                 .customRedirect("https://example.com")
-                .fields(listOf(CounterpartyCollectAccountParams.Field.NAME))
+                .addField(CounterpartyCollectAccountParams.Field.NAME)
                 .sendEmail(true)
                 .build()
         val body = params.getBody()

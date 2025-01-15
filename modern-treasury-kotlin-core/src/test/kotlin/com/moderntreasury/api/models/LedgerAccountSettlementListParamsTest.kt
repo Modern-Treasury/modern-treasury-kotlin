@@ -11,7 +11,7 @@ class LedgerAccountSettlementListParamsTest {
     @Test
     fun createLedgerAccountSettlementListParams() {
         LedgerAccountSettlementListParams.builder()
-            .id(listOf("string"))
+            .addId("string")
             .afterCursor("after_cursor")
             .createdAt(
                 LedgerAccountSettlementListParams.CreatedAt.builder()
@@ -40,7 +40,7 @@ class LedgerAccountSettlementListParamsTest {
     fun getQueryParams() {
         val params =
             LedgerAccountSettlementListParams.builder()
-                .id(listOf("string"))
+                .addId("string")
                 .afterCursor("after_cursor")
                 .createdAt(
                     LedgerAccountSettlementListParams.CreatedAt.builder()

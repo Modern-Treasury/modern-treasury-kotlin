@@ -28,17 +28,15 @@ class PaymentOrderCreateParamsTest {
             .chargeBearer(PaymentOrderCreateParams.ChargeBearer.SHARED)
             .currency(Currency.AED)
             .description("description")
-            .documents(
-                listOf(
-                    PaymentOrderCreateParams.DocumentCreateRequest.builder()
-                        .documentableId("documentable_id")
-                        .documentableType(
-                            PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CASES
-                        )
-                        .file("some content")
-                        .documentType("document_type")
-                        .build()
-                )
+            .addDocument(
+                PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                    .documentableId("documentable_id")
+                    .documentableType(
+                        PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CASES
+                    )
+                    .file("some content")
+                    .documentType("document_type")
+                    .build()
             )
             .effectiveDate(LocalDate.parse("2019-12-27"))
             .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -49,8 +47,238 @@ class PaymentOrderCreateParamsTest {
             )
             .ledgerTransaction(
                 PaymentOrderCreateParams.LedgerTransactionCreateRequest.builder()
-                    .ledgerEntries(
-                        listOf(
+                    .addLedgerEntry(
+                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                            .LedgerEntryCreateRequest
+                            .builder()
+                            .amount(0L)
+                            .direction(TransactionDirection.CREDIT)
+                            .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .availableBalanceAmount(
+                                PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                    .LedgerEntryCreateRequest
+                                    .AvailableBalanceAmount
+                                    .builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(0))
+                                    .build()
+                            )
+                            .lockVersion(0L)
+                            .metadata(
+                                PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                    .LedgerEntryCreateRequest
+                                    .Metadata
+                                    .builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
+                            .pendingBalanceAmount(
+                                PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                    .LedgerEntryCreateRequest
+                                    .PendingBalanceAmount
+                                    .builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(0))
+                                    .build()
+                            )
+                            .postedBalanceAmount(
+                                PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                    .LedgerEntryCreateRequest
+                                    .PostedBalanceAmount
+                                    .builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(0))
+                                    .build()
+                            )
+                            .showResultingLedgerAccountBalances(true)
+                            .build()
+                    )
+                    .description("description")
+                    .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .effectiveDate(LocalDate.parse("2019-12-27"))
+                    .externalId("external_id")
+                    .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .ledgerableType(
+                        PaymentOrderCreateParams.LedgerTransactionCreateRequest.LedgerableType
+                            .EXPECTED_PAYMENT
+                    )
+                    .metadata(
+                        PaymentOrderCreateParams.LedgerTransactionCreateRequest.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
+                    .status(PaymentOrderCreateParams.LedgerTransactionCreateRequest.Status.ARCHIVED)
+                    .build()
+            )
+            .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .addLineItem(
+                PaymentOrderCreateParams.LineItemRequest.builder()
+                    .amount(0L)
+                    .accountingCategoryId("accounting_category_id")
+                    .description("description")
+                    .metadata(
+                        PaymentOrderCreateParams.LineItemRequest.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
+                    .build()
+            )
+            .metadata(
+                PaymentOrderCreateParams.Metadata.builder()
+                    .putAdditionalProperty("key", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .build()
+            )
+            .nsfProtected(true)
+            .originatingPartyName("originating_party_name")
+            .priority(PaymentOrderCreateParams.Priority.HIGH)
+            .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .purpose("purpose")
+            .receivingAccount(
+                PaymentOrderCreateParams.ReceivingAccount.builder()
+                    .addAccountDetail(
+                        PaymentOrderCreateParams.ReceivingAccount.AccountDetail.builder()
+                            .accountNumber("account_number")
+                            .accountNumberType(
+                                PaymentOrderCreateParams.ReceivingAccount.AccountDetail
+                                    .AccountNumberType
+                                    .AU_NUMBER
+                            )
+                            .build()
+                    )
+                    .accountType(ExternalAccountType.CASH)
+                    .addContactDetail(
+                        PaymentOrderCreateParams.ReceivingAccount.ContactDetailCreateRequest
+                            .builder()
+                            .contactIdentifier("contact_identifier")
+                            .contactIdentifierType(
+                                PaymentOrderCreateParams.ReceivingAccount.ContactDetailCreateRequest
+                                    .ContactIdentifierType
+                                    .EMAIL
+                            )
+                            .build()
+                    )
+                    .ledgerAccount(
+                        PaymentOrderCreateParams.ReceivingAccount.LedgerAccountCreateRequest
+                            .builder()
+                            .currency("currency")
+                            .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .name("name")
+                            .normalBalance(TransactionDirection.CREDIT)
+                            .currencyExponent(0L)
+                            .description("description")
+                            .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .ledgerableType(
+                                PaymentOrderCreateParams.ReceivingAccount.LedgerAccountCreateRequest
+                                    .LedgerableType
+                                    .COUNTERPARTY
+                            )
+                            .metadata(
+                                PaymentOrderCreateParams.ReceivingAccount.LedgerAccountCreateRequest
+                                    .Metadata
+                                    .builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .metadata(
+                        PaymentOrderCreateParams.ReceivingAccount.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
+                    .name("name")
+                    .partyAddress(
+                        PaymentOrderCreateParams.ReceivingAccount.AddressRequest.builder()
+                            .country("country")
+                            .line1("line1")
+                            .line2("line2")
+                            .locality("locality")
+                            .postalCode("postal_code")
+                            .region("region")
+                            .build()
+                    )
+                    .partyIdentifier("party_identifier")
+                    .partyName("party_name")
+                    .partyType(PaymentOrderCreateParams.ReceivingAccount.PartyType.BUSINESS)
+                    .plaidProcessorToken("plaid_processor_token")
+                    .addRoutingDetail(
+                        PaymentOrderCreateParams.ReceivingAccount.RoutingDetail.builder()
+                            .routingNumber("routing_number")
+                            .routingNumberType(
+                                PaymentOrderCreateParams.ReceivingAccount.RoutingDetail
+                                    .RoutingNumberType
+                                    .ABA
+                            )
+                            .paymentType(
+                                PaymentOrderCreateParams.ReceivingAccount.RoutingDetail.PaymentType
+                                    .ACH
+                            )
+                            .build()
+                    )
+                    .build()
+            )
+            .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .remittanceInformation("remittance_information")
+            .sendRemittanceAdvice(true)
+            .statementDescriptor("statement_descriptor")
+            .subtype(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
+            .transactionMonitoringEnabled(true)
+            .ultimateOriginatingPartyIdentifier("ultimate_originating_party_identifier")
+            .ultimateOriginatingPartyName("ultimate_originating_party_name")
+            .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
+            .ultimateReceivingPartyName("ultimate_receiving_party_name")
+            .build()
+    }
+
+    @Test
+    fun getBody() {
+        val params =
+            PaymentOrderCreateParams.builder()
+                .amount(0L)
+                .direction(PaymentOrderCreateParams.Direction.CREDIT)
+                .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .type(PaymentOrderType.ACH)
+                .accounting(
+                    PaymentOrderCreateParams.Accounting.builder()
+                        .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .build()
+                )
+                .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .chargeBearer(PaymentOrderCreateParams.ChargeBearer.SHARED)
+                .currency(Currency.AED)
+                .description("description")
+                .addDocument(
+                    PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                        .documentableId("documentable_id")
+                        .documentableType(
+                            PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CASES
+                        )
+                        .file("some content")
+                        .documentType("document_type")
+                        .build()
+                )
+                .effectiveDate(LocalDate.parse("2019-12-27"))
+                .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .fallbackType(PaymentOrderCreateParams.FallbackType.ACH)
+                .foreignExchangeContract("foreign_exchange_contract")
+                .foreignExchangeIndicator(
+                    PaymentOrderCreateParams.ForeignExchangeIndicator.FIXED_TO_VARIABLE
+                )
+                .ledgerTransaction(
+                    PaymentOrderCreateParams.LedgerTransactionCreateRequest.builder()
+                        .addLedgerEntry(
                             PaymentOrderCreateParams.LedgerTransactionCreateRequest
                                 .LedgerEntryCreateRequest
                                 .builder()
@@ -95,258 +323,6 @@ class PaymentOrderCreateParamsTest {
                                 .showResultingLedgerAccountBalances(true)
                                 .build()
                         )
-                    )
-                    .description("description")
-                    .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .effectiveDate(LocalDate.parse("2019-12-27"))
-                    .externalId("external_id")
-                    .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .ledgerableType(
-                        PaymentOrderCreateParams.LedgerTransactionCreateRequest.LedgerableType
-                            .EXPECTED_PAYMENT
-                    )
-                    .metadata(
-                        PaymentOrderCreateParams.LedgerTransactionCreateRequest.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                            .build()
-                    )
-                    .status(PaymentOrderCreateParams.LedgerTransactionCreateRequest.Status.ARCHIVED)
-                    .build()
-            )
-            .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .lineItems(
-                listOf(
-                    PaymentOrderCreateParams.LineItemRequest.builder()
-                        .amount(0L)
-                        .accountingCategoryId("accounting_category_id")
-                        .description("description")
-                        .metadata(
-                            PaymentOrderCreateParams.LineItemRequest.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                .build()
-                        )
-                        .build()
-                )
-            )
-            .metadata(
-                PaymentOrderCreateParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                    .build()
-            )
-            .nsfProtected(true)
-            .originatingPartyName("originating_party_name")
-            .priority(PaymentOrderCreateParams.Priority.HIGH)
-            .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .purpose("purpose")
-            .receivingAccount(
-                PaymentOrderCreateParams.ReceivingAccount.builder()
-                    .accountDetails(
-                        listOf(
-                            PaymentOrderCreateParams.ReceivingAccount.AccountDetail.builder()
-                                .accountNumber("account_number")
-                                .accountNumberType(
-                                    PaymentOrderCreateParams.ReceivingAccount.AccountDetail
-                                        .AccountNumberType
-                                        .AU_NUMBER
-                                )
-                                .build()
-                        )
-                    )
-                    .accountType(ExternalAccountType.CASH)
-                    .contactDetails(
-                        listOf(
-                            PaymentOrderCreateParams.ReceivingAccount.ContactDetailCreateRequest
-                                .builder()
-                                .contactIdentifier("contact_identifier")
-                                .contactIdentifierType(
-                                    PaymentOrderCreateParams.ReceivingAccount
-                                        .ContactDetailCreateRequest
-                                        .ContactIdentifierType
-                                        .EMAIL
-                                )
-                                .build()
-                        )
-                    )
-                    .ledgerAccount(
-                        PaymentOrderCreateParams.ReceivingAccount.LedgerAccountCreateRequest
-                            .builder()
-                            .currency("currency")
-                            .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .name("name")
-                            .normalBalance(TransactionDirection.CREDIT)
-                            .currencyExponent(0L)
-                            .description("description")
-                            .ledgerAccountCategoryIds(
-                                listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            )
-                            .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .ledgerableType(
-                                PaymentOrderCreateParams.ReceivingAccount.LedgerAccountCreateRequest
-                                    .LedgerableType
-                                    .COUNTERPARTY
-                            )
-                            .metadata(
-                                PaymentOrderCreateParams.ReceivingAccount.LedgerAccountCreateRequest
-                                    .Metadata
-                                    .builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
-                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .metadata(
-                        PaymentOrderCreateParams.ReceivingAccount.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                            .build()
-                    )
-                    .name("name")
-                    .partyAddress(
-                        PaymentOrderCreateParams.ReceivingAccount.AddressRequest.builder()
-                            .country("country")
-                            .line1("line1")
-                            .line2("line2")
-                            .locality("locality")
-                            .postalCode("postal_code")
-                            .region("region")
-                            .build()
-                    )
-                    .partyIdentifier("party_identifier")
-                    .partyName("party_name")
-                    .partyType(PaymentOrderCreateParams.ReceivingAccount.PartyType.BUSINESS)
-                    .plaidProcessorToken("plaid_processor_token")
-                    .routingDetails(
-                        listOf(
-                            PaymentOrderCreateParams.ReceivingAccount.RoutingDetail.builder()
-                                .routingNumber("routing_number")
-                                .routingNumberType(
-                                    PaymentOrderCreateParams.ReceivingAccount.RoutingDetail
-                                        .RoutingNumberType
-                                        .ABA
-                                )
-                                .paymentType(
-                                    PaymentOrderCreateParams.ReceivingAccount.RoutingDetail
-                                        .PaymentType
-                                        .ACH
-                                )
-                                .build()
-                        )
-                    )
-                    .build()
-            )
-            .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .remittanceInformation("remittance_information")
-            .sendRemittanceAdvice(true)
-            .statementDescriptor("statement_descriptor")
-            .subtype(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
-            .transactionMonitoringEnabled(true)
-            .ultimateOriginatingPartyIdentifier("ultimate_originating_party_identifier")
-            .ultimateOriginatingPartyName("ultimate_originating_party_name")
-            .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
-            .ultimateReceivingPartyName("ultimate_receiving_party_name")
-            .build()
-    }
-
-    @Test
-    fun getBody() {
-        val params =
-            PaymentOrderCreateParams.builder()
-                .amount(0L)
-                .direction(PaymentOrderCreateParams.Direction.CREDIT)
-                .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .type(PaymentOrderType.ACH)
-                .accounting(
-                    PaymentOrderCreateParams.Accounting.builder()
-                        .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .build()
-                )
-                .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .chargeBearer(PaymentOrderCreateParams.ChargeBearer.SHARED)
-                .currency(Currency.AED)
-                .description("description")
-                .documents(
-                    listOf(
-                        PaymentOrderCreateParams.DocumentCreateRequest.builder()
-                            .documentableId("documentable_id")
-                            .documentableType(
-                                PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
-                                    .CASES
-                            )
-                            .file("some content")
-                            .documentType("document_type")
-                            .build()
-                    )
-                )
-                .effectiveDate(LocalDate.parse("2019-12-27"))
-                .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .fallbackType(PaymentOrderCreateParams.FallbackType.ACH)
-                .foreignExchangeContract("foreign_exchange_contract")
-                .foreignExchangeIndicator(
-                    PaymentOrderCreateParams.ForeignExchangeIndicator.FIXED_TO_VARIABLE
-                )
-                .ledgerTransaction(
-                    PaymentOrderCreateParams.LedgerTransactionCreateRequest.builder()
-                        .ledgerEntries(
-                            listOf(
-                                PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                    .LedgerEntryCreateRequest
-                                    .builder()
-                                    .amount(0L)
-                                    .direction(TransactionDirection.CREDIT)
-                                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .availableBalanceAmount(
-                                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                            .LedgerEntryCreateRequest
-                                            .AvailableBalanceAmount
-                                            .builder()
-                                            .putAdditionalProperty("foo", JsonValue.from(0))
-                                            .build()
-                                    )
-                                    .lockVersion(0L)
-                                    .metadata(
-                                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                            .LedgerEntryCreateRequest
-                                            .Metadata
-                                            .builder()
-                                            .putAdditionalProperty("key", JsonValue.from("value"))
-                                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                            .putAdditionalProperty(
-                                                "modern",
-                                                JsonValue.from("treasury")
-                                            )
-                                            .build()
-                                    )
-                                    .pendingBalanceAmount(
-                                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                            .LedgerEntryCreateRequest
-                                            .PendingBalanceAmount
-                                            .builder()
-                                            .putAdditionalProperty("foo", JsonValue.from(0))
-                                            .build()
-                                    )
-                                    .postedBalanceAmount(
-                                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                            .LedgerEntryCreateRequest
-                                            .PostedBalanceAmount
-                                            .builder()
-                                            .putAdditionalProperty("foo", JsonValue.from(0))
-                                            .build()
-                                    )
-                                    .showResultingLedgerAccountBalances(true)
-                                    .build()
-                            )
-                        )
                         .description("description")
                         .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .effectiveDate(LocalDate.parse("2019-12-27"))
@@ -370,21 +346,19 @@ class PaymentOrderCreateParamsTest {
                         .build()
                 )
                 .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .lineItems(
-                    listOf(
-                        PaymentOrderCreateParams.LineItemRequest.builder()
-                            .amount(0L)
-                            .accountingCategoryId("accounting_category_id")
-                            .description("description")
-                            .metadata(
-                                PaymentOrderCreateParams.LineItemRequest.Metadata.builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
-                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                    .build()
-                            )
-                            .build()
-                    )
+                .addLineItem(
+                    PaymentOrderCreateParams.LineItemRequest.builder()
+                        .amount(0L)
+                        .accountingCategoryId("accounting_category_id")
+                        .description("description")
+                        .metadata(
+                            PaymentOrderCreateParams.LineItemRequest.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
+                        .build()
                 )
                 .metadata(
                     PaymentOrderCreateParams.Metadata.builder()
@@ -400,32 +374,28 @@ class PaymentOrderCreateParamsTest {
                 .purpose("purpose")
                 .receivingAccount(
                     PaymentOrderCreateParams.ReceivingAccount.builder()
-                        .accountDetails(
-                            listOf(
-                                PaymentOrderCreateParams.ReceivingAccount.AccountDetail.builder()
-                                    .accountNumber("account_number")
-                                    .accountNumberType(
-                                        PaymentOrderCreateParams.ReceivingAccount.AccountDetail
-                                            .AccountNumberType
-                                            .AU_NUMBER
-                                    )
-                                    .build()
-                            )
+                        .addAccountDetail(
+                            PaymentOrderCreateParams.ReceivingAccount.AccountDetail.builder()
+                                .accountNumber("account_number")
+                                .accountNumberType(
+                                    PaymentOrderCreateParams.ReceivingAccount.AccountDetail
+                                        .AccountNumberType
+                                        .AU_NUMBER
+                                )
+                                .build()
                         )
                         .accountType(ExternalAccountType.CASH)
-                        .contactDetails(
-                            listOf(
-                                PaymentOrderCreateParams.ReceivingAccount.ContactDetailCreateRequest
-                                    .builder()
-                                    .contactIdentifier("contact_identifier")
-                                    .contactIdentifierType(
-                                        PaymentOrderCreateParams.ReceivingAccount
-                                            .ContactDetailCreateRequest
-                                            .ContactIdentifierType
-                                            .EMAIL
-                                    )
-                                    .build()
-                            )
+                        .addContactDetail(
+                            PaymentOrderCreateParams.ReceivingAccount.ContactDetailCreateRequest
+                                .builder()
+                                .contactIdentifier("contact_identifier")
+                                .contactIdentifierType(
+                                    PaymentOrderCreateParams.ReceivingAccount
+                                        .ContactDetailCreateRequest
+                                        .ContactIdentifierType
+                                        .EMAIL
+                                )
+                                .build()
                         )
                         .ledgerAccount(
                             PaymentOrderCreateParams.ReceivingAccount.LedgerAccountCreateRequest
@@ -436,9 +406,7 @@ class PaymentOrderCreateParamsTest {
                                 .normalBalance(TransactionDirection.CREDIT)
                                 .currencyExponent(0L)
                                 .description("description")
-                                .ledgerAccountCategoryIds(
-                                    listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                )
+                                .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
                                     PaymentOrderCreateParams.ReceivingAccount
@@ -480,22 +448,20 @@ class PaymentOrderCreateParamsTest {
                         .partyName("party_name")
                         .partyType(PaymentOrderCreateParams.ReceivingAccount.PartyType.BUSINESS)
                         .plaidProcessorToken("plaid_processor_token")
-                        .routingDetails(
-                            listOf(
-                                PaymentOrderCreateParams.ReceivingAccount.RoutingDetail.builder()
-                                    .routingNumber("routing_number")
-                                    .routingNumberType(
-                                        PaymentOrderCreateParams.ReceivingAccount.RoutingDetail
-                                            .RoutingNumberType
-                                            .ABA
-                                    )
-                                    .paymentType(
-                                        PaymentOrderCreateParams.ReceivingAccount.RoutingDetail
-                                            .PaymentType
-                                            .ACH
-                                    )
-                                    .build()
-                            )
+                        .addRoutingDetail(
+                            PaymentOrderCreateParams.ReceivingAccount.RoutingDetail.builder()
+                                .routingNumber("routing_number")
+                                .routingNumberType(
+                                    PaymentOrderCreateParams.ReceivingAccount.RoutingDetail
+                                        .RoutingNumberType
+                                        .ABA
+                                )
+                                .paymentType(
+                                    PaymentOrderCreateParams.ReceivingAccount.RoutingDetail
+                                        .PaymentType
+                                        .ACH
+                                )
+                                .build()
                         )
                         .build()
                 )
@@ -550,52 +516,50 @@ class PaymentOrderCreateParamsTest {
         assertThat(body.ledgerTransaction())
             .isEqualTo(
                 PaymentOrderCreateParams.LedgerTransactionCreateRequest.builder()
-                    .ledgerEntries(
-                        listOf(
-                            PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                .LedgerEntryCreateRequest
-                                .builder()
-                                .amount(0L)
-                                .direction(TransactionDirection.CREDIT)
-                                .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .availableBalanceAmount(
-                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .AvailableBalanceAmount
-                                        .builder()
-                                        .putAdditionalProperty("foo", JsonValue.from(0))
-                                        .build()
-                                )
-                                .lockVersion(0L)
-                                .metadata(
-                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .Metadata
-                                        .builder()
-                                        .putAdditionalProperty("key", JsonValue.from("value"))
-                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                        .build()
-                                )
-                                .pendingBalanceAmount(
-                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .PendingBalanceAmount
-                                        .builder()
-                                        .putAdditionalProperty("foo", JsonValue.from(0))
-                                        .build()
-                                )
-                                .postedBalanceAmount(
-                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .PostedBalanceAmount
-                                        .builder()
-                                        .putAdditionalProperty("foo", JsonValue.from(0))
-                                        .build()
-                                )
-                                .showResultingLedgerAccountBalances(true)
-                                .build()
-                        )
+                    .addLedgerEntry(
+                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                            .LedgerEntryCreateRequest
+                            .builder()
+                            .amount(0L)
+                            .direction(TransactionDirection.CREDIT)
+                            .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .availableBalanceAmount(
+                                PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                    .LedgerEntryCreateRequest
+                                    .AvailableBalanceAmount
+                                    .builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(0))
+                                    .build()
+                            )
+                            .lockVersion(0L)
+                            .metadata(
+                                PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                    .LedgerEntryCreateRequest
+                                    .Metadata
+                                    .builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
+                            .pendingBalanceAmount(
+                                PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                    .LedgerEntryCreateRequest
+                                    .PendingBalanceAmount
+                                    .builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(0))
+                                    .build()
+                            )
+                            .postedBalanceAmount(
+                                PaymentOrderCreateParams.LedgerTransactionCreateRequest
+                                    .LedgerEntryCreateRequest
+                                    .PostedBalanceAmount
+                                    .builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(0))
+                                    .build()
+                            )
+                            .showResultingLedgerAccountBalances(true)
+                            .build()
                     )
                     .description("description")
                     .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -650,32 +614,27 @@ class PaymentOrderCreateParamsTest {
         assertThat(body.receivingAccount())
             .isEqualTo(
                 PaymentOrderCreateParams.ReceivingAccount.builder()
-                    .accountDetails(
-                        listOf(
-                            PaymentOrderCreateParams.ReceivingAccount.AccountDetail.builder()
-                                .accountNumber("account_number")
-                                .accountNumberType(
-                                    PaymentOrderCreateParams.ReceivingAccount.AccountDetail
-                                        .AccountNumberType
-                                        .AU_NUMBER
-                                )
-                                .build()
-                        )
+                    .addAccountDetail(
+                        PaymentOrderCreateParams.ReceivingAccount.AccountDetail.builder()
+                            .accountNumber("account_number")
+                            .accountNumberType(
+                                PaymentOrderCreateParams.ReceivingAccount.AccountDetail
+                                    .AccountNumberType
+                                    .AU_NUMBER
+                            )
+                            .build()
                     )
                     .accountType(ExternalAccountType.CASH)
-                    .contactDetails(
-                        listOf(
-                            PaymentOrderCreateParams.ReceivingAccount.ContactDetailCreateRequest
-                                .builder()
-                                .contactIdentifier("contact_identifier")
-                                .contactIdentifierType(
-                                    PaymentOrderCreateParams.ReceivingAccount
-                                        .ContactDetailCreateRequest
-                                        .ContactIdentifierType
-                                        .EMAIL
-                                )
-                                .build()
-                        )
+                    .addContactDetail(
+                        PaymentOrderCreateParams.ReceivingAccount.ContactDetailCreateRequest
+                            .builder()
+                            .contactIdentifier("contact_identifier")
+                            .contactIdentifierType(
+                                PaymentOrderCreateParams.ReceivingAccount.ContactDetailCreateRequest
+                                    .ContactIdentifierType
+                                    .EMAIL
+                            )
+                            .build()
                     )
                     .ledgerAccount(
                         PaymentOrderCreateParams.ReceivingAccount.LedgerAccountCreateRequest
@@ -686,9 +645,7 @@ class PaymentOrderCreateParamsTest {
                             .normalBalance(TransactionDirection.CREDIT)
                             .currencyExponent(0L)
                             .description("description")
-                            .ledgerAccountCategoryIds(
-                                listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            )
+                            .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableType(
                                 PaymentOrderCreateParams.ReceivingAccount.LedgerAccountCreateRequest
@@ -728,22 +685,19 @@ class PaymentOrderCreateParamsTest {
                     .partyName("party_name")
                     .partyType(PaymentOrderCreateParams.ReceivingAccount.PartyType.BUSINESS)
                     .plaidProcessorToken("plaid_processor_token")
-                    .routingDetails(
-                        listOf(
-                            PaymentOrderCreateParams.ReceivingAccount.RoutingDetail.builder()
-                                .routingNumber("routing_number")
-                                .routingNumberType(
-                                    PaymentOrderCreateParams.ReceivingAccount.RoutingDetail
-                                        .RoutingNumberType
-                                        .ABA
-                                )
-                                .paymentType(
-                                    PaymentOrderCreateParams.ReceivingAccount.RoutingDetail
-                                        .PaymentType
-                                        .ACH
-                                )
-                                .build()
-                        )
+                    .addRoutingDetail(
+                        PaymentOrderCreateParams.ReceivingAccount.RoutingDetail.builder()
+                            .routingNumber("routing_number")
+                            .routingNumberType(
+                                PaymentOrderCreateParams.ReceivingAccount.RoutingDetail
+                                    .RoutingNumberType
+                                    .ABA
+                            )
+                            .paymentType(
+                                PaymentOrderCreateParams.ReceivingAccount.RoutingDetail.PaymentType
+                                    .ACH
+                            )
+                            .build()
                     )
                     .build()
             )
