@@ -29,16 +29,14 @@ class LedgerEventHandlerTest {
                     LedgerEventHandler.LedgerEventHandlerLedgerTransactionTemplate.builder()
                         .description("My Ledger Transaction Template Description")
                         .effectiveAt("{{ledgerable_event.custom_data.effective_at}}")
-                        .ledgerEntries(
-                            listOf(
-                                LedgerEventHandler.LedgerEventHandlerLedgerTransactionTemplate
-                                    .LedgerEventHandlerLedgerEntries
-                                    .builder()
-                                    .amount("amount")
-                                    .direction("direction")
-                                    .ledgerAccountId("ledger_account_id")
-                                    .build()
-                            )
+                        .addLedgerEntry(
+                            LedgerEventHandler.LedgerEventHandlerLedgerTransactionTemplate
+                                .LedgerEventHandlerLedgerEntries
+                                .builder()
+                                .amount("amount")
+                                .direction("direction")
+                                .ledgerAccountId("ledger_account_id")
+                                .build()
                         )
                         .status("posted")
                         .build()
@@ -94,16 +92,14 @@ class LedgerEventHandlerTest {
                 LedgerEventHandler.LedgerEventHandlerLedgerTransactionTemplate.builder()
                     .description("My Ledger Transaction Template Description")
                     .effectiveAt("{{ledgerable_event.custom_data.effective_at}}")
-                    .ledgerEntries(
-                        listOf(
-                            LedgerEventHandler.LedgerEventHandlerLedgerTransactionTemplate
-                                .LedgerEventHandlerLedgerEntries
-                                .builder()
-                                .amount("amount")
-                                .direction("direction")
-                                .ledgerAccountId("ledger_account_id")
-                                .build()
-                        )
+                    .addLedgerEntry(
+                        LedgerEventHandler.LedgerEventHandlerLedgerTransactionTemplate
+                            .LedgerEventHandlerLedgerEntries
+                            .builder()
+                            .amount("amount")
+                            .direction("direction")
+                            .ledgerAccountId("ledger_account_id")
+                            .build()
                     )
                     .status("posted")
                     .build()

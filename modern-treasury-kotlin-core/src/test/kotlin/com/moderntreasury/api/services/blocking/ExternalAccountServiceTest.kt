@@ -34,29 +34,25 @@ class ExternalAccountServiceTest {
             externalAccountService.create(
                 ExternalAccountCreateParams.builder()
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .accountDetails(
-                        listOf(
-                            ExternalAccountCreateParams.AccountDetail.builder()
-                                .accountNumber("account_number")
-                                .accountNumberType(
-                                    ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
-                                )
-                                .build()
-                        )
+                    .addAccountDetail(
+                        ExternalAccountCreateParams.AccountDetail.builder()
+                            .accountNumber("account_number")
+                            .accountNumberType(
+                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                    .AU_NUMBER
+                            )
+                            .build()
                     )
                     .accountType(ExternalAccountType.CASH)
-                    .contactDetails(
-                        listOf(
-                            ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                                .contactIdentifier("contact_identifier")
-                                .contactIdentifierType(
-                                    ExternalAccountCreateParams.ContactDetailCreateRequest
-                                        .ContactIdentifierType
-                                        .EMAIL
-                                )
-                                .build()
-                        )
+                    .addContactDetail(
+                        ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                            .contactIdentifier("contact_identifier")
+                            .contactIdentifierType(
+                                ExternalAccountCreateParams.ContactDetailCreateRequest
+                                    .ContactIdentifierType
+                                    .EMAIL
+                            )
+                            .build()
                     )
                     .ledgerAccount(
                         ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
@@ -66,9 +62,7 @@ class ExternalAccountServiceTest {
                             .normalBalance(TransactionDirection.CREDIT)
                             .currencyExponent(0L)
                             .description("description")
-                            .ledgerAccountCategoryIds(
-                                listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            )
+                            .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableType(
                                 ExternalAccountCreateParams.LedgerAccountCreateRequest
@@ -107,18 +101,14 @@ class ExternalAccountServiceTest {
                     .partyName("party_name")
                     .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
                     .plaidProcessorToken("plaid_processor_token")
-                    .routingDetails(
-                        listOf(
-                            ExternalAccountCreateParams.RoutingDetail.builder()
-                                .routingNumber("routing_number")
-                                .routingNumberType(
-                                    ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
-                                )
-                                .paymentType(
-                                    ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH
-                                )
-                                .build()
-                        )
+                    .addRoutingDetail(
+                        ExternalAccountCreateParams.RoutingDetail.builder()
+                            .routingNumber("routing_number")
+                            .routingNumberType(
+                                ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                            )
+                            .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
+                            .build()
                     )
                     .build()
             )
@@ -221,7 +211,8 @@ class ExternalAccountServiceTest {
             externalAccountService.completeVerification(
                 ExternalAccountCompleteVerificationParams.builder()
                     .id("id")
-                    .amounts(listOf(2L, 4L))
+                    .addAmount(2L)
+                    .addAmount(4L)
                     .build()
             )
         println(externalAccount)

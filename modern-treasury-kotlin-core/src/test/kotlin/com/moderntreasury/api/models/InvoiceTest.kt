@@ -17,21 +17,17 @@ class InvoiceTest {
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .amountPaid(0L)
                 .amountRemaining(0L)
-                .contactDetails(
-                    listOf(
-                        Invoice.ContactDetail.builder()
-                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .contactIdentifier("contact_identifier")
-                            .contactIdentifierType(
-                                Invoice.ContactDetail.ContactIdentifierType.EMAIL
-                            )
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .liveMode(true)
-                            .object_("object")
-                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
+                .addContactDetail(
+                    Invoice.ContactDetail.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .contactIdentifier("contact_identifier")
+                        .contactIdentifierType(Invoice.ContactDetail.ContactIdentifierType.EMAIL)
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .liveMode(true)
+                        .object_("object")
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
                 )
                 .counterpartyBillingAddress(
                     Invoice.CounterpartyBillingAddress.builder()
@@ -58,65 +54,58 @@ class InvoiceTest {
                 .currency(Currency.AED)
                 .description("description")
                 .dueDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .expectedPayments(
-                    listOf(
-                        ExpectedPayment.builder()
-                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .amountLowerBound(0L)
-                            .amountUpperBound(0L)
-                            .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .currency(Currency.AED)
-                            .dateLowerBound(LocalDate.parse("2019-12-27"))
-                            .dateUpperBound(LocalDate.parse("2019-12-27"))
-                            .description("description")
-                            .direction(ExpectedPayment.Direction.CREDIT)
-                            .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .liveMode(true)
-                            .metadata(
-                                ExpectedPayment.Metadata.builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
-                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                    .build()
-                            )
-                            .object_("object")
-                            .reconciliationFilters(JsonValue.from(mapOf<String, Any>()))
-                            .reconciliationGroups(JsonValue.from(mapOf<String, Any>()))
-                            .reconciliationMethod(ExpectedPayment.ReconciliationMethod.AUTOMATIC)
-                            .reconciliationRuleVariables(
-                                listOf(
-                                    ReconciliationRule.builder()
-                                        .amountLowerBound(0L)
-                                        .amountUpperBound(0L)
-                                        .direction(ReconciliationRule.Direction.CREDIT)
-                                        .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                        .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                        .currency(Currency.AED)
-                                        .customIdentifiers(
-                                            ReconciliationRule.CustomIdentifiers.builder()
-                                                .putAdditionalProperty(
-                                                    "foo",
-                                                    JsonValue.from("string")
-                                                )
-                                                .build()
-                                        )
-                                        .dateLowerBound(LocalDate.parse("2019-12-27"))
-                                        .dateUpperBound(LocalDate.parse("2019-12-27"))
-                                        .type(ReconciliationRule.Type.ACH)
+                .addExpectedPayment(
+                    ExpectedPayment.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .amountLowerBound(0L)
+                        .amountUpperBound(0L)
+                        .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .currency(Currency.AED)
+                        .dateLowerBound(LocalDate.parse("2019-12-27"))
+                        .dateUpperBound(LocalDate.parse("2019-12-27"))
+                        .description("description")
+                        .direction(ExpectedPayment.Direction.CREDIT)
+                        .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .liveMode(true)
+                        .metadata(
+                            ExpectedPayment.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
+                        .object_("object")
+                        .reconciliationFilters(JsonValue.from(mapOf<String, Any>()))
+                        .reconciliationGroups(JsonValue.from(mapOf<String, Any>()))
+                        .reconciliationMethod(ExpectedPayment.ReconciliationMethod.AUTOMATIC)
+                        .addReconciliationRuleVariable(
+                            ReconciliationRule.builder()
+                                .amountLowerBound(0L)
+                                .amountUpperBound(0L)
+                                .direction(ReconciliationRule.Direction.CREDIT)
+                                .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .currency(Currency.AED)
+                                .customIdentifiers(
+                                    ReconciliationRule.CustomIdentifiers.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
                                         .build()
                                 )
-                            )
-                            .remittanceInformation("remittance_information")
-                            .statementDescriptor("statement_descriptor")
-                            .status(ExpectedPayment.Status.ARCHIVED)
-                            .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .transactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .type(ExpectedPaymentType.ACH)
-                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
+                                .dateLowerBound(LocalDate.parse("2019-12-27"))
+                                .dateUpperBound(LocalDate.parse("2019-12-27"))
+                                .type(ReconciliationRule.Type.ACH)
+                                .build()
+                        )
+                        .remittanceInformation("remittance_information")
+                        .statementDescriptor("statement_descriptor")
+                        .status(ExpectedPayment.Status.ARCHIVED)
+                        .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .transactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .type(ExpectedPaymentType.ACH)
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
                 )
                 .fallbackPaymentMethod("fallback_payment_method")
                 .hostedUrl("hosted_url")
@@ -139,295 +128,249 @@ class InvoiceTest {
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
-                .notificationEmailAddresses(listOf("string"))
+                .addNotificationEmailAddress("string")
                 .notificationsEnabled(true)
                 .number("number")
                 .object_("object")
                 .originatingAccountId("originating_account_id")
                 .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
                 .paymentMethod(Invoice.PaymentMethod.UI)
-                .paymentOrders(
-                    listOf(
-                        PaymentOrder.builder()
-                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .accounting(
-                                PaymentOrder.Accounting.builder()
-                                    .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .build()
-                            )
-                            .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .amount(0L)
-                            .chargeBearer(PaymentOrder.ChargeBearer.SHARED)
-                            .complianceRuleMetadata(
-                                PaymentOrder.ComplianceRuleMetadata.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                    .build()
-                            )
-                            .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .currency(Currency.AED)
-                            .currentReturn(
-                                ReturnObject.builder()
-                                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .amount(0L)
-                                    .code(ReturnObject.Code._901)
-                                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .currency(Currency.AED)
-                                    .currentReturn(null)
-                                    .dateOfDeath(LocalDate.parse("2019-12-27"))
-                                    .failureReason("failure_reason")
-                                    .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .liveMode(true)
-                                    .object_("object")
-                                    .reason("reason")
-                                    .referenceNumbers(
-                                        listOf(
-                                            ReturnObject.PaymentReference.builder()
-                                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                                .createdAt(
-                                                    OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                                )
-                                                .liveMode(true)
-                                                .object_("object")
-                                                .referenceNumber("reference_number")
-                                                .referenceNumberType(
-                                                    ReturnObject.PaymentReference
-                                                        .ReferenceNumberType
-                                                        .ACH_ORIGINAL_TRACE_NUMBER
-                                                )
-                                                .updatedAt(
-                                                    OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                                )
-                                                .build()
-                                        )
-                                    )
-                                    .returnableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .returnableType(
-                                        ReturnObject.ReturnableType.INCOMING_PAYMENT_DETAIL
-                                    )
-                                    .role(ReturnObject.Role.ORIGINATING)
-                                    .status(ReturnObject.Status.COMPLETED)
-                                    .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .transactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .type(ReturnObject.Type.ACH)
-                                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .additionalInformation("additional_information")
-                                    .build()
-                            )
-                            .decisionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .description("description")
-                            .direction(PaymentOrder.Direction.CREDIT)
-                            .effectiveDate(LocalDate.parse("2019-12-27"))
-                            .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .foreignExchangeContract("foreign_exchange_contract")
-                            .foreignExchangeIndicator(
-                                PaymentOrder.ForeignExchangeIndicator.FIXED_TO_VARIABLE
-                            )
-                            .foreignExchangeRate(
-                                PaymentOrder.ForeignExchangeRate.builder()
-                                    .baseAmount(0L)
-                                    .baseCurrency(Currency.AED)
-                                    .exponent(0L)
-                                    .rateString("rate_string")
-                                    .targetAmount(0L)
-                                    .targetCurrency(Currency.AED)
-                                    .value(0L)
-                                    .build()
-                            )
-                            .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .liveMode(true)
-                            .metadata(
-                                PaymentOrder.Metadata.builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
-                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                    .build()
-                            )
-                            .nsfProtected(true)
-                            .object_("object")
-                            .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .originatingPartyName("originating_party_name")
-                            .priority(PaymentOrder.Priority.HIGH)
-                            .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .purpose("purpose")
-                            .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .receivingAccountType(
-                                PaymentOrder.ReceivingAccountType.INTERNAL_ACCOUNT
-                            )
-                            .referenceNumbers(
-                                listOf(
-                                    PaymentOrder.PaymentReference.builder()
+                .addPaymentOrder(
+                    PaymentOrder.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .accounting(
+                            PaymentOrder.Accounting.builder()
+                                .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .build()
+                        )
+                        .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .amount(0L)
+                        .chargeBearer(PaymentOrder.ChargeBearer.SHARED)
+                        .complianceRuleMetadata(
+                            PaymentOrder.ComplianceRuleMetadata.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
+                        .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .currency(Currency.AED)
+                        .currentReturn(
+                            ReturnObject.builder()
+                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .amount(0L)
+                                .code(ReturnObject.Code._901)
+                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .currency(Currency.AED)
+                                .currentReturn(null)
+                                .dateOfDeath(LocalDate.parse("2019-12-27"))
+                                .failureReason("failure_reason")
+                                .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .liveMode(true)
+                                .object_("object")
+                                .reason("reason")
+                                .addReferenceNumber(
+                                    ReturnObject.PaymentReference.builder()
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .liveMode(true)
                                         .object_("object")
                                         .referenceNumber("reference_number")
                                         .referenceNumberType(
-                                            PaymentOrder.PaymentReference.ReferenceNumberType
+                                            ReturnObject.PaymentReference.ReferenceNumberType
                                                 .ACH_ORIGINAL_TRACE_NUMBER
                                         )
                                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .build()
                                 )
-                            )
-                            .remittanceInformation("remittance_information")
-                            .sendRemittanceAdvice(true)
-                            .statementDescriptor("statement_descriptor")
-                            .status(PaymentOrder.Status.APPROVED)
-                            .subtype(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
-                            .transactionIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
-                            .transactionMonitoringEnabled(true)
-                            .type(PaymentOrderType.ACH)
-                            .ultimateOriginatingAccount(
-                                PaymentOrder.UltimateOriginatingAccount.ofVirtualAccount(
-                                    VirtualAccount.builder()
-                                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                        .accountDetails(
-                                            listOf(
-                                                AccountDetail.builder()
-                                                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                                    .accountNumberSafe("account_number_safe")
-                                                    .accountNumberType(
-                                                        AccountDetail.AccountNumberType.AU_NUMBER
-                                                    )
-                                                    .createdAt(
-                                                        OffsetDateTime.parse(
-                                                            "2019-12-27T18:11:19.117Z"
-                                                        )
-                                                    )
-                                                    .discardedAt(
-                                                        OffsetDateTime.parse(
-                                                            "2019-12-27T18:11:19.117Z"
-                                                        )
-                                                    )
-                                                    .liveMode(true)
-                                                    .object_("object")
-                                                    .updatedAt(
-                                                        OffsetDateTime.parse(
-                                                            "2019-12-27T18:11:19.117Z"
-                                                        )
-                                                    )
-                                                    .accountNumber("account_number")
-                                                    .build()
-                                            )
-                                        )
-                                        .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .creditLedgerAccountId(
-                                            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
-                                        )
-                                        .debitLedgerAccountId(
-                                            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
-                                        )
-                                        .description("description")
-                                        .discardedAt(
-                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                        )
-                                        .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                        .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                        .liveMode(true)
-                                        .metadata(
-                                            VirtualAccount.Metadata.builder()
-                                                .putAdditionalProperty(
-                                                    "key",
-                                                    JsonValue.from("value")
-                                                )
-                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                                .putAdditionalProperty(
-                                                    "modern",
-                                                    JsonValue.from("treasury")
-                                                )
-                                                .build()
-                                        )
-                                        .name("name")
-                                        .object_("object")
-                                        .routingDetails(
-                                            listOf(
-                                                RoutingDetail.builder()
-                                                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                                    .bankAddress(
-                                                        RoutingDetail.Address.builder()
-                                                            .id(
-                                                                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
-                                                            )
-                                                            .country("country")
-                                                            .createdAt(
-                                                                OffsetDateTime.parse(
-                                                                    "2019-12-27T18:11:19.117Z"
-                                                                )
-                                                            )
-                                                            .line1("line1")
-                                                            .line2("line2")
-                                                            .liveMode(true)
-                                                            .locality("locality")
-                                                            .object_("object")
-                                                            .postalCode("postal_code")
-                                                            .region("region")
-                                                            .updatedAt(
-                                                                OffsetDateTime.parse(
-                                                                    "2019-12-27T18:11:19.117Z"
-                                                                )
-                                                            )
-                                                            .build()
-                                                    )
-                                                    .bankName("bank_name")
-                                                    .createdAt(
-                                                        OffsetDateTime.parse(
-                                                            "2019-12-27T18:11:19.117Z"
-                                                        )
-                                                    )
-                                                    .discardedAt(
-                                                        OffsetDateTime.parse(
-                                                            "2019-12-27T18:11:19.117Z"
-                                                        )
-                                                    )
-                                                    .liveMode(true)
-                                                    .object_("object")
-                                                    .paymentType(RoutingDetail.PaymentType.ACH)
-                                                    .routingNumber("routing_number")
-                                                    .routingNumberType(
-                                                        RoutingDetail.RoutingNumberType.ABA
-                                                    )
-                                                    .updatedAt(
-                                                        OffsetDateTime.parse(
-                                                            "2019-12-27T18:11:19.117Z"
-                                                        )
-                                                    )
-                                                    .build()
-                                            )
-                                        )
-                                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .build()
+                                .returnableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .returnableType(ReturnObject.ReturnableType.INCOMING_PAYMENT_DETAIL)
+                                .role(ReturnObject.Role.ORIGINATING)
+                                .status(ReturnObject.Status.COMPLETED)
+                                .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .transactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .type(ReturnObject.Type.ACH)
+                                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .additionalInformation("additional_information")
+                                .build()
+                        )
+                        .decisionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .description("description")
+                        .direction(PaymentOrder.Direction.CREDIT)
+                        .effectiveDate(LocalDate.parse("2019-12-27"))
+                        .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .foreignExchangeContract("foreign_exchange_contract")
+                        .foreignExchangeIndicator(
+                            PaymentOrder.ForeignExchangeIndicator.FIXED_TO_VARIABLE
+                        )
+                        .foreignExchangeRate(
+                            PaymentOrder.ForeignExchangeRate.builder()
+                                .baseAmount(0L)
+                                .baseCurrency(Currency.AED)
+                                .exponent(0L)
+                                .rateString("rate_string")
+                                .targetAmount(0L)
+                                .targetCurrency(Currency.AED)
+                                .value(0L)
+                                .build()
+                        )
+                        .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .liveMode(true)
+                        .metadata(
+                            PaymentOrder.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
+                        .nsfProtected(true)
+                        .object_("object")
+                        .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .originatingPartyName("originating_party_name")
+                        .priority(PaymentOrder.Priority.HIGH)
+                        .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .purpose("purpose")
+                        .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .receivingAccountType(PaymentOrder.ReceivingAccountType.INTERNAL_ACCOUNT)
+                        .addReferenceNumber(
+                            PaymentOrder.PaymentReference.builder()
+                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .liveMode(true)
+                                .object_("object")
+                                .referenceNumber("reference_number")
+                                .referenceNumberType(
+                                    PaymentOrder.PaymentReference.ReferenceNumberType
+                                        .ACH_ORIGINAL_TRACE_NUMBER
                                 )
+                                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .build()
+                        )
+                        .remittanceInformation("remittance_information")
+                        .sendRemittanceAdvice(true)
+                        .statementDescriptor("statement_descriptor")
+                        .status(PaymentOrder.Status.APPROVED)
+                        .subtype(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
+                        .addTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .transactionMonitoringEnabled(true)
+                        .type(PaymentOrderType.ACH)
+                        .ultimateOriginatingAccount(
+                            PaymentOrder.UltimateOriginatingAccount.ofVirtualAccount(
+                                VirtualAccount.builder()
+                                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .addAccountDetail(
+                                        AccountDetail.builder()
+                                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                            .accountNumberSafe("account_number_safe")
+                                            .accountNumberType(
+                                                AccountDetail.AccountNumberType.AU_NUMBER
+                                            )
+                                            .createdAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .discardedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .liveMode(true)
+                                            .object_("object")
+                                            .updatedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .accountNumber("account_number")
+                                            .build()
+                                    )
+                                    .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .creditLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .debitLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .description("description")
+                                    .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .liveMode(true)
+                                    .metadata(
+                                        VirtualAccount.Metadata.builder()
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
+                                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty(
+                                                "modern",
+                                                JsonValue.from("treasury")
+                                            )
+                                            .build()
+                                    )
+                                    .name("name")
+                                    .object_("object")
+                                    .addRoutingDetail(
+                                        RoutingDetail.builder()
+                                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                            .bankAddress(
+                                                RoutingDetail.Address.builder()
+                                                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                                    .country("country")
+                                                    .createdAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .line1("line1")
+                                                    .line2("line2")
+                                                    .liveMode(true)
+                                                    .locality("locality")
+                                                    .object_("object")
+                                                    .postalCode("postal_code")
+                                                    .region("region")
+                                                    .updatedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .build()
+                                            )
+                                            .bankName("bank_name")
+                                            .createdAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .discardedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .liveMode(true)
+                                            .object_("object")
+                                            .paymentType(RoutingDetail.PaymentType.ACH)
+                                            .routingNumber("routing_number")
+                                            .routingNumberType(RoutingDetail.RoutingNumberType.ABA)
+                                            .updatedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .build()
+                                    )
+                                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .build()
                             )
-                            .ultimateOriginatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .ultimateOriginatingAccountType(
-                                PaymentOrder.UltimateOriginatingAccountType.INTERNAL_ACCOUNT
-                            )
-                            .ultimateOriginatingPartyIdentifier(
-                                "ultimate_originating_party_identifier"
-                            )
-                            .ultimateOriginatingPartyName("ultimate_originating_party_name")
-                            .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
-                            .ultimateReceivingPartyName("ultimate_receiving_party_name")
-                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
-                            .vendorFailureReason("vendor_failure_reason")
-                            .build()
-                    )
+                        )
+                        .ultimateOriginatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .ultimateOriginatingAccountType(
+                            PaymentOrder.UltimateOriginatingAccountType.INTERNAL_ACCOUNT
+                        )
+                        .ultimateOriginatingPartyIdentifier("ultimate_originating_party_identifier")
+                        .ultimateOriginatingPartyName("ultimate_originating_party_name")
+                        .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
+                        .ultimateReceivingPartyName("ultimate_receiving_party_name")
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
+                        .vendorFailureReason("vendor_failure_reason")
+                        .build()
                 )
                 .paymentType(Invoice.PaymentType.EFT)
                 .pdfUrl("pdf_url")
                 .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .recipientEmail("recipient_email")
                 .recipientName("recipient_name")
-                .remindAfterOverdueDays(listOf(0L))
+                .addRemindAfterOverdueDay(0L)
                 .status(Invoice.Status.DRAFT)
                 .totalAmount(0L)
-                .transactionLineItemIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+                .addTransactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
@@ -502,25 +445,23 @@ class InvoiceTest {
                     .reconciliationFilters(JsonValue.from(mapOf<String, Any>()))
                     .reconciliationGroups(JsonValue.from(mapOf<String, Any>()))
                     .reconciliationMethod(ExpectedPayment.ReconciliationMethod.AUTOMATIC)
-                    .reconciliationRuleVariables(
-                        listOf(
-                            ReconciliationRule.builder()
-                                .amountLowerBound(0L)
-                                .amountUpperBound(0L)
-                                .direction(ReconciliationRule.Direction.CREDIT)
-                                .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .currency(Currency.AED)
-                                .customIdentifiers(
-                                    ReconciliationRule.CustomIdentifiers.builder()
-                                        .putAdditionalProperty("foo", JsonValue.from("string"))
-                                        .build()
-                                )
-                                .dateLowerBound(LocalDate.parse("2019-12-27"))
-                                .dateUpperBound(LocalDate.parse("2019-12-27"))
-                                .type(ReconciliationRule.Type.ACH)
-                                .build()
-                        )
+                    .addReconciliationRuleVariable(
+                        ReconciliationRule.builder()
+                            .amountLowerBound(0L)
+                            .amountUpperBound(0L)
+                            .direction(ReconciliationRule.Direction.CREDIT)
+                            .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .currency(Currency.AED)
+                            .customIdentifiers(
+                                ReconciliationRule.CustomIdentifiers.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .build()
+                            )
+                            .dateLowerBound(LocalDate.parse("2019-12-27"))
+                            .dateUpperBound(LocalDate.parse("2019-12-27"))
+                            .type(ReconciliationRule.Type.ACH)
+                            .build()
                     )
                     .remittanceInformation("remittance_information")
                     .statementDescriptor("statement_descriptor")
@@ -599,21 +540,19 @@ class InvoiceTest {
                             .liveMode(true)
                             .object_("object")
                             .reason("reason")
-                            .referenceNumbers(
-                                listOf(
-                                    ReturnObject.PaymentReference.builder()
-                                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .liveMode(true)
-                                        .object_("object")
-                                        .referenceNumber("reference_number")
-                                        .referenceNumberType(
-                                            ReturnObject.PaymentReference.ReferenceNumberType
-                                                .ACH_ORIGINAL_TRACE_NUMBER
-                                        )
-                                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .build()
-                                )
+                            .addReferenceNumber(
+                                ReturnObject.PaymentReference.builder()
+                                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .liveMode(true)
+                                    .object_("object")
+                                    .referenceNumber("reference_number")
+                                    .referenceNumberType(
+                                        ReturnObject.PaymentReference.ReferenceNumberType
+                                            .ACH_ORIGINAL_TRACE_NUMBER
+                                    )
+                                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .build()
                             )
                             .returnableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .returnableType(ReturnObject.ReturnableType.INCOMING_PAYMENT_DETAIL)
@@ -664,56 +603,48 @@ class InvoiceTest {
                     .purpose("purpose")
                     .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .receivingAccountType(PaymentOrder.ReceivingAccountType.INTERNAL_ACCOUNT)
-                    .referenceNumbers(
-                        listOf(
-                            PaymentOrder.PaymentReference.builder()
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .liveMode(true)
-                                .object_("object")
-                                .referenceNumber("reference_number")
-                                .referenceNumberType(
-                                    PaymentOrder.PaymentReference.ReferenceNumberType
-                                        .ACH_ORIGINAL_TRACE_NUMBER
-                                )
-                                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .build()
-                        )
+                    .addReferenceNumber(
+                        PaymentOrder.PaymentReference.builder()
+                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .liveMode(true)
+                            .object_("object")
+                            .referenceNumber("reference_number")
+                            .referenceNumberType(
+                                PaymentOrder.PaymentReference.ReferenceNumberType
+                                    .ACH_ORIGINAL_TRACE_NUMBER
+                            )
+                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
                     )
                     .remittanceInformation("remittance_information")
                     .sendRemittanceAdvice(true)
                     .statementDescriptor("statement_descriptor")
                     .status(PaymentOrder.Status.APPROVED)
                     .subtype(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
-                    .transactionIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+                    .addTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .transactionMonitoringEnabled(true)
                     .type(PaymentOrderType.ACH)
                     .ultimateOriginatingAccount(
                         PaymentOrder.UltimateOriginatingAccount.ofVirtualAccount(
                             VirtualAccount.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .accountDetails(
-                                    listOf(
-                                        AccountDetail.builder()
-                                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                            .accountNumberSafe("account_number_safe")
-                                            .accountNumberType(
-                                                AccountDetail.AccountNumberType.AU_NUMBER
-                                            )
-                                            .createdAt(
-                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                            )
-                                            .discardedAt(
-                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                            )
-                                            .liveMode(true)
-                                            .object_("object")
-                                            .updatedAt(
-                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                            )
-                                            .accountNumber("account_number")
-                                            .build()
-                                    )
+                                .addAccountDetail(
+                                    AccountDetail.builder()
+                                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                        .accountNumberSafe("account_number_safe")
+                                        .accountNumberType(
+                                            AccountDetail.AccountNumberType.AU_NUMBER
+                                        )
+                                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .discardedAt(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .liveMode(true)
+                                        .object_("object")
+                                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .accountNumber("account_number")
+                                        .build()
                                 )
                                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -733,50 +664,40 @@ class InvoiceTest {
                                 )
                                 .name("name")
                                 .object_("object")
-                                .routingDetails(
-                                    listOf(
-                                        RoutingDetail.builder()
-                                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                            .bankAddress(
-                                                RoutingDetail.Address.builder()
-                                                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                                    .country("country")
-                                                    .createdAt(
-                                                        OffsetDateTime.parse(
-                                                            "2019-12-27T18:11:19.117Z"
-                                                        )
-                                                    )
-                                                    .line1("line1")
-                                                    .line2("line2")
-                                                    .liveMode(true)
-                                                    .locality("locality")
-                                                    .object_("object")
-                                                    .postalCode("postal_code")
-                                                    .region("region")
-                                                    .updatedAt(
-                                                        OffsetDateTime.parse(
-                                                            "2019-12-27T18:11:19.117Z"
-                                                        )
-                                                    )
-                                                    .build()
-                                            )
-                                            .bankName("bank_name")
-                                            .createdAt(
-                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                            )
-                                            .discardedAt(
-                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                            )
-                                            .liveMode(true)
-                                            .object_("object")
-                                            .paymentType(RoutingDetail.PaymentType.ACH)
-                                            .routingNumber("routing_number")
-                                            .routingNumberType(RoutingDetail.RoutingNumberType.ABA)
-                                            .updatedAt(
-                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                            )
-                                            .build()
-                                    )
+                                .addRoutingDetail(
+                                    RoutingDetail.builder()
+                                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                        .bankAddress(
+                                            RoutingDetail.Address.builder()
+                                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                                .country("country")
+                                                .createdAt(
+                                                    OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                                )
+                                                .line1("line1")
+                                                .line2("line2")
+                                                .liveMode(true)
+                                                .locality("locality")
+                                                .object_("object")
+                                                .postalCode("postal_code")
+                                                .region("region")
+                                                .updatedAt(
+                                                    OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                                )
+                                                .build()
+                                        )
+                                        .bankName("bank_name")
+                                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .discardedAt(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .liveMode(true)
+                                        .object_("object")
+                                        .paymentType(RoutingDetail.PaymentType.ACH)
+                                        .routingNumber("routing_number")
+                                        .routingNumberType(RoutingDetail.RoutingNumberType.ABA)
+                                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .build()
                                 )
                                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .build()

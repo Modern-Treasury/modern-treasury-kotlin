@@ -11,8 +11,8 @@ class AccountCollectionFlowCreateParamsTest {
     fun createAccountCollectionFlowCreateParams() {
         AccountCollectionFlowCreateParams.builder()
             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .paymentTypes(listOf("string"))
-            .receivingCountries(listOf(AccountCollectionFlowCreateParams.ReceivingCountry.USA))
+            .addPaymentType("string")
+            .addReceivingCountry(AccountCollectionFlowCreateParams.ReceivingCountry.USA)
             .build()
     }
 
@@ -21,8 +21,8 @@ class AccountCollectionFlowCreateParamsTest {
         val params =
             AccountCollectionFlowCreateParams.builder()
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .paymentTypes(listOf("string"))
-                .receivingCountries(listOf(AccountCollectionFlowCreateParams.ReceivingCountry.USA))
+                .addPaymentType("string")
+                .addReceivingCountry(AccountCollectionFlowCreateParams.ReceivingCountry.USA)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -37,7 +37,7 @@ class AccountCollectionFlowCreateParamsTest {
         val params =
             AccountCollectionFlowCreateParams.builder()
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .paymentTypes(listOf("string"))
+                .addPaymentType("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
