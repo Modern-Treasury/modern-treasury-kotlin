@@ -31,17 +31,15 @@ class VirtualAccountServiceTest {
                 VirtualAccountCreateParams.builder()
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .name("name")
-                    .accountDetails(
-                        listOf(
-                            VirtualAccountCreateParams.AccountDetailCreateRequest.builder()
-                                .accountNumber("account_number")
-                                .accountNumberType(
-                                    VirtualAccountCreateParams.AccountDetailCreateRequest
-                                        .AccountNumberType
-                                        .AU_NUMBER
-                                )
-                                .build()
-                        )
+                    .addAccountDetail(
+                        VirtualAccountCreateParams.AccountDetailCreateRequest.builder()
+                            .accountNumber("account_number")
+                            .accountNumberType(
+                                VirtualAccountCreateParams.AccountDetailCreateRequest
+                                    .AccountNumberType
+                                    .AU_NUMBER
+                            )
+                            .build()
                     )
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .creditLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -55,9 +53,7 @@ class VirtualAccountServiceTest {
                             .normalBalance(TransactionDirection.CREDIT)
                             .currencyExponent(0L)
                             .description("description")
-                            .ledgerAccountCategoryIds(
-                                listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            )
+                            .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableType(
                                 VirtualAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -78,22 +74,19 @@ class VirtualAccountServiceTest {
                             .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
-                    .routingDetails(
-                        listOf(
-                            VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
-                                .routingNumber("routing_number")
-                                .routingNumberType(
-                                    VirtualAccountCreateParams.RoutingDetailCreateRequest
-                                        .RoutingNumberType
-                                        .ABA
-                                )
-                                .paymentType(
-                                    VirtualAccountCreateParams.RoutingDetailCreateRequest
-                                        .PaymentType
-                                        .ACH
-                                )
-                                .build()
-                        )
+                    .addRoutingDetail(
+                        VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
+                            .routingNumber("routing_number")
+                            .routingNumberType(
+                                VirtualAccountCreateParams.RoutingDetailCreateRequest
+                                    .RoutingNumberType
+                                    .ABA
+                            )
+                            .paymentType(
+                                VirtualAccountCreateParams.RoutingDetailCreateRequest.PaymentType
+                                    .ACH
+                            )
+                            .build()
                     )
                     .build()
             )

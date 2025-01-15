@@ -35,21 +35,19 @@ class PaymentOrderUpdateParamsTest {
             .foreignExchangeIndicator(
                 PaymentOrderUpdateParams.ForeignExchangeIndicator.FIXED_TO_VARIABLE
             )
-            .lineItems(
-                listOf(
-                    PaymentOrderUpdateParams.LineItemRequest.builder()
-                        .amount(0L)
-                        .accountingCategoryId("accounting_category_id")
-                        .description("description")
-                        .metadata(
-                            PaymentOrderUpdateParams.LineItemRequest.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                .build()
-                        )
-                        .build()
-                )
+            .addLineItem(
+                PaymentOrderUpdateParams.LineItemRequest.builder()
+                    .amount(0L)
+                    .accountingCategoryId("accounting_category_id")
+                    .description("description")
+                    .metadata(
+                        PaymentOrderUpdateParams.LineItemRequest.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
+                    .build()
             )
             .metadata(
                 PaymentOrderUpdateParams.Metadata.builder()
@@ -66,32 +64,27 @@ class PaymentOrderUpdateParamsTest {
             .purpose("purpose")
             .receivingAccount(
                 PaymentOrderUpdateParams.ReceivingAccount.builder()
-                    .accountDetails(
-                        listOf(
-                            PaymentOrderUpdateParams.ReceivingAccount.AccountDetail.builder()
-                                .accountNumber("account_number")
-                                .accountNumberType(
-                                    PaymentOrderUpdateParams.ReceivingAccount.AccountDetail
-                                        .AccountNumberType
-                                        .AU_NUMBER
-                                )
-                                .build()
-                        )
+                    .addAccountDetail(
+                        PaymentOrderUpdateParams.ReceivingAccount.AccountDetail.builder()
+                            .accountNumber("account_number")
+                            .accountNumberType(
+                                PaymentOrderUpdateParams.ReceivingAccount.AccountDetail
+                                    .AccountNumberType
+                                    .AU_NUMBER
+                            )
+                            .build()
                     )
                     .accountType(ExternalAccountType.CASH)
-                    .contactDetails(
-                        listOf(
-                            PaymentOrderUpdateParams.ReceivingAccount.ContactDetailCreateRequest
-                                .builder()
-                                .contactIdentifier("contact_identifier")
-                                .contactIdentifierType(
-                                    PaymentOrderUpdateParams.ReceivingAccount
-                                        .ContactDetailCreateRequest
-                                        .ContactIdentifierType
-                                        .EMAIL
-                                )
-                                .build()
-                        )
+                    .addContactDetail(
+                        PaymentOrderUpdateParams.ReceivingAccount.ContactDetailCreateRequest
+                            .builder()
+                            .contactIdentifier("contact_identifier")
+                            .contactIdentifierType(
+                                PaymentOrderUpdateParams.ReceivingAccount.ContactDetailCreateRequest
+                                    .ContactIdentifierType
+                                    .EMAIL
+                            )
+                            .build()
                     )
                     .ledgerAccount(
                         PaymentOrderUpdateParams.ReceivingAccount.LedgerAccountCreateRequest
@@ -102,9 +95,7 @@ class PaymentOrderUpdateParamsTest {
                             .normalBalance(TransactionDirection.CREDIT)
                             .currencyExponent(0L)
                             .description("description")
-                            .ledgerAccountCategoryIds(
-                                listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            )
+                            .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableType(
                                 PaymentOrderUpdateParams.ReceivingAccount.LedgerAccountCreateRequest
@@ -144,22 +135,19 @@ class PaymentOrderUpdateParamsTest {
                     .partyName("party_name")
                     .partyType(PaymentOrderUpdateParams.ReceivingAccount.PartyType.BUSINESS)
                     .plaidProcessorToken("plaid_processor_token")
-                    .routingDetails(
-                        listOf(
-                            PaymentOrderUpdateParams.ReceivingAccount.RoutingDetail.builder()
-                                .routingNumber("routing_number")
-                                .routingNumberType(
-                                    PaymentOrderUpdateParams.ReceivingAccount.RoutingDetail
-                                        .RoutingNumberType
-                                        .ABA
-                                )
-                                .paymentType(
-                                    PaymentOrderUpdateParams.ReceivingAccount.RoutingDetail
-                                        .PaymentType
-                                        .ACH
-                                )
-                                .build()
-                        )
+                    .addRoutingDetail(
+                        PaymentOrderUpdateParams.ReceivingAccount.RoutingDetail.builder()
+                            .routingNumber("routing_number")
+                            .routingNumberType(
+                                PaymentOrderUpdateParams.ReceivingAccount.RoutingDetail
+                                    .RoutingNumberType
+                                    .ABA
+                            )
+                            .paymentType(
+                                PaymentOrderUpdateParams.ReceivingAccount.RoutingDetail.PaymentType
+                                    .ACH
+                            )
+                            .build()
                     )
                     .build()
             )
@@ -203,21 +191,19 @@ class PaymentOrderUpdateParamsTest {
                 .foreignExchangeIndicator(
                     PaymentOrderUpdateParams.ForeignExchangeIndicator.FIXED_TO_VARIABLE
                 )
-                .lineItems(
-                    listOf(
-                        PaymentOrderUpdateParams.LineItemRequest.builder()
-                            .amount(0L)
-                            .accountingCategoryId("accounting_category_id")
-                            .description("description")
-                            .metadata(
-                                PaymentOrderUpdateParams.LineItemRequest.Metadata.builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
-                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                    .build()
-                            )
-                            .build()
-                    )
+                .addLineItem(
+                    PaymentOrderUpdateParams.LineItemRequest.builder()
+                        .amount(0L)
+                        .accountingCategoryId("accounting_category_id")
+                        .description("description")
+                        .metadata(
+                            PaymentOrderUpdateParams.LineItemRequest.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
+                        .build()
                 )
                 .metadata(
                     PaymentOrderUpdateParams.Metadata.builder()
@@ -234,32 +220,28 @@ class PaymentOrderUpdateParamsTest {
                 .purpose("purpose")
                 .receivingAccount(
                     PaymentOrderUpdateParams.ReceivingAccount.builder()
-                        .accountDetails(
-                            listOf(
-                                PaymentOrderUpdateParams.ReceivingAccount.AccountDetail.builder()
-                                    .accountNumber("account_number")
-                                    .accountNumberType(
-                                        PaymentOrderUpdateParams.ReceivingAccount.AccountDetail
-                                            .AccountNumberType
-                                            .AU_NUMBER
-                                    )
-                                    .build()
-                            )
+                        .addAccountDetail(
+                            PaymentOrderUpdateParams.ReceivingAccount.AccountDetail.builder()
+                                .accountNumber("account_number")
+                                .accountNumberType(
+                                    PaymentOrderUpdateParams.ReceivingAccount.AccountDetail
+                                        .AccountNumberType
+                                        .AU_NUMBER
+                                )
+                                .build()
                         )
                         .accountType(ExternalAccountType.CASH)
-                        .contactDetails(
-                            listOf(
-                                PaymentOrderUpdateParams.ReceivingAccount.ContactDetailCreateRequest
-                                    .builder()
-                                    .contactIdentifier("contact_identifier")
-                                    .contactIdentifierType(
-                                        PaymentOrderUpdateParams.ReceivingAccount
-                                            .ContactDetailCreateRequest
-                                            .ContactIdentifierType
-                                            .EMAIL
-                                    )
-                                    .build()
-                            )
+                        .addContactDetail(
+                            PaymentOrderUpdateParams.ReceivingAccount.ContactDetailCreateRequest
+                                .builder()
+                                .contactIdentifier("contact_identifier")
+                                .contactIdentifierType(
+                                    PaymentOrderUpdateParams.ReceivingAccount
+                                        .ContactDetailCreateRequest
+                                        .ContactIdentifierType
+                                        .EMAIL
+                                )
+                                .build()
                         )
                         .ledgerAccount(
                             PaymentOrderUpdateParams.ReceivingAccount.LedgerAccountCreateRequest
@@ -270,9 +252,7 @@ class PaymentOrderUpdateParamsTest {
                                 .normalBalance(TransactionDirection.CREDIT)
                                 .currencyExponent(0L)
                                 .description("description")
-                                .ledgerAccountCategoryIds(
-                                    listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                )
+                                .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
                                     PaymentOrderUpdateParams.ReceivingAccount
@@ -314,22 +294,20 @@ class PaymentOrderUpdateParamsTest {
                         .partyName("party_name")
                         .partyType(PaymentOrderUpdateParams.ReceivingAccount.PartyType.BUSINESS)
                         .plaidProcessorToken("plaid_processor_token")
-                        .routingDetails(
-                            listOf(
-                                PaymentOrderUpdateParams.ReceivingAccount.RoutingDetail.builder()
-                                    .routingNumber("routing_number")
-                                    .routingNumberType(
-                                        PaymentOrderUpdateParams.ReceivingAccount.RoutingDetail
-                                            .RoutingNumberType
-                                            .ABA
-                                    )
-                                    .paymentType(
-                                        PaymentOrderUpdateParams.ReceivingAccount.RoutingDetail
-                                            .PaymentType
-                                            .ACH
-                                    )
-                                    .build()
-                            )
+                        .addRoutingDetail(
+                            PaymentOrderUpdateParams.ReceivingAccount.RoutingDetail.builder()
+                                .routingNumber("routing_number")
+                                .routingNumberType(
+                                    PaymentOrderUpdateParams.ReceivingAccount.RoutingDetail
+                                        .RoutingNumberType
+                                        .ABA
+                                )
+                                .paymentType(
+                                    PaymentOrderUpdateParams.ReceivingAccount.RoutingDetail
+                                        .PaymentType
+                                        .ACH
+                                )
+                                .build()
                         )
                         .build()
                 )
@@ -402,32 +380,27 @@ class PaymentOrderUpdateParamsTest {
         assertThat(body.receivingAccount())
             .isEqualTo(
                 PaymentOrderUpdateParams.ReceivingAccount.builder()
-                    .accountDetails(
-                        listOf(
-                            PaymentOrderUpdateParams.ReceivingAccount.AccountDetail.builder()
-                                .accountNumber("account_number")
-                                .accountNumberType(
-                                    PaymentOrderUpdateParams.ReceivingAccount.AccountDetail
-                                        .AccountNumberType
-                                        .AU_NUMBER
-                                )
-                                .build()
-                        )
+                    .addAccountDetail(
+                        PaymentOrderUpdateParams.ReceivingAccount.AccountDetail.builder()
+                            .accountNumber("account_number")
+                            .accountNumberType(
+                                PaymentOrderUpdateParams.ReceivingAccount.AccountDetail
+                                    .AccountNumberType
+                                    .AU_NUMBER
+                            )
+                            .build()
                     )
                     .accountType(ExternalAccountType.CASH)
-                    .contactDetails(
-                        listOf(
-                            PaymentOrderUpdateParams.ReceivingAccount.ContactDetailCreateRequest
-                                .builder()
-                                .contactIdentifier("contact_identifier")
-                                .contactIdentifierType(
-                                    PaymentOrderUpdateParams.ReceivingAccount
-                                        .ContactDetailCreateRequest
-                                        .ContactIdentifierType
-                                        .EMAIL
-                                )
-                                .build()
-                        )
+                    .addContactDetail(
+                        PaymentOrderUpdateParams.ReceivingAccount.ContactDetailCreateRequest
+                            .builder()
+                            .contactIdentifier("contact_identifier")
+                            .contactIdentifierType(
+                                PaymentOrderUpdateParams.ReceivingAccount.ContactDetailCreateRequest
+                                    .ContactIdentifierType
+                                    .EMAIL
+                            )
+                            .build()
                     )
                     .ledgerAccount(
                         PaymentOrderUpdateParams.ReceivingAccount.LedgerAccountCreateRequest
@@ -438,9 +411,7 @@ class PaymentOrderUpdateParamsTest {
                             .normalBalance(TransactionDirection.CREDIT)
                             .currencyExponent(0L)
                             .description("description")
-                            .ledgerAccountCategoryIds(
-                                listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            )
+                            .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableType(
                                 PaymentOrderUpdateParams.ReceivingAccount.LedgerAccountCreateRequest
@@ -480,22 +451,19 @@ class PaymentOrderUpdateParamsTest {
                     .partyName("party_name")
                     .partyType(PaymentOrderUpdateParams.ReceivingAccount.PartyType.BUSINESS)
                     .plaidProcessorToken("plaid_processor_token")
-                    .routingDetails(
-                        listOf(
-                            PaymentOrderUpdateParams.ReceivingAccount.RoutingDetail.builder()
-                                .routingNumber("routing_number")
-                                .routingNumberType(
-                                    PaymentOrderUpdateParams.ReceivingAccount.RoutingDetail
-                                        .RoutingNumberType
-                                        .ABA
-                                )
-                                .paymentType(
-                                    PaymentOrderUpdateParams.ReceivingAccount.RoutingDetail
-                                        .PaymentType
-                                        .ACH
-                                )
-                                .build()
-                        )
+                    .addRoutingDetail(
+                        PaymentOrderUpdateParams.ReceivingAccount.RoutingDetail.builder()
+                            .routingNumber("routing_number")
+                            .routingNumberType(
+                                PaymentOrderUpdateParams.ReceivingAccount.RoutingDetail
+                                    .RoutingNumberType
+                                    .ABA
+                            )
+                            .paymentType(
+                                PaymentOrderUpdateParams.ReceivingAccount.RoutingDetail.PaymentType
+                                    .ACH
+                            )
+                            .build()
                     )
                     .build()
             )

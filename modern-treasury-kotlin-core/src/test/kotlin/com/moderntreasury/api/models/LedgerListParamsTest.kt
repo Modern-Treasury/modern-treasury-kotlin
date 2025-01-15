@@ -11,7 +11,7 @@ class LedgerListParamsTest {
     @Test
     fun createLedgerListParams() {
         LedgerListParams.builder()
-            .id(listOf("string"))
+            .addId("string")
             .afterCursor("after_cursor")
             .metadata(
                 LedgerListParams.Metadata.builder().putAdditionalProperty("foo", "string").build()
@@ -29,7 +29,7 @@ class LedgerListParamsTest {
     fun getQueryParams() {
         val params =
             LedgerListParams.builder()
-                .id(listOf("string"))
+                .addId("string")
                 .afterCursor("after_cursor")
                 .metadata(
                     LedgerListParams.Metadata.builder()

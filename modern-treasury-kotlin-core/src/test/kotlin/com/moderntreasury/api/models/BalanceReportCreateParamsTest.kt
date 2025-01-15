@@ -15,18 +15,15 @@ class BalanceReportCreateParamsTest {
             .asOfDate(LocalDate.parse("2019-12-27"))
             .asOfTime("as_of_time")
             .balanceReportType(BalanceReportCreateParams.BalanceReportType.INTRADAY)
-            .balances(
-                listOf(
-                    BalanceReportCreateParams.BalanceCreateRequest.builder()
-                        .amount(0L)
-                        .balanceType(
-                            BalanceReportCreateParams.BalanceCreateRequest.BalanceType
-                                .CLOSING_AVAILABLE
-                        )
-                        .vendorCode("vendor_code")
-                        .vendorCodeType("vendor_code_type")
-                        .build()
-                )
+            .addBalance(
+                BalanceReportCreateParams.BalanceCreateRequest.builder()
+                    .amount(0L)
+                    .balanceType(
+                        BalanceReportCreateParams.BalanceCreateRequest.BalanceType.CLOSING_AVAILABLE
+                    )
+                    .vendorCode("vendor_code")
+                    .vendorCodeType("vendor_code_type")
+                    .build()
             )
             .build()
     }
@@ -39,18 +36,16 @@ class BalanceReportCreateParamsTest {
                 .asOfDate(LocalDate.parse("2019-12-27"))
                 .asOfTime("as_of_time")
                 .balanceReportType(BalanceReportCreateParams.BalanceReportType.INTRADAY)
-                .balances(
-                    listOf(
-                        BalanceReportCreateParams.BalanceCreateRequest.builder()
-                            .amount(0L)
-                            .balanceType(
-                                BalanceReportCreateParams.BalanceCreateRequest.BalanceType
-                                    .CLOSING_AVAILABLE
-                            )
-                            .vendorCode("vendor_code")
-                            .vendorCodeType("vendor_code_type")
-                            .build()
-                    )
+                .addBalance(
+                    BalanceReportCreateParams.BalanceCreateRequest.builder()
+                        .amount(0L)
+                        .balanceType(
+                            BalanceReportCreateParams.BalanceCreateRequest.BalanceType
+                                .CLOSING_AVAILABLE
+                        )
+                        .vendorCode("vendor_code")
+                        .vendorCodeType("vendor_code_type")
+                        .build()
                 )
                 .build()
         val body = params.getBody()
@@ -83,18 +78,16 @@ class BalanceReportCreateParamsTest {
                 .asOfDate(LocalDate.parse("2019-12-27"))
                 .asOfTime("as_of_time")
                 .balanceReportType(BalanceReportCreateParams.BalanceReportType.INTRADAY)
-                .balances(
-                    listOf(
-                        BalanceReportCreateParams.BalanceCreateRequest.builder()
-                            .amount(0L)
-                            .balanceType(
-                                BalanceReportCreateParams.BalanceCreateRequest.BalanceType
-                                    .CLOSING_AVAILABLE
-                            )
-                            .vendorCode("vendor_code")
-                            .vendorCodeType("vendor_code_type")
-                            .build()
-                    )
+                .addBalance(
+                    BalanceReportCreateParams.BalanceCreateRequest.builder()
+                        .amount(0L)
+                        .balanceType(
+                            BalanceReportCreateParams.BalanceCreateRequest.BalanceType
+                                .CLOSING_AVAILABLE
+                        )
+                        .vendorCode("vendor_code")
+                        .vendorCodeType("vendor_code_type")
+                        .build()
                 )
                 .build()
         val body = params.getBody()
@@ -127,18 +120,16 @@ class BalanceReportCreateParamsTest {
                 .asOfDate(LocalDate.parse("2019-12-27"))
                 .asOfTime("as_of_time")
                 .balanceReportType(BalanceReportCreateParams.BalanceReportType.INTRADAY)
-                .balances(
-                    listOf(
-                        BalanceReportCreateParams.BalanceCreateRequest.builder()
-                            .amount(0L)
-                            .balanceType(
-                                BalanceReportCreateParams.BalanceCreateRequest.BalanceType
-                                    .CLOSING_AVAILABLE
-                            )
-                            .vendorCode("vendor_code")
-                            .vendorCodeType("vendor_code_type")
-                            .build()
-                    )
+                .addBalance(
+                    BalanceReportCreateParams.BalanceCreateRequest.builder()
+                        .amount(0L)
+                        .balanceType(
+                            BalanceReportCreateParams.BalanceCreateRequest.BalanceType
+                                .CLOSING_AVAILABLE
+                        )
+                        .vendorCode("vendor_code")
+                        .vendorCodeType("vendor_code_type")
+                        .build()
                 )
                 .build()
         assertThat(params).isNotNull

@@ -27,10 +27,8 @@ class AccountCollectionFlowServiceTest {
             accountCollectionFlowService.create(
                 AccountCollectionFlowCreateParams.builder()
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .paymentTypes(listOf("string"))
-                    .receivingCountries(
-                        listOf(AccountCollectionFlowCreateParams.ReceivingCountry.USA)
-                    )
+                    .addPaymentType("string")
+                    .addReceivingCountry(AccountCollectionFlowCreateParams.ReceivingCountry.USA)
                     .build()
             )
         println(accountCollectionFlow)

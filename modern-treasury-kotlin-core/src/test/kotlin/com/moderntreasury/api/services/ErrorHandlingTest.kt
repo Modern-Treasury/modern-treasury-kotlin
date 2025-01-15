@@ -64,29 +64,24 @@ class ErrorHandlingTest {
         val params =
             ExternalAccountCreateParams.builder()
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .accountDetails(
-                    listOf(
-                        ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("account_number")
-                            .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                    .AU_NUMBER
-                            )
-                            .build()
-                    )
+                .addAccountDetail(
+                    ExternalAccountCreateParams.AccountDetail.builder()
+                        .accountNumber("account_number")
+                        .accountNumberType(
+                            ExternalAccountCreateParams.AccountDetail.AccountNumberType.AU_NUMBER
+                        )
+                        .build()
                 )
                 .accountType(ExternalAccountType.CASH)
-                .contactDetails(
-                    listOf(
-                        ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("contact_identifier")
-                            .contactIdentifierType(
-                                ExternalAccountCreateParams.ContactDetailCreateRequest
-                                    .ContactIdentifierType
-                                    .EMAIL
-                            )
-                            .build()
-                    )
+                .addContactDetail(
+                    ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                        .contactIdentifier("contact_identifier")
+                        .contactIdentifierType(
+                            ExternalAccountCreateParams.ContactDetailCreateRequest
+                                .ContactIdentifierType
+                                .EMAIL
+                        )
+                        .build()
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
@@ -96,7 +91,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(0L)
                         .description("description")
-                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+                        .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -134,53 +129,47 @@ class ErrorHandlingTest {
                 .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
                 .plaidProcessorToken("plaid_processor_token")
-                .routingDetails(
-                    listOf(
-                        ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("routing_number")
-                            .routingNumberType(
-                                ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
-                            )
-                            .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
-                            .build()
-                    )
+                .addRoutingDetail(
+                    ExternalAccountCreateParams.RoutingDetail.builder()
+                        .routingNumber("routing_number")
+                        .routingNumberType(
+                            ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                        )
+                        .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
+                        .build()
                 )
                 .build()
 
         val expected =
             ExternalAccount.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .accountDetails(
-                    listOf(
-                        AccountDetail.builder()
-                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .accountNumberSafe("account_number_safe")
-                            .accountNumberType(AccountDetail.AccountNumberType.AU_NUMBER)
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .liveMode(true)
-                            .object_("object")
-                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .accountNumber("account_number")
-                            .build()
-                    )
+                .addAccountDetail(
+                    AccountDetail.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .accountNumberSafe("account_number_safe")
+                        .accountNumberType(AccountDetail.AccountNumberType.AU_NUMBER)
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .liveMode(true)
+                        .object_("object")
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .accountNumber("account_number")
+                        .build()
                 )
                 .accountType(ExternalAccountType.CASH)
-                .contactDetails(
-                    listOf(
-                        ExternalAccount.ContactDetail.builder()
-                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .contactIdentifier("contact_identifier")
-                            .contactIdentifierType(
-                                ExternalAccount.ContactDetail.ContactIdentifierType.EMAIL
-                            )
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .liveMode(true)
-                            .object_("object")
-                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
+                .addContactDetail(
+                    ExternalAccount.ContactDetail.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .contactIdentifier("contact_identifier")
+                        .contactIdentifierType(
+                            ExternalAccount.ContactDetail.ContactIdentifierType.EMAIL
+                        )
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .liveMode(true)
+                        .object_("object")
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
                 )
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -213,36 +202,34 @@ class ErrorHandlingTest {
                 )
                 .partyName("party_name")
                 .partyType(ExternalAccount.PartyType.BUSINESS)
-                .routingDetails(
-                    listOf(
-                        RoutingDetail.builder()
-                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .bankAddress(
-                                RoutingDetail.Address.builder()
-                                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .country("country")
-                                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .line1("line1")
-                                    .line2("line2")
-                                    .liveMode(true)
-                                    .locality("locality")
-                                    .object_("object")
-                                    .postalCode("postal_code")
-                                    .region("region")
-                                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .build()
-                            )
-                            .bankName("bank_name")
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .liveMode(true)
-                            .object_("object")
-                            .paymentType(RoutingDetail.PaymentType.ACH)
-                            .routingNumber("routing_number")
-                            .routingNumberType(RoutingDetail.RoutingNumberType.ABA)
-                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
+                .addRoutingDetail(
+                    RoutingDetail.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .bankAddress(
+                            RoutingDetail.Address.builder()
+                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .country("country")
+                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .line1("line1")
+                                .line2("line2")
+                                .liveMode(true)
+                                .locality("locality")
+                                .object_("object")
+                                .postalCode("postal_code")
+                                .region("region")
+                                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .build()
+                        )
+                        .bankName("bank_name")
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .liveMode(true)
+                        .object_("object")
+                        .paymentType(RoutingDetail.PaymentType.ACH)
+                        .routingNumber("routing_number")
+                        .routingNumberType(RoutingDetail.RoutingNumberType.ABA)
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
                 )
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .verificationSource(ExternalAccount.VerificationSource.ACH_PRENOTE)
@@ -259,29 +246,24 @@ class ErrorHandlingTest {
         val params =
             ExternalAccountCreateParams.builder()
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .accountDetails(
-                    listOf(
-                        ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("account_number")
-                            .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                    .AU_NUMBER
-                            )
-                            .build()
-                    )
+                .addAccountDetail(
+                    ExternalAccountCreateParams.AccountDetail.builder()
+                        .accountNumber("account_number")
+                        .accountNumberType(
+                            ExternalAccountCreateParams.AccountDetail.AccountNumberType.AU_NUMBER
+                        )
+                        .build()
                 )
                 .accountType(ExternalAccountType.CASH)
-                .contactDetails(
-                    listOf(
-                        ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("contact_identifier")
-                            .contactIdentifierType(
-                                ExternalAccountCreateParams.ContactDetailCreateRequest
-                                    .ContactIdentifierType
-                                    .EMAIL
-                            )
-                            .build()
-                    )
+                .addContactDetail(
+                    ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                        .contactIdentifier("contact_identifier")
+                        .contactIdentifierType(
+                            ExternalAccountCreateParams.ContactDetailCreateRequest
+                                .ContactIdentifierType
+                                .EMAIL
+                        )
+                        .build()
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
@@ -291,7 +273,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(0L)
                         .description("description")
-                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+                        .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -329,16 +311,14 @@ class ErrorHandlingTest {
                 .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
                 .plaidProcessorToken("plaid_processor_token")
-                .routingDetails(
-                    listOf(
-                        ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("routing_number")
-                            .routingNumberType(
-                                ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
-                            )
-                            .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
-                            .build()
-                    )
+                .addRoutingDetail(
+                    ExternalAccountCreateParams.RoutingDetail.builder()
+                        .routingNumber("routing_number")
+                        .routingNumberType(
+                            ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                        )
+                        .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
+                        .build()
                 )
                 .build()
 
@@ -364,29 +344,24 @@ class ErrorHandlingTest {
         val params =
             ExternalAccountCreateParams.builder()
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .accountDetails(
-                    listOf(
-                        ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("account_number")
-                            .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                    .AU_NUMBER
-                            )
-                            .build()
-                    )
+                .addAccountDetail(
+                    ExternalAccountCreateParams.AccountDetail.builder()
+                        .accountNumber("account_number")
+                        .accountNumberType(
+                            ExternalAccountCreateParams.AccountDetail.AccountNumberType.AU_NUMBER
+                        )
+                        .build()
                 )
                 .accountType(ExternalAccountType.CASH)
-                .contactDetails(
-                    listOf(
-                        ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("contact_identifier")
-                            .contactIdentifierType(
-                                ExternalAccountCreateParams.ContactDetailCreateRequest
-                                    .ContactIdentifierType
-                                    .EMAIL
-                            )
-                            .build()
-                    )
+                .addContactDetail(
+                    ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                        .contactIdentifier("contact_identifier")
+                        .contactIdentifierType(
+                            ExternalAccountCreateParams.ContactDetailCreateRequest
+                                .ContactIdentifierType
+                                .EMAIL
+                        )
+                        .build()
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
@@ -396,7 +371,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(0L)
                         .description("description")
-                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+                        .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -434,16 +409,14 @@ class ErrorHandlingTest {
                 .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
                 .plaidProcessorToken("plaid_processor_token")
-                .routingDetails(
-                    listOf(
-                        ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("routing_number")
-                            .routingNumberType(
-                                ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
-                            )
-                            .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
-                            .build()
-                    )
+                .addRoutingDetail(
+                    ExternalAccountCreateParams.RoutingDetail.builder()
+                        .routingNumber("routing_number")
+                        .routingNumberType(
+                            ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                        )
+                        .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
+                        .build()
                 )
                 .build()
 
@@ -469,29 +442,24 @@ class ErrorHandlingTest {
         val params =
             ExternalAccountCreateParams.builder()
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .accountDetails(
-                    listOf(
-                        ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("account_number")
-                            .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                    .AU_NUMBER
-                            )
-                            .build()
-                    )
+                .addAccountDetail(
+                    ExternalAccountCreateParams.AccountDetail.builder()
+                        .accountNumber("account_number")
+                        .accountNumberType(
+                            ExternalAccountCreateParams.AccountDetail.AccountNumberType.AU_NUMBER
+                        )
+                        .build()
                 )
                 .accountType(ExternalAccountType.CASH)
-                .contactDetails(
-                    listOf(
-                        ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("contact_identifier")
-                            .contactIdentifierType(
-                                ExternalAccountCreateParams.ContactDetailCreateRequest
-                                    .ContactIdentifierType
-                                    .EMAIL
-                            )
-                            .build()
-                    )
+                .addContactDetail(
+                    ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                        .contactIdentifier("contact_identifier")
+                        .contactIdentifierType(
+                            ExternalAccountCreateParams.ContactDetailCreateRequest
+                                .ContactIdentifierType
+                                .EMAIL
+                        )
+                        .build()
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
@@ -501,7 +469,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(0L)
                         .description("description")
-                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+                        .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -539,16 +507,14 @@ class ErrorHandlingTest {
                 .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
                 .plaidProcessorToken("plaid_processor_token")
-                .routingDetails(
-                    listOf(
-                        ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("routing_number")
-                            .routingNumberType(
-                                ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
-                            )
-                            .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
-                            .build()
-                    )
+                .addRoutingDetail(
+                    ExternalAccountCreateParams.RoutingDetail.builder()
+                        .routingNumber("routing_number")
+                        .routingNumberType(
+                            ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                        )
+                        .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
+                        .build()
                 )
                 .build()
 
@@ -574,29 +540,24 @@ class ErrorHandlingTest {
         val params =
             ExternalAccountCreateParams.builder()
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .accountDetails(
-                    listOf(
-                        ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("account_number")
-                            .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                    .AU_NUMBER
-                            )
-                            .build()
-                    )
+                .addAccountDetail(
+                    ExternalAccountCreateParams.AccountDetail.builder()
+                        .accountNumber("account_number")
+                        .accountNumberType(
+                            ExternalAccountCreateParams.AccountDetail.AccountNumberType.AU_NUMBER
+                        )
+                        .build()
                 )
                 .accountType(ExternalAccountType.CASH)
-                .contactDetails(
-                    listOf(
-                        ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("contact_identifier")
-                            .contactIdentifierType(
-                                ExternalAccountCreateParams.ContactDetailCreateRequest
-                                    .ContactIdentifierType
-                                    .EMAIL
-                            )
-                            .build()
-                    )
+                .addContactDetail(
+                    ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                        .contactIdentifier("contact_identifier")
+                        .contactIdentifierType(
+                            ExternalAccountCreateParams.ContactDetailCreateRequest
+                                .ContactIdentifierType
+                                .EMAIL
+                        )
+                        .build()
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
@@ -606,7 +567,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(0L)
                         .description("description")
-                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+                        .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -644,16 +605,14 @@ class ErrorHandlingTest {
                 .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
                 .plaidProcessorToken("plaid_processor_token")
-                .routingDetails(
-                    listOf(
-                        ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("routing_number")
-                            .routingNumberType(
-                                ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
-                            )
-                            .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
-                            .build()
-                    )
+                .addRoutingDetail(
+                    ExternalAccountCreateParams.RoutingDetail.builder()
+                        .routingNumber("routing_number")
+                        .routingNumberType(
+                            ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                        )
+                        .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
+                        .build()
                 )
                 .build()
 
@@ -679,29 +638,24 @@ class ErrorHandlingTest {
         val params =
             ExternalAccountCreateParams.builder()
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .accountDetails(
-                    listOf(
-                        ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("account_number")
-                            .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                    .AU_NUMBER
-                            )
-                            .build()
-                    )
+                .addAccountDetail(
+                    ExternalAccountCreateParams.AccountDetail.builder()
+                        .accountNumber("account_number")
+                        .accountNumberType(
+                            ExternalAccountCreateParams.AccountDetail.AccountNumberType.AU_NUMBER
+                        )
+                        .build()
                 )
                 .accountType(ExternalAccountType.CASH)
-                .contactDetails(
-                    listOf(
-                        ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("contact_identifier")
-                            .contactIdentifierType(
-                                ExternalAccountCreateParams.ContactDetailCreateRequest
-                                    .ContactIdentifierType
-                                    .EMAIL
-                            )
-                            .build()
-                    )
+                .addContactDetail(
+                    ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                        .contactIdentifier("contact_identifier")
+                        .contactIdentifierType(
+                            ExternalAccountCreateParams.ContactDetailCreateRequest
+                                .ContactIdentifierType
+                                .EMAIL
+                        )
+                        .build()
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
@@ -711,7 +665,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(0L)
                         .description("description")
-                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+                        .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -749,16 +703,14 @@ class ErrorHandlingTest {
                 .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
                 .plaidProcessorToken("plaid_processor_token")
-                .routingDetails(
-                    listOf(
-                        ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("routing_number")
-                            .routingNumberType(
-                                ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
-                            )
-                            .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
-                            .build()
-                    )
+                .addRoutingDetail(
+                    ExternalAccountCreateParams.RoutingDetail.builder()
+                        .routingNumber("routing_number")
+                        .routingNumberType(
+                            ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                        )
+                        .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
+                        .build()
                 )
                 .build()
 
@@ -784,29 +736,24 @@ class ErrorHandlingTest {
         val params =
             ExternalAccountCreateParams.builder()
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .accountDetails(
-                    listOf(
-                        ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("account_number")
-                            .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                    .AU_NUMBER
-                            )
-                            .build()
-                    )
+                .addAccountDetail(
+                    ExternalAccountCreateParams.AccountDetail.builder()
+                        .accountNumber("account_number")
+                        .accountNumberType(
+                            ExternalAccountCreateParams.AccountDetail.AccountNumberType.AU_NUMBER
+                        )
+                        .build()
                 )
                 .accountType(ExternalAccountType.CASH)
-                .contactDetails(
-                    listOf(
-                        ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("contact_identifier")
-                            .contactIdentifierType(
-                                ExternalAccountCreateParams.ContactDetailCreateRequest
-                                    .ContactIdentifierType
-                                    .EMAIL
-                            )
-                            .build()
-                    )
+                .addContactDetail(
+                    ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                        .contactIdentifier("contact_identifier")
+                        .contactIdentifierType(
+                            ExternalAccountCreateParams.ContactDetailCreateRequest
+                                .ContactIdentifierType
+                                .EMAIL
+                        )
+                        .build()
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
@@ -816,7 +763,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(0L)
                         .description("description")
-                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+                        .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -854,16 +801,14 @@ class ErrorHandlingTest {
                 .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
                 .plaidProcessorToken("plaid_processor_token")
-                .routingDetails(
-                    listOf(
-                        ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("routing_number")
-                            .routingNumberType(
-                                ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
-                            )
-                            .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
-                            .build()
-                    )
+                .addRoutingDetail(
+                    ExternalAccountCreateParams.RoutingDetail.builder()
+                        .routingNumber("routing_number")
+                        .routingNumberType(
+                            ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                        )
+                        .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
+                        .build()
                 )
                 .build()
 
@@ -889,29 +834,24 @@ class ErrorHandlingTest {
         val params =
             ExternalAccountCreateParams.builder()
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .accountDetails(
-                    listOf(
-                        ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("account_number")
-                            .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                    .AU_NUMBER
-                            )
-                            .build()
-                    )
+                .addAccountDetail(
+                    ExternalAccountCreateParams.AccountDetail.builder()
+                        .accountNumber("account_number")
+                        .accountNumberType(
+                            ExternalAccountCreateParams.AccountDetail.AccountNumberType.AU_NUMBER
+                        )
+                        .build()
                 )
                 .accountType(ExternalAccountType.CASH)
-                .contactDetails(
-                    listOf(
-                        ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("contact_identifier")
-                            .contactIdentifierType(
-                                ExternalAccountCreateParams.ContactDetailCreateRequest
-                                    .ContactIdentifierType
-                                    .EMAIL
-                            )
-                            .build()
-                    )
+                .addContactDetail(
+                    ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                        .contactIdentifier("contact_identifier")
+                        .contactIdentifierType(
+                            ExternalAccountCreateParams.ContactDetailCreateRequest
+                                .ContactIdentifierType
+                                .EMAIL
+                        )
+                        .build()
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
@@ -921,7 +861,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(0L)
                         .description("description")
-                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+                        .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -959,16 +899,14 @@ class ErrorHandlingTest {
                 .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
                 .plaidProcessorToken("plaid_processor_token")
-                .routingDetails(
-                    listOf(
-                        ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("routing_number")
-                            .routingNumberType(
-                                ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
-                            )
-                            .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
-                            .build()
-                    )
+                .addRoutingDetail(
+                    ExternalAccountCreateParams.RoutingDetail.builder()
+                        .routingNumber("routing_number")
+                        .routingNumberType(
+                            ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                        )
+                        .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
+                        .build()
                 )
                 .build()
 
@@ -994,29 +932,24 @@ class ErrorHandlingTest {
         val params =
             ExternalAccountCreateParams.builder()
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .accountDetails(
-                    listOf(
-                        ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("account_number")
-                            .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                    .AU_NUMBER
-                            )
-                            .build()
-                    )
+                .addAccountDetail(
+                    ExternalAccountCreateParams.AccountDetail.builder()
+                        .accountNumber("account_number")
+                        .accountNumberType(
+                            ExternalAccountCreateParams.AccountDetail.AccountNumberType.AU_NUMBER
+                        )
+                        .build()
                 )
                 .accountType(ExternalAccountType.CASH)
-                .contactDetails(
-                    listOf(
-                        ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("contact_identifier")
-                            .contactIdentifierType(
-                                ExternalAccountCreateParams.ContactDetailCreateRequest
-                                    .ContactIdentifierType
-                                    .EMAIL
-                            )
-                            .build()
-                    )
+                .addContactDetail(
+                    ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                        .contactIdentifier("contact_identifier")
+                        .contactIdentifierType(
+                            ExternalAccountCreateParams.ContactDetailCreateRequest
+                                .ContactIdentifierType
+                                .EMAIL
+                        )
+                        .build()
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
@@ -1026,7 +959,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(0L)
                         .description("description")
-                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+                        .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -1064,16 +997,14 @@ class ErrorHandlingTest {
                 .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
                 .plaidProcessorToken("plaid_processor_token")
-                .routingDetails(
-                    listOf(
-                        ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("routing_number")
-                            .routingNumberType(
-                                ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
-                            )
-                            .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
-                            .build()
-                    )
+                .addRoutingDetail(
+                    ExternalAccountCreateParams.RoutingDetail.builder()
+                        .routingNumber("routing_number")
+                        .routingNumberType(
+                            ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                        )
+                        .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
+                        .build()
                 )
                 .build()
 
@@ -1100,29 +1031,24 @@ class ErrorHandlingTest {
         val params =
             ExternalAccountCreateParams.builder()
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .accountDetails(
-                    listOf(
-                        ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("account_number")
-                            .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                    .AU_NUMBER
-                            )
-                            .build()
-                    )
+                .addAccountDetail(
+                    ExternalAccountCreateParams.AccountDetail.builder()
+                        .accountNumber("account_number")
+                        .accountNumberType(
+                            ExternalAccountCreateParams.AccountDetail.AccountNumberType.AU_NUMBER
+                        )
+                        .build()
                 )
                 .accountType(ExternalAccountType.CASH)
-                .contactDetails(
-                    listOf(
-                        ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("contact_identifier")
-                            .contactIdentifierType(
-                                ExternalAccountCreateParams.ContactDetailCreateRequest
-                                    .ContactIdentifierType
-                                    .EMAIL
-                            )
-                            .build()
-                    )
+                .addContactDetail(
+                    ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                        .contactIdentifier("contact_identifier")
+                        .contactIdentifierType(
+                            ExternalAccountCreateParams.ContactDetailCreateRequest
+                                .ContactIdentifierType
+                                .EMAIL
+                        )
+                        .build()
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
@@ -1132,7 +1058,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(0L)
                         .description("description")
-                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+                        .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -1170,16 +1096,14 @@ class ErrorHandlingTest {
                 .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
                 .plaidProcessorToken("plaid_processor_token")
-                .routingDetails(
-                    listOf(
-                        ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("routing_number")
-                            .routingNumberType(
-                                ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
-                            )
-                            .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
-                            .build()
-                    )
+                .addRoutingDetail(
+                    ExternalAccountCreateParams.RoutingDetail.builder()
+                        .routingNumber("routing_number")
+                        .routingNumberType(
+                            ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                        )
+                        .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
+                        .build()
                 )
                 .build()
 
@@ -1198,29 +1122,24 @@ class ErrorHandlingTest {
         val params =
             ExternalAccountCreateParams.builder()
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .accountDetails(
-                    listOf(
-                        ExternalAccountCreateParams.AccountDetail.builder()
-                            .accountNumber("account_number")
-                            .accountNumberType(
-                                ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                    .AU_NUMBER
-                            )
-                            .build()
-                    )
+                .addAccountDetail(
+                    ExternalAccountCreateParams.AccountDetail.builder()
+                        .accountNumber("account_number")
+                        .accountNumberType(
+                            ExternalAccountCreateParams.AccountDetail.AccountNumberType.AU_NUMBER
+                        )
+                        .build()
                 )
                 .accountType(ExternalAccountType.CASH)
-                .contactDetails(
-                    listOf(
-                        ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                            .contactIdentifier("contact_identifier")
-                            .contactIdentifierType(
-                                ExternalAccountCreateParams.ContactDetailCreateRequest
-                                    .ContactIdentifierType
-                                    .EMAIL
-                            )
-                            .build()
-                    )
+                .addContactDetail(
+                    ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                        .contactIdentifier("contact_identifier")
+                        .contactIdentifierType(
+                            ExternalAccountCreateParams.ContactDetailCreateRequest
+                                .ContactIdentifierType
+                                .EMAIL
+                        )
+                        .build()
                 )
                 .ledgerAccount(
                     ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
@@ -1230,7 +1149,7 @@ class ErrorHandlingTest {
                         .normalBalance(TransactionDirection.CREDIT)
                         .currencyExponent(0L)
                         .description("description")
-                        .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+                        .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
                             ExternalAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
@@ -1268,16 +1187,14 @@ class ErrorHandlingTest {
                 .partyName("party_name")
                 .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
                 .plaidProcessorToken("plaid_processor_token")
-                .routingDetails(
-                    listOf(
-                        ExternalAccountCreateParams.RoutingDetail.builder()
-                            .routingNumber("routing_number")
-                            .routingNumberType(
-                                ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
-                            )
-                            .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
-                            .build()
-                    )
+                .addRoutingDetail(
+                    ExternalAccountCreateParams.RoutingDetail.builder()
+                        .routingNumber("routing_number")
+                        .routingNumberType(
+                            ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                        )
+                        .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
+                        .build()
                 )
                 .build()
 

@@ -11,7 +11,7 @@ class LedgerTransactionListParamsTest {
     @Test
     fun createLedgerTransactionListParams() {
         LedgerTransactionListParams.builder()
-            .id(listOf("string"))
+            .addId("string")
             .afterCursor("after_cursor")
             .effectiveAt(
                 LedgerTransactionListParams.EffectiveAt.builder()
@@ -61,7 +61,7 @@ class LedgerTransactionListParamsTest {
     fun getQueryParams() {
         val params =
             LedgerTransactionListParams.builder()
-                .id(listOf("string"))
+                .addId("string")
                 .afterCursor("after_cursor")
                 .effectiveAt(
                     LedgerTransactionListParams.EffectiveAt.builder()

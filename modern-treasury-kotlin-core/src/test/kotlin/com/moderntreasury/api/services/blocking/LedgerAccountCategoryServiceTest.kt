@@ -41,7 +41,7 @@ class LedgerAccountCategoryServiceTest {
                     .normalBalance(TransactionDirection.CREDIT)
                     .currencyExponent(0L)
                     .description("description")
-                    .ledgerAccountCategoryIds(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+                    .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .metadata(
                         LedgerAccountCategoryCreateParams.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))

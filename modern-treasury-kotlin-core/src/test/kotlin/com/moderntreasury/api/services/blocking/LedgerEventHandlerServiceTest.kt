@@ -32,17 +32,15 @@ class LedgerEventHandlerServiceTest {
                             .builder()
                             .description("My Ledger Transaction Template Description")
                             .effectiveAt("{{ledgerable_event.custom_data.effective_at}}")
-                            .ledgerEntries(
-                                listOf(
-                                    LedgerEventHandlerCreateParams
-                                        .LedgerEventHandlerLedgerTransactionTemplate
-                                        .LedgerEventHandlerLedgerEntries
-                                        .builder()
-                                        .amount("amount")
-                                        .direction("direction")
-                                        .ledgerAccountId("ledger_account_id")
-                                        .build()
-                                )
+                            .addLedgerEntry(
+                                LedgerEventHandlerCreateParams
+                                    .LedgerEventHandlerLedgerTransactionTemplate
+                                    .LedgerEventHandlerLedgerEntries
+                                    .builder()
+                                    .amount("amount")
+                                    .direction("direction")
+                                    .ledgerAccountId("ledger_account_id")
+                                    .build()
                             )
                             .status("posted")
                             .build()
