@@ -572,6 +572,10 @@ private constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * The status of the ledger account settlement. One of `processing`, `pending`, `posted`,
+     * `archiving` or `archived`.
+     */
     class Status
     @JsonCreator
     private constructor(

@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** list payment_references */
 class PaymentReferenceListPageAsync
 private constructor(
     private val paymentReferencesService: PaymentReferenceServiceAsync,

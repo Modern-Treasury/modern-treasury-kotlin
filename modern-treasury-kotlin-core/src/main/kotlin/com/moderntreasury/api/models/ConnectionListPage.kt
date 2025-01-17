@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.ConnectionService
 import java.util.Objects
 
+/** Get a list of all connections. */
 class ConnectionListPage
 private constructor(
     private val connectionsService: ConnectionService,

@@ -306,6 +306,10 @@ private constructor(
             )
     }
 
+    /**
+     * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
+     * `other`.
+     */
     class BalanceReportType
     @JsonCreator
     private constructor(
@@ -734,6 +738,11 @@ private constructor(
                 )
         }
 
+        /**
+         * The specific type of balance reported. One of `opening_ledger`, `closing_ledger`,
+         * `current_ledger`, `opening_available`, `opening_available_next_business_day`,
+         * `closing_available`, `current_available`, or `other`.
+         */
         class BalanceType
         @JsonCreator
         private constructor(

@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** Get a list of documents. */
 class DocumentListPageAsync
 private constructor(
     private val documentsService: DocumentServiceAsync,

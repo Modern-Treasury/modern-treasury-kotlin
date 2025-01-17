@@ -499,6 +499,10 @@ constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * To post a pending ledger account settlement, use `posted`. To archive a pending ledger
+     * transaction, use `archived`.
+     */
     class Status
     @JsonCreator
     private constructor(

@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.DocumentService
 import java.util.Objects
 
+/** Get a list of documents. */
 class DocumentListPage
 private constructor(
     private val documentsService: DocumentService,

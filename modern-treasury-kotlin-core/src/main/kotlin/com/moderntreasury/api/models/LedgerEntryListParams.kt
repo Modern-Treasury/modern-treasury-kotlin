@@ -1139,6 +1139,10 @@ constructor(
             "OrderBy{createdAt=$createdAt, effectiveAt=$effectiveAt, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * Get all ledger entries that match the status specified. One of `pending`, `posted`, or
+     * `archived`.
+     */
     class Status
     @JsonCreator
     private constructor(

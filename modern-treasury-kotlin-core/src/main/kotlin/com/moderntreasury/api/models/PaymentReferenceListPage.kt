@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.PaymentReferenceService
 import java.util.Objects
 
+/** list payment_references */
 class PaymentReferenceListPage
 private constructor(
     private val paymentReferencesService: PaymentReferenceService,

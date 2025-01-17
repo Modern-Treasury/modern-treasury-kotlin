@@ -2085,6 +2085,10 @@ private constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * When opening an invoice, whether to show the embedded payment UI , automatically debit the
+     * recipient, or rely on manual payment from the recipient.
+     */
     class PaymentMethod
     @JsonCreator
     private constructor(
@@ -2148,6 +2152,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** One of `ach` or `eft`. */
     class PaymentType
     @JsonCreator
     private constructor(
@@ -2205,6 +2210,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The status of the invoice. */
     class Status
     @JsonCreator
     private constructor(

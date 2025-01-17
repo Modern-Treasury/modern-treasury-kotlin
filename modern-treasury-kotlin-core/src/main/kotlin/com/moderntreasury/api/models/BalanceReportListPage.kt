@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.internalAccounts.BalanceReportService
 import java.util.Objects
 
+/** Get all balance reports for a given internal account. */
 class BalanceReportListPage
 private constructor(
     private val balanceReportsService: BalanceReportService,

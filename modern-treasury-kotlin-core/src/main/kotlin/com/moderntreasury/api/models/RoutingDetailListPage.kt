@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.RoutingDetailService
 import java.util.Objects
 
+/** Get a list of routing details for a single internal or external account. */
 class RoutingDetailListPage
 private constructor(
     private val routingDetailsService: RoutingDetailService,

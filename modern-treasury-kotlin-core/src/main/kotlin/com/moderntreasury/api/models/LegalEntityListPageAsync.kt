@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** Get a list of all legal entities. */
 class LegalEntityListPageAsync
 private constructor(
     private val legalEntitiesService: LegalEntityServiceAsync,

@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.LegalEntityService
 import java.util.Objects
 
+/** Get a list of all legal entities. */
 class LegalEntityListPage
 private constructor(
     private val legalEntitiesService: LegalEntityService,

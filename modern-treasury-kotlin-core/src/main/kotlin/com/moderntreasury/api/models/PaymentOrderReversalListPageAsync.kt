@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** Get a list of all reversals of a payment order. */
 class PaymentOrderReversalListPageAsync
 private constructor(
     private val reversalsService: ReversalServiceAsync,

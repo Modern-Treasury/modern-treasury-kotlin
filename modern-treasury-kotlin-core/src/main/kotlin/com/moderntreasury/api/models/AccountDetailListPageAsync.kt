@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** Get a list of account details for a single internal or external account. */
 class AccountDetailListPageAsync
 private constructor(
     private val accountDetailsService: AccountDetailServiceAsync,

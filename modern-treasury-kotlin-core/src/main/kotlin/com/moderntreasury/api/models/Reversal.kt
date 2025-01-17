@@ -359,6 +359,7 @@ private constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    /** The reason for the reversal. */
     class Reason
     @JsonCreator
     private constructor(
@@ -434,6 +435,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The current status of the reversal. */
     class Status
     @JsonCreator
     private constructor(

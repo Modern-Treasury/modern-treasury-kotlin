@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.LedgerEventHandlerService
 import java.util.Objects
 
+/** Get a list of ledger event handlers. */
 class LedgerEventHandlerListPage
 private constructor(
     private val ledgerEventHandlersService: LedgerEventHandlerService,

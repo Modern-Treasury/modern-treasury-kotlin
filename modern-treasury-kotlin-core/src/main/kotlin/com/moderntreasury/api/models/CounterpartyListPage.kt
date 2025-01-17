@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.CounterpartyService
 import java.util.Objects
 
+/** Get a paginated list of all counterparties. */
 class CounterpartyListPage
 private constructor(
     private val counterpartiesService: CounterpartyService,

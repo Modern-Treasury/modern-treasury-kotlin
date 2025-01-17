@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** Get a list of ledger transactions. */
 class LedgerTransactionListPageAsync
 private constructor(
     private val ledgerTransactionsService: LedgerTransactionServiceAsync,

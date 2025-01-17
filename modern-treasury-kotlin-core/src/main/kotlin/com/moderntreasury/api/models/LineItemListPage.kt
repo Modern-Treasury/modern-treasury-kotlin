@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.LineItemService
 import java.util.Objects
 
+/** Get a list of line items */
 class LineItemListPage
 private constructor(
     private val lineItemsService: LineItemService,

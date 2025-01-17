@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.ReturnService
 import java.util.Objects
 
+/** Get a list of returns. */
 class ReturnListPage
 private constructor(
     private val returnsService: ReturnService,

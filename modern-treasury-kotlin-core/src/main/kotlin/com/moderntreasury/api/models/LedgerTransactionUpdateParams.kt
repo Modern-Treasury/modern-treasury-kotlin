@@ -1416,6 +1416,11 @@ constructor(
             "LedgerEntryCreateRequest{amount=$amount, direction=$direction, ledgerAccountId=$ledgerAccountId, availableBalanceAmount=$availableBalanceAmount, lockVersion=$lockVersion, metadata=$metadata, pendingBalanceAmount=$pendingBalanceAmount, postedBalanceAmount=$postedBalanceAmount, showResultingLedgerAccountBalances=$showResultingLedgerAccountBalances, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * If the ledger transaction can be reconciled to another object in Modern Treasury, the type
+     * will be populated here, otherwise null. This can be one of payment_order,
+     * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
+     */
     class LedgerableType
     @JsonCreator
     private constructor(
@@ -1574,6 +1579,7 @@ constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    /** To post a ledger transaction at creation, use `posted`. */
     class Status
     @JsonCreator
     private constructor(

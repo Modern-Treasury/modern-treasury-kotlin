@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
+@Deprecated("deprecated")
 @NoAutoDetect
 class LedgerEventHandlerVariable
 @JsonCreator
@@ -27,11 +28,12 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    fun query(): LedgerEventHandlerConditions = query.getRequired("query")
+    @Deprecated("deprecated") fun query(): LedgerEventHandlerConditions = query.getRequired("query")
 
     /** The type of object this variable is. Currently, only "ledger_account" is supported. */
     fun type(): String = type.getRequired("type")
 
+    @Deprecated("deprecated")
     @JsonProperty("query")
     @ExcludeMissing
     fun _query(): JsonField<LedgerEventHandlerConditions> = query
@@ -74,8 +76,10 @@ private constructor(
             additionalProperties = ledgerEventHandlerVariable.additionalProperties.toMutableMap()
         }
 
+        @Deprecated("deprecated")
         fun query(query: LedgerEventHandlerConditions) = query(JsonField.of(query))
 
+        @Deprecated("deprecated")
         fun query(query: JsonField<LedgerEventHandlerConditions>) = apply { this.query = query }
 
         /** The type of object this variable is. Currently, only "ledger_account" is supported. */
@@ -111,6 +115,7 @@ private constructor(
             )
     }
 
+    @Deprecated("deprecated")
     @NoAutoDetect
     class LedgerEventHandlerConditions
     @JsonCreator

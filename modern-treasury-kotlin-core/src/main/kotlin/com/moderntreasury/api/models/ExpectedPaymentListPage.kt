@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.ExpectedPaymentService
 import java.util.Objects
 
+/** list expected_payments */
 class ExpectedPaymentListPage
 private constructor(
     private val expectedPaymentsService: ExpectedPaymentService,
