@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** Get a list of ledger account categories. */
 class LedgerAccountCategoryListPageAsync
 private constructor(
     private val ledgerAccountCategoriesService: LedgerAccountCategoryServiceAsync,

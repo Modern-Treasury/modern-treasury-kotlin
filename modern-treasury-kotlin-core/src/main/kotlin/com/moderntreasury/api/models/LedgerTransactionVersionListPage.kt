@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.ledgerTransactions.VersionService
 import java.util.Objects
 
+/** Get a list of ledger transaction versions. */
 class LedgerTransactionVersionListPage
 private constructor(
     private val versionsService: VersionService,

@@ -1495,6 +1495,10 @@ private constructor(
                 "LedgerBalances{availableBalance=$availableBalance, pendingBalance=$pendingBalance, postedBalance=$postedBalance, additionalProperties=$additionalProperties}"
         }
 
+        /**
+         * Equal to the state of the ledger transaction when the ledger entry was created. One of
+         * `pending`, `posted`, or `archived`.
+         */
         class Status
         @JsonCreator
         private constructor(
@@ -1576,6 +1580,11 @@ private constructor(
             "LedgerEntryOfTransactionVersion{id=$id, amount=$amount, createdAt=$createdAt, direction=$direction, ledgerAccountCurrency=$ledgerAccountCurrency, ledgerAccountCurrencyExponent=$ledgerAccountCurrencyExponent, ledgerAccountId=$ledgerAccountId, ledgerAccountLockVersion=$ledgerAccountLockVersion, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, object_=$object_, resultingLedgerAccountBalances=$resultingLedgerAccountBalances, status=$status, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * If the ledger transaction can be reconciled to another object in Modern Treasury, the type
+     * will be populated here, otherwise null. This can be one of payment_order,
+     * incoming_payment_detail, expected_payment, return, or reversal.
+     */
     class LedgerableType
     @JsonCreator
     private constructor(
@@ -1734,6 +1743,7 @@ private constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    /** One of `pending`, `posted`, or `archived`. */
     class Status
     @JsonCreator
     private constructor(

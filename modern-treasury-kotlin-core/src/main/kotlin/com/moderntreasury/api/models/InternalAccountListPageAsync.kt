@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** list internal accounts */
 class InternalAccountListPageAsync
 private constructor(
     private val internalAccountsService: InternalAccountServiceAsync,

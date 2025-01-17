@@ -459,6 +459,7 @@ private constructor(
             )
     }
 
+    /** The current status of the paper item. One of `pending`, `completed`, or `returned`. */
     class Status
     @JsonCreator
     private constructor(

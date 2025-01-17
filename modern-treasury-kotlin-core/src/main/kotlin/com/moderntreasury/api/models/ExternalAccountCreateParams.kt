@@ -1635,6 +1635,10 @@ constructor(
                 )
         }
 
+        /**
+         * If the ledger account links to another object in Modern Treasury, the type will be
+         * populated here, otherwise null. The value is one of internal_account or external_account.
+         */
         class LedgerableType
         @JsonCreator
         private constructor(
@@ -2071,6 +2075,7 @@ constructor(
             "AddressRequest{country=$country, line1=$line1, line2=$line2, locality=$locality, postalCode=$postalCode, region=$region, additionalProperties=$additionalProperties}"
     }
 
+    /** Either `individual` or `business`. */
     class PartyType
     @JsonCreator
     private constructor(

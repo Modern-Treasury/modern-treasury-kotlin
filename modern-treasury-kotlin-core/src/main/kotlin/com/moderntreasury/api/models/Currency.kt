@@ -7,6 +7,7 @@ import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 
+/** Three-letter ISO currency code. */
 class Currency
 @JsonCreator
 private constructor(

@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** Get a list of routing details for a single internal or external account. */
 class RoutingDetailListPageAsync
 private constructor(
     private val routingDetailsService: RoutingDetailServiceAsync,

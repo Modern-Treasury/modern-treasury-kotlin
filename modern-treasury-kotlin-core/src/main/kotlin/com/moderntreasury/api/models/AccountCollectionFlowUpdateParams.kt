@@ -340,6 +340,10 @@ constructor(
             )
     }
 
+    /**
+     * Required. The updated status of the account collection flow. Can only be used to mark a flow
+     * as `cancelled`.
+     */
     class Status
     @JsonCreator
     private constructor(

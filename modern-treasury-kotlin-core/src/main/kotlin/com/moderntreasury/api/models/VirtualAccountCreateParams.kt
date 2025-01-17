@@ -902,6 +902,10 @@ constructor(
                 )
         }
 
+        /**
+         * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
+         * number is in a generic format.
+         */
         class AccountNumberType
         @JsonCreator
         private constructor(
@@ -1382,6 +1386,10 @@ constructor(
                 )
         }
 
+        /**
+         * If the ledger account links to another object in Modern Treasury, the type will be
+         * populated here, otherwise null. The value is one of internal_account or external_account.
+         */
         class LedgerableType
         @JsonCreator
         private constructor(
@@ -1792,6 +1800,11 @@ constructor(
                 )
         }
 
+        /**
+         * The type of routing number. See
+         * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
+         * details.
+         */
         class RoutingNumberType
         @JsonCreator
         private constructor(
@@ -1960,6 +1973,10 @@ constructor(
             override fun toString() = value.toString()
         }
 
+        /**
+         * If the routing detail is to be used for a specific payment type this field will be
+         * populated, otherwise null.
+         */
         class PaymentType
         @JsonCreator
         private constructor(

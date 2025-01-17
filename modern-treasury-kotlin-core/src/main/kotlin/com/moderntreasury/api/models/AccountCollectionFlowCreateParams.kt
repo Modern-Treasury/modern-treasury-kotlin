@@ -402,6 +402,7 @@ constructor(
             )
     }
 
+    /** Optional. Array of 3-digit ISO country codes. */
     class ReceivingCountry
     @JsonCreator
     private constructor(

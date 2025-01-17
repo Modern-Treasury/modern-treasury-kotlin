@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** Get all balance reports for a given internal account. */
 class BalanceReportListPageAsync
 private constructor(
     private val balanceReportsService: BalanceReportServiceAsync,

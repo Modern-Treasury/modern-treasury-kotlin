@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** Get a paginated list of all counterparties. */
 class CounterpartyListPageAsync
 private constructor(
     private val counterpartiesService: CounterpartyServiceAsync,

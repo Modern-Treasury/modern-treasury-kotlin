@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.ExternalAccountService
 import java.util.Objects
 
+/** list external accounts */
 class ExternalAccountListPage
 private constructor(
     private val externalAccountsService: ExternalAccountService,

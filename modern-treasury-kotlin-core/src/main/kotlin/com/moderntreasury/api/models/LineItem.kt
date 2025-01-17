@@ -519,6 +519,7 @@ private constructor(
             "Accounting{accountId=$accountId, classId=$classId, additionalProperties=$additionalProperties}"
     }
 
+    /** One of `payment_orders` or `expected_payments`. */
     class ItemizableType
     @JsonCreator
     private constructor(

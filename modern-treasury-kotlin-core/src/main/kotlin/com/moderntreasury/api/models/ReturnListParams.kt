@@ -235,6 +235,10 @@ constructor(
             )
     }
 
+    /**
+     * One of `payment_order`, `paper_item`, `reversal`, or `incoming_payment_detail`. Must be
+     * accompanied by `returnable_id`.
+     */
     class ReturnableType
     @JsonCreator
     private constructor(

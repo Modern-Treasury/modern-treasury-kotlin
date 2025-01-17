@@ -965,6 +965,10 @@ private constructor(
         }
     }
 
+    /**
+     * The type of the result entity object. For a successful bulk result, this is the same as the
+     * `resource_type` of the bulk request. For a failed bulk result, this is always bulk_error
+     */
     class EntityType
     @JsonCreator
     private constructor(
@@ -1120,6 +1124,10 @@ private constructor(
         override fun toString() = "RequestParams{additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * The type of the request that created this result. bulk_request is the only supported
+     * `request_type`
+     */
     class RequestType
     @JsonCreator
     private constructor(
@@ -1171,6 +1179,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** One of successful or failed. */
     class Status
     @JsonCreator
     private constructor(

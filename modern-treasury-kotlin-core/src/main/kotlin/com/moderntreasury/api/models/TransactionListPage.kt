@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.TransactionService
 import java.util.Objects
 
+/** Get a list of all transactions. */
 class TransactionListPage
 private constructor(
     private val transactionsService: TransactionService,

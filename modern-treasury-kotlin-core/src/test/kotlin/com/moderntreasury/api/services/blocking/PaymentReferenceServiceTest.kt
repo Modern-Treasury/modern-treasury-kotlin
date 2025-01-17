@@ -53,7 +53,6 @@ class PaymentReferenceServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paymentReferenceService = client.paymentReferences()
-        @Suppress("DEPRECATION")
         val paymentReference =
             paymentReferenceService.retireve(
                 PaymentReferenceRetireveParams.builder().id("id").build()

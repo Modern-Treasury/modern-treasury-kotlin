@@ -820,6 +820,7 @@ constructor(
             "AddressRequest{country=$country, line1=$line1, line2=$line2, locality=$locality, postalCode=$postalCode, region=$region, additionalProperties=$additionalProperties}"
     }
 
+    /** Either `individual` or `business`. */
     class PartyType
     @JsonCreator
     private constructor(

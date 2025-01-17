@@ -540,6 +540,11 @@ private constructor(
             )
     }
 
+    /**
+     * If the ledger transaction can be reconciled to another object in Modern Treasury, the type
+     * will be populated here, otherwise null. This can be one of payment_order,
+     * incoming_payment_detail, expected_payment, return, paper_item, or reversal.
+     */
     class LedgerableType
     @JsonCreator
     private constructor(
@@ -698,6 +703,7 @@ private constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    /** To post a ledger transaction at creation, use `posted`. */
     class Status
     @JsonCreator
     private constructor(

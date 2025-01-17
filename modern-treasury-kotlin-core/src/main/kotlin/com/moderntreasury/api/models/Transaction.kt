@@ -1154,6 +1154,10 @@ private constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`, `book`,
+     * or `sen`.
+     */
     class Type
     @JsonCreator
     private constructor(
@@ -1385,6 +1389,11 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
+     * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`, `goldman_sachs`,
+     * `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, `us_bank`, or others.
+     */
     class VendorCodeType
     @JsonCreator
     private constructor(
