@@ -851,6 +851,10 @@ constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * The status of the ledger account settlement. It is set to `pending` by default. To post a
+     * ledger account settlement at creation, use `posted`.
+     */
     class Status
     @JsonCreator
     private constructor(

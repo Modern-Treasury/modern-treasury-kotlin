@@ -224,6 +224,10 @@ constructor(
             )
     }
 
+    /**
+     * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
+     * `other`.
+     */
     class BalanceReportType
     @JsonCreator
     private constructor(

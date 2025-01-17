@@ -7,6 +7,7 @@ import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 
+/** Can be `checking`, `savings` or `other`. */
 class ExternalAccountType
 @JsonCreator
 private constructor(

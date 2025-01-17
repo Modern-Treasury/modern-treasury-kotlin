@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.BulkRequestService
 import java.util.Objects
 
+/** list bulk_requests */
 class BulkRequestListPage
 private constructor(
     private val bulkRequestsService: BulkRequestService,

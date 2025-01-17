@@ -7,6 +7,9 @@ import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 
+/**
+ * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa, signet, wire.
+ */
 class ExpectedPaymentType
 @JsonCreator
 private constructor(

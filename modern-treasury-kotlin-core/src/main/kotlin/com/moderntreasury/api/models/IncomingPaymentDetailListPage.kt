@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.IncomingPaymentDetailService
 import java.util.Objects
 
+/** Get a list of Incoming Payment Details. */
 class IncomingPaymentDetailListPage
 private constructor(
     private val incomingPaymentDetailsService: IncomingPaymentDetailService,

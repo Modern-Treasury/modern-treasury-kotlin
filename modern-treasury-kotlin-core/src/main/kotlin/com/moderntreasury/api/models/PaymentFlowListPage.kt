@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.PaymentFlowService
 import java.util.Objects
 
+/** list payment_flows */
 class PaymentFlowListPage
 private constructor(
     private val paymentFlowsService: PaymentFlowService,

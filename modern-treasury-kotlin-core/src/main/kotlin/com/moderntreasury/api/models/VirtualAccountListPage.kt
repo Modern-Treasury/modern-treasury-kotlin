@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.VirtualAccountService
 import java.util.Objects
 
+/** Get a list of virtual accounts. */
 class VirtualAccountListPage
 private constructor(
     private val virtualAccountsService: VirtualAccountService,

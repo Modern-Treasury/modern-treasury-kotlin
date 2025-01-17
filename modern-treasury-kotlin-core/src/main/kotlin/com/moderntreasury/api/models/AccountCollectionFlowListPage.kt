@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.AccountCollectionFlowService
 import java.util.Objects
 
+/** list account_collection_flows */
 class AccountCollectionFlowListPage
 private constructor(
     private val accountCollectionFlowsService: AccountCollectionFlowService,

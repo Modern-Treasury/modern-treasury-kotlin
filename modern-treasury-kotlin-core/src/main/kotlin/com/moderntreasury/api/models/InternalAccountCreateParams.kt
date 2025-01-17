@@ -612,6 +612,7 @@ constructor(
             )
     }
 
+    /** Either "USD" or "CAD". Internal accounts created at Increase only supports "USD". */
     class Currency
     @JsonCreator
     private constructor(

@@ -391,6 +391,10 @@ constructor(
             )
     }
 
+    /**
+     * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account number
+     * is in a generic format.
+     */
     class AccountNumberType
     @JsonCreator
     private constructor(

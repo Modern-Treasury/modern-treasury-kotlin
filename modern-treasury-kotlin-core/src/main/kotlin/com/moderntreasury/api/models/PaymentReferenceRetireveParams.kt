@@ -9,6 +9,7 @@ import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
 
 /** get payment_reference */
+@Deprecated("use `retrieve` instead")
 class PaymentReferenceRetireveParams
 constructor(
     private val id: String,

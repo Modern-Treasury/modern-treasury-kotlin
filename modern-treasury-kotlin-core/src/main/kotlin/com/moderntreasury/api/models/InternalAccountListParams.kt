@@ -348,6 +348,7 @@ constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    /** Only return internal accounts that can make this type of payment. */
     class PaymentType
     @JsonCreator
     private constructor(

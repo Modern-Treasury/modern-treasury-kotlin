@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** Get a list of all ledger entries. */
 class LedgerEntryListPageAsync
 private constructor(
     private val ledgerEntriesService: LedgerEntryServiceAsync,

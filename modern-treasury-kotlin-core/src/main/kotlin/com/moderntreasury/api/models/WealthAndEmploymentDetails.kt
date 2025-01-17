@@ -469,6 +469,7 @@ private constructor(
             )
     }
 
+    /** The employment status of the individual. */
     class EmploymentStatus
     @JsonCreator
     private constructor(
@@ -544,6 +545,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The source of the individual's income. */
     class IncomeSource
     @JsonCreator
     private constructor(
@@ -637,6 +639,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The industry of the individual. */
     class Industry
     @JsonCreator
     private constructor(
@@ -880,6 +883,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The occupation of the individual. */
     class Occupation
     @JsonCreator
     private constructor(
@@ -997,6 +1001,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The source of the individual's funds. */
     class SourceOfFunds
     @JsonCreator
     private constructor(
@@ -1144,6 +1149,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The source of the individual's wealth. */
     class WealthSource
     @JsonCreator
     private constructor(

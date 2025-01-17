@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.EventService
 import java.util.Objects
 
+/** list events */
 class EventListPage
 private constructor(
     private val eventsService: EventService,

@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.ForeignExchangeQuoteService
 import java.util.Objects
 
+/** list foreign_exchange_quotes */
 class ForeignExchangeQuoteListPage
 private constructor(
     private val foreignExchangeQuotesService: ForeignExchangeQuoteService,

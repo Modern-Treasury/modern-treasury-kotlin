@@ -343,6 +343,7 @@ private constructor(
             )
     }
 
+    /** One of create, or update. */
     class ActionType
     @JsonCreator
     private constructor(
@@ -483,6 +484,7 @@ private constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    /** One of payment_order, expected_payment, or ledger_transaction. */
     class ResourceType
     @JsonCreator
     private constructor(
@@ -552,6 +554,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** One of pending, processing, or completed. */
     class Status
     @JsonCreator
     private constructor(

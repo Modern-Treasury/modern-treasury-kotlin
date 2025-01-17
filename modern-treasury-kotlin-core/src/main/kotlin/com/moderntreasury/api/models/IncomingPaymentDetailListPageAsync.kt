@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** Get a list of Incoming Payment Details. */
 class IncomingPaymentDetailListPageAsync
 private constructor(
     private val incomingPaymentDetailsService: IncomingPaymentDetailServiceAsync,

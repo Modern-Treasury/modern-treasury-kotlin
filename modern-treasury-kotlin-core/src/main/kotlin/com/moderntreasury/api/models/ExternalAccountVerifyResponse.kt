@@ -462,6 +462,7 @@ private constructor(
                 )
         }
 
+        /** The type of payment that can be made to this account. Can be `ach`, `eft`, or `rtp`. */
         class PaymentType
         @JsonCreator
         private constructor(
@@ -687,6 +688,7 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /** The priority of the payment. Can be `normal` or `high`. */
         class Priority
         @JsonCreator
         private constructor(
@@ -744,6 +746,10 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /**
+         * The status of the verification attempt. Can be `pending_verification`, `verified`,
+         * `failed`, or `cancelled`.
+         */
         class Status
         @JsonCreator
         private constructor(

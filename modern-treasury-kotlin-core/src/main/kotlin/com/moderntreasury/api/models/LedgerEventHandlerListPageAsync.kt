@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** Get a list of ledger event handlers. */
 class LedgerEventHandlerListPageAsync
 private constructor(
     private val ledgerEventHandlersService: LedgerEventHandlerServiceAsync,

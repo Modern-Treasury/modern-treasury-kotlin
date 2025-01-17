@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** list bulk_requests */
 class BulkRequestListPageAsync
 private constructor(
     private val bulkRequestsService: BulkRequestServiceAsync,

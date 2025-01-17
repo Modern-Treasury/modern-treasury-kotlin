@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** list expected_payments */
 class ExpectedPaymentListPageAsync
 private constructor(
     private val expectedPaymentsService: ExpectedPaymentServiceAsync,

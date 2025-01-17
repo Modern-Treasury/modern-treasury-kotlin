@@ -665,6 +665,10 @@ constructor(
             )
     }
 
+    /**
+     * Specify this if you'd like to link the reversal ledger transaction to a Payment object like
+     * Return or Reversal.
+     */
     class LedgerableType
     @JsonCreator
     private constructor(
@@ -826,6 +830,7 @@ constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    /** Status of the reversal ledger transaction. It defaults to `posted` if not provided. */
     class Status
     @JsonCreator
     private constructor(

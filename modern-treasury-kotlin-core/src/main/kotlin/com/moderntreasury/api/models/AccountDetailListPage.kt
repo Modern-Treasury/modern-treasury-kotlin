@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.AccountDetailService
 import java.util.Objects
 
+/** Get a list of account details for a single internal or external account. */
 class AccountDetailListPage
 private constructor(
     private val accountDetailsService: AccountDetailService,

@@ -523,6 +523,7 @@ constructor(
             )
     }
 
+    /** A list of relationship types for how the child entity relates to parent entity. */
     class RelationshipType
     @JsonCreator
     private constructor(
@@ -1652,6 +1653,7 @@ constructor(
                     )
             }
 
+            /** The type of ID number. */
             class IdType
             @JsonCreator
             private constructor(
@@ -1841,6 +1843,7 @@ constructor(
                 "IdentificationCreateRequest{idNumber=$idNumber, idType=$idType, issuingCountry=$issuingCountry, additionalProperties=$additionalProperties}"
         }
 
+        /** The type of legal entity. */
         class LegalEntityType
         @JsonCreator
         private constructor(
@@ -1899,6 +1902,7 @@ constructor(
             override fun toString() = value.toString()
         }
 
+        /** The business's legal structure. */
         class LegalStructure
         @JsonCreator
         private constructor(
@@ -2163,6 +2167,7 @@ constructor(
                 "PhoneNumber{phoneNumber=$phoneNumber, additionalProperties=$additionalProperties}"
         }
 
+        /** The risk rating of the legal entity. One of low, medium, high. */
         class RiskRating
         @JsonCreator
         private constructor(

@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.LedgerAccountBalanceMonitorService
 import java.util.Objects
 
+/** Get a list of ledger account balance monitors. */
 class LedgerAccountBalanceMonitorListPage
 private constructor(
     private val ledgerAccountBalanceMonitorsService: LedgerAccountBalanceMonitorService,
