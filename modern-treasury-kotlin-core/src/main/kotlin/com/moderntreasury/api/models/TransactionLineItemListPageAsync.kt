@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** list transaction_line_items */
 class TransactionLineItemListPageAsync
 private constructor(
     private val lineItemsService: LineItemServiceAsync,

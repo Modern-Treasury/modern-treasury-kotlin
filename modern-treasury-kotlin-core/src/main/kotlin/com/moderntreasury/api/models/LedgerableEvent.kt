@@ -17,6 +17,7 @@ import com.moderntreasury.api.core.toImmutable
 import java.time.OffsetDateTime
 import java.util.Objects
 
+@Deprecated("deprecated")
 @NoAutoDetect
 class LedgerableEvent
 @JsonCreator

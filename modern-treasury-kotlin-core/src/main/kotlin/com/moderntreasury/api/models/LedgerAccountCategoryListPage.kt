@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.LedgerAccountCategoryService
 import java.util.Objects
 
+/** Get a list of ledger account categories. */
 class LedgerAccountCategoryListPage
 private constructor(
     private val ledgerAccountCategoriesService: LedgerAccountCategoryService,

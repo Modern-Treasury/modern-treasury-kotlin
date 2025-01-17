@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.LedgerAccountService
 import java.util.Objects
 
+/** Get a list of ledger accounts. */
 class LedgerAccountListPage
 private constructor(
     private val ledgerAccountsService: LedgerAccountService,

@@ -611,6 +611,10 @@ private constructor(
             "Address{id=$id, country=$country, createdAt=$createdAt, line1=$line1, line2=$line2, liveMode=$liveMode, locality=$locality, object_=$object_, postalCode=$postalCode, region=$region, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * If the routing detail is to be used for a specific payment type this field will be populated,
+     * otherwise null.
+     */
     class PaymentType
     @JsonCreator
     private constructor(
@@ -836,6 +840,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * The type of routing number. See
+     * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more details.
+     */
     class RoutingNumberType
     @JsonCreator
     private constructor(

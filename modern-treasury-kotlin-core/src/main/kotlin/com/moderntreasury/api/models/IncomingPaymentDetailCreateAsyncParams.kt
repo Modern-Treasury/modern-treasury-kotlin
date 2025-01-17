@@ -550,6 +550,7 @@ constructor(
             )
     }
 
+    /** One of `credit`, `debit`. */
     class Direction
     @JsonCreator
     private constructor(
@@ -607,6 +608,7 @@ constructor(
         override fun toString() = value.toString()
     }
 
+    /** One of `ach`, `wire`, `check`. */
     class Type
     @JsonCreator
     private constructor(

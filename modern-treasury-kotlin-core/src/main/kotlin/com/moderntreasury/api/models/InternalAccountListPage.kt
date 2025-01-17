@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.InternalAccountService
 import java.util.Objects
 
+/** list internal accounts */
 class InternalAccountListPage
 private constructor(
     private val internalAccountsService: InternalAccountService,

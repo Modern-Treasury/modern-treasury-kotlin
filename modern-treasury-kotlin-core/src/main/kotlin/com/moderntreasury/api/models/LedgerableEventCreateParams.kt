@@ -59,6 +59,7 @@ constructor(
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
 
+    @Deprecated("deprecated")
     @NoAutoDetect
     class LedgerableEventCreateBody
     @JsonCreator

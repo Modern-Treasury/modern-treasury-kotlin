@@ -1419,6 +1419,7 @@ private constructor(
                 )
         }
 
+        /** The type of ID number. */
         class IdType
         @JsonCreator
         private constructor(
@@ -1608,6 +1609,7 @@ private constructor(
             "Identification{id=$id, createdAt=$createdAt, discardedAt=$discardedAt, idType=$idType, issuingCountry=$issuingCountry, liveMode=$liveMode, object_=$object_, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
     }
 
+    /** The type of legal entity. */
     class LegalEntityType
     @JsonCreator
     private constructor(
@@ -1671,6 +1673,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The business's legal structure. */
     class LegalStructure
     @JsonCreator
     private constructor(
@@ -1925,6 +1928,7 @@ private constructor(
             "PhoneNumber{phoneNumber=$phoneNumber, additionalProperties=$additionalProperties}"
     }
 
+    /** The risk rating of the legal entity. One of low, medium, high. */
     class RiskRating
     @JsonCreator
     private constructor(

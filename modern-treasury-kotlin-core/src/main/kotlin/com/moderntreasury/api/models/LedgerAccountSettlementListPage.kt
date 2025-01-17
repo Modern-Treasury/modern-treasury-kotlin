@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.LedgerAccountSettlementService
 import java.util.Objects
 
+/** Get a list of ledger account settlements. */
 class LedgerAccountSettlementListPage
 private constructor(
     private val ledgerAccountSettlementsService: LedgerAccountSettlementService,

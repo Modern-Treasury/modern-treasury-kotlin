@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.ConnectionLegalEntityService
 import java.util.Objects
 
+/** Get a list of all connection legal entities. */
 class ConnectionLegalEntityListPage
 private constructor(
     private val connectionLegalEntitiesService: ConnectionLegalEntityService,

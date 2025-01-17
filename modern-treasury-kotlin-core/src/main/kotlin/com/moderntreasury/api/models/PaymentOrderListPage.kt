@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.PaymentOrderService
 import java.util.Objects
 
+/** Get a list of all payment orders */
 class PaymentOrderListPage
 private constructor(
     private val paymentOrdersService: PaymentOrderService,

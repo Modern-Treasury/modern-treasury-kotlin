@@ -382,6 +382,10 @@ constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * The current status of the incoming payment order. One of `pending`, `completed`, or
+     * `returned`.
+     */
     class Status
     @JsonCreator
     private constructor(
@@ -445,6 +449,7 @@ constructor(
         override fun toString() = value.toString()
     }
 
+    /** One of: `ach`, `book`, `check`, `eft`, `interac`, `rtp`, `sepa`, `signet`, or `wire`. */
     class Type
     @JsonCreator
     private constructor(

@@ -765,6 +765,10 @@ private constructor(
             )
     }
 
+    /**
+     * One of credit or debit. When you are receiving money, use credit. When you are being charged,
+     * use debit.
+     */
     class Direction
     @JsonCreator
     private constructor(
@@ -899,6 +903,10 @@ private constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * One of manual if this expected payment was manually reconciled in the dashboard, automatic if
+     * it was automatically reconciled by Modern Treasury, or null if it is unreconciled.
+     */
     class ReconciliationMethod
     @JsonCreator
     private constructor(
@@ -957,6 +965,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** One of unreconciled, partially_reconciled, reconciled, or archived. */
     class Status
     @JsonCreator
     private constructor(

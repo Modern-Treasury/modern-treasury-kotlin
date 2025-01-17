@@ -459,6 +459,10 @@ constructor(
             )
     }
 
+    /**
+     * The type of routing number. See
+     * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more details.
+     */
     class RoutingNumberType
     @JsonCreator
     private constructor(
@@ -625,6 +629,10 @@ constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * If the routing detail is to be used for a specific payment type this field will be populated,
+     * otherwise null.
+     */
     class PaymentType
     @JsonCreator
     private constructor(

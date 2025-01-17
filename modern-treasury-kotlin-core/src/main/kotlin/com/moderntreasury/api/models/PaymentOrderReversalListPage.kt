@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.paymentOrders.ReversalService
 import java.util.Objects
 
+/** Get a list of all reversals of a payment order. */
 class PaymentOrderReversalListPage
 private constructor(
     private val reversalsService: ReversalService,

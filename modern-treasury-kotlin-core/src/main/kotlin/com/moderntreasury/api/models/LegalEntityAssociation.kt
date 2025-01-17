@@ -1722,6 +1722,7 @@ private constructor(
                     )
             }
 
+            /** The type of ID number. */
             class IdType
             @JsonCreator
             private constructor(
@@ -1911,6 +1912,7 @@ private constructor(
                 "Identification{id=$id, createdAt=$createdAt, discardedAt=$discardedAt, idType=$idType, issuingCountry=$issuingCountry, liveMode=$liveMode, object_=$object_, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
         }
 
+        /** The type of legal entity. */
         class LegalEntityType
         @JsonCreator
         private constructor(
@@ -1975,6 +1977,7 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /** The business's legal structure. */
         class LegalStructure
         @JsonCreator
         private constructor(
@@ -2239,6 +2242,7 @@ private constructor(
                 "PhoneNumber{phoneNumber=$phoneNumber, additionalProperties=$additionalProperties}"
         }
 
+        /** The risk rating of the legal entity. One of low, medium, high. */
         class RiskRating
         @JsonCreator
         private constructor(
@@ -2320,6 +2324,7 @@ private constructor(
             "ChildLegalEntity{id=$id, addresses=$addresses, bankSettings=$bankSettings, businessName=$businessName, citizenshipCountry=$citizenshipCountry, createdAt=$createdAt, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, discardedAt=$discardedAt, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, identifications=$identifications, lastName=$lastName, legalEntityType=$legalEntityType, legalStructure=$legalStructure, liveMode=$liveMode, metadata=$metadata, middleName=$middleName, object_=$object_, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, riskRating=$riskRating, suffix=$suffix, updatedAt=$updatedAt, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
     }
 
+    /** A list of relationship types for how the child entity relates to parent entity. */
     class RelationshipType
     @JsonCreator
     private constructor(

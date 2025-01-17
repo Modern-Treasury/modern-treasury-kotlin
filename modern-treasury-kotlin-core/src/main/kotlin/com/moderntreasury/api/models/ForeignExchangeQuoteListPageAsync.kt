@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** list foreign_exchange_quotes */
 class ForeignExchangeQuoteListPageAsync
 private constructor(
     private val foreignExchangeQuotesService: ForeignExchangeQuoteServiceAsync,

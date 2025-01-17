@@ -1114,6 +1114,10 @@ constructor(
             )
     }
 
+    /**
+     * One of credit or debit. When you are receiving money, use credit. When you are being charged,
+     * use debit.
+     */
     class Direction
     @JsonCreator
     private constructor(
@@ -1248,6 +1252,7 @@ constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    /** The Expected Payment's status can be updated from partially_reconciled to reconciled. */
     class Status
     @JsonCreator
     private constructor(

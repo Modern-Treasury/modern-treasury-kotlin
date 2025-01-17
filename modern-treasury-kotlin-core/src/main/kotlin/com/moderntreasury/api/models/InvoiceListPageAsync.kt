@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** list invoices */
 class InvoiceListPageAsync
 private constructor(
     private val invoicesService: InvoiceServiceAsync,

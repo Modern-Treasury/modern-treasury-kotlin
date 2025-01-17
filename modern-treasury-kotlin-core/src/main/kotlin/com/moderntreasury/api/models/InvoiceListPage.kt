@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.InvoiceService
 import java.util.Objects
 
+/** list invoices */
 class InvoiceListPage
 private constructor(
     private val invoicesService: InvoiceService,

@@ -26,13 +26,14 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    @Deprecated("deprecated")
     fun ledgerTransactionTemplate(): LedgerEventHandlerLedgerTransactionTemplate =
         body.ledgerTransactionTemplate()
 
     /** Name of the ledger event handler. */
     fun name(): String = body.name()
 
-    fun conditions(): LedgerEventHandlerConditions? = body.conditions()
+    @Deprecated("deprecated") fun conditions(): LedgerEventHandlerConditions? = body.conditions()
 
     /** An optional description. */
     fun description(): String? = body.description()
@@ -43,14 +44,16 @@ constructor(
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
     fun metadata(): Metadata? = body.metadata()
 
-    fun variables(): LedgerEventHandlerVariables? = body.variables()
+    @Deprecated("deprecated") fun variables(): LedgerEventHandlerVariables? = body.variables()
 
+    @Deprecated("deprecated")
     fun _ledgerTransactionTemplate(): JsonField<LedgerEventHandlerLedgerTransactionTemplate> =
         body._ledgerTransactionTemplate()
 
     /** Name of the ledger event handler. */
     fun _name(): JsonField<String> = body._name()
 
+    @Deprecated("deprecated")
     fun _conditions(): JsonField<LedgerEventHandlerConditions> = body._conditions()
 
     /** An optional description. */
@@ -62,6 +65,7 @@ constructor(
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
     fun _metadata(): JsonField<Metadata> = body._metadata()
 
+    @Deprecated("deprecated")
     fun _variables(): JsonField<LedgerEventHandlerVariables> = body._variables()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -107,12 +111,14 @@ constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
+        @Deprecated("deprecated")
         fun ledgerTransactionTemplate(): LedgerEventHandlerLedgerTransactionTemplate =
             ledgerTransactionTemplate.getRequired("ledger_transaction_template")
 
         /** Name of the ledger event handler. */
         fun name(): String = name.getRequired("name")
 
+        @Deprecated("deprecated")
         fun conditions(): LedgerEventHandlerConditions? = conditions.getNullable("conditions")
 
         /** An optional description. */
@@ -126,8 +132,10 @@ constructor(
          */
         fun metadata(): Metadata? = metadata.getNullable("metadata")
 
+        @Deprecated("deprecated")
         fun variables(): LedgerEventHandlerVariables? = variables.getNullable("variables")
 
+        @Deprecated("deprecated")
         @JsonProperty("ledger_transaction_template")
         @ExcludeMissing
         fun _ledgerTransactionTemplate(): JsonField<LedgerEventHandlerLedgerTransactionTemplate> =
@@ -136,6 +144,7 @@ constructor(
         /** Name of the ledger event handler. */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
+        @Deprecated("deprecated")
         @JsonProperty("conditions")
         @ExcludeMissing
         fun _conditions(): JsonField<LedgerEventHandlerConditions> = conditions
@@ -153,6 +162,7 @@ constructor(
          */
         @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
+        @Deprecated("deprecated")
         @JsonProperty("variables")
         @ExcludeMissing
         fun _variables(): JsonField<LedgerEventHandlerVariables> = variables
@@ -210,10 +220,12 @@ constructor(
                     ledgerEventHandlerCreateBody.additionalProperties.toMutableMap()
             }
 
+            @Deprecated("deprecated")
             fun ledgerTransactionTemplate(
                 ledgerTransactionTemplate: LedgerEventHandlerLedgerTransactionTemplate
             ) = ledgerTransactionTemplate(JsonField.of(ledgerTransactionTemplate))
 
+            @Deprecated("deprecated")
             fun ledgerTransactionTemplate(
                 ledgerTransactionTemplate: JsonField<LedgerEventHandlerLedgerTransactionTemplate>
             ) = apply { this.ledgerTransactionTemplate = ledgerTransactionTemplate }
@@ -224,9 +236,11 @@ constructor(
             /** Name of the ledger event handler. */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
+            @Deprecated("deprecated")
             fun conditions(conditions: LedgerEventHandlerConditions?) =
                 conditions(JsonField.ofNullable(conditions))
 
+            @Deprecated("deprecated")
             fun conditions(conditions: JsonField<LedgerEventHandlerConditions>) = apply {
                 this.conditions = conditions
             }
@@ -257,9 +271,11 @@ constructor(
              */
             fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
+            @Deprecated("deprecated")
             fun variables(variables: LedgerEventHandlerVariables?) =
                 variables(JsonField.ofNullable(variables))
 
+            @Deprecated("deprecated")
             fun variables(variables: JsonField<LedgerEventHandlerVariables>) = apply {
                 this.variables = variables
             }
@@ -335,10 +351,12 @@ constructor(
             additionalQueryParams = ledgerEventHandlerCreateParams.additionalQueryParams.toBuilder()
         }
 
+        @Deprecated("deprecated")
         fun ledgerTransactionTemplate(
             ledgerTransactionTemplate: LedgerEventHandlerLedgerTransactionTemplate
         ) = apply { body.ledgerTransactionTemplate(ledgerTransactionTemplate) }
 
+        @Deprecated("deprecated")
         fun ledgerTransactionTemplate(
             ledgerTransactionTemplate: JsonField<LedgerEventHandlerLedgerTransactionTemplate>
         ) = apply { body.ledgerTransactionTemplate(ledgerTransactionTemplate) }
@@ -349,10 +367,12 @@ constructor(
         /** Name of the ledger event handler. */
         fun name(name: JsonField<String>) = apply { body.name(name) }
 
+        @Deprecated("deprecated")
         fun conditions(conditions: LedgerEventHandlerConditions?) = apply {
             body.conditions(conditions)
         }
 
+        @Deprecated("deprecated")
         fun conditions(conditions: JsonField<LedgerEventHandlerConditions>) = apply {
             body.conditions(conditions)
         }
@@ -379,8 +399,10 @@ constructor(
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
+        @Deprecated("deprecated")
         fun variables(variables: LedgerEventHandlerVariables?) = apply { body.variables(variables) }
 
+        @Deprecated("deprecated")
         fun variables(variables: JsonField<LedgerEventHandlerVariables>) = apply {
             body.variables(variables)
         }
@@ -510,6 +532,7 @@ constructor(
             )
     }
 
+    @Deprecated("deprecated")
     @NoAutoDetect
     class LedgerEventHandlerLedgerTransactionTemplate
     @JsonCreator
@@ -696,6 +719,7 @@ constructor(
                 )
         }
 
+        @Deprecated("deprecated")
         @NoAutoDetect
         class LedgerEventHandlerLedgerEntries
         @JsonCreator
@@ -864,6 +888,7 @@ constructor(
             "LedgerEventHandlerLedgerTransactionTemplate{description=$description, effectiveAt=$effectiveAt, ledgerEntries=$ledgerEntries, status=$status, additionalProperties=$additionalProperties}"
     }
 
+    @Deprecated("deprecated")
     @NoAutoDetect
     class LedgerEventHandlerConditions
     @JsonCreator
@@ -1079,6 +1104,7 @@ constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    @Deprecated("deprecated")
     @NoAutoDetect
     class LedgerEventHandlerVariables
     @JsonCreator

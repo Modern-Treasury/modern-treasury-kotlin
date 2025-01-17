@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.LedgerEntryService
 import java.util.Objects
 
+/** Get a list of all ledger entries. */
 class LedgerEntryListPage
 private constructor(
     private val ledgerEntriesService: LedgerEntryService,
