@@ -20,7 +20,7 @@ import com.moderntreasury.api.models.LedgerEventHandlerListParams
 import com.moderntreasury.api.models.LedgerEventHandlerRetrieveParams
 
 class LedgerEventHandlerServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : LedgerEventHandlerServiceAsync {
 

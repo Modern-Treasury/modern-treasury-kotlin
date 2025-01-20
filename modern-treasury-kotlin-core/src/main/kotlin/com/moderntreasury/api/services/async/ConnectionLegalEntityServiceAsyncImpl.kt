@@ -20,7 +20,7 @@ import com.moderntreasury.api.models.ConnectionLegalEntityRetrieveParams
 import com.moderntreasury.api.models.ConnectionLegalEntityUpdateParams
 
 class ConnectionLegalEntityServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ConnectionLegalEntityServiceAsync {
 

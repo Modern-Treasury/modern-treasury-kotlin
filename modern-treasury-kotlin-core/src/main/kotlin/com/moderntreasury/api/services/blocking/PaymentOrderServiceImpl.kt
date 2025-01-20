@@ -24,7 +24,7 @@ import com.moderntreasury.api.services.blocking.paymentOrders.ReversalService
 import com.moderntreasury.api.services.blocking.paymentOrders.ReversalServiceImpl
 
 class PaymentOrderServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : PaymentOrderService {
 

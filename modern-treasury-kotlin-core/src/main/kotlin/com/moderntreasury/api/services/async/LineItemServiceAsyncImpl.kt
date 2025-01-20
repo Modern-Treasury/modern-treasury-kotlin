@@ -19,7 +19,7 @@ import com.moderntreasury.api.models.LineItemRetrieveParams
 import com.moderntreasury.api.models.LineItemUpdateParams
 
 class LineItemServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : LineItemServiceAsync {
 

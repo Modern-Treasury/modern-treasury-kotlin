@@ -19,7 +19,7 @@ import com.moderntreasury.api.models.PaymentOrderReversalRetrieveParams
 import com.moderntreasury.api.models.Reversal
 
 class ReversalServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ReversalService {
 

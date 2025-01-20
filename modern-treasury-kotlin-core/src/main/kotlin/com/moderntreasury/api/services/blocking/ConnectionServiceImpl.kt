@@ -16,7 +16,7 @@ import com.moderntreasury.api.models.ConnectionListPage
 import com.moderntreasury.api.models.ConnectionListParams
 
 class ConnectionServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ConnectionService {
 

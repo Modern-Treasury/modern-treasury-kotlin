@@ -19,7 +19,7 @@ import com.moderntreasury.api.models.LedgerEntryRetrieveParams
 import com.moderntreasury.api.models.LedgerEntryUpdateParams
 
 class LedgerEntryServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : LedgerEntryService {
 
