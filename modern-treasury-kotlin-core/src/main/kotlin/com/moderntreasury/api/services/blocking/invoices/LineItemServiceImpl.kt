@@ -21,7 +21,7 @@ import com.moderntreasury.api.models.InvoiceLineItemRetrieveParams
 import com.moderntreasury.api.models.InvoiceLineItemUpdateParams
 
 class LineItemServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : LineItemService {
 

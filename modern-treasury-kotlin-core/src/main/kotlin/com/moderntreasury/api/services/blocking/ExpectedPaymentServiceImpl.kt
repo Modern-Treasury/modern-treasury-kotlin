@@ -21,7 +21,7 @@ import com.moderntreasury.api.models.ExpectedPaymentRetrieveParams
 import com.moderntreasury.api.models.ExpectedPaymentUpdateParams
 
 class ExpectedPaymentServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ExpectedPaymentService {
 

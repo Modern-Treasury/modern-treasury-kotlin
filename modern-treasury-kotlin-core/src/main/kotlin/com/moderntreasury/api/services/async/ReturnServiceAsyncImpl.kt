@@ -19,7 +19,7 @@ import com.moderntreasury.api.models.ReturnObject
 import com.moderntreasury.api.models.ReturnRetrieveParams
 
 class ReturnServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ReturnServiceAsync {
 

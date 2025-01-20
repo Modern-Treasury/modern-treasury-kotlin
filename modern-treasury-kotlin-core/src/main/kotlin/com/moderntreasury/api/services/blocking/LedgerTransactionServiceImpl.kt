@@ -23,7 +23,7 @@ import com.moderntreasury.api.services.blocking.ledgerTransactions.VersionServic
 import com.moderntreasury.api.services.blocking.ledgerTransactions.VersionServiceImpl
 
 class LedgerTransactionServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : LedgerTransactionService {
 

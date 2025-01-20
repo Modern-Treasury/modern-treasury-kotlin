@@ -22,7 +22,7 @@ import com.moderntreasury.api.services.blocking.internalAccounts.BalanceReportSe
 import com.moderntreasury.api.services.blocking.internalAccounts.BalanceReportServiceImpl
 
 class InternalAccountServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : InternalAccountService {
 

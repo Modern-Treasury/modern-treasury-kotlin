@@ -24,7 +24,7 @@ import com.moderntreasury.api.services.blocking.invoices.LineItemService
 import com.moderntreasury.api.services.blocking.invoices.LineItemServiceImpl
 
 class InvoiceServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : InvoiceService {
 

@@ -18,7 +18,7 @@ import com.moderntreasury.api.models.PaymentReferenceRetireveParams
 import com.moderntreasury.api.models.PaymentReferenceRetrieveParams
 
 class PaymentReferenceServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : PaymentReferenceServiceAsync {
 

@@ -25,7 +25,7 @@ import com.moderntreasury.api.models.ExternalAccountVerifyParams
 import com.moderntreasury.api.models.ExternalAccountVerifyResponse
 
 class ExternalAccountServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ExternalAccountService {
 

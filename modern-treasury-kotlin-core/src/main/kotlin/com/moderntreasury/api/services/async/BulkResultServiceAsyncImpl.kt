@@ -17,7 +17,7 @@ import com.moderntreasury.api.models.BulkResultListParams
 import com.moderntreasury.api.models.BulkResultRetrieveParams
 
 class BulkResultServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : BulkResultServiceAsync {
 
