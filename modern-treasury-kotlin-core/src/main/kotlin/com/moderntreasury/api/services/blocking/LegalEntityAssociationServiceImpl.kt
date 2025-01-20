@@ -16,7 +16,7 @@ import com.moderntreasury.api.models.LegalEntityAssociation
 import com.moderntreasury.api.models.LegalEntityAssociationCreateParams
 
 class LegalEntityAssociationServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : LegalEntityAssociationService {
 

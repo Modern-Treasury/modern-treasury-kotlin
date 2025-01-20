@@ -21,7 +21,7 @@ import com.moderntreasury.api.models.BalanceReportListParams
 import com.moderntreasury.api.models.BalanceReportRetrieveParams
 
 class BalanceReportServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : BalanceReportService {
 

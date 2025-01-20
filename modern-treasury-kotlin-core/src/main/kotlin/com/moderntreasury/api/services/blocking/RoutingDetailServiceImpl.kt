@@ -21,7 +21,7 @@ import com.moderntreasury.api.models.RoutingDetailListParams
 import com.moderntreasury.api.models.RoutingDetailRetrieveParams
 
 class RoutingDetailServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : RoutingDetailService {
 

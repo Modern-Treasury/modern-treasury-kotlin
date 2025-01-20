@@ -17,7 +17,7 @@ import com.moderntreasury.api.models.PaperItemListParams
 import com.moderntreasury.api.models.PaperItemRetrieveParams
 
 class PaperItemServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : PaperItemServiceAsync {
 

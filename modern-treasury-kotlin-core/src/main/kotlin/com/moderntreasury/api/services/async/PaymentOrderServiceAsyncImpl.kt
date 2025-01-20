@@ -24,7 +24,7 @@ import com.moderntreasury.api.services.async.paymentOrders.ReversalServiceAsync
 import com.moderntreasury.api.services.async.paymentOrders.ReversalServiceAsyncImpl
 
 class PaymentOrderServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : PaymentOrderServiceAsync {
 

@@ -16,7 +16,7 @@ import com.moderntreasury.api.models.ConnectionListPageAsync
 import com.moderntreasury.api.models.ConnectionListParams
 
 class ConnectionServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ConnectionServiceAsync {
 

@@ -20,7 +20,7 @@ import com.moderntreasury.api.models.PaymentFlowRetrieveParams
 import com.moderntreasury.api.models.PaymentFlowUpdateParams
 
 class PaymentFlowServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : PaymentFlowService {
 

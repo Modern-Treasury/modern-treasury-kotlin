@@ -24,7 +24,7 @@ import com.moderntreasury.api.services.async.transactions.LineItemServiceAsync
 import com.moderntreasury.api.services.async.transactions.LineItemServiceAsyncImpl
 
 class TransactionServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : TransactionServiceAsync {
 

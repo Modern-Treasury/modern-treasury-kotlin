@@ -19,7 +19,7 @@ import com.moderntreasury.api.models.DocumentListParams
 import com.moderntreasury.api.models.DocumentRetrieveParams
 
 class DocumentServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : DocumentService {
 

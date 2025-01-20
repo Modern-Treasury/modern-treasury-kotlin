@@ -21,7 +21,7 @@ import com.moderntreasury.api.models.LedgerAccountBalanceMonitorRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitorUpdateParams
 
 class LedgerAccountBalanceMonitorServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : LedgerAccountBalanceMonitorService {
 
