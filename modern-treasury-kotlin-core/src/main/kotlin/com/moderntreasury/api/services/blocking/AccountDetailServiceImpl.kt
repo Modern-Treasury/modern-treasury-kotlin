@@ -21,7 +21,7 @@ import com.moderntreasury.api.models.AccountDetailListParams
 import com.moderntreasury.api.models.AccountDetailRetrieveParams
 
 class AccountDetailServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : AccountDetailService {
 

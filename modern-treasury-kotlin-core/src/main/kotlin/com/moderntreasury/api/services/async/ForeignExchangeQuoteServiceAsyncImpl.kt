@@ -19,7 +19,7 @@ import com.moderntreasury.api.models.ForeignExchangeQuoteListParams
 import com.moderntreasury.api.models.ForeignExchangeQuoteRetrieveParams
 
 class ForeignExchangeQuoteServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ForeignExchangeQuoteServiceAsync {
 

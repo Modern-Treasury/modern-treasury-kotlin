@@ -24,7 +24,7 @@ import com.moderntreasury.api.models.CounterpartyRetrieveParams
 import com.moderntreasury.api.models.CounterpartyUpdateParams
 
 class CounterpartyServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CounterpartyService {
 

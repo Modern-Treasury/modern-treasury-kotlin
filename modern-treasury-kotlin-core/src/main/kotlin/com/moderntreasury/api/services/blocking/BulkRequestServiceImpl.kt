@@ -19,7 +19,7 @@ import com.moderntreasury.api.models.BulkRequestListParams
 import com.moderntreasury.api.models.BulkRequestRetrieveParams
 
 class BulkRequestServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : BulkRequestService {
 

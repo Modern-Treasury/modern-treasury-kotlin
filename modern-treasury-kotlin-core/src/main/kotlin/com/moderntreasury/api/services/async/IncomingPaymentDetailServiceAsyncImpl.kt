@@ -21,7 +21,7 @@ import com.moderntreasury.api.models.IncomingPaymentDetailRetrieveParams
 import com.moderntreasury.api.models.IncomingPaymentDetailUpdateParams
 
 class IncomingPaymentDetailServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : IncomingPaymentDetailServiceAsync {
 

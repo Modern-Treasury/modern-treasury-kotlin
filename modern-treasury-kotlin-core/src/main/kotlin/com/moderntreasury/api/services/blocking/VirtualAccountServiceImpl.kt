@@ -21,7 +21,7 @@ import com.moderntreasury.api.models.VirtualAccountRetrieveParams
 import com.moderntreasury.api.models.VirtualAccountUpdateParams
 
 class VirtualAccountServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : VirtualAccountService {
 

@@ -15,7 +15,7 @@ import com.moderntreasury.api.models.RoutingNumberLookupRequest
 import com.moderntreasury.api.models.ValidationValidateRoutingNumberParams
 
 class ValidationServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ValidationService {
 

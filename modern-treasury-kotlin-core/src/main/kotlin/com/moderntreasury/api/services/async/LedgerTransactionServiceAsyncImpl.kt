@@ -23,7 +23,7 @@ import com.moderntreasury.api.services.async.ledgerTransactions.VersionServiceAs
 import com.moderntreasury.api.services.async.ledgerTransactions.VersionServiceAsyncImpl
 
 class LedgerTransactionServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : LedgerTransactionServiceAsync {
 

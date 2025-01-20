@@ -17,7 +17,7 @@ import com.moderntreasury.api.models.EventListParams
 import com.moderntreasury.api.models.EventRetrieveParams
 
 class EventServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : EventService {
 

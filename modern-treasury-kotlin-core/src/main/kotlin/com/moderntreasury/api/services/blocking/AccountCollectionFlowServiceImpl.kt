@@ -20,7 +20,7 @@ import com.moderntreasury.api.models.AccountCollectionFlowRetrieveParams
 import com.moderntreasury.api.models.AccountCollectionFlowUpdateParams
 
 class AccountCollectionFlowServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : AccountCollectionFlowService {
 

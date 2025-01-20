@@ -20,7 +20,7 @@ import com.moderntreasury.api.models.LegalEntityRetrieveParams
 import com.moderntreasury.api.models.LegalEntityUpdateParams
 
 class LegalEntityServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : LegalEntityServiceAsync {
 
