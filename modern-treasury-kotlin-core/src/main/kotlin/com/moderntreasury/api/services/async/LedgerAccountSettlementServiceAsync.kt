@@ -9,8 +9,11 @@ import com.moderntreasury.api.models.LedgerAccountSettlementListPageAsync
 import com.moderntreasury.api.models.LedgerAccountSettlementListParams
 import com.moderntreasury.api.models.LedgerAccountSettlementRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountSettlementUpdateParams
+import com.moderntreasury.api.services.async.ledgerAccountSettlements.AccountEntryServiceAsync
 
 interface LedgerAccountSettlementServiceAsync {
+
+    fun accountEntries(): AccountEntryServiceAsync
 
     /** Create a ledger account settlement. */
     suspend fun create(

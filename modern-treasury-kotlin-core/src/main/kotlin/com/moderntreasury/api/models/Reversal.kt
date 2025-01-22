@@ -48,6 +48,9 @@ private constructor(
     @JsonProperty("status")
     @ExcludeMissing
     private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("transaction_ids")
+    @ExcludeMissing
+    private val transactionIds: JsonField<List<JsonValue?>> = JsonMissing.of(),
     @JsonProperty("updated_at")
     @ExcludeMissing
     private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -80,6 +83,8 @@ private constructor(
 
     /** The current status of the reversal. */
     fun status(): Status = status.getRequired("status")
+
+    fun transactionIds(): List<JsonValue?> = transactionIds.getRequired("transaction_ids")
 
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
@@ -116,6 +121,10 @@ private constructor(
     /** The current status of the reversal. */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
+    @JsonProperty("transaction_ids")
+    @ExcludeMissing
+    fun _transactionIds(): JsonField<List<JsonValue?>> = transactionIds
+
     @JsonProperty("updated_at")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
@@ -140,6 +149,7 @@ private constructor(
         paymentOrderId()
         reason()
         status()
+        transactionIds()
         updatedAt()
         validated = true
     }
@@ -162,6 +172,7 @@ private constructor(
         private var paymentOrderId: JsonField<String>? = null
         private var reason: JsonField<Reason>? = null
         private var status: JsonField<Status>? = null
+        private var transactionIds: JsonField<MutableList<JsonValue?>>? = null
         private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -175,6 +186,7 @@ private constructor(
             paymentOrderId = reversal.paymentOrderId
             reason = reversal.reason
             status = reversal.status
+            transactionIds = reversal.transactionIds.map { it.toMutableList() }
             updatedAt = reversal.updatedAt
             additionalProperties = reversal.additionalProperties.toMutableMap()
         }
@@ -243,6 +255,24 @@ private constructor(
         /** The current status of the reversal. */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
+        fun transactionIds(transactionIds: List<JsonValue?>) =
+            transactionIds(JsonField.of(transactionIds))
+
+        fun transactionIds(transactionIds: JsonField<List<JsonValue?>>) = apply {
+            this.transactionIds = transactionIds.map { it.toMutableList() }
+        }
+
+        fun addTransactionId(transactionId: JsonValue) = apply {
+            transactionIds =
+                (transactionIds ?: JsonField.of(mutableListOf())).apply {
+                    (asKnown()
+                            ?: throw IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            ))
+                        .add(transactionId)
+                }
+        }
+
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
@@ -277,6 +307,7 @@ private constructor(
                 checkRequired("paymentOrderId", paymentOrderId),
                 checkRequired("reason", reason),
                 checkRequired("status", status),
+                checkRequired("transactionIds", transactionIds).map { it.toImmutable() },
                 checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
@@ -522,15 +553,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Reversal && id == other.id && createdAt == other.createdAt && ledgerTransactionId == other.ledgerTransactionId && liveMode == other.liveMode && metadata == other.metadata && object_ == other.object_ && paymentOrderId == other.paymentOrderId && reason == other.reason && status == other.status && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Reversal && id == other.id && createdAt == other.createdAt && ledgerTransactionId == other.ledgerTransactionId && liveMode == other.liveMode && metadata == other.metadata && object_ == other.object_ && paymentOrderId == other.paymentOrderId && reason == other.reason && status == other.status && transactionIds == other.transactionIds && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, createdAt, ledgerTransactionId, liveMode, metadata, object_, paymentOrderId, reason, status, updatedAt, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, createdAt, ledgerTransactionId, liveMode, metadata, object_, paymentOrderId, reason, status, transactionIds, updatedAt, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Reversal{id=$id, createdAt=$createdAt, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, object_=$object_, paymentOrderId=$paymentOrderId, reason=$reason, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "Reversal{id=$id, createdAt=$createdAt, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, object_=$object_, paymentOrderId=$paymentOrderId, reason=$reason, status=$status, transactionIds=$transactionIds, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

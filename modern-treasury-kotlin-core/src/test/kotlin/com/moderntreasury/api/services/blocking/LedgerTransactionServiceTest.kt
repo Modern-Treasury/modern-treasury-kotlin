@@ -6,6 +6,7 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.LedgerTransactionCreateParams
+import com.moderntreasury.api.models.LedgerTransactionCreatePartialPostParams
 import com.moderntreasury.api.models.LedgerTransactionCreateReversalParams
 import com.moderntreasury.api.models.LedgerTransactionListParams
 import com.moderntreasury.api.models.LedgerTransactionRetrieveParams
@@ -187,6 +188,57 @@ class LedgerTransactionServiceTest {
         val response = ledgerTransactionService.list(LedgerTransactionListParams.builder().build())
         println(response)
         response.items().forEach { it.validate() }
+    }
+
+    @Test
+    fun callCreatePartialPost() {
+        val client =
+            ModernTreasuryOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .organizationId("my-organization-ID")
+                .build()
+        val ledgerTransactionService = client.ledgerTransactions()
+        val ledgerTransaction =
+            ledgerTransactionService.createPartialPost(
+                LedgerTransactionCreatePartialPostParams.builder()
+                    .id("id")
+                    .addPostedLedgerEntry(
+                        LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
+                            .builder()
+                            .amount(0L)
+                            .direction(
+                                LedgerTransactionCreatePartialPostParams
+                                    .LedgerEntryPartialPostCreateRequest
+                                    .Direction
+                                    .CREDIT
+                            )
+                            .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .metadata(
+                                LedgerTransactionCreatePartialPostParams
+                                    .LedgerEntryPartialPostCreateRequest
+                                    .Metadata
+                                    .builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .description("description")
+                    .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .metadata(
+                        LedgerTransactionCreatePartialPostParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
+                    .build()
+            )
+        println(ledgerTransaction)
+        ledgerTransaction.validate()
     }
 
     @Test
