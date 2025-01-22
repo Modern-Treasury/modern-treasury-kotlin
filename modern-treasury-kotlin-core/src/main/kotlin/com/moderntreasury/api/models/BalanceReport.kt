@@ -439,7 +439,7 @@ private constructor(
         /**
          * The specific type of balance reported. One of `opening_ledger`, `closing_ledger`,
          * `current_ledger`, `opening_available`, `opening_available_next_business_day`,
-         * `closing_available`, `current_available`, or `other`.
+         * `closing_available`, `current_available`, 'previously_closed_book', or `other`.
          */
         fun balanceType(): BalanceType = balanceType.getRequired("balance_type")
 
@@ -485,7 +485,7 @@ private constructor(
         /**
          * The specific type of balance reported. One of `opening_ledger`, `closing_ledger`,
          * `current_ledger`, `opening_available`, `opening_available_next_business_day`,
-         * `closing_available`, `current_available`, or `other`.
+         * `closing_available`, `current_available`, 'previously_closed_book', or `other`.
          */
         @JsonProperty("balance_type")
         @ExcludeMissing
@@ -622,14 +622,14 @@ private constructor(
             /**
              * The specific type of balance reported. One of `opening_ledger`, `closing_ledger`,
              * `current_ledger`, `opening_available`, `opening_available_next_business_day`,
-             * `closing_available`, `current_available`, or `other`.
+             * `closing_available`, `current_available`, 'previously_closed_book', or `other`.
              */
             fun balanceType(balanceType: BalanceType) = balanceType(JsonField.of(balanceType))
 
             /**
              * The specific type of balance reported. One of `opening_ledger`, `closing_ledger`,
              * `current_ledger`, `opening_available`, `opening_available_next_business_day`,
-             * `closing_available`, `current_available`, or `other`.
+             * `closing_available`, `current_available`, 'previously_closed_book', or `other`.
              */
             fun balanceType(balanceType: JsonField<BalanceType>) = apply {
                 this.balanceType = balanceType
@@ -741,7 +741,7 @@ private constructor(
         /**
          * The specific type of balance reported. One of `opening_ledger`, `closing_ledger`,
          * `current_ledger`, `opening_available`, `opening_available_next_business_day`,
-         * `closing_available`, `current_available`, or `other`.
+         * `closing_available`, `current_available`, 'previously_closed_book', or `other`.
          */
         class BalanceType
         @JsonCreator
@@ -769,6 +769,8 @@ private constructor(
 
                 val OTHER = of("other")
 
+                val PREVIOUSLY_CLOSED_BOOK = of("previously_closed_book")
+
                 fun of(value: String) = BalanceType(JsonField.of(value))
             }
 
@@ -781,6 +783,7 @@ private constructor(
                 OPENING_AVAILABLE_NEXT_BUSINESS_DAY,
                 OPENING_LEDGER,
                 OTHER,
+                PREVIOUSLY_CLOSED_BOOK,
             }
 
             enum class Value {
@@ -792,6 +795,7 @@ private constructor(
                 OPENING_AVAILABLE_NEXT_BUSINESS_DAY,
                 OPENING_LEDGER,
                 OTHER,
+                PREVIOUSLY_CLOSED_BOOK,
                 _UNKNOWN,
             }
 
@@ -805,6 +809,7 @@ private constructor(
                     OPENING_AVAILABLE_NEXT_BUSINESS_DAY -> Value.OPENING_AVAILABLE_NEXT_BUSINESS_DAY
                     OPENING_LEDGER -> Value.OPENING_LEDGER
                     OTHER -> Value.OTHER
+                    PREVIOUSLY_CLOSED_BOOK -> Value.PREVIOUSLY_CLOSED_BOOK
                     else -> Value._UNKNOWN
                 }
 
@@ -818,6 +823,7 @@ private constructor(
                     OPENING_AVAILABLE_NEXT_BUSINESS_DAY -> Known.OPENING_AVAILABLE_NEXT_BUSINESS_DAY
                     OPENING_LEDGER -> Known.OPENING_LEDGER
                     OTHER -> Known.OTHER
+                    PREVIOUSLY_CLOSED_BOOK -> Known.PREVIOUSLY_CLOSED_BOOK
                     else -> throw ModernTreasuryInvalidDataException("Unknown BalanceType: $value")
                 }
 
