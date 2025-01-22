@@ -41,6 +41,7 @@ class LedgerTransactionListParamsTest {
                     .effectiveAt(LedgerTransactionListParams.OrderBy.EffectiveAt.ASC)
                     .build()
             )
+            .partiallyPostsLedgerTransactionId("partially_posts_ledger_transaction_id")
             .perPage(0L)
             .postedAt(
                 LedgerTransactionListParams.PostedAt.builder()
@@ -91,6 +92,7 @@ class LedgerTransactionListParamsTest {
                         .effectiveAt(LedgerTransactionListParams.OrderBy.EffectiveAt.ASC)
                         .build()
                 )
+                .partiallyPostsLedgerTransactionId("partially_posts_ledger_transaction_id")
                 .perPage(0L)
                 .postedAt(
                     LedgerTransactionListParams.PostedAt.builder()
@@ -135,6 +137,10 @@ class LedgerTransactionListParamsTest {
             .effectiveAt(LedgerTransactionListParams.OrderBy.EffectiveAt.ASC)
             .build()
             .forEachQueryParam { key, values -> expected.put("order_by[$key]", values) }
+        expected.put(
+            "partially_posts_ledger_transaction_id",
+            "partially_posts_ledger_transaction_id"
+        )
         expected.put("per_page", "0")
         LedgerTransactionListParams.PostedAt.builder()
             .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")

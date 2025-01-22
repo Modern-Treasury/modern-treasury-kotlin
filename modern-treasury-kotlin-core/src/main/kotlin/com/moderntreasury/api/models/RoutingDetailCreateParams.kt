@@ -509,6 +509,8 @@ constructor(
 
             val SE_BANKGIRO_CLEARING_CODE = of("se_bankgiro_clearing_code")
 
+            val SG_INTERBANK_CLEARING_CODE = of("sg_interbank_clearing_code")
+
             val SWIFT = of("swift")
 
             val ZA_NATIONAL_CLEARING_CODE = of("za_national_clearing_code")
@@ -535,6 +537,7 @@ constructor(
             NZ_NATIONAL_CLEARING_CODE,
             PL_NATIONAL_CLEARING_CODE,
             SE_BANKGIRO_CLEARING_CODE,
+            SG_INTERBANK_CLEARING_CODE,
             SWIFT,
             ZA_NATIONAL_CLEARING_CODE,
         }
@@ -558,6 +561,7 @@ constructor(
             NZ_NATIONAL_CLEARING_CODE,
             PL_NATIONAL_CLEARING_CODE,
             SE_BANKGIRO_CLEARING_CODE,
+            SG_INTERBANK_CLEARING_CODE,
             SWIFT,
             ZA_NATIONAL_CLEARING_CODE,
             _UNKNOWN,
@@ -583,6 +587,7 @@ constructor(
                 NZ_NATIONAL_CLEARING_CODE -> Value.NZ_NATIONAL_CLEARING_CODE
                 PL_NATIONAL_CLEARING_CODE -> Value.PL_NATIONAL_CLEARING_CODE
                 SE_BANKGIRO_CLEARING_CODE -> Value.SE_BANKGIRO_CLEARING_CODE
+                SG_INTERBANK_CLEARING_CODE -> Value.SG_INTERBANK_CLEARING_CODE
                 SWIFT -> Value.SWIFT
                 ZA_NATIONAL_CLEARING_CODE -> Value.ZA_NATIONAL_CLEARING_CODE
                 else -> Value._UNKNOWN
@@ -608,6 +613,7 @@ constructor(
                 NZ_NATIONAL_CLEARING_CODE -> Known.NZ_NATIONAL_CLEARING_CODE
                 PL_NATIONAL_CLEARING_CODE -> Known.PL_NATIONAL_CLEARING_CODE
                 SE_BANKGIRO_CLEARING_CODE -> Known.SE_BANKGIRO_CLEARING_CODE
+                SG_INTERBANK_CLEARING_CODE -> Known.SG_INTERBANK_CLEARING_CODE
                 SWIFT -> Known.SWIFT
                 ZA_NATIONAL_CLEARING_CODE -> Known.ZA_NATIONAL_CLEARING_CODE
                 else ->

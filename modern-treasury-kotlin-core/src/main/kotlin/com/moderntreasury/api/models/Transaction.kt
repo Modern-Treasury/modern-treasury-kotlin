@@ -1406,6 +1406,8 @@ private constructor(
 
             val BAI2 = of("bai2")
 
+            val BANKING_CIRCLE = of("banking_circle")
+
             val BANKPROV = of("bankprov")
 
             val BNK_DEV = of("bnk_dev")
@@ -1453,6 +1455,7 @@ private constructor(
 
         enum class Known {
             BAI2,
+            BANKING_CIRCLE,
             BANKPROV,
             BNK_DEV,
             CLEARTOUCH,
@@ -1478,6 +1481,7 @@ private constructor(
 
         enum class Value {
             BAI2,
+            BANKING_CIRCLE,
             BANKPROV,
             BNK_DEV,
             CLEARTOUCH,
@@ -1505,6 +1509,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 BAI2 -> Value.BAI2
+                BANKING_CIRCLE -> Value.BANKING_CIRCLE
                 BANKPROV -> Value.BANKPROV
                 BNK_DEV -> Value.BNK_DEV
                 CLEARTOUCH -> Value.CLEARTOUCH
@@ -1532,6 +1537,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 BAI2 -> Known.BAI2
+                BANKING_CIRCLE -> Known.BANKING_CIRCLE
                 BANKPROV -> Known.BANKPROV
                 BNK_DEV -> Known.BNK_DEV
                 CLEARTOUCH -> Known.CLEARTOUCH
