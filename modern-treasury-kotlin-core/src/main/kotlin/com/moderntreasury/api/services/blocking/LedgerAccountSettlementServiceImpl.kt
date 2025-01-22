@@ -18,6 +18,8 @@ import com.moderntreasury.api.models.LedgerAccountSettlementListPage
 import com.moderntreasury.api.models.LedgerAccountSettlementListParams
 import com.moderntreasury.api.models.LedgerAccountSettlementRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountSettlementUpdateParams
+import com.moderntreasury.api.services.blocking.ledgerAccountSettlements.AccountEntryService
+import com.moderntreasury.api.services.blocking.ledgerAccountSettlements.AccountEntryServiceImpl
 
 class LedgerAccountSettlementServiceImpl
 internal constructor(
@@ -25,6 +27,12 @@ internal constructor(
 ) : LedgerAccountSettlementService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
+
+    private val accountEntries: AccountEntryService by lazy {
+        AccountEntryServiceImpl(clientOptions)
+    }
+
+    override fun accountEntries(): AccountEntryService = accountEntries
 
     private val createHandler: Handler<LedgerAccountSettlement> =
         jsonHandler<LedgerAccountSettlement>(clientOptions.jsonMapper)
