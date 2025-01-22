@@ -1,5 +1,32 @@
 # Changelog
 
+## 4.0.1 (2025-01-22)
+
+Full Changelog: [v4.0.0...v4.0.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v4.0.0...v4.0.1)
+
+### Bug Fixes
+
+* **client:** make service impl constructors internal ([#308](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/308)) ([d78da89](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d78da89658e3af24789ac7f708f9e61ed306a0f4))
+
+
+### Chores
+
+* **api:** adds new APIs for LedgerAccountSettlement LedgerEntries ([#310](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/310)) ([fca1859](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/fca1859b57491a2aed3abaa6b393174278658a18))
+* change casing of organization in license ([#309](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/309)) ([e434cd2](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e434cd294e602e81e2d5a633ac97a51d9f214c2c))
+* **internal:** add and tweak check functions ([#301](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/301)) ([0d2ef5c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0d2ef5cab2657a209c1bcd203e1db426cfe1797a))
+* **internal:** tweak client options nullability handling ([0d2ef5c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0d2ef5cab2657a209c1bcd203e1db426cfe1797a))
+* **internal:** upgrade kotlin compiler and gradle ([#306](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/306)) ([2e0cb6e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2e0cb6eeb23da23443c7e6438a45030afd9adf03))
+* simplify examples involving lists ([#303](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/303)) ([f6e1fc5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f6e1fc5fa65858c363658be0561ea0e7070a567d))
+* simplify examples involving unions ([#304](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/304)) ([3dfa839](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3dfa839a8c295920b4b9bd2eb498fc9b2ff02668))
+
+
+### Documentation
+
+* add more documentation ([#307](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/307)) ([b1269f4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b1269f4f266c4e27450efc5bd81ff076fe11be0f))
+* add sonatype readme badge ([#305](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/305)) ([236c6ec](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/236c6ec5ad095d2a2ed95e3bfd84be3d5fd4b9a6))
+* move up requirements section ([#312](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/312)) ([f1f3a1c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f1f3a1cd0d636e669604354243b3fcb37f4337f2))
+* update readme ([#311](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/311)) ([bd58ac5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/bd58ac544525641910213b69b38aa043a0ccb166))
+
 ## 4.0.0 (2025-01-14)
 
 Full Changelog: [v3.1.0...v4.0.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v3.1.0...v4.0.0)

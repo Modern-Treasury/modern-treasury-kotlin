@@ -4,7 +4,7 @@ plugins {
 
 allprojects {
     group = "com.moderntreasury"
-    version = "4.0.0" // x-release-please-version
+    version = "4.0.1" // x-release-please-version
 }
 
 nexusPublishing {
