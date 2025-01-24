@@ -345,7 +345,7 @@ class PaymentOrderTest {
         assertThat(paymentOrder.type()).isEqualTo(PaymentOrderType.ACH)
         assertThat(paymentOrder.ultimateOriginatingAccount())
             .isEqualTo(
-                PaymentOrder.UltimateOriginatingAccount.ofVirtualAccount(
+                PaymentOrder.UltimateOriginatingAccount.ofVirtual(
                     VirtualAccount.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAccountDetail(
