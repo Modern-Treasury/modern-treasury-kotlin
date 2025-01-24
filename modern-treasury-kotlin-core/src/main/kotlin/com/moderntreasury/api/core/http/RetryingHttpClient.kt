@@ -1,6 +1,7 @@
 package com.moderntreasury.api.core.http
 
 import com.moderntreasury.api.core.RequestOptions
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.errors.ModernTreasuryIoException
 import java.io.IOException
 import java.time.Clock
@@ -227,7 +228,7 @@ private constructor(
 
         fun build(): HttpClient =
             RetryingHttpClient(
-                checkNotNull(httpClient) { "`httpClient` is required but was not set" },
+                checkRequired("httpClient", httpClient),
                 clock,
                 maxRetries,
                 idempotencyHeader,
