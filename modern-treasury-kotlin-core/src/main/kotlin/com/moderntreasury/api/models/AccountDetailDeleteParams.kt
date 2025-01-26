@@ -16,7 +16,7 @@ import java.util.Objects
 
 /** Delete a single account detail for an external account. */
 class AccountDetailDeleteParams
-constructor(
+private constructor(
     private val accountsType: AccountsType,
     private val accountId: String,
     private val id: String,
@@ -60,7 +60,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var accountsType: AccountsType? = null
         private var accountId: String? = null

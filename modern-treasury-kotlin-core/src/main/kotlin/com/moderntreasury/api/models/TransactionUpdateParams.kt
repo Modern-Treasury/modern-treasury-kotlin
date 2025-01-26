@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Update a single transaction. */
 class TransactionUpdateParams
-constructor(
+private constructor(
     private val id: String,
     private val body: TransactionUpdateBody,
     private val additionalHeaders: Headers,
@@ -105,7 +105,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -176,7 +176,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: String? = null
         private var body: TransactionUpdateBody.Builder = TransactionUpdateBody.builder()
@@ -363,7 +363,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

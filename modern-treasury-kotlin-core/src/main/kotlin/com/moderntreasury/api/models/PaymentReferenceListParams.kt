@@ -13,7 +13,7 @@ import java.util.Objects
 
 /** list payment_references */
 class PaymentReferenceListParams
-constructor(
+private constructor(
     private val afterCursor: String?,
     private val perPage: Long?,
     private val referenceNumber: String?,
@@ -67,7 +67,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var afterCursor: String? = null
         private var perPage: Long? = null

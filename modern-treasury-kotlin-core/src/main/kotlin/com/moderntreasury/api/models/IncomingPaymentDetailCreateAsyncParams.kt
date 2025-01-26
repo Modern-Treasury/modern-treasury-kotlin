@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** Simulate Incoming Payment Detail */
 class IncomingPaymentDetailCreateAsyncParams
-constructor(
+private constructor(
     private val body: IncomingPaymentDetailCreateAsyncBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -203,7 +203,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var amount: JsonField<Long> = JsonMissing.of()
             private var asOfDate: JsonField<LocalDate> = JsonMissing.of()
@@ -353,7 +353,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: IncomingPaymentDetailCreateAsyncBody.Builder =
             IncomingPaymentDetailCreateAsyncBody.builder()

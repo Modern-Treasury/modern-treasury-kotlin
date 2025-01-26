@@ -17,7 +17,7 @@ import org.apache.hc.core5.http.ContentType
 
 /** Create a document. */
 class DocumentCreateParams
-constructor(
+private constructor(
     private val documentableId: MultipartFormValue<String>,
     private val documentableType: MultipartFormValue<DocumentableType>,
     private val file: MultipartFormValue<ByteArray>,
@@ -60,7 +60,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var documentableId: MultipartFormValue<String>? = null
         private var documentableType: MultipartFormValue<DocumentableType>? = null

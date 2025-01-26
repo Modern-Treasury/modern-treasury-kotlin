@@ -15,7 +15,7 @@ import java.util.Objects
 
 /** Get all balance reports for a given internal account. */
 class BalanceReportListParams
-constructor(
+private constructor(
     private val internalAccountId: String,
     private val afterCursor: String?,
     private val asOfDate: LocalDate?,
@@ -73,7 +73,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var internalAccountId: String? = null
         private var afterCursor: String? = null

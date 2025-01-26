@@ -23,7 +23,7 @@ import java.util.Objects
 
 /** Create a ledger transaction that partially posts another ledger transaction. */
 class LedgerTransactionCreatePartialPostParams
-constructor(
+private constructor(
     private val id: String,
     private val body: LedgerTransactionCreatePartialPostBody,
     private val additionalHeaders: Headers,
@@ -197,7 +197,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var postedLedgerEntries:
                 JsonField<MutableList<LedgerEntryPartialPostCreateRequest>>? =
@@ -353,7 +353,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: String? = null
         private var body: LedgerTransactionCreatePartialPostBody.Builder =
@@ -657,7 +657,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
             private var direction: JsonField<Direction>? = null
@@ -849,7 +849,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -947,7 +947,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

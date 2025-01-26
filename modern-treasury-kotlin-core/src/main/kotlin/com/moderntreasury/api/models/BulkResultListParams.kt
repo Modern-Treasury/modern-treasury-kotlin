@@ -13,7 +13,7 @@ import java.util.Objects
 
 /** list bulk_results */
 class BulkResultListParams
-constructor(
+private constructor(
     private val afterCursor: String?,
     private val entityId: String?,
     private val entityType: EntityType?,
@@ -80,7 +80,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var afterCursor: String? = null
         private var entityId: String? = null

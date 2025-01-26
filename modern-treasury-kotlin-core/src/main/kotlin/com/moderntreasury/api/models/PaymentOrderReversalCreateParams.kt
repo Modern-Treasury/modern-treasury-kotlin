@@ -24,7 +24,7 @@ import java.util.Objects
 
 /** Create a reversal for a payment order. */
 class PaymentOrderReversalCreateParams
-constructor(
+private constructor(
     private val paymentOrderId: String,
     private val body: PaymentOrderReversalCreateBody,
     private val additionalHeaders: Headers,
@@ -165,7 +165,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var reason: JsonField<Reason>? = null
             private var ledgerTransaction: JsonField<LedgerTransactionCreateRequest> =
@@ -280,7 +280,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var paymentOrderId: String? = null
         private var body: PaymentOrderReversalCreateBody.Builder =
@@ -719,7 +719,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var ledgerEntries: JsonField<MutableList<LedgerEntryCreateRequest>>? = null
             private var description: JsonField<String> = JsonMissing.of()
@@ -1106,7 +1106,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var amount: JsonField<Long>? = null
                 private var direction: JsonField<TransactionDirection>? = null
@@ -1369,7 +1369,7 @@ constructor(
                     fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1455,7 +1455,7 @@ constructor(
                     fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1539,7 +1539,7 @@ constructor(
                     fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1626,7 +1626,7 @@ constructor(
                     fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1816,7 +1816,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1978,7 +1978,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

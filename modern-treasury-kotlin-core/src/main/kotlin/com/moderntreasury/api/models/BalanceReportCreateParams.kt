@@ -23,7 +23,7 @@ import java.util.Objects
 
 /** create balance reports */
 class BalanceReportCreateParams
-constructor(
+private constructor(
     private val internalAccountId: String,
     private val body: BalanceReportCreateBody,
     private val additionalHeaders: Headers,
@@ -161,7 +161,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var asOfDate: JsonField<LocalDate>? = null
             private var asOfTime: JsonField<String>? = null
@@ -279,7 +279,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var internalAccountId: String? = null
         private var body: BalanceReportCreateBody.Builder = BalanceReportCreateBody.builder()
@@ -627,7 +627,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
             private var balanceType: JsonField<BalanceType>? = null

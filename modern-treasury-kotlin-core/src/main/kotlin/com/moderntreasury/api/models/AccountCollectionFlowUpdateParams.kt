@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** update account_collection_flow */
 class AccountCollectionFlowUpdateParams
-constructor(
+private constructor(
     private val id: String,
     private val body: AccountCollectionFlowUpdateBody,
     private val additionalHeaders: Headers,
@@ -107,7 +107,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var status: JsonField<Status>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -183,7 +183,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: String? = null
         private var body: AccountCollectionFlowUpdateBody.Builder =

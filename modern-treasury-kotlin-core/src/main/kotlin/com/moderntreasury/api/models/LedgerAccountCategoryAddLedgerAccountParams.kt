@@ -12,7 +12,7 @@ import java.util.Objects
 
 /** Add a ledger account to a ledger account category. */
 class LedgerAccountCategoryAddLedgerAccountParams
-constructor(
+private constructor(
     private val id: String,
     private val ledgerAccountId: String,
     private val additionalHeaders: Headers,
@@ -52,7 +52,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: String? = null
         private var ledgerAccountId: String? = null

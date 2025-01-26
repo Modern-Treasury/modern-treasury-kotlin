@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** Get details on a single reversal of a payment order. */
 class PaymentOrderReversalRetrieveParams
-constructor(
+private constructor(
     private val paymentOrderId: String,
     private val reversalId: String,
     private val additionalHeaders: Headers,
@@ -45,7 +45,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var paymentOrderId: String? = null
         private var reversalId: String? = null

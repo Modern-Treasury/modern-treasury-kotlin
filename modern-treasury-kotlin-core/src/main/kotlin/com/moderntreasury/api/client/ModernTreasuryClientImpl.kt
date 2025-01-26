@@ -89,8 +89,7 @@ import com.moderntreasury.api.services.blocking.ValidationServiceImpl
 import com.moderntreasury.api.services.blocking.VirtualAccountService
 import com.moderntreasury.api.services.blocking.VirtualAccountServiceImpl
 
-class ModernTreasuryClientImpl
-constructor(
+class ModernTreasuryClientImpl(
     private val clientOptions: ClientOptions,
 ) : ModernTreasuryClient {
 

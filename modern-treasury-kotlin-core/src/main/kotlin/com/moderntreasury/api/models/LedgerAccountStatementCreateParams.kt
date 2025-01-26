@@ -21,7 +21,7 @@ import java.util.Objects
 
 /** Create a ledger account statement. */
 class LedgerAccountStatementCreateParams
-constructor(
+private constructor(
     private val body: LedgerAccountStatementCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -198,7 +198,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var effectiveAtLowerBound: JsonField<OffsetDateTime>? = null
             private var effectiveAtUpperBound: JsonField<OffsetDateTime>? = null
@@ -339,7 +339,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: LedgerAccountStatementCreateBody.Builder =
             LedgerAccountStatementCreateBody.builder()
@@ -573,7 +573,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
