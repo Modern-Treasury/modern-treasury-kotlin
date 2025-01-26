@@ -359,4 +359,6 @@ constructor(
                 }
         }
     }
+
+    override fun close() = clientOptions.httpClient.close()
 }
