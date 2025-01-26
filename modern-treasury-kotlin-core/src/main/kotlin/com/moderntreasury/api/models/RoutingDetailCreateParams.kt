@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** Create a routing detail for a single external account. */
 class RoutingDetailCreateParams
-constructor(
+private constructor(
     private val accountsType: AccountsType,
     private val accountId: String,
     private val body: RoutingDetailCreateBody,
@@ -164,7 +164,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var routingNumber: JsonField<String>? = null
             private var routingNumberType: JsonField<RoutingNumberType>? = null
@@ -272,7 +272,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var accountsType: AccountsType? = null
         private var accountId: String? = null

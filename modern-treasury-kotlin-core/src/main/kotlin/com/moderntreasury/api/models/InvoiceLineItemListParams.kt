@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** list invoice_line_items */
 class InvoiceLineItemListParams
-constructor(
+private constructor(
     private val invoiceId: String,
     private val afterCursor: String?,
     private val perPage: Long?,
@@ -53,7 +53,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var invoiceId: String? = null
         private var afterCursor: String? = null

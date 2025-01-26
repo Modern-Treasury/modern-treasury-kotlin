@@ -89,8 +89,7 @@ import com.moderntreasury.api.services.async.ValidationServiceAsyncImpl
 import com.moderntreasury.api.services.async.VirtualAccountServiceAsync
 import com.moderntreasury.api.services.async.VirtualAccountServiceAsyncImpl
 
-class ModernTreasuryClientAsyncImpl
-constructor(
+class ModernTreasuryClientAsyncImpl(
     private val clientOptions: ClientOptions,
 ) : ModernTreasuryClientAsync {
 

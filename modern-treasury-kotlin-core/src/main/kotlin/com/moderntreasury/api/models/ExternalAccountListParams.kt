@@ -9,7 +9,7 @@ import java.util.Objects
 
 /** list external accounts */
 class ExternalAccountListParams
-constructor(
+private constructor(
     private val afterCursor: String?,
     private val counterpartyId: String?,
     private val metadata: Metadata?,
@@ -61,7 +61,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var afterCursor: String? = null
         private var counterpartyId: String? = null
@@ -230,7 +230,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 

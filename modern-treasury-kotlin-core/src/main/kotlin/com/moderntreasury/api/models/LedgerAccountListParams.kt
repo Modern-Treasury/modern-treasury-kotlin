@@ -13,7 +13,7 @@ import java.util.Objects
 
 /** Get a list of ledger accounts. */
 class LedgerAccountListParams
-constructor(
+private constructor(
     private val id: List<String>?,
     private val afterCursor: String?,
     private val availableBalanceAmount: AvailableBalanceAmount?,
@@ -150,7 +150,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: MutableList<String>? = null
         private var afterCursor: String? = null
@@ -445,7 +445,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var eq: Long? = null
             private var gt: Long? = null
@@ -620,7 +620,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var asOfDate: LocalDate? = null
             private var effectiveAt: OffsetDateTime? = null
@@ -748,7 +748,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
@@ -847,7 +847,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
@@ -970,7 +970,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var eq: Long? = null
             private var gt: Long? = null
@@ -1139,7 +1139,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var eq: Long? = null
             private var gt: Long? = null
@@ -1285,7 +1285,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 

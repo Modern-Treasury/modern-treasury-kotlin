@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** Get a single account detail for a single internal or external account. */
 class AccountDetailRetrieveParams
-constructor(
+private constructor(
     private val accountsType: AccountsType,
     private val accountId: String,
     private val id: String,
@@ -49,7 +49,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var accountsType: AccountsType? = null
         private var accountId: String? = null

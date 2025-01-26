@@ -21,7 +21,7 @@ import java.util.Objects
 
 /** create foreign_exchange_quote */
 class ForeignExchangeQuoteCreateParams
-constructor(
+private constructor(
     private val body: ForeignExchangeQuoteCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -196,7 +196,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var internalAccountId: JsonField<String>? = null
             private var targetCurrency: JsonField<Currency>? = null
@@ -335,7 +335,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: ForeignExchangeQuoteCreateBody.Builder =
             ForeignExchangeQuoteCreateBody.builder()

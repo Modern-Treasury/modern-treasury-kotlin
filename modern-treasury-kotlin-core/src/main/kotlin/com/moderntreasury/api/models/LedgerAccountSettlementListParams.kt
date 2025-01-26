@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** Get a list of ledger account settlements. */
 class LedgerAccountSettlementListParams
-constructor(
+private constructor(
     private val id: List<String>?,
     private val afterCursor: String?,
     private val createdAt: CreatedAt?,
@@ -105,7 +105,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: MutableList<String>? = null
         private var afterCursor: String? = null
@@ -328,7 +328,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
@@ -427,7 +427,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
@@ -527,7 +527,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 

@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Remove ledger entries from a draft ledger account settlement. */
 class LedgerAccountSettlementAccountEntryDeleteParams
-constructor(
+private constructor(
     private val id: String,
     private val body: LedgerAccountSettlementAccountEntryDeleteBody,
     private val additionalHeaders: Headers,
@@ -107,7 +107,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var ledgerEntryIds: JsonField<MutableList<JsonValue>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -207,7 +207,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: String? = null
         private var body: LedgerAccountSettlementAccountEntryDeleteBody.Builder =
