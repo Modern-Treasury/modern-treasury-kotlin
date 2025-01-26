@@ -23,7 +23,7 @@ import java.util.Objects
 
 /** Create a return. */
 class ReturnCreateParams
-constructor(
+private constructor(
     private val body: ReturnCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -211,7 +211,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var returnableId: JsonField<String>? = null
             private var returnableType: JsonField<ReturnableType>? = null
@@ -360,7 +360,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: ReturnCreateBody.Builder = ReturnCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()

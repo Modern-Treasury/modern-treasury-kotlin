@@ -23,7 +23,7 @@ import java.util.Objects
 
 /** update expected payment */
 class ExpectedPaymentUpdateParams
-constructor(
+private constructor(
     private val id: String,
     private val body: ExpectedPaymentUpdateBody,
     private val additionalHeaders: Headers,
@@ -454,7 +454,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var amountLowerBound: JsonField<Long> = JsonMissing.of()
             private var amountUpperBound: JsonField<Long> = JsonMissing.of()
@@ -776,7 +776,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: String? = null
         private var body: ExpectedPaymentUpdateBody.Builder = ExpectedPaymentUpdateBody.builder()
@@ -1205,7 +1205,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

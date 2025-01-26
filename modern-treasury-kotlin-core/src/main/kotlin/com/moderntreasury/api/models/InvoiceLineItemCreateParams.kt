@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** create invoice_line_item */
 class InvoiceLineItemCreateParams
-constructor(
+private constructor(
     private val invoiceId: String,
     private val body: InvoiceLineItemCreateBody,
     private val additionalHeaders: Headers,
@@ -247,7 +247,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
             private var unitAmount: JsonField<Long>? = null
@@ -406,7 +406,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var invoiceId: String? = null
         private var body: InvoiceLineItemCreateBody.Builder = InvoiceLineItemCreateBody.builder()
@@ -654,7 +654,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

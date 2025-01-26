@@ -24,7 +24,7 @@ import java.util.Objects
 
 /** create invoice */
 class InvoiceCreateParams
-constructor(
+private constructor(
     private val body: InvoiceCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -720,7 +720,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var counterpartyId: JsonField<String>? = null
             private var dueDate: JsonField<OffsetDateTime>? = null
@@ -1249,7 +1249,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: InvoiceCreateBody.Builder = InvoiceCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -1861,7 +1861,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var id: JsonField<String>? = null
             private var contactIdentifier: JsonField<String>? = null
@@ -2144,7 +2144,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var country: JsonField<String>? = null
             private var line1: JsonField<String>? = null
@@ -2334,7 +2334,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var country: JsonField<String>? = null
             private var line1: JsonField<String>? = null
@@ -2569,7 +2569,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
             private var unitAmount: JsonField<Long>? = null
@@ -2735,7 +2735,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -2891,7 +2891,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var country: JsonField<String>? = null
             private var line1: JsonField<String>? = null
@@ -3022,7 +3022,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

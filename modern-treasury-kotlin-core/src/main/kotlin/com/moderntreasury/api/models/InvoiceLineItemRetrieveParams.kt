@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** get invoice_line_item */
 class InvoiceLineItemRetrieveParams
-constructor(
+private constructor(
     private val invoiceId: String,
     private val id: String,
     private val additionalHeaders: Headers,
@@ -45,7 +45,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var invoiceId: String? = null
         private var id: String? = null

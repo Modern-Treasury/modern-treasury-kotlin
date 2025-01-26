@@ -24,7 +24,7 @@ import java.util.Objects
 
 /** Update a payment order */
 class PaymentOrderUpdateParams
-constructor(
+private constructor(
     private val id: String,
     private val body: PaymentOrderUpdateBody,
     private val additionalHeaders: Headers,
@@ -1106,7 +1106,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accounting: JsonField<Accounting> = JsonMissing.of()
             private var accountingCategoryId: JsonField<String> = JsonMissing.of()
@@ -1782,7 +1782,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: String? = null
         private var body: PaymentOrderUpdateBody.Builder = PaymentOrderUpdateBody.builder()
@@ -2487,7 +2487,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountId: JsonField<String> = JsonMissing.of()
             private var classId: JsonField<String> = JsonMissing.of()
@@ -2904,7 +2904,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
             private var accountingCategoryId: JsonField<String> = JsonMissing.of()
@@ -3026,7 +3026,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -3124,7 +3124,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -3427,7 +3427,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountDetails: JsonField<MutableList<AccountDetail>>? = null
             private var accountType: JsonField<ExternalAccountType> = JsonMissing.of()
@@ -3698,7 +3698,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var accountNumber: JsonField<String>? = null
                 private var accountNumberType: JsonField<AccountNumberType> = JsonMissing.of()
@@ -3930,7 +3930,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var contactIdentifier: JsonField<String> = JsonMissing.of()
                 private var contactIdentifierType: JsonField<ContactIdentifierType> =
@@ -4250,7 +4250,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var currency: JsonField<String>? = null
                 private var ledgerId: JsonField<String>? = null
@@ -4554,7 +4554,7 @@ constructor(
                     fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -4654,7 +4654,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -4792,7 +4792,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var country: JsonField<String> = JsonMissing.of()
                 private var line1: JsonField<String> = JsonMissing.of()
@@ -5016,7 +5016,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var routingNumber: JsonField<String>? = null
                 private var routingNumberType: JsonField<RoutingNumberType>? = null

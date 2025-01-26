@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Updates a given counterparty with new information. */
 class CounterpartyUpdateParams
-constructor(
+private constructor(
     private val id: String,
     private val body: CounterpartyUpdateBody,
     private val additionalHeaders: Headers,
@@ -204,7 +204,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var email: JsonField<String> = JsonMissing.of()
             private var legalEntityId: JsonField<String> = JsonMissing.of()
@@ -338,7 +338,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: String? = null
         private var body: CounterpartyUpdateBody.Builder = CounterpartyUpdateBody.builder()
@@ -571,7 +571,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

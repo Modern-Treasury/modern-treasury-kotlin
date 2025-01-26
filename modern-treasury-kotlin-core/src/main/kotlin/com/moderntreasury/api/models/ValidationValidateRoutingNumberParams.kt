@@ -14,7 +14,7 @@ import java.util.Objects
 
 /** Validates the routing number information supplied without creating a routing detail */
 class ValidationValidateRoutingNumberParams
-constructor(
+private constructor(
     private val routingNumber: String,
     private val routingNumberType: RoutingNumberType,
     private val additionalHeaders: Headers,
@@ -54,7 +54,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var routingNumber: String? = null
         private var routingNumberType: RoutingNumberType? = null

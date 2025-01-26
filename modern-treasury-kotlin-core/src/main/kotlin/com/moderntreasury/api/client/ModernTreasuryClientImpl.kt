@@ -91,8 +91,7 @@ import com.moderntreasury.api.services.blocking.VirtualAccountServiceImpl
 import com.moderntreasury.api.services.blocking.WebhookService
 import com.moderntreasury.api.services.blocking.WebhookServiceImpl
 
-class ModernTreasuryClientImpl
-constructor(
+class ModernTreasuryClientImpl(
     private val clientOptions: ClientOptions,
 ) : ModernTreasuryClient {
 

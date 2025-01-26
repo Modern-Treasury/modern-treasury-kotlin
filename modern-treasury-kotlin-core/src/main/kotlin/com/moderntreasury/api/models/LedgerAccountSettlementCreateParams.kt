@@ -23,7 +23,7 @@ import java.util.Objects
 
 /** Create a ledger account settlement. */
 class LedgerAccountSettlementCreateParams
-constructor(
+private constructor(
     private val body: LedgerAccountSettlementCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -296,7 +296,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var contraLedgerAccountId: JsonField<String>? = null
             private var settledLedgerAccountId: JsonField<String>? = null
@@ -508,7 +508,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: LedgerAccountSettlementCreateBody.Builder =
             LedgerAccountSettlementCreateBody.builder()
@@ -804,7 +804,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

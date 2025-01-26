@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Update the details of a ledger account category. */
 class LedgerAccountCategoryUpdateParams
-constructor(
+private constructor(
     private val id: String,
     private val body: LedgerAccountCategoryUpdateBody,
     private val additionalHeaders: Headers,
@@ -131,7 +131,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var description: JsonField<String> = JsonMissing.of()
             private var metadata: JsonField<Metadata> = JsonMissing.of()
@@ -227,7 +227,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: String? = null
         private var body: LedgerAccountCategoryUpdateBody.Builder =
@@ -424,7 +424,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** update internal account */
 class InternalAccountUpdateParams
-constructor(
+private constructor(
     private val id: String,
     private val body: InternalAccountUpdateBody,
     private val additionalHeaders: Headers,
@@ -175,7 +175,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var counterpartyId: JsonField<String> = JsonMissing.of()
             private var ledgerAccountId: JsonField<String> = JsonMissing.of()
@@ -294,7 +294,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: String? = null
         private var body: InternalAccountUpdateBody.Builder = InternalAccountUpdateBody.builder()
@@ -515,7 +515,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

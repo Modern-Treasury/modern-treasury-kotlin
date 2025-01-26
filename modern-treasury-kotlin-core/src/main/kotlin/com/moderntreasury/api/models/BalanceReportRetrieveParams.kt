@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** Get a single balance report for a given internal account. */
 class BalanceReportRetrieveParams
-constructor(
+private constructor(
     private val internalAccountId: String,
     private val id: String,
     private val additionalHeaders: Headers,
@@ -45,7 +45,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var internalAccountId: String? = null
         private var id: String? = null

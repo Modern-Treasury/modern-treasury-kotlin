@@ -170,7 +170,7 @@ private constructor(
         fun builder() = Builder()
     }
 
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
         private var alertCondition: JsonField<AlertCondition>? = null
@@ -401,7 +401,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var field: JsonField<String>? = null
             private var operator: JsonField<String>? = null
@@ -569,7 +569,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var balances: JsonField<LedgerBalances>? = null
             private var ledgerAccountLockVersion: JsonField<Long>? = null
@@ -713,7 +713,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var availableBalance: JsonField<LedgerBalance>? = null
                 private var pendingBalance: JsonField<LedgerBalance>? = null
@@ -877,7 +877,7 @@ private constructor(
                     fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var amount: JsonField<Long>? = null
                     private var credits: JsonField<Long>? = null
@@ -1039,7 +1039,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

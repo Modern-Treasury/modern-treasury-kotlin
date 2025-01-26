@@ -11,7 +11,7 @@ import java.util.Objects
 
 /** Get a paginated list of all counterparties. */
 class CounterpartyListParams
-constructor(
+private constructor(
     private val afterCursor: String?,
     private val createdAtLowerBound: OffsetDateTime?,
     private val createdAtUpperBound: OffsetDateTime?,
@@ -89,7 +89,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var afterCursor: String? = null
         private var createdAtLowerBound: OffsetDateTime? = null
@@ -281,7 +281,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 

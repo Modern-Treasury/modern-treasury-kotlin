@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** verify external account */
 class ExternalAccountVerifyParams
-constructor(
+private constructor(
     private val id: String,
     private val body: ExternalAccountVerifyBody,
     private val additionalHeaders: Headers,
@@ -206,7 +206,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var originatingAccountId: JsonField<String>? = null
             private var paymentType: JsonField<PaymentType>? = null
@@ -337,7 +337,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: String? = null
         private var body: ExternalAccountVerifyBody.Builder = ExternalAccountVerifyBody.builder()

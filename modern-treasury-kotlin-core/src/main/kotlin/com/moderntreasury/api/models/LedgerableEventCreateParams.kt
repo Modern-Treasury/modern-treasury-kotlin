@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Create a ledgerable event. */
 class LedgerableEventCreateParams
-constructor(
+private constructor(
     private val body: LedgerableEventCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -131,7 +131,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
             private var customData: JsonValue = JsonMissing.of()
@@ -231,7 +231,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: LedgerableEventCreateBody.Builder = LedgerableEventCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -423,7 +423,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
