@@ -60,6 +60,12 @@ import com.moderntreasury.api.services.blocking.WebhookService
  */
 interface ModernTreasuryClient {
 
+    /**
+     * Returns a version of this client that uses asynchronous execution.
+     *
+     * The returned client shares its resources, like its connection pool and thread pools, with
+     * this client.
+     */
     fun async(): ModernTreasuryClientAsync
 
     fun connections(): ConnectionService
