@@ -23,7 +23,7 @@ import java.util.Objects
 
 /** Create a ledger transaction reversal. */
 class LedgerTransactionCreateReversalParams
-constructor(
+private constructor(
     private val id: String,
     private val body: LedgerTransactionCreateReversalBody,
     private val additionalHeaders: Headers,
@@ -266,7 +266,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var description: JsonField<String> = JsonMissing.of()
             private var effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -437,7 +437,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: String? = null
         private var body: LedgerTransactionCreateReversalBody.Builder =
@@ -783,7 +783,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

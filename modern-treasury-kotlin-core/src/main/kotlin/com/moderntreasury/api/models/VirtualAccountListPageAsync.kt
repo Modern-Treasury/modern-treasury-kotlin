@@ -170,8 +170,7 @@ private constructor(
         }
     }
 
-    class AutoPager
-    constructor(
+    class AutoPager(
         private val firstPage: VirtualAccountListPageAsync,
     ) : Flow<VirtualAccount> {
 

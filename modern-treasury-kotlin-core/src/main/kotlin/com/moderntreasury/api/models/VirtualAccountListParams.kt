@@ -9,7 +9,7 @@ import java.util.Objects
 
 /** Get a list of virtual accounts. */
 class VirtualAccountListParams
-constructor(
+private constructor(
     private val afterCursor: String?,
     private val counterpartyId: String?,
     private val internalAccountId: String?,
@@ -62,7 +62,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var afterCursor: String? = null
         private var counterpartyId: String? = null
@@ -232,7 +232,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 

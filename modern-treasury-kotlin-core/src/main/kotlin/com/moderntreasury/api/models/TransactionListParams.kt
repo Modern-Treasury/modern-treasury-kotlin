@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** Get a list of all transactions. */
 class TransactionListParams
-constructor(
+private constructor(
     private val afterCursor: String?,
     private val asOfDateEnd: LocalDate?,
     private val asOfDateStart: LocalDate?,
@@ -114,7 +114,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var afterCursor: String? = null
         private var asOfDateEnd: LocalDate? = null
@@ -353,7 +353,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 

@@ -23,7 +23,7 @@ import java.util.Objects
 
 /** create payment_flow */
 class PaymentFlowCreateParams
-constructor(
+private constructor(
     private val body: PaymentFlowCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -225,7 +225,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
             private var counterpartyId: JsonField<String>? = null
@@ -370,7 +370,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: PaymentFlowCreateBody.Builder = PaymentFlowCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()

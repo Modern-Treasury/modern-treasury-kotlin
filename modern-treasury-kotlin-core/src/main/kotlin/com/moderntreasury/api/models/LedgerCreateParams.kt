@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Create a ledger. */
 class LedgerCreateParams
-constructor(
+private constructor(
     private val body: LedgerCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -121,7 +121,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
             private var description: JsonField<String> = JsonMissing.of()
@@ -215,7 +215,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: LedgerCreateBody.Builder = LedgerCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -404,7 +404,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

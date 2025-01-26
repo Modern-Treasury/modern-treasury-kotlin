@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** update payment_flow */
 class PaymentFlowUpdateParams
-constructor(
+private constructor(
     private val id: String,
     private val body: PaymentFlowUpdateBody,
     private val additionalHeaders: Headers,
@@ -107,7 +107,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var status: JsonField<Status>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -181,7 +181,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: String? = null
         private var body: PaymentFlowUpdateBody.Builder = PaymentFlowUpdateBody.builder()

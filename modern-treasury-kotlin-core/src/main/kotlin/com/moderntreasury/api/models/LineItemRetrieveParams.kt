@@ -14,7 +14,7 @@ import java.util.Objects
 
 /** Get a single line item */
 class LineItemRetrieveParams
-constructor(
+private constructor(
     private val itemizableType: ItemizableType,
     private val itemizableId: String,
     private val id: String,
@@ -53,7 +53,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var itemizableType: ItemizableType? = null
         private var itemizableId: String? = null

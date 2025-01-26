@@ -124,7 +124,7 @@ private constructor(
         }
     }
 
-    class Deserializer :
+    internal class Deserializer :
         BaseDeserializer<ExternalAccountVerifyResponse>(ExternalAccountVerifyResponse::class) {
 
         override fun ObjectCodec.deserialize(node: JsonNode): ExternalAccountVerifyResponse {
@@ -145,7 +145,7 @@ private constructor(
         }
     }
 
-    class Serializer :
+    internal class Serializer :
         BaseSerializer<ExternalAccountVerifyResponse>(ExternalAccountVerifyResponse::class) {
 
         override fun serialize(
@@ -305,7 +305,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var id: JsonField<String>? = null
             private var createdAt: JsonField<OffsetDateTime>? = null

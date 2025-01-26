@@ -91,8 +91,7 @@ import com.moderntreasury.api.services.async.VirtualAccountServiceAsyncImpl
 import com.moderntreasury.api.services.async.WebhookServiceAsync
 import com.moderntreasury.api.services.async.WebhookServiceAsyncImpl
 
-class ModernTreasuryClientAsyncImpl
-constructor(
+class ModernTreasuryClientAsyncImpl(
     private val clientOptions: ClientOptions,
 ) : ModernTreasuryClientAsync {
 
