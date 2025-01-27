@@ -48,6 +48,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [RoutingDetailRetrieveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

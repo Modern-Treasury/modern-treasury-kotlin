@@ -52,6 +52,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [PaymentOrderReversalListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

@@ -60,6 +60,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [PaperItemListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

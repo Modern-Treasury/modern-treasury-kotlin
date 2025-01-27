@@ -133,6 +133,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [VirtualAccountUpdateBody]. */
         class Builder internal constructor() {
 
             private var counterpartyId: JsonField<String> = JsonMissing.of()
@@ -227,6 +228,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [VirtualAccountUpdateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -423,6 +425,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [Metadata]. */
         class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
