@@ -107,6 +107,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [LedgerAccountSettlementAccountEntryUpdateBody]. */
         class Builder internal constructor() {
 
             private var ledgerEntryIds: JsonField<MutableList<String>>? = null
@@ -206,6 +207,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [LedgerAccountSettlementAccountEntryUpdateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

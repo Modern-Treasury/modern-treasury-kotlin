@@ -69,6 +69,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [PaymentFlowListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

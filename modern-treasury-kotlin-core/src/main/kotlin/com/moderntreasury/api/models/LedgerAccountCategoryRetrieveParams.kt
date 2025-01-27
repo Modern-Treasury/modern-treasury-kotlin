@@ -58,6 +58,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [LedgerAccountCategoryRetrieveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -225,6 +226,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [Balances]. */
         class Builder internal constructor() {
 
             private var asOfDate: LocalDate? = null

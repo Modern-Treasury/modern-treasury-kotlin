@@ -47,6 +47,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [VirtualAccountDeleteParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

@@ -56,6 +56,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [AccountDetailListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

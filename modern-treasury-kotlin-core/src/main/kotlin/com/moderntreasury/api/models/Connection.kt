@@ -137,6 +137,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [Connection]. */
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null

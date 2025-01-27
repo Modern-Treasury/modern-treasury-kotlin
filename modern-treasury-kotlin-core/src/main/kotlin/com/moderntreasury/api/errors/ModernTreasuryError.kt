@@ -29,6 +29,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [ModernTreasuryError]. */
     class Builder internal constructor() {
 
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()

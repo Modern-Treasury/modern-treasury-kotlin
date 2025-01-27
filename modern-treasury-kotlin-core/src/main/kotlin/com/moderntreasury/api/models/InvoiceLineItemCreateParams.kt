@@ -247,6 +247,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [InvoiceLineItemCreateBody]. */
         class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
@@ -405,6 +406,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [InvoiceLineItemCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -654,6 +656,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [Metadata]. */
         class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
