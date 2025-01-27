@@ -44,6 +44,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [InvoiceLineItemRetrieveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

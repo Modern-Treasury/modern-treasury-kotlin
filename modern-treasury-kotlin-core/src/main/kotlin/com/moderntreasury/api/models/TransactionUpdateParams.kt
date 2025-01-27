@@ -105,6 +105,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [TransactionUpdateBody]. */
         class Builder internal constructor() {
 
             private var metadata: JsonField<Metadata> = JsonMissing.of()
@@ -175,6 +176,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [TransactionUpdateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -363,6 +365,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [Metadata]. */
         class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()

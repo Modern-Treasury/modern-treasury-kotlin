@@ -40,6 +40,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [InternalAccountRetrieveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

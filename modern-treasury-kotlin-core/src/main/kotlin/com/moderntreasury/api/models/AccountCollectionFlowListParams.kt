@@ -59,6 +59,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [AccountCollectionFlowListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

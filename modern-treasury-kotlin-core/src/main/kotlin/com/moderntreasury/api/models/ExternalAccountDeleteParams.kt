@@ -47,6 +47,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [ExternalAccountDeleteParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

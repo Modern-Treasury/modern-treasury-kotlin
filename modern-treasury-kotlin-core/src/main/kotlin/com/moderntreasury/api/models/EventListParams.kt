@@ -75,6 +75,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [EventListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

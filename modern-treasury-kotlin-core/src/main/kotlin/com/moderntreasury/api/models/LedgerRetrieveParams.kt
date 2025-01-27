@@ -40,6 +40,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [LedgerRetrieveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

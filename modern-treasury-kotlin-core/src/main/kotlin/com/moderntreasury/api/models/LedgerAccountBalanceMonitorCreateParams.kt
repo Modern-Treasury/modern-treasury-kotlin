@@ -142,6 +142,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [LedgerAccountBalanceMonitorCreateBody]. */
         class Builder internal constructor() {
 
             private var alertCondition: JsonField<AlertConditionCreateRequest>? = null
@@ -253,6 +254,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [LedgerAccountBalanceMonitorCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -510,6 +512,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [AlertConditionCreateRequest]. */
         class Builder internal constructor() {
 
             private var field: JsonField<String>? = null
@@ -637,6 +640,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [Metadata]. */
         class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()

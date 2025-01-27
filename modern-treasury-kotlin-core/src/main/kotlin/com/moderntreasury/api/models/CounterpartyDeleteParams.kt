@@ -47,6 +47,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [CounterpartyDeleteParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

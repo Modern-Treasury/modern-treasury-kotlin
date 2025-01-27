@@ -196,6 +196,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [ForeignExchangeQuoteCreateBody]. */
         class Builder internal constructor() {
 
             private var internalAccountId: JsonField<String>? = null
@@ -334,6 +335,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [ForeignExchangeQuoteCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
