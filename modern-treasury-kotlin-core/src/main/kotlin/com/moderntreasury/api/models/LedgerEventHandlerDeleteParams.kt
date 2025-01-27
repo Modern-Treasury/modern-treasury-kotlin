@@ -47,6 +47,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [LedgerEventHandlerDeleteParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

@@ -88,6 +88,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [CounterpartyListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -281,6 +282,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [Metadata]. */
         class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()

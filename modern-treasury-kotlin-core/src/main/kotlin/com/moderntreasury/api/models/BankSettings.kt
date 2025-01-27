@@ -171,6 +171,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [BankSettings]. */
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null

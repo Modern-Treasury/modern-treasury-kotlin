@@ -66,6 +66,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [LedgerEventHandlerListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -241,6 +242,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [CreatedAt]. */
         class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
@@ -340,6 +342,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [Metadata]. */
         class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()

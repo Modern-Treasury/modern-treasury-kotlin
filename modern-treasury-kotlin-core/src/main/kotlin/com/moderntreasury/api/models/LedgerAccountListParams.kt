@@ -149,6 +149,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [LedgerAccountListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -445,6 +446,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [AvailableBalanceAmount]. */
         class Builder internal constructor() {
 
             private var eq: Long? = null
@@ -620,6 +622,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [Balances]. */
         class Builder internal constructor() {
 
             private var asOfDate: LocalDate? = null
@@ -748,6 +751,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [CreatedAt]. */
         class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
@@ -847,6 +851,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [Metadata]. */
         class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
@@ -970,6 +975,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [PendingBalanceAmount]. */
         class Builder internal constructor() {
 
             private var eq: Long? = null
@@ -1139,6 +1145,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [PostedBalanceAmount]. */
         class Builder internal constructor() {
 
             private var eq: Long? = null
@@ -1285,6 +1292,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [UpdatedAt]. */
         class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()

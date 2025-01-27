@@ -40,6 +40,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [PaperItemRetrieveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

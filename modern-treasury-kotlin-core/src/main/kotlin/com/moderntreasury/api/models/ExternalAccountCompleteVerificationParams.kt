@@ -89,6 +89,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [ExternalAccountCompleteVerificationBody]. */
         class Builder internal constructor() {
 
             private var amounts: JsonField<MutableList<Long>>? = null
@@ -170,6 +171,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [ExternalAccountCompleteVerificationParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

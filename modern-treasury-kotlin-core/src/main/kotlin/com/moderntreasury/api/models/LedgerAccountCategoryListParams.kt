@@ -97,6 +97,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [LedgerAccountCategoryListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -322,6 +323,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [Balances]. */
         class Builder internal constructor() {
 
             private var effectiveAt: OffsetDateTime? = null
@@ -426,6 +428,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [Metadata]. */
         class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()

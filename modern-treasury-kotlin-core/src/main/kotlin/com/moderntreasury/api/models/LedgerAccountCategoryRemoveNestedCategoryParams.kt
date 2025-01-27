@@ -51,6 +51,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [LedgerAccountCategoryRemoveNestedCategoryParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
