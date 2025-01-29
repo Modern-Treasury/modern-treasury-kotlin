@@ -21,7 +21,7 @@ class IncomingPaymentDetailUpdateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             IncomingPaymentDetailUpdateParams.builder()
                 .id("id")
@@ -31,7 +31,7 @@ class IncomingPaymentDetailUpdateParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.metadata())
             .isEqualTo(
@@ -42,9 +42,9 @@ class IncomingPaymentDetailUpdateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params = IncomingPaymentDetailUpdateParams.builder().id("id").build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 

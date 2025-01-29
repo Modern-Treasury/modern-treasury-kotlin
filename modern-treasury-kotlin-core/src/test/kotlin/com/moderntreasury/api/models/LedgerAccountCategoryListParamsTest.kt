@@ -34,7 +34,7 @@ class LedgerAccountCategoryListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             LedgerAccountCategoryListParams.builder()
                 .addId("string")
@@ -73,13 +73,13 @@ class LedgerAccountCategoryListParamsTest {
         expected.put("name", "name")
         expected.put("parent_ledger_account_category_id", "parent_ledger_account_category_id")
         expected.put("per_page", "0")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = LedgerAccountCategoryListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

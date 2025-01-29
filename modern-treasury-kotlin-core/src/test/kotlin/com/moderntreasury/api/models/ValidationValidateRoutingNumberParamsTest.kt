@@ -17,7 +17,7 @@ class ValidationValidateRoutingNumberParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             ValidationValidateRoutingNumberParams.builder()
                 .routingNumber("routing_number")
@@ -29,11 +29,11 @@ class ValidationValidateRoutingNumberParamsTest {
             "routing_number_type",
             ValidationValidateRoutingNumberParams.RoutingNumberType.ABA.toString()
         )
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params =
             ValidationValidateRoutingNumberParams.builder()
                 .routingNumber("routing_number")
@@ -45,6 +45,6 @@ class ValidationValidateRoutingNumberParamsTest {
             "routing_number_type",
             ValidationValidateRoutingNumberParams.RoutingNumberType.ABA.toString()
         )
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

@@ -39,7 +39,7 @@ class InternalAccountCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             InternalAccountCreateParams.builder()
                 .connectionId("connection_id")
@@ -67,7 +67,7 @@ class InternalAccountCreateParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.connectionId()).isEqualTo("connection_id")
         assertThat(body.currency()).isEqualTo(InternalAccountCreateParams.Currency.USD)
@@ -98,7 +98,7 @@ class InternalAccountCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             InternalAccountCreateParams.builder()
                 .connectionId("connection_id")
@@ -106,7 +106,7 @@ class InternalAccountCreateParamsTest {
                 .name("name")
                 .partyName("party_name")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.connectionId()).isEqualTo("connection_id")
         assertThat(body.currency()).isEqualTo(InternalAccountCreateParams.Currency.USD)

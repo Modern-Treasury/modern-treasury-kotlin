@@ -17,25 +17,25 @@ class LedgerAccountSettlementAccountEntryDeleteParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             LedgerAccountSettlementAccountEntryDeleteParams.builder()
                 .id("id")
                 .addLedgerEntryId(JsonValue.from(mapOf<String, Any>()))
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.ledgerEntryIds()).isEqualTo(listOf(JsonValue.from(mapOf<String, Any>())))
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             LedgerAccountSettlementAccountEntryDeleteParams.builder()
                 .id("id")
                 .addLedgerEntryId(JsonValue.from(mapOf<String, Any>()))
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.ledgerEntryIds()).isEqualTo(listOf(JsonValue.from(mapOf<String, Any>())))
     }

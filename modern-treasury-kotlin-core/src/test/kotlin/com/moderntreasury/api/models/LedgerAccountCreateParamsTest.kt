@@ -31,7 +31,7 @@ class LedgerAccountCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             LedgerAccountCreateParams.builder()
                 .currency("currency")
@@ -51,7 +51,7 @@ class LedgerAccountCreateParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.currency()).isEqualTo("currency")
         assertThat(body.ledgerId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -75,7 +75,7 @@ class LedgerAccountCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             LedgerAccountCreateParams.builder()
                 .currency("currency")
@@ -83,7 +83,7 @@ class LedgerAccountCreateParamsTest {
                 .name("name")
                 .normalBalance(TransactionDirection.CREDIT)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.currency()).isEqualTo("currency")
         assertThat(body.ledgerId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

@@ -25,7 +25,7 @@ class LineItemUpdateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             LineItemUpdateParams.builder()
                 .itemizableType(LineItemUpdateParams.ItemizableType.EXPECTED_PAYMENTS)
@@ -39,7 +39,7 @@ class LineItemUpdateParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.metadata())
             .isEqualTo(
@@ -52,14 +52,14 @@ class LineItemUpdateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             LineItemUpdateParams.builder()
                 .itemizableType(LineItemUpdateParams.ItemizableType.EXPECTED_PAYMENTS)
                 .itemizableId("itemizable_id")
                 .id("id")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 

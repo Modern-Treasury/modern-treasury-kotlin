@@ -17,22 +17,22 @@ class ExternalAccountCompleteVerificationParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             ExternalAccountCompleteVerificationParams.builder()
                 .id("id")
                 .addAmount(2L)
                 .addAmount(4L)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.amounts()).isEqualTo(listOf(2L, 4L))
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params = ExternalAccountCompleteVerificationParams.builder().id("id").build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 

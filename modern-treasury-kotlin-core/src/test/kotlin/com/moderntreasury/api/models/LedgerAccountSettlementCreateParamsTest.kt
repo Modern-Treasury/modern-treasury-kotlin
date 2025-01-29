@@ -30,7 +30,7 @@ class LedgerAccountSettlementCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             LedgerAccountSettlementCreateParams.builder()
                 .contraLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -48,7 +48,7 @@ class LedgerAccountSettlementCreateParamsTest {
                 .skipSettlementLedgerTransaction(true)
                 .status(LedgerAccountSettlementCreateParams.Status.PENDING)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.contraLedgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.settledLedgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -69,13 +69,13 @@ class LedgerAccountSettlementCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             LedgerAccountSettlementCreateParams.builder()
                 .contraLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .settledLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.contraLedgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.settledLedgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

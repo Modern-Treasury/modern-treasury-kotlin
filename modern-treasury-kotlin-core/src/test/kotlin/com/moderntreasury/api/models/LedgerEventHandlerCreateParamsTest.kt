@@ -66,7 +66,7 @@ class LedgerEventHandlerCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             LedgerEventHandlerCreateParams.builder()
                 .ledgerTransactionTemplate(
@@ -123,7 +123,7 @@ class LedgerEventHandlerCreateParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.ledgerTransactionTemplate())
             .isEqualTo(
@@ -183,7 +183,7 @@ class LedgerEventHandlerCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             LedgerEventHandlerCreateParams.builder()
                 .ledgerTransactionTemplate(
@@ -206,7 +206,7 @@ class LedgerEventHandlerCreateParamsTest {
                 )
                 .name("name")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.ledgerTransactionTemplate())
             .isEqualTo(

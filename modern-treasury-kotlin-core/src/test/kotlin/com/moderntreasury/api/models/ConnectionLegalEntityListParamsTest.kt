@@ -20,7 +20,7 @@ class ConnectionLegalEntityListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             ConnectionLegalEntityListParams.builder()
                 .afterCursor("after_cursor")
@@ -35,13 +35,13 @@ class ConnectionLegalEntityListParamsTest {
         expected.put("legal_entity_id", "legal_entity_id")
         expected.put("per_page", "0")
         expected.put("status", ConnectionLegalEntityListParams.Status.COMPLETED.toString())
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = ConnectionLegalEntityListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

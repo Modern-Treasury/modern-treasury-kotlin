@@ -29,7 +29,7 @@ class LedgerTransactionVersionListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             LedgerTransactionVersionListParams.builder()
                 .afterCursor("after_cursor")
@@ -60,13 +60,13 @@ class LedgerTransactionVersionListParamsTest {
             .putAdditionalProperty("foo", "0")
             .build()
             .forEachQueryParam { key, values -> expected.put("version[$key]", values) }
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = LedgerTransactionVersionListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

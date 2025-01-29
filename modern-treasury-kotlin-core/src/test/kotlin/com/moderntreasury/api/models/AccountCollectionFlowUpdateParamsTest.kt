@@ -16,25 +16,25 @@ class AccountCollectionFlowUpdateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             AccountCollectionFlowUpdateParams.builder()
                 .id("id")
                 .status(AccountCollectionFlowUpdateParams.Status.CANCELLED)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.status()).isEqualTo(AccountCollectionFlowUpdateParams.Status.CANCELLED)
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             AccountCollectionFlowUpdateParams.builder()
                 .id("id")
                 .status(AccountCollectionFlowUpdateParams.Status.CANCELLED)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.status()).isEqualTo(AccountCollectionFlowUpdateParams.Status.CANCELLED)
     }
