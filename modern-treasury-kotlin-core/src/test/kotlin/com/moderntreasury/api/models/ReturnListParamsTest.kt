@@ -21,7 +21,7 @@ class ReturnListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             ReturnListParams.builder()
                 .afterCursor("after_cursor")
@@ -41,13 +41,13 @@ class ReturnListParamsTest {
             "returnable_type",
             ReturnListParams.ReturnableType.INCOMING_PAYMENT_DETAIL.toString()
         )
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = ReturnListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

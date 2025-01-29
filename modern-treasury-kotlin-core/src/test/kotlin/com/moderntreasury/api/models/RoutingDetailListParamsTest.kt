@@ -19,7 +19,7 @@ class RoutingDetailListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             RoutingDetailListParams.builder()
                 .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
@@ -30,18 +30,18 @@ class RoutingDetailListParamsTest {
         val expected = QueryParams.builder()
         expected.put("after_cursor", "after_cursor")
         expected.put("per_page", "0")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params =
             RoutingDetailListParams.builder()
                 .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
                 .accountId("account_id")
                 .build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test

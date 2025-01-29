@@ -21,7 +21,7 @@ class PaperItemListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             PaperItemListParams.builder()
                 .afterCursor("after_cursor")
@@ -36,13 +36,13 @@ class PaperItemListParamsTest {
         expected.put("deposit_date_start", "2019-12-27")
         expected.put("lockbox_number", "lockbox_number")
         expected.put("per_page", "0")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = PaperItemListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

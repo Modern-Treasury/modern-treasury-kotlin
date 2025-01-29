@@ -29,7 +29,7 @@ class InvoiceLineItemCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             InvoiceLineItemCreateParams.builder()
                 .invoiceId("invoice_id")
@@ -47,7 +47,7 @@ class InvoiceLineItemCreateParamsTest {
                 .quantity(0L)
                 .unitAmountDecimal("unit_amount_decimal")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.unitAmount()).isEqualTo(0L)
@@ -66,14 +66,14 @@ class InvoiceLineItemCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             InvoiceLineItemCreateParams.builder()
                 .invoiceId("invoice_id")
                 .name("name")
                 .unitAmount(0L)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.unitAmount()).isEqualTo(0L)

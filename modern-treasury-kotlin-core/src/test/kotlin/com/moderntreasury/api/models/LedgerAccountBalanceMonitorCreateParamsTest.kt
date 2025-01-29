@@ -31,7 +31,7 @@ class LedgerAccountBalanceMonitorCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             LedgerAccountBalanceMonitorCreateParams.builder()
                 .alertCondition(
@@ -51,7 +51,7 @@ class LedgerAccountBalanceMonitorCreateParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.alertCondition())
             .isEqualTo(
@@ -74,7 +74,7 @@ class LedgerAccountBalanceMonitorCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             LedgerAccountBalanceMonitorCreateParams.builder()
                 .alertCondition(
@@ -86,7 +86,7 @@ class LedgerAccountBalanceMonitorCreateParamsTest {
                 )
                 .ledgerAccountId("ledger_account_id")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.alertCondition())
             .isEqualTo(

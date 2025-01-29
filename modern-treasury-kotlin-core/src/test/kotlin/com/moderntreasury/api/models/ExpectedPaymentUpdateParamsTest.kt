@@ -57,7 +57,7 @@ class ExpectedPaymentUpdateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             ExpectedPaymentUpdateParams.builder()
                 .id("id")
@@ -102,7 +102,7 @@ class ExpectedPaymentUpdateParamsTest {
                 .status(ExpectedPaymentUpdateParams.Status.RECONCILED)
                 .type(ExpectedPaymentType.ACH)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.amountLowerBound()).isEqualTo(0L)
         assertThat(body.amountUpperBound()).isEqualTo(0L)
@@ -151,9 +151,9 @@ class ExpectedPaymentUpdateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params = ExpectedPaymentUpdateParams.builder().id("id").build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 

@@ -140,7 +140,7 @@ class ExpectedPaymentCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             ExpectedPaymentCreateParams.builder()
                 .amountLowerBound(0L)
@@ -269,7 +269,7 @@ class ExpectedPaymentCreateParamsTest {
                 .statementDescriptor("statement_descriptor")
                 .type(ExpectedPaymentType.ACH)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.amountLowerBound()).isEqualTo(0L)
         assertThat(body.amountUpperBound()).isEqualTo(0L)
@@ -405,9 +405,9 @@ class ExpectedPaymentCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params = ExpectedPaymentCreateParams.builder().build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 }

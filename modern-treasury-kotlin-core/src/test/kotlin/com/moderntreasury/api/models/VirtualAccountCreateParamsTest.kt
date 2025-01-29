@@ -69,7 +69,7 @@ class VirtualAccountCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             VirtualAccountCreateParams.builder()
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -128,7 +128,7 @@ class VirtualAccountCreateParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.name()).isEqualTo("name")
@@ -196,13 +196,13 @@ class VirtualAccountCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             VirtualAccountCreateParams.builder()
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .name("name")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.name()).isEqualTo("name")

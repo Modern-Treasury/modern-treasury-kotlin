@@ -47,7 +47,7 @@ class LedgerTransactionCreatePartialPostParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             LedgerTransactionCreatePartialPostParams.builder()
                 .id("id")
@@ -84,7 +84,7 @@ class LedgerTransactionCreatePartialPostParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.postedLedgerEntries())
             .isEqualTo(
@@ -125,7 +125,7 @@ class LedgerTransactionCreatePartialPostParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             LedgerTransactionCreatePartialPostParams.builder()
                 .id("id")
@@ -143,7 +143,7 @@ class LedgerTransactionCreatePartialPostParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.postedLedgerEntries())
             .isEqualTo(

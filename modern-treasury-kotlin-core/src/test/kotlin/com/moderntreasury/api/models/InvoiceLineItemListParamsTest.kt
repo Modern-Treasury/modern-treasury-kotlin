@@ -18,7 +18,7 @@ class InvoiceLineItemListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             InvoiceLineItemListParams.builder()
                 .invoiceId("invoice_id")
@@ -28,14 +28,14 @@ class InvoiceLineItemListParamsTest {
         val expected = QueryParams.builder()
         expected.put("after_cursor", "after_cursor")
         expected.put("per_page", "0")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = InvoiceLineItemListParams.builder().invoiceId("invoice_id").build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test

@@ -18,7 +18,7 @@ class PaymentOrderReversalListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             PaymentOrderReversalListParams.builder()
                 .paymentOrderId("payment_order_id")
@@ -28,15 +28,15 @@ class PaymentOrderReversalListParamsTest {
         val expected = QueryParams.builder()
         expected.put("after_cursor", "after_cursor")
         expected.put("per_page", "0")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params =
             PaymentOrderReversalListParams.builder().paymentOrderId("payment_order_id").build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
