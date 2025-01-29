@@ -28,7 +28,7 @@ class CounterpartyListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             CounterpartyListParams.builder()
                 .afterCursor("after_cursor")
@@ -56,13 +56,13 @@ class CounterpartyListParamsTest {
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("name", "name")
         expected.put("per_page", "0")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = CounterpartyListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

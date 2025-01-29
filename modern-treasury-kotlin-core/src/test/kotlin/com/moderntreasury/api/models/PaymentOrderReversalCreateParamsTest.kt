@@ -97,7 +97,7 @@ class PaymentOrderReversalCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             PaymentOrderReversalCreateParams.builder()
                 .paymentOrderId("payment_order_id")
@@ -181,7 +181,7 @@ class PaymentOrderReversalCreateParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.reason()).isEqualTo(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
         assertThat(body.ledgerTransaction())
@@ -267,13 +267,13 @@ class PaymentOrderReversalCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             PaymentOrderReversalCreateParams.builder()
                 .paymentOrderId("payment_order_id")
                 .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.reason()).isEqualTo(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
     }

@@ -134,7 +134,7 @@ class LegalEntityAssociationCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             LegalEntityAssociationCreateParams.builder()
                 .parentLegalEntityId("parent_legal_entity_id")
@@ -261,7 +261,7 @@ class LegalEntityAssociationCreateParamsTest {
                 .ownershipPercentage(0L)
                 .title("title")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.parentLegalEntityId()).isEqualTo("parent_legal_entity_id")
         assertThat(body.relationshipTypes())
@@ -383,7 +383,7 @@ class LegalEntityAssociationCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             LegalEntityAssociationCreateParams.builder()
                 .parentLegalEntityId("parent_legal_entity_id")
@@ -391,7 +391,7 @@ class LegalEntityAssociationCreateParamsTest {
                     LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.parentLegalEntityId()).isEqualTo("parent_legal_entity_id")
         assertThat(body.relationshipTypes())

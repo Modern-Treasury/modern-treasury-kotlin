@@ -29,7 +29,7 @@ class BalanceReportCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             BalanceReportCreateParams.builder()
                 .internalAccountId("internal_account_id")
@@ -48,7 +48,7 @@ class BalanceReportCreateParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.asOfTime()).isEqualTo("as_of_time")
@@ -71,7 +71,7 @@ class BalanceReportCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             BalanceReportCreateParams.builder()
                 .internalAccountId("internal_account_id")
@@ -90,7 +90,7 @@ class BalanceReportCreateParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.asOfTime()).isEqualTo("as_of_time")

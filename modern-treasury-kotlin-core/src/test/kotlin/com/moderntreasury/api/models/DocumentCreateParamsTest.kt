@@ -20,7 +20,7 @@ class DocumentCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             DocumentCreateParams.builder()
                 .documentableId("documentable_id")
@@ -28,7 +28,7 @@ class DocumentCreateParamsTest {
                 .file("some content".toByteArray())
                 .documentType("document_type")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body)
             .containsExactly(
@@ -56,14 +56,14 @@ class DocumentCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             DocumentCreateParams.builder()
                 .documentableId("documentable_id")
                 .documentableType(DocumentCreateParams.DocumentableType.CASES)
                 .file("some content".toByteArray())
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body)
             .containsExactly(

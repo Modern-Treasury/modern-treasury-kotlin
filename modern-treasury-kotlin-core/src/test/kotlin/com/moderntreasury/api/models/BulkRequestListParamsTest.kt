@@ -25,7 +25,7 @@ class BulkRequestListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             BulkRequestListParams.builder()
                 .actionType(BulkRequestListParams.ActionType.CREATE)
@@ -49,13 +49,13 @@ class BulkRequestListParamsTest {
         expected.put("per_page", "0")
         expected.put("resource_type", BulkRequestListParams.ResourceType.PAYMENT_ORDER.toString())
         expected.put("status", BulkRequestListParams.Status.PENDING.toString())
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = BulkRequestListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

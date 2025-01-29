@@ -24,7 +24,7 @@ class ExternalAccountListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             ExternalAccountListParams.builder()
                 .afterCursor("after_cursor")
@@ -46,13 +46,13 @@ class ExternalAccountListParamsTest {
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("party_name", "party_name")
         expected.put("per_page", "0")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = ExternalAccountListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

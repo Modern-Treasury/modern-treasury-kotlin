@@ -21,7 +21,7 @@ class ForeignExchangeQuoteCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             ForeignExchangeQuoteCreateParams.builder()
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -31,7 +31,7 @@ class ForeignExchangeQuoteCreateParamsTest {
                 .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .targetAmount(0L)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.targetCurrency()).isEqualTo(Currency.AED)
@@ -42,13 +42,13 @@ class ForeignExchangeQuoteCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             ForeignExchangeQuoteCreateParams.builder()
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .targetCurrency(Currency.AED)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.targetCurrency()).isEqualTo(Currency.AED)

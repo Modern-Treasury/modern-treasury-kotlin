@@ -29,7 +29,7 @@ class InvoiceListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             InvoiceListParams.builder()
                 .afterCursor("after_cursor")
@@ -63,13 +63,13 @@ class InvoiceListParamsTest {
         expected.put("payment_order_id", "payment_order_id")
         expected.put("per_page", "0")
         expected.put("status", InvoiceListParams.Status.DRAFT.toString())
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = InvoiceListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

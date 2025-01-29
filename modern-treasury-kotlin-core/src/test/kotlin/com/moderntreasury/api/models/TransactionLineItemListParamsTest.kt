@@ -24,7 +24,7 @@ class TransactionLineItemListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             TransactionLineItemListParams.builder()
                 .id(
@@ -46,13 +46,13 @@ class TransactionLineItemListParamsTest {
         expected.put("per_page", "0")
         expected.put("transaction_id", "transaction_id")
         expected.put("type", TransactionLineItemListParams.Type.ORIGINATING.toString())
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = TransactionLineItemListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

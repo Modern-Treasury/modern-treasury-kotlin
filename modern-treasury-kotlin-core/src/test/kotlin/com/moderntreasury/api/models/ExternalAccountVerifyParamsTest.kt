@@ -20,7 +20,7 @@ class ExternalAccountVerifyParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             ExternalAccountVerifyParams.builder()
                 .id("id")
@@ -30,7 +30,7 @@ class ExternalAccountVerifyParamsTest {
                 .fallbackType(ExternalAccountVerifyParams.FallbackType.ACH)
                 .priority(ExternalAccountVerifyParams.Priority.HIGH)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.originatingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.paymentType()).isEqualTo(ExternalAccountVerifyParams.PaymentType.ACH)
@@ -40,14 +40,14 @@ class ExternalAccountVerifyParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             ExternalAccountVerifyParams.builder()
                 .id("id")
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .paymentType(ExternalAccountVerifyParams.PaymentType.ACH)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.originatingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.paymentType()).isEqualTo(ExternalAccountVerifyParams.PaymentType.ACH)

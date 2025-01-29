@@ -38,7 +38,7 @@ class PaymentOrderListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             PaymentOrderListParams.builder()
                 .afterCursor("after_cursor")
@@ -84,13 +84,13 @@ class PaymentOrderListParamsTest {
         expected.put("status", PaymentOrderListParams.Status.APPROVED.toString())
         expected.put("transaction_id", "transaction_id")
         expected.put("type", PaymentOrderListParams.Type.ACH.toString())
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = PaymentOrderListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }
