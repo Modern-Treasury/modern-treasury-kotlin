@@ -24,7 +24,7 @@ class LedgerAccountBalanceMonitorListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             LedgerAccountBalanceMonitorListParams.builder()
                 .addId("string")
@@ -46,13 +46,13 @@ class LedgerAccountBalanceMonitorListParamsTest {
             .build()
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("per_page", "0")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = LedgerAccountBalanceMonitorListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

@@ -60,7 +60,7 @@ class LedgerEntryListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             LedgerEntryListParams.builder()
                 .addId("string")
@@ -151,13 +151,13 @@ class LedgerEntryListParamsTest {
             .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
             .build()
             .forEachQueryParam { key, values -> expected.put("updated_at[$key]", values) }
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = LedgerEntryListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

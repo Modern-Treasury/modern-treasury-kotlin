@@ -66,7 +66,7 @@ class LedgerTransactionCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             LedgerTransactionCreateParams.builder()
                 .addLedgerEntry(
@@ -122,7 +122,7 @@ class LedgerTransactionCreateParamsTest {
                 )
                 .status(LedgerTransactionCreateParams.Status.ARCHIVED)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.ledgerEntries())
             .isEqualTo(
@@ -184,7 +184,7 @@ class LedgerTransactionCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             LedgerTransactionCreateParams.builder()
                 .addLedgerEntry(
@@ -195,7 +195,7 @@ class LedgerTransactionCreateParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.ledgerEntries())
             .isEqualTo(

@@ -16,25 +16,25 @@ class PaymentFlowUpdateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             PaymentFlowUpdateParams.builder()
                 .id("id")
                 .status(PaymentFlowUpdateParams.Status.CANCELLED)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.status()).isEqualTo(PaymentFlowUpdateParams.Status.CANCELLED)
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             PaymentFlowUpdateParams.builder()
                 .id("id")
                 .status(PaymentFlowUpdateParams.Status.CANCELLED)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.status()).isEqualTo(PaymentFlowUpdateParams.Status.CANCELLED)
     }

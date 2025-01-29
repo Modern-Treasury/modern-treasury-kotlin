@@ -16,21 +16,21 @@ class ConnectionLegalEntityUpdateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             ConnectionLegalEntityUpdateParams.builder()
                 .id("id")
                 .status(ConnectionLegalEntityUpdateParams.Status.PROCESSING)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.status()).isEqualTo(ConnectionLegalEntityUpdateParams.Status.PROCESSING)
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params = ConnectionLegalEntityUpdateParams.builder().id("id").build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 

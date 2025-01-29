@@ -22,7 +22,7 @@ class BulkResultListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             BulkResultListParams.builder()
                 .afterCursor("after_cursor")
@@ -41,13 +41,13 @@ class BulkResultListParamsTest {
         expected.put("request_id", "request_id")
         expected.put("request_type", BulkResultListParams.RequestType.BULK_REQUEST.toString())
         expected.put("status", BulkResultListParams.Status.PENDING.toString())
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = BulkResultListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

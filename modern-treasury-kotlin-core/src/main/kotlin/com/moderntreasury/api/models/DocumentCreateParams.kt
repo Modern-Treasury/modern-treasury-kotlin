@@ -8,6 +8,7 @@ import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.MultipartFormValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -24,7 +25,7 @@ private constructor(
     private val documentType: MultipartFormValue<String>?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     /** The unique identifier for the associated object. */
     fun documentableId(): MultipartFormValue<String> = documentableId
@@ -40,7 +41,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getBody(): Array<MultipartFormValue<*>?> =
+    internal fun _body(): Array<MultipartFormValue<*>?> =
         arrayOf(
             documentableId(),
             documentableType(),
@@ -48,9 +49,9 @@ private constructor(
             documentType(),
         )
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)
 

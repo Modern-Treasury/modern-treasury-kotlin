@@ -26,7 +26,7 @@ class CounterpartyUpdateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             CounterpartyUpdateParams.builder()
                 .id("id")
@@ -41,7 +41,7 @@ class CounterpartyUpdateParamsTest {
                 .sendRemittanceAdvice(true)
                 .taxpayerIdentifier("taxpayer_identifier")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.email()).isEqualTo("dev@stainlessapi.com")
         assertThat(body.legalEntityId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -57,9 +57,9 @@ class CounterpartyUpdateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params = CounterpartyUpdateParams.builder().id("id").build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 

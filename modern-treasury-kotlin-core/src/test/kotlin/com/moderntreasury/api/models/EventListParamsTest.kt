@@ -23,7 +23,7 @@ class EventListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             EventListParams.builder()
                 .afterCursor("after_cursor")
@@ -42,13 +42,13 @@ class EventListParamsTest {
         expected.put("event_time_start", "2019-12-27T18:11:19.117Z")
         expected.put("per_page", "0")
         expected.put("resource", "resource")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = EventListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

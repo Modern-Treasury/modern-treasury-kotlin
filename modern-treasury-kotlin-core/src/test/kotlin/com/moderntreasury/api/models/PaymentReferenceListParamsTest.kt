@@ -20,7 +20,7 @@ class PaymentReferenceListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             PaymentReferenceListParams.builder()
                 .afterCursor("after_cursor")
@@ -38,13 +38,13 @@ class PaymentReferenceListParamsTest {
             "referenceable_type",
             PaymentReferenceListParams.ReferenceableType.PAYMENT_ORDER.toString()
         )
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = PaymentReferenceListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

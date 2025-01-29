@@ -19,7 +19,7 @@ class ConnectionListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             ConnectionListParams.builder()
                 .afterCursor("after_cursor")
@@ -32,13 +32,13 @@ class ConnectionListParamsTest {
         expected.put("entity", "entity")
         expected.put("per_page", "0")
         expected.put("vendor_customer_id", "vendor_customer_id")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = ConnectionListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

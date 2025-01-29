@@ -248,7 +248,7 @@ class LegalEntityCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             LegalEntityCreateParams.builder()
                 .legalEntityType(LegalEntityCreateParams.LegalEntityType.BUSINESS)
@@ -501,7 +501,7 @@ class LegalEntityCreateParamsTest {
                 )
                 .website("website")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.legalEntityType())
             .isEqualTo(LegalEntityCreateParams.LegalEntityType.BUSINESS)
@@ -772,12 +772,12 @@ class LegalEntityCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             LegalEntityCreateParams.builder()
                 .legalEntityType(LegalEntityCreateParams.LegalEntityType.BUSINESS)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.legalEntityType())
             .isEqualTo(LegalEntityCreateParams.LegalEntityType.BUSINESS)
