@@ -148,19 +148,7 @@ See [Pagination](#pagination) below for more information on transparently workin
 
 To make a request to the Modern Treasury API, you generally build an instance of the appropriate `Params` class.
 
-In [Example: creating a resource](#example-creating-a-resource) above, we used the `CounterpartyCreateParams.builder()` to pass to the `create` method of the `counterparties` service.
-
-Sometimes, the API may support other properties that are not yet supported in the Kotlin SDK types. In that case, you can attach them using the `putAdditionalProperty` method.
-
-```kotlin
-import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.models.CounterpartyCreateParams
-
-val params: CounterpartyCreateParams = CounterpartyCreateParams.builder()
-    // ... normal properties
-    .putAdditionalProperty("secret_param", JsonValue.from("4242"))
-    .build()
-```
+See [Undocumented request params](#undocumented-request-params) for how to send arbitrary parameters.
 
 ## Responses
 
@@ -328,6 +316,33 @@ val client: ModernTreasuryClient = ModernTreasuryOkHttpClient.builder()
     .proxy(Proxy(Proxy.Type.HTTP, InetSocketAddress("example.com", 8080)))
     .build()
 ```
+
+## Making custom/undocumented requests
+
+This library is typed for convenient access to the documented API. If you need to access undocumented params or response properties, the library can still be used.
+
+### Undocumented request params
+
+In [Example: creating a resource](#example-creating-a-resource) above, we used the `CounterpartyCreateParams.builder()` to pass to the `create` method of the `counterparties` service.
+
+Sometimes, the API may support other properties that are not yet supported in the Kotlin SDK types. In that case, you can attach them using raw setters:
+
+```kotlin
+import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.models.CounterpartyCreateParams
+
+val params: CounterpartyCreateParams = CounterpartyCreateParams.builder()
+    .putAdditionalHeader("Secret-Header", "42")
+    .putAdditionalQueryParam("secret_query_param", "42")
+    .putAdditionalBodyProperty("secretProperty", JsonValue.from("42"))
+    .build()
+```
+
+You can also use the `putAdditionalProperty` method on nested headers, query params, or body objects.
+
+### Undocumented response properties
+
+To access undocumented response properties, you can use `res._additionalProperties()` on a response object to get a map of untyped fields of type `Map<String, JsonValue>`. You can then access fields like `res._additionalProperties().get("secret_prop").asString()` or use other helpers defined on the `JsonValue` class to extract it to a desired type.
 
 ## Logging
 
