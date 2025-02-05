@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class PaymentOrderReversalRetrieveParamsTest {
 
     @Test
-    fun createPaymentOrderReversalRetrieveParams() {
+    fun create() {
         PaymentOrderReversalRetrieveParams.builder()
             .paymentOrderId("payment_order_id")
             .reversalId("reversal_id")

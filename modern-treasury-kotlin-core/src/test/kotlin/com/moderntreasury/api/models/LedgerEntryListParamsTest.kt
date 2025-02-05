@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class LedgerEntryListParamsTest {
 
     @Test
-    fun createLedgerEntryListParams() {
+    fun create() {
         LedgerEntryListParams.builder()
             .addId("string")
             .afterCursor("after_cursor")

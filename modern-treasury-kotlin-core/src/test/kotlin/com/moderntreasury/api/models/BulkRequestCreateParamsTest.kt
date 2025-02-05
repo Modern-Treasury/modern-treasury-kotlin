@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class BulkRequestCreateParamsTest {
 
     @Test
-    fun createBulkRequestCreateParams() {
+    fun create() {
         BulkRequestCreateParams.builder()
             .actionType(BulkRequestCreateParams.ActionType.CREATE)
             .resourceType(BulkRequestCreateParams.ResourceType.PAYMENT_ORDER)

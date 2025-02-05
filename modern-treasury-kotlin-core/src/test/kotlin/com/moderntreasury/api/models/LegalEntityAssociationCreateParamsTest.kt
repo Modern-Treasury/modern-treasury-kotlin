@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class LegalEntityAssociationCreateParamsTest {
 
     @Test
-    fun createLegalEntityAssociationCreateParams() {
+    fun create() {
         LegalEntityAssociationCreateParams.builder()
             .parentLegalEntityId("parent_legal_entity_id")
             .addRelationshipType(

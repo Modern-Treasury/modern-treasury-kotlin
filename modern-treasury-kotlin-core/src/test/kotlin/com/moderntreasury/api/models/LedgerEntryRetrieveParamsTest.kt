@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class LedgerEntryRetrieveParamsTest {
 
     @Test
-    fun createLedgerEntryRetrieveParams() {
+    fun create() {
         LedgerEntryRetrieveParams.builder().id("id").showBalances(true).build()
     }
 

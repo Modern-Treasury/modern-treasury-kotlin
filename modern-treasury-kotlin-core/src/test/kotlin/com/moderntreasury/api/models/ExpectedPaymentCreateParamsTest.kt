@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class ExpectedPaymentCreateParamsTest {
 
     @Test
-    fun createExpectedPaymentCreateParams() {
+    fun create() {
         ExpectedPaymentCreateParams.builder()
             .amountLowerBound(0L)
             .amountUpperBound(0L)

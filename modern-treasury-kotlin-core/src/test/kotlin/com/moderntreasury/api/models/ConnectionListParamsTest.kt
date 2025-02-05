@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class ConnectionListParamsTest {
 
     @Test
-    fun createConnectionListParams() {
+    fun create() {
         ConnectionListParams.builder()
             .afterCursor("after_cursor")
             .entity("entity")

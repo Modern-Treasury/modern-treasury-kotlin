@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class BalanceReportCreateParamsTest {
 
     @Test
-    fun createBalanceReportCreateParams() {
+    fun create() {
         BalanceReportCreateParams.builder()
             .internalAccountId("internal_account_id")
             .asOfDate(LocalDate.parse("2019-12-27"))

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class ReturnRetrieveParamsTest {
 
     @Test
-    fun createReturnRetrieveParams() {
+    fun create() {
         ReturnRetrieveParams.builder().id("id").build()
     }
 

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class CounterpartyCollectAccountParamsTest {
 
     @Test
-    fun createCounterpartyCollectAccountParams() {
+    fun create() {
         CounterpartyCollectAccountParams.builder()
             .id("id")
             .direction(TransactionDirection.CREDIT)

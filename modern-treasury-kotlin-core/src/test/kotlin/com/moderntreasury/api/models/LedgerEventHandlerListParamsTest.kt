@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class LedgerEventHandlerListParamsTest {
 
     @Test
-    fun createLedgerEventHandlerListParams() {
+    fun create() {
         LedgerEventHandlerListParams.builder()
             .afterCursor("after_cursor")
             .createdAt(

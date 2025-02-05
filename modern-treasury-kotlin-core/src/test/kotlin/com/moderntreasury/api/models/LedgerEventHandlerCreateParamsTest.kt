@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class LedgerEventHandlerCreateParamsTest {
 
     @Test
-    fun createLedgerEventHandlerCreateParams() {
+    fun create() {
         LedgerEventHandlerCreateParams.builder()
             .ledgerTransactionTemplate(
                 LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate.builder()

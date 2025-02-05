@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class PaymentReferenceListParamsTest {
 
     @Test
-    fun createPaymentReferenceListParams() {
+    fun create() {
         PaymentReferenceListParams.builder()
             .afterCursor("after_cursor")
             .perPage(0L)

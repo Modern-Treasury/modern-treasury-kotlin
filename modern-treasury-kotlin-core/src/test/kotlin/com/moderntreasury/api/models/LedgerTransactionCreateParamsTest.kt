@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class LedgerTransactionCreateParamsTest {
 
     @Test
-    fun createLedgerTransactionCreateParams() {
+    fun create() {
         LedgerTransactionCreateParams.builder()
             .addLedgerEntry(
                 LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()

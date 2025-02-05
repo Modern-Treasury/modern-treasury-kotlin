@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class InvoiceListParamsTest {
 
     @Test
-    fun createInvoiceListParams() {
+    fun create() {
         InvoiceListParams.builder()
             .afterCursor("after_cursor")
             .counterpartyId("counterparty_id")

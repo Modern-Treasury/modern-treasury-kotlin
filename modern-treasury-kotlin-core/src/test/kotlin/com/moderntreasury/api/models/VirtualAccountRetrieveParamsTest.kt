@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class VirtualAccountRetrieveParamsTest {
 
     @Test
-    fun createVirtualAccountRetrieveParams() {
+    fun create() {
         VirtualAccountRetrieveParams.builder().id("id").build()
     }
 

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class TransactionUpdateParamsTest {
 
     @Test
-    fun createTransactionUpdateParams() {
+    fun create() {
         TransactionUpdateParams.builder()
             .id("id")
             .metadata(

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class IncomingPaymentDetailUpdateParamsTest {
 
     @Test
-    fun createIncomingPaymentDetailUpdateParams() {
+    fun create() {
         IncomingPaymentDetailUpdateParams.builder()
             .id("id")
             .metadata(

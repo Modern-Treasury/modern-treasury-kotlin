@@ -43,15 +43,14 @@ internal constructor(
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
                 .prepare(clientOptions, params)
-        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response
-                .use { createHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.execute(request, requestOptions)
+        return response
+            .use { createHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val retrieveHandler: Handler<TransactionLineItem> =
@@ -68,15 +67,14 @@ internal constructor(
                 .addPathSegments("api", "transaction_line_items", params.getPathParam(0))
                 .build()
                 .prepare(clientOptions, params)
-        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response
-                .use { retrieveHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.execute(request, requestOptions)
+        return response
+            .use { retrieveHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val listHandler: Handler<List<TransactionLineItem>> =
@@ -94,23 +92,25 @@ internal constructor(
                 .addPathSegments("api", "transaction_line_items")
                 .build()
                 .prepare(clientOptions, params)
-        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response
-                .use { listHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        forEach { it.validate() }
-                    }
+        val response = clientOptions.httpClient.execute(request, requestOptions)
+        return response
+            .use { listHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.forEach { it.validate() }
                 }
-                .let {
-                    TransactionLineItemListPage.Response.Builder()
+            }
+            .let {
+                TransactionLineItemListPage.of(
+                    this,
+                    params,
+                    TransactionLineItemListPage.Response.builder()
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
                         .build()
-                }
-                .let { TransactionLineItemListPage.of(this, params, it) }
-        }
+                )
+            }
     }
 
     private val deleteHandler: Handler<Void?> = emptyHandler().withErrorHandler(errorHandler)
@@ -121,11 +121,10 @@ internal constructor(
             HttpRequest.builder()
                 .method(HttpMethod.DELETE)
                 .addPathSegments("api", "transaction_line_items", params.getPathParam(0))
-                .apply { params._body()?.also { body(json(clientOptions.jsonMapper, it)) } }
+                .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
                 .prepare(clientOptions, params)
-        clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response.use { deleteHandler.handle(it) }
-        }
+        val response = clientOptions.httpClient.execute(request, requestOptions)
+        response.use { deleteHandler.handle(it) }
     }
 }

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class LegalEntityListParamsTest {
 
     @Test
-    fun createLegalEntityListParams() {
+    fun create() {
         LegalEntityListParams.builder()
             .afterCursor("after_cursor")
             .legalEntityType(LegalEntityListParams.LegalEntityType.BUSINESS)

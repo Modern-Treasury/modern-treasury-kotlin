@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class CounterpartyUpdateParamsTest {
 
     @Test
-    fun createCounterpartyUpdateParams() {
+    fun create() {
         CounterpartyUpdateParams.builder()
             .id("id")
             .email("dev@stainlessapi.com")

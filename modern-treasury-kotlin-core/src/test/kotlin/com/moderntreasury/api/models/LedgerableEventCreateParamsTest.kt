@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class LedgerableEventCreateParamsTest {
 
     @Test
-    fun createLedgerableEventCreateParams() {
+    fun create() {
         LedgerableEventCreateParams.builder()
             .name("name")
             .customData(JsonValue.from(mapOf<String, Any>()))
