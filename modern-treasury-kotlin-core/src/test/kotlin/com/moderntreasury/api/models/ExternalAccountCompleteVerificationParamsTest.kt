@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class ExternalAccountCompleteVerificationParamsTest {
 
     @Test
-    fun createExternalAccountCompleteVerificationParams() {
+    fun create() {
         ExternalAccountCompleteVerificationParams.builder()
             .id("id")
             .addAmount(2L)

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class LegalEntityUpdateParamsTest {
 
     @Test
-    fun createLegalEntityUpdateParams() {
+    fun create() {
         LegalEntityUpdateParams.builder()
             .id("id")
             .addAddress(

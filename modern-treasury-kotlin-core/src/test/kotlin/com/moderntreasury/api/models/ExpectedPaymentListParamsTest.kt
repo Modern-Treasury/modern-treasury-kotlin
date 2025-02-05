@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class ExpectedPaymentListParamsTest {
 
     @Test
-    fun createExpectedPaymentListParams() {
+    fun create() {
         ExpectedPaymentListParams.builder()
             .afterCursor("after_cursor")
             .counterpartyId("counterparty_id")

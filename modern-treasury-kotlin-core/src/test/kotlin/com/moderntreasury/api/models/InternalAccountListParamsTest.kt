@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class InternalAccountListParamsTest {
 
     @Test
-    fun createInternalAccountListParams() {
+    fun create() {
         InternalAccountListParams.builder()
             .afterCursor("after_cursor")
             .counterpartyId("counterparty_id")

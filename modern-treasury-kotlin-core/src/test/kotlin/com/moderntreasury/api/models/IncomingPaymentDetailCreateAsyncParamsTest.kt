@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class IncomingPaymentDetailCreateAsyncParamsTest {
 
     @Test
-    fun createIncomingPaymentDetailCreateAsyncParams() {
+    fun create() {
         IncomingPaymentDetailCreateAsyncParams.builder()
             .amount(0L)
             .asOfDate(LocalDate.parse("2019-12-27"))

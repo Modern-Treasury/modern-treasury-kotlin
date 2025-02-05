@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class TransactionCreateParamsTest {
 
     @Test
-    fun createTransactionCreateParams() {
+    fun create() {
         TransactionCreateParams.builder()
             .amount(0L)
             .asOfDate(LocalDate.parse("2019-12-27"))

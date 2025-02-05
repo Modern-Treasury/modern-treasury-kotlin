@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class PaymentFlowUpdateParamsTest {
 
     @Test
-    fun createPaymentFlowUpdateParams() {
+    fun create() {
         PaymentFlowUpdateParams.builder()
             .id("id")
             .status(PaymentFlowUpdateParams.Status.CANCELLED)

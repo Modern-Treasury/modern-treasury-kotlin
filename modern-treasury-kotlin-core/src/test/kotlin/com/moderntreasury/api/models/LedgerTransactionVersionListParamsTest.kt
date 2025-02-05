@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class LedgerTransactionVersionListParamsTest {
 
     @Test
-    fun createLedgerTransactionVersionListParams() {
+    fun create() {
         LedgerTransactionVersionListParams.builder()
             .afterCursor("after_cursor")
             .createdAt(

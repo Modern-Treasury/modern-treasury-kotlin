@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class VirtualAccountListParamsTest {
 
     @Test
-    fun createVirtualAccountListParams() {
+    fun create() {
         VirtualAccountListParams.builder()
             .afterCursor("after_cursor")
             .counterpartyId("counterparty_id")

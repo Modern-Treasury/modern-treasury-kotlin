@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class ExpectedPaymentUpdateParamsTest {
 
     @Test
-    fun createExpectedPaymentUpdateParams() {
+    fun create() {
         ExpectedPaymentUpdateParams.builder()
             .id("id")
             .amountLowerBound(0L)

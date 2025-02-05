@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class LedgerAccountCategoryRemoveLedgerAccountParamsTest {
 
     @Test
-    fun createLedgerAccountCategoryRemoveLedgerAccountParams() {
+    fun create() {
         LedgerAccountCategoryRemoveLedgerAccountParams.builder()
             .id("id")
             .ledgerAccountId("ledger_account_id")

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class ExpectedPaymentDeleteParamsTest {
 
     @Test
-    fun createExpectedPaymentDeleteParams() {
+    fun create() {
         ExpectedPaymentDeleteParams.builder().id("id").build()
     }
 

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class ConnectionLegalEntityUpdateParamsTest {
 
     @Test
-    fun createConnectionLegalEntityUpdateParams() {
+    fun create() {
         ConnectionLegalEntityUpdateParams.builder()
             .id("id")
             .status(ConnectionLegalEntityUpdateParams.Status.PROCESSING)

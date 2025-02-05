@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class DocumentRetrieveParamsTest {
 
     @Test
-    fun createDocumentRetrieveParams() {
+    fun create() {
         DocumentRetrieveParams.builder().id("id").build()
     }
 

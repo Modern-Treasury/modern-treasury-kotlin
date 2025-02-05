@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class InvoiceLineItemCreateParamsTest {
 
     @Test
-    fun createInvoiceLineItemCreateParams() {
+    fun create() {
         InvoiceLineItemCreateParams.builder()
             .invoiceId("invoice_id")
             .name("name")

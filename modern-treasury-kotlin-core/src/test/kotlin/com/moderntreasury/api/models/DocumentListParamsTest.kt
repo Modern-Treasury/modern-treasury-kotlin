@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class DocumentListParamsTest {
 
     @Test
-    fun createDocumentListParams() {
+    fun create() {
         DocumentListParams.builder()
             .afterCursor("after_cursor")
             .documentableId("documentable_id")

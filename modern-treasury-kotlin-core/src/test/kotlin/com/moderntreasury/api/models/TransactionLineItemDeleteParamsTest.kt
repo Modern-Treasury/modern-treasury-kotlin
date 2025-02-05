@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class TransactionLineItemDeleteParamsTest {
 
     @Test
-    fun createTransactionLineItemDeleteParams() {
+    fun create() {
         TransactionLineItemDeleteParams.builder().id("id").build()
     }
 

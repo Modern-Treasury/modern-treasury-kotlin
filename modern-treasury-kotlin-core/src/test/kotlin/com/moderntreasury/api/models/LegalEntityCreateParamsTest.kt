@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class LegalEntityCreateParamsTest {
 
     @Test
-    fun createLegalEntityCreateParams() {
+    fun create() {
         LegalEntityCreateParams.builder()
             .legalEntityType(LegalEntityCreateParams.LegalEntityType.BUSINESS)
             .addAddress(

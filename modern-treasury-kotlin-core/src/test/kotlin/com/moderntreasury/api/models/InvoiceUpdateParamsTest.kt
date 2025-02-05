@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class InvoiceUpdateParamsTest {
 
     @Test
-    fun createInvoiceUpdateParams() {
+    fun create() {
         InvoiceUpdateParams.builder()
             .id("id")
             .addContactDetail(
