@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class InternalAccountCreateParamsTest {
 
     @Test
-    fun createInternalAccountCreateParams() {
+    fun create() {
         InternalAccountCreateParams.builder()
             .connectionId("connection_id")
             .currency(InternalAccountCreateParams.Currency.USD)

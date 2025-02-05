@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class LedgerAccountCategoryRetrieveParamsTest {
 
     @Test
-    fun createLedgerAccountCategoryRetrieveParams() {
+    fun create() {
         LedgerAccountCategoryRetrieveParams.builder()
             .id("id")
             .balances(

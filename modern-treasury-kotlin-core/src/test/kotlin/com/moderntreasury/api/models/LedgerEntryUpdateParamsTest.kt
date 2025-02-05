@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class LedgerEntryUpdateParamsTest {
 
     @Test
-    fun createLedgerEntryUpdateParams() {
+    fun create() {
         LedgerEntryUpdateParams.builder()
             .id("id")
             .metadata(

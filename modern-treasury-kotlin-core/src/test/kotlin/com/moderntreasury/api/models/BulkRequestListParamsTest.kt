@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class BulkRequestListParamsTest {
 
     @Test
-    fun createBulkRequestListParams() {
+    fun create() {
         BulkRequestListParams.builder()
             .actionType(BulkRequestListParams.ActionType.CREATE)
             .afterCursor("after_cursor")

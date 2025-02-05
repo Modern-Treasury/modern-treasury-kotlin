@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class PaymentOrderListParamsTest {
 
     @Test
-    fun createPaymentOrderListParams() {
+    fun create() {
         PaymentOrderListParams.builder()
             .afterCursor("after_cursor")
             .counterpartyId("counterparty_id")

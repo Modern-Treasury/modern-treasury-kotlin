@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class BalanceReportListParamsTest {
 
     @Test
-    fun createBalanceReportListParams() {
+    fun create() {
         BalanceReportListParams.builder()
             .internalAccountId("internal_account_id")
             .afterCursor("after_cursor")

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class InvoiceCreateParamsTest {
 
     @Test
-    fun createInvoiceCreateParams() {
+    fun create() {
         InvoiceCreateParams.builder()
             .counterpartyId("counterparty_id")
             .dueDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

@@ -38,22 +38,24 @@ internal constructor(
                 .addPathSegments("api", "ledger_transaction_versions")
                 .build()
                 .prepare(clientOptions, params)
-        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response
-                .use { listHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        forEach { it.validate() }
-                    }
+        val response = clientOptions.httpClient.execute(request, requestOptions)
+        return response
+            .use { listHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.forEach { it.validate() }
                 }
-                .let {
-                    LedgerTransactionVersionListPage.Response.Builder()
+            }
+            .let {
+                LedgerTransactionVersionListPage.of(
+                    this,
+                    params,
+                    LedgerTransactionVersionListPage.Response.builder()
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
                         .build()
-                }
-                .let { LedgerTransactionVersionListPage.of(this, params, it) }
-        }
+                )
+            }
     }
 }

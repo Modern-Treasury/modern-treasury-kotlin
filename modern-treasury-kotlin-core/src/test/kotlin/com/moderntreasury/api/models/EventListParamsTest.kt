@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class EventListParamsTest {
 
     @Test
-    fun createEventListParams() {
+    fun create() {
         EventListParams.builder()
             .afterCursor("after_cursor")
             .entityId("entity_id")

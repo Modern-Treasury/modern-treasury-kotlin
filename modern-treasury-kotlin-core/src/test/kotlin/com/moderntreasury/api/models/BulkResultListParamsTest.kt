@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class BulkResultListParamsTest {
 
     @Test
-    fun createBulkResultListParams() {
+    fun create() {
         BulkResultListParams.builder()
             .afterCursor("after_cursor")
             .entityId("entity_id")

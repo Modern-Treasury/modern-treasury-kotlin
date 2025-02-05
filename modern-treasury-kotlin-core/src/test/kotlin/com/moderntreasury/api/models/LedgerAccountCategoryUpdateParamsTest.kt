@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class LedgerAccountCategoryUpdateParamsTest {
 
     @Test
-    fun createLedgerAccountCategoryUpdateParams() {
+    fun create() {
         LedgerAccountCategoryUpdateParams.builder()
             .id("id")
             .description("description")

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class ForeignExchangeQuoteListParamsTest {
 
     @Test
-    fun createForeignExchangeQuoteListParams() {
+    fun create() {
         ForeignExchangeQuoteListParams.builder()
             .afterCursor("after_cursor")
             .baseCurrency("base_currency")

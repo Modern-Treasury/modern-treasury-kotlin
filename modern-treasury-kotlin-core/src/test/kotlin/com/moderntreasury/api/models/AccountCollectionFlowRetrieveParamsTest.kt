@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class AccountCollectionFlowRetrieveParamsTest {
 
     @Test
-    fun createAccountCollectionFlowRetrieveParams() {
+    fun create() {
         AccountCollectionFlowRetrieveParams.builder().id("id").build()
     }
 

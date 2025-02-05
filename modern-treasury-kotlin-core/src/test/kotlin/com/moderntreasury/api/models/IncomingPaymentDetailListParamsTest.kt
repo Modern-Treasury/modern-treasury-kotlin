@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class IncomingPaymentDetailListParamsTest {
 
     @Test
-    fun createIncomingPaymentDetailListParams() {
+    fun create() {
         IncomingPaymentDetailListParams.builder()
             .afterCursor("after_cursor")
             .asOfDateEnd(LocalDate.parse("2019-12-27"))

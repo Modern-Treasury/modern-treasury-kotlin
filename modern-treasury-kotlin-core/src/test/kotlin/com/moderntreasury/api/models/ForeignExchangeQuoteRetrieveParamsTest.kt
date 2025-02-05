@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class ForeignExchangeQuoteRetrieveParamsTest {
 
     @Test
-    fun createForeignExchangeQuoteRetrieveParams() {
+    fun create() {
         ForeignExchangeQuoteRetrieveParams.builder().id("id").build()
     }
 

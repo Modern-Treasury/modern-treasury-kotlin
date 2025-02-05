@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class LedgerTransactionCreateReversalParamsTest {
 
     @Test
-    fun createLedgerTransactionCreateReversalParams() {
+    fun create() {
         LedgerTransactionCreateReversalParams.builder()
             .id("id")
             .description("description")

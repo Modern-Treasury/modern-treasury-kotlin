@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class ExternalAccountUpdateParamsTest {
 
     @Test
-    fun createExternalAccountUpdateParams() {
+    fun create() {
         ExternalAccountUpdateParams.builder()
             .id("id")
             .accountType(ExternalAccountType.CASH)

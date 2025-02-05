@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class VirtualAccountCreateParamsTest {
 
     @Test
-    fun createVirtualAccountCreateParams() {
+    fun create() {
         VirtualAccountCreateParams.builder()
             .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .name("name")

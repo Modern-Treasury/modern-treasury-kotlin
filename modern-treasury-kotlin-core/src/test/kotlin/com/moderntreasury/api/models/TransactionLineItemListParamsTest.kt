@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class TransactionLineItemListParamsTest {
 
     @Test
-    fun createTransactionLineItemListParams() {
+    fun create() {
         TransactionLineItemListParams.builder()
             .id(
                 TransactionLineItemListParams.Id.builder()

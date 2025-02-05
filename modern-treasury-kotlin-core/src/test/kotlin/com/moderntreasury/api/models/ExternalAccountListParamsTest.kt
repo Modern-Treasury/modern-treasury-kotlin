@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class ExternalAccountListParamsTest {
 
     @Test
-    fun createExternalAccountListParams() {
+    fun create() {
         ExternalAccountListParams.builder()
             .afterCursor("after_cursor")
             .counterpartyId("counterparty_id")

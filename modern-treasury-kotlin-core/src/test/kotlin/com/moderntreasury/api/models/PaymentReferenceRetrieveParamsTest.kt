@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class PaymentReferenceRetrieveParamsTest {
 
     @Test
-    fun createPaymentReferenceRetrieveParams() {
+    fun create() {
         PaymentReferenceRetrieveParams.builder().id("id").build()
     }
 

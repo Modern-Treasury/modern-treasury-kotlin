@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class DocumentCreateParamsTest {
 
     @Test
-    fun createDocumentCreateParams() {
+    fun create() {
         DocumentCreateParams.builder()
             .documentableId("documentable_id")
             .documentableType(DocumentCreateParams.DocumentableType.CASES)

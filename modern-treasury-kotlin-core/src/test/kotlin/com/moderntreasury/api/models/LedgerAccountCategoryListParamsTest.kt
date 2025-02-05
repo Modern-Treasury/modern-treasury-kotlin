@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class LedgerAccountCategoryListParamsTest {
 
     @Test
-    fun createLedgerAccountCategoryListParams() {
+    fun create() {
         LedgerAccountCategoryListParams.builder()
             .addId("string")
             .afterCursor("after_cursor")

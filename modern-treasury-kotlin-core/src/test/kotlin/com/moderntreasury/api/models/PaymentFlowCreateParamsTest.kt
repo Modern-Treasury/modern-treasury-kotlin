@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class PaymentFlowCreateParamsTest {
 
     @Test
-    fun createPaymentFlowCreateParams() {
+    fun create() {
         PaymentFlowCreateParams.builder()
             .amount(0L)
             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

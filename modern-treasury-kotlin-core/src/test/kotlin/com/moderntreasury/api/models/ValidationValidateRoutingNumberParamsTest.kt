@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class ValidationValidateRoutingNumberParamsTest {
 
     @Test
-    fun createValidationValidateRoutingNumberParams() {
+    fun create() {
         ValidationValidateRoutingNumberParams.builder()
             .routingNumber("routing_number")
             .routingNumberType(ValidationValidateRoutingNumberParams.RoutingNumberType.ABA)

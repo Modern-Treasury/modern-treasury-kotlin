@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class LedgerDeleteParamsTest {
 
     @Test
-    fun createLedgerDeleteParams() {
+    fun create() {
         LedgerDeleteParams.builder().id("id").build()
     }
 

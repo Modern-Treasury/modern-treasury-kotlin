@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class InternalAccountUpdateParamsTest {
 
     @Test
-    fun createInternalAccountUpdateParams() {
+    fun create() {
         InternalAccountUpdateParams.builder()
             .id("id")
             .counterpartyId("counterparty_id")

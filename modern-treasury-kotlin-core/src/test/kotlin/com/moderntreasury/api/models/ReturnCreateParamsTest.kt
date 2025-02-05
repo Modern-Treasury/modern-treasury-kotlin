@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class ReturnCreateParamsTest {
 
     @Test
-    fun createReturnCreateParams() {
+    fun create() {
         ReturnCreateParams.builder()
             .returnableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .returnableType(ReturnCreateParams.ReturnableType.INCOMING_PAYMENT_DETAIL)

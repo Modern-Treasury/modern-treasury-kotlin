@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class LedgerTransactionCreatePartialPostParamsTest {
 
     @Test
-    fun createLedgerTransactionCreatePartialPostParams() {
+    fun create() {
         LedgerTransactionCreatePartialPostParams.builder()
             .id("id")
             .addPostedLedgerEntry(
