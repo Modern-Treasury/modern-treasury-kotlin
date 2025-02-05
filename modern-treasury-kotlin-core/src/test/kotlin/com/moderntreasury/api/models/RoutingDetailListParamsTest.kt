@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class RoutingDetailListParamsTest {
 
     @Test
-    fun createRoutingDetailListParams() {
+    fun create() {
         RoutingDetailListParams.builder()
             .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
             .accountId("account_id")

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class PaymentOrderCreateParamsTest {
 
     @Test
-    fun createPaymentOrderCreateParams() {
+    fun create() {
         PaymentOrderCreateParams.builder()
             .amount(0L)
             .direction(PaymentOrderCreateParams.Direction.CREDIT)

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class PaperItemRetrieveParamsTest {
 
     @Test
-    fun createPaperItemRetrieveParams() {
+    fun create() {
         PaperItemRetrieveParams.builder().id("id").build()
     }
 

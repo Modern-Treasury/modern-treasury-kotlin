@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class ConnectionLegalEntityCreateParamsTest {
 
     @Test
-    fun createConnectionLegalEntityCreateParams() {
+    fun create() {
         ConnectionLegalEntityCreateParams.builder()
             .connectionId("connection_id")
             .legalEntity(

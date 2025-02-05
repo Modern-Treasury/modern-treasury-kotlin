@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class ReturnListParamsTest {
 
     @Test
-    fun createReturnListParams() {
+    fun create() {
         ReturnListParams.builder()
             .afterCursor("after_cursor")
             .counterpartyId("counterparty_id")

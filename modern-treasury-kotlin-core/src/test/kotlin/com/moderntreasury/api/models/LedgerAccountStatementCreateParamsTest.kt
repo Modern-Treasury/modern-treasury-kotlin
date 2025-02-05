@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class LedgerAccountStatementCreateParamsTest {
 
     @Test
-    fun createLedgerAccountStatementCreateParams() {
+    fun create() {
         LedgerAccountStatementCreateParams.builder()
             .effectiveAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

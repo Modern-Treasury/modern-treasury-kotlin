@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class CounterpartyCreateParamsTest {
 
     @Test
-    fun createCounterpartyCreateParams() {
+    fun create() {
         CounterpartyCreateParams.builder()
             .name("name")
             .accounting(

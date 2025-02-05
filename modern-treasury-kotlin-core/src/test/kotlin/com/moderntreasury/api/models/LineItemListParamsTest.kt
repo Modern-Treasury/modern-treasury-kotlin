@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class LineItemListParamsTest {
 
     @Test
-    fun createLineItemListParams() {
+    fun create() {
         LineItemListParams.builder()
             .itemizableType(LineItemListParams.ItemizableType.EXPECTED_PAYMENTS)
             .itemizableId("itemizable_id")

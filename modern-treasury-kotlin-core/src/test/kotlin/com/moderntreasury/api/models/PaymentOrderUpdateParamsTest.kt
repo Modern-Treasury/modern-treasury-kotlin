@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class PaymentOrderUpdateParamsTest {
 
     @Test
-    fun createPaymentOrderUpdateParams() {
+    fun create() {
         PaymentOrderUpdateParams.builder()
             .id("id")
             .accounting(

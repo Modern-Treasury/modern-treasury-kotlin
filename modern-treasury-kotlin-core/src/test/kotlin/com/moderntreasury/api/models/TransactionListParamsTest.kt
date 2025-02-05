@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class TransactionListParamsTest {
 
     @Test
-    fun createTransactionListParams() {
+    fun create() {
         TransactionListParams.builder()
             .afterCursor("after_cursor")
             .asOfDateEnd(LocalDate.parse("2019-12-27"))

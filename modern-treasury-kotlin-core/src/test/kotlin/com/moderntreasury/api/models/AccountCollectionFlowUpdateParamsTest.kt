@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class AccountCollectionFlowUpdateParamsTest {
 
     @Test
-    fun createAccountCollectionFlowUpdateParams() {
+    fun create() {
         AccountCollectionFlowUpdateParams.builder()
             .id("id")
             .status(AccountCollectionFlowUpdateParams.Status.CANCELLED)

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class LedgerAccountSettlementAccountEntryDeleteParamsTest {
 
     @Test
-    fun createLedgerAccountSettlementAccountEntryDeleteParams() {
+    fun create() {
         LedgerAccountSettlementAccountEntryDeleteParams.builder()
             .id("id")
             .addLedgerEntryId(JsonValue.from(mapOf<String, Any>()))

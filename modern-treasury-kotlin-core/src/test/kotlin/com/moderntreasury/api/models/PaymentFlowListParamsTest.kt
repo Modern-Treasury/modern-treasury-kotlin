@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class PaymentFlowListParamsTest {
 
     @Test
-    fun createPaymentFlowListParams() {
+    fun create() {
         PaymentFlowListParams.builder()
             .afterCursor("after_cursor")
             .clientToken("client_token")

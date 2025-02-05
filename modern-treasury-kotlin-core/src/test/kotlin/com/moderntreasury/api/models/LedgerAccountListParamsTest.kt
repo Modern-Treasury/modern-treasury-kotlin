@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class LedgerAccountListParamsTest {
 
     @Test
-    fun createLedgerAccountListParams() {
+    fun create() {
         LedgerAccountListParams.builder()
             .addId("string")
             .afterCursor("after_cursor")

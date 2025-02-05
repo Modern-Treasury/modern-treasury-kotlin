@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class PaperItemListParamsTest {
 
     @Test
-    fun createPaperItemListParams() {
+    fun create() {
         PaperItemListParams.builder()
             .afterCursor("after_cursor")
             .depositDateEnd(LocalDate.parse("2019-12-27"))
