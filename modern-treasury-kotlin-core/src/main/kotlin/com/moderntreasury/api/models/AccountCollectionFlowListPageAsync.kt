@@ -173,8 +173,7 @@ private constructor(
         }
     }
 
-    class AutoPager
-    constructor(
+    class AutoPager(
         private val firstPage: AccountCollectionFlowListPageAsync,
     ) : Flow<AccountCollectionFlow> {
 

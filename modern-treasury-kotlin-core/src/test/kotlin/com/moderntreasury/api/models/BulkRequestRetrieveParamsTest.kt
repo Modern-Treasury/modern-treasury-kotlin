@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class BulkRequestRetrieveParamsTest {
 
     @Test
-    fun createBulkRequestRetrieveParams() {
+    fun create() {
         BulkRequestRetrieveParams.builder().id("id").build()
     }
 

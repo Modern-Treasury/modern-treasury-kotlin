@@ -9,23 +9,23 @@ import org.junit.jupiter.api.Test
 class LedgerEntryRetrieveParamsTest {
 
     @Test
-    fun createLedgerEntryRetrieveParams() {
+    fun create() {
         LedgerEntryRetrieveParams.builder().id("id").showBalances(true).build()
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params = LedgerEntryRetrieveParams.builder().id("id").showBalances(true).build()
         val expected = QueryParams.builder()
         expected.put("show_balances", "true")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = LedgerEntryRetrieveParams.builder().id("id").build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test

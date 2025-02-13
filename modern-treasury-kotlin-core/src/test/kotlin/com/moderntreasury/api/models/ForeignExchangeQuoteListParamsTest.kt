@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class ForeignExchangeQuoteListParamsTest {
 
     @Test
-    fun createForeignExchangeQuoteListParams() {
+    fun create() {
         ForeignExchangeQuoteListParams.builder()
             .afterCursor("after_cursor")
             .baseCurrency("base_currency")
@@ -30,7 +30,7 @@ class ForeignExchangeQuoteListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             ForeignExchangeQuoteListParams.builder()
                 .afterCursor("after_cursor")
@@ -60,13 +60,13 @@ class ForeignExchangeQuoteListParamsTest {
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("per_page", "0")
         expected.put("target_currency", "target_currency")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = ForeignExchangeQuoteListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

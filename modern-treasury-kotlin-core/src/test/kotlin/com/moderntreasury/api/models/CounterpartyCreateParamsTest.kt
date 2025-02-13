@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class CounterpartyCreateParamsTest {
 
     @Test
-    fun createCounterpartyCreateParams() {
+    fun create() {
         CounterpartyCreateParams.builder()
             .name("name")
             .accounting(
@@ -405,7 +405,7 @@ class CounterpartyCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             CounterpartyCreateParams.builder()
                 .name("name")
@@ -813,7 +813,7 @@ class CounterpartyCreateParamsTest {
                 .taxpayerIdentifier("taxpayer_identifier")
                 .verificationStatus(CounterpartyCreateParams.VerificationStatus.DENIED)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.accounting())
@@ -1215,9 +1215,9 @@ class CounterpartyCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params = CounterpartyCreateParams.builder().name("name").build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("name")
     }

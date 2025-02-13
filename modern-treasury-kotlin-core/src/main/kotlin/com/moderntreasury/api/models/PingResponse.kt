@@ -50,7 +50,8 @@ private constructor(
         fun builder() = Builder()
     }
 
-    class Builder {
+    /** A builder for [PingResponse]. */
+    class Builder internal constructor() {
 
         private var ping: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()

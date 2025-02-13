@@ -4,6 +4,7 @@ package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -12,13 +13,13 @@ import java.util.Objects
 
 /** delete invoice_line_item */
 class InvoiceLineItemDeleteParams
-constructor(
+private constructor(
     private val invoiceId: String,
     private val id: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
-) {
+) : Params {
 
     fun invoiceId(): String = invoiceId
 
@@ -30,11 +31,11 @@ constructor(
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
-    internal fun getBody(): Map<String, JsonValue>? = additionalBodyProperties.ifEmpty { null }
+    internal fun _body(): Map<String, JsonValue>? = additionalBodyProperties.ifEmpty { null }
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     fun getPathParam(index: Int): String {
         return when (index) {
@@ -51,8 +52,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [InvoiceLineItemDeleteParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var invoiceId: String? = null
         private var id: String? = null

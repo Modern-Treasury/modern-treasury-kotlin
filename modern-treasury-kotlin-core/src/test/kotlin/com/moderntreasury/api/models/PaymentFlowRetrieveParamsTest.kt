@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class PaymentFlowRetrieveParamsTest {
 
     @Test
-    fun createPaymentFlowRetrieveParams() {
+    fun create() {
         PaymentFlowRetrieveParams.builder().id("id").build()
     }
 

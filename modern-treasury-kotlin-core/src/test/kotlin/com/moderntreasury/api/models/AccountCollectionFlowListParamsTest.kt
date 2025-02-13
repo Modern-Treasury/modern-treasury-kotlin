@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class AccountCollectionFlowListParamsTest {
 
     @Test
-    fun createAccountCollectionFlowListParams() {
+    fun create() {
         AccountCollectionFlowListParams.builder()
             .afterCursor("after_cursor")
             .clientToken("client_token")
@@ -21,7 +21,7 @@ class AccountCollectionFlowListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             AccountCollectionFlowListParams.builder()
                 .afterCursor("after_cursor")
@@ -38,13 +38,13 @@ class AccountCollectionFlowListParamsTest {
         expected.put("external_account_id", "external_account_id")
         expected.put("per_page", "0")
         expected.put("status", "status")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = AccountCollectionFlowListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

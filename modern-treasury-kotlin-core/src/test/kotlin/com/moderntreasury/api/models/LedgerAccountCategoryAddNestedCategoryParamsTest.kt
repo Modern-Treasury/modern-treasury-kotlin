@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class LedgerAccountCategoryAddNestedCategoryParamsTest {
 
     @Test
-    fun createLedgerAccountCategoryAddNestedCategoryParams() {
+    fun create() {
         LedgerAccountCategoryAddNestedCategoryParams.builder()
             .id("id")
             .subCategoryId("sub_category_id")

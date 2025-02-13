@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class ExternalAccountDeleteParamsTest {
 
     @Test
-    fun createExternalAccountDeleteParams() {
+    fun create() {
         ExternalAccountDeleteParams.builder().id("id").build()
     }
 

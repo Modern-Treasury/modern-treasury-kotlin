@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class RoutingDetailDeleteParamsTest {
 
     @Test
-    fun createRoutingDetailDeleteParams() {
+    fun create() {
         RoutingDetailDeleteParams.builder()
             .accountsType(RoutingDetailDeleteParams.AccountsType.EXTERNAL_ACCOUNTS)
             .accountId("account_id")

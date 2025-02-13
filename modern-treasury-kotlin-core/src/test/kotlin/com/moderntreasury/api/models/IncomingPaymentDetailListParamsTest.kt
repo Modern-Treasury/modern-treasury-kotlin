@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class IncomingPaymentDetailListParamsTest {
 
     @Test
-    fun createIncomingPaymentDetailListParams() {
+    fun create() {
         IncomingPaymentDetailListParams.builder()
             .afterCursor("after_cursor")
             .asOfDateEnd(LocalDate.parse("2019-12-27"))
@@ -29,7 +29,7 @@ class IncomingPaymentDetailListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             IncomingPaymentDetailListParams.builder()
                 .afterCursor("after_cursor")
@@ -59,13 +59,13 @@ class IncomingPaymentDetailListParamsTest {
         expected.put("status", IncomingPaymentDetailListParams.Status.COMPLETED.toString())
         expected.put("type", IncomingPaymentDetailListParams.Type.ACH.toString())
         expected.put("virtual_account_id", "virtual_account_id")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = IncomingPaymentDetailListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
@@ -10,7 +11,7 @@ import java.util.Objects
 
 /** Get a list of ledger account balance monitors. */
 class LedgerAccountBalanceMonitorListParams
-constructor(
+private constructor(
     private val id: List<String>?,
     private val afterCursor: String?,
     private val ledgerAccountId: String?,
@@ -18,7 +19,7 @@ constructor(
     private val perPage: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     /**
      * If you have specific IDs to retrieve in bulk, you can pass them as query parameters delimited
@@ -43,9 +44,9 @@ constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams {
+    override fun _queryParams(): QueryParams {
         val queryParams = QueryParams.builder()
         this.id?.let { queryParams.put("id[]", it.map(Any::toString)) }
         this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
@@ -65,8 +66,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [LedgerAccountBalanceMonitorListParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: MutableList<String>? = null
         private var afterCursor: String? = null
@@ -250,7 +252,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 

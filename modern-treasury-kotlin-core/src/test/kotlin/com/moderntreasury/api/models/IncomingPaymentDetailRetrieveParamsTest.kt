@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class IncomingPaymentDetailRetrieveParamsTest {
 
     @Test
-    fun createIncomingPaymentDetailRetrieveParams() {
+    fun create() {
         IncomingPaymentDetailRetrieveParams.builder().id("id").build()
     }
 

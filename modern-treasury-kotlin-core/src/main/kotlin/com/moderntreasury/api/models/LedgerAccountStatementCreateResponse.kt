@@ -255,7 +255,8 @@ private constructor(
         fun builder() = Builder()
     }
 
-    class Builder {
+    /** A builder for [LedgerAccountStatementCreateResponse]. */
+    class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
@@ -572,7 +573,8 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [LedgerBalances]. */
+        class Builder internal constructor() {
 
             private var availableBalance: JsonField<LedgerBalance>? = null
             private var pendingBalance: JsonField<LedgerBalance>? = null
@@ -729,7 +731,8 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            /** A builder for [LedgerBalance]. */
+            class Builder internal constructor() {
 
                 private var amount: JsonField<Long>? = null
                 private var credits: JsonField<Long>? = null
@@ -873,7 +876,8 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

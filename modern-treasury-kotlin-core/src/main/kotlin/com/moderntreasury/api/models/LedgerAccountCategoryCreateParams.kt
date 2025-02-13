@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -20,11 +21,11 @@ import java.util.Objects
 
 /** Create a ledger account category. */
 class LedgerAccountCategoryCreateParams
-constructor(
+private constructor(
     private val body: LedgerAccountCategoryCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     /** The currency of the ledger account category. */
     fun currency(): String = body.currency()
@@ -86,11 +87,11 @@ constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getBody(): LedgerAccountCategoryCreateBody = body
+    internal fun _body(): LedgerAccountCategoryCreateBody = body
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
     class LedgerAccountCategoryCreateBody
@@ -220,7 +221,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [LedgerAccountCategoryCreateBody]. */
+        class Builder internal constructor() {
 
             private var currency: JsonField<String>? = null
             private var ledgerId: JsonField<String>? = null
@@ -399,8 +401,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [LedgerAccountCategoryCreateParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: LedgerAccountCategoryCreateBody.Builder =
             LedgerAccountCategoryCreateBody.builder()
@@ -651,7 +654,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

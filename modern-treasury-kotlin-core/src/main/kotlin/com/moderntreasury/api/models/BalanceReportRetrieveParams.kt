@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -10,12 +11,12 @@ import java.util.Objects
 
 /** Get a single balance report for a given internal account. */
 class BalanceReportRetrieveParams
-constructor(
+private constructor(
     private val internalAccountId: String,
     private val id: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     fun internalAccountId(): String = internalAccountId
 
@@ -25,9 +26,9 @@ constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     fun getPathParam(index: Int): String {
         return when (index) {
@@ -44,8 +45,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [BalanceReportRetrieveParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var internalAccountId: String? = null
         private var id: String? = null

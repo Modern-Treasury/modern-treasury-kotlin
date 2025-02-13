@@ -88,7 +88,8 @@ private constructor(
         fun builder() = Builder()
     }
 
-    class Builder {
+    /** A builder for [CounterpartyCollectAccountResponse]. */
+    class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
         private var formLink: JsonField<String>? = null

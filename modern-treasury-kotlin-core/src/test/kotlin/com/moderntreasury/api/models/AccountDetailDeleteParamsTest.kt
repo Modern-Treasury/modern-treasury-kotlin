@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class AccountDetailDeleteParamsTest {
 
     @Test
-    fun createAccountDetailDeleteParams() {
+    fun create() {
         AccountDetailDeleteParams.builder()
             .accountsType(AccountDetailDeleteParams.AccountsType.EXTERNAL_ACCOUNTS)
             .accountId("account_id")

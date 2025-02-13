@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -21,11 +22,11 @@ import java.util.Objects
 
 /** Create a ledger account statement. */
 class LedgerAccountStatementCreateParams
-constructor(
+private constructor(
     private val body: LedgerAccountStatementCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     /**
      * The inclusive lower bound of the effective_at timestamp of the ledger entries to be included
@@ -81,11 +82,11 @@ constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getBody(): LedgerAccountStatementCreateBody = body
+    internal fun _body(): LedgerAccountStatementCreateBody = body
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
     class LedgerAccountStatementCreateBody
@@ -198,7 +199,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [LedgerAccountStatementCreateBody]. */
+        class Builder internal constructor() {
 
             private var effectiveAtLowerBound: JsonField<OffsetDateTime>? = null
             private var effectiveAtUpperBound: JsonField<OffsetDateTime>? = null
@@ -338,8 +340,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [LedgerAccountStatementCreateParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: LedgerAccountStatementCreateBody.Builder =
             LedgerAccountStatementCreateBody.builder()
@@ -573,7 +576,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

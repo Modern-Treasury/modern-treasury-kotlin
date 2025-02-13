@@ -170,7 +170,8 @@ private constructor(
         fun builder() = Builder()
     }
 
-    class Builder {
+    /** A builder for [LedgerAccountBalanceMonitor]. */
+    class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
         private var alertCondition: JsonField<AlertCondition>? = null
@@ -401,7 +402,8 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [AlertCondition]. */
+        class Builder internal constructor() {
 
             private var field: JsonField<String>? = null
             private var operator: JsonField<String>? = null
@@ -569,7 +571,8 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [CurrentLedgerAccountBalanceState]. */
+        class Builder internal constructor() {
 
             private var balances: JsonField<LedgerBalances>? = null
             private var ledgerAccountLockVersion: JsonField<Long>? = null
@@ -713,7 +716,8 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            /** A builder for [LedgerBalances]. */
+            class Builder internal constructor() {
 
                 private var availableBalance: JsonField<LedgerBalance>? = null
                 private var pendingBalance: JsonField<LedgerBalance>? = null
@@ -877,7 +881,8 @@ private constructor(
                     fun builder() = Builder()
                 }
 
-                class Builder {
+                /** A builder for [LedgerBalance]. */
+                class Builder internal constructor() {
 
                     private var amount: JsonField<Long>? = null
                     private var credits: JsonField<Long>? = null
@@ -1039,7 +1044,8 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

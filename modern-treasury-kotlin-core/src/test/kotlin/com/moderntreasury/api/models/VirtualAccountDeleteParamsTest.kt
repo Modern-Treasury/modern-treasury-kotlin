@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class VirtualAccountDeleteParamsTest {
 
     @Test
-    fun createVirtualAccountDeleteParams() {
+    fun create() {
         VirtualAccountDeleteParams.builder().id("id").build()
     }
 

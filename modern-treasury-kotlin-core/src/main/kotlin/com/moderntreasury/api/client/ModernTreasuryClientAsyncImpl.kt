@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
 import com.moderntreasury.api.core.http.HttpResponse.Handler
+import com.moderntreasury.api.core.prepareAsync
 import com.moderntreasury.api.errors.ModernTreasuryError
 import com.moderntreasury.api.models.ClientPingParams
 import com.moderntreasury.api.models.PingResponse
@@ -91,8 +92,7 @@ import com.moderntreasury.api.services.async.VirtualAccountServiceAsyncImpl
 import com.moderntreasury.api.services.async.WebhookServiceAsync
 import com.moderntreasury.api.services.async.WebhookServiceAsyncImpl
 
-class ModernTreasuryClientAsyncImpl
-constructor(
+class ModernTreasuryClientAsyncImpl(
     private val clientOptions: ClientOptions,
 ) : ModernTreasuryClientAsync {
 
@@ -359,19 +359,17 @@ constructor(
             HttpRequest.builder()
                 .method(HttpMethod.GET)
                 .addPathSegments("api", "ping")
-                .putAllQueryParams(clientOptions.queryParams)
-                .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .replaceAllHeaders(params.getHeaders())
                 .build()
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { pingHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+                .prepareAsync(clientOptions, params)
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { pingHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
+
+    override fun close() = clientOptions.httpClient.close()
 }

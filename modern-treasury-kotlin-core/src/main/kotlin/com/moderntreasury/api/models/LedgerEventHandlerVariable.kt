@@ -64,7 +64,8 @@ private constructor(
         fun builder() = Builder()
     }
 
-    class Builder {
+    /** A builder for [LedgerEventHandlerVariable]. */
+    class Builder internal constructor() {
 
         private var query: JsonField<LedgerEventHandlerConditions>? = null
         private var type: JsonField<String>? = null
@@ -175,7 +176,8 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [LedgerEventHandlerConditions]. */
+        class Builder internal constructor() {
 
             private var field: JsonField<String>? = null
             private var operator: JsonField<String>? = null

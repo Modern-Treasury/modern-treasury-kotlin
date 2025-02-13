@@ -58,7 +58,8 @@ private constructor(
         fun builder() = Builder()
     }
 
-    class Builder {
+    /** A builder for [AsyncResponse]. */
+    class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
         private var object_: JsonField<String>? = null

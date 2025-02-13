@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -21,11 +22,11 @@ import java.util.Objects
 
 /** create foreign_exchange_quote */
 class ForeignExchangeQuoteCreateParams
-constructor(
+private constructor(
     private val body: ForeignExchangeQuoteCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     /** The ID for the `InternalAccount` this quote is associated with. */
     fun internalAccountId(): String = body.internalAccountId()
@@ -79,11 +80,11 @@ constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getBody(): ForeignExchangeQuoteCreateBody = body
+    internal fun _body(): ForeignExchangeQuoteCreateBody = body
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
     class ForeignExchangeQuoteCreateBody
@@ -196,7 +197,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [ForeignExchangeQuoteCreateBody]. */
+        class Builder internal constructor() {
 
             private var internalAccountId: JsonField<String>? = null
             private var targetCurrency: JsonField<Currency>? = null
@@ -334,8 +336,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [ForeignExchangeQuoteCreateParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: ForeignExchangeQuoteCreateBody.Builder =
             ForeignExchangeQuoteCreateBody.builder()

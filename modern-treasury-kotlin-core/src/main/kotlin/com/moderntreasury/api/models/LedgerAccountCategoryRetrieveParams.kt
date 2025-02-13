@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -13,12 +14,12 @@ import java.util.Objects
 
 /** Get the details on a single ledger account category. */
 class LedgerAccountCategoryRetrieveParams
-constructor(
+private constructor(
     private val id: String,
     private val balances: Balances?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     fun id(): String = id
 
@@ -33,9 +34,9 @@ constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams {
+    override fun _queryParams(): QueryParams {
         val queryParams = QueryParams.builder()
         this.balances?.forEachQueryParam { key, values ->
             queryParams.put("balances[$key]", values)
@@ -58,8 +59,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [LedgerAccountCategoryRetrieveParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: String? = null
         private var balances: Balances? = null
@@ -225,7 +227,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [Balances]. */
+        class Builder internal constructor() {
 
             private var asOfDate: LocalDate? = null
             private var effectiveAt: OffsetDateTime? = null

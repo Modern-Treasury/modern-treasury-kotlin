@@ -3,13 +3,14 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
 
 /** Get a list of ledger transaction versions. */
 class LedgerTransactionVersionListParams
-constructor(
+private constructor(
     private val afterCursor: String?,
     private val createdAt: CreatedAt?,
     private val ledgerAccountStatementId: String?,
@@ -18,7 +19,7 @@ constructor(
     private val version: Version?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     fun afterCursor(): String? = afterCursor
 
@@ -47,9 +48,9 @@ constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams {
+    override fun _queryParams(): QueryParams {
         val queryParams = QueryParams.builder()
         this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
         this.createdAt?.forEachQueryParam { key, values ->
@@ -74,8 +75,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [LedgerTransactionVersionListParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var afterCursor: String? = null
         private var createdAt: CreatedAt? = null
@@ -267,7 +269,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [CreatedAt]. */
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
@@ -366,7 +369,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [Version]. */
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 

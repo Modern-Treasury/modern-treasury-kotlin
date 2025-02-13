@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.core.json
+import com.moderntreasury.api.core.prepare
 import com.moderntreasury.api.errors.ModernTreasuryError
 import com.moderntreasury.api.models.LedgerAccountSettlementAccountEntryDeleteParams
 import com.moderntreasury.api.models.LedgerAccountSettlementAccountEntryUpdateParams
@@ -38,15 +39,11 @@ internal constructor(
                     params.getPathParam(0),
                     "ledger_entries"
                 )
-                .putAllQueryParams(clientOptions.queryParams)
-                .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .replaceAllHeaders(params.getHeaders())
-                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
-        clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response.use { updateHandler.handle(it) }
-        }
+                .prepare(clientOptions, params)
+        val response = clientOptions.httpClient.execute(request, requestOptions)
+        response.use { updateHandler.handle(it) }
     }
 
     private val deleteHandler: Handler<Void?> = emptyHandler().withErrorHandler(errorHandler)
@@ -65,14 +62,10 @@ internal constructor(
                     params.getPathParam(0),
                     "ledger_entries"
                 )
-                .putAllQueryParams(clientOptions.queryParams)
-                .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .replaceAllHeaders(params.getHeaders())
-                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
-        clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response.use { deleteHandler.handle(it) }
-        }
+                .prepare(clientOptions, params)
+        val response = clientOptions.httpClient.execute(request, requestOptions)
+        response.use { deleteHandler.handle(it) }
     }
 }

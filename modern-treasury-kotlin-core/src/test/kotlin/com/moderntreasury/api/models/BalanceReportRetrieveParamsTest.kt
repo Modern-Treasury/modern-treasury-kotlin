@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class BalanceReportRetrieveParamsTest {
 
     @Test
-    fun createBalanceReportRetrieveParams() {
+    fun create() {
         BalanceReportRetrieveParams.builder()
             .internalAccountId("internal_account_id")
             .id("id")

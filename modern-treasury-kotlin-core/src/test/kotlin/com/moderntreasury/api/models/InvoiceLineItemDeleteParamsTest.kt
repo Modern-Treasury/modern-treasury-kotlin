@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class InvoiceLineItemDeleteParamsTest {
 
     @Test
-    fun createInvoiceLineItemDeleteParams() {
+    fun create() {
         InvoiceLineItemDeleteParams.builder().invoiceId("invoice_id").id("id").build()
     }
 

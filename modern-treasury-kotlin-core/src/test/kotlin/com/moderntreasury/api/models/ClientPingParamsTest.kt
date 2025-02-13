@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 class ClientPingParamsTest {
 
     @Test
-    fun createClientPingParams() {
+    fun create() {
         ClientPingParams.builder().build()
     }
 }

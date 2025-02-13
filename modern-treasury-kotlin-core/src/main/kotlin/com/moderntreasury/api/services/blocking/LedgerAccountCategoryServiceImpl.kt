@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.core.json
+import com.moderntreasury.api.core.prepare
 import com.moderntreasury.api.errors.ModernTreasuryError
 import com.moderntreasury.api.models.LedgerAccountCategory
 import com.moderntreasury.api.models.LedgerAccountCategoryAddLedgerAccountParams
@@ -44,21 +45,17 @@ internal constructor(
             HttpRequest.builder()
                 .method(HttpMethod.POST)
                 .addPathSegments("api", "ledger_account_categories")
-                .putAllQueryParams(clientOptions.queryParams)
-                .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .replaceAllHeaders(params.getHeaders())
-                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
-        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response
-                .use { createHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+                .prepare(clientOptions, params)
+        val response = clientOptions.httpClient.execute(request, requestOptions)
+        return response
+            .use { createHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val retrieveHandler: Handler<LedgerAccountCategory> =
@@ -73,20 +70,16 @@ internal constructor(
             HttpRequest.builder()
                 .method(HttpMethod.GET)
                 .addPathSegments("api", "ledger_account_categories", params.getPathParam(0))
-                .putAllQueryParams(clientOptions.queryParams)
-                .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .replaceAllHeaders(params.getHeaders())
                 .build()
-        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response
-                .use { retrieveHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+                .prepare(clientOptions, params)
+        val response = clientOptions.httpClient.execute(request, requestOptions)
+        return response
+            .use { retrieveHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val updateHandler: Handler<LedgerAccountCategory> =
@@ -101,21 +94,17 @@ internal constructor(
             HttpRequest.builder()
                 .method(HttpMethod.PATCH)
                 .addPathSegments("api", "ledger_account_categories", params.getPathParam(0))
-                .putAllQueryParams(clientOptions.queryParams)
-                .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .replaceAllHeaders(params.getHeaders())
-                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
-        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response
-                .use { updateHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+                .prepare(clientOptions, params)
+        val response = clientOptions.httpClient.execute(request, requestOptions)
+        return response
+            .use { updateHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val listHandler: Handler<List<LedgerAccountCategory>> =
@@ -131,28 +120,27 @@ internal constructor(
             HttpRequest.builder()
                 .method(HttpMethod.GET)
                 .addPathSegments("api", "ledger_account_categories")
-                .putAllQueryParams(clientOptions.queryParams)
-                .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .replaceAllHeaders(params.getHeaders())
                 .build()
-        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response
-                .use { listHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        forEach { it.validate() }
-                    }
+                .prepare(clientOptions, params)
+        val response = clientOptions.httpClient.execute(request, requestOptions)
+        return response
+            .use { listHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.forEach { it.validate() }
                 }
-                .let {
-                    LedgerAccountCategoryListPage.Response.Builder()
+            }
+            .let {
+                LedgerAccountCategoryListPage.of(
+                    this,
+                    params,
+                    LedgerAccountCategoryListPage.Response.builder()
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
                         .build()
-                }
-                .let { LedgerAccountCategoryListPage.of(this, params, it) }
-        }
+                )
+            }
     }
 
     private val deleteHandler: Handler<LedgerAccountCategory> =
@@ -167,21 +155,17 @@ internal constructor(
             HttpRequest.builder()
                 .method(HttpMethod.DELETE)
                 .addPathSegments("api", "ledger_account_categories", params.getPathParam(0))
-                .putAllQueryParams(clientOptions.queryParams)
-                .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .replaceAllHeaders(params.getHeaders())
-                .apply { params.getBody()?.also { body(json(clientOptions.jsonMapper, it)) } }
+                .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
-        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response
-                .use { deleteHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+                .prepare(clientOptions, params)
+        val response = clientOptions.httpClient.execute(request, requestOptions)
+        return response
+            .use { deleteHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val addLedgerAccountHandler: Handler<Void?> =
@@ -202,15 +186,11 @@ internal constructor(
                     "ledger_accounts",
                     params.getPathParam(1)
                 )
-                .putAllQueryParams(clientOptions.queryParams)
-                .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .replaceAllHeaders(params.getHeaders())
-                .apply { params.getBody()?.also { body(json(clientOptions.jsonMapper, it)) } }
+                .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
-        clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response.use { addLedgerAccountHandler.handle(it) }
-        }
+                .prepare(clientOptions, params)
+        val response = clientOptions.httpClient.execute(request, requestOptions)
+        response.use { addLedgerAccountHandler.handle(it) }
     }
 
     private val addNestedCategoryHandler: Handler<Void?> =
@@ -231,15 +211,11 @@ internal constructor(
                     "ledger_account_categories",
                     params.getPathParam(1)
                 )
-                .putAllQueryParams(clientOptions.queryParams)
-                .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .replaceAllHeaders(params.getHeaders())
-                .apply { params.getBody()?.also { body(json(clientOptions.jsonMapper, it)) } }
+                .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
-        clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response.use { addNestedCategoryHandler.handle(it) }
-        }
+                .prepare(clientOptions, params)
+        val response = clientOptions.httpClient.execute(request, requestOptions)
+        response.use { addNestedCategoryHandler.handle(it) }
     }
 
     private val removeLedgerAccountHandler: Handler<Void?> =
@@ -260,15 +236,11 @@ internal constructor(
                     "ledger_accounts",
                     params.getPathParam(1)
                 )
-                .putAllQueryParams(clientOptions.queryParams)
-                .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .replaceAllHeaders(params.getHeaders())
-                .apply { params.getBody()?.also { body(json(clientOptions.jsonMapper, it)) } }
+                .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
-        clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response.use { removeLedgerAccountHandler.handle(it) }
-        }
+                .prepare(clientOptions, params)
+        val response = clientOptions.httpClient.execute(request, requestOptions)
+        response.use { removeLedgerAccountHandler.handle(it) }
     }
 
     private val removeNestedCategoryHandler: Handler<Void?> =
@@ -289,14 +261,10 @@ internal constructor(
                     "ledger_account_categories",
                     params.getPathParam(1)
                 )
-                .putAllQueryParams(clientOptions.queryParams)
-                .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .replaceAllHeaders(params.getHeaders())
-                .apply { params.getBody()?.also { body(json(clientOptions.jsonMapper, it)) } }
+                .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
-        clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response.use { removeNestedCategoryHandler.handle(it) }
-        }
+                .prepare(clientOptions, params)
+        val response = clientOptions.httpClient.execute(request, requestOptions)
+        response.use { removeNestedCategoryHandler.handle(it) }
     }
 }

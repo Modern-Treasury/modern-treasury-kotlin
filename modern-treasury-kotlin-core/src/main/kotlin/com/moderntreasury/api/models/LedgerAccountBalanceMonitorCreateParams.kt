@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -20,11 +21,11 @@ import java.util.Objects
 
 /** Create a ledger account balance monitor. */
 class LedgerAccountBalanceMonitorCreateParams
-constructor(
+private constructor(
     private val body: LedgerAccountBalanceMonitorCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     /** Describes the condition that must be satisfied for the monitor to be triggered. */
     fun alertCondition(): AlertConditionCreateRequest = body.alertCondition()
@@ -56,11 +57,11 @@ constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getBody(): LedgerAccountBalanceMonitorCreateBody = body
+    internal fun _body(): LedgerAccountBalanceMonitorCreateBody = body
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
     class LedgerAccountBalanceMonitorCreateBody
@@ -142,7 +143,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [LedgerAccountBalanceMonitorCreateBody]. */
+        class Builder internal constructor() {
 
             private var alertCondition: JsonField<AlertConditionCreateRequest>? = null
             private var ledgerAccountId: JsonField<String>? = null
@@ -253,8 +255,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [LedgerAccountBalanceMonitorCreateParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: LedgerAccountBalanceMonitorCreateBody.Builder =
             LedgerAccountBalanceMonitorCreateBody.builder()
@@ -510,7 +513,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [AlertConditionCreateRequest]. */
+        class Builder internal constructor() {
 
             private var field: JsonField<String>? = null
             private var operator: JsonField<String>? = null
@@ -637,7 +641,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

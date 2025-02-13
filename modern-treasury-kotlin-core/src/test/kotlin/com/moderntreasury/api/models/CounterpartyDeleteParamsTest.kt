@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class CounterpartyDeleteParamsTest {
 
     @Test
-    fun createCounterpartyDeleteParams() {
+    fun create() {
         CounterpartyDeleteParams.builder().id("id").build()
     }
 

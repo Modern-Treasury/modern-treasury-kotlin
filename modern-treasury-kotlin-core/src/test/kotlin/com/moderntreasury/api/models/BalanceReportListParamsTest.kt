@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class BalanceReportListParamsTest {
 
     @Test
-    fun createBalanceReportListParams() {
+    fun create() {
         BalanceReportListParams.builder()
             .internalAccountId("internal_account_id")
             .afterCursor("after_cursor")
@@ -21,7 +21,7 @@ class BalanceReportListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             BalanceReportListParams.builder()
                 .internalAccountId("internal_account_id")
@@ -38,15 +38,15 @@ class BalanceReportListParamsTest {
             BalanceReportListParams.BalanceReportType.INTRADAY.toString()
         )
         expected.put("per_page", "0")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params =
             BalanceReportListParams.builder().internalAccountId("internal_account_id").build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test

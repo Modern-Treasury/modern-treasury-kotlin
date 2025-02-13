@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.time.LocalDate
@@ -12,7 +13,7 @@ import java.util.Objects
 
 /** list foreign_exchange_quotes */
 class ForeignExchangeQuoteListParams
-constructor(
+private constructor(
     private val afterCursor: String?,
     private val baseCurrency: String?,
     private val effectiveAtEnd: LocalDate?,
@@ -24,7 +25,7 @@ constructor(
     private val targetCurrency: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     fun afterCursor(): String? = afterCursor
 
@@ -58,9 +59,9 @@ constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams {
+    override fun _queryParams(): QueryParams {
         val queryParams = QueryParams.builder()
         this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
         this.baseCurrency?.let { queryParams.put("base_currency", listOf(it.toString())) }
@@ -88,8 +89,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [ForeignExchangeQuoteListParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var afterCursor: String? = null
         private var baseCurrency: String? = null
@@ -289,7 +291,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 

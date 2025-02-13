@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class LedgerTransactionRetrieveParamsTest {
 
     @Test
-    fun createLedgerTransactionRetrieveParams() {
+    fun create() {
         LedgerTransactionRetrieveParams.builder().id("id").build()
     }
 

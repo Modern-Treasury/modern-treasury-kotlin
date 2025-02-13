@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class CounterpartyCollectAccountParamsTest {
 
     @Test
-    fun createCounterpartyCollectAccountParams() {
+    fun create() {
         CounterpartyCollectAccountParams.builder()
             .id("id")
             .direction(TransactionDirection.CREDIT)
@@ -19,7 +19,7 @@ class CounterpartyCollectAccountParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             CounterpartyCollectAccountParams.builder()
                 .id("id")
@@ -28,7 +28,7 @@ class CounterpartyCollectAccountParamsTest {
                 .addField(CounterpartyCollectAccountParams.Field.NAME)
                 .sendEmail(true)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.direction()).isEqualTo(TransactionDirection.CREDIT)
         assertThat(body.customRedirect()).isEqualTo("https://example.com")
@@ -37,13 +37,13 @@ class CounterpartyCollectAccountParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             CounterpartyCollectAccountParams.builder()
                 .id("id")
                 .direction(TransactionDirection.CREDIT)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.direction()).isEqualTo(TransactionDirection.CREDIT)
     }

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class InvoiceRetrieveParamsTest {
 
     @Test
-    fun createInvoiceRetrieveParams() {
+    fun create() {
         InvoiceRetrieveParams.builder().id("id").build()
     }
 

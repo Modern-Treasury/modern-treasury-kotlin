@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class InternalAccountRetrieveParamsTest {
 
     @Test
-    fun createInternalAccountRetrieveParams() {
+    fun create() {
         InternalAccountRetrieveParams.builder().id("id").build()
     }
 

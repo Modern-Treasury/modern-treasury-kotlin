@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class LedgerAccountBalanceMonitorRetrieveParamsTest {
 
     @Test
-    fun createLedgerAccountBalanceMonitorRetrieveParams() {
+    fun create() {
         LedgerAccountBalanceMonitorRetrieveParams.builder().id("id").build()
     }
 

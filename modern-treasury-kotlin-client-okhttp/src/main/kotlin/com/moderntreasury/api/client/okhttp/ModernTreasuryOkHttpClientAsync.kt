@@ -21,7 +21,8 @@ class ModernTreasuryOkHttpClientAsync private constructor() {
         fun fromEnv(): ModernTreasuryClientAsync = builder().fromEnv().build()
     }
 
-    class Builder {
+    /** A builder for [ModernTreasuryOkHttpClientAsync]. */
+    class Builder internal constructor() {
 
         private var clientOptions: ClientOptions.Builder = ClientOptions.builder()
         private var baseUrl: String = ClientOptions.PRODUCTION_URL

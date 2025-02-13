@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class PaymentOrderUpdateParamsTest {
 
     @Test
-    fun createPaymentOrderUpdateParams() {
+    fun create() {
         PaymentOrderUpdateParams.builder()
             .id("id")
             .accounting(
@@ -166,7 +166,7 @@ class PaymentOrderUpdateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             PaymentOrderUpdateParams.builder()
                 .id("id")
@@ -323,7 +323,7 @@ class PaymentOrderUpdateParamsTest {
                 .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                 .ultimateReceivingPartyName("ultimate_receiving_party_name")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.accounting())
             .isEqualTo(
@@ -483,9 +483,9 @@ class PaymentOrderUpdateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params = PaymentOrderUpdateParams.builder().id("id").build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 

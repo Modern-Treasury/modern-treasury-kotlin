@@ -10,6 +10,7 @@ import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
 import com.moderntreasury.api.core.http.HttpResponse.Handler
+import com.moderntreasury.api.core.prepareAsync
 import com.moderntreasury.api.errors.ModernTreasuryError
 import com.moderntreasury.api.models.PaymentReference
 import com.moderntreasury.api.models.PaymentReferenceListPageAsync
@@ -36,20 +37,16 @@ internal constructor(
             HttpRequest.builder()
                 .method(HttpMethod.GET)
                 .addPathSegments("api", "payment_references", params.getPathParam(0))
-                .putAllQueryParams(clientOptions.queryParams)
-                .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .replaceAllHeaders(params.getHeaders())
                 .build()
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { retrieveHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+                .prepareAsync(clientOptions, params)
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { retrieveHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val listHandler: Handler<List<PaymentReference>> =
@@ -64,28 +61,27 @@ internal constructor(
             HttpRequest.builder()
                 .method(HttpMethod.GET)
                 .addPathSegments("api", "payment_references")
-                .putAllQueryParams(clientOptions.queryParams)
-                .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .replaceAllHeaders(params.getHeaders())
                 .build()
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { listHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        forEach { it.validate() }
-                    }
+                .prepareAsync(clientOptions, params)
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { listHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.forEach { it.validate() }
                 }
-                .let {
-                    PaymentReferenceListPageAsync.Response.Builder()
+            }
+            .let {
+                PaymentReferenceListPageAsync.of(
+                    this,
+                    params,
+                    PaymentReferenceListPageAsync.Response.builder()
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
                         .build()
-                }
-                .let { PaymentReferenceListPageAsync.of(this, params, it) }
-        }
+                )
+            }
     }
 
     private val retireveHandler: Handler<PaymentReference> =
@@ -101,19 +97,15 @@ internal constructor(
             HttpRequest.builder()
                 .method(HttpMethod.GET)
                 .addPathSegments("api", "payment_references", params.getPathParam(0))
-                .putAllQueryParams(clientOptions.queryParams)
-                .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .replaceAllHeaders(params.getHeaders())
                 .build()
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { retireveHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+                .prepareAsync(clientOptions, params)
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { retireveHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 }

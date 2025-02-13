@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class LineItemListParamsTest {
 
     @Test
-    fun createLineItemListParams() {
+    fun create() {
         LineItemListParams.builder()
             .itemizableType(LineItemListParams.ItemizableType.EXPECTED_PAYMENTS)
             .itemizableId("itemizable_id")
@@ -19,7 +19,7 @@ class LineItemListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             LineItemListParams.builder()
                 .itemizableType(LineItemListParams.ItemizableType.EXPECTED_PAYMENTS)
@@ -30,18 +30,18 @@ class LineItemListParamsTest {
         val expected = QueryParams.builder()
         expected.put("after_cursor", "after_cursor")
         expected.put("per_page", "0")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params =
             LineItemListParams.builder()
                 .itemizableType(LineItemListParams.ItemizableType.EXPECTED_PAYMENTS)
                 .itemizableId("itemizable_id")
                 .build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test

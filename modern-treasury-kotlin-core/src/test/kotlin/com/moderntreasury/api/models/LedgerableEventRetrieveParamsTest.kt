@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class LedgerableEventRetrieveParamsTest {
 
     @Test
-    fun createLedgerableEventRetrieveParams() {
+    fun create() {
         LedgerableEventRetrieveParams.builder().id("id").build()
     }
 

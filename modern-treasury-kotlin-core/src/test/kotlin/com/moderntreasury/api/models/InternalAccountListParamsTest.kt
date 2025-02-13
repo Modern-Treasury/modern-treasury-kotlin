@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class InternalAccountListParamsTest {
 
     @Test
-    fun createInternalAccountListParams() {
+    fun create() {
         InternalAccountListParams.builder()
             .afterCursor("after_cursor")
             .counterpartyId("counterparty_id")
@@ -27,7 +27,7 @@ class InternalAccountListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             InternalAccountListParams.builder()
                 .afterCursor("after_cursor")
@@ -55,13 +55,13 @@ class InternalAccountListParamsTest {
         expected.put("payment_direction", TransactionDirection.CREDIT.toString())
         expected.put("payment_type", InternalAccountListParams.PaymentType.ACH.toString())
         expected.put("per_page", "0")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = InternalAccountListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

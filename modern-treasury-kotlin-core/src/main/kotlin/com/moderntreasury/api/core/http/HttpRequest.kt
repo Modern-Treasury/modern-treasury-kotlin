@@ -1,5 +1,6 @@
 package com.moderntreasury.api.core.http
 
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.toImmutable
 
 class HttpRequest
@@ -21,7 +22,7 @@ private constructor(
         fun builder() = Builder()
     }
 
-    class Builder {
+    class Builder internal constructor() {
 
         private var method: HttpMethod? = null
         private var url: String? = null
@@ -133,7 +134,7 @@ private constructor(
 
         fun build(): HttpRequest =
             HttpRequest(
-                checkNotNull(method) { "`method` is required but was not set" },
+                checkRequired("method", method),
                 url,
                 pathSegments.toImmutable(),
                 headers.build(),

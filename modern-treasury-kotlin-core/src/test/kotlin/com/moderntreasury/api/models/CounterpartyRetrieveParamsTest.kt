@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class CounterpartyRetrieveParamsTest {
 
     @Test
-    fun createCounterpartyRetrieveParams() {
+    fun create() {
         CounterpartyRetrieveParams.builder().id("id").build()
     }
 

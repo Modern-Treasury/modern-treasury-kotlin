@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -11,11 +12,11 @@ import java.util.Objects
 /** get payment_reference */
 @Deprecated("use `retrieve` instead")
 class PaymentReferenceRetireveParams
-constructor(
+private constructor(
     private val id: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     fun id(): String = id
 
@@ -23,9 +24,9 @@ constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     fun getPathParam(index: Int): String {
         return when (index) {
@@ -41,8 +42,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [PaymentReferenceRetireveParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

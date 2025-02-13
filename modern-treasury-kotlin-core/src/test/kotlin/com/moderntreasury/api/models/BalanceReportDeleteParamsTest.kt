@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class BalanceReportDeleteParamsTest {
 
     @Test
-    fun createBalanceReportDeleteParams() {
+    fun create() {
         BalanceReportDeleteParams.builder()
             .internalAccountId("internal_account_id")
             .id("id")

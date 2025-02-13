@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -20,12 +21,12 @@ import java.util.Objects
 
 /** Updates a given counterparty with new information. */
 class CounterpartyUpdateParams
-constructor(
+private constructor(
     private val id: String,
     private val body: CounterpartyUpdateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     fun id(): String = id
 
@@ -83,11 +84,11 @@ constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getBody(): CounterpartyUpdateBody = body
+    internal fun _body(): CounterpartyUpdateBody = body
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     fun getPathParam(index: Int): String {
         return when (index) {
@@ -204,7 +205,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [CounterpartyUpdateBody]. */
+        class Builder internal constructor() {
 
             private var email: JsonField<String> = JsonMissing.of()
             private var legalEntityId: JsonField<String> = JsonMissing.of()
@@ -337,8 +339,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [CounterpartyUpdateParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: String? = null
         private var body: CounterpartyUpdateBody.Builder = CounterpartyUpdateBody.builder()
@@ -571,7 +574,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

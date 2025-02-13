@@ -3,24 +3,25 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
 
 /** A test endpoint often used to confirm credentials and headers are being passed in correctly. */
 class ClientPingParams
-constructor(
+private constructor(
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)
 
@@ -29,8 +30,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [ClientPingParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class ConnectionLegalEntityRetrieveParamsTest {
 
     @Test
-    fun createConnectionLegalEntityRetrieveParams() {
+    fun create() {
         ConnectionLegalEntityRetrieveParams.builder().id("id").build()
     }
 

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class LegalEntityUpdateParamsTest {
 
     @Test
-    fun createLegalEntityUpdateParams() {
+    fun create() {
         LegalEntityUpdateParams.builder()
             .id("id")
             .addAddress(
@@ -100,7 +100,7 @@ class LegalEntityUpdateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             LegalEntityUpdateParams.builder()
                 .id("id")
@@ -190,7 +190,7 @@ class LegalEntityUpdateParamsTest {
                 )
                 .website("website")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.addresses())
             .isEqualTo(
@@ -293,9 +293,9 @@ class LegalEntityUpdateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params = LegalEntityUpdateParams.builder().id("id").build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 

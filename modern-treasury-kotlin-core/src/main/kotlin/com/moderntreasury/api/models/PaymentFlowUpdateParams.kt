@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -22,12 +23,12 @@ import java.util.Objects
 
 /** update payment_flow */
 class PaymentFlowUpdateParams
-constructor(
+private constructor(
     private val id: String,
     private val body: PaymentFlowUpdateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     fun id(): String = id
 
@@ -49,11 +50,11 @@ constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getBody(): PaymentFlowUpdateBody = body
+    internal fun _body(): PaymentFlowUpdateBody = body
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     fun getPathParam(index: Int): String {
         return when (index) {
@@ -107,7 +108,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [PaymentFlowUpdateBody]. */
+        class Builder internal constructor() {
 
             private var status: JsonField<Status>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -180,8 +182,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [PaymentFlowUpdateParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: String? = null
         private var body: PaymentFlowUpdateBody.Builder = PaymentFlowUpdateBody.builder()
@@ -345,6 +348,14 @@ constructor(
         private val value: JsonField<String>,
     ) : Enum {
 
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
@@ -354,21 +365,48 @@ constructor(
             fun of(value: String) = Status(JsonField.of(value))
         }
 
+        /** An enum containing [Status]'s known values. */
         enum class Known {
             CANCELLED,
         }
 
+        /**
+         * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Status] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
         enum class Value {
             CANCELLED,
+            /** An enum member indicating that [Status] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
         fun value(): Value =
             when (this) {
                 CANCELLED -> Value.CANCELLED
                 else -> Value._UNKNOWN
             }
 
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
+         *   known member.
+         */
         fun known(): Known =
             when (this) {
                 CANCELLED -> Known.CANCELLED

@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -20,11 +21,11 @@ import java.util.Objects
 
 /** create transaction line items */
 class TransactionLineItemCreateParams
-constructor(
+private constructor(
     private val body: TransactionLineItemCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     /**
      * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
@@ -56,11 +57,11 @@ constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getBody(): TransactionLineItemCreateBody = body
+    internal fun _body(): TransactionLineItemCreateBody = body
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
     class TransactionLineItemCreateBody
@@ -131,7 +132,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [TransactionLineItemCreateBody]. */
+        class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
             private var expectedPaymentId: JsonField<String>? = null
@@ -229,8 +231,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [TransactionLineItemCreateParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: TransactionLineItemCreateBody.Builder =
             TransactionLineItemCreateBody.builder()

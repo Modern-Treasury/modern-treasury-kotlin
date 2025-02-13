@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class BulkRequestCreateParamsTest {
 
     @Test
-    fun createBulkRequestCreateParams() {
+    fun create() {
         BulkRequestCreateParams.builder()
             .actionType(BulkRequestCreateParams.ActionType.CREATE)
             .resourceType(BulkRequestCreateParams.ResourceType.PAYMENT_ORDER)
@@ -336,7 +336,7 @@ class BulkRequestCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             BulkRequestCreateParams.builder()
                 .actionType(BulkRequestCreateParams.ActionType.CREATE)
@@ -669,7 +669,7 @@ class BulkRequestCreateParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.actionType()).isEqualTo(BulkRequestCreateParams.ActionType.CREATE)
         assertThat(body.resourceType())
@@ -1041,7 +1041,7 @@ class BulkRequestCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             BulkRequestCreateParams.builder()
                 .actionType(BulkRequestCreateParams.ActionType.CREATE)
@@ -1059,7 +1059,7 @@ class BulkRequestCreateParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.actionType()).isEqualTo(BulkRequestCreateParams.ActionType.CREATE)
         assertThat(body.resourceType())

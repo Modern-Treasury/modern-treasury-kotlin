@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -23,12 +24,12 @@ import java.util.Objects
 
 /** Create a ledger transaction that partially posts another ledger transaction. */
 class LedgerTransactionCreatePartialPostParams
-constructor(
+private constructor(
     private val id: String,
     private val body: LedgerTransactionCreatePartialPostBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     fun id(): String = id
 
@@ -82,11 +83,11 @@ constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getBody(): LedgerTransactionCreatePartialPostBody = body
+    internal fun _body(): LedgerTransactionCreatePartialPostBody = body
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     fun getPathParam(index: Int): String {
         return when (index) {
@@ -197,7 +198,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [LedgerTransactionCreatePartialPostBody]. */
+        class Builder internal constructor() {
 
             private var postedLedgerEntries:
                 JsonField<MutableList<LedgerEntryPartialPostCreateRequest>>? =
@@ -352,8 +354,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [LedgerTransactionCreatePartialPostParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: String? = null
         private var body: LedgerTransactionCreatePartialPostBody.Builder =
@@ -657,7 +660,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [LedgerEntryPartialPostCreateRequest]. */
+        class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
             private var direction: JsonField<Direction>? = null
@@ -766,6 +770,14 @@ constructor(
             private val value: JsonField<String>,
         ) : Enum {
 
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
             @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             companion object {
@@ -777,17 +789,38 @@ constructor(
                 fun of(value: String) = Direction(JsonField.of(value))
             }
 
+            /** An enum containing [Direction]'s known values. */
             enum class Known {
                 CREDIT,
                 DEBIT,
             }
 
+            /**
+             * An enum containing [Direction]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Direction] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
             enum class Value {
                 CREDIT,
                 DEBIT,
+                /**
+                 * An enum member indicating that [Direction] was instantiated with an unknown
+                 * value.
+                 */
                 _UNKNOWN,
             }
 
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
             fun value(): Value =
                 when (this) {
                     CREDIT -> Value.CREDIT
@@ -795,6 +828,15 @@ constructor(
                     else -> Value._UNKNOWN
                 }
 
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
+             *   known member.
+             */
             fun known(): Known =
                 when (this) {
                     CREDIT -> Known.CREDIT
@@ -849,7 +891,8 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            /** A builder for [Metadata]. */
+            class Builder internal constructor() {
 
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -947,7 +990,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

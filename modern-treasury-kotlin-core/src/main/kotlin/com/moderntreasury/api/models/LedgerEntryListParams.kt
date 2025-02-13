@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
@@ -14,7 +15,7 @@ import java.util.Objects
 
 /** Get a list of all ledger entries. */
 class LedgerEntryListParams
-constructor(
+private constructor(
     private val id: List<String>?,
     private val afterCursor: String?,
     private val asOfLockVersion: Long?,
@@ -37,7 +38,7 @@ constructor(
     private val updatedAt: UpdatedAt?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     /**
      * If you have specific IDs to retrieve in bulk, you can pass them as query parameters delimited
@@ -136,9 +137,9 @@ constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams {
+    override fun _queryParams(): QueryParams {
         val queryParams = QueryParams.builder()
         this.id?.let { queryParams.put("id[]", it.map(Any::toString)) }
         this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
@@ -191,8 +192,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [LedgerEntryListParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: MutableList<String>? = null
         private var afterCursor: String? = null
@@ -526,7 +528,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [EffectiveAt]. */
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
@@ -625,7 +628,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [EffectiveDate]. */
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
@@ -725,7 +729,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [LedgerAccountLockVersion]. */
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
@@ -826,7 +831,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
@@ -934,7 +940,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [OrderBy]. */
+        class Builder internal constructor() {
 
             private var createdAt: CreatedAt? = null
             private var effectiveAt: EffectiveAt? = null
@@ -1013,6 +1020,14 @@ constructor(
             private val value: JsonField<String>,
         ) : Enum {
 
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
             @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             companion object {
@@ -1024,17 +1039,38 @@ constructor(
                 fun of(value: String) = CreatedAt(JsonField.of(value))
             }
 
+            /** An enum containing [CreatedAt]'s known values. */
             enum class Known {
                 ASC,
                 DESC,
             }
 
+            /**
+             * An enum containing [CreatedAt]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [CreatedAt] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
             enum class Value {
                 ASC,
                 DESC,
+                /**
+                 * An enum member indicating that [CreatedAt] was instantiated with an unknown
+                 * value.
+                 */
                 _UNKNOWN,
             }
 
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
             fun value(): Value =
                 when (this) {
                     ASC -> Value.ASC
@@ -1042,6 +1078,15 @@ constructor(
                     else -> Value._UNKNOWN
                 }
 
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
+             *   known member.
+             */
             fun known(): Known =
                 when (this) {
                     ASC -> Known.ASC
@@ -1070,6 +1115,14 @@ constructor(
             private val value: JsonField<String>,
         ) : Enum {
 
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
             @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             companion object {
@@ -1081,17 +1134,38 @@ constructor(
                 fun of(value: String) = EffectiveAt(JsonField.of(value))
             }
 
+            /** An enum containing [EffectiveAt]'s known values. */
             enum class Known {
                 ASC,
                 DESC,
             }
 
+            /**
+             * An enum containing [EffectiveAt]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [EffectiveAt] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
             enum class Value {
                 ASC,
                 DESC,
+                /**
+                 * An enum member indicating that [EffectiveAt] was instantiated with an unknown
+                 * value.
+                 */
                 _UNKNOWN,
             }
 
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
             fun value(): Value =
                 when (this) {
                     ASC -> Value.ASC
@@ -1099,6 +1173,15 @@ constructor(
                     else -> Value._UNKNOWN
                 }
 
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
+             *   known member.
+             */
             fun known(): Known =
                 when (this) {
                     ASC -> Known.ASC
@@ -1149,6 +1232,14 @@ constructor(
         private val value: JsonField<String>,
     ) : Enum {
 
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
@@ -1162,19 +1253,37 @@ constructor(
             fun of(value: String) = Status(JsonField.of(value))
         }
 
+        /** An enum containing [Status]'s known values. */
         enum class Known {
             PENDING,
             POSTED,
             ARCHIVED,
         }
 
+        /**
+         * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Status] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
         enum class Value {
             PENDING,
             POSTED,
             ARCHIVED,
+            /** An enum member indicating that [Status] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
         fun value(): Value =
             when (this) {
                 PENDING -> Value.PENDING
@@ -1183,6 +1292,15 @@ constructor(
                 else -> Value._UNKNOWN
             }
 
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
+         *   known member.
+         */
         fun known(): Known =
             when (this) {
                 PENDING -> Known.PENDING
@@ -1229,7 +1347,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [UpdatedAt]. */
+        class Builder internal constructor() {
 
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 

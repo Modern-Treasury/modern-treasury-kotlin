@@ -3,13 +3,14 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
 
 /** list account_collection_flows */
 class AccountCollectionFlowListParams
-constructor(
+private constructor(
     private val afterCursor: String?,
     private val clientToken: String?,
     private val counterpartyId: String?,
@@ -18,7 +19,7 @@ constructor(
     private val status: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     fun afterCursor(): String? = afterCursor
 
@@ -36,9 +37,9 @@ constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams {
+    override fun _queryParams(): QueryParams {
         val queryParams = QueryParams.builder()
         this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
         this.clientToken?.let { queryParams.put("client_token", listOf(it.toString())) }
@@ -59,8 +60,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [AccountCollectionFlowListParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var afterCursor: String? = null
         private var clientToken: String? = null

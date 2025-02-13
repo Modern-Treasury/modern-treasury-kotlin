@@ -142,7 +142,8 @@ private constructor(
         fun builder() = Builder()
     }
 
-    class Builder {
+    /** A builder for [LedgerableEvent]. */
+    class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
@@ -297,7 +298,8 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 

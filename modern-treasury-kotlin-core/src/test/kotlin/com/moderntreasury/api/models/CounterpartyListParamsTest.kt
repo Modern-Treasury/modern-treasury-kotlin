@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class CounterpartyListParamsTest {
 
     @Test
-    fun createCounterpartyListParams() {
+    fun create() {
         CounterpartyListParams.builder()
             .afterCursor("after_cursor")
             .createdAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -28,7 +28,7 @@ class CounterpartyListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             CounterpartyListParams.builder()
                 .afterCursor("after_cursor")
@@ -56,13 +56,13 @@ class CounterpartyListParamsTest {
             .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
         expected.put("name", "name")
         expected.put("per_page", "0")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = CounterpartyListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

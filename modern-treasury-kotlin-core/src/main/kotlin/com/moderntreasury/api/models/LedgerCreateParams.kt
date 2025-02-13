@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -20,11 +21,11 @@ import java.util.Objects
 
 /** Create a ledger. */
 class LedgerCreateParams
-constructor(
+private constructor(
     private val body: LedgerCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     /** The name of the ledger. */
     fun name(): String = body.name()
@@ -50,11 +51,11 @@ constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getBody(): LedgerCreateBody = body
+    internal fun _body(): LedgerCreateBody = body
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
     class LedgerCreateBody
@@ -121,7 +122,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [LedgerCreateBody]. */
+        class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
             private var description: JsonField<String> = JsonMissing.of()
@@ -214,8 +216,9 @@ constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [LedgerCreateParams]. */
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: LedgerCreateBody.Builder = LedgerCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -404,7 +407,8 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
