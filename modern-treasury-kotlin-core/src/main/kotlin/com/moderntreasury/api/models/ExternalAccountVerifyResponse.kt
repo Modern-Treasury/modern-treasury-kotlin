@@ -165,7 +165,7 @@ private constructor(
         override fun serialize(
             value: ExternalAccountVerifyResponse,
             generator: JsonGenerator,
-            provider: SerializerProvider
+            provider: SerializerProvider,
         ) {
             when {
                 value.externalAccount != null -> generator.writeObject(value.externalAccount)
@@ -467,11 +467,8 @@ private constructor(
         }
 
         /** The type of payment that can be made to this account. Can be `ach`, `eft`, or `rtp`. */
-        class PaymentType
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class PaymentType @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -731,11 +728,8 @@ private constructor(
         }
 
         /** The priority of the payment. Can be `normal` or `high`. */
-        class Priority
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Priority @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -829,11 +823,7 @@ private constructor(
          * The status of the verification attempt. Can be `pending_verification`, `verified`,
          * `failed`, or `cancelled`.
          */
-        class Status
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.

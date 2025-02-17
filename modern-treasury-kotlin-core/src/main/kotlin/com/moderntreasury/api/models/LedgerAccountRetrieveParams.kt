@@ -233,13 +233,13 @@ private constructor(
             this.effectiveAtLowerBound?.let {
                 putParam(
                     "effective_at_lower_bound",
-                    listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)),
                 )
             }
             this.effectiveAtUpperBound?.let {
                 putParam(
                     "effective_at_upper_bound",
-                    listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)),
                 )
             }
             additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }

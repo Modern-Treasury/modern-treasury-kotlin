@@ -20,10 +20,8 @@ import com.moderntreasury.api.models.LegalEntityListParams
 import com.moderntreasury.api.models.LegalEntityRetrieveParams
 import com.moderntreasury.api.models.LegalEntityUpdateParams
 
-class LegalEntityServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : LegalEntityService {
+class LegalEntityServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    LegalEntityService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
     /** create legal_entity */
     override fun create(
         params: LegalEntityCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LegalEntity {
         val request =
             HttpRequest.builder()
@@ -58,7 +56,7 @@ internal constructor(
     /** Get details on a single legal entity. */
     override fun retrieve(
         params: LegalEntityRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LegalEntity {
         val request =
             HttpRequest.builder()
@@ -82,7 +80,7 @@ internal constructor(
     /** Update a legal entity. */
     override fun update(
         params: LegalEntityUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LegalEntity {
         val request =
             HttpRequest.builder()
@@ -107,7 +105,7 @@ internal constructor(
     /** Get a list of all legal entities. */
     override fun list(
         params: LegalEntityListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LegalEntityListPage {
         val request =
             HttpRequest.builder()
@@ -131,7 +129,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

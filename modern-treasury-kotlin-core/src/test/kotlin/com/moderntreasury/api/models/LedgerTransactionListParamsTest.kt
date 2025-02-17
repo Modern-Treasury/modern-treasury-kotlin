@@ -126,7 +126,7 @@ class LedgerTransactionListParamsTest {
         expected.put("ledgerable_id", "ledgerable_id")
         expected.put(
             "ledgerable_type",
-            LedgerTransactionListParams.LedgerableType.EXPECTED_PAYMENT.toString()
+            LedgerTransactionListParams.LedgerableType.EXPECTED_PAYMENT.toString(),
         )
         LedgerTransactionListParams.Metadata.builder()
             .putAdditionalProperty("foo", "string")
@@ -139,7 +139,7 @@ class LedgerTransactionListParamsTest {
             .forEachQueryParam { key, values -> expected.put("order_by[$key]", values) }
         expected.put(
             "partially_posts_ledger_transaction_id",
-            "partially_posts_ledger_transaction_id"
+            "partially_posts_ledger_transaction_id",
         )
         expected.put("per_page", "0")
         LedgerTransactionListParams.PostedAt.builder()

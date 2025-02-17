@@ -54,13 +54,13 @@ private constructor(
         this.eventTimeEnd?.let {
             queryParams.put(
                 "event_time_end",
-                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)),
             )
         }
         this.eventTimeStart?.let {
             queryParams.put(
                 "event_time_start",
-                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)),
             )
         }
         this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }

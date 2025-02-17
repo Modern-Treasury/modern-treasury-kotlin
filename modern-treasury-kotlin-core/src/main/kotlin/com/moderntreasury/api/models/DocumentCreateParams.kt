@@ -42,12 +42,7 @@ private constructor(
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     internal fun _body(): Array<MultipartFormValue<*>?> =
-        arrayOf(
-            documentableId(),
-            documentableType(),
-            file(),
-            documentType(),
-        )
+        arrayOf(documentableId(), documentableType(), file(), documentType())
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -83,53 +78,35 @@ private constructor(
         /** The unique identifier for the associated object. */
         fun documentableId(
             documentableId: String,
-            contentType: ContentType = ContentTypes.DefaultText
+            contentType: ContentType = ContentTypes.DefaultText,
         ) = apply {
             this.documentableId =
-                MultipartFormValue.fromString(
-                    "documentableId",
-                    documentableId,
-                    contentType,
-                )
+                MultipartFormValue.fromString("documentableId", documentableId, contentType)
         }
 
         fun documentableType(
             documentableType: DocumentableType,
-            contentType: ContentType = ContentTypes.DefaultText
+            contentType: ContentType = ContentTypes.DefaultText,
         ) = apply {
             this.documentableType =
-                MultipartFormValue.fromEnum(
-                    "documentableType",
-                    documentableType,
-                    contentType,
-                )
+                MultipartFormValue.fromEnum("documentableType", documentableType, contentType)
         }
 
         fun file(
             content: ByteArray,
             filename: String? = null,
-            contentType: ContentType = ContentTypes.DefaultBinary
+            contentType: ContentType = ContentTypes.DefaultBinary,
         ) = apply {
-            this.file =
-                MultipartFormValue.fromByteArray(
-                    "file",
-                    content,
-                    contentType,
-                    filename,
-                )
+            this.file = MultipartFormValue.fromByteArray("file", content, contentType, filename)
         }
 
         /** A category given to the document, can be `null`. */
         fun documentType(
             documentType: String,
-            contentType: ContentType = ContentTypes.DefaultText
+            contentType: ContentType = ContentTypes.DefaultText,
         ) = apply {
             this.documentType =
-                MultipartFormValue.fromString(
-                    "documentType",
-                    documentType,
-                    contentType,
-                )
+                MultipartFormValue.fromString("documentType", documentType, contentType)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -241,11 +218,8 @@ private constructor(
             )
     }
 
-    class DocumentableType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class DocumentableType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.

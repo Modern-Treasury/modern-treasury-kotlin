@@ -21,10 +21,8 @@ import com.moderntreasury.api.models.TransactionLineItemListPage
 import com.moderntreasury.api.models.TransactionLineItemListParams
 import com.moderntreasury.api.models.TransactionLineItemRetrieveParams
 
-class LineItemServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : LineItemService {
+class LineItemServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    LineItemService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** create transaction line items */
     override fun create(
         params: TransactionLineItemCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): TransactionLineItem {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** get transaction line item */
     override fun retrieve(
         params: TransactionLineItemRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): TransactionLineItem {
         val request =
             HttpRequest.builder()
@@ -84,7 +82,7 @@ internal constructor(
     /** list transaction_line_items */
     override fun list(
         params: TransactionLineItemListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): TransactionLineItemListPage {
         val request =
             HttpRequest.builder()
@@ -108,7 +106,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

@@ -293,12 +293,7 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
-            fun build(): Balances =
-                Balances(
-                    asOfDate,
-                    effectiveAt,
-                    additionalProperties.build(),
-                )
+            fun build(): Balances = Balances(asOfDate, effectiveAt, additionalProperties.build())
         }
 
         override fun equals(other: Any?): Boolean {

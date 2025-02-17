@@ -643,11 +643,7 @@ private constructor(
     }
 
     /** One of create, or update. */
-    class ActionType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class ActionType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -744,11 +740,8 @@ private constructor(
     }
 
     /** One of payment_order, expected_payment, or ledger_transaction. */
-    class ResourceType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class ResourceType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1221,7 +1214,7 @@ private constructor(
             override fun serialize(
                 value: Resource,
                 generator: JsonGenerator,
-                provider: SerializerProvider
+                provider: SerializerProvider,
             ) {
                 when {
                     value.paymentOrderAsyncCreateRequest != null ->
@@ -2606,11 +2599,8 @@ private constructor(
              * pulls money from someone else's account to your own. Note that wire, rtp, and check
              * payments will always be `credit`.
              */
-            class Direction
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Direction @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -2833,11 +2823,7 @@ private constructor(
                     }
 
                     fun build(): Accounting =
-                        Accounting(
-                            accountId,
-                            classId,
-                            additionalProperties.toImmutable(),
-                        )
+                        Accounting(accountId, classId, additionalProperties.toImmutable())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -2865,9 +2851,7 @@ private constructor(
              */
             class ChargeBearer
             @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            private constructor(private val value: JsonField<String>) : Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -2973,9 +2957,7 @@ private constructor(
              */
             class FallbackType
             @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            private constructor(private val value: JsonField<String>) : Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -2996,7 +2978,7 @@ private constructor(
 
                 /** An enum containing [FallbackType]'s known values. */
                 enum class Known {
-                    ACH,
+                    ACH
                 }
 
                 /**
@@ -3069,9 +3051,7 @@ private constructor(
              */
             class ForeignExchangeIndicator
             @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            private constructor(private val value: JsonField<String>) : Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -4012,7 +3992,7 @@ private constructor(
                     private constructor(
                         @JsonAnySetter
                         private val additionalProperties: Map<String, JsonValue> =
-                            immutableEmptyMap(),
+                            immutableEmptyMap()
                     ) {
 
                         @JsonAnyGetter
@@ -4102,7 +4082,7 @@ private constructor(
                     private constructor(
                         @JsonAnySetter
                         private val additionalProperties: Map<String, JsonValue> =
-                            immutableEmptyMap(),
+                            immutableEmptyMap()
                     ) {
 
                         @JsonAnyGetter
@@ -4190,7 +4170,7 @@ private constructor(
                     private constructor(
                         @JsonAnySetter
                         private val additionalProperties: Map<String, JsonValue> =
-                            immutableEmptyMap(),
+                            immutableEmptyMap()
                     ) {
 
                         @JsonAnyGetter
@@ -4280,7 +4260,7 @@ private constructor(
                     private constructor(
                         @JsonAnySetter
                         private val additionalProperties: Map<String, JsonValue> =
-                            immutableEmptyMap(),
+                            immutableEmptyMap()
                     ) {
 
                         @JsonAnyGetter
@@ -4385,9 +4365,7 @@ private constructor(
                  */
                 class LedgerableType
                 @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) : Enum {
+                private constructor(private val value: JsonField<String>) : Enum {
 
                     /**
                      * Returns this class instance's raw value.
@@ -4517,7 +4495,7 @@ private constructor(
                 @JsonCreator
                 private constructor(
                     @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
                 ) {
 
                     @JsonAnyGetter
@@ -4596,9 +4574,7 @@ private constructor(
                 /** To post a ledger transaction at creation, use `posted`. */
                 class Status
                 @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) : Enum {
+                private constructor(private val value: JsonField<String>) : Enum {
 
                     /**
                      * Returns this class instance's raw value.
@@ -4915,7 +4891,7 @@ private constructor(
                 @JsonCreator
                 private constructor(
                     @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
                 ) {
 
                     @JsonAnyGetter
@@ -5018,7 +4994,7 @@ private constructor(
             @JsonCreator
             private constructor(
                 @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
             ) {
 
                 @JsonAnyGetter
@@ -5098,11 +5074,8 @@ private constructor(
              * or EFT transfer, respectively. For check payments, `high` can mean an overnight check
              * rather than standard mail.
              */
-            class Priority
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Priority @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -5752,9 +5725,7 @@ private constructor(
 
                     class AccountNumberType
                     @JsonCreator
-                    private constructor(
-                        private val value: JsonField<String>,
-                    ) : Enum {
+                    private constructor(private val value: JsonField<String>) : Enum {
 
                         /**
                          * Returns this class instance's raw value.
@@ -6034,9 +6005,7 @@ private constructor(
 
                     class ContactIdentifierType
                     @JsonCreator
-                    private constructor(
-                        private val value: JsonField<String>,
-                    ) : Enum {
+                    private constructor(private val value: JsonField<String>) : Enum {
 
                         /**
                          * Returns this class instance's raw value.
@@ -6557,9 +6526,7 @@ private constructor(
                      */
                     class LedgerableType
                     @JsonCreator
-                    private constructor(
-                        private val value: JsonField<String>,
-                    ) : Enum {
+                    private constructor(private val value: JsonField<String>) : Enum {
 
                         /**
                          * Returns this class instance's raw value.
@@ -6678,7 +6645,7 @@ private constructor(
                     private constructor(
                         @JsonAnySetter
                         private val additionalProperties: Map<String, JsonValue> =
-                            immutableEmptyMap(),
+                            immutableEmptyMap()
                     ) {
 
                         @JsonAnyGetter
@@ -6782,7 +6749,7 @@ private constructor(
                 @JsonCreator
                 private constructor(
                     @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
                 ) {
 
                     @JsonAnyGetter
@@ -7067,9 +7034,7 @@ private constructor(
                 /** Either `individual` or `business`. */
                 class PartyType
                 @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) : Enum {
+                private constructor(private val value: JsonField<String>) : Enum {
 
                     /**
                      * Returns this class instance's raw value.
@@ -7296,9 +7261,7 @@ private constructor(
 
                     class RoutingNumberType
                     @JsonCreator
-                    private constructor(
-                        private val value: JsonField<String>,
-                    ) : Enum {
+                    private constructor(private val value: JsonField<String>) : Enum {
 
                         /**
                          * Returns this class instance's raw value.
@@ -7511,9 +7474,7 @@ private constructor(
 
                     class PaymentType
                     @JsonCreator
-                    private constructor(
-                        private val value: JsonField<String>,
-                    ) : Enum {
+                    private constructor(private val value: JsonField<String>) : Enum {
 
                         /**
                          * Returns this class instance's raw value.
@@ -8518,11 +8479,8 @@ private constructor(
              * One of credit or debit. When you are receiving money, use credit. When you are being
              * charged, use debit.
              */
-            class Direction
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Direction @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -9460,7 +9418,7 @@ private constructor(
                     private constructor(
                         @JsonAnySetter
                         private val additionalProperties: Map<String, JsonValue> =
-                            immutableEmptyMap(),
+                            immutableEmptyMap()
                     ) {
 
                         @JsonAnyGetter
@@ -9550,7 +9508,7 @@ private constructor(
                     private constructor(
                         @JsonAnySetter
                         private val additionalProperties: Map<String, JsonValue> =
-                            immutableEmptyMap(),
+                            immutableEmptyMap()
                     ) {
 
                         @JsonAnyGetter
@@ -9638,7 +9596,7 @@ private constructor(
                     private constructor(
                         @JsonAnySetter
                         private val additionalProperties: Map<String, JsonValue> =
-                            immutableEmptyMap(),
+                            immutableEmptyMap()
                     ) {
 
                         @JsonAnyGetter
@@ -9728,7 +9686,7 @@ private constructor(
                     private constructor(
                         @JsonAnySetter
                         private val additionalProperties: Map<String, JsonValue> =
-                            immutableEmptyMap(),
+                            immutableEmptyMap()
                     ) {
 
                         @JsonAnyGetter
@@ -9833,9 +9791,7 @@ private constructor(
                  */
                 class LedgerableType
                 @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) : Enum {
+                private constructor(private val value: JsonField<String>) : Enum {
 
                     /**
                      * Returns this class instance's raw value.
@@ -9965,7 +9921,7 @@ private constructor(
                 @JsonCreator
                 private constructor(
                     @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
                 ) {
 
                     @JsonAnyGetter
@@ -10044,9 +10000,7 @@ private constructor(
                 /** To post a ledger transaction at creation, use `posted`. */
                 class Status
                 @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) : Enum {
+                private constructor(private val value: JsonField<String>) : Enum {
 
                     /**
                      * Returns this class instance's raw value.
@@ -10363,7 +10317,7 @@ private constructor(
                 @JsonCreator
                 private constructor(
                     @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
                 ) {
 
                     @JsonAnyGetter
@@ -10466,7 +10420,7 @@ private constructor(
             @JsonCreator
             private constructor(
                 @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
             ) {
 
                 @JsonAnyGetter
@@ -11377,7 +11331,7 @@ private constructor(
                 @JsonCreator
                 private constructor(
                     @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
                 ) {
 
                     @JsonAnyGetter
@@ -11465,7 +11419,7 @@ private constructor(
                 @JsonCreator
                 private constructor(
                     @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
                 ) {
 
                     @JsonAnyGetter
@@ -11551,7 +11505,7 @@ private constructor(
                 @JsonCreator
                 private constructor(
                     @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
                 ) {
 
                     @JsonAnyGetter
@@ -11640,7 +11594,7 @@ private constructor(
                 @JsonCreator
                 private constructor(
                     @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
                 ) {
 
                     @JsonAnyGetter
@@ -11744,9 +11698,7 @@ private constructor(
              */
             class LedgerableType
             @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            private constructor(private val value: JsonField<String>) : Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -11875,7 +11827,7 @@ private constructor(
             @JsonCreator
             private constructor(
                 @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
             ) {
 
                 @JsonAnyGetter
@@ -11951,11 +11903,8 @@ private constructor(
             }
 
             /** To post a ledger transaction at creation, use `posted`. */
-            class Status
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Status @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -12439,7 +12388,7 @@ private constructor(
             @JsonCreator
             private constructor(
                 @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
             ) {
 
                 @JsonAnyGetter
@@ -12518,11 +12467,8 @@ private constructor(
              * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
              * `book`, or `sen`.
              */
-            class Type
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Type @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -14391,11 +14337,7 @@ private constructor(
                     }
 
                     fun build(): Accounting =
-                        Accounting(
-                            accountId,
-                            classId,
-                            additionalProperties.toImmutable(),
-                        )
+                        Accounting(accountId, classId, additionalProperties.toImmutable())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -14423,9 +14365,7 @@ private constructor(
              */
             class ChargeBearer
             @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            private constructor(private val value: JsonField<String>) : Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -14530,11 +14470,8 @@ private constructor(
              * pulls money from someone else's account to your own. Note that wire, rtp, and check
              * payments will always be `credit`.
              */
-            class Direction
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Direction @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -14633,9 +14570,7 @@ private constructor(
              */
             class FallbackType
             @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            private constructor(private val value: JsonField<String>) : Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -14656,7 +14591,7 @@ private constructor(
 
                 /** An enum containing [FallbackType]'s known values. */
                 enum class Known {
-                    ACH,
+                    ACH
                 }
 
                 /**
@@ -14729,9 +14664,7 @@ private constructor(
              */
             class ForeignExchangeIndicator
             @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            private constructor(private val value: JsonField<String>) : Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -15027,7 +14960,7 @@ private constructor(
                 @JsonCreator
                 private constructor(
                     @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
                 ) {
 
                     @JsonAnyGetter
@@ -15130,7 +15063,7 @@ private constructor(
             @JsonCreator
             private constructor(
                 @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
             ) {
 
                 @JsonAnyGetter
@@ -15210,11 +15143,8 @@ private constructor(
              * or EFT transfer, respectively. For check payments, `high` can mean an overnight check
              * rather than standard mail.
              */
-            class Priority
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Priority @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -15864,9 +15794,7 @@ private constructor(
 
                     class AccountNumberType
                     @JsonCreator
-                    private constructor(
-                        private val value: JsonField<String>,
-                    ) : Enum {
+                    private constructor(private val value: JsonField<String>) : Enum {
 
                         /**
                          * Returns this class instance's raw value.
@@ -16146,9 +16074,7 @@ private constructor(
 
                     class ContactIdentifierType
                     @JsonCreator
-                    private constructor(
-                        private val value: JsonField<String>,
-                    ) : Enum {
+                    private constructor(private val value: JsonField<String>) : Enum {
 
                         /**
                          * Returns this class instance's raw value.
@@ -16669,9 +16595,7 @@ private constructor(
                      */
                     class LedgerableType
                     @JsonCreator
-                    private constructor(
-                        private val value: JsonField<String>,
-                    ) : Enum {
+                    private constructor(private val value: JsonField<String>) : Enum {
 
                         /**
                          * Returns this class instance's raw value.
@@ -16790,7 +16714,7 @@ private constructor(
                     private constructor(
                         @JsonAnySetter
                         private val additionalProperties: Map<String, JsonValue> =
-                            immutableEmptyMap(),
+                            immutableEmptyMap()
                     ) {
 
                         @JsonAnyGetter
@@ -16894,7 +16818,7 @@ private constructor(
                 @JsonCreator
                 private constructor(
                     @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
                 ) {
 
                     @JsonAnyGetter
@@ -17179,9 +17103,7 @@ private constructor(
                 /** Either `individual` or `business`. */
                 class PartyType
                 @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) : Enum {
+                private constructor(private val value: JsonField<String>) : Enum {
 
                     /**
                      * Returns this class instance's raw value.
@@ -17408,9 +17330,7 @@ private constructor(
 
                     class RoutingNumberType
                     @JsonCreator
-                    private constructor(
-                        private val value: JsonField<String>,
-                    ) : Enum {
+                    private constructor(private val value: JsonField<String>) : Enum {
 
                         /**
                          * Returns this class instance's raw value.
@@ -17623,9 +17543,7 @@ private constructor(
 
                     class PaymentType
                     @JsonCreator
-                    private constructor(
-                        private val value: JsonField<String>,
-                    ) : Enum {
+                    private constructor(private val value: JsonField<String>) : Enum {
 
                         /**
                          * Returns this class instance's raw value.
@@ -17931,11 +17849,8 @@ private constructor(
              * `approved`. To undo approval on a denied or approved payment order, use
              * `needs_approval`.
              */
-            class Status
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Status @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -18706,11 +18621,8 @@ private constructor(
              * One of credit or debit. When you are receiving money, use credit. When you are being
              * charged, use debit.
              */
-            class Direction
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Direction @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -18811,7 +18723,7 @@ private constructor(
             @JsonCreator
             private constructor(
                 @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
             ) {
 
                 @JsonAnyGetter
@@ -18889,11 +18801,8 @@ private constructor(
             /**
              * The Expected Payment's status can be updated from partially_reconciled to reconciled.
              */
-            class Status
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Status @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -18914,7 +18823,7 @@ private constructor(
 
                 /** An enum containing [Status]'s known values. */
                 enum class Known {
-                    RECONCILED,
+                    RECONCILED
                 }
 
                 /**
@@ -19105,11 +19014,7 @@ private constructor(
                 }
 
                 fun build(): TransactionUpdateRequestWithId =
-                    TransactionUpdateRequestWithId(
-                        id,
-                        metadata,
-                        additionalProperties.toImmutable(),
-                    )
+                    TransactionUpdateRequestWithId(id, metadata, additionalProperties.toImmutable())
             }
 
             /**
@@ -19121,7 +19026,7 @@ private constructor(
             @JsonCreator
             private constructor(
                 @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
             ) {
 
                 @JsonAnyGetter
@@ -19979,7 +19884,7 @@ private constructor(
                 @JsonCreator
                 private constructor(
                     @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
                 ) {
 
                     @JsonAnyGetter
@@ -20067,7 +19972,7 @@ private constructor(
                 @JsonCreator
                 private constructor(
                     @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
                 ) {
 
                     @JsonAnyGetter
@@ -20153,7 +20058,7 @@ private constructor(
                 @JsonCreator
                 private constructor(
                     @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
                 ) {
 
                     @JsonAnyGetter
@@ -20242,7 +20147,7 @@ private constructor(
                 @JsonCreator
                 private constructor(
                     @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
                 ) {
 
                     @JsonAnyGetter
@@ -20346,9 +20251,7 @@ private constructor(
              */
             class LedgerableType
             @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            private constructor(private val value: JsonField<String>) : Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -20477,7 +20380,7 @@ private constructor(
             @JsonCreator
             private constructor(
                 @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
             ) {
 
                 @JsonAnyGetter
@@ -20553,11 +20456,8 @@ private constructor(
             }
 
             /** To post a ledger transaction at creation, use `posted`. */
-            class Status
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Status @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -20679,7 +20579,7 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
     ) {
 
         @JsonAnyGetter

@@ -241,11 +241,8 @@ private constructor(
      * One of `payment_order`, `paper_item`, `reversal`, or `incoming_payment_detail`. Must be
      * accompanied by `returnable_id`.
      */
-    class ReturnableType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class ReturnableType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.

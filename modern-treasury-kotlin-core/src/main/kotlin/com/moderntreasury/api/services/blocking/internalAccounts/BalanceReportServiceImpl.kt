@@ -21,10 +21,8 @@ import com.moderntreasury.api.models.BalanceReportListPage
 import com.moderntreasury.api.models.BalanceReportListParams
 import com.moderntreasury.api.models.BalanceReportRetrieveParams
 
-class BalanceReportServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : BalanceReportService {
+class BalanceReportServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    BalanceReportService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** create balance reports */
     override fun create(
         params: BalanceReportCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): BalanceReport {
         val request =
             HttpRequest.builder()
@@ -43,7 +41,7 @@ internal constructor(
                     "api",
                     "internal_accounts",
                     params.getPathParam(0),
-                    "balance_reports"
+                    "balance_reports",
                 )
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
@@ -64,7 +62,7 @@ internal constructor(
     /** Get a single balance report for a given internal account. */
     override fun retrieve(
         params: BalanceReportRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): BalanceReport {
         val request =
             HttpRequest.builder()
@@ -74,7 +72,7 @@ internal constructor(
                     "internal_accounts",
                     params.getPathParam(0),
                     "balance_reports",
-                    params.getPathParam(1)
+                    params.getPathParam(1),
                 )
                 .build()
                 .prepare(clientOptions, params)
@@ -94,7 +92,7 @@ internal constructor(
     /** Get all balance reports for a given internal account. */
     override fun list(
         params: BalanceReportListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): BalanceReportListPage {
         val request =
             HttpRequest.builder()
@@ -103,7 +101,7 @@ internal constructor(
                     "api",
                     "internal_accounts",
                     params.getPathParam(0),
-                    "balance_reports"
+                    "balance_reports",
                 )
                 .build()
                 .prepare(clientOptions, params)
@@ -123,7 +121,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }
@@ -140,7 +138,7 @@ internal constructor(
                     "internal_accounts",
                     params.getPathParam(0),
                     "balance_reports",
-                    params.getPathParam(1)
+                    params.getPathParam(1),
                 )
                 .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                 .build()

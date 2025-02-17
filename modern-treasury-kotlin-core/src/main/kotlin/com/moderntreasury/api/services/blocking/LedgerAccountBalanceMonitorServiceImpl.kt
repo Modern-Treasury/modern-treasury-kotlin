@@ -22,9 +22,8 @@ import com.moderntreasury.api.models.LedgerAccountBalanceMonitorRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitorUpdateParams
 
 class LedgerAccountBalanceMonitorServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : LedgerAccountBalanceMonitorService {
+internal constructor(private val clientOptions: ClientOptions) :
+    LedgerAccountBalanceMonitorService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -35,7 +34,7 @@ internal constructor(
     /** Create a ledger account balance monitor. */
     override fun create(
         params: LedgerAccountBalanceMonitorCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerAccountBalanceMonitor {
         val request =
             HttpRequest.builder()
@@ -61,7 +60,7 @@ internal constructor(
     /** Get details on a single ledger account balance monitor. */
     override fun retrieve(
         params: LedgerAccountBalanceMonitorRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerAccountBalanceMonitor {
         val request =
             HttpRequest.builder()
@@ -86,7 +85,7 @@ internal constructor(
     /** Update a ledger account balance monitor. */
     override fun update(
         params: LedgerAccountBalanceMonitorUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerAccountBalanceMonitor {
         val request =
             HttpRequest.builder()
@@ -112,7 +111,7 @@ internal constructor(
     /** Get a list of ledger account balance monitors. */
     override fun list(
         params: LedgerAccountBalanceMonitorListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerAccountBalanceMonitorListPage {
         val request =
             HttpRequest.builder()
@@ -136,7 +135,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }
@@ -148,7 +147,7 @@ internal constructor(
     /** Delete a ledger account balance monitor. */
     override fun delete(
         params: LedgerAccountBalanceMonitorDeleteParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerAccountBalanceMonitor {
         val request =
             HttpRequest.builder()

@@ -1121,11 +1121,7 @@ private constructor(
      * One of credit or debit. When you are receiving money, use credit. When you are being charged,
      * use debit.
      */
-    class Direction
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Direction @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1221,7 +1217,7 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
     ) {
 
         @JsonAnyGetter
@@ -1294,11 +1290,7 @@ private constructor(
     }
 
     /** The Expected Payment's status can be updated from partially_reconciled to reconciled. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1319,7 +1311,7 @@ private constructor(
 
         /** An enum containing [Status]'s known values. */
         enum class Known {
-            RECONCILED,
+            RECONCILED
         }
 
         /**

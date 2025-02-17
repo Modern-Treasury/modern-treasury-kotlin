@@ -19,32 +19,29 @@ interface RoutingDetailService {
     /** Create a routing detail for a single external account. */
     fun create(
         params: RoutingDetailCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RoutingDetail
 
     /** Get a single routing detail for a single internal or external account. */
     fun retrieve(
         params: RoutingDetailRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RoutingDetail
 
     /** Get a list of routing details for a single internal or external account. */
     fun list(
         params: RoutingDetailListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RoutingDetailListPage
 
     /** Delete a routing detail for a single external account. */
     fun delete(
         params: RoutingDetailDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     )
 
-    class AccountsType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class AccountsType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -65,7 +62,7 @@ interface RoutingDetailService {
 
         /** An enum containing [AccountsType]'s known values. */
         enum class Known {
-            EXTERNAL_ACCOUNTS,
+            EXTERNAL_ACCOUNTS
         }
 
         /**

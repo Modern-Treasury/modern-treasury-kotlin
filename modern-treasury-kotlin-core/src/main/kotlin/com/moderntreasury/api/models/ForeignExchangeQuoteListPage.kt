@@ -71,13 +71,8 @@ private constructor(
         fun of(
             foreignExchangeQuotesService: ForeignExchangeQuoteService,
             params: ForeignExchangeQuoteListParams,
-            response: Response
-        ) =
-            ForeignExchangeQuoteListPage(
-                foreignExchangeQuotesService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = ForeignExchangeQuoteListPage(foreignExchangeQuotesService, params, response)
     }
 
     @NoAutoDetect
@@ -162,18 +157,12 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: ForeignExchangeQuoteListPage,
-    ) : Sequence<ForeignExchangeQuote> {
+    class AutoPager(private val firstPage: ForeignExchangeQuoteListPage) :
+        Sequence<ForeignExchangeQuote> {
 
         override fun iterator(): Iterator<ForeignExchangeQuote> = iterator {
             var page = firstPage

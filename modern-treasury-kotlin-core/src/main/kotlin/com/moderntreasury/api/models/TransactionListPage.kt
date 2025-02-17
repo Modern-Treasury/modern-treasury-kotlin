@@ -68,13 +68,8 @@ private constructor(
         fun of(
             transactionsService: TransactionService,
             params: TransactionListParams,
-            response: Response
-        ) =
-            TransactionListPage(
-                transactionsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = TransactionListPage(transactionsService, params, response)
     }
 
     @NoAutoDetect
@@ -158,18 +153,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: TransactionListPage,
-    ) : Sequence<Transaction> {
+    class AutoPager(private val firstPage: TransactionListPage) : Sequence<Transaction> {
 
         override fun iterator(): Iterator<Transaction> = iterator {
             var page = firstPage

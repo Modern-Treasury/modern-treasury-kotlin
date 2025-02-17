@@ -70,13 +70,8 @@ private constructor(
         fun of(
             counterpartiesService: CounterpartyServiceAsync,
             params: CounterpartyListParams,
-            response: Response
-        ) =
-            CounterpartyListPageAsync(
-                counterpartiesService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = CounterpartyListPageAsync(counterpartiesService, params, response)
     }
 
     @NoAutoDetect
@@ -160,18 +155,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: CounterpartyListPageAsync,
-    ) : Flow<Counterparty> {
+    class AutoPager(private val firstPage: CounterpartyListPageAsync) : Flow<Counterparty> {
 
         override suspend fun collect(collector: FlowCollector<Counterparty>) {
             var page = firstPage

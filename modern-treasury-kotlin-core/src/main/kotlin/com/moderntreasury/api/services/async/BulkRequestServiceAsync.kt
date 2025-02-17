@@ -14,18 +14,18 @@ interface BulkRequestServiceAsync {
     /** create bulk_request */
     suspend fun create(
         params: BulkRequestCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkRequest
 
     /** get bulk_request */
     suspend fun retrieve(
         params: BulkRequestRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkRequest
 
     /** list bulk_requests */
     suspend fun list(
         params: BulkRequestListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkRequestListPageAsync
 }

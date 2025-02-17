@@ -18,26 +18,23 @@ interface LineItemServiceAsync {
     /** Get a single line item */
     suspend fun retrieve(
         params: LineItemRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LineItem
 
     /** update line item */
     suspend fun update(
         params: LineItemUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LineItem
 
     /** Get a list of line items */
     suspend fun list(
         params: LineItemListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LineItemListPageAsync
 
-    class ItemizableType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class ItemizableType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.

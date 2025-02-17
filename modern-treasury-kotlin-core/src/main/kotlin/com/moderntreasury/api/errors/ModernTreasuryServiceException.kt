@@ -8,7 +8,7 @@ abstract class ModernTreasuryServiceException(
     private val body: String,
     private val error: ModernTreasuryError,
     message: String = "$statusCode: $error",
-    cause: Throwable? = null
+    cause: Throwable? = null,
 ) : ModernTreasuryException(message, cause) {
 
     fun statusCode(): Int = statusCode

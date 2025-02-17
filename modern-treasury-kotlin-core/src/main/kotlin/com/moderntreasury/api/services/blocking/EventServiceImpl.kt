@@ -17,10 +17,8 @@ import com.moderntreasury.api.models.EventListPage
 import com.moderntreasury.api.models.EventListParams
 import com.moderntreasury.api.models.EventRetrieveParams
 
-class EventServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : EventService {
+class EventServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    EventService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -72,7 +70,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

@@ -311,11 +311,8 @@ private constructor(
      * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
      * `other`.
      */
-    class BalanceReportType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class BalanceReportType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -783,11 +780,8 @@ private constructor(
          * `current_ledger`, `opening_available`, `opening_available_next_business_day`,
          * `closing_available`, `current_available`, 'previously_closed_book', or `other`.
          */
-        class BalanceType
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class BalanceType @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.

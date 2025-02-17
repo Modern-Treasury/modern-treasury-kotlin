@@ -398,11 +398,8 @@ private constructor(
      * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account number
      * is in a generic format.
      */
-    class AccountNumberType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class AccountNumberType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -542,11 +539,8 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    class AccountsType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class AccountsType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -567,7 +561,7 @@ private constructor(
 
         /** An enum containing [AccountsType]'s known values. */
         enum class Known {
-            EXTERNAL_ACCOUNTS,
+            EXTERNAL_ACCOUNTS
         }
 
         /**

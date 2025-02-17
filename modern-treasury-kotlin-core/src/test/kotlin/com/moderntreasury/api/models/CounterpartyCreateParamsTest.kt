@@ -269,7 +269,7 @@ class CounterpartyCreateParamsTest {
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .putAdditionalProperty(
                                                 "modern",
-                                                JsonValue.from("treasury")
+                                                JsonValue.from("treasury"),
                                             )
                                             .build()
                                     )
@@ -667,12 +667,12 @@ class CounterpartyCreateParamsTest {
                                                 .builder()
                                                 .putAdditionalProperty(
                                                     "key",
-                                                    JsonValue.from("value")
+                                                    JsonValue.from("value"),
                                                 )
                                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                                 .putAdditionalProperty(
                                                     "modern",
-                                                    JsonValue.from("treasury")
+                                                    JsonValue.from("treasury"),
                                                 )
                                                 .build()
                                         )
@@ -1078,7 +1078,7 @@ class CounterpartyCreateParamsTest {
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .putAdditionalProperty(
                                                 "modern",
-                                                JsonValue.from("treasury")
+                                                JsonValue.from("treasury"),
                                             )
                                             .build()
                                     )

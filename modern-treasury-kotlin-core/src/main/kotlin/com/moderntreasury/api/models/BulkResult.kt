@@ -614,7 +614,7 @@ private constructor(
             override fun serialize(
                 value: Entity,
                 generator: JsonGenerator,
-                provider: SerializerProvider
+                provider: SerializerProvider,
             ) {
                 when {
                     value.paymentOrder != null -> generator.writeObject(value.paymentOrder)
@@ -934,12 +934,7 @@ private constructor(
                     }
 
                     fun build(): RequestError =
-                        RequestError(
-                            code,
-                            message,
-                            parameter,
-                            additionalProperties.toImmutable(),
-                        )
+                        RequestError(code, message, parameter, additionalProperties.toImmutable())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -983,11 +978,7 @@ private constructor(
      * The type of the result entity object. For a successful bulk result, this is the same as the
      * `resource_type` of the bulk request. For a failed bulk result, this is always bulk_error
      */
-    class EntityType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class EntityType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1104,7 +1095,7 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
     ) {
 
         @JsonAnyGetter
@@ -1180,11 +1171,8 @@ private constructor(
      * The type of the request that created this result. bulk_request is the only supported
      * `request_type`
      */
-    class RequestType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class RequestType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1205,7 +1193,7 @@ private constructor(
 
         /** An enum containing [RequestType]'s known values. */
         enum class Known {
-            BULK_REQUEST,
+            BULK_REQUEST
         }
 
         /**
@@ -1269,11 +1257,7 @@ private constructor(
     }
 
     /** One of successful or failed. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

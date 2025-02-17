@@ -73,13 +73,8 @@ private constructor(
         fun of(
             foreignExchangeQuotesService: ForeignExchangeQuoteServiceAsync,
             params: ForeignExchangeQuoteListParams,
-            response: Response
-        ) =
-            ForeignExchangeQuoteListPageAsync(
-                foreignExchangeQuotesService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = ForeignExchangeQuoteListPageAsync(foreignExchangeQuotesService, params, response)
     }
 
     @NoAutoDetect
@@ -164,18 +159,12 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: ForeignExchangeQuoteListPageAsync,
-    ) : Flow<ForeignExchangeQuote> {
+    class AutoPager(private val firstPage: ForeignExchangeQuoteListPageAsync) :
+        Flow<ForeignExchangeQuote> {
 
         override suspend fun collect(collector: FlowCollector<ForeignExchangeQuote>) {
             var page = firstPage

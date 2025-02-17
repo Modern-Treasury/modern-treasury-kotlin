@@ -70,13 +70,8 @@ private constructor(
         fun of(
             balanceReportsService: BalanceReportServiceAsync,
             params: BalanceReportListParams,
-            response: Response
-        ) =
-            BalanceReportListPageAsync(
-                balanceReportsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = BalanceReportListPageAsync(balanceReportsService, params, response)
     }
 
     @NoAutoDetect
@@ -160,18 +155,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: BalanceReportListPageAsync,
-    ) : Flow<BalanceReport> {
+    class AutoPager(private val firstPage: BalanceReportListPageAsync) : Flow<BalanceReport> {
 
         override suspend fun collect(collector: FlowCollector<BalanceReport>) {
             var page = firstPage

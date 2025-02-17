@@ -12,12 +12,12 @@ interface LedgerableEventServiceAsync {
     /** Create a ledgerable event. */
     suspend fun create(
         params: LedgerableEventCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerableEvent
 
     /** Get details on a single ledgerable event. */
     suspend fun retrieve(
         params: LedgerableEventRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerableEvent
 }

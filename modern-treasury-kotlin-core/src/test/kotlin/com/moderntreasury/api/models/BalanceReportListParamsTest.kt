@@ -35,7 +35,7 @@ class BalanceReportListParamsTest {
         expected.put("as_of_date", "2019-12-27")
         expected.put(
             "balance_report_type",
-            BalanceReportListParams.BalanceReportType.INTRADAY.toString()
+            BalanceReportListParams.BalanceReportType.INTRADAY.toString(),
         )
         expected.put("per_page", "0")
         assertThat(params._queryParams()).isEqualTo(expected.build())

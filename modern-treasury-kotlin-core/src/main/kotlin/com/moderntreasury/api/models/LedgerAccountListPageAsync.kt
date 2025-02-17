@@ -70,13 +70,8 @@ private constructor(
         fun of(
             ledgerAccountsService: LedgerAccountServiceAsync,
             params: LedgerAccountListParams,
-            response: Response
-        ) =
-            LedgerAccountListPageAsync(
-                ledgerAccountsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = LedgerAccountListPageAsync(ledgerAccountsService, params, response)
     }
 
     @NoAutoDetect
@@ -160,18 +155,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: LedgerAccountListPageAsync,
-    ) : Flow<LedgerAccount> {
+    class AutoPager(private val firstPage: LedgerAccountListPageAsync) : Flow<LedgerAccount> {
 
         override suspend fun collect(collector: FlowCollector<LedgerAccount>) {
             var page = firstPage

@@ -8,11 +8,8 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 
 /** Can be `checking`, `savings` or `other`. */
-class ExternalAccountType
-@JsonCreator
-private constructor(
-    private val value: JsonField<String>,
-) : Enum {
+class ExternalAccountType @JsonCreator private constructor(private val value: JsonField<String>) :
+    Enum {
 
     /**
      * Returns this class instance's raw value.

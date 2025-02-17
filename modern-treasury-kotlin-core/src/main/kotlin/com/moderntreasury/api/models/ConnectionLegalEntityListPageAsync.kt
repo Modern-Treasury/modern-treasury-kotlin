@@ -73,13 +73,8 @@ private constructor(
         fun of(
             connectionLegalEntitiesService: ConnectionLegalEntityServiceAsync,
             params: ConnectionLegalEntityListParams,
-            response: Response
-        ) =
-            ConnectionLegalEntityListPageAsync(
-                connectionLegalEntitiesService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = ConnectionLegalEntityListPageAsync(connectionLegalEntitiesService, params, response)
     }
 
     @NoAutoDetect
@@ -164,18 +159,12 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: ConnectionLegalEntityListPageAsync,
-    ) : Flow<ConnectionLegalEntity> {
+    class AutoPager(private val firstPage: ConnectionLegalEntityListPageAsync) :
+        Flow<ConnectionLegalEntity> {
 
         override suspend fun collect(collector: FlowCollector<ConnectionLegalEntity>) {
             var page = firstPage

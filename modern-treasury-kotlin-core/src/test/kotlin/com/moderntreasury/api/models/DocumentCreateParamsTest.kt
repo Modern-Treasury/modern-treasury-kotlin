@@ -35,22 +35,22 @@ class DocumentCreateParamsTest {
                 MultipartFormValue.fromString(
                     "documentableId",
                     "documentable_id",
-                    ContentTypes.DefaultText
+                    ContentTypes.DefaultText,
                 ),
                 MultipartFormValue.fromEnum(
                     "documentableType",
                     DocumentCreateParams.DocumentableType.CASES,
-                    ContentTypes.DefaultText
+                    ContentTypes.DefaultText,
                 ),
                 MultipartFormValue.fromByteArray(
                     "file",
                     "some content".toByteArray(),
-                    ContentTypes.DefaultBinary
+                    ContentTypes.DefaultBinary,
                 ),
                 MultipartFormValue.fromString(
                     "documentType",
                     "document_type",
-                    ContentTypes.DefaultText
+                    ContentTypes.DefaultText,
                 ),
             )
     }
@@ -70,17 +70,17 @@ class DocumentCreateParamsTest {
                 MultipartFormValue.fromString(
                     "documentableId",
                     "documentable_id",
-                    ContentTypes.DefaultText
+                    ContentTypes.DefaultText,
                 ),
                 MultipartFormValue.fromEnum(
                     "documentableType",
                     DocumentCreateParams.DocumentableType.CASES,
-                    ContentTypes.DefaultText
+                    ContentTypes.DefaultText,
                 ),
                 MultipartFormValue.fromByteArray(
                     "file",
                     "some content".toByteArray(),
-                    ContentTypes.DefaultBinary
+                    ContentTypes.DefaultBinary,
                 ),
                 null,
             )

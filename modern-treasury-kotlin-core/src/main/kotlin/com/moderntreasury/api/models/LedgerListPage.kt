@@ -66,11 +66,7 @@ private constructor(
     companion object {
 
         fun of(ledgersService: LedgerService, params: LedgerListParams, response: Response) =
-            LedgerListPage(
-                ledgersService,
-                params,
-                response,
-            )
+            LedgerListPage(ledgersService, params, response)
     }
 
     @NoAutoDetect
@@ -154,18 +150,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: LedgerListPage,
-    ) : Sequence<Ledger> {
+    class AutoPager(private val firstPage: LedgerListPage) : Sequence<Ledger> {
 
         override fun iterator(): Iterator<Ledger> = iterator {
             var page = firstPage

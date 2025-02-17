@@ -16,30 +16,30 @@ interface LineItemService {
     /** create invoice_line_item */
     fun create(
         params: InvoiceLineItemCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InvoiceLineItem
 
     /** get invoice_line_item */
     fun retrieve(
         params: InvoiceLineItemRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InvoiceLineItem
 
     /** update invoice_line_item */
     fun update(
         params: InvoiceLineItemUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InvoiceLineItem
 
     /** list invoice_line_items */
     fun list(
         params: InvoiceLineItemListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InvoiceLineItemListPage
 
     /** delete invoice_line_item */
     fun delete(
         params: InvoiceLineItemDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InvoiceLineItem
 }

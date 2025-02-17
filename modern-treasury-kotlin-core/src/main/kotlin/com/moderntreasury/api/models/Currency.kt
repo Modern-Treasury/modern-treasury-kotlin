@@ -8,11 +8,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 
 /** Three-letter ISO currency code. */
-class Currency
-@JsonCreator
-private constructor(
-    private val value: JsonField<String>,
-) : Enum {
+class Currency @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
     /**
      * Returns this class instance's raw value.

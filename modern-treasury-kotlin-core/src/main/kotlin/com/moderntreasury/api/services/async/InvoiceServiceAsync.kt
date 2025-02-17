@@ -19,30 +19,30 @@ interface InvoiceServiceAsync {
     /** create invoice */
     suspend fun create(
         params: InvoiceCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Invoice
 
     /** get invoice */
     suspend fun retrieve(
         params: InvoiceRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Invoice
 
     /** update invoice */
     suspend fun update(
         params: InvoiceUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Invoice
 
     /** list invoices */
     suspend fun list(
         params: InvoiceListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InvoiceListPageAsync
 
     /** Add a payment order to an invoice. */
     suspend fun addPaymentOrder(
         params: InvoiceAddPaymentOrderParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     )
 }

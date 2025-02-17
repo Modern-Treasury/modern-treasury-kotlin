@@ -15,24 +15,24 @@ interface LineItemService {
     /** create transaction line items */
     fun create(
         params: TransactionLineItemCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionLineItem
 
     /** get transaction line item */
     fun retrieve(
         params: TransactionLineItemRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionLineItem
 
     /** list transaction_line_items */
     fun list(
         params: TransactionLineItemListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionLineItemListPage
 
     /** delete transaction line item */
     fun delete(
         params: TransactionLineItemDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     )
 }

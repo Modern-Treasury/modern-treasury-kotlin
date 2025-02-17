@@ -623,11 +623,7 @@ private constructor(
      * Describes the direction money is flowing in the transaction. Can only be `debit`. A `debit`
      * pulls money from someone else's account to your own.
      */
-    class Direction
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Direction @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -723,9 +719,7 @@ private constructor(
      */
     class ExistingExternalAccountsFilter
     @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -746,7 +740,7 @@ private constructor(
 
         /** An enum containing [ExistingExternalAccountsFilter]'s known values. */
         enum class Known {
-            VERIFIED,
+            VERIFIED
         }
 
         /**
@@ -822,9 +816,7 @@ private constructor(
      */
     class ExternalAccountCollection
     @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -924,11 +916,7 @@ private constructor(
      * The current status of the payment flow. One of `pending`, `completed`, `expired`, or
      * `cancelled`.
      */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

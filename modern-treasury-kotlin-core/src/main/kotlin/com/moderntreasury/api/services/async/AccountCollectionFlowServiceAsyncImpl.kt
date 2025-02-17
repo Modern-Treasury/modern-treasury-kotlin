@@ -21,9 +21,7 @@ import com.moderntreasury.api.models.AccountCollectionFlowRetrieveParams
 import com.moderntreasury.api.models.AccountCollectionFlowUpdateParams
 
 class AccountCollectionFlowServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AccountCollectionFlowServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : AccountCollectionFlowServiceAsync {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
     /** create account_collection_flow */
     override suspend fun create(
         params: AccountCollectionFlowCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountCollectionFlow {
         val request =
             HttpRequest.builder()
@@ -58,7 +56,7 @@ internal constructor(
     /** get account_collection_flow */
     override suspend fun retrieve(
         params: AccountCollectionFlowRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountCollectionFlow {
         val request =
             HttpRequest.builder()
@@ -82,7 +80,7 @@ internal constructor(
     /** update account_collection_flow */
     override suspend fun update(
         params: AccountCollectionFlowUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountCollectionFlow {
         val request =
             HttpRequest.builder()
@@ -108,7 +106,7 @@ internal constructor(
     /** list account_collection_flows */
     override suspend fun list(
         params: AccountCollectionFlowListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountCollectionFlowListPageAsync {
         val request =
             HttpRequest.builder()
@@ -132,7 +130,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }
