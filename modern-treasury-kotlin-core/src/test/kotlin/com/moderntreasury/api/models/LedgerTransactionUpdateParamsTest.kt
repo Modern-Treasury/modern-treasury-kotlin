@@ -119,7 +119,9 @@ class LedgerTransactionUpdateParamsTest {
                 )
                 .status(LedgerTransactionUpdateParams.Status.ARCHIVED)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.effectiveAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -181,7 +183,9 @@ class LedgerTransactionUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = LedgerTransactionUpdateParams.builder().id("id").build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
     }
 

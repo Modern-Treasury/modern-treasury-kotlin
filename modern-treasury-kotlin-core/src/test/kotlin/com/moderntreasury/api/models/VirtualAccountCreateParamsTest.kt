@@ -128,7 +128,9 @@ class VirtualAccountCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.name()).isEqualTo("name")
@@ -202,7 +204,9 @@ class VirtualAccountCreateParamsTest {
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .name("name")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.name()).isEqualTo("name")

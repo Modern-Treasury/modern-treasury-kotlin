@@ -23,7 +23,7 @@ import java.util.Objects
 class LedgerEntryUpdateParams
 private constructor(
     private val id: String,
-    private val body: LedgerEntryUpdateBody,
+    private val body: LedgerEntryUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -42,7 +42,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerEntryUpdateBody = body
+    internal fun _body(): LedgerEntryUpdateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -56,9 +56,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class LedgerEntryUpdateBody
+    class LedgerEntryUpdateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("metadata")
         @ExcludeMissing
         private val metadata: JsonField<Metadata> = JsonMissing.of(),
@@ -82,7 +82,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LedgerEntryUpdateBody = apply {
+        fun validate(): LedgerEntryUpdateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -98,15 +98,15 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [LedgerEntryUpdateBody]. */
+        /** A builder for [LedgerEntryUpdateRequest]. */
         class Builder internal constructor() {
 
             private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(ledgerEntryUpdateBody: LedgerEntryUpdateBody) = apply {
-                metadata = ledgerEntryUpdateBody.metadata
-                additionalProperties = ledgerEntryUpdateBody.additionalProperties.toMutableMap()
+            internal fun from(ledgerEntryUpdateRequest: LedgerEntryUpdateRequest) = apply {
+                metadata = ledgerEntryUpdateRequest.metadata
+                additionalProperties = ledgerEntryUpdateRequest.additionalProperties.toMutableMap()
             }
 
             /**
@@ -140,8 +140,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LedgerEntryUpdateBody =
-                LedgerEntryUpdateBody(metadata, additionalProperties.toImmutable())
+            fun build(): LedgerEntryUpdateRequest =
+                LedgerEntryUpdateRequest(metadata, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -149,7 +149,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerEntryUpdateBody && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerEntryUpdateRequest && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -159,7 +159,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerEntryUpdateBody{metadata=$metadata, additionalProperties=$additionalProperties}"
+            "LedgerEntryUpdateRequest{metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -174,7 +174,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: LedgerEntryUpdateBody.Builder = LedgerEntryUpdateBody.builder()
+        private var body: LedgerEntryUpdateRequest.Builder = LedgerEntryUpdateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

@@ -37,7 +37,9 @@ class VirtualAccountUpdateParamsTest {
                 )
                 .name("name")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.ledgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -53,7 +55,9 @@ class VirtualAccountUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = VirtualAccountUpdateParams.builder().id("id").build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
     }
 

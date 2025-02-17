@@ -27,7 +27,7 @@ import java.util.Objects
 class PaymentOrderReversalCreateParams
 private constructor(
     private val paymentOrderId: String,
-    private val body: PaymentOrderReversalCreateBody,
+    private val body: ReversalCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -73,7 +73,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): PaymentOrderReversalCreateBody = body
+    internal fun _body(): ReversalCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -87,9 +87,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class PaymentOrderReversalCreateBody
+    class ReversalCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("reason")
         @ExcludeMissing
         private val reason: JsonField<Reason> = JsonMissing.of(),
@@ -148,7 +148,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): PaymentOrderReversalCreateBody = apply {
+        fun validate(): ReversalCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -166,7 +166,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [PaymentOrderReversalCreateBody]. */
+        /** A builder for [ReversalCreateRequest]. */
         class Builder internal constructor() {
 
             private var reason: JsonField<Reason>? = null
@@ -175,14 +175,12 @@ private constructor(
             private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(paymentOrderReversalCreateBody: PaymentOrderReversalCreateBody) =
-                apply {
-                    reason = paymentOrderReversalCreateBody.reason
-                    ledgerTransaction = paymentOrderReversalCreateBody.ledgerTransaction
-                    metadata = paymentOrderReversalCreateBody.metadata
-                    additionalProperties =
-                        paymentOrderReversalCreateBody.additionalProperties.toMutableMap()
-                }
+            internal fun from(reversalCreateRequest: ReversalCreateRequest) = apply {
+                reason = reversalCreateRequest.reason
+                ledgerTransaction = reversalCreateRequest.ledgerTransaction
+                metadata = reversalCreateRequest.metadata
+                additionalProperties = reversalCreateRequest.additionalProperties.toMutableMap()
+            }
 
             /**
              * The reason for the reversal. Must be one of `duplicate`, `incorrect_amount`,
@@ -247,8 +245,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): PaymentOrderReversalCreateBody =
-                PaymentOrderReversalCreateBody(
+            fun build(): ReversalCreateRequest =
+                ReversalCreateRequest(
                     checkRequired("reason", reason),
                     ledgerTransaction,
                     metadata,
@@ -261,7 +259,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PaymentOrderReversalCreateBody && reason == other.reason && ledgerTransaction == other.ledgerTransaction && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ReversalCreateRequest && reason == other.reason && ledgerTransaction == other.ledgerTransaction && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -271,7 +269,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PaymentOrderReversalCreateBody{reason=$reason, ledgerTransaction=$ledgerTransaction, metadata=$metadata, additionalProperties=$additionalProperties}"
+            "ReversalCreateRequest{reason=$reason, ledgerTransaction=$ledgerTransaction, metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -286,8 +284,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var paymentOrderId: String? = null
-        private var body: PaymentOrderReversalCreateBody.Builder =
-            PaymentOrderReversalCreateBody.builder()
+        private var body: ReversalCreateRequest.Builder = ReversalCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

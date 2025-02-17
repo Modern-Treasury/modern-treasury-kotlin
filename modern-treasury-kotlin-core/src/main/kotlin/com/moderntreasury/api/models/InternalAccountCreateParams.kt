@@ -24,7 +24,7 @@ import java.util.Objects
 /** create internal account */
 class InternalAccountCreateParams
 private constructor(
-    private val body: InternalAccountCreateBody,
+    private val body: InternalAccountCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -95,16 +95,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): InternalAccountCreateBody = body
+    internal fun _body(): InternalAccountCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class InternalAccountCreateBody
+    class InternalAccountCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("connection_id")
         @ExcludeMissing
         private val connectionId: JsonField<String> = JsonMissing.of(),
@@ -215,7 +215,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): InternalAccountCreateBody = apply {
+        fun validate(): InternalAccountCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -239,7 +239,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [InternalAccountCreateBody]. */
+        /** A builder for [InternalAccountCreateRequest]. */
         class Builder internal constructor() {
 
             private var connectionId: JsonField<String>? = null
@@ -253,17 +253,18 @@ private constructor(
             private var vendorAttributes: JsonField<VendorAttributes> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(internalAccountCreateBody: InternalAccountCreateBody) = apply {
-                connectionId = internalAccountCreateBody.connectionId
-                currency = internalAccountCreateBody.currency
-                name = internalAccountCreateBody.name
-                partyName = internalAccountCreateBody.partyName
-                counterpartyId = internalAccountCreateBody.counterpartyId
-                legalEntityId = internalAccountCreateBody.legalEntityId
-                parentAccountId = internalAccountCreateBody.parentAccountId
-                partyAddress = internalAccountCreateBody.partyAddress
-                vendorAttributes = internalAccountCreateBody.vendorAttributes
-                additionalProperties = internalAccountCreateBody.additionalProperties.toMutableMap()
+            internal fun from(internalAccountCreateRequest: InternalAccountCreateRequest) = apply {
+                connectionId = internalAccountCreateRequest.connectionId
+                currency = internalAccountCreateRequest.currency
+                name = internalAccountCreateRequest.name
+                partyName = internalAccountCreateRequest.partyName
+                counterpartyId = internalAccountCreateRequest.counterpartyId
+                legalEntityId = internalAccountCreateRequest.legalEntityId
+                parentAccountId = internalAccountCreateRequest.parentAccountId
+                partyAddress = internalAccountCreateRequest.partyAddress
+                vendorAttributes = internalAccountCreateRequest.vendorAttributes
+                additionalProperties =
+                    internalAccountCreateRequest.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the financial institution the account belongs to. */
@@ -360,8 +361,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): InternalAccountCreateBody =
-                InternalAccountCreateBody(
+            fun build(): InternalAccountCreateRequest =
+                InternalAccountCreateRequest(
                     checkRequired("connectionId", connectionId),
                     checkRequired("currency", currency),
                     checkRequired("name", name),
@@ -380,7 +381,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is InternalAccountCreateBody && connectionId == other.connectionId && currency == other.currency && name == other.name && partyName == other.partyName && counterpartyId == other.counterpartyId && legalEntityId == other.legalEntityId && parentAccountId == other.parentAccountId && partyAddress == other.partyAddress && vendorAttributes == other.vendorAttributes && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is InternalAccountCreateRequest && connectionId == other.connectionId && currency == other.currency && name == other.name && partyName == other.partyName && counterpartyId == other.counterpartyId && legalEntityId == other.legalEntityId && parentAccountId == other.parentAccountId && partyAddress == other.partyAddress && vendorAttributes == other.vendorAttributes && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -390,7 +391,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "InternalAccountCreateBody{connectionId=$connectionId, currency=$currency, name=$name, partyName=$partyName, counterpartyId=$counterpartyId, legalEntityId=$legalEntityId, parentAccountId=$parentAccountId, partyAddress=$partyAddress, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
+            "InternalAccountCreateRequest{connectionId=$connectionId, currency=$currency, name=$name, partyName=$partyName, counterpartyId=$counterpartyId, legalEntityId=$legalEntityId, parentAccountId=$parentAccountId, partyAddress=$partyAddress, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -404,7 +405,8 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: InternalAccountCreateBody.Builder = InternalAccountCreateBody.builder()
+        private var body: InternalAccountCreateRequest.Builder =
+            InternalAccountCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

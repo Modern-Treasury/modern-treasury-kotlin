@@ -22,7 +22,7 @@ import java.util.Objects
 /** Create a ledger account balance monitor. */
 class LedgerAccountBalanceMonitorCreateParams
 private constructor(
-    private val body: LedgerAccountBalanceMonitorCreateBody,
+    private val body: LedgerAccountBalanceMonitorCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -57,16 +57,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerAccountBalanceMonitorCreateBody = body
+    internal fun _body(): LedgerAccountBalanceMonitorCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class LedgerAccountBalanceMonitorCreateBody
+    class LedgerAccountBalanceMonitorCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("alert_condition")
         @ExcludeMissing
         private val alertCondition: JsonField<AlertConditionCreateRequest> = JsonMissing.of(),
@@ -124,7 +124,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LedgerAccountBalanceMonitorCreateBody = apply {
+        fun validate(): LedgerAccountBalanceMonitorCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -143,7 +143,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [LedgerAccountBalanceMonitorCreateBody]. */
+        /** A builder for [LedgerAccountBalanceMonitorCreateRequest]. */
         class Builder internal constructor() {
 
             private var alertCondition: JsonField<AlertConditionCreateRequest>? = null
@@ -153,14 +153,14 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
-                ledgerAccountBalanceMonitorCreateBody: LedgerAccountBalanceMonitorCreateBody
+                ledgerAccountBalanceMonitorCreateRequest: LedgerAccountBalanceMonitorCreateRequest
             ) = apply {
-                alertCondition = ledgerAccountBalanceMonitorCreateBody.alertCondition
-                ledgerAccountId = ledgerAccountBalanceMonitorCreateBody.ledgerAccountId
-                description = ledgerAccountBalanceMonitorCreateBody.description
-                metadata = ledgerAccountBalanceMonitorCreateBody.metadata
+                alertCondition = ledgerAccountBalanceMonitorCreateRequest.alertCondition
+                ledgerAccountId = ledgerAccountBalanceMonitorCreateRequest.ledgerAccountId
+                description = ledgerAccountBalanceMonitorCreateRequest.description
+                metadata = ledgerAccountBalanceMonitorCreateRequest.metadata
                 additionalProperties =
-                    ledgerAccountBalanceMonitorCreateBody.additionalProperties.toMutableMap()
+                    ledgerAccountBalanceMonitorCreateRequest.additionalProperties.toMutableMap()
             }
 
             /** Describes the condition that must be satisfied for the monitor to be triggered. */
@@ -220,8 +220,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LedgerAccountBalanceMonitorCreateBody =
-                LedgerAccountBalanceMonitorCreateBody(
+            fun build(): LedgerAccountBalanceMonitorCreateRequest =
+                LedgerAccountBalanceMonitorCreateRequest(
                     checkRequired("alertCondition", alertCondition),
                     checkRequired("ledgerAccountId", ledgerAccountId),
                     description,
@@ -235,7 +235,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerAccountBalanceMonitorCreateBody && alertCondition == other.alertCondition && ledgerAccountId == other.ledgerAccountId && description == other.description && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerAccountBalanceMonitorCreateRequest && alertCondition == other.alertCondition && ledgerAccountId == other.ledgerAccountId && description == other.description && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -245,7 +245,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerAccountBalanceMonitorCreateBody{alertCondition=$alertCondition, ledgerAccountId=$ledgerAccountId, description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
+            "LedgerAccountBalanceMonitorCreateRequest{alertCondition=$alertCondition, ledgerAccountId=$ledgerAccountId, description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -259,8 +259,8 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: LedgerAccountBalanceMonitorCreateBody.Builder =
-            LedgerAccountBalanceMonitorCreateBody.builder()
+        private var body: LedgerAccountBalanceMonitorCreateRequest.Builder =
+            LedgerAccountBalanceMonitorCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

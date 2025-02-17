@@ -122,7 +122,9 @@ class LedgerTransactionCreateParamsTest {
                 )
                 .status(LedgerTransactionCreateParams.Status.ARCHIVED)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.ledgerEntries())
             .isEqualTo(
@@ -195,7 +197,9 @@ class LedgerTransactionCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.ledgerEntries())
             .isEqualTo(

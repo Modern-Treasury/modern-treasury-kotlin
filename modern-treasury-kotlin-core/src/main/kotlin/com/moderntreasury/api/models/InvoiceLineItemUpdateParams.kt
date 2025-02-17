@@ -24,7 +24,7 @@ class InvoiceLineItemUpdateParams
 private constructor(
     private val invoiceId: String,
     private val id: String,
-    private val body: InvoiceLineItemUpdateBody,
+    private val body: InvoiceLineItemUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -105,7 +105,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): InvoiceLineItemUpdateBody = body
+    internal fun _body(): InvoiceLineItemUpdateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -120,9 +120,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class InvoiceLineItemUpdateBody
+    class InvoiceLineItemUpdateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("description")
         @ExcludeMissing
         private val description: JsonField<String> = JsonMissing.of(),
@@ -230,7 +230,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): InvoiceLineItemUpdateBody = apply {
+        fun validate(): InvoiceLineItemUpdateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -252,7 +252,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [InvoiceLineItemUpdateBody]. */
+        /** A builder for [InvoiceLineItemUpdateRequest]. */
         class Builder internal constructor() {
 
             private var description: JsonField<String> = JsonMissing.of()
@@ -264,15 +264,16 @@ private constructor(
             private var unitAmountDecimal: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(invoiceLineItemUpdateBody: InvoiceLineItemUpdateBody) = apply {
-                description = invoiceLineItemUpdateBody.description
-                direction = invoiceLineItemUpdateBody.direction
-                metadata = invoiceLineItemUpdateBody.metadata
-                name = invoiceLineItemUpdateBody.name
-                quantity = invoiceLineItemUpdateBody.quantity
-                unitAmount = invoiceLineItemUpdateBody.unitAmount
-                unitAmountDecimal = invoiceLineItemUpdateBody.unitAmountDecimal
-                additionalProperties = invoiceLineItemUpdateBody.additionalProperties.toMutableMap()
+            internal fun from(invoiceLineItemUpdateRequest: InvoiceLineItemUpdateRequest) = apply {
+                description = invoiceLineItemUpdateRequest.description
+                direction = invoiceLineItemUpdateRequest.direction
+                metadata = invoiceLineItemUpdateRequest.metadata
+                name = invoiceLineItemUpdateRequest.name
+                quantity = invoiceLineItemUpdateRequest.quantity
+                unitAmount = invoiceLineItemUpdateRequest.unitAmount
+                unitAmountDecimal = invoiceLineItemUpdateRequest.unitAmountDecimal
+                additionalProperties =
+                    invoiceLineItemUpdateRequest.additionalProperties.toMutableMap()
             }
 
             /** An optional free-form description of the line item. */
@@ -373,8 +374,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): InvoiceLineItemUpdateBody =
-                InvoiceLineItemUpdateBody(
+            fun build(): InvoiceLineItemUpdateRequest =
+                InvoiceLineItemUpdateRequest(
                     description,
                     direction,
                     metadata,
@@ -391,7 +392,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is InvoiceLineItemUpdateBody && description == other.description && direction == other.direction && metadata == other.metadata && name == other.name && quantity == other.quantity && unitAmount == other.unitAmount && unitAmountDecimal == other.unitAmountDecimal && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is InvoiceLineItemUpdateRequest && description == other.description && direction == other.direction && metadata == other.metadata && name == other.name && quantity == other.quantity && unitAmount == other.unitAmount && unitAmountDecimal == other.unitAmountDecimal && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -401,7 +402,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "InvoiceLineItemUpdateBody{description=$description, direction=$direction, metadata=$metadata, name=$name, quantity=$quantity, unitAmount=$unitAmount, unitAmountDecimal=$unitAmountDecimal, additionalProperties=$additionalProperties}"
+            "InvoiceLineItemUpdateRequest{description=$description, direction=$direction, metadata=$metadata, name=$name, quantity=$quantity, unitAmount=$unitAmount, unitAmountDecimal=$unitAmountDecimal, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -417,7 +418,8 @@ private constructor(
 
         private var invoiceId: String? = null
         private var id: String? = null
-        private var body: InvoiceLineItemUpdateBody.Builder = InvoiceLineItemUpdateBody.builder()
+        private var body: InvoiceLineItemUpdateRequest.Builder =
+            InvoiceLineItemUpdateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

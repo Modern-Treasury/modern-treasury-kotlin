@@ -22,7 +22,7 @@ import java.util.Objects
 /** Create a ledger. */
 class LedgerCreateParams
 private constructor(
-    private val body: LedgerCreateBody,
+    private val body: LedgerCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -51,16 +51,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerCreateBody = body
+    internal fun _body(): LedgerCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class LedgerCreateBody
+    class LedgerCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("name")
         @ExcludeMissing
         private val name: JsonField<String> = JsonMissing.of(),
@@ -104,7 +104,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LedgerCreateBody = apply {
+        fun validate(): LedgerCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -122,7 +122,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [LedgerCreateBody]. */
+        /** A builder for [LedgerCreateRequest]. */
         class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
@@ -130,11 +130,11 @@ private constructor(
             private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(ledgerCreateBody: LedgerCreateBody) = apply {
-                name = ledgerCreateBody.name
-                description = ledgerCreateBody.description
-                metadata = ledgerCreateBody.metadata
-                additionalProperties = ledgerCreateBody.additionalProperties.toMutableMap()
+            internal fun from(ledgerCreateRequest: LedgerCreateRequest) = apply {
+                name = ledgerCreateRequest.name
+                description = ledgerCreateRequest.description
+                metadata = ledgerCreateRequest.metadata
+                additionalProperties = ledgerCreateRequest.additionalProperties.toMutableMap()
             }
 
             /** The name of the ledger. */
@@ -182,8 +182,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LedgerCreateBody =
-                LedgerCreateBody(
+            fun build(): LedgerCreateRequest =
+                LedgerCreateRequest(
                     checkRequired("name", name),
                     description,
                     metadata,
@@ -196,7 +196,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerCreateBody && name == other.name && description == other.description && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerCreateRequest && name == other.name && description == other.description && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -206,7 +206,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerCreateBody{name=$name, description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
+            "LedgerCreateRequest{name=$name, description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -220,7 +220,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: LedgerCreateBody.Builder = LedgerCreateBody.builder()
+        private var body: LedgerCreateRequest.Builder = LedgerCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

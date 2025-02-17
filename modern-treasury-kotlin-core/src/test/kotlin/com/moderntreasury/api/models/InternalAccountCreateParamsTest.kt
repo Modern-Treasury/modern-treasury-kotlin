@@ -67,7 +67,9 @@ class InternalAccountCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.connectionId()).isEqualTo("connection_id")
         assertThat(body.currency()).isEqualTo(InternalAccountCreateParams.Currency.USD)
@@ -106,7 +108,9 @@ class InternalAccountCreateParamsTest {
                 .name("name")
                 .partyName("party_name")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.connectionId()).isEqualTo("connection_id")
         assertThat(body.currency()).isEqualTo(InternalAccountCreateParams.Currency.USD)

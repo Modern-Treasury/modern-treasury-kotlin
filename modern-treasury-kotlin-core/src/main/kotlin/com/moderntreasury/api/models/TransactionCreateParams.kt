@@ -25,7 +25,7 @@ import java.util.Objects
 /** create transaction */
 class TransactionCreateParams
 private constructor(
-    private val body: TransactionCreateBody,
+    private val body: TransactionCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -122,16 +122,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): TransactionCreateBody = body
+    internal fun _body(): TransactionCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class TransactionCreateBody
+    class TransactionCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("amount")
         @ExcludeMissing
         private val amount: JsonField<Long> = JsonMissing.of(),
@@ -270,7 +270,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): TransactionCreateBody = apply {
+        fun validate(): TransactionCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -295,7 +295,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [TransactionCreateBody]. */
+        /** A builder for [TransactionCreateRequest]. */
         class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
@@ -310,18 +310,18 @@ private constructor(
             private var vendorDescription: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(transactionCreateBody: TransactionCreateBody) = apply {
-                amount = transactionCreateBody.amount
-                asOfDate = transactionCreateBody.asOfDate
-                direction = transactionCreateBody.direction
-                internalAccountId = transactionCreateBody.internalAccountId
-                vendorCode = transactionCreateBody.vendorCode
-                vendorCodeType = transactionCreateBody.vendorCodeType
-                metadata = transactionCreateBody.metadata
-                posted = transactionCreateBody.posted
-                type = transactionCreateBody.type
-                vendorDescription = transactionCreateBody.vendorDescription
-                additionalProperties = transactionCreateBody.additionalProperties.toMutableMap()
+            internal fun from(transactionCreateRequest: TransactionCreateRequest) = apply {
+                amount = transactionCreateRequest.amount
+                asOfDate = transactionCreateRequest.asOfDate
+                direction = transactionCreateRequest.direction
+                internalAccountId = transactionCreateRequest.internalAccountId
+                vendorCode = transactionCreateRequest.vendorCode
+                vendorCodeType = transactionCreateRequest.vendorCodeType
+                metadata = transactionCreateRequest.metadata
+                posted = transactionCreateRequest.posted
+                type = transactionCreateRequest.type
+                vendorDescription = transactionCreateRequest.vendorDescription
+                additionalProperties = transactionCreateRequest.additionalProperties.toMutableMap()
             }
 
             /**
@@ -450,8 +450,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): TransactionCreateBody =
-                TransactionCreateBody(
+            fun build(): TransactionCreateRequest =
+                TransactionCreateRequest(
                     checkRequired("amount", amount),
                     checkRequired("asOfDate", asOfDate),
                     checkRequired("direction", direction),
@@ -471,7 +471,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is TransactionCreateBody && amount == other.amount && asOfDate == other.asOfDate && direction == other.direction && internalAccountId == other.internalAccountId && vendorCode == other.vendorCode && vendorCodeType == other.vendorCodeType && metadata == other.metadata && posted == other.posted && type == other.type && vendorDescription == other.vendorDescription && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is TransactionCreateRequest && amount == other.amount && asOfDate == other.asOfDate && direction == other.direction && internalAccountId == other.internalAccountId && vendorCode == other.vendorCode && vendorCodeType == other.vendorCodeType && metadata == other.metadata && posted == other.posted && type == other.type && vendorDescription == other.vendorDescription && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -481,7 +481,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "TransactionCreateBody{amount=$amount, asOfDate=$asOfDate, direction=$direction, internalAccountId=$internalAccountId, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, metadata=$metadata, posted=$posted, type=$type, vendorDescription=$vendorDescription, additionalProperties=$additionalProperties}"
+            "TransactionCreateRequest{amount=$amount, asOfDate=$asOfDate, direction=$direction, internalAccountId=$internalAccountId, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, metadata=$metadata, posted=$posted, type=$type, vendorDescription=$vendorDescription, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -495,7 +495,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: TransactionCreateBody.Builder = TransactionCreateBody.builder()
+        private var body: TransactionCreateRequest.Builder = TransactionCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

@@ -26,7 +26,9 @@ class AccountDetailCreateParamsTest {
                 .accountNumber("account_number")
                 .accountNumberType(AccountDetailCreateParams.AccountNumberType.AU_NUMBER)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountNumber()).isEqualTo("account_number")
         assertThat(body.accountNumberType())
@@ -41,7 +43,9 @@ class AccountDetailCreateParamsTest {
                 .accountId("account_id")
                 .accountNumber("account_number")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountNumber()).isEqualTo("account_number")
     }

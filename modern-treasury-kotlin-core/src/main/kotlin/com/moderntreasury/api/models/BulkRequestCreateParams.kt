@@ -36,7 +36,7 @@ import java.util.Objects
 /** create bulk_request */
 class BulkRequestCreateParams
 private constructor(
-    private val body: BulkRequestCreateBody,
+    private val body: BulkRequestCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -77,16 +77,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): BulkRequestCreateBody = body
+    internal fun _body(): BulkRequestCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class BulkRequestCreateBody
+    class BulkRequestCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("action_type")
         @ExcludeMissing
         private val actionType: JsonField<ActionType> = JsonMissing.of(),
@@ -149,7 +149,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): BulkRequestCreateBody = apply {
+        fun validate(): BulkRequestCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -168,7 +168,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [BulkRequestCreateBody]. */
+        /** A builder for [BulkRequestCreateRequest]. */
         class Builder internal constructor() {
 
             private var actionType: JsonField<ActionType>? = null
@@ -177,12 +177,12 @@ private constructor(
             private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(bulkRequestCreateBody: BulkRequestCreateBody) = apply {
-                actionType = bulkRequestCreateBody.actionType
-                resourceType = bulkRequestCreateBody.resourceType
-                resources = bulkRequestCreateBody.resources.map { it.toMutableList() }
-                metadata = bulkRequestCreateBody.metadata
-                additionalProperties = bulkRequestCreateBody.additionalProperties.toMutableMap()
+            internal fun from(bulkRequestCreateRequest: BulkRequestCreateRequest) = apply {
+                actionType = bulkRequestCreateRequest.actionType
+                resourceType = bulkRequestCreateRequest.resourceType
+                resources = bulkRequestCreateRequest.resources.map { it.toMutableList() }
+                metadata = bulkRequestCreateRequest.metadata
+                additionalProperties = bulkRequestCreateRequest.additionalProperties.toMutableMap()
             }
 
             /** One of create, or update. */
@@ -351,8 +351,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): BulkRequestCreateBody =
-                BulkRequestCreateBody(
+            fun build(): BulkRequestCreateRequest =
+                BulkRequestCreateRequest(
                     checkRequired("actionType", actionType),
                     checkRequired("resourceType", resourceType),
                     checkRequired("resources", resources).map { it.toImmutable() },
@@ -366,7 +366,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is BulkRequestCreateBody && actionType == other.actionType && resourceType == other.resourceType && resources == other.resources && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is BulkRequestCreateRequest && actionType == other.actionType && resourceType == other.resourceType && resources == other.resources && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -376,7 +376,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "BulkRequestCreateBody{actionType=$actionType, resourceType=$resourceType, resources=$resources, metadata=$metadata, additionalProperties=$additionalProperties}"
+            "BulkRequestCreateRequest{actionType=$actionType, resourceType=$resourceType, resources=$resources, metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -390,7 +390,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: BulkRequestCreateBody.Builder = BulkRequestCreateBody.builder()
+        private var body: BulkRequestCreateRequest.Builder = BulkRequestCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
