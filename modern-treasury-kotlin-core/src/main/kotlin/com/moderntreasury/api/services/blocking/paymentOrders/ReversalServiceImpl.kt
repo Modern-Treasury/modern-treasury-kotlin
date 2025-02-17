@@ -19,10 +19,8 @@ import com.moderntreasury.api.models.PaymentOrderReversalListParams
 import com.moderntreasury.api.models.PaymentOrderReversalRetrieveParams
 import com.moderntreasury.api.models.Reversal
 
-class ReversalServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ReversalService {
+class ReversalServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    ReversalService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -32,7 +30,7 @@ internal constructor(
     /** Create a reversal for a payment order. */
     override fun create(
         params: PaymentOrderReversalCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Reversal {
         val request =
             HttpRequest.builder()
@@ -57,7 +55,7 @@ internal constructor(
     /** Get details on a single reversal of a payment order. */
     override fun retrieve(
         params: PaymentOrderReversalRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Reversal {
         val request =
             HttpRequest.builder()
@@ -67,7 +65,7 @@ internal constructor(
                     "payment_orders",
                     params.getPathParam(0),
                     "reversals",
-                    params.getPathParam(1)
+                    params.getPathParam(1),
                 )
                 .build()
                 .prepare(clientOptions, params)
@@ -87,7 +85,7 @@ internal constructor(
     /** Get a list of all reversals of a payment order. */
     override fun list(
         params: PaymentOrderReversalListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PaymentOrderReversalListPage {
         val request =
             HttpRequest.builder()
@@ -111,7 +109,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

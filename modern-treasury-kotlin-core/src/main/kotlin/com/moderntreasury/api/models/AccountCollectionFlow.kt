@@ -360,11 +360,8 @@ private constructor(
     }
 
     /** An account created with this flow will support payments of one of these types. */
-    class PaymentType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class PaymentType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -455,11 +452,8 @@ private constructor(
     }
 
     /** An account created with this flow will support wires from the US to these countries. */
-    class ReceivingCountry
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class ReceivingCountry @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -650,11 +644,7 @@ private constructor(
      * The current status of the account collection flow. One of `pending`, `completed`, `expired`,
      * or `cancelled`.
      */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

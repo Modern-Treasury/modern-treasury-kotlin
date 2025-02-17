@@ -25,9 +25,7 @@ import com.moderntreasury.api.services.async.ledgerTransactions.VersionServiceAs
 import com.moderntreasury.api.services.async.ledgerTransactions.VersionServiceAsyncImpl
 
 class LedgerTransactionServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : LedgerTransactionServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : LedgerTransactionServiceAsync {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -41,7 +39,7 @@ internal constructor(
     /** Create a ledger transaction. */
     override suspend fun create(
         params: LedgerTransactionCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerTransaction {
         val request =
             HttpRequest.builder()
@@ -66,7 +64,7 @@ internal constructor(
     /** Get details on a single ledger transaction. */
     override suspend fun retrieve(
         params: LedgerTransactionRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerTransaction {
         val request =
             HttpRequest.builder()
@@ -90,7 +88,7 @@ internal constructor(
     /** Update the details of a ledger transaction. */
     override suspend fun update(
         params: LedgerTransactionUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerTransaction {
         val request =
             HttpRequest.builder()
@@ -116,7 +114,7 @@ internal constructor(
     /** Get a list of ledger transactions. */
     override suspend fun list(
         params: LedgerTransactionListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerTransactionListPageAsync {
         val request =
             HttpRequest.builder()
@@ -140,7 +138,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }
@@ -151,7 +149,7 @@ internal constructor(
     /** Create a ledger transaction that partially posts another ledger transaction. */
     override suspend fun createPartialPost(
         params: LedgerTransactionCreatePartialPostParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerTransaction {
         val request =
             HttpRequest.builder()
@@ -160,7 +158,7 @@ internal constructor(
                     "api",
                     "ledger_transactions",
                     params.getPathParam(0),
-                    "partial_post"
+                    "partial_post",
                 )
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
@@ -181,7 +179,7 @@ internal constructor(
     /** Create a ledger transaction reversal. */
     override suspend fun createReversal(
         params: LedgerTransactionCreateReversalParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerTransaction {
         val request =
             HttpRequest.builder()

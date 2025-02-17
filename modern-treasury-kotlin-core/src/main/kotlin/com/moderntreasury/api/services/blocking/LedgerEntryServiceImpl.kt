@@ -19,10 +19,8 @@ import com.moderntreasury.api.models.LedgerEntryListParams
 import com.moderntreasury.api.models.LedgerEntryRetrieveParams
 import com.moderntreasury.api.models.LedgerEntryUpdateParams
 
-class LedgerEntryServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : LedgerEntryService {
+class LedgerEntryServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    LedgerEntryService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -32,7 +30,7 @@ internal constructor(
     /** Get details on a single ledger entry. */
     override fun retrieve(
         params: LedgerEntryRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerEntry {
         val request =
             HttpRequest.builder()
@@ -56,7 +54,7 @@ internal constructor(
     /** Update the details of a ledger entry. */
     override fun update(
         params: LedgerEntryUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerEntry {
         val request =
             HttpRequest.builder()
@@ -81,7 +79,7 @@ internal constructor(
     /** Get a list of all ledger entries. */
     override fun list(
         params: LedgerEntryListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerEntryListPage {
         val request =
             HttpRequest.builder()
@@ -105,7 +103,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

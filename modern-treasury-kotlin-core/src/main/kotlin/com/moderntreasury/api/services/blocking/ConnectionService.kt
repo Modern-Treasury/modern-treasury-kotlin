@@ -11,6 +11,6 @@ interface ConnectionService {
     /** Get a list of all connections. */
     fun list(
         params: ConnectionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ConnectionListPage
 }

@@ -16,10 +16,8 @@ import com.moderntreasury.api.errors.ModernTreasuryError
 import com.moderntreasury.api.models.LedgerAccountSettlementAccountEntryDeleteParams
 import com.moderntreasury.api.models.LedgerAccountSettlementAccountEntryUpdateParams
 
-class AccountEntryServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AccountEntryServiceAsync {
+class AccountEntryServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    AccountEntryServiceAsync {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -28,7 +26,7 @@ internal constructor(
     /** Add ledger entries to a draft ledger account settlement. */
     override suspend fun update(
         params: LedgerAccountSettlementAccountEntryUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ) {
         val request =
             HttpRequest.builder()
@@ -37,7 +35,7 @@ internal constructor(
                     "api",
                     "ledger_account_settlements",
                     params.getPathParam(0),
-                    "ledger_entries"
+                    "ledger_entries",
                 )
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
@@ -51,7 +49,7 @@ internal constructor(
     /** Remove ledger entries from a draft ledger account settlement. */
     override suspend fun delete(
         params: LedgerAccountSettlementAccountEntryDeleteParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ) {
         val request =
             HttpRequest.builder()
@@ -60,7 +58,7 @@ internal constructor(
                     "api",
                     "ledger_account_settlements",
                     params.getPathParam(0),
-                    "ledger_entries"
+                    "ledger_entries",
                 )
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()

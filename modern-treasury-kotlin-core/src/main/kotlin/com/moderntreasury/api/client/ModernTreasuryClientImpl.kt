@@ -92,9 +92,7 @@ import com.moderntreasury.api.services.blocking.VirtualAccountServiceImpl
 import com.moderntreasury.api.services.blocking.WebhookService
 import com.moderntreasury.api.services.blocking.WebhookServiceImpl
 
-class ModernTreasuryClientImpl(
-    private val clientOptions: ClientOptions,
-) : ModernTreasuryClient {
+class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : ModernTreasuryClient {
 
     private val clientOptionsWithUserAgent =
         if (clientOptions.headers.names().contains("User-Agent")) clientOptions

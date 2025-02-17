@@ -21,10 +21,8 @@ import com.moderntreasury.api.models.RoutingDetailListPageAsync
 import com.moderntreasury.api.models.RoutingDetailListParams
 import com.moderntreasury.api.models.RoutingDetailRetrieveParams
 
-class RoutingDetailServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : RoutingDetailServiceAsync {
+class RoutingDetailServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    RoutingDetailServiceAsync {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Create a routing detail for a single external account. */
     override suspend fun create(
         params: RoutingDetailCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): RoutingDetail {
         val request =
             HttpRequest.builder()
@@ -43,7 +41,7 @@ internal constructor(
                     "api",
                     params.getPathParam(0),
                     params.getPathParam(1),
-                    "routing_details"
+                    "routing_details",
                 )
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
@@ -64,7 +62,7 @@ internal constructor(
     /** Get a single routing detail for a single internal or external account. */
     override suspend fun retrieve(
         params: RoutingDetailRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): RoutingDetail {
         val request =
             HttpRequest.builder()
@@ -74,7 +72,7 @@ internal constructor(
                     params.getPathParam(0),
                     params.getPathParam(1),
                     "routing_details",
-                    params.getPathParam(2)
+                    params.getPathParam(2),
                 )
                 .build()
                 .prepareAsync(clientOptions, params)
@@ -94,7 +92,7 @@ internal constructor(
     /** Get a list of routing details for a single internal or external account. */
     override suspend fun list(
         params: RoutingDetailListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): RoutingDetailListPageAsync {
         val request =
             HttpRequest.builder()
@@ -103,7 +101,7 @@ internal constructor(
                     "api",
                     params.getPathParam(0),
                     params.getPathParam(1),
-                    "routing_details"
+                    "routing_details",
                 )
                 .build()
                 .prepareAsync(clientOptions, params)
@@ -123,7 +121,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }
@@ -140,7 +138,7 @@ internal constructor(
                     params.getPathParam(0),
                     params.getPathParam(1),
                     "routing_details",
-                    params.getPathParam(2)
+                    params.getPathParam(2),
                 )
                 .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                 .build()

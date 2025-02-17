@@ -16,30 +16,30 @@ interface ExpectedPaymentService {
     /** create expected payment */
     fun create(
         params: ExpectedPaymentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPayment
 
     /** get expected payment */
     fun retrieve(
         params: ExpectedPaymentRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPayment
 
     /** update expected payment */
     fun update(
         params: ExpectedPaymentUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPayment
 
     /** list expected_payments */
     fun list(
         params: ExpectedPaymentListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPaymentListPage
 
     /** delete expected payment */
     fun delete(
         params: ExpectedPaymentDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPayment
 }

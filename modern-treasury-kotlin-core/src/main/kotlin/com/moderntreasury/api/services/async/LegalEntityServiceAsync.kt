@@ -15,24 +15,24 @@ interface LegalEntityServiceAsync {
     /** create legal_entity */
     suspend fun create(
         params: LegalEntityCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LegalEntity
 
     /** Get details on a single legal entity. */
     suspend fun retrieve(
         params: LegalEntityRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LegalEntity
 
     /** Update a legal entity. */
     suspend fun update(
         params: LegalEntityUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LegalEntity
 
     /** Get a list of all legal entities. */
     suspend fun list(
         params: LegalEntityListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LegalEntityListPageAsync
 }

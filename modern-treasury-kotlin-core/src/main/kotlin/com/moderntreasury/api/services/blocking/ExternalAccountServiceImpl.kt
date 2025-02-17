@@ -25,10 +25,8 @@ import com.moderntreasury.api.models.ExternalAccountUpdateParams
 import com.moderntreasury.api.models.ExternalAccountVerifyParams
 import com.moderntreasury.api.models.ExternalAccountVerifyResponse
 
-class ExternalAccountServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ExternalAccountService {
+class ExternalAccountServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    ExternalAccountService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -38,7 +36,7 @@ internal constructor(
     /** create external account */
     override fun create(
         params: ExternalAccountCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ExternalAccount {
         val request =
             HttpRequest.builder()
@@ -63,7 +61,7 @@ internal constructor(
     /** show external account */
     override fun retrieve(
         params: ExternalAccountRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ExternalAccount {
         val request =
             HttpRequest.builder()
@@ -87,7 +85,7 @@ internal constructor(
     /** update external account */
     override fun update(
         params: ExternalAccountUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ExternalAccount {
         val request =
             HttpRequest.builder()
@@ -112,7 +110,7 @@ internal constructor(
     /** list external accounts */
     override fun list(
         params: ExternalAccountListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ExternalAccountListPage {
         val request =
             HttpRequest.builder()
@@ -136,7 +134,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }
@@ -162,7 +160,7 @@ internal constructor(
     /** complete verification of external account */
     override fun completeVerification(
         params: ExternalAccountCompleteVerificationParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ExternalAccount {
         val request =
             HttpRequest.builder()
@@ -171,7 +169,7 @@ internal constructor(
                     "api",
                     "external_accounts",
                     params.getPathParam(0),
-                    "complete_verification"
+                    "complete_verification",
                 )
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
@@ -193,7 +191,7 @@ internal constructor(
     /** verify external account */
     override fun verify(
         params: ExternalAccountVerifyParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ExternalAccountVerifyResponse {
         val request =
             HttpRequest.builder()

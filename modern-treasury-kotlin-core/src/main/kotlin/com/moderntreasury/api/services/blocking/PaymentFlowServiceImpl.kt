@@ -20,10 +20,8 @@ import com.moderntreasury.api.models.PaymentFlowListParams
 import com.moderntreasury.api.models.PaymentFlowRetrieveParams
 import com.moderntreasury.api.models.PaymentFlowUpdateParams
 
-class PaymentFlowServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : PaymentFlowService {
+class PaymentFlowServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    PaymentFlowService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
     /** create payment_flow */
     override fun create(
         params: PaymentFlowCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PaymentFlow {
         val request =
             HttpRequest.builder()
@@ -58,7 +56,7 @@ internal constructor(
     /** get payment_flow */
     override fun retrieve(
         params: PaymentFlowRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PaymentFlow {
         val request =
             HttpRequest.builder()
@@ -82,7 +80,7 @@ internal constructor(
     /** update payment_flow */
     override fun update(
         params: PaymentFlowUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PaymentFlow {
         val request =
             HttpRequest.builder()
@@ -107,7 +105,7 @@ internal constructor(
     /** list payment_flows */
     override fun list(
         params: PaymentFlowListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PaymentFlowListPage {
         val request =
             HttpRequest.builder()
@@ -131,7 +129,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

@@ -212,11 +212,8 @@ private constructor(
      * `paper_item`, `expected_payment`, `counterparty`, `organization`, `case`, `internal_account`,
      * `decision`, or `external_account`.
      */
-    class DocumentableType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class DocumentableType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.

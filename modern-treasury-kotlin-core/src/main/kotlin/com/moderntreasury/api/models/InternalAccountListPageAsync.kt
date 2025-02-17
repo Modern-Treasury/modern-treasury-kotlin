@@ -70,13 +70,8 @@ private constructor(
         fun of(
             internalAccountsService: InternalAccountServiceAsync,
             params: InternalAccountListParams,
-            response: Response
-        ) =
-            InternalAccountListPageAsync(
-                internalAccountsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = InternalAccountListPageAsync(internalAccountsService, params, response)
     }
 
     @NoAutoDetect
@@ -161,18 +156,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: InternalAccountListPageAsync,
-    ) : Flow<InternalAccount> {
+    class AutoPager(private val firstPage: InternalAccountListPageAsync) : Flow<InternalAccount> {
 
         override suspend fun collect(collector: FlowCollector<InternalAccount>) {
             var page = firstPage

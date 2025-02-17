@@ -21,9 +21,7 @@ import com.moderntreasury.api.models.ConnectionLegalEntityRetrieveParams
 import com.moderntreasury.api.models.ConnectionLegalEntityUpdateParams
 
 class ConnectionLegalEntityServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ConnectionLegalEntityService {
+internal constructor(private val clientOptions: ClientOptions) : ConnectionLegalEntityService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
     /** Create a connection legal entity. */
     override fun create(
         params: ConnectionLegalEntityCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ConnectionLegalEntity {
         val request =
             HttpRequest.builder()
@@ -58,7 +56,7 @@ internal constructor(
     /** Get details on a single connection legal entity. */
     override fun retrieve(
         params: ConnectionLegalEntityRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ConnectionLegalEntity {
         val request =
             HttpRequest.builder()
@@ -82,7 +80,7 @@ internal constructor(
     /** Update a connection legal entity. */
     override fun update(
         params: ConnectionLegalEntityUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ConnectionLegalEntity {
         val request =
             HttpRequest.builder()
@@ -108,7 +106,7 @@ internal constructor(
     /** Get a list of all connection legal entities. */
     override fun list(
         params: ConnectionLegalEntityListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ConnectionLegalEntityListPage {
         val request =
             HttpRequest.builder()
@@ -132,7 +130,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

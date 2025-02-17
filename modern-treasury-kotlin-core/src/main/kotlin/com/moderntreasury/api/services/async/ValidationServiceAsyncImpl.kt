@@ -15,10 +15,8 @@ import com.moderntreasury.api.errors.ModernTreasuryError
 import com.moderntreasury.api.models.RoutingNumberLookupRequest
 import com.moderntreasury.api.models.ValidationValidateRoutingNumberParams
 
-class ValidationServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ValidationServiceAsync {
+class ValidationServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    ValidationServiceAsync {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -29,7 +27,7 @@ internal constructor(
     /** Validates the routing number information supplied without creating a routing detail */
     override suspend fun validateRoutingNumber(
         params: ValidationValidateRoutingNumberParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): RoutingNumberLookupRequest {
         val request =
             HttpRequest.builder()

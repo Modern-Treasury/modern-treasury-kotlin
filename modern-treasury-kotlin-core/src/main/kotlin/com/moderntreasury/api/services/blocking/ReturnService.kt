@@ -14,18 +14,18 @@ interface ReturnService {
     /** Create a return. */
     fun create(
         params: ReturnCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ReturnObject
 
     /** Get a single return. */
     fun retrieve(
         params: ReturnRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ReturnObject
 
     /** Get a list of returns. */
     fun list(
         params: ReturnListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ReturnListPage
 }

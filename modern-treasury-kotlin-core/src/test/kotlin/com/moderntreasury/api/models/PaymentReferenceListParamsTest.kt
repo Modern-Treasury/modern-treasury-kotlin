@@ -36,7 +36,7 @@ class PaymentReferenceListParamsTest {
         expected.put("referenceable_id", "referenceable_id")
         expected.put(
             "referenceable_type",
-            PaymentReferenceListParams.ReferenceableType.PAYMENT_ORDER.toString()
+            PaymentReferenceListParams.ReferenceableType.PAYMENT_ORDER.toString(),
         )
         assertThat(params._queryParams()).isEqualTo(expected.build())
     }

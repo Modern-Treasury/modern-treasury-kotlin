@@ -27,7 +27,7 @@ class ValidationValidateRoutingNumberParamsTest {
         expected.put("routing_number", "routing_number")
         expected.put(
             "routing_number_type",
-            ValidationValidateRoutingNumberParams.RoutingNumberType.ABA.toString()
+            ValidationValidateRoutingNumberParams.RoutingNumberType.ABA.toString(),
         )
         assertThat(params._queryParams()).isEqualTo(expected.build())
     }
@@ -43,7 +43,7 @@ class ValidationValidateRoutingNumberParamsTest {
         expected.put("routing_number", "routing_number")
         expected.put(
             "routing_number_type",
-            ValidationValidateRoutingNumberParams.RoutingNumberType.ABA.toString()
+            ValidationValidateRoutingNumberParams.RoutingNumberType.ABA.toString(),
         )
         assertThat(params._queryParams()).isEqualTo(expected.build())
     }

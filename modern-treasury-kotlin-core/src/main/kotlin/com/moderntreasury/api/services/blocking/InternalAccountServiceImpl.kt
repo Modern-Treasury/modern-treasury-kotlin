@@ -22,10 +22,8 @@ import com.moderntreasury.api.models.InternalAccountUpdateParams
 import com.moderntreasury.api.services.blocking.internalAccounts.BalanceReportService
 import com.moderntreasury.api.services.blocking.internalAccounts.BalanceReportServiceImpl
 
-class InternalAccountServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InternalAccountService {
+class InternalAccountServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    InternalAccountService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -41,7 +39,7 @@ internal constructor(
     /** create internal account */
     override fun create(
         params: InternalAccountCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InternalAccount {
         val request =
             HttpRequest.builder()
@@ -66,7 +64,7 @@ internal constructor(
     /** get internal account */
     override fun retrieve(
         params: InternalAccountRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InternalAccount {
         val request =
             HttpRequest.builder()
@@ -90,7 +88,7 @@ internal constructor(
     /** update internal account */
     override fun update(
         params: InternalAccountUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InternalAccount {
         val request =
             HttpRequest.builder()
@@ -115,7 +113,7 @@ internal constructor(
     /** list internal accounts */
     override fun list(
         params: InternalAccountListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InternalAccountListPage {
         val request =
             HttpRequest.builder()
@@ -139,7 +137,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

@@ -20,10 +20,8 @@ import com.moderntreasury.api.models.LedgerEventHandlerListPage
 import com.moderntreasury.api.models.LedgerEventHandlerListParams
 import com.moderntreasury.api.models.LedgerEventHandlerRetrieveParams
 
-class LedgerEventHandlerServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : LedgerEventHandlerService {
+class LedgerEventHandlerServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    LedgerEventHandlerService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
     /** create ledger_event_handler */
     override fun create(
         params: LedgerEventHandlerCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerEventHandler {
         val request =
             HttpRequest.builder()
@@ -58,7 +56,7 @@ internal constructor(
     /** Get details on a single ledger event handler. */
     override fun retrieve(
         params: LedgerEventHandlerRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerEventHandler {
         val request =
             HttpRequest.builder()
@@ -83,7 +81,7 @@ internal constructor(
     /** Get a list of ledger event handlers. */
     override fun list(
         params: LedgerEventHandlerListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerEventHandlerListPage {
         val request =
             HttpRequest.builder()
@@ -107,7 +105,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }
@@ -118,7 +116,7 @@ internal constructor(
     /** Archive a ledger event handler. */
     override fun delete(
         params: LedgerEventHandlerDeleteParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerEventHandler {
         val request =
             HttpRequest.builder()

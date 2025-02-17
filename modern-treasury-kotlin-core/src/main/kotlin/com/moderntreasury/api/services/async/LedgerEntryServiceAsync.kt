@@ -14,18 +14,18 @@ interface LedgerEntryServiceAsync {
     /** Get details on a single ledger entry. */
     suspend fun retrieve(
         params: LedgerEntryRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerEntry
 
     /** Update the details of a ledger entry. */
     suspend fun update(
         params: LedgerEntryUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerEntry
 
     /** Get a list of all ledger entries. */
     suspend fun list(
         params: LedgerEntryListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerEntryListPageAsync
 }

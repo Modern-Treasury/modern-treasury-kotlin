@@ -542,15 +542,7 @@ private constructor(
             }
 
             fun build(): AvailableBalanceAmount =
-                AvailableBalanceAmount(
-                    eq,
-                    gt,
-                    gte,
-                    lt,
-                    lte,
-                    notEq,
-                    additionalProperties.build(),
-                )
+                AvailableBalanceAmount(eq, gt, gte, lt, lte, notEq, additionalProperties.build())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -604,13 +596,13 @@ private constructor(
             this.effectiveAtLowerBound?.let {
                 putParam(
                     "effective_at_lower_bound",
-                    listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)),
                 )
             }
             this.effectiveAtUpperBound?.let {
                 putParam(
                     "effective_at_upper_bound",
-                    listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)),
                 )
             }
             additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
@@ -734,10 +726,7 @@ private constructor(
      * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
      * created_at%5Bgt%5D=2000-01-01T12:00:00Z.
      */
-    class CreatedAt
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    class CreatedAt private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
@@ -834,10 +823,7 @@ private constructor(
      * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
      * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
      */
-    class Metadata
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    class Metadata private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
@@ -1071,15 +1057,7 @@ private constructor(
             }
 
             fun build(): PendingBalanceAmount =
-                PendingBalanceAmount(
-                    eq,
-                    gt,
-                    gte,
-                    lt,
-                    lte,
-                    notEq,
-                    additionalProperties.build(),
-                )
+                PendingBalanceAmount(eq, gt, gte, lt, lte, notEq, additionalProperties.build())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -1241,15 +1219,7 @@ private constructor(
             }
 
             fun build(): PostedBalanceAmount =
-                PostedBalanceAmount(
-                    eq,
-                    gt,
-                    gte,
-                    lt,
-                    lte,
-                    notEq,
-                    additionalProperties.build(),
-                )
+                PostedBalanceAmount(eq, gt, gte, lt, lte, notEq, additionalProperties.build())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -1275,10 +1245,7 @@ private constructor(
      * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
      * updated_at%5Bgt%5D=2000-01-01T12:00:00Z.
      */
-    class UpdatedAt
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    class UpdatedAt private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 

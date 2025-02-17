@@ -7,11 +7,7 @@ import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 
-class AccountsType
-@JsonCreator
-private constructor(
-    private val value: JsonField<String>,
-) : Enum {
+class AccountsType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
     /**
      * Returns this class instance's raw value.

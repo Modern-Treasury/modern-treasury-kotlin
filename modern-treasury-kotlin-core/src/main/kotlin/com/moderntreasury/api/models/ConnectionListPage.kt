@@ -68,13 +68,8 @@ private constructor(
         fun of(
             connectionsService: ConnectionService,
             params: ConnectionListParams,
-            response: Response
-        ) =
-            ConnectionListPage(
-                connectionsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = ConnectionListPage(connectionsService, params, response)
     }
 
     @NoAutoDetect
@@ -158,18 +153,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: ConnectionListPage,
-    ) : Sequence<Connection> {
+    class AutoPager(private val firstPage: ConnectionListPage) : Sequence<Connection> {
 
         override fun iterator(): Iterator<Connection> = iterator {
             var page = firstPage

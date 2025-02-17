@@ -298,9 +298,7 @@ private constructor(
     /** The type of reference number. */
     class ReferenceNumberType
     @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -822,11 +820,8 @@ private constructor(
      * One of the referenceable types. This must be accompanied by the id of the referenceable or
      * will return an error.
      */
-    class ReferenceableType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class ReferenceableType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.

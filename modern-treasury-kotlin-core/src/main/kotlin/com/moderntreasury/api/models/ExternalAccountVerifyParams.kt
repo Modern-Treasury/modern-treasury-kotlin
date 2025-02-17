@@ -541,11 +541,8 @@ private constructor(
     }
 
     /** Can be `ach`, `eft`, or `rtp`. */
-    class PaymentType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class PaymentType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -808,11 +805,8 @@ private constructor(
      * Currently, this only supports falling back from RTP to ACH (payment_type=rtp and
      * fallback_type=ach)
      */
-    class FallbackType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class FallbackType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -833,7 +827,7 @@ private constructor(
 
         /** An enum containing [FallbackType]'s known values. */
         enum class Known {
-            ACH,
+            ACH
         }
 
         /**
@@ -900,11 +894,7 @@ private constructor(
      * Either `normal` or `high`. For ACH payments, `high` represents a same-day ACH transfer. This
      * will apply to both `payment_type` and `fallback_type`.
      */
-    class Priority
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Priority @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

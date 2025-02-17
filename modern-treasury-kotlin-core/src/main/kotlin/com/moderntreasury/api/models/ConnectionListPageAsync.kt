@@ -70,13 +70,8 @@ private constructor(
         fun of(
             connectionsService: ConnectionServiceAsync,
             params: ConnectionListParams,
-            response: Response
-        ) =
-            ConnectionListPageAsync(
-                connectionsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = ConnectionListPageAsync(connectionsService, params, response)
     }
 
     @NoAutoDetect
@@ -160,18 +155,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: ConnectionListPageAsync,
-    ) : Flow<Connection> {
+    class AutoPager(private val firstPage: ConnectionListPageAsync) : Flow<Connection> {
 
         override suspend fun collect(collector: FlowCollector<Connection>) {
             var page = firstPage

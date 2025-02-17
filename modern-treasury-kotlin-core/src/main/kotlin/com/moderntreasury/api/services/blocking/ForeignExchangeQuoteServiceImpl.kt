@@ -20,9 +20,7 @@ import com.moderntreasury.api.models.ForeignExchangeQuoteListParams
 import com.moderntreasury.api.models.ForeignExchangeQuoteRetrieveParams
 
 class ForeignExchangeQuoteServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ForeignExchangeQuoteService {
+internal constructor(private val clientOptions: ClientOptions) : ForeignExchangeQuoteService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -32,7 +30,7 @@ internal constructor(
     /** create foreign_exchange_quote */
     override fun create(
         params: ForeignExchangeQuoteCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ForeignExchangeQuote {
         val request =
             HttpRequest.builder()
@@ -57,7 +55,7 @@ internal constructor(
     /** get foreign_exchange_quote */
     override fun retrieve(
         params: ForeignExchangeQuoteRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ForeignExchangeQuote {
         val request =
             HttpRequest.builder()
@@ -82,7 +80,7 @@ internal constructor(
     /** list foreign_exchange_quotes */
     override fun list(
         params: ForeignExchangeQuoteListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ForeignExchangeQuoteListPage {
         val request =
             HttpRequest.builder()
@@ -106,7 +104,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

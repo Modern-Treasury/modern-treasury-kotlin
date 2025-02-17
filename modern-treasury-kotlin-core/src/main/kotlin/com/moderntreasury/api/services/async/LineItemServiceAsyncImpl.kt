@@ -19,10 +19,8 @@ import com.moderntreasury.api.models.LineItemListParams
 import com.moderntreasury.api.models.LineItemRetrieveParams
 import com.moderntreasury.api.models.LineItemUpdateParams
 
-class LineItemServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : LineItemServiceAsync {
+class LineItemServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    LineItemServiceAsync {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -32,7 +30,7 @@ internal constructor(
     /** Get a single line item */
     override suspend fun retrieve(
         params: LineItemRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LineItem {
         val request =
             HttpRequest.builder()
@@ -42,7 +40,7 @@ internal constructor(
                     params.getPathParam(0),
                     params.getPathParam(1),
                     "line_items",
-                    params.getPathParam(2)
+                    params.getPathParam(2),
                 )
                 .build()
                 .prepareAsync(clientOptions, params)
@@ -62,7 +60,7 @@ internal constructor(
     /** update line item */
     override suspend fun update(
         params: LineItemUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LineItem {
         val request =
             HttpRequest.builder()
@@ -72,7 +70,7 @@ internal constructor(
                     params.getPathParam(0),
                     params.getPathParam(1),
                     "line_items",
-                    params.getPathParam(2)
+                    params.getPathParam(2),
                 )
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
@@ -93,7 +91,7 @@ internal constructor(
     /** Get a list of line items */
     override suspend fun list(
         params: LineItemListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LineItemListPageAsync {
         val request =
             HttpRequest.builder()
@@ -102,7 +100,7 @@ internal constructor(
                     "api",
                     params.getPathParam(0),
                     params.getPathParam(1),
-                    "line_items"
+                    "line_items",
                 )
                 .build()
                 .prepareAsync(clientOptions, params)
@@ -122,7 +120,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

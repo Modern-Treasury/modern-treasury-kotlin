@@ -19,10 +19,8 @@ import com.moderntreasury.api.models.ReturnListParams
 import com.moderntreasury.api.models.ReturnObject
 import com.moderntreasury.api.models.ReturnRetrieveParams
 
-class ReturnServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ReturnService {
+class ReturnServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    ReturnService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -54,7 +52,7 @@ internal constructor(
     /** Get a single return. */
     override fun retrieve(
         params: ReturnRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ReturnObject {
         val request =
             HttpRequest.builder()
@@ -99,7 +97,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

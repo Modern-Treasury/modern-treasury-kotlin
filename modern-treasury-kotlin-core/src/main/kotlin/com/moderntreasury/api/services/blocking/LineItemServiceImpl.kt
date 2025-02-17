@@ -19,10 +19,8 @@ import com.moderntreasury.api.models.LineItemListParams
 import com.moderntreasury.api.models.LineItemRetrieveParams
 import com.moderntreasury.api.models.LineItemUpdateParams
 
-class LineItemServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : LineItemService {
+class LineItemServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    LineItemService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -32,7 +30,7 @@ internal constructor(
     /** Get a single line item */
     override fun retrieve(
         params: LineItemRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LineItem {
         val request =
             HttpRequest.builder()
@@ -42,7 +40,7 @@ internal constructor(
                     params.getPathParam(0),
                     params.getPathParam(1),
                     "line_items",
-                    params.getPathParam(2)
+                    params.getPathParam(2),
                 )
                 .build()
                 .prepare(clientOptions, params)
@@ -69,7 +67,7 @@ internal constructor(
                     params.getPathParam(0),
                     params.getPathParam(1),
                     "line_items",
-                    params.getPathParam(2)
+                    params.getPathParam(2),
                 )
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
@@ -90,7 +88,7 @@ internal constructor(
     /** Get a list of line items */
     override fun list(
         params: LineItemListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LineItemListPage {
         val request =
             HttpRequest.builder()
@@ -99,7 +97,7 @@ internal constructor(
                     "api",
                     params.getPathParam(0),
                     params.getPathParam(1),
-                    "line_items"
+                    "line_items",
                 )
                 .build()
                 .prepare(clientOptions, params)
@@ -119,7 +117,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

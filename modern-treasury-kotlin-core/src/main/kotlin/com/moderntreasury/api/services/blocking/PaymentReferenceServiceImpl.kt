@@ -18,10 +18,8 @@ import com.moderntreasury.api.models.PaymentReferenceListParams
 import com.moderntreasury.api.models.PaymentReferenceRetireveParams
 import com.moderntreasury.api.models.PaymentReferenceRetrieveParams
 
-class PaymentReferenceServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : PaymentReferenceService {
+class PaymentReferenceServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    PaymentReferenceService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -31,7 +29,7 @@ internal constructor(
     /** get payment_reference */
     override fun retrieve(
         params: PaymentReferenceRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PaymentReference {
         val request =
             HttpRequest.builder()
@@ -55,7 +53,7 @@ internal constructor(
     /** list payment_references */
     override fun list(
         params: PaymentReferenceListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PaymentReferenceListPage {
         val request =
             HttpRequest.builder()
@@ -79,7 +77,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }
@@ -91,7 +89,7 @@ internal constructor(
     @Deprecated("use `retrieve` instead")
     override fun retireve(
         params: PaymentReferenceRetireveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PaymentReference {
         val request =
             HttpRequest.builder()

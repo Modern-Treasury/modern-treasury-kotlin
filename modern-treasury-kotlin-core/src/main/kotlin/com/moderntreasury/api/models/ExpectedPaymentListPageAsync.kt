@@ -70,13 +70,8 @@ private constructor(
         fun of(
             expectedPaymentsService: ExpectedPaymentServiceAsync,
             params: ExpectedPaymentListParams,
-            response: Response
-        ) =
-            ExpectedPaymentListPageAsync(
-                expectedPaymentsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = ExpectedPaymentListPageAsync(expectedPaymentsService, params, response)
     }
 
     @NoAutoDetect
@@ -161,18 +156,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: ExpectedPaymentListPageAsync,
-    ) : Flow<ExpectedPayment> {
+    class AutoPager(private val firstPage: ExpectedPaymentListPageAsync) : Flow<ExpectedPayment> {
 
         override suspend fun collect(collector: FlowCollector<ExpectedPayment>) {
             var page = firstPage

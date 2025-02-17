@@ -68,11 +68,7 @@ private constructor(
     companion object {
 
         fun of(returnsService: ReturnServiceAsync, params: ReturnListParams, response: Response) =
-            ReturnListPageAsync(
-                returnsService,
-                params,
-                response,
-            )
+            ReturnListPageAsync(returnsService, params, response)
     }
 
     @NoAutoDetect
@@ -156,18 +152,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: ReturnListPageAsync,
-    ) : Flow<ReturnObject> {
+    class AutoPager(private val firstPage: ReturnListPageAsync) : Flow<ReturnObject> {
 
         override suspend fun collect(collector: FlowCollector<ReturnObject>) {
             var page = firstPage

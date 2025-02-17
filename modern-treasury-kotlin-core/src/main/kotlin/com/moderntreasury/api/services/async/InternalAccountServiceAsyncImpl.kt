@@ -23,9 +23,7 @@ import com.moderntreasury.api.services.async.internalAccounts.BalanceReportServi
 import com.moderntreasury.api.services.async.internalAccounts.BalanceReportServiceAsyncImpl
 
 class InternalAccountServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InternalAccountServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : InternalAccountServiceAsync {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -41,7 +39,7 @@ internal constructor(
     /** create internal account */
     override suspend fun create(
         params: InternalAccountCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InternalAccount {
         val request =
             HttpRequest.builder()
@@ -66,7 +64,7 @@ internal constructor(
     /** get internal account */
     override suspend fun retrieve(
         params: InternalAccountRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InternalAccount {
         val request =
             HttpRequest.builder()
@@ -90,7 +88,7 @@ internal constructor(
     /** update internal account */
     override suspend fun update(
         params: InternalAccountUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InternalAccount {
         val request =
             HttpRequest.builder()
@@ -115,7 +113,7 @@ internal constructor(
     /** list internal accounts */
     override suspend fun list(
         params: InternalAccountListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InternalAccountListPageAsync {
         val request =
             HttpRequest.builder()
@@ -139,7 +137,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

@@ -471,11 +471,8 @@ private constructor(
     }
 
     /** The employment status of the individual. */
-    class EmploymentStatus
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class EmploymentStatus @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -585,11 +582,8 @@ private constructor(
     }
 
     /** The source of the individual's income. */
-    class IncomeSource
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class IncomeSource @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -716,11 +710,7 @@ private constructor(
     }
 
     /** The industry of the individual. */
-    class Industry
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Industry @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -995,11 +985,7 @@ private constructor(
     }
 
     /** The occupation of the individual. */
-    class Occupation
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Occupation @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1150,11 +1136,8 @@ private constructor(
     }
 
     /** The source of the individual's funds. */
-    class SourceOfFunds
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class SourceOfFunds @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1336,11 +1319,8 @@ private constructor(
     }
 
     /** The source of the individual's wealth. */
-    class WealthSource
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class WealthSource @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.

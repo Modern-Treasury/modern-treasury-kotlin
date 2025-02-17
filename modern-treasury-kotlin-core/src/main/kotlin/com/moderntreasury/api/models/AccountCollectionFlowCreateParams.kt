@@ -406,11 +406,8 @@ private constructor(
     }
 
     /** Optional. Array of 3-digit ISO country codes. */
-    class ReceivingCountry
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class ReceivingCountry @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.

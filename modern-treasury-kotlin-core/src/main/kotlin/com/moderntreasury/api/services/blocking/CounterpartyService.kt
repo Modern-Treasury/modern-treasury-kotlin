@@ -18,36 +18,36 @@ interface CounterpartyService {
     /** Create a new counterparty. */
     fun create(
         params: CounterpartyCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Counterparty
 
     /** Get details on a single counterparty. */
     fun retrieve(
         params: CounterpartyRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Counterparty
 
     /** Updates a given counterparty with new information. */
     fun update(
         params: CounterpartyUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Counterparty
 
     /** Get a paginated list of all counterparties. */
     fun list(
         params: CounterpartyListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CounterpartyListPage
 
     /** Deletes a given counterparty. */
     fun delete(
         params: CounterpartyDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     )
 
     /** Send an email requesting account details. */
     fun collectAccount(
         params: CounterpartyCollectAccountParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CounterpartyCollectAccountResponse
 }
