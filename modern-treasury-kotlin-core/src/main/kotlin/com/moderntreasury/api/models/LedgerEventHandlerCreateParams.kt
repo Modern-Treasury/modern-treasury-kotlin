@@ -22,7 +22,7 @@ import java.util.Objects
 /** create ledger_event_handler */
 class LedgerEventHandlerCreateParams
 private constructor(
-    private val body: LedgerEventHandlerCreateBody,
+    private val body: LedgerEventHandlerCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -75,16 +75,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerEventHandlerCreateBody = body
+    internal fun _body(): LedgerEventHandlerCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class LedgerEventHandlerCreateBody
+    class LedgerEventHandlerCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("ledger_transaction_template")
         @ExcludeMissing
         private val ledgerTransactionTemplate:
@@ -174,7 +174,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LedgerEventHandlerCreateBody = apply {
+        fun validate(): LedgerEventHandlerCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -196,7 +196,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [LedgerEventHandlerCreateBody]. */
+        /** A builder for [LedgerEventHandlerCreateRequest]. */
         class Builder internal constructor() {
 
             private var ledgerTransactionTemplate:
@@ -210,17 +210,19 @@ private constructor(
             private var variables: JsonField<LedgerEventHandlerVariables> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(ledgerEventHandlerCreateBody: LedgerEventHandlerCreateBody) = apply {
-                ledgerTransactionTemplate = ledgerEventHandlerCreateBody.ledgerTransactionTemplate
-                name = ledgerEventHandlerCreateBody.name
-                conditions = ledgerEventHandlerCreateBody.conditions
-                description = ledgerEventHandlerCreateBody.description
-                ledgerId = ledgerEventHandlerCreateBody.ledgerId
-                metadata = ledgerEventHandlerCreateBody.metadata
-                variables = ledgerEventHandlerCreateBody.variables
-                additionalProperties =
-                    ledgerEventHandlerCreateBody.additionalProperties.toMutableMap()
-            }
+            internal fun from(ledgerEventHandlerCreateRequest: LedgerEventHandlerCreateRequest) =
+                apply {
+                    ledgerTransactionTemplate =
+                        ledgerEventHandlerCreateRequest.ledgerTransactionTemplate
+                    name = ledgerEventHandlerCreateRequest.name
+                    conditions = ledgerEventHandlerCreateRequest.conditions
+                    description = ledgerEventHandlerCreateRequest.description
+                    ledgerId = ledgerEventHandlerCreateRequest.ledgerId
+                    metadata = ledgerEventHandlerCreateRequest.metadata
+                    variables = ledgerEventHandlerCreateRequest.variables
+                    additionalProperties =
+                        ledgerEventHandlerCreateRequest.additionalProperties.toMutableMap()
+                }
 
             @Deprecated("deprecated")
             fun ledgerTransactionTemplate(
@@ -301,8 +303,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LedgerEventHandlerCreateBody =
-                LedgerEventHandlerCreateBody(
+            fun build(): LedgerEventHandlerCreateRequest =
+                LedgerEventHandlerCreateRequest(
                     checkRequired("ledgerTransactionTemplate", ledgerTransactionTemplate),
                     checkRequired("name", name),
                     conditions,
@@ -319,7 +321,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerEventHandlerCreateBody && ledgerTransactionTemplate == other.ledgerTransactionTemplate && name == other.name && conditions == other.conditions && description == other.description && ledgerId == other.ledgerId && metadata == other.metadata && variables == other.variables && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerEventHandlerCreateRequest && ledgerTransactionTemplate == other.ledgerTransactionTemplate && name == other.name && conditions == other.conditions && description == other.description && ledgerId == other.ledgerId && metadata == other.metadata && variables == other.variables && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -329,7 +331,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerEventHandlerCreateBody{ledgerTransactionTemplate=$ledgerTransactionTemplate, name=$name, conditions=$conditions, description=$description, ledgerId=$ledgerId, metadata=$metadata, variables=$variables, additionalProperties=$additionalProperties}"
+            "LedgerEventHandlerCreateRequest{ledgerTransactionTemplate=$ledgerTransactionTemplate, name=$name, conditions=$conditions, description=$description, ledgerId=$ledgerId, metadata=$metadata, variables=$variables, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -343,8 +345,8 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: LedgerEventHandlerCreateBody.Builder =
-            LedgerEventHandlerCreateBody.builder()
+        private var body: LedgerEventHandlerCreateRequest.Builder =
+            LedgerEventHandlerCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

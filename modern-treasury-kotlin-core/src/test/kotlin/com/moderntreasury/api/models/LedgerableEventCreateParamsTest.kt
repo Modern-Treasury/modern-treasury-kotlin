@@ -39,7 +39,9 @@ class LedgerableEventCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("name")
         assertThat(body._customData()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
@@ -57,7 +59,9 @@ class LedgerableEventCreateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = LedgerableEventCreateParams.builder().name("name").build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("name")
     }

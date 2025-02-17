@@ -261,7 +261,9 @@ class LegalEntityAssociationCreateParamsTest {
                 .ownershipPercentage(0L)
                 .title("title")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.parentLegalEntityId()).isEqualTo("parent_legal_entity_id")
         assertThat(body.relationshipTypes())
@@ -391,7 +393,9 @@ class LegalEntityAssociationCreateParamsTest {
                     LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.parentLegalEntityId()).isEqualTo("parent_legal_entity_id")
         assertThat(body.relationshipTypes())

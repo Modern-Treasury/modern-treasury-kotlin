@@ -35,7 +35,9 @@ class IncomingPaymentDetailCreateAsyncParamsTest {
                 .type(IncomingPaymentDetailCreateAsyncParams.Type.ACH)
                 .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
@@ -51,7 +53,9 @@ class IncomingPaymentDetailCreateAsyncParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = IncomingPaymentDetailCreateAsyncParams.builder().build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
     }
 }

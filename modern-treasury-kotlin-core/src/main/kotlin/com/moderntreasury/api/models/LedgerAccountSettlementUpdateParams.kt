@@ -25,7 +25,7 @@ import java.util.Objects
 class LedgerAccountSettlementUpdateParams
 private constructor(
     private val id: String,
-    private val body: LedgerAccountSettlementUpdateBody,
+    private val body: LedgerAccountSettlementUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -62,7 +62,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerAccountSettlementUpdateBody = body
+    internal fun _body(): LedgerAccountSettlementUpdateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -76,9 +76,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class LedgerAccountSettlementUpdateBody
+    class LedgerAccountSettlementUpdateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("description")
         @ExcludeMissing
         private val description: JsonField<String> = JsonMissing.of(),
@@ -128,7 +128,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LedgerAccountSettlementUpdateBody = apply {
+        fun validate(): LedgerAccountSettlementUpdateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -146,7 +146,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [LedgerAccountSettlementUpdateBody]. */
+        /** A builder for [LedgerAccountSettlementUpdateRequest]. */
         class Builder internal constructor() {
 
             private var description: JsonField<String> = JsonMissing.of()
@@ -155,13 +155,13 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
-                ledgerAccountSettlementUpdateBody: LedgerAccountSettlementUpdateBody
+                ledgerAccountSettlementUpdateRequest: LedgerAccountSettlementUpdateRequest
             ) = apply {
-                description = ledgerAccountSettlementUpdateBody.description
-                metadata = ledgerAccountSettlementUpdateBody.metadata
-                status = ledgerAccountSettlementUpdateBody.status
+                description = ledgerAccountSettlementUpdateRequest.description
+                metadata = ledgerAccountSettlementUpdateRequest.metadata
+                status = ledgerAccountSettlementUpdateRequest.status
                 additionalProperties =
-                    ledgerAccountSettlementUpdateBody.additionalProperties.toMutableMap()
+                    ledgerAccountSettlementUpdateRequest.additionalProperties.toMutableMap()
             }
 
             /** The description of the ledger account settlement. */
@@ -215,8 +215,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LedgerAccountSettlementUpdateBody =
-                LedgerAccountSettlementUpdateBody(
+            fun build(): LedgerAccountSettlementUpdateRequest =
+                LedgerAccountSettlementUpdateRequest(
                     description,
                     metadata,
                     status,
@@ -229,7 +229,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerAccountSettlementUpdateBody && description == other.description && metadata == other.metadata && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerAccountSettlementUpdateRequest && description == other.description && metadata == other.metadata && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -239,7 +239,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerAccountSettlementUpdateBody{description=$description, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
+            "LedgerAccountSettlementUpdateRequest{description=$description, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -254,8 +254,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: LedgerAccountSettlementUpdateBody.Builder =
-            LedgerAccountSettlementUpdateBody.builder()
+        private var body: LedgerAccountSettlementUpdateRequest.Builder =
+            LedgerAccountSettlementUpdateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

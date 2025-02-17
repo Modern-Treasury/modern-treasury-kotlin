@@ -181,7 +181,9 @@ class PaymentOrderReversalCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.reason()).isEqualTo(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
         assertThat(body.ledgerTransaction())
@@ -273,7 +275,9 @@ class PaymentOrderReversalCreateParamsTest {
                 .paymentOrderId("payment_order_id")
                 .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.reason()).isEqualTo(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
     }

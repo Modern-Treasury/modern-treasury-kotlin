@@ -47,7 +47,9 @@ class InvoiceLineItemCreateParamsTest {
                 .quantity(0L)
                 .unitAmountDecimal("unit_amount_decimal")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.unitAmount()).isEqualTo(0L)
@@ -73,7 +75,9 @@ class InvoiceLineItemCreateParamsTest {
                 .name("name")
                 .unitAmount(0L)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.unitAmount()).isEqualTo(0L)

@@ -23,7 +23,7 @@ import java.util.Objects
 class LedgerAccountSettlementAccountEntryUpdateParams
 private constructor(
     private val id: String,
-    private val body: LedgerAccountSettlementAccountEntryUpdateBody,
+    private val body: LedgerAccountSettlementEntriesPatchRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -48,7 +48,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerAccountSettlementAccountEntryUpdateBody = body
+    internal fun _body(): LedgerAccountSettlementEntriesPatchRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -62,9 +62,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class LedgerAccountSettlementAccountEntryUpdateBody
+    class LedgerAccountSettlementEntriesPatchRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("ledger_entry_ids")
         @ExcludeMissing
         private val ledgerEntryIds: JsonField<List<String>> = JsonMissing.of(),
@@ -92,7 +92,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LedgerAccountSettlementAccountEntryUpdateBody = apply {
+        fun validate(): LedgerAccountSettlementEntriesPatchRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -108,23 +108,22 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [LedgerAccountSettlementAccountEntryUpdateBody]. */
+        /** A builder for [LedgerAccountSettlementEntriesPatchRequest]. */
         class Builder internal constructor() {
 
             private var ledgerEntryIds: JsonField<MutableList<String>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
-                ledgerAccountSettlementAccountEntryUpdateBody:
-                    LedgerAccountSettlementAccountEntryUpdateBody
+                ledgerAccountSettlementEntriesPatchRequest:
+                    LedgerAccountSettlementEntriesPatchRequest
             ) = apply {
                 ledgerEntryIds =
-                    ledgerAccountSettlementAccountEntryUpdateBody.ledgerEntryIds.map {
+                    ledgerAccountSettlementEntriesPatchRequest.ledgerEntryIds.map {
                         it.toMutableList()
                     }
                 additionalProperties =
-                    ledgerAccountSettlementAccountEntryUpdateBody.additionalProperties
-                        .toMutableMap()
+                    ledgerAccountSettlementEntriesPatchRequest.additionalProperties.toMutableMap()
             }
 
             /**
@@ -176,8 +175,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LedgerAccountSettlementAccountEntryUpdateBody =
-                LedgerAccountSettlementAccountEntryUpdateBody(
+            fun build(): LedgerAccountSettlementEntriesPatchRequest =
+                LedgerAccountSettlementEntriesPatchRequest(
                     checkRequired("ledgerEntryIds", ledgerEntryIds).map { it.toImmutable() },
                     additionalProperties.toImmutable(),
                 )
@@ -188,7 +187,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerAccountSettlementAccountEntryUpdateBody && ledgerEntryIds == other.ledgerEntryIds && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerAccountSettlementEntriesPatchRequest && ledgerEntryIds == other.ledgerEntryIds && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -198,7 +197,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerAccountSettlementAccountEntryUpdateBody{ledgerEntryIds=$ledgerEntryIds, additionalProperties=$additionalProperties}"
+            "LedgerAccountSettlementEntriesPatchRequest{ledgerEntryIds=$ledgerEntryIds, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -213,8 +212,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: LedgerAccountSettlementAccountEntryUpdateBody.Builder =
-            LedgerAccountSettlementAccountEntryUpdateBody.builder()
+        private var body: LedgerAccountSettlementEntriesPatchRequest.Builder =
+            LedgerAccountSettlementEntriesPatchRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

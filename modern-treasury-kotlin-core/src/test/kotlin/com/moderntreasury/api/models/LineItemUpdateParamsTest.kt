@@ -39,7 +39,9 @@ class LineItemUpdateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.metadata())
             .isEqualTo(
@@ -59,7 +61,9 @@ class LineItemUpdateParamsTest {
                 .itemizableId("itemizable_id")
                 .id("id")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
     }
 

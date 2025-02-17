@@ -28,7 +28,9 @@ class RoutingDetailCreateParamsTest {
                 .routingNumberType(RoutingDetailCreateParams.RoutingNumberType.ABA)
                 .paymentType(RoutingDetailCreateParams.PaymentType.ACH)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.routingNumber()).isEqualTo("routing_number")
         assertThat(body.routingNumberType())
@@ -45,7 +47,9 @@ class RoutingDetailCreateParamsTest {
                 .routingNumber("routing_number")
                 .routingNumberType(RoutingDetailCreateParams.RoutingNumberType.ABA)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.routingNumber()).isEqualTo("routing_number")
         assertThat(body.routingNumberType())

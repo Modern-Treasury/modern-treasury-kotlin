@@ -39,7 +39,9 @@ class LedgerAccountUpdateParamsTest {
                 )
                 .name("name")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.metadata())
@@ -56,7 +58,9 @@ class LedgerAccountUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = LedgerAccountUpdateParams.builder().id("id").build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
     }
 

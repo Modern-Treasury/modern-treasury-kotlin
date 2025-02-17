@@ -195,7 +195,9 @@ class InvoiceCreateParamsTest {
                 .addRemindAfterOverdueDay(0L)
                 .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.counterpartyId()).isEqualTo("counterparty_id")
         assertThat(body.dueDate()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -305,7 +307,9 @@ class InvoiceCreateParamsTest {
                 .dueDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .originatingAccountId("originating_account_id")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.counterpartyId()).isEqualTo("counterparty_id")
         assertThat(body.dueDate()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

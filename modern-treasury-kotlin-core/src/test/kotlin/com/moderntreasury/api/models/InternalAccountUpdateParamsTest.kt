@@ -39,7 +39,9 @@ class InternalAccountUpdateParamsTest {
                 .name("name")
                 .parentAccountId("parent_account_id")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.counterpartyId()).isEqualTo("counterparty_id")
         assertThat(body.ledgerAccountId()).isEqualTo("ledger_account_id")
@@ -56,7 +58,9 @@ class InternalAccountUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = InternalAccountUpdateParams.builder().id("id").build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
     }
 

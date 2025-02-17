@@ -26,7 +26,7 @@ import java.util.Objects
 class LegalEntityUpdateParams
 private constructor(
     private val id: String,
-    private val body: LegalEntityUpdateBody,
+    private val body: LegalEntityUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -165,7 +165,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LegalEntityUpdateBody = body
+    internal fun _body(): LegalEntityUpdateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -179,9 +179,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class LegalEntityUpdateBody
+    class LegalEntityUpdateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("addresses")
         @ExcludeMissing
         private val addresses: JsonField<List<LegalEntityAddressCreateRequest>> = JsonMissing.of(),
@@ -423,7 +423,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LegalEntityUpdateBody = apply {
+        fun validate(): LegalEntityUpdateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -460,7 +460,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [LegalEntityUpdateBody]. */
+        /** A builder for [LegalEntityUpdateRequest]. */
         class Builder internal constructor() {
 
             private var addresses: JsonField<MutableList<LegalEntityAddressCreateRequest>>? = null
@@ -488,31 +488,32 @@ private constructor(
             private var website: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(legalEntityUpdateBody: LegalEntityUpdateBody) = apply {
-                addresses = legalEntityUpdateBody.addresses.map { it.toMutableList() }
-                bankSettings = legalEntityUpdateBody.bankSettings
-                businessName = legalEntityUpdateBody.businessName
-                citizenshipCountry = legalEntityUpdateBody.citizenshipCountry
-                dateFormed = legalEntityUpdateBody.dateFormed
-                dateOfBirth = legalEntityUpdateBody.dateOfBirth
+            internal fun from(legalEntityUpdateRequest: LegalEntityUpdateRequest) = apply {
+                addresses = legalEntityUpdateRequest.addresses.map { it.toMutableList() }
+                bankSettings = legalEntityUpdateRequest.bankSettings
+                businessName = legalEntityUpdateRequest.businessName
+                citizenshipCountry = legalEntityUpdateRequest.citizenshipCountry
+                dateFormed = legalEntityUpdateRequest.dateFormed
+                dateOfBirth = legalEntityUpdateRequest.dateOfBirth
                 doingBusinessAsNames =
-                    legalEntityUpdateBody.doingBusinessAsNames.map { it.toMutableList() }
-                email = legalEntityUpdateBody.email
-                firstName = legalEntityUpdateBody.firstName
-                identifications = legalEntityUpdateBody.identifications.map { it.toMutableList() }
-                lastName = legalEntityUpdateBody.lastName
-                legalStructure = legalEntityUpdateBody.legalStructure
-                metadata = legalEntityUpdateBody.metadata
-                middleName = legalEntityUpdateBody.middleName
-                phoneNumbers = legalEntityUpdateBody.phoneNumbers.map { it.toMutableList() }
-                politicallyExposedPerson = legalEntityUpdateBody.politicallyExposedPerson
-                preferredName = legalEntityUpdateBody.preferredName
-                prefix = legalEntityUpdateBody.prefix
-                riskRating = legalEntityUpdateBody.riskRating
-                suffix = legalEntityUpdateBody.suffix
-                wealthAndEmploymentDetails = legalEntityUpdateBody.wealthAndEmploymentDetails
-                website = legalEntityUpdateBody.website
-                additionalProperties = legalEntityUpdateBody.additionalProperties.toMutableMap()
+                    legalEntityUpdateRequest.doingBusinessAsNames.map { it.toMutableList() }
+                email = legalEntityUpdateRequest.email
+                firstName = legalEntityUpdateRequest.firstName
+                identifications =
+                    legalEntityUpdateRequest.identifications.map { it.toMutableList() }
+                lastName = legalEntityUpdateRequest.lastName
+                legalStructure = legalEntityUpdateRequest.legalStructure
+                metadata = legalEntityUpdateRequest.metadata
+                middleName = legalEntityUpdateRequest.middleName
+                phoneNumbers = legalEntityUpdateRequest.phoneNumbers.map { it.toMutableList() }
+                politicallyExposedPerson = legalEntityUpdateRequest.politicallyExposedPerson
+                preferredName = legalEntityUpdateRequest.preferredName
+                prefix = legalEntityUpdateRequest.prefix
+                riskRating = legalEntityUpdateRequest.riskRating
+                suffix = legalEntityUpdateRequest.suffix
+                wealthAndEmploymentDetails = legalEntityUpdateRequest.wealthAndEmploymentDetails
+                website = legalEntityUpdateRequest.website
+                additionalProperties = legalEntityUpdateRequest.additionalProperties.toMutableMap()
             }
 
             /** A list of addresses for the entity. */
@@ -756,8 +757,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LegalEntityUpdateBody =
-                LegalEntityUpdateBody(
+            fun build(): LegalEntityUpdateRequest =
+                LegalEntityUpdateRequest(
                     (addresses ?: JsonMissing.of()).map { it.toImmutable() },
                     bankSettings,
                     businessName,
@@ -789,7 +790,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LegalEntityUpdateBody && addresses == other.addresses && bankSettings == other.bankSettings && businessName == other.businessName && citizenshipCountry == other.citizenshipCountry && dateFormed == other.dateFormed && dateOfBirth == other.dateOfBirth && doingBusinessAsNames == other.doingBusinessAsNames && email == other.email && firstName == other.firstName && identifications == other.identifications && lastName == other.lastName && legalStructure == other.legalStructure && metadata == other.metadata && middleName == other.middleName && phoneNumbers == other.phoneNumbers && politicallyExposedPerson == other.politicallyExposedPerson && preferredName == other.preferredName && prefix == other.prefix && riskRating == other.riskRating && suffix == other.suffix && wealthAndEmploymentDetails == other.wealthAndEmploymentDetails && website == other.website && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LegalEntityUpdateRequest && addresses == other.addresses && bankSettings == other.bankSettings && businessName == other.businessName && citizenshipCountry == other.citizenshipCountry && dateFormed == other.dateFormed && dateOfBirth == other.dateOfBirth && doingBusinessAsNames == other.doingBusinessAsNames && email == other.email && firstName == other.firstName && identifications == other.identifications && lastName == other.lastName && legalStructure == other.legalStructure && metadata == other.metadata && middleName == other.middleName && phoneNumbers == other.phoneNumbers && politicallyExposedPerson == other.politicallyExposedPerson && preferredName == other.preferredName && prefix == other.prefix && riskRating == other.riskRating && suffix == other.suffix && wealthAndEmploymentDetails == other.wealthAndEmploymentDetails && website == other.website && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -799,7 +800,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LegalEntityUpdateBody{addresses=$addresses, bankSettings=$bankSettings, businessName=$businessName, citizenshipCountry=$citizenshipCountry, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, identifications=$identifications, lastName=$lastName, legalStructure=$legalStructure, metadata=$metadata, middleName=$middleName, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, riskRating=$riskRating, suffix=$suffix, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
+            "LegalEntityUpdateRequest{addresses=$addresses, bankSettings=$bankSettings, businessName=$businessName, citizenshipCountry=$citizenshipCountry, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, identifications=$identifications, lastName=$lastName, legalStructure=$legalStructure, metadata=$metadata, middleName=$middleName, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, riskRating=$riskRating, suffix=$suffix, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -814,7 +815,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: LegalEntityUpdateBody.Builder = LegalEntityUpdateBody.builder()
+        private var body: LegalEntityUpdateRequest.Builder = LegalEntityUpdateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

@@ -22,7 +22,9 @@ class ConnectionLegalEntityUpdateParamsTest {
                 .id("id")
                 .status(ConnectionLegalEntityUpdateParams.Status.PROCESSING)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.status()).isEqualTo(ConnectionLegalEntityUpdateParams.Status.PROCESSING)
     }
@@ -30,7 +32,9 @@ class ConnectionLegalEntityUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = ConnectionLegalEntityUpdateParams.builder().id("id").build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
     }
 

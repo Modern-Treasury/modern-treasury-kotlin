@@ -190,7 +190,9 @@ class LegalEntityUpdateParamsTest {
                 )
                 .website("website")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.addresses())
             .isEqualTo(
@@ -295,7 +297,9 @@ class LegalEntityUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = LegalEntityUpdateParams.builder().id("id").build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
     }
 
