@@ -510,10 +510,7 @@ private constructor(
      * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the transaction's
      * effective time. Format ISO8601
      */
-    class EffectiveAt
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    class EffectiveAt private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
@@ -610,10 +607,7 @@ private constructor(
      * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the transaction's
      * effective date. Format YYYY-MM-DD
      */
-    class EffectiveDate
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    class EffectiveDate private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
@@ -712,9 +706,7 @@ private constructor(
      * of a ledger account, use `ledger_account_lock_version%5Blte%5D=1000`.
      */
     class LedgerAccountLockVersion
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
@@ -813,10 +805,7 @@ private constructor(
      * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
      * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
      */
-    class Metadata
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    class Metadata private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
@@ -1006,19 +995,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
-            fun build(): OrderBy =
-                OrderBy(
-                    createdAt,
-                    effectiveAt,
-                    additionalProperties.build(),
-                )
+            fun build(): OrderBy = OrderBy(createdAt, effectiveAt, additionalProperties.build())
         }
 
-        class CreatedAt
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class CreatedAt @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1109,11 +1090,8 @@ private constructor(
             override fun toString() = value.toString()
         }
 
-        class EffectiveAt
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class EffectiveAt @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1226,11 +1204,7 @@ private constructor(
      * Get all ledger entries that match the status specified. One of `pending`, `posted`, or
      * `archived`.
      */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1329,10 +1303,7 @@ private constructor(
      * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
      * updated_at%5Bgt%5D=2000-01-01T12:00:00Z.
      */
-    class UpdatedAt
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    class UpdatedAt private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 

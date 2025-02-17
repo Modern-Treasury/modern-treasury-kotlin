@@ -19,32 +19,29 @@ interface AccountDetailService {
     /** Create an account detail for an external account. */
     fun create(
         params: AccountDetailCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountDetail
 
     /** Get a single account detail for a single internal or external account. */
     fun retrieve(
         params: AccountDetailRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountDetail
 
     /** Get a list of account details for a single internal or external account. */
     fun list(
         params: AccountDetailListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountDetailListPage
 
     /** Delete a single account detail for an external account. */
     fun delete(
         params: AccountDetailDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     )
 
-    class AccountsType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class AccountsType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -65,7 +62,7 @@ interface AccountDetailService {
 
         /** An enum containing [AccountsType]'s known values. */
         enum class Known {
-            EXTERNAL_ACCOUNTS,
+            EXTERNAL_ACCOUNTS
         }
 
         /**

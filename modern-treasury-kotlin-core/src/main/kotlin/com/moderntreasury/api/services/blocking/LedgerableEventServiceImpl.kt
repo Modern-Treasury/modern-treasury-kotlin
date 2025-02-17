@@ -17,10 +17,8 @@ import com.moderntreasury.api.models.LedgerableEvent
 import com.moderntreasury.api.models.LedgerableEventCreateParams
 import com.moderntreasury.api.models.LedgerableEventRetrieveParams
 
-class LedgerableEventServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : LedgerableEventService {
+class LedgerableEventServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    LedgerableEventService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Create a ledgerable event. */
     override fun create(
         params: LedgerableEventCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerableEvent {
         val request =
             HttpRequest.builder()
@@ -55,7 +53,7 @@ internal constructor(
     /** Get details on a single ledgerable event. */
     override fun retrieve(
         params: LedgerableEventRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerableEvent {
         val request =
             HttpRequest.builder()

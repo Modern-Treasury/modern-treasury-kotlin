@@ -21,10 +21,8 @@ import com.moderntreasury.api.models.LedgerListParams
 import com.moderntreasury.api.models.LedgerRetrieveParams
 import com.moderntreasury.api.models.LedgerUpdateParams
 
-class LedgerServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : LedgerServiceAsync {
+class LedgerServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    LedgerServiceAsync {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Create a ledger. */
     override suspend fun create(
         params: LedgerCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Ledger {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** Get details on a single ledger. */
     override suspend fun retrieve(
         params: LedgerRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Ledger {
         val request =
             HttpRequest.builder()
@@ -83,7 +81,7 @@ internal constructor(
     /** Update the details of a ledger. */
     override suspend fun update(
         params: LedgerUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Ledger {
         val request =
             HttpRequest.builder()
@@ -108,7 +106,7 @@ internal constructor(
     /** Get a list of ledgers. */
     override suspend fun list(
         params: LedgerListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerListPageAsync {
         val request =
             HttpRequest.builder()
@@ -132,7 +130,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }
@@ -143,7 +141,7 @@ internal constructor(
     /** Delete a ledger. */
     override suspend fun delete(
         params: LedgerDeleteParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Ledger {
         val request =
             HttpRequest.builder()

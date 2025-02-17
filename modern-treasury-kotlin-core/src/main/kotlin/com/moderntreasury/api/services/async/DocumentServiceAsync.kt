@@ -14,18 +14,18 @@ interface DocumentServiceAsync {
     /** Create a document. */
     suspend fun create(
         params: DocumentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Document
 
     /** Get an existing document. */
     suspend fun retrieve(
         params: DocumentRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Document
 
     /** Get a list of documents. */
     suspend fun list(
         params: DocumentListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): DocumentListPageAsync
 }

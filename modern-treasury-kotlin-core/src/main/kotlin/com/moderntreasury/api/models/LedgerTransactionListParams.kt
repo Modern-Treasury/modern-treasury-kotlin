@@ -437,10 +437,7 @@ private constructor(
      * example, for all transactions after Jan 1 2000, use
      * effective_at%5Bgt%5D=2000-01-01T00:00:00:00.000Z.
      */
-    class EffectiveAt
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    class EffectiveAt private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
@@ -537,10 +534,7 @@ private constructor(
      * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by effective date. For
      * example, for all dates after Jan 1 2000, use effective_date%5Bgt%5D=2000-01-01.
      */
-    class EffectiveDate
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    class EffectiveDate private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
@@ -633,11 +627,8 @@ private constructor(
         override fun toString() = "EffectiveDate{additionalProperties=$additionalProperties}"
     }
 
-    class LedgerableType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class LedgerableType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -756,10 +747,7 @@ private constructor(
      * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
      * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
      */
-    class Metadata
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    class Metadata private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
@@ -949,19 +937,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
-            fun build(): OrderBy =
-                OrderBy(
-                    createdAt,
-                    effectiveAt,
-                    additionalProperties.build(),
-                )
+            fun build(): OrderBy = OrderBy(createdAt, effectiveAt, additionalProperties.build())
         }
 
-        class CreatedAt
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class CreatedAt @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1052,11 +1032,8 @@ private constructor(
             override fun toString() = value.toString()
         }
 
-        class EffectiveAt
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class EffectiveAt @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1170,10 +1147,7 @@ private constructor(
      * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
      * posted_at%5Bgt%5D=2000-01-01T12:00:00Z.
      */
-    class PostedAt
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    class PostedAt private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
@@ -1266,11 +1240,7 @@ private constructor(
         override fun toString() = "PostedAt{additionalProperties=$additionalProperties}"
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1369,10 +1339,7 @@ private constructor(
      * timestamp. For example, for all times after Jan 1 2000 12:00 UTC, use
      * updated_at%5Bgt%5D=2000-01-01T12:00:00Z.
      */
-    class UpdatedAt
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    class UpdatedAt private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 

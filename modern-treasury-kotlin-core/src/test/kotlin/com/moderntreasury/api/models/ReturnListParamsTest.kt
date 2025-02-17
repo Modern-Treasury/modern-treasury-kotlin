@@ -39,7 +39,7 @@ class ReturnListParamsTest {
         expected.put("returnable_id", "returnable_id")
         expected.put(
             "returnable_type",
-            ReturnListParams.ReturnableType.INCOMING_PAYMENT_DETAIL.toString()
+            ReturnListParams.ReturnableType.INCOMING_PAYMENT_DETAIL.toString(),
         )
         assertThat(params._queryParams()).isEqualTo(expected.build())
     }

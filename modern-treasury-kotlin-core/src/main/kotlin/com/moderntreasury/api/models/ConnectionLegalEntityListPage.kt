@@ -71,13 +71,8 @@ private constructor(
         fun of(
             connectionLegalEntitiesService: ConnectionLegalEntityService,
             params: ConnectionLegalEntityListParams,
-            response: Response
-        ) =
-            ConnectionLegalEntityListPage(
-                connectionLegalEntitiesService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = ConnectionLegalEntityListPage(connectionLegalEntitiesService, params, response)
     }
 
     @NoAutoDetect
@@ -162,18 +157,12 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: ConnectionLegalEntityListPage,
-    ) : Sequence<ConnectionLegalEntity> {
+    class AutoPager(private val firstPage: ConnectionLegalEntityListPage) :
+        Sequence<ConnectionLegalEntity> {
 
         override fun iterator(): Iterator<ConnectionLegalEntity> = iterator {
             var page = firstPage

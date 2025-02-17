@@ -68,13 +68,8 @@ private constructor(
         fun of(
             paperItemsService: PaperItemService,
             params: PaperItemListParams,
-            response: Response
-        ) =
-            PaperItemListPage(
-                paperItemsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = PaperItemListPage(paperItemsService, params, response)
     }
 
     @NoAutoDetect
@@ -158,18 +153,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: PaperItemListPage,
-    ) : Sequence<PaperItem> {
+    class AutoPager(private val firstPage: PaperItemListPage) : Sequence<PaperItem> {
 
         override fun iterator(): Iterator<PaperItem> = iterator {
             var page = firstPage

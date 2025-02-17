@@ -68,13 +68,8 @@ private constructor(
         fun of(
             routingDetailsService: RoutingDetailService,
             params: RoutingDetailListParams,
-            response: Response
-        ) =
-            RoutingDetailListPage(
-                routingDetailsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = RoutingDetailListPage(routingDetailsService, params, response)
     }
 
     @NoAutoDetect
@@ -158,18 +153,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: RoutingDetailListPage,
-    ) : Sequence<RoutingDetail> {
+    class AutoPager(private val firstPage: RoutingDetailListPage) : Sequence<RoutingDetail> {
 
         override fun iterator(): Iterator<RoutingDetail> = iterator {
             var page = firstPage

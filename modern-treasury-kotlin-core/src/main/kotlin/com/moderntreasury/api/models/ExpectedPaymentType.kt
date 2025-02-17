@@ -10,11 +10,8 @@ import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 /**
  * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa, signet, wire.
  */
-class ExpectedPaymentType
-@JsonCreator
-private constructor(
-    private val value: JsonField<String>,
-) : Enum {
+class ExpectedPaymentType @JsonCreator private constructor(private val value: JsonField<String>) :
+    Enum {
 
     /**
      * Returns this class instance's raw value.

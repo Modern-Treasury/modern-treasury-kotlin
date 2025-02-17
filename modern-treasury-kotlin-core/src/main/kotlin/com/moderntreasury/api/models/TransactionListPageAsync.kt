@@ -70,13 +70,8 @@ private constructor(
         fun of(
             transactionsService: TransactionServiceAsync,
             params: TransactionListParams,
-            response: Response
-        ) =
-            TransactionListPageAsync(
-                transactionsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = TransactionListPageAsync(transactionsService, params, response)
     }
 
     @NoAutoDetect
@@ -160,18 +155,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: TransactionListPageAsync,
-    ) : Flow<Transaction> {
+    class AutoPager(private val firstPage: TransactionListPageAsync) : Flow<Transaction> {
 
         override suspend fun collect(collector: FlowCollector<Transaction>) {
             var page = firstPage

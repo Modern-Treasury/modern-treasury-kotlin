@@ -68,13 +68,8 @@ private constructor(
         fun of(
             legalEntitiesService: LegalEntityService,
             params: LegalEntityListParams,
-            response: Response
-        ) =
-            LegalEntityListPage(
-                legalEntitiesService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = LegalEntityListPage(legalEntitiesService, params, response)
     }
 
     @NoAutoDetect
@@ -158,18 +153,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: LegalEntityListPage,
-    ) : Sequence<LegalEntity> {
+    class AutoPager(private val firstPage: LegalEntityListPage) : Sequence<LegalEntity> {
 
         override fun iterator(): Iterator<LegalEntity> = iterator {
             var page = firstPage

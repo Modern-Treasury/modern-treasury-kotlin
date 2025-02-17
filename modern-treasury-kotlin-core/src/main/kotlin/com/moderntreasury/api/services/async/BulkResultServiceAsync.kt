@@ -13,12 +13,12 @@ interface BulkResultServiceAsync {
     /** get bulk_result */
     suspend fun retrieve(
         params: BulkResultRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkResult
 
     /** list bulk_results */
     suspend fun list(
         params: BulkResultListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkResultListPageAsync
 }

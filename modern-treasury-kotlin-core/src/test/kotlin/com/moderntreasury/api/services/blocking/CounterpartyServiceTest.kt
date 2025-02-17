@@ -91,7 +91,7 @@ class CounterpartyServiceTest {
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .putAdditionalProperty(
                                                 "modern",
-                                                JsonValue.from("treasury")
+                                                JsonValue.from("treasury"),
                                             )
                                             .build()
                                     )
@@ -310,15 +310,15 @@ class CounterpartyServiceTest {
                                                     .builder()
                                                     .putAdditionalProperty(
                                                         "key",
-                                                        JsonValue.from("value")
+                                                        JsonValue.from("value"),
                                                     )
                                                     .putAdditionalProperty(
                                                         "foo",
-                                                        JsonValue.from("bar")
+                                                        JsonValue.from("bar"),
                                                     )
                                                     .putAdditionalProperty(
                                                         "modern",
-                                                        JsonValue.from("treasury")
+                                                        JsonValue.from("treasury"),
                                                     )
                                                     .build()
                                             )

@@ -11,6 +11,6 @@ interface ValidationServiceAsync {
     /** Validates the routing number information supplied without creating a routing detail */
     suspend fun validateRoutingNumber(
         params: ValidationValidateRoutingNumberParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RoutingNumberLookupRequest
 }

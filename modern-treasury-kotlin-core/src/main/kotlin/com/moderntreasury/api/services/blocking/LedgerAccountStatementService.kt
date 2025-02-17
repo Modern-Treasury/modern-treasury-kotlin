@@ -13,12 +13,12 @@ interface LedgerAccountStatementService {
     /** Create a ledger account statement. */
     fun create(
         params: LedgerAccountStatementCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountStatementCreateResponse
 
     /** Get details on a single ledger account statement. */
     fun retrieve(
         params: LedgerAccountStatementRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountStatementRetrieveResponse
 }

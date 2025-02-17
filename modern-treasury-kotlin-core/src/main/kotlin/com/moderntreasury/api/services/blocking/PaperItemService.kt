@@ -13,12 +13,12 @@ interface PaperItemService {
     /** Get details on a single paper item. */
     fun retrieve(
         params: PaperItemRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PaperItem
 
     /** Get a list of all paper items. */
     fun list(
         params: PaperItemListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PaperItemListPage
 }

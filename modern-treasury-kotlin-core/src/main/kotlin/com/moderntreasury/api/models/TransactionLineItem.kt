@@ -473,11 +473,8 @@ private constructor(
      * If a matching object exists in Modern Treasury, the type will be populated here, otherwise
      * `null`.
      */
-    class TransactableType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class TransactableType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -596,11 +593,7 @@ private constructor(
      * Indicates whether the line item is `originating` or `receiving` (see
      * https://www.moderntreasury.com/journal/beginners-guide-to-ach for more).
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

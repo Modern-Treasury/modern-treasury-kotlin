@@ -202,10 +202,7 @@ private constructor(
             )
     }
 
-    class Id
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    class Id private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
@@ -298,11 +295,7 @@ private constructor(
         override fun toString() = "Id{additionalProperties=$additionalProperties}"
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

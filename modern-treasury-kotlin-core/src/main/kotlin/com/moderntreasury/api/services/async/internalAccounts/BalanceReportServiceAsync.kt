@@ -15,24 +15,24 @@ interface BalanceReportServiceAsync {
     /** create balance reports */
     suspend fun create(
         params: BalanceReportCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BalanceReport
 
     /** Get a single balance report for a given internal account. */
     suspend fun retrieve(
         params: BalanceReportRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BalanceReport
 
     /** Get all balance reports for a given internal account. */
     suspend fun list(
         params: BalanceReportListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BalanceReportListPageAsync
 
     /** Deletes a given balance report. */
     suspend fun delete(
         params: BalanceReportDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     )
 }

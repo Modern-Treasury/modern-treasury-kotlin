@@ -12,11 +12,8 @@ import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
  * `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `signet`,
  * `provexchange`, `zengin`.
  */
-class PaymentOrderType
-@JsonCreator
-private constructor(
-    private val value: JsonField<String>,
-) : Enum {
+class PaymentOrderType @JsonCreator private constructor(private val value: JsonField<String>) :
+    Enum {
 
     /**
      * Returns this class instance's raw value.

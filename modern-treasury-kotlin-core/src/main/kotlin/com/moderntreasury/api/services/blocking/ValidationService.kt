@@ -11,6 +11,6 @@ interface ValidationService {
     /** Validates the routing number information supplied without creating a routing detail */
     fun validateRoutingNumber(
         params: ValidationValidateRoutingNumberParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RoutingNumberLookupRequest
 }

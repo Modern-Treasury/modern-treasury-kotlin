@@ -71,13 +71,8 @@ private constructor(
         fun of(
             accountCollectionFlowsService: AccountCollectionFlowService,
             params: AccountCollectionFlowListParams,
-            response: Response
-        ) =
-            AccountCollectionFlowListPage(
-                accountCollectionFlowsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = AccountCollectionFlowListPage(accountCollectionFlowsService, params, response)
     }
 
     @NoAutoDetect
@@ -162,18 +157,12 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: AccountCollectionFlowListPage,
-    ) : Sequence<AccountCollectionFlow> {
+    class AutoPager(private val firstPage: AccountCollectionFlowListPage) :
+        Sequence<AccountCollectionFlow> {
 
         override fun iterator(): Iterator<AccountCollectionFlow> = iterator {
             var page = firstPage

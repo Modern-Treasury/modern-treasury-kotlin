@@ -24,10 +24,8 @@ import com.moderntreasury.api.models.CounterpartyListParams
 import com.moderntreasury.api.models.CounterpartyRetrieveParams
 import com.moderntreasury.api.models.CounterpartyUpdateParams
 
-class CounterpartyServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CounterpartyServiceAsync {
+class CounterpartyServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    CounterpartyServiceAsync {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -37,7 +35,7 @@ internal constructor(
     /** Create a new counterparty. */
     override suspend fun create(
         params: CounterpartyCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Counterparty {
         val request =
             HttpRequest.builder()
@@ -62,7 +60,7 @@ internal constructor(
     /** Get details on a single counterparty. */
     override suspend fun retrieve(
         params: CounterpartyRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Counterparty {
         val request =
             HttpRequest.builder()
@@ -86,7 +84,7 @@ internal constructor(
     /** Updates a given counterparty with new information. */
     override suspend fun update(
         params: CounterpartyUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Counterparty {
         val request =
             HttpRequest.builder()
@@ -111,7 +109,7 @@ internal constructor(
     /** Get a paginated list of all counterparties. */
     override suspend fun list(
         params: CounterpartyListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CounterpartyListPageAsync {
         val request =
             HttpRequest.builder()
@@ -135,7 +133,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }
@@ -162,7 +160,7 @@ internal constructor(
     /** Send an email requesting account details. */
     override suspend fun collectAccount(
         params: CounterpartyCollectAccountParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CounterpartyCollectAccountResponse {
         val request =
             HttpRequest.builder()

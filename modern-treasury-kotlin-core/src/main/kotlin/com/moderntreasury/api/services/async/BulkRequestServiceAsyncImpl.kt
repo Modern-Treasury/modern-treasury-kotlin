@@ -19,10 +19,8 @@ import com.moderntreasury.api.models.BulkRequestListPageAsync
 import com.moderntreasury.api.models.BulkRequestListParams
 import com.moderntreasury.api.models.BulkRequestRetrieveParams
 
-class BulkRequestServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : BulkRequestServiceAsync {
+class BulkRequestServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    BulkRequestServiceAsync {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -32,7 +30,7 @@ internal constructor(
     /** create bulk_request */
     override suspend fun create(
         params: BulkRequestCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): BulkRequest {
         val request =
             HttpRequest.builder()
@@ -57,7 +55,7 @@ internal constructor(
     /** get bulk_request */
     override suspend fun retrieve(
         params: BulkRequestRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): BulkRequest {
         val request =
             HttpRequest.builder()
@@ -81,7 +79,7 @@ internal constructor(
     /** list bulk_requests */
     override suspend fun list(
         params: BulkRequestListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): BulkRequestListPageAsync {
         val request =
             HttpRequest.builder()
@@ -105,7 +103,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

@@ -7,11 +7,8 @@ import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 
-class TransactionDirection
-@JsonCreator
-private constructor(
-    private val value: JsonField<String>,
-) : Enum {
+class TransactionDirection @JsonCreator private constructor(private val value: JsonField<String>) :
+    Enum {
 
     /**
      * Returns this class instance's raw value.

@@ -118,7 +118,7 @@ class RoutingNumberLookupRequestTest {
                 RoutingNumberLookupRequest.SupportedPaymentType.SIGNET,
                 RoutingNumberLookupRequest.SupportedPaymentType.SKNBI,
                 RoutingNumberLookupRequest.SupportedPaymentType.WIRE,
-                RoutingNumberLookupRequest.SupportedPaymentType.ZENGIN
+                RoutingNumberLookupRequest.SupportedPaymentType.ZENGIN,
             )
     }
 }

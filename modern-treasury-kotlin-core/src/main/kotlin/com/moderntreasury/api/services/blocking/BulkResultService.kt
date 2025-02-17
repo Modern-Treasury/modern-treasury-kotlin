@@ -13,12 +13,12 @@ interface BulkResultService {
     /** get bulk_result */
     fun retrieve(
         params: BulkResultRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkResult
 
     /** list bulk_results */
     fun list(
         params: BulkResultListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkResultListPage
 }

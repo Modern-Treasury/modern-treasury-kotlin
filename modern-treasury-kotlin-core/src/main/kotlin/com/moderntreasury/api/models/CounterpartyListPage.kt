@@ -68,13 +68,8 @@ private constructor(
         fun of(
             counterpartiesService: CounterpartyService,
             params: CounterpartyListParams,
-            response: Response
-        ) =
-            CounterpartyListPage(
-                counterpartiesService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = CounterpartyListPage(counterpartiesService, params, response)
     }
 
     @NoAutoDetect
@@ -158,18 +153,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: CounterpartyListPage,
-    ) : Sequence<Counterparty> {
+    class AutoPager(private val firstPage: CounterpartyListPage) : Sequence<Counterparty> {
 
         override fun iterator(): Iterator<Counterparty> = iterator {
             var page = firstPage

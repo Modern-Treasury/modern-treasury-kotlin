@@ -334,7 +334,7 @@ class ErrorHandlingTest {
                 assertBadRequest(
                     e,
                     Headers.builder().put("Foo", "Bar").build(),
-                    MODERN_TREASURY_ERROR
+                    MODERN_TREASURY_ERROR,
                 )
             })
     }
@@ -432,7 +432,7 @@ class ErrorHandlingTest {
                 assertUnauthorized(
                     e,
                     Headers.builder().put("Foo", "Bar").build(),
-                    MODERN_TREASURY_ERROR
+                    MODERN_TREASURY_ERROR,
                 )
             })
     }
@@ -530,7 +530,7 @@ class ErrorHandlingTest {
                 assertPermissionDenied(
                     e,
                     Headers.builder().put("Foo", "Bar").build(),
-                    MODERN_TREASURY_ERROR
+                    MODERN_TREASURY_ERROR,
                 )
             })
     }
@@ -628,7 +628,7 @@ class ErrorHandlingTest {
                 assertNotFound(
                     e,
                     Headers.builder().put("Foo", "Bar").build(),
-                    MODERN_TREASURY_ERROR
+                    MODERN_TREASURY_ERROR,
                 )
             })
     }
@@ -726,7 +726,7 @@ class ErrorHandlingTest {
                 assertUnprocessableEntity(
                     e,
                     Headers.builder().put("Foo", "Bar").build(),
-                    MODERN_TREASURY_ERROR
+                    MODERN_TREASURY_ERROR,
                 )
             })
     }
@@ -824,7 +824,7 @@ class ErrorHandlingTest {
                 assertRateLimit(
                     e,
                     Headers.builder().put("Foo", "Bar").build(),
-                    MODERN_TREASURY_ERROR
+                    MODERN_TREASURY_ERROR,
                 )
             })
     }
@@ -922,7 +922,7 @@ class ErrorHandlingTest {
                 assertInternalServer(
                     e,
                     Headers.builder().put("Foo", "Bar").build(),
-                    MODERN_TREASURY_ERROR
+                    MODERN_TREASURY_ERROR,
                 )
             })
     }
@@ -1021,7 +1021,7 @@ class ErrorHandlingTest {
                     e,
                     999,
                     Headers.builder().put("Foo", "Bar").build(),
-                    toJson(MODERN_TREASURY_ERROR)
+                    toJson(MODERN_TREASURY_ERROR),
                 )
             })
     }
@@ -1205,7 +1205,7 @@ class ErrorHandlingTest {
                 assertBadRequest(
                     e,
                     Headers.builder().build(),
-                    ModernTreasuryError.builder().build()
+                    ModernTreasuryError.builder().build(),
                 )
             })
     }
@@ -1218,7 +1218,7 @@ class ErrorHandlingTest {
         throwable: Throwable,
         statusCode: Int,
         headers: Headers,
-        responseBody: ByteArray
+        responseBody: ByteArray,
     ) {
         assertThat(throwable)
             .asInstanceOf(
@@ -1234,7 +1234,7 @@ class ErrorHandlingTest {
     private fun assertBadRequest(
         throwable: Throwable,
         headers: Headers,
-        error: ModernTreasuryError
+        error: ModernTreasuryError,
     ) {
         assertThat(throwable)
             .asInstanceOf(InstanceOfAssertFactories.throwable(BadRequestException::class.java))
@@ -1248,7 +1248,7 @@ class ErrorHandlingTest {
     private fun assertUnauthorized(
         throwable: Throwable,
         headers: Headers,
-        error: ModernTreasuryError
+        error: ModernTreasuryError,
     ) {
         assertThat(throwable)
             .asInstanceOf(InstanceOfAssertFactories.throwable(UnauthorizedException::class.java))
@@ -1262,7 +1262,7 @@ class ErrorHandlingTest {
     private fun assertPermissionDenied(
         throwable: Throwable,
         headers: Headers,
-        error: ModernTreasuryError
+        error: ModernTreasuryError,
     ) {
         assertThat(throwable)
             .asInstanceOf(
@@ -1288,7 +1288,7 @@ class ErrorHandlingTest {
     private fun assertUnprocessableEntity(
         throwable: Throwable,
         headers: Headers,
-        error: ModernTreasuryError
+        error: ModernTreasuryError,
     ) {
         assertThat(throwable)
             .asInstanceOf(
@@ -1304,7 +1304,7 @@ class ErrorHandlingTest {
     private fun assertRateLimit(
         throwable: Throwable,
         headers: Headers,
-        error: ModernTreasuryError
+        error: ModernTreasuryError,
     ) {
         assertThat(throwable)
             .asInstanceOf(InstanceOfAssertFactories.throwable(RateLimitException::class.java))
@@ -1318,7 +1318,7 @@ class ErrorHandlingTest {
     private fun assertInternalServer(
         throwable: Throwable,
         headers: Headers,
-        error: ModernTreasuryError
+        error: ModernTreasuryError,
     ) {
         assertThat(throwable)
             .asInstanceOf(InstanceOfAssertFactories.throwable(InternalServerException::class.java))

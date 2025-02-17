@@ -20,36 +20,36 @@ interface LedgerTransactionService {
     /** Create a ledger transaction. */
     fun create(
         params: LedgerTransactionCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransaction
 
     /** Get details on a single ledger transaction. */
     fun retrieve(
         params: LedgerTransactionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransaction
 
     /** Update the details of a ledger transaction. */
     fun update(
         params: LedgerTransactionUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransaction
 
     /** Get a list of ledger transactions. */
     fun list(
         params: LedgerTransactionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransactionListPage
 
     /** Create a ledger transaction that partially posts another ledger transaction. */
     fun createPartialPost(
         params: LedgerTransactionCreatePartialPostParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransaction
 
     /** Create a ledger transaction reversal. */
     fun createReversal(
         params: LedgerTransactionCreateReversalParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransaction
 }
