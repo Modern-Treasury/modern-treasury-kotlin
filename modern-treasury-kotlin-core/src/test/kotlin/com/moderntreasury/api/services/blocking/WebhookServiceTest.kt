@@ -39,7 +39,7 @@ class WebhookServiceTest {
                     .webhooks()
                     .getSignature(
                         "{\"a\":{\"b\":{\"c\":{\"d\":[null,1,true,false,[\"foo\",{\"bar\":[true, false]}]]}}}}",
-                        "foo"
+                        "foo",
                     )
             )
             .isEqualTo("39b6fc0f5b02a5aefbdd7fb337245b4209036334e837d8c5b6a4092965ebc0a5")
@@ -61,10 +61,10 @@ class WebhookServiceTest {
                         Headers.builder()
                             .put(
                                 "X-Signature",
-                                "57e14f6f354543f0101fb06ea24df7731d90087b76651e3497345e22a3622940"
+                                "57e14f6f354543f0101fb06ea24df7731d90087b76651e3497345e22a3622940",
                             )
                             .build(),
-                        "foo"
+                        "foo",
                     )
             )
             .isTrue()
@@ -77,10 +77,10 @@ class WebhookServiceTest {
                         Headers.builder()
                             .put(
                                 "X-Signature",
-                                "57e14f6f354543f0101fb06ea24df7731d90087b76651e3497345e22a3622940"
+                                "57e14f6f354543f0101fb06ea24df7731d90087b76651e3497345e22a3622940",
                             )
                             .build(),
-                        "foo"
+                        "foo",
                     )
             )
             .isFalse()
@@ -91,7 +91,7 @@ class WebhookServiceTest {
                     .validateSignature(
                         "{\"foo\":\"bar\"}",
                         Headers.builder().put("X-Signature", "other").build(),
-                        "foo"
+                        "foo",
                     )
             )
             .isFalse()
@@ -104,10 +104,10 @@ class WebhookServiceTest {
                         Headers.builder()
                             .put(
                                 "X-Signature",
-                                "57e14f6f354543f0101fb06ea24df7731d90087b76651e3497345e22a3622940"
+                                "57e14f6f354543f0101fb06ea24df7731d90087b76651e3497345e22a3622940",
                             )
                             .build(),
-                        "other"
+                        "other",
                     )
             )
             .isFalse()
