@@ -25,7 +25,7 @@ import java.util.Objects
 /** Create a new counterparty. */
 class CounterpartyCreateParams
 private constructor(
-    private val body: CounterpartyCreateBody,
+    private val body: CounterpartyCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -106,16 +106,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): CounterpartyCreateBody = body
+    internal fun _body(): CounterpartyCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class CounterpartyCreateBody
+    class CounterpartyCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("name")
         @ExcludeMissing
         private val name: JsonField<String> = JsonMissing.of(),
@@ -257,7 +257,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): CounterpartyCreateBody = apply {
+        fun validate(): CounterpartyCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -283,7 +283,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [CounterpartyCreateBody]. */
+        /** A builder for [CounterpartyCreateRequest]. */
         class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
@@ -299,19 +299,19 @@ private constructor(
             private var verificationStatus: JsonField<VerificationStatus> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(counterpartyCreateBody: CounterpartyCreateBody) = apply {
-                name = counterpartyCreateBody.name
-                accounting = counterpartyCreateBody.accounting
-                accounts = counterpartyCreateBody.accounts.map { it.toMutableList() }
-                email = counterpartyCreateBody.email
-                ledgerType = counterpartyCreateBody.ledgerType
-                legalEntity = counterpartyCreateBody.legalEntity
-                legalEntityId = counterpartyCreateBody.legalEntityId
-                metadata = counterpartyCreateBody.metadata
-                sendRemittanceAdvice = counterpartyCreateBody.sendRemittanceAdvice
-                taxpayerIdentifier = counterpartyCreateBody.taxpayerIdentifier
-                verificationStatus = counterpartyCreateBody.verificationStatus
-                additionalProperties = counterpartyCreateBody.additionalProperties.toMutableMap()
+            internal fun from(counterpartyCreateRequest: CounterpartyCreateRequest) = apply {
+                name = counterpartyCreateRequest.name
+                accounting = counterpartyCreateRequest.accounting
+                accounts = counterpartyCreateRequest.accounts.map { it.toMutableList() }
+                email = counterpartyCreateRequest.email
+                ledgerType = counterpartyCreateRequest.ledgerType
+                legalEntity = counterpartyCreateRequest.legalEntity
+                legalEntityId = counterpartyCreateRequest.legalEntityId
+                metadata = counterpartyCreateRequest.metadata
+                sendRemittanceAdvice = counterpartyCreateRequest.sendRemittanceAdvice
+                taxpayerIdentifier = counterpartyCreateRequest.taxpayerIdentifier
+                verificationStatus = counterpartyCreateRequest.verificationStatus
+                additionalProperties = counterpartyCreateRequest.additionalProperties.toMutableMap()
             }
 
             /** A human friendly name for this counterparty. */
@@ -448,8 +448,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): CounterpartyCreateBody =
-                CounterpartyCreateBody(
+            fun build(): CounterpartyCreateRequest =
+                CounterpartyCreateRequest(
                     checkRequired("name", name),
                     accounting,
                     (accounts ?: JsonMissing.of()).map { it.toImmutable() },
@@ -470,7 +470,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CounterpartyCreateBody && name == other.name && accounting == other.accounting && accounts == other.accounts && email == other.email && ledgerType == other.ledgerType && legalEntity == other.legalEntity && legalEntityId == other.legalEntityId && metadata == other.metadata && sendRemittanceAdvice == other.sendRemittanceAdvice && taxpayerIdentifier == other.taxpayerIdentifier && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CounterpartyCreateRequest && name == other.name && accounting == other.accounting && accounts == other.accounts && email == other.email && ledgerType == other.ledgerType && legalEntity == other.legalEntity && legalEntityId == other.legalEntityId && metadata == other.metadata && sendRemittanceAdvice == other.sendRemittanceAdvice && taxpayerIdentifier == other.taxpayerIdentifier && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -480,7 +480,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "CounterpartyCreateBody{name=$name, accounting=$accounting, accounts=$accounts, email=$email, ledgerType=$ledgerType, legalEntity=$legalEntity, legalEntityId=$legalEntityId, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
+            "CounterpartyCreateRequest{name=$name, accounting=$accounting, accounts=$accounts, email=$email, ledgerType=$ledgerType, legalEntity=$legalEntity, legalEntityId=$legalEntityId, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -494,7 +494,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: CounterpartyCreateBody.Builder = CounterpartyCreateBody.builder()
+        private var body: CounterpartyCreateRequest.Builder = CounterpartyCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

@@ -50,7 +50,9 @@ class InvoiceLineItemUpdateParamsTest {
                 .unitAmount(0L)
                 .unitAmountDecimal("unit_amount_decimal")
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.direction()).isEqualTo("direction")
@@ -71,7 +73,9 @@ class InvoiceLineItemUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = InvoiceLineItemUpdateParams.builder().invoiceId("invoice_id").id("id").build()
+
         val body = params._body()
+
         assertNotNull(body)
     }
 

@@ -470,7 +470,9 @@ class PaymentOrderCreateAsyncParamsTest {
                 .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                 .ultimateReceivingPartyName("ultimate_receiving_party_name")
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.direction()).isEqualTo(PaymentOrderCreateAsyncParams.Direction.CREDIT)
@@ -712,7 +714,9 @@ class PaymentOrderCreateAsyncParamsTest {
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .type(PaymentOrderType.ACH)
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.direction()).isEqualTo(PaymentOrderCreateAsyncParams.Direction.CREDIT)

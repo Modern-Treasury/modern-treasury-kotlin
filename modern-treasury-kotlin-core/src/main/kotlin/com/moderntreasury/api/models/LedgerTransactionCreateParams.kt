@@ -26,7 +26,7 @@ import java.util.Objects
 /** Create a ledger transaction. */
 class LedgerTransactionCreateParams
 private constructor(
-    private val body: LedgerTransactionCreateBody,
+    private val body: LedgerTransactionCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -117,16 +117,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerTransactionCreateBody = body
+    internal fun _body(): LedgerTransactionCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class LedgerTransactionCreateBody
+    class LedgerTransactionCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("ledger_entries")
         @ExcludeMissing
         private val ledgerEntries: JsonField<List<LedgerEntryCreateRequest>> = JsonMissing.of(),
@@ -267,7 +267,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LedgerTransactionCreateBody = apply {
+        fun validate(): LedgerTransactionCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -291,7 +291,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [LedgerTransactionCreateBody]. */
+        /** A builder for [LedgerTransactionCreateRequest]. */
         class Builder internal constructor() {
 
             private var ledgerEntries: JsonField<MutableList<LedgerEntryCreateRequest>>? = null
@@ -305,19 +305,21 @@ private constructor(
             private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(ledgerTransactionCreateBody: LedgerTransactionCreateBody) = apply {
-                ledgerEntries = ledgerTransactionCreateBody.ledgerEntries.map { it.toMutableList() }
-                description = ledgerTransactionCreateBody.description
-                effectiveAt = ledgerTransactionCreateBody.effectiveAt
-                effectiveDate = ledgerTransactionCreateBody.effectiveDate
-                externalId = ledgerTransactionCreateBody.externalId
-                ledgerableId = ledgerTransactionCreateBody.ledgerableId
-                ledgerableType = ledgerTransactionCreateBody.ledgerableType
-                metadata = ledgerTransactionCreateBody.metadata
-                status = ledgerTransactionCreateBody.status
-                additionalProperties =
-                    ledgerTransactionCreateBody.additionalProperties.toMutableMap()
-            }
+            internal fun from(ledgerTransactionCreateRequest: LedgerTransactionCreateRequest) =
+                apply {
+                    ledgerEntries =
+                        ledgerTransactionCreateRequest.ledgerEntries.map { it.toMutableList() }
+                    description = ledgerTransactionCreateRequest.description
+                    effectiveAt = ledgerTransactionCreateRequest.effectiveAt
+                    effectiveDate = ledgerTransactionCreateRequest.effectiveDate
+                    externalId = ledgerTransactionCreateRequest.externalId
+                    ledgerableId = ledgerTransactionCreateRequest.ledgerableId
+                    ledgerableType = ledgerTransactionCreateRequest.ledgerableType
+                    metadata = ledgerTransactionCreateRequest.metadata
+                    status = ledgerTransactionCreateRequest.status
+                    additionalProperties =
+                        ledgerTransactionCreateRequest.additionalProperties.toMutableMap()
+                }
 
             /** An array of ledger entry objects. */
             fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>) =
@@ -456,8 +458,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LedgerTransactionCreateBody =
-                LedgerTransactionCreateBody(
+            fun build(): LedgerTransactionCreateRequest =
+                LedgerTransactionCreateRequest(
                     checkRequired("ledgerEntries", ledgerEntries).map { it.toImmutable() },
                     description,
                     effectiveAt,
@@ -476,7 +478,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerTransactionCreateBody && ledgerEntries == other.ledgerEntries && description == other.description && effectiveAt == other.effectiveAt && effectiveDate == other.effectiveDate && externalId == other.externalId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerTransactionCreateRequest && ledgerEntries == other.ledgerEntries && description == other.description && effectiveAt == other.effectiveAt && effectiveDate == other.effectiveDate && externalId == other.externalId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -486,7 +488,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerTransactionCreateBody{ledgerEntries=$ledgerEntries, description=$description, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
+            "LedgerTransactionCreateRequest{ledgerEntries=$ledgerEntries, description=$description, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -500,8 +502,8 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: LedgerTransactionCreateBody.Builder =
-            LedgerTransactionCreateBody.builder()
+        private var body: LedgerTransactionCreateRequest.Builder =
+            LedgerTransactionCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

@@ -49,7 +49,9 @@ class BalanceReportCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.asOfTime()).isEqualTo("as_of_time")
@@ -91,7 +93,9 @@ class BalanceReportCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.asOfTime()).isEqualTo("as_of_time")

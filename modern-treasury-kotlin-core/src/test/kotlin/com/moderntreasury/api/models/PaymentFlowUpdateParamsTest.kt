@@ -23,7 +23,9 @@ class PaymentFlowUpdateParamsTest {
                 .id("id")
                 .status(PaymentFlowUpdateParams.Status.CANCELLED)
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.status()).isEqualTo(PaymentFlowUpdateParams.Status.CANCELLED)
     }
@@ -35,7 +37,9 @@ class PaymentFlowUpdateParamsTest {
                 .id("id")
                 .status(PaymentFlowUpdateParams.Status.CANCELLED)
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.status()).isEqualTo(PaymentFlowUpdateParams.Status.CANCELLED)
     }

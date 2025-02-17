@@ -53,7 +53,9 @@ class TransactionCreateParamsTest {
                 .type(TransactionCreateParams.Type.ACH)
                 .vendorDescription("vendor_description")
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
@@ -85,7 +87,9 @@ class TransactionCreateParamsTest {
                 .vendorCode("vendor_code")
                 .vendorCodeType("vendor_code_type")
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))

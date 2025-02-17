@@ -670,7 +670,9 @@ class BulkRequestCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.actionType()).isEqualTo(BulkRequestCreateParams.ActionType.CREATE)
         assertThat(body.resourceType())
@@ -1060,7 +1062,9 @@ class BulkRequestCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.actionType()).isEqualTo(BulkRequestCreateParams.ActionType.CREATE)
         assertThat(body.resourceType())

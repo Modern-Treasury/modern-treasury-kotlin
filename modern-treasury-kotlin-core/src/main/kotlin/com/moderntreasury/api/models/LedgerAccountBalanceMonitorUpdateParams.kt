@@ -23,7 +23,7 @@ import java.util.Objects
 class LedgerAccountBalanceMonitorUpdateParams
 private constructor(
     private val id: String,
-    private val body: LedgerAccountBalanceMonitorUpdateBody,
+    private val body: LedgerAccountBalanceMonitorUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -48,7 +48,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerAccountBalanceMonitorUpdateBody = body
+    internal fun _body(): LedgerAccountBalanceMonitorUpdateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -62,9 +62,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class LedgerAccountBalanceMonitorUpdateBody
+    class LedgerAccountBalanceMonitorUpdateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("description")
         @ExcludeMissing
         private val description: JsonField<String> = JsonMissing.of(),
@@ -99,7 +99,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LedgerAccountBalanceMonitorUpdateBody = apply {
+        fun validate(): LedgerAccountBalanceMonitorUpdateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -116,7 +116,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [LedgerAccountBalanceMonitorUpdateBody]. */
+        /** A builder for [LedgerAccountBalanceMonitorUpdateRequest]. */
         class Builder internal constructor() {
 
             private var description: JsonField<String> = JsonMissing.of()
@@ -124,12 +124,12 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
-                ledgerAccountBalanceMonitorUpdateBody: LedgerAccountBalanceMonitorUpdateBody
+                ledgerAccountBalanceMonitorUpdateRequest: LedgerAccountBalanceMonitorUpdateRequest
             ) = apply {
-                description = ledgerAccountBalanceMonitorUpdateBody.description
-                metadata = ledgerAccountBalanceMonitorUpdateBody.metadata
+                description = ledgerAccountBalanceMonitorUpdateRequest.description
+                metadata = ledgerAccountBalanceMonitorUpdateRequest.metadata
                 additionalProperties =
-                    ledgerAccountBalanceMonitorUpdateBody.additionalProperties.toMutableMap()
+                    ledgerAccountBalanceMonitorUpdateRequest.additionalProperties.toMutableMap()
             }
 
             /** An optional, free-form description for internal use. */
@@ -171,8 +171,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LedgerAccountBalanceMonitorUpdateBody =
-                LedgerAccountBalanceMonitorUpdateBody(
+            fun build(): LedgerAccountBalanceMonitorUpdateRequest =
+                LedgerAccountBalanceMonitorUpdateRequest(
                     description,
                     metadata,
                     additionalProperties.toImmutable(),
@@ -184,7 +184,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerAccountBalanceMonitorUpdateBody && description == other.description && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerAccountBalanceMonitorUpdateRequest && description == other.description && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -194,7 +194,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerAccountBalanceMonitorUpdateBody{description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
+            "LedgerAccountBalanceMonitorUpdateRequest{description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -209,8 +209,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: LedgerAccountBalanceMonitorUpdateBody.Builder =
-            LedgerAccountBalanceMonitorUpdateBody.builder()
+        private var body: LedgerAccountBalanceMonitorUpdateRequest.Builder =
+            LedgerAccountBalanceMonitorUpdateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

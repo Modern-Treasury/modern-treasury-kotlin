@@ -23,7 +23,9 @@ class AccountCollectionFlowUpdateParamsTest {
                 .id("id")
                 .status(AccountCollectionFlowUpdateParams.Status.CANCELLED)
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.status()).isEqualTo(AccountCollectionFlowUpdateParams.Status.CANCELLED)
     }
@@ -35,7 +37,9 @@ class AccountCollectionFlowUpdateParamsTest {
                 .id("id")
                 .status(AccountCollectionFlowUpdateParams.Status.CANCELLED)
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.status()).isEqualTo(AccountCollectionFlowUpdateParams.Status.CANCELLED)
     }

@@ -29,7 +29,9 @@ class CounterpartyCollectAccountParamsTest {
                 .addField(CounterpartyCollectAccountParams.Field.NAME)
                 .sendEmail(true)
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.direction()).isEqualTo(TransactionDirection.CREDIT)
         assertThat(body.customRedirect()).isEqualTo("https://example.com")
@@ -44,7 +46,9 @@ class CounterpartyCollectAccountParamsTest {
                 .id("id")
                 .direction(TransactionDirection.CREDIT)
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.direction()).isEqualTo(TransactionDirection.CREDIT)
     }

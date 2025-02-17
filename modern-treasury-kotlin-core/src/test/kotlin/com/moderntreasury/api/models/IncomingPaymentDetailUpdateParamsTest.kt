@@ -32,7 +32,9 @@ class IncomingPaymentDetailUpdateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.metadata())
             .isEqualTo(
@@ -45,7 +47,9 @@ class IncomingPaymentDetailUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = IncomingPaymentDetailUpdateParams.builder().id("id").build()
+
         val body = params._body()
+
         assertNotNull(body)
     }
 

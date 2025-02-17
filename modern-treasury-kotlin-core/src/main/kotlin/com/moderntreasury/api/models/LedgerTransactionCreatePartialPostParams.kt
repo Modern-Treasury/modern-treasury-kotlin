@@ -26,7 +26,7 @@ import java.util.Objects
 class LedgerTransactionCreatePartialPostParams
 private constructor(
     private val id: String,
-    private val body: LedgerTransactionCreatePartialPostBody,
+    private val body: LedgerTransactionPartialPostCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -83,7 +83,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerTransactionCreatePartialPostBody = body
+    internal fun _body(): LedgerTransactionPartialPostCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -97,9 +97,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class LedgerTransactionCreatePartialPostBody
+    class LedgerTransactionPartialPostCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("posted_ledger_entries")
         @ExcludeMissing
         private val postedLedgerEntries: JsonField<List<LedgerEntryPartialPostCreateRequest>> =
@@ -179,7 +179,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LedgerTransactionCreatePartialPostBody = apply {
+        fun validate(): LedgerTransactionPartialPostCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -198,7 +198,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [LedgerTransactionCreatePartialPostBody]. */
+        /** A builder for [LedgerTransactionPartialPostCreateRequest]. */
         class Builder internal constructor() {
 
             private var postedLedgerEntries:
@@ -210,17 +210,17 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
-                ledgerTransactionCreatePartialPostBody: LedgerTransactionCreatePartialPostBody
+                ledgerTransactionPartialPostCreateRequest: LedgerTransactionPartialPostCreateRequest
             ) = apply {
                 postedLedgerEntries =
-                    ledgerTransactionCreatePartialPostBody.postedLedgerEntries.map {
+                    ledgerTransactionPartialPostCreateRequest.postedLedgerEntries.map {
                         it.toMutableList()
                     }
-                description = ledgerTransactionCreatePartialPostBody.description
-                effectiveAt = ledgerTransactionCreatePartialPostBody.effectiveAt
-                metadata = ledgerTransactionCreatePartialPostBody.metadata
+                description = ledgerTransactionPartialPostCreateRequest.description
+                effectiveAt = ledgerTransactionPartialPostCreateRequest.effectiveAt
+                metadata = ledgerTransactionPartialPostCreateRequest.metadata
                 additionalProperties =
-                    ledgerTransactionCreatePartialPostBody.additionalProperties.toMutableMap()
+                    ledgerTransactionPartialPostCreateRequest.additionalProperties.toMutableMap()
             }
 
             /**
@@ -317,8 +317,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LedgerTransactionCreatePartialPostBody =
-                LedgerTransactionCreatePartialPostBody(
+            fun build(): LedgerTransactionPartialPostCreateRequest =
+                LedgerTransactionPartialPostCreateRequest(
                     checkRequired("postedLedgerEntries", postedLedgerEntries).map {
                         it.toImmutable()
                     },
@@ -334,7 +334,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerTransactionCreatePartialPostBody && postedLedgerEntries == other.postedLedgerEntries && description == other.description && effectiveAt == other.effectiveAt && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerTransactionPartialPostCreateRequest && postedLedgerEntries == other.postedLedgerEntries && description == other.description && effectiveAt == other.effectiveAt && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -344,7 +344,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerTransactionCreatePartialPostBody{postedLedgerEntries=$postedLedgerEntries, description=$description, effectiveAt=$effectiveAt, metadata=$metadata, additionalProperties=$additionalProperties}"
+            "LedgerTransactionPartialPostCreateRequest{postedLedgerEntries=$postedLedgerEntries, description=$description, effectiveAt=$effectiveAt, metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -359,8 +359,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: LedgerTransactionCreatePartialPostBody.Builder =
-            LedgerTransactionCreatePartialPostBody.builder()
+        private var body: LedgerTransactionPartialPostCreateRequest.Builder =
+            LedgerTransactionPartialPostCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

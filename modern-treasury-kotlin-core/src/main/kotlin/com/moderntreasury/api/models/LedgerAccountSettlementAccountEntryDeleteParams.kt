@@ -23,7 +23,7 @@ import java.util.Objects
 class LedgerAccountSettlementAccountEntryDeleteParams
 private constructor(
     private val id: String,
-    private val body: LedgerAccountSettlementAccountEntryDeleteBody,
+    private val body: LedgerAccountSettlementEntriesDeleteRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -48,7 +48,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerAccountSettlementAccountEntryDeleteBody = body
+    internal fun _body(): LedgerAccountSettlementEntriesDeleteRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -62,9 +62,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class LedgerAccountSettlementAccountEntryDeleteBody
+    class LedgerAccountSettlementEntriesDeleteRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("ledger_entry_ids")
         @ExcludeMissing
         private val ledgerEntryIds: JsonField<List<JsonValue>> = JsonMissing.of(),
@@ -92,7 +92,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LedgerAccountSettlementAccountEntryDeleteBody = apply {
+        fun validate(): LedgerAccountSettlementEntriesDeleteRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -108,23 +108,22 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [LedgerAccountSettlementAccountEntryDeleteBody]. */
+        /** A builder for [LedgerAccountSettlementEntriesDeleteRequest]. */
         class Builder internal constructor() {
 
             private var ledgerEntryIds: JsonField<MutableList<JsonValue>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
-                ledgerAccountSettlementAccountEntryDeleteBody:
-                    LedgerAccountSettlementAccountEntryDeleteBody
+                ledgerAccountSettlementEntriesDeleteRequest:
+                    LedgerAccountSettlementEntriesDeleteRequest
             ) = apply {
                 ledgerEntryIds =
-                    ledgerAccountSettlementAccountEntryDeleteBody.ledgerEntryIds.map {
+                    ledgerAccountSettlementEntriesDeleteRequest.ledgerEntryIds.map {
                         it.toMutableList()
                     }
                 additionalProperties =
-                    ledgerAccountSettlementAccountEntryDeleteBody.additionalProperties
-                        .toMutableMap()
+                    ledgerAccountSettlementEntriesDeleteRequest.additionalProperties.toMutableMap()
             }
 
             /**
@@ -176,8 +175,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LedgerAccountSettlementAccountEntryDeleteBody =
-                LedgerAccountSettlementAccountEntryDeleteBody(
+            fun build(): LedgerAccountSettlementEntriesDeleteRequest =
+                LedgerAccountSettlementEntriesDeleteRequest(
                     checkRequired("ledgerEntryIds", ledgerEntryIds).map { it.toImmutable() },
                     additionalProperties.toImmutable(),
                 )
@@ -188,7 +187,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerAccountSettlementAccountEntryDeleteBody && ledgerEntryIds == other.ledgerEntryIds && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerAccountSettlementEntriesDeleteRequest && ledgerEntryIds == other.ledgerEntryIds && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -198,7 +197,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerAccountSettlementAccountEntryDeleteBody{ledgerEntryIds=$ledgerEntryIds, additionalProperties=$additionalProperties}"
+            "LedgerAccountSettlementEntriesDeleteRequest{ledgerEntryIds=$ledgerEntryIds, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -213,8 +212,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: LedgerAccountSettlementAccountEntryDeleteBody.Builder =
-            LedgerAccountSettlementAccountEntryDeleteBody.builder()
+        private var body: LedgerAccountSettlementEntriesDeleteRequest.Builder =
+            LedgerAccountSettlementEntriesDeleteRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

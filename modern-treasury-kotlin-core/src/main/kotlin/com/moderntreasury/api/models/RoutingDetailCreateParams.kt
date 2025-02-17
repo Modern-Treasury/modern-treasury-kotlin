@@ -26,7 +26,7 @@ class RoutingDetailCreateParams
 private constructor(
     private val accountsType: AccountsType,
     private val accountId: String,
-    private val body: RoutingDetailCreateBody,
+    private val body: RoutingDetailCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -71,7 +71,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): RoutingDetailCreateBody = body
+    internal fun _body(): RoutingDetailCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -86,9 +86,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class RoutingDetailCreateBody
+    class RoutingDetailCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("routing_number")
         @ExcludeMissing
         private val routingNumber: JsonField<String> = JsonMissing.of(),
@@ -147,7 +147,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): RoutingDetailCreateBody = apply {
+        fun validate(): RoutingDetailCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -165,7 +165,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [RoutingDetailCreateBody]. */
+        /** A builder for [RoutingDetailCreateRequest]. */
         class Builder internal constructor() {
 
             private var routingNumber: JsonField<String>? = null
@@ -173,11 +173,12 @@ private constructor(
             private var paymentType: JsonField<PaymentType> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(routingDetailCreateBody: RoutingDetailCreateBody) = apply {
-                routingNumber = routingDetailCreateBody.routingNumber
-                routingNumberType = routingDetailCreateBody.routingNumberType
-                paymentType = routingDetailCreateBody.paymentType
-                additionalProperties = routingDetailCreateBody.additionalProperties.toMutableMap()
+            internal fun from(routingDetailCreateRequest: RoutingDetailCreateRequest) = apply {
+                routingNumber = routingDetailCreateRequest.routingNumber
+                routingNumberType = routingDetailCreateRequest.routingNumberType
+                paymentType = routingDetailCreateRequest.paymentType
+                additionalProperties =
+                    routingDetailCreateRequest.additionalProperties.toMutableMap()
             }
 
             /** The routing number of the bank. */
@@ -239,8 +240,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): RoutingDetailCreateBody =
-                RoutingDetailCreateBody(
+            fun build(): RoutingDetailCreateRequest =
+                RoutingDetailCreateRequest(
                     checkRequired("routingNumber", routingNumber),
                     checkRequired("routingNumberType", routingNumberType),
                     paymentType,
@@ -253,7 +254,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RoutingDetailCreateBody && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && paymentType == other.paymentType && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is RoutingDetailCreateRequest && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && paymentType == other.paymentType && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -263,7 +264,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "RoutingDetailCreateBody{routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalProperties=$additionalProperties}"
+            "RoutingDetailCreateRequest{routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -279,7 +280,7 @@ private constructor(
 
         private var accountsType: AccountsType? = null
         private var accountId: String? = null
-        private var body: RoutingDetailCreateBody.Builder = RoutingDetailCreateBody.builder()
+        private var body: RoutingDetailCreateRequest.Builder = RoutingDetailCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

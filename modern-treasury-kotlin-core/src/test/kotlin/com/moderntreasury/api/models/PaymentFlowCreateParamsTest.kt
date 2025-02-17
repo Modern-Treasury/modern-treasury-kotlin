@@ -32,7 +32,9 @@ class PaymentFlowCreateParamsTest {
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .dueDate(LocalDate.parse("2019-12-27"))
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -52,7 +54,9 @@ class PaymentFlowCreateParamsTest {
                 .direction(PaymentFlowCreateParams.Direction.CREDIT)
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

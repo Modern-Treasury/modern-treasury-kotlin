@@ -24,7 +24,9 @@ class LedgerAccountSettlementAccountEntryDeleteParamsTest {
                 .id("id")
                 .addLedgerEntryId(JsonValue.from(mapOf<String, Any>()))
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.ledgerEntryIds()).isEqualTo(listOf(JsonValue.from(mapOf<String, Any>())))
     }
@@ -36,7 +38,9 @@ class LedgerAccountSettlementAccountEntryDeleteParamsTest {
                 .id("id")
                 .addLedgerEntryId(JsonValue.from(mapOf<String, Any>()))
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.ledgerEntryIds()).isEqualTo(listOf(JsonValue.from(mapOf<String, Any>())))
     }
