@@ -40,7 +40,9 @@ class LedgerAccountSettlementUpdateParamsTest {
                 )
                 .status(LedgerAccountSettlementUpdateParams.Status.POSTED)
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.metadata())
@@ -57,7 +59,9 @@ class LedgerAccountSettlementUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = LedgerAccountSettlementUpdateParams.builder().id("id").build()
+
         val body = params._body()
+
         assertNotNull(body)
     }
 

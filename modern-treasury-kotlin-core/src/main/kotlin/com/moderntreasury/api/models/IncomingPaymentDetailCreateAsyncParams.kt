@@ -24,7 +24,7 @@ import java.util.Objects
 /** Simulate Incoming Payment Detail */
 class IncomingPaymentDetailCreateAsyncParams
 private constructor(
-    private val body: IncomingPaymentDetailCreateAsyncBody,
+    private val body: IncomingPaymentDetailCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -83,16 +83,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): IncomingPaymentDetailCreateAsyncBody = body
+    internal fun _body(): IncomingPaymentDetailCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class IncomingPaymentDetailCreateAsyncBody
+    class IncomingPaymentDetailCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("amount")
         @ExcludeMissing
         private val amount: JsonField<Long> = JsonMissing.of(),
@@ -181,7 +181,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): IncomingPaymentDetailCreateAsyncBody = apply {
+        fun validate(): IncomingPaymentDetailCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -204,7 +204,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [IncomingPaymentDetailCreateAsyncBody]. */
+        /** A builder for [IncomingPaymentDetailCreateRequest]. */
         class Builder internal constructor() {
 
             private var amount: JsonField<Long> = JsonMissing.of()
@@ -218,18 +218,18 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
-                incomingPaymentDetailCreateAsyncBody: IncomingPaymentDetailCreateAsyncBody
+                incomingPaymentDetailCreateRequest: IncomingPaymentDetailCreateRequest
             ) = apply {
-                amount = incomingPaymentDetailCreateAsyncBody.amount
-                asOfDate = incomingPaymentDetailCreateAsyncBody.asOfDate
-                currency = incomingPaymentDetailCreateAsyncBody.currency
-                description = incomingPaymentDetailCreateAsyncBody.description
-                direction = incomingPaymentDetailCreateAsyncBody.direction
-                internalAccountId = incomingPaymentDetailCreateAsyncBody.internalAccountId
-                type = incomingPaymentDetailCreateAsyncBody.type
-                virtualAccountId = incomingPaymentDetailCreateAsyncBody.virtualAccountId
+                amount = incomingPaymentDetailCreateRequest.amount
+                asOfDate = incomingPaymentDetailCreateRequest.asOfDate
+                currency = incomingPaymentDetailCreateRequest.currency
+                description = incomingPaymentDetailCreateRequest.description
+                direction = incomingPaymentDetailCreateRequest.direction
+                internalAccountId = incomingPaymentDetailCreateRequest.internalAccountId
+                type = incomingPaymentDetailCreateRequest.type
+                virtualAccountId = incomingPaymentDetailCreateRequest.virtualAccountId
                 additionalProperties =
-                    incomingPaymentDetailCreateAsyncBody.additionalProperties.toMutableMap()
+                    incomingPaymentDetailCreateRequest.additionalProperties.toMutableMap()
             }
 
             /**
@@ -315,8 +315,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): IncomingPaymentDetailCreateAsyncBody =
-                IncomingPaymentDetailCreateAsyncBody(
+            fun build(): IncomingPaymentDetailCreateRequest =
+                IncomingPaymentDetailCreateRequest(
                     amount,
                     asOfDate,
                     currency,
@@ -334,7 +334,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is IncomingPaymentDetailCreateAsyncBody && amount == other.amount && asOfDate == other.asOfDate && currency == other.currency && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && type == other.type && virtualAccountId == other.virtualAccountId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is IncomingPaymentDetailCreateRequest && amount == other.amount && asOfDate == other.asOfDate && currency == other.currency && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && type == other.type && virtualAccountId == other.virtualAccountId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -344,7 +344,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "IncomingPaymentDetailCreateAsyncBody{amount=$amount, asOfDate=$asOfDate, currency=$currency, description=$description, direction=$direction, internalAccountId=$internalAccountId, type=$type, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
+            "IncomingPaymentDetailCreateRequest{amount=$amount, asOfDate=$asOfDate, currency=$currency, description=$description, direction=$direction, internalAccountId=$internalAccountId, type=$type, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -358,8 +358,8 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: IncomingPaymentDetailCreateAsyncBody.Builder =
-            IncomingPaymentDetailCreateAsyncBody.builder()
+        private var body: IncomingPaymentDetailCreateRequest.Builder =
+            IncomingPaymentDetailCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

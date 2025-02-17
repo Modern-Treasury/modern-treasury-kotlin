@@ -62,7 +62,9 @@ class ExternalAccountUpdateParamsTest {
                 .partyName("party_name")
                 .partyType(ExternalAccountUpdateParams.PartyType.BUSINESS)
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.accountType()).isEqualTo(ExternalAccountType.CASH)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -91,7 +93,9 @@ class ExternalAccountUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = ExternalAccountUpdateParams.builder().id("id").build()
+
         val body = params._body()
+
         assertNotNull(body)
     }
 

@@ -85,7 +85,9 @@ class LedgerTransactionCreatePartialPostParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.postedLedgerEntries())
             .isEqualTo(
@@ -144,7 +146,9 @@ class LedgerTransactionCreatePartialPostParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.postedLedgerEntries())
             .isEqualTo(

@@ -814,7 +814,9 @@ class CounterpartyCreateParamsTest {
                 .taxpayerIdentifier("taxpayer_identifier")
                 .verificationStatus(CounterpartyCreateParams.VerificationStatus.DENIED)
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.accounting())
@@ -1218,7 +1220,9 @@ class CounterpartyCreateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = CounterpartyCreateParams.builder().name("name").build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.name()).isEqualTo("name")
     }

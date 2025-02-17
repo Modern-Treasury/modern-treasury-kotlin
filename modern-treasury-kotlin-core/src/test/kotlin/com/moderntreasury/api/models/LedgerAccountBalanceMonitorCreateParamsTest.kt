@@ -52,7 +52,9 @@ class LedgerAccountBalanceMonitorCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.alertCondition())
             .isEqualTo(
@@ -87,7 +89,9 @@ class LedgerAccountBalanceMonitorCreateParamsTest {
                 )
                 .ledgerAccountId("ledger_account_id")
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.alertCondition())
             .isEqualTo(

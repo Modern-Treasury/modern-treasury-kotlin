@@ -607,7 +607,9 @@ class ConnectionLegalEntityCreateParamsTest {
                 )
                 .legalEntityId("legal_entity_id")
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.connectionId()).isEqualTo("connection_id")
         assertThat(body.legalEntity())
@@ -904,7 +906,9 @@ class ConnectionLegalEntityCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             ConnectionLegalEntityCreateParams.builder().connectionId("connection_id").build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.connectionId()).isEqualTo("connection_id")
     }

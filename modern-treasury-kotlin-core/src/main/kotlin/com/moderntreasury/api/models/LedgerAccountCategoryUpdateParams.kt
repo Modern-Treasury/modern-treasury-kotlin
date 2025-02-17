@@ -23,7 +23,7 @@ import java.util.Objects
 class LedgerAccountCategoryUpdateParams
 private constructor(
     private val id: String,
-    private val body: LedgerAccountCategoryUpdateBody,
+    private val body: LedgerAccountCategoryUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -54,7 +54,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerAccountCategoryUpdateBody = body
+    internal fun _body(): LedgerAccountCategoryUpdateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -68,9 +68,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class LedgerAccountCategoryUpdateBody
+    class LedgerAccountCategoryUpdateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("description")
         @ExcludeMissing
         private val description: JsonField<String> = JsonMissing.of(),
@@ -114,7 +114,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LedgerAccountCategoryUpdateBody = apply {
+        fun validate(): LedgerAccountCategoryUpdateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -132,7 +132,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [LedgerAccountCategoryUpdateBody]. */
+        /** A builder for [LedgerAccountCategoryUpdateRequest]. */
         class Builder internal constructor() {
 
             private var description: JsonField<String> = JsonMissing.of()
@@ -140,14 +140,15 @@ private constructor(
             private var name: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(ledgerAccountCategoryUpdateBody: LedgerAccountCategoryUpdateBody) =
-                apply {
-                    description = ledgerAccountCategoryUpdateBody.description
-                    metadata = ledgerAccountCategoryUpdateBody.metadata
-                    name = ledgerAccountCategoryUpdateBody.name
-                    additionalProperties =
-                        ledgerAccountCategoryUpdateBody.additionalProperties.toMutableMap()
-                }
+            internal fun from(
+                ledgerAccountCategoryUpdateRequest: LedgerAccountCategoryUpdateRequest
+            ) = apply {
+                description = ledgerAccountCategoryUpdateRequest.description
+                metadata = ledgerAccountCategoryUpdateRequest.metadata
+                name = ledgerAccountCategoryUpdateRequest.name
+                additionalProperties =
+                    ledgerAccountCategoryUpdateRequest.additionalProperties.toMutableMap()
+            }
 
             /** The description of the ledger account category. */
             fun description(description: String?) = description(JsonField.ofNullable(description))
@@ -194,8 +195,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LedgerAccountCategoryUpdateBody =
-                LedgerAccountCategoryUpdateBody(
+            fun build(): LedgerAccountCategoryUpdateRequest =
+                LedgerAccountCategoryUpdateRequest(
                     description,
                     metadata,
                     name,
@@ -208,7 +209,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerAccountCategoryUpdateBody && description == other.description && metadata == other.metadata && name == other.name && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerAccountCategoryUpdateRequest && description == other.description && metadata == other.metadata && name == other.name && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -218,7 +219,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerAccountCategoryUpdateBody{description=$description, metadata=$metadata, name=$name, additionalProperties=$additionalProperties}"
+            "LedgerAccountCategoryUpdateRequest{description=$description, metadata=$metadata, name=$name, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -233,8 +234,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: LedgerAccountCategoryUpdateBody.Builder =
-            LedgerAccountCategoryUpdateBody.builder()
+        private var body: LedgerAccountCategoryUpdateRequest.Builder =
+            LedgerAccountCategoryUpdateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

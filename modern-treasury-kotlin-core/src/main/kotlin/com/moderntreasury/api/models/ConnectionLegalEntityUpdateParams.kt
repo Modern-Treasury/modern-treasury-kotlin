@@ -25,7 +25,7 @@ import java.util.Objects
 class ConnectionLegalEntityUpdateParams
 private constructor(
     private val id: String,
-    private val body: ConnectionLegalEntityUpdateBody,
+    private val body: ConnectionLegalEntityUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -44,7 +44,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): ConnectionLegalEntityUpdateBody = body
+    internal fun _body(): ConnectionLegalEntityUpdateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -58,9 +58,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class ConnectionLegalEntityUpdateBody
+    class ConnectionLegalEntityUpdateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("status")
         @ExcludeMissing
         private val status: JsonField<Status> = JsonMissing.of(),
@@ -80,7 +80,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): ConnectionLegalEntityUpdateBody = apply {
+        fun validate(): ConnectionLegalEntityUpdateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -96,18 +96,19 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [ConnectionLegalEntityUpdateBody]. */
+        /** A builder for [ConnectionLegalEntityUpdateRequest]. */
         class Builder internal constructor() {
 
             private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(connectionLegalEntityUpdateBody: ConnectionLegalEntityUpdateBody) =
-                apply {
-                    status = connectionLegalEntityUpdateBody.status
-                    additionalProperties =
-                        connectionLegalEntityUpdateBody.additionalProperties.toMutableMap()
-                }
+            internal fun from(
+                connectionLegalEntityUpdateRequest: ConnectionLegalEntityUpdateRequest
+            ) = apply {
+                status = connectionLegalEntityUpdateRequest.status
+                additionalProperties =
+                    connectionLegalEntityUpdateRequest.additionalProperties.toMutableMap()
+            }
 
             /** The status of the connection legal entity. */
             fun status(status: Status) = status(JsonField.of(status))
@@ -134,8 +135,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): ConnectionLegalEntityUpdateBody =
-                ConnectionLegalEntityUpdateBody(status, additionalProperties.toImmutable())
+            fun build(): ConnectionLegalEntityUpdateRequest =
+                ConnectionLegalEntityUpdateRequest(status, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -143,7 +144,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ConnectionLegalEntityUpdateBody && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ConnectionLegalEntityUpdateRequest && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -153,7 +154,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ConnectionLegalEntityUpdateBody{status=$status, additionalProperties=$additionalProperties}"
+            "ConnectionLegalEntityUpdateRequest{status=$status, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -168,8 +169,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: ConnectionLegalEntityUpdateBody.Builder =
-            ConnectionLegalEntityUpdateBody.builder()
+        private var body: ConnectionLegalEntityUpdateRequest.Builder =
+            ConnectionLegalEntityUpdateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

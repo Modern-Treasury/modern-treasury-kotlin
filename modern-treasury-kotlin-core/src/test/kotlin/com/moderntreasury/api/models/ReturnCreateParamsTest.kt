@@ -32,7 +32,9 @@ class ReturnCreateParamsTest {
                 .dateOfDeath(LocalDate.parse("2019-12-27"))
                 .reason("reason")
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.returnableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.returnableType())
@@ -50,7 +52,9 @@ class ReturnCreateParamsTest {
                 .returnableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .returnableType(ReturnCreateParams.ReturnableType.INCOMING_PAYMENT_DETAIL)
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.returnableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.returnableType())

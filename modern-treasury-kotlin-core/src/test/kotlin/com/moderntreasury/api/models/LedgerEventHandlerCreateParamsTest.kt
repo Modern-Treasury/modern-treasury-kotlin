@@ -124,7 +124,9 @@ class LedgerEventHandlerCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.ledgerTransactionTemplate())
             .isEqualTo(
@@ -207,7 +209,9 @@ class LedgerEventHandlerCreateParamsTest {
                 )
                 .name("name")
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.ledgerTransactionTemplate())
             .isEqualTo(

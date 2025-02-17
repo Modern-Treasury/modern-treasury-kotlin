@@ -29,6 +29,7 @@ class DocumentCreateParamsTest {
                 .file("some content".toByteArray())
                 .documentType("document_type")
                 .build()
+
         val body = params._body()
 
         assertNotNull(body)
@@ -65,6 +66,7 @@ class DocumentCreateParamsTest {
                 .documentableType(DocumentCreateParams.DocumentableType.CASES)
                 .file("some content".toByteArray())
                 .build()
+
         val body = params._body()
 
         assertNotNull(body)
@@ -85,7 +87,6 @@ class DocumentCreateParamsTest {
                     "some content".toByteArray(),
                     ContentTypes.DefaultBinary,
                 ),
-                null,
             )
     }
 }

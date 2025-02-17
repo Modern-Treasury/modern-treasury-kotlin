@@ -25,7 +25,7 @@ import java.util.Objects
 /** create legal_entity_association */
 class LegalEntityAssociationCreateParams
 private constructor(
-    private val body: LegalEntityAssociationCreateBody,
+    private val body: LegalEntityAssociationCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -70,16 +70,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LegalEntityAssociationCreateBody = body
+    internal fun _body(): LegalEntityAssociationCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class LegalEntityAssociationCreateBody
+    class LegalEntityAssociationCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("parent_legal_entity_id")
         @ExcludeMissing
         private val parentLegalEntityId: JsonField<String> = JsonMissing.of(),
@@ -155,7 +155,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LegalEntityAssociationCreateBody = apply {
+        fun validate(): LegalEntityAssociationCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -176,7 +176,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [LegalEntityAssociationCreateBody]. */
+        /** A builder for [LegalEntityAssociationCreateRequest]. */
         class Builder internal constructor() {
 
             private var parentLegalEntityId: JsonField<String>? = null
@@ -187,20 +187,19 @@ private constructor(
             private var title: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(legalEntityAssociationCreateBody: LegalEntityAssociationCreateBody) =
-                apply {
-                    parentLegalEntityId = legalEntityAssociationCreateBody.parentLegalEntityId
-                    relationshipTypes =
-                        legalEntityAssociationCreateBody.relationshipTypes.map {
-                            it.toMutableList()
-                        }
-                    childLegalEntity = legalEntityAssociationCreateBody.childLegalEntity
-                    childLegalEntityId = legalEntityAssociationCreateBody.childLegalEntityId
-                    ownershipPercentage = legalEntityAssociationCreateBody.ownershipPercentage
-                    title = legalEntityAssociationCreateBody.title
-                    additionalProperties =
-                        legalEntityAssociationCreateBody.additionalProperties.toMutableMap()
-                }
+            internal fun from(
+                legalEntityAssociationCreateRequest: LegalEntityAssociationCreateRequest
+            ) = apply {
+                parentLegalEntityId = legalEntityAssociationCreateRequest.parentLegalEntityId
+                relationshipTypes =
+                    legalEntityAssociationCreateRequest.relationshipTypes.map { it.toMutableList() }
+                childLegalEntity = legalEntityAssociationCreateRequest.childLegalEntity
+                childLegalEntityId = legalEntityAssociationCreateRequest.childLegalEntityId
+                ownershipPercentage = legalEntityAssociationCreateRequest.ownershipPercentage
+                title = legalEntityAssociationCreateRequest.title
+                additionalProperties =
+                    legalEntityAssociationCreateRequest.additionalProperties.toMutableMap()
+            }
 
             /** The ID of the parent legal entity. This must be a business or joint legal entity. */
             fun parentLegalEntityId(parentLegalEntityId: String) =
@@ -285,8 +284,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LegalEntityAssociationCreateBody =
-                LegalEntityAssociationCreateBody(
+            fun build(): LegalEntityAssociationCreateRequest =
+                LegalEntityAssociationCreateRequest(
                     checkRequired("parentLegalEntityId", parentLegalEntityId),
                     checkRequired("relationshipTypes", relationshipTypes).map { it.toImmutable() },
                     childLegalEntity,
@@ -302,7 +301,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LegalEntityAssociationCreateBody && parentLegalEntityId == other.parentLegalEntityId && relationshipTypes == other.relationshipTypes && childLegalEntity == other.childLegalEntity && childLegalEntityId == other.childLegalEntityId && ownershipPercentage == other.ownershipPercentage && title == other.title && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LegalEntityAssociationCreateRequest && parentLegalEntityId == other.parentLegalEntityId && relationshipTypes == other.relationshipTypes && childLegalEntity == other.childLegalEntity && childLegalEntityId == other.childLegalEntityId && ownershipPercentage == other.ownershipPercentage && title == other.title && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -312,7 +311,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LegalEntityAssociationCreateBody{parentLegalEntityId=$parentLegalEntityId, relationshipTypes=$relationshipTypes, childLegalEntity=$childLegalEntity, childLegalEntityId=$childLegalEntityId, ownershipPercentage=$ownershipPercentage, title=$title, additionalProperties=$additionalProperties}"
+            "LegalEntityAssociationCreateRequest{parentLegalEntityId=$parentLegalEntityId, relationshipTypes=$relationshipTypes, childLegalEntity=$childLegalEntity, childLegalEntityId=$childLegalEntityId, ownershipPercentage=$ownershipPercentage, title=$title, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -326,8 +325,8 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: LegalEntityAssociationCreateBody.Builder =
-            LegalEntityAssociationCreateBody.builder()
+        private var body: LegalEntityAssociationCreateRequest.Builder =
+            LegalEntityAssociationCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

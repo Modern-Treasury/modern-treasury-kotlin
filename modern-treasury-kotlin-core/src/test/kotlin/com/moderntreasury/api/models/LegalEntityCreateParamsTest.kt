@@ -502,7 +502,9 @@ class LegalEntityCreateParamsTest {
                 )
                 .website("website")
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.legalEntityType())
             .isEqualTo(LegalEntityCreateParams.LegalEntityType.BUSINESS)
@@ -778,7 +780,9 @@ class LegalEntityCreateParamsTest {
             LegalEntityCreateParams.builder()
                 .legalEntityType(LegalEntityCreateParams.LegalEntityType.BUSINESS)
                 .build()
+
         val body = params._body()
+
         assertNotNull(body)
         assertThat(body.legalEntityType())
             .isEqualTo(LegalEntityCreateParams.LegalEntityType.BUSINESS)

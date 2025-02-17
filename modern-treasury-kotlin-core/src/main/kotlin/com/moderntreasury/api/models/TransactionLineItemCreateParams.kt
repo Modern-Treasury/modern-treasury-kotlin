@@ -22,7 +22,7 @@ import java.util.Objects
 /** create transaction line items */
 class TransactionLineItemCreateParams
 private constructor(
-    private val body: TransactionLineItemCreateBody,
+    private val body: TransactionLineItemCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -57,16 +57,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): TransactionLineItemCreateBody = body
+    internal fun _body(): TransactionLineItemCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class TransactionLineItemCreateBody
+    class TransactionLineItemCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("amount")
         @ExcludeMissing
         private val amount: JsonField<Long> = JsonMissing.of(),
@@ -114,7 +114,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): TransactionLineItemCreateBody = apply {
+        fun validate(): TransactionLineItemCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -132,7 +132,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [TransactionLineItemCreateBody]. */
+        /** A builder for [TransactionLineItemCreateRequest]. */
         class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
@@ -140,13 +140,13 @@ private constructor(
             private var transactionId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(transactionLineItemCreateBody: TransactionLineItemCreateBody) =
+            internal fun from(transactionLineItemCreateRequest: TransactionLineItemCreateRequest) =
                 apply {
-                    amount = transactionLineItemCreateBody.amount
-                    expectedPaymentId = transactionLineItemCreateBody.expectedPaymentId
-                    transactionId = transactionLineItemCreateBody.transactionId
+                    amount = transactionLineItemCreateRequest.amount
+                    expectedPaymentId = transactionLineItemCreateRequest.expectedPaymentId
+                    transactionId = transactionLineItemCreateRequest.transactionId
                     additionalProperties =
-                        transactionLineItemCreateBody.additionalProperties.toMutableMap()
+                        transactionLineItemCreateRequest.additionalProperties.toMutableMap()
                 }
 
             /**
@@ -197,8 +197,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): TransactionLineItemCreateBody =
-                TransactionLineItemCreateBody(
+            fun build(): TransactionLineItemCreateRequest =
+                TransactionLineItemCreateRequest(
                     checkRequired("amount", amount),
                     checkRequired("expectedPaymentId", expectedPaymentId),
                     checkRequired("transactionId", transactionId),
@@ -211,7 +211,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is TransactionLineItemCreateBody && amount == other.amount && expectedPaymentId == other.expectedPaymentId && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is TransactionLineItemCreateRequest && amount == other.amount && expectedPaymentId == other.expectedPaymentId && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -221,7 +221,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "TransactionLineItemCreateBody{amount=$amount, expectedPaymentId=$expectedPaymentId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+            "TransactionLineItemCreateRequest{amount=$amount, expectedPaymentId=$expectedPaymentId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -235,8 +235,8 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: TransactionLineItemCreateBody.Builder =
-            TransactionLineItemCreateBody.builder()
+        private var body: TransactionLineItemCreateRequest.Builder =
+            TransactionLineItemCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

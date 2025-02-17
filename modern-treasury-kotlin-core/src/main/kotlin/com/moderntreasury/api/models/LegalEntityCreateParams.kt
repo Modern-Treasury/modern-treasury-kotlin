@@ -25,7 +25,7 @@ import java.util.Objects
 /** create legal_entity */
 class LegalEntityCreateParams
 private constructor(
-    private val body: LegalEntityCreateBody,
+    private val body: LegalEntityCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -176,16 +176,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LegalEntityCreateBody = body
+    internal fun _body(): LegalEntityCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class LegalEntityCreateBody
+    class LegalEntityCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("legal_entity_type")
         @ExcludeMissing
         private val legalEntityType: JsonField<LegalEntityType> = JsonMissing.of(),
@@ -453,7 +453,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LegalEntityCreateBody = apply {
+        fun validate(): LegalEntityCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -492,7 +492,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [LegalEntityCreateBody]. */
+        /** A builder for [LegalEntityCreateRequest]. */
         class Builder internal constructor() {
 
             private var legalEntityType: JsonField<LegalEntityType>? = null
@@ -524,34 +524,35 @@ private constructor(
             private var website: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(legalEntityCreateBody: LegalEntityCreateBody) = apply {
-                legalEntityType = legalEntityCreateBody.legalEntityType
-                addresses = legalEntityCreateBody.addresses.map { it.toMutableList() }
-                bankSettings = legalEntityCreateBody.bankSettings
-                businessName = legalEntityCreateBody.businessName
-                citizenshipCountry = legalEntityCreateBody.citizenshipCountry
-                dateFormed = legalEntityCreateBody.dateFormed
-                dateOfBirth = legalEntityCreateBody.dateOfBirth
+            internal fun from(legalEntityCreateRequest: LegalEntityCreateRequest) = apply {
+                legalEntityType = legalEntityCreateRequest.legalEntityType
+                addresses = legalEntityCreateRequest.addresses.map { it.toMutableList() }
+                bankSettings = legalEntityCreateRequest.bankSettings
+                businessName = legalEntityCreateRequest.businessName
+                citizenshipCountry = legalEntityCreateRequest.citizenshipCountry
+                dateFormed = legalEntityCreateRequest.dateFormed
+                dateOfBirth = legalEntityCreateRequest.dateOfBirth
                 doingBusinessAsNames =
-                    legalEntityCreateBody.doingBusinessAsNames.map { it.toMutableList() }
-                email = legalEntityCreateBody.email
-                firstName = legalEntityCreateBody.firstName
-                identifications = legalEntityCreateBody.identifications.map { it.toMutableList() }
-                lastName = legalEntityCreateBody.lastName
+                    legalEntityCreateRequest.doingBusinessAsNames.map { it.toMutableList() }
+                email = legalEntityCreateRequest.email
+                firstName = legalEntityCreateRequest.firstName
+                identifications =
+                    legalEntityCreateRequest.identifications.map { it.toMutableList() }
+                lastName = legalEntityCreateRequest.lastName
                 legalEntityAssociations =
-                    legalEntityCreateBody.legalEntityAssociations.map { it.toMutableList() }
-                legalStructure = legalEntityCreateBody.legalStructure
-                metadata = legalEntityCreateBody.metadata
-                middleName = legalEntityCreateBody.middleName
-                phoneNumbers = legalEntityCreateBody.phoneNumbers.map { it.toMutableList() }
-                politicallyExposedPerson = legalEntityCreateBody.politicallyExposedPerson
-                preferredName = legalEntityCreateBody.preferredName
-                prefix = legalEntityCreateBody.prefix
-                riskRating = legalEntityCreateBody.riskRating
-                suffix = legalEntityCreateBody.suffix
-                wealthAndEmploymentDetails = legalEntityCreateBody.wealthAndEmploymentDetails
-                website = legalEntityCreateBody.website
-                additionalProperties = legalEntityCreateBody.additionalProperties.toMutableMap()
+                    legalEntityCreateRequest.legalEntityAssociations.map { it.toMutableList() }
+                legalStructure = legalEntityCreateRequest.legalStructure
+                metadata = legalEntityCreateRequest.metadata
+                middleName = legalEntityCreateRequest.middleName
+                phoneNumbers = legalEntityCreateRequest.phoneNumbers.map { it.toMutableList() }
+                politicallyExposedPerson = legalEntityCreateRequest.politicallyExposedPerson
+                preferredName = legalEntityCreateRequest.preferredName
+                prefix = legalEntityCreateRequest.prefix
+                riskRating = legalEntityCreateRequest.riskRating
+                suffix = legalEntityCreateRequest.suffix
+                wealthAndEmploymentDetails = legalEntityCreateRequest.wealthAndEmploymentDetails
+                website = legalEntityCreateRequest.website
+                additionalProperties = legalEntityCreateRequest.additionalProperties.toMutableMap()
             }
 
             /** The type of legal entity. */
@@ -830,8 +831,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LegalEntityCreateBody =
-                LegalEntityCreateBody(
+            fun build(): LegalEntityCreateRequest =
+                LegalEntityCreateRequest(
                     checkRequired("legalEntityType", legalEntityType),
                     (addresses ?: JsonMissing.of()).map { it.toImmutable() },
                     bankSettings,
@@ -865,7 +866,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LegalEntityCreateBody && legalEntityType == other.legalEntityType && addresses == other.addresses && bankSettings == other.bankSettings && businessName == other.businessName && citizenshipCountry == other.citizenshipCountry && dateFormed == other.dateFormed && dateOfBirth == other.dateOfBirth && doingBusinessAsNames == other.doingBusinessAsNames && email == other.email && firstName == other.firstName && identifications == other.identifications && lastName == other.lastName && legalEntityAssociations == other.legalEntityAssociations && legalStructure == other.legalStructure && metadata == other.metadata && middleName == other.middleName && phoneNumbers == other.phoneNumbers && politicallyExposedPerson == other.politicallyExposedPerson && preferredName == other.preferredName && prefix == other.prefix && riskRating == other.riskRating && suffix == other.suffix && wealthAndEmploymentDetails == other.wealthAndEmploymentDetails && website == other.website && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LegalEntityCreateRequest && legalEntityType == other.legalEntityType && addresses == other.addresses && bankSettings == other.bankSettings && businessName == other.businessName && citizenshipCountry == other.citizenshipCountry && dateFormed == other.dateFormed && dateOfBirth == other.dateOfBirth && doingBusinessAsNames == other.doingBusinessAsNames && email == other.email && firstName == other.firstName && identifications == other.identifications && lastName == other.lastName && legalEntityAssociations == other.legalEntityAssociations && legalStructure == other.legalStructure && metadata == other.metadata && middleName == other.middleName && phoneNumbers == other.phoneNumbers && politicallyExposedPerson == other.politicallyExposedPerson && preferredName == other.preferredName && prefix == other.prefix && riskRating == other.riskRating && suffix == other.suffix && wealthAndEmploymentDetails == other.wealthAndEmploymentDetails && website == other.website && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -875,7 +876,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LegalEntityCreateBody{legalEntityType=$legalEntityType, addresses=$addresses, bankSettings=$bankSettings, businessName=$businessName, citizenshipCountry=$citizenshipCountry, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, identifications=$identifications, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalStructure=$legalStructure, metadata=$metadata, middleName=$middleName, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, riskRating=$riskRating, suffix=$suffix, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
+            "LegalEntityCreateRequest{legalEntityType=$legalEntityType, addresses=$addresses, bankSettings=$bankSettings, businessName=$businessName, citizenshipCountry=$citizenshipCountry, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, firstName=$firstName, identifications=$identifications, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalStructure=$legalStructure, metadata=$metadata, middleName=$middleName, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, riskRating=$riskRating, suffix=$suffix, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -889,7 +890,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: LegalEntityCreateBody.Builder = LegalEntityCreateBody.builder()
+        private var body: LegalEntityCreateRequest.Builder = LegalEntityCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
