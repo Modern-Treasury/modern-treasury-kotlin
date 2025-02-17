@@ -13,12 +13,12 @@ interface EventServiceAsync {
     /** get event */
     suspend fun retrieve(
         params: EventRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Event
 
     /** list events */
     suspend fun list(
         params: EventListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): EventListPageAsync
 }

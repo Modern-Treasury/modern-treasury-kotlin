@@ -16,30 +16,30 @@ interface LedgerService {
     /** Create a ledger. */
     fun create(
         params: LedgerCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Ledger
 
     /** Get details on a single ledger. */
     fun retrieve(
         params: LedgerRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Ledger
 
     /** Update the details of a ledger. */
     fun update(
         params: LedgerUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Ledger
 
     /** Get a list of ledgers. */
     fun list(
         params: LedgerListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerListPage
 
     /** Delete a ledger. */
     fun delete(
         params: LedgerDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Ledger
 }

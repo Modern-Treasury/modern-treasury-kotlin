@@ -16,30 +16,30 @@ interface LedgerAccountServiceAsync {
     /** Create a ledger account. */
     suspend fun create(
         params: LedgerAccountCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccount
 
     /** Get details on a single ledger account. */
     suspend fun retrieve(
         params: LedgerAccountRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccount
 
     /** Update the details of a ledger account. */
     suspend fun update(
         params: LedgerAccountUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccount
 
     /** Get a list of ledger accounts. */
     suspend fun list(
         params: LedgerAccountListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountListPageAsync
 
     /** Delete a ledger account. */
     suspend fun delete(
         params: LedgerAccountDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccount
 }

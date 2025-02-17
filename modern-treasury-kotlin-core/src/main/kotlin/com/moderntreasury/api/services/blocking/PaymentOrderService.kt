@@ -20,30 +20,30 @@ interface PaymentOrderService {
     /** Create a new Payment Order */
     fun create(
         params: PaymentOrderCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentOrder
 
     /** Get details on a single payment order */
     fun retrieve(
         params: PaymentOrderRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentOrder
 
     /** Update a payment order */
     fun update(
         params: PaymentOrderUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentOrder
 
     /** Get a list of all payment orders */
     fun list(
         params: PaymentOrderListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentOrderListPage
 
     /** Create a new payment order asynchronously */
     fun createAsync(
         params: PaymentOrderCreateAsyncParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AsyncResponse
 }

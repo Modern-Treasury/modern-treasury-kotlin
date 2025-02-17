@@ -155,7 +155,7 @@ private constructor(
             fun build(): AccountCollectionFlowUpdateBody =
                 AccountCollectionFlowUpdateBody(
                     checkRequired("status", status),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -347,11 +347,7 @@ private constructor(
      * Required. The updated status of the account collection flow. Can only be used to mark a flow
      * as `cancelled`.
      */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -372,7 +368,7 @@ private constructor(
 
         /** An enum containing [Status]'s known values. */
         enum class Known {
-            CANCELLED,
+            CANCELLED
         }
 
         /**

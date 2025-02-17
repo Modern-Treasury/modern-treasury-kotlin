@@ -228,11 +228,7 @@ private constructor(
     }
 
     /** One of create, or update. */
-    class ActionType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class ActionType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -332,10 +328,7 @@ private constructor(
      * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
      * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
      */
-    class Metadata
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    class Metadata private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
@@ -429,11 +422,8 @@ private constructor(
     }
 
     /** One of payment_order, expected_payment, or ledger_transaction. */
-    class ResourceType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class ResourceType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -536,11 +526,7 @@ private constructor(
     }
 
     /** One of pending, processing, or completed. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

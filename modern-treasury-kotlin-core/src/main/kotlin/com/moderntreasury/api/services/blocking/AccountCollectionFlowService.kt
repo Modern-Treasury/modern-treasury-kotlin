@@ -15,24 +15,24 @@ interface AccountCollectionFlowService {
     /** create account_collection_flow */
     fun create(
         params: AccountCollectionFlowCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountCollectionFlow
 
     /** get account_collection_flow */
     fun retrieve(
         params: AccountCollectionFlowRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountCollectionFlow
 
     /** update account_collection_flow */
     fun update(
         params: AccountCollectionFlowUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountCollectionFlow
 
     /** list account_collection_flows */
     fun list(
         params: AccountCollectionFlowListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountCollectionFlowListPage
 }

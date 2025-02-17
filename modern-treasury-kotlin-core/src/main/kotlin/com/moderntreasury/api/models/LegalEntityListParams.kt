@@ -214,11 +214,8 @@ private constructor(
             )
     }
 
-    class LegalEntityType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class LegalEntityType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -313,10 +310,7 @@ private constructor(
      * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
      * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
      */
-    class Metadata
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    class Metadata private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 

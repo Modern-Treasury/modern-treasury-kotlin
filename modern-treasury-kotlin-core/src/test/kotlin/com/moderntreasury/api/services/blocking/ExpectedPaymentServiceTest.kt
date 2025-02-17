@@ -70,7 +70,7 @@ class ExpectedPaymentServiceTest {
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .putAdditionalProperty(
                                                 "modern",
-                                                JsonValue.from("treasury")
+                                                JsonValue.from("treasury"),
                                             )
                                             .build()
                                     )

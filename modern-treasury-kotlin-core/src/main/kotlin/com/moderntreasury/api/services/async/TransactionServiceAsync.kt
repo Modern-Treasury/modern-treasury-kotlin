@@ -19,30 +19,30 @@ interface TransactionServiceAsync {
     /** create transaction */
     suspend fun create(
         params: TransactionCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
 
     /** Get details on a single transaction. */
     suspend fun retrieve(
         params: TransactionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
 
     /** Update a single transaction. */
     suspend fun update(
         params: TransactionUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
 
     /** Get a list of all transactions. */
     suspend fun list(
         params: TransactionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionListPageAsync
 
     /** delete transaction */
     suspend fun delete(
         params: TransactionDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     )
 }

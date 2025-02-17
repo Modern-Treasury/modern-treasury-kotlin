@@ -73,13 +73,8 @@ private constructor(
         fun of(
             reversalsService: ReversalServiceAsync,
             params: PaymentOrderReversalListParams,
-            response: Response
-        ) =
-            PaymentOrderReversalListPageAsync(
-                reversalsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = PaymentOrderReversalListPageAsync(reversalsService, params, response)
     }
 
     @NoAutoDetect
@@ -163,18 +158,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: PaymentOrderReversalListPageAsync,
-    ) : Flow<Reversal> {
+    class AutoPager(private val firstPage: PaymentOrderReversalListPageAsync) : Flow<Reversal> {
 
         override suspend fun collect(collector: FlowCollector<Reversal>) {
             var page = firstPage

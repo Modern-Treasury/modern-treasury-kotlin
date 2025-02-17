@@ -16,30 +16,30 @@ interface VirtualAccountServiceAsync {
     /** create virtual_account */
     suspend fun create(
         params: VirtualAccountCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualAccount
 
     /** get virtual_account */
     suspend fun retrieve(
         params: VirtualAccountRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualAccount
 
     /** update virtual_account */
     suspend fun update(
         params: VirtualAccountUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualAccount
 
     /** Get a list of virtual accounts. */
     suspend fun list(
         params: VirtualAccountListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualAccountListPageAsync
 
     /** delete virtual_account */
     suspend fun delete(
         params: VirtualAccountDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualAccount
 }

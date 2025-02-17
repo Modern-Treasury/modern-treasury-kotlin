@@ -11,6 +11,6 @@ interface LegalEntityAssociationServiceAsync {
     /** create legal_entity_association */
     suspend fun create(
         params: LegalEntityAssociationCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LegalEntityAssociation
 }

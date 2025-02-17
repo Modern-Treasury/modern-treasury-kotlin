@@ -176,7 +176,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .putAdditionalProperty(
                                                 "modern",
-                                                JsonValue.from("treasury")
+                                                JsonValue.from("treasury"),
                                             )
                                             .build()
                                     )
@@ -470,12 +470,12 @@ class ConnectionLegalEntityCreateParamsTest {
                                                 .builder()
                                                 .putAdditionalProperty(
                                                     "key",
-                                                    JsonValue.from("value")
+                                                    JsonValue.from("value"),
                                                 )
                                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                                 .putAdditionalProperty(
                                                     "modern",
-                                                    JsonValue.from("treasury")
+                                                    JsonValue.from("treasury"),
                                                 )
                                                 .build()
                                         )
@@ -772,7 +772,7 @@ class ConnectionLegalEntityCreateParamsTest {
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .putAdditionalProperty(
                                                 "modern",
-                                                JsonValue.from("treasury")
+                                                JsonValue.from("treasury"),
                                             )
                                             .build()
                                     )

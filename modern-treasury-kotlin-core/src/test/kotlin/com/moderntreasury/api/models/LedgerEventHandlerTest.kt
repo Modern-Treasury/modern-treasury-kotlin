@@ -64,9 +64,9 @@ class LedgerEventHandlerTest {
                                             "operator" to "equals",
                                             "value" to "my_credit_account",
                                         ),
-                                    "type" to "ledger_account"
+                                    "type" to "ledger_account",
                                 )
-                            )
+                            ),
                         )
                         .build()
                 )
@@ -130,9 +130,9 @@ class LedgerEventHandlerTest {
                                         "operator" to "equals",
                                         "value" to "my_credit_account",
                                     ),
-                                "type" to "ledger_account"
+                                "type" to "ledger_account",
                             )
-                        )
+                        ),
                     )
                     .build()
             )

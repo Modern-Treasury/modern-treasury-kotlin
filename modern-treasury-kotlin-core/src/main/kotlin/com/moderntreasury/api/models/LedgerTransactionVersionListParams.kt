@@ -251,10 +251,7 @@ private constructor(
      * timestamp. For example, for all dates after Jan 1 2000 12:00 UTC, use
      * created_at%5Bgt%5D=2000-01-01T12:00:00Z.
      */
-    class CreatedAt
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    class CreatedAt private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
@@ -351,10 +348,7 @@ private constructor(
      * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the version. For
      * example, for all versions after 2, use version%5Bgt%5D=2.
      */
-    class Version
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    class Version private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 

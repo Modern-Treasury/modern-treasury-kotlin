@@ -14,18 +14,18 @@ interface BulkRequestService {
     /** create bulk_request */
     fun create(
         params: BulkRequestCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkRequest
 
     /** get bulk_request */
     fun retrieve(
         params: BulkRequestRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkRequest
 
     /** list bulk_requests */
     fun list(
         params: BulkRequestListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkRequestListPage
 }

@@ -24,10 +24,8 @@ import com.moderntreasury.api.models.InvoiceUpdateParams
 import com.moderntreasury.api.services.blocking.invoices.LineItemService
 import com.moderntreasury.api.services.blocking.invoices.LineItemServiceImpl
 
-class InvoiceServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InvoiceService {
+class InvoiceServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    InvoiceService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -127,7 +125,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }
@@ -138,7 +136,7 @@ internal constructor(
     /** Add a payment order to an invoice. */
     override fun addPaymentOrder(
         params: InvoiceAddPaymentOrderParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ) {
         val request =
             HttpRequest.builder()
@@ -148,7 +146,7 @@ internal constructor(
                     "invoices",
                     params.getPathParam(0),
                     "payment_orders",
-                    params.getPathParam(1)
+                    params.getPathParam(1),
                 )
                 .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                 .build()

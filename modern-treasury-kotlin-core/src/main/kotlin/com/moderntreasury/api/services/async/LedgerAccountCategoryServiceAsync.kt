@@ -20,54 +20,54 @@ interface LedgerAccountCategoryServiceAsync {
     /** Create a ledger account category. */
     suspend fun create(
         params: LedgerAccountCategoryCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountCategory
 
     /** Get the details on a single ledger account category. */
     suspend fun retrieve(
         params: LedgerAccountCategoryRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountCategory
 
     /** Update the details of a ledger account category. */
     suspend fun update(
         params: LedgerAccountCategoryUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountCategory
 
     /** Get a list of ledger account categories. */
     suspend fun list(
         params: LedgerAccountCategoryListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountCategoryListPageAsync
 
     /** Delete a ledger account category. */
     suspend fun delete(
         params: LedgerAccountCategoryDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountCategory
 
     /** Add a ledger account to a ledger account category. */
     suspend fun addLedgerAccount(
         params: LedgerAccountCategoryAddLedgerAccountParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     )
 
     /** Add a ledger account category to a ledger account category. */
     suspend fun addNestedCategory(
         params: LedgerAccountCategoryAddNestedCategoryParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     )
 
     /** Remove a ledger account from a ledger account category. */
     suspend fun removeLedgerAccount(
         params: LedgerAccountCategoryRemoveLedgerAccountParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     )
 
     /** Delete a ledger account category from a ledger account category. */
     suspend fun removeNestedCategory(
         params: LedgerAccountCategoryRemoveNestedCategoryParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     )
 }

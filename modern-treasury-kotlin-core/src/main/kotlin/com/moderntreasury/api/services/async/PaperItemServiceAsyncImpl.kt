@@ -17,10 +17,8 @@ import com.moderntreasury.api.models.PaperItemListPageAsync
 import com.moderntreasury.api.models.PaperItemListParams
 import com.moderntreasury.api.models.PaperItemRetrieveParams
 
-class PaperItemServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : PaperItemServiceAsync {
+class PaperItemServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    PaperItemServiceAsync {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Get details on a single paper item. */
     override suspend fun retrieve(
         params: PaperItemRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PaperItem {
         val request =
             HttpRequest.builder()
@@ -54,7 +52,7 @@ internal constructor(
     /** Get a list of all paper items. */
     override suspend fun list(
         params: PaperItemListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PaperItemListPageAsync {
         val request =
             HttpRequest.builder()
@@ -78,7 +76,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

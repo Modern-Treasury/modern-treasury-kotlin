@@ -14,18 +14,18 @@ interface ReturnServiceAsync {
     /** Create a return. */
     suspend fun create(
         params: ReturnCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ReturnObject
 
     /** Get a single return. */
     suspend fun retrieve(
         params: ReturnRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ReturnObject
 
     /** Get a list of returns. */
     suspend fun list(
         params: ReturnListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ReturnListPageAsync
 }

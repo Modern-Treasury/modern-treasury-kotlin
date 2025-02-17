@@ -11,6 +11,6 @@ interface ConnectionServiceAsync {
     /** Get a list of all connections. */
     suspend fun list(
         params: ConnectionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ConnectionListPageAsync
 }

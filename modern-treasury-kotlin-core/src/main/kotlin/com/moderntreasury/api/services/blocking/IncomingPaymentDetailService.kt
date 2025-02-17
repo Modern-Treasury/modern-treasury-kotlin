@@ -16,24 +16,24 @@ interface IncomingPaymentDetailService {
     /** Get an existing Incoming Payment Detail. */
     fun retrieve(
         params: IncomingPaymentDetailRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): IncomingPaymentDetail
 
     /** Update an existing Incoming Payment Detail. */
     fun update(
         params: IncomingPaymentDetailUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): IncomingPaymentDetail
 
     /** Get a list of Incoming Payment Details. */
     fun list(
         params: IncomingPaymentDetailListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): IncomingPaymentDetailListPage
 
     /** Simulate Incoming Payment Detail */
     fun createAsync(
         params: IncomingPaymentDetailCreateAsyncParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AsyncResponse
 }

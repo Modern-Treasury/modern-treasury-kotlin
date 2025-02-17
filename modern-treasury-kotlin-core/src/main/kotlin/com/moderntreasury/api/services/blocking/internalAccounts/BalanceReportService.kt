@@ -15,24 +15,24 @@ interface BalanceReportService {
     /** create balance reports */
     fun create(
         params: BalanceReportCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BalanceReport
 
     /** Get a single balance report for a given internal account. */
     fun retrieve(
         params: BalanceReportRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BalanceReport
 
     /** Get all balance reports for a given internal account. */
     fun list(
         params: BalanceReportListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BalanceReportListPage
 
     /** Deletes a given balance report. */
     fun delete(
         params: BalanceReportDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     )
 }

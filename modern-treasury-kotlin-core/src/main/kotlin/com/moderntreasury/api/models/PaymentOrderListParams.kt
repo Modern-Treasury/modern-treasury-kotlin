@@ -118,13 +118,13 @@ private constructor(
         this.processAfterEnd?.let {
             queryParams.put(
                 "process_after_end",
-                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)),
             )
         }
         this.processAfterStart?.let {
             queryParams.put(
                 "process_after_start",
-                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)),
             )
         }
         this.referenceNumber?.let { queryParams.put("reference_number", listOf(it.toString())) }
@@ -381,10 +381,7 @@ private constructor(
      * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
      * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
      */
-    class Metadata
-    private constructor(
-        private val additionalProperties: QueryParams,
-    ) {
+    class Metadata private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
@@ -482,11 +479,7 @@ private constructor(
      * transfer, respectively. For check payments, `high` can mean an overnight check rather than
      * standard mail.
      */
-    class Priority
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Priority @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -574,11 +567,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -720,11 +709,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

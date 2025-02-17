@@ -70,13 +70,8 @@ private constructor(
         fun of(
             virtualAccountsService: VirtualAccountServiceAsync,
             params: VirtualAccountListParams,
-            response: Response
-        ) =
-            VirtualAccountListPageAsync(
-                virtualAccountsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = VirtualAccountListPageAsync(virtualAccountsService, params, response)
     }
 
     @NoAutoDetect
@@ -161,18 +156,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: VirtualAccountListPageAsync,
-    ) : Flow<VirtualAccount> {
+    class AutoPager(private val firstPage: VirtualAccountListPageAsync) : Flow<VirtualAccount> {
 
         override suspend fun collect(collector: FlowCollector<VirtualAccount>) {
             var page = firstPage

@@ -23,9 +23,7 @@ import com.moderntreasury.api.services.blocking.ledgerAccountSettlements.Account
 import com.moderntreasury.api.services.blocking.ledgerAccountSettlements.AccountEntryServiceImpl
 
 class LedgerAccountSettlementServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : LedgerAccountSettlementService {
+internal constructor(private val clientOptions: ClientOptions) : LedgerAccountSettlementService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -42,7 +40,7 @@ internal constructor(
     /** Create a ledger account settlement. */
     override fun create(
         params: LedgerAccountSettlementCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerAccountSettlement {
         val request =
             HttpRequest.builder()
@@ -68,7 +66,7 @@ internal constructor(
     /** Get details on a single ledger account settlement. */
     override fun retrieve(
         params: LedgerAccountSettlementRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerAccountSettlement {
         val request =
             HttpRequest.builder()
@@ -93,7 +91,7 @@ internal constructor(
     /** Update the details of a ledger account settlement. */
     override fun update(
         params: LedgerAccountSettlementUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerAccountSettlement {
         val request =
             HttpRequest.builder()
@@ -119,7 +117,7 @@ internal constructor(
     /** Get a list of ledger account settlements. */
     override fun list(
         params: LedgerAccountSettlementListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LedgerAccountSettlementListPage {
         val request =
             HttpRequest.builder()
@@ -143,7 +141,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

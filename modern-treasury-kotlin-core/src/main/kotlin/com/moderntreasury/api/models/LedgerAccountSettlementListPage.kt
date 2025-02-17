@@ -71,13 +71,8 @@ private constructor(
         fun of(
             ledgerAccountSettlementsService: LedgerAccountSettlementService,
             params: LedgerAccountSettlementListParams,
-            response: Response
-        ) =
-            LedgerAccountSettlementListPage(
-                ledgerAccountSettlementsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = LedgerAccountSettlementListPage(ledgerAccountSettlementsService, params, response)
     }
 
     @NoAutoDetect
@@ -164,18 +159,12 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: LedgerAccountSettlementListPage,
-    ) : Sequence<LedgerAccountSettlement> {
+    class AutoPager(private val firstPage: LedgerAccountSettlementListPage) :
+        Sequence<LedgerAccountSettlement> {
 
         override fun iterator(): Iterator<LedgerAccountSettlement> = iterator {
             var page = firstPage

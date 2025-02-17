@@ -22,9 +22,7 @@ import com.moderntreasury.api.models.IncomingPaymentDetailRetrieveParams
 import com.moderntreasury.api.models.IncomingPaymentDetailUpdateParams
 
 class IncomingPaymentDetailServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : IncomingPaymentDetailService {
+internal constructor(private val clientOptions: ClientOptions) : IncomingPaymentDetailService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Get an existing Incoming Payment Detail. */
     override fun retrieve(
         params: IncomingPaymentDetailRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): IncomingPaymentDetail {
         val request =
             HttpRequest.builder()
@@ -58,7 +56,7 @@ internal constructor(
     /** Update an existing Incoming Payment Detail. */
     override fun update(
         params: IncomingPaymentDetailUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): IncomingPaymentDetail {
         val request =
             HttpRequest.builder()
@@ -84,7 +82,7 @@ internal constructor(
     /** Get a list of Incoming Payment Details. */
     override fun list(
         params: IncomingPaymentDetailListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): IncomingPaymentDetailListPage {
         val request =
             HttpRequest.builder()
@@ -108,7 +106,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }
@@ -119,7 +117,7 @@ internal constructor(
     /** Simulate Incoming Payment Detail */
     override fun createAsync(
         params: IncomingPaymentDetailCreateAsyncParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AsyncResponse {
         val request =
             HttpRequest.builder()

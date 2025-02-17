@@ -193,12 +193,7 @@ private constructor(
             }
 
             fun build(): LedgerUpdateBody =
-                LedgerUpdateBody(
-                    description,
-                    metadata,
-                    name,
-                    additionalProperties.toImmutable(),
-                )
+                LedgerUpdateBody(description, metadata, name, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -398,7 +393,7 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
     ) {
 
         @JsonAnyGetter

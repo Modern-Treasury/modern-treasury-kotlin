@@ -15,24 +15,24 @@ interface PaymentFlowService {
     /** create payment_flow */
     fun create(
         params: PaymentFlowCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentFlow
 
     /** get payment_flow */
     fun retrieve(
         params: PaymentFlowRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentFlow
 
     /** update payment_flow */
     fun update(
         params: PaymentFlowUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentFlow
 
     /** list payment_flows */
     fun list(
         params: PaymentFlowListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentFlowListPage
 }

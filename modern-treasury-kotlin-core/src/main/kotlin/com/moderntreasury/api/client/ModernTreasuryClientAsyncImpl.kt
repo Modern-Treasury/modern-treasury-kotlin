@@ -92,9 +92,8 @@ import com.moderntreasury.api.services.async.VirtualAccountServiceAsyncImpl
 import com.moderntreasury.api.services.async.WebhookServiceAsync
 import com.moderntreasury.api.services.async.WebhookServiceAsyncImpl
 
-class ModernTreasuryClientAsyncImpl(
-    private val clientOptions: ClientOptions,
-) : ModernTreasuryClientAsync {
+class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
+    ModernTreasuryClientAsync {
 
     private val clientOptionsWithUserAgent =
         if (clientOptions.headers.names().contains("User-Agent")) clientOptions
@@ -353,7 +352,7 @@ class ModernTreasuryClientAsyncImpl(
      */
     override suspend fun ping(
         params: ClientPingParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PingResponse {
         val request =
             HttpRequest.builder()

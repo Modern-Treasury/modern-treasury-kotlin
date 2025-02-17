@@ -12,11 +12,8 @@ import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
  * only used for `ach` payment orders currently. For `ach` payment orders, the `subtype` represents
  * the SEC code. We currently support `CCD`, `PPD`, `IAT`, `CTX`, `WEB`, `CIE`, and `TEL`.
  */
-class PaymentOrderSubtype
-@JsonCreator
-private constructor(
-    private val value: JsonField<String>,
-) : Enum {
+class PaymentOrderSubtype @JsonCreator private constructor(private val value: JsonField<String>) :
+    Enum {
 
     /**
      * Returns this class instance's raw value.

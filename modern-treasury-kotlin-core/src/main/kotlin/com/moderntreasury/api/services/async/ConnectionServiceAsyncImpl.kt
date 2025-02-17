@@ -16,10 +16,8 @@ import com.moderntreasury.api.models.Connection
 import com.moderntreasury.api.models.ConnectionListPageAsync
 import com.moderntreasury.api.models.ConnectionListParams
 
-class ConnectionServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ConnectionServiceAsync {
+class ConnectionServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    ConnectionServiceAsync {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -29,7 +27,7 @@ internal constructor(
     /** Get a list of all connections. */
     override suspend fun list(
         params: ConnectionListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ConnectionListPageAsync {
         val request =
             HttpRequest.builder()
@@ -53,7 +51,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

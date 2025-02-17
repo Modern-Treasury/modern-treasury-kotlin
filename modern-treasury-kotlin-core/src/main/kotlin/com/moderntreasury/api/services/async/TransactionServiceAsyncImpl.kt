@@ -24,10 +24,8 @@ import com.moderntreasury.api.models.TransactionUpdateParams
 import com.moderntreasury.api.services.async.transactions.LineItemServiceAsync
 import com.moderntreasury.api.services.async.transactions.LineItemServiceAsyncImpl
 
-class TransactionServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : TransactionServiceAsync {
+class TransactionServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    TransactionServiceAsync {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -41,7 +39,7 @@ internal constructor(
     /** create transaction */
     override suspend fun create(
         params: TransactionCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Transaction {
         val request =
             HttpRequest.builder()
@@ -66,7 +64,7 @@ internal constructor(
     /** Get details on a single transaction. */
     override suspend fun retrieve(
         params: TransactionRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Transaction {
         val request =
             HttpRequest.builder()
@@ -90,7 +88,7 @@ internal constructor(
     /** Update a single transaction. */
     override suspend fun update(
         params: TransactionUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Transaction {
         val request =
             HttpRequest.builder()
@@ -115,7 +113,7 @@ internal constructor(
     /** Get a list of all transactions. */
     override suspend fun list(
         params: TransactionListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): TransactionListPageAsync {
         val request =
             HttpRequest.builder()
@@ -139,7 +137,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

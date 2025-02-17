@@ -71,13 +71,8 @@ private constructor(
         fun of(
             ledgerAccountCategoriesService: LedgerAccountCategoryService,
             params: LedgerAccountCategoryListParams,
-            response: Response
-        ) =
-            LedgerAccountCategoryListPage(
-                ledgerAccountCategoriesService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = LedgerAccountCategoryListPage(ledgerAccountCategoriesService, params, response)
     }
 
     @NoAutoDetect
@@ -162,18 +157,12 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: LedgerAccountCategoryListPage,
-    ) : Sequence<LedgerAccountCategory> {
+    class AutoPager(private val firstPage: LedgerAccountCategoryListPage) :
+        Sequence<LedgerAccountCategory> {
 
         override fun iterator(): Iterator<LedgerAccountCategory> = iterator {
             var page = firstPage

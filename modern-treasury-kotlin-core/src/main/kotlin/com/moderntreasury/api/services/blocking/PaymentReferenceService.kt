@@ -14,19 +14,19 @@ interface PaymentReferenceService {
     /** get payment_reference */
     fun retrieve(
         params: PaymentReferenceRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentReference
 
     /** list payment_references */
     fun list(
         params: PaymentReferenceListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentReferenceListPage
 
     /** get payment_reference */
     @Deprecated("use `retrieve` instead")
     fun retireve(
         params: PaymentReferenceRetireveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentReference
 }

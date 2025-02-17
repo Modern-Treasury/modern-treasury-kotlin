@@ -17,9 +17,8 @@ import com.moderntreasury.api.models.LegalEntityAssociation
 import com.moderntreasury.api.models.LegalEntityAssociationCreateParams
 
 class LegalEntityAssociationServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : LegalEntityAssociationServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) :
+    LegalEntityAssociationServiceAsync {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -29,7 +28,7 @@ internal constructor(
     /** create legal_entity_association */
     override suspend fun create(
         params: LegalEntityAssociationCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): LegalEntityAssociation {
         val request =
             HttpRequest.builder()

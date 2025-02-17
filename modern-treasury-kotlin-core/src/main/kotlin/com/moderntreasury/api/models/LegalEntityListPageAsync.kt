@@ -70,13 +70,8 @@ private constructor(
         fun of(
             legalEntitiesService: LegalEntityServiceAsync,
             params: LegalEntityListParams,
-            response: Response
-        ) =
-            LegalEntityListPageAsync(
-                legalEntitiesService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = LegalEntityListPageAsync(legalEntitiesService, params, response)
     }
 
     @NoAutoDetect
@@ -160,18 +155,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: LegalEntityListPageAsync,
-    ) : Flow<LegalEntity> {
+    class AutoPager(private val firstPage: LegalEntityListPageAsync) : Flow<LegalEntity> {
 
         override suspend fun collect(collector: FlowCollector<LegalEntity>) {
             var page = firstPage

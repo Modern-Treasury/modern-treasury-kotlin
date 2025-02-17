@@ -18,24 +18,24 @@ interface InternalAccountService {
     /** create internal account */
     fun create(
         params: InternalAccountCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InternalAccount
 
     /** get internal account */
     fun retrieve(
         params: InternalAccountRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InternalAccount
 
     /** update internal account */
     fun update(
         params: InternalAccountUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InternalAccount
 
     /** list internal accounts */
     fun list(
         params: InternalAccountListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InternalAccountListPage
 }

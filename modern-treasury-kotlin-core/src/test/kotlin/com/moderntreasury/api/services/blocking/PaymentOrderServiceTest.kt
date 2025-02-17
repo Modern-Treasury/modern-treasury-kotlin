@@ -95,7 +95,7 @@ class PaymentOrderServiceTest {
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .putAdditionalProperty(
                                                 "modern",
-                                                JsonValue.from("treasury")
+                                                JsonValue.from("treasury"),
                                             )
                                             .build()
                                     )
@@ -222,7 +222,7 @@ class PaymentOrderServiceTest {
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .putAdditionalProperty(
                                                 "modern",
-                                                JsonValue.from("treasury")
+                                                JsonValue.from("treasury"),
                                             )
                                             .build()
                                     )
@@ -412,7 +412,7 @@ class PaymentOrderServiceTest {
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .putAdditionalProperty(
                                                 "modern",
-                                                JsonValue.from("treasury")
+                                                JsonValue.from("treasury"),
                                             )
                                             .build()
                                     )
@@ -549,7 +549,7 @@ class PaymentOrderServiceTest {
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .putAdditionalProperty(
                                                 "modern",
-                                                JsonValue.from("treasury")
+                                                JsonValue.from("treasury"),
                                             )
                                             .build()
                                     )
@@ -680,7 +680,7 @@ class PaymentOrderServiceTest {
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .putAdditionalProperty(
                                                 "modern",
-                                                JsonValue.from("treasury")
+                                                JsonValue.from("treasury"),
                                             )
                                             .build()
                                     )

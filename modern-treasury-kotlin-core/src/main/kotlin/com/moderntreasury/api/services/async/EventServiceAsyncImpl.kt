@@ -17,10 +17,8 @@ import com.moderntreasury.api.models.EventListPageAsync
 import com.moderntreasury.api.models.EventListParams
 import com.moderntreasury.api.models.EventRetrieveParams
 
-class EventServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : EventServiceAsync {
+class EventServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    EventServiceAsync {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** get event */
     override suspend fun retrieve(
         params: EventRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Event {
         val request =
             HttpRequest.builder()
@@ -54,7 +52,7 @@ internal constructor(
     /** list events */
     override suspend fun list(
         params: EventListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): EventListPageAsync {
         val request =
             HttpRequest.builder()
@@ -78,7 +76,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

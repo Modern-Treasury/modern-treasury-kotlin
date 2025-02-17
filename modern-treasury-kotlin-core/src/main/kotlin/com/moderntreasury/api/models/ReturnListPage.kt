@@ -66,11 +66,7 @@ private constructor(
     companion object {
 
         fun of(returnsService: ReturnService, params: ReturnListParams, response: Response) =
-            ReturnListPage(
-                returnsService,
-                params,
-                response,
-            )
+            ReturnListPage(returnsService, params, response)
     }
 
     @NoAutoDetect
@@ -154,18 +150,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: ReturnListPage,
-    ) : Sequence<ReturnObject> {
+    class AutoPager(private val firstPage: ReturnListPage) : Sequence<ReturnObject> {
 
         override fun iterator(): Iterator<ReturnObject> = iterator {
             var page = firstPage

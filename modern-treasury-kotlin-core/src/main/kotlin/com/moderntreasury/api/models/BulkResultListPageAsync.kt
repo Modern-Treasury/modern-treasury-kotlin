@@ -70,13 +70,8 @@ private constructor(
         fun of(
             bulkResultsService: BulkResultServiceAsync,
             params: BulkResultListParams,
-            response: Response
-        ) =
-            BulkResultListPageAsync(
-                bulkResultsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = BulkResultListPageAsync(bulkResultsService, params, response)
     }
 
     @NoAutoDetect
@@ -160,18 +155,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: BulkResultListPageAsync,
-    ) : Flow<BulkResult> {
+    class AutoPager(private val firstPage: BulkResultListPageAsync) : Flow<BulkResult> {
 
         override suspend fun collect(collector: FlowCollector<BulkResult>) {
             var page = firstPage

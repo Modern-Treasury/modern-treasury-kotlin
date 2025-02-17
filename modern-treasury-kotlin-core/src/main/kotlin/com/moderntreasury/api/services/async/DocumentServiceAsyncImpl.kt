@@ -19,10 +19,8 @@ import com.moderntreasury.api.models.DocumentListPageAsync
 import com.moderntreasury.api.models.DocumentListParams
 import com.moderntreasury.api.models.DocumentRetrieveParams
 
-class DocumentServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : DocumentServiceAsync {
+class DocumentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    DocumentServiceAsync {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -32,7 +30,7 @@ internal constructor(
     /** Create a document. */
     override suspend fun create(
         params: DocumentCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Document {
         val request =
             HttpRequest.builder()
@@ -57,7 +55,7 @@ internal constructor(
     /** Get an existing document. */
     override suspend fun retrieve(
         params: DocumentRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Document {
         val request =
             HttpRequest.builder()
@@ -81,7 +79,7 @@ internal constructor(
     /** Get a list of documents. */
     override suspend fun list(
         params: DocumentListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): DocumentListPageAsync {
         val request =
             HttpRequest.builder()
@@ -105,7 +103,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }

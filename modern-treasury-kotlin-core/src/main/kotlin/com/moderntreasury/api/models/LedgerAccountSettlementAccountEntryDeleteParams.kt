@@ -179,7 +179,7 @@ private constructor(
             fun build(): LedgerAccountSettlementAccountEntryDeleteBody =
                 LedgerAccountSettlementAccountEntryDeleteBody(
                     checkRequired("ledgerEntryIds", ledgerEntryIds).map { it.toImmutable() },
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 

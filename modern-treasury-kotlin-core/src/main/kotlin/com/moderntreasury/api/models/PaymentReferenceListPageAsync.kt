@@ -70,13 +70,8 @@ private constructor(
         fun of(
             paymentReferencesService: PaymentReferenceServiceAsync,
             params: PaymentReferenceListParams,
-            response: Response
-        ) =
-            PaymentReferenceListPageAsync(
-                paymentReferencesService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = PaymentReferenceListPageAsync(paymentReferencesService, params, response)
     }
 
     @NoAutoDetect
@@ -161,18 +156,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: PaymentReferenceListPageAsync,
-    ) : Flow<PaymentReference> {
+    class AutoPager(private val firstPage: PaymentReferenceListPageAsync) : Flow<PaymentReference> {
 
         override suspend fun collect(collector: FlowCollector<PaymentReference>) {
             var page = firstPage

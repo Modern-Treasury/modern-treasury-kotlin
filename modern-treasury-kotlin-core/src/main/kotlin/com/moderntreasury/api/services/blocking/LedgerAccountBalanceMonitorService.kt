@@ -16,30 +16,30 @@ interface LedgerAccountBalanceMonitorService {
     /** Create a ledger account balance monitor. */
     fun create(
         params: LedgerAccountBalanceMonitorCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountBalanceMonitor
 
     /** Get details on a single ledger account balance monitor. */
     fun retrieve(
         params: LedgerAccountBalanceMonitorRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountBalanceMonitor
 
     /** Update a ledger account balance monitor. */
     fun update(
         params: LedgerAccountBalanceMonitorUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountBalanceMonitor
 
     /** Get a list of ledger account balance monitors. */
     fun list(
         params: LedgerAccountBalanceMonitorListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountBalanceMonitorListPage
 
     /** Delete a ledger account balance monitor. */
     fun delete(
         params: LedgerAccountBalanceMonitorDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountBalanceMonitor
 }

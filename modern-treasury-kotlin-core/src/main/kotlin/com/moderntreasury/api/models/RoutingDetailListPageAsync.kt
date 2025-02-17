@@ -70,13 +70,8 @@ private constructor(
         fun of(
             routingDetailsService: RoutingDetailServiceAsync,
             params: RoutingDetailListParams,
-            response: Response
-        ) =
-            RoutingDetailListPageAsync(
-                routingDetailsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = RoutingDetailListPageAsync(routingDetailsService, params, response)
     }
 
     @NoAutoDetect
@@ -160,18 +155,11 @@ private constructor(
             }
 
             fun build() =
-                Response(
-                    items,
-                    perPage!!,
-                    afterCursor!!,
-                    additionalProperties.toImmutable(),
-                )
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: RoutingDetailListPageAsync,
-    ) : Flow<RoutingDetail> {
+    class AutoPager(private val firstPage: RoutingDetailListPageAsync) : Flow<RoutingDetail> {
 
         override suspend fun collect(collector: FlowCollector<RoutingDetail>) {
             var page = firstPage

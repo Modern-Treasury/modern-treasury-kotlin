@@ -19,42 +19,42 @@ interface ExternalAccountService {
     /** create external account */
     fun create(
         params: ExternalAccountCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
 
     /** show external account */
     fun retrieve(
         params: ExternalAccountRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
 
     /** update external account */
     fun update(
         params: ExternalAccountUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
 
     /** list external accounts */
     fun list(
         params: ExternalAccountListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccountListPage
 
     /** delete external account */
     fun delete(
         params: ExternalAccountDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     )
 
     /** complete verification of external account */
     fun completeVerification(
         params: ExternalAccountCompleteVerificationParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
 
     /** verify external account */
     fun verify(
         params: ExternalAccountVerifyParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccountVerifyResponse
 }

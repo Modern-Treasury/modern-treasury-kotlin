@@ -12,12 +12,12 @@ interface LedgerableEventService {
     /** Create a ledgerable event. */
     fun create(
         params: LedgerableEventCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerableEvent
 
     /** Get details on a single ledgerable event. */
     fun retrieve(
         params: LedgerableEventRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerableEvent
 }

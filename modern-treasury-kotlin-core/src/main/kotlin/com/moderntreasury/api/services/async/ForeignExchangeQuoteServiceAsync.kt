@@ -14,18 +14,18 @@ interface ForeignExchangeQuoteServiceAsync {
     /** create foreign_exchange_quote */
     suspend fun create(
         params: ForeignExchangeQuoteCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ForeignExchangeQuote
 
     /** get foreign_exchange_quote */
     suspend fun retrieve(
         params: ForeignExchangeQuoteRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ForeignExchangeQuote
 
     /** list foreign_exchange_quotes */
     suspend fun list(
         params: ForeignExchangeQuoteListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ForeignExchangeQuoteListPageAsync
 }

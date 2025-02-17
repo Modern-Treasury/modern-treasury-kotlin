@@ -21,10 +21,8 @@ import com.moderntreasury.api.models.LedgerListParams
 import com.moderntreasury.api.models.LedgerRetrieveParams
 import com.moderntreasury.api.models.LedgerUpdateParams
 
-class LedgerServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : LedgerService {
+class LedgerServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    LedgerService {
 
     private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
 
@@ -120,7 +118,7 @@ internal constructor(
                         .items(it)
                         .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
                         .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build()
+                        .build(),
                 )
             }
     }
