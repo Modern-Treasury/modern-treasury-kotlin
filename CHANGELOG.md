@@ -1,5 +1,61 @@
 # Changelog
 
+## 5.0.0 (2025-02-19)
+
+Full Changelog: [v4.0.1...v5.0.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v4.0.1...v5.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** better union variant method and variable names ([#315](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/315))
+
+### Features
+
+* **client:** add `_queryParams` and `_headers` methods ([#322](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/322)) ([91459d4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/91459d423135c63f623aff5b70d112ccbb25ee9a))
+* **client:** add `close` method ([#317](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/317)) ([b0a2f29](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b0a2f29bab953eb4100398be26a25fa9834e0bc7))
+* **client:** better union variant method and variable names ([#315](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/315)) ([249b6e3](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/249b6e3a41f074b53e97a31cacbcba49f8e7ee27))
+* **client:** send client-side timeout headers ([#326](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/326)) ([7c72d08](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7c72d08d8f524dd02aa7d5170dbaad278a098615))
+* **client:** support `JsonField#asX()` for known values ([#332](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/332)) ([66a5bb9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/66a5bb9d05cb9548135173c75e723ff7839216a0))
+* **client:** update enum `asX` methods ([#331](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/331)) ([59402a1](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/59402a1f820559622e0bb98ed75bc5f664ad30a2))
+
+
+### Bug Fixes
+
+* **api:** add missing `@MustBeClosed` annotations ([#327](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/327)) ([e779b2c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e779b2cc9b6b8bb41e619c5038841dcb5de6dffa))
+* **api:** switch `CompletableFuture&lt;Void&gt;` to `CompletableFuture<Void?>` ([e779b2c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e779b2cc9b6b8bb41e619c5038841dcb5de6dffa))
+* **client:** add missing validation calls on response ([e779b2c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e779b2cc9b6b8bb41e619c5038841dcb5de6dffa))
+* **client:** always provide a body for `PATCH` methods ([e779b2c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e779b2cc9b6b8bb41e619c5038841dcb5de6dffa))
+* **client:** don't leak responses when retrying ([#324](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/324)) ([2ef0c0b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2ef0c0bdabc2d80faf637037d39e5ad932ef1e07))
+* **client:** make some classes and constructors non-public ([#320](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/320)) ([7b43770](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7b43770851f3e2a255c2c89954aabf1f672b162f))
+* format webhooks ([26f5151](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/26f51512c93185859093e1224a5468b86ca3b01c))
+
+
+### Chores
+
+* add max retries to test ([#316](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/316)) ([e7f737e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e7f737eaf882866635b92569a7b8acdcdaae9824))
+* **docs:** reorganize readme ([#333](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/333)) ([6f05eaf](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/6f05eafe97afe49eef2d0be5bfbd8946833fdfac))
+* **internal:** improve `RetryingHttpClientTest` ([#323](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/323)) ([a023313](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a023313cffdff0677fef84d79fe5bb9767649ed8))
+* **internal:** minor formatting/style changes ([e779b2c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e779b2cc9b6b8bb41e619c5038841dcb5de6dffa))
+* **internal:** optimize build and test perf ([b9f05d9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b9f05d94264c9bffaf5c4e34749a9f6c467e1df9))
+* **internal:** remove some unnecessary `constructor` keywords ([7b43770](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7b43770851f3e2a255c2c89954aabf1f672b162f))
+* **internal:** rename some tests ([e779b2c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e779b2cc9b6b8bb41e619c5038841dcb5de6dffa))
+* **internal:** swap `checkNotNull` to `checkRequired` ([#313](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/313)) ([d959e95](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d959e95ed97474c00fc4b0c08b2c85f768f9fd57))
+* **internal:** update formatter ([#329](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/329)) ([b9f05d9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b9f05d94264c9bffaf5c4e34749a9f6c467e1df9))
+* **internal:** update some formatting in `Values.kt` ([66a5bb9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/66a5bb9d05cb9548135173c75e723ff7839216a0))
+
+
+### Documentation
+
+* `async` and `sync` method comments ([#319](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/319)) ([97feed4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/97feed4ab120f8df649a69c916efab727918cace))
+* add client documentation ([#318](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/318)) ([3753bf5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3753bf5cbd6112c2a0e57f58c5aefd90c6788563))
+* add more phantom reachability docs ([#328](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/328)) ([ed738cc](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ed738ccba48ea4ced6c07a1fd0fa44c218011091))
+* builder, enum, and union comments ([#321](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/321)) ([e1b7010](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e1b70108b04e2fe4725461983321b0869370deeb))
+* fix incorrect additional properties info ([#325](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/325)) ([16603ae](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/16603aec7bc846a42977c8546cb5cc90689f299e))
+
+
+### Refactors
+
+* **internal:** extract request preparation logic ([91459d4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/91459d423135c63f623aff5b70d112ccbb25ee9a))
+
 ## 4.0.1 (2025-01-22)
 
 Full Changelog: [v4.0.0...v4.0.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v4.0.0...v4.0.1)
