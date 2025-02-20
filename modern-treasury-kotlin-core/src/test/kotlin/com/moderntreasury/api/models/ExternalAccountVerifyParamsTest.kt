@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -33,7 +34,7 @@ class ExternalAccountVerifyParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.originatingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.paymentType()).isEqualTo(ExternalAccountVerifyParams.PaymentType.ACH)
         assertThat(body.currency()).isEqualTo(Currency.AED)
@@ -52,7 +53,7 @@ class ExternalAccountVerifyParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.originatingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.paymentType()).isEqualTo(ExternalAccountVerifyParams.PaymentType.ACH)
     }

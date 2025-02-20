@@ -5,6 +5,7 @@ package com.moderntreasury.api.models
 import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -816,7 +817,7 @@ class CounterpartyCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.accounting())
             .isEqualTo(
@@ -1222,7 +1223,7 @@ class CounterpartyCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.name()).isEqualTo("name")
     }
 }
