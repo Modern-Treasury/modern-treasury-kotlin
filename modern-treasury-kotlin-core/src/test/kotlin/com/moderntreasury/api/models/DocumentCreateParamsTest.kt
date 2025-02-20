@@ -4,6 +4,7 @@ package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.ContentTypes
 import com.moderntreasury.api.core.MultipartFormValue
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -31,7 +32,7 @@ class DocumentCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.filterNotNull())
             .containsExactlyInAnyOrder(
                 MultipartFormValue.fromString(
@@ -68,7 +69,7 @@ class DocumentCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.filterNotNull())
             .containsExactlyInAnyOrder(
                 MultipartFormValue.fromString(

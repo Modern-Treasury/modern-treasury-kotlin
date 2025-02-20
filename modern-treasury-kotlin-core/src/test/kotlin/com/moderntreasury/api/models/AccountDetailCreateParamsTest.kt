@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -29,7 +30,7 @@ class AccountDetailCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.accountNumber()).isEqualTo("account_number")
         assertThat(body.accountNumberType())
             .isEqualTo(AccountDetailCreateParams.AccountNumberType.AU_NUMBER)
@@ -46,7 +47,7 @@ class AccountDetailCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.accountNumber()).isEqualTo("account_number")
     }
 

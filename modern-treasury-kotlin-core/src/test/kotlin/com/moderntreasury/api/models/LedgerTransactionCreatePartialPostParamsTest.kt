@@ -4,6 +4,7 @@ package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
 import java.time.OffsetDateTime
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -87,7 +88,7 @@ class LedgerTransactionCreatePartialPostParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.postedLedgerEntries())
             .isEqualTo(
                 listOf(
@@ -148,7 +149,7 @@ class LedgerTransactionCreatePartialPostParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.postedLedgerEntries())
             .isEqualTo(
                 listOf(
