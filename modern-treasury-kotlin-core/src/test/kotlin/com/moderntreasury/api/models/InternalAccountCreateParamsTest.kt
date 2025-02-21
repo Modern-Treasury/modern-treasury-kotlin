@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -68,7 +69,7 @@ class InternalAccountCreateParamsTest {
                 )
                 .build()
         val body = params._body()
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.connectionId()).isEqualTo("connection_id")
         assertThat(body.currency()).isEqualTo(InternalAccountCreateParams.Currency.USD)
         assertThat(body.name()).isEqualTo("name")
@@ -107,7 +108,7 @@ class InternalAccountCreateParamsTest {
                 .partyName("party_name")
                 .build()
         val body = params._body()
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.connectionId()).isEqualTo("connection_id")
         assertThat(body.currency()).isEqualTo(InternalAccountCreateParams.Currency.USD)
         assertThat(body.name()).isEqualTo("name")

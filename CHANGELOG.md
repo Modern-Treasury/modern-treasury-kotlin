@@ -1,5 +1,28 @@
 # Changelog
 
+## 5.0.1 (2025-02-21)
+
+Full Changelog: [v5.0.0...v5.0.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v5.0.0...v5.0.1)
+
+### Bug Fixes
+
+* **client:** mark some request bodies as optional ([#339](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/339)) ([422ed99](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/422ed9964f19bb88f3bbb7ee9bfb132ba970c68d))
+
+
+### Chores
+
+* **ci:** update gradle actions to v4 ([#336](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/336)) ([58674f4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/58674f42d44fb9bc61426de99949235cb1425d1d))
+* **client:** remove checked exception related code ([#337](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/337)) ([ae99b89](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ae99b89386d95b477b6eb6ea8bbdfa99079d7fd9))
+* **docs:** add faq to readme ([#338](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/338)) ([5c5fb0f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5c5fb0f645ea7158e698bfbb0dd9b16abf1ee50f))
+* **internal:** get rid of configuration cache ([#334](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/334)) ([5120b99](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5120b994f77fa88e26c5d91e3faf0caaca3dfdf5))
+* **internal:** remove unnecessary non-null asserts in tests ([422ed99](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/422ed9964f19bb88f3bbb7ee9bfb132ba970c68d))
+* **internal:** use `assertNotNull` in tests for type narrowing ([422ed99](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/422ed9964f19bb88f3bbb7ee9bfb132ba970c68d))
+
+
+### Documentation
+
+* add immutability explanation to readme ([#341](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/341)) ([4c81dc9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4c81dc9bece117ee7c51ad2ddc1752481e89b0bd))
+
 ## 5.0.0 (2025-02-19)
 
 Full Changelog: [v4.0.1...v5.0.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v4.0.1...v5.0.0)

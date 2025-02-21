@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -24,7 +25,7 @@ class LedgerAccountSettlementAccountEntryDeleteParamsTest {
                 .addLedgerEntryId(JsonValue.from(mapOf<String, Any>()))
                 .build()
         val body = params._body()
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.ledgerEntryIds()).isEqualTo(listOf(JsonValue.from(mapOf<String, Any>())))
     }
 
@@ -36,7 +37,7 @@ class LedgerAccountSettlementAccountEntryDeleteParamsTest {
                 .addLedgerEntryId(JsonValue.from(mapOf<String, Any>()))
                 .build()
         val body = params._body()
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.ledgerEntryIds()).isEqualTo(listOf(JsonValue.from(mapOf<String, Any>())))
     }
 

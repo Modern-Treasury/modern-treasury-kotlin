@@ -2,7 +2,7 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.moderntreasury.api/modern-treasury-kotlin)](https://central.sonatype.com/artifact/com.moderntreasury.api/modern-treasury-kotlin/5.0.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.moderntreasury.api/modern-treasury-kotlin)](https://central.sonatype.com/artifact/com.moderntreasury.api/modern-treasury-kotlin/5.0.1)
 
 <!-- x-release-please-end -->
 
@@ -19,7 +19,7 @@ The REST API documentation can be found on [docs.moderntreasury.com](https://doc
 ### Gradle
 
 ```kotlin
-implementation("com.moderntreasury:modern-treasury-kotlin:5.0.0")
+implementation("com.moderntreasury:modern-treasury-kotlin:5.0.1")
 ```
 
 ### Maven
@@ -28,7 +28,7 @@ implementation("com.moderntreasury:modern-treasury-kotlin:5.0.0")
 <dependency>
     <groupId>com.moderntreasury</groupId>
     <artifactId>modern-treasury-kotlin</artifactId>
-    <version>5.0.0</version>
+    <version>5.0.1</version>
 </dependency>
 ```
 
@@ -109,6 +109,14 @@ See this table for the available options:
 To send a request to the Modern Treasury API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it will be deserialized into an instance of a Kotlin class.
 
 For example, `client.counterparties().create(...)` should be called with an instance of `CounterpartyCreateParams`, and it will return an instance of `Counterparty`.
+
+## Immutability
+
+Each class in the SDK has an associated [builder](https://blogs.oracle.com/javamagazine/post/exploring-joshua-blochs-builder-design-pattern-in-java) or factory method for constructing it.
+
+Each class is [immutable](https://docs.oracle.com/javase/tutorial/essential/concurrency/immutable.html) once constructed. If the class has an associated builder, then it has a `toBuilder()` method, which can be used to convert it back to a builder for making a modified copy.
+
+Because each class is immutable, builder modification will _never_ affect already built class instances.
 
 ## Asynchronous execution
 
@@ -421,6 +429,35 @@ val client: ModernTreasuryClient = ModernTreasuryOkHttpClient.builder()
     .responseValidation(true)
     .build()
 ```
+
+## FAQ
+
+### Why don't you use plain `enum` classes?
+
+Kotlin `enum` classes are not trivially [forwards compatible](https://www.stainless.com/blog/making-java-enums-forwards-compatible). Using them in the SDK could cause runtime exceptions if the API is updated to respond with a new enum value.
+
+### Why do you represent fields using `JsonField<T>` instead of just plain `T`?
+
+Using `JsonField<T>` enables a few features:
+
+- Allowing usage of [undocumented API functionality](#undocumented-api-functionality)
+- Lazily [validating the API response against the expected shape](#response-validation)
+- Representing absent vs explicitly null values
+
+### Why don't you use [`data` classes](https://kotlinlang.org/docs/data-classes.html)?
+
+It is not [backwards compatible to add new fields to a data class](https://kotlinlang.org/docs/api-guidelines-backward-compatibility.html#avoid-using-data-classes-in-your-api) and we don't want to introduce a breaking change every time we add a field to a class.
+
+### Why don't you use checked exceptions?
+
+Checked exceptions are widely considered a mistake in the Java programming language. In fact, they were omitted from Kotlin for this reason.
+
+Checked exceptions:
+
+- Are verbose to handle
+- Encourage error handling at the wrong level of abstraction, where nothing can be done about the error
+- Are tedious to propagate due to the [function coloring problem](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function)
+- Don't play well with lambdas (also due to the function coloring problem)
 
 ## Semantic versioning
 

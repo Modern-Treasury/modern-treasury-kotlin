@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import java.time.LocalDate
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -49,7 +50,7 @@ class BalanceReportCreateParamsTest {
                 )
                 .build()
         val body = params._body()
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.asOfTime()).isEqualTo("as_of_time")
         assertThat(body.balanceReportType())
@@ -91,7 +92,7 @@ class BalanceReportCreateParamsTest {
                 )
                 .build()
         val body = params._body()
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.asOfTime()).isEqualTo("as_of_time")
         assertThat(body.balanceReportType())

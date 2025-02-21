@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -25,7 +26,7 @@ class AccountCollectionFlowCreateParamsTest {
                 .addReceivingCountry(AccountCollectionFlowCreateParams.ReceivingCountry.USA)
                 .build()
         val body = params._body()
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.paymentTypes()).isEqualTo(listOf("string"))
         assertThat(body.receivingCountries())
@@ -40,7 +41,7 @@ class AccountCollectionFlowCreateParamsTest {
                 .addPaymentType("string")
                 .build()
         val body = params._body()
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.paymentTypes()).isEqualTo(listOf("string"))
     }

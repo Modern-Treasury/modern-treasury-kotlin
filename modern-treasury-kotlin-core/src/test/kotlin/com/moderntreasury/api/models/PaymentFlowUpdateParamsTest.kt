@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -23,7 +24,7 @@ class PaymentFlowUpdateParamsTest {
                 .status(PaymentFlowUpdateParams.Status.CANCELLED)
                 .build()
         val body = params._body()
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.status()).isEqualTo(PaymentFlowUpdateParams.Status.CANCELLED)
     }
 
@@ -35,7 +36,7 @@ class PaymentFlowUpdateParamsTest {
                 .status(PaymentFlowUpdateParams.Status.CANCELLED)
                 .build()
         val body = params._body()
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.status()).isEqualTo(PaymentFlowUpdateParams.Status.CANCELLED)
     }
 
