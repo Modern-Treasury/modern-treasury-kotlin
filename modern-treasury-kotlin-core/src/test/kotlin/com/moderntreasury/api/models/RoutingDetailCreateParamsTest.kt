@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -29,7 +30,7 @@ class RoutingDetailCreateParamsTest {
                 .paymentType(RoutingDetailCreateParams.PaymentType.ACH)
                 .build()
         val body = params._body()
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.routingNumber()).isEqualTo("routing_number")
         assertThat(body.routingNumberType())
             .isEqualTo(RoutingDetailCreateParams.RoutingNumberType.ABA)
@@ -46,7 +47,7 @@ class RoutingDetailCreateParamsTest {
                 .routingNumberType(RoutingDetailCreateParams.RoutingNumberType.ABA)
                 .build()
         val body = params._body()
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.routingNumber()).isEqualTo("routing_number")
         assertThat(body.routingNumberType())
             .isEqualTo(RoutingDetailCreateParams.RoutingNumberType.ABA)
