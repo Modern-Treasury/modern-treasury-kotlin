@@ -160,7 +160,7 @@ The asynchronous client supports the same options as the synchronous one, except
 
 The SDK throws custom unchecked exception types:
 
-- `ModernTreasuryServiceException`: Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
+- [`ModernTreasuryServiceException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/ModernTreasuryServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
 
   | Status | Exception                       |
   | ------ | ------------------------------- |
@@ -173,11 +173,11 @@ The SDK throws custom unchecked exception types:
   | 5xx    | `InternalServerException`       |
   | others | `UnexpectedStatusCodeException` |
 
-- `ModernTreasuryIoException`: I/O networking errors.
+- [`ModernTreasuryIoException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/ModernTreasuryIoException.kt): I/O networking errors.
 
-- `ModernTreasuryInvalidDataException`: Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
+- [`ModernTreasuryInvalidDataException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/ModernTreasuryInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
 
-- `ModernTreasuryException`: Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
+- [`ModernTreasuryException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/ModernTreasuryException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
 
 ## Pagination
 
@@ -339,7 +339,7 @@ val params: CounterpartyCreateParams = CounterpartyCreateParams.builder()
 
 These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods. You can also set undocumented parameters on nested headers, query params, or body classes using the `putAdditionalProperty` method. These properties can be accessed on the built object later using the `_additionalProperties()` method.
 
-To set a documented parameter or property to an undocumented or not yet supported _value_, pass a `JsonValue` object to its setter:
+To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/core/JsonValue.kt) object to its setter:
 
 ```kotlin
 import com.moderntreasury.api.core.JsonValue
@@ -397,7 +397,7 @@ if (name.isMissing()) {
 
 In rare cases, the API may return a response that doesn't match the expected type. For example, the SDK may expect a property to contain a `String`, but the API could return something else.
 
-By default, the SDK will not throw an exception in this case. It will throw `ModernTreasuryInvalidDataException` only if you directly access the property.
+By default, the SDK will not throw an exception in this case. It will throw [`ModernTreasuryInvalidDataException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/ModernTreasuryInvalidDataException.kt) only if you directly access the property.
 
 If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
