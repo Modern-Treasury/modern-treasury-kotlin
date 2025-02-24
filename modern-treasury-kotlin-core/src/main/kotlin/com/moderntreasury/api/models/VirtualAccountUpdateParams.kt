@@ -23,7 +23,7 @@ import java.util.Objects
 class VirtualAccountUpdateParams
 private constructor(
     private val id: String,
-    private val body: VirtualAccountUpdateBody,
+    private val body: VirtualAccountUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -54,7 +54,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): VirtualAccountUpdateBody = body
+    internal fun _body(): VirtualAccountUpdateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -68,9 +68,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class VirtualAccountUpdateBody
+    class VirtualAccountUpdateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("counterparty_id")
         @ExcludeMissing
         private val counterpartyId: JsonField<String> = JsonMissing.of(),
@@ -115,7 +115,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): VirtualAccountUpdateBody = apply {
+        fun validate(): VirtualAccountUpdateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -134,7 +134,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [VirtualAccountUpdateBody]. */
+        /** A builder for [VirtualAccountUpdateRequest]. */
         class Builder internal constructor() {
 
             private var counterpartyId: JsonField<String> = JsonMissing.of()
@@ -143,12 +143,13 @@ private constructor(
             private var name: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(virtualAccountUpdateBody: VirtualAccountUpdateBody) = apply {
-                counterpartyId = virtualAccountUpdateBody.counterpartyId
-                ledgerAccountId = virtualAccountUpdateBody.ledgerAccountId
-                metadata = virtualAccountUpdateBody.metadata
-                name = virtualAccountUpdateBody.name
-                additionalProperties = virtualAccountUpdateBody.additionalProperties.toMutableMap()
+            internal fun from(virtualAccountUpdateRequest: VirtualAccountUpdateRequest) = apply {
+                counterpartyId = virtualAccountUpdateRequest.counterpartyId
+                ledgerAccountId = virtualAccountUpdateRequest.ledgerAccountId
+                metadata = virtualAccountUpdateRequest.metadata
+                name = virtualAccountUpdateRequest.name
+                additionalProperties =
+                    virtualAccountUpdateRequest.additionalProperties.toMutableMap()
             }
 
             fun counterpartyId(counterpartyId: String) =
@@ -194,8 +195,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): VirtualAccountUpdateBody =
-                VirtualAccountUpdateBody(
+            fun build(): VirtualAccountUpdateRequest =
+                VirtualAccountUpdateRequest(
                     counterpartyId,
                     ledgerAccountId,
                     metadata,
@@ -209,7 +210,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is VirtualAccountUpdateBody && counterpartyId == other.counterpartyId && ledgerAccountId == other.ledgerAccountId && metadata == other.metadata && name == other.name && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is VirtualAccountUpdateRequest && counterpartyId == other.counterpartyId && ledgerAccountId == other.ledgerAccountId && metadata == other.metadata && name == other.name && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -219,7 +220,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "VirtualAccountUpdateBody{counterpartyId=$counterpartyId, ledgerAccountId=$ledgerAccountId, metadata=$metadata, name=$name, additionalProperties=$additionalProperties}"
+            "VirtualAccountUpdateRequest{counterpartyId=$counterpartyId, ledgerAccountId=$ledgerAccountId, metadata=$metadata, name=$name, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -234,7 +235,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: VirtualAccountUpdateBody.Builder = VirtualAccountUpdateBody.builder()
+        private var body: VirtualAccountUpdateRequest.Builder =
+            VirtualAccountUpdateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

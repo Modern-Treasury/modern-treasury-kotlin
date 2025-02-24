@@ -24,7 +24,7 @@ import java.util.Objects
 /** create account_collection_flow */
 class AccountCollectionFlowCreateParams
 private constructor(
-    private val body: AccountCollectionFlowCreateBody,
+    private val body: AccountCollectionFlowCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -49,16 +49,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): AccountCollectionFlowCreateBody = body
+    internal fun _body(): AccountCollectionFlowCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class AccountCollectionFlowCreateBody
+    class AccountCollectionFlowCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("counterparty_id")
         @ExcludeMissing
         private val counterpartyId: JsonField<String> = JsonMissing.of(),
@@ -99,7 +99,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): AccountCollectionFlowCreateBody = apply {
+        fun validate(): AccountCollectionFlowCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -117,7 +117,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [AccountCollectionFlowCreateBody]. */
+        /** A builder for [AccountCollectionFlowCreateRequest]. */
         class Builder internal constructor() {
 
             private var counterpartyId: JsonField<String>? = null
@@ -125,18 +125,17 @@ private constructor(
             private var receivingCountries: JsonField<MutableList<ReceivingCountry>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(accountCollectionFlowCreateBody: AccountCollectionFlowCreateBody) =
-                apply {
-                    counterpartyId = accountCollectionFlowCreateBody.counterpartyId
-                    paymentTypes =
-                        accountCollectionFlowCreateBody.paymentTypes.map { it.toMutableList() }
-                    receivingCountries =
-                        accountCollectionFlowCreateBody.receivingCountries.map {
-                            it.toMutableList()
-                        }
-                    additionalProperties =
-                        accountCollectionFlowCreateBody.additionalProperties.toMutableMap()
-                }
+            internal fun from(
+                accountCollectionFlowCreateRequest: AccountCollectionFlowCreateRequest
+            ) = apply {
+                counterpartyId = accountCollectionFlowCreateRequest.counterpartyId
+                paymentTypes =
+                    accountCollectionFlowCreateRequest.paymentTypes.map { it.toMutableList() }
+                receivingCountries =
+                    accountCollectionFlowCreateRequest.receivingCountries.map { it.toMutableList() }
+                additionalProperties =
+                    accountCollectionFlowCreateRequest.additionalProperties.toMutableMap()
+            }
 
             /** Required. */
             fun counterpartyId(counterpartyId: String) =
@@ -201,8 +200,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): AccountCollectionFlowCreateBody =
-                AccountCollectionFlowCreateBody(
+            fun build(): AccountCollectionFlowCreateRequest =
+                AccountCollectionFlowCreateRequest(
                     checkRequired("counterpartyId", counterpartyId),
                     checkRequired("paymentTypes", paymentTypes).map { it.toImmutable() },
                     (receivingCountries ?: JsonMissing.of()).map { it.toImmutable() },
@@ -215,7 +214,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountCollectionFlowCreateBody && counterpartyId == other.counterpartyId && paymentTypes == other.paymentTypes && receivingCountries == other.receivingCountries && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is AccountCollectionFlowCreateRequest && counterpartyId == other.counterpartyId && paymentTypes == other.paymentTypes && receivingCountries == other.receivingCountries && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -225,7 +224,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "AccountCollectionFlowCreateBody{counterpartyId=$counterpartyId, paymentTypes=$paymentTypes, receivingCountries=$receivingCountries, additionalProperties=$additionalProperties}"
+            "AccountCollectionFlowCreateRequest{counterpartyId=$counterpartyId, paymentTypes=$paymentTypes, receivingCountries=$receivingCountries, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -239,8 +238,8 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: AccountCollectionFlowCreateBody.Builder =
-            AccountCollectionFlowCreateBody.builder()
+        private var body: AccountCollectionFlowCreateRequest.Builder =
+            AccountCollectionFlowCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

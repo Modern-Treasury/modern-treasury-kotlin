@@ -23,7 +23,7 @@ import java.util.Objects
 class InternalAccountUpdateParams
 private constructor(
     private val id: String,
-    private val body: InternalAccountUpdateBody,
+    private val body: InternalAccountUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -72,7 +72,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): InternalAccountUpdateBody = body
+    internal fun _body(): InternalAccountUpdateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -86,9 +86,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class InternalAccountUpdateBody
+    class InternalAccountUpdateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("counterparty_id")
         @ExcludeMissing
         private val counterpartyId: JsonField<String> = JsonMissing.of(),
@@ -156,7 +156,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): InternalAccountUpdateBody = apply {
+        fun validate(): InternalAccountUpdateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -176,7 +176,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [InternalAccountUpdateBody]. */
+        /** A builder for [InternalAccountUpdateRequest]. */
         class Builder internal constructor() {
 
             private var counterpartyId: JsonField<String> = JsonMissing.of()
@@ -186,13 +186,14 @@ private constructor(
             private var parentAccountId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(internalAccountUpdateBody: InternalAccountUpdateBody) = apply {
-                counterpartyId = internalAccountUpdateBody.counterpartyId
-                ledgerAccountId = internalAccountUpdateBody.ledgerAccountId
-                metadata = internalAccountUpdateBody.metadata
-                name = internalAccountUpdateBody.name
-                parentAccountId = internalAccountUpdateBody.parentAccountId
-                additionalProperties = internalAccountUpdateBody.additionalProperties.toMutableMap()
+            internal fun from(internalAccountUpdateRequest: InternalAccountUpdateRequest) = apply {
+                counterpartyId = internalAccountUpdateRequest.counterpartyId
+                ledgerAccountId = internalAccountUpdateRequest.ledgerAccountId
+                metadata = internalAccountUpdateRequest.metadata
+                name = internalAccountUpdateRequest.name
+                parentAccountId = internalAccountUpdateRequest.parentAccountId
+                additionalProperties =
+                    internalAccountUpdateRequest.additionalProperties.toMutableMap()
             }
 
             /** The Counterparty associated to this account. */
@@ -259,8 +260,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): InternalAccountUpdateBody =
-                InternalAccountUpdateBody(
+            fun build(): InternalAccountUpdateRequest =
+                InternalAccountUpdateRequest(
                     counterpartyId,
                     ledgerAccountId,
                     metadata,
@@ -275,7 +276,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is InternalAccountUpdateBody && counterpartyId == other.counterpartyId && ledgerAccountId == other.ledgerAccountId && metadata == other.metadata && name == other.name && parentAccountId == other.parentAccountId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is InternalAccountUpdateRequest && counterpartyId == other.counterpartyId && ledgerAccountId == other.ledgerAccountId && metadata == other.metadata && name == other.name && parentAccountId == other.parentAccountId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -285,7 +286,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "InternalAccountUpdateBody{counterpartyId=$counterpartyId, ledgerAccountId=$ledgerAccountId, metadata=$metadata, name=$name, parentAccountId=$parentAccountId, additionalProperties=$additionalProperties}"
+            "InternalAccountUpdateRequest{counterpartyId=$counterpartyId, ledgerAccountId=$ledgerAccountId, metadata=$metadata, name=$name, parentAccountId=$parentAccountId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -300,7 +301,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: InternalAccountUpdateBody.Builder = InternalAccountUpdateBody.builder()
+        private var body: InternalAccountUpdateRequest.Builder =
+            InternalAccountUpdateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

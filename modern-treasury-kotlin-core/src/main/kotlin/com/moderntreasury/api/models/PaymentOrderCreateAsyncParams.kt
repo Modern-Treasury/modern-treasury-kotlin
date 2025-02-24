@@ -26,7 +26,7 @@ import java.util.Objects
 /** Create a new payment order asynchronously */
 class PaymentOrderCreateAsyncParams
 private constructor(
-    private val body: PaymentOrderCreateAsyncBody,
+    private val body: PaymentOrderAsyncCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -425,16 +425,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): PaymentOrderCreateAsyncBody = body
+    internal fun _body(): PaymentOrderAsyncCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class PaymentOrderCreateAsyncBody
+    class PaymentOrderAsyncCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("amount")
         @ExcludeMissing
         private val amount: JsonField<Long> = JsonMissing.of(),
@@ -1030,7 +1030,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): PaymentOrderCreateAsyncBody = apply {
+        fun validate(): PaymentOrderAsyncCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -1080,7 +1080,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [PaymentOrderCreateAsyncBody]. */
+        /** A builder for [PaymentOrderAsyncCreateRequest]. */
         class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
@@ -1122,49 +1122,52 @@ private constructor(
             private var ultimateReceivingPartyName: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(paymentOrderCreateAsyncBody: PaymentOrderCreateAsyncBody) = apply {
-                amount = paymentOrderCreateAsyncBody.amount
-                direction = paymentOrderCreateAsyncBody.direction
-                originatingAccountId = paymentOrderCreateAsyncBody.originatingAccountId
-                type = paymentOrderCreateAsyncBody.type
-                accounting = paymentOrderCreateAsyncBody.accounting
-                accountingCategoryId = paymentOrderCreateAsyncBody.accountingCategoryId
-                accountingLedgerClassId = paymentOrderCreateAsyncBody.accountingLedgerClassId
-                chargeBearer = paymentOrderCreateAsyncBody.chargeBearer
-                currency = paymentOrderCreateAsyncBody.currency
-                description = paymentOrderCreateAsyncBody.description
-                effectiveDate = paymentOrderCreateAsyncBody.effectiveDate
-                expiresAt = paymentOrderCreateAsyncBody.expiresAt
-                fallbackType = paymentOrderCreateAsyncBody.fallbackType
-                foreignExchangeContract = paymentOrderCreateAsyncBody.foreignExchangeContract
-                foreignExchangeIndicator = paymentOrderCreateAsyncBody.foreignExchangeIndicator
-                ledgerTransaction = paymentOrderCreateAsyncBody.ledgerTransaction
-                ledgerTransactionId = paymentOrderCreateAsyncBody.ledgerTransactionId
-                lineItems = paymentOrderCreateAsyncBody.lineItems.map { it.toMutableList() }
-                metadata = paymentOrderCreateAsyncBody.metadata
-                nsfProtected = paymentOrderCreateAsyncBody.nsfProtected
-                originatingPartyName = paymentOrderCreateAsyncBody.originatingPartyName
-                priority = paymentOrderCreateAsyncBody.priority
-                processAfter = paymentOrderCreateAsyncBody.processAfter
-                purpose = paymentOrderCreateAsyncBody.purpose
-                receivingAccount = paymentOrderCreateAsyncBody.receivingAccount
-                receivingAccountId = paymentOrderCreateAsyncBody.receivingAccountId
-                remittanceInformation = paymentOrderCreateAsyncBody.remittanceInformation
-                sendRemittanceAdvice = paymentOrderCreateAsyncBody.sendRemittanceAdvice
-                statementDescriptor = paymentOrderCreateAsyncBody.statementDescriptor
-                subtype = paymentOrderCreateAsyncBody.subtype
-                transactionMonitoringEnabled =
-                    paymentOrderCreateAsyncBody.transactionMonitoringEnabled
-                ultimateOriginatingPartyIdentifier =
-                    paymentOrderCreateAsyncBody.ultimateOriginatingPartyIdentifier
-                ultimateOriginatingPartyName =
-                    paymentOrderCreateAsyncBody.ultimateOriginatingPartyName
-                ultimateReceivingPartyIdentifier =
-                    paymentOrderCreateAsyncBody.ultimateReceivingPartyIdentifier
-                ultimateReceivingPartyName = paymentOrderCreateAsyncBody.ultimateReceivingPartyName
-                additionalProperties =
-                    paymentOrderCreateAsyncBody.additionalProperties.toMutableMap()
-            }
+            internal fun from(paymentOrderAsyncCreateRequest: PaymentOrderAsyncCreateRequest) =
+                apply {
+                    amount = paymentOrderAsyncCreateRequest.amount
+                    direction = paymentOrderAsyncCreateRequest.direction
+                    originatingAccountId = paymentOrderAsyncCreateRequest.originatingAccountId
+                    type = paymentOrderAsyncCreateRequest.type
+                    accounting = paymentOrderAsyncCreateRequest.accounting
+                    accountingCategoryId = paymentOrderAsyncCreateRequest.accountingCategoryId
+                    accountingLedgerClassId = paymentOrderAsyncCreateRequest.accountingLedgerClassId
+                    chargeBearer = paymentOrderAsyncCreateRequest.chargeBearer
+                    currency = paymentOrderAsyncCreateRequest.currency
+                    description = paymentOrderAsyncCreateRequest.description
+                    effectiveDate = paymentOrderAsyncCreateRequest.effectiveDate
+                    expiresAt = paymentOrderAsyncCreateRequest.expiresAt
+                    fallbackType = paymentOrderAsyncCreateRequest.fallbackType
+                    foreignExchangeContract = paymentOrderAsyncCreateRequest.foreignExchangeContract
+                    foreignExchangeIndicator =
+                        paymentOrderAsyncCreateRequest.foreignExchangeIndicator
+                    ledgerTransaction = paymentOrderAsyncCreateRequest.ledgerTransaction
+                    ledgerTransactionId = paymentOrderAsyncCreateRequest.ledgerTransactionId
+                    lineItems = paymentOrderAsyncCreateRequest.lineItems.map { it.toMutableList() }
+                    metadata = paymentOrderAsyncCreateRequest.metadata
+                    nsfProtected = paymentOrderAsyncCreateRequest.nsfProtected
+                    originatingPartyName = paymentOrderAsyncCreateRequest.originatingPartyName
+                    priority = paymentOrderAsyncCreateRequest.priority
+                    processAfter = paymentOrderAsyncCreateRequest.processAfter
+                    purpose = paymentOrderAsyncCreateRequest.purpose
+                    receivingAccount = paymentOrderAsyncCreateRequest.receivingAccount
+                    receivingAccountId = paymentOrderAsyncCreateRequest.receivingAccountId
+                    remittanceInformation = paymentOrderAsyncCreateRequest.remittanceInformation
+                    sendRemittanceAdvice = paymentOrderAsyncCreateRequest.sendRemittanceAdvice
+                    statementDescriptor = paymentOrderAsyncCreateRequest.statementDescriptor
+                    subtype = paymentOrderAsyncCreateRequest.subtype
+                    transactionMonitoringEnabled =
+                        paymentOrderAsyncCreateRequest.transactionMonitoringEnabled
+                    ultimateOriginatingPartyIdentifier =
+                        paymentOrderAsyncCreateRequest.ultimateOriginatingPartyIdentifier
+                    ultimateOriginatingPartyName =
+                        paymentOrderAsyncCreateRequest.ultimateOriginatingPartyName
+                    ultimateReceivingPartyIdentifier =
+                        paymentOrderAsyncCreateRequest.ultimateReceivingPartyIdentifier
+                    ultimateReceivingPartyName =
+                        paymentOrderAsyncCreateRequest.ultimateReceivingPartyName
+                    additionalProperties =
+                        paymentOrderAsyncCreateRequest.additionalProperties.toMutableMap()
+                }
 
             /**
              * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000
@@ -1695,8 +1698,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): PaymentOrderCreateAsyncBody =
-                PaymentOrderCreateAsyncBody(
+            fun build(): PaymentOrderAsyncCreateRequest =
+                PaymentOrderAsyncCreateRequest(
                     checkRequired("amount", amount),
                     checkRequired("direction", direction),
                     checkRequired("originatingAccountId", originatingAccountId),
@@ -1741,7 +1744,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PaymentOrderCreateAsyncBody && amount == other.amount && direction == other.direction && originatingAccountId == other.originatingAccountId && type == other.type && accounting == other.accounting && accountingCategoryId == other.accountingCategoryId && accountingLedgerClassId == other.accountingLedgerClassId && chargeBearer == other.chargeBearer && currency == other.currency && description == other.description && effectiveDate == other.effectiveDate && expiresAt == other.expiresAt && fallbackType == other.fallbackType && foreignExchangeContract == other.foreignExchangeContract && foreignExchangeIndicator == other.foreignExchangeIndicator && ledgerTransaction == other.ledgerTransaction && ledgerTransactionId == other.ledgerTransactionId && lineItems == other.lineItems && metadata == other.metadata && nsfProtected == other.nsfProtected && originatingPartyName == other.originatingPartyName && priority == other.priority && processAfter == other.processAfter && purpose == other.purpose && receivingAccount == other.receivingAccount && receivingAccountId == other.receivingAccountId && remittanceInformation == other.remittanceInformation && sendRemittanceAdvice == other.sendRemittanceAdvice && statementDescriptor == other.statementDescriptor && subtype == other.subtype && transactionMonitoringEnabled == other.transactionMonitoringEnabled && ultimateOriginatingPartyIdentifier == other.ultimateOriginatingPartyIdentifier && ultimateOriginatingPartyName == other.ultimateOriginatingPartyName && ultimateReceivingPartyIdentifier == other.ultimateReceivingPartyIdentifier && ultimateReceivingPartyName == other.ultimateReceivingPartyName && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PaymentOrderAsyncCreateRequest && amount == other.amount && direction == other.direction && originatingAccountId == other.originatingAccountId && type == other.type && accounting == other.accounting && accountingCategoryId == other.accountingCategoryId && accountingLedgerClassId == other.accountingLedgerClassId && chargeBearer == other.chargeBearer && currency == other.currency && description == other.description && effectiveDate == other.effectiveDate && expiresAt == other.expiresAt && fallbackType == other.fallbackType && foreignExchangeContract == other.foreignExchangeContract && foreignExchangeIndicator == other.foreignExchangeIndicator && ledgerTransaction == other.ledgerTransaction && ledgerTransactionId == other.ledgerTransactionId && lineItems == other.lineItems && metadata == other.metadata && nsfProtected == other.nsfProtected && originatingPartyName == other.originatingPartyName && priority == other.priority && processAfter == other.processAfter && purpose == other.purpose && receivingAccount == other.receivingAccount && receivingAccountId == other.receivingAccountId && remittanceInformation == other.remittanceInformation && sendRemittanceAdvice == other.sendRemittanceAdvice && statementDescriptor == other.statementDescriptor && subtype == other.subtype && transactionMonitoringEnabled == other.transactionMonitoringEnabled && ultimateOriginatingPartyIdentifier == other.ultimateOriginatingPartyIdentifier && ultimateOriginatingPartyName == other.ultimateOriginatingPartyName && ultimateReceivingPartyIdentifier == other.ultimateReceivingPartyIdentifier && ultimateReceivingPartyName == other.ultimateReceivingPartyName && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -1751,7 +1754,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PaymentOrderCreateAsyncBody{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, effectiveDate=$effectiveDate, expiresAt=$expiresAt, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalProperties=$additionalProperties}"
+            "PaymentOrderAsyncCreateRequest{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, effectiveDate=$effectiveDate, expiresAt=$expiresAt, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -1765,8 +1768,8 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: PaymentOrderCreateAsyncBody.Builder =
-            PaymentOrderCreateAsyncBody.builder()
+        private var body: PaymentOrderAsyncCreateRequest.Builder =
+            PaymentOrderAsyncCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

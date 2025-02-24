@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -22,16 +23,20 @@ class ConnectionLegalEntityUpdateParamsTest {
                 .id("id")
                 .status(ConnectionLegalEntityUpdateParams.Status.PROCESSING)
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
+        assertNotNull(body)
         assertThat(body.status()).isEqualTo(ConnectionLegalEntityUpdateParams.Status.PROCESSING)
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
         val params = ConnectionLegalEntityUpdateParams.builder().id("id").build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
+        assertNotNull(body)
     }
 
     @Test

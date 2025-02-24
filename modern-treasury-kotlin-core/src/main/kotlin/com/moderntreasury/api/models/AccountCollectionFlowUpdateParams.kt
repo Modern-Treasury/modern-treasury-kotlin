@@ -25,7 +25,7 @@ import java.util.Objects
 class AccountCollectionFlowUpdateParams
 private constructor(
     private val id: String,
-    private val body: AccountCollectionFlowUpdateBody,
+    private val body: AccountCollectionFlowUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -50,7 +50,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): AccountCollectionFlowUpdateBody = body
+    internal fun _body(): AccountCollectionFlowUpdateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -64,9 +64,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class AccountCollectionFlowUpdateBody
+    class AccountCollectionFlowUpdateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("status")
         @ExcludeMissing
         private val status: JsonField<Status> = JsonMissing.of(),
@@ -92,7 +92,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): AccountCollectionFlowUpdateBody = apply {
+        fun validate(): AccountCollectionFlowUpdateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -108,18 +108,19 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [AccountCollectionFlowUpdateBody]. */
+        /** A builder for [AccountCollectionFlowUpdateRequest]. */
         class Builder internal constructor() {
 
             private var status: JsonField<Status>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(accountCollectionFlowUpdateBody: AccountCollectionFlowUpdateBody) =
-                apply {
-                    status = accountCollectionFlowUpdateBody.status
-                    additionalProperties =
-                        accountCollectionFlowUpdateBody.additionalProperties.toMutableMap()
-                }
+            internal fun from(
+                accountCollectionFlowUpdateRequest: AccountCollectionFlowUpdateRequest
+            ) = apply {
+                status = accountCollectionFlowUpdateRequest.status
+                additionalProperties =
+                    accountCollectionFlowUpdateRequest.additionalProperties.toMutableMap()
+            }
 
             /**
              * Required. The updated status of the account collection flow. Can only be used to mark
@@ -152,8 +153,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): AccountCollectionFlowUpdateBody =
-                AccountCollectionFlowUpdateBody(
+            fun build(): AccountCollectionFlowUpdateRequest =
+                AccountCollectionFlowUpdateRequest(
                     checkRequired("status", status),
                     additionalProperties.toImmutable(),
                 )
@@ -164,7 +165,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountCollectionFlowUpdateBody && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is AccountCollectionFlowUpdateRequest && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -174,7 +175,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "AccountCollectionFlowUpdateBody{status=$status, additionalProperties=$additionalProperties}"
+            "AccountCollectionFlowUpdateRequest{status=$status, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -189,8 +190,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: AccountCollectionFlowUpdateBody.Builder =
-            AccountCollectionFlowUpdateBody.builder()
+        private var body: AccountCollectionFlowUpdateRequest.Builder =
+            AccountCollectionFlowUpdateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

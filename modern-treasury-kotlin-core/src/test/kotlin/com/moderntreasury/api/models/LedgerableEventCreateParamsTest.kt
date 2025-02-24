@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -39,8 +40,10 @@ class LedgerableEventCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
+        assertNotNull(body)
         assertThat(body.name()).isEqualTo("name")
         assertThat(body._customData()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(body.description()).isEqualTo("description")
@@ -57,8 +60,10 @@ class LedgerableEventCreateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = LedgerableEventCreateParams.builder().name("name").build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
+        assertNotNull(body)
         assertThat(body.name()).isEqualTo("name")
     }
 }

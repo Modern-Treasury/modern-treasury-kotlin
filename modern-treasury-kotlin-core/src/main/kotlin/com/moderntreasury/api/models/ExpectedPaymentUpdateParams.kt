@@ -26,7 +26,7 @@ import java.util.Objects
 class ExpectedPaymentUpdateParams
 private constructor(
     private val id: String,
-    private val body: ExpectedPaymentUpdateBody,
+    private val body: ExpectedPaymentUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -177,7 +177,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): ExpectedPaymentUpdateBody = body
+    internal fun _body(): ExpectedPaymentUpdateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -191,9 +191,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class ExpectedPaymentUpdateBody
+    class ExpectedPaymentUpdateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("amount_lower_bound")
         @ExcludeMissing
         private val amountLowerBound: JsonField<Long> = JsonMissing.of(),
@@ -425,7 +425,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): ExpectedPaymentUpdateBody = apply {
+        fun validate(): ExpectedPaymentUpdateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -455,7 +455,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [ExpectedPaymentUpdateBody]. */
+        /** A builder for [ExpectedPaymentUpdateRequest]. */
         class Builder internal constructor() {
 
             private var amountLowerBound: JsonField<Long> = JsonMissing.of()
@@ -478,26 +478,29 @@ private constructor(
             private var type: JsonField<ExpectedPaymentType> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(expectedPaymentUpdateBody: ExpectedPaymentUpdateBody) = apply {
-                amountLowerBound = expectedPaymentUpdateBody.amountLowerBound
-                amountUpperBound = expectedPaymentUpdateBody.amountUpperBound
-                counterpartyId = expectedPaymentUpdateBody.counterpartyId
-                currency = expectedPaymentUpdateBody.currency
-                dateLowerBound = expectedPaymentUpdateBody.dateLowerBound
-                dateUpperBound = expectedPaymentUpdateBody.dateUpperBound
-                description = expectedPaymentUpdateBody.description
-                direction = expectedPaymentUpdateBody.direction
-                internalAccountId = expectedPaymentUpdateBody.internalAccountId
-                metadata = expectedPaymentUpdateBody.metadata
-                reconciliationFilters = expectedPaymentUpdateBody.reconciliationFilters
-                reconciliationGroups = expectedPaymentUpdateBody.reconciliationGroups
+            internal fun from(expectedPaymentUpdateRequest: ExpectedPaymentUpdateRequest) = apply {
+                amountLowerBound = expectedPaymentUpdateRequest.amountLowerBound
+                amountUpperBound = expectedPaymentUpdateRequest.amountUpperBound
+                counterpartyId = expectedPaymentUpdateRequest.counterpartyId
+                currency = expectedPaymentUpdateRequest.currency
+                dateLowerBound = expectedPaymentUpdateRequest.dateLowerBound
+                dateUpperBound = expectedPaymentUpdateRequest.dateUpperBound
+                description = expectedPaymentUpdateRequest.description
+                direction = expectedPaymentUpdateRequest.direction
+                internalAccountId = expectedPaymentUpdateRequest.internalAccountId
+                metadata = expectedPaymentUpdateRequest.metadata
+                reconciliationFilters = expectedPaymentUpdateRequest.reconciliationFilters
+                reconciliationGroups = expectedPaymentUpdateRequest.reconciliationGroups
                 reconciliationRuleVariables =
-                    expectedPaymentUpdateBody.reconciliationRuleVariables.map { it.toMutableList() }
-                remittanceInformation = expectedPaymentUpdateBody.remittanceInformation
-                statementDescriptor = expectedPaymentUpdateBody.statementDescriptor
-                status = expectedPaymentUpdateBody.status
-                type = expectedPaymentUpdateBody.type
-                additionalProperties = expectedPaymentUpdateBody.additionalProperties.toMutableMap()
+                    expectedPaymentUpdateRequest.reconciliationRuleVariables.map {
+                        it.toMutableList()
+                    }
+                remittanceInformation = expectedPaymentUpdateRequest.remittanceInformation
+                statementDescriptor = expectedPaymentUpdateRequest.statementDescriptor
+                status = expectedPaymentUpdateRequest.status
+                type = expectedPaymentUpdateRequest.type
+                additionalProperties =
+                    expectedPaymentUpdateRequest.additionalProperties.toMutableMap()
             }
 
             /**
@@ -729,8 +732,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): ExpectedPaymentUpdateBody =
-                ExpectedPaymentUpdateBody(
+            fun build(): ExpectedPaymentUpdateRequest =
+                ExpectedPaymentUpdateRequest(
                     amountLowerBound,
                     amountUpperBound,
                     counterpartyId,
@@ -757,7 +760,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExpectedPaymentUpdateBody && amountLowerBound == other.amountLowerBound && amountUpperBound == other.amountUpperBound && counterpartyId == other.counterpartyId && currency == other.currency && dateLowerBound == other.dateLowerBound && dateUpperBound == other.dateUpperBound && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && metadata == other.metadata && reconciliationFilters == other.reconciliationFilters && reconciliationGroups == other.reconciliationGroups && reconciliationRuleVariables == other.reconciliationRuleVariables && remittanceInformation == other.remittanceInformation && statementDescriptor == other.statementDescriptor && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ExpectedPaymentUpdateRequest && amountLowerBound == other.amountLowerBound && amountUpperBound == other.amountUpperBound && counterpartyId == other.counterpartyId && currency == other.currency && dateLowerBound == other.dateLowerBound && dateUpperBound == other.dateUpperBound && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && metadata == other.metadata && reconciliationFilters == other.reconciliationFilters && reconciliationGroups == other.reconciliationGroups && reconciliationRuleVariables == other.reconciliationRuleVariables && remittanceInformation == other.remittanceInformation && statementDescriptor == other.statementDescriptor && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -767,7 +770,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ExpectedPaymentUpdateBody{amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, direction=$direction, internalAccountId=$internalAccountId, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, status=$status, type=$type, additionalProperties=$additionalProperties}"
+            "ExpectedPaymentUpdateRequest{amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, direction=$direction, internalAccountId=$internalAccountId, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, status=$status, type=$type, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -782,7 +785,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: ExpectedPaymentUpdateBody.Builder = ExpectedPaymentUpdateBody.builder()
+        private var body: ExpectedPaymentUpdateRequest.Builder =
+            ExpectedPaymentUpdateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

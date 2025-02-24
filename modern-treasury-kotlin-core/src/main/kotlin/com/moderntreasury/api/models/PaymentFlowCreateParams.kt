@@ -25,7 +25,7 @@ import java.util.Objects
 /** create payment_flow */
 class PaymentFlowCreateParams
 private constructor(
-    private val body: PaymentFlowCreateBody,
+    private val body: PaymentFlowCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -98,16 +98,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): PaymentFlowCreateBody = body
+    internal fun _body(): PaymentFlowCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class PaymentFlowCreateBody
+    class PaymentFlowCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("amount")
         @ExcludeMissing
         private val amount: JsonField<Long> = JsonMissing.of(),
@@ -205,7 +205,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): PaymentFlowCreateBody = apply {
+        fun validate(): PaymentFlowCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -226,7 +226,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [PaymentFlowCreateBody]. */
+        /** A builder for [PaymentFlowCreateRequest]. */
         class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
@@ -237,14 +237,14 @@ private constructor(
             private var dueDate: JsonField<LocalDate> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(paymentFlowCreateBody: PaymentFlowCreateBody) = apply {
-                amount = paymentFlowCreateBody.amount
-                counterpartyId = paymentFlowCreateBody.counterpartyId
-                currency = paymentFlowCreateBody.currency
-                direction = paymentFlowCreateBody.direction
-                originatingAccountId = paymentFlowCreateBody.originatingAccountId
-                dueDate = paymentFlowCreateBody.dueDate
-                additionalProperties = paymentFlowCreateBody.additionalProperties.toMutableMap()
+            internal fun from(paymentFlowCreateRequest: PaymentFlowCreateRequest) = apply {
+                amount = paymentFlowCreateRequest.amount
+                counterpartyId = paymentFlowCreateRequest.counterpartyId
+                currency = paymentFlowCreateRequest.currency
+                direction = paymentFlowCreateRequest.direction
+                originatingAccountId = paymentFlowCreateRequest.originatingAccountId
+                dueDate = paymentFlowCreateRequest.dueDate
+                additionalProperties = paymentFlowCreateRequest.additionalProperties.toMutableMap()
             }
 
             /**
@@ -334,8 +334,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): PaymentFlowCreateBody =
-                PaymentFlowCreateBody(
+            fun build(): PaymentFlowCreateRequest =
+                PaymentFlowCreateRequest(
                     checkRequired("amount", amount),
                     checkRequired("counterpartyId", counterpartyId),
                     checkRequired("currency", currency),
@@ -351,7 +351,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PaymentFlowCreateBody && amount == other.amount && counterpartyId == other.counterpartyId && currency == other.currency && direction == other.direction && originatingAccountId == other.originatingAccountId && dueDate == other.dueDate && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PaymentFlowCreateRequest && amount == other.amount && counterpartyId == other.counterpartyId && currency == other.currency && direction == other.direction && originatingAccountId == other.originatingAccountId && dueDate == other.dueDate && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -361,7 +361,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PaymentFlowCreateBody{amount=$amount, counterpartyId=$counterpartyId, currency=$currency, direction=$direction, originatingAccountId=$originatingAccountId, dueDate=$dueDate, additionalProperties=$additionalProperties}"
+            "PaymentFlowCreateRequest{amount=$amount, counterpartyId=$counterpartyId, currency=$currency, direction=$direction, originatingAccountId=$originatingAccountId, dueDate=$dueDate, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -375,7 +375,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: PaymentFlowCreateBody.Builder = PaymentFlowCreateBody.builder()
+        private var body: PaymentFlowCreateRequest.Builder = PaymentFlowCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

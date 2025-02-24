@@ -24,7 +24,7 @@ import java.util.Objects
 /** create external account */
 class ExternalAccountCreateParams
 private constructor(
-    private val body: ExternalAccountCreateBody,
+    private val body: ExternalAccountCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -125,16 +125,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): ExternalAccountCreateBody = body
+    internal fun _body(): ExternalAccountCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class ExternalAccountCreateBody
+    class ExternalAccountCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("counterparty_id")
         @ExcludeMissing
         private val counterpartyId: JsonField<String> = JsonMissing.of(),
@@ -303,7 +303,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): ExternalAccountCreateBody = apply {
+        fun validate(): ExternalAccountCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -331,7 +331,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [ExternalAccountCreateBody]. */
+        /** A builder for [ExternalAccountCreateRequest]. */
         class Builder internal constructor() {
 
             private var counterpartyId: JsonField<String>? = null
@@ -349,21 +349,25 @@ private constructor(
             private var routingDetails: JsonField<MutableList<RoutingDetail>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(externalAccountCreateBody: ExternalAccountCreateBody) = apply {
-                counterpartyId = externalAccountCreateBody.counterpartyId
-                accountDetails = externalAccountCreateBody.accountDetails.map { it.toMutableList() }
-                accountType = externalAccountCreateBody.accountType
-                contactDetails = externalAccountCreateBody.contactDetails.map { it.toMutableList() }
-                ledgerAccount = externalAccountCreateBody.ledgerAccount
-                metadata = externalAccountCreateBody.metadata
-                name = externalAccountCreateBody.name
-                partyAddress = externalAccountCreateBody.partyAddress
-                partyIdentifier = externalAccountCreateBody.partyIdentifier
-                partyName = externalAccountCreateBody.partyName
-                partyType = externalAccountCreateBody.partyType
-                plaidProcessorToken = externalAccountCreateBody.plaidProcessorToken
-                routingDetails = externalAccountCreateBody.routingDetails.map { it.toMutableList() }
-                additionalProperties = externalAccountCreateBody.additionalProperties.toMutableMap()
+            internal fun from(externalAccountCreateRequest: ExternalAccountCreateRequest) = apply {
+                counterpartyId = externalAccountCreateRequest.counterpartyId
+                accountDetails =
+                    externalAccountCreateRequest.accountDetails.map { it.toMutableList() }
+                accountType = externalAccountCreateRequest.accountType
+                contactDetails =
+                    externalAccountCreateRequest.contactDetails.map { it.toMutableList() }
+                ledgerAccount = externalAccountCreateRequest.ledgerAccount
+                metadata = externalAccountCreateRequest.metadata
+                name = externalAccountCreateRequest.name
+                partyAddress = externalAccountCreateRequest.partyAddress
+                partyIdentifier = externalAccountCreateRequest.partyIdentifier
+                partyName = externalAccountCreateRequest.partyName
+                partyType = externalAccountCreateRequest.partyType
+                plaidProcessorToken = externalAccountCreateRequest.plaidProcessorToken
+                routingDetails =
+                    externalAccountCreateRequest.routingDetails.map { it.toMutableList() }
+                additionalProperties =
+                    externalAccountCreateRequest.additionalProperties.toMutableMap()
             }
 
             fun counterpartyId(counterpartyId: String?) =
@@ -544,8 +548,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): ExternalAccountCreateBody =
-                ExternalAccountCreateBody(
+            fun build(): ExternalAccountCreateRequest =
+                ExternalAccountCreateRequest(
                     checkRequired("counterpartyId", counterpartyId),
                     (accountDetails ?: JsonMissing.of()).map { it.toImmutable() },
                     accountType,
@@ -568,7 +572,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExternalAccountCreateBody && counterpartyId == other.counterpartyId && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && ledgerAccount == other.ledgerAccount && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyIdentifier == other.partyIdentifier && partyName == other.partyName && partyType == other.partyType && plaidProcessorToken == other.plaidProcessorToken && routingDetails == other.routingDetails && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ExternalAccountCreateRequest && counterpartyId == other.counterpartyId && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && ledgerAccount == other.ledgerAccount && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyIdentifier == other.partyIdentifier && partyName == other.partyName && partyType == other.partyType && plaidProcessorToken == other.plaidProcessorToken && routingDetails == other.routingDetails && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -578,7 +582,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ExternalAccountCreateBody{counterpartyId=$counterpartyId, accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
+            "ExternalAccountCreateRequest{counterpartyId=$counterpartyId, accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -592,7 +596,8 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: ExternalAccountCreateBody.Builder = ExternalAccountCreateBody.builder()
+        private var body: ExternalAccountCreateRequest.Builder =
+            ExternalAccountCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

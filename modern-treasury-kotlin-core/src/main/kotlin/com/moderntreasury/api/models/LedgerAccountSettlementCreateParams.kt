@@ -25,7 +25,7 @@ import java.util.Objects
 /** Create a ledger account settlement. */
 class LedgerAccountSettlementCreateParams
 private constructor(
-    private val body: LedgerAccountSettlementCreateBody,
+    private val body: LedgerAccountSettlementCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -123,16 +123,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerAccountSettlementCreateBody = body
+    internal fun _body(): LedgerAccountSettlementCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class LedgerAccountSettlementCreateBody
+    class LedgerAccountSettlementCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("contra_ledger_account_id")
         @ExcludeMissing
         private val contraLedgerAccountId: JsonField<String> = JsonMissing.of(),
@@ -274,7 +274,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LedgerAccountSettlementCreateBody = apply {
+        fun validate(): LedgerAccountSettlementCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -297,7 +297,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [LedgerAccountSettlementCreateBody]. */
+        /** A builder for [LedgerAccountSettlementCreateRequest]. */
         class Builder internal constructor() {
 
             private var contraLedgerAccountId: JsonField<String>? = null
@@ -311,19 +311,19 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
-                ledgerAccountSettlementCreateBody: LedgerAccountSettlementCreateBody
+                ledgerAccountSettlementCreateRequest: LedgerAccountSettlementCreateRequest
             ) = apply {
-                contraLedgerAccountId = ledgerAccountSettlementCreateBody.contraLedgerAccountId
-                settledLedgerAccountId = ledgerAccountSettlementCreateBody.settledLedgerAccountId
-                allowEitherDirection = ledgerAccountSettlementCreateBody.allowEitherDirection
-                description = ledgerAccountSettlementCreateBody.description
-                effectiveAtUpperBound = ledgerAccountSettlementCreateBody.effectiveAtUpperBound
-                metadata = ledgerAccountSettlementCreateBody.metadata
+                contraLedgerAccountId = ledgerAccountSettlementCreateRequest.contraLedgerAccountId
+                settledLedgerAccountId = ledgerAccountSettlementCreateRequest.settledLedgerAccountId
+                allowEitherDirection = ledgerAccountSettlementCreateRequest.allowEitherDirection
+                description = ledgerAccountSettlementCreateRequest.description
+                effectiveAtUpperBound = ledgerAccountSettlementCreateRequest.effectiveAtUpperBound
+                metadata = ledgerAccountSettlementCreateRequest.metadata
                 skipSettlementLedgerTransaction =
-                    ledgerAccountSettlementCreateBody.skipSettlementLedgerTransaction
-                status = ledgerAccountSettlementCreateBody.status
+                    ledgerAccountSettlementCreateRequest.skipSettlementLedgerTransaction
+                status = ledgerAccountSettlementCreateRequest.status
                 additionalProperties =
-                    ledgerAccountSettlementCreateBody.additionalProperties.toMutableMap()
+                    ledgerAccountSettlementCreateRequest.additionalProperties.toMutableMap()
             }
 
             /**
@@ -470,8 +470,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LedgerAccountSettlementCreateBody =
-                LedgerAccountSettlementCreateBody(
+            fun build(): LedgerAccountSettlementCreateRequest =
+                LedgerAccountSettlementCreateRequest(
                     checkRequired("contraLedgerAccountId", contraLedgerAccountId),
                     checkRequired("settledLedgerAccountId", settledLedgerAccountId),
                     allowEitherDirection,
@@ -489,7 +489,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerAccountSettlementCreateBody && contraLedgerAccountId == other.contraLedgerAccountId && settledLedgerAccountId == other.settledLedgerAccountId && allowEitherDirection == other.allowEitherDirection && description == other.description && effectiveAtUpperBound == other.effectiveAtUpperBound && metadata == other.metadata && skipSettlementLedgerTransaction == other.skipSettlementLedgerTransaction && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerAccountSettlementCreateRequest && contraLedgerAccountId == other.contraLedgerAccountId && settledLedgerAccountId == other.settledLedgerAccountId && allowEitherDirection == other.allowEitherDirection && description == other.description && effectiveAtUpperBound == other.effectiveAtUpperBound && metadata == other.metadata && skipSettlementLedgerTransaction == other.skipSettlementLedgerTransaction && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -499,7 +499,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerAccountSettlementCreateBody{contraLedgerAccountId=$contraLedgerAccountId, settledLedgerAccountId=$settledLedgerAccountId, allowEitherDirection=$allowEitherDirection, description=$description, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, skipSettlementLedgerTransaction=$skipSettlementLedgerTransaction, status=$status, additionalProperties=$additionalProperties}"
+            "LedgerAccountSettlementCreateRequest{contraLedgerAccountId=$contraLedgerAccountId, settledLedgerAccountId=$settledLedgerAccountId, allowEitherDirection=$allowEitherDirection, description=$description, effectiveAtUpperBound=$effectiveAtUpperBound, metadata=$metadata, skipSettlementLedgerTransaction=$skipSettlementLedgerTransaction, status=$status, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -513,8 +513,8 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: LedgerAccountSettlementCreateBody.Builder =
-            LedgerAccountSettlementCreateBody.builder()
+        private var body: LedgerAccountSettlementCreateRequest.Builder =
+            LedgerAccountSettlementCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

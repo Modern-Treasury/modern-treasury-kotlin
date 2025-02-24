@@ -26,7 +26,7 @@ import java.util.Objects
 /** create expected payment */
 class ExpectedPaymentCreateParams
 private constructor(
-    private val body: ExpectedPaymentCreateBody,
+    private val body: ExpectedPaymentCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -201,16 +201,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): ExpectedPaymentCreateBody = body
+    internal fun _body(): ExpectedPaymentCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class ExpectedPaymentCreateBody
+    class ExpectedPaymentCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("amount_lower_bound")
         @ExcludeMissing
         private val amountLowerBound: JsonField<Long> = JsonMissing.of(),
@@ -482,7 +482,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): ExpectedPaymentCreateBody = apply {
+        fun validate(): ExpectedPaymentCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -514,7 +514,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [ExpectedPaymentCreateBody]. */
+        /** A builder for [ExpectedPaymentCreateRequest]. */
         class Builder internal constructor() {
 
             private var amountLowerBound: JsonField<Long> = JsonMissing.of()
@@ -540,28 +540,31 @@ private constructor(
             private var type: JsonField<ExpectedPaymentType> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(expectedPaymentCreateBody: ExpectedPaymentCreateBody) = apply {
-                amountLowerBound = expectedPaymentCreateBody.amountLowerBound
-                amountUpperBound = expectedPaymentCreateBody.amountUpperBound
-                counterpartyId = expectedPaymentCreateBody.counterpartyId
-                currency = expectedPaymentCreateBody.currency
-                dateLowerBound = expectedPaymentCreateBody.dateLowerBound
-                dateUpperBound = expectedPaymentCreateBody.dateUpperBound
-                description = expectedPaymentCreateBody.description
-                direction = expectedPaymentCreateBody.direction
-                internalAccountId = expectedPaymentCreateBody.internalAccountId
-                ledgerTransaction = expectedPaymentCreateBody.ledgerTransaction
-                ledgerTransactionId = expectedPaymentCreateBody.ledgerTransactionId
-                lineItems = expectedPaymentCreateBody.lineItems.map { it.toMutableList() }
-                metadata = expectedPaymentCreateBody.metadata
-                reconciliationFilters = expectedPaymentCreateBody.reconciliationFilters
-                reconciliationGroups = expectedPaymentCreateBody.reconciliationGroups
+            internal fun from(expectedPaymentCreateRequest: ExpectedPaymentCreateRequest) = apply {
+                amountLowerBound = expectedPaymentCreateRequest.amountLowerBound
+                amountUpperBound = expectedPaymentCreateRequest.amountUpperBound
+                counterpartyId = expectedPaymentCreateRequest.counterpartyId
+                currency = expectedPaymentCreateRequest.currency
+                dateLowerBound = expectedPaymentCreateRequest.dateLowerBound
+                dateUpperBound = expectedPaymentCreateRequest.dateUpperBound
+                description = expectedPaymentCreateRequest.description
+                direction = expectedPaymentCreateRequest.direction
+                internalAccountId = expectedPaymentCreateRequest.internalAccountId
+                ledgerTransaction = expectedPaymentCreateRequest.ledgerTransaction
+                ledgerTransactionId = expectedPaymentCreateRequest.ledgerTransactionId
+                lineItems = expectedPaymentCreateRequest.lineItems.map { it.toMutableList() }
+                metadata = expectedPaymentCreateRequest.metadata
+                reconciliationFilters = expectedPaymentCreateRequest.reconciliationFilters
+                reconciliationGroups = expectedPaymentCreateRequest.reconciliationGroups
                 reconciliationRuleVariables =
-                    expectedPaymentCreateBody.reconciliationRuleVariables.map { it.toMutableList() }
-                remittanceInformation = expectedPaymentCreateBody.remittanceInformation
-                statementDescriptor = expectedPaymentCreateBody.statementDescriptor
-                type = expectedPaymentCreateBody.type
-                additionalProperties = expectedPaymentCreateBody.additionalProperties.toMutableMap()
+                    expectedPaymentCreateRequest.reconciliationRuleVariables.map {
+                        it.toMutableList()
+                    }
+                remittanceInformation = expectedPaymentCreateRequest.remittanceInformation
+                statementDescriptor = expectedPaymentCreateRequest.statementDescriptor
+                type = expectedPaymentCreateRequest.type
+                additionalProperties =
+                    expectedPaymentCreateRequest.additionalProperties.toMutableMap()
             }
 
             /**
@@ -839,8 +842,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): ExpectedPaymentCreateBody =
-                ExpectedPaymentCreateBody(
+            fun build(): ExpectedPaymentCreateRequest =
+                ExpectedPaymentCreateRequest(
                     amountLowerBound,
                     amountUpperBound,
                     counterpartyId,
@@ -869,7 +872,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExpectedPaymentCreateBody && amountLowerBound == other.amountLowerBound && amountUpperBound == other.amountUpperBound && counterpartyId == other.counterpartyId && currency == other.currency && dateLowerBound == other.dateLowerBound && dateUpperBound == other.dateUpperBound && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && ledgerTransaction == other.ledgerTransaction && ledgerTransactionId == other.ledgerTransactionId && lineItems == other.lineItems && metadata == other.metadata && reconciliationFilters == other.reconciliationFilters && reconciliationGroups == other.reconciliationGroups && reconciliationRuleVariables == other.reconciliationRuleVariables && remittanceInformation == other.remittanceInformation && statementDescriptor == other.statementDescriptor && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ExpectedPaymentCreateRequest && amountLowerBound == other.amountLowerBound && amountUpperBound == other.amountUpperBound && counterpartyId == other.counterpartyId && currency == other.currency && dateLowerBound == other.dateLowerBound && dateUpperBound == other.dateUpperBound && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && ledgerTransaction == other.ledgerTransaction && ledgerTransactionId == other.ledgerTransactionId && lineItems == other.lineItems && metadata == other.metadata && reconciliationFilters == other.reconciliationFilters && reconciliationGroups == other.reconciliationGroups && reconciliationRuleVariables == other.reconciliationRuleVariables && remittanceInformation == other.remittanceInformation && statementDescriptor == other.statementDescriptor && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -879,7 +882,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ExpectedPaymentCreateBody{amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, direction=$direction, internalAccountId=$internalAccountId, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, type=$type, additionalProperties=$additionalProperties}"
+            "ExpectedPaymentCreateRequest{amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, direction=$direction, internalAccountId=$internalAccountId, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, type=$type, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -893,7 +896,8 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: ExpectedPaymentCreateBody.Builder = ExpectedPaymentCreateBody.builder()
+        private var body: ExpectedPaymentCreateRequest.Builder =
+            ExpectedPaymentCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

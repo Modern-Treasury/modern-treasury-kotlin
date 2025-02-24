@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -39,8 +40,10 @@ class LineItemUpdateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
+        assertNotNull(body)
         assertThat(body.metadata())
             .isEqualTo(
                 LineItemUpdateParams.Metadata.builder()
@@ -59,8 +62,10 @@ class LineItemUpdateParamsTest {
                 .itemizableId("itemizable_id")
                 .id("id")
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
+        assertNotNull(body)
     }
 
     @Test

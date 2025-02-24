@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -41,8 +42,10 @@ class CounterpartyUpdateParamsTest {
                 .sendRemittanceAdvice(true)
                 .taxpayerIdentifier("taxpayer_identifier")
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
+        assertNotNull(body)
         assertThat(body.email()).isEqualTo("dev@stainlessapi.com")
         assertThat(body.legalEntityId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.metadata())
@@ -59,8 +62,10 @@ class CounterpartyUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = CounterpartyUpdateParams.builder().id("id").build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
+        assertNotNull(body)
     }
 
     @Test

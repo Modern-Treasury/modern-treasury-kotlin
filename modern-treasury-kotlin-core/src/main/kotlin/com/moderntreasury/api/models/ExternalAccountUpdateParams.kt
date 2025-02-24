@@ -25,7 +25,7 @@ import java.util.Objects
 class ExternalAccountUpdateParams
 private constructor(
     private val id: String,
-    private val body: ExternalAccountUpdateBody,
+    private val body: ExternalAccountUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -88,7 +88,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): ExternalAccountUpdateBody = body
+    internal fun _body(): ExternalAccountUpdateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -102,9 +102,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class ExternalAccountUpdateBody
+    class ExternalAccountUpdateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("account_type")
         @ExcludeMissing
         private val accountType: JsonField<ExternalAccountType> = JsonMissing.of(),
@@ -194,7 +194,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): ExternalAccountUpdateBody = apply {
+        fun validate(): ExternalAccountUpdateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -216,7 +216,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [ExternalAccountUpdateBody]. */
+        /** A builder for [ExternalAccountUpdateRequest]. */
         class Builder internal constructor() {
 
             private var accountType: JsonField<ExternalAccountType> = JsonMissing.of()
@@ -228,15 +228,16 @@ private constructor(
             private var partyType: JsonField<PartyType> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(externalAccountUpdateBody: ExternalAccountUpdateBody) = apply {
-                accountType = externalAccountUpdateBody.accountType
-                counterpartyId = externalAccountUpdateBody.counterpartyId
-                metadata = externalAccountUpdateBody.metadata
-                name = externalAccountUpdateBody.name
-                partyAddress = externalAccountUpdateBody.partyAddress
-                partyName = externalAccountUpdateBody.partyName
-                partyType = externalAccountUpdateBody.partyType
-                additionalProperties = externalAccountUpdateBody.additionalProperties.toMutableMap()
+            internal fun from(externalAccountUpdateRequest: ExternalAccountUpdateRequest) = apply {
+                accountType = externalAccountUpdateRequest.accountType
+                counterpartyId = externalAccountUpdateRequest.counterpartyId
+                metadata = externalAccountUpdateRequest.metadata
+                name = externalAccountUpdateRequest.name
+                partyAddress = externalAccountUpdateRequest.partyAddress
+                partyName = externalAccountUpdateRequest.partyName
+                partyType = externalAccountUpdateRequest.partyType
+                additionalProperties =
+                    externalAccountUpdateRequest.additionalProperties.toMutableMap()
             }
 
             /** Can be `checking`, `savings` or `other`. */
@@ -317,8 +318,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): ExternalAccountUpdateBody =
-                ExternalAccountUpdateBody(
+            fun build(): ExternalAccountUpdateRequest =
+                ExternalAccountUpdateRequest(
                     accountType,
                     counterpartyId,
                     metadata,
@@ -335,7 +336,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExternalAccountUpdateBody && accountType == other.accountType && counterpartyId == other.counterpartyId && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyName == other.partyName && partyType == other.partyType && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ExternalAccountUpdateRequest && accountType == other.accountType && counterpartyId == other.counterpartyId && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyName == other.partyName && partyType == other.partyType && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -345,7 +346,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ExternalAccountUpdateBody{accountType=$accountType, counterpartyId=$counterpartyId, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyName=$partyName, partyType=$partyType, additionalProperties=$additionalProperties}"
+            "ExternalAccountUpdateRequest{accountType=$accountType, counterpartyId=$counterpartyId, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyName=$partyName, partyType=$partyType, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -360,7 +361,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: ExternalAccountUpdateBody.Builder = ExternalAccountUpdateBody.builder()
+        private var body: ExternalAccountUpdateRequest.Builder =
+            ExternalAccountUpdateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

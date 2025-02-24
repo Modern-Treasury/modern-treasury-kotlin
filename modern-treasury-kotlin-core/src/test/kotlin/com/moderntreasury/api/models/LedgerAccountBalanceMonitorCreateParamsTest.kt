@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -51,8 +52,10 @@ class LedgerAccountBalanceMonitorCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
+        assertNotNull(body)
         assertThat(body.alertCondition())
             .isEqualTo(
                 LedgerAccountBalanceMonitorCreateParams.AlertConditionCreateRequest.builder()
@@ -86,8 +89,10 @@ class LedgerAccountBalanceMonitorCreateParamsTest {
                 )
                 .ledgerAccountId("ledger_account_id")
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
+        assertNotNull(body)
         assertThat(body.alertCondition())
             .isEqualTo(
                 LedgerAccountBalanceMonitorCreateParams.AlertConditionCreateRequest.builder()

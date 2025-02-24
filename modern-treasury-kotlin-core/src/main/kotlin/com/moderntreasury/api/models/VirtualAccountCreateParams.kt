@@ -24,7 +24,7 @@ import java.util.Objects
 /** create virtual_account */
 class VirtualAccountCreateParams
 private constructor(
-    private val body: VirtualAccountCreateBody,
+    private val body: VirtualAccountCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -113,16 +113,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): VirtualAccountCreateBody = body
+    internal fun _body(): VirtualAccountCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class VirtualAccountCreateBody
+    class VirtualAccountCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("internal_account_id")
         @ExcludeMissing
         private val internalAccountId: JsonField<String> = JsonMissing.of(),
@@ -270,7 +270,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): VirtualAccountCreateBody = apply {
+        fun validate(): VirtualAccountCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -295,7 +295,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [VirtualAccountCreateBody]. */
+        /** A builder for [VirtualAccountCreateRequest]. */
         class Builder internal constructor() {
 
             private var internalAccountId: JsonField<String>? = null
@@ -310,18 +310,21 @@ private constructor(
             private var routingDetails: JsonField<MutableList<RoutingDetailCreateRequest>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(virtualAccountCreateBody: VirtualAccountCreateBody) = apply {
-                internalAccountId = virtualAccountCreateBody.internalAccountId
-                name = virtualAccountCreateBody.name
-                accountDetails = virtualAccountCreateBody.accountDetails.map { it.toMutableList() }
-                counterpartyId = virtualAccountCreateBody.counterpartyId
-                creditLedgerAccountId = virtualAccountCreateBody.creditLedgerAccountId
-                debitLedgerAccountId = virtualAccountCreateBody.debitLedgerAccountId
-                description = virtualAccountCreateBody.description
-                ledgerAccount = virtualAccountCreateBody.ledgerAccount
-                metadata = virtualAccountCreateBody.metadata
-                routingDetails = virtualAccountCreateBody.routingDetails.map { it.toMutableList() }
-                additionalProperties = virtualAccountCreateBody.additionalProperties.toMutableMap()
+            internal fun from(virtualAccountCreateRequest: VirtualAccountCreateRequest) = apply {
+                internalAccountId = virtualAccountCreateRequest.internalAccountId
+                name = virtualAccountCreateRequest.name
+                accountDetails =
+                    virtualAccountCreateRequest.accountDetails.map { it.toMutableList() }
+                counterpartyId = virtualAccountCreateRequest.counterpartyId
+                creditLedgerAccountId = virtualAccountCreateRequest.creditLedgerAccountId
+                debitLedgerAccountId = virtualAccountCreateRequest.debitLedgerAccountId
+                description = virtualAccountCreateRequest.description
+                ledgerAccount = virtualAccountCreateRequest.ledgerAccount
+                metadata = virtualAccountCreateRequest.metadata
+                routingDetails =
+                    virtualAccountCreateRequest.routingDetails.map { it.toMutableList() }
+                additionalProperties =
+                    virtualAccountCreateRequest.additionalProperties.toMutableMap()
             }
 
             /** The ID of the internal account that this virtual account is associated with. */
@@ -480,8 +483,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): VirtualAccountCreateBody =
-                VirtualAccountCreateBody(
+            fun build(): VirtualAccountCreateRequest =
+                VirtualAccountCreateRequest(
                     checkRequired("internalAccountId", internalAccountId),
                     checkRequired("name", name),
                     (accountDetails ?: JsonMissing.of()).map { it.toImmutable() },
@@ -501,7 +504,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is VirtualAccountCreateBody && internalAccountId == other.internalAccountId && name == other.name && accountDetails == other.accountDetails && counterpartyId == other.counterpartyId && creditLedgerAccountId == other.creditLedgerAccountId && debitLedgerAccountId == other.debitLedgerAccountId && description == other.description && ledgerAccount == other.ledgerAccount && metadata == other.metadata && routingDetails == other.routingDetails && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is VirtualAccountCreateRequest && internalAccountId == other.internalAccountId && name == other.name && accountDetails == other.accountDetails && counterpartyId == other.counterpartyId && creditLedgerAccountId == other.creditLedgerAccountId && debitLedgerAccountId == other.debitLedgerAccountId && description == other.description && ledgerAccount == other.ledgerAccount && metadata == other.metadata && routingDetails == other.routingDetails && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -511,7 +514,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "VirtualAccountCreateBody{internalAccountId=$internalAccountId, name=$name, accountDetails=$accountDetails, counterpartyId=$counterpartyId, creditLedgerAccountId=$creditLedgerAccountId, debitLedgerAccountId=$debitLedgerAccountId, description=$description, ledgerAccount=$ledgerAccount, metadata=$metadata, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
+            "VirtualAccountCreateRequest{internalAccountId=$internalAccountId, name=$name, accountDetails=$accountDetails, counterpartyId=$counterpartyId, creditLedgerAccountId=$creditLedgerAccountId, debitLedgerAccountId=$debitLedgerAccountId, description=$description, ledgerAccount=$ledgerAccount, metadata=$metadata, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -525,7 +528,8 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: VirtualAccountCreateBody.Builder = VirtualAccountCreateBody.builder()
+        private var body: VirtualAccountCreateRequest.Builder =
+            VirtualAccountCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
