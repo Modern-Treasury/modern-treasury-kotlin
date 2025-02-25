@@ -35,7 +35,11 @@ interface LedgerAccountSettlementServiceAsync {
 
     /** Get a list of ledger account settlements. */
     suspend fun list(
-        params: LedgerAccountSettlementListParams,
+        params: LedgerAccountSettlementListParams = LedgerAccountSettlementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountSettlementListPageAsync
+
+    /** Get a list of ledger account settlements. */
+    suspend fun list(requestOptions: RequestOptions): LedgerAccountSettlementListPageAsync =
+        list(LedgerAccountSettlementListParams.none(), requestOptions)
 }

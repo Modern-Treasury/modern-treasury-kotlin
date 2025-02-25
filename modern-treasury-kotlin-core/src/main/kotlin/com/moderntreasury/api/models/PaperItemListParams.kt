@@ -58,6 +58,8 @@ private constructor(
 
     companion object {
 
+        fun none(): PaperItemListParams = builder().build()
+
         fun builder() = Builder()
     }
 

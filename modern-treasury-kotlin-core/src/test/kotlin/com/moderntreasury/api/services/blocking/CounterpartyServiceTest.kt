@@ -9,7 +9,6 @@ import com.moderntreasury.api.models.BankSettings
 import com.moderntreasury.api.models.CounterpartyCollectAccountParams
 import com.moderntreasury.api.models.CounterpartyCreateParams
 import com.moderntreasury.api.models.CounterpartyDeleteParams
-import com.moderntreasury.api.models.CounterpartyListParams
 import com.moderntreasury.api.models.CounterpartyRetrieveParams
 import com.moderntreasury.api.models.CounterpartyUpdateParams
 import com.moderntreasury.api.models.ExternalAccountType
@@ -529,7 +528,7 @@ class CounterpartyServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val counterpartyService = client.counterparties()
-        val response = counterpartyService.list(CounterpartyListParams.builder().build())
+        val response = counterpartyService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

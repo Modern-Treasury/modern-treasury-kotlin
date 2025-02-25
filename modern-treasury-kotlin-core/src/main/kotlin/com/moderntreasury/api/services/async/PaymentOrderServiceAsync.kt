@@ -37,9 +37,13 @@ interface PaymentOrderServiceAsync {
 
     /** Get a list of all payment orders */
     suspend fun list(
-        params: PaymentOrderListParams,
+        params: PaymentOrderListParams = PaymentOrderListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentOrderListPageAsync
+
+    /** Get a list of all payment orders */
+    suspend fun list(requestOptions: RequestOptions): PaymentOrderListPageAsync =
+        list(PaymentOrderListParams.none(), requestOptions)
 
     /** Create a new payment order asynchronously */
     suspend fun createAsync(

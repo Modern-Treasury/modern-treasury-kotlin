@@ -26,9 +26,13 @@ interface LedgerEventHandlerServiceAsync {
 
     /** Get a list of ledger event handlers. */
     suspend fun list(
-        params: LedgerEventHandlerListParams,
+        params: LedgerEventHandlerListParams = LedgerEventHandlerListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerEventHandlerListPageAsync
+
+    /** Get a list of ledger event handlers. */
+    suspend fun list(requestOptions: RequestOptions): LedgerEventHandlerListPageAsync =
+        list(LedgerEventHandlerListParams.none(), requestOptions)
 
     /** Archive a ledger event handler. */
     suspend fun delete(

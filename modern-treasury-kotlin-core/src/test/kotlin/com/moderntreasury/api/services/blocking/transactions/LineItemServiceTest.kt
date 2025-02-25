@@ -6,7 +6,6 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.TransactionLineItemCreateParams
 import com.moderntreasury.api.models.TransactionLineItemDeleteParams
-import com.moderntreasury.api.models.TransactionLineItemListParams
 import com.moderntreasury.api.models.TransactionLineItemRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -59,7 +58,7 @@ class LineItemServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val lineItemService = client.transactions().lineItems()
-        val response = lineItemService.list(TransactionLineItemListParams.builder().build())
+        val response = lineItemService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

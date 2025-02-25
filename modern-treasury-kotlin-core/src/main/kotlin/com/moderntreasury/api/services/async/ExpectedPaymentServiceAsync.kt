@@ -15,9 +15,13 @@ interface ExpectedPaymentServiceAsync {
 
     /** create expected payment */
     suspend fun create(
-        params: ExpectedPaymentCreateParams,
+        params: ExpectedPaymentCreateParams = ExpectedPaymentCreateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPayment
+
+    /** create expected payment */
+    suspend fun create(requestOptions: RequestOptions): ExpectedPayment =
+        create(ExpectedPaymentCreateParams.none(), requestOptions)
 
     /** get expected payment */
     suspend fun retrieve(
@@ -33,9 +37,13 @@ interface ExpectedPaymentServiceAsync {
 
     /** list expected_payments */
     suspend fun list(
-        params: ExpectedPaymentListParams,
+        params: ExpectedPaymentListParams = ExpectedPaymentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPaymentListPageAsync
+
+    /** list expected_payments */
+    suspend fun list(requestOptions: RequestOptions): ExpectedPaymentListPageAsync =
+        list(ExpectedPaymentListParams.none(), requestOptions)
 
     /** delete expected payment */
     suspend fun delete(

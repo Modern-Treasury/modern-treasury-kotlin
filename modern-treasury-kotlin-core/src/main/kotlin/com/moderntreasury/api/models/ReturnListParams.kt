@@ -71,6 +71,8 @@ private constructor(
 
     companion object {
 
+        fun none(): ReturnListParams = builder().build()
+
         fun builder() = Builder()
     }
 

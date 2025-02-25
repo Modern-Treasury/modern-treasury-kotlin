@@ -7,7 +7,6 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.TransactionCreateParams
 import com.moderntreasury.api.models.TransactionDeleteParams
-import com.moderntreasury.api.models.TransactionListParams
 import com.moderntreasury.api.models.TransactionRetrieveParams
 import com.moderntreasury.api.models.TransactionUpdateParams
 import java.time.LocalDate
@@ -99,7 +98,7 @@ class TransactionServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val transactionService = client.transactions()
-        val response = transactionService.list(TransactionListParams.builder().build())
+        val response = transactionService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

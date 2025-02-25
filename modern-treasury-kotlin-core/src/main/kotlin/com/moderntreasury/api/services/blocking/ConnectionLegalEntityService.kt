@@ -32,7 +32,11 @@ interface ConnectionLegalEntityService {
 
     /** Get a list of all connection legal entities. */
     fun list(
-        params: ConnectionLegalEntityListParams,
+        params: ConnectionLegalEntityListParams = ConnectionLegalEntityListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConnectionLegalEntityListPage
+
+    /** Get a list of all connection legal entities. */
+    fun list(requestOptions: RequestOptions): ConnectionLegalEntityListPage =
+        list(ConnectionLegalEntityListParams.none(), requestOptions)
 }

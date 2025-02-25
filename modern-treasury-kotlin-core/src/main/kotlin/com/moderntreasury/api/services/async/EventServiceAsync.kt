@@ -18,7 +18,11 @@ interface EventServiceAsync {
 
     /** list events */
     suspend fun list(
-        params: EventListParams,
+        params: EventListParams = EventListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventListPageAsync
+
+    /** list events */
+    suspend fun list(requestOptions: RequestOptions): EventListPageAsync =
+        list(EventListParams.none(), requestOptions)
 }

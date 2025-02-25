@@ -7,7 +7,6 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitorCreateParams
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitorDeleteParams
-import com.moderntreasury.api.models.LedgerAccountBalanceMonitorListParams
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitorRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitorUpdateParams
 import org.junit.jupiter.api.Test
@@ -104,10 +103,7 @@ class LedgerAccountBalanceMonitorServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountBalanceMonitorService = client.ledgerAccountBalanceMonitors()
-        val response =
-            ledgerAccountBalanceMonitorService.list(
-                LedgerAccountBalanceMonitorListParams.builder().build()
-            )
+        val response = ledgerAccountBalanceMonitorService.list()
         println(response)
         response.items().forEach { it.validate() }
     }
