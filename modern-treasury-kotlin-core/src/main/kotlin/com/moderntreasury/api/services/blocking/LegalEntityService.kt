@@ -32,7 +32,11 @@ interface LegalEntityService {
 
     /** Get a list of all legal entities. */
     fun list(
-        params: LegalEntityListParams,
+        params: LegalEntityListParams = LegalEntityListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LegalEntityListPage
+
+    /** Get a list of all legal entities. */
+    fun list(requestOptions: RequestOptions): LegalEntityListPage =
+        list(LegalEntityListParams.none(), requestOptions)
 }

@@ -8,7 +8,6 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.LedgerTransactionCreateParams
 import com.moderntreasury.api.models.LedgerTransactionCreatePartialPostParams
 import com.moderntreasury.api.models.LedgerTransactionCreateReversalParams
-import com.moderntreasury.api.models.LedgerTransactionListParams
 import com.moderntreasury.api.models.LedgerTransactionRetrieveParams
 import com.moderntreasury.api.models.LedgerTransactionUpdateParams
 import com.moderntreasury.api.models.TransactionDirection
@@ -185,7 +184,7 @@ class LedgerTransactionServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerTransactionService = client.ledgerTransactions()
-        val response = ledgerTransactionService.list(LedgerTransactionListParams.builder().build())
+        val response = ledgerTransactionService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

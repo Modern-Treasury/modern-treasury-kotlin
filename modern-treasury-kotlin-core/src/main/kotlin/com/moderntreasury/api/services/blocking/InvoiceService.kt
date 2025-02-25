@@ -36,9 +36,13 @@ interface InvoiceService {
 
     /** list invoices */
     fun list(
-        params: InvoiceListParams,
+        params: InvoiceListParams = InvoiceListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InvoiceListPage
+
+    /** list invoices */
+    fun list(requestOptions: RequestOptions): InvoiceListPage =
+        list(InvoiceListParams.none(), requestOptions)
 
     /** Add a payment order to an invoice. */
     fun addPaymentOrder(

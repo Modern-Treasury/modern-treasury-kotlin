@@ -9,7 +9,6 @@ import com.moderntreasury.api.models.Currency
 import com.moderntreasury.api.models.ExternalAccountCompleteVerificationParams
 import com.moderntreasury.api.models.ExternalAccountCreateParams
 import com.moderntreasury.api.models.ExternalAccountDeleteParams
-import com.moderntreasury.api.models.ExternalAccountListParams
 import com.moderntreasury.api.models.ExternalAccountRetrieveParams
 import com.moderntreasury.api.models.ExternalAccountType
 import com.moderntreasury.api.models.ExternalAccountUpdateParams
@@ -181,7 +180,7 @@ class ExternalAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val externalAccountService = client.externalAccounts()
-        val response = externalAccountService.list(ExternalAccountListParams.builder().build())
+        val response = externalAccountService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

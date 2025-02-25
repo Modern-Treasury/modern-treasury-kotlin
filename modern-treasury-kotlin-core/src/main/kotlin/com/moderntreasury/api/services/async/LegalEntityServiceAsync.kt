@@ -32,7 +32,11 @@ interface LegalEntityServiceAsync {
 
     /** Get a list of all legal entities. */
     suspend fun list(
-        params: LegalEntityListParams,
+        params: LegalEntityListParams = LegalEntityListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LegalEntityListPageAsync
+
+    /** Get a list of all legal entities. */
+    suspend fun list(requestOptions: RequestOptions): LegalEntityListPageAsync =
+        list(LegalEntityListParams.none(), requestOptions)
 }

@@ -9,7 +9,6 @@ import com.moderntreasury.api.models.LedgerAccountCategoryAddLedgerAccountParams
 import com.moderntreasury.api.models.LedgerAccountCategoryAddNestedCategoryParams
 import com.moderntreasury.api.models.LedgerAccountCategoryCreateParams
 import com.moderntreasury.api.models.LedgerAccountCategoryDeleteParams
-import com.moderntreasury.api.models.LedgerAccountCategoryListParams
 import com.moderntreasury.api.models.LedgerAccountCategoryRemoveLedgerAccountParams
 import com.moderntreasury.api.models.LedgerAccountCategoryRemoveNestedCategoryParams
 import com.moderntreasury.api.models.LedgerAccountCategoryRetrieveParams
@@ -117,8 +116,7 @@ class LedgerAccountCategoryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
-        val response =
-            ledgerAccountCategoryService.list(LedgerAccountCategoryListParams.builder().build())
+        val response = ledgerAccountCategoryService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

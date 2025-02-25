@@ -7,7 +7,6 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.BankSettings
 import com.moderntreasury.api.models.LegalEntityCreateParams
-import com.moderntreasury.api.models.LegalEntityListParams
 import com.moderntreasury.api.models.LegalEntityRetrieveParams
 import com.moderntreasury.api.models.LegalEntityUpdateParams
 import com.moderntreasury.api.models.WealthAndEmploymentDetails
@@ -433,7 +432,7 @@ class LegalEntityServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val legalEntityService = client.legalEntities()
-        val response = legalEntityService.list(LegalEntityListParams.builder().build())
+        val response = legalEntityService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

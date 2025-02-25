@@ -19,9 +19,13 @@ interface PaymentReferenceServiceAsync {
 
     /** list payment_references */
     suspend fun list(
-        params: PaymentReferenceListParams,
+        params: PaymentReferenceListParams = PaymentReferenceListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentReferenceListPageAsync
+
+    /** list payment_references */
+    suspend fun list(requestOptions: RequestOptions): PaymentReferenceListPageAsync =
+        list(PaymentReferenceListParams.none(), requestOptions)
 
     /** get payment_reference */
     @Deprecated("use `retrieve` instead")

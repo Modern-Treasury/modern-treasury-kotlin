@@ -8,7 +8,6 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.Currency
 import com.moderntreasury.api.models.InvoiceAddPaymentOrderParams
 import com.moderntreasury.api.models.InvoiceCreateParams
-import com.moderntreasury.api.models.InvoiceListParams
 import com.moderntreasury.api.models.InvoiceRetrieveParams
 import com.moderntreasury.api.models.InvoiceUpdateParams
 import com.moderntreasury.api.models.PaymentOrderType
@@ -254,7 +253,7 @@ class InvoiceServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val invoiceService = client.invoices()
-        val response = invoiceService.list(InvoiceListParams.builder().build())
+        val response = invoiceService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

@@ -25,7 +25,11 @@ interface ForeignExchangeQuoteServiceAsync {
 
     /** list foreign_exchange_quotes */
     suspend fun list(
-        params: ForeignExchangeQuoteListParams,
+        params: ForeignExchangeQuoteListParams = ForeignExchangeQuoteListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ForeignExchangeQuoteListPageAsync
+
+    /** list foreign_exchange_quotes */
+    suspend fun list(requestOptions: RequestOptions): ForeignExchangeQuoteListPageAsync =
+        list(ForeignExchangeQuoteListParams.none(), requestOptions)
 }

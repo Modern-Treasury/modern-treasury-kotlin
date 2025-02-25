@@ -6,7 +6,6 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.InternalAccountCreateParams
-import com.moderntreasury.api.models.InternalAccountListParams
 import com.moderntreasury.api.models.InternalAccountRetrieveParams
 import com.moderntreasury.api.models.InternalAccountUpdateParams
 import org.junit.jupiter.api.Test
@@ -111,7 +110,7 @@ class InternalAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val internalAccountService = client.internalAccounts()
-        val response = internalAccountService.list(InternalAccountListParams.builder().build())
+        val response = internalAccountService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

@@ -33,9 +33,13 @@ interface LedgerAccountServiceAsync {
 
     /** Get a list of ledger accounts. */
     suspend fun list(
-        params: LedgerAccountListParams,
+        params: LedgerAccountListParams = LedgerAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountListPageAsync
+
+    /** Get a list of ledger accounts. */
+    suspend fun list(requestOptions: RequestOptions): LedgerAccountListPageAsync =
+        list(LedgerAccountListParams.none(), requestOptions)
 
     /** Delete a ledger account. */
     suspend fun delete(

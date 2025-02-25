@@ -93,6 +93,8 @@ private constructor(
 
     companion object {
 
+        fun none(): IncomingPaymentDetailListParams = builder().build()
+
         fun builder() = Builder()
     }
 

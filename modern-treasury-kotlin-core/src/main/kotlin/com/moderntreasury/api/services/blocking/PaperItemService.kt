@@ -18,7 +18,11 @@ interface PaperItemService {
 
     /** Get a list of all paper items. */
     fun list(
-        params: PaperItemListParams,
+        params: PaperItemListParams = PaperItemListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaperItemListPage
+
+    /** Get a list of all paper items. */
+    fun list(requestOptions: RequestOptions): PaperItemListPage =
+        list(PaperItemListParams.none(), requestOptions)
 }

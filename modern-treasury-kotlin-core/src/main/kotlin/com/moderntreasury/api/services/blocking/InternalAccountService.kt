@@ -35,7 +35,11 @@ interface InternalAccountService {
 
     /** list internal accounts */
     fun list(
-        params: InternalAccountListParams,
+        params: InternalAccountListParams = InternalAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InternalAccountListPage
+
+    /** list internal accounts */
+    fun list(requestOptions: RequestOptions): InternalAccountListPage =
+        list(InternalAccountListParams.none(), requestOptions)
 }

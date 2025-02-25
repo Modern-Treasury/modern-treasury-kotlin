@@ -7,7 +7,6 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.LedgerCreateParams
 import com.moderntreasury.api.models.LedgerDeleteParams
-import com.moderntreasury.api.models.LedgerListParams
 import com.moderntreasury.api.models.LedgerRetrieveParams
 import com.moderntreasury.api.models.LedgerUpdateParams
 import org.junit.jupiter.api.Test
@@ -94,7 +93,7 @@ class LedgerServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerService = client.ledgers()
-        val response = ledgerService.list(LedgerListParams.builder().build())
+        val response = ledgerService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

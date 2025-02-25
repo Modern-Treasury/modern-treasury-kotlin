@@ -4,7 +4,6 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
-import com.moderntreasury.api.models.PaperItemListParams
 import com.moderntreasury.api.models.PaperItemRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -36,7 +35,7 @@ class PaperItemServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paperItemService = client.paperItems()
-        val response = paperItemService.list(PaperItemListParams.builder().build())
+        val response = paperItemService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

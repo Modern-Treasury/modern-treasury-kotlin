@@ -5,7 +5,6 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.DocumentCreateParams
-import com.moderntreasury.api.models.DocumentListParams
 import com.moderntreasury.api.models.DocumentRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -60,7 +59,7 @@ class DocumentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val documentService = client.documents()
-        val response = documentService.list(DocumentListParams.builder().build())
+        val response = documentService.list()
         println(response)
         response.items().forEach { it.validate() }
     }
