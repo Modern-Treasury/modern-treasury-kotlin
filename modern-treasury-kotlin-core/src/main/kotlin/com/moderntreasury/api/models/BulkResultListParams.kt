@@ -77,6 +77,8 @@ private constructor(
 
     companion object {
 
+        fun none(): BulkResultListParams = builder().build()
+
         fun builder() = Builder()
     }
 

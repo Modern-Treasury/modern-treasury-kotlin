@@ -7,7 +7,6 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.LedgerAccountCreateParams
 import com.moderntreasury.api.models.LedgerAccountDeleteParams
-import com.moderntreasury.api.models.LedgerAccountListParams
 import com.moderntreasury.api.models.LedgerAccountRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountUpdateParams
 import com.moderntreasury.api.models.TransactionDirection
@@ -118,7 +117,7 @@ class LedgerAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountService = client.ledgerAccounts()
-        val response = ledgerAccountService.list(LedgerAccountListParams.builder().build())
+        val response = ledgerAccountService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

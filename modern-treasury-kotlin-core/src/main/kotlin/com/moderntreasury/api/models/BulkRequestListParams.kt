@@ -68,6 +68,8 @@ private constructor(
 
     companion object {
 
+        fun none(): BulkRequestListParams = builder().build()
+
         fun builder() = Builder()
     }
 

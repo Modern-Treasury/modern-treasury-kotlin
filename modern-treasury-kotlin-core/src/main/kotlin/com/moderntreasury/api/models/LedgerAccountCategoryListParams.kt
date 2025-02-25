@@ -95,6 +95,8 @@ private constructor(
 
     companion object {
 
+        fun none(): LedgerAccountCategoryListParams = builder().build()
+
         fun builder() = Builder()
     }
 

@@ -4,7 +4,6 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
-import com.moderntreasury.api.models.ConnectionListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -20,7 +19,7 @@ class ConnectionServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val connectionService = client.connections()
-        val response = connectionService.list(ConnectionListParams.builder().build())
+        val response = connectionService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

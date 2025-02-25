@@ -25,7 +25,11 @@ interface BulkRequestService {
 
     /** list bulk_requests */
     fun list(
-        params: BulkRequestListParams,
+        params: BulkRequestListParams = BulkRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkRequestListPage
+
+    /** list bulk_requests */
+    fun list(requestOptions: RequestOptions): BulkRequestListPage =
+        list(BulkRequestListParams.none(), requestOptions)
 }

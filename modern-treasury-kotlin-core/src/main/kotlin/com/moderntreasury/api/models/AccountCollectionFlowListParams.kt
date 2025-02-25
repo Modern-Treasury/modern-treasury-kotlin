@@ -57,6 +57,8 @@ private constructor(
 
     companion object {
 
+        fun none(): AccountCollectionFlowListParams = builder().build()
+
         fun builder() = Builder()
     }
 

@@ -4,7 +4,6 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
-import com.moderntreasury.api.models.EventListParams
 import com.moderntreasury.api.models.EventRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -35,7 +34,7 @@ class EventServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val eventService = client.events()
-        val response = eventService.list(EventListParams.builder().build())
+        val response = eventService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

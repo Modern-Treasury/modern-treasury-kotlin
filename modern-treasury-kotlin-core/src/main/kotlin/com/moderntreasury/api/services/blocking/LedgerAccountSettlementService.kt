@@ -35,7 +35,11 @@ interface LedgerAccountSettlementService {
 
     /** Get a list of ledger account settlements. */
     fun list(
-        params: LedgerAccountSettlementListParams,
+        params: LedgerAccountSettlementListParams = LedgerAccountSettlementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountSettlementListPage
+
+    /** Get a list of ledger account settlements. */
+    fun list(requestOptions: RequestOptions): LedgerAccountSettlementListPage =
+        list(LedgerAccountSettlementListParams.none(), requestOptions)
 }

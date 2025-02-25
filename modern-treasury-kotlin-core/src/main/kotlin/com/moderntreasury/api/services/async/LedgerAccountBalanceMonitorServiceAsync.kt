@@ -33,9 +33,14 @@ interface LedgerAccountBalanceMonitorServiceAsync {
 
     /** Get a list of ledger account balance monitors. */
     suspend fun list(
-        params: LedgerAccountBalanceMonitorListParams,
+        params: LedgerAccountBalanceMonitorListParams =
+            LedgerAccountBalanceMonitorListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountBalanceMonitorListPageAsync
+
+    /** Get a list of ledger account balance monitors. */
+    suspend fun list(requestOptions: RequestOptions): LedgerAccountBalanceMonitorListPageAsync =
+        list(LedgerAccountBalanceMonitorListParams.none(), requestOptions)
 
     /** Delete a ledger account balance monitor. */
     suspend fun delete(

@@ -7,7 +7,6 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.BankSettings
 import com.moderntreasury.api.models.ConnectionLegalEntityCreateParams
-import com.moderntreasury.api.models.ConnectionLegalEntityListParams
 import com.moderntreasury.api.models.ConnectionLegalEntityRetrieveParams
 import com.moderntreasury.api.models.ConnectionLegalEntityUpdateParams
 import com.moderntreasury.api.models.WealthAndEmploymentDetails
@@ -406,8 +405,7 @@ class ConnectionLegalEntityServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val connectionLegalEntityService = client.connectionLegalEntities()
-        val response =
-            connectionLegalEntityService.list(ConnectionLegalEntityListParams.builder().build())
+        val response = connectionLegalEntityService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

@@ -25,7 +25,11 @@ interface ForeignExchangeQuoteService {
 
     /** list foreign_exchange_quotes */
     fun list(
-        params: ForeignExchangeQuoteListParams,
+        params: ForeignExchangeQuoteListParams = ForeignExchangeQuoteListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ForeignExchangeQuoteListPage
+
+    /** list foreign_exchange_quotes */
+    fun list(requestOptions: RequestOptions): ForeignExchangeQuoteListPage =
+        list(ForeignExchangeQuoteListParams.none(), requestOptions)
 }

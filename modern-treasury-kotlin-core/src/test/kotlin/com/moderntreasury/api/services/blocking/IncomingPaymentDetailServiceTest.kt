@@ -7,7 +7,6 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.Currency
 import com.moderntreasury.api.models.IncomingPaymentDetailCreateAsyncParams
-import com.moderntreasury.api.models.IncomingPaymentDetailListParams
 import com.moderntreasury.api.models.IncomingPaymentDetailRetrieveParams
 import com.moderntreasury.api.models.IncomingPaymentDetailUpdateParams
 import java.time.LocalDate
@@ -67,8 +66,7 @@ class IncomingPaymentDetailServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val incomingPaymentDetailService = client.incomingPaymentDetails()
-        val response =
-            incomingPaymentDetailService.list(IncomingPaymentDetailListParams.builder().build())
+        val response = incomingPaymentDetailService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

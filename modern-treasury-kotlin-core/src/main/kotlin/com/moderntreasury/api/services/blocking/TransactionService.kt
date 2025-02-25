@@ -36,9 +36,13 @@ interface TransactionService {
 
     /** Get a list of all transactions. */
     fun list(
-        params: TransactionListParams,
+        params: TransactionListParams = TransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionListPage
+
+    /** Get a list of all transactions. */
+    fun list(requestOptions: RequestOptions): TransactionListPage =
+        list(TransactionListParams.none(), requestOptions)
 
     /** delete transaction */
     fun delete(

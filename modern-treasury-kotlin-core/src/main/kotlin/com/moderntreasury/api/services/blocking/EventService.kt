@@ -18,7 +18,11 @@ interface EventService {
 
     /** list events */
     fun list(
-        params: EventListParams,
+        params: EventListParams = EventListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventListPage
+
+    /** list events */
+    fun list(requestOptions: RequestOptions): EventListPage =
+        list(EventListParams.none(), requestOptions)
 }
