@@ -148,9 +148,15 @@ interface ModernTreasuryClient {
      * A test endpoint often used to confirm credentials and headers are being passed in correctly.
      */
     fun ping(
-        params: ClientPingParams,
+        params: ClientPingParams = ClientPingParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PingResponse
+
+    /**
+     * A test endpoint often used to confirm credentials and headers are being passed in correctly.
+     */
+    fun ping(requestOptions: RequestOptions): PingResponse =
+        ping(ClientPingParams.none(), requestOptions)
 
     /**
      * Closes this client, relinquishing any underlying resources.

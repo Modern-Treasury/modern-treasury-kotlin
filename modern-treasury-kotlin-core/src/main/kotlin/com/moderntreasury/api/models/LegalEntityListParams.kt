@@ -61,6 +61,8 @@ private constructor(
 
     companion object {
 
+        fun none(): LegalEntityListParams = builder().build()
+
         fun builder() = Builder()
     }
 

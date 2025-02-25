@@ -33,9 +33,13 @@ interface LedgerService {
 
     /** Get a list of ledgers. */
     fun list(
-        params: LedgerListParams,
+        params: LedgerListParams = LedgerListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerListPage
+
+    /** Get a list of ledgers. */
+    fun list(requestOptions: RequestOptions): LedgerListPage =
+        list(LedgerListParams.none(), requestOptions)
 
     /** Delete a ledger. */
     fun delete(

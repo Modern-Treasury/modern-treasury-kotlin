@@ -4,7 +4,6 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
-import com.moderntreasury.api.models.PaymentReferenceListParams
 import com.moderntreasury.api.models.PaymentReferenceRetireveParams
 import com.moderntreasury.api.models.PaymentReferenceRetrieveParams
 import org.junit.jupiter.api.Test
@@ -39,7 +38,7 @@ class PaymentReferenceServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paymentReferenceService = client.paymentReferences()
-        val response = paymentReferenceService.list(PaymentReferenceListParams.builder().build())
+        val response = paymentReferenceService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

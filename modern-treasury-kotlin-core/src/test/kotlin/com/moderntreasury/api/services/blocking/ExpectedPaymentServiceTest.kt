@@ -8,7 +8,6 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.Currency
 import com.moderntreasury.api.models.ExpectedPaymentCreateParams
 import com.moderntreasury.api.models.ExpectedPaymentDeleteParams
-import com.moderntreasury.api.models.ExpectedPaymentListParams
 import com.moderntreasury.api.models.ExpectedPaymentRetrieveParams
 import com.moderntreasury.api.models.ExpectedPaymentType
 import com.moderntreasury.api.models.ExpectedPaymentUpdateParams
@@ -253,7 +252,7 @@ class ExpectedPaymentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val expectedPaymentService = client.expectedPayments()
-        val response = expectedPaymentService.list(ExpectedPaymentListParams.builder().build())
+        val response = expectedPaymentService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

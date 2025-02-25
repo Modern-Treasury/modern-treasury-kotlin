@@ -6,7 +6,6 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.LedgerAccountSettlementCreateParams
-import com.moderntreasury.api.models.LedgerAccountSettlementListParams
 import com.moderntreasury.api.models.LedgerAccountSettlementRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountSettlementUpdateParams
 import java.time.OffsetDateTime
@@ -102,8 +101,7 @@ class LedgerAccountSettlementServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountSettlementService = client.ledgerAccountSettlements()
-        val response =
-            ledgerAccountSettlementService.list(LedgerAccountSettlementListParams.builder().build())
+        val response = ledgerAccountSettlementService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

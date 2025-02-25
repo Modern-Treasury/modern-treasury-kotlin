@@ -5,7 +5,6 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.models.LedgerEntryListParams
 import com.moderntreasury.api.models.LedgerEntryRetrieveParams
 import com.moderntreasury.api.models.LedgerEntryUpdateParams
 import org.junit.jupiter.api.Test
@@ -66,7 +65,7 @@ class LedgerEntryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerEntryService = client.ledgerEntries()
-        val response = ledgerEntryService.list(LedgerEntryListParams.builder().build())
+        val response = ledgerEntryService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

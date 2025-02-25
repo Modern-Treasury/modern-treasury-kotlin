@@ -5,7 +5,6 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.PaymentFlowCreateParams
-import com.moderntreasury.api.models.PaymentFlowListParams
 import com.moderntreasury.api.models.PaymentFlowRetrieveParams
 import com.moderntreasury.api.models.PaymentFlowUpdateParams
 import java.time.LocalDate
@@ -83,7 +82,7 @@ class PaymentFlowServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paymentFlowService = client.paymentFlows()
-        val response = paymentFlowService.list(PaymentFlowListParams.builder().build())
+        val response = paymentFlowService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

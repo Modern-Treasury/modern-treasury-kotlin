@@ -351,6 +351,8 @@ private constructor(
 
     companion object {
 
+        fun none(): IncomingPaymentDetailCreateAsyncParams = builder().build()
+
         fun builder() = Builder()
     }
 

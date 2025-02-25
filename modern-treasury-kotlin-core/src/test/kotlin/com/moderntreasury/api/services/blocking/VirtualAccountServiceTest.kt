@@ -8,7 +8,6 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.TransactionDirection
 import com.moderntreasury.api.models.VirtualAccountCreateParams
 import com.moderntreasury.api.models.VirtualAccountDeleteParams
-import com.moderntreasury.api.models.VirtualAccountListParams
 import com.moderntreasury.api.models.VirtualAccountRetrieveParams
 import com.moderntreasury.api.models.VirtualAccountUpdateParams
 import org.junit.jupiter.api.Test
@@ -145,7 +144,7 @@ class VirtualAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val virtualAccountService = client.virtualAccounts()
-        val response = virtualAccountService.list(VirtualAccountListParams.builder().build())
+        val response = virtualAccountService.list()
         println(response)
         response.items().forEach { it.validate() }
     }

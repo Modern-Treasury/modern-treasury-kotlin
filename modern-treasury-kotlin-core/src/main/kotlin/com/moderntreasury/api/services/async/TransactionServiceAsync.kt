@@ -36,9 +36,13 @@ interface TransactionServiceAsync {
 
     /** Get a list of all transactions. */
     suspend fun list(
-        params: TransactionListParams,
+        params: TransactionListParams = TransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionListPageAsync
+
+    /** Get a list of all transactions. */
+    suspend fun list(requestOptions: RequestOptions): TransactionListPageAsync =
+        list(TransactionListParams.none(), requestOptions)
 
     /** delete transaction */
     suspend fun delete(

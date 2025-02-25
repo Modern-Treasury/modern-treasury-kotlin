@@ -26,9 +26,13 @@ interface LineItemServiceAsync {
 
     /** list transaction_line_items */
     suspend fun list(
-        params: TransactionLineItemListParams,
+        params: TransactionLineItemListParams = TransactionLineItemListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionLineItemListPageAsync
+
+    /** list transaction_line_items */
+    suspend fun list(requestOptions: RequestOptions): TransactionLineItemListPageAsync =
+        list(TransactionLineItemListParams.none(), requestOptions)
 
     /** delete transaction line item */
     suspend fun delete(

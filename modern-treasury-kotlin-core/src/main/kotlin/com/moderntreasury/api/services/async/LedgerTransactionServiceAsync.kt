@@ -37,9 +37,13 @@ interface LedgerTransactionServiceAsync {
 
     /** Get a list of ledger transactions. */
     suspend fun list(
-        params: LedgerTransactionListParams,
+        params: LedgerTransactionListParams = LedgerTransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransactionListPageAsync
+
+    /** Get a list of ledger transactions. */
+    suspend fun list(requestOptions: RequestOptions): LedgerTransactionListPageAsync =
+        list(LedgerTransactionListParams.none(), requestOptions)
 
     /** Create a ledger transaction that partially posts another ledger transaction. */
     suspend fun createPartialPost(
