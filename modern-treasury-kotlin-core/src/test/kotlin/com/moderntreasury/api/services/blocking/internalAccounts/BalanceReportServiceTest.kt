@@ -16,7 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class BalanceReportServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -24,6 +24,7 @@ class BalanceReportServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val balanceReportService = client.internalAccounts().balanceReports()
+
         val balanceReport =
             balanceReportService.create(
                 BalanceReportCreateParams.builder()
@@ -44,12 +45,12 @@ class BalanceReportServiceTest {
                     )
                     .build()
             )
-        println(balanceReport)
+
         balanceReport.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -57,6 +58,7 @@ class BalanceReportServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val balanceReportService = client.internalAccounts().balanceReports()
+
         val balanceReport =
             balanceReportService.retrieve(
                 BalanceReportRetrieveParams.builder()
@@ -64,12 +66,12 @@ class BalanceReportServiceTest {
                     .id("id")
                     .build()
             )
-        println(balanceReport)
+
         balanceReport.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -77,16 +79,17 @@ class BalanceReportServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val balanceReportService = client.internalAccounts().balanceReports()
-        val response =
+
+        val page =
             balanceReportService.list(
                 BalanceReportListParams.builder().internalAccountId("internal_account_id").build()
             )
-        println(response)
-        response.items().forEach { it.validate() }
+
+        page.response().validate()
     }
 
     @Test
-    fun callDelete() {
+    fun delete() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -94,6 +97,7 @@ class BalanceReportServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val balanceReportService = client.internalAccounts().balanceReports()
+
         balanceReportService.delete(
             BalanceReportDeleteParams.builder()
                 .internalAccountId("internal_account_id")

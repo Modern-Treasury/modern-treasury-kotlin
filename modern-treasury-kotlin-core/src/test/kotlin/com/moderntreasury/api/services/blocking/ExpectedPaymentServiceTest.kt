@@ -22,7 +22,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class ExpectedPaymentServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -30,6 +30,7 @@ class ExpectedPaymentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val expectedPaymentService = client.expectedPayments()
+
         val expectedPayment =
             expectedPaymentService.create(
                 ExpectedPaymentCreateParams.builder()
@@ -163,12 +164,12 @@ class ExpectedPaymentServiceTest {
                     .type(ExpectedPaymentType.ACH)
                     .build()
             )
-        println(expectedPayment)
+
         expectedPayment.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -176,16 +177,17 @@ class ExpectedPaymentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val expectedPaymentService = client.expectedPayments()
+
         val expectedPayment =
             expectedPaymentService.retrieve(
                 ExpectedPaymentRetrieveParams.builder().id("id").build()
             )
-        println(expectedPayment)
+
         expectedPayment.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -193,6 +195,7 @@ class ExpectedPaymentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val expectedPaymentService = client.expectedPayments()
+
         val expectedPayment =
             expectedPaymentService.update(
                 ExpectedPaymentUpdateParams.builder()
@@ -239,12 +242,12 @@ class ExpectedPaymentServiceTest {
                     .type(ExpectedPaymentType.ACH)
                     .build()
             )
-        println(expectedPayment)
+
         expectedPayment.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -252,13 +255,14 @@ class ExpectedPaymentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val expectedPaymentService = client.expectedPayments()
-        val response = expectedPaymentService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = expectedPaymentService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callDelete() {
+    fun delete() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -266,9 +270,10 @@ class ExpectedPaymentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val expectedPaymentService = client.expectedPayments()
+
         val expectedPayment =
             expectedPaymentService.delete(ExpectedPaymentDeleteParams.builder().id("id").build())
-        println(expectedPayment)
+
         expectedPayment.validate()
     }
 }

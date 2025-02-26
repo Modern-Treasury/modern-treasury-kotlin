@@ -16,7 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class LineItemServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -24,6 +24,7 @@ class LineItemServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val lineItemService = client.lineItems()
+
         val lineItem =
             lineItemService.retrieve(
                 LineItemRetrieveParams.builder()
@@ -32,12 +33,12 @@ class LineItemServiceTest {
                     .id("id")
                     .build()
             )
-        println(lineItem)
+
         lineItem.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -45,6 +46,7 @@ class LineItemServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val lineItemService = client.lineItems()
+
         val lineItem =
             lineItemService.update(
                 LineItemUpdateParams.builder()
@@ -60,13 +62,13 @@ class LineItemServiceTest {
                     )
                     .build()
             )
-        println(lineItem)
+
         lineItem.validate()
     }
 
     @Disabled("Prism is broken in this case")
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -74,14 +76,15 @@ class LineItemServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val lineItemService = client.lineItems()
-        val response =
+
+        val page =
             lineItemService.list(
                 LineItemListParams.builder()
                     .itemizableType(LineItemListParams.ItemizableType.EXPECTED_PAYMENTS)
                     .itemizableId("itemizable_id")
                     .build()
             )
-        println(response)
-        response.items().forEach { it.validate() }
+
+        page.response().validate()
     }
 }

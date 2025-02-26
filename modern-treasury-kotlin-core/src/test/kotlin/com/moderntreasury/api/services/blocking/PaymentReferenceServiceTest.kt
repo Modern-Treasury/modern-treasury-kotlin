@@ -13,7 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class PaymentReferenceServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -21,16 +21,17 @@ class PaymentReferenceServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paymentReferenceService = client.paymentReferences()
+
         val paymentReference =
             paymentReferenceService.retrieve(
                 PaymentReferenceRetrieveParams.builder().id("id").build()
             )
-        println(paymentReference)
+
         paymentReference.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -38,13 +39,14 @@ class PaymentReferenceServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paymentReferenceService = client.paymentReferences()
-        val response = paymentReferenceService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = paymentReferenceService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callRetireve() {
+    fun retireve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -52,11 +54,12 @@ class PaymentReferenceServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paymentReferenceService = client.paymentReferences()
+
         val paymentReference =
             paymentReferenceService.retireve(
                 PaymentReferenceRetireveParams.builder().id("id").build()
             )
-        println(paymentReference)
+
         paymentReference.validate()
     }
 }

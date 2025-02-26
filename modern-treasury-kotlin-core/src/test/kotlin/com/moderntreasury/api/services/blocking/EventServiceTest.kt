@@ -12,7 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class EventServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -20,13 +20,14 @@ class EventServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val eventService = client.events()
+
         val event = eventService.retrieve(EventRetrieveParams.builder().id("id").build())
-        println(event)
+
         event.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -34,8 +35,9 @@ class EventServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val eventService = client.events()
-        val response = eventService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = eventService.list()
+
+        page.response().validate()
     }
 }

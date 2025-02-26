@@ -19,7 +19,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class LegalEntityServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -27,6 +27,7 @@ class LegalEntityServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val legalEntityService = client.legalEntities()
+
         val legalEntity =
             legalEntityService.create(
                 LegalEntityCreateParams.builder()
@@ -298,12 +299,12 @@ class LegalEntityServiceTest {
                     .website("website")
                     .build()
             )
-        println(legalEntity)
+
         legalEntity.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -311,14 +312,15 @@ class LegalEntityServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val legalEntityService = client.legalEntities()
+
         val legalEntity =
             legalEntityService.retrieve(LegalEntityRetrieveParams.builder().id("id").build())
-        println(legalEntity)
+
         legalEntity.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -326,6 +328,7 @@ class LegalEntityServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val legalEntityService = client.legalEntities()
+
         val legalEntity =
             legalEntityService.update(
                 LegalEntityUpdateParams.builder()
@@ -419,12 +422,12 @@ class LegalEntityServiceTest {
                     .website("website")
                     .build()
             )
-        println(legalEntity)
+
         legalEntity.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -432,8 +435,9 @@ class LegalEntityServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val legalEntityService = client.legalEntities()
-        val response = legalEntityService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = legalEntityService.list()
+
+        page.response().validate()
     }
 }

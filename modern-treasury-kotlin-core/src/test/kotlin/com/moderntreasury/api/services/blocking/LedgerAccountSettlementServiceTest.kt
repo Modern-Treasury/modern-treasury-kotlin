@@ -16,7 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class LedgerAccountSettlementServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -24,6 +24,7 @@ class LedgerAccountSettlementServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountSettlementService = client.ledgerAccountSettlements()
+
         val ledgerAccountSettlement =
             ledgerAccountSettlementService.create(
                 LedgerAccountSettlementCreateParams.builder()
@@ -43,12 +44,12 @@ class LedgerAccountSettlementServiceTest {
                     .status(LedgerAccountSettlementCreateParams.Status.PENDING)
                     .build()
             )
-        println(ledgerAccountSettlement)
+
         ledgerAccountSettlement.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -56,16 +57,17 @@ class LedgerAccountSettlementServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountSettlementService = client.ledgerAccountSettlements()
+
         val ledgerAccountSettlement =
             ledgerAccountSettlementService.retrieve(
                 LedgerAccountSettlementRetrieveParams.builder().id("id").build()
             )
-        println(ledgerAccountSettlement)
+
         ledgerAccountSettlement.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -73,6 +75,7 @@ class LedgerAccountSettlementServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountSettlementService = client.ledgerAccountSettlements()
+
         val ledgerAccountSettlement =
             ledgerAccountSettlementService.update(
                 LedgerAccountSettlementUpdateParams.builder()
@@ -88,12 +91,12 @@ class LedgerAccountSettlementServiceTest {
                     .status(LedgerAccountSettlementUpdateParams.Status.POSTED)
                     .build()
             )
-        println(ledgerAccountSettlement)
+
         ledgerAccountSettlement.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -101,8 +104,9 @@ class LedgerAccountSettlementServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountSettlementService = client.ledgerAccountSettlements()
-        val response = ledgerAccountSettlementService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = ledgerAccountSettlementService.list()
+
+        page.response().validate()
     }
 }

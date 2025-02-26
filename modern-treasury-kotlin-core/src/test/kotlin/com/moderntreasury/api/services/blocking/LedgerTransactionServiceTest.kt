@@ -20,7 +20,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class LedgerTransactionServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -28,6 +28,7 @@ class LedgerTransactionServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerTransactionService = client.ledgerTransactions()
+
         val ledgerTransaction =
             ledgerTransactionService.create(
                 LedgerTransactionCreateParams.builder()
@@ -85,12 +86,12 @@ class LedgerTransactionServiceTest {
                     .status(LedgerTransactionCreateParams.Status.ARCHIVED)
                     .build()
             )
-        println(ledgerTransaction)
+
         ledgerTransaction.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -98,16 +99,17 @@ class LedgerTransactionServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerTransactionService = client.ledgerTransactions()
+
         val ledgerTransaction =
             ledgerTransactionService.retrieve(
                 LedgerTransactionRetrieveParams.builder().id("id").build()
             )
-        println(ledgerTransaction)
+
         ledgerTransaction.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -115,6 +117,7 @@ class LedgerTransactionServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerTransactionService = client.ledgerTransactions()
+
         val ledgerTransaction =
             ledgerTransactionService.update(
                 LedgerTransactionUpdateParams.builder()
@@ -171,12 +174,12 @@ class LedgerTransactionServiceTest {
                     .status(LedgerTransactionUpdateParams.Status.ARCHIVED)
                     .build()
             )
-        println(ledgerTransaction)
+
         ledgerTransaction.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -184,13 +187,14 @@ class LedgerTransactionServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerTransactionService = client.ledgerTransactions()
-        val response = ledgerTransactionService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = ledgerTransactionService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callCreatePartialPost() {
+    fun createPartialPost() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -198,6 +202,7 @@ class LedgerTransactionServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerTransactionService = client.ledgerTransactions()
+
         val ledgerTransaction =
             ledgerTransactionService.createPartialPost(
                 LedgerTransactionCreatePartialPostParams.builder()
@@ -236,12 +241,12 @@ class LedgerTransactionServiceTest {
                     )
                     .build()
             )
-        println(ledgerTransaction)
+
         ledgerTransaction.validate()
     }
 
     @Test
-    fun callCreateReversal() {
+    fun createReversal() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -249,6 +254,7 @@ class LedgerTransactionServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerTransactionService = client.ledgerTransactions()
+
         val ledgerTransaction =
             ledgerTransactionService.createReversal(
                 LedgerTransactionCreateReversalParams.builder()
@@ -270,7 +276,7 @@ class LedgerTransactionServiceTest {
                     .status(LedgerTransactionCreateReversalParams.Status.ARCHIVED)
                     .build()
             )
-        println(ledgerTransaction)
+
         ledgerTransaction.validate()
     }
 }
