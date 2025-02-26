@@ -16,7 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class RoutingDetailServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -24,6 +24,7 @@ class RoutingDetailServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val routingDetailService = client.routingDetails()
+
         val routingDetail =
             routingDetailService.create(
                 RoutingDetailCreateParams.builder()
@@ -34,12 +35,12 @@ class RoutingDetailServiceTest {
                     .paymentType(RoutingDetailCreateParams.PaymentType.ACH)
                     .build()
             )
-        println(routingDetail)
+
         routingDetail.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -47,6 +48,7 @@ class RoutingDetailServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val routingDetailService = client.routingDetails()
+
         val routingDetail =
             routingDetailService.retrieve(
                 RoutingDetailRetrieveParams.builder()
@@ -55,12 +57,12 @@ class RoutingDetailServiceTest {
                     .id("id")
                     .build()
             )
-        println(routingDetail)
+
         routingDetail.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -68,19 +70,20 @@ class RoutingDetailServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val routingDetailService = client.routingDetails()
-        val response =
+
+        val page =
             routingDetailService.list(
                 RoutingDetailListParams.builder()
                     .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
                     .accountId("account_id")
                     .build()
             )
-        println(response)
-        response.items().forEach { it.validate() }
+
+        page.response().validate()
     }
 
     @Test
-    fun callDelete() {
+    fun delete() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -88,6 +91,7 @@ class RoutingDetailServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val routingDetailService = client.routingDetails()
+
         routingDetailService.delete(
             RoutingDetailDeleteParams.builder()
                 .accountsType(RoutingDetailDeleteParams.AccountsType.EXTERNAL_ACCOUNTS)

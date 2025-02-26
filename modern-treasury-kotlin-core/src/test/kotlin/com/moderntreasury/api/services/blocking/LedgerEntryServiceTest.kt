@@ -14,7 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class LedgerEntryServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -22,16 +22,17 @@ class LedgerEntryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerEntryService = client.ledgerEntries()
+
         val ledgerEntry =
             ledgerEntryService.retrieve(
                 LedgerEntryRetrieveParams.builder().id("id").showBalances(true).build()
             )
-        println(ledgerEntry)
+
         ledgerEntry.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -39,6 +40,7 @@ class LedgerEntryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerEntryService = client.ledgerEntries()
+
         val ledgerEntry =
             ledgerEntryService.update(
                 LedgerEntryUpdateParams.builder()
@@ -52,12 +54,12 @@ class LedgerEntryServiceTest {
                     )
                     .build()
             )
-        println(ledgerEntry)
+
         ledgerEntry.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -65,8 +67,9 @@ class LedgerEntryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerEntryService = client.ledgerEntries()
-        val response = ledgerEntryService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = ledgerEntryService.list()
+
+        page.response().validate()
     }
 }

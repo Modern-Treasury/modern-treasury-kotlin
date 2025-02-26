@@ -21,7 +21,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class ExternalAccountServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -29,6 +29,7 @@ class ExternalAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val externalAccountService = client.externalAccounts()
+
         val externalAccount =
             externalAccountService.create(
                 ExternalAccountCreateParams.builder()
@@ -111,12 +112,12 @@ class ExternalAccountServiceTest {
                     )
                     .build()
             )
-        println(externalAccount)
+
         externalAccount.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -124,16 +125,17 @@ class ExternalAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val externalAccountService = client.externalAccounts()
+
         val externalAccount =
             externalAccountService.retrieve(
                 ExternalAccountRetrieveParams.builder().id("id").build()
             )
-        println(externalAccount)
+
         externalAccount.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -141,6 +143,7 @@ class ExternalAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val externalAccountService = client.externalAccounts()
+
         val externalAccount =
             externalAccountService.update(
                 ExternalAccountUpdateParams.builder()
@@ -167,12 +170,12 @@ class ExternalAccountServiceTest {
                     .partyType(ExternalAccountUpdateParams.PartyType.BUSINESS)
                     .build()
             )
-        println(externalAccount)
+
         externalAccount.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -180,13 +183,14 @@ class ExternalAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val externalAccountService = client.externalAccounts()
-        val response = externalAccountService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = externalAccountService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callDelete() {
+    fun delete() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -194,11 +198,12 @@ class ExternalAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val externalAccountService = client.externalAccounts()
+
         externalAccountService.delete(ExternalAccountDeleteParams.builder().id("id").build())
     }
 
     @Test
-    fun callCompleteVerification() {
+    fun completeVerification() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -206,6 +211,7 @@ class ExternalAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val externalAccountService = client.externalAccounts()
+
         val externalAccount =
             externalAccountService.completeVerification(
                 ExternalAccountCompleteVerificationParams.builder()
@@ -214,12 +220,12 @@ class ExternalAccountServiceTest {
                     .addAmount(4L)
                     .build()
             )
-        println(externalAccount)
+
         externalAccount.validate()
     }
 
     @Test
-    fun callVerify() {
+    fun verify() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -227,7 +233,8 @@ class ExternalAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val externalAccountService = client.externalAccounts()
-        val externalAccountVerifyResponse =
+
+        val response =
             externalAccountService.verify(
                 ExternalAccountVerifyParams.builder()
                     .id("id")
@@ -238,6 +245,7 @@ class ExternalAccountServiceTest {
                     .priority(ExternalAccountVerifyParams.Priority.HIGH)
                     .build()
             )
-        println(externalAccountVerifyResponse)
+
+        response.validate()
     }
 }

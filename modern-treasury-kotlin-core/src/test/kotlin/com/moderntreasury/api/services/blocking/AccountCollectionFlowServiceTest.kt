@@ -14,7 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class AccountCollectionFlowServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -22,6 +22,7 @@ class AccountCollectionFlowServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val accountCollectionFlowService = client.accountCollectionFlows()
+
         val accountCollectionFlow =
             accountCollectionFlowService.create(
                 AccountCollectionFlowCreateParams.builder()
@@ -30,12 +31,12 @@ class AccountCollectionFlowServiceTest {
                     .addReceivingCountry(AccountCollectionFlowCreateParams.ReceivingCountry.USA)
                     .build()
             )
-        println(accountCollectionFlow)
+
         accountCollectionFlow.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -43,16 +44,17 @@ class AccountCollectionFlowServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val accountCollectionFlowService = client.accountCollectionFlows()
+
         val accountCollectionFlow =
             accountCollectionFlowService.retrieve(
                 AccountCollectionFlowRetrieveParams.builder().id("id").build()
             )
-        println(accountCollectionFlow)
+
         accountCollectionFlow.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -60,6 +62,7 @@ class AccountCollectionFlowServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val accountCollectionFlowService = client.accountCollectionFlows()
+
         val accountCollectionFlow =
             accountCollectionFlowService.update(
                 AccountCollectionFlowUpdateParams.builder()
@@ -67,12 +70,12 @@ class AccountCollectionFlowServiceTest {
                     .status(AccountCollectionFlowUpdateParams.Status.CANCELLED)
                     .build()
             )
-        println(accountCollectionFlow)
+
         accountCollectionFlow.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -80,8 +83,9 @@ class AccountCollectionFlowServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val accountCollectionFlowService = client.accountCollectionFlows()
-        val response = accountCollectionFlowService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = accountCollectionFlowService.list()
+
+        page.response().validate()
     }
 }

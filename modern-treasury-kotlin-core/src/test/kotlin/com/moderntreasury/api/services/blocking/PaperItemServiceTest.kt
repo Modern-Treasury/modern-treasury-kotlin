@@ -12,7 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class PaperItemServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -20,14 +20,15 @@ class PaperItemServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paperItemService = client.paperItems()
+
         val paperItem =
             paperItemService.retrieve(PaperItemRetrieveParams.builder().id("id").build())
-        println(paperItem)
+
         paperItem.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -35,8 +36,9 @@ class PaperItemServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paperItemService = client.paperItems()
-        val response = paperItemService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = paperItemService.list()
+
+        page.response().validate()
     }
 }

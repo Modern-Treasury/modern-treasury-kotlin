@@ -14,7 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class LineItemServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -22,6 +22,7 @@ class LineItemServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val lineItemService = client.transactions().lineItems()
+
         val transactionLineItem =
             lineItemService.create(
                 TransactionLineItemCreateParams.builder()
@@ -30,12 +31,12 @@ class LineItemServiceTest {
                     .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
             )
-        println(transactionLineItem)
+
         transactionLineItem.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -43,14 +44,15 @@ class LineItemServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val lineItemService = client.transactions().lineItems()
+
         val transactionLineItem =
             lineItemService.retrieve(TransactionLineItemRetrieveParams.builder().id("id").build())
-        println(transactionLineItem)
+
         transactionLineItem.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -58,13 +60,14 @@ class LineItemServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val lineItemService = client.transactions().lineItems()
-        val response = lineItemService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = lineItemService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callDelete() {
+    fun delete() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -72,6 +75,7 @@ class LineItemServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val lineItemService = client.transactions().lineItems()
+
         lineItemService.delete(TransactionLineItemDeleteParams.builder().id("id").build())
     }
 }

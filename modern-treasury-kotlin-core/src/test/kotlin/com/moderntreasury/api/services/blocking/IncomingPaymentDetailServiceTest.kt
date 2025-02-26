@@ -17,7 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class IncomingPaymentDetailServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -25,16 +25,17 @@ class IncomingPaymentDetailServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val incomingPaymentDetailService = client.incomingPaymentDetails()
+
         val incomingPaymentDetail =
             incomingPaymentDetailService.retrieve(
                 IncomingPaymentDetailRetrieveParams.builder().id("id").build()
             )
-        println(incomingPaymentDetail)
+
         incomingPaymentDetail.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -42,6 +43,7 @@ class IncomingPaymentDetailServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val incomingPaymentDetailService = client.incomingPaymentDetails()
+
         val incomingPaymentDetail =
             incomingPaymentDetailService.update(
                 IncomingPaymentDetailUpdateParams.builder()
@@ -53,12 +55,12 @@ class IncomingPaymentDetailServiceTest {
                     )
                     .build()
             )
-        println(incomingPaymentDetail)
+
         incomingPaymentDetail.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -66,13 +68,14 @@ class IncomingPaymentDetailServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val incomingPaymentDetailService = client.incomingPaymentDetails()
-        val response = incomingPaymentDetailService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = incomingPaymentDetailService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callCreateAsync() {
+    fun createAsync() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -80,6 +83,7 @@ class IncomingPaymentDetailServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val incomingPaymentDetailService = client.incomingPaymentDetails()
+
         val asyncResponse =
             incomingPaymentDetailService.createAsync(
                 IncomingPaymentDetailCreateAsyncParams.builder()
@@ -93,7 +97,7 @@ class IncomingPaymentDetailServiceTest {
                     .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
             )
-        println(asyncResponse)
+
         asyncResponse.validate()
     }
 }

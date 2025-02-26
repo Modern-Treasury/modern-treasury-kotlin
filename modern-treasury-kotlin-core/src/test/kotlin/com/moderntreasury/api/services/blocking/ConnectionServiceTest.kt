@@ -11,7 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class ConnectionServiceTest {
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -19,8 +19,9 @@ class ConnectionServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val connectionService = client.connections()
-        val response = connectionService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = connectionService.list()
+
+        page.response().validate()
     }
 }

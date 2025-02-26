@@ -17,7 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class VirtualAccountServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -25,6 +25,7 @@ class VirtualAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val virtualAccountService = client.virtualAccounts()
+
         val virtualAccount =
             virtualAccountService.create(
                 VirtualAccountCreateParams.builder()
@@ -89,12 +90,12 @@ class VirtualAccountServiceTest {
                     )
                     .build()
             )
-        println(virtualAccount)
+
         virtualAccount.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -102,14 +103,15 @@ class VirtualAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val virtualAccountService = client.virtualAccounts()
+
         val virtualAccount =
             virtualAccountService.retrieve(VirtualAccountRetrieveParams.builder().id("id").build())
-        println(virtualAccount)
+
         virtualAccount.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -117,6 +119,7 @@ class VirtualAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val virtualAccountService = client.virtualAccounts()
+
         val virtualAccount =
             virtualAccountService.update(
                 VirtualAccountUpdateParams.builder()
@@ -131,12 +134,12 @@ class VirtualAccountServiceTest {
                     .name("name")
                     .build()
             )
-        println(virtualAccount)
+
         virtualAccount.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -144,13 +147,14 @@ class VirtualAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val virtualAccountService = client.virtualAccounts()
-        val response = virtualAccountService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = virtualAccountService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callDelete() {
+    fun delete() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -158,9 +162,10 @@ class VirtualAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val virtualAccountService = client.virtualAccounts()
+
         val virtualAccount =
             virtualAccountService.delete(VirtualAccountDeleteParams.builder().id("id").build())
-        println(virtualAccount)
+
         virtualAccount.validate()
     }
 }
