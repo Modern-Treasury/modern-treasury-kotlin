@@ -15,7 +15,7 @@ class DocumentServiceTest {
 
     @Disabled("multipart/form-data not yet supported")
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -23,6 +23,7 @@ class DocumentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val documentService = client.documents()
+
         val document =
             documentService.create(
                 DocumentCreateParams.builder()
@@ -32,12 +33,12 @@ class DocumentServiceTest {
                     .documentType("document_type")
                     .build()
             )
-        println(document)
+
         document.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -45,13 +46,14 @@ class DocumentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val documentService = client.documents()
+
         val document = documentService.retrieve(DocumentRetrieveParams.builder().id("id").build())
-        println(document)
+
         document.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -59,8 +61,9 @@ class DocumentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val documentService = client.documents()
-        val response = documentService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = documentService.list()
+
+        page.response().validate()
     }
 }

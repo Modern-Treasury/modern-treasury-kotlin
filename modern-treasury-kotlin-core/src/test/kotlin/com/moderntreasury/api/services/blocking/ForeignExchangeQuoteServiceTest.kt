@@ -15,7 +15,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class ForeignExchangeQuoteServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -23,6 +23,7 @@ class ForeignExchangeQuoteServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val foreignExchangeQuoteService = client.foreignExchangeQuotes()
+
         val foreignExchangeQuote =
             foreignExchangeQuoteService.create(
                 ForeignExchangeQuoteCreateParams.builder()
@@ -34,12 +35,12 @@ class ForeignExchangeQuoteServiceTest {
                     .targetAmount(0L)
                     .build()
             )
-        println(foreignExchangeQuote)
+
         foreignExchangeQuote.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -47,16 +48,17 @@ class ForeignExchangeQuoteServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val foreignExchangeQuoteService = client.foreignExchangeQuotes()
+
         val foreignExchangeQuote =
             foreignExchangeQuoteService.retrieve(
                 ForeignExchangeQuoteRetrieveParams.builder().id("id").build()
             )
-        println(foreignExchangeQuote)
+
         foreignExchangeQuote.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -64,8 +66,9 @@ class ForeignExchangeQuoteServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val foreignExchangeQuoteService = client.foreignExchangeQuotes()
-        val response = foreignExchangeQuoteService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = foreignExchangeQuoteService.list()
+
+        page.response().validate()
     }
 }

@@ -23,7 +23,7 @@ class BulkRequestServiceTest {
 
     @Disabled("Multipart documents aren't constructed properly yet")
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -31,6 +31,7 @@ class BulkRequestServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val bulkRequestService = client.bulkRequests()
+
         val bulkRequest =
             bulkRequestService.create(
                 BulkRequestCreateParams.builder()
@@ -396,12 +397,12 @@ class BulkRequestServiceTest {
                     )
                     .build()
             )
-        println(bulkRequest)
+
         bulkRequest.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -409,14 +410,15 @@ class BulkRequestServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val bulkRequestService = client.bulkRequests()
+
         val bulkRequest =
             bulkRequestService.retrieve(BulkRequestRetrieveParams.builder().id("id").build())
-        println(bulkRequest)
+
         bulkRequest.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -424,8 +426,9 @@ class BulkRequestServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val bulkRequestService = client.bulkRequests()
-        val response = bulkRequestService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = bulkRequestService.list()
+
+        page.response().validate()
     }
 }

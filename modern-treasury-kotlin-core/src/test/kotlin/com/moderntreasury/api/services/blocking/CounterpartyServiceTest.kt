@@ -23,7 +23,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class CounterpartyServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -31,6 +31,7 @@ class CounterpartyServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val counterpartyService = client.counterparties()
+
         val counterparty =
             counterpartyService.create(
                 CounterpartyCreateParams.builder()
@@ -471,12 +472,12 @@ class CounterpartyServiceTest {
                     .verificationStatus(CounterpartyCreateParams.VerificationStatus.DENIED)
                     .build()
             )
-        println(counterparty)
+
         counterparty.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -484,14 +485,15 @@ class CounterpartyServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val counterpartyService = client.counterparties()
+
         val counterparty =
             counterpartyService.retrieve(CounterpartyRetrieveParams.builder().id("id").build())
-        println(counterparty)
+
         counterparty.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -499,6 +501,7 @@ class CounterpartyServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val counterpartyService = client.counterparties()
+
         val counterparty =
             counterpartyService.update(
                 CounterpartyUpdateParams.builder()
@@ -515,12 +518,12 @@ class CounterpartyServiceTest {
                     .taxpayerIdentifier("taxpayer_identifier")
                     .build()
             )
-        println(counterparty)
+
         counterparty.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -528,13 +531,14 @@ class CounterpartyServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val counterpartyService = client.counterparties()
-        val response = counterpartyService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = counterpartyService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callDelete() {
+    fun delete() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -542,11 +546,12 @@ class CounterpartyServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val counterpartyService = client.counterparties()
+
         counterpartyService.delete(CounterpartyDeleteParams.builder().id("id").build())
     }
 
     @Test
-    fun callCollectAccount() {
+    fun collectAccount() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -554,6 +559,7 @@ class CounterpartyServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val counterpartyService = client.counterparties()
+
         val counterpartyCollectAccountResponse =
             counterpartyService.collectAccount(
                 CounterpartyCollectAccountParams.builder()
@@ -564,7 +570,7 @@ class CounterpartyServiceTest {
                     .sendEmail(true)
                     .build()
             )
-        println(counterpartyCollectAccountResponse)
+
         counterpartyCollectAccountResponse.validate()
     }
 }
