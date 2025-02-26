@@ -14,7 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class ReturnServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -22,6 +22,7 @@ class ReturnServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val returnService = client.returns()
+
         val returnObject =
             returnService.create(
                 ReturnCreateParams.builder()
@@ -33,12 +34,12 @@ class ReturnServiceTest {
                     .reason("reason")
                     .build()
             )
-        println(returnObject)
+
         returnObject.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -46,13 +47,14 @@ class ReturnServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val returnService = client.returns()
+
         val returnObject = returnService.retrieve(ReturnRetrieveParams.builder().id("id").build())
-        println(returnObject)
+
         returnObject.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -60,8 +62,9 @@ class ReturnServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val returnService = client.returns()
-        val response = returnService.list()
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = returnService.list()
+
+        page.response().validate()
     }
 }

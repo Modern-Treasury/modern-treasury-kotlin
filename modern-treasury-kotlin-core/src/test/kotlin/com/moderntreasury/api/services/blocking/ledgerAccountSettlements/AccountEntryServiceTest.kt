@@ -14,7 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class AccountEntryServiceTest {
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -22,6 +22,7 @@ class AccountEntryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val accountEntryService = client.ledgerAccountSettlements().accountEntries()
+
         accountEntryService.update(
             LedgerAccountSettlementAccountEntryUpdateParams.builder()
                 .id("id")
@@ -31,7 +32,7 @@ class AccountEntryServiceTest {
     }
 
     @Test
-    fun callDelete() {
+    fun delete() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -39,6 +40,7 @@ class AccountEntryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val accountEntryService = client.ledgerAccountSettlements().accountEntries()
+
         accountEntryService.delete(
             LedgerAccountSettlementAccountEntryDeleteParams.builder()
                 .id("id")

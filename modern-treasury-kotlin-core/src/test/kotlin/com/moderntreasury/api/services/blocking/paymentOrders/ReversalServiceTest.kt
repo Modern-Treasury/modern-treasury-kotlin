@@ -18,7 +18,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class ReversalServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -26,6 +26,7 @@ class ReversalServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val reversalService = client.paymentOrders().reversals()
+
         val reversal =
             reversalService.create(
                 PaymentOrderReversalCreateParams.builder()
@@ -120,12 +121,12 @@ class ReversalServiceTest {
                     )
                     .build()
             )
-        println(reversal)
+
         reversal.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -133,6 +134,7 @@ class ReversalServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val reversalService = client.paymentOrders().reversals()
+
         val reversal =
             reversalService.retrieve(
                 PaymentOrderReversalRetrieveParams.builder()
@@ -140,12 +142,12 @@ class ReversalServiceTest {
                     .reversalId("reversal_id")
                     .build()
             )
-        println(reversal)
+
         reversal.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -153,11 +155,12 @@ class ReversalServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val reversalService = client.paymentOrders().reversals()
-        val response =
+
+        val page =
             reversalService.list(
                 PaymentOrderReversalListParams.builder().paymentOrderId("payment_order_id").build()
             )
-        println(response)
-        response.items().forEach { it.validate() }
+
+        page.response().validate()
     }
 }
